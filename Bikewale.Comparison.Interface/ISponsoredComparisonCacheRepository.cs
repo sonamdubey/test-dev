@@ -9,6 +9,6 @@ namespace Bikewale.Comparison.Interface
     /// </summary>
     public interface ISponsoredComparisonCacheRepository
     {
-        IEnumerable<ActiveSponsoredCampaign> GetActiveSponsoredComparisons();
+        IEnumerable<SponsoredVersionEntityBase> GetActiveSponsoredComparisons();
     }
 }

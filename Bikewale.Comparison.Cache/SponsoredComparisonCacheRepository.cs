@@ -26,13 +26,13 @@ namespace Bikewale.Comparison.Cache
         /// Description :   returns All active sponsored comparisons
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ActiveSponsoredCampaign> GetActiveSponsoredComparisons()
+        public IEnumerable<SponsoredVersionEntityBase> GetActiveSponsoredComparisons()
         {
-            string key = "BW_SponsoredCampaigns";
-            IEnumerable<ActiveSponsoredCampaign> activeComparisons = null;
+            string key = "BW_SponsoredComparisons";
+            IEnumerable<SponsoredVersionEntityBase> activeComparisons = null;
             try
             {
-                activeComparisons = _cache.GetFromCache<IEnumerable<ActiveSponsoredCampaign>>(key, new TimeSpan(0, 30, 0), () => _repository.GetActiveSponsoredComparisons());
+                activeComparisons = _cache.GetFromCache<IEnumerable<SponsoredVersionEntityBase>>(key, new TimeSpan(0, 30, 0), () => _repository.GetActiveSponsoredComparisons());
 
             }
             catch (Exception ex)
