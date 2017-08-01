@@ -45,5 +45,7 @@ namespace BikewaleOpr.DTO.UserReviews
 
         [JsonProperty("isShortListed")]
         public bool IsShortListed { get; set; }
+        [JsonProperty("isWinner")]
+        public bool IsWinner { get; set; }
     }
 }

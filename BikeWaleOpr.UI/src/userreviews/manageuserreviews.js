@@ -35,6 +35,7 @@ var UserReviews = function () {
     self.searchEmailId = ko.observable();
     self.searchEmaildIdMsg = ko.observable('');
     self.searchReviewIdMsg = ko.observable('');
+    self.isWinner = ko.observable(false);
 
     self.descLength = ko.computed(function () {
         if (self.reviewDescription())
@@ -146,10 +147,12 @@ var UserReviews = function () {
                         self.reviewTitle(response.title);
                         self.reviewDescription(response.description);
                         self.reviewTips(response.tips);
-                        self.shortListCheckBox(response.isShortListed);                       
+                        self.shortListCheckBox(response.isShortListed);
+                        self.isWinner(response.isWinner);
                     }
                 },
                 complete: function (xhr) {
+                    $('textarea').trigger('autoresize');
                     if (xhr.status != 200) {
                         Materialize.toast("Failed to load user data", 2000);
                     }                    
@@ -164,44 +167,20 @@ var UserReviews = function () {
         self.searchEmaildIdMsg("");
         self.searchReviewIdMsg("");
         
-        if (self.searchReviewId() == "") {
+        if (!self.searchReviewId() || self.searchReviewId() == "") {
             isValid = false;
             self.searchReviewIdMsg("Invalid review id");
 
         }
 
-        if(self.searchEmailId() == "")
+        if(!self.searchEmailId() || self.searchEmailId() == "")
         {
             isValid = false;
             self.searchEmaildIdMsg("Invalid email id");
         }
-    };
 
-    self.getUserReviewDetailsByRevieIdEmailId = function () {
-       
-        if (self.searchReviewId() && self.searchReviewId() > 0) {
-            $.ajax({
-                type: "GET",
-                url: "/api/userreviews/id/" + self.selectedReviewId() + "/summary/",
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (response) {
-                    if (response) {
-                        self.reviewSummary(response);
-                        self.reviewTitle(response.title);
-                        self.reviewDescription(response.description);
-                        self.reviewTips(response.tips);
-                        self.shortListCheckBox(response.isShortListed);
-                    }
-                },
-                complete: function (xhr) {
-                    if (xhr.status != 200) {
-                        Materialize.toast("Failed to load user data", 2000);
-                    }
-                }
-            });
-        }
-    };
+        return isValid;
+    };   
 
     self.approveReview = function () {
         if (self.selectedReviewId() && self.selectedReviewId() > 0 && self.reviewSummary()) {
@@ -248,6 +227,33 @@ var UserReviews = function () {
                 }
             });            
         }       
+    };
+
+    self.markWiner = function () {
+        if (userId > 0 && self.selectedReviewId() > 0 && confirm("Do you want mark this review as winner?"))
+        {
+            $.ajax({
+                type: "POST",
+                url: "/api/userreview/markwinner/id/" + self.selectedReviewId() + "/" + userId,
+                contentType: "application/json",                            
+                success: function (response) {
+                    if (response) {                       
+                        Materialize.toast("Winner updated successfully", 4000);
+                        self.isWinner(true);
+                    }
+                    else {
+                        Materialize.toast("Something went wrong.", 2000);
+                    }
+
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        Materialize.toast("Something went wrong.", 2000);
+                    }
+
+                }
+            });
+        }
     };
 
     self.rejectReview = function () {

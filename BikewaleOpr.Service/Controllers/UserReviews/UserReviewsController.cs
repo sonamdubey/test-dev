@@ -127,33 +127,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             }
             return NotFound();
         }   // Get review details
-        #endregion
-
-        [HttpGet, Route("api/userreviews/id/{reviewId}/email/{emailId}/summary/")]
-        public IHttpActionResult GetUserReviewSummaryWithReviewIdEmailId(uint reviewId, string emailId)
-        {
-            UserReviewSummary objUserReview = null;
-            UserReviewSummaryDto objDTOUserReview = null;
-            try
-            {
-                objUserReview = _userReviewsRepo.GetUserReviewSummary(reviewId, emailId);
-
-                if (objUserReview != null)
-                {
-                    // Auto map the properties
-                    objDTOUserReview = new UserReviewSummaryDto();
-                    objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
-
-                    return Ok(objDTOUserReview);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-                return InternalServerError();
-            }
-            return NotFound();
-        }
+        #endregion       
 
         /// <summary>
         /// Created by Sajal Gupta on 19-06-2017
@@ -192,6 +166,21 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             return Ok(updateStatus);
         }
 
+        [HttpPost, Route("api/userreview/markwinner/id/{reviewId}/{moderatedId}/")]
+        public IHttpActionResult SaveUserReviewWinner(uint reviewId, uint moderatedId)
+        {
+            bool updateStatus = false;
+            try
+            {                
+                updateStatus = _userReviewsRepo.SaveUserReviewWinner(reviewId, moderatedId);                
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateRatingStatus");
+                return InternalServerError();
+            }
+            return Ok(updateStatus);
+        }
 
     }   // class
 }   // namespace

@@ -16,5 +16,7 @@ namespace BikewaleOpr.Entity.UserReviews
         public uint ModelId { get; set; }
         public ReviewsStatus ReviewStatus { get; set; }
         public DateTime ReviewDate { get; set; }
+        public string SearchEmailId { get; set; }
+        public uint SearchReviewId { get; set; }
     }
 }
