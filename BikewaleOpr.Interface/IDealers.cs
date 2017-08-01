@@ -1,6 +1,7 @@
 ﻿
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity;
 using BikewaleOpr.Entity.ContractCampaign;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace BikewaleOpr.Interface
     {
         PQ_DealerDetailEntity GetDealerDetailsPQ(PQParameterEntity objParams);
         List<FacilityEntity> GetDealerFacilities(uint dealerId);
-        DataTable GetAllDealers(UInt32 cityId);
+        IEnumerable<DealerMakeEntity> GetDealersByCity(UInt32 cityId);
         void SaveDealerFacility(uint dealerId, string facility, bool isActive);
         DataTable GetDealerCities();
         void UpdateDealerFacility(uint facilityId, string facility, bool isActive);

@@ -146,6 +146,7 @@
     <Compile Include="Controllers\DealerPriceQuoteController.cs" />
     <Compile Include="Controllers\DealersController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\Location\CitiesController.cs" />
     <Compile Include="Controllers\ManufacturerCampaign\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\Used\UsedBikesController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsController.cs" />
@@ -180,7 +181,6 @@
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
     </ProjectReference>
-
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.DAL\Bikewale.ManufacturerCampaign.DAL.csproj">
       <Project>{f3148a79-9fec-4a19-9977-0fa6163c9e77}</Project>
       <Name>Bikewale.ManufacturerCampaign.DAL</Name>
@@ -196,7 +196,6 @@
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
       <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
-
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>

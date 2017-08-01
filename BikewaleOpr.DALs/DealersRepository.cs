@@ -11,7 +11,9 @@ using System.Data.Common;
 using System.Web;
 using Bikewale.Utility;
 using BikewaleOpr.Entity.ContractCampaign;
-
+using BikewaleOpr.Entity;
+using Bikewale.DAL.CoreDAL;
+using Dapper;
 
 namespace BikewaleOpr.DAL
 {
@@ -428,32 +430,35 @@ namespace BikewaleOpr.DAL
 
         /// <summary>
         /// Written By : Suresh Prajapati on 29th Oct 2014.
+        /// Modified By :   Vishnu Teja Yalakuntla on 01 Aug 2017
         /// Description : To Get Dealer's Name By Selected City.
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns>Dealer's Name</returns>
-
-        public DataTable GetAllDealers(UInt32 cityId)
+        public IEnumerable<DealerMakeEntity> GetDealersByCity(UInt32 cityId)
         {
+            IEnumerable<DealerMakeEntity> dealers = null;
 
-            DataTable dt = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getbikedealers"))
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
-                    dt = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly).Tables[0];
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_cityid", cityId);
 
+                    dealers = connection.Query<DealerMakeEntity>("bw_getbikedealers_01082017", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetAllDealers ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, string.Format("GetDealersByCity cityId={0}", cityId));
             }
-            return dt;
+
+            return dealers;
         }
 
         /// <summary>

@@ -111,6 +111,7 @@
     <Compile Include="BookingAmountEntity.cs" />
     <Compile Include="BookingAmountEntityBase.cs" />
     <Compile Include="CallToActionEntityBase.cs" />
+    <Compile Include="CityNameEntity.cs" />
     <Compile Include="ColorCodeBase.cs" />
     <Compile Include="ContractCampaign\ContractCampaignInputEntity.cs" />
     <Compile Include="ContractCampaign\DealerCampaignDetailsEntity.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="DealerCustDistanceMapping.cs" />
     <Compile Include="DealerDisclaimerEntity.cs" />
     <Compile Include="DealerLatLong.cs" />
+    <Compile Include="DealerMakeEntity.cs" />
     <Compile Include="DealerOffersEntity.cs" />
     <Compile Include="DealerPackageTypes.cs" />
     <Compile Include="DealerVersionPriceEntity.cs" />

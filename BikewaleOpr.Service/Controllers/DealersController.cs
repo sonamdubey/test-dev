@@ -15,6 +15,7 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using BikewaleOpr.Service.AutoMappers.Dealer;
 using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entity;
 
 namespace BikewaleOpr.Service
 {
@@ -123,17 +124,18 @@ namespace BikewaleOpr.Service
         }
         /// <summary>
         /// Created By : Suresh Prajapati on 28th Oct, 2014.
+        /// Modified By :   Vishnu Teja Yalakuntla on 01 Aug 2017.
         /// Description : To Get Dealer's name by cityId.
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns>Dealer's Name</returns>
 
         [HttpGet]
-        public IHttpActionResult GetAllDealers(UInt32 cityId)
+        public IHttpActionResult GetDealersByCity(UInt32 cityId)
         {
             if (cityId > 0)
             {
-                DataTable objDealer = null;
+                IEnumerable<DealerMakeEntity> dealers = null;
 
                 try
                 {
@@ -141,17 +143,15 @@ namespace BikewaleOpr.Service
                     {
                         container.RegisterType<IDealers, DealersRepository>();
                         IDealers objAllDealer = container.Resolve<DealersRepository>();
-                        objDealer = objAllDealer.GetAllDealers(cityId);
+                        dealers = objAllDealer.GetDealersByCity(cityId);
                     }
                 }
                 catch (Exception ex)
                 {
-                    HttpContext.Current.Trace.Warn("GetAllDealers ex : " + ex.Message + ex.Source);
                     ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
                 }
-                if (objDealer != null)
-                    return Ok(objDealer);
+                if (dealers != null)
+                    return Ok(dealers);
                 else
                     return NotFound();
             }
