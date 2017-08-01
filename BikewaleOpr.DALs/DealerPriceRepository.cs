@@ -34,6 +34,7 @@ namespace BikewaleOpr.DALs
         public DealerPriceBaseEntity GetDealerPrices(uint cityId, uint makeId, uint dealerId)
         {
             DealerPriceBaseEntity priceSheetBase = null;
+
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -45,10 +46,9 @@ namespace BikewaleOpr.DALs
                     param.Add("par_CityId", cityId);
                     param.Add("par_DealerId", dealerId);
 
-                    priceSheetBase = new DealerPriceBaseEntity();
-
                     using (var results = connection.QueryMultiple("bw_getdealerprices_28072017", param: param, commandType: CommandType.StoredProcedure))
                     {
+                        priceSheetBase = new DealerPriceBaseEntity();
                         priceSheetBase.DealerVersions = results.Read<DealerVersionEntity>();
                         priceSheetBase.VersionPrices = results.Read<VersionPriceEntity>();
                     }
@@ -57,11 +57,10 @@ namespace BikewaleOpr.DALs
                         connection.Close();
                 }
             }
-
             catch (Exception ex)
             {
-                string exString = string.Format("GetDealerPrices cityId={0} makeId={1} dealerId={2}", cityId, makeId, dealerId);
-                ErrorClass objErr = new ErrorClass(ex, exString);
+                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                    "GetDealerPrices cityId={0} makeId={1} dealerId={2}", cityId, makeId, dealerId));
             }
 
             return priceSheetBase;
@@ -89,7 +88,7 @@ namespace BikewaleOpr.DALs
                     param.Add("par_CityId", cityId);
                     param.Add("par_BikeVersionId", versionIdList);
 
-                    connection.Query<dynamic>("bw_removedealerprices", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("bw_removedealerprices", param: param, commandType: CommandType.StoredProcedure);
                     isSuccess = true;
 
                     if (connection.State == ConnectionState.Open)
@@ -98,8 +97,8 @@ namespace BikewaleOpr.DALs
             }
             catch (Exception ex)
             {
-                string exString = string.Format("GetDealerPrices dealerId={0} cityId={1} versionIdList={2}", dealerId, cityId, versionIdList);
-                ErrorClass objErr = new ErrorClass(ex, exString);
+                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                    "GetDealerPrices dealerId={0} cityId={1} versionIdList={2}", dealerId, cityId, versionIdList));
             }
 
             return isSuccess;
@@ -119,6 +118,7 @@ namespace BikewaleOpr.DALs
             string itemIdList, string itemValueList, uint enteredBy)
         {
             bool isPriceSaved = false;
+
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -133,7 +133,7 @@ namespace BikewaleOpr.DALs
                     param.Add("par_itemvalue", itemValueList);
                     param.Add("par_updatedby", enteredBy);
 
-                    connection.Query<dynamic>("bw_savedealerprices_28072017", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("bw_savedealerprices_28072017", param: param, commandType: CommandType.StoredProcedure);
                     isPriceSaved = true;
 
                     if (connection.State == ConnectionState.Open)
@@ -142,10 +142,9 @@ namespace BikewaleOpr.DALs
             }
             catch (Exception ex)
             {
-                string exString = string.Format(
+                ErrorClass objErr = new ErrorClass(ex, string.Format(
                     "GetDealerPrices dealerId={0} cityId={1} versionIdList={2} itemIdList={3} itemValueList={4} enteredBy={5}",
-                    dealerId, cityId, versionIdList, itemIdList, itemValueList, enteredBy);
-                ErrorClass objErr = new ErrorClass(ex, exString);
+                    dealerId, cityId, versionIdList, itemIdList, itemValueList, enteredBy));
             }
 
             return isPriceSaved;

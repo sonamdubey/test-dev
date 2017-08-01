@@ -17,10 +17,10 @@ namespace BikewaleOpr.BAL
     /// </summary>
     public class DealerPrice : IDealerPrice
     {
-        private readonly DealerPriceRepository dealerPriceRepository = null;
-        public DealerPrice()
+        private readonly IDealerPriceRepository dealerPriceRepository = null;
+        public DealerPrice(IDealerPriceRepository dealerPriceRepositoryObject)
         {
-            dealerPriceRepository = new DealerPriceRepository();
+            dealerPriceRepository = dealerPriceRepositoryObject;
         }
         /// <summary>
         /// Created by  :   Vishnu Teja Yalakuntla on 31-Jul-2017
@@ -46,7 +46,7 @@ namespace BikewaleOpr.BAL
                         category => category.VersionId,
                         (model, categories) => new DealerVersionPriceEntity
                         {
-                            MakeName = model.ModelName,
+                            MakeName = model.MakeName,
                             VersionName = model.VersionName,
                             ModelName = model.ModelName,
                             VersionId = model.VersionId,
@@ -59,8 +59,8 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                string exString = string.Format("GetDealerPriceQuotes cityId={0} makeId={1} dealerId={2}", cityId, makeId, dealerId);
-                ErrorClass objErr = new ErrorClass(ex, exString);
+                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                    "GetDealerPriceQuotes cityId={0} makeId={1} dealerId={2}", cityId, makeId, dealerId));
             }
 
             return dealerVersionPrices;
@@ -76,17 +76,17 @@ namespace BikewaleOpr.BAL
         public bool DeleteVersionPriceQuotes(uint dealerId, uint cityId, IEnumerable<uint> versionIds)
         {
             bool isDeleted = false;
-
-            string versionIdsString = string.Join<uint>(",", versionIds);
+            string versionIdsString = null;
 
             try
             {
+                versionIdsString = string.Join<uint>(",", versionIds);
                 isDeleted = dealerPriceRepository.DeleteVersionPrices(dealerId, cityId, versionIdsString);
             }
             catch (Exception ex)
             {
-                string exString = string.Format("DeleteVersionPriceQuotes dealerId={0} cityId={1} versionIdsString={2}", dealerId, cityId, versionIdsString);
-                ErrorClass objErr = new ErrorClass(ex, exString);
+                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                    "DeleteVersionPriceQuotes dealerId={0} cityId={1} versionIdsString={2}", dealerId, cityId, versionIdsString));
             }
 
             return isDeleted;
@@ -107,20 +107,22 @@ namespace BikewaleOpr.BAL
         {
             bool isSaved = false;
 
-            string versionIdsString = string.Join<uint>(",", versionIds);
-            string itemIdsString = string.Join<uint>(",", itemIds);
-            string itemValuesString = string.Join<uint>(",", itemValues);
+            string versionIdsString = null;
+            string itemIdsString = null;
+            string itemValuesString = null;
 
             try
             {
+                versionIdsString = string.Join<uint>(",", versionIds);
+                itemIdsString = string.Join<uint>(",", itemIds);
+                itemValuesString = string.Join<uint>(",", itemValues);
                 isSaved = dealerPriceRepository.SaveDealerPrice(dealerId, cityId, versionIdsString, itemIdsString, itemValuesString, enteredBy);
             }
             catch (Exception ex)
             {
-                string exString = string.Format(
-                    "SaveVersionPriceQuotes dealerId={0} cityId={1} versionIdsString={2} itemIdsString={3} itemValuesString={4} enteredBy={5}", 
-                    dealerId, cityId, versionIdsString, itemIdsString, itemValuesString, enteredBy);
-                ErrorClass objErr = new ErrorClass(ex, exString);
+                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                    "SaveVersionPriceQuotes dealerId={0} cityId={1} versionIdsString={2} itemIdsString={3} itemValuesString={4} enteredBy={5}",
+                    dealerId, cityId, versionIdsString, itemIdsString, itemValuesString, enteredBy));
             }
             return isSaved;
         }
