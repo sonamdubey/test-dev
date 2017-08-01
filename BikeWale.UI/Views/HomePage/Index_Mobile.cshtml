@@ -388,10 +388,18 @@
 			<div class="user-review__intro">
 				<p class="review-intro__title">3000+ unbiased, verified reviews.<br>Know the pros and cons of 200+ bike models.</p>
 				<div class="form-control-box margin-bottom15">
-					<input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" autocomplete="off">
+					<input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off">
 				</div>
 				<button class="btn btn-orange btn-120-32">Read reviews</button>
 			</div>
+            <ul id="erUserReviewList" class="ui-autocomplete ui-front ui-menu hide">
+                <li class="ui-menu-item" tabindex="-1">
+                    <span class="text-bold">Oops! No suggestions found</span><br />
+                    <span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
+                </li>
+            </ul>
+            <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
+
 
 			<h3 class="font15 text-center">Recently added reviews</h3>
 			<div class="swiper-container user-review__swiper">
