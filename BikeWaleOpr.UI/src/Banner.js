@@ -10,7 +10,7 @@ var compulsoryMobileCss = ".top-campaign-banner-container.banner-container h1{ma
 
 var compulsoryHtmlDesktop = '<div class="campaign-banner__wrapper"><div class="campaign-banner__text-box"><p class="campaign__title"></p><a class="btn campaign__target-btn bw-ga"><span class="campaign-banner-button-text"></span><span class="bwsprite arrow-white"></span></a></div></div>';
 
-var compulsoryHtmlMobile = '<div class="campaign-banner__wrapper"><p class="campaign__title"></p><a class="btn campaign__target-btn bw-ga"><span class="campaign-banner-button-text"></span><span class="bwsprite arrow-white"></span></a></div>';
+var compulsoryHtmlMobile = '<div class="campaign-banner__wrapper"><p class="campaign__title"></p><a class="btn campaign__target-btn bw-ga"><span class="campaign-banner-button-text"></span><span class="bwmsprite arrow-white"></span></a></div>';
 
 $(document).ready(function () {
     bannerId = $('#bannerId').val();   
