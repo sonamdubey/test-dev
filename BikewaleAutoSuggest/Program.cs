@@ -6,6 +6,8 @@ using System.Configuration;
 using System.Linq;
 using ElasticClientManager;
 using System.Reflection;
+
+
 namespace BikewaleAutoSuggest
 {
     class Program
@@ -18,18 +20,22 @@ namespace BikewaleAutoSuggest
             Logs.WriteInfoLog("All Make Model List : " + objList.Count());
 
             IEnumerable<TempList> objPriceQuoteList = (from temp in objList
-                                    where temp.ModelId > 0 && temp.New == true && temp.Futuristic==false
+                                    where temp.ModelId > 0 && temp.New && !temp.Futuristic
                                     select temp);
             Logs.WriteInfoLog("Price quote make model List count : " + objPriceQuoteList.Count());
             IEnumerable<TempList> ObjUserReviewList = objList.Where(x => x.UserReviewCount > 0);
 
             Logs.WriteInfoLog("UserReview make model List count : " + ObjUserReviewList.Count());
+
             IEnumerable<BikeList> suggestionList = GetBikeListDb.GetSuggestList(objList);
+
             IEnumerable<BikeList> PriceSuggestionList = GetBikeListDb.GetSuggestList(objPriceQuoteList);
+
             IEnumerable<BikeList> UserReviewList = GetBikeListDb.GetSuggestList(ObjUserReviewList);
 
             CreateIndex(suggestionList, ConfigurationManager.AppSettings["MMindexName"]);
             Logs.WriteInfoLog("All Make Model Index Created successfully");
+
             CreateIndex(PriceSuggestionList, ConfigurationManager.AppSettings["PQindexName"]);
             Logs.WriteInfoLog("Price Quote Make Model Index Created successfully");
 
@@ -55,6 +61,9 @@ namespace BikewaleAutoSuggest
                                 .Completion(c => c
                                     .Name(pN => pN.mm_suggest)
                                     .Payloads()
+                                     .Context(cont => cont
+                                    .Category("types", cate => cate
+                                        .Default("makemodelall")))
                                     .IndexAnalyzer("standard")
                                     .SearchAnalyzer("standard")
                                     .PreserveSeparators(false)))));

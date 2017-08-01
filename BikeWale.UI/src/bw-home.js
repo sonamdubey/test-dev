@@ -312,4 +312,96 @@ docReady(function () {
     $("#ddlAreaOnRoad").chosen({ no_results_text: "No matches found!!" });
 
     ko.applyBindings(viewModelOnRoad, $("#OnRoadContent")[0]);
+    var userReviewSearch= function () {
+        var self = this;
+        self.init = function () {
+            try {
+                $("#userReviewList").bw_autocomplete({
+                    width: 469,
+                    source: 5,
+                    recordCount: 10,
+                    onClear: function () {
+                        objBikes = new Object();
+                    },
+                    click: function (event, ui, orgTxt) {
+                        UserReviewRedirection(ui.item);
+                        var keywrd = ui.item.label + '_' + $('#userReviewList').val();
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+                        isMakeModelRedirected = true;
+                    },
+                    open: function (result) {
+                        objBikes.result = result;
+                    },
+
+                    focusout: function () {
+
+                        $('#erruserReviewList').hide()
+                        focusedMakeModel = new Object();
+                        focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
+
+
+                    },
+                    afterfetch: function (result, searchtext) {
+                        if (result != undefined && result.length > 0 && searchtext.trim() != "") {
+                            $('#erruserReviewList').hide();
+                            NewBikeSearchResult = true;
+                        }
+                        else {
+                            focusedMakeModel = null; NewBikeSearchResult = false;
+                            if (searchtext.trim() != "") {
+                                $('#erruserReviewList').show();
+                            }
+                        }
+                    },
+                    keyup: function () {
+                        if ($('#userReviewList').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+                            focusedMakeModel = new Object();
+                            focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
+                            $('#erruserReviewList').hide();
+
+                        }
+
+                        if ($('#userReviewList').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                            if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                                if ($('#userReviewList').val().trim() != '') {
+                                    $('#erruserReviewList').show();
+                                }
+                            }
+
+                        }
+
+
+                    }
+                });
+            }
+            catch (e) {
+
+            }
+        };
+    };
+    var vmUserReviewSearch = new userReviewSearch();
+
+    (vmUserReviewSearch.init());
+    function UserReviewRedirection(items) {
+      
+            var make = new Object();
+            make.maskingName = items.payload.makeMaskingName;
+            make.id = items.payload.makeId;
+            var model = null;
+            if (items.payload.modelId > 0) {
+                model = new Object();
+                model.maskingName = items.payload.modelMaskingName;
+                model.id = items.payload.modelId;
+                model.futuristic = items.payload.futuristic;
+            }
+
+        
+
+            if (model != null && model != undefined) {
+                window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/reviews/";
+                return true;
+            } 
+        
+    }
+
 });

@@ -108,28 +108,20 @@ namespace BikewaleAutoSuggest
                     ObjTemp.mm_suggest.Weight = count;
 
                     ObjTemp.mm_suggest.input = new List<string>();
-                    bikeName = bikeName.Replace('-', ' ').Replace("'", "");
                     string[] tokens = bikeName.Split(' ');
 
                     int length = tokens.Length;
-
+                    // For creating input in mm_suggest
                     for (int index = 1; index < 1 << length; index++)
                     {
-                        int temp_value = index;
-
-                        int jindex = 0;
-
+                        int temp_value = index, jindex = 0;
                         string value = string.Empty;
                         while (temp_value > 0)
                         {
                             if ((temp_value & 1) > 0)
-                            {
-
                                 value = string.Format("{0} {1}", value, tokens[jindex]);
-                            }
                             temp_value >>= 1;
                             jindex++;
-
                         }
                         if (!string.IsNullOrEmpty(value))
                             ObjTemp.mm_suggest.input.Add(value);
