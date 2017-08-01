@@ -166,6 +166,13 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             return Ok(updateStatus);
         }
 
+        /// <summary>
+        /// Created by sajal Gupta on 01-08-2017
+        /// Descriptiopin : Api to save user review winner
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="moderatedId"></param>
+        /// <returns></returns>
         [HttpPost, Route("api/userreview/markwinner/id/{reviewId}/{moderatedId}/")]
         public IHttpActionResult SaveUserReviewWinner(uint reviewId, uint moderatedId)
         {

@@ -28,7 +28,8 @@ namespace BikewaleOpr.Models.UserReviews
         }
 
         /// <summary>
-        /// 
+        /// Modified by Sajal Gupta on 01-08-2017
+        /// Description: Call different function if search review id and emailid are passed
         /// </summary>
         /// <param name="filters"></param>
         /// <returns></returns>

@@ -175,6 +175,8 @@ namespace BikewaleOpr.DALs.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Get user reviews summary for all pages
+        /// Modified by Sajal Gupta on 01-08-2017
+        /// Descriptiopn : Added isWinner
         /// </summary>
         /// <param name="reviewId"></param>
         /// <returns></returns>
@@ -416,6 +418,13 @@ namespace BikewaleOpr.DALs.UserReviews
             return true;
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 01-08-2017
+        /// Descriptiopn : Function to save user review winner
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="moderatorId"></param>
+        /// <returns></returns>
         public bool SaveUserReviewWinner(uint reviewId, uint moderatorId)
         {
             try
@@ -438,7 +447,7 @@ namespace BikewaleOpr.DALs.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.SaveUserReviewWinner");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UserReviews.SaveUserReviewWinner {0} {1}", reviewId, moderatorId));
                 return false;
             }
             return true;
