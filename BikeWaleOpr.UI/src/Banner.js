@@ -467,15 +467,15 @@ var processJumbotron = function (platformId) {
    
     if (platformId == 1) // desktop
     {
-        if ($('#select-jumbotron-depth-Desktop').val())
-            return ['.top-campaign-banner-container .welcome-box{margin-top:', $('#select-jumbotron-depth-Desktop').val(), 'px}'].join('');
+        if ($('#select-button-jmbdepth-Desktop').val())
+            return ['.top-campaign-banner-container .welcome-box{margin-top:', $('#select-button-jmbdepth-Desktop').val(), 'px}'].join('');
         else
             return '.top-campaign-banner-container .welcome-box{margin-top:90px}';
     }
     else
     {
-        if ($('#select-jumbotron-depth-Mobile').val())
-            return ['.top-campaign-banner-container.banner-container{padding-top:', $('#select-jumbotron-depth-Mobile').val(), 'px}'].join('');
+        if ($('#select-button-jmbdepth-Mobile').val())
+            return ['.top-campaign-banner-container.banner-container{padding-top:', $('#select-button-jmbdepth-Mobile').val(), 'px}'].join('');
         else
             return '.top-campaign-banner-container.banner-container{padding-top:15px}';
     }
