@@ -53,7 +53,7 @@ namespace BikeWaleOpr.Content
             if (!IsPostBack)
             {
                 BindMakeModel();
-                makeId = SqlReaderConvertor.ToUInt32(Request.QueryString["makeid"]);
+                UInt32.TryParse(Request.QueryString["makeid"], out makeId);
                 if (makeId != 0)
                 {
                     ShowModelColorImageUsingQueryString();
@@ -133,8 +133,8 @@ namespace BikeWaleOpr.Content
         private void ShowModelColorImageUsingQueryString()
         {
             isQueryString = true;
-            modelId = SqlReaderConvertor.ToInt32(Request.QueryString["modelid"]);
-            cmbMake.SelectedIndex = SqlReaderConvertor.ToInt32(cmbMake.Items.IndexOf(cmbMake.Items.FindByValue(Convert.ToString(makeId))));
+            Int32.TryParse(Request.QueryString["modelid"], out modelId);
+            cmbMake.SelectedIndex = Convert.ToInt32(cmbMake.Items.IndexOf(cmbMake.Items.FindByValue(Convert.ToString(makeId))));
             var response = Common.CommonOpn.GetModelFromMake(cmbMake.SelectedValue);
             IEnumerable<BikeModelEntityBase> models = new List<BikeModelEntityBase>();
             if (response != null && response.Tables != null && response.Tables.Count > 0)
@@ -150,7 +150,7 @@ namespace BikeWaleOpr.Content
                 cmbModel.DataValueField = "ModelId";
                 cmbModel.DataBind();
                 cmbModel.Items.Insert(0, "Any");
-                cmbModel.SelectedIndex = SqlReaderConvertor.ToInt32(cmbModel.Items.IndexOf(cmbModel.Items.FindByValue(Convert.ToString(modelId))));
+                cmbModel.SelectedIndex = Convert.ToInt32(cmbModel.Items.IndexOf(cmbModel.Items.FindByValue(Convert.ToString(modelId))));
                 if (modelId > 0)
                 {
                     objManageModelColor = new ManageModelColor();
