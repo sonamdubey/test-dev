@@ -20,6 +20,8 @@ namespace BikewaleOpr.Interface.UserReviews
 
         UserReviewSummary GetUserReviewSummary(uint reviewId);
 
+        UserReviewSummary GetUserReviewSummary(uint reviewId, string emailId);
+
         IEnumerable<ReviewBase> GetRatingsList();
 
         IEnumerable<BikeRatingApproveEntity> GetUserReviewDetails(string reviewIds);

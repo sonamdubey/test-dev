@@ -30,7 +30,11 @@ var UserReviews = function () {
     self.reviewDescription = ko.observable();
     self.reviewTips = ko.observable();
     self.disapprovalId = ko.observable();
-    self.shortListCheckBox = ko.observable(false);   
+    self.shortListCheckBox = ko.observable(false);
+    self.searchReviewId = ko.observable();
+    self.searchEmailId = ko.observable();
+    self.searchEmaildIdMsg = ko.observable('');
+    self.searchReviewIdMsg = ko.observable('');
 
     self.descLength = ko.computed(function () {
         if (self.reviewDescription())
@@ -149,6 +153,51 @@ var UserReviews = function () {
                     if (xhr.status != 200) {
                         Materialize.toast("Failed to load user data", 2000);
                     }                    
+                }
+            });
+        }
+    };
+
+    self.validateSearch = function () {
+        
+        var isValid = true;
+        self.searchEmaildIdMsg("");
+        self.searchReviewIdMsg("");
+        
+        if (self.searchReviewId() == "") {
+            isValid = false;
+            self.searchReviewIdMsg("Invalid review id");
+
+        }
+
+        if(self.searchEmailId() == "")
+        {
+            isValid = false;
+            self.searchEmaildIdMsg("Invalid email id");
+        }
+    };
+
+    self.getUserReviewDetailsByRevieIdEmailId = function () {
+       
+        if (self.searchReviewId() && self.searchReviewId() > 0) {
+            $.ajax({
+                type: "GET",
+                url: "/api/userreviews/id/" + self.selectedReviewId() + "/summary/",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        self.reviewSummary(response);
+                        self.reviewTitle(response.title);
+                        self.reviewDescription(response.description);
+                        self.reviewTips(response.tips);
+                        self.shortListCheckBox(response.isShortListed);
+                    }
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        Materialize.toast("Failed to load user data", 2000);
+                    }
                 }
             });
         }

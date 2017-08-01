@@ -79,10 +79,10 @@
                             </div>
                             <div class="input-field row s12">
                                 <i class="material-icons prefix margin-top15">date_range</i>
-                                <input type="date" id="reviewDateEle"  class="datepicker margin-left5" value="" />
-                                <input type="hidden" id="reviewDate" name="ReviewDate" value=""/>
+                                <input type="date" id="reviewDateEle" class="datepicker margin-left5" value="" />
+                                <input type="hidden" id="reviewDate" name="ReviewDate" value="" />
                                 <label for="reviewDateEle">Review Date</label>
-                            </div>
+                            </div>                                                      
                             <div class="input-field row s12">
                                 <button id="btnAddMake" class="btn waves-effect waves-light" type="submit" name="action">
                                     Show Reviews
@@ -95,6 +95,29 @@
             </ul>
         </div>
     }
+    <div class="col s2 m2">
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header"><strong>Search by profile and email Id:</strong></div>
+                <div class="collapsible-body">
+                    <div class="container">
+                        <div class="input-field row s12">
+                            <input type="text" id="reviewId" class="margin-left5 validate" data-bind="textInput: searchReviewId,css:searchReviewIdMsg()!=''?'invalid':'' " />
+                            <label for="reviewId">Review Id</label>
+                        </div>
+                        <div class="input-field row s12">
+                            <input type="text" id="emailId" class="margin-left5" data-bind="searchEmailId()" />
+                            <label for="emailId">Email Id</label>
+                        </div>
+                        <div class="input-field row s12">                              
+                            <a href="#!" data-bind="click : function(){ getUserReviewDetailsByRevieIdEmailId(); }" id="btnShowReview" class="btn waves-effect waves-light" type="button">Show Review</a>                       
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
     <!-- ko if : reviewSummary  -->
     <div id="reviewdetails" class="modal modal-fixed-footer" data-bind="with : reviewSummary">
         <div class="modal-content">
@@ -137,7 +160,7 @@
                                     <span data-bind="text: $root.descLength() + ' characters'"></span>
                                 </div>
                             </div>
-                            
+
                         </div>
 
                         <div class="grid-4 padding-left20 omega">
@@ -147,9 +170,9 @@
                                 <textarea id="reviewTips" class="materialize-textarea" name="Tips" data-bind="textInput : $root.reviewTips"></textarea>
                                 <label for="reviewTips" data-bind="css : tips ? 'active' : '' ">Tips</label>
                             </div>
-                           
+
                             <div class="margin-bottom20 border-solid-bottom"></div>
-                            
+
                             <h3 class="font15 text-black margin-bottom20">You also rated</h3>
                             <!-- ko if : questions -->
                             <ul class="user-rated-list padding-bottom5 opacity-active" data-bind="foreach : questions">
@@ -187,7 +210,7 @@
             </div>
         </div>
         <div class="modal-footer row">
-            <span >
+            <span>
                 <input type="checkbox" class="filled-in" id="shortList" data-bind="checked: $root.shortListCheckBox" />
                 <label class="margin-top10" for="shortList">ShortList review</label>
             </span>
