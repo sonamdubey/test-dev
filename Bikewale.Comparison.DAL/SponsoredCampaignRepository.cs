@@ -145,18 +145,16 @@ namespace Bikewale.Comparison.DAL
         /// </summary>
         /// <param name="versionIds">Comma delimited version ids</param>
         /// <returns></returns>
-        public SponsoredVersionEntityBase GetSponsoredBike(string versionIds)
+        public IEnumerable<SponsoredVersionEntityBase> GetActiveSponsoredComparisons()
         {
-            SponsoredVersionEntityBase sponsoredVersion = null;
+            IEnumerable<SponsoredVersionEntityBase> sponsoredVersions = null;
 
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
                     connection.Open();
-                    var param = new DynamicParameters();
-                    param.Add("par_versions", versionIds);
-                    sponsoredVersion = connection.Query<SponsoredVersionEntityBase>("getsponsoredcomparisonbyversions", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    sponsoredVersions = connection.Query<SponsoredVersionEntityBase>("getactivesponsoredcomparisons", commandType: CommandType.StoredProcedure);
 
 
                     if (connection.State == ConnectionState.Open)
@@ -165,10 +163,10 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("SponsoredCampaignRepository.GetSponsoredBike() {0}:", versionIds));
+                ErrorClass objErr = new ErrorClass(ex, "SponsoredCampaignRepository.GetActiveSponsoredComparisons()");
             }
 
-            return sponsoredVersion;
+            return sponsoredVersions;
         }
 
         /// <summary>
@@ -381,33 +379,6 @@ namespace Bikewale.Comparison.DAL
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.ChangeSponsoredComparisonStatus, camparisonId: {0}, Status: {1}", camparisonId, status));
             }
             return isSaved;
-        }
-
-        /// <summary>
-        /// Created by  :   Sumit Kate on 31 Jul 2017
-        /// Description :   Returns Active Sponsored Comparisons
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<ActiveSponsoredCampaign> GetActiveSponsoredComparisons()
-        {
-            IEnumerable<ActiveSponsoredCampaign> sponsoredComparison = null;
-            try
-            {
-                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
-                {
-                    connection.Open();
-                    sponsoredComparison = connection.Query<ActiveSponsoredCampaign>("getactivesponsoredcomparisons", commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetActiveSponsoredComparisons");
-            }
-            return sponsoredComparison;
-
         }
     }
 }

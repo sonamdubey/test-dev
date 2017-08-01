@@ -3,6 +3,7 @@ using Bikewale.BAL.BikeData;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
+using Bikewale.Comparison.BAL;
 using Bikewale.Comparison.DAL;
 using Bikewale.Comparison.Interface;
 using Bikewale.DAL.BikeData;
@@ -34,7 +35,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache = null;
         private readonly IBikeCompareCacheRepository _objCompareCache = null;
         private readonly IBikeCompare _objCompare = null;
-        private readonly ISponsoredComparisonRepository _objSponsored = null;
+        private readonly ISponsoredComparison _objSponsored = null;
 
         public GlobalCityAreaEntity cityArea = null;
         public bool isPageNotFound, isPermanentRedirect, isUsedBikePresent, isCompareLandingRedirection;
@@ -69,13 +70,15 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                         .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IBikeCompare, Bikewale.BAL.Compare.BikeComparison>()
-                        .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>();
+                        .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
+                        .RegisterType<ISponsoredComparisonCacheRepository, Bikewale.Comparison.Cache.SponsoredComparisonCacheRepository>()
+                        .RegisterType<ISponsoredComparison, SponsoredComparison>();
 
                     _objModelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
                     _objCompareCache = container.Resolve<IBikeCompareCacheRepository>();
                     _objCompare = container.Resolve<IBikeCompare>();
                     _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-                    _objSponsored = container.Resolve<ISponsoredComparisonRepository>();
+                    _objSponsored = container.Resolve<ISponsoredComparison>();
                 }
             }
             catch (Exception ex)
@@ -104,11 +107,11 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                 {
                     cityName = BWConfiguration.Instance.DefaultName;
                 }
-                SponsoredBike = _objSponsored.GetSponsoredBike(versionsList);
+                SponsoredBike = _objSponsored.GetSponsoredVersion(versionsList);
 
                 if (SponsoredBike != null)
                 {
-                    SponsoredVersionId = SponsoredBike.VersionId;
+                    SponsoredVersionId = SponsoredBike.SponsoredVersionId;
                     FeaturedBikeLink = SponsoredBike.LinkUrl;
                 }
 

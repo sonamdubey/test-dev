@@ -28,13 +28,13 @@ namespace Bikewale.Models
         private readonly IBikeCompareCacheRepository _objCompareCache = null;
         private readonly IBikeCompare _objCompare = null;
         private readonly ICMSCacheContent _compareTest = null;
-        private readonly ISponsoredComparisonRepository _objSponsored = null;
+        private readonly ISponsoredComparison _objSponsored = null;
         public StatusCodes status { get; set; }
         public string redirectionUrl { get; set; }
         private string originalUrl;
         private string _baseUrl = string.Empty, _bikeQueryString = string.Empty, _versionsList = string.Empty;
 
-        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository<int> objMakeCache, ISponsoredComparisonRepository objSponsored, string originalUrl)
+        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository<int> objMakeCache, ISponsoredComparison objSponsored, string originalUrl)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objCompareCache = objCompareCache;
@@ -109,11 +109,11 @@ namespace Bikewale.Models
                 {
                     cityName = BWConfiguration.Instance.DefaultName;
                 }
-                var SponsoredBike = _objSponsored.GetSponsoredBike(_versionsList);
+                var SponsoredBike = _objSponsored.GetSponsoredVersion(_versionsList);
 
                 if (SponsoredBike != null)
                 {
-                    obj.sponsoredVersionId = SponsoredBike.VersionId;
+                    obj.sponsoredVersionId = SponsoredBike.SponsoredVersionId;
                     obj.KnowMoreLinkUrl = SponsoredBike.LinkUrl;
                     obj.KnowMoreLinkText = !String.IsNullOrEmpty(SponsoredBike.LinkText) ? SponsoredBike.LinkText : "Know more";
                 }

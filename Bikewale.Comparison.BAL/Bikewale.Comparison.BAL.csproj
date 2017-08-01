@@ -41,8 +41,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="SponsoredComparison.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Comparison.Cache\Bikewale.Comparison.Cache.csproj">
+      <Project>{19eec108-fdf3-40d1-b013-bce93fd90cd2}</Project>
+      <Name>Bikewale.Comparison.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Entities\Bikewale.Comparison.Entities.csproj">
+      <Project>{1cdaf20b-89e5-4f96-b8f4-7835e0291a80}</Project>
+      <Name>Bikewale.Comparison.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Interface\Bikewale.Comparison.Interface.csproj">
+      <Project>{18C44359-A725-4093-9C32-75898D3DD088}</Project>
+      <Name>Bikewale.Comparison.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
+      <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
+      <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

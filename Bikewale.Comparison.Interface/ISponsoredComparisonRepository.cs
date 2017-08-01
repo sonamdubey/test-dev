@@ -21,8 +21,7 @@ namespace Bikewale.Comparison.Interface
         bool DeleteSponsoredComparisonBikeSponsoredVersionRules(uint camparisonId, uint SponsoredversionId);
         bool DeleteSponsoredComparisonBikeTargetVersionRules(uint camparisonId, uint targetversionId);
         bool ChangeSponsoredComparisonStatus(uint camparisonId, ushort status);
-        SponsoredVersionEntityBase GetSponsoredBike(string versionIds);
-        IEnumerable<ActiveSponsoredCampaign> GetActiveSponsoredComparisons();
+        IEnumerable<SponsoredVersionEntityBase> GetActiveSponsoredComparisons();
         //bool DeleteSponsoredComparisonBikeStateRules(uint camparisonId, uint ruleId, uint stateId);
         //bool DeleteSponsoredComparisonBikecityRules(uint camparisonId, uint ruleId, uint cityId);
         //IEnumerable<City> GetSponsoredComparisonTargetVersionLocation(uint camparisonId, string targetVersionId);
