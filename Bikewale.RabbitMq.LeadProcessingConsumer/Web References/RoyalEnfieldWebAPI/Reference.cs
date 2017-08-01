@@ -116,7 +116,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.RoyalEnfieldWebAPI {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/affiliates", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string affiliates(string Name, string mobile, string EMail, string State, string City, string Dealer_Name, string Bike_Detail, string Web_link, string Tocken, string UTM) {
+        public string affiliates(string Name, string mobile, string EMail, string State, string City, string Dealer_Name, string Bike_Detail, string Web_link, string Tocken, string UTM, string Dealer_Code) {
             object[] results = this.Invoke("affiliates", new object[] {
                         Name,
                         mobile,
@@ -127,17 +127,18 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.RoyalEnfieldWebAPI {
                         Bike_Detail,
                         Web_link,
                         Tocken,
-                        UTM});
+                        UTM,
+                        Dealer_Code});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void affiliatesAsync(string Name, string mobile, string EMail, string State, string City, string Dealer_Name, string Bike_Detail, string Web_link, string Tocken, string UTM) {
-            this.affiliatesAsync(Name, mobile, EMail, State, City, Dealer_Name, Bike_Detail, Web_link, Tocken, UTM, null);
+        public void affiliatesAsync(string Name, string mobile, string EMail, string State, string City, string Dealer_Name, string Bike_Detail, string Web_link, string Tocken, string UTM, string Dealer_Code) {
+            this.affiliatesAsync(Name, mobile, EMail, State, City, Dealer_Name, Bike_Detail, Web_link, Tocken, UTM, Dealer_Code, null);
         }
         
         /// <remarks/>
-        public void affiliatesAsync(string Name, string mobile, string EMail, string State, string City, string Dealer_Name, string Bike_Detail, string Web_link, string Tocken, string UTM, object userState) {
+        public void affiliatesAsync(string Name, string mobile, string EMail, string State, string City, string Dealer_Name, string Bike_Detail, string Web_link, string Tocken, string UTM, string Dealer_Code, object userState) {
             if ((this.affiliatesOperationCompleted == null)) {
                 this.affiliatesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnaffiliatesOperationCompleted);
             }
@@ -151,7 +152,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.RoyalEnfieldWebAPI {
                         Bike_Detail,
                         Web_link,
                         Tocken,
-                        UTM}, this.affiliatesOperationCompleted, userState);
+                        UTM,
+                        Dealer_Code}, this.affiliatesOperationCompleted, userState);
         }
         
         private void OnaffiliatesOperationCompleted(object arg) {
@@ -163,7 +165,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.RoyalEnfieldWebAPI {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Landing_page", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string Landing_page(string Name, string mobile, string EMail, string State, string City, string Dealer_Name, string Bike_Detail, string Web_link, string Tocken, string UTM) {
+        public string Landing_page(string Name, string mobile, string EMail, string State, string City, string Dealer_Name, string Bike_Detail, string Web_link, string Tocken, string UTM, string Dealer_Code) {
             object[] results = this.Invoke("Landing_page", new object[] {
                         Name,
                         mobile,
@@ -174,17 +176,18 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.RoyalEnfieldWebAPI {
                         Bike_Detail,
                         Web_link,
                         Tocken,
-                        UTM});
+                        UTM,
+                        Dealer_Code});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void Landing_pageAsync(string Name, string mobile, string EMail, string State, string City, string Dealer_Name, string Bike_Detail, string Web_link, string Tocken, string UTM) {
-            this.Landing_pageAsync(Name, mobile, EMail, State, City, Dealer_Name, Bike_Detail, Web_link, Tocken, UTM, null);
+        public void Landing_pageAsync(string Name, string mobile, string EMail, string State, string City, string Dealer_Name, string Bike_Detail, string Web_link, string Tocken, string UTM, string Dealer_Code) {
+            this.Landing_pageAsync(Name, mobile, EMail, State, City, Dealer_Name, Bike_Detail, Web_link, Tocken, UTM, Dealer_Code, null);
         }
         
         /// <remarks/>
-        public void Landing_pageAsync(string Name, string mobile, string EMail, string State, string City, string Dealer_Name, string Bike_Detail, string Web_link, string Tocken, string UTM, object userState) {
+        public void Landing_pageAsync(string Name, string mobile, string EMail, string State, string City, string Dealer_Name, string Bike_Detail, string Web_link, string Tocken, string UTM, string Dealer_Code, object userState) {
             if ((this.Landing_pageOperationCompleted == null)) {
                 this.Landing_pageOperationCompleted = new System.Threading.SendOrPostCallback(this.OnLanding_pageOperationCompleted);
             }
@@ -198,7 +201,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.RoyalEnfieldWebAPI {
                         Bike_Detail,
                         Web_link,
                         Tocken,
-                        UTM}, this.Landing_pageOperationCompleted, userState);
+                        UTM,
+                        Dealer_Code}, this.Landing_pageOperationCompleted, userState);
         }
         
         private void OnLanding_pageOperationCompleted(object arg) {
@@ -210,7 +214,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.RoyalEnfieldWebAPI {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Organic", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string Organic(string Name, string mobile, string Country, string State, string City, string EMail, string Motorcycle, string Dealer_Name, string When_do_plan_to_buy, string Web_link, string Tocken, string UTM) {
+        public string Organic(string Name, string mobile, string Country, string State, string City, string EMail, string Motorcycle, string Dealer_Name, string When_do_plan_to_buy, string Web_link, string Tocken, string UTM, string Dealer_Code) {
             object[] results = this.Invoke("Organic", new object[] {
                         Name,
                         mobile,
@@ -223,17 +227,18 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.RoyalEnfieldWebAPI {
                         When_do_plan_to_buy,
                         Web_link,
                         Tocken,
-                        UTM});
+                        UTM,
+                        Dealer_Code});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void OrganicAsync(string Name, string mobile, string Country, string State, string City, string EMail, string Motorcycle, string Dealer_Name, string When_do_plan_to_buy, string Web_link, string Tocken, string UTM) {
-            this.OrganicAsync(Name, mobile, Country, State, City, EMail, Motorcycle, Dealer_Name, When_do_plan_to_buy, Web_link, Tocken, UTM, null);
+        public void OrganicAsync(string Name, string mobile, string Country, string State, string City, string EMail, string Motorcycle, string Dealer_Name, string When_do_plan_to_buy, string Web_link, string Tocken, string UTM, string Dealer_Code) {
+            this.OrganicAsync(Name, mobile, Country, State, City, EMail, Motorcycle, Dealer_Name, When_do_plan_to_buy, Web_link, Tocken, UTM, Dealer_Code, null);
         }
         
         /// <remarks/>
-        public void OrganicAsync(string Name, string mobile, string Country, string State, string City, string EMail, string Motorcycle, string Dealer_Name, string When_do_plan_to_buy, string Web_link, string Tocken, string UTM, object userState) {
+        public void OrganicAsync(string Name, string mobile, string Country, string State, string City, string EMail, string Motorcycle, string Dealer_Name, string When_do_plan_to_buy, string Web_link, string Tocken, string UTM, string Dealer_Code, object userState) {
             if ((this.OrganicOperationCompleted == null)) {
                 this.OrganicOperationCompleted = new System.Threading.SendOrPostCallback(this.OnOrganicOperationCompleted);
             }
@@ -249,7 +254,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.RoyalEnfieldWebAPI {
                         When_do_plan_to_buy,
                         Web_link,
                         Tocken,
-                        UTM}, this.OrganicOperationCompleted, userState);
+                        UTM,
+                        Dealer_Code}, this.OrganicOperationCompleted, userState);
         }
         
         private void OnOrganicOperationCompleted(object arg) {

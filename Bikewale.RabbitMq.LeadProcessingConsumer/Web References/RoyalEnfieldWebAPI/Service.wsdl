@@ -25,6 +25,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="Web_link" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="Tocken" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="UTM" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Dealer_Code" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -48,6 +49,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="Web_link" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="Tocken" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="UTM" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Dealer_Code" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -73,6 +75,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="Web_link" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="Tocken" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="UTM" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Dealer_Code" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -125,6 +128,7 @@
     <wsdl:part name="Web_link" type="s:string" />
     <wsdl:part name="Tocken" type="s:string" />
     <wsdl:part name="UTM" type="s:string" />
+    <wsdl:part name="Dealer_Code" type="s:string" />
   </wsdl:message>
   <wsdl:message name="affiliatesHttpGetOut">
     <wsdl:part name="Body" element="tns:string" />
@@ -140,6 +144,7 @@
     <wsdl:part name="Web_link" type="s:string" />
     <wsdl:part name="Tocken" type="s:string" />
     <wsdl:part name="UTM" type="s:string" />
+    <wsdl:part name="Dealer_Code" type="s:string" />
   </wsdl:message>
   <wsdl:message name="Landing_pageHttpGetOut">
     <wsdl:part name="Body" element="tns:string" />
@@ -157,6 +162,7 @@
     <wsdl:part name="Web_link" type="s:string" />
     <wsdl:part name="Tocken" type="s:string" />
     <wsdl:part name="UTM" type="s:string" />
+    <wsdl:part name="Dealer_Code" type="s:string" />
   </wsdl:message>
   <wsdl:message name="OrganicHttpGetOut">
     <wsdl:part name="Body" element="tns:string" />
@@ -176,6 +182,7 @@
     <wsdl:part name="Web_link" type="s:string" />
     <wsdl:part name="Tocken" type="s:string" />
     <wsdl:part name="UTM" type="s:string" />
+    <wsdl:part name="Dealer_Code" type="s:string" />
   </wsdl:message>
   <wsdl:message name="affiliatesHttpPostOut">
     <wsdl:part name="Body" element="tns:string" />
@@ -191,6 +198,7 @@
     <wsdl:part name="Web_link" type="s:string" />
     <wsdl:part name="Tocken" type="s:string" />
     <wsdl:part name="UTM" type="s:string" />
+    <wsdl:part name="Dealer_Code" type="s:string" />
   </wsdl:message>
   <wsdl:message name="Landing_pageHttpPostOut">
     <wsdl:part name="Body" element="tns:string" />
@@ -208,6 +216,7 @@
     <wsdl:part name="Web_link" type="s:string" />
     <wsdl:part name="Tocken" type="s:string" />
     <wsdl:part name="UTM" type="s:string" />
+    <wsdl:part name="Dealer_Code" type="s:string" />
   </wsdl:message>
   <wsdl:message name="OrganicHttpPostOut">
     <wsdl:part name="Body" element="tns:string" />
