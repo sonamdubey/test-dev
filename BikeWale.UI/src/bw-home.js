@@ -326,7 +326,7 @@ docReady(function () {
                     click: function (event, ui, orgTxt) {
                         UserReviewRedirection(ui.item);
                         var keywrd = ui.item.label + '_' + $('#userReviewList').val();
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Review_Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
                         isMakeModelRedirected = true;
                     },
                     open: function (result) {
