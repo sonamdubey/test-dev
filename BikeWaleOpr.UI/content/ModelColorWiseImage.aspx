@@ -3,7 +3,6 @@
 <!-- #Include file="/includes/headerNew.aspx" -->
 <script defer language="javascript" src="/src/modelImagesByColor.js"></script>
 <script defer language="javascript" src="/src/imageUpload.js"></script>
-
 <style>
     #one {
         width: 50px;
@@ -79,7 +78,7 @@
                         </table>
                     </td>
                     <td>
-                        <img id="mainImage" src='<%= Bikewale.Utility.Image.GetPathToShowImages(color.OriginalImagePath,color.Host,Bikewale.Utility.ImageSize._144x81) %>' /></td>
+                        <img id="mainImage" src='<%=  !color.IsImageExists ?  Bikewale.Utility.Image.GetPathToShowImages("", "", Bikewale.Utility.ImageSize._144x81) : Bikewale.Utility.Image.GetPathToShowImages(color.OriginalImagePath, color.Host,Bikewale.Utility.ImageSize._144x81) %>' /></td>
                     <td data-isimageexists="<%= color.IsImageExists %>" data-modelid="<%=modelId %>" data-colorid="<%=color.Id %>" data-color="<%= color.Name %>">
                         <img id="preview" src="" />
                         <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="width: 75px;" />
