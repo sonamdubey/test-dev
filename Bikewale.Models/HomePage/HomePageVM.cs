@@ -1,5 +1,4 @@
 ﻿
-using Bikewale.Entities.BikeData;
 using Bikewale.Entities.HomePage;
 using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
