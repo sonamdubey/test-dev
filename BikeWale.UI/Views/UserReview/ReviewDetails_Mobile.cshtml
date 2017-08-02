@@ -49,7 +49,7 @@
                                 <span>@Model.UserReviewDetailsObj.OverallRating.Value</span>
                             </span>
                             <div class="grid-10-inline font15 text-black text-bold">
-                                <span class="review-title position-rel"><span itemprop="name">@FormatDescription.TruncateDescription(Model.UserReviewDetailsObj.Title, 85)</span></span>
+                                <span class="review-title position-rel"><span itemprop="name">@Model.UserReviewDetailsObj.Title.Truncate(85)</span></span>
                             </div>
                         </div>
 
