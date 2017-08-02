@@ -59,7 +59,7 @@ namespace BikewaleAutoSuggest
                                     ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
                                     New = Convert.ToBoolean(dr["New"]),
                                     Futuristic = Convert.ToBoolean(dr["Futuristic"]),
-                                    UserReviewCount= SqlReaderConvertor.ToInt32(dr["reviewCount"])
+                                    UserRatingsCount = SqlReaderConvertor.ToInt32(dr["RatingsCount"])
                                 });
                             }
                             dr.Close();
@@ -101,7 +101,7 @@ namespace BikewaleAutoSuggest
                         ModelMaskingName = Convert.ToString(bikeItem.ModelMaskingName),
                         Futuristic = Convert.ToString(bikeItem.Futuristic),
                         IsNew = Convert.ToString(bikeItem.New),
-                        UserReviewCount= Convert.ToString(bikeItem.UserReviewCount)
+                        UserRatingsCount = Convert.ToString(bikeItem.UserRatingsCount)
 
                     };
 

@@ -23,7 +23,7 @@ namespace BikewaleAutoSuggest
                                     where temp.ModelId > 0 && temp.New && !temp.Futuristic
                                     select temp);
             Logs.WriteInfoLog("Price quote make model List count : " + objPriceQuoteList.Count());
-            IEnumerable<TempList> ObjUserReviewList = objList.Where(x => x.UserReviewCount > 0);
+            IEnumerable<TempList> ObjUserReviewList = objList.Where(x => x.UserRatingsCount > 0);
 
             Logs.WriteInfoLog("UserReview make model List count : " + ObjUserReviewList.Count());
 
