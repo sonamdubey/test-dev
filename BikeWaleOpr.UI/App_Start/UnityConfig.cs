@@ -42,8 +42,6 @@ namespace BikewaleOpr
                 .RegisterType<IUsedBikes, UsedBikes>()
                 .RegisterType<IHomePage, HomePage>()
                 .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
-                .RegisterType<IBikeMakes, BikeMakesRepository>()
-                .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IDealerCampaignRepository, DealerCampaignRepository>()
                 .RegisterType<ICommuteDistance, CommuteDistanceBL>()
                 .RegisterType<ILocation, LocationRepository>()

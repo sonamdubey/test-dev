@@ -23,6 +23,6 @@ namespace Bikewale.Comparison.Entities
         public SponsoredComparisonStatus Status { get; set; }
         public DateTime EntryDate { get; set; }
         public DateTime LastUpdated { get; set; }
-        public uint UpdatedBy { get; set; }
+        public string UpdatedBy { get; set; }
     }
 }

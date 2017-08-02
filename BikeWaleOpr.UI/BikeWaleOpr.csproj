@@ -1924,6 +1924,7 @@
     <Content Include="src\chains.js" />
     <Content Include="src\common.js" />
     <Content Include="src\common\common.js" />
+    <Content Include="src\Comparison\addcomparisonrules.js" />
     <Content Include="src\content\makes.js" />
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />

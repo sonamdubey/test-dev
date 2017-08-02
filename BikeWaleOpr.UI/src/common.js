@@ -78,7 +78,6 @@ var pageFooter = {
                     type: "custom",
                     method: function (value, item) {
                         var listElement = '<div class="list-item" data-cityId="' + item.payload.cityId + '">' + value + '</div>';
-
                         return listElement;
                     }
                 },

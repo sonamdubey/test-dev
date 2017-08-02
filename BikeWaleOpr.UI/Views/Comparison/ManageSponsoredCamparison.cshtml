@@ -4,7 +4,7 @@
     ViewBag.PageTitle = "Manage Sponsored Comparisons";
 }
 
-<div id="sponsoredComparisons" class="row margin-top10">
+<div id="sponsoredComparisons" class="row margin-top10" style="margin-bottom : 60px">
     <div class="col m10">
         <div id="tblCampaigns" class="" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]">
             <table class="bordered highlight z-depth-3 centered responsive-table" id="sponsoredComparisonsList">
@@ -26,7 +26,7 @@
                 <tbody>
                     @foreach (var comp in Model.Sponsoredcomparisons)
                     {
-                        <tr>
+                        <tr >
                             <td data-cell="id">@comp.Id</td>
                             <td data-cell="description">@comp.Name</td>
                             <td data-cell="startdate">@(comp.StartDate != null && comp.StartDate != DateTime.MinValue ? comp.StartDate.ToString("dd MMM yyyy, hh:mm tt") : "")
@@ -41,13 +41,13 @@
                                     @if (comp.Status.Equals(Bikewale.Comparison.Entities.SponsoredComparisonStatus.Active))
                                     {
 
-                                        <a href="javascript:void(0)" data-bind="click : function(d,e){ changeComparisonStatus(d,e); }" class="tooltipped" data-status="4" data-position="bottom" data-delay="50" data-tooltip="Pause Campaign"><i class="material-icons icon-blue">pause_circle_filled</i></a>
+                                        <a href="javascript:void(0)" data-bind="click : function(d,e){ currentId(@comp.Id);changeComparisonStatus(d,e); }" class="tooltipped" data-status="3" data-position="bottom" data-delay="50" data-tooltip="Pause Campaign"><i class="material-icons icon-blue">pause_circle_filled</i></a>
 
-                                            <a  href="javascript:void(0)" data-bind="click : function(d,e){ changeComparisonStatus(d,e); }" data-status="6" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign"><i class="material-icons icon-red">cancel</i></a>
+                                            <a  href="javascript:void(0)" data-bind="click : function(d,e){ currentId(@comp.Id);changeComparisonStatus(d,e); }" data-status="5" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign"><i class="material-icons icon-red">cancel</i></a>
                                     }
-                                    else
+                                    else if(comp.Status.Equals(Bikewale.Comparison.Entities.SponsoredComparisonStatus.Paused) || comp.Status.Equals(Bikewale.Comparison.Entities.SponsoredComparisonStatus.Unstarted))
                                     {
-                                        <a  href="javascript:void(0)" data-bind="click : function(d,e){ changeComparisonStatus(d,e); }" data-status="2" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Start Campaign"><i class="material-icons icon-green">play_circle_filled</i></a>
+                                        <a  href="javascript:void(0)" data-bind="click : function(d,e){ currentId(@comp.Id);changeComparisonStatus(d,e); }" data-status="2" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Start Campaign"><i class="material-icons icon-green">play_circle_filled</i></a>
 
                                     }
 
@@ -308,7 +308,7 @@
 
         self.editSponsoredCamparison = function (d, e) {
             var ele = $(e.currentTarget).closest("tr");
-            self.currentId(ele.find("td[data-cell=id]").text());
+            self.currentId(ele.find("td[data-cell=id]").text().trim());
             self.description(ele.find("td[data-cell=description]").text());
             self.startDateTime(ele.find("td[data-cell=startdate]").text());
             self.endDateTime(ele.find("td[data-cell=enddate]").text());
@@ -320,11 +320,17 @@
             //setdate
             var tempDateTime = new Date(self.startDateTime());
             $("#dtStartDate").pickadate('picker').set('select', tempDateTime);
-            self.startTime(tempDateTime.getHours() + ":" + tempDateTime.getMinutes());
+            var tm = tempDateTime.getHours().toString();
+            if (tm.length < 2) tm = ("0" + tm);
+            self.startTime(tm + ":" + tempDateTime.getMinutes());
 
             tempDateTime = new Date(self.endDateTime());
             $("#dtEndDate").pickadate('picker').set('select', tempDateTime);
-            self.endTime(tempDateTime.getHours() + ":" + tempDateTime.getMinutes());
+
+            var tm = tempDateTime.getHours().toString();
+            if (tm.length < 2) tm = ("0" + tm);
+
+            self.endTime(tm + ":" + tempDateTime.getMinutes());
 
             Materialize.updateTextFields();
             var tab = pgContainer.find(".collapsible-header").last();
@@ -336,7 +342,20 @@
 
         self.changeComparisonStatus = function (d,e) {
             var ele = $(e.currentTarget), status = ele.data("status");
-
+            if(status > 0)
+            {
+                $.post("/api/compare/sponsored/" + self.currentId() + "/updatestatus/" + status + "/", function () {
+                    if (self.currentId() > 0) {
+                        pgContainer.find("tr[data-id=" + self.currentId() + "]").fadeOut();
+                    }
+                    Materialize.toast("Sponsored comparison status changed", 3000);
+                })
+                .fail(function () {
+                    Materialize.toast("Sponsored comparison staus update failed", 3000);
+                })
+                .always(function () { self.currentId(0); });;
+                
+            }
         };
 
     };
