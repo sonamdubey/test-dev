@@ -389,6 +389,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     {
                         if (dr != null && dr.Read())
                         {
+                            objDealerData.DealerCode = Convert.ToString(dr["dealercode"]); 
                             objDealerData.DealerName = Convert.ToString(dr["dealerName"]);
                             objDealerData.DealerCity = Convert.ToString(dr["dealercity"]);
                             objDealerData.DealerState = Convert.ToString(dr["dealerstate"]);

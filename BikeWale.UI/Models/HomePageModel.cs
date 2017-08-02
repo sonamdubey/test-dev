@@ -1,8 +1,8 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.CMS;
@@ -96,11 +96,11 @@ namespace Bikewale.Models
                 objVM.Location = cityName;
                 objVM.LocationMasking = cityMaskingName;
                 cityBase = new CityEntityBase()
-                    {
-                        CityId = cityId,
-                        CityMaskingName = cityMaskingName,
-                        CityName = cityName
-                    };
+                {
+                    CityId = cityId,
+                    CityMaskingName = cityMaskingName,
+                    CityName = cityName
+                };
             }
             else
             {
@@ -111,7 +111,7 @@ namespace Bikewale.Models
 
             BindPageMetas(objVM.PageMetaTags);
             BindAdTags(objVM.AdTags);
-            objVM.Banner = _cachedBanner.GetHomePageBanner();
+            objVM.Banner = _cachedBanner.GetHomePageBanner(IsMobile?(uint) 2:1);
             objVM.Brands = new BrandWidgetModel(TopCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.New);
             var popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false);
             popularBikes.TopCount = 9;
@@ -126,10 +126,13 @@ namespace Bikewale.Models
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
             objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
             BindCompareBikes(objVM, CompareSource, cityId);
-            
+
             objVM.BestBikes = new BestBikeWidgetModel(null, _cachedModels).GetData();
 
-            objVM.UsedBikeCities = new UsedBikeCitiesWidgetModel(cityMaskingName, string.Empty, _IUsedBikesCache).GetData();
+            string cityWidgetTitle = string.Empty, cityWidgetHref = string.Empty;
+            cityWidgetTitle = "Second hand bikes in India";
+            cityWidgetHref = "/used/bikes-in-india/";
+            objVM.UsedBikeCities = new UsedBikeCitiesWidgetModel(cityWidgetTitle, cityWidgetHref, _IUsedBikesCache).GetData();
 
             objVM.UsedModels = BindUsedBikeByModel(cityId);
 

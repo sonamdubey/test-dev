@@ -13,6 +13,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
+using System;
+using System.Data;
+using System.Data.Common;
+
 
 namespace Bikewale.BAL.Compare
 {
@@ -896,7 +900,7 @@ namespace Bikewale.BAL.Compare
                                 objBikeColor.Add(color);
                             }
                         }
-                        compareEntity.CompareColors.bikes.Add(new CompareBikeColor() { bikeColors = objBikeColor });
+                        compareEntity.CompareColors.bikes.Add(new CompareBikeColor() { bikeColors = objBikeColor.GroupBy(p => p.ColorId).Select(grp => grp.First()).ToList<BikeColor>() });
                     }
                 }
             }
