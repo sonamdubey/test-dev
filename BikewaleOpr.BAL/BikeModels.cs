@@ -60,9 +60,9 @@ namespace BikewaleOpr.BAL
         }
 
         /// <summary>
-        /// Description: BAL layer to call DAL function GetModelsWithMissingImage and group them with MakeId
+        /// Created by: vivek singh tomar on 27/07/2017
         /// 
-        /// created by: vivek singh tomar on 27/07/2017
+        /// Description: BAL layer to call DAL function GetModelsWithMissingImage and group them with MakeId
         /// </summary>
         /// <returns></returns>
         public IEnumerable<BikeModelsByMake> GetModelsWithMissingColorImage()
@@ -74,24 +74,13 @@ namespace BikewaleOpr.BAL
                 objBikeMakeModelDataList = _IBikeModel.GetModelsWithMissingColorImage();
                 if(objBikeMakeModelDataList != null)
                 {
-                    var groupModelsByMake = objBikeMakeModelDataList
+                    objBikeModelsByMakeList = objBikeMakeModelDataList
                         .GroupBy(m => m.BikeMake.MakeId)
-                        .Select(grp => new {
-                            MakeId = grp.Key,
-                            MakeEntiy = grp.First().BikeMake,
-                            ModelEntiy = grp.Select(t => t.BikeModel)
-                        })
-                        .ToList();
-                      
-                    if(groupModelsByMake != null)
-                    {
-                        objBikeModelsByMakeList = groupModelsByMake
-                                                    .Select(m => new BikeModelsByMake()
-                                                    {
-                                                        BikeMakeEntity = m.MakeEntiy,
-                                                        BikeModelEntity = m.ModelEntiy
-                                                    });
-                    }
+                        .Select( grp => new BikeModelsByMake
+                        {
+                            BikeMakeEntity = grp.First().BikeMake,
+                            BikeModelEntity = grp.Select(t => t.BikeModel)
+                        });
                 }
             }
             catch (Exception ex)

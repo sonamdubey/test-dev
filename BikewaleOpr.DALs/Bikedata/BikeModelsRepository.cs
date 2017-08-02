@@ -11,7 +11,6 @@ using System.Data;
 using System.Data.Common;
 using Bikewale.DAL.CoreDAL;
 using Dapper;
-using System.Linq;
 using System.Collections.ObjectModel;
 
 namespace BikewaleOpr.DALs.Bikedata
@@ -382,36 +381,29 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <returns></returns>
         public IEnumerable<BikeMakeModelData> GetModelsWithMissingColorImage()
         {
-            ICollection<BikeMakeModelData> objBikeMakeModelDataList = null;
+            IEnumerable<BikeMakeModelData> objBikeMakeModelDataList = null;
             try
             {
-                using(IDbConnection conn = DatabaseHelper.GetReadonlyConnection())
+                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    IDbCommand cmd = conn.CreateCommand();
-                    cmd.CommandText = "getmodelswithmissingcolorimage";
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    conn.Open();
-                    IDataReader reader = cmd.ExecuteReader();
-                    if(reader != null)
+                    connection.Open();
+                    objBikeMakeModelDataList = connection.Query<BikeModelEntityBase, BikeMakeEntityBase, BikeMakeModelData>
+                        (
+                            "getmodelswithmissingcolorimage",
+                            (bikeModelEntityBase, bikeMakeEntityBase) =>
+                            {
+                                BikeMakeModelData bikeMakeModelData = new BikeMakeModelData()
+                                {
+                                    BikeMake = bikeMakeEntityBase,
+                                    BikeModel = bikeModelEntityBase
+                                };
+                                return bikeMakeModelData;
+                            }, splitOn: "MakeId", param: null, commandType: CommandType.StoredProcedure
+                        );
+                    if (connection.State == ConnectionState.Open)
                     {
-                        objBikeMakeModelDataList = new List<BikeMakeModelData>();
-                        while (reader.Read())
-                        {
-                            BikeMakeModelData objBikeMakeModelData = new BikeMakeModelData();
-                            objBikeMakeModelData.BikeMake = new Entities.BikeMakeEntityBase();
-                            objBikeMakeModelData.BikeModel = new Entities.BikeModelEntityBase();
-
-                            objBikeMakeModelData.BikeMake.MakeId = SqlReaderConvertor.ToInt32(reader["MakeId"]);
-                            objBikeMakeModelData.BikeMake.MakeName = Convert.ToString(reader["MakeName"]);
-                            objBikeMakeModelData.BikeMake.MaskingName = Convert.ToString(reader["MakeMaskingName"]);
-                            objBikeMakeModelData.BikeModel.ModelId = SqlReaderConvertor.ToInt32(reader["ModelId"]);
-                            objBikeMakeModelData.BikeModel.ModelName = Convert.ToString(reader["ModelName"]);
-                            objBikeMakeModelData.BikeModel.MaskingName = Convert.ToString(reader["ModelMaskingName"]);
-
-                            objBikeMakeModelDataList.Add(objBikeMakeModelData);
-                        }
+                        connection.Close();
                     }
-                    reader.Close();
                 }
             }
             catch (Exception ex)

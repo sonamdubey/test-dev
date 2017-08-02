@@ -1,9 +1,11 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.DTO.BikeData;
 using BikewaleOpr.Entity.BikeData;
+using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Service.AutoMappers.BikeData;
 using System;
+using System.Collections.Generic;
 using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers.Content
@@ -14,11 +16,13 @@ namespace BikewaleOpr.Service.Controllers.Content
     [Authorize]
     public class MakesController : ApiController
     {
-        private readonly IBikeMakes makesRepo = null;
+        private readonly IBikeMakesRepository _makesRepo = null;
+        private readonly IBikeMakes _bikeMakes = null;
 
-        public MakesController(IBikeMakes _makeRepo)
+        public MakesController(IBikeMakesRepository makeRepo, IBikeMakes bikeMakes)
         {
-            makesRepo = _makeRepo;
+            _makesRepo = makeRepo;
+            _bikeMakes = bikeMakes;
         }
 
         /// <summary>
@@ -38,7 +42,7 @@ namespace BikewaleOpr.Service.Controllers.Content
 
                 try
                 {
-                    objSynopsis = makesRepo.Getsynopsis(makeId);
+                    objSynopsis = _makesRepo.Getsynopsis(makeId);
                 }
                 catch (Exception ex)
                 {
@@ -77,7 +81,7 @@ namespace BikewaleOpr.Service.Controllers.Content
                     int userId = 0;
                     int.TryParse(Bikewale.Utility.OprUser.Id, out userId);
 
-                    makesRepo.UpdateSynopsis(makeId, userId, objSynopsis);
+                    _makesRepo.UpdateSynopsis(makeId, userId, objSynopsis);
                 }
                 catch (Exception ex)
                 {
@@ -90,6 +94,35 @@ namespace BikewaleOpr.Service.Controllers.Content
                 return BadRequest("Invalid inputs");
 
             return Ok();
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 1st Aug 2017
+        /// Description : API to get models for given makeId
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/makes/{makeid}/getmodels/")]
+        public IHttpActionResult GetModels(uint makeId)
+        {
+            IEnumerable<BikeModelEntityBase> objBikeModelEntityBase = null;
+            if(makeId > 0)
+            {
+                try
+                {
+                    objBikeModelEntityBase = _bikeMakes.GetModelsByMake(makeId);
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.Content.MakesController.GetModels");
+                    return InternalServerError();
+                }
+            }
+            else
+            {
+                return BadRequest("Invalid Inputs");
+            }
+            return Ok(objBikeModelEntityBase);
         }
 
     }   // class

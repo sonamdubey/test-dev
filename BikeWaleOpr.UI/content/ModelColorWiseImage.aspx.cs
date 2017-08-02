@@ -1,5 +1,4 @@
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using BikewaleOpr.Common;
 using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.Entities;
@@ -7,7 +6,6 @@ using BikewaleOpr.Interface.BikeData;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -25,8 +23,7 @@ namespace BikeWaleOpr.Content
         protected Repeater rptModelColor;
         protected DropDownList cmbMake, cmbModel;
         public int modelId;
-        private IBikeMakes _objMakesRepo = null;
-        private IBikeModelsRepository _objModelsRepo = null;
+        private IBikeMakesRepository _objMakesRepo = null;
         public IEnumerable<ModelColorImage> modelColors = null;
         public ushort modelColorCount = 0;
         ManageModelColor objManageModelColor = null;
@@ -34,6 +31,7 @@ namespace BikeWaleOpr.Content
         protected HiddenField hdnModelId;
         protected uint makeId;
         protected bool isQueryString;
+        protected IBikeMakes _bikeMakes = null;
         #region events
 
         protected override void OnInit(EventArgs e)
@@ -86,11 +84,10 @@ namespace BikeWaleOpr.Content
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeMakes, BikeMakesRepository>()
-                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
-                    .RegisterType<IBikeVersions, BikeVersionsRepository>();
-                    _objMakesRepo = container.Resolve<IBikeMakes>();
-                    _objModelsRepo = container.Resolve<IBikeModelsRepository>();
+                    container.RegisterType<IBikeMakesRepository, BikeMakesRepository>()
+                    .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>();
+                    _objMakesRepo = container.Resolve<IBikeMakesRepository>();
+                    _bikeMakes = container.Resolve<IBikeMakes>();
                 }
 
                 IEnumerable<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> makes = _objMakesRepo.GetMakes("NEW");
@@ -134,27 +131,25 @@ namespace BikeWaleOpr.Content
         {
             isQueryString = true;
             Int32.TryParse(Request.QueryString["modelid"], out modelId);
-            cmbMake.SelectedIndex = Convert.ToInt32(cmbMake.Items.IndexOf(cmbMake.Items.FindByValue(Convert.ToString(makeId))));
-            var response = Common.CommonOpn.GetModelFromMake(cmbMake.SelectedValue);
-            IEnumerable<BikeModelEntityBase> models = new List<BikeModelEntityBase>();
-            if (response != null && response.Tables != null && response.Tables.Count > 0)
+            if(modelId > 0)
             {
-                models = response.Tables[0].AsEnumerable()
-               .Select(row => new BikeModelEntityBase
-               {
-                   ModelId = row.Field<int>(0),
-                   ModelName = row.Field<string>(1)
-               });
-                cmbModel.DataSource = models;
-                cmbModel.DataTextField = "ModelName";
-                cmbModel.DataValueField = "ModelId";
-                cmbModel.DataBind();
-                cmbModel.Items.Insert(0, "Any");
-                cmbModel.SelectedIndex = Convert.ToInt32(cmbModel.Items.IndexOf(cmbModel.Items.FindByValue(Convert.ToString(modelId))));
-                if (modelId > 0)
+                cmbMake.SelectedIndex = Convert.ToInt32(cmbMake.Items.IndexOf(cmbMake.Items.FindByValue(Convert.ToString(makeId))));
+                var models = _bikeMakes.GetModelsByMake(makeId);
+                if(models != null && models.Count() > 0)
                 {
+                    cmbModel.DataSource = models;
+                    cmbModel.DataTextField = "ModelName";
+                    cmbModel.DataValueField = "ModelId";
+                    cmbModel.DataBind();
+                    cmbModel.Items.Insert(0, "Any");
+                    cmbModel.SelectedIndex = Convert.ToInt32(cmbModel.Items.IndexOf(cmbModel.Items.FindByValue(Convert.ToString(modelId))));
                     objManageModelColor = new ManageModelColor();
                     BindModelColorRepeater();
+                }
+
+                if (hdnModelId != null && hdnModelId.Value != null)
+                {
+                    hdnModelId.Value = Convert.ToString(modelId);
                 }
             }
         }

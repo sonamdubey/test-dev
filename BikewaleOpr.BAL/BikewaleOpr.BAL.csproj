@@ -91,6 +91,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BikeMakes.cs" />
     <Compile Include="BikeModels.cs" />
     <Compile Include="ContractCampaign\ContractCampaignMapping.cs" />
     <Compile Include="Dealers.cs" />

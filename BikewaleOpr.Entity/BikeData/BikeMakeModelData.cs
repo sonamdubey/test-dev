@@ -1,4 +1,4 @@
-﻿using BikewaleOpr.Entities;
+﻿using BikewaleOpr.Entities.BikeData;
 
 namespace BikewaleOpr.Entity.BikeData
 {

@@ -97,7 +97,6 @@ function readURL(input,control) {
 }
 
 $("#btnSubmit").live("click", function () {
-    window.location.href = window.location.href.split("?")[0];
     if ($("#cmbMake").val() > 0 && $("#cmbModel").val() > 0) {
         setBikeName();
         return true;
@@ -135,11 +134,72 @@ $('.deleteImage').live("click", function () {
     });
 });
 
+// Modified by : Vivek Singh Tomar on 1st Aug 2017
+// Functions modified : clearCombo, bindDropdowns and fillDropdown to bind data to model dropdown
+function clearCombo(cmb, selectString) {
+    try{
+        cmb.options.length = null;
+        if (selectString == '' || !selectString) selectString = "Any"
+        cmb.options[0] = new Option(selectString, 0);
+    } catch (ex) {
+        console.warn(ex);
+    }
+}
+
+function bindDropdowns(data, cmbToFill, hdnId) {
+    try{
+        var _delimiter = "|";
+        var objHdn = document.forms[0][hdnId];
+
+        if (cmbToFill) {
+            clearCombo(cmbToFill);
+            var content = "";
+            var j = 1
+            for (var obj in data) {
+                cmbToFill.options[j] = new Option(data[obj].ModelName, data[obj].ModelId);
+                if (content == "") {
+                    content = data[obj].ModelName + _delimiter + data[obj].ModelId;
+                } else {
+                    content += _delimiter + data[obj].ModelName + _delimiter + data[obj].ModelId;
+                }
+                ++j;
+            }
+
+            if (objHdn) {
+                objHdn.value = content;
+            }
+
+            cmbToFill.disabled = false;
+        }
+    } catch (ex) {
+        console.warn(ex);
+    }        
+}
+
 function fillDropdowns() {
-    var response = AjaxFunctions.GetNewModels($('#cmbMake').val());
-    var dependentCmbs = new Array;
-    dependentCmbs[0] = "cmbModel";
-    FillCombo_Callback(response, document.getElementById("cmbModel"), "hdn_cmbModel", dependentCmbs);
+    try {
+        $.ajax({
+            type: "POST",
+            url: "/api/makes/" + $('#cmbMake').val() + "/getmodels/",
+            contentType: "application/json",
+            dataType: 'json',
+            async: false,
+            success: function (data) {
+                if (data == null && typeof (data) == "object") {
+                    console.log('data not present');
+                } else {
+                    bindDropdowns(data, document.getElementById("cmbModel"), "hdn_cmbModel");
+                }
+            },
+            complete: function (xhr) {
+                if (xhr.status == 400 || xhr.status == 500 || xhr.status == 404 || xhr.status == 204) {
+                    console.log('some error occurred');
+                }
+            }
+        });
+    } catch (ex) {
+        console.warn(ex);
+    }
 }
 
 function uploadToAWS(file, photoId, itemId, path, ext) {
