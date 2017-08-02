@@ -140,6 +140,7 @@
     <Compile Include="AutoMappers\ManufacturerCampaign\SearchMapper.cs" />
     <Compile Include="AutoMappers\Location\CityMapper.cs" />
     <Compile Include="AutoMappers\UserReviews\UserReviewsMapper.cs" />
+    <Compile Include="Controllers\Banner\BannerController.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />
     <Compile Include="Controllers\Camparison\SponsoredComparisonController.cs" />
     <Compile Include="Controllers\Content\MakesController.cs" />
@@ -249,6 +250,10 @@
     <ProjectReference Include="..\BikewaleOpr.Interface\BikewaleOpr.Interface.csproj">
       <Project>{539fa12c-3799-4e88-a833-f65594ea1934}</Project>
       <Name>BikewaleOpr.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Models\BikewaleOpr.Models.csproj">
+      <Project>{D41DA250-C329-4956-ABAC-17B9B1E53880}</Project>
+      <Name>BikewaleOpr.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

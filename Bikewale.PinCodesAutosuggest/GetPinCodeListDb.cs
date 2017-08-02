@@ -31,7 +31,7 @@ namespace Bikewale.PinCodesAutosuggest
                 using (DbCommand cmd = DbFactory.GetDBCommand("getallpincodes"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isbajajfinance", DbType.Int32, 1));
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)

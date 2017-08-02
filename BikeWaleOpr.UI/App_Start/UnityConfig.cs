@@ -20,6 +20,17 @@ using BikewaleOpr.Interface.UserReviews;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
+using BikewaleOpr.Interface.UserReviews;
+using BikewaleOpr.DALs.UserReviews;
+using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.DALs.ContractCampaign;
+using BikewaleOpr.CommuteDistance;
+using BikewaleOpr.Interface.Location;
+using BikewaleOpr.DALs.Location;
+using BikewaleOpr.BAL.ContractCampaign;
+using Bikewale.ManufacturerCampaign.DAL;
+using BikewaleOpr.Interface.Banner;
+using BikewaleOpr.DALs.Banner;
 
 namespace BikewaleOpr
 {
@@ -51,6 +62,7 @@ namespace BikewaleOpr
                 .RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>()
             .RegisterType<ISponsoredComparison, SponsoredComparison>()
                  .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
+                .RegisterType<IBannerRepository, BannerRepository>()
                 .RegisterType<IContractCampaign, ContractCampaign>();
 
 

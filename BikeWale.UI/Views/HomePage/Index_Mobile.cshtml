@@ -31,9 +31,9 @@
             <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
             @if (Model.Banner != null)
             {
-                @Html.Raw(Model.Banner.MobileCss);
-                @Html.Raw(Model.Banner.MobileHtml);
-                @Html.Raw(Model.Banner.MobileJS);
+               @Html.Raw(Model.Banner.Html);
+                @Html.Raw(Model.Banner.Css);
+                @Html.Raw(Model.Banner.JS);
             }
         </div>
     </div>
@@ -380,13 +380,101 @@
 
     </div>
 </section>
+
+<section>
+    <div class="container margin-bottom20">
+        <h2 class="font18 text-center margin-top20 margin-bottom10">User reviews</h2>
+		<div class="content-box-shadow">
+			<div class="user-review__intro">
+				<p class="review-intro__title">3000+ unbiased, verified reviews.<br>Know the pros and cons of 200+ bike models.</p>
+				<div class="form-control-box margin-bottom15">
+					<input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off">
+				</div>
+				<button class="btn btn-orange btn-120-32">Read reviews</button>
+			</div>
+            <ul id="erUserReviewList" class="ui-autocomplete ui-front ui-menu hide">
+                <li class="ui-menu-item" tabindex="-1">
+                    <span class="text-bold">Oops! No suggestions found</span><br />
+                    <span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
+                </li>
+            </ul>
+            <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
+
+
+			<h3 class="font15 text-center">Recently added reviews</h3>
+			<div class="swiper-container user-review__swiper">
+				<ul class="swiper-wrapper">
+					<li class="swiper-slide">
+						<div class="swiper-card">
+							<div class="review-card__winner">
+								<span class="vertical-ribbon bg-color--teal trophy-teal-10x12"></span>
+								<span class="winner-tag__label">Winner</span>
+							</div>
+							<span class="review-card__author-circle"></span>
+							<p class="review-card__author">Santanu Mukherjee</p>
+							<span class="rating-badge" data-rate-bg="5">
+								<span class="bwmsprite star-white"></span>5
+							</span>
+							<p class="review-card__bike">KYM Duke 390</p>
+							<p class="review-card__desc">"Style is very good in terms of fering and sporty look. Engine per..."</p>
+							<p class="review-card__date">3 days ago</p>
+							<a href="" title="" class="font14">Read full review</a>
+						</div>
+					</li>
+					<li class="swiper-slide">
+						<div class="swiper-card">
+							<span class="review-card__author-circle"></span>
+							<p class="review-card__author">Santanu Mukherjee</p>
+							<span class="rating-badge" data-rate-bg="4">
+								<span class="bwmsprite star-white"></span>4
+							</span>
+							<p class="review-card__bike">KYM Duke 390</p>
+							<p class="review-card__desc">"Style is very good in terms of fering and sporty look. Engine per..."</p>
+							<p class="review-card__date">3 days ago</p>
+							<a href="" title="" class="font14">Read full review</a>
+						</div>
+					</li>
+					<li class="swiper-slide">
+						<div class="swiper-card">
+							<span class="review-card__author-circle"></span>
+							<p class="review-card__author">Santanu Mukherjee</p>
+							<span class="rating-badge" data-rate-bg="3">
+								<span class="bwmsprite star-white"></span>3
+							</span>
+							<p class="review-card__bike">KYM Duke 390</p>
+							<p class="review-card__desc">"Style is very good in terms of fering and sporty look. Engine per..."</p>
+							<p class="review-card__date">3 days ago</p>
+							<a href="" title="" class="font14">Read full review</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section>
+	<div class="container contest-participate-banner margin-bottom20">
+		<div class="contest-banner__wrapper">
+			<p class="contest-banner__left-grid inline-block">
+				<span class="contest-banner__title-13">Bike Review</span><br>
+				<span class="contest-banner__title-18">Contest</span>
+			</p>
+			<div class="contest-banner__right-grid inline-block">
+				<p class="contest-banner__subtitle">Stand a chance to win &#x20b9;&nbsp;1,000.</p>
+				<a href="/m/bike-review-contest/" title="" class="contest-banner__target-link">Participate &amp; win</a>
+			</div>
+		</div>
+	</div>
+</section>
+
 @if (Model.TabCount > 0)
 {
-    <section class="container">
+    <section>
         <!--  News, reviews and videos code starts here -->
-        <div class="container">
-            <div class="grid-12 alpha omega margin-bottom20">
-                <h2 class="font18 text-center margin-top20 margin-bottom10">Latest updates</h2>
+        <div class="container margin-bottom20">
+			<h2 class="font18 text-center margin-top20 margin-bottom10">Latest updates</h2>
+            <div class="grid-12 alpha omega">
                 <div class="content-box-shadow">
                     <div class="bw-tabs-panel article-control padding-bottom20">
                         <div class="bw-tabs">

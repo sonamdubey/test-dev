@@ -15,7 +15,7 @@
         description = pgDescription;
         canonical = pgCanonicalUrl;
         ogImage = (firstImage != null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath, firstImage.HostUrl, Bikewale.Utility.ImageSize._360x202) : string.Empty;
-        AdId = "1395992162974";
+        AdId = "1501506048521";
         AdPath = "/1017752/BikeWale_UsedBikes_Details_";
         isAd300x250Shown = false;
         isAd970x90BTFShown = false;

@@ -244,7 +244,7 @@ namespace Bikewale.Cache.UserReviews
             string key = "BW_UserReviewIdMapping";
             try
             {
-                htResult = _cache.GetFromCache<Hashtable>(key, new TimeSpan(30, 0, 0, 0), () => _objUserReviews.GetUserReviewsIdMapping());
+                htResult = _cache.GetFromCache<Hashtable>(key, new TimeSpan(1, 0, 0, 0), () => _objUserReviews.GetUserReviewsIdMapping());
             }
             catch (Exception ex)
             {
