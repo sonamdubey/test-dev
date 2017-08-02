@@ -123,14 +123,14 @@
                                 <li class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
                                     <input type="date" id="dtStartDate" class="datepicker margin-left5" data-bind="css : {invalid : startDateTime()==''}, value:startDate" />
-                                    <label for="dtStartDate" data-error="Please enter start date">Campaign Start Date *</label>
+                                    <label for="dtStartDate" data-error="Please enter start date">Start Date *</label>
                                     <input type="time" id="dtStartTime" value="" data-bind="value : startTime" class="timepicker" />
                                     <input type="hidden" name="StartDate" data-bind="value : startDateTime " />
                                 </li>
                                 <li class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
                                     <input type="date" id="dtEndDate" class="datepicker margin-left5" data-bind="css : {invalid : endDateTime()==''},value:endDate" />
-                                    <label for="dtEndDate" data-error="Please enter end date">Campaign End Date *</label>
+                                    <label for="dtEndDate" data-error="Please enter end date">End Date *</label>
                                     <input type="time" id="dtEndTime" data-bind="value : endTime" class="timepicker" />
                                     <input type="hidden" name="EndDate" data-bind="value : endDateTime " />
                                 </li>
@@ -144,15 +144,15 @@
                                 </li>
                                 <li class="input-field">
                                     <input id="txtBikeNameImpression" type="text" class="validate" name="NameImpressionUrl" data-bind="value : nameImpression">
-                                    <label for="txtBikeNameImpression">Bike Name Impression/GA</label>
+                                    <label for="txtBikeNameImpression">Bike Name GA</label>
                                 </li>
                                 <li class="input-field">
                                     <input id="txtBikeImageImpression" type="text" class="validate" data-bind="value : imgImpression" name="ImgImpressionUrl">
-                                    <label for="txtBikeImageImpression">Bike Image Impression/GA</label>
+                                    <label for="txtBikeImageImpression">Bike Image GA</label>
                                 </li>
                                 <li class="input-field">
                                     <button data-bind="click: addSponsoredComparison,value : currentId" class="btn waves-effect waves-light margin-bottom20" type="submit" name="Id">
-                                        Add Campaign
+                                        Add Comparison
                                     </button>
                                 </li>
                             </ul>

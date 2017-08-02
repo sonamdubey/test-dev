@@ -84,6 +84,7 @@ namespace BikewaleOpr.Controllers
             if (comparisonId > 0)
             {
                 objData.ComparisonId = comparisonId;
+                objData.ComparisonVersionMapping = _objSponsoredComparison.GetSponsoredComparisonSponsoredBike(comparisonId);
             }
             return View(objData);
         }
@@ -100,6 +101,7 @@ namespace BikewaleOpr.Controllers
             if (comparisonId > 0)
             {
                 objData.ComparisonId = comparisonId;
+                
             }
             return View();
         }
