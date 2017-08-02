@@ -29,7 +29,7 @@ namespace Bikewale.Cache.UserReviews
         public UserReviewsCacheRepository(ICacheManager cache, IUserReviewsRepository objUserReviews)
         {
             _cache = cache;
-            _objUserReviews = objUserReviews;          
+            _objUserReviews = objUserReviews;
         }
 
         /// <summary>
@@ -281,7 +281,7 @@ namespace Bikewale.Cache.UserReviews
         /// <param name="modelId"></param>
         /// <returns></returns>
         public IEnumerable<UserReviewSummary> GetUserReviewSummaryList(IEnumerable<uint> reviewIdList)
-        {
+        {            
             IEnumerable<UserReviewSummary> objSummaryList = null;
             Dictionary<string, string> dictIdKeys = null;
             try
@@ -304,6 +304,26 @@ namespace Bikewale.Cache.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewSummaryList");
             }
             return objSummaryList;
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 02-08-2017
+        /// Description : Cache layer to cache recent reviews data
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<RecentReviewsWidget> GetRecentReviews()
+        {
+            IEnumerable<RecentReviewsWidget> objList = null;
+            try
+            {
+                string key = "BW_RecentReviews";
+                objList = _cache.GetFromCache<IEnumerable<RecentReviewsWidget>>(key, new TimeSpan(6, 0, 0), () => _objUserReviews.GetRecentReviews());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetRecentReviews");
+            }
+            return objList;
         }
     }
 }
