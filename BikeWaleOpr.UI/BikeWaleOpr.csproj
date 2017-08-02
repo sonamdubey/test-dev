@@ -415,6 +415,7 @@
       <DependentUpon>ViewReview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\ComparisonController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\DealerCampaignController.cs" />
     <Compile Include="Controllers\MakesController.cs" />
@@ -1929,6 +1930,7 @@
     <Content Include="src\chains.js" />
     <Content Include="src\common.js" />
     <Content Include="src\common\common.js" />
+    <Content Include="src\Comparison\addcomparisonrules.js" />
     <Content Include="src\content\makes.js" />
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />
@@ -1994,6 +1996,9 @@
     <Content Include="Views\ManufacturerCampaign\_NavigationBreadcrumbs.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignProperties.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignPopup.cshtml" />
+    <Content Include="Views\Comparison\ManageSponsoredCamparison.cshtml" />
+    <Content Include="Views\Comparison\AddorUpdateSponsoredComparison.cshtml" />
+    <Content Include="Views\Comparison\AddSponsoredComparisonRules.cshtml" />
     <Content Include="Views\Banner\Index.cshtml" />
     <Content Include="Views\Banner\BannersList.cshtml" />
     <None Include="web.Debug.config">
@@ -2010,6 +2015,26 @@
     <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
       <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>
       <Name>Bikewale.Cache.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.BAL\Bikewale.Comparison.BAL.csproj">
+      <Project>{5adf0084-bf88-47b9-a414-6e49a6b71383}</Project>
+      <Name>Bikewale.Comparison.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Cache\Bikewale.Comparison.Cache.csproj">
+      <Project>{19eec108-fdf3-40d1-b013-bce93fd90cd2}</Project>
+      <Name>Bikewale.Comparison.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.DAL\Bikewale.Comparison.DAL.csproj">
+      <Project>{3a88ecf7-a561-43ea-9e6f-922d43c43611}</Project>
+      <Name>Bikewale.Comparison.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Entities\Bikewale.Comparison.Entities.csproj">
+      <Project>{1cdaf20b-89e5-4f96-b8f4-7835e0291a80}</Project>
+      <Name>Bikewale.Comparison.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Interface\Bikewale.Comparison.Interface.csproj">
+      <Project>{18c44359-a725-4093-9c32-75898d3dd088}</Project>
+      <Name>Bikewale.Comparison.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
