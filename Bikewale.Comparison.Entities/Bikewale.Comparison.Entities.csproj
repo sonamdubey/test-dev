@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SponsoredVersion.cs" />
     <Compile Include="BikeModel.cs" />
     <Compile Include="BikeModelVersionMapping.cs" />
     <Compile Include="SponsoredComparison.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="SponsoredComparisonStatusEnum.cs" />
     <Compile Include="SponsoredVersionEntityBase.cs" />
     <Compile Include="TargetSponsoredMapping.cs" />
+    <Compile Include="TargetVersion.cs" />
     <Compile Include="VersionTargetMapping.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

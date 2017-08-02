@@ -2012,6 +2012,10 @@
       <Project>{5adf0084-bf88-47b9-a414-6e49a6b71383}</Project>
       <Name>Bikewale.Comparison.BAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Cache\Bikewale.Comparison.Cache.csproj">
+      <Project>{19eec108-fdf3-40d1-b013-bce93fd90cd2}</Project>
+      <Name>Bikewale.Comparison.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Comparison.DAL\Bikewale.Comparison.DAL.csproj">
       <Project>{3a88ecf7-a561-43ea-9e6f-922d43c43611}</Project>
       <Name>Bikewale.Comparison.DAL</Name>

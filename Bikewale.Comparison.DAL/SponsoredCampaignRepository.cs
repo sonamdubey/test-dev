@@ -145,18 +145,16 @@ namespace Bikewale.Comparison.DAL
         /// </summary>
         /// <param name="versionIds">Comma delimited version ids</param>
         /// <returns></returns>
-        public SponsoredVersionEntityBase GetSponsoredBike(string versionIds)
+        public IEnumerable<SponsoredVersionEntityBase> GetActiveSponsoredComparisons()
         {
-            SponsoredVersionEntityBase sponsoredVersion = null;
+            IEnumerable<SponsoredVersionEntityBase> sponsoredVersions = null;
 
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
                     connection.Open();
-                    var param = new DynamicParameters();
-                    param.Add("par_versions", versionIds);
-                    sponsoredVersion = connection.Query<SponsoredVersionEntityBase>("getsponsoredcomparisonbyversions", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    sponsoredVersions = connection.Query<SponsoredVersionEntityBase>("getactivesponsoredcomparisons", commandType: CommandType.StoredProcedure);
 
 
                     if (connection.State == ConnectionState.Open)
@@ -165,10 +163,10 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("SponsoredCampaignRepository.GetSponsoredBike() {0}:", versionIds));
+                ErrorClass objErr = new ErrorClass(ex, "SponsoredCampaignRepository.GetActiveSponsoredComparisons()");
             }
 
-            return sponsoredVersion;
+            return sponsoredVersions;
         }
 
         /// <summary>
@@ -236,9 +234,33 @@ namespace Bikewale.Comparison.DAL
         /// <param name="camparisonId">The camparison identifier.</param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public dynamic GetSponsoredComparisonSponsoredBike(uint camparisonId)
+        public IEnumerable<SponsoredVersion> GetSponsoredComparisonSponsoredBike(uint camparisonId)
         {
-            throw new NotImplementedException();
+            IEnumerable<SponsoredVersion> sponsoredVersion = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_comparisonid", camparisonId);
+
+                    sponsoredVersion = connection.Query<TargetVersion, SponsoredVersion, SponsoredVersion>("getsponsoredcomparisonmapping", (target, sponsored) =>
+                    {
+                        sponsored.Target = target;
+                        return sponsored;
+
+                    }, param: param, commandType: CommandType.StoredProcedure, splitOn: "SponsoredVersionId,SponsoredModelId,SponsoredMakeId");
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparisonSponsoredBike, camparisonId: {0}", camparisonId));
+            }
+            return sponsoredVersion;
         }
 
         /// <summary>
@@ -382,6 +404,5 @@ namespace Bikewale.Comparison.DAL
             }
             return isSaved;
         }
-        
     }
 }
