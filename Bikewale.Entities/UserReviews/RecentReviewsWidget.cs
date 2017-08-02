@@ -20,7 +20,10 @@ namespace Bikewale.Entities.UserReviews
         public DateTime EntryDate { get; set; }
         public bool IsWinner { get; set; }
         public string ModelName { get; set; }
+        public string ModelMaskingName { get; set; }
         public string MakeName { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string ReviewTitle { get; set; }
         public string BikeName { get { return string.Format("{0} {1}", MakeName, ModelName);  } }
     }
 }

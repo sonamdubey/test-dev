@@ -32,21 +32,21 @@
                                     {
                                         <li>
                                             @if (review.IsWinner)
-                                            {   <div class="review-card__winner">
-                                                <span class="vertical-ribbon bg-color--teal trophy-teal-10x12"></span>
-                                                <span class="winner-tag__label">Winner</span>
-                                            </div>
+                                            {
+                                                <div class="review-card__winner">
+                                                    <span class="vertical-ribbon bg-color--teal trophy-teal-10x12"></span>
+                                                    <span class="winner-tag__label">Winner</span>
+                                                </div>
                                             }
-                                          
                                             <span class="review-card__author-circle"></span>
                                             <p class="review-card__author">@review.CustomerName</p>
-                                            <span class="rating-badge" data-rate-bg="5">
-                                                <span class="bwsprite star-white"></span>5
+                                            <span class="rating-badge" data-rate-bg="@review.Rating">
+                                                <span class="bwsprite star-white"></span>@review.Rating
                                             </span>
                                             <p class="review-card__bike">@review.BikeName</p>
-                                            <p class="review-card__desc">"@review.ReviewDescription"</p>
-                                            <p class="review-card__date">@review.EntryDate</p>
-                                            <a href="" title="" class="font14">Read full review</a>
+                                            <p class="review-card__desc">@string.Format("{0}...", review.ReviewDescription)</p>
+                                            <p class="review-card__date">@Bikewale.Utility.FormatDate.GetTimeSpan(review.EntryDate) ago</p>
+                                            <a href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", review.MakeMaskingName, review.ModelMaskingName, review.ReviewId)" title="Read full review" class="font14">Read full review</a>
                                         </li>
                                     }
                                 </ul>
@@ -64,3 +64,102 @@
         <div class="clear"></div>
     </div>
 </section>
+<script  type="text/javascript">
+
+    function UserReviewRedirection(items) {
+
+        var make = new Object();
+        make.maskingName = items.payload.makeMaskingName;
+        make.id = items.payload.makeId;
+        var model = null;
+        if (items.payload.modelId > 0) {
+            model = new Object();
+            model.maskingName = items.payload.modelMaskingName;
+            model.id = items.payload.modelId;
+            model.futuristic = items.payload.futuristic;
+        }
+
+
+
+        if (model != null && model != undefined) {
+            window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/reviews/";
+            return true;
+        }
+
+    }
+
+    var userReviewSearch = function () {
+        var self = this;
+        self.init = function () {
+            try {
+                $("#userReviewList").bw_autocomplete({
+                    width: 469,
+                    source: 5,
+                    recordCount: 10,
+                    onClear: function () {
+                        objBikes = new Object();
+                    },
+                    click: function (event, ui, orgTxt) {
+                        UserReviewRedirection(ui.item);
+                        var keywrd = ui.item.label + '_' + $('#userReviewList').val();
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Review_Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+                        isMakeModelRedirected = true;
+                    },
+                    open: function (result) {
+                        objBikes.result = result;
+                    },
+
+                    focusout: function () {
+
+                        $('#erruserReviewList').hide()
+                        focusedMakeModel = new Object();
+                        focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
+
+
+                    },
+                    afterfetch: function (result, searchtext) {
+                        if (result != undefined && result.length > 0 && searchtext.trim() != "") {
+                            $('#erruserReviewList').hide();
+                            NewBikeSearchResult = true;
+                        }
+                        else {
+                            focusedMakeModel = null; NewBikeSearchResult = false;
+                            if (searchtext.trim() != "") {
+                                $('#erruserReviewList').show();
+                            }
+                        }
+                    },
+                    keyup: function () {
+                        if ($('#userReviewList').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+                            focusedMakeModel = new Object();
+                            focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
+                            $('#erruserReviewList').hide();
+
+                        }
+
+                        if ($('#userReviewList').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                            if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                                if ($('#userReviewList').val().trim() != '') {
+                                    $('#erruserReviewList').show();
+                                }
+                            }
+
+                        }
+
+
+                    }
+                });
+            }
+            catch (e) {
+
+            }
+        }();
+    };
+
+    docReady(function () {
+        
+        $.fn.hint = bwHint;
+        $.fn.bw_autocomplete = bwAutoComplete;
+        var vmUserReviewSearch = new userReviewSearch();
+    });
+</script>

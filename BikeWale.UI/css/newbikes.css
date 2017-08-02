@@ -310,3 +310,94 @@
 	font-size: 11px;
 	margin-bottom: 10px;
 }
+}
+
+/* rating badge */
+.rating-badge {
+    min-width: 40px;
+    height: 20px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.rating-badge[data-rate-bg="5"] {
+    background-color: #198D55;
+}
+.rating-badge[data-rate-bg="4"] {
+    background-color: #13B65D;
+}
+.rating-badge[data-rate-bg="3"] {
+    background-color: #EFD700;
+}
+.rating-badge[data-rate-bg="2"] {
+    background-color: #FD971C;
+}
+.rating-badge[data-rate-bg="1"] {
+    background-color: #EF3F30;
+}
+
+.star-white {
+    width: 12px;
+    height: 12px;
+    background-position: -218px -103px;
+    position: relative;
+    top: 1px;
+    margin-right: 4px;
+}
+
+/* contest-participate-banner */
+.contest-participate-banner {
+	min-height: 100px;
+	padding: 5px 20px;
+	background-color: #2e3192;
+}
+
+.contest-banner__icon {
+	width: 124px;
+	height: 90px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 15px;
+}
+
+.contest-banner__left-grid {
+	width: 63%;
+}
+
+.contest-banner__title {
+	font-size: 20px;
+	font-weight: 700;
+	color: #fff;
+	text-transform: uppercase;
+	margin-bottom: 5px;
+}
+
+.contest-banner__subtitle {
+	font-size: 14px;
+	color: #fff;
+}
+
+.btn-180-40 {
+	width: 180px;
+	font-size: 14px;
+	padding: 9px 5px;
+}
+
+.btn-white-arrow {
+	width: 6px;
+    height: 10px;
+    background-position: -222px -14px;
+    margin-left: 5px;
+    position: relative;
+    top: 1px
+}
