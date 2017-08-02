@@ -49,10 +49,10 @@
         <section>
             @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_First.cshtml", new { AdId = Model.AdTags.AdId });}
         </section>
-    }
+                }
     <section>
         <!--  Discover your bike code starts here -->
-		<h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Discover your bike</h2>
+        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Discover your bike</h2>
         <div class="container section-bottom-margin">
             <div class="grid-12">
                 <div class="bw-tabs-panel content-box-shadow brand-budget-mileage-style-wrapper">
@@ -207,7 +207,7 @@
         </div>
     </section>
     <section>
-		<h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Featured bikes</h2>
+        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Featured bikes</h2>
         <div class="container section-bottom-margin">
             <div class="grid-12">
                 <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
@@ -300,7 +300,7 @@
         <section>
             @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Second.cshtml", new { AdId = Model.AdTags.AdId });}
         </section>
-    }
+                }
 
     <section>
         @Html.Partial("~/Views/BestBikes/_BestBikes.cshtml", Model.BestBikes)
@@ -318,17 +318,17 @@
                         <div class="more-article-target view-all-btn-container padding-bottom20">
                             <a href="/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View more comparisons<span class="bwsprite teal-right"></span></a>
                         </div>
-                     </div>                    
+                    </div>
                 </div>
                 <div class="clear"></div>
             </div>
-           
+
         </section>
     }
 
     <section>
         <!--  Discover your bike code starts here -->
-		<h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Find used bikes</h2>
+        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Find used bikes</h2>
         <div class="container section-bottom-margin">
             <div class="grid-12">
                 <div class="bw-tabs-panel content-box-shadow">
@@ -420,103 +420,76 @@
         </div>
     </section>
 
-	<section>
-		<h2 class="text-bold text-center margin-top30 margin-bottom20 font22">User reviews</h2>
+    <section>
+        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">User reviews</h2>
         <div class="container section-bottom-margin">
             <div class="grid-12">
                 <div class="content-box-shadow padding-bottom20">
-					<div class="user-review__intro">
-						<p class="review-intro__title">3000+ unbiased, verified reviews from bike owners. Know the pros and cons of 200+ bike models from real owners.</p>
-						<div class="user-review__search-form">
-							<div class="user-review__search-field">
-								<input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" autocomplete="off">
-							</div>
-							<button type="button" class="btn btn-orange user-review__form-submit">Read reviews</button>
-						</div>
-					</div>
+                    <div class="user-review__intro">
+                        <p class="review-intro__title">3000+ unbiased, verified reviews from bike owners. Know the pros and cons of 200+ bike models from real owners.</p>
+                        <div class="user-review__search-form">
+                            <div class="user-review__search-field">
+                                <input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" autocomplete="off">
+                            </div>
+                            <button type="button" class="btn btn-orange user-review__form-submit">Read reviews</button>
+                        </div>
+                    </div>
 
-					<h3 class="font15 text-center">Recently added reviews</h3>
-					<div class="jcarousel-wrapper inner-content-carousel user-review__swiper">
-						<div class="jcarousel">
-							<ul>
-								<li>
-									<div class="review-card__winner">
-										<span class="vertical-ribbon bg-color--teal trophy-teal-10x12"></span>
-										<span class="winner-tag__label">Winner</span>
-									</div>
-									<span class="review-card__author-circle"></span>
-									<p class="review-card__author">Santanu Mukherjee</p>
-									<span class="rating-badge" data-rate-bg="5">
-										<span class="bwsprite star-white"></span>5
-									</span>
-									<p class="review-card__bike">KYM Duke 390</p>
-									<p class="review-card__desc">"Style is very good in terms of fering and sporty look. Engine per..."</p>
-									<p class="review-card__date">3 days ago</p>
-									<a href="" title="" class="font14">Read full review</a>
-								</li>
-								<li>
-									<span class="review-card__author-circle"></span>
-									<p class="review-card__author">Santanu Mukherjee</p>
-									<span class="rating-badge" data-rate-bg="4">
-										<span class="bwsprite star-white"></span>4
-									</span>
-									<p class="review-card__bike">KYM Duke 390</p>
-									<p class="review-card__desc">"Style is very good in terms of fering and sporty look. Engine per..."</p>
-									<p class="review-card__date">3 days ago</p>
-									<a href="" title="" class="font14">Read full review</a>
-								</li>
-								<li>
-									<span class="review-card__author-circle"></span>
-									<p class="review-card__author">Santanu Mukherjee</p>
-									<span class="rating-badge" data-rate-bg="3">
-										<span class="bwsprite star-white"></span>3
-									</span>
-									<p class="review-card__bike">KYM Duke 390</p>
-									<p class="review-card__desc">"Style is very good in terms of fering and sporty look. Engine per..."</p>
-									<p class="review-card__date">3 days ago</p>
-									<a href="" title="" class="font14">Read full review</a>
-								</li>
-								<li>
-									<span class="review-card__author-circle"></span>
-									<p class="review-card__author">Santanu Mukherjee</p>
-									<span class="rating-badge" data-rate-bg="2">
-										<span class="bwsprite star-white"></span>2
-									</span>
-									<p class="review-card__bike">KYM Duke 390</p>
-									<p class="review-card__desc">"Style is very good in terms of fering and sporty look. Engine per..."</p>
-									<p class="review-card__date">3 days ago</p>
-									<a href="" title="" class="font14">Read full review</a>
-								</li>
-							</ul>
-						</div>
-						<span class="jcarousel-control-left">
-							<a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
-						</span>
-						<span class="jcarousel-control-right">
-							<a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</section>
+                    @if (Model.RecentReviewsList != null && Model.RecentReviewsList.Count() > 0)
+                    {
+                        <h3 class="font15 text-center">Recently added reviews</h3>
+                        <div class="jcarousel-wrapper inner-content-carousel user-review__swiper">
+                            <div class="jcarousel">
+                                <ul>
+                                    @foreach (var review in Model.RecentReviewsList)
+                                    {
+                                        <li>
+                                            <div class="review-card__winner">
+                                                <span class="vertical-ribbon bg-color--teal trophy-teal-10x12"></span>
+                                                <span class="winner-tag__label">Winner</span>
+                                            </div>
+                                            <span class="review-card__author-circle"></span>
+                                            <p class="review-card__author">Santanu Mukherjee</p>
+                                            <span class="rating-badge" data-rate-bg="5">
+                                                <span class="bwsprite star-white"></span>5
+                                            </span>
+                                            <p class="review-card__bike">KYM Duke 390</p>
+                                            <p class="review-card__desc">"Style is very good in terms of fering and sporty look. Engine per..."</p>
+                                            <p class="review-card__date">3 days ago</p>
+                                            <a href="" title="" class="font14">Read full review</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <span class="jcarousel-control-left">
+                                <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+                            </span>
+                            <span class="jcarousel-control-right">
+                                <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
 
-	<section>
-		<div class="container section-bottom-margin">
-			<div class="grid-12">
-				<div class="contest-participate-banner">
-					<span class="contest-banner__icon"></span>
-					<div class="contest-banner__left-grid inline-block">
-						<p class="contest-banner__title">Bike Review Contest</p>
-						<p class="contest-banner__subtitle">Write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20b9;&nbsp;1,000.</p>
-					</div>
-					<a href="/bike-review-contest/" class="btn btn-orange btn-180-40">Participate &amp; win<span class="bwsprite btn-white-arrow"></span></a>
-				</div>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</section>
+    <section>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <div class="contest-participate-banner">
+                    <span class="contest-banner__icon"></span>
+                    <div class="contest-banner__left-grid inline-block">
+                        <p class="contest-banner__title">Bike Review Contest</p>
+                        <p class="contest-banner__subtitle">Write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20b9;&nbsp;1,000.</p>
+                    </div>
+                    <a href="/bike-review-contest/" class="btn btn-orange btn-180-40">Participate &amp; win<span class="bwsprite btn-white-arrow"></span></a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
 
     <section>
         <!--  News Bikes latest updates code starts here -->

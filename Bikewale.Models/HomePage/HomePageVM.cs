@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.HomePage;
+using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
 namespace Bikewale.Models
 {
@@ -9,6 +10,8 @@ namespace Bikewale.Models
     /// Summary : View Model for Homepage
     /// Modified by : Aditi Srivastava on 25 Apr 2017
     /// Summary  :  Added entity for similar comparison carousel
+    /// Modified by : Sajal Gupta on 02-08-2017
+    /// Description : Added RecentReviewsList
     /// </summary>
     public class HomePageVM : ModelBase
     {
@@ -37,6 +40,7 @@ namespace Bikewale.Models
         public bool IsNewsActive { get; set; }
         public bool IsExpertReviewActive { get; set; }
         public bool IsVideoActive = false;
+        public IEnumerable<RecentReviewsWidget> RecentReviewsList { get; set; } 
     }
 
 }
