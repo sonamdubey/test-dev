@@ -16,7 +16,7 @@ namespace Bikewale.Comparison.DTO
     {
         [JsonProperty("sponsoredModelVersion")]
         public IEnumerable<BikeModelDTO> SponsoredModelVersion { get; set; }
-        [JsonProperty("sponsoredVersionsMapping")]
-        public IEnumerable<BikeModelVersionMappingDTO> SponsoredVersionsMapping { get; set; }
+        [JsonProperty("targetVersionsMapping")]
+        public IEnumerable<BikeModelVersionMappingDTO> TargetVersionsMapping { get; set; }
     }
 }

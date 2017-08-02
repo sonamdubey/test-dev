@@ -14,7 +14,7 @@ namespace Bikewale.Comparison.Entities
     public class TargetSponsoredMapping
     {
         public IEnumerable<BikeModel> SponsoredModelVersion { get; set; }
-        public IEnumerable<BikeModelVersionMapping> SponsoredVersionsMapping { get; set; }
+        public IEnumerable<BikeModelVersionMapping> TargetVersionsMapping { get; set; }
     }
 
 }

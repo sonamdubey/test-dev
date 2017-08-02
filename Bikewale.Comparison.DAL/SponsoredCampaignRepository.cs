@@ -32,7 +32,7 @@ namespace Bikewale.Comparison.DAL
                     connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_camparisonid", camparisonId);
-                    connection.Query<dynamic>("DeleteSponsoredComparisonBikeAllRules", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("DeleteSponsoredComparisonBikeAllRules", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -63,7 +63,7 @@ namespace Bikewale.Comparison.DAL
                     var param = new DynamicParameters();
                     param.Add("par_camparisonid", camparisonId);
                     param.Add("par_sponsoredmodelid", SponsoredModelId);
-                    connection.Query<dynamic>("DeleteSponsoredComparisonBikeSponsoredModelRules", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("DeleteSponsoredComparisonBikeSponsoredModelRules", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -94,7 +94,7 @@ namespace Bikewale.Comparison.DAL
                     var param = new DynamicParameters();
                     param.Add("par_camparisonid", camparisonId);
                     param.Add("par_sponsoredversionid", sponsoredVersionId);
-                    connection.Query<dynamic>("DeleteSponsoredComparisonBikeSponsoredVersionRules", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("DeleteSponsoredComparisonBikeSponsoredVersionRules", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -125,7 +125,7 @@ namespace Bikewale.Comparison.DAL
                     var param = new DynamicParameters();
                     param.Add("par_camparisonid", camparisonId);
                     param.Add("par_sponsoredversionid", targetversionId);
-                    connection.Query<dynamic>("deletesponsoredComparisonbiketargetVersionRules", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("deletesponsoredComparisonbiketargetVersionRules", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -287,7 +287,7 @@ namespace Bikewale.Comparison.DAL
                     using (var results = connection.QueryMultiple("getsponsoredcomparisonversionmapping", param: param, commandType: CommandType.StoredProcedure))
                     {
                         objResult.SponsoredModelVersion = results.Read<BikeModel>();
-                        objResult.SponsoredVersionsMapping = results.Read<BikeModelVersionMapping>();
+                        objResult.TargetVersionsMapping = results.Read<BikeModelVersionMapping>();
                     }
 
                     if (connection.State == ConnectionState.Open)
@@ -325,7 +325,7 @@ namespace Bikewale.Comparison.DAL
                     param.Add("par_imgimpressionurl", campaign.ImgImpressionUrl);
                     param.Add("par_updatedby", campaign.UpdatedBy);
                     param.Add("par_id", campaign.Id, dbType: DbType.Int32, direction: ParameterDirection.Output);
-                    connection.Query<dynamic>("savesponsoredcomparisons", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("savesponsoredcomparisons", param: param, commandType: CommandType.StoredProcedure);
 
                     comparisonId = param.Get<uint>("par_id");
 
@@ -359,7 +359,7 @@ namespace Bikewale.Comparison.DAL
                     param.Add("par_isversionmapping", rules.IsVersionMapping);
                     param.Add("par_targetsponsoredids", rules.TargetSponsoredIds);
                     param.Add("par_impressionurls", rules.ImpressionUrl);
-                    connection.Query<dynamic>("savesponsoredcomparisonsbikerules", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("savesponsoredcomparisonsbikerules", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -391,7 +391,7 @@ namespace Bikewale.Comparison.DAL
                     param.Add("par_comparisonid", camparisonId);
                     param.Add("par_status", status);
 
-                    connection.Query<dynamic>("changesponsoredcomparisonstatus", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("changesponsoredcomparisonstatus", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
