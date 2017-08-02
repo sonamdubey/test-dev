@@ -190,6 +190,7 @@
         <div class="clear"></div>
     </div>
 </section>
+
 <section>
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_First.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
@@ -257,13 +258,8 @@
         <div class="clear"></div>
     </div>
 </section>
+@Html.Partial("~/Views/UserReview/_SearchUserReviewMakeModel_Mobile.cshtml", Model.RecentUserReviewsList);
 
-@if (Model.BestBikes != null)
-{
-    <section>
-        @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
-    </section>
-}
 
 @if (Model.IsComparePopularBikesAvailable)
 {
@@ -277,7 +273,12 @@
         </div>
     </section>
 }
-
+@if (Model.BestBikes != null)
+{
+    <section>
+        @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
+    </section>
+}
 
 <section>
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}

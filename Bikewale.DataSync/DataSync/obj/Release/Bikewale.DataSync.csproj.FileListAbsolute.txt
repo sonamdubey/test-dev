@@ -1,0 +1,13 @@
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\DataSync.exe.config
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\DataSync.exe
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\DataSync.pdb
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\Consumer.dll
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\Dapper.dll
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\Gelf4Net.dll
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\Gelf4Net.UdpAppender.dll
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\log4net.dll
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\MySql.Data.dll
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\RabbitMQ.Client.dll
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\RabbitMqPublishing.dll
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\obj\Release\DataSync.exe
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\obj\Release\DataSync.pdb

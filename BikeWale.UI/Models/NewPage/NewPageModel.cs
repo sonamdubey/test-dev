@@ -14,6 +14,7 @@ using Bikewale.Models.CompareBikes;
 using Bikewale.Utility;
 using System;
 using System.Linq;
+using Bikewale.Interfaces.UserReviews;
 
 namespace Bikewale.Models
 {
@@ -35,7 +36,7 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly ICMSCacheContent _expertReviews = null;
-
+        private readonly IUserReviewsCache _userReviewsCache = null;
         #endregion
 
         #region Page level variables
@@ -48,7 +49,7 @@ namespace Bikewale.Models
 
         #endregion
 
-        public NewPageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
+        public NewPageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUserReviewsCache userReviewsCache)
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -61,6 +62,7 @@ namespace Bikewale.Models
             _videos = videos;
             _articles = articles;
             _expertReviews = expertReviews;
+            _userReviewsCache = userReviewsCache;
         }
 
 
@@ -119,6 +121,8 @@ namespace Bikewale.Models
             objVM.ExpertReviews = new RecentExpertReviews(3, _expertReviews).GetData();
 
             SetFlags(objVM);
+
+            objVM.RecentUserReviewsList = _userReviewsCache.GetRecentReviews();
 
             return objVM;
         }
