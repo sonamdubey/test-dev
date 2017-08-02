@@ -64,12 +64,12 @@
                     <div class="card-content">
                         <h5><span class="card-title">Models with missing color image</span></h5>
                         <p>
-                            <b>Find Models with their color variations image are yet to be uploaded</b>
+                            <b>Please upload pending model color image by clicking on the link below.</b>
                         </p>
-                        <p><a class="modal-trigger" href="#modal-missingColor">Select model by color</a></p>
+                        <p><a class="modal-trigger" href="#modal-missingColor">See all models</a></p>
                     </div>
                     <div class="card-action">
-                        <a target="_blank" href="/content/ModelColorWiseImage.aspx">Models images by color</a>
+                        <a target="_blank" href="/content/modelcolorwiseimage.aspx">Models images by color</a>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                                                 foreach (var bikeModel in makeGroup.BikeModelEntity)
                                                 {
                                                     <li class="collection-item">
-                                                        <a target="_blank" href="/content/ModelColorWiseImage.aspx/?makeid=@makeGroup.BikeMakeEntity.MakeId&modelid=@bikeModel.ModelId">
+                                                        <a target="_blank" href="/content/modelcolorwiseimage.aspx/?makeid=@makeGroup.BikeMakeEntity.MakeId&modelid=@bikeModel.ModelId">
                                                             @bikeModel.ModelName
                                                         </a>
                                                     </li>

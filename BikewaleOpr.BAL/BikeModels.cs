@@ -60,21 +60,23 @@ namespace BikewaleOpr.BAL
         }
 
         /// <summary>
-        /// Created by: vivek singh tomar on 27/07/2017
-        /// 
-        /// Description: BAL layer to call DAL function GetModelsWithMissingImage and group them with MakeId
+        /// Created by: vivek singh tomar on 27/07/2017        
+        /// Description: Function to get bike models whose color images are not uploaded
         /// </summary>
         /// <returns></returns>
         public IEnumerable<BikeModelsByMake> GetModelsWithMissingColorImage()
         {
             IEnumerable<BikeModelsByMake> objBikeModelsByMakeList = null;
-            IEnumerable<BikeMakeModelData> objBikeMakeModelDataList = null;
+            IEnumerable<BikeMakeModelData> objBikeDataList = null;
+
             try
             {
-                objBikeMakeModelDataList = _IBikeModel.GetModelsWithMissingColorImage();
-                if(objBikeMakeModelDataList != null)
+                objBikeDataList = _IBikeModel.GetModelsWithMissingColorImage();
+
+                if(objBikeDataList != null)
                 {
-                    objBikeModelsByMakeList = objBikeMakeModelDataList
+                    // grouping models according to their respective makes
+                    objBikeModelsByMakeList = objBikeDataList
                         .GroupBy(m => m.BikeMake.MakeId)
                         .Select( grp => new BikeModelsByMake
                         {

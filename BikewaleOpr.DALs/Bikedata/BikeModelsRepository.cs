@@ -373,34 +373,37 @@ namespace BikewaleOpr.DALs.Bikedata
             return models;
         }
 
+        #region GetModelsWithMissingColorImage function
         /// <summary>
-        /// To fetch the list of models having missing image of any of their specified colors.
-        /// 
-        /// created by: vivek singh tomar on 27/07/2017
+        /// Created By : vivek singh tomar on 27/07/2017
+        /// Summary : Function to fetch the list of models whose color images are not uploaded
         /// </summary>
         /// <returns></returns>
         public IEnumerable<BikeMakeModelData> GetModelsWithMissingColorImage()
         {
-            IEnumerable<BikeMakeModelData> objBikeMakeModelDataList = null;
+            IEnumerable<BikeMakeModelData> objBikeDataList = null;
+
             try
             {
-                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     connection.Open();
-                    objBikeMakeModelDataList = connection.Query<BikeModelEntityBase, BikeMakeEntityBase, BikeMakeModelData>
+
+                    objBikeDataList = connection.Query<BikeModelEntityBase, BikeMakeEntityBase, BikeMakeModelData>
                         (
                             "getmodelswithmissingcolorimage",
                             (bikeModelEntityBase, bikeMakeEntityBase) =>
                             {
-                                BikeMakeModelData bikeMakeModelData = new BikeMakeModelData()
+                                BikeMakeModelData bikeData = new BikeMakeModelData()
                                 {
                                     BikeMake = bikeMakeEntityBase,
                                     BikeModel = bikeModelEntityBase
                                 };
-                                return bikeMakeModelData;
+                                return bikeData;
                             }, splitOn: "MakeId", param: null, commandType: CommandType.StoredProcedure
                         );
-                    if (connection.State == ConnectionState.Open)
+
+                    if (connection != null && connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
@@ -410,8 +413,10 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.BikeModelsRepository.GetModelsWithMissingColorImage"));
             }
-            return objBikeMakeModelDataList;
-        }
+
+            return objBikeDataList;
+        } 
+        #endregion
 
     }
 }

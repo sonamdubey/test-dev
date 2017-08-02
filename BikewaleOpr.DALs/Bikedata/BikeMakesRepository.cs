@@ -319,7 +319,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     connection.Open();
                     objBikeModelEntityBaseList = connection.Query<BikeModelEntityBase>
                         ("getmodelsbymake", param: param, commandType: CommandType.StoredProcedure);
-                    if(connection.State == ConnectionState.Open)
+                    if(connection != null && connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
