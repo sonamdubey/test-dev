@@ -34,8 +34,7 @@
                                         <li><a href="/content/bikeversions.aspx">Versions</a></li>
                                         <li><a href="/content/NewBikeModelColors_New.aspx">Model Colors</a></li>
                                         <li><a href="/content/ModelColorWiseImage.aspx">Model Images By Color</a></li>
-                                        <li><a href="/content/expectedlanuches.aspx">Upcoming Bikes</a></li>
-                                        <li><a href="/content/bikecomparisonlist.aspx">Featured Comparisons</a></li>
+                                        <li><a href="/content/expectedlanuches.aspx">Upcoming Bikes</a></li>                                       
                                         <li><a href="/content/bikeunitssold.aspx">Bulk Units Sold</a></li>
                                         <li><a href="/Models/UsedModelImageUpload">Used Model Image Upload</a></li>
                                         <li class="collapsible-body-title teal lighten-4">Manage Prices</li>
@@ -45,8 +44,7 @@
                                         <li class="collapsible-body-title teal lighten-4">Bikewale Dealers</li>
                                         <li><a href="/content/adddealers.aspx">Add delears</a></li>
                                         <li><a href="/content/editdealers.aspx">Edit delears</a></li>
-                                        <li class="collapsible-body-title teal lighten-4">User Reviews</li>
-                                        <li><a href="/content/manageuserreviews.aspx">Manage Reviews (Old)</a></li>
+                                        <li class="collapsible-body-title teal lighten-4">User Reviews</li>                                        
                                         <li><a href="/userreviews/">Manage Reviews</a></li>
                                         <li><a href="/userreviews/manageratings/">Manage Ratings</a></li>
                                         <li class="collapsible-body-title teal lighten-4">Mobile Applications</li>
@@ -71,6 +69,16 @@
                                         <li><a href="/campaign/SearchDealerCampaigns.aspx">Dealer Campaigns</a></li>
                                         <li><a href="/manufacturercampaign/search/index/">Manufacturer Campaigns</a></li>
                                         <li><a href="/campaign/ManageDealerPriceCategories.aspx">Dealer Price Categories</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header">Enterprise Sales</div>
+                                <div class="collapsible-body teal-text">
+                                    <ul>                                        
+                                        <li><a href="/manufacturercampaign/search/index/">Manufacturer Campaigns</a></li>
+                                        <li><a href="/banner/bannerslist/">Home Page Banner Configuration</a></li>
+                                        <li><a href="/content/bikecomparisonlist.aspx">Featured Comparisons</a></li>
                                     </ul>
                                 </div>
                             </li>
