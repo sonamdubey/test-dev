@@ -1,9 +1,11 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.DAL.CoreDAL;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections;
@@ -1710,6 +1712,32 @@ namespace Bikewale.DAL.UserReviews
             }
 
             return objSummaryList;
+        }
+
+        public IEnumerable<RecentReviewsWidget> GetRecentReviews()
+        {
+            IEnumerable<RecentReviewsWidget> objReviewsList = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    objReviewsList = connection.Query<RecentReviewsWidget>("getrecentuserreview", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetRatingsList");
+            }
+
+            return objReviewsList;
         }
 
     }// class end

@@ -221,7 +221,8 @@ namespace BikewaleOpr.Common
                         nvc.Add("v_colorName", colorName);
                         nvc.Add("v_userId", userId.ToString());
                         nvc.Add("v_hexCodes", hexCodes);
-                        SyncBWData.PushToQueue("BW_SaveBikeModelColor", DataBaseName.CWMD, nvc);
+                        SyncBWData.PushToQueue("BW_SaveBikeModelColor", DataBaseName.CW, nvc);
+
                     }
 
 
@@ -272,7 +273,7 @@ namespace BikewaleOpr.Common
                         nvc.Add("v_versionId", versionId.ToString());
                         nvc.Add("v_userId", userId.ToString());
                         nvc.Add("v_isActive", versionColor.IsActive ? "1" : "0");
-                        SyncBWData.PushToQueue("BW_SaveBikeVersionColor", DataBaseName.CWMD, nvc);
+                        SyncBWData.PushToQueue("BW_SaveBikeVersionColor", DataBaseName.CW, nvc);
                     }
 
                 }
@@ -323,7 +324,7 @@ namespace BikewaleOpr.Common
                         nvc.Add("v_hexCode", hexCode);
                         nvc.Add("v_userId", userId.ToString());
                         nvc.Add("v_isActive", isActive ? "1" : "0");
-                        SyncBWData.PushToQueue("BW_UpdateBikeModelColor", DataBaseName.CWMD, nvc);
+                        SyncBWData.PushToQueue("BW_UpdateBikeModelColor", DataBaseName.CW, nvc);
                     }
 
 
@@ -376,7 +377,7 @@ namespace BikewaleOpr.Common
                         nvc.Add("v_hexCode", hexCode);
                         nvc.Add("v_userId", userId.ToString());
                         nvc.Add("v_isActive", isActive ? "1" : "0");
-                        SyncBWData.PushToQueue("BW_AddBikeModelColorHexCode", DataBaseName.CWMD, nvc);
+                        SyncBWData.PushToQueue("BW_AddBikeModelColorHexCode", DataBaseName.CW, nvc);
                     }
 
 
@@ -424,7 +425,7 @@ namespace BikewaleOpr.Common
                         NameValueCollection nvc = new NameValueCollection();
                         nvc.Add("v_modelColorId", modelColorId.ToString());
                         nvc.Add("v_userId", userId.ToString());
-                        SyncBWData.PushToQueue("BW_DeleteBikeModelColor", DataBaseName.CWMD, nvc);
+                        SyncBWData.PushToQueue("BW_DeleteBikeModelColor", DataBaseName.CW, nvc);
                     }
 
 
