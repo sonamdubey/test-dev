@@ -1303,15 +1303,15 @@ var EasyAutocomplete = (function(scope) {
 											elementsValue = listBuilders[builderIndex].getValue(listData[j]);
 
 										$item.find(" > div")
-											.on("click", function() {
+											.on("click", function(event) {
 
 												$field.val(elementsValue).trigger("change");
 
 												selectedElement = itemCounter;
 												selectElement(itemCounter);
 
-												config.get("list").onClickEvent();
-												config.get("list").onChooseEvent();
+												config.get("list").onClickEvent(event);
+												config.get("list").onChooseEvent(event);
 											})
 											.mouseover(function() {
 
@@ -1541,10 +1541,9 @@ var EasyAutocomplete = (function(scope) {
 							$.ajax(settings) 
 								.done(function(data) {
 								    var sourceType = config.get("sourceType");
-								    if (sourceType == 3) {
+								    if (sourceType == 3 || sourceType == 1) {
 								        data = data.suggestionList;
 								    }
-
 									var listBuilders = listBuilderService.init(data);
 
 									listBuilders = listBuilderService.updateCategories(listBuilders, data);

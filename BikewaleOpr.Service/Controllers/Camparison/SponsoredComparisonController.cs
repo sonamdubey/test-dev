@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using Bikewale.Comparison.DTO;
 using Bikewale.Comparison.Entities;
-using Bikewale.Notifications;
 using Bikewale.Comparison.Interface;
+using Bikewale.Notifications;
 using BikewaleOpr.Service.AutoMappers;
-using Bikewale.Comparison.DTO;
+using System;
+using System.Collections.Generic;
+using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers.Camparison
 {
@@ -36,18 +33,21 @@ namespace BikewaleOpr.Service.Controllers.Camparison
         [HttpGet, Route("api/compare/sponsored/{statuses}/")]
         public IHttpActionResult GetSponsoredComparisons(string statuses)
         {
-           IEnumerable<SponsoredComparison> objSponsoredComparison = null;
+            IEnumerable<SponsoredComparison> objSponsoredComparison = null;
             IEnumerable<SponsoredCamparisonDTO> objSponsoredComparisonDTO = null;
             try
             {
                 objSponsoredComparison = _objSponsoredRepo.GetSponsoredComparisons(statuses);
-                if(objSponsoredComparison!= null)
+                if (objSponsoredComparison != null)
                 {
                     // Auto map the properties
                     objSponsoredComparisonDTO = SponsoredComparisonMapper.Convert(objSponsoredComparison);
-
+                    return Ok(objSponsoredComparisonDTO);
                 }
-                return Ok(objSponsoredComparisonDTO);
+                else
+                {
+                    return InternalServerError();
+                }
             }
             catch (Exception ex)
             {
@@ -60,11 +60,21 @@ namespace BikewaleOpr.Service.Controllers.Camparison
         [HttpGet, Route("api/compare/sponsored/{id}/target/{targetModelId}/sponsor/{sponsoredModelId}/")]
         public IHttpActionResult GetSponsoredVersionMapping(uint id, uint targetModelId, uint sponsoredModelId)
         {
-            TargetSponsoredMapping objSponsoredComparison = null;
+            TargetSponsoredMapping objVersionMapping = null;
+            TargetSponsoredMappingDTO objVersionMappingDTO = null;
             try
             {
-                objSponsoredComparison = _objSponsoredRepo.GetSponsoredComparisonVersionMapping(id,targetModelId, sponsoredModelId);
-                return Ok(objSponsoredComparison);
+                objVersionMapping = _objSponsoredRepo.GetSponsoredComparisonVersionMapping(id, targetModelId, sponsoredModelId);
+                if(objVersionMapping!= null)
+                {
+                    objVersionMappingDTO = SponsoredComparisonMapper.Convert(objVersionMapping);
+                    return Ok(objVersionMapping);
+                }
+                else
+                {
+                    return InternalServerError();
+                }
+                
             }
             catch (Exception ex)
             {
@@ -85,7 +95,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             uint comparisonId = 0;
             try
             {
-                comparisonId =  _objSponsoredRepo.SaveSponsoredComparison(comparison);
+                comparisonId = _objSponsoredRepo.SaveSponsoredComparison(comparison);
             }
             catch (Exception ex)
             {
@@ -108,7 +118,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             bool isSaved = false;
             try
             {
-                isSaved = _objSponsoredRepo.ChangeSponsoredComparisonStatus(comparisonId,statusId);
+                isSaved = _objSponsoredRepo.ChangeSponsoredComparisonStatus(comparisonId, statusId);
             }
             catch (Exception ex)
             {

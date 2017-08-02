@@ -1,6 +1,135 @@
-﻿@{
-    ViewBag.Title = "AddSponsoredComparisonRules";
+﻿@model BikewaleOpr.Models.Comparison.ManageSponsoredComparisonRulesVM
+@{
+    ViewBag.Title = "Add Sponsored Comparisons Rules";
+    ViewBag.PageTitle = "Add Sponsored Comparisons Rules";
+
+    if(Model.ComparisonVersionMapping!=null)
+    {
+        var objMappings = Model.ComparisonVersionMapping.GroupBy(x => x.SponsoredModelId);
+        objMappings = objMappings;
+    }
 }
 
-<h2>AddSponsoredComparisonRules</h2>
+
+<div id="addSponsoredComparisonRules" data-comparisonid="@Model.ComparisonId">
+    <div class="row">
+        <div class="col m10">
+            @if (Model.ComparisonVersionMapping != null && Model.ComparisonVersionMapping.Count() > 0)
+            {
+                <ul class="collapsible" data-collapsible="accordion">
+                    @foreach (var vmap in Model.ComparisonVersionMapping)
+                {
+
+                        <li>
+                            <div class="collapsible-header">
+                                <blockquote>
+                                    <div class="chip">
+                                        @vmap.SponsoredMakeName @vmap.SponsoredModelName -> @vmap.Target.TargetMakeName @vmap.Target.TargetModelName
+                                        <i class="close material-icons red-text no-margin" data-element="model" data-sponsored-modelid="@vmap.SponsoredModelId" data-target-modelid="@vmap.Target.TargetModelId">close</i>
+                                    </div>
+                                </blockquote>
+                            </div>
+                            @*<div class="collapsible-body">
+                            <div class="margin-left30 margin-bottom10">
+                                @foreach (var s in vmap.State)
+                                {
+                                    <div class="state">
+                                        @if (s.StateId > 0)
+                                        {
+                                            <blockquote>
+                                                <div class="chip">
+                                                    @s.StateName
+                                                    <i class="close material-icons red-text" data-element="state" data-modelId="@vmap.Model.ModelId" data-stateid="@s.StateId" data-name="@s.StateName">close</i>
+                                                </div>
+                                            </blockquote>
+                                        }
+                                        <div class="inline-block margin-top10">
+                                            @foreach (var c in s.Cities)
+                                            {
+                                                <div class="chip">
+                                                    @c.CityName
+                                                    <input type="hidden" id="CityId" value="@c.CityId" />
+                                                    <i class="close material-icons red-text" data-element="city" data-modelId="@vmap.Model.ModelId" data-cityId="@c.CityId" data-allindia="@(c.CityId == 0 ? true : false)" data-name="@c.CityName">close</i>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>*@
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+        <div class="col m2">
+            @using (Html.BeginForm("SaveSponsoredComparisonRules", "Comparison", FormMethod.Post))
+            {
+                <ul class="collapsible active" data-collapsible="accordion">
+                    <li class="active">
+                        <div class="collapsible-header  active"><strong>Set Comparison Rules</strong></div>
+                        <div class="collapsible-body">
+                            <div class="container">
+                                <ul>
+                                    <li class="input-field">
+                                        <input type="text" autocomplete="off" id="txtSponsoredModel" class="validate" data-bind="css : {invalid : sponsoredModel() && sponsoredModel().payload.modelId =='0'},attr : {'data-value' : sponsoredModel() ? sponsoredModel().payload.modelId : null}" />
+                                        <label for="txtSponsoredModel" data-error="Please select sponsored model">Sponsored Model</label>
+                                    </li>
+                                    <li class="input-field">
+                                        <input type="text" autocomplete="off" id="txtTargetModel" class="validate" data-bind="css : {invalid : targetModel() && targetModel().payload.modelId =='0'},attr : {'data-value' : targetModel() ? targetModel().payload.modelId : null}" />
+                                        <label for="txtTargetModel" data-error="Please select target model">Target Model</label>
+                                    </li>
+                                    <li class="input-field modal-trigger" >
+                                        <input data-bind="click : showVersionMapping" type="checkbox" id="chkVersionMapping" name="IsVersionMapping" value="false" class="validate" />
+                                        <label for="chkVersionMapping">Map specific versions</label>
+                                    </li>
+                                    <li  class="input-field margin-bottom20">
+                                        <button type="submit" data-bind="click: addSponsoredCamparisonRules" id="btnAddCamparisonRules" class="margin-top20 btn waves-effect waves-light" name="comparisonType" value="">
+                                            Add Comparison
+                                        </button>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            }
+
+        </div>
+    </div>
+
+    <div id="modalVersionMapping" class="modal modal-fixed-footer">
+        <!-- ko if : sponsoredModel() && targetModel() && sponsoredModel().payload.modelId > 0 && targetModel().payload.modelId -->
+        <div class="modal-content">
+            <h4>Mapping <span data-bind="text : sponsoredModel().text"></span>(S) to <span data-bind="text : targetModel().text"></span>(T)</h4>
+            <table>
+                <tr>
+                    <th>Target Versions</th>
+                    <th>Version Price</th>
+                    <th>Sponsored Versions</th>
+                    <th>Impression Tracker</th>
+                </tr>
+                <tbody data-bind="foreach : targetModelVersions">
+                    <tr data-bind="attr : {'data-versionid' : VersionId}">
+                        <td data-bind="text : BikeName"></td>
+                        <td data-bind="text : Price"></td>
+                        <td class="input-field"><select class="chosen-select" data-bind="options : $parent.sponsoredModelVersions,optionsValue:'VersionId',optionText:'BikeName'"></select></td>
+                        <td><input type="text" data-bind="value : ImpressionUrl" value="" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+        <!-- /ko -->
+    </div>
+
+</div>
+
+<script src="/src/comparison/addcomparisonrules.js"></script>
+
+
 

@@ -80,13 +80,32 @@ namespace BikewaleOpr.Controllers
         [Route("comparison/sponsored/add/rules/{comparisonId}/")]
         public ActionResult AddSponsoredComparisonRules(uint comparisonId)
         {
+            ManageSponsoredComparisonRulesVM objData = new ManageSponsoredComparisonRulesVM();
             if (comparisonId > 0)
             {
+                objData.ComparisonId = comparisonId;
+                objData.ComparisonVersionMapping = _objSponsoredComparison.GetSponsoredComparisonSponsoredBike(comparisonId);
+            }
+            return View(objData);
+        }
 
+        /// <summary>
+        /// Created by :- Sushil Kumar on 27th July 2017
+        /// summary :- Add or update sponsord comparisons
+        /// </summary>
+        /// <returns></returns>
+        [Route("comparison/sponsored/save/rules/{comparisonId}/")]
+        public ActionResult SaveSponsoredComparisonRules(uint comparisonId)
+        {
+            ManageSponsoredComparisonRulesVM objData = new ManageSponsoredComparisonRulesVM();
+            if (comparisonId > 0)
+            {
+                objData.ComparisonId = comparisonId;
+                
             }
             return View();
         }
 
-        
+
     }
 }

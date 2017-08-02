@@ -1,23 +1,25 @@
+using Bikewale.Comparison.BAL;
+using Bikewale.Comparison.Cache;
+using Bikewale.Comparison.DAL;
+using Bikewale.Comparison.Interface;
+using Bikewale.ManufacturerCampaign.DAL;
 using BikewaleOpr.BAL;
+using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.Used;
+using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.DALs.ContractCampaign;
+using BikewaleOpr.DALs.Location;
+using BikewaleOpr.DALs.UserReviews;
 using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.Interface.Location;
 using BikewaleOpr.Interface.Used;
+using BikewaleOpr.Interface.UserReviews;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
-using BikewaleOpr.Interface.UserReviews;
-using BikewaleOpr.DALs.UserReviews;
-using BikewaleOpr.Interface.ContractCampaign;
-using BikewaleOpr.DALs.ContractCampaign;
-using BikewaleOpr.CommuteDistance;
-using BikewaleOpr.Interface.Location;
-using BikewaleOpr.DALs.Location;
-using BikewaleOpr.BAL.ContractCampaign;
-using Bikewale.ManufacturerCampaign.DAL;
-using Bikewale.Comparison.Interface;
-using Bikewale.Comparison.DAL;
 
 namespace BikewaleOpr
 {
@@ -28,7 +30,7 @@ namespace BikewaleOpr
     /// </summary>
     public static class UnityConfig
     {
-        public static void RegisterComponents() 
+        public static void RegisterComponents()
         {
             var container = new UnityContainer();
 
@@ -42,13 +44,13 @@ namespace BikewaleOpr
                 .RegisterType<IUsedBikes, UsedBikes>()
                 .RegisterType<IHomePage, HomePage>()
                 .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
-                .RegisterType<IBikeMakes, BikeMakesRepository>()
-                .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IDealerCampaignRepository, DealerCampaignRepository>()
                 .RegisterType<ICommuteDistance, CommuteDistanceBL>()
                 .RegisterType<ILocation, LocationRepository>()
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
-                 .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
+                .RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>()
+                .RegisterType<ISponsoredComparison, SponsoredComparison>()
+                .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
                 .RegisterType<IContractCampaign, ContractCampaign>();
 
 

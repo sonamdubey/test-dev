@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.Comparison.Cache</RootNamespace>
     <AssemblyName>Bikewale.Comparison.Cache</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,6 +56,10 @@
     <ProjectReference Include="..\Bikewale.Comparison.Interface\Bikewale.Comparison.Interface.csproj">
       <Project>{18c44359-a725-4093-9c32-75898d3dd088}</Project>
       <Name>Bikewale.Comparison.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
+      <Project>{DB695E13-ED0E-4349-A32E-A6D03D06C597}</Project>
+      <Name>Bikewale.Notifications</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

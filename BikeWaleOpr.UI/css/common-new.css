@@ -226,6 +226,7 @@ input[type=text].invalid + label.active:after {
     width: 100%;
     z-index: 2;
     text-align: left;
+    top:75%;
 }
 
 .easy-autocomplete-container ul {
@@ -237,6 +238,7 @@ input[type=text].invalid + label.active:after {
     padding-left: 0;
     position: relative;
     top: -1px;
+    border-bottom: 1px solid #ccc;
 }
 
 .easy-autocomplete-container ul li,
