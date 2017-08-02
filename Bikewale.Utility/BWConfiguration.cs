@@ -97,7 +97,8 @@ namespace Bikewale.Utility
             _LeadConsumerQueue = String.Empty,
             _PinCodesIndexName = string.Empty,
             _DebugMobileSite = string.Empty,
-            _CoverFoxLink = string.Empty;
+            _CoverFoxLink = string.Empty,
+            _UserReviewIndexName=string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -204,6 +205,7 @@ namespace Bikewale.Utility
             _ServiceWorkerPath = ConfigurationManager.AppSettings["ServiceWorkerPath"];
             _DisablePWA = string.IsNullOrEmpty(ConfigurationManager.AppSettings["DisablePWA"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["DisablePWA"]);
             _StaticCSSBTFPWAVersion = ConfigurationManager.AppSettings["StaticCSSBTFPWAVersion"];
+            _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
         }
 
         // Static method to provide access to instance
@@ -349,5 +351,7 @@ namespace Bikewale.Utility
         public string ServiceWorkerPath { get { return _ServiceWorkerPath; } }
         public string StaticCSSBTFPWAVersion { get { return _StaticCSSBTFPWAVersion; } }
         public bool DisablePWA { get { return _DisablePWA; } }
+
+        public string UserReviewIndexName { get { return _UserReviewIndexName; } }
     }   // class
 }   // namespace
