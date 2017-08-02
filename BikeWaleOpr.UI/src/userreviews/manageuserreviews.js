@@ -36,6 +36,7 @@ var UserReviews = function () {
     self.searchEmaildIdMsg = ko.observable('');
     self.searchReviewIdMsg = ko.observable('');
     self.isWinner = ko.observable(false);
+    self.isShortListed = ko.observable(false);
 
     self.descLength = ko.computed(function () {
         if (self.reviewDescription())
@@ -148,6 +149,7 @@ var UserReviews = function () {
                         self.reviewDescription(response.description);
                         self.reviewTips(response.tips);
                         self.shortListCheckBox(response.isShortListed);
+                        self.isShortListed(response.isShortListed);
                         self.isWinner(response.isWinner);
                     }
                 },
