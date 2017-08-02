@@ -40,7 +40,7 @@ namespace BikewaleOpr.BAL
                 // If customer id matches the user id from the config file then send the notification to the user
 
                 string[] allowedUsers = Bikewale.Utility.BWOprConfiguration.Instance.NotificationOtherUserId.Split(',');
-                //if (allowedUsers != null && allowedUsers.Length > 0 && allowedUsers.Contains(id))
+                if (allowedUsers != null && allowedUsers.Length > 0 && allowedUsers.Contains(id))
                 {
                     objHomePageData = new HomePageData();
 
