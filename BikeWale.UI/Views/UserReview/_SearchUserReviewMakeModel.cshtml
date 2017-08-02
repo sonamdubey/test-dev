@@ -8,33 +8,44 @@
                     <p class="review-intro__title">3000+ unbiased, verified reviews from bike owners. Know the pros and cons of 200+ bike models from real owners.</p>
                     <div class="user-review__search-form">
                         <div class="user-review__search-field">
-                            <input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" autocomplete="off">
+                            <input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off">
                         </div>
                         <button type="button" class="btn btn-orange user-review__form-submit">Read reviews</button>
                     </div>
+                    <div class="clear"></div>
+                    <ul id="erruserReviewList" class="ui-autocomplete ui-front ui-menu hide">
+                        <li class="ui-menu-item" tabindex="-1">
+                            <span class="text-bold">Oops! No suggestions found</span><br />
+                            <span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
+                        </li>
+                    </ul>
+                    <ul id="new-global-recent-searches" class="recent-searches-dropdown"></ul>
                 </div>
 
-                @if (Model.RecentReviewsList != null && Model.RecentReviewsList.Count() > 0)
+                @if (Model != null && Model.Count() > 0)
                 {
                     <h3 class="font15 text-center">Recently added reviews</h3>
                         <div class="jcarousel-wrapper inner-content-carousel user-review__swiper">
                             <div class="jcarousel">
                                 <ul>
-                                    @foreach (var review in Model.RecentReviewsList)
+                                    @foreach (var review in Model)
                                     {
                                         <li>
-                                            <div class="review-card__winner">
+                                            @if (review.IsWinner)
+                                            {   <div class="review-card__winner">
                                                 <span class="vertical-ribbon bg-color--teal trophy-teal-10x12"></span>
                                                 <span class="winner-tag__label">Winner</span>
                                             </div>
+                                            }
+                                          
                                             <span class="review-card__author-circle"></span>
-                                            <p class="review-card__author">Santanu Mukherjee</p>
+                                            <p class="review-card__author">@review.CustomerName</p>
                                             <span class="rating-badge" data-rate-bg="5">
                                                 <span class="bwsprite star-white"></span>5
                                             </span>
-                                            <p class="review-card__bike">KYM Duke 390</p>
-                                            <p class="review-card__desc">"Style is very good in terms of fering and sporty look. Engine per..."</p>
-                                            <p class="review-card__date">3 days ago</p>
+                                            <p class="review-card__bike">@review.BikeName</p>
+                                            <p class="review-card__desc">"@review.ReviewDescription"</p>
+                                            <p class="review-card__date">@review.EntryDate</p>
                                             <a href="" title="" class="font14">Read full review</a>
                                         </li>
                                     }
