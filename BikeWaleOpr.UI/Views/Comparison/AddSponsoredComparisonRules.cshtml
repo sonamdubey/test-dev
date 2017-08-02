@@ -53,7 +53,7 @@
         }*@
 </div>
 
-<div id="addSponsoredComparisonRules" data-camparisonid="@Model.ComparisonId">
+<div id="addSponsoredComparisonRules" data-comparisonid="@Model.ComparisonId">
     <div class="row">
         <div class="col m10"></div>
         <div class="col m2">
@@ -73,8 +73,8 @@
                                         <input type="text" autocomplete="off" id="txtTargetModel" class="validate" data-bind="css : {invalid : targetModel() && targetModel().payload.modelId =='0'},attr : {'data-value' : targetModel() ? targetModel().payload.modelId : null}" />
                                         <label for="txtTargetModel" data-error="Please select target model">Target Model</label>
                                     </li>
-                                    <li class="input-field modal-trigger" data-bind="click : showVersionMapping" >
-                                        <input type="checkbox" id="chkVersionMapping" name="IsVersionMapping" value="false" class="validate" />
+                                    <li class="input-field modal-trigger" >
+                                        <input data-bind="click : showVersionMapping" type="checkbox" id="chkVersionMapping" name="IsVersionMapping" value="false" class="validate" />
                                         <label for="chkVersionMapping">Map specific versions</label>
                                     </li>
                                     <li  class="input-field margin-bottom20">
@@ -101,14 +101,16 @@
             <table>
                 <tr>
                     <th>Target Versions</th>
+                    <th>Version Price</th>
                     <th>Sponsored Versions</th>
                     <th>Impression Tracker</th>
                 </tr>
                 <tbody data-bind="foreach : targetModelVersions">
-                    <tr>
-                        <td data-bind="text : "></td>
-                        <td><select data-bind="options : $root.sponsoredVersions"></select></td>
-                        <td><input type="text" value="" /></td>
+                    <tr data-bind="attr : {'data-versionid' : VersionId}">
+                        <td data-bind="text : BikeName"></td>
+                        <td data-bind="text : Price"></td>
+                        <td class="input-field"><select class="chosen-select" data-bind="options : $parent.sponsoredModelVersions,optionsValue:'VersionId',optionText:'BikeName'"></select></td>
+                        <td><input type="text" data-bind="value : ImpressionUrl" value="" /></td>
                     </tr>
                 </tbody>
             </table>

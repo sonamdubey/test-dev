@@ -1,9 +1,8 @@
-﻿var vmSponsoredComparisonRules,pgSection=$("#addSponsoredComparisonRules"), targetModelEle = $("#txtTargetModel"),
+﻿var vmSponsoredComparisonRules, pgSection = $("#addSponsoredComparisonRules"), targetModelEle = $("#txtTargetModel"),
     sponsoredModelEle = $("#txtSponsoredModel"), modalVersionMapping = $('#modalVersionMapping');
 
 
-var addSponsoredComparisonRules = function()
-{
+var addSponsoredComparisonRules = function () {
     var self = this;
     self.comparisonId = ko.observable();
     self.sponsoredModel = ko.observable();
@@ -28,7 +27,7 @@ var addSponsoredComparisonRules = function()
         targetModelEle.bw_easyAutocomplete({
             source: 1,
             hosturlForAPI: 'http://localhost:9011',
-            inputField : targetModelEle,
+            inputField: targetModelEle,
             click: self.setTargetModel
         });
 
@@ -43,17 +42,32 @@ var addSponsoredComparisonRules = function()
     }();
 
     self.getModelVersions = function () {
-
+        var url = "/api/compare/sponsored/" + self.comparisonId() + "/target/" + self.targetModel().payload.modelId + "/sponsor/" + self.sponsoredModel().payload.modelId + "/"
+        $.getJSON(url, function (response) {
+            if (response) {
+                if (response.SponsoredVersionsMapping) {
+                    self.targetModelVersions(response.SponsoredVersionsMapping);
+                    self.sponsoredModelVersions(response.SponsoredModelVersion);
+                    modalVersionMapping.find('select').material_select();
+                }
+            }
+            debugger;
+        })
+        .fail(function () {
+            Materialize.toast("Failed to load version mapping data", 3000);
+        });
     };
 
-    self.showVersionMapping = function () {
-        if (self.validateModels())
-        {
-            self.getModelVersions();
-            modalVersionMapping.modal("open");
-           return true;
+    self.showVersionMapping = function (d,e) {
+
+        if (self.validateModels()) {
+            if ($(e.target).prop("checked")) {
+                self.getModelVersions();
+                modalVersionMapping.modal("open");
+            }
+            return true;
         }
-         return false;
+        return false;
     };
 
     self.addSponsoredCamparisonRules = function () {
@@ -62,12 +76,10 @@ var addSponsoredComparisonRules = function()
 
     self.validateModels = function () {
         var isValid = false;
-        if(self.sponsoredModel() && self.sponsoredModel().payload.modelId != "0")
-        {
+        if (self.sponsoredModel() && self.sponsoredModel().payload.modelId != "0") {
             isValid = true;
         }
-        else
-        {
+        else {
             self.sponsoredModel({ payload: { modelId: "0" } });
         }
 
@@ -80,7 +92,7 @@ var addSponsoredComparisonRules = function()
 
     };
 
-   
+
 }
 
 $(function () {

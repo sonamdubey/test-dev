@@ -85,7 +85,7 @@ namespace BikewaleOpr.Controllers
             {
                 objData.ComparisonId = comparisonId;
             }
-            return View();
+            return View(objData);
         }
 
         /// <summary>

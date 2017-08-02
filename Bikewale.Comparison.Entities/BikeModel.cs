@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Bikewale.Comparison.Entities
 {
     /// <summary>
@@ -13,9 +14,13 @@ namespace Bikewale.Comparison.Entities
     /// </summary>
     public class BikeModel
     {
+
         public uint ModelId { get; set; }
+
         public string BikeName { get; set; }
+
         public string VersionId { get; set; }
+
         public uint Price { get; set; }
     }
 }
