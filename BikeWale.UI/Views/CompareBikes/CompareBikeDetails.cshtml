@@ -103,7 +103,10 @@
                                     }
                                     else
                                     {
-                                        <div onclick="@String.Format("window.open('{0}', '_blank')",Model.KnowMoreLinkUrl)" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@bikeName" class="bw-ga know-more-target text-link">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
+                                        if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
+                                        {
+                                        <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@String.Format("{0}_Top Card", bikeName)" class="bw-ga know-more-target text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
+                                        }
                                     }
 
                                 </div>
@@ -160,7 +163,10 @@
                                         }
                                         else
                                         {
-                                            <div onclick="@String.Format("window.open('{0}', '_blank')",Model.KnowMoreLinkUrl)" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_Floating", bikeName)" class="bw-ga know-more-target text-link">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
+                                            if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
+                                            {
+                                            <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_Floating Card", bikeName)" class="bw-ga know-more-target text-link">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
+                                            }
                                         }
 
                                     </div>

@@ -81,12 +81,12 @@
                             <% }
                                 else
                                 { %>
-
+                            <% if(!String.IsNullOrEmpty(featuredBike)) { %>
                             <div class="padding-top5 padding-bottom5">
-                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0} {1}",bike.Make, bike.Model) %>" class="font14 bw-ga text-link"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
+                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0}_Top Card",bike.Name) %>" class="font14 bw-ga text-link know-more-btn-shown"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
                             </div>
                             <% } %>
-
+                            <% } %>
 
                         </div>
                         <% } %>
@@ -110,10 +110,11 @@
                             <% }
                                 else
                                 { %>
-
+                            <% if(!String.IsNullOrEmpty(featuredBike)) { %>
                             <div class="padding-top5 padding-bottom5">
-                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0} {1}_Floating",bike.Make, bike.Model) %>" class="font14 bw-ga  text-link"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
+                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0}_Floating Card",bike.Name) %>" class="font14 bw-ga  text-link"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
                             </div>
+                            <% } %>
                             <% } %>
                         </div>
                         <% } %>
