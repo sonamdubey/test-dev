@@ -12,7 +12,7 @@ namespace Bikewale.Comparison.DTO
     /// Summary: DTO for Sponsored Camparison
     /// 
     /// </summary>
-    public class SponsoredCamparisonDTO
+    public class SponsoredComparisonDTO
     {
         [JsonProperty("id")]
         public uint Id { get; set; }

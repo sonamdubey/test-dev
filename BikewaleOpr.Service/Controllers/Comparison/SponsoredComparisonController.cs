@@ -7,11 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 
-namespace BikewaleOpr.Service.Controllers.Camparison
+namespace BikewaleOpr.Service.Controllers.Comparison
 {
 
     /// <summary>
-    /// Controller for sponsored camparisons
+    /// Controller for sponsored comparisons
     /// </summary>
     /// <author>
     /// Sangram Nandkhile on 28-Jul-2017
@@ -34,7 +34,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
         public IHttpActionResult GetSponsoredComparisons(string statuses)
         {
             IEnumerable<SponsoredComparison> objSponsoredComparison = null;
-            IEnumerable<SponsoredCamparisonDTO> objSponsoredComparisonDTO = null;
+            IEnumerable<SponsoredComparisonDTO> objSponsoredComparisonDTO = null;
             try
             {
                 objSponsoredComparison = _objSponsoredRepo.GetSponsoredComparisons(statuses);
@@ -51,7 +51,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Camparison.SponsoredComparisonController.GetSponsoredComparisons", statuses));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("comparison.SponsoredComparisonController.GetSponsoredComparisons", statuses));
                 return InternalServerError();
             }
         }
@@ -78,7 +78,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Camparison.SponsoredComparisonController.GetSponsoredVersionMapping: Camparison Id: {0}", id));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("comparison.SponsoredComparisonController.GetSponsoredVersionMapping: comparison Id: {0}", id));
                 return InternalServerError();
             }
         }
@@ -99,7 +99,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.SaveSponsoredComparison");
+                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.SaveSponsoredComparison");
                 return InternalServerError();
             }
             return Ok(comparisonId);
@@ -122,7 +122,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.UpdateSponsoredComparisonStatus");
+                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.UpdateSponsoredComparisonStatus");
                 return InternalServerError();
             }
             return Ok(isSaved);
@@ -143,7 +143,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.SaveSponsoredComparisonsBikeRules");
+                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.SaveSponsoredComparisonsBikeRules");
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -165,7 +165,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.DeleteSponsoredComparisonRules");
+                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.DeleteSponsoredComparisonRules");
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -187,7 +187,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.DeleteSponsoredComparisonModelRules");
+                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.DeleteSponsoredComparisonModelRules");
                 return InternalServerError();
             }
             return Ok(isSuccess);
