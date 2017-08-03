@@ -10,7 +10,7 @@
                         <div class="user-review__search-field">
                             <input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off">
                         </div>
-                        <button type="button" class="btn btn-orange user-review__form-submit">Read reviews</button>
+                        <button type="button" id="btnUserSearch" class="btn btn-orange user-review__form-submit">Read reviews</button>
                     </div>
                     <div class="clear"></div>
                     <ul id="erruserReviewList" class="ui-autocomplete ui-front ui-menu hide">
@@ -46,7 +46,7 @@
                                             <p class="review-card__bike">@review.BikeName</p>
                                             <p class="review-card__desc">@string.Format("{0}...", review.ReviewDescription)</p>
                                             <p class="review-card__date">@Bikewale.Utility.FormatDate.GetTimeSpan(review.EntryDate) ago</p>
-                                            <a href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", review.MakeMaskingName, review.ModelMaskingName, review.ReviewId)" title="Read full review" class="font14">Read full review</a>
+                                            <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/",review.MakeMaskingName,review.ModelMaskingName,review.ReviewId)" title="@string.Format("{0} Review by {1}",review.BikeName,review.CustomerName)" class="font14">Read full review</a>
                                         </li>
                                     }
                                 </ul>
@@ -65,7 +65,7 @@
     </div>
 </section>
 <script  type="text/javascript">
-
+    var category;
     function UserReviewRedirection(items) {
 
         var make = new Object();
@@ -155,11 +155,28 @@
             }
         }();
     };
-
+    function btnFindUserReviewNav() {
+        if (focusedMakeModel == undefined || focusedMakeModel == null) {
+            return false;
+        }
+        return UserReviewRedirection(focusedMakeModel);
+    }
     docReady(function () {
-        
+        category = $('#source').val();
         $.fn.hint = bwHint;
         $.fn.bw_autocomplete = bwAutoComplete;
         var vmUserReviewSearch = new userReviewSearch();
+        $('#btnUserSearch').on('click', function (e) {
+            var id = $('#userReviewList');
+            var searchVal = id.val();
+            var placeHolder = id.attr('placeholder');
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
+            if (btnFindUserReviewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
+                return false;
+            } else {
+                return false;
+            }
+
+        });
     });
 </script>

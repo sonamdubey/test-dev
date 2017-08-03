@@ -25,5 +25,7 @@ namespace Bikewale.Entities.UserReviews
         public string MakeMaskingName { get; set; }
         public string ReviewTitle { get; set; }
         public string BikeName { get { return string.Format("{0} {1}", MakeName, ModelName);  } }
+
+        public string Source { get; set; }
     }
 }

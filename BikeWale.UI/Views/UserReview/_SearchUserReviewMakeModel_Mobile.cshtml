@@ -8,7 +8,7 @@
                 <div class="form-control-box margin-bottom15">
                     <input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off">
                 </div>
-                <button class="btn btn-orange btn-120-32">Read reviews</button>
+                <button class="btn btn-orange btn-120-32" id="btnUserSearch">Read reviews</button>
             </div>
             <ul id="erUserReviewList" class="ui-autocomplete ui-front ui-menu hide">
                 <li class="ui-menu-item" tabindex="-1">
@@ -43,7 +43,7 @@
             <p class="review-card__bike">@review.BikeName</p>
             <p class="review-card__desc">"@string.Format("{0}...", review.ReviewDescription)"</p>
             <p class="review-card__date">@Bikewale.Utility.FormatDate.GetTimeSpan(review.EntryDate) days ago</p>
-            <a href="" title="" class="font14">Read full review</a>
+            <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/",review.MakeMaskingName,review.ModelMaskingName,review.ReviewId)" title="@string.Format("{0} Review by {1}",review.BikeName,review.CustomerName)" class="font14">Read full review</a>
         </div>
     </li>
 }
@@ -55,7 +55,7 @@
     </div>
 </section>
 <script type="text/javascript">
-
+    var category;
     function UserReviewRedirection(items) {
 
         var make = new Object();
@@ -92,7 +92,7 @@
                     click: function (event, ui, orgTxt) {
                         UserReviewRedirection(ui.item);
                         var keywrd = ui.item.label + '_' + $('#userReviewList').val();
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Review_Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Review_Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
                         isMakeModelRedirected = true;
                     },
                     open: function (result) {
@@ -116,6 +116,7 @@
                             focusedMakeModel = null; NewBikeSearchResult = false;
                             if (searchtext.trim() != "") {
                                 $('#erruserReviewList').show();
+                                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Review_Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
                             }
                         }
                     },
@@ -131,6 +132,8 @@
                             if (focusedMakeModel == null || focusedMakeModel == undefined) {
                                 if ($('#userReviewList').val().trim() != '') {
                                     $('#erruserReviewList').show();
+                                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Review_Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+
                                 }
                             }
 
@@ -145,11 +148,28 @@
             }
         }();
     };
-
+    function btnFindUserReviewNav() {
+        if (focusedMakeModel == undefined || focusedMakeModel == null) {
+            return false;
+        }
+        return UserReviewRedirection(focusedMakeModel);
+    }
     docReady(function () {
         
         $.fn.hint = bwHint;
         $.fn.bw_autocomplete = bwAutoComplete;
         var vmUserReviewSearch = new userReviewSearch();
+        category = $('#source').val();
+        $('#btnUserSearch').on('click', function (e) {
+            var id = $('#userReviewList');
+            var searchVal = id.val();
+            var placeHolder = id.attr('placeholder');
+            if (btnFindUserReviewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
+                return false;
+            } else {
+                return false;
+            }
+
+        });
     });
 </script>

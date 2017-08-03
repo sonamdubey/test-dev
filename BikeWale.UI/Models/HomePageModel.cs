@@ -147,7 +147,8 @@ namespace Bikewale.Models
 
             SetFlags(objVM);
 
-            objVM.RecentUserReviewsList = _userReviewsCache.GetRecentReviews();
+            objVM.RecentUserReviewsList = new UserReviewSearchWidget(_userReviewsCache).GetData();
+            objVM.Source = "HP";
 
             return objVM;
         }
