@@ -82,6 +82,9 @@ namespace Bikewale.BAL.AutoComplete
                 case AutoSuggestEnum.AreaPinCodes:
                     indexName = Bikewale.Utility.BWConfiguration.Instance.PinCodesIndexName;
                     break;
+                case AutoSuggestEnum.UserReviews:
+                    indexName = Bikewale.Utility.BWConfiguration.Instance.UserReviewIndexName;
+                    break;
                 default:
                     indexName = Bikewale.Utility.BWConfiguration.Instance.MMindexName;
                     break;

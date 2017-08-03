@@ -110,6 +110,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banner\BannerRepository.cs" />
     <Compile Include="BikeColorImages\ColorImagesBikeRepository.cs" />
     <Compile Include="Bikedata\BikeMakesRepository.cs" />
     <Compile Include="Bikedata\BikeModelsRepository.cs" />
@@ -155,6 +156,10 @@
     <ProjectReference Include="..\BikewaleOpr.Interface\BikewaleOpr.Interface.csproj">
       <Project>{539fa12c-3799-4e88-a833-f65594ea1934}</Project>
       <Name>BikewaleOpr.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Models\BikewaleOpr.Models.csproj">
+      <Project>{D41DA250-C329-4956-ABAC-17B9B1E53880}</Project>
+      <Name>BikewaleOpr.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

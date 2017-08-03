@@ -175,6 +175,8 @@ namespace BikewaleOpr.DALs.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Get user reviews summary for all pages
+        /// Modified by Sajal Gupta on 01-08-2017
+        /// Descriptiopn : Added isWinner
         /// </summary>
         /// <param name="reviewId"></param>
         /// <returns></returns>
@@ -224,7 +226,8 @@ namespace BikewaleOpr.DALs.UserReviews
                                 },
                                 OriginalImgPath = Convert.ToString(dr["OriginalImgPath"]),
                                 HostUrl = Convert.ToString(dr["hostUrl"]),
-                                IsShortListed = SqlReaderConvertor.ToBoolean(dr["isShortListed"])
+                                IsShortListed = SqlReaderConvertor.ToBoolean(dr["isShortListed"]),
+                                IsWinner = SqlReaderConvertor.ToBoolean(dr["isWinner"])
                             };
                         }
 
@@ -286,6 +289,57 @@ namespace BikewaleOpr.DALs.UserReviews
             }
 
             return objUserReviewSummary;
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 01-08-2017
+        /// Description : Method to get user review summary based on reviewid and emailId
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="emailId"></param>
+        /// <returns></returns>
+        public ReviewBase GetUserReviewWithEmailIdReviewId(uint reviewId, string emailId)
+        {
+            ReviewBase objUserReview = null;           
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummaryByEmailIdReviewId"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.UInt32, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailId", DbType.String, emailId));
+
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objUserReview = new ReviewBase()
+                            {
+
+                                CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
+                                WrittenBy = Convert.ToString(dr["WrittenBy"]),
+                                Id = SqlReaderConvertor.ToUInt32(dr["Id"]),
+                                MakeId = SqlReaderConvertor.ToUInt32(dr["MakeId"]),
+                                ModelId = SqlReaderConvertor.ToUInt32(dr["ModelId"]),
+                                MakeName = Convert.ToString(dr["MakeName"]),
+                                ModelName = Convert.ToString(dr["ModelName"]),
+                                EntryDate = Convert.ToString(dr["EntryDate"]),
+                                ReviewStatus = SqlReaderConvertor.ToUInt16(dr["ReviewStatus"])
+                            };
+                        }                                               
+                        dr.Close();
+                    }
+                }               
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass errObj = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetUserReviewSummary {0} {1}", reviewId, emailId));
+
+            }
+
+            return objUserReview;
         }
 
         /// <summary>
@@ -359,6 +413,41 @@ namespace BikewaleOpr.DALs.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.UpdateUserReviewRatingsStatus");
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 01-08-2017
+        /// Descriptiopn : Function to save user review winner
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="moderatorId"></param>
+        /// <returns></returns>
+        public bool SaveUserReviewWinner(uint reviewId, uint moderatorId)
+        {
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    var param = new DynamicParameters();
+
+                    param.Add("par_reviewid", reviewId);
+                    param.Add("par_moderatorId", moderatorId);
+                   
+                    connection.Open();
+
+                    connection.Query("saveuserreviewswinner", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UserReviews.SaveUserReviewWinner {0} {1}", reviewId, moderatorId));
                 return false;
             }
             return true;

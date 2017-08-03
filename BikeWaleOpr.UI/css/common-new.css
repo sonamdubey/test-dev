@@ -195,6 +195,16 @@ input[type=text].invalid + label.active:after {
     top: 60px;
 }
 
+input[type=number].invalid + label:after,
+.easy-autocomplete input[type=text].invalid + label.active:after {
+    top: 35px;
+    font-size: 11px;
+}
+
+input[type=number].invalid + label.active:after {
+    top: 60px;
+}
+
 .input-field label.active:after {
     top: 45px;
 }

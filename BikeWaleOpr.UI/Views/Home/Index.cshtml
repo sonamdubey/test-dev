@@ -30,7 +30,7 @@
 
                 @foreach (var bikeGroup in Model.UsedModelsData.BikesByMake)
                 {
-                    <div class="col s4">
+                    <div class="col m6">
                         <div class="card">
                             <div class="card-image waves-effect waves-block waves-light margin-left20">
                                 <span class="margin-top10 brandlogosprite brand-@bikeGroup.MakeId"></span>
@@ -39,7 +39,7 @@
                                 <span class="card-title activator grey-text text-darken-4 ">@bikeGroup.MakeName<i class="material-icons right">more_vert</i></span>
                             </div>
 
-                            <div class="card-action teal"><a class="white-text" href="/Models/UsedModelImageUpload/?makeId=@bikeGroup.MakeId">Update Photos <i class="material-icons right white-text">keyboard_arrow_right</i></a></div>
+                            <div class="card-action teal"><a class="white-text" target="_blank" href="/Models/UsedModelImageUpload/?makeId=@bikeGroup.MakeId">Update Photos <i class="material-icons right white-text">keyboard_arrow_right</i></a></div>
 
                             <div class="card-reveal">
                                 <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
