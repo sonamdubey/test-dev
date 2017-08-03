@@ -34,7 +34,7 @@ function getBikeVersion() {
     return versionName;
 }
 
-function secondarydealer_Click(dealerID) {
+function secondarydealer_Click(dealerID) {    
     try {
         var isSuccess = false;
 
@@ -48,7 +48,8 @@ function secondarydealer_Click(dealerID) {
             "pageUrl": pageUrl,
             "sourceType": 1,
             "pQLeadId": pqSourceId,
-            "deviceId": getCookie('BWC')
+            "deviceId": getCookie('BWC'),
+            "refPQId": typeof pqId != 'undefined' ? pqId : '',
         };
 
         isSuccess = dleadvm.registerPQ(objData);
