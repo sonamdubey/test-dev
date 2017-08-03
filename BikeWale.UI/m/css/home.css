@@ -761,6 +761,10 @@ a.chosen-single:hover {
 	margin-bottom: 5px;
 }
 
+.review-card__bike.text-truncate {
+	text-align: center;
+}
+
 .review-card__desc {
 	color: #787878;
 	margin-bottom: 8px;

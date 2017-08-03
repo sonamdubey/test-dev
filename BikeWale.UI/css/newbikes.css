@@ -300,6 +300,10 @@
 	margin-bottom: 8px;
 }
 
+.review-card__bike.text-truncate {
+	text-align: center;
+}
+
 .review-card__desc {
 	color: #787878;
 	margin-bottom: 8px;
@@ -309,7 +313,6 @@
 	color: #82888b;
 	font-size: 11px;
 	margin-bottom: 10px;
-}
 }
 
 /* rating badge */
