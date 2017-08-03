@@ -516,7 +516,7 @@
 
             if (isValidCustomer && self.mfgCampaignId() > 0) {
 
-                if (!isNaN(self.pqId()) && self.pqId() && self.pqId() != "0")
+                if (!(self.pqId() && self.pqId() != "0"))
                     self.generatePQ(data, event);
                 }
 

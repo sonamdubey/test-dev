@@ -73,7 +73,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 RoyalEnfieldDealer dealer = base.LeadRepostiory.GetRoyalEnfieldDealerById(leadEntity.ManufacturerDealerId);
                 Logs.WriteInfoLog(String.Format("Royal Enfield Request : {0}", Newtonsoft.Json.JsonConvert.SerializeObject(leadEntity)));
                 response = service.Organic(leadEntity.CustomerName, leadEntity.CustomerMobile, "India", dealer.DealerState,
-                    dealer.DealerCity, leadEntity.CustomerEmail, quotation.ModelName, dealer.DealerName, "", "https://www.bikewale.com", _token, "bikewale");
+                    dealer.DealerCity, leadEntity.CustomerEmail, quotation.ModelName, dealer.DealerName, "",
+                    "https://www.bikewale.com", _token, "bikewale", dealer.DealerCode);
                 if (string.IsNullOrEmpty(response))
                 {
                     response = "Null response recieved from Royal Enfield API.";

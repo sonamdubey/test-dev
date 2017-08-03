@@ -113,6 +113,8 @@
     <Compile Include="AppVersionEntity.cs" />
     <Compile Include="AreaEntityBase.cs" />
     <Compile Include="AWS\Token.cs" />
+    <Compile Include="BannerDetails.cs" />
+    <Compile Include="BannerProperty.cs" />
     <Compile Include="BikeAvailabilityByColor.cs" />
     <Compile Include="BikeColorAvailability.cs" />
     <Compile Include="BikeColorImages\ColorImagesBikeEntities.cs" />
