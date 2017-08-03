@@ -92,7 +92,7 @@ namespace Bikewale.Comparison.DAL
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_camparisonid", camparisonId);
+                    param.Add("par_comparisonid", camparisonId);
                     param.Add("par_sponsoredversionid", sponsoredVersionId);
                     connection.Query<dynamic>("DeleteSponsoredComparisonBikeSponsoredVersionRules", param: param, commandType: CommandType.StoredProcedure);
 
@@ -123,7 +123,7 @@ namespace Bikewale.Comparison.DAL
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_camparisonid", camparisonId);
+                    param.Add("par_comparisonid", camparisonId);
                     param.Add("par_sponsoredversionid", targetversionId);
                     connection.Query<dynamic>("deletesponsoredComparisonbiketargetVersionRules", param: param, commandType: CommandType.StoredProcedure);
 

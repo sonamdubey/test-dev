@@ -92,6 +92,46 @@ var addSponsoredComparisonRules = function () {
 
     };
 
+    self.deleteSponsoredModelRules = function (d,e) {
+        var ele = $(e.target);
+        var modelId = ele.data("sponsored-modelid");
+        if (modelId > 0 && window.confirm("Do you want to delete this model rule?"))
+        {
+            var url = "/api/compare/sponsored/" + self.comparisonId() + "/model/" + modelId + "/rules/delete/";
+
+            $.post(url, function (response) {
+                if(response)
+                {
+                    ele.closest("li").remove();
+                    Materialize.toast("Rule deleted",3000);
+                }
+                return true;
+            })
+            .fail(function () {
+                Materialize.toast("Failed to delete rules", 3000);
+                return false;
+            });
+        }
+    };
+
+    self.deleteSponsoredVersionRules = function (d, e) {
+        var ele = $(e.target);
+        var versionId = ele.data("target-versionid");
+        if (versionId > 0 && window.confirm("Do you want to delete this model rule?")) {
+            var url = "/api/compare/sponsored/" + self.comparisonId() + "/targetversion/" + versionId + "/rules/delete/";
+            $.post(url, function (response) {
+                if (response) {
+                    ele.closest("div.chip").remove();
+                    Materialize.toast("Rule deleted", 3000);
+                }
+            })
+            .fail(function () {
+                Materialize.toast("Failed to delete rules", 3000);
+            });
+        }
+        return true;
+    };
+
 
 }
 

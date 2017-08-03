@@ -1,62 +1,48 @@
 ﻿@model BikewaleOpr.Models.Comparison.ManageSponsoredComparisonRulesVM
+@using Bikewale.Comparison.Entities
 @{
     ViewBag.Title = "Add Sponsored Comparisons Rules";
     ViewBag.PageTitle = "Add Sponsored Comparisons Rules";
 
-    if(Model.ComparisonVersionMapping!=null)
-    {
-        var objMappings = Model.ComparisonVersionMapping.GroupBy(x => x.SponsoredModelId);
-        objMappings = objMappings;
-    }
+    IEnumerable<SponsoredVersion> objBikeList = null;
+
+
+    var objMappings = Model.ComparisonVersionMapping.GroupBy(x => x.SponsoredModelId)
+                         .Select(group => new { SponsoredModelId = group.Key, Items = group, MappingName = string.Format("{0} {1} --> {2} {3}", group.ToList()[0].SponsoredMakeName, group.ToList()[0].SponsoredModelName, group.ToList()[0].Target.TargetMakeName, group.ToList()[0].Target.TargetModelName) }).ToList();
+
+
 }
 
 
 <div id="addSponsoredComparisonRules" data-comparisonid="@Model.ComparisonId">
     <div class="row">
         <div class="col m10">
-            @if (Model.ComparisonVersionMapping != null && Model.ComparisonVersionMapping.Count() > 0)
+            @if (objMappings != null && objMappings.Count() > 0)
             {
                 <ul class="collapsible" data-collapsible="accordion">
-                    @foreach (var vmap in Model.ComparisonVersionMapping)
-                {
-
+                    @foreach (var vmap in objMappings)
+                    {
+                        var mappingData = objMappings[0].Items.First();
                         <li>
                             <div class="collapsible-header">
                                 <blockquote>
                                     <div class="chip">
-                                        @vmap.SponsoredMakeName @vmap.SponsoredModelName -> @vmap.Target.TargetMakeName @vmap.Target.TargetModelName
-                                        <i class="close material-icons red-text no-margin" data-element="model" data-sponsored-modelid="@vmap.SponsoredModelId" data-target-modelid="@vmap.Target.TargetModelId">close</i>
+                                        @vmap.MappingName
+                                        <i class="close material-icons red-text no-margin" data-element="model" data-sponsored-modelid="@mappingData.SponsoredModelId" data-target-modelid="@mappingData.Target.TargetModelId" data-bind="click : deleteSponsoredModelRules">close</i>
                                     </div>
                                 </blockquote>
                             </div>
-                            @*<div class="collapsible-body">
-                            <div class="margin-left30 margin-bottom10">
-                                @foreach (var s in vmap.State)
-                                {
-                                    <div class="state">
-                                        @if (s.StateId > 0)
-                                        {
-                                            <blockquote>
-                                                <div class="chip">
-                                                    @s.StateName
-                                                    <i class="close material-icons red-text" data-element="state" data-modelId="@vmap.Model.ModelId" data-stateid="@s.StateId" data-name="@s.StateName">close</i>
-                                                </div>
-                                            </blockquote>
-                                        }
-                                        <div class="inline-block margin-top10">
-                                            @foreach (var c in s.Cities)
-                                            {
-                                                <div class="chip">
-                                                    @c.CityName
-                                                    <input type="hidden" id="CityId" value="@c.CityId" />
-                                                    <i class="close material-icons red-text" data-element="city" data-modelId="@vmap.Model.ModelId" data-cityId="@c.CityId" data-allindia="@(c.CityId == 0 ? true : false)" data-name="@c.CityName">close</i>
-                                                </div>
-                                            }
+                            <div class="collapsible-body">
+                                <div class="margin-left30 inline-block margin-top10 margin-bottom10">
+                                    @foreach (var item in vmap.Items)
+                                    {
+                                        <div class="chip">
+                                            @string.Format("{0} {1} -> {2} {3}", item.SponsoredModelName, item.SponsoredVersionName, item.Target.TargetModelName, item.Target.TargetVersionName)
+                                            <i class="close material-icons red-text" data-element="version" data-sponsored-versionid="@item.SponsoredVersionId" data-target-versionid="@item.Target.TargetVersionId" data-bind="click : deleteSponsoredVersionRules">close</i>
                                         </div>
-                                    </div>
-                                }
+                                    }
+                                </div>
                             </div>
-                        </div>*@
                         </li>
                     }
                 </ul>
@@ -79,11 +65,11 @@
                                         <input type="text" autocomplete="off" id="txtTargetModel" class="validate" data-bind="css : {invalid : targetModel() && targetModel().payload.modelId =='0'},attr : {'data-value' : targetModel() ? targetModel().payload.modelId : null}" />
                                         <label for="txtTargetModel" data-error="Please select target model">Target Model</label>
                                     </li>
-                                    <li class="input-field modal-trigger" >
+                                    <li class="input-field modal-trigger">
                                         <input data-bind="click : showVersionMapping" type="checkbox" id="chkVersionMapping" name="IsVersionMapping" value="false" class="validate" />
                                         <label for="chkVersionMapping">Map specific versions</label>
                                     </li>
-                                    <li  class="input-field margin-bottom20">
+                                    <li class="input-field margin-bottom20">
                                         <button type="submit" data-bind="click: addSponsoredCamparisonRules" id="btnAddCamparisonRules" class="margin-top20 btn waves-effect waves-light" name="comparisonType" value="">
                                             Add Comparison
                                         </button>

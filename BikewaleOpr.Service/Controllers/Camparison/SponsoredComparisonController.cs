@@ -179,5 +179,27 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             return Ok(isSuccess);
         }
+
+        /// <summary>
+        /// Deletes the sponsored comparison model rules.
+        /// </summary>
+        /// <param name="comparisonId">The comparison identifier.</param>
+        /// <param name="sponsoredModelId">The sponsored model identifier.</param>
+        /// <returns></returns>
+        [HttpPost, Route("api/compare/sponsored/{comparisonId}/targetversion/{targetversionId}/rules/delete/")]
+        public IHttpActionResult DeleteTargetComparisonModelRules(uint comparisonId, uint targetversionId)
+        {
+            bool isSuccess = false;
+            try
+            {
+                isSuccess = _objSponsoredRepo.DeleteSponsoredComparisonBikeTargetVersionRules(comparisonId, targetversionId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.DeleteTargetComparisonModelRules");
+                return InternalServerError();
+            }
+            return Ok(isSuccess);
+        }
     }
 }
