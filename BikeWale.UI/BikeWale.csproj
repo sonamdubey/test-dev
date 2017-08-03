@@ -6,6 +6,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<Solution>"BW"</Solution>
+	<DaysOld>"7"</DaysOld>
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -2914,21 +2916,16 @@
     <Content Include="m\images\bwmsprite.png" />
     <Content Include="m\images\dropArrowBg.png" />
     <Content Include="m\images\Filter-icons-sprite.png" />
-    <!-- <Content Include="m\images\get-final-price-banner.jpg" /> -->
     <Content Include="m\images\home-top-ad-banner.jpg" />
     <Content Include="m\images\home-top-banner.jpg" />
-    <!-- <Content Include="m\images\honda-vs-bajaj.jpg" /> -->
     <Content Include="m\images\inputChecked.png" />
     <Content Include="m\images\inputUnchecked.png" />
     <Content Include="m\images\list-bullet.jpg" />
     <Content Include="m\images\newcars-sprite.png" />
-    <!-- <Content Include="m\images\pqlanding-top-banner.jpg" /> -->
-    <!-- <Content Include="m\images\price-quote-banner.jpg" /> -->
     <Content Include="m\images\radio-checked.png" />
     <Content Include="m\images\radio-unchecked.png" />
     <Content Include="m\images\rightArrowBg.png" />
     <Content Include="m\images\style-type-sprite.png" />
-    <!-- <Content Include="m\images\valentino-rossi.jpg" /> -->
     <Content Include="m\Insurance\Default.aspx" />
     <Content Include="m\news\Default.aspx" />
     <Content Include="m\news\newsdetails.aspx" />
@@ -2993,7 +2990,6 @@
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\model-gallery.js" />
     <Content Include="m\src\newbikes.js" />
-    <!-- <Content Include="m\src\new\bwm-search.js" /> -->
     <Content Include="m\src\BikeBooking\bookinglisting.js" />
     <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
@@ -3225,8 +3221,6 @@
     <Content Include="src\Plugins.js" />
     <Content Include="src\pq\MetroCities.js" />
     <Content Include="src\pq\price_quote.js" />
-    <!--     <Content Include="src\Research\photogallery\image-gallery.js" />
-    <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\survey\bajaj-survey.js" />
     <Content Include="src\swiper-3.1.7.js" />
@@ -3245,17 +3239,6 @@
     <Content Include="staticHtml\premium.html" />
     <Content Include="staticHtml\standard.html" />
     <Content Include="TermsConditions.aspx" />
-    <!--     <Content Include="test\css\bw-new-style.css" />
-    <Content Include="test\css\design.css" />
-    <Content Include="test\css\jquery.mobile-1.4.2.min.css" />
-    <Content Include="test\css\style.css" /> -->
-    <!-- <Content Include="test\fonts\WebRupee.V2.0.svg" /> -->
-    <!--     <Content Include="test\images\bike-01.jpg" />
-    <Content Include="test\images\bw-sprite.png" />
-    <Content Include="test\images\list-bullet.jpg" /> -->
-    <!--     <Content Include="test\js\index.js" />
-    <Content Include="test\js\jquery-1.10.2.min.js" />
-    <Content Include="test\js\jquery.mobile-1.4.2.min.js" /> -->
     <Content Include="Thankyou.aspx" />
     <Content Include="trackday2016\css\track-day.css" />
     <Content Include="trackday2016\default.aspx" />
@@ -3796,6 +3779,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <None Include="Web.Staging.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <Content Include="wkhtmltopdf\include\wkhtmltox\dllbegin.inc" />
     <Content Include="wkhtmltopdf\include\wkhtmltox\dllend.inc" />
     <Content Include="wkhtmltopdf\include\wkhtmltox\image.h" />
@@ -3906,7 +3892,7 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -3944,6 +3930,39 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>default</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  
+  <!--<Choose>
+    <When Condition=" '$(GITHUB_PR_SOURCE_BRANCH)'=='' ">
+      <PropertyGroup>
+        <DestFolder>C:/Release/develop/</DestFolder>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(GITHUB_PR_SOURCE_BRANCH)'!='' ">
+      <PropertyGroup>
+        <DestFolder>D:/Release/$(GITHUB_PR_SOURCE_BRANCH)/</DestFolder>
+      </PropertyGroup>
+    </When>
+  </Choose> -->
+  
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -3972,9 +3991,29 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="AfterBuild">
-    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(DestFolder)%(RelativeDir)%(Filename)%(Extension)')" />
+  <Target Name="BeforeBuild">
+    <Message Text="Bikewale Build Initialized..." Importance="high" />
   </Target>
+
+  <Target Name="CheckNPMInstall" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">
+    <Message Text="Checking and installing NPM on machine.." Importance="high" />
+    <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />
+  </Target>
+
+  <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
+    <Message Text="Running gulp task $(Configuration)" Importance="high" />
+    <Exec Command="gulp" WorkingDirectory="$(ProjectDir)" />
+  </Target>
+
+  <!--<Target Name="AfterBuild">
+    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(DestFolder)%(RelativeDir)%(Filename)%(Extension)')" />
+  </Target>-->
+
+  <Target Name="CreateReleaseFolder" AfterTargets="BeforeBuild" DependsOnTargets="ExecuteGulpEvent" Condition="'$(Configuration)' == 'Release'">
+    <Message Text="Creating Release folder $(Configuration)" Importance="high" />
+    <Exec Command="$(ProjectDir)..\Bikewale.ReleaseManagement\copyfiles\bin\$(Configuration)\copyfiles.exe $(DaysOld) $(ProjectDir)" WorkingDirectory="$(ProjectDir)" />
+  </Target>
+  
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
