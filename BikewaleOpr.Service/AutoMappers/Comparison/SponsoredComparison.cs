@@ -22,5 +22,13 @@ namespace BikewaleOpr.Service.AutoMappers
             Mapper.CreateMap<SponsoredComparison, SponsoredCamparisonDTO>();
             return Mapper.Map<IEnumerable<SponsoredComparison>, IEnumerable<SponsoredCamparisonDTO>>(objSponsored);
         }
+
+        internal static TargetSponsoredMappingDTO Convert(TargetSponsoredMapping objTargetSponsored)
+        {
+            Mapper.CreateMap<BikeModel, BikeModelDTO>();
+            Mapper.CreateMap<BikeModelVersionMapping, BikeModelVersionMappingDTO>();
+            Mapper.CreateMap<TargetSponsoredMapping, TargetSponsoredMappingDTO>();
+            return Mapper.Map<TargetSponsoredMapping, TargetSponsoredMappingDTO>(objTargetSponsored);
+        }
     }
 }

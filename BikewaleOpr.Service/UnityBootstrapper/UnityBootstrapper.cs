@@ -60,7 +60,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
             container.RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>();
             container.RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>();
-            container.RegisterType<Bikewale.Comparison.Interface.ISponsoredComparison, SponsoredComparison>();
+            container.RegisterType<ISponsoredComparison, SponsoredComparison>();
 
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
 

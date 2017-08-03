@@ -42,9 +42,12 @@ namespace BikewaleOpr.Service.Controllers.Camparison
                 {
                     // Auto map the properties
                     objSponsoredComparisonDTO = SponsoredComparisonMapper.Convert(objSponsoredComparison);
-
+                    return Ok(objSponsoredComparisonDTO);
                 }
-                return Ok(objSponsoredComparisonDTO);
+                else
+                {
+                    return InternalServerError();
+                }
             }
             catch (Exception ex)
             {
@@ -57,11 +60,21 @@ namespace BikewaleOpr.Service.Controllers.Camparison
         [HttpGet, Route("api/compare/sponsored/{id}/target/{targetModelId}/sponsor/{sponsoredModelId}/")]
         public IHttpActionResult GetSponsoredVersionMapping(uint id, uint targetModelId, uint sponsoredModelId)
         {
-            TargetSponsoredMapping objSponsoredComparison = null;
+            TargetSponsoredMapping objVersionMapping = null;
+            TargetSponsoredMappingDTO objVersionMappingDTO = null;
             try
             {
-                objSponsoredComparison = _objSponsoredRepo.GetSponsoredComparisonVersionMapping(id, targetModelId, sponsoredModelId);
-                return Ok(objSponsoredComparison);
+                objVersionMapping = _objSponsoredRepo.GetSponsoredComparisonVersionMapping(id, targetModelId, sponsoredModelId);
+                if(objVersionMapping!= null)
+                {
+                    objVersionMappingDTO = SponsoredComparisonMapper.Convert(objVersionMapping);
+                    return Ok(objVersionMapping);
+                }
+                else
+                {
+                    return InternalServerError();
+                }
+                
             }
             catch (Exception ex)
             {
