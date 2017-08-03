@@ -384,17 +384,15 @@ namespace BikewaleOpr.DALs.Bikedata
             int rowsAffected = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
+                var param = new DynamicParameters();
+                param.Add("par_inquiryId", inquiryId);
+
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandText = "classified_updatelistingassold";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryId", DbType.Int32, inquiryId));
-
-                    rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    rowsAffected = connection.Execute("classified_updatelistingassold", param: param, commandType: CommandType.StoredProcedure);
                 }
+
             }
-            
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UpdateAsSoldInquiry : inquiryId {0}", inquiryId));

@@ -107,7 +107,8 @@ namespace BikewaleOpr.Service.Controllers.Used
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/used/markassold/{inquiryId}")]
+
+        [HttpPost, Route("api/used/listing/{inquiryid}/markassold/")]
         public IHttpActionResult UpdateInquiryAsSold(uint inquiryId)
         {
            

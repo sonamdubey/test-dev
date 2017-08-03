@@ -62,7 +62,7 @@
                         <td><%# DataBinder.Eval(Container.DataItem,"EntryDate","{0:dd-MMM-yyyy}")%></td>
                         <td><input id="btnLView" onclick ="<%# string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0}','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')",DataBinder.Eval(Container.DataItem,"InquiryId").ToString()) %>"  <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> type="button" value ="View Photos"  /></td>
                         <td><input class="discardList" id="btnLDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
-                            <input class="markSold" type="button" value ="Sold" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
+                            <input class="markSold" type="button" value ="Sold" data-inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -91,7 +91,7 @@
                         <td><input id="btnPView" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" type="button" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
                         <td><input class="approveList" id="btnPApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>" />
                             <input class="discardList" id="btnPDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
-                            <input class="markSold" type="button" value ="Sold" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
+                            <input class="markSold" type="button" value ="Sold" data-inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -120,7 +120,7 @@
                         <td><input id="btnFView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1350,height=660,resizable=0,scrollbars=yes')" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
                         <td>
                             <input class="approveList" id="btnFApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
-                            <input class="markSold" type="button" value ="Sold" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
+                            <input class="markSold" type="button" value ="Sold" data-inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -149,7 +149,7 @@
                         <td><input id="btnUView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
                         <td><input class="approveList" id="btnUApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>"inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>" />
                         <input class="discardList" id="btnUDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
-                            <input class="markSold" type="button" value ="Sold" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
+                            <input class="markSold" type="button" value ="Sold" data-inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -244,16 +244,16 @@
     });
 
     $(".markSold").click(function(){
-        var inquiryId=Number($(this).attr("inquiryId"));
+        var inquiryId=Number($(this).attr("data-inquiryId"));
 
-        if (confirm("Are you sure you want to mark this listing as Sold?") == true && inquiryId > 0) {
+        if (confirm("Are you sure you want to mark this listing as Sold?") && inquiryId > 0) {
             $.ajax({
                 type: "POST",
-                url: "/api/used/markassold/" + inquiryId,
+                url: "/api/used/listing/" + inquiryId + "/markassold/",
                 
                 success: function(response){
                     if(response){  
-                        alert("Listing Marked as Sold successfully!");
+                        alert("Listing marked as sold successfully!");
                         window.location.reload(true);
                     }
                     else
@@ -261,7 +261,12 @@
                         alert("Something went wrong, your listing doesn't marked as sold please check.");
                     }
 
+                },
+                error: function(){
+                        alert("Something went wrong, your listing doesn't marked as sold please check.");
                 }
+
+                
                 
             })
         }
