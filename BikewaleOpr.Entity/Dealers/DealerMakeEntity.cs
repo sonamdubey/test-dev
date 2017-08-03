@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BikewaleOpr.Entity
+namespace BikewaleOpr.Entity.Dealers
 {
     /// <summary>
     /// Created By  :   Vishnu Teja Yalakuntla

@@ -1,6 +1,6 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.Entities.BikePricing;
-using BikewaleOpr.Interface.BikePricing;
+using BikewaleOpr.Interface.Dealers;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;

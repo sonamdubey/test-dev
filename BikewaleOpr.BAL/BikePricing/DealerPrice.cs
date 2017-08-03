@@ -1,7 +1,7 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.DALs;
-using BikewaleOpr.Entity;
-using BikewaleOpr.Interface;
+using BikewaleOpr.Entity.Dealers;
+using BikewaleOpr.Interface.Dealers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace BikewaleOpr.BAL
+namespace BikewaleOpr.BAL.BikePricing
 {
     /// <summary>
     /// Created by  :   Vishnu Teja Yalakuntla on 31-Jul-2017
@@ -116,7 +116,7 @@ namespace BikewaleOpr.BAL
                 versionIdsString = string.Join<uint>(",", versionIds);
                 itemIdsString = string.Join<uint>(",", itemIds);
                 itemValuesString = string.Join<uint>(",", itemValues);
-                isSaved = dealerPriceRepository.SaveDealerPrice(dealerId, cityId, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+                isSaved = dealerPriceRepository.SaveDealerPrices(dealerId, cityId, versionIdsString, itemIdsString, itemValuesString, enteredBy);
             }
             catch (Exception ex)
             {

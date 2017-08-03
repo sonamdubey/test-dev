@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BikewaleOpr.Entities.BikePricing;
 
-namespace BikewaleOpr.Interface.BikePricing
+namespace BikewaleOpr.Interface.Dealers
 {
     public interface IShowroomPricesRepository
     {

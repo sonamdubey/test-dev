@@ -3,6 +3,9 @@ using BikewaleOpr.DTO.Dealers;
 using BikewaleOpr.Entity.ContractCampaign;
 using BikewaleOpr.Entities.BikeData;
 using System.Collections.Generic;
+using BikewaleOpr.Entity;
+using BikewaleOpr.DTO;
+using BikewaleOpr.Entity.Dealers;
 
 namespace BikewaleOpr.Service.AutoMappers.Dealer
 {
@@ -35,6 +38,18 @@ namespace BikewaleOpr.Service.AutoMappers.Dealer
             Mapper.CreateMap<DealerEntityBase, DealerBase>();
             return Mapper.Map<IEnumerable<DealerEntityBase>, IEnumerable<DealerBase>>(objDealers);
         }
-                
+
+        internal static IEnumerable<DealerVersionPriceDTO> Convert(IEnumerable<DealerVersionPriceEntity> dealerVersionPrices)
+        {
+            Mapper.CreateMap<VersionPriceEntity, VersionPriceDTO>();
+            Mapper.CreateMap<DealerVersionPriceEntity, DealerVersionPriceDTO>();
+            return Mapper.Map<IEnumerable<DealerVersionPriceEntity>, IEnumerable<DealerVersionPriceDTO>>(dealerVersionPrices);
+        }
+
+        internal static IEnumerable<DealerMakeDTO> Convert(IEnumerable<DealerMakeEntity> dealerMakeEntities)
+        {
+            Mapper.CreateMap<DealerMakeEntity, DealerMakeDTO>();
+            return Mapper.Map<IEnumerable<DealerMakeEntity>, IEnumerable<DealerMakeDTO>> (dealerMakeEntities);
+        }
     }
 }

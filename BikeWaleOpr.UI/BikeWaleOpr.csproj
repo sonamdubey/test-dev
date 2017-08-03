@@ -415,6 +415,7 @@
       <DependentUpon>ViewReview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\DealerBikePriceController.cs" />
     <Compile Include="Controllers\DealerCampaignController.cs" />
     <Compile Include="Controllers\MakesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1988,6 +1989,8 @@
     <Content Include="Views\ManufacturerCampaign\_NavigationBreadcrumbs.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignProperties.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignPopup.cshtml" />
+    <Content Include="Views\DealerBikePrice\Index.cshtml" />
+    <Content Include="Views\Shared\_SelectOperationCollapsable.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

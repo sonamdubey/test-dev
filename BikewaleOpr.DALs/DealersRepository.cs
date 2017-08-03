@@ -1,6 +1,6 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.Entities;
-using BikewaleOpr.Entities;
+using BikewaleOpr.Entity.Dealers;
 using BikewaleOpr.Interface;
 using MySql.CoreDAL;
 using System;
@@ -762,67 +762,68 @@ namespace BikewaleOpr.DAL
 
         /// <summary>
         /// Created By  : Suresh Prajapati on 11th Nov, 2014.
+        /// Modified by :   Vishnu Teja Yalakuntla on 03 Aug 2017
         /// Description : Method to save New Bike Availability.
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public bool SaveBikeAvailability(DataTable dt)
+        public bool SaveVersionAvailability(uint dealerId, string bikeVersionIds, string numberOfDays)
         {
-
+            bool isSaved = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savebikeavailability"))
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.UpdatedRowSource = UpdateRowSource.None;
+                    connection.Open();
 
-                    cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_BikeVersionId", DbType.Int32, 8, dt.Columns[1].ColumnName));
-                    cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_DealerId", DbType.Int32, 8, dt.Columns[0].ColumnName));
-                    cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_NumOfDays", DbType.Int32, 8, dt.Columns[2].ColumnName));
+                    var param = new DynamicParameters();
+                    param.Add("par_dealerid", dealerId);
+                    param.Add("par_bikeversionids", bikeVersionIds);
+                    param.Add("par_numofdays", numberOfDays);
 
-                    //run the command
-
-                    return (MySqlDatabase.InsertQueryViaAdaptor(cmd, dt, ConnectionType.MasterDatabase) > 0);
+                    connection.Execute("bw_savebikeavailability_03082017", param: param, commandType: CommandType.StoredProcedure);
+                    isSaved = true;
                 }
-
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("SaveDealerPrice ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                    "SaveBikeAvailability dealerId={0} bikeVersionId={1} numberOfDays={2}", dealerId, bikeVersionIds, numberOfDays));
             }
 
-            return false;
+            return isSaved;
         }
-
-        public bool DeleteBikeAvailabilityDays(DataTable dt)
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 03 Aug 2017
+        /// Description :   Deletes the availability of specified version.
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="bikeVersionId"></param>
+        /// <returns></returns>
+        public bool DeleteVersionAvailability(uint dealerId, string bikeVersionId)
         {
-
+            bool isDeleted = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_DeleteBikeAvailability"))
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.UpdatedRowSource = UpdateRowSource.None;
+                    connection.Open();
 
-                    cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_BikeVersionId", DbType.Int32, 8, dt.Columns[0].ColumnName));
-                    cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_DealerId", DbType.Int32, 8, dt.Columns[1].ColumnName));
+                    var param = new DynamicParameters();
+                    param.Add("par_dealerid", dealerId);
+                    param.Add("par_bikeversionids", bikeVersionId);
 
-                    //run the command
-
-                    return (MySqlDatabase.UpdateQueryViaAdaptor(cmd, dt, ConnectionType.MasterDatabase) > 0);
+                    connection.Execute("bw_deletebikeavailability_03082017", param: param, commandType: CommandType.StoredProcedure);
+                    isDeleted = true;
                 }
-
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("DeleteBikeAvailabilityDays ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                    "DeleteBikeAvailabilityDays dealerId={0} bikeVersionId={1}", dealerId, bikeVersionId));
             }
 
-            return false;
+            return isDeleted;
         }
 
         /// <summary>

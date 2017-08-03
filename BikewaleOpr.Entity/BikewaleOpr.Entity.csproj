@@ -128,17 +128,17 @@
     <Compile Include="DealerCustDistanceMapping.cs" />
     <Compile Include="DealerDisclaimerEntity.cs" />
     <Compile Include="DealerLatLong.cs" />
-    <Compile Include="DealerMakeEntity.cs" />
+    <Compile Include="Dealers\DealerMakeEntity.cs" />
     <Compile Include="DealerOffersEntity.cs" />
     <Compile Include="DealerPackageTypes.cs" />
-    <Compile Include="DealerVersionPriceEntity.cs" />
-    <Compile Include="DealerPriceBaseEntity.cs" />
+    <Compile Include="Dealers\DealerVersionPriceEntity.cs" />
+    <Compile Include="Dealers\DealerPriceBaseEntity.cs" />
     <Compile Include="DealerPriceEntity.cs" />
     <Compile Include="DealerPriceQuoteDetailed.cs" />
     <Compile Include="DealerPriceQuoteEntity.cs" />
     <Compile Include="DealerQuotation.cs" />
-    <Compile Include="VersionPriceEntity.cs" />
-    <Compile Include="DealerVersionEntity.cs" />
+    <Compile Include="Dealers\VersionPriceEntity.cs" />
+    <Compile Include="Dealers\DealerVersionEntity.cs" />
     <Compile Include="EMI.cs" />
     <Compile Include="FacilityEntity.cs" />
     <Compile Include="GeoLocationDestinationEntity.cs" />
@@ -182,6 +182,7 @@
     <Compile Include="VersionColorWithAvailability.cs" />
     <Compile Include="VersionEntityBase.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

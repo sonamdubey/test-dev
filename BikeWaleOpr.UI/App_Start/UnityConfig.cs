@@ -16,6 +16,7 @@ using BikewaleOpr.Interface.Location;
 using BikewaleOpr.DALs.Location;
 using BikewaleOpr.BAL.ContractCampaign;
 using Bikewale.ManufacturerCampaign.DAL;
+using BikewaleOpr.DALs;
 
 namespace BikewaleOpr
 {
@@ -47,8 +48,9 @@ namespace BikewaleOpr
 
                 .RegisterType<ILocation, LocationRepository>()
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
-                .RegisterType<IContractCampaign, ContractCampaign>();
-
+                .RegisterType<IContractCampaign, ContractCampaign>()
+                .RegisterType<ILocation, LocationRepository>()
+                .RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
 
 
 

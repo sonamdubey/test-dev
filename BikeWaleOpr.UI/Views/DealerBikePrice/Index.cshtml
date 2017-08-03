@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col m9">
+        <table class="highlight centered responsive-table bordered z-depth-3 margin-top10">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Item Name</th>
+                    <th>Item Price</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Alvin</td>
+                    <td>Eclair</td>
+                    <td>$0.87</td>
+                </tr>
+                <tr>
+                    <td>Alan</td>
+                    <td>Jellybean</td>
+                    <td>$3.76</td>
+                </tr>
+                <tr>
+                    <td>Jonathan</td>
+                    <td>Lollipop</td>
+                    <td>$7.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col m3">
+        <ul class="collapsible margin-top10" data-collapsible="accordion">
+            @Html.Partial("~/Views/Shared/_SelectOperationCollapsable.cshtml")
+            <li>
+                <div class="collapsible-header"><strong>Show Pricing</strong></div>
+                <div class="collapsible-body">
+                    <div class="container">
+                        <div class="input-field row s12">
+                            <select>
+                                <option value="0" disabled selected>City</option>
+                                <option value="1">Offers</option>
+                                <option value="2">Pricing</option>
+                                <option value="3">Facilities</option>
+                                <option value="3">EMI</option>
+                                <option value="3">Disclaimer</option>
+                                <option value="3">Booking Amount</option>
+                                <option value="3">Benefits / USP</option>
+                            </select>
+                        </div>
+                        <div class="input-field row s12">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">
+                                Get Pricing
+                            </button>
+                        </div>
+                    <div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><strong>Add Category</strong></div>
+                <div class="collapsible-body">
+                    <div class="container">
+                        <div class="input-field row s12">
+                            <select multiple>
+                                <option value="0" disabled selected>Categories</option>
+                                <option value="1">Offers</option>
+                                <option value="2">Pricing</option>
+                                <option value="3">Facilities</option>
+                                <option value="3">EMI</option>
+                                <option value="3">Disclaimer</option>
+                                <option value="3">Booking Amount</option>
+                                <option value="3">Benefits / USP</option>
+                            </select>
+                        </div>
+                        <div class="input-field row s12">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">
+                                Add Category
+                            </button>
+                        </div>
+                    <div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><strong>Copy Pricing to other cities</strong></div>
+                <div class="collapsible-body">
+                    <div class="container">
+                        <div class="input-field row s12">
+                            <select>
+                                <option value="0" disabled selected>State</option>
+                                <option value="1">Offers</option>
+                                <option value="2">Pricing</option>
+                                <option value="3">Facilities</option>
+                                <option value="3">EMI</option>
+                                <option value="3">Disclaimer</option>
+                                <option value="3">Booking Amount</option>
+                                <option value="3">Benefits / USP</option>
+                            </select>
+                        </div>
+                        <div class="input-field row s12">
+                            <select mulitple>
+                                <option value="0" disabled selected>Cities</option>
+                                <option value="1">Offers</option>
+                                <option value="2">Pricing</option>
+                                <option value="3">Facilities</option>
+                                <option value="3">EMI</option>
+                                <option value="3">Disclaimer</option>
+                                <option value="3">Booking Amount</option>
+                                <option value="3">Benefits / USP</option>
+                            </select>
+                        </div>
+                        <div class="input-field row s12">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">
+                                Copy Pricing
+                            </button>
+                        </div>
+                    <div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><strong>Copy Pricing to other dealers</strong></div>
+                <div class="collapsible-body">
+                    <div class="container">
+                        <div class="input-field row s12">
+                            <select>
+                                <option value="0" disabled selected>City</option>
+                                <option value="1">Offers</option>
+                                <option value="2">Pricing</option>
+                                <option value="3">Facilities</option>
+                                <option value="3">EMI</option>
+                                <option value="3">Disclaimer</option>
+                                <option value="3">Booking Amount</option>
+                                <option value="3">Benefits / USP</option>
+                            </select>
+                        </div>
+                        <div class="input-field row s12">
+                            <select mulitple>
+                                <option value="0" disabled selected>Dealers</option>
+                                <option value="1">Offers</option>
+                                <option value="2">Pricing</option>
+                                <option value="3">Facilities</option>
+                                <option value="3">EMI</option>
+                                <option value="3">Disclaimer</option>
+                                <option value="3">Booking Amount</option>
+                                <option value="3">Benefits / USP</option>
+                            </select>
+                        </div>
+                        <div class="input-field row s12">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">
+                                Copy Pricing
+                            </button>
+                        </div>
+                    <div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
