@@ -14,6 +14,7 @@ using Bikewale.Models.CompareBikes;
 using Bikewale.Utility;
 using System;
 using System.Linq;
+using Bikewale.Interfaces.BikeData.UpComing;
 
 namespace Bikewale.Models
 {
@@ -35,6 +36,7 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly ICMSCacheContent _expertReviews = null;
+        private readonly IUpcoming _upcoming = null;
 
         #endregion
 
@@ -48,7 +50,7 @@ namespace Bikewale.Models
 
         #endregion
 
-        public NewPageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
+        public NewPageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming)
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -61,6 +63,7 @@ namespace Bikewale.Models
             _videos = videos;
             _articles = articles;
             _expertReviews = expertReviews;
+            _upcoming = upcoming;
         }
 
 
@@ -69,6 +72,8 @@ namespace Bikewale.Models
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
+        /// Modified by: Vivek Singh Tomar on 31 July 2017
+        /// Summary    : Replaced logic of fetching upcoming bike list.
         /// </returns>
         public NewPageVM GetData()
         {
@@ -106,7 +111,13 @@ namespace Bikewale.Models
             objVM.NewLaunchedBikes.PQSourceId = (uint)PQSourceEnum.Desktop_New_NewLaunches;
 
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
-            objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
+            var objFiltersUpcoming = new UpcomingBikesListInputEntity()
+            {
+                PageSize = TopCount,
+                PageNo = 1
+            };
+            var sortBy = EnumUpcomingBikesFilter.Default;
+            objVM.UpcomingBikes.UpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
 
             BindCompareBikes(objVM, CompareSource, cityId);
           

@@ -14,6 +14,7 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
 using System;
 using System.Linq;
+using Bikewale.Interfaces.BikeData.UpComing;
 
 namespace Bikewale.Models
 {
@@ -37,6 +38,7 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly ICMSCacheContent _expertReviews = null;
+        private readonly IUpcoming _upcoming = null;
         #endregion
 
         #region Page level variables
@@ -49,7 +51,7 @@ namespace Bikewale.Models
 
         #endregion
 
-        public HomePageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
+        public HomePageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming)
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -64,6 +66,7 @@ namespace Bikewale.Models
             _videos = videos;
             _articles = articles;
             _expertReviews = expertReviews;
+            _upcoming = upcoming;
         }
 
 
@@ -76,6 +79,8 @@ namespace Bikewale.Models
         /// Summary  :  Added different functions to bind popular comparison carousel for msite and desktop
         /// Modified by : Aditi Srivastava on 3 June 2017
         /// Summary     : Added single function for comaprison carousel for both msite and desktop
+        /// Modified by: Vivek Singh Tomar on 31 July 2017
+        /// Summary    : Replaced logic of fetching upcoming bike list.
         /// </returns>
         public HomePageVM GetData()
         {
@@ -124,7 +129,14 @@ namespace Bikewale.Models
             objVM.NewLaunchedBikes.PQSourceId = (uint)PQSourceEnum.Desktop_New_NewLaunches;
 
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
-            objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
+            var objFiltersUpcoming = new UpcomingBikesListInputEntity()
+            {
+                PageSize = TopCount,
+                PageNo = 1
+            };
+            var sortBy = EnumUpcomingBikesFilter.Default;
+            objVM.UpcomingBikes.UpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+
             BindCompareBikes(objVM, CompareSource, cityId);
             
             objVM.BestBikes = new BestBikeWidgetModel(null, _cachedModels).GetData();
