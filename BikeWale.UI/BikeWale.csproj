@@ -3335,7 +3335,7 @@
     <Content Include="bin\Bikewale.Utility.dll" />
     <Content Include="bin\Carwale.BL.dll" />
     <Content Include="bin\Carwale.Cache.dll" />
-    <Content Include="bin\Carwale.CoreDAL.dll" />
+    <!-- <Content Include="bin\Carwale.CoreDAL.dll" /> -->
     <Content Include="bin\Carwale.DAL.dll" />
     <Content Include="bin\Carwale.Entity.dll" />
     <Content Include="bin\Carwale.Interfaces.dll" />
@@ -3366,9 +3366,9 @@
     <Content Include="bin\RabbitMqPublishing.dll" />
     <Content Include="bin\System.Interactive.Async.dll" />
     <Content Include="bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\System.Web.Cors.dll" />
+    <!-- <Content Include="bin\System.Web.Cors.dll" /> -->
     <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Http.Cors.dll" />
+    <!-- <Content Include="bin\System.Web.Http.Cors.dll" /> -->
     <Content Include="bin\System.Web.Http.dll" />
     <Content Include="bin\System.Web.Http.WebHost.dll" />
     <Content Include="bin\System.Web.Mvc.dll" />
@@ -3999,7 +3999,7 @@
 
   <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running gulp task $(Configuration)" Importance="high" />
-    <Exec Command="gulp" WorkingDirectory="$(ProjectDir)" />
+    <Exec Command=".\..\node_modules\.bin\gulp" WorkingDirectory="$(ProjectDir)" />
   </Target>
 
   <!--<Target Name="AfterBuild">
@@ -4023,7 +4023,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x64.props'))" />
-    <Error Condition="!Exists('..\packages\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x86.props'))" />
+    <Error Condition="!Exists('..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x64.props'))" />
+    <Error Condition="!Exists('..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x86.props'))" />
   </Target>
 </Project>

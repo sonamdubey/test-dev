@@ -146,7 +146,7 @@ namespace CopyFiles
                 DateTime lastModifiedDate = File.GetLastWriteTime(fileName);
 
                 //required checks
-                if (!string.IsNullOrEmpty(fileExtension) && Convert.ToInt32(Array.IndexOf(ignoreFiles, fileExtension)) < 0 && lastModifiedDate >= fromDateTime)
+                if (!string.IsNullOrEmpty(fileExtension) && Convert.ToInt32(Array.IndexOf(ignoreFiles, fileExtension)) < 0 /*&& lastModifiedDate >= fromDateTime*/)
                 {
                     //if folder does not exist, it wil create new one
                     if (!Directory.Exists(targetPath))
@@ -155,7 +155,9 @@ namespace CopyFiles
                     }
 
                     //copy files to the respective folders, it will even overwrite files if already exists
-                    File.Copy(fileName, targetPath + Path.GetFileName(fileName), true);
+                    if(!fileExtension.Equals(".config") || (Path.GetFileName(fileName).Equals("Web.config"))){
+                        File.Copy(fileName, targetPath + Path.GetFileName(fileName), true);
+                    }
 
                     if (fileExtension.Equals(".js") || fileExtension.Equals(".css"))
                     {
