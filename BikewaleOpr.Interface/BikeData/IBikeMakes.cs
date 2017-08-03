@@ -15,10 +15,12 @@ namespace BikewaleOpr.Interface.BikeData
         IEnumerable<BikeMakeEntityBase> GetMakes(string requestType);
         IEnumerable<BikeMakeEntityBase> GetMakes(ushort RequestType);
         IEnumerable<BikeMakeEntity> GetMakesList();
+        IEnumerable<BikeMakeEntityBase> GetServiceCenterMakes(ushort RequestType);
         void AddMake(BikeMakeEntity make, ref short isMakeExist, ref int makeId);
         void UpdateMake(BikeMakeEntity make);
         void DeleteMake(int makeId, int updatedBy);
         SynopsisData Getsynopsis(int makeId);
         void UpdateSynopsis(int makeId, int updatedBy, SynopsisData objSynopsis);
+      
     }
 }

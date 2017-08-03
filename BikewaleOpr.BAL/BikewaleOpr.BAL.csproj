@@ -100,6 +100,7 @@
     <Compile Include="MemCachedUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SecurityBL.cs" />
+    <Compile Include="ServiceCenter\ServiceCenterBL.cs" />
     <Compile Include="Used\SellBikes.cs" />
     <Compile Include="Used\UsedBikes.cs" />
   </ItemGroup>
@@ -112,9 +113,17 @@
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Interfaces\Bikewale.Interfaces.csproj">
+      <Project>{12B0EDCD-AA9E-41BB-BDC9-CEF75952FD49}</Project>
+      <Name>Bikewale.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
       <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikeWale.UI\BikeWale.csproj">
+      <Project>{E3512B04-CD47-4E15-AB1D-CCFC92193273}</Project>
+      <Name>BikeWale</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>

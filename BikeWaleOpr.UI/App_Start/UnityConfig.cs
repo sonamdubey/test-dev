@@ -16,6 +16,9 @@ using BikewaleOpr.Interface.Location;
 using BikewaleOpr.DALs.Location;
 using BikewaleOpr.BAL.ContractCampaign;
 using Bikewale.ManufacturerCampaign.DAL;
+using BikewaleOpr.Interface.ServiceCenter;
+using BikewaleOpr.BAL.ServiceCenter;
+using BikewaleOpr.DALs.ServiceCenter;
 
 namespace BikewaleOpr
 {
@@ -47,9 +50,9 @@ namespace BikewaleOpr
 
                 .RegisterType<ILocation, LocationRepository>()
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
-                .RegisterType<IContractCampaign, ContractCampaign>();
-
-
+                .RegisterType<IContractCampaign, ContractCampaign>()
+            .RegisterType<IServiceCenter, ServiceCenterBL>()
+         .RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
 
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

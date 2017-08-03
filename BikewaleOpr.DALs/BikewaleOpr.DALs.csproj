@@ -97,6 +97,7 @@
     <Compile Include="ManufactureCampaign\ManufacturerCampaign.cs" />
     <Compile Include="PopularComparisions\PopularBikeComparisions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceCenter\ServiceCenterRepository.cs" />
     <Compile Include="Used\SellerRepository.cs" />
     <Compile Include="UserReviews\UserReviewsRepository.cs" />
   </ItemGroup>

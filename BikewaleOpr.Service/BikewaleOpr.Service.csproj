@@ -138,6 +138,7 @@
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="AutoMappers\ManufacturerCampaign\SearchMapper.cs" />
     <Compile Include="AutoMappers\Location\CityMapper.cs" />
+    <Compile Include="AutoMappers\ServiceCenter\ServiceCenterMapper.cs" />
     <Compile Include="AutoMappers\UserReviews\UserReviewsMapper.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />
     <Compile Include="Controllers\Content\MakesController.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Controllers\DealersController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ManufacturerCampaign\ManufacturerCampaignController.cs" />
+    <Compile Include="Controllers\ServiceCenter\ServiceCenterController.cs" />
     <Compile Include="Controllers\Used\UsedBikesController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -176,11 +178,14 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
+      <Project>{3CA0D7B6-7E09-449C-A34D-C08CA8118876}</Project>
+      <Name>Bikewale.BAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
     </ProjectReference>
-
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.DAL\Bikewale.ManufacturerCampaign.DAL.csproj">
       <Project>{f3148a79-9fec-4a19-9977-0fa6163c9e77}</Project>
       <Name>Bikewale.ManufacturerCampaign.DAL</Name>
@@ -196,11 +201,14 @@
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
       <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
-
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
       <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikeWale.UI\BikeWale.csproj">
+      <Project>{E3512B04-CD47-4E15-AB1D-CCFC92193273}</Project>
+      <Name>BikeWale</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
