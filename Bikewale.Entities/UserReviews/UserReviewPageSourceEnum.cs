@@ -19,7 +19,11 @@
         Mobile_ExpertReviews = 15,
         Desktop_ExpertReviews = 16,
         Mobile_Features = 17,
-        Desktop_Features = 18
+        Desktop_Features = 18,
+        Desktop_HomePage=19,
+        Mobile_HomePage  = 20,
+        Desktop_NewBikePage = 21,
+        Mobile_NewBikePage=22
 
     }
 }

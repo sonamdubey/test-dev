@@ -367,3 +367,53 @@
     margin-right: 4px;
 }
 
+
+/* contest-participate-banner */
+.contest-participate-banner {
+	display: table;
+	min-height: 62px;
+	padding: 10px 15px;
+	background-color: #2e3192;
+}
+
+.contest-banner__wrapper {
+	max-width: 360px;
+	margin: 0 auto;
+}
+
+.contest-banner__left-grid {
+	padding-right: 10px;
+	margin-right: 10px;
+	border-right: 1px solid #fff;
+}
+
+.contest-banner__right-grid {
+	width: 66%;
+}
+
+.contest-banner__title-13,
+.contest-banner__title-18 {
+	font-weight: 700;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.contest-banner__title-13 {
+	font-size: 13px;
+}
+
+.contest-banner__title-18 {
+	font-size: 18px;
+}
+
+.contest-banner__subtitle {
+	font-size: 12px;
+	color: #fff;
+}
+
+.contest-banner__target-link {
+	color: #ffe70c;
+	font-size: 14px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
