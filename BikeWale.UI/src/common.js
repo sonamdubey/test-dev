@@ -1316,10 +1316,11 @@ docReady(function () {
             CloseCityPopUp();
             showGlobalCity(cityName);
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
+            dataLayer.push({ 'GlobalCity': cityName });
+            ga('set', 'dimension3', cityName);
             if (city.cityId) {
-                location.reload();
-            }
-            dataLayer.push({ 'GlobalCity' : cityName });
+                //location.reload();
+            }           
         },
         open: function (result) {
             objCity.result = result;
