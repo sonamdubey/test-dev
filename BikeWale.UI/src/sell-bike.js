@@ -1309,7 +1309,9 @@ $(function () {
     else {
         $("#kmsRidden").val('');
         $("#expectedPrice").val('');
-        $('#city-select-element').removeClass('done');
+        if ($('#city-select-element select').val() == '') {
+            $('#city-select-element').removeClass('done');
+        }
     }
     if (isEdit != "True" &&  userId != null) {
         var pdetails = vmSellBike.personalDetails();
