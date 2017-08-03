@@ -426,7 +426,7 @@ docReady(function () {
         self.detailedReviewFlag = ko.observable(false);
         self.detailedReviewError = ko.observable('');
         self.focusFormActive = ko.observable(false);
-
+        self.bikeMileage = ko.observable('');
         self.reviewQuestions = ko.observableArray(reviewQuestion);
 
         self.descLength = ko.computed(function () {
@@ -479,16 +479,27 @@ docReady(function () {
             if ($('#formattedDescripton'))
                 $('#formattedDescripton').val(formattedDescArray);
 
-            if (self.detailedReview().length > 0 || self.reviewTitle().length > 0) {
-                if (self.validateReviewForm()) {
+            var isValidMileage = true;
+            if (self.bikeMileage().length > 0)
+                isValidMileage = $.isNumeric(self.bikeMileage()) && Number(self.bikeMileage()) <= 150 && Number(self.bikeMileage()) >= 0;
+
+            if (isValidMileage) {
+                if (self.detailedReview().length > 0 || self.reviewTitle().length > 0) {
+                    if (self.validateReviewForm()) {
+                        return true;
+                    }
+                }
+                else {
+                    self.detailedReviewFlag(false);
+                    validate.hideError(reviewTitleField);
+                    triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
                     return true;
                 }
             }
             else {
-                self.detailedReviewFlag(false);
-                validate.hideError(reviewTitleField);
-                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
-                return true;
+
+                validate.setError($('#getMileage'), 'Please enter valid milage');
+                answer.focusForm($('#getMileage'));
             }
 
         };

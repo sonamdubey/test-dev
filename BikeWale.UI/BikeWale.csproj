@@ -1019,6 +1019,7 @@
     <Compile Include="Models\UserReviews\UserReviewListingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewDetailsPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewRatingPage.cs" />
+    <Compile Include="Models\UserReviews\UserReviewSearchWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewsSearchWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewSummaryPage.cs" />
@@ -3894,6 +3895,10 @@
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
       <Name>Bikewale.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Interface\BikewaleOpr.Interface.csproj">
+      <Project>{539FA12C-3799-4E88-A833-F65594EA1934}</Project>
+      <Name>BikewaleOpr.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

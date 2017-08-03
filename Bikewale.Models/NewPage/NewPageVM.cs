@@ -36,5 +36,7 @@ namespace Bikewale.Models
         public bool IsExpertReviewActive { get; set; }
         public bool IsVideoActive = false;
         public IEnumerable<RecentReviewsWidget> RecentUserReviewsList { get; set; }
+
+        public string Source { get; set; }
     }
 }
