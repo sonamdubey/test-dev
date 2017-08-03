@@ -19,7 +19,8 @@
         Mobile_ExpertReviews = 15,
         Desktop_ExpertReviews = 16,
         Mobile_Features = 17,
-        Desktop_Features = 18
+        Desktop_Features = 18,
+        Desktop_ModelPage_Slug = 19
 
     }
 }
