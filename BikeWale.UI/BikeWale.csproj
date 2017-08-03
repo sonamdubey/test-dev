@@ -18,7 +18,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -107,8 +107,8 @@
       <HintPath>..\Libs\Carwale.Utility.dll</HintPath>
     </Reference>
     <Reference Include="ClearScript, Version=5.4.9.0, Culture=neutral, PublicKeyToken=935d0c957da47c73, processorArchitecture=MSIL">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.2.4.2\lib\net45\ClearScript.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\PWA\ClearScript.dll</HintPath>
     </Reference>
     <Reference Include="Dapper">
       <HintPath>..\Libs\Dapper.dll</HintPath>
@@ -143,19 +143,19 @@
       <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.ChakraCore.dll</HintPath>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.Core.2.4.0\lib\net45\JavaScriptEngineSwitcher.Core.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.Core.dll</HintPath>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.Msie">
       <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.Msie.dll</HintPath>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.V8, Version=2.4.2.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.2.4.2\lib\net45\JavaScriptEngineSwitcher.V8.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.V8.dll</HintPath>
     </Reference>
     <Reference Include="JSPool, Version=2.0.1.0, Culture=neutral, PublicKeyToken=2fc7775f73072640, processorArchitecture=MSIL">
-      <HintPath>..\packages\JSPool.2.0.1\lib\net451\JSPool.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\PWA\JSPool.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -176,7 +176,7 @@
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <HintPath>..\Libs\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MsieJavaScriptEngine">
@@ -194,8 +194,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">      
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NReco.PdfGenerator">
@@ -213,16 +212,16 @@
       <HintPath>..\Libs\RabbitMqPublishing.dll</HintPath>
     </Reference>
     <Reference Include="React.Core, Version=3.0.1.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Core.3.0.1\lib\net40\React.Core.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\PWA\React.Core.dll</HintPath>
     </Reference>
     <Reference Include="React.Web, Version=3.0.1.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Web.3.0.1\lib\net40\React.Web.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\PWA\React.Web.dll</HintPath>
     </Reference>
     <Reference Include="React.Web.Mvc4, Version=3.0.1.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Web.Mvc4.3.0.1\lib\net40\React.Web.Mvc4.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\PWA\React.Web.Mvc4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -238,7 +237,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <HintPath>..\Libs\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
@@ -249,11 +248,11 @@
     </Reference>
     <Reference Include="System.Web.Http, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.1.2\lib\net45\System.Web.Http.dll</HintPath>
+      <HintPath>..\Libs\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <HintPath>..\Libs\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -3336,7 +3335,7 @@
     <Content Include="bin\Bikewale.Utility.dll" />
     <Content Include="bin\Carwale.BL.dll" />
     <Content Include="bin\Carwale.Cache.dll" />
-    <Content Include="bin\Carwale.CoreDAL.dll" />
+    <!-- <Content Include="bin\Carwale.CoreDAL.dll" /> -->
     <Content Include="bin\Carwale.DAL.dll" />
     <Content Include="bin\Carwale.Entity.dll" />
     <Content Include="bin\Carwale.Interfaces.dll" />
@@ -3367,9 +3366,9 @@
     <Content Include="bin\RabbitMqPublishing.dll" />
     <Content Include="bin\System.Interactive.Async.dll" />
     <Content Include="bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\System.Web.Cors.dll" />
+    <!-- <Content Include="bin\System.Web.Cors.dll" /> -->
     <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Http.Cors.dll" />
+    <!-- <Content Include="bin\System.Web.Http.Cors.dll" /> -->
     <Content Include="bin\System.Web.Http.dll" />
     <Content Include="bin\System.Web.Http.WebHost.dll" />
     <Content Include="bin\System.Web.Mvc.dll" />
@@ -4002,7 +4001,7 @@
 
   <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running gulp task $(Configuration)" Importance="high" />
-    <Exec Command="gulp" WorkingDirectory="$(ProjectDir)" />
+    <Exec Command=".\..\node_modules\.bin\gulp" WorkingDirectory="$(ProjectDir)" />
   </Target>
 
   <!--<Target Name="AfterBuild">
@@ -4026,7 +4025,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x64.props'))" />
-    <Error Condition="!Exists('..\packages\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x86.props'))" />
+    <Error Condition="!Exists('..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x64.props'))" />
+    <Error Condition="!Exists('..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x86.props'))" />
   </Target>
 </Project>

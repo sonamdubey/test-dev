@@ -44,7 +44,7 @@ namespace CopyFiles
                     if(!String.IsNullOrEmpty(path))
                     {
                         isMinify = !path.ToUpper().Contains("OPR");
-                        copyPath = String.Format(@"{0}..\..\Bikewale{2}-Releases\{1}\website\",path,DateTime.Now.ToString("dd MMM yyyy - hh-mm"),isMinify ? string.Empty : "OPR");
+                        copyPath = String.Format(@"{0}..\..\Bikewale{1}-Releases\Content\website\",path,isMinify ? string.Empty : "OPR");
                     }                   
                 }
             }
@@ -146,7 +146,7 @@ namespace CopyFiles
                 DateTime lastModifiedDate = File.GetLastWriteTime(fileName);
 
                 //required checks
-                if (!string.IsNullOrEmpty(fileExtension) && Convert.ToInt32(Array.IndexOf(ignoreFiles, fileExtension)) < 0 && lastModifiedDate >= fromDateTime)
+                if (!string.IsNullOrEmpty(fileExtension) && Convert.ToInt32(Array.IndexOf(ignoreFiles, fileExtension)) < 0 /*&& lastModifiedDate >= fromDateTime*/)
                 {
                     //if folder does not exist, it wil create new one
                     if (!Directory.Exists(targetPath))
@@ -155,7 +155,9 @@ namespace CopyFiles
                     }
 
                     //copy files to the respective folders, it will even overwrite files if already exists
-                    File.Copy(fileName, targetPath + Path.GetFileName(fileName), true);
+                    if(!fileExtension.Equals(".config") || (Path.GetFileName(fileName).Equals("Web.config"))){
+                        File.Copy(fileName, targetPath + Path.GetFileName(fileName), true);
+                    }
 
                     if (fileExtension.Equals(".js") || fileExtension.Equals(".css"))
                     {

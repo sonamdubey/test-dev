@@ -1,6 +1,0 @@
-D:\copyfiles\copyfiles\bin\Staging\copyfiles.exe.config
-D:\copyfiles\copyfiles\bin\Staging\copyfiles.exe
-D:\copyfiles\copyfiles\bin\Staging\copyfiles.pdb
-D:\copyfiles\copyfiles\obj\Staging\Bikewale.ReleaseManagement.csprojResolveAssemblyReference.cache
-D:\copyfiles\copyfiles\obj\Staging\copyfiles.exe
-D:\copyfiles\copyfiles\obj\Staging\copyfiles.pdb
