@@ -1,9 +1,9 @@
 */bin
 */obj
 *.suo
-/packages
 *.log
 *.user
+/packages
 Bikewale.Service/bin/*.XML
 Bikewale.Service/App_Data/*.XML
 *.orig
@@ -11,3 +11,7 @@ BikeWale.UI/build/
 BikeWale.UI/min/
 node_modules/
 .vs
+Bikewale.DataSync/DataSync/bin
+Bikewale.DataSync/DataSync/obj
+Bikewale.ReleaseManagement/copyfiles/bin
+Bikewale.ReleaseManagement/copyfiles/obj

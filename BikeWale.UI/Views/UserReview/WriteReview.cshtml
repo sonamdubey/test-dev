@@ -65,7 +65,14 @@
                                 </div>
 
                                 <h2 class="font18 padding-bottom5">Can you share a little more about this bike?<span class="text-light-grey text-unbold font14">&nbsp;(Optional)</span></h2>
-
+                                <div class="review-question-mileage">
+                                    <p class="item-title">What mileage does your bike offer?</p>
+                                    <div class="input-box form-control-box" data-bind="css: bikeMileage() && bikeMileage().length > 0 ? 'not-empty' : ''">
+                                        <input name="mileage" type="text" id="getMileage" data-bind="textInput: bikeMileage" maxlength="190">
+                                        <span class="boundary"></span>
+                                        <span class="error-text"></span>
+                                    </div>
+                                </div>
                                 <ul id="bike-review-questions" data-make-model="@string.Format("{0}_{1}_", Model.Make.MakeName, Model.Model.ModelName)" class="review-question-list margin-bottom20" data-bind="foreach: reviewQuestions">                                   
                                     <li class="list-item question-type-text">
                                         <p class="item-title" data-bind="text: heading"></p>

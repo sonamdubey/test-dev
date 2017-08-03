@@ -1084,10 +1084,12 @@ docReady(function () {
             CloseCityPopUp();
             showGlobalCity(ui.item.label);
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
-            if (city.cityId) {
-                location.reload();
-            }
             dataLayer.push({ 'GlobalCity': cityName });
+            ga('set', 'dimension3', cityName);
+            if (city.cityId) {
+                //location.reload();
+            }
+            
         },
         open: function (result) {
             objCity.result = result;

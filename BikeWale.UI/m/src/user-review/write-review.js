@@ -438,17 +438,28 @@ docReady(function () {
             if ($('#formattedDescripton'))
                 $('#formattedDescripton').val(formattedDescArray);
 
-            if (self.detailedReview().length > 0 || self.reviewTitle().length > 0) {
-                if (self.validateReviewForm()) {
-                    return true;
-                }
-            }
-            else {
-                self.detailedReviewFlag(false);
-                validate.hideError(reviewTitleField);
-                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSrc + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
-                return true;
-            }
+            var isValidMileage = true;
+            if (self.bikeMileage().length > 0)
+                isValidMileage = $.isNumeric(self.bikeMileage()) && Number(self.bikeMileage()) <= 150 && Number(self.bikeMileage()) >= 0;
+           
+             if (isValidMileage) {
+                 if (self.detailedReview().length > 0 || self.reviewTitle().length > 0) {
+                     if (self.validateReviewForm()) {
+                         return true;
+                     }
+                 }
+                 else {
+                     self.detailedReviewFlag(false);
+                     validate.hideError(reviewTitleField);
+                     triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSrc + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
+                     return true;
+                 }
+             }
+             else {
+
+                 validate.setError($('#getMileage'), 'Please enter valid milage');
+                 answer.focusForm($('#getMileage'));
+             }
 
         };
 
@@ -457,6 +468,7 @@ docReady(function () {
             var isValidTitle = true;
             isValidDesc = self.validate.detailedReview();
             isValidTitle = self.validate.reviewTitle();
+            
             var isValid = isValidDesc && isValidTitle;
 
             if (isValid) {
@@ -509,6 +521,8 @@ docReady(function () {
 
                 return isValid;
             }
+         
+
         };
 
         self.SaveToBwCache = function () {            
