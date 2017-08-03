@@ -1,6 +1,8 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.Entities.BikeData;
+using BikewaleOpr.Entity.BikePricing;
 using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Interface.BikePricing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,35 +11,67 @@ using System.Web;
 namespace BikewaleOpr.Models.ManagePrices
 {
     /// <summary>
-    /// Created By:
+    /// Created By: Ashutosh Sharma on 31-07-2017
+    /// Discription : Model for Price monitoring report page.
     /// </summary>
     public class PriceMonitoringModel
     {
         private readonly IBikeMakes _makesRepo = null;
-        public PriceMonitoringModel(IBikeMakes makesRepo)
+        private readonly IShowroomPricesRepository _pricesRepo = null;
+
+        public PriceMonitoringModel(IBikeMakes makesRepo, IShowroomPricesRepository pricesRepo)
         {
             _makesRepo = makesRepo;
+            _pricesRepo = pricesRepo;
         }
+
+        /// <summary>
+        /// Created By: Ashutosh Sharma on 31-07-2017
+        /// Discription: Method to return list of bike makes.
+        /// </summary>
+        /// <param name="requestType"></param>
+        /// <returns>List of bike makes.</returns>
         public IEnumerable<BikeMakeEntityBase> GetMakes(string requestType)
         {
             IEnumerable<BikeMakeEntityBase> makesList = null;
             try
             {
-                if (requestType != string.Empty)
-                {
+                if (!string.IsNullOrEmpty(requestType))
                     makesList =  _makesRepo.GetMakes(requestType);
                     
-                }
-                else
-                {
-                    return null;
-                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Models.ManagePrices.PriceMonitoringModel.GetMakes_" + requestType);
+
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Models.ManagePrices.PriceMonitoringModel.GetMakes_requestType:{0}",requestType));
             }
-            return makesList; ;
+            return makesList;
+        }
+
+       
+
+        /// <summary>
+        /// Created By: Ashutosh Sharma on 31-07-2017
+        /// Discription : Method to get price last updated details of bike versions in cities.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public PriceMonitoringEntity GetPriceMonitoringDetails(uint makeId, uint modelId)
+        {
+            PriceMonitoringEntity priceMonitoring = null;
+            try
+            {
+                priceMonitoring = _pricesRepo.GetPriceMonitoringDetails(makeId, modelId);
+              
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Models.ManagePrices.PriceMonitoringModel.GetPriceMonitoringDetails_makeId:{0}_modelId:{1}",makeId, modelId));
+            }
+
+            return priceMonitoring;
         }
     }
 }

@@ -79,6 +79,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DealerCampaign\CampaignServingAreasVM.cs" />
+    <Compile Include="ManagePrices\BikeMakesListVM.cs" />
+    <Compile Include="ManagePrices\PriceMonitoringVM.cs" />
     <Compile Include="ManufacturerCampaign\CampaignPropertiesVM.cs" />
     <Compile Include="ManufacturerCampaign\ManufacturerCampaignInformationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

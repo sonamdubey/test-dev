@@ -12,3 +12,16 @@ D:\work\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\DataSync.exe
 D:\work\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\DataSync.pdb
 D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Gelf4Net.dll
 D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Gelf4Net.UdpAppender.dll
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\DataSync.exe.config
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\DataSync.exe
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\DataSync.pdb
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Consumer.dll
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Dapper.dll
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Gelf4Net.dll
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Gelf4Net.UdpAppender.dll
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\log4net.dll
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\RabbitMQ.Client.dll
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\RabbitMqPublishing.dll
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\Bikewale.DataSync.csprojResolveAssemblyReference.cache
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\DataSync.exe
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\DataSync.pdb

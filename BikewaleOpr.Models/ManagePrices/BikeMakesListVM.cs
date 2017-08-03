@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace BikewaleOpr.Models.ManagePrices
 {
+    /// <summary>
+    /// Created By : Ashutosh Sharma on 31-07-2017
+    /// Discription : ViewModel for Price monitoring report pgae. 
+    /// </summary>
     public class BikeMakesListVM
     {
         public int MakeId { get; set; }

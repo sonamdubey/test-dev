@@ -457,6 +457,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
+    <Compile Include="Models\ManagePrices\PriceMonitoringModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\CampaignPropertiesModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPageModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPopup.cs" />
@@ -581,7 +582,6 @@
     <Folder Include="Entities\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
-    <Folder Include="Views\PriceMonitoring\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="aspnet_client\FreeTextBox\FTB-FreeTextBox.js" />
@@ -1940,6 +1940,7 @@
     <Content Include="src\ManufacturerCampaign\SearchManufacture.js" />
     <Content Include="src\modelImagesByColor.js" />
     <Content Include="src\PopUpDiv.js" />
+    <Content Include="src\ManagePrice\pricemonitoring.js" />
     <Content Include="src\userreviews\manageuserratings.js" />
     <Content Include="src\userreviews\manageuserreviews.js" />
     <Content Include="users\Login.aspx" />
@@ -1954,7 +1955,6 @@
     <Content Include="campaign\web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Makes\Index.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_MenuContent.cshtml" />
@@ -1990,6 +1990,8 @@
     <Content Include="Views\ManufacturerCampaign\_NavigationBreadcrumbs.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignProperties.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignPopup.cshtml" />
+    <Content Include="Views\PriceMonitoring\Index.cshtml" />
+    <Content Include="Views\Makes\Index.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

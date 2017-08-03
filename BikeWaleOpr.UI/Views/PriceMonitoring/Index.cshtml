@@ -1,0 +1,178 @@
+﻿@model BikewaleOpr.Models.ManagePrices.PriceMonitoringVM
+@using BikewaleOpr.Entity.BikePricing;
+@using BikewaleOpr.Entities;
+@{
+    IEnumerable<PriceLastUpdateEntity> priceLastUpdatedList = null;
+    IList<MfgCityEntity> cityList = null;
+    IList<BikeVersionEntity> bikeVersionList = null;
+    if (Model != null && Model.PriceMonitoringEntity != null)
+    {
+        priceLastUpdatedList = Model.PriceMonitoringEntity.PriceLastUpdatedList;
+        if (priceLastUpdatedList != null && priceLastUpdatedList.Count() == 0)
+        {
+            priceLastUpdatedList = null;
+        }
+        cityList = Model.PriceMonitoringEntity.CityList.ToList();
+        bikeVersionList = Model.PriceMonitoringEntity.BikeVersionList.ToList();
+    }
+}
+@{
+    ViewBag.Title = "Price Monitoring Report";
+
+    var makeEntity = Model.BikeMakes.FirstOrDefault(c => c.MakeId == Model.MakeId);
+    if (makeEntity != null)
+    {
+        ViewBag.PageTitle = "Price Monitoring Report - " + makeEntity.MakeName;
+    }
+    else
+    {
+        ViewBag.PageTitle = "Price Monitoring Report";
+    }
+}
+@if (Model != null)
+{
+    <div class="row" style="margin-top:5px;">
+        <div class="col s10 m10">
+            <div id="makesTable" class="fixed-table z-depth-3" style="display:@(priceLastUpdatedList == null ? "none": "")">
+                @if (bikeVersionList != null && bikeVersionList.Count() > 0)
+                {
+                    <div class="fixed-table__header">
+                        <table class="table centered highlight">
+                            <thead>
+
+                                <tr>
+                                    @foreach (var bikeVersion in bikeVersionList)
+                                    {
+                                        <th>@bikeVersion.BikeName</th>
+                                    }
+                                </tr>
+
+                            </thead>
+                        </table>
+                    </div>
+                }
+                <div class="fixed-table__sidebar" style="display:@(priceLastUpdatedList == null ? "none": "")">
+                    <table class="table centered highlight">
+                        <tbody>
+                            @if (Model.PriceMonitoringEntity != null && Model.PriceMonitoringEntity.CityList != null)
+                            {
+                                foreach (var city in cityList)
+                                {
+                                    <tr>
+                                        <td><strong>@city.CityName</strong> </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="fixed-table__body" style="display:@(priceLastUpdatedList == null ? "none": "")">
+                    <table class="table centered highlight">
+                        <tbody>
+                            @if (cityList != null && bikeVersionList != null)
+                            {
+                                for (int i = 0; i < cityList.Count(); i++)
+                                {
+                                    <tr>
+                                        @for (int j = 0; j < bikeVersionList.Count(); j++)
+                                        {
+                                            PriceLastUpdateEntity priceLastUpdated = priceLastUpdatedList
+                                                .FirstOrDefault(c => c.CityId == cityList[i].CityId && c.BikeVersionId == bikeVersionList[j].VersionId);
+                                            if (priceLastUpdated != null)
+                                            {
+                                                int days = (DateTime.Now - Convert.ToDateTime(priceLastUpdated.LastUpdated)).Days;
+                                                string color;
+                                                if (days <= 7)
+                                                {
+                                                    color = "green-text darken-1";
+                                                }
+                                                else if (days > 7 && days <= 15)
+                                                {
+                                                    color = "yellow-text darken-3";
+                                                }
+                                                else if (days > 15 && days <= 30)
+                                                {
+                                                    color = "orange-text darken-4";
+                                                }
+                                                else
+                                                {
+                                                    color = "red-text darken-3";
+                                                }
+                                                <td title="Price For:@cityList[i].CityName, Version: @bikeVersionList[j].BikeName">
+                                                    <a class="@color" target="_blank" href="/content/ShowroomPrices.aspx?City=@cityList[i].CityId&Make=@bikeVersionList[j].MakeId">
+                                                        @days
+                                                    </a>
+
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <a target="_blank" class="black-text" href="/content/ShowroomPrices.aspx?City=@cityList[i].CityId&Make=@bikeVersionList[j].MakeId">
+                                                        NA
+                                                    </a>
+                                                </td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="makeModelContainer" class="col s2 m2">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header active"><strong>Select Bike</strong></div>
+                    <div class="collapsible-body">
+                        @using (Html.BeginForm("GetReport", "PriceMonitoring", FormMethod.Get))
+                        {
+                            <div class="container">
+                                <div class="input-field row s12">
+                                    <select id="ddlMakes" name="makeId" data-bind="event:{change: selectMake}">
+                                        <option value="0">Select Make</option>
+                                        @if (Model.BikeMakes != null)
+                                        {
+                                            foreach (var make in Model.BikeMakes)
+                                            {
+                                                <option value="@make.MakeId" @(make.MakeId == Model.MakeId ? "selected" : "")>@make.MakeName</option>
+                                            }
+                                        }
+                                    </select>
+
+                                </div>
+                                <div class="input-field row s12">
+                                    <select id="ddlModels" name="modelId" data-content="@Model.ModelId" data-bind="value:selectedModel, options:modelList, optionsText:'ModelName',optionsValue:'ModelId'">
+                                        <option>Select Model</option>
+                                    </select>
+                                </div>
+                                <div class="input-field row s12">
+                                    <button id="btnShow" class="btn waves-effect waves-light" type="submit" formmethod="get">
+                                        Show
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col s2 @(priceLastUpdatedList == null ? "offset-s10": "" )">
+            <div class="card">
+                <div class="card-content">
+                    <p class="green darken-1"><=7 days</p>
+                    <p class="yellow darken-3"> 7 Days < & <=15 Days </p>
+                    <p class="orange darken-4">15 Days < & <=1 Month</p>
+                    <p class="red darken-3">More Than 1 Month</p>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="~/src/ManagePrice/pricemonitoring.js"></script>
+        <script src="~/src/content/makes.js"></script>
+    </div>
+}
