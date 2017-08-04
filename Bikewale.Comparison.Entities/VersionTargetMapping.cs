@@ -13,7 +13,7 @@ namespace Bikewale.Comparison.Entities
     /// </summary>
     public class VersionTargetMapping
     {
-        public uint Comparisonid { get; set; }
+        public uint ComparisonId { get; set; }
         public bool IsVersionMapping { get; set; }
         public string TargetSponsoredIds { get; set; }
         public string ImpressionUrl { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Comparison.DTO
 {
-    public class BikeModelVersionMappingDTO
+    public class BikeModelVersionMappingDTO: BikeModelDTO
     {
         [JsonProperty("sponsoredModelId")]
         public uint SponsoredModelId { get; set; }

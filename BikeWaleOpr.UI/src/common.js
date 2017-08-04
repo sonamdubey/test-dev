@@ -77,8 +77,16 @@ var pageFooter = {
                 template: {
                     type: "custom",
                     method: function (value, item) {
-                        var listElement = '<div class="list-item" data-cityId="' + item.payload.cityId + '">' + value + '</div>';
-                        return listElement;
+                        switch(options.source)
+                        {
+                            case 1:
+                                if (item.payload.modelId > 0 && item.payload.isNew != 'False' && item.payload.futuristic != 'True') {
+                                    return ('<div class="list-item" >' + value + '</div>');
+                                }
+                                
+                            case 2:
+                              return  ('<div class="list-item" data-cityId="' + item.payload.cityId + '">' + value + '</div>');
+                        }
                     }
                 },
 

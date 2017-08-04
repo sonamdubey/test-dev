@@ -68,7 +68,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
                 if(objVersionMapping!= null)
                 {
                     objVersionMappingDTO = SponsoredComparisonMapper.Convert(objVersionMapping);
-                    return Ok(objVersionMapping);
+                    return Ok(objVersionMappingDTO);
                 }
                 else
                 {

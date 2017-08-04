@@ -61,7 +61,7 @@ namespace Bikewale.Comparison.DAL
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_camparisonid", camparisonId);
+                    param.Add("par_comparisonid", camparisonId);
                     param.Add("par_sponsoredmodelid", SponsoredModelId);
                     connection.Execute("DeleteSponsoredComparisonBikeSponsoredModelRules", param: param, commandType: CommandType.StoredProcedure);
 
@@ -94,7 +94,7 @@ namespace Bikewale.Comparison.DAL
                     var param = new DynamicParameters();
                     param.Add("par_comparisonid", camparisonId);
                     param.Add("par_sponsoredversionid", sponsoredVersionId);
-                    connection.Execute("DeleteSponsoredComparisonBikeSponsoredVersionRules", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("deletesponsoredcomparisonbikesponsoredversionrules", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -124,8 +124,8 @@ namespace Bikewale.Comparison.DAL
                     connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_comparisonid", camparisonId);
-                    param.Add("par_sponsoredversionid", targetversionId);
-                    connection.Execute("deletesponsoredComparisonbiketargetVersionRules", param: param, commandType: CommandType.StoredProcedure);
+                    param.Add("par_targetversionid", targetversionId);
+                    connection.Execute("deletesponsoredcomparisonbiketargetversionrules", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -355,7 +355,7 @@ namespace Bikewale.Comparison.DAL
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_comparisonid", rules.Comparisonid);
+                    param.Add("par_comparisonid", rules.ComparisonId);
                     param.Add("par_isversionmapping", rules.IsVersionMapping);
                     param.Add("par_targetsponsoredids", rules.TargetSponsoredIds);
                     param.Add("par_impressionurls", rules.ImpressionUrl);
