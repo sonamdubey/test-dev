@@ -1,8 +1,10 @@
 ﻿var ddlManufacturers;
 var ddlAddManufacturers;
-var BwOprHostUrl, msg;
+var BwOprHostUrl, msg,userId;
  $(document).ready(function () {
-     BwOprHostUrl = document.getElementById("tblCampaigns").getAttribute("data-BwOprHostUrl");
+     var tblCampaigns = document.getElementById("tblCampaigns");
+     BwOprHostUrl = tblCampaigns.getAttribute("data-BwOprHostUrl");
+     userId = tblCampaigns.getAttribute("data-userid")
      $('#tblCampaigns').hide();
      ddlManufacturers = $("#ddlManufacturers");
      ddlAddManufacturers = $("#ddlAddManufacturers");
@@ -63,8 +65,7 @@ var mfgCamp = function () {
     };
 
     self.changeStatus = function (data, event) {
-        var r = confirm("Are you Sure you want to " + $(event.currentTarget).data("tooltip"));
-        if (r == true) {
+        if (confirm("Are you Sure you want to " + $(event.currentTarget).data("tooltip"))) {
             $.ajax({
                 type: "POST",
                 url: BwOprHostUrl + "/api/v2/campaigns/manufacturer/updatecampaignstatus/campaignId/" + data.id + '/status/' + $(event.currentTarget).data("status"),
@@ -83,6 +84,27 @@ var mfgCamp = function () {
             });
         }
 
+    };
+
+    self.resetTotalLeadsDelivered = function (d, e) {
+        if (confirm("Are you Sure you want to " + $(e.currentTarget).data("tooltip"))) {
+            $.ajax({
+                type: "POST",
+                url: "/api/campaigns/manufacturer/" + d.id + "/totalleads/reset/?userId=" + userId,
+                datatype: "json",
+                success: function (response) {
+                    self.searchCampaigns();
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        Materialize.toast('Something went wrong .Please try again !!', 5000);
+                    }
+                    else {
+                        Materialize.toast('Campaign Total Leads Delivered reset for ' + manufactureName + ' has been Updated', 5000);
+                    }
+                }
+            });
+        }
     };
 }
 var viewModel = new mfgCamp();
