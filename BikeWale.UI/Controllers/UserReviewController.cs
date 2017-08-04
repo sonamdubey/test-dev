@@ -189,13 +189,13 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop, string returnUrl, ushort platformId, ushort? sourceId, int? contestSrc)
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop, string returnUrl, ushort platformId, ushort? sourceId, string utmzCookieValue, int? contestSrc)
         {
 
 
             UserReviewRatingObject objRating = null;
             userName = StringHelper.ToProperCase(userName);
-            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId, returnUrl, platformId, sourceId);
+            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId, returnUrl, platformId, utmzCookieValue, sourceId);
 
 
             string strQueryString = string.Empty;
