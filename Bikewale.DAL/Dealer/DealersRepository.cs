@@ -2,6 +2,7 @@
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -414,7 +415,7 @@ namespace Bikewale.DAL.Dealer
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getdealerbymakecity_19072017";
+                    cmd.CommandText = "getdealerbymakecity_04082017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelid > 0 ? modelid : Convert.DBNull));
@@ -423,15 +424,18 @@ namespace Bikewale.DAL.Dealer
                     {
                         if (dr != null)
                         {
-                            DealersList dealerdetail;
+                            DealersList dealerdetail = null;
                             dealerList = new List<DealersList>();
                             dealers = new DealersEntity();
                             while (dr.Read())
                             {
                                 dealerdetail = new DealersList();
                                 dealerdetail.DealerId = SqlReaderConvertor.ToUInt16(dr["DealerId"]);
-                                dealerdetail.Name = Convert.ToString(dr["DealerName"]);
                                 dealerdetail.DealerType = SqlReaderConvertor.ToUInt16(dr["DealerPackage"]);
+                                dealerdetail.Name = Convert.ToString(dr["DealerName"]);
+                                DealerPackageTypes dpType;
+                                Enum.TryParse(dealerdetail.DealerType.ToString(), out dpType);
+                                dealerdetail.DealerPackageType = dpType;
                                 dealerdetail.City = Convert.ToString(dr["City"]);
                                 dealerdetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealerdetail.EMail = Convert.ToString(dr["EMail"]);
@@ -444,6 +448,7 @@ namespace Bikewale.DAL.Dealer
                                 dealerdetail.objArea.PinCode = Convert.ToString(dr["dealerpincode"]);
                                 dealerdetail.DisplayTextLarge = Convert.ToString(dr["CtaLongText"]);
                                 dealerdetail.DisplayTextSmall = Convert.ToString(dr["CtaSmallText"]);
+                                dealerdetail.IsFeatured = SqlReaderConvertor.ToBoolean(dr["isfeatured"]);
                                 dealerList.Add(dealerdetail);
                             }
 
@@ -454,10 +459,10 @@ namespace Bikewale.DAL.Dealer
 
                             if (dr.NextResult() && dr.Read())
                             {
-                                dealers.MakeName = !Convert.IsDBNull(dr["MakeName"]) ? Convert.ToString(dr["MakeName"]) : default(string);
-                                dealers.CityName = !Convert.IsDBNull(dr["CityName"]) ? Convert.ToString(dr["CityName"]) : default(string);
-                                dealers.CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string);
-                                dealers.MakeMaskingName = !Convert.IsDBNull(dr["MakeMaskingName"]) ? Convert.ToString(dr["MakeMaskingName"]) : default(string);
+                                dealers.MakeName = Convert.ToString(dr["MakeName"]);
+                                dealers.CityName = Convert.ToString(dr["CityName"]);
+                                dealers.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
+                                dealers.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
                             }
 
                             dealers.Dealers = dealerList;
@@ -468,7 +473,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, String.Format("DealersRepository.GetDealerByMakeCity({0},{1},{2})", cityId, makeId, modelid));
             }
 
             return dealers;
@@ -593,7 +598,7 @@ namespace Bikewale.DAL.Dealer
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails_19072017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails_04082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
@@ -622,6 +627,7 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
                                 dealers.DealerDetails.City = Convert.ToString(dr["City"]);
                                 dealers.DealerDetails.DealerType = SqlReaderConvertor.ToUInt16(dr["DealerType"]);
+                                dealers.DealerDetails.IsFeatured = SqlReaderConvertor.ToUInt16(dr["isfeatured"]) != 0;
                                 dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
                                 dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealers.DealerDetails.DealerId = Convert.ToUInt16(dealerId);
@@ -776,13 +782,13 @@ namespace Bikewale.DAL.Dealer
                                 while (dr.Read())
                                 {
                                     objDealerServiceDetails.DealerDetails.Add(new PopularCityDealerEntity
-                                        {
-                                            CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
-                                            CityName = Convert.ToString(dr["Name"]),
-                                            CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
-                                            DealerCount = SqlReaderConvertor.ToUInt32(dr["dealerscnt"]),
-                                            ServiceCenterCount = SqlReaderConvertor.ToUInt32(dr["ServiceCenterCount"])
-                                        });
+                                    {
+                                        CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
+                                        CityName = Convert.ToString(dr["Name"]),
+                                        CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                        DealerCount = SqlReaderConvertor.ToUInt32(dr["dealerscnt"]),
+                                        ServiceCenterCount = SqlReaderConvertor.ToUInt32(dr["ServiceCenterCount"])
+                                    });
 
                                 }
                             }

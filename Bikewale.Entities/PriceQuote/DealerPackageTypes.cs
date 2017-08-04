@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.Entities.PriceQuote
+﻿namespace Bikewale.Entities.PriceQuote
 {
     /// <summary>
     /// Created By : Lucky Rathore
     /// Created on : 15 March 2016
     /// Description : for Dealer Package Types.
+    /// Modified by :   Sumit Kate on 04 Aug 2017
+    /// Description :   Added CPS Dealer package type
     /// </summary>
     public enum DealerPackageTypes
     {
@@ -17,6 +13,7 @@ namespace Bikewale.Entities.PriceQuote
         Standard = 1,
         Deluxe = 2,
         Premium = 3,
-        Pricing = 4
+        Pricing = 4,
+        CPS = 5
     }
 }

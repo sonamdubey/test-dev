@@ -75,12 +75,14 @@
                     <ul id="dealersList">
                         @foreach (var Details in Model.DealersList.Dealers)
                         {
-                            <li data-item-type="@Details.DealerType" data-item-id="@Details.DealerId" data-item-inquired="false" data-item-number="@Details.MaskingNumber" data-lat="@Details.objArea.Latitude" data-log="@Details.objArea.Longitude" data-address="@Details.Address" data-campid="@Details.CampaignId" data-item-url="@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)">
+                            <li data-item-type="@Details.DealerType" data-isfeatured="@(Details.IsFeatured ? 1 : 0)" data-item-id="@Details.DealerId" data-item-inquired="false" data-item-number="@Details.MaskingNumber" data-lat="@Details.objArea.Latitude" data-log="@Details.objArea.Longitude" data-address="@Details.Address" data-campid="@Details.CampaignId" data-item-url="@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)" data-dealername="@Details.Name">
                                 <a href="/@Model.Make.MaskingName-dealer-showrooms-in-@Model.CityDetails.CityMaskingName/@Details.DealerId-@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)/" title="@Details.Name" class="dealer-card-target font14">
                                     <div class="margin-bottom5">
-                                        <div class="@string.Format("{0}",Details.DealerType == 4|| Details.DealerType == 3 || Details.DealerType == 2? string.Empty : "hide" )">
+                                        @if (Details.IsFeatured) {
+                                        <div>
                                             <span class="featured-tag margin-bottom5"><span class="bwsprite star-white"></span>Featured</span>
                                         </div>
+                                        }
                                         <h3 class="dealer-name text-black text-bold">@Details.Name</h3>
                                     </div>
                                     <p class="@string.Format("{0}", string.IsNullOrEmpty(Details.Address) ? "hide" : "text-light-grey margin-bottom5")">
@@ -99,9 +101,12 @@
                                         <span class="vertical-top text-bold text-default dealership-card-details">@Details.MaskingNumber</span>
                                     </p>
                                 </a>
-                                <div class="@string.Format("{0}", Details.DealerType == 4 || Details.DealerType == 3 || Details.DealerType == 2 ? "margin-top20" : "hide")">
+                                @if (Details.IsFeatured)
+                                {
+                                <div class="margin-top20">
                                     <a id="dealerLead" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-areaname="@Details.objArea.AreaName" data-cityname="@Model.CityDetails.CityName" data-campid="@Details.CampaignId" data-pqsourceid="(int)@Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton" data-eventcategory="Dealer_Locator" class="btn btn-white btn-full-width font14 leadcapturebtn bw-ga" c="Dealer_Locator" a="Get_Offers_Clicked" l="@Details.GetOffersGALabel">@Details.DisplayTextLarge</a>
                                   </div>
+                                }
                             </li>
                         }
 

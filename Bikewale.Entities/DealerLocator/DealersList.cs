@@ -16,6 +16,7 @@ namespace Bikewale.Entities.DealerLocator
     {
         public AreaEntityBase objArea { get; set; }
         public UInt16 DealerType { get; set; }
+        public bool IsFeatured { get; set; }
         public string City { get; set; }
         public string EMail { get; set; }
         public string Address { get; set; }

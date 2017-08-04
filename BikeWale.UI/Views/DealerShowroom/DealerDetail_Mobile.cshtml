@@ -18,7 +18,7 @@
                 <h1 class="box-shadow padding-15-20">@string.Format("{0}, {1}", Model.DealerDetails.DealerDetails.Name, Model.CityDetails.CityName)</h1>
             }
             <div class="dealer-details position-rel pos-top-3 content-inner-block-20 font14">
-                @if (Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
+                @if (Model.DealerDetails.DealerDetails.IsFeatured)
                 {
                     <span class="featured-tag inline-block margin-right10"><span class="bwmsprite star-white"></span>Featured</span>
                 }
