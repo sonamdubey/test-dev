@@ -1,5 +1,5 @@
 ﻿using Bikewale.Utility;
-using BikewaleOpr.common;
+using BikewaleOpr.Cache;
 using BikeWaleOpr.Common;
 using MySql.CoreDAL;
 using System;
@@ -163,8 +163,11 @@ namespace BikeWaleOpr.Content
                         SyncBWData.PushToQueue("BW_AddBikeVersions", DataBaseName.CWMD, nvc);
                     }
                 }
+                UInt32 modelId = Convert.ToUInt32(Request["cmbModels"]);
                 //Refresh memcache object for version details
-                MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", Convert.ToUInt32(Request["cmbmodels"])));
+                BwMemCache.ClearVersionDetails(modelId);
+                //Refresh memcache object for versions by type
+                BwMemCache.ClearVersionByType(modelId);
             }
             catch (SqlException err)
             {
@@ -313,9 +316,12 @@ namespace BikeWaleOpr.Content
                 var makeId = Request.Form["cmbMakes"];
 
                 //Refresh memcache object for popularBikes change
-                MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", makeId));
+                BwMemCache.ClearPopularBikesByMakes(Convert.ToUInt32(makeId));
+                UInt32 modelId = Convert.ToUInt32(Request["cmbModels"]);
                 //Refresh memcache object for version details
-                MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", Convert.ToUInt32(Request["cmbmodels"])));
+                BwMemCache.ClearVersionDetails(modelId);
+                //Refresh memcache object for versions by type
+                BwMemCache.ClearVersionByType(modelId);
             }
             catch (SqlException ex)
             {
@@ -373,8 +379,12 @@ namespace BikeWaleOpr.Content
                 uint makeId;
                 uint.TryParse(Request.Form["cmbMakes"], out makeId);
                 deleteVersionMostPopularBikes((uint)_versionId, makeId);
+
+                UInt32 modelId = Convert.ToUInt32(Request["cmbModels"]);
                 //Refresh memcache object for version details
-                MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", Convert.ToUInt32(Request["cmbmodels"])));
+                BwMemCache.ClearVersionDetails(modelId);
+                //Refresh memcache object for versions by type
+                BwMemCache.ClearVersionByType(modelId);
             }
             catch (SqlException ex)
             {
@@ -409,13 +419,13 @@ namespace BikeWaleOpr.Content
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
 
-                MemCachedUtil.Remove(String.Format("BW_PopularBikesByMake_{0}", makeId));
+                BwMemCache.ClearPopularBikesByMakes(Convert.ToUInt32(makeId));
                 //CLear popularBikes key
 
-                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
-                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
-                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
-                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
+                BwMemCache.ClearPopularBikesCacheKey(null, makeId);
+                BwMemCache.ClearPopularBikesCacheKey(6, makeId);
+                BwMemCache.ClearPopularBikesCacheKey(9, makeId);
+                BwMemCache.ClearPopularBikesCacheKey(9, null);
             }
             catch (Exception ex)
             {

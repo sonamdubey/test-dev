@@ -23,6 +23,8 @@ namespace Bikewale.Models
     /// Summary:  Model for homepage
     /// Modified by : Aditi Srivastava on 5 June 2017
     /// Summary     : Added BL instance instead of cache for comaprison carousel
+    /// Modified by : Vivek Singh Tomar on 31st July 2017
+    /// Summary : Added IUpcoming for filling upcoming bike list
     /// </summary>
     public class HomePageModel
     {

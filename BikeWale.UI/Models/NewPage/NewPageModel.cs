@@ -22,7 +22,9 @@ namespace Bikewale.Models
     /// Created by: Sangram Nandkhile on 31-Mar-2017
     ///  Model for new page
     /// Modified by : Aditi Srivastava on 5 June 2017
-    /// Summary     : Added BL instance instead of cache for comparison carousel
+    /// Summary     : Added BL instance instead of cache for comparison carousel    
+    /// Modified by : Vivek Singh Tomar on 31st July 2017
+    /// Summary : Added IUpcoming for filling upcoming bike list
     /// </summary>
     public class NewPageModel
     {
@@ -72,7 +74,7 @@ namespace Bikewale.Models
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
-        /// Modified by: Vivek Singh Tomar on 31 July 2017
+        /// Modified by: Vivek Singh Tomar on 31st July 2017
         /// Summary    : Replaced logic of fetching upcoming bike list.
         /// </returns>
         public NewPageVM GetData()

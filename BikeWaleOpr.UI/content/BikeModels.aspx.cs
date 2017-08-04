@@ -362,7 +362,8 @@ namespace BikeWaleOpr.Content
                 MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
 
                 //Refresh memcache object for upcoming bikes
-                MemCachedUtil.Remove(string.Format("BW_UpcomingModels"));
+                BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikes();
+
             }
             catch (SqlException ex)
             {

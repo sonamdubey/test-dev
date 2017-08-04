@@ -24,6 +24,8 @@ namespace Bikewale.Controllers
     /// Summary: Controller which holds actions for New page
     /// Modified by : Aditi Srivastava on 5 June 2017
     /// Summary     : Added BL instance for comparison list
+    /// Modified by : Vivek Singh Tomar on 31st July 2017
+    /// Summary : Added IUpcoming for filling upcoming bike list
     /// </author>
     public class NewPageController : Controller
     {

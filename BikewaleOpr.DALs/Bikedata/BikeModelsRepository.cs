@@ -400,7 +400,7 @@ namespace BikewaleOpr.DALs.Bikedata
                                     BikeModel = bikeModelEntityBase
                                 };
                                 return bikeData;
-                            }, splitOn: "MakeId", param: null, commandType: CommandType.StoredProcedure
+                            }, splitOn: "MakeId", commandType: CommandType.StoredProcedure
                         );
 
                     if (connection != null && connection.State == ConnectionState.Open)

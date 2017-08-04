@@ -443,10 +443,12 @@ namespace BikewaleOpr.Common
         /// <summary>
         /// Retrieves the Model Colors and Images
         /// Created by: Sangram Nandkhile on 9 Jan 2017
+        /// Modified by : Vivek Singh Tomar on 3rd Aug 2017
+        /// Summary : Changed the param modelId type from int to uint
         /// </summary>
         /// <param name="modelId">Bike Model Id</param>
         /// <returns>Model colorwise Image List</returns>
-        public IEnumerable<ModelColorImage> FetchModelImagesByColors(int modelId)
+        public IEnumerable<ModelColorImage> FetchModelImagesByColors(uint modelId)
         {
             List<ModelColorImage> modelColors = null;
 

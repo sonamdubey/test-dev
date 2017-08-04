@@ -21,6 +21,8 @@ namespace Bikewale.Service.Controllers.BikeData
     /// Created By : Sadhana Upadhyay on 25 Aug 2015
     /// Modified by :   Sumit Kate on 18 May 2016
     /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// Modified by : Vivek Singh Tomar on 31st July 2017
+    /// Summary : Added IUpcoming for filling upcoming bike list
     /// </summary>
     public class UpcomingBikeController : CompressionApiController//ApiController
     {
@@ -40,7 +42,7 @@ namespace Bikewale.Service.Controllers.BikeData
         /// Created By : Sadhana Upadhyay on 25 Aug 2015
         /// Summary : To get Upcoming Bike List
         /// </summary>
-        /// Modified by: Vivek Singh Tomar on 31 July 2017
+        /// Modified by: Vivek Singh Tomar on 31st July 2017
         /// Summary    : Replaced logic of fetching upcoming bike list.
         /// <param name="sortBy">Default = 0, PriceLowToHigh = 1, PriceHighToLow = 2, LaunchDateSooner = 3, LaunchDateLater = 4</param>
         /// <param name="pageSize">No of Records</param>

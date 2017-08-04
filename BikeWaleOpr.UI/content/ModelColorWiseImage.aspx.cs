@@ -22,7 +22,7 @@ namespace BikeWaleOpr.Content
     {
         protected Repeater rptModelColor;
         protected DropDownList cmbMake, cmbModel;
-        public int modelId;
+        public uint modelId;
         private IBikeMakesRepository _objMakesRepo = null;
         public IEnumerable<ModelColorImage> modelColors = null;
         public ushort modelColorCount = 0;
@@ -30,9 +30,31 @@ namespace BikeWaleOpr.Content
         protected Button btnSubmit;
         protected HiddenField hdnModelId;
         protected uint makeId;
-        protected bool isQueryString;
         protected IBikeMakes _bikeMakes = null;
         #region events
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 3rd Aug 2017
+        /// Summary : Initialize dependencies
+        /// </summary>
+        public ModelColorWiseImage()
+        {
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesRepository, BikeMakesRepository>()
+                    .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>();
+                    _objMakesRepo = container.Resolve<IBikeMakesRepository>();
+                    _bikeMakes = container.Resolve<IBikeMakes>();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.ModelColorWiseImage()");
+            }
+        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -45,21 +67,23 @@ namespace BikeWaleOpr.Content
             btnSubmit.Click += new EventHandler(BtnSubmit_Click);
         }
 
+        /// <summary>
+        /// Modified by : Vivek Singh Tomar on 3rd Aug 2107
+        /// Summary : Made changes to bind data if request is made using query string on first hit only
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="e"></param>
         void Page_Load(object Sender, EventArgs e)
         {
             Ajax.Utility.RegisterTypeForAjax(typeof(AjaxFunctions));
             if (!IsPostBack)
             {
                 BindMakeModel();
-                UInt32.TryParse(Request.QueryString["makeid"], out makeId);
-                if (makeId != 0)
-                {
-                    ShowModelColorImageUsingQueryString();
-                }
+                BindModelAndImages();
             }
-            if (!isQueryString && hdnModelId != null && hdnModelId.Value != null)
+            else if(hdnModelId != null && hdnModelId.Value != null)
             {
-                modelId = Convert.ToUInt16(hdnModelId.Value);
+                modelId = Convert.ToUInt32(hdnModelId.Value);
             }
         }
 
@@ -67,8 +91,9 @@ namespace BikeWaleOpr.Content
         {
             if (modelId > 0)
             {
-                objManageModelColor = new ManageModelColor();
-                BindModelColorRepeater();
+                BindModelColorImages();
+                makeId = Convert.ToUInt32(cmbMake.SelectedValue);
+                BindModelDropdown(makeId, modelId);
             }
         }
         #endregion
@@ -82,14 +107,6 @@ namespace BikeWaleOpr.Content
         {
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeMakesRepository, BikeMakesRepository>()
-                    .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>();
-                    _objMakesRepo = container.Resolve<IBikeMakesRepository>();
-                    _bikeMakes = container.Resolve<IBikeMakes>();
-                }
-
                 IEnumerable<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> makes = _objMakesRepo.GetMakes("NEW");
                 cmbMake.DataSource = makes;
                 cmbMake.DataTextField = "MakeName";
@@ -107,50 +124,91 @@ namespace BikeWaleOpr.Content
 
         /// <summary>
         /// Created by: Sangram Nandkhile on 13 Jan 2017
-        /// Binds model color and respective images
+        /// Summary : Binds model color and respective images
+        /// Modified by : Vivek Singh Tomar on 3rd Aug 2017
+        /// Summary : Changed the function name
         /// </summary>
-        private void BindModelColorRepeater()
+        private void BindModelColorImages()
         {
             try
             {
+                objManageModelColor = new ManageModelColor();
                 modelColors = objManageModelColor.FetchModelImagesByColors(modelId);
                 modelColorCount = (ushort)modelColors.Count();
 
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.BindModelColorRepeater()");
+                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.BindModelColorImagesRepeater()");
             }
         }
 
         /// <summary>
-        /// Created by : Vivek Singh Tomar on 31 July 2017
-        /// Bind model color images to view page if data is passed through query string
+        /// Created by : Vivek Singh Tomar on 31st July 2017
+        /// Summary : Bind model dropdown and images using querystring
         /// </summary>
-        private void ShowModelColorImageUsingQueryString()
+        private void BindModelAndImages()
         {
-            isQueryString = true;
-            Int32.TryParse(Request.QueryString["modelid"], out modelId);
-            if(modelId > 0)
+            try
             {
-                cmbMake.SelectedIndex = Convert.ToInt32(cmbMake.Items.IndexOf(cmbMake.Items.FindByValue(Convert.ToString(makeId))));
-                var models = _bikeMakes.GetModelsByMake(makeId);
-                if(models != null && models.Count() > 0)
+                ProcessQueryString();
+                if(modelId > 0 && makeId > 0)
+                {
+                    BindModelDropdown(makeId, modelId);
+                    BindModelColorImages();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.ShowModelColorImage");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 3rd Aug 2017
+        /// Summary : parse query string to get model and make IDs
+        /// </summary>
+        private void ProcessQueryString()
+        {
+            try
+            {
+                UInt32.TryParse(Request.QueryString["makeid"], out makeId);
+                UInt32.TryParse(Request.QueryString["modelid"], out modelId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.ProcessQueryString");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 1st July 2017
+        /// Summary : function to bind model dropdown
+        /// </summary>
+        private void BindModelDropdown(uint ddlMakeId, uint ddlModelId)
+        {
+            try
+            {
+                cmbMake.SelectedValue = Convert.ToString(ddlMakeId);
+                var models = _bikeMakes.GetModelsByMake(ddlMakeId);
+                if (models != null && models.Count() > 0)
                 {
                     cmbModel.DataSource = models;
                     cmbModel.DataTextField = "ModelName";
                     cmbModel.DataValueField = "ModelId";
                     cmbModel.DataBind();
-                    cmbModel.Items.Insert(0, "Any");
-                    cmbModel.SelectedIndex = Convert.ToInt32(cmbModel.Items.IndexOf(cmbModel.Items.FindByValue(Convert.ToString(modelId))));
-                    objManageModelColor = new ManageModelColor();
-                    BindModelColorRepeater();
+                    cmbModel.Items.Insert(0, "--Select Model--");
+                    cmbModel.SelectedValue = Convert.ToString(ddlModelId);
                 }
 
                 if (hdnModelId != null && hdnModelId.Value != null)
                 {
-                    hdnModelId.Value = Convert.ToString(modelId);
+                    hdnModelId.Value = Convert.ToString(ddlModelId);
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.BindModelDropdown");
             }
         }
 

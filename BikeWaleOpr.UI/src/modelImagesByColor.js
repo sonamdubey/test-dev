@@ -1,16 +1,20 @@
-﻿var modelId, environment, userid, bwHostUrl, bikeFullName, currentFile;
+﻿var modelId, environment, userid, bwHostUrl, bikeFullName, currentFile,  firstMakeSelect = true, vmImageUpload;
 $(document).ready(function () {
     if ($('#hdnModelId').val() > 0) {
-        fillDropdowns();
-        $("#cmbModel").val($('#hdnModelId').val())
+        $("#cmbModel").val($('#hdnModelId').val());
         setBikeName();
     }
-    
-    $('#cmbMake').change(function () {
-        fillDropdowns();
-    });
+
     $('#cmbModel').change(function () {
         $('#hdnModelId').val($('#cmbModel').val());
+    });
+
+    $("#cmbMake").change(function () {
+        if (firstMakeSelect) {
+            vmImageUpload = new bindModelDropDown;
+            ko.applyBindings(vmImageUpload);
+            firstMakeSelect = false;
+        }
     });
 
     $("input[type='file']").change(function (e) {
@@ -78,6 +82,39 @@ $(document).ready(function () {
             }
         }
     });
+    
+    function bindModelDropDown() {
+        try {
+            var self = this;
+            self.models = ko.observableArray([]);
+            self.getModels = function () {
+                var makeId = $('#cmbMake').val();
+                if (makeId && makeId > 0) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/makes/" + makeId + "/models/",
+                        contentType: "application/json",
+                        dataType: 'json',
+                        async: false,
+                        success: function (response) {
+                            if (response) {
+                                self.models(response);
+                            }
+                        },
+                        complete: function (xhr) {
+                            if (xhr.status != 200) {
+                                showToast('some error occurred');
+                            }
+                        }
+                    });
+                }
+            };
+            self.selectedModel = ko.observable();
+            self.getModels();
+        } catch (ex) {
+            showToast(ex.message);
+        }
+    }
 });
 
 function setBikeName() {
@@ -134,74 +171,6 @@ $('.deleteImage').live("click", function () {
     });
 });
 
-// Modified by : Vivek Singh Tomar on 1st Aug 2017
-// Functions modified : clearCombo, bindDropdowns and fillDropdown to bind data to model dropdown
-function clearCombo(cmb, selectString) {
-    try{
-        cmb.options.length = null;
-        if (selectString == '' || !selectString) selectString = "Any"
-        cmb.options[0] = new Option(selectString, 0);
-    } catch (ex) {
-        console.warn(ex);
-    }
-}
-
-function bindDropdowns(data, cmbToFill, hdnId) {
-    try{
-        var _delimiter = "|";
-        var objHdn = document.forms[0][hdnId];
-
-        if (cmbToFill) {
-            clearCombo(cmbToFill);
-            var content = "";
-            var j = 1
-            for (var obj in data) {
-                cmbToFill.options[j] = new Option(data[obj].ModelName, data[obj].ModelId);
-                if (content == "") {
-                    content = data[obj].ModelName + _delimiter + data[obj].ModelId;
-                } else {
-                    content += _delimiter + data[obj].ModelName + _delimiter + data[obj].ModelId;
-                }
-                ++j;
-            }
-
-            if (objHdn) {
-                objHdn.value = content;
-            }
-
-            cmbToFill.disabled = false;
-        }
-    } catch (ex) {
-        console.warn(ex);
-    }        
-}
-
-function fillDropdowns() {
-    try {
-        $.ajax({
-            type: "POST",
-            url: "/api/makes/" + $('#cmbMake').val() + "/getmodels/",
-            contentType: "application/json",
-            dataType: 'json',
-            async: false,
-            success: function (data) {
-                if (data == null && typeof (data) == "object") {
-                    console.log('data not present');
-                } else {
-                    bindDropdowns(data, document.getElementById("cmbModel"), "hdn_cmbModel");
-                }
-            },
-            complete: function (xhr) {
-                if (xhr.status == 400 || xhr.status == 500 || xhr.status == 404 || xhr.status == 204) {
-                    console.log('some error occurred');
-                }
-            }
-        });
-    } catch (ex) {
-        console.warn(ex);
-    }
-}
-
 function uploadToAWS(file, photoId, itemId, path, ext) {
     var imgUpldUtil = new ImageUploadUtility();
     imgUpldUtil.request = { "originalPath": path, "categoryId": 2, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": ext };
@@ -232,3 +201,4 @@ function stopLoading(ele) {
 function showToast(msg) {
     $('.toast').text(msg).stop().fadeIn(400).delay(3000).fadeOut(400);
 }
+

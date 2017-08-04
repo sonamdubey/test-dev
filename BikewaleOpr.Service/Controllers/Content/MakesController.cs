@@ -1,7 +1,7 @@
-﻿using Bikewale.Notifications;
+﻿using BikewaleOpr.Entities.BikeData;
+using Bikewale.Notifications;
 using BikewaleOpr.DTO.BikeData;
 using BikewaleOpr.Entity.BikeData;
-using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Service.AutoMappers.BikeData;
 using System;
@@ -102,15 +102,16 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/makes/{makeid}/getmodels/")]
+        [HttpGet, Route("api/makes/{makeid}/models/")]
         public IHttpActionResult GetModels(uint makeId)
         {
-            IEnumerable<BikeModelEntityBase> objBikeModelEntityBase = null;
+            IEnumerable<ModelBase> objBikeModelBase = null;
             if(makeId > 0)
             {
                 try
                 {
-                    objBikeModelEntityBase = _bikeMakes.GetModelsByMake(makeId);
+                    IEnumerable<BikeModelEntityBase> objBikeModelEntityBase = _bikeMakes.GetModelsByMake(makeId);
+                    objBikeModelBase = BikeModelsMapper.Convert(objBikeModelEntityBase);
                 }
                 catch (Exception ex)
                 {
@@ -122,7 +123,7 @@ namespace BikewaleOpr.Service.Controllers.Content
             {
                 return BadRequest("Invalid Inputs");
             }
-            return Ok(objBikeModelEntityBase);
+            return Ok(objBikeModelBase);
         }
 
     }   // class
