@@ -31,9 +31,6 @@ using BikewaleOpr.BAL.ContractCampaign;
 using Bikewale.ManufacturerCampaign.DAL;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.DALs.Banner;
-using BikewaleOpr.Interface.ServiceCenter;
-using BikewaleOpr.BAL.ServiceCenter;
-using BikewaleOpr.DALs.ServiceCenter;
 
 namespace BikewaleOpr
 {
@@ -69,10 +66,10 @@ namespace BikewaleOpr
                 .RegisterType<IContractCampaign, ContractCampaign>()
                 .RegisterType<IBikeMakes, BikeMakes>()
                 .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
-                .RegisterType<IContractCampaign, ContractCampaign>()
-                .RegisterType<IServiceCenter, ServiceCenter>()
-                .RegisterType<IServiceCenterRepository, ServiceCenterRepository>()
-                .RegisterType<IBannerRepository, BannerRepository>();
+                .RegisterType<IBannerRepository, BannerRepository>()
+                .RegisterType<IContractCampaign, ContractCampaign>();
+
+
 
 
 
