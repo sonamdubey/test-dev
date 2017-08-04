@@ -6,11 +6,6 @@ using System.Web.Mvc;
 
 namespace BikeWaleOpr.MVC.UI.Controllers
 {
-    /// <summary>
-    /// Created by : Sajal Gupta on 09-03-2017
-    /// Description : Created Home Controller
-    /// </summary>
-    
     [Authorize]
     public class HomeController : Controller
     {
