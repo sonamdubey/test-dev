@@ -7,6 +7,7 @@
 
 var pgContainer = $("#sponsoredComparisons"), vmSponsoredComparison;
 var searchComparisons = $("#searchComparisons"), searchStatusChks = searchComparisons.find("input:checkbox");
+var bwHostUrl = pgContainer.data("bwhosturl");
 
 
 var sponsoredComparisonManagement = function () {

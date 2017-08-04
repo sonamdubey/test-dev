@@ -1,5 +1,6 @@
 ﻿var vmSponsoredComparisonRules, pgSection = $("#addSponsoredComparisonRules"), targetModelEle = $("#txtTargetModel"),
     sponsoredModelEle = $("#txtSponsoredModel"), modalVersionMapping = $('#modalVersionMapping');
+var bwHostUrl = pgSection.data("bwhosturl");
 
 function formatPrice(x) {
     try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { }
@@ -44,7 +45,7 @@ var addSponsoredComparisonRules = function () {
 
         targetModelEle.bw_easyAutocomplete({
             source: 1,
-            hosturlForAPI: 'http://localhost:9011',
+            hosturlForAPI: bwHostUrl,
             inputField: targetModelEle,
             click: self.setTargetModel,
             afterFetch: self.showSuggestionList
@@ -52,7 +53,7 @@ var addSponsoredComparisonRules = function () {
 
         sponsoredModelEle.bw_easyAutocomplete({
             source: 1,
-            hosturlForAPI: 'http://localhost:9011',
+            hosturlForAPI: bwHostUrl,
             inputField: sponsoredModelEle,
             click: self.setSponsoredModel,
             afterFetch:self.showSuggestionList
