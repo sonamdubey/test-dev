@@ -114,7 +114,7 @@
                         $('#erruserReviewList').hide()
                         focusedMakeModel = new Object();
                         focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
-
+                        return true;
 
                     },
                     afterfetch: function (result, searchtext) {
@@ -166,10 +166,7 @@
     }
     docReady(function () {
         category = $('#source').val();
-        $.fn.hint = bwHint;
-        $.fn.bw_autocomplete = bwAutoComplete;
-        var vmUserReviewSearch = new userReviewSearch();
-        $('#btnUserSearch').on('click', function (e) {
+        $(document).on('click','#btnUserSearch', function (e) {
             var id = $('#userReviewList');
             var searchVal = id.val();
             var placeHolder = id.attr('placeholder');
@@ -180,5 +177,9 @@
             }
 
         });
+        $.fn.hint = bwHint;
+        $.fn.bw_autocomplete = bwAutoComplete;
+        var vmUserReviewSearch = new userReviewSearch();
+      
     });
 </script>
