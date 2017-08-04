@@ -20,9 +20,9 @@ namespace Bikewale.Comparison.DAL
         /// <summary>
         /// Deletes the sponsored comparison bike all rules.
         /// </summary>
-        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="comparisonid">The camparison identifier.</param>
         /// <returns></returns>
-        public bool DeleteSponsoredComparisonBikeAllRules(uint camparisonId)
+        public bool DeleteSponsoredComparisonBikeAllRules(uint comparisonid)
         {
             bool isSaved = false;
             try
@@ -31,7 +31,7 @@ namespace Bikewale.Comparison.DAL
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_camparisonid", camparisonId);
+                    param.Add("par_comparisonid", comparisonid);
                     connection.Execute("DeleteSponsoredComparisonBikeAllRules", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
@@ -41,7 +41,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeAllRules: -> campaignId : {0}", camparisonId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeAllRules: -> campaignId : {0}", comparisonid));
             }
             return isSaved;
         }
@@ -49,10 +49,10 @@ namespace Bikewale.Comparison.DAL
         /// <summary>
         /// Deletes the sponsored comparison bike sponsored model rules.
         /// </summary>
-        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="comparisonid">The camparison identifier.</param>
         /// <param name="SponsoredModelId">The sponsored model identifier.</param>
         /// <returns></returns>
-        public bool DeleteSponsoredComparisonBikeSponsoredModelRules(uint camparisonId, uint SponsoredModelId)
+        public bool DeleteSponsoredComparisonBikeSponsoredModelRules(uint comparisonid, uint SponsoredModelId)
         {
             bool isSaved = false;
             try
@@ -72,7 +72,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeSponsoredModelRules: -> campaignId : {0},SponsoredModelId : {1} ", camparisonId, SponsoredModelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeSponsoredModelRules: -> campaignId : {0},SponsoredModelId : {1} ", comparisonid, SponsoredModelId));
             }
             return isSaved;
         }
@@ -80,10 +80,10 @@ namespace Bikewale.Comparison.DAL
         /// <summary>
         /// Deletes the sponsored comparison bike sponsored version rules.
         /// </summary>
-        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="comparisonid">The camparison identifier.</param>
         /// <param name="sponsoredVersionId">The sponsored version identifier.</param>
         /// <returns></returns>
-        public bool DeleteSponsoredComparisonBikeSponsoredVersionRules(uint camparisonId, uint sponsoredVersionId)
+        public bool DeleteSponsoredComparisonBikeSponsoredVersionRules(uint comparisonid, uint sponsoredVersionId)
         {
             bool isSaved = false;
             try
@@ -103,7 +103,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeSponsoredModelRules: -> camparisonId : {0},sponsoredVersionId : {1} ", camparisonId, sponsoredVersionId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeSponsoredModelRules: -> comparisonid : {0},sponsoredVersionId : {1} ", comparisonid, sponsoredVersionId));
             }
             return isSaved;
         }
@@ -111,10 +111,10 @@ namespace Bikewale.Comparison.DAL
         /// <summary>
         /// Deletes the sponsored comparison bike target version rules.
         /// </summary>
-        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="comparisonid">The camparison identifier.</param>
         /// <param name="targetversionId">The targetversion identifier.</param>
         /// <returns></returns>
-        public bool DeleteSponsoredComparisonBikeTargetVersionRules(uint camparisonId, uint targetversionId)
+        public bool DeleteSponsoredComparisonBikeTargetVersionRules(uint comparisonid, uint targetversionId)
         {
             bool isSaved = false;
             try
@@ -134,7 +134,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeTargetVersionRules: -> camparisonId : {0},targetversionId : {1} ", camparisonId, targetversionId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeTargetVersionRules: -> comparisonid : {0},targetversionId : {1} ", comparisonid, targetversionId));
             }
             return isSaved;
         }
@@ -231,10 +231,10 @@ namespace Bikewale.Comparison.DAL
         /// <summary>
         /// Gets the sponsored comparison sponsored bike.
         /// </summary>
-        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="comparisonid">The camparison identifier.</param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public IEnumerable<SponsoredVersion> GetSponsoredComparisonSponsoredBike(uint camparisonId)
+        public IEnumerable<SponsoredVersion> GetSponsoredComparisonSponsoredBike(uint comparisonid)
         {
             IEnumerable<SponsoredVersion> sponsoredVersion = null;
             try
@@ -243,7 +243,7 @@ namespace Bikewale.Comparison.DAL
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_comparisonid", camparisonId);
+                    param.Add("par_comparisonid", comparisonid);
 
                     sponsoredVersion = connection.Query<TargetVersion, SponsoredVersion, SponsoredVersion>("getsponsoredcomparisonmapping", (target, sponsored) =>
                     {
@@ -258,7 +258,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparisonSponsoredBike, camparisonId: {0}", camparisonId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparisonSponsoredBike, comparisonid: {0}", comparisonid));
             }
             return sponsoredVersion;
         }
@@ -266,11 +266,11 @@ namespace Bikewale.Comparison.DAL
         /// <summary>
         /// Gets the sponsored comparison version mapping.
         /// </summary>
-        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="comparisonid">The camparison identifier.</param>
         /// <param name="sponsoredModelId">The sponsored model identifier.</param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public TargetSponsoredMapping GetSponsoredComparisonVersionMapping(uint camparisonId, uint targetModelId, uint sponsoredModelId)
+        public TargetSponsoredMapping GetSponsoredComparisonVersionMapping(uint comparisonid, uint targetModelId, uint sponsoredModelId)
         {
             TargetSponsoredMapping objResult = default(TargetSponsoredMapping);
             try
@@ -280,7 +280,7 @@ namespace Bikewale.Comparison.DAL
                     objResult = new TargetSponsoredMapping();
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_comparisonid", camparisonId);
+                    param.Add("par_comparisonid", comparisonid);
                     param.Add("par_targetmodelid", targetModelId);
                     param.Add("par_sponsoredmodelid", sponsoredModelId);
 
@@ -296,7 +296,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparisonVersionMapping, camparisonId: {0}, targetModelId: {1}, sponsoredModelId: {2} ", camparisonId, targetModelId, sponsoredModelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparisonVersionMapping, comparisonid: {0}, targetModelId: {1}, sponsoredModelId: {2} ", comparisonid, targetModelId, sponsoredModelId));
             }
             return objResult;
         }
@@ -376,10 +376,10 @@ namespace Bikewale.Comparison.DAL
         /// <summary>
         /// Changes the sponsored comparison status.
         /// </summary>
-        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="comparisonid">The camparison identifier.</param>
         /// <param name="status">The status.</param>
         /// <returns></returns>
-        public bool ChangeSponsoredComparisonStatus(uint camparisonId, ushort status)
+        public bool ChangeSponsoredComparisonStatus(uint comparisonid, ushort status)
         {
             bool isSaved = false;
             try
@@ -388,7 +388,7 @@ namespace Bikewale.Comparison.DAL
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_comparisonid", camparisonId);
+                    param.Add("par_comparisonid", comparisonid);
                     param.Add("par_status", status);
 
                     connection.Execute("changesponsoredcomparisonstatus", param: param, commandType: CommandType.StoredProcedure);
@@ -400,7 +400,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.ChangeSponsoredComparisonStatus, camparisonId: {0}, Status: {1}", camparisonId, status));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.ChangeSponsoredComparisonStatus, comparisonid: {0}, Status: {1}", comparisonid, status));
             }
             return isSaved;
         }
