@@ -65,7 +65,7 @@ namespace BikewaleOpr.Controllers
                     comparisonId = _objSponsoredComparison.SaveSponsoredComparison(objData);
                     if (comparisonId > 0)
                     {
-                        return Redirect(string.Format("/comparison/sponsored/add/rules/{0}/", comparisonId));
+                        return Redirect(string.Format("/comparison/sponsored/{0}/rules/", comparisonId));
                     }
                 }
                
@@ -83,7 +83,7 @@ namespace BikewaleOpr.Controllers
         /// summary :- Add or update sponsord comparisons
         /// </summary>
         /// <returns></returns>
-        [Route("comparison/sponsored/add/rules/{comparisonId}/")]
+        [Route("comparison/sponsored/{comparisonId}/rules/")]
         public ActionResult AddSponsoredComparisonRules(uint comparisonId)
         {
             ManageSponsoredComparisonRulesVM objData = new ManageSponsoredComparisonRulesVM();
@@ -119,7 +119,7 @@ namespace BikewaleOpr.Controllers
                     isSuccess = _objSponsoredComparison.SaveSponsoredComparisonBikeRules(objRules);
                     if (isSuccess)
                     {
-                        return Redirect(string.Format("/comparison/sponsored/add/rules/{0}/", objRules.ComparisonId));
+                        return Redirect(string.Format("/comparison/sponsored/{0}/rules/", objRules.ComparisonId));
                     }
                 }
             }
