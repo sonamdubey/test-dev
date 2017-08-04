@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Linq;
 using ElasticClientManager;
 using System.Reflection;
-
+using Elasticsearch.Net;
 
 namespace BikewaleAutoSuggest
 {
@@ -44,6 +44,27 @@ namespace BikewaleAutoSuggest
 
         }
 
+        //static private ElasticClient ElasticClientInstance()
+        //{
+        //    try
+        //    {
+        //        Uri[] nodes = ConfigurationManager.AppSettings["ElasticHostUrl"].Split(';')
+        //                        .Select(s => new Uri("http://" + s)).ToArray();
+        //        var connectionPool = new Elasticsearch.Net.SingleNodeConnectionPool(nodes[0]);// SniffingConnectionPool(nodes);
+        //        var settings = new ConnectionSettings(connectionPool
+        //        )
+        //         //.MaximumRetries(3)
+        //         .DisableDirectStreaming();   // 3 times retry
+        //        return  new ElasticClient(settings);
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //log.Error(MethodBase.GetCurrentMethod().Name, ex);
+        //    }
+        //    return null;
+        //}
+
         private static void CreateIndex(IEnumerable<BikeList> suggestionList, string indexName)
         {
             try
@@ -52,28 +73,38 @@ namespace BikewaleAutoSuggest
                 ElasticClient client = ElasticClientOperations.GetElasticClient();
                 if (!client.IndexExists(indexName).Exists)
                 {
-                    ElasticClientOperations.CreateIndex<BikeList>(req => req
-                        .Index(indexName)
-                        .AddMapping<BikeList>(type => type
-                            .Type(ConfigurationManager.AppSettings["typeName"])
-                            .MapFromAttributes()
-                            .Properties(prop => prop
-                                .Completion(c => c
-                                    .Name(pN => pN.mm_suggest)
-                                    .Payloads()
-                                     .Context(cont => cont
-                                    .Category("types", cate => cate
-                                        .Default("makemodelall")))
-                                    .IndexAnalyzer("standard")
-                                    .SearchAnalyzer("standard")
-                                    .PreserveSeparators(false)))));
+
+                    var response = client.CreateIndex(indexName,
+                      ind => ind
+                   .Settings(s => s.NumberOfShards(2)
+                       .NumberOfReplicas(2)
+                   )
+                  .Mappings(m => m
+                      .Map<BikeList>(type => type.AutoMap()
+                          .Properties(prop => prop
+                          .Nested<BikeSuggestion>(n =>
+                                  n.Name(c => c.mm_suggest)
+                                  .AutoMap()
+                                  .Properties(prop2 => prop2
+                                      .Nested<PayLoad>(n2 =>
+                                          n2.Name(c2 =>
+                                              c2.input).AutoMap())))
+                              .Completion(c => c
+                              .Name(pN => pN.mm_suggest)
+                              .Contexts(cont => cont
+                                    .Category(cate => cate
+                                        .Name("types").Path("makemodelall")))
+                              .Analyzer("standard")
+                              .SearchAnalyzer("standard")
+                              .PreserveSeparators(false))))));
+             
                 }
                 client.DeleteByQuery<BikeList>(dd => dd.Index(indexName)
                     .Type(ConfigurationManager.AppSettings["typeName"])
                     .Query(qq => qq.MatchAll())
                     );
 
-                ElasticClientOperations.AddDocument<BikeList>(suggestionList.ToList(), indexName, ConfigurationManager.AppSettings["typeName"], obj => obj.Id);
+                ElasticClientOperations.AddDocument<BikeList>(suggestionList.ToList(), indexName, obj => obj.Id);
             }
             catch(Exception ex)
             {
