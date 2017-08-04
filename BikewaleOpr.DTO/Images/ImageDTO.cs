@@ -33,7 +33,7 @@ namespace BikewaleOpr.DTO.Images
         [JsonProperty("replicatedId")]
         public uint? ReplicatedId { get; set; }
 
-        [Required, JsonProperty("aspectRatio")]
+        [JsonProperty("aspectRatio")]
         public decimal? AspectRatio { get; set; }
 
         [JsonProperty("isWaterMark")]

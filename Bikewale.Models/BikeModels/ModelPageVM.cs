@@ -112,7 +112,7 @@ namespace Bikewale.Models.BikeModels
 
         public bool ShowOnRoadButton { get; set; }
         public string ReturnUrl { get; set; }
-
+        public bool HasCityPricing { get; set; }
         public ManufactureCampaignLeadEntity LeadCampaign { get; set; }
         public bool IsManufacturerLeadAdShown { get; set; }
         public bool IsManufacturerTopLeadAdShown { get; set; }
