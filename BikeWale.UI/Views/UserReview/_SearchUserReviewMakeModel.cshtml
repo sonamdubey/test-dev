@@ -126,6 +126,7 @@
                             focusedMakeModel = null; NewBikeSearchResult = false;
                             if (searchtext.trim() != "") {
                                 $('#erruserReviewList').show();
+                                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Review_Search_Keyword_Not_Present_in_Autosuggest', 'lab': searchtext });
                             }
                         }
                     },
@@ -141,6 +142,7 @@
                             if (focusedMakeModel == null || focusedMakeModel == undefined) {
                                 if ($('#userReviewList').val().trim() != '') {
                                     $('#erruserReviewList').show();
+                                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Review_Search_Keyword_Not_Present_in_Autosuggest', 'lab': $('#userReviewList').val() });
                                 }
                             }
 
@@ -170,7 +172,6 @@
             var id = $('#userReviewList');
             var searchVal = id.val();
             var placeHolder = id.attr('placeholder');
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
             if (btnFindUserReviewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
                 return false;
             } else {
