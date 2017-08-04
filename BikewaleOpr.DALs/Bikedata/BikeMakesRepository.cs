@@ -18,7 +18,7 @@ namespace BikewaleOpr.DALs.Bikedata
     /// <summary>
     /// 
     /// </summary>
-    public class BikeMakesRepository : IBikeMakes
+    public class BikeMakesRepository : IBikeMakesRepository
     {
         /// <summary>
         /// Created By : Sushil Kumar on  25th Oct 2016
@@ -301,7 +301,7 @@ namespace BikewaleOpr.DALs.Bikedata
             return objMakes;
         }
 
-
+        /// <summary>
         /// <summary>
         /// Written By : Snehal Dange 27 July 2017
         /// Description : Function to get makes for which service centers exits
@@ -345,6 +345,36 @@ namespace BikewaleOpr.DALs.Bikedata
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.ServiceCenters.GetMakes");
             }
             return objMakesList;
+        }
+	/// <summary>
+        /// Created by : Vivek Singh Tomar on 1st Aug 2017
+        /// Description : To fetch the model details list for given make id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeModelEntityBase> GetModelsByMake(uint makeId)
+        {
+            IEnumerable<BikeModelEntityBase> objBikeModelEntityBaseList = null;
+            try
+            {
+                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    var param = new DynamicParameters();
+                    param.Add("par_makeid", makeId);
+                    connection.Open();
+                    objBikeModelEntityBaseList = connection.Query<BikeModelEntityBase>
+                        ("getmodelsbymake", param: param, commandType: CommandType.StoredProcedure);
+                    if(connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetModelsByMake");
+            }
+            return objBikeModelEntityBaseList;
         }
 
     }   // class

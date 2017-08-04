@@ -42,6 +42,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
     /// Description :   Register IDealerCampaignRepository
     /// Modified by : Sajal Gupta on 03-03-2017
     /// Description : Register IBikeModels
+    /// Modified by : Vivek Singh Tomar on 1st Aug 2017
+    /// Description : Added IBikeMakes
     /// </summary>
     public static class UnityBootstrapper
     {
@@ -59,7 +61,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<ISellBikes, SellBikes>();
             container.RegisterType<IColorImagesBikeRepository, ColorImagesBikeRepository>();
             container.RegisterType<IDealerCampaignRepository, DealerCampaignRepository>();
-            container.RegisterType<IBikeMakes, BikeMakesRepository>();
+            container.RegisterType<IBikeMakesRepository, BikeMakesRepository>();
             container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
             container.RegisterType<IImage, ImageBL>();
             container.RegisterType<IImageRepository, ImageRepository>();
@@ -72,8 +74,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
 
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
             container.RegisterType<IServiceCenter, ServiceCenter>();
+            container.RegisterType<IBikeMakes, BikeMakes>();
             container.RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
-
 
             return container;
         }

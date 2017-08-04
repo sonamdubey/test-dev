@@ -1,9 +1,8 @@
 <%@ Page trace="false" Inherits="BikeWaleOpr.Content.ModelColorWiseImage" AutoEventWireUp="false" EnableEventValidation="false" Language="C#" %>
 <%@ Import Namespace ="System.Linq" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<script language="javascript" src="/src/modelImagesByColor.js"></script>
-<script language="javascript" src="/src/imageUpload.js"></script>
-
+<script defer language="javascript" src="/src/modelImagesByColor.js"></script>
+<script defer language="javascript" src="/src/imageUpload.js"></script>
 <style>
     #one {
         width: 50px;
@@ -37,11 +36,10 @@
     <span id="spnError" class="error" runat="server"></span>
     <fieldset id="inputSection" class="position-rel">
         <legend style="font-weight: bold">Select Model</legend>
-        <asp:dropdownlist enableviewstate="true" id="cmbMake" runat="server" tabindex="1" />
-        <asp:dropdownlist id="cmbModel" runat="server" tabindex="2">
-			<asp:ListItem Value="0" Text="--Select--" />
-		</asp:dropdownlist>
-        <input type="hidden" id="hdn_cmbModel" runat="server" />
+        <asp:dropdownlist data-bind="event: {change: function(){return getModels(); }}" enableviewstate="true" id="cmbMake" runat="server" tabindex="1" />
+        <asp:dropdownlist  data-bind="options: models, optionsText: 'modelName', optionsValue: 'modelId', value: selectedModel, optionsCaption: '--Select Model--'" id="cmbModel" runat="server" tabindex="2">
+            <asp:ListItem Text="--Select Model--" Value="0"></asp:ListItem>
+        </asp:dropdownlist>
         <asp:hiddenfield id="hdnModelId" runat="server" value="0" />
         <asp:button id="btnSubmit" text="Show Images" runat="server" tabindex="3" />
         <span class="position-abt progress-bar" style="width: 100%; overflow: hidden;"></span>
@@ -79,7 +77,7 @@
                         </table>
                     </td>
                     <td>
-                        <img id="mainImage" src='<%= Bikewale.Utility.Image.GetPathToShowImages(color.OriginalImagePath,color.Host,Bikewale.Utility.ImageSize._144x81) %>' /></td>
+                        <img id="mainImage" src='<%=  !color.IsImageExists ?  Bikewale.Utility.Image.GetPathToShowImages("", "", Bikewale.Utility.ImageSize._144x81) : Bikewale.Utility.Image.GetPathToShowImages(color.OriginalImagePath, color.Host,Bikewale.Utility.ImageSize._144x81) %>' /></td>
                     <td data-isimageexists="<%= color.IsImageExists %>" data-modelid="<%=modelId %>" data-colorid="<%=color.Id %>" data-color="<%= color.Name %>">
                         <img id="preview" src="" />
                         <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="width: 75px;" />

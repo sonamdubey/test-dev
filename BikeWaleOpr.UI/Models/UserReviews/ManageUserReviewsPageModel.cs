@@ -14,14 +14,14 @@ namespace BikewaleOpr.Models.UserReviews
     public class ManageUserReviewsPageModel
     {
         private readonly IUserReviewsRepository _reviewsRepo = null;
-        private readonly IBikeMakes _makesRepo = null;
+        private readonly IBikeMakesRepository _makesRepo = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="reviewsRepo"></param>
         /// <param name="makesRepo"></param>
-        public ManageUserReviewsPageModel(IUserReviewsRepository reviewsRepo, IBikeMakes makesRepo)
+        public ManageUserReviewsPageModel(IUserReviewsRepository reviewsRepo, IBikeMakesRepository makesRepo)
         {
             _reviewsRepo = reviewsRepo;
             _makesRepo = makesRepo;

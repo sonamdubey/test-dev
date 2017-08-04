@@ -1,16 +1,20 @@
-﻿var modelId, environment, userid, bwHostUrl, bikeFullName, currentFile;
+﻿var modelId, environment, userid, bwHostUrl, bikeFullName, currentFile,  firstMakeSelect = true, vmImageUpload;
 $(document).ready(function () {
-        if ($('#hdnModelId').val() > 0) {
-            fillDropdowns();
-            $("#cmbModel").val($('#hdnModelId').val())
-            setBikeName();
-        }
-    
-    $('#cmbMake').change(function () {
-        fillDropdowns();
-    });
+    if ($('#hdnModelId').val() > 0) {
+        $("#cmbModel").val($('#hdnModelId').val());
+        setBikeName();
+    }
+
     $('#cmbModel').change(function () {
         $('#hdnModelId').val($('#cmbModel').val());
+    });
+
+    $("#cmbMake").change(function () {
+        if (firstMakeSelect) {
+            vmImageUpload = new bindModelDropDown;
+            ko.applyBindings(vmImageUpload);
+            firstMakeSelect = false;
+        }
     });
 
     $("input[type='file']").change(function (e) {
@@ -78,6 +82,39 @@ $(document).ready(function () {
             }
         }
     });
+    
+    function bindModelDropDown() {
+        try {
+            var self = this;
+            self.models = ko.observableArray([]);
+            self.getModels = function () {
+                var makeId = $('#cmbMake').val();
+                if (makeId && makeId > 0) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/makes/" + makeId + "/models/",
+                        contentType: "application/json",
+                        dataType: 'json',
+                        async: false,
+                        success: function (response) {
+                            if (response) {
+                                self.models(response);
+                            }
+                        },
+                        complete: function (xhr) {
+                            if (xhr.status != 200) {
+                                showToast('some error occurred');
+                            }
+                        }
+                    });
+                }
+            };
+            self.selectedModel = ko.observable();
+            self.getModels();
+        } catch (ex) {
+            showToast(ex.message);
+        }
+    }
 });
 
 function setBikeName() {
@@ -134,13 +171,6 @@ $('.deleteImage').live("click", function () {
     });
 });
 
-function fillDropdowns() {
-    var response = AjaxFunctions.GetNewModels($('#cmbMake').val());
-    var dependentCmbs = new Array;
-    dependentCmbs[0] = "cmbModel";
-    FillCombo_Callback(response, document.getElementById("cmbModel"), "hdn_cmbModel", dependentCmbs);
-}
-
 function uploadToAWS(file, photoId, itemId, path, ext) {
     var imgUpldUtil = new ImageUploadUtility();
     imgUpldUtil.request = { "originalPath": path, "categoryId": 2, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": ext };
@@ -171,3 +201,4 @@ function stopLoading(ele) {
 function showToast(msg) {
     $('.toast').text(msg).stop().fadeIn(400).delay(3000).fadeOut(400);
 }
+

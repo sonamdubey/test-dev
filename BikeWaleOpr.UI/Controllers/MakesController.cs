@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Bikewale.Notifications;
-using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Interface.BikeData;
-using Microsoft.Practices.Unity;
 using Bikewale.Utility;
 
 namespace BikeWaleOpr.MVC.UI.Controllers.Content
@@ -18,10 +14,10 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
     [Authorize]
     public class MakesController : Controller
     {
-        private readonly IBikeMakes makesRepo;
+        private readonly IBikeMakesRepository makesRepo;
         private readonly IBikeModelsRepository modelsRepo;
 
-        public MakesController(IBikeMakes _makesRepo,IBikeModelsRepository _modelsRepo)
+        public MakesController(IBikeMakesRepository _makesRepo,IBikeModelsRepository _modelsRepo)
         {
             makesRepo = _makesRepo;
             modelsRepo = _modelsRepo;
