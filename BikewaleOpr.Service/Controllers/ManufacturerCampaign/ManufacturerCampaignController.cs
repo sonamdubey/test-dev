@@ -1,15 +1,13 @@
-﻿using Bikewale.ManufacturerCampaign.DTO.SearchCampaign;
+﻿using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Entities.SearchCampaign;
-using Bikewale.ManufacturerCampaign.Entities;
-using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
-using BikewaleOpr.Service.AutoMappers.ManufacturerCampaign;
 using BikewaleOpr.Service.AutoMappers.BikeData;
 using BikewaleOpr.Service.AutoMappers.Location;
+using BikewaleOpr.Service.AutoMappers.ManufacturerCampaign;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -72,7 +70,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
         /// <param name="dealerId"></param>
         /// <returns></returns>
         [ResponseType(typeof(IEnumerable<ManufacturerCampaignDetailsList>)), Route("api/v2/campaigns/manufacturer/search/dealerId/{dealerId}/allActiveCampaign/{allActiveCampaign}")]
-        public IHttpActionResult GetCampaignsV2(uint dealerId,uint allActiveCampaign)
+        public IHttpActionResult GetCampaignsV2(uint dealerId, uint allActiveCampaign)
         {
             IEnumerable<ManufacturerCampaignDetailsList> _objMfgList = null;
             try
@@ -90,8 +88,8 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignController.GetCampaignsV2 dealerId:{0}",dealerId));
-               
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignController.GetCampaignsV2 dealerId:{0}", dealerId));
+
                 return InternalServerError();
             }
         }
@@ -128,7 +126,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignController.UpdateCampaignStatusV2 campaignid: {0} status : {1}", campaignId,status));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignController.UpdateCampaignStatusV2 campaignid: {0} status : {1}", campaignId, status));
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -278,6 +276,36 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaignController.DeleteRule");
+                return InternalServerError();
+            }
+            return Ok(isSuccess);
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 04 Aug 2017
+        /// Description :   API to reset total lead delivered for a Campaign
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/campaigns/manufacturer/{campaignId}/totalleads/reset/")]
+        public IHttpActionResult ResetTotalLeadDeliveredCount(uint campaignId, uint userId)
+        {
+            bool isSuccess = false;
+            try
+            {
+                if (campaignId > 0 && userId > 0)
+                {
+                    isSuccess = _objMfgCampaign.ResetTotalLeadDelivered(campaignId, userId);
+                }
+                else
+                {
+                    return BadRequest("Invalid data.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, String.Format("ManufacturerCampaignController.ResetTotalLeadDeliveredCount({0},{1})", campaignId, userId));
                 return InternalServerError();
             }
             return Ok(isSuccess);
