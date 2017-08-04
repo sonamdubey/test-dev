@@ -76,6 +76,8 @@ var serviceCenter = function ()
                     }
                     else
                     {
+                        $('#tblServiceCenter').removeClass();
+                        $('#tblServiceCenter').hide();
                         Materialize.toast('No data to display', 5000);
                     }
                     

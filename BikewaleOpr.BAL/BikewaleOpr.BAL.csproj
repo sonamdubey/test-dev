@@ -100,7 +100,7 @@
     <Compile Include="MemCachedUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SecurityBL.cs" />
-    <Compile Include="ServiceCenter\ServiceCenterBL.cs" />
+    <Compile Include="ServiceCenter\ServiceCenter.cs" />
     <Compile Include="Used\SellBikes.cs" />
     <Compile Include="Used\UsedBikes.cs" />
   </ItemGroup>

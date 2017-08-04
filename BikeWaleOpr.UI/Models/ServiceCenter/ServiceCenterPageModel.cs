@@ -7,6 +7,7 @@ using System.Web;
 using Bikewale.Notifications;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity;
+using BikewaleOpr.Entity.ServiceCenter;
 
 namespace BikewaleOpr.Models.ServiceCenter
 {
@@ -20,7 +21,7 @@ namespace BikewaleOpr.Models.ServiceCenter
        
         StateCityEntity objStateCityData = null;
         private readonly IServiceCenter _serviceCenter = null;
-        private ushort requestType = 13;
+       
     
         public ServiceCenterPageModel(IServiceCenter serviceCenter)
         {
@@ -57,7 +58,7 @@ namespace BikewaleOpr.Models.ServiceCenter
         public ServiceCenterCompleteDataVM GetFormData(uint cityId, uint makeId,string makeName)
         {
             ServiceCenterCompleteDataVM formModel = new ServiceCenterCompleteDataVM();
-            objStateCityData = new StateCityEntity();
+            objStateCityData = null;
             try
             {
                 objStateCityData = GetStateDetailsByCityId(cityId);
@@ -85,6 +86,7 @@ namespace BikewaleOpr.Models.ServiceCenter
         public IEnumerable<Entities.BikeData.BikeMakeEntityBase> GetBikeMakes()
         {
             IEnumerable<Entities.BikeData.BikeMakeEntityBase> serviceCenterMakeList = null;
+            ushort requestType = 13;
             try
             {
                 if (_serviceCenter != null)
@@ -136,12 +138,13 @@ namespace BikewaleOpr.Models.ServiceCenter
         /// </summary>
         /// <param name="ServiceCenterId"></param>
         /// <returns></returns>
-        public ServiceCenterCompleteDataVM GetServiceCenterDetailsById(uint ServiceCenterId)
+        public ServiceCenterCompleteData GetServiceCenterDetailsById(uint ServiceCenterId)
         {
-            ServiceCenterCompleteDataVM objModel = new ServiceCenterCompleteDataVM();
+            ServiceCenterCompleteData details = null;
+            
             try
             {
-                objModel.details = _serviceCenter.GetServiceCenterDetailsbyId(ServiceCenterId);
+                details = _serviceCenter.GetServiceCenterDetailsbyId(ServiceCenterId);
             }
             catch (Exception ex)
             {
@@ -149,7 +152,7 @@ namespace BikewaleOpr.Models.ServiceCenter
             }
 
 
-            return objModel;
+            return details;
         }
 
 
@@ -162,7 +165,7 @@ namespace BikewaleOpr.Models.ServiceCenter
         /// <returns></returns>
         public StateCityEntity GetStateDetailsByCityId(uint cityId)
         {
-            StateCityEntity objModel = new StateCityEntity();
+            StateCityEntity objModel = null;
             try
             {
 

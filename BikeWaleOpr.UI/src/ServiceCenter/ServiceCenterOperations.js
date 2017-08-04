@@ -88,7 +88,8 @@ self.formValidation = function () {
     var mobileStatus = true;
     var phoneStatus = true;
 
-    if (name.trim() === "" && address.trim() === "") {
+   
+    if (name.trim() === "" || address.trim() === "") {
 
         Materialize.toast('Name and Address are required fields', 5000);
       

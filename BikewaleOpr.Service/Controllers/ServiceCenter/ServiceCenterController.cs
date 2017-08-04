@@ -90,22 +90,14 @@ namespace BikewaleOpr.Service.Controllers.ServiceCenter
                 {
                     objServiceCenter = _IServiceCenter.GetServiceCentersByCityMake(cityId, makeId, activeStatus);
 
-                    if (objServiceCenter.ServiceCenters != null && objServiceCenter.Count > 0)
+                    if (objServiceCenter.ServiceCenters != null)
                     {
                         objServiceCenterList = objServiceCenter.ServiceCenters;
 
                         if (objServiceCenterList != null)
                         {
                             serviceCenterList = ServiceCenterMapper.Convert(objServiceCenterList);
-                            if(serviceCenterList.Count() > 0)
-                            {
-                                return Ok(serviceCenterList);
-                            }
-                            else
-                            {
-                                return NotFound();
-                            }
-                           
+                            return Ok(serviceCenterList);
                         }
 
 

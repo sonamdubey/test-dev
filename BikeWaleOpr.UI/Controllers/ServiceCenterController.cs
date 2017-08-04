@@ -36,7 +36,7 @@ namespace BikewaleOpr.Controllers
        
         public ActionResult SearchServiceCenter()
         {
-            ServiceCenterPageVM pageVM = new ServiceCenterPageVM();
+            ServiceCenterPageVM pageVM = null;
             ServiceCenterPageModel pageModel = new ServiceCenterPageModel(_serviceCenter);
             if(pageModel != null)
             {
@@ -64,7 +64,7 @@ namespace BikewaleOpr.Controllers
         [Route("servicecenter/details/make/{makeId}/{makeName}/city/{cityId}/{cityName}/")]
         public ActionResult AddServiceCenter(uint cityId, uint makeId ,string makeName, string cityName)
         {
-            ServiceCenterCompleteDataVM objDataModel = new ServiceCenterCompleteDataVM();
+            ServiceCenterCompleteDataVM objDataModel = null;
             ServiceCenterPageModel pageModel = new ServiceCenterPageModel(_serviceCenter);
             if (cityId >0 && makeId  >0)
             {
@@ -121,7 +121,7 @@ namespace BikewaleOpr.Controllers
             {
                 if(Id > 0)
                 {
-                    objDataModel = pageModel.GetServiceCenterDetailsById(Id);
+                    objDataModel.details = pageModel.GetServiceCenterDetailsById(Id);
                    
                 }
              

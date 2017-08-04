@@ -21,11 +21,11 @@ namespace BikewaleOpr.BAL.ServiceCenter
     /// Created By:-Snehal Dange 28 July 2017
     /// Summary:- For service center related operations
     /// </summary>
-    public class ServiceCenterBL : IServiceCenter
+    public class ServiceCenter : IServiceCenter
     {
         private IBikeMakes _IBikeMake;
         private IServiceCenterRepository _IServiceCenter;
-        public ServiceCenterBL(IBikeMakes bikeMake, IServiceCenterRepository serviceCenter)
+        public ServiceCenter(IBikeMakes bikeMake, IServiceCenterRepository serviceCenter)
         {
             _IBikeMake = bikeMake;
             _IServiceCenter = serviceCenter;
