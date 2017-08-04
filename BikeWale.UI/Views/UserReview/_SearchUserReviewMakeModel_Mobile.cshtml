@@ -6,15 +6,14 @@
             <div class="user-review__intro">
                 <p class="review-intro__title">3000+ unbiased, verified reviews.<br>Know the pros and cons of 200+ bike models.</p>
                 <div class="form-control-box margin-bottom15">
-                    <input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off">
+                    <input type="text" class="user-review__search-field" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off">
+					<ul id="erruserReviewList" class="ui-autocomplete ui-front ui-menu hide">
+						<li class="ui-menu-item" tabindex="-1">
+							<span class="text-bold">Oops! No suggestions found</span><br />
+							<span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
+						</li>
+					</ul>
                 </div>
-				<ul id="erUserReviewList" class="ui-autocomplete ui-front ui-menu">
-					<li class="ui-menu-item" tabindex="-1">
-						<span class="text-bold">Oops! No suggestions found</span><br />
-						<span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
-					</li>
-				</ul>
-				<ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
                 <button class="btn btn-orange btn-120-32" id="btnUserSearch">Read reviews</button>
             </div>
 
@@ -83,9 +82,8 @@
         self.init = function () {
             try {
                 $("#userReviewList").bw_autocomplete({
-                    width: 469,
                     source: 5,
-                    recordCount: 10,
+                    recordCount: 5,
                     onClear: function () {
                         objBikes = new Object();
                     },
@@ -97,6 +95,7 @@
                     },
                     open: function (result) {
                         objBikes.result = result;
+						$("ul.ui-menu").width( $('#userReviewList').innerWidth() );
                     },
 
                     focusout: function () {

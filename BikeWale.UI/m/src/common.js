@@ -240,7 +240,7 @@ var bwAutoComplete = function (options) {
                           .data("ui-autocomplete-item", item)
                           .append('<span class="bwmsprite ui-search-icon"></span><a OptionName=' + item.label.replace(/\s/g, '').toLowerCase() + '>' + __highlight(item.label, reqTerm) + '</a>');
             if (options.source == '5') {
-                ulItem.append(' <span class="margin-left10 font14">(' + item.payload.userRatingsCount + ' Ratings)</span>')
+                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.userRatingsCount + ' Ratings)</span>')
             }
             if (options.source == '1') {
                 if (item.payload.modelId > 0) {

@@ -209,6 +209,20 @@
     font-size: 14px;
 }
 
+/* review search field */
+#erruserReviewList.ui-autocomplete {
+	position: absolute;
+	top: 41px;
+	left: 3px;
+}
+
+.user-review__search-field {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+}
+
+
 /* user-review__swiper */
 .user-review__swiper {
 	padding-top: 30px;

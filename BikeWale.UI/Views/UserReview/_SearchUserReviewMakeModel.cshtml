@@ -11,15 +11,15 @@
                             <input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off">
                         </div>
                         <button type="button" id="btnUserSearch" class="btn btn-orange user-review__form-submit">Read reviews</button>
+
+						<ul id="erruserReviewList" class="ui-autocomplete ui-front ui-menu hide">
+							<li class="ui-menu-item" tabindex="-1">
+								<span class="text-bold">Oops! No suggestions found</span><br />
+								<span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
+							</li>
+						</ul>
                     </div>
                     <div class="clear"></div>
-                    <ul id="erruserReviewList" class="ui-autocomplete ui-front ui-menu hide">
-                        <li class="ui-menu-item" tabindex="-1">
-                            <span class="text-bold">Oops! No suggestions found</span><br />
-                            <span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
-                        </li>
-                    </ul>
-                    <ul id="new-global-recent-searches" class="recent-searches-dropdown"></ul>
                 </div>
 
                 @if (Model != null && Model.Count() > 0)
@@ -93,9 +93,9 @@
         self.init = function () {
             try {
                 $("#userReviewList").bw_autocomplete({
-                    width: 469,
+                    width: 420,
                     source: 5,
-                    recordCount: 10,
+                    recordCount: 5,
                     onClear: function () {
                         objBikes = new Object();
                     },
