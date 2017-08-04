@@ -4,7 +4,7 @@ namespace Bikewale.Utility
 {
     public class SqlReaderConvertor
     {
-        
+
         public static bool? ToNullableBool(object reader)
         {
             bool? retVal = false;

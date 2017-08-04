@@ -39,6 +39,7 @@ namespace Bikewale.Service.AutoMappers.Dealer
             Mapper.CreateMap<Entities.DealerLocator.DealersList, DTO.Dealer.v2.NewBikeDealerBase>().ForMember(d => d.ContactNo, opt => opt.MapFrom(s => s.MaskingNumber));
             Mapper.CreateMap<Entities.DealerLocator.DealersList, DTO.Dealer.v2.NewBikeDealerBase>().ForMember(d => d.Email, opt => opt.MapFrom(s => s.EMail));
             Mapper.CreateMap<Entities.DealerLocator.DealersList, DTO.Dealer.v2.NewBikeDealerBase>().ForMember(d => d.DealerType, opt => opt.MapFrom(s => s.DealerType));
+            Mapper.CreateMap<Entities.DealerLocator.DealersList, DTO.Dealer.v2.NewBikeDealerBase>().ForMember(d => d.IsFeatured, opt => opt.MapFrom(s => s.IsFeatured));
             Mapper.CreateMap<Entities.DealerLocator.DealersList, DTO.Dealer.v2.NewBikeDealerBase>().ForMember(d => d.Latitude, opt => opt.MapFrom(s => s.objArea.Latitude));
             Mapper.CreateMap<Entities.DealerLocator.DealersList, DTO.Dealer.v2.NewBikeDealerBase>().ForMember(d => d.Longitude, opt => opt.MapFrom(s => s.objArea.Longitude));
             return Mapper.Map<IEnumerable<Entities.DealerLocator.DealersList>, IEnumerable<DTO.Dealer.v2.NewBikeDealerBase>>(enumerable);

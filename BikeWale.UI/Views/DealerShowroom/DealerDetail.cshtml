@@ -61,7 +61,7 @@
                             <div class="content-inner-block-20">
                                 <div class="grid-7 alpha omega font14">
                                     <div class="margin-bottom10">
-                                        @if (Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Pricing))
+                                        @if (Model.DealerDetails.DealerDetails.IsFeatured)
                                         {
                                             <span class="featured-tag inline-block margin-right10"><span class="bwsprite star-white"></span>Featured</span>
                                         }
@@ -143,7 +143,7 @@
                 </div>
             </section>
         }
-@if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null && Model.DealerDetails.DealerDetails.CampaignId > 0 && ((Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Pricing))))
+@if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null && Model.DealerDetails.DealerDetails.CampaignId > 0 && Model.DealerDetails.DealerDetails.IsFeatured)
 {
     <section id="dealerAssistance">
         <div class="container margin-bottom20" id="leadForm">
