@@ -6,7 +6,7 @@
 
 <div id="sponsoredComparisons" class="row margin-top10" style="margin-bottom : 60px">
     <div class="col m10">
-        <div id="tblCampaigns" class="" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]">
+        <div id="tblCampaigns" class=""  data-bwhosturl="@Bikewale.Utility.BWConfiguration.Instance.BwHostUrl">
             <table class="bordered highlight z-depth-3 centered responsive-table" id="sponsoredComparisonsList">
                 <tr>
                     <th>Id</th>
@@ -53,7 +53,7 @@
 
                                 </p>
                             </td>
-                            <td><a href="/comparision/sponsored/@(comp.Id)/rules/"><i class="material-icons icon-blue" srtle="line-height: 32px;">mode_edit</i></a></td>
+                            <td><a href="/comparison/sponsored/@(comp.Id)/rules/"><i class="material-icons icon-blue" srtle="line-height: 32px;">mode_edit</i></a></td>
                             <td>@(comp.LastUpdated != null && comp.LastUpdated != DateTime.MinValue ? comp.LastUpdated.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
                             <td>@comp.UpdatedBy</td>
                             <td><a href="javascript:void(0)" data-bind="click : editSponsoredCamparison"><i class="material-icons icon-blue" srtle="line-height: 32px;">mode_edit</i></a></td>
