@@ -5,8 +5,19 @@
     ViewBag.PageTitle = "Add Sponsored Comparisons Rules";
 
 
-    var objMappings = Model.ComparisonVersionMapping.GroupBy(x => x.SponsoredModelId)
-                         .Select(group => new { SponsoredModelId = group.Key, Items = group, MappingName = string.Format("{0} {1} --> {2} {3}", group.ToList()[0].SponsoredMakeName, group.ToList()[0].SponsoredModelName, group.ToList()[0].Target.TargetMakeName, group.ToList()[0].Target.TargetModelName) }).ToList();
+    var objMappings = Model.ComparisonVersionMapping
+        .GroupBy(x => x.SponsoredModelId)
+        .Select(
+        group => new
+        {
+            SponsoredModelId = group.Key,
+            Items = group,
+            MappingName = string.Format("{0} {1} --> {2} {3}", group.ToList()[0].SponsoredMakeName,
+            group.ToList()[0].SponsoredModelName,
+            group.ToList()[0].Target.TargetMakeName,
+            group.ToList()[0].Target.TargetModelName)
+        }
+        ).ToList();
 
 
 }
@@ -25,6 +36,7 @@
                             <div class="collapsible-header">
                                 <blockquote>
                                     <div class="chip">
+                                        <a href="javascript:void(0)" data-bind="click : editSponsoredComparisonRule"><i class="material-icons icon-blue edit">mode_edit</i></a>
                                         @vmap.MappingName
                                         <i class="close material-icons red-text no-margin" data-element="model" data-sponsored-modelid="@mappingData.SponsoredModelId" data-target-modelid="@mappingData.Target.TargetModelId" data-bind="click : deleteSponsoredModelRules">close</i>
                                     </div>

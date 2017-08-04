@@ -171,6 +171,9 @@ var addSponsoredComparisonRules = function () {
         return false;
     };
 
+    self.editSponsoredComparisonRule = function () {
+
+    };
 
 }
 

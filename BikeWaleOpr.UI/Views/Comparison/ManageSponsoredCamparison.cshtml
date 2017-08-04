@@ -56,7 +56,7 @@
                             <td>Yes</td>
                             <td>@(comp.LastUpdated != null && comp.LastUpdated != DateTime.MinValue ? comp.LastUpdated.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
                             <td>@comp.UpdatedBy</td>
-                            <td><a href="javascript:void(0)" data-bind="click : editSponsoredCamparison"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                            <td><a href="javascript:void(0)" data-bind="click : editSponsoredCamparison"><i class="material-icons icon-blue" srtle="line-height: 32px;">mode_edit</i></a></td>
                         </tr>
                     }
 
@@ -151,9 +151,19 @@
                                     <label for="txtBikeImageImpression">Bike Image GA</label>
                                 </li>
                                 <li class="input-field">
+                                    <!-- ko if : isComparisonEdit() -->
                                     <button data-bind="click: addSponsoredComparison,value : currentId" class="btn waves-effect waves-light margin-bottom20" type="submit" name="Id">
+                                        Update Comparison
+                                    </button>
+                                    <button data-bind="click: cancelEditComparison" class="btn waves-effect waves-light margin-bottom20" type="submit" >
+                                        Cancel
+                                    </button>
+                                    <!-- /ko -->
+                                    <!-- ko ifnot : isComparisonEdit()-->
+                                    <button data-bind="click: addSponsoredComparison" class="btn waves-effect waves-light margin-bottom20" type="submit">
                                         Add Comparison
                                     </button>
+                                    <!-- /ko -->
                                 </li>
                             </ul>
                         }
@@ -179,17 +189,6 @@
 
     var pgContainer = $("#sponsoredComparisons"), vmSponsoredComparison;
     var searchComparisons = $("#searchComparisons"), searchStatusChks = searchComparisons.find("input:checkbox");
-    //$('.timepicker').pickatime({
-    //    default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-    //    fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-    //    twelvehour: true, // Use AM/PM or 24-hour format
-    //    donetext: 'OK', // text for done-button
-    //    cleartext: 'Clear', // text for clear-button
-    //    canceltext: 'Cancel', // Text for cancel-button
-    //    autoclose: false, // automatic close timepicker
-    //    ampmclickable: true, // make AM PM clickable
-    //    aftershow: function () { } //Function for after opening timepicker
-    //});
 
 
     var sponsoredComparisonManagement = function () {
@@ -206,6 +205,7 @@
         self.startDate = ko.observable();
         self.endDate = ko.observable();
         self.currentId = ko.observable(0);
+        self.isComparisonEdit = ko.observable(false);
 
         self.init = function () {
             var compStatus = window.location.search;
@@ -317,6 +317,8 @@
             self.nameImpression(ele.find("td[data-cell=nameimpression]").text());
             self.imgImpression(ele.find("td[data-cell=imgimpression]").text());
 
+            self.isComparisonEdit(true);
+
             //setdate
             var tempDateTime = new Date(self.startDateTime());
             $("#dtStartDate").pickadate('picker').set('select', tempDateTime);
@@ -339,6 +341,25 @@
             }
 
         };
+
+        self.cancelEditComparison = function()
+        {
+            self.currentId(0);
+            self.description(undefined);
+            self.startDateTime(undefined);
+            self.endDateTime(undefined);
+            self.startTime(undefined);
+            self.endTime(undefined);
+            self.startDate(undefined);
+            self.endDate(undefined);
+            self.linkUrl("");
+            self.linkText("");
+            self.nameImpression("");
+            self.imgImpression("");
+            self.isComparisonEdit(false);
+
+            Materialize.updateTextFields();
+        }
 
         self.changeComparisonStatus = function (d,e) {
             var ele = $(e.currentTarget), status = ele.data("status");

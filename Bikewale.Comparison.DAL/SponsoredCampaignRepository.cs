@@ -61,7 +61,7 @@ namespace Bikewale.Comparison.DAL
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_comparisonid", camparisonId);
+                    param.Add("par_comparisonid", comparisonid);
                     param.Add("par_sponsoredmodelid", SponsoredModelId);
                     connection.Execute("DeleteSponsoredComparisonBikeSponsoredModelRules", param: param, commandType: CommandType.StoredProcedure);
 
@@ -92,7 +92,7 @@ namespace Bikewale.Comparison.DAL
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_comparisonid", camparisonId);
+                    param.Add("par_comparisonid", comparisonid);
                     param.Add("par_sponsoredversionid", sponsoredVersionId);
                     connection.Execute("deletesponsoredcomparisonbikesponsoredversionrules", param: param, commandType: CommandType.StoredProcedure);
 
@@ -123,7 +123,7 @@ namespace Bikewale.Comparison.DAL
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_comparisonid", camparisonId);
+                    param.Add("par_comparisonid", comparisonid);
                     param.Add("par_targetversionid", targetversionId);
                     connection.Execute("deletesponsoredcomparisonbiketargetversionrules", param: param, commandType: CommandType.StoredProcedure);
 
@@ -324,10 +324,10 @@ namespace Bikewale.Comparison.DAL
                     param.Add("par_impressionurl", campaign.NameImpressionUrl);
                     param.Add("par_imgimpressionurl", campaign.ImgImpressionUrl);
                     param.Add("par_updatedby", campaign.UpdatedBy);
-                    param.Add("par_id", campaign.Id, dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    param.Add("par_id", campaign.Id, dbType: DbType.Int32, direction: ParameterDirection.InputOutput);
                     connection.Execute("savesponsoredcomparisons", param: param, commandType: CommandType.StoredProcedure);
 
-                    comparisonId = param.Get<uint>("par_id");
+                    comparisonId = Convert.ToUInt32(param.Get<int>("par_id"));
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
