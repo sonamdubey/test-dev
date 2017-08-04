@@ -3,7 +3,7 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/write-review.css' />";
     Model.Page_JS_Path = "/m/src/user-review/write-review.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    string gaLabel = string.Format("{0}_{1}_{2}", Model.objModelEntity.MakeBase.MakeName, Model.objModelEntity.ModelName, Model.SourceId);
+    string gaLabel = string.Format("{0}_{1}_{2}", Model.objModelEntity.MakeBase.MakeName, Model.objModelEntity.ModelName, Model.SourceId);   
 }
 
 <section>
@@ -90,7 +90,7 @@
                 <input type="hidden" id="rating-question" value="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Model.RatingQuestion)" />
                 <input type="hidden" name="overAllrating" id="finaloverallrating" />
                 <input type="hidden" name="reviewed-rating" id="reviewedoverallrating" value="@Model.ReviewsOverAllrating" />
-
+                <input type="hidden" name="UtmzCookieValue" value='@Model.UtmzCookieValue' />
                 <input type="hidden" name="modelId" value="@Model.objModelEntity.ModelId" />
                 <input type="hidden" name="makeId" value="@Model.objModelEntity.MakeBase.MakeId" />
                 <input type="hidden" name="ratingQuestionAns" id="rating-quesition-ans"/>
