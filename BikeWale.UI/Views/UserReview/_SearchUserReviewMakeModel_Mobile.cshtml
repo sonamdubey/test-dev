@@ -91,7 +91,7 @@
                     },
                     click: function (event, ui, orgTxt) {
                         UserReviewRedirection(ui.item);
-                        var keywrd = ui.item.label + '_' + $('#userReviewList').val();
+                        var keywrd = ui.item.label;
                         dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Review_Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
                         isMakeModelRedirected = true;
                     },
@@ -152,6 +152,7 @@
         if (focusedMakeModel == undefined || focusedMakeModel == null) {
             return false;
         }
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Review_Search_Keyword_Present_in_Autosuggest', 'lab': focusedMakeModel });
         return UserReviewRedirection(focusedMakeModel);
     }
     docReady(function () {
