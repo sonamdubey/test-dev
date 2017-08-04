@@ -4,22 +4,22 @@
     <div class="container section-bottom-margin">
         <div class="grid-12">
             <div class="content-box-shadow padding-bottom20">
-                <div class="user-review__intro">
+                <div class="user-review__intro position-rel">
                     <p class="review-intro__title">3000+ unbiased, verified reviews from bike owners. Know the pros and cons of 200+ bike models from real owners.</p>
                     <div class="user-review__search-form">
                         <div class="user-review__search-field">
                             <input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off">
                         </div>
                         <button type="button" id="btnUserSearch" class="btn btn-orange user-review__form-submit">Read reviews</button>
+
+						<ul id="erruserReviewList" class="ui-autocomplete ui-front ui-menu hide">
+							<li class="ui-menu-item" tabindex="-1">
+								<span class="text-bold">Oops! No suggestions found</span><br />
+								<span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
+							</li>
+						</ul>
                     </div>
                     <div class="clear"></div>
-                    <ul id="erruserReviewList" class="ui-autocomplete ui-front ui-menu hide">
-                        <li class="ui-menu-item" tabindex="-1">
-                            <span class="text-bold">Oops! No suggestions found</span><br />
-                            <span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
-                        </li>
-                    </ul>
-                    <ul id="new-global-recent-searches" class="recent-searches-dropdown"></ul>
                 </div>
 
                 @if (Model != null && Model.Count() > 0)
@@ -43,7 +43,7 @@
                                             <span class="rating-badge" data-rate-bg="@review.Rating">
                                                 <span class="bwsprite star-white"></span>@review.Rating
                                             </span>
-                                            <p class="review-card__bike">@review.BikeName</p>
+                                            <p class="review-card__bike text-truncate" title="@review.BikeName">@review.BikeName</p>
                                             <p class="review-card__desc">@string.Format("{0}...", review.ReviewDescription)</p>
                                             <p class="review-card__date">@Bikewale.Utility.FormatDate.GetTimeSpan(review.EntryDate) ago</p>
                                             <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/",review.MakeMaskingName,review.ModelMaskingName,review.ReviewId)" title="@string.Format("{0} Review by {1}",review.BikeName,review.CustomerName)" class="font14">Read full review</a>
@@ -93,9 +93,9 @@
         self.init = function () {
             try {
                 $("#userReviewList").bw_autocomplete({
-                    width: 469,
+                    width: 420,
                     source: 5,
-                    recordCount: 10,
+                    recordCount: 5,
                     onClear: function () {
                         objBikes = new Object();
                     },
