@@ -26,6 +26,10 @@ using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
 using Bikewale.Cache.UserReviews;
 using Bikewale.Cache.Videos;
+using Bikewale.Comparison.BAL;
+using Bikewale.Comparison.Cache;
+using Bikewale.Comparison.DAL;
+using Bikewale.Comparison.Interface;
 using Bikewale.DAL;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Compare;
@@ -144,6 +148,9 @@ namespace Bikewale
             container.RegisterType<ISurvey, BAL.Survey>();
             container.RegisterType<Interfaces.IManufacturerCampaign, Bikewale.BAL.ManufacturerCampaign.ManufacturerCampaign>();
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
+            container.RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>();
+            container.RegisterType<ISponsoredComparison, SponsoredComparison>();
+            container.RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

@@ -1,5 +1,8 @@
+using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Bikewale.Interfaces.Compare;
+using Bikewale.Comparison.DAL;
+using Bikewale.Comparison.Interface;
+using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 /***********************************************************/
@@ -77,11 +80,18 @@ namespace Bikewale.New
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeCompare, Bikewale.BAL.Compare.BikeComparison>();
+                    container.RegisterType<ISponsoredComparison, Bikewale.Comparison.BAL.SponsoredComparison>()
+                        .RegisterType<ISponsoredComparisonCacheRepository, Bikewale.Comparison.Cache.SponsoredComparisonCacheRepository>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                        .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>();
 
-                    var _objCompare = container.Resolve<IBikeCompare>();
+                    var _objCompare = container.Resolve<ISponsoredComparison>();
 
-                    featuredBikeId = _objCompare.GetFeaturedBike(versions);
+                    var sponsoredBike = _objCompare.GetSponsoredVersion(versions);
+                    if (sponsoredBike != null)
+                    {
+                        featuredBikeId = sponsoredBike.SponsoredVersionId;
+                    }
                 }
             }
             catch (Exception ex)
