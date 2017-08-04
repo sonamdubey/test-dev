@@ -60,8 +60,8 @@ namespace BikewaleOpr
                 .RegisterType<ILocation, LocationRepository>()
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
                 .RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>()
-            .RegisterType<ISponsoredComparison, SponsoredComparison>()
-                 .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
+                .RegisterType<ISponsoredComparison, SponsoredComparison>()
+                .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
                 .RegisterType<IBannerRepository, BannerRepository>()
                 .RegisterType<IContractCampaign, ContractCampaign>();
 

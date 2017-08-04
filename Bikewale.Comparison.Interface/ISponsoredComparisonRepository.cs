@@ -14,18 +14,18 @@ namespace Bikewale.Comparison.Interface
         IEnumerable<SponsoredComparison> GetSponsoredComparisons(string statuses);
         uint SaveSponsoredComparison(SponsoredComparison campaign);
         bool SaveSponsoredComparisonBikeRules(VersionTargetMapping rules);
-        TargetSponsoredMapping GetSponsoredComparisonVersionMapping(uint camparisonId, uint targetModelId, uint sponsoredModelId);
-        IEnumerable<SponsoredVersion> GetSponsoredComparisonSponsoredBike(uint camparisonId); //- Returns sponsored model- version and their target bikes
-        bool DeleteSponsoredComparisonBikeAllRules(uint camparisonId);
-        bool DeleteSponsoredComparisonBikeSponsoredModelRules(uint camparisonId, uint SponsoredmodelId);
-        bool DeleteSponsoredComparisonBikeSponsoredVersionRules(uint camparisonId, uint SponsoredversionId);
-        bool DeleteSponsoredComparisonBikeTargetVersionRules(uint camparisonId, uint targetversionId);
-        bool ChangeSponsoredComparisonStatus(uint camparisonId, ushort status);
+        TargetSponsoredMapping GetSponsoredComparisonVersionMapping(uint comparisonid, uint targetModelId, uint sponsoredModelId);
+        IEnumerable<SponsoredVersion> GetSponsoredComparisonSponsoredBike(uint comparisonid); //- Returns sponsored model- version and their target bikes
+        bool DeleteSponsoredComparisonBikeAllRules(uint comparisonid);
+        bool DeleteSponsoredComparisonBikeSponsoredModelRules(uint comparisonid, uint SponsoredmodelId);
+        bool DeleteSponsoredComparisonBikeSponsoredVersionRules(uint comparisonid, uint SponsoredversionId);
+        bool DeleteSponsoredComparisonBikeTargetVersionRules(uint comparisonid, uint targetversionId);
+        bool ChangeSponsoredComparisonStatus(uint comparisonid, ushort status);
         IEnumerable<SponsoredVersionEntityBase> GetActiveSponsoredComparisons();
 
-        //bool DeleteSponsoredComparisonBikeStateRules(uint camparisonId, uint ruleId, uint stateId);
-        //bool DeleteSponsoredComparisonBikecityRules(uint camparisonId, uint ruleId, uint cityId);
-        //IEnumerable<City> GetSponsoredComparisonTargetVersionLocation(uint camparisonId, string targetVersionId);
-        //bool SaveSponsoredComparisonBikecityRules(uint camparisonId, bool isAllIndia, string cityIds);
+        //bool DeleteSponsoredComparisonBikeStateRules(uint comparisonid, uint ruleId, uint stateId);
+        //bool DeleteSponsoredComparisonBikecityRules(uint comparisonid, uint ruleId, uint cityId);
+        //IEnumerable<City> GetSponsoredComparisonTargetVersionLocation(uint comparisonid, string targetVersionId);
+        //bool SaveSponsoredComparisonBikecityRules(uint comparisonid, bool isAllIndia, string cityIds);
     }
 }

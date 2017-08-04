@@ -1,20 +1,21 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bikewale.Comparison.Entities
+namespace Bikewale.Comparison.DTO
 {
-    /// <summary>
-    /// Created by: Sangram Nandkhile on 28-Jul-2017
-    /// Summary: Entity for Bike Model Version Mapping
-    /// </summary>
-    public class BikeModelVersionMapping : BikeModel
+    public class BikeModelVersionMappingDTO: BikeModelDTO
     {
+        [JsonProperty("sponsoredModelId")]
         public uint SponsoredModelId { get; set; }
+
+        [JsonProperty("sponsoredVersionId")]
         public uint SponsoredVersionId { get; set; }
+
+        [JsonProperty("impressionUrl")]
         public string ImpressionUrl { get; set; }
     }
-
 }

@@ -7,11 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 
-namespace BikewaleOpr.Service.Controllers.Camparison
+namespace BikewaleOpr.Service.Controllers.Comparison
 {
 
     /// <summary>
-    /// Controller for sponsored camparisons
+    /// Controller for sponsored comparisons
     /// </summary>
     /// <author>
     /// Sangram Nandkhile on 28-Jul-2017
@@ -34,7 +34,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
         public IHttpActionResult GetSponsoredComparisons(string statuses)
         {
             IEnumerable<SponsoredComparison> objSponsoredComparison = null;
-            IEnumerable<SponsoredCamparisonDTO> objSponsoredComparisonDTO = null;
+            IEnumerable<SponsoredComparisonDTO> objSponsoredComparisonDTO = null;
             try
             {
                 objSponsoredComparison = _objSponsoredRepo.GetSponsoredComparisons(statuses);
@@ -42,13 +42,16 @@ namespace BikewaleOpr.Service.Controllers.Camparison
                 {
                     // Auto map the properties
                     objSponsoredComparisonDTO = SponsoredComparisonMapper.Convert(objSponsoredComparison);
-
+                    return Ok(objSponsoredComparisonDTO);
                 }
-                return Ok(objSponsoredComparisonDTO);
+                else
+                {
+                    return InternalServerError();
+                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Camparison.SponsoredComparisonController.GetSponsoredComparisons", statuses));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("comparison.SponsoredComparisonController.GetSponsoredComparisons", statuses));
                 return InternalServerError();
             }
         }
@@ -57,15 +60,25 @@ namespace BikewaleOpr.Service.Controllers.Camparison
         [HttpGet, Route("api/compare/sponsored/{id}/target/{targetModelId}/sponsor/{sponsoredModelId}/")]
         public IHttpActionResult GetSponsoredVersionMapping(uint id, uint targetModelId, uint sponsoredModelId)
         {
-            TargetSponsoredMapping objSponsoredComparison = null;
+            TargetSponsoredMapping objVersionMapping = null;
+            TargetSponsoredMappingDTO objVersionMappingDTO = null;
             try
             {
-                objSponsoredComparison = _objSponsoredRepo.GetSponsoredComparisonVersionMapping(id, targetModelId, sponsoredModelId);
-                return Ok(objSponsoredComparison);
+                objVersionMapping = _objSponsoredRepo.GetSponsoredComparisonVersionMapping(id, targetModelId, sponsoredModelId);
+                if(objVersionMapping!= null)
+                {
+                    objVersionMappingDTO = SponsoredComparisonMapper.Convert(objVersionMapping);
+                    return Ok(objVersionMappingDTO);
+                }
+                else
+                {
+                    return InternalServerError();
+                }
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Camparison.SponsoredComparisonController.GetSponsoredVersionMapping: Camparison Id: {0}", id));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("comparison.SponsoredComparisonController.GetSponsoredVersionMapping: comparison Id: {0}", id));
                 return InternalServerError();
             }
         }
@@ -86,7 +99,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.SaveSponsoredComparison");
+                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.SaveSponsoredComparison");
                 return InternalServerError();
             }
             return Ok(comparisonId);
@@ -109,7 +122,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.UpdateSponsoredComparisonStatus");
+                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.UpdateSponsoredComparisonStatus");
                 return InternalServerError();
             }
             return Ok(isSaved);
@@ -130,7 +143,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.SaveSponsoredComparisonsBikeRules");
+                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.SaveSponsoredComparisonsBikeRules");
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -152,7 +165,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.DeleteSponsoredComparisonRules");
+                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.DeleteSponsoredComparisonRules");
                 return InternalServerError();
             }
             return Ok(isSuccess);
@@ -174,7 +187,29 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.DeleteSponsoredComparisonModelRules");
+                ErrorClass objErr = new ErrorClass(ex, "comparison.SponsoredComparisonController.DeleteSponsoredComparisonModelRules");
+                return InternalServerError();
+            }
+            return Ok(isSuccess);
+        }
+
+        /// <summary>
+        /// Deletes the sponsored comparison model rules.
+        /// </summary>
+        /// <param name="comparisonId">The comparison identifier.</param>
+        /// <param name="sponsoredModelId">The sponsored model identifier.</param>
+        /// <returns></returns>
+        [HttpPost, Route("api/compare/sponsored/{comparisonId}/targetversion/{targetversionId}/rules/delete/")]
+        public IHttpActionResult DeleteTargetComparisonModelRules(uint comparisonId, uint targetversionId)
+        {
+            bool isSuccess = false;
+            try
+            {
+                isSuccess = _objSponsoredRepo.DeleteSponsoredComparisonBikeTargetVersionRules(comparisonId, targetversionId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.DeleteTargetComparisonModelRules");
                 return InternalServerError();
             }
             return Ok(isSuccess);
