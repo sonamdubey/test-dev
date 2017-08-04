@@ -1,19 +1,10 @@
 ﻿using System;
-
 using System.Collections.Generic;
-using BikewaleOpr.Entities.BikeData;
-using Bikewale.Interfaces;
 using BikewaleOpr.Interface.ServiceCenter;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BikewaleOpr.Interface.BikeData;
-using Bikewale.Notifications;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ServiceCenter;
 using BikewaleOpr.Entity;
-using BikeWaleOpr;
-using Bikewale.Common;
 
 namespace BikewaleOpr.BAL.ServiceCenter
 {
@@ -23,11 +14,11 @@ namespace BikewaleOpr.BAL.ServiceCenter
     /// </summary>
     public class ServiceCenter : IServiceCenter
     {
-        private IBikeMakes _IBikeMake;
+        private IBikeMakesRepository _IBikeMakeRepository;
         private IServiceCenterRepository _IServiceCenter;
-        public ServiceCenter(IBikeMakes bikeMake, IServiceCenterRepository serviceCenter)
+        public ServiceCenter(IBikeMakesRepository bikeMakeRepository, IServiceCenterRepository serviceCenter)
         {
-            _IBikeMake = bikeMake;
+            _IBikeMakeRepository = bikeMakeRepository;
             _IServiceCenter = serviceCenter;
         }
 
@@ -45,9 +36,9 @@ namespace BikewaleOpr.BAL.ServiceCenter
             try
             {
                 
-                if(_IBikeMake != null && requestType > 0)
+                if(_IBikeMakeRepository != null && requestType > 0)
                 {
-                    objMakesList = _IBikeMake.GetServiceCenterMakes(requestType);
+                    objMakesList = _IBikeMakeRepository.GetServiceCenterMakes(requestType);
                 }
             }
 

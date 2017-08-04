@@ -346,7 +346,8 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             return objMakesList;
         }
-	/// <summary>
+	    
+        /// <summary>
         /// Created by : Vivek Singh Tomar on 1st Aug 2017
         /// Description : To fetch the model details list for given make id
         /// </summary>

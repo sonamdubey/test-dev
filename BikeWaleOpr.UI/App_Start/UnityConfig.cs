@@ -67,7 +67,7 @@ namespace BikewaleOpr
                 .RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>()
                 .RegisterType<ISponsoredComparison, SponsoredComparison>()
                 .RegisterType<IContractCampaign, ContractCampaign>()
-                .RegisterType<IBikeMakes, BikeMakes>();
+                .RegisterType<IBikeMakes, BikeMakes>()
                 .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
                 .RegisterType<IContractCampaign, ContractCampaign>()
                 .RegisterType<IServiceCenter, ServiceCenter>()

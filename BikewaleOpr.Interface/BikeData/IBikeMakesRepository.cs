@@ -21,5 +21,6 @@ namespace BikewaleOpr.Interface.BikeData
         SynopsisData Getsynopsis(int makeId);
         void UpdateSynopsis(int makeId, int updatedBy, SynopsisData objSynopsis);
         IEnumerable<BikeModelEntityBase> GetModelsByMake(uint makeId);
+        IEnumerable<BikeMakeEntityBase> GetServiceCenterMakes(ushort RequestType);
     }
 }
