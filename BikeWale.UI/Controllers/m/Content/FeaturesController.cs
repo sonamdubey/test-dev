@@ -84,63 +84,6 @@ namespace Bikewale.Controllers.Mobile.Content
         }
 
         /// <summary>
-        /// Action to get the map features details page
-        /// </summary>
-        /// <param name="basicid"></param>
-        /// <returns></returns>
-        [Route("m/features/details/{basicid}/amp/")]
-        public ActionResult DetailsAMP(uint basicid)
-        {
-            ArticlePageDetails objFeatures = null;
-
-            try
-            {
-                objFeatures = cache.GetArticlesDetails(basicid);
-
-                if (objFeatures != null)
-                {
-                    // set all metatags in the variables
-                    ViewBag.Description = objFeatures.Description.StripHtml();
-                    ViewBag.Canonical = String.Format("{0}/features/{1}-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objFeatures.ArticleUrl, basicid);
-                    ViewBag.MobilePageUrl = String.Format("{0}/m/features/{1}-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objFeatures.ArticleUrl, basicid);
-                    ViewBag.ArticleSectionTitle = " - BikeWale Features";
-                    ViewBag.ArticleType = "Article";
-                    ViewBag.Title = objFeatures.Title;
-                    ViewBag.MainImageUrl = Bikewale.Utility.Image.GetPathToShowImages(objFeatures.OriginalImgUrl, objFeatures.HostUrl, Bikewale.Utility.ImageSize._640x348);
-                    ViewBag.PublishedDate = objFeatures.DisplayDate.ToString();
-                    ViewBag.LastModified = objFeatures.DisplayDate.ToString();
-                    ViewBag.PageViews = objFeatures.Views;
-                    ViewBag.Author = objFeatures.AuthorName;
-                    ViewBag.VehicleTagsCnt = 0;
-
-                    // code to get the bikes tagged in the article
-                    if (objFeatures.VehiclTagsList != null)
-                    {
-                        ViewBag.VehicleTagsList = objFeatures.VehiclTagsList.GroupBy(s => s.ModelBase.ModelId).Select(grp => grp.First());
-                        ViewBag.VehicleTagsCnt = objFeatures.VehiclTagsList.Count();
-                    }
-
-                    // code to get article photos
-                    IEnumerable<ModelImage> objImg = cache.GetArticlePhotos(Convert.ToInt32(basicid));
-                    ViewBag.PhotosCnt = 0;
-
-                    if (objImg != null)
-                    {
-                        ViewBag.Photos = objImg;
-                        ViewBag.PhotosCnt = objImg.Count();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                ErrorClass objErr = new ErrorClass(ex, "m/features/details/{basicid}/amp/" + basicid);
-            }
-
-            return View("~/views/m/content/features/details_amp.cshtml", objFeatures);
-        }
-
-        /// <summary>
         /// Action to get the latest features
         /// </summary>
         /// <param name="count">no of features required</param>
