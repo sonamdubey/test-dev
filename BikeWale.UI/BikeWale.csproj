@@ -513,7 +513,6 @@
     <Compile Include="Controllers\MakeController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
-    <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
     <Compile Include="Controllers\NewPageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
@@ -3802,6 +3801,7 @@
   <ItemGroup>
     <Folder Include="community\pms\" />
     <Folder Include="content\ComparisonTest\" />
+    <Folder Include="Controllers\m\Content\" />
     <Folder Include="Controllers\m\new\Scooters\" />
     <Folder Include="Controllers\new\" />
     <Folder Include="msmq\" />
