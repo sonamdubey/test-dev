@@ -6,7 +6,6 @@ function formatPrice(x) {
     try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { }
 }
 
-
 var addSponsoredComparisonRules = function () {
     var self = this;
     self.comparisonId = ko.observable();
@@ -152,6 +151,13 @@ var addSponsoredComparisonRules = function () {
                 Materialize.toast("Failed to delete rules", 3000);
             });
         }
+        else {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return false;
+        }
+
+        return false;
     };
 
     self.deleteSponsoredVersionRules = function (d, e) {
@@ -168,6 +174,10 @@ var addSponsoredComparisonRules = function () {
             .fail(function () {
                 Materialize.toast("Failed to delete rules", 3000);
             });
+        } else {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return false;
         }
         return false;
     };

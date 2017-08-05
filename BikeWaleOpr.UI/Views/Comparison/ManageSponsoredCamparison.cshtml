@@ -117,19 +117,19 @@
                         {
                             <ul class="input-field row m12">
                                 <li>
-                                    <input id="txtComparisonDescription" type="text" class="validate" data-bind="value : description,css : { invalid : description() == '' }" name="Name" maxlength="100" length="100">
+                                    <input id="txtComparisonDescription" type="text" class="validate" data-bind="value : description,css : { invalid : (description() == '' }" name="Name" maxlength="100" length="100" required>
                                     <label for="txtComparisonDescription" data-error="Please enter description">Comparison Description *</label>
                                 </li>
                                 <li class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="dtStartDate" class="datepicker margin-left5" data-bind="css : {invalid : startDateTime()==''}, value:startDate" />
+                                    <input type="date" id="dtStartDate" class="datepicker margin-left5" data-bind="css : {invalid : startDateTime()==''}, value:startDate" required/>
                                     <label for="dtStartDate" data-error="Please enter start date">Start Date *</label>
                                     <input type="time" id="dtStartTime" value="" data-bind="value : startTime" class="timepicker" />
                                     <input type="hidden" name="StartDate" data-bind="value : startDateTime " />
                                 </li>
                                 <li class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="dtEndDate" class="datepicker margin-left5" data-bind="css : {invalid : endDateTime()==''},value:endDate" />
+                                    <input type="date" id="dtEndDate" class="datepicker margin-left5" data-bind="css : {invalid : endDateTime()==''},value:endDate" required/>
                                     <label for="dtEndDate" data-error="Please enter end date">End Date *</label>
                                     <input type="time" id="dtEndTime" data-bind="value : endTime" class="timepicker" />
                                     <input type="hidden" name="EndDate" data-bind="value : endDateTime " />
@@ -168,6 +168,7 @@
                                         Add Comparison
                                     </button>
                                     <!-- /ko -->
+                                    <input type="hidden" value="@BikeWaleOpr.Common.CurrentUser.Id" name="UpdatedBy"/>
                                 </li>
                             </ul>
                         }
