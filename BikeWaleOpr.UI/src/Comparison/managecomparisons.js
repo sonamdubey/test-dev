@@ -104,8 +104,12 @@ var sponsoredComparisonManagement = function () {
         var isValid = false;
         if (self.description() && self.description().trim() != "") {
             isValid = true;
+            $("#txtComparisonDescription").removeClass("invalid");
         }
-        else self.description("");
+        else {
+            self.description("");
+            $("#txtComparisonDescription").addClass("invalid");
+        }
 
         if (self.startDateTime() && self.startDateTime().trim() != "") {
             isValid = true;
@@ -122,41 +126,75 @@ var sponsoredComparisonManagement = function () {
             self.endDateTime("");
             isValid = false;
         }
+
+        var startDt = new Date(self.startDateTime()), EndDt = new Date(self.endDateTime()), sTime, eTime;
+
+
+        if (startDt && EndDt) {
+            sTime = startDt.getTime(), eTime = EndDt.getTime();
+        }
+        else {
+            sTime = 0; eTime = 0;
+        }
+
+        if (isValid && startDt < EndDt) {
+            isValid = true;
+        }
+        else {
+            isValid = false;
+            Materialize.toast("Comparison End Date must be greater than Start Date", 5000);
+        }
+
         return isValid;
     }
 
     self.editSponsoredCamparison = function (d, e) {
-        var ele = $(e.currentTarget).closest("tr");
-        self.currentId(ele.find("td[data-cell=id]").text().trim());
-        self.description(ele.find("td[data-cell=description]").text());
-        self.startDateTime(ele.find("td[data-cell=startdate]").text());
-        self.endDateTime(ele.find("td[data-cell=enddate]").text());
-        self.linkUrl(ele.find("td[data-cell=linkurl]").text());
-        self.linkText(ele.find("td[data-cell=linktext]").text());
-        self.nameImpression(ele.find("td[data-cell=nameimpression]").text());
-        self.imgImpression(ele.find("td[data-cell=imgimpression]").text());
+        try {
+            var ele = $(e.currentTarget).closest("tr");
+            self.currentId(ele.find("td[data-cell=id]").text().trim());
+            self.description(ele.find("td[data-cell=description]").text().trim());
+            self.startDateTime(ele.find("td[data-cell=startdate]").text().trim());
+            self.endDateTime(ele.find("td[data-cell=enddate]").text().trim());
+            self.linkUrl(ele.find("td[data-cell=linkurl]").text().trim());
+            self.linkText(ele.find("td[data-cell=linktext]").text().trim());
+            self.nameImpression(ele.find("td[data-cell=nameimpression]").text().trim());
+            self.imgImpression(ele.find("td[data-cell=imgimpression]").text().trim());
 
-        self.isComparisonEdit(true);
+            self.isComparisonEdit(true);
 
-        //setdate
-        var tempDateTime = new Date(self.startDateTime());
-        $("#dtStartDate").pickadate('picker').set('select', tempDateTime);
-        var tm = tempDateTime.getHours().toString();
-        if (tm.length < 2) tm = ("0" + tm);
-        self.startTime(tm + ":" + tempDateTime.getMinutes());
+            //setdate
+           
+            if (self.startDateTime().trim()!="")
+            {
+                var tempDateTime = new Date(self.startDateTime());
+                $("#dtStartDate").pickadate('picker').set('select', tempDateTime);
+                var th = tempDateTime.getHours();
+                if (th < 10) th = ("0" + th + "");
+                var tm = tempDateTime.getHours();
+                if (tm < 10) tm = ("0" + tm + "");
+                self.startTime(th + ":" + tm);
+            }
+          
 
-        tempDateTime = new Date(self.endDateTime());
-        $("#dtEndDate").pickadate('picker').set('select', tempDateTime);
+           
+            if (self.endDateTime().trim() != "")
+            {
+                var tempDateTime = new Date(self.endDateTime());
+                $("#dtEndDate").pickadate('picker').set('select', tempDateTime);
+                var th = tempDateTime.getHours();
+                if (th < 10) th = ("0" + th + "");
+                var tm = tempDateTime.getHours();
+                if (tm < 10) tm = ("0" + tm + "");
+                self.endTime(th + ":" + tm);
+            }           
 
-        var tm = tempDateTime.getHours().toString();
-        if (tm.length < 2) tm = ("0" + tm);
-
-        self.endTime(tm + ":" + tempDateTime.getMinutes());
-
-        Materialize.updateTextFields();
-        var tab = pgContainer.find(".collapsible-header").last();
-        if (!tab.hasClass("active")) {
-            tab.click();
+            Materialize.updateTextFields();
+            var tab = pgContainer.find(".collapsible-header").last();
+            if (!tab.hasClass("active")) {
+                tab.click();
+            }
+        } catch (e) {
+            console.warn(e.msg);
         }
 
     };
@@ -195,6 +233,19 @@ var sponsoredComparisonManagement = function () {
 
         }
     };
+
+    self.ConvertTimeformat = function (format, time) {
+        var hours = Number(time.match(/^(\d+)/)[1]);
+        var minutes = Number(time.match(/:(\d+)/)[1]);
+        var AMPM = time.match(/\s(.*)$/)[1];
+        if (AMPM == "PM" && hours < 12) hours = hours + 12;
+        if (AMPM == "AM" && hours == 12) hours = hours - 12;
+        var sHours = hours.toString();
+        var sMinutes = minutes.toString();
+        if (hours < 10) sHours = "0" + sHours;
+        if (minutes < 10) sMinutes = "0" + sMinutes;
+        return (sHours + ":" + sMinutes);
+    }
 
 };
 
