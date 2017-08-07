@@ -76,6 +76,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_", inputs.ModelId));
+                        MemCachedUtil.Remove("BW_RecentReviews");
                     }
 
                 }
