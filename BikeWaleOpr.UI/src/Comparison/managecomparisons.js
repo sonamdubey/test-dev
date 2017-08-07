@@ -95,6 +95,7 @@ var sponsoredComparisonManagement = function () {
 
     self.addSponsoredComparison = function () {
         if (self.validateAddComparison()) {
+            self.currentId(0);
             return true;
         }
         return false;
@@ -163,9 +164,8 @@ var sponsoredComparisonManagement = function () {
             self.isComparisonEdit(true);
 
             //setdate
-           
-            if (self.startDateTime().trim()!="")
-            {
+
+            if (self.startDateTime().trim() != "") {
                 var tempDateTime = new Date(self.startDateTime());
                 $("#dtStartDate").pickadate('picker').set('select', tempDateTime);
                 var th = tempDateTime.getHours();
@@ -174,11 +174,10 @@ var sponsoredComparisonManagement = function () {
                 if (tm < 10) tm = ("0" + tm + "");
                 self.startTime(th + ":" + tm);
             }
-          
 
-           
-            if (self.endDateTime().trim() != "")
-            {
+
+
+            if (self.endDateTime().trim() != "") {
                 var tempDateTime = new Date(self.endDateTime());
                 $("#dtEndDate").pickadate('picker').set('select', tempDateTime);
                 var th = tempDateTime.getHours();
@@ -186,7 +185,7 @@ var sponsoredComparisonManagement = function () {
                 var tm = tempDateTime.getHours();
                 if (tm < 10) tm = ("0" + tm + "");
                 self.endTime(th + ":" + tm);
-            }           
+            }
 
             Materialize.updateTextFields();
             var tab = pgContainer.find(".collapsible-header").last();
@@ -218,8 +217,8 @@ var sponsoredComparisonManagement = function () {
     }
 
     self.changeComparisonStatus = function (d, e) {
-        var ele = $(e.currentTarget), status = ele.data("status");
-        if (status > 0) {
+        var ele = $(e.currentTarget), status = ele.attr("data-status");
+        if (status && status!="0" && status > 0) {
             $.post("/api/compare/sponsored/" + self.currentId() + "/updatestatus/" + status + "/", function () {
                 if (self.currentId() > 0) {
                     pgContainer.find("tr[data-id=" + self.currentId() + "]").fadeOut();
@@ -229,9 +228,37 @@ var sponsoredComparisonManagement = function () {
             .fail(function () {
                 Materialize.toast("Sponsored comparison staus update failed", 3000);
             })
-            .always(function () { self.currentId(0); });;
+            .always(function () {
+                self.currentId(0);
+                $(".material-tooltip").hide();
+                if (status == 2) {
+                    //for abort
+                    var abEle = ele.clone();
+                    abEle.empty();
+                    abEle.append("<i class='material-icons icon-red'>cancel</i>");
+                    abEle.attr("data-status", 5)
+                    abEle.appendTo(ele.parent());
+                    ko.applyBindings(self, abEle[0]);
+
+                    ele.empty();
+                    ele.append("<i class='material-icons icon-blue'>pause_circle_filled</i>");
+                    ele.attr("data-status", 3);
+                    ele.closest("td").find("span").text("Active");
+                    
+                }
+                else if (status == 5) {
+                    ele.closest("td").text("Aborted");
+                } else if(status==3) {
+                    ele.empty();
+                    ele.attr("data-status", 2);
+                    ele.append("<i class='material-icons icon-green'>play_circle_filled</i>");
+                    ele.next().remove();
+                    ele.closest("td").find("span").text("Paused");
+                }
+            });;
 
         }
+        return false;
     };
 
     self.ConvertTimeformat = function (format, time) {
