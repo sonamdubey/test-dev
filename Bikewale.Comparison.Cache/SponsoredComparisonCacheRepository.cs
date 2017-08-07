@@ -41,5 +41,22 @@ namespace Bikewale.Comparison.Cache
             }
             return activeComparisons;
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 07 Aug 2017
+        /// Description :   Refresh Sponsored Comparison Cache
+        /// </summary>
+        public void RefreshSpsonsoredComparisonsCache()
+        {
+            string key = "BW_SponsoredComparisons";
+            try
+            {
+                _cache.RefreshCache(key);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "SponsoredComparisonCacheRepository.RefreshSpsonsoredComparisonsCache");
+            }
+        }
     }
 }

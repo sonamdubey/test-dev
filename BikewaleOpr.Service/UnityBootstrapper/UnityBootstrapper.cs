@@ -1,7 +1,9 @@
-﻿using Bikewale.Comparison.BAL;
+﻿using Bikewale.Cache.Core;
+using Bikewale.Comparison.BAL;
 using Bikewale.Comparison.Cache;
 using Bikewale.Comparison.DAL;
 using Bikewale.Comparison.Interface;
+using Bikewale.Interfaces.Cache.Core;
 using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.Images;
@@ -64,6 +66,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IBannerRepository, BannerRepository>();
             container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
             container.RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>();
+            container.RegisterType<ICacheManager, MemcacheManager>();
             container.RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>();
             container.RegisterType<ISponsoredComparison, SponsoredComparison>();
 

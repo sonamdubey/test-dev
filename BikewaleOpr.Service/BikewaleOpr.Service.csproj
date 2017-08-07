@@ -179,6 +179,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
+      <Project>{038BC901-9D7F-4A95-8CA6-117DB3AA48CC}</Project>
+      <Name>Bikewale.Cache.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Comparison.BAL\Bikewale.Comparison.BAL.csproj">
       <Project>{5adf0084-bf88-47b9-a414-6e49a6b71383}</Project>
       <Name>Bikewale.Comparison.BAL</Name>
