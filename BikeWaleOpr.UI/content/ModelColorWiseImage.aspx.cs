@@ -2,6 +2,7 @@ using Bikewale.Notifications;
 using BikewaleOpr.Common;
 using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using Microsoft.Practices.Unity;
 using System;
@@ -189,8 +190,9 @@ namespace BikeWaleOpr.Content
         {
             try
             {
+                EnumBikeType bikeType = EnumBikeType.All;
                 cmbMake.SelectedValue = Convert.ToString(ddlMakeId);
-                var models = _bikeMakes.GetModelsByMake(ddlMakeId);
+                var models = _bikeMakes.GetModelsByMake(bikeType, ddlMakeId);
                 if (models != null && models.Count() > 0)
                 {
                     cmbModel.DataSource = models;

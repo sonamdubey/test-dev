@@ -272,7 +272,6 @@ namespace BikewaleOpr.DALs.Bikedata
             }
         }
 
-
         public IEnumerable<BikeMakeEntityBase> GetMakes(ushort requestType)
         {
             IEnumerable<BikeMakeEntityBase> objMakes = null;
@@ -301,15 +300,15 @@ namespace BikewaleOpr.DALs.Bikedata
             return objMakes;
         }
 
-        
-	    
+
+
         /// <summary>
         /// Created by : Vivek Singh Tomar on 1st Aug 2017
         /// Description : To fetch the model details list for given make id
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public IEnumerable<BikeModelEntityBase> GetModelsByMake(uint makeId)
+        public IEnumerable<BikeModelEntityBase> GetModelsByMake(EnumBikeType requestType, uint makeId)
         {
             IEnumerable<BikeModelEntityBase> objBikeModelEntityBaseList = null;
             try
@@ -318,10 +317,11 @@ namespace BikewaleOpr.DALs.Bikedata
                 {
                     var param = new DynamicParameters();
                     param.Add("par_makeid", makeId);
+                    param.Add("par_requesttype", requestType.ToString());
                     connection.Open();
                     objBikeModelEntityBaseList = connection.Query<BikeModelEntityBase>
-                        ("getmodelsbymake", param: param, commandType: CommandType.StoredProcedure);
-                    if(connection != null && connection.State == ConnectionState.Open)
+                        ("getbikemodels_new_07082017", param: param, commandType: CommandType.StoredProcedure);
+                    if (connection != null && connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
