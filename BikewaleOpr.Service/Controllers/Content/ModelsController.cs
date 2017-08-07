@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using Bikewale.Notifications;
 using BikewaleOpr.DTO.BikeData;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Service.AutoMappers.BikeData;
+using BikewaleOpr.Entity.BikeData;
 
 namespace BikewaleOpr.Service.Controllers.Content
 {
@@ -67,6 +66,36 @@ namespace BikewaleOpr.Service.Controllers.Content
                 return InternalServerError();
             }
         }   // End of GetModels
-    
+
+        /// <summary>
+        /// Created by: Vivek Singh Tomar on 7th Aug 2017
+        /// Summary: Api to versions for given model id.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        [HttpGet, Route("api/models/{modelid}/versions/{requesttype}")]
+        public IHttpActionResult GetVersions(string requestType,uint modelId)
+        {
+            IEnumerable<VersionBase> objBikeVersionBaseList = null;
+            if(modelId > 0)
+            {
+                try
+                {
+                    EnumBikeType bikeType = (EnumBikeType)Enum.Parse(typeof(EnumBikeType), requestType);
+                    IEnumerable<BikeVersionEntityBase> objBikeVersionEntityBaseList = _modelsRepo.GetVersionsByModel(bikeType, modelId);
+                    objBikeVersionBaseList = BikeVersionsMapper.Convert(objBikeVersionEntityBaseList);
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.Content.ModelsController.GetVersions");
+                    return InternalServerError();
+                }
+            }
+            else
+            {
+                return BadRequest("Invalid Model Id");
+            }
+            return Ok(objBikeVersionBaseList);
+        }
     }   // class
 }   // namespace

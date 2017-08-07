@@ -1,6 +1,5 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.Entities;
-using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using MySql.CoreDAL;
 using System;
@@ -11,7 +10,8 @@ using System.Data.Common;
 using System.Web;
 using Bikewale.Utility;
 using BikewaleOpr.Entity.ContractCampaign;
-
+using Bikewale.DAL.CoreDAL;
+using Dapper;
 
 namespace BikewaleOpr.DAL
 {
@@ -1135,10 +1135,10 @@ namespace BikewaleOpr.DAL
                 using (DbCommand cmd = DbFactory.GetDBCommand("bw_savebookingamount"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, objBookingAmt.objDealer.DealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeModelId", DbType.Int32, objBookingAmt.objModel.ModelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeVersionId", DbType.Int32, (objBookingAmt.objVersion.VersionId > 0) ? objBookingAmt.objVersion.VersionId : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Amount", DbType.Int32, objBookingAmt.objBookingAmountEntityBase.Amount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, objBookingAmt.NewBikeDealers.DealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeModelId", DbType.Int32, objBookingAmt.BikeModel.ModelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeVersionId", DbType.Int32, (objBookingAmt.BikeVersion.VersionId > 0) ? objBookingAmt.BikeVersion.VersionId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Amount", DbType.Int32, objBookingAmt.BookingAmountBase.Amount));
 
                     return (MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase));
                 }
@@ -1192,43 +1192,37 @@ namespace BikewaleOpr.DAL
         /// <summary>
         /// Written By : Ashwini Todkar on 17 Dec 2014
         /// Summary    : Method to get bike booking details
+        /// Modified by : Vivek Singh Tomar
+        /// Summary : Implement dapper
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        public List<BookingAmountEntity> GetBikeBookingAmount(uint dealerId)
+        public IEnumerable<BookingAmountEntity> GetBikeBookingAmount(uint dealerId)
         {
-            List<BookingAmountEntity> objBookingAmt = null;
+            IEnumerable<BookingAmountEntity> objBookingAmt = null;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetBikeBookingAmount"))
+                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null)
-                        {
-                            objBookingAmt = new List<BookingAmountEntity>();
-
-                            BookingAmountEntity objAmount = null;
-
-                            //Get booking amount with details
-                            while (dr.Read())
-                            {
-                                objAmount = new BookingAmountEntity()
-                                {
-                                    objMake = new BikeMakeEntityBase { MakeName = dr["BikeMake"].ToString() },
-                                    objModel = new BikeModelEntityBase { ModelName = dr["BikeModel"].ToString() },
-                                    objVersion = new BikeVersionEntityBase { VersionName = dr["BikeVersion"].ToString() },
-                                    objBookingAmountEntityBase = new BookingAmountEntityBase { Amount = Convert.ToUInt32(dr["Amount"]), Id = Convert.ToUInt32(dr["id"]) }
-                                };
-                                objBookingAmt.Add(objAmount);
-                            }
-                        }
-                    }
+                    var param = new DynamicParameters();
+                    param.Add("par_dealerid", dealerId);
+                    connection.Open();
+                    objBookingAmt = connection.Query<BookingAmountEntityBase, BikeMakeEntityBase, BikeModelEntityBase,
+                                        BikeVersionEntityBase, BookingAmountEntity, BookingAmountEntity>
+                                    (
+                                        "bw_getbikebookingamount",
+                                        (bookingAmountBase, bikeMake, bikeModel, bikeVersion, bookingAmount) =>
+                                        {
+                                            bookingAmount.BookingAmountBase = bookingAmountBase;
+                                            bookingAmount.BikeMake = bikeMake;
+                                            bookingAmount.BikeModel = bikeModel;
+                                            bookingAmount.BikeVersion = bikeVersion;
+                                            return bookingAmount;
+                                        }, splitOn: "MakeId, ModelId, VersionId, LastUpdatedBy", param: param, commandType: CommandType.StoredProcedure
+                                    );
                 }
+                return objBookingAmt;
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 ﻿using BikewaleOpr.Entities.BikeData;
+using BikewaleOpr.Entity.BikeData;
 using System.Collections.Generic;
 
 namespace BikewaleOpr.Interface.BikeData
@@ -9,6 +10,6 @@ namespace BikewaleOpr.Interface.BikeData
     /// </summary>
     public interface IBikeMakes
     {
-        IEnumerable<BikeModelEntityBase> GetModelsByMake(uint makeId);
+        IEnumerable<BikeModelEntityBase> GetModelsByMake(EnumBikeType requestType, uint makeId);
     }
 }

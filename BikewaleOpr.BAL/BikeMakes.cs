@@ -3,6 +3,7 @@ using Bikewale.Notifications;
 using BikewaleOpr.Interface.BikeData;
 using System;
 using System.Collections.Generic;
+using BikewaleOpr.Entity.BikeData;
 
 namespace BikewaleOpr.BAL
 {
@@ -25,14 +26,14 @@ namespace BikewaleOpr.BAL
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public IEnumerable<BikeModelEntityBase> GetModelsByMake(uint makeId)
+        public IEnumerable<BikeModelEntityBase> GetModelsByMake(EnumBikeType requestType, uint makeId)
         {
             IEnumerable<BikeModelEntityBase> objBikeModelEntityBaseList = null;
             try
             {
                 if(makeId > 0)
                 {
-                    objBikeModelEntityBaseList = _bikeMakesRepository.GetModelsByMake(makeId);
+                    objBikeModelEntityBaseList = _bikeMakesRepository.GetModelsByMake(requestType, makeId);
                 }
             }
             catch (Exception ex)

@@ -420,6 +420,7 @@
     <Compile Include="Controllers\DealerCampaignController.cs" />
     <Compile Include="Controllers\MakesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageBookingAmountController.cs" />
     <Compile Include="Controllers\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
     <Compile Include="Controllers\UserReviewsController.cs" />
@@ -1940,6 +1941,7 @@
     <Content Include="src\imageUpload.js" />
     <Content Include="src\jquery-1.6.min.js" />
     <Content Include="src\knockout.js" />
+    <Content Include="src\manageBookingAmount.js" />
     <Content Include="src\ManufactureCampaign\ConfigureCampaign.js" />
     <Content Include="src\ManufactureCampaign\configureCampaignProperties.js" />
     <Content Include="src\ManufactureCampaign\rules.js" />
@@ -2001,6 +2003,7 @@
     <Content Include="Views\Comparison\AddSponsoredComparisonRules.cshtml" />
     <Content Include="Views\Banner\Index.cshtml" />
     <Content Include="Views\Banner\BannersList.cshtml" />
+    <Content Include="Views\ManageBookingAmount\Index.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

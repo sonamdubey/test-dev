@@ -111,6 +111,7 @@
     <Compile Include="BikeData\ModelBase.cs" />
     <Compile Include="BikeData\MakeBase.cs" />
     <Compile Include="BikeData\SynopsisDataDto.cs" />
+    <Compile Include="BikeData\VersionBase.cs" />
     <Compile Include="Dealers\DealerBase.cs" />
     <Compile Include="Dealers\BikeMakeBase.cs" />
     <Compile Include="Images\ImageDTO.cs" />

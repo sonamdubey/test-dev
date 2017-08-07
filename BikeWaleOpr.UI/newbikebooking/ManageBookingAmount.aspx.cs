@@ -77,7 +77,7 @@ namespace BikeWaleOpr.BikeBooking
 
         private void GetDealerBookingAmount()
         {
-            List<BookingAmountEntity> objBkgAmount = null;
+            IEnumerable<BookingAmountEntity> objBkgAmount = null;
 
             using (IUnityContainer container = new UnityContainer())
             {
@@ -87,11 +87,11 @@ namespace BikeWaleOpr.BikeBooking
                 objBkgAmount = objIBooking.GetBikeBookingAmount(Convert.ToUInt32(dealerId));
             }
 
-            if (objBkgAmount != null && objBkgAmount.Count > 0)
-            {
-                rptAddedBkgAmount.DataSource = objBkgAmount;
-                rptAddedBkgAmount.DataBind();
-            }
+            //if (objBkgAmount != null && objBkgAmount.Count > 0)
+            //{
+            //    rptAddedBkgAmount.DataSource = objBkgAmount;
+            //    rptAddedBkgAmount.DataBind();
+            //}
 
         }
 
@@ -107,10 +107,10 @@ namespace BikeWaleOpr.BikeBooking
             {
                 BookingAmountEntity objBkgAmt = new BookingAmountEntity()
                 {
-                    objDealer = new NewBikeDealers() { DealerId = Convert.ToUInt32(dealerId) },
-                    objModel = new BikeModelEntityBase() { ModelId = modelId },
-                    objVersion = new BikeVersionEntityBase() { VersionId = versionId },
-                    objBookingAmountEntityBase = new BookingAmountEntityBase() { Amount = amount }
+                    NewBikeDealers = new NewBikeDealers() { DealerId = Convert.ToUInt32(dealerId) },
+                    BikeModel = new BikeModelEntityBase() { ModelId = modelId },
+                    BikeVersion = new BikeVersionEntityBase() { VersionId = versionId },
+                    BookingAmountBase = new BookingAmountEntityBase() { Amount = amount }
                 };
 
                 using (IUnityContainer container = new UnityContainer())
