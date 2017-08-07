@@ -112,6 +112,54 @@
 
         $(document).ready(function () {
 
+            $("#btnSaveEMI, #btnUpdateEMI").click(function () {
+                var isValid = true;
+                $('input[type="text"]').each(function () {
+                    if ($.trim($(this).val()) == '') {
+                        isValid = false;
+                        $(this).addClass('redmsg');
+                    }
+                    else {
+                        $(this).removeClass('redmsg');
+                    }
+                });
+
+                if (isValid == false) {
+                    $('#errorSummary').html('Please fill required fields');
+                    return isValid;
+                }
+                else {
+                    $('input[data-name="perc"]').each(function () {
+                        if (!validatePer($(this))) {
+                            isValid = false;
+                            $(this).addClass('redmsg');
+                        }
+                        else {
+                            $(this).removeClass('redmsg');
+                        }
+                    });
+                }
+                if (isValid == false) {
+                    $('#errorSummary').html('Invalid input');
+                    return isValid;
+                }
+                else {
+                    $('input[data-name="int"]').each(function () {
+                        if (isNaN($(this).val())){
+                            isValid = false;
+                            $(this).addClass('redmsg');
+                        }
+                        else {
+                            $(this).removeClass('redmsg');
+                        }
+                    });
+                }
+                if (isValid == false) {
+                    $('#errorSummary').html('Invalid input');
+                    return isValid;
+                }
+            })
+        });
             $("#btnReset").on('click', function () {
                 $('input[type="text"]').each(function () {
                     $(this).val('');
