@@ -1,13 +1,13 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.DALs.Location;
+using BikewaleOpr.DTO.Location;
 using BikewaleOpr.Entity;
 using BikewaleOpr.Interface.Location;
+using BikewaleOpr.Service.AutoMappers.Location;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace BikewaleOpr.Service.Controllers.Location
 {
@@ -28,23 +28,25 @@ namespace BikewaleOpr.Service.Controllers.Location
         /// </summary>
         /// <param name="stateId"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet, ResponseType(typeof(CityNameDTO)), Route("api/cities/state/{stateid}/")]
         public IHttpActionResult GetCitiesByState(UInt32 stateId)
         {
             if (stateId > 0)
             {
                 IEnumerable<CityNameEntity> cities = null;
+                IEnumerable<CityNameDTO> cityDtos = null;
 
                 try
                 {
                     cities = location.GetCitiesByState(stateId);
+                    cityDtos = CityMapper.Convert(cities);
                 }
                 catch (Exception ex)
                 {
                     ErrorClass objErr = new ErrorClass(ex, string.Format("GetCitiesByState stateId={0}", stateId));
                 }
-                if (cities != null)
-                    return Ok(cities);
+                if (cityDtos != null)
+                    return Ok(cityDtos);
                 else
                     return NotFound();
             }

@@ -456,6 +456,8 @@
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Models\DealerBikePrice\DealerPricingIndexPageModel.cs" />
+    <Compile Include="Models\DealerBikePrice\DealerPricingSheetPageModel.cs" />
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\CampaignPropertiesModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPageModel.cs" />
@@ -1927,6 +1929,8 @@
     <Content Include="src\content\makes.js" />
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />
+    <Content Include="src\DealerPricing\dealerpricingindex.js" />
+    <Content Include="src\DealerPricing\dealerpricingsheet.js" />
     <Content Include="src\framework.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
@@ -1990,7 +1994,8 @@
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignProperties.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignPopup.cshtml" />
     <Content Include="Views\DealerBikePrice\Index.cshtml" />
-    <Content Include="Views\Shared\_SelectOperationCollapsable.cshtml" />
+    <Content Include="Views\DealerBikePrice\_SelectOperationCollapsable.cshtml" />
+    <Content Include="Views\DealerBikePrice\GetDealerPricing.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -2041,6 +2046,10 @@
     <ProjectReference Include="..\BikewaleOpr.DALs\BikewaleOpr.DALs.csproj">
       <Project>{01134f89-c502-492e-a368-0a93d76430ef}</Project>
       <Name>BikewaleOpr.DALs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.DTO\BikewaleOpr.DTO.csproj">
+      <Project>{D2E7FEF3-CA0C-4739-B995-C226AF7CC41D}</Project>
+      <Name>BikewaleOpr.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
       <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>

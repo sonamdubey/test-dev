@@ -3,22 +3,19 @@ using Bikewale.Utility.Terms;
 using BikewaleOpr.DAL;
 using BikewaleOpr.DTO.Dealers;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entity.Dealers;
 using BikewaleOpr.Interface;
+using BikewaleOpr.Interface.Dealers;
+using BikewaleOpr.Service.AutoMappers.Dealer;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Linq;
-using System.Collections.ObjectModel;
-using BikewaleOpr.Service.AutoMappers.Dealer;
-using BikewaleOpr.Entity.ContractCampaign;
-using BikewaleOpr.Entity;
-using BikewaleOpr.BAL;
-using BikewaleOpr.Entity.Dealers;
-using BikewaleOpr.Interface.Dealers;
 
 namespace BikewaleOpr.Service
 {
@@ -31,7 +28,7 @@ namespace BikewaleOpr.Service
         private readonly IDealerPrice dealerPrice = null;
         private readonly IDealers dealersRepository = null;
         private readonly IVersionAvailability versionAvailability = null;
-        public DealersController(IDealerPriceRepository dealerPriceRepositoryObject, IDealerPrice dealerPriceObject, 
+        public DealersController(IDealerPriceRepository dealerPriceRepositoryObject, IDealerPrice dealerPriceObject,
             IDealers dealersRepositoryObject, IVersionAvailability versionAvailabilityObject)
         {
             dealerPriceRepository = dealerPriceRepositoryObject;
@@ -50,7 +47,7 @@ namespace BikewaleOpr.Service
         [HttpGet, ResponseType(typeof(BikeMakeBase)), Route("api/makes/city/{cityId}/")]
         public IHttpActionResult GetDealerMakesByCity(int cityId)
         {
-             if (cityId > 0)
+            if (cityId > 0)
             {
                 IEnumerable<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> objMakes = null;
                 IEnumerable<BikeMakeBase> objMakesDTO = null;
@@ -79,7 +76,7 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealerMakesByCity: CityId:{0}",cityId));
+                    ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealerMakesByCity: CityId:{0}", cityId));
                     return InternalServerError();
                 }
 
@@ -88,7 +85,7 @@ namespace BikewaleOpr.Service
             {
                 return BadRequest();
             }
-            
+
         }
         /// <summary>
         /// Created by : Aditi Srivastava on 9 feb 2017
@@ -97,9 +94,9 @@ namespace BikewaleOpr.Service
         /// <param name="cityId"></param>
         /// <returns></returns>
         [HttpGet, ResponseType(typeof(DealerBase)), Route("api/dealers/make/{makeid}/city/{cityId}/")]
-        public IHttpActionResult GetDealersByMake(uint makeId,uint cityId)
+        public IHttpActionResult GetDealersByMake(uint makeId, uint cityId)
         {
-            if (cityId > 0 && makeId>0)
+            if (cityId > 0 && makeId > 0)
             {
                 IEnumerable<DealerEntityBase> objDealers = null;
                 IEnumerable<DealerBase> objDealersDTO = null;
@@ -128,7 +125,7 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealersByMake: MakeId:{0}, CityId:{1}", makeId,cityId));
+                    ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealersByMake: MakeId:{0}, CityId:{1}", makeId, cityId));
                     return InternalServerError();
                 }
 
@@ -146,8 +143,7 @@ namespace BikewaleOpr.Service
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns>Dealer's Name</returns>
-
-        [HttpGet]
+        [HttpGet, ResponseType(typeof(DealerMakeDTO)), Route("api/dealers/city/{cityId}/")]
         public IHttpActionResult GetDealersByCity(UInt32 cityId)
         {
             if (cityId > 0)
@@ -534,7 +530,7 @@ namespace BikewaleOpr.Service
         {
             IEnumerable<DealerVersionPriceDTO> dealerPricesDtos = null;
             IEnumerable<DealerVersionPriceEntity> dealerPricesEntities = null;
-            if (cityId > 0 && makeId > 0 && dealerId >0)
+            if (cityId > 0 && makeId > 0 && dealerId > 0)
             {
                 try
                 {

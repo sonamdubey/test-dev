@@ -1,0 +1,50 @@
+﻿@model BikewaleOpr.Models.DealerPricing.DealerOperationVM
+
+<li>
+    <div class="collapsible-header"><strong>Dealer Operation</strong></div>
+    <div class="collapsible-body">
+        <div data-bind="with: dealerOperationsModel" class="container">
+            <div  class="input-field row s12">
+                <select data-bind="event:{ change: onCityChange}" id="ddlDealerCity">
+                    @foreach (var dealerCity in Model.DealerCities)
+                    {
+                        <option value=@dealerCity.CityId>@dealerCity.CityName</option>
+                    }
+                </select>
+            </div>
+            <div class="input-field row s12">
+                <select data-bind="options: makes,
+                        optionsText: 'makeName',
+                        optionsValue: 'makeId',
+                        value: selectedMake,
+                        optionsCaption: 'Select Make',
+                        event: { change: onMakeChange}
+                        ">
+                </select>
+            </div>
+            <div class="input-field row s12">
+                <select data-bind="options: dealers,
+                        optionsText: 'dealerName',
+                        optionsValue: 'dealerId',
+                        value: selectedDealer,
+                        optionsCaption: 'Select Dealer'
+                        ">
+                </select>
+            </div>
+            <div class="input-field row s12">
+                <select data-bind="options: operations,
+                        optionsText: 'operationName',
+                        optionsValue: 'operationId',
+                        value: selectedOperation,
+                        optionsCaption: 'Select Operation'
+                        ">
+                </select>
+            </div>
+            <div class="input-field row s12">
+                <button data-bind="event:{ click: getPricing}" class="btn waves-effect waves-light" name="action">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</li>

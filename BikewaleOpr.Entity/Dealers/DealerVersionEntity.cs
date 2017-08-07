@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.Entity.Dealers
 {
@@ -15,6 +11,8 @@ namespace BikewaleOpr.Entity.Dealers
         public string MakeName { get; set; }
         public string ModelName { get; set; }
         public string VersionName { get; set; }
+
+        public string BikeName { get { return String.Format("{0} {1} {2}", MakeName, ModelName, VersionName); } }
         public uint VersionId { get; set; }
         public uint NumberOfDays { get; set; }
         public uint BikeModelId { get; set; }

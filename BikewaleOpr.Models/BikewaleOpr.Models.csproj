@@ -79,6 +79,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DealerCampaign\CampaignServingAreasVM.cs" />
+    <Compile Include="DealerPricing\AddCategoryVM.cs" />
+    <Compile Include="DealerPricing\CityCopyPricingVM.cs" />
+    <Compile Include="DealerPricing\DealerCopyPricingVM.cs" />
+    <Compile Include="DealerPricing\DealerOperationPricingVM.cs" />
+    <Compile Include="DealerPricing\DealerOperationVM.cs" />
+    <Compile Include="DealerPricing\DealerPriceSheetVM.cs" />
+    <Compile Include="DealerPricing\DealerPricingIndexPageVM.cs" />
+    <Compile Include="DealerPricing\DealerPricingSheetPageVM.cs" />
+    <Compile Include="DealerPricing\ShowPricingVM.cs" />
     <Compile Include="ManufacturerCampaign\CampaignPropertiesVM.cs" />
     <Compile Include="ManufacturerCampaign\ManufacturerCampaignInformationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
