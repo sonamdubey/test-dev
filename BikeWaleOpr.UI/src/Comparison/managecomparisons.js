@@ -95,7 +95,6 @@ var sponsoredComparisonManagement = function () {
 
     self.addSponsoredComparison = function () {
         if (self.validateAddComparison()) {
-            self.currentId(0);
             return true;
         }
         return false;
@@ -170,7 +169,7 @@ var sponsoredComparisonManagement = function () {
                 $("#dtStartDate").pickadate('picker').set('select', tempDateTime);
                 var th = tempDateTime.getHours();
                 if (th < 10) th = ("0" + th + "");
-                var tm = tempDateTime.getHours();
+                var tm = tempDateTime.getMinutes();
                 if (tm < 10) tm = ("0" + tm + "");
                 self.startTime(th + ":" + tm);
             }
@@ -182,7 +181,7 @@ var sponsoredComparisonManagement = function () {
                 $("#dtEndDate").pickadate('picker').set('select', tempDateTime);
                 var th = tempDateTime.getHours();
                 if (th < 10) th = ("0" + th + "");
-                var tm = tempDateTime.getHours();
+                var tm = tempDateTime.getMinutes();
                 if (tm < 10) tm = ("0" + tm + "");
                 self.endTime(th + ":" + tm);
             }
@@ -218,62 +217,57 @@ var sponsoredComparisonManagement = function () {
 
     self.changeComparisonStatus = function (d, e) {
         var ele = $(e.currentTarget), status = ele.attr("data-status");
-        if (status && status!="0" && status > 0) {
-            $.post("/api/compare/sponsored/" + self.currentId() + "/updatestatus/" + status + "/", function () {
-                if (self.currentId() > 0) {
-                    pgContainer.find("tr[data-id=" + self.currentId() + "]").fadeOut();
-                }
-                Materialize.toast("Sponsored comparison status changed", 3000);
-            })
-            .fail(function () {
-                Materialize.toast("Sponsored comparison staus update failed", 3000);
-            })
-            .always(function () {
-                self.currentId(0);
-                $(".material-tooltip").hide();
-                if (status == 2) {
-                    //for abort
-                    var abEle = ele.clone();
-                    abEle.empty();
-                    abEle.append("<i class='material-icons icon-red'>cancel</i>");
-                    abEle.attr("data-status", 5)
-                    abEle.appendTo(ele.parent());
-                    ko.applyBindings(self, abEle[0]);
+        if (status && status != "0" && status > 0) {
 
-                    ele.empty();
-                    ele.append("<i class='material-icons icon-blue'>pause_circle_filled</i>");
-                    ele.attr("data-status", 3);
-                    ele.closest("td").find("span").text("Active");
-                    
-                }
-                else if (status == 5) {
-                    ele.closest("td").text("Aborted");
-                } else if(status==3) {
-                    ele.empty();
-                    ele.attr("data-status", 2);
-                    ele.append("<i class='material-icons icon-green'>play_circle_filled</i>");
-                    ele.next().remove();
-                    ele.closest("td").find("span").text("Paused");
-                }
-            });;
+            var curEle = ele.closest("tr"), start = new Date(curEle.find("td[data-cell=startdate]").text().trim()), end = new Date(curEle.find("td[data-cell=enddate]").text().trim());
+            var now = new Date().getTime();
+            if (now >= start.getTime() && now <= end.getTime()) {
 
+                $.post("/api/compare/sponsored/" + self.currentId() + "/updatestatus/" + status + "/", function () {
+                    if (self.currentId() > 0) {
+                        pgContainer.find("tr[data-id=" + self.currentId() + "]").fadeOut();
+                    }
+                    Materialize.toast("Sponsored comparison status changed", 3000);
+                })
+           .fail(function () {
+               Materialize.toast("Sponsored comparison staus update failed", 3000);
+           })
+           .always(function () {
+               self.currentId(0);
+               $(".material-tooltip").hide();
+               if (status == 2) {
+
+                   //for abort
+                   var abEle = ele.clone();
+                   abEle.empty();
+                   abEle.append("<i class='material-icons icon-red'>cancel</i>");
+                   abEle.attr("data-status", 5)
+                   abEle.appendTo(ele.parent());
+                   ko.applyBindings(self, abEle[0]);
+
+                   ele.empty();
+                   ele.append("<i class='material-icons icon-blue'>pause_circle_filled</i>");
+                   ele.attr("data-status", 3);
+                   ele.closest("td").find("span").text("Active");
+               }
+               else if (status == 5) {
+                   ele.closest("td").text("Aborted");
+               }
+               else if (status == 3) {
+                   ele.empty();
+                   ele.attr("data-status", 2);
+                   ele.append("<i class='material-icons icon-green'>play_circle_filled</i>");
+                   ele.next().remove();
+                   ele.closest("td").find("span").text("Paused");
+               }
+           });
+            }
+            else {
+                Materialize.toast("Comparison expired.Please edit to restart",3000);
+            }
         }
         return false;
     };
-
-    self.ConvertTimeformat = function (format, time) {
-        var hours = Number(time.match(/^(\d+)/)[1]);
-        var minutes = Number(time.match(/:(\d+)/)[1]);
-        var AMPM = time.match(/\s(.*)$/)[1];
-        if (AMPM == "PM" && hours < 12) hours = hours + 12;
-        if (AMPM == "AM" && hours == 12) hours = hours - 12;
-        var sHours = hours.toString();
-        var sMinutes = minutes.toString();
-        if (hours < 10) sHours = "0" + sHours;
-        if (minutes < 10) sMinutes = "0" + sMinutes;
-        return (sHours + ":" + sMinutes);
-    }
-
 };
 
 $(function () {

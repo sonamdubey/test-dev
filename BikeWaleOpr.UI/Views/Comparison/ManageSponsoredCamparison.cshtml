@@ -45,7 +45,7 @@
 
                                         <a href="javascript:void(0)" data-bind="click : function(d,e){ currentId(@comp.Id);changeComparisonStatus(d,e); }" data-status="5" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign"><i class="material-icons icon-red">cancel</i></a>
                                     }
-                                    else if (comp.Status.Equals(Bikewale.Comparison.Entities.SponsoredComparisonStatus.Paused) || comp.Status.Equals(Bikewale.Comparison.Entities.SponsoredComparisonStatus.Unstarted))
+                                    else if (comp.Status.Equals(Bikewale.Comparison.Entities.SponsoredComparisonStatus.Paused))
                                     {
                                         <a href="javascript:void(0)" data-bind="click : function(d,e){ currentId(@comp.Id);changeComparisonStatus(d,e); }" data-status="2" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Start Campaign"><i class="material-icons icon-green">play_circle_filled</i></a>
 
@@ -142,11 +142,11 @@
                                     <input id="txtLinkUrl" type="text" class="validate" name="LinkUrl" data-bind="value : linkUrl">
                                     <label for="txtLinkUrl">Link Url</label>
                                 </li>
-                                <li class="input-field">
+                                <li class="input-field hide">
                                     <input id="txtBikeNameImpression" type="text" class="validate" name="NameImpressionUrl" data-bind="value : nameImpression">
                                     <label for="txtBikeNameImpression">Bike Name GA</label>
                                 </li>
-                                <li class="input-field">
+                                <li class="input-field hide">
                                     <input id="txtBikeImageImpression" type="text" class="validate" data-bind="value : imgImpression" name="ImgImpressionUrl">
                                     <label for="txtBikeImageImpression">Bike Image GA</label>
                                 </li>
