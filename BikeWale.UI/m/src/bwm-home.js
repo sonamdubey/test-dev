@@ -304,9 +304,4 @@ docReady(function () {
     });
 
     ko.applyBindings(viewModelOnRoad, $("#OnRoadContent")[0]);
-
-    var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.src = "/src/user-reviews/search-userreview-makemodel.js";
-    $("head").append(s);
 });
