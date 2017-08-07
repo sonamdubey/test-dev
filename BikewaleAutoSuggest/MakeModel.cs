@@ -7,13 +7,14 @@ namespace BikewaleAutoSuggest
         public string Id { get; set; }
         public BikeSuggestion mm_suggest { get; set; }
         public string name { get; set; }
+        public string output { get; set; }
+
+        public PayLoad payload { get; set; }
     }
 
     public class BikeSuggestion
     {
         public List<string> input { get; set; }
-        public string output { get; set; }
-        public PayLoad payload { get; set; }
         public int Weight { get; set; }
     }
 

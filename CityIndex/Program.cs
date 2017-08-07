@@ -29,25 +29,35 @@ namespace CityAutoSuggest
                 ElasticClient client = ElasticClientOperations.GetElasticClient();
                 if (!client.IndexExists(indexName).Exists)
                 {
-                    ElasticClientOperations.CreateIndex<CityList>(req => req
-                        .Index(indexName)
-                        .AddMapping<CityList>(type => type
-                            .Type(ConfigurationManager.AppSettings["typeName"])
-                            .MapFromAttributes()
-                            .Properties(prop => prop
-                                .Completion(c => c
-                                    .Name(pN => pN.mm_suggest)
-                                    .Payloads()
-                                    .IndexAnalyzer("standard")
-                                    .SearchAnalyzer("standard")
-                                    .PreserveSeparators(false)))));
+                    var response = client.CreateIndex(indexName,
+                      ind => ind
+                   .Settings(s => s.NumberOfShards(2)
+                       .NumberOfReplicas(2)
+                   )
+                  .Mappings(m => m
+                      .Map<CityList>(type => type.AutoMap()
+                          .Properties(prop => prop
+                          .Nested<CitySuggestion>(n =>
+                                  n.Name(c => c.mm_suggest)
+                                  .AutoMap()
+                                  .Properties(prop2 => prop2
+                                      .Nested<Payload>(n2 =>
+                                          n2.Name(c2 =>
+                                              c2.input).AutoMap())))
+                              .Completion(c => c
+                              .Name(pN => pN.mm_suggest)
+                              .Analyzer("standard")
+                              .SearchAnalyzer("standard")
+                              .PreserveSeparators(false))))));
+
                 }
                 client.DeleteByQuery<CityList>(dd => dd.Index(indexName)
                     .Type(ConfigurationManager.AppSettings["typeName"])
                     .Query(qq => qq.MatchAll())
                     );
 
-                ElasticClientOperations.AddDocument<CityList>(suggestionList, indexName, ConfigurationManager.AppSettings["typeName"], obj => obj.Id);
+
+                ElasticClientOperations.AddDocument<CityList>(suggestionList, indexName, obj => obj.Id);
          
             }
             catch (Exception ex)

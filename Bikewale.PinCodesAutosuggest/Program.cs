@@ -1,5 +1,6 @@
 ﻿using Consumer;
 using ElasticClientManager;
+using Nest;
 using System;
 using System.Collections.Generic;
 
@@ -60,27 +61,42 @@ namespace Bikewale.PinCodesAutosuggest
 
                 if (isUpdateOperation)
                 {
-                    ElasticClientOperations.AddDocument<PinCodeList>(suggestionList, NewIndexName, TypeName, s => s.Id);
+                    ElasticClientOperations.AddDocument<PinCodeList>(suggestionList, NewIndexName, s => s.Id);
                 }
                 else
                 {
                     var OldIndexName = System.Configuration.ConfigurationManager.AppSettings["OldIndexName"];
                     var aliasIndexName = System.Configuration.ConfigurationManager.AppSettings["aliasName"];
                     bool isDeleteOldIndex = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["isDeleteOldIndex"]);
-                    ElasticClientOperations.CreateIndex<PinCodeList>(req => req
-                        .Index(NewIndexName)
-                        .AddMapping<PinCodeList>(type => type
-                            .Type(TypeName)
-                            .MapFromAttributes()
-                            .Properties(prop => prop
-                                .Completion(c => c
-                                    .Name(pN => pN.mm_suggest)
-                                    .Payloads()
-                                    .IndexAnalyzer("standard")
-                                    .SearchAnalyzer("standard")
-                                    .PreserveSeparators(false)))));
 
-                    ElasticClientOperations.AddDocument<PinCodeList>(suggestionList, NewIndexName, TypeName, s => s.Id);
+
+                    ElasticClient client = ElasticClientOperations.GetElasticClient();
+                   
+                        var response = client.CreateIndex(NewIndexName,
+                          ind => ind
+                       .Settings(s => s.NumberOfShards(2)
+                           .NumberOfReplicas(2)
+                       )
+                      .Mappings(m => m
+                          .Map<PinCodeList>(type => type.AutoMap()
+                              .Properties(prop => prop
+                              .Nested<PinCodeSuggestion>(n =>
+                                      n.Name(c => c.mm_suggest)
+                                      .AutoMap()
+                                      .Properties(prop2 => prop2
+                                          .Nested<PayLoad>(n2 =>
+                                              n2.Name(c2 =>
+                                                  c2.input).AutoMap())))
+                                  .Completion(c => c
+                                  .Name(pN => pN.mm_suggest)
+                                  .Analyzer("standard")
+                                  .SearchAnalyzer("standard")
+                                  .PreserveSeparators(false))))));
+
+                    
+
+
+                    ElasticClientOperations.AddDocument<PinCodeList>(suggestionList, NewIndexName, s => s.Id);
                     ElasticClientOperations.Alias(aliases => aliases.Remove(a => a.Alias(aliasIndexName).Index("*"))
                                                .Add(a => a.Alias(aliasIndexName).Index(NewIndexName)));
                     if (isDeleteOldIndex)

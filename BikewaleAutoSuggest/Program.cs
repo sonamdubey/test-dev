@@ -44,26 +44,6 @@ namespace BikewaleAutoSuggest
 
         }
 
-        //static private ElasticClient ElasticClientInstance()
-        //{
-        //    try
-        //    {
-        //        Uri[] nodes = ConfigurationManager.AppSettings["ElasticHostUrl"].Split(';')
-        //                        .Select(s => new Uri("http://" + s)).ToArray();
-        //        var connectionPool = new Elasticsearch.Net.SingleNodeConnectionPool(nodes[0]);// SniffingConnectionPool(nodes);
-        //        var settings = new ConnectionSettings(connectionPool
-        //        )
-        //         //.MaximumRetries(3)
-        //         .DisableDirectStreaming();   // 3 times retry
-        //        return  new ElasticClient(settings);
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //log.Error(MethodBase.GetCurrentMethod().Name, ex);
-        //    }
-        //    return null;
-        //}
 
         private static void CreateIndex(IEnumerable<BikeList> suggestionList, string indexName)
         {
@@ -91,9 +71,7 @@ namespace BikewaleAutoSuggest
                                               c2.input).AutoMap())))
                               .Completion(c => c
                               .Name(pN => pN.mm_suggest)
-                              .Contexts(cont => cont
-                                    .Category(cate => cate
-                                        .Name("types").Path("makemodelall")))
+                             
                               .Analyzer("standard")
                               .SearchAnalyzer("standard")
                               .PreserveSeparators(false))))));
@@ -104,7 +82,8 @@ namespace BikewaleAutoSuggest
                     .Query(qq => qq.MatchAll())
                     );
 
-                ElasticClientOperations.AddDocument<BikeList>(suggestionList.ToList(), indexName, obj => obj.Id);
+                var response2 = ElasticClientOperations.AddDocument<BikeList>(suggestionList.ToList(), indexName, obj => obj.Id);
+
             }
             catch(Exception ex)
             {

@@ -91,9 +91,9 @@ namespace BikewaleAutoSuggest
                     ObjTemp.name = bikeName;
 
                     ObjTemp.mm_suggest = new BikeSuggestion();
-                    ObjTemp.mm_suggest.output = bikeName;
+                    ObjTemp.output = bikeName;
 
-                    ObjTemp.mm_suggest.payload = new PayLoad()
+                    ObjTemp.payload = new PayLoad()
                     {
                         MakeId = Convert.ToString(bikeItem.MakeId),
                         ModelId = Convert.ToString(bikeItem.ModelId),
