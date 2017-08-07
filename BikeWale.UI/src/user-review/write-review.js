@@ -498,7 +498,7 @@ docReady(function () {
             }
             else {
 
-                validate.setError($('#getMileage'), 'Please enter valid milage');
+                validate.setError($('#getMileage'), 'Please enter a valid mileage in kmpl.');
                 answer.focusForm($('#getMileage'));
             }
 
