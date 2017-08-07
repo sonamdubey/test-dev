@@ -1,0 +1,143 @@
+﻿@model BikewaleOpr.Entities.EMI
+@{
+    ViewBag.Title = "Manage Dealer Loan Amounts";
+    ViewBag.PageTitle = "Manage Dealer Loan Amounts";
+}
+
+<div class="container">
+    <div class="card white">
+        <div class="card-content container">
+            <span class="card-title">Add loan properties</span>
+            @using (Html.BeginForm("Submit", "NewBikeDealerEMI", new { dealerId = Request.QueryString["dealerId"] }, FormMethod.Post, new { id = "emiForm" }))
+            {
+                <input id="hdnLoanAmountId" name="id" type="hidden" value="@(Model == null ? "" : Convert.ToString(Model.Id))" />
+                <div class="row">
+                    <div class="col s6"><strong class="">Select Down Payment(%) Ex. 55.50 :</strong> </div>
+
+                    <div class="input-field col s3">
+                        <input id="txtMinPayment" type="text" name="minDownPayment" maxlength="10" value="@(Model == null ? "" : Convert.ToString(Model.MinDownPayment))" />
+                        <label class="active" for="txtMinPayment">Min</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtMaxPayment" type="text" name="maxDownPayment" maxlength="10" value="@(Model == null ? "" : Convert.ToString(Model.MaxDownPayment))" />
+                        <label class="active" for="txtMaxPayment">Max</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s6">
+                        <strong class="">Tenure(months), Ex. 12 :</strong>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtMinTenure" type="text" name="minTenure" maxlength="10" value="@(Model == null ? "" : Convert.ToString(Model.MinTenure))" />
+                        <label class="active" for="txtMinTenure">Min</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtMaxTenure" type="text" name="maxTenure" maxlength="10" value="@(Model == null ? "" : Convert.ToString(Model.MaxTenure))" />
+                        <label class="active" for="txtMaxTenure">Max</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s6">
+                        <strong class="">Rate of interest (%), Ex 12.45 :</strong>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtMinROI" type="text" name="minRateOfInterest" maxlength="10" value="@(Model == null ? "" : Convert.ToString(Model.MinRateOfInterest))" />
+                        <label class="active" for="txtMinROI">Min</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtMaxROI" type="text" name="maxRateOfInterest" maxlength="10" value="@(Model == null ? "" : Convert.ToString(Model.MaxRateOfInterest))" />
+                        <label class="active" for="txtMaxROI">Max</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s6">
+                        <strong class="">Loan To Value (LTV %), Ex. 20 :</strong>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtMinLtv" type="text" name="minLoanToValue" maxlength="10" value="@(Model == null ? "" : Convert.ToString(Model.MinLoanToValue))" />
+                        <label class="active" for="txtMinLtv">Min</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtMaxLtv" type="text" name="maxLoanToValue" maxlength="10" value="@(Model == null ? "" : Convert.ToString(Model.MaxLoanToValue))" />
+                        <label class="active" for="txtMaxLtv">Max</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s6">
+                        <strong class="">Select Loan Provider :</strong>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="textLoanProvider" type="text" name="loanProvider" maxlength="10" value="@(Model == null ? "" : Model.LoanProvider)" />
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s6">
+                        <strong class="">Select Processing fees Ex. 3,000 :</strong>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="txtFees" type="text" name="processingFee" maxlength="10" value="@(Model == null ? "" : Convert.ToString(Model.ProcessingFee))" />
+
+                    </div>
+                </div>
+                <div class="row">
+                    <button id="btnSaveEMI" class="btn waves-effect waves-light" type="submit">Add EMI</button>
+                    <button id="btnReset" class="btn waves-effect waves-light" type="button">Reset</button>
+                    <button id="btnDelete" class="btn waves-effect waves-light modal-trigger @(Model == null ? "hide" : "")" data-target="confirm-modal" type="button">Delete EMI</button>
+                </div>
+            }
+            <!-- Modal Structure -->
+            <div id="confirm-modal" class="modal">
+                <div class="modal-content">
+                    <h4>Delete EMI</h4>
+                    <p>Are you sure you want to delete this record?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" id="anchor-delete" class="modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+                    <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#btnReset").on('click', function () {
+                $('input[type="text"]').each(function () {
+                    $(this).val('');
+                })
+            });
+
+            $('.numeric').on('input', function (event) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+            $('#anchor-delete').on('click', btnDelete_Click);
+        });
+        function btnDelete_Click() {
+            var loanId = $("#hdnLoanAmountId").val();
+
+            $.ajax({
+                type: "GET",
+                url: "/api/Dealers/DeleteDealerEMI/?id=" + loanId,
+                success: function (response) {
+                    $('input[type="text"]').each(function () {
+                        $(this).val('');
+                    });
+                    $('#btnDelete').hide();
+                    Materialize.toast('data has been deleted !', 4000);
+                }
+            });
+
+        }
+    </script>
+</div>
