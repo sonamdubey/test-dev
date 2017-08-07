@@ -100,12 +100,9 @@ var addSponsoredComparisonRules = function () {
             {
                 var str = "",impressions="";
                 modalVersionMapping.find("table tbody tr").each(function () {
-                    var ele = $(this), imp = ele.find("input[type=text].impression").val();
-                    str += ("," + ele.data("target-versionid") + ":" + ele.find("select").val());
-                    if (imp != "")
-                    {
-                        impressions += ("," + imp);
-                    }
+                    var eles = $(this), imp = eles.find("input[type=text].impression").val();
+                    str += ("," + eles.data("target-versionid") + ":" + eles.find("select").val());
+                    if (imp != "") impressions += ("," + imp);
                 });
                 self.impressionUrls(impressions.substr(1));
                 self.targetSponsoredMapping(str.substr(1));
@@ -127,12 +124,26 @@ var addSponsoredComparisonRules = function () {
         }
         else {
             self.sponsoredModel({ payload: { modelId: "0" } });
+            isValid = false;
         }
 
         if (self.targetModel() && self.targetModel().payload.modelId != "0") {
             isValid = true;
         }
-        else self.targetModel({ payload: { modelId: "0" } });
+        else {
+            self.targetModel({ payload: { modelId: "0" } });
+            isValid = false;
+        }
+
+        if (self.targetModel() && self.sponsoredModel() && self.targetModel().payload.modelId != self.sponsoredModel().payload.modelId)
+        {
+            isValid = true;
+        }
+        else {
+            if(isValid)
+                Materialize.toast("Please choose different models for mapping",3000);
+            isValid = false;
+        }
 
         return isValid;
 
@@ -151,9 +162,13 @@ var addSponsoredComparisonRules = function () {
                 }
             }).fail(function () {
                 Materialize.toast("Failed to delete rules", 3000);
-            });
+            })
+             .always(function () {
+                 $(".material-tooltip").hide();
+             });
         }
         else {
+            $(".material-tooltip").hide();
             e.preventDefault();
             e.stopImmediatePropagation();
             return false;
@@ -175,19 +190,18 @@ var addSponsoredComparisonRules = function () {
             })
             .fail(function () {
                 Materialize.toast("Failed to delete rules", 3000);
+            })
+            .always(function () {
+                $(".material-tooltip").hide();
             });
         } else {
+            $(".material-tooltip").hide();
             e.preventDefault();
             e.stopImmediatePropagation();
             return false;
         }
         return false;
     };
-
-    self.editSponsoredComparisonRule = function () {
-
-    };
-
 }
 
 $(function () {
