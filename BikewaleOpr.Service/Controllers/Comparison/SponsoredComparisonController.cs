@@ -19,10 +19,11 @@ namespace BikewaleOpr.Service.Controllers.Comparison
     public class SponsoredComparisonController : ApiController
     {
         private readonly ISponsoredComparisonRepository _objSponsoredRepo = null;
-
-        public SponsoredComparisonController(ISponsoredComparisonRepository objSponsoredRepo)
+        private readonly ISponsoredComparisonCacheRepository _objSponsoredComparisonCache = null;
+        public SponsoredComparisonController(ISponsoredComparisonRepository objSponsoredRepo, ISponsoredComparisonCacheRepository objSponsoredComparisonCache)
         {
             _objSponsoredRepo = objSponsoredRepo;
+            _objSponsoredComparisonCache = objSponsoredComparisonCache;
         }
 
         /// <summary>
@@ -65,7 +66,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             try
             {
                 objVersionMapping = _objSponsoredRepo.GetSponsoredComparisonVersionMapping(id, targetModelId, sponsoredModelId);
-                if(objVersionMapping!= null)
+                if (objVersionMapping != null)
                 {
                     objVersionMappingDTO = SponsoredComparisonMapper.Convert(objVersionMapping);
                     return Ok(objVersionMappingDTO);
@@ -74,7 +75,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
                 {
                     return InternalServerError();
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -96,6 +97,10 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             try
             {
                 comparisonId = _objSponsoredRepo.SaveSponsoredComparison(comparison);
+                if (comparisonId > 0)
+                {
+                    _objSponsoredComparisonCache.RefreshSpsonsoredComparisonsCache();
+                }
             }
             catch (Exception ex)
             {
@@ -119,6 +124,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             try
             {
                 isSaved = _objSponsoredRepo.ChangeSponsoredComparisonStatus(comparisonId, statusId);
+                _objSponsoredComparisonCache.RefreshSpsonsoredComparisonsCache();
             }
             catch (Exception ex)
             {
@@ -140,6 +146,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             try
             {
                 isSuccess = _objSponsoredRepo.SaveSponsoredComparisonBikeRules(ruleObj);
+                _objSponsoredComparisonCache.RefreshSpsonsoredComparisonsCache();
             }
             catch (Exception ex)
             {
@@ -162,6 +169,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             try
             {
                 isSuccess = _objSponsoredRepo.DeleteSponsoredComparisonBikeAllRules(comparisonId);
+                _objSponsoredComparisonCache.RefreshSpsonsoredComparisonsCache();
             }
             catch (Exception ex)
             {
@@ -184,6 +192,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             try
             {
                 isSuccess = _objSponsoredRepo.DeleteSponsoredComparisonBikeSponsoredModelRules(comparisonId, sponsoredModelId);
+                _objSponsoredComparisonCache.RefreshSpsonsoredComparisonsCache();
             }
             catch (Exception ex)
             {
@@ -206,6 +215,7 @@ namespace BikewaleOpr.Service.Controllers.Comparison
             try
             {
                 isSuccess = _objSponsoredRepo.DeleteSponsoredComparisonBikeTargetVersionRules(comparisonId, targetversionId);
+                _objSponsoredComparisonCache.RefreshSpsonsoredComparisonsCache();
             }
             catch (Exception ex)
             {

@@ -10,5 +10,6 @@ namespace Bikewale.Comparison.Interface
     public interface ISponsoredComparisonCacheRepository
     {
         IEnumerable<SponsoredVersionEntityBase> GetActiveSponsoredComparisons();
+        void RefreshSpsonsoredComparisonsCache();
     }
 }
