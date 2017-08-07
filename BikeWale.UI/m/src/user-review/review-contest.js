@@ -137,7 +137,9 @@ docReady(function () {
 
             if (self.model() && self.model().modelId > 0) {
                 self.currentStep(self.currentStep() + 1);
-				self.closeBikePopup();
+				self.LoadingText('Loading...');
+				$('.cover-popup-loader-body').show();
+				validateSelection();
             }
         }
 
@@ -146,7 +148,7 @@ docReady(function () {
         };
 
         self.closeBikePopup = function () {
-            self.currentStep(0);
+			self.currentStep(0);
             history.back();
         };
 	};
@@ -202,6 +204,10 @@ docReady(function () {
     });
 
 	$("#submit-bike-selection").click(function () {
+		validateSelection();
+	});
+	
+	function validateSelection() {
 		if(makeField.attr('data-make-id') > 0) {
 			if(modelField.attr('data-model-id') > 0) {
 			    var returnUrl = $('#querystring').data('query');
@@ -214,7 +220,7 @@ docReady(function () {
 		else {
 			setError(makeField, 'Please select bike make!');
 		}
-    });
+	};
 
 	var setError = function (element, msg) {
         element.addClass("border-red").find(".errorIcon, .errorText").show();
