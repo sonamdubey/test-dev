@@ -650,7 +650,7 @@ var bwAutoComplete = function (options) {
 
             if (options.source == '5')
             {
-                ulItem.append(' <span class="margin-left10 font14">(' + item.payload.userRatingsCount + ' Ratings)</span>')
+                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.userRatingsCount + ' Ratings)</span>')
             }
             if (options.source == '1') {
                 if (item.payload.modelId > 0) {
@@ -664,10 +664,9 @@ var bwAutoComplete = function (options) {
                         }
 
                     }
-
-                    ulItem.append('<div class="clear"></div>');
                 }
-            }
+			}
+			ulItem.append('<div class="clear"></div>');
             ulItem.appendTo(ul);
             return ulItem;
         }

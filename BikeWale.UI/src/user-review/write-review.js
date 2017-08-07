@@ -573,6 +573,7 @@ docReady(function () {
                 reviewTitle: reviewTitleField.val(),
                 detailedReview: self.detailedReview(),
                 reviewTips: self.reviewTips(),
+                mileage: self.bikeMileage(),
                 ratingArray: savearray
             };
             bwcache.set(window.location.search.substring(3, window.location.search.length), pageObj, 10);
@@ -583,6 +584,7 @@ docReady(function () {
             if (obj != null) {
                 self.detailedReview(obj.detailedReview);
                 reviewTitleField.val(obj.reviewTitle);
+                self.bikeMileage(obj.mileage);
                 reviewTitleField.parent('div').addClass('not-empty');
                 $('#getReviewTip').val(obj.reviewTips);
 

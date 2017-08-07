@@ -178,6 +178,7 @@
 .user-review__search-form {
 	width: 570px;
 	margin: 0 auto;
+	position: relative;
 }
 
 .user-review__search-form:after {
@@ -199,9 +200,16 @@
 	float: left;
 	width: 140px;
 	font-size: 14px;
-	padding: 10px 9px 9px;
+	padding: 10px 9px 8px;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
+}
+
+#erruserReviewList.ui-autocomplete {
+	width: 100%;
+	position: absolute;
+	top: 41px;
+	left: 3px;
 }
 
 /* user-review__swiper */
@@ -300,6 +308,10 @@
 	margin-bottom: 8px;
 }
 
+.review-card__bike.text-truncate {
+	text-align: center;
+}
+
 .review-card__desc {
 	color: #787878;
 	margin-bottom: 8px;
@@ -309,7 +321,6 @@
 	color: #82888b;
 	font-size: 11px;
 	margin-bottom: 10px;
-}
 }
 
 /* rating badge */

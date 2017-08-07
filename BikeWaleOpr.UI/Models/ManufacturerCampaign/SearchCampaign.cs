@@ -1,16 +1,13 @@
 ﻿using Bikewale.ManufacturerCampaign.Entities.Models;
 using Bikewale.ManufacturerCampaign.Interface;
-using Bikewale.Notifications;
+using BikeWaleOpr.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace BikewaleOpr.Models
 {
     public class SearchCampaign
     {
-        private readonly IManufacturerCampaignRepository _objManufacturer =null;
+        private readonly IManufacturerCampaignRepository _objManufacturer = null;
 
         public SearchCampaign(IManufacturerCampaignRepository objManufacturer)
         {
@@ -28,12 +25,13 @@ namespace BikewaleOpr.Models
             SearchManufacturerCampaignVM objVM = new SearchManufacturerCampaignVM();
             try
             {
+                objVM.UserId = CurrentUser.Id;
                 GetManufacturersList(objVM);
             }
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "SearchCampaign.GetData");
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, "SearchCampaign.GetData");
             }
             return objVM;
 
@@ -52,7 +50,7 @@ namespace BikewaleOpr.Models
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "SearchCampaign.GetManufacturersList");
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, "SearchCampaign.GetManufacturersList");
             }
         }
 

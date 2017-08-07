@@ -26,5 +26,6 @@ namespace BikewaleOpr.Interface.BikeData
         IEnumerable<UsedBikeModelImageData> GetUsedBikeModelImageByMake(uint makeId);
         UsedBikeImagesNotificationData GetPendingUsedBikesWithoutModelImage();
         IEnumerable<BikeModelMailEntity> GetModelsByMake(uint makeId, string hostUrl, string oldMakeMasking, string newMakeMasking);
+        IEnumerable<BikeMakeModelData> GetModelsWithMissingColorImage();
     }
 }

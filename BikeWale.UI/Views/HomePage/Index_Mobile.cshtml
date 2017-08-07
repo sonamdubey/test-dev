@@ -31,7 +31,7 @@
             <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
             @if (Model.Banner != null)
             {
-               @Html.Raw(Model.Banner.Html);
+               	@Html.Raw(Model.Banner.Html);
                 @Html.Raw(Model.Banner.Css);
                 @Html.Raw(Model.Banner.JS);
             }
@@ -284,7 +284,7 @@
     </div>
     <div class="clear"></div>
 </section>
-@Html.Partial("~/Views/UserReview/_SearchUserReviewMakeModel_Mobile.cshtml", Model.RecentUserReviewsList);
+@Html.Partial("~/Views/UserReview/_SearchUserReviewMakeModel_Mobile.cshtml", Model.RecentUserReviewsList)
 
 <section>
     <div class="container contest-participate-banner margin-bottom20">
@@ -305,9 +305,7 @@
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
 
-<section>
-    @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
-</section>
+
 
 @if (Model.IsComparePopularBikesAvailable)
 {
@@ -321,7 +319,9 @@
 	</div>
 </section>
 }
-
+<section>
+    @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
+</section>
 <section>
     <div class="container margin-bottom20">
         <h2 class="font18 text-center margin-top20 margin-bottom10">Find used bikes</h2>

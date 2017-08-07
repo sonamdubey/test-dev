@@ -58,5 +58,38 @@ namespace BikewaleOpr.BAL
             }
             return objBikeByMakeNotificationData;
         }
+
+        /// <summary>
+        /// Created by: vivek singh tomar on 27/07/2017        
+        /// Description: Function to get bike models whose color images are not uploaded
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeModelsByMake> GetModelsWithMissingColorImage()
+        {
+            IEnumerable<BikeModelsByMake> objBikeModelsByMakeList = null;
+            IEnumerable<BikeMakeModelData> objBikeDataList = null;
+
+            try
+            {
+                objBikeDataList = _IBikeModel.GetModelsWithMissingColorImage();
+
+                if(objBikeDataList != null)
+                {
+                    // grouping models according to their respective makes
+                    objBikeModelsByMakeList = objBikeDataList
+                        .GroupBy(m => m.BikeMake.MakeId)
+                        .Select( grp => new BikeModelsByMake
+                        {
+                            BikeMakeEntity = grp.First().BikeMake,
+                            BikeModelEntity = grp.Select(t => t.BikeModel)
+                        });
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.BikeModels.GetModelsWithMissingColorImage");
+            }
+            return objBikeModelsByMakeList;
+        }
     }
 }

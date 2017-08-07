@@ -29,7 +29,7 @@ namespace BikeWaleOpr.Content
         protected string strToTime, strFromTime;
 
         private IPopularBikeComparisions _objCompBikesRepo = null;
-        private IBikeMakes _objMakesRepo = null;
+        private IBikeMakesRepository _objMakesRepo = null;
         private IBikeModelsRepository _objModelsRepo = null;
         private IBikeVersions _objVersionsRepo = null;
         protected ushort compareId; private bool isDataSaved;
@@ -43,12 +43,12 @@ namespace BikeWaleOpr.Content
             {
 
                 container.RegisterType<IPopularBikeComparisions, PopularBikeComparisionsRepository>()
-                .RegisterType<IBikeMakes, BikeMakesRepository>()
+                .RegisterType<IBikeMakesRepository, BikeMakesRepository>()
                 .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IBikeVersions, BikeVersionsRepository>();
 
                 _objCompBikesRepo = container.Resolve<IPopularBikeComparisions>();
-                _objMakesRepo = container.Resolve<IBikeMakes>();
+                _objMakesRepo = container.Resolve<IBikeMakesRepository>();
                 _objModelsRepo = container.Resolve<IBikeModelsRepository>();
                 _objVersionsRepo = container.Resolve<IBikeVersions>();
 

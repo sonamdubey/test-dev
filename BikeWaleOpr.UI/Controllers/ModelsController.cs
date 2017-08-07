@@ -11,10 +11,10 @@ namespace BikewaleOpr.Controllers
     [Authorize]
     public class ModelsController : Controller
     {
-        private readonly IBikeMakes _makesRepo;
+        private readonly IBikeMakesRepository _makesRepo;
         private readonly IBikeModelsRepository _modelsRepo;
 
-        public ModelsController(IBikeMakes makesRepo, IBikeModelsRepository modelsRepo)
+        public ModelsController(IBikeMakesRepository makesRepo, IBikeModelsRepository modelsRepo)
         {
             _makesRepo = makesRepo;
             _modelsRepo = modelsRepo;

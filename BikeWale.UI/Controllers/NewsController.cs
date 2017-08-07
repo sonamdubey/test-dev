@@ -1,5 +1,4 @@
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -21,7 +20,10 @@ using React;
 
 namespace Bikewale.Controllers
 {
+    using Common;
+    using Entities.CMS.Articles;
     using Interfaces.PWA.CMS;
+    using System.Linq;
     using AssemblyRegistration = React.AssemblyRegistration;
 
 
@@ -184,6 +186,7 @@ namespace Bikewale.Controllers
                     return View(objData);
             }
         }
+
         /// <summary>
         /// Created by : Aditi srivastava on 29 Mar 2017
         /// Summmary   : Action method to render news detail page- mobile
@@ -232,6 +235,66 @@ namespace Bikewale.Controllers
                 }
             }
         }
+
+        /// <summary>
+        /// Action to get the map news details page
+        /// </summary>
+        /// <param name="basicid"></param>
+        /// <returns></returns>
+        [Route("m/news/details/{basicid}/amp/")]
+        public ActionResult DetailsAMP(int basicid)
+        {
+            try
+            {
+                ViewBag.TaggedModelId = 0;
+
+                ArticleDetails objNews = _articles.GetNewsDetails(Convert.ToUInt32(basicid));
+
+                if (objNews != null && objNews.Content != null)
+                {
+                    ViewBag.Title = objNews.Title;
+                    ViewBag.ArticleSectionTitle = "- BikeWale News";
+                    ViewBag.Author = objNews.AuthorName;
+                    ViewBag.PublishedDate = objNews.DisplayDate.ToString();
+                    ViewBag.LastModified = objNews.DisplayDate.ToString();
+                    ViewBag.PageViews = objNews.Views;
+                    ViewBag.Canonical = String.Format("{0}/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, basicid, objNews.ArticleUrl);
+                    ViewBag.MobilePageUrl = String.Format("{0}/m/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, basicid, objNews.ArticleUrl);
+                    ViewBag.MainImageUrl = Bikewale.Utility.Image.GetPathToShowImages(objNews.OriginalImgUrl, objNews.HostUrl, Bikewale.Utility.ImageSize._640x348);
+                    ViewBag.Description = objNews.Description.StripHtml();
+
+                    //Convert article content to the amp content
+                    ViewBag.NewsContent = objNews.Content.ConvertToAmpContent();
+
+                    if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
+                    {
+                        ViewBag.NextPageTitle = objNews.NextArticle.Title;
+                        ViewBag.NextPageUrl = String.Format("{0}/m/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objNews.NextArticle.BasicId, objNews.NextArticle.ArticleUrl);
+                    }
+
+                    if (!String.IsNullOrEmpty(objNews.PrevArticle.ArticleUrl))
+                    {
+                        ViewBag.PrevPageTitle = objNews.PrevArticle.Title;
+                        ViewBag.PrevPageUrl = String.Format("{0}/m/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objNews.PrevArticle.BasicId, objNews.PrevArticle.ArticleUrl);
+                    }
+
+                    if (objNews.VehiclTagsList != null && objNews.VehiclTagsList.Count > 0)
+                    {
+
+                        VehicleTag objTag = objNews.VehiclTagsList.FirstOrDefault(m => m.ModelBase != null && m.ModelBase.ModelId > 0);
+
+                        if (objTag != null)
+                            ViewBag.TaggedModelId = objTag.ModelBase.ModelId;
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "m/news/details/{basicid}/amp/" + basicid);
+            }
+            return View("~/views/m/content/news/details_amp.cshtml");
+        }
+
         #endregion
     }
 }

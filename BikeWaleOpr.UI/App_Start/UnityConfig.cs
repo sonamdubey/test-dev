@@ -38,6 +38,8 @@ namespace BikewaleOpr
     /// Created by : Ashish G. Kamble on 6 Jan 2017
     /// Modified by : Sajal Gupta on 09-03-2017
     /// Description : Added IBikeModels, IUsedBikes, IHomePage
+    /// Modified by : Vivek Singh Tomar on 1st Aug 2017
+    /// Description : Added IBikeMakes
     /// </summary>
     public static class UnityConfig
     {
@@ -48,7 +50,7 @@ namespace BikewaleOpr
             // register all your components with the container here
             // it is NOT necessary to register your controllers
 
-            container.RegisterType<IBikeMakes, BikeMakesRepository>()
+            container.RegisterType<IBikeMakesRepository, BikeMakesRepository>()
                 .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IBikeVersions, BikeVersionsRepository>()
                 .RegisterType<IBikeModels, BikeModels>()
@@ -61,6 +63,8 @@ namespace BikewaleOpr
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
                 .RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>()
                 .RegisterType<ISponsoredComparison, SponsoredComparison>()
+                .RegisterType<IContractCampaign, ContractCampaign>()
+                .RegisterType<IBikeMakes, BikeMakes>()
                 .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
                 .RegisterType<IBannerRepository, BannerRepository>()
                 .RegisterType<IContractCampaign, ContractCampaign>();

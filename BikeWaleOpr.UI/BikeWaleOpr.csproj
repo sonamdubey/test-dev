@@ -1931,6 +1931,7 @@
     <Content Include="src\common.js" />
     <Content Include="src\common\common.js" />
     <Content Include="src\Comparison\addcomparisonrules.js" />
+    <Content Include="src\Comparison\managecomparisons.js" />
     <Content Include="src\content\makes.js" />
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />
@@ -1997,7 +1998,6 @@
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignProperties.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignPopup.cshtml" />
     <Content Include="Views\Comparison\ManageSponsoredCamparison.cshtml" />
-    <Content Include="Views\Comparison\AddorUpdateSponsoredComparison.cshtml" />
     <Content Include="Views\Comparison\AddSponsoredComparisonRules.cshtml" />
     <Content Include="Views\Banner\Index.cshtml" />
     <Content Include="Views\Banner\BannersList.cshtml" />

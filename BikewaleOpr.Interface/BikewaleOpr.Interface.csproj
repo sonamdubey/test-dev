@@ -105,10 +105,11 @@
   <ItemGroup>
     <Compile Include="Banner\IBannerRepository.cs" />
     <Compile Include="BikeColorImages\IColorImagesBikeRepository.cs" />
-    <Compile Include="BikeData\IBikeMakes.cs" />
+    <Compile Include="BikeData\IBikeMakesRepository.cs" />
     <Compile Include="BikeData\IBikeModels.cs" />
     <Compile Include="BikeData\IBikeModelsRepository.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
+    <Compile Include="BikeData\IBikeMakes.cs" />
     <Compile Include="BikePricing\IDealerPriceRepository.cs" />
     <Compile Include="BikePricing\IShowroomPricesRepository.cs" />
     <Compile Include="Comparison\ISponsoredComparison.cs" />
