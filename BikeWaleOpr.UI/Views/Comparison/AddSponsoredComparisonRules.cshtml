@@ -59,8 +59,7 @@
             }
         </div>
         <div class="col m2">
-            @using (Html.BeginForm("SaveSponsoredComparisonRules", "Comparison", FormMethod.Post))
-            {
+            <form action="/comparison/sponsored/save/rules/" method="post">
                 <ul class="collapsible active" data-collapsible="accordion">
                     <li class="active">
                         <div class="collapsible-header  active"><strong>Set Comparison Rules</strong></div>
@@ -97,8 +96,7 @@
                     </li>
 
                 </ul>
-            }
-
+            </form>
         </div>
     </div>
 

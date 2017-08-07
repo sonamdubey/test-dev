@@ -100,13 +100,15 @@ var addSponsoredComparisonRules = function () {
             {
                 var str = "",impressions="";
                 modalVersionMapping.find("table tbody tr").each(function () {
-                    var ele = $(this);
-                    str += (ele.data("target-versionid") + ":" + ele.find("select").val() + ",");
-                    impressions += ele.find("input[type=text].impression").val() + ",";
-                    
+                    var ele = $(this), imp = ele.find("input[type=text].impression").val();
+                    str += ("," + ele.data("target-versionid") + ":" + ele.find("select").val());
+                    if (imp != "")
+                    {
+                        impressions += ("," + imp);
+                    }
                 });
-                self.impressionUrls(impressions);
-                self.targetSponsoredMapping(str);
+                self.impressionUrls(impressions.substr(1));
+                self.targetSponsoredMapping(str.substr(1));
             }
             else {
                 self.targetSponsoredMapping(self.targetModel().payload.modelId + ":" + self.sponsoredModel().payload.modelId);

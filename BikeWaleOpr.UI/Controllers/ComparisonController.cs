@@ -3,9 +3,6 @@ using Bikewale.Comparison.Interface;
 using Bikewale.Notifications;
 using BikewaleOpr.Models.Comparison;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
@@ -13,14 +10,15 @@ namespace BikewaleOpr.Controllers
     public class ComparisonController : Controller
     {
         private readonly ISponsoredComparisonRepository _objSponsoredComparison = null;
-        //private readonly ISponsoredCampaignRepository objSponsoredComparison = null;
+        private readonly ISponsoredComparisonCacheRepository _objSponsoredComparisonCache = null;
 
         /// <summary>
         /// 
         /// </summary>
-        public ComparisonController(ISponsoredComparisonRepository objSponsoredComparison)
+        public ComparisonController(ISponsoredComparisonRepository objSponsoredComparison, ISponsoredComparisonCacheRepository objSponsoredComparisonCache)
         {
             _objSponsoredComparison = objSponsoredComparison;
+            _objSponsoredComparisonCache = objSponsoredComparisonCache;
         }
 
         /// <summary>
@@ -38,7 +36,7 @@ namespace BikewaleOpr.Controllers
                 {
                     comparisonType = "2"; //default show only active comparisons
                 }
-               
+
                 objData.Sponsoredcomparisons = _objSponsoredComparison.GetSponsoredComparisons(comparisonType);
             }
             catch (Exception ex)
@@ -54,7 +52,7 @@ namespace BikewaleOpr.Controllers
         /// summary :- Add or update sponsord comparisons
         /// </summary>
         /// <returns></returns>
-        [HttpPost,Route("comparison/sponsored/add/")]
+        [HttpPost, Route("comparison/sponsored/add/")]
         public ActionResult AddorUpdateSponsoredComparison([System.Web.Http.FromBody] SponsoredComparison objData)
         {
             uint comparisonId = 0;
@@ -63,12 +61,16 @@ namespace BikewaleOpr.Controllers
                 if (objData != null)
                 {
                     comparisonId = _objSponsoredComparison.SaveSponsoredComparison(objData);
+                    if (objData.Id > 0)
+                    {
+                        _objSponsoredComparisonCache.RefreshSpsonsoredComparisonsCache();
+                    }
                     if (comparisonId > 0)
                     {
                         return Redirect(string.Format("/comparison/sponsored/{0}/rules/", comparisonId));
                     }
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -119,6 +121,7 @@ namespace BikewaleOpr.Controllers
                     isSuccess = _objSponsoredComparison.SaveSponsoredComparisonBikeRules(objRules);
                     if (isSuccess)
                     {
+                        _objSponsoredComparisonCache.RefreshSpsonsoredComparisonsCache();
                         return Redirect(string.Format("/comparison/sponsored/{0}/rules/", objRules.ComparisonId));
                     }
                 }
