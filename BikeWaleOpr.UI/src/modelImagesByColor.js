@@ -92,7 +92,7 @@ $(document).ready(function () {
                 if (makeId && makeId > 0) {
                     $.ajax({
                         type: "GET",
-                        url: "/api/makes/" + makeId + "/models/All/",
+                        url: "/api/makes/" + makeId + "/models/7/",
                         contentType: "application/json",
                         dataType: 'json',
                         async: false,
@@ -145,31 +145,36 @@ $("#btnSubmit").live("click", function () {
 });
 
 $('.deleteImage').live("click", function () {
-    if (confirm("Are you sure?")) {
-        var delBtn = $(this);
-        var colorId = $(this).attr('data-id');
-        $.ajax({
-            type: "POST",
-            url: "/api/image/delete/modelid/?photoId=" + colorId + "&modelid=" + modelId,
-            contentType: 'application/json',
-            dataType: 'json',
-            crossDomain: true,
-            async: false,
-            beforeSend: function (xhr) {
-                startLoading($("#inputSection"));
-            },
-            success: function (data) {
-                delBtn.closest('tr').find('#mainImage').attr('src', 'https://imgd.aeplcdn.com/144x81/bikewaleimg/images/noimage.png');
-                showToast('Image deleted');
-                delBtn.hide();
-            },
-            complete: function (xhr) {
-                if (xhr.status == 404 || xhr.status == 204) {
-                    console.log('some error occurred');
+    try{
+        if (confirm("Are you sure?")) {
+            var delBtn = $(this);
+            var colorId = $(this).attr('data-id');
+            $.ajax({
+                type: "POST",
+                url: "/api/image/delete/modelid/?photoId=" + colorId + "&modelid=" + modelId,
+                contentType: 'application/json',
+                dataType: 'json',
+                crossDomain: true,
+                async: false,
+                beforeSend: function (xhr) {
+                    startLoading($("#inputSection"));
+                },
+                success: function (data) {
+                    delBtn.closest('tr').find('#mainImage').attr('src', 'https://imgd.aeplcdn.com/144x81/bikewaleimg/images/noimage.png');
+                    showToast('Image deleted');
+                    delBtn.hide();
+                },
+                complete: function (xhr) {
+                    if (xhr.status == 404 || xhr.status == 204) {
+                        console.log('some error occurred');
+                    }
+                    stopLoading($("#inputSection"));
                 }
-                stopLoading($("#inputSection"));
-            }
-        });
+            });
+        }
+    }
+    catch(ex){
+        showToast(ex.message);
     }
 });
 
