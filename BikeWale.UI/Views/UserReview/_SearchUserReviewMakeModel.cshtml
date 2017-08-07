@@ -102,7 +102,7 @@
                     click: function (event, ui, orgTxt) {
                         UserReviewRedirection(ui.item);
                         var keywrd = ui.item.label;
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Review_Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Review_Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
                         isMakeModelRedirected = true;
                     },
                     open: function (result) {
@@ -126,7 +126,7 @@
                             focusedMakeModel = null; NewBikeSearchResult = false;
                             if (searchtext.trim() != "") {
                                 $('#erruserReviewList').show();
-                                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Review_Search_Keyword_Not_Present_in_Autosuggest', 'lab': searchtext });
+                                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Review_Search_Keyword_Not_Present_in_Autosuggest', 'lab': searchtext });
                             }
                         }
                     },
@@ -142,7 +142,7 @@
                             if (focusedMakeModel == null || focusedMakeModel == undefined) {
                                 if ($('#userReviewList').val().trim() != '') {
                                     $('#erruserReviewList').show();
-                                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Review_Search_Keyword_Not_Present_in_Autosuggest', 'lab': $('#userReviewList').val() });
+                                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Review_Search_Keyword_Not_Present_in_Autosuggest', 'lab': $('#userReviewList').val() });
                                 }
                             }
 
@@ -161,7 +161,7 @@
         if (focusedMakeModel == undefined || focusedMakeModel == null) {
             return false;
         }
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Review_Search_Keyword_Present_in_Autosuggest', 'lab': focusedMakeModel });
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Review_Search_Keyword_Present_in_Autosuggest', 'lab': focusedMakeModel.label });
         return UserReviewRedirection(focusedMakeModel);
     }
     docReady(function () {

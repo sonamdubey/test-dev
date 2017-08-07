@@ -664,6 +664,7 @@ a.chosen-single:hover {
 	position: absolute;
 	top: 41px;
 	left: 3px;
+    text-align: left;
 }
 
 .user-review__search-field {

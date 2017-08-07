@@ -210,6 +210,7 @@
 	position: absolute;
 	top: 41px;
 	left: 3px;
+    text-align: left;
 }
 
 /* user-review__swiper */
