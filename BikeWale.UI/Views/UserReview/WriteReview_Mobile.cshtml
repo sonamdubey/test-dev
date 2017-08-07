@@ -72,7 +72,7 @@
                         <p class="margin-bottom5 text-bold">Mileage</p>
 						<p class="item-title">What mileage does your bike offer? Enter a numeric value between 0 & 150.</p>
 						<div class="input-box form-control-box" data-bind="css: bikeMileage() && bikeMileage().length > 0 ? 'not-empty' : ''">
-							<input name="mileage" type="text" id="getMileage" data-bind="textInput: bikeMileage" maxlength="190">
+							<input name="mileage" type="number" id="getMileage" data-bind="textInput: bikeMileage" maxlength="190">
 							<label for="getMileage">Your mileage (kmpl)</label>
 							<span class="boundary"></span>
 							<span class="error-text"></span>
