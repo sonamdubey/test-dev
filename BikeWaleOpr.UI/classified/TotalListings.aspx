@@ -245,7 +245,7 @@
 
     $(".markSold").click(function(){
         var inquiryId=Number($(this).attr("data-inquiryId"));
-
+        var thisBtn= $(this);
         if (confirm("Are you sure you want to mark this listing as Sold?") && inquiryId > 0) {
             $.ajax({
                 type: "POST",
@@ -253,17 +253,17 @@
                 
                 success: function(response){
                     if(response){  
+                        thisBtn.parents('.dtItem').remove();
                         alert("Listing marked as sold successfully!");
-                        window.location.reload(true);
                     }
                     else
                     {
-                        alert("Something went wrong, your listing doesn't marked as sold please check.");
+                        alert("Something went wrong, your listing doesn't marked as sold.");
                     }
 
                 },
                 error: function(){
-                        alert("Something went wrong, your listing doesn't marked as sold please check.");
+                        alert("Something went wrong, your listing doesn't marked as sold.");
                 }
 
                 

@@ -1,0 +1,6 @@
+D:\BW Code\bikewaleweb\Bikewale.ReleaseManagement\copyfiles\bin\Debug\copyfiles.exe.config
+D:\BW Code\bikewaleweb\Bikewale.ReleaseManagement\copyfiles\bin\Debug\copyfiles.exe
+D:\BW Code\bikewaleweb\Bikewale.ReleaseManagement\copyfiles\bin\Debug\copyfiles.pdb
+D:\BW Code\bikewaleweb\Bikewale.ReleaseManagement\copyfiles\obj\Debug\Bikewale.ReleaseManagement.csprojResolveAssemblyReference.cache
+D:\BW Code\bikewaleweb\Bikewale.ReleaseManagement\copyfiles\obj\Debug\copyfiles.exe
+D:\BW Code\bikewaleweb\Bikewale.ReleaseManagement\copyfiles\obj\Debug\copyfiles.pdb
