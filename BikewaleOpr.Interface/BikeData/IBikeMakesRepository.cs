@@ -20,6 +20,6 @@ namespace BikewaleOpr.Interface.BikeData
         void DeleteMake(int makeId, int updatedBy);
         SynopsisData Getsynopsis(int makeId);
         void UpdateSynopsis(int makeId, int updatedBy, SynopsisData objSynopsis);
-        IEnumerable<BikeModelEntityBase> GetModelsByMake(uint makeId);        
+        IEnumerable<BikeModelEntityBase> GetModelsByMake(EnumBikeType requestType, uint makeId);
     }
 }
