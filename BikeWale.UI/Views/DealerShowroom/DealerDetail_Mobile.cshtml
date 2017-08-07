@@ -85,7 +85,7 @@
             </div>
 
 
-            @if (Model.DealerDetails.DealerDetails.CampaignId > 0 && Model.DealerDetails.DealerDetails.DealerType != (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
+            @if (Model.DealerDetails.DealerDetails.CampaignId > 0 && Model.DealerDetails.DealerDetails.IsFeatured)
             {
                 <div class="grid-12 float-button clearfix float-fixed">
                     @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.MaskingNumber))
@@ -116,7 +116,7 @@
         </div>
     </section>
 }
-@if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null && Model.DealerDetails.DealerDetails.CampaignId > 0 && ((Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)|| Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Pricing))))
+@if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null && Model.DealerDetails.DealerDetails.CampaignId > 0 && Model.DealerDetails.DealerDetails.IsFeatured)
 {
     <section class="container bg-white margin-bottom10">
         <div class="box-shadow padding-top15 padding-right20 padding-bottom5 padding-left20">
