@@ -74,7 +74,7 @@
                                         <input type="text" autocomplete="off" id="txtTargetModel" class="validate" data-bind="css : {invalid : targetModel() && targetModel().payload.modelId =='0'},attr : {'data-value' : targetModel() ? targetModel().payload.modelId : null}" />
                                         <label for="txtTargetModel" data-error="Please select target model">Target Model</label>
                                     </li>
-                                    <li class="input-field">
+                                    <li class="input-field hide">
                                         <input type="text" id="txtImpressionModel" class="validate" data-bind="value : impressionModel,disable : isVersionMapping() " />
                                         <label for="txtTargetModel" data-error="Please select target model">Impression/GA(optional)</label>
                                     </li>
@@ -90,7 +90,6 @@
                                         <input type="hidden" data-bind="value : impressionUrls" name="ImpressionUrl" />
                                     </li>
                                 </ul>
-                                <a href="javascript:close()" class="btn btn-default blue margin-bottom20 margin-left30">Done</a>
                             </div>
                         </div>
                     </li>
