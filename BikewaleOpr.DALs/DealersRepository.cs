@@ -11,7 +11,8 @@ using System.Data.Common;
 using System.Web;
 using Bikewale.Utility;
 using BikewaleOpr.Entity.ContractCampaign;
-
+using Dapper;
+using Bikewale.DAL.CoreDAL;
 
 namespace BikewaleOpr.DAL
 {
@@ -269,59 +270,82 @@ namespace BikewaleOpr.DAL
         /// <summary>
         /// Written By : Ashish G. Kamble on 7 Nov 2014
         /// Summary : Function to save the dealer facility
+        /// Modified by: Snehal Dange on 7th August 2017
+        /// Description: Changed Input type from individual parameters to entity. Code changed in Dapper.
         /// </summary>
-        /// <param name="dealerId"></param>
-        /// <param name="facility"></param>
-        /// <param name="isActive"></param>
-        public void SaveDealerFacility(uint dealerId, string facility, bool isActive)
+        /// <param name="objData"></param>
+        public bool SaveDealerFacility(FacilityEntity objData)
         {
+            byte status=0;
+            
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealerfacility"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Facility", DbType.String, 500, facility));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbType.Boolean, isActive));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
 
-                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+                    param.Add("par_Facility", objData.Facility);
+                    param.Add("par_IsActive", Convert.ToUInt16(objData.IsActive));
+                    param.Add("par_DealerId", objData.Id);
+
+                    status = (byte)connection.Execute("bw_savedealerfacility", param: param, commandType: CommandType.StoredProcedure);
+
+
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
 
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("Exception at SaveDealerFacility : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DAL.SaveDealerFacility");
+               
             }
+
+            return status > 0;
         }
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 7 Nov 2014
         /// Summary : Function to update the dealer facility.
+        /// Modified by: Snehal Dange on 7th August 2017
+        /// Description: Changed Input type from individual parameters to entity. Code changed in Dapper.
         /// </summary>
-        /// <param name="facilityId"></param>
-        /// <param name="facility"></param>
-        /// <param name="isActive"></param>
-        public void UpdateDealerFacility(uint facilityId, string facility, bool isActive)
+       
+        public bool UpdateDealerFacility(FacilityEntity objData)
         {
+            byte status = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_UpdateDealerFacility"))
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Facility", DbType.String, 500, facility));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbType.Boolean, isActive));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_FacilityId", DbType.Int32, facilityId));
-                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+                    param.Add("par_facility", objData.Facility);
+                    param.Add("par_isactive", Convert.ToUInt16(objData.IsActive));
+                    param.Add("par_facilityid", objData.FacilityId);
+
+                    status = (byte)connection.Execute("BW_UpdateDealerFacility", param: param, commandType: CommandType.StoredProcedure);
+
+
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("Exception at UpdateDealerFacility : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DAL.UpdateDealerFacility");
+
             }
+
+            return status > 0;
         }
 
         public void SaveDealerLoanAmounts(uint dealerId, ushort tenure, float rateOfInterest, ushort ltv, string loanProvider)

@@ -113,6 +113,7 @@
     <Compile Include="Banner\BannerListVM.cs" />
     <Compile Include="Banner\BannerVM.cs" />
     <Compile Include="DealerCampaign\CampaignServingAreasVM.cs" />
+    <Compile Include="DealerFacility\ManageDealerFacilityVM.cs" />
     <Compile Include="ManufacturerCampaign\CampaignPropertiesVM.cs" />
     <Compile Include="ManufacturerCampaign\ManufacturerCampaignInformationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

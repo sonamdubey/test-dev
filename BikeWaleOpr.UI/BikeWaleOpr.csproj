@@ -14,7 +14,7 @@
     <RootNamespace>BikewaleOpr</RootNamespace>
     <AssemblyName>BikewaleOpr</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -418,6 +418,7 @@
     <Compile Include="Controllers\ComparisonController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\DealerCampaignController.cs" />
+    <Compile Include="Controllers\DealerFacilitiesController.cs" />
     <Compile Include="Controllers\MakesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManufacturerCampaignController.cs" />
@@ -460,6 +461,7 @@
     <Compile Include="Models\Banner\Banner.cs" />
     <Compile Include="Models\Banner\BannersListPage.cs" />
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
+    <Compile Include="Models\DealerFacilities\DealerFacilitiesModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\CampaignPropertiesModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPageModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPopup.cs" />
@@ -1935,6 +1937,7 @@
     <Content Include="src\content\makes.js" />
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />
+    <Content Include="src\DealerFacility\DealerFacility.js" />
     <Content Include="src\framework.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
@@ -2002,6 +2005,7 @@
     <Content Include="Views\Comparison\AddSponsoredComparisonRules.cshtml" />
     <Content Include="Views\Banner\Index.cshtml" />
     <Content Include="Views\Banner\BannersList.cshtml" />
+    <Content Include="Views\DealerFacilities\ManageDealerFacilities.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

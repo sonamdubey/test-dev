@@ -31,6 +31,7 @@ using BikewaleOpr.BAL.ContractCampaign;
 using Bikewale.ManufacturerCampaign.DAL;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.DALs.Banner;
+using BikewaleOpr.DAL;
 
 namespace BikewaleOpr
 {
@@ -67,8 +68,8 @@ namespace BikewaleOpr
                 .RegisterType<IBikeMakes, BikeMakes>()
                 .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
                 .RegisterType<IBannerRepository, BannerRepository>()
-                .RegisterType<IContractCampaign, ContractCampaign>();
-
+                .RegisterType<IContractCampaign, ContractCampaign>()
+                .RegisterType<IDealers, DealersRepository>();
 
 
 

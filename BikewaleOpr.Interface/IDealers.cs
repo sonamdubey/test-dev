@@ -17,9 +17,9 @@ namespace BikewaleOpr.Interface
         PQ_DealerDetailEntity GetDealerDetailsPQ(PQParameterEntity objParams);
         List<FacilityEntity> GetDealerFacilities(uint dealerId);
         DataTable GetAllDealers(UInt32 cityId);
-        void SaveDealerFacility(uint dealerId, string facility, bool isActive);
+        bool SaveDealerFacility(FacilityEntity objData);
         DataTable GetDealerCities();
-        void UpdateDealerFacility(uint facilityId, string facility, bool isActive);
+        bool UpdateDealerFacility(FacilityEntity objData);
         DataTable GetOfferTypes();
         EMI GetDealerLoanAmounts(uint dealerId);
         List<OfferEntity> GetDealerOffers(int dealerId);
