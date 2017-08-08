@@ -39,7 +39,7 @@
                         <span>@Model.UserReviewDetailsObj.OverallRating.Value</span>
                     </span>
                     <div class="grid-10-inline font15 text-black text-bold">
-                        <span class="review-title position-rel">@FormatDescription.TruncateDescription(Model.UserReviewDetailsObj.Title, 85)</span>
+                                <span class="review-title position-rel"><span itemprop="name">@Model.UserReviewDetailsObj.Title.Truncate(85)</span></span>
                     </div>
                 </div>
 
@@ -86,7 +86,7 @@
             <div class="padding-right20 padding-left20 padding-bottom20">
                 @if (!string.IsNullOrEmpty(Model.UserReviewDetailsObj.Description))
                 {
-                    <div class="padding-bottom10"><p class="font14 text-light-grey">@Html.Raw(Model.UserReviewDetailsObj.Description)</p></div>
+                    <div class="padding-bottom10 font14 text-light-grey"><p>@Html.Raw(Model.UserReviewDetailsObj.Description)</p></div>
                 }
                 @if (Model.UserReviewDetailsObj.Tips.Length > 0)
                 {

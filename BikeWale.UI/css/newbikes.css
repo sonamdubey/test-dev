@@ -158,3 +158,258 @@
     .brand-type-container ul li, .brand-type { width:170px; }
     .budget-container ul li a, .mileage-container ul li a, .style-type-container ul li { width:215px; }
 }
+/* user reviews starts here */
+/* user-review__intro */
+.user-review__intro {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin: 0 20px 15px 20px;
+	border-bottom: 1px solid #eee;
+	text-align: center;
+}
+
+.review-intro__title {
+	font-size: 14px;
+	color: #787878;
+	margin-bottom: 20px;
+}
+
+/* user-review__search-form */
+.user-review__search-form {
+	width: 570px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.user-review__search-form:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.user-review__search-field {
+	width: 420px;
+	float: left;
+}
+
+.user-review__search-field .form-control {
+	border-right: 0;
+}
+
+.user-review__form-submit {
+	float: left;
+	width: 140px;
+	font-size: 14px;
+	padding: 10px 9px 8px;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+#erruserReviewList.ui-autocomplete {
+	width: 100%;
+	position: absolute;
+	top: 41px;
+	left: 3px;
+    text-align: left;
+}
+
+/* user-review__swiper */
+.user-review__swiper.inner-content-carousel .jcarousel {
+	padding-top: 30px;
+}
+
+.user-review__swiper.inner-content-carousel .jcarousel li {
+	min-height: 225px;
+	padding: 35px 20px 15px;
+	position: relative;
+	text-align: center;
+}
+
+/* winner ribbon */
+.review-card__winner {
+	position: absolute;
+	top: 0;
+	left: 10px;
+}
+
+.vertical-ribbon {
+	position: relative;
+	width: 14px;
+	height: 35px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.vertical-ribbon:after {
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 0;
+	border-right: 7px solid #41B4C4;
+	border-left: 7px solid #41B4C4;
+	border-bottom: 7px solid transparent;
+}
+
+.bg-color--teal {	
+	background: #41B4C4;
+}
+
+.trophy-teal-10x12:before {
+	content: '';
+	width: 22px;
+	height: 22px;
+	position: absolute;
+	top: 4px;
+	left: -4px;
+	border: 1px solid #4d5057;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-o-border-radius: 50%;
+	border-radius: 50%;
+	background: #fff url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/trophy-10x12.png') no-repeat 50%;
+}
+
+.winner-tag__label {
+	font-size: 10px;
+	color: #82888b;
+	padding-left: 5px;
+	padding-top: 8px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.review-card__author-circle {
+	width: 40px;
+	height: 40px;
+	background: #f5f5f5 url('https://imgd.aeplcdn.com/0x0/bw/static/icons/john-doe-36x50.png') no-repeat 50% 0;
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+	margin: 0 auto;	
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-o-border-radius: 50%;
+	border-radius: 50%;
+}
+
+.review-card__author {
+    font-size: 12px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.user-review__swiper .rating-badge {
+	margin-bottom: 10px;
+}
+
+.review-card__bike {
+	font-size: 15px;
+	font-weight: 600;
+	margin-bottom: 8px;
+}
+
+.review-card__bike.text-truncate {
+	text-align: center;
+}
+
+.review-card__desc {
+	color: #787878;
+	margin-bottom: 8px;
+}
+
+.review-card__date {
+	color: #82888b;
+	font-size: 11px;
+	margin-bottom: 10px;
+}
+
+/* rating badge */
+.rating-badge {
+    min-width: 40px;
+    height: 20px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.rating-badge[data-rate-bg="5"] {
+    background-color: #198D55;
+}
+.rating-badge[data-rate-bg="4"] {
+    background-color: #13B65D;
+}
+.rating-badge[data-rate-bg="3"] {
+    background-color: #EFD700;
+}
+.rating-badge[data-rate-bg="2"] {
+    background-color: #FD971C;
+}
+.rating-badge[data-rate-bg="1"] {
+    background-color: #EF3F30;
+}
+
+.star-white {
+    width: 12px;
+    height: 12px;
+    background-position: -218px -103px;
+    position: relative;
+    top: 1px;
+    margin-right: 4px;
+}
+
+/* contest-participate-banner */
+.contest-participate-banner {
+	min-height: 100px;
+	padding: 5px 20px;
+	background-color: #2e3192;
+}
+
+.contest-banner__icon {
+	width: 124px;
+	height: 90px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 15px;
+}
+
+.contest-banner__left-grid {
+	width: 63%;
+}
+
+.contest-banner__title {
+	font-size: 20px;
+	font-weight: 700;
+	color: #fff;
+	text-transform: uppercase;
+	margin-bottom: 5px;
+}
+
+.contest-banner__subtitle {
+	font-size: 14px;
+	color: #fff;
+}
+
+.btn-180-40 {
+	width: 180px;
+	font-size: 14px;
+	padding: 9px 5px;
+}
+
+.btn-white-arrow {
+	width: 6px;
+    height: 10px;
+    background-position: -222px -14px;
+    margin-left: 5px;
+    position: relative;
+    top: 1px
+}

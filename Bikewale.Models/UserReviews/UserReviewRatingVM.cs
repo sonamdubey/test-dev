@@ -23,5 +23,6 @@ namespace Bikewale.Models
         public string ReturnUrl { get; set; }
         public ushort SourceId { get; set; }
         public int ContestSrc { get; set; }
+        public string UtmzCookieValue { get; set; }
     }
 }

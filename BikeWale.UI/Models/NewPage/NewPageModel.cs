@@ -14,6 +14,8 @@ using Bikewale.Models.CompareBikes;
 using Bikewale.Utility;
 using System;
 using System.Linq;
+using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.BikeData.UpComing;
 
 namespace Bikewale.Models
 {
@@ -21,7 +23,9 @@ namespace Bikewale.Models
     /// Created by: Sangram Nandkhile on 31-Mar-2017
     ///  Model for new page
     /// Modified by : Aditi Srivastava on 5 June 2017
-    /// Summary     : Added BL instance instead of cache for comparison carousel
+    /// Summary     : Added BL instance instead of cache for comparison carousel    
+    /// Modified by : Vivek Singh Tomar on 31st July 2017
+    /// Summary : Added IUpcoming for filling upcoming bike list
     /// </summary>
     public class NewPageModel
     {
@@ -35,7 +39,8 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly ICMSCacheContent _expertReviews = null;
-
+        private readonly IUserReviewsCache _userReviewsCache = null;
+        private readonly IUpcoming _upcoming = null;
         #endregion
 
         #region Page level variables
@@ -48,7 +53,7 @@ namespace Bikewale.Models
 
         #endregion
 
-        public NewPageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
+        public NewPageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -61,6 +66,8 @@ namespace Bikewale.Models
             _videos = videos;
             _articles = articles;
             _expertReviews = expertReviews;
+            _userReviewsCache = userReviewsCache;
+            _upcoming = upcoming;
         }
 
 
@@ -69,6 +76,8 @@ namespace Bikewale.Models
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
+        /// Modified by: Vivek Singh Tomar on 31st July 2017
+        /// Summary    : Replaced logic of fetching upcoming bike list.
         /// </returns>
         public NewPageVM GetData()
         {
@@ -106,7 +115,13 @@ namespace Bikewale.Models
             objVM.NewLaunchedBikes.PQSourceId = (uint)PQSourceEnum.Desktop_New_NewLaunches;
 
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
-            objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
+            var objFiltersUpcoming = new UpcomingBikesListInputEntity()
+            {
+                PageSize = TopCount,
+                PageNo = 1
+            };
+            var sortBy = EnumUpcomingBikesFilter.Default;
+            objVM.UpcomingBikes.UpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
 
             BindCompareBikes(objVM, CompareSource, cityId);
           
@@ -119,6 +134,9 @@ namespace Bikewale.Models
             objVM.ExpertReviews = new RecentExpertReviews(3, _expertReviews).GetData();
 
             SetFlags(objVM);
+
+            objVM.RecentUserReviewsList = _userReviewsCache.GetRecentReviews();
+            objVM.Source = "New_Bikes_Page";
 
             return objVM;
         }

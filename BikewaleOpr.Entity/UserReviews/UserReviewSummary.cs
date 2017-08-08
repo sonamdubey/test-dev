@@ -33,6 +33,7 @@ namespace BikewaleOpr.Entities.UserReviews
         public string CustomerEmail { get; set; }
         [DataMember]
         public bool IsShortListed { get; set; }
-
+        [DataMember]
+        public bool IsWinner { get; set; }
     }
 }

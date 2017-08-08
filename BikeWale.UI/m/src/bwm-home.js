@@ -304,5 +304,4 @@ docReady(function () {
     });
 
     ko.applyBindings(viewModelOnRoad, $("#OnRoadContent")[0]);
-
 });

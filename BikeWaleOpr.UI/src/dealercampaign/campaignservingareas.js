@@ -32,7 +32,8 @@ var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
                     ddlAdditionalAreas.material_select();
                     materialSelect.removeLabel(ddlAdditionalAreas);
                 }
-            });
+            });
+
         }
     });
 

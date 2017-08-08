@@ -133,6 +133,7 @@
   <ItemGroup>
     <Compile Include="AutoMappers\BikeData\BikeDataMapper.cs" />
     <Compile Include="AutoMappers\BikeData\BikeModelsMapper.cs" />
+    <Compile Include="AutoMappers\Comparison\SponsoredComparison.cs" />
     <Compile Include="AutoMappers\Dealer\DealerCampaignMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="AutoMappers\UserReviews\UserReviewsMapper.cs" />
     <Compile Include="Controllers\Banner\BannerController.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />
+    <Compile Include="Controllers\Comparison\SponsoredComparisonController.cs" />
     <Compile Include="Controllers\Content\MakesController.cs" />
     <Compile Include="Controllers\Content\ModelsController.cs" />
     <Compile Include="Controllers\DealerCampaignController.cs" />
@@ -177,6 +179,34 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
+      <Project>{038BC901-9D7F-4A95-8CA6-117DB3AA48CC}</Project>
+      <Name>Bikewale.Cache.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.BAL\Bikewale.Comparison.BAL.csproj">
+      <Project>{5adf0084-bf88-47b9-a414-6e49a6b71383}</Project>
+      <Name>Bikewale.Comparison.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Cache\Bikewale.Comparison.Cache.csproj">
+      <Project>{19eec108-fdf3-40d1-b013-bce93fd90cd2}</Project>
+      <Name>Bikewale.Comparison.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.DAL\Bikewale.Comparison.DAL.csproj">
+      <Project>{3a88ecf7-a561-43ea-9e6f-922d43c43611}</Project>
+      <Name>Bikewale.Comparison.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.DTO\Bikewale.Comparison.DTO.csproj">
+      <Project>{a350717a-fa30-4e65-b2db-ae6fb5daa58e}</Project>
+      <Name>Bikewale.Comparison.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Entities\Bikewale.Comparison.Entities.csproj">
+      <Project>{1cdaf20b-89e5-4f96-b8f4-7835e0291a80}</Project>
+      <Name>Bikewale.Comparison.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Interface\Bikewale.Comparison.Interface.csproj">
+      <Project>{18c44359-a725-4093-9c32-75898d3dd088}</Project>
+      <Name>Bikewale.Comparison.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
@@ -265,6 +295,33 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|x86'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>

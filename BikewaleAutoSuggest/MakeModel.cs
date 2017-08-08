@@ -25,6 +25,7 @@ namespace BikewaleAutoSuggest
         public string ModelMaskingName { get; set; }
         public string Futuristic { get; set; }
         public string IsNew { get; set; }
+        public string UserRatingsCount { get; set; }
     }
 
     public class TempList
@@ -37,5 +38,7 @@ namespace BikewaleAutoSuggest
         public string ModelMaskingName { get; set; }
         public bool New { get; set; }
         public bool Futuristic { get; set; }
+
+        public int UserRatingsCount { get; set; }
     }
 }

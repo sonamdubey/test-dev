@@ -25,7 +25,7 @@ namespace Bikewale.DTO.Dealer.v2
         public string Email { get; set; }
 
         [JsonProperty("isFeatured")]
-        public bool IsFeatured { get { return ((DealerType == 2) || (DealerType == 3) || (DealerType == 4)); } }
+        public bool IsFeatured { get; set; }
 
         [JsonProperty("campaignId")]
         public int CampaignId { get; set; }

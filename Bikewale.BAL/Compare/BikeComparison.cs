@@ -10,14 +10,10 @@ using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
-using System;
 using System.Data;
 using System.Data.Common;
-
-
 namespace Bikewale.BAL.Compare
 {
     /// <summary>
@@ -53,39 +49,6 @@ namespace Bikewale.BAL.Compare
 
             }
         }
-
-
-        /***********************************************************/
-        // Input: Version id of Bikes selected by the user to compare
-        // Output: Version id of featured Bike
-        // Written By: Satish Sharma On 2009-09-29 5:40 PM
-        // Modified By : Sadhana Upadhyay on 9 Sept 2014
-        // Summary : to get sponsored bike by web api
-        /***********************************************************/
-
-        public Int64 GetFeaturedBike(string versions)
-        {
-            Int64 featuredBikeId = -1;
-
-            try
-            {
-
-                //sets the base URI for HTTP requests
-                string _apiUrl = String.Format("/webapi/SponsoredCarVersion/GetSponsoredCarVersion/?vids={0}&categoryId=1&platformId=2", versions);
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    return objClient.GetApiResponseSync<Int64>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, featuredBikeId);
-                }
-            }
-            catch (Exception err)
-            {
-                _logger.Error(err);
-            }
-
-            return featuredBikeId;
-        }
-
 
         public Entities.Compare.BikeCompareEntity DoCompare(string versions)
         {
@@ -1003,7 +966,7 @@ namespace Bikewale.BAL.Compare
                 if (compareBikes != null && compareBikes.Count() > 0)
                 {
                     Random rnd = new Random();
-                    compareBikes = compareBikes.Where(x => x.IsSponsored && x.SponsoredEndDate>=DateTime.Now && x.SponsoredStartDate<=DateTime.Now).OrderBy(x => rnd.Next())
+                    compareBikes = compareBikes.Where(x => x.IsSponsored && x.SponsoredEndDate >= DateTime.Now && x.SponsoredStartDate <= DateTime.Now).OrderBy(x => rnd.Next())
                                    .Union(compareBikes.Where(x => !x.IsSponsored).OrderBy(x => x.DisplayPriority));
                 }
             }

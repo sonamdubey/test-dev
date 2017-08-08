@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.DTO.PriceQuote
+﻿namespace Bikewale.DTO.PriceQuote
 {
     /// <summary>
     /// Created By : Lucky Rathore
@@ -15,6 +9,8 @@ namespace Bikewale.DTO.PriceQuote
     {
         Standard = 1,
         Deluxe = 2,
-        Premium = 3
+        Premium = 3,
+        Pricing = 4,
+        CPS = 5
     }
 }

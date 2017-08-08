@@ -239,7 +239,9 @@ var bwAutoComplete = function (options) {
             var ulItem = $("<li>")
                           .data("ui-autocomplete-item", item)
                           .append('<span class="bwmsprite ui-search-icon"></span><a OptionName=' + item.label.replace(/\s/g, '').toLowerCase() + '>' + __highlight(item.label, reqTerm) + '</a>');
-
+            if (options.source == '5') {
+                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.userRatingsCount + ' Ratings)</span>')
+            }
             if (options.source == '1') {
                 if (item.payload.modelId > 0) {
                     if (item.payload.futuristic == 'True') {
@@ -1082,10 +1084,12 @@ docReady(function () {
             CloseCityPopUp();
             showGlobalCity(ui.item.label);
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
-            if (city.cityId) {
-                location.reload();
-            }
             dataLayer.push({ 'GlobalCity': cityName });
+            ga('set', 'dimension3', cityName);
+            if (city.cityId) {
+                //location.reload();
+            }
+            
         },
         open: function (result) {
             objCity.result = result;
