@@ -232,7 +232,7 @@ namespace BikeWaleOpr.Content
                 BwMemCache.ClearPriceQuoteCity(Convert.ToUInt32(model));
             }
             //To clear new launched bikes cache
-            BwMemCache.ClearNewLaunchedBikes();
+            MemCachedUtil.Remove("BW_NewLaunchedBikes");
         }
 
         /// <summary>
