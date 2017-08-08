@@ -230,6 +230,7 @@ namespace BikeWaleOpr.Content
                 }
                 //To clear price quote for city
                 BwMemCache.ClearPriceQuoteCity(Convert.ToUInt32(model));
+                
             }
         }
 

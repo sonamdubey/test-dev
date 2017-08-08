@@ -190,7 +190,7 @@ namespace BikeWaleOpr.Content
         {
             try
             {
-                EnumBikeType bikeType = (EnumBikeType)Enum.Parse(typeof(EnumBikeType), "All");
+                EnumBikeType bikeType = EnumBikeType.All;
                 cmbMake.SelectedValue = Convert.ToString(ddlMakeId);
                 var models = _bikeMakes.GetModelsByMake(bikeType, ddlMakeId);
                 if (models != null && models.Count() > 0)

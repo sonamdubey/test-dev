@@ -1218,11 +1218,11 @@ namespace BikewaleOpr.DAL
                                             bookingAmount.BikeMake = bikeMake;
                                             bookingAmount.BikeModel = bikeModel;
                                             bookingAmount.BikeVersion = bikeVersion;
+                                            bookingAmount.DealerId = dealerId;
                                             return bookingAmount;
                                         }, splitOn: "MakeId, ModelId, VersionId, LastUpdatedBy", param: param, commandType: CommandType.StoredProcedure
                                     );
                 }
-                return objBookingAmt;
             }
             catch (Exception ex)
             {

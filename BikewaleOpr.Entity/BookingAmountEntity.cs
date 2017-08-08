@@ -18,5 +18,6 @@ namespace BikewaleOpr.Entities
         public string LastUpdatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }
         public NewBikeDealers NewBikeDealers { get; set; }
+        public uint DealerId { get; set; }
     }
 }

@@ -103,14 +103,14 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="makeId"></param>
         /// <returns></returns>
         [HttpGet, Route("api/makes/{makeid}/models/{requesttype}")]
-        public IHttpActionResult GetModels(string requestType, uint makeId)
+        public IHttpActionResult GetModels(int requestType, uint makeId)
         {
             IEnumerable<ModelBase> objBikeModelBase = null;
             if(makeId > 0)
             {
                 try
                 {
-                    EnumBikeType bikeType = (EnumBikeType)Enum.Parse(typeof(EnumBikeType), requestType);
+                    EnumBikeType bikeType = (EnumBikeType)requestType;
                     IEnumerable<BikeModelEntityBase> objBikeModelEntityBase = _bikeMakes.GetModelsByMake(bikeType, makeId);
                     objBikeModelBase = BikeModelsMapper.Convert(objBikeModelEntityBase);
                 }

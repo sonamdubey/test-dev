@@ -1,9 +1,9 @@
 ﻿function bindManageBookingAmount() {
     var self = this;
-    self.makeMsg = ko.observable();
-    self.modelMsg = ko.observable();
-    self.versionMsg = ko.observable();
-    self.bookingMsg = ko.observable();
+    self.makeMsg = ko.observable("");
+    self.modelMsg = ko.observable("");
+    self.versionMsg = ko.observable("");
+    self.bookingMsg = ko.observable("");
     self.selectedMakeId = ko.observable();
     self.selectedModelId = ko.observable();
     self.selectedVersionId = ko.observable();
@@ -15,7 +15,7 @@
         if (makeId && makeId > 0) {
             $.ajax({
                 type: "GET",
-                url: "/api/makes/" + makeId + "/models/New/",
+                url: "/api/makes/" + makeId + "/models/2/",
                 contentType: "application/json",
                 dataType: 'json',
                 async: false,
@@ -39,7 +39,7 @@
         if (modelId && modelId > 0) {
             $.ajax({
                 type: 'GET',
-                url: '/api/models/' + modelId + '/versions/New/',
+                url: '/api/models/' + modelId + '/versions/2/',
                 contentType: 'application/json',
                 async: false,
                 success: function (response) {
@@ -59,22 +59,39 @@
     };
     self.validateBookingSubmit = function () {
         var isValid = true;
-        if (self.selectedMakeId() == null && self.selectedMakeId() == "") {
+        self.makeMsg("");
+        self.modelMsg("");
+        self.versionMsg("");
+        self.bookingMsg("");
+        if (self.selectedMakeId() == null || self.selectedMakeId() == "") {
             self.makeMsg("please select a make");
             isValid = false;
         }
 
-        if (self.selectedModelId() == null && self.selectedModelId() == "") {
+        if (self.selectedModelId() == null || self.selectedModelId() == "") {
             self.modelMsg("please select a model");
             isValid = false;
         }
 
-        if (self.selectedVersionId() == null && self.selectedVersionId() == "") {
+        if (self.selectedVersionId() == null || self.selectedVersionId() == "") {
             self.versionMsg("please select a version");
             isValid = false;
         }
 
-        //if()
+        if (self.bookingAmount() == null || self.bookingAmount() < 0) {
+            self.bookingMsg("please input valid amount");
+            isValid = false;
+        }
+        return isValid;
+    };
+
+    self.editBooking = function (e) {
+        element = $(e.target).closest("tr");
+        self.selectedMakeId($(element[0]).data("makeid"));
+        self.selectedModelId($(element[0]).data("modelid"));
+         $('select').material_select();
+        self.selectedVersionId($(element[0]).data("versionid"));
+        self.bookingAmount($(element[0]).data("amount"));
     };
 }
 
@@ -84,5 +101,5 @@ $(document).ready(function () {
 });
 
 function showToast(msg) {
-    $('.toast').text(msg).stop().fadeIn(400).delay(3000).fadeOut(400);
+    Materialize.toast(msg, 4000);
 }

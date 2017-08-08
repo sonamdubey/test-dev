@@ -24,7 +24,8 @@
                     </tr>
                     @foreach (var obj in Model.BookingAmountList)
                     {
-                        <tr class="@(obj.BookingAmountBase.IsActive? "teal lighten-4" : "red lighten-4")" data-id="@obj.BookingAmountBase.Id">
+                        <tr class="@(obj.BookingAmountBase.IsActive? "teal lighten-4" : "red lighten-4")" 
+                            data-id="@obj.BookingAmountBase.Id" data-makeid="@obj.BikeMake.MakeId" data-modelid="@obj.BikeModel.ModelId" data-versionid="@obj.BikeVersion.VersionId" data-amount="@obj.BookingAmountBase.Amount" data-dealerid="@obj.DealerId">
                             <td>@obj.BookingAmountBase.Id</td>
                             <td>@obj.BikeMake.MakeName</td>
                             <td>@obj.BikeModel.ModelName</td>
@@ -33,7 +34,7 @@
                             <td>@obj.UpdatedOn.ToString("dd/MM/yyyy")</td>
                             <td>@obj.BookingAmountBase.Amount</td>
                             <td>@obj.BookingAmountBase.IsActive.ToString()</td>
-                            <td><a href="javascript:void(0)" rel="nofollow"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                            <td><a href="javascript:void(0)" rel="nofollow" data-bind="event: {click: function(d, e) { editBooking(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
                             <td><a href="javascript:void(0)" rel="nofollow"><i class="material-icons icon-red">delete</i></a></td>
                         </tr>
                     }
@@ -54,7 +55,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="input-field col m12">
-                                        <select id = "makeName" name="MakeName" data-bind="value: selectedMakeId, event: {change: getModels}">
+                                        <select id = "makeName" name="MakeName" data-bind="value: selectedMakeId, event: {change: getModels}, css:makeMsg()!=''?'invalid':'' ">
                                             <option value="" disabled selected>Select Make</option>
                                             @if (Model.BikeMakeList != null && Model.BikeMakeList.Count() > 0)
                                             {
@@ -64,29 +65,29 @@
                                                 }
                                             }
                                         </select>
-                                        <label for="makeName" data-error data-bind="attr:{'data-error': makeMsg}">Make</label>
+                                        <label for="makeName" data-error="" data-bind="attr:{'data-error': makeMsg}, css:makeMsg()!=''?'active':''">Make</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col m12">
-                                        <select id="modelName" name="ModelName" data-bind="options: models, optionsText: 'modelName', optionsValue: 'modelId', value: selectedModelId, optionsCaption: 'Select Model', event: {change: getVersions}">
+                                        <select id="modelName" name="ModelName" data-bind="options: models, optionsText: 'modelName', optionsValue: 'modelId', value: selectedModelId, optionsCaption: 'Select Model', event: {change: getVersions()},css:modelMsg()!=''?'invalid':'' ">
                                             <option value="" disabled selected>Select Model</option>
                                         </select>
-                                        <label for="modelName" data-error data-bind="attr:{'data-error': modelMsg}">Model</label>
+                                        <label for="modelName" data-error="" data-bind="attr:{'data-error': modelMsg}, ,css:modelMsg()!=''?'active':''">Model</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col m12">
-                                        <select id="versionName" name="versionName" data-bind="options: versions, optionsText: 'versionName', optionsValue: 'versionId', value: selectedVersionId, optionsCaption: 'Select Version'">
+                                        <select id="versionName" name="versionName" data-bind="options: versions, optionsText: 'versionName', optionsValue: 'versionId', value: selectedVersionId, optionsCaption: 'Select Version', css:versionMsg()!=''?'invalid':'' ">
                                             <option value="" disabled selected>Select Version</option>
                                         </select>
-                                        <label for="versionName" data-error data-bind="attr:{'data-error': modelMsg}">Version</label>
+                                        <label for="versionName" data-error="" data-bind="attr:{'data-error': versionMsg}, css:versionMsg()!=''?'active':''">Version</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col m12">
-                                        <input id="bookingAmount" name="BookingAmount" type="number" class="validate" data-bind="value: bookingAmount"/>
-                                        <label for="BookingAmount" data-error data-bind="attr:{'data-error': bookingMsg}">Enter Booking Amount</label>
+                                        <input id="bookingAmount" name="BookingAmount" type="number" class="validate" data-bind="value: bookingAmount, css:bookingMsg()!=''?'invalid':'' "/>
+                                        <label for="BookingAmount" data-error="" data-bind="attr:{'data-error': bookingMsg, css:bookingMsg()!=''?'active':''">Enter Booking Amount</label>
                                     </div>
                                 </div>
                                 <div class="row">

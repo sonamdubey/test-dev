@@ -74,14 +74,14 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="modelId"></param>
         /// <returns></returns>
         [HttpGet, Route("api/models/{modelid}/versions/{requesttype}")]
-        public IHttpActionResult GetVersions(string requestType,uint modelId)
+        public IHttpActionResult GetVersions(int requestType,uint modelId)
         {
             IEnumerable<VersionBase> objBikeVersionBaseList = null;
             if(modelId > 0)
             {
                 try
                 {
-                    EnumBikeType bikeType = (EnumBikeType)Enum.Parse(typeof(EnumBikeType), requestType);
+                    EnumBikeType bikeType = (EnumBikeType)requestType;
                     IEnumerable<BikeVersionEntityBase> objBikeVersionEntityBaseList = _modelsRepo.GetVersionsByModel(bikeType, modelId);
                     objBikeVersionBaseList = BikeVersionsMapper.Convert(objBikeVersionEntityBaseList);
                 }
