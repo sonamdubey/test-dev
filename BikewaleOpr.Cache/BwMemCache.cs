@@ -191,5 +191,21 @@ namespace BikewaleOpr.Cache
                 ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearVersionByType");
             }
         }
+
+        /// <summary>
+        /// Created by: Vivek Singh Tomar
+        /// Summary: Clear new launched bikes cache
+        /// </summary>
+        public static void ClearNewLaunchedBikes()
+        {
+            try
+            {
+                MemCachedUtil.Remove("BW_NewLaunchedBikes");
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearNewLaunchedBikes");
+            }
+        }
     }
 }
