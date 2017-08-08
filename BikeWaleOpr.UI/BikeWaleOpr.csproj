@@ -1930,7 +1930,6 @@
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />
     <Content Include="src\DealerPricing\dealerpricingindex.js" />
-    <Content Include="src\DealerPricing\dealerpricingsheet.js" />
     <Content Include="src\framework.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
