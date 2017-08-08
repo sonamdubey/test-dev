@@ -333,9 +333,9 @@ var getHost = function () {
 
 function SetCookie(cookieName, cookieValue) {
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /Trident\//.test(navigator.userAgent))
-        document.cookie = cookieName + "=" + cookieValue + '; path =/';
+    { document.cookie = cookieName + "=" + cookieValue + '; path =/'; }
     else
-        document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
+    { document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/'; }
 }
 
 function SetCookieInDays(cookieName, cookieValue, nDays) {
@@ -344,9 +344,9 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
     expire.setTime(today.getTime() + 3600000 * 24 * nDays);
     cookieValue = cookieValue.replace(/\s+/g, '-');
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /Trident\//.test(navigator.userAgent))
-        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
+    { document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/'; }
     else
-        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
+    { document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/'; }
 
     bwcache.remove("userchangedlocation", true);
 }

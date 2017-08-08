@@ -1,10 +1,10 @@
 ﻿using Consumer;
+using ElasticClientManager;
 using Nest;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using ElasticClientManager;
 using System.Reflection;
 
 
@@ -20,8 +20,8 @@ namespace BikewaleAutoSuggest
             Logs.WriteInfoLog("All Make Model List : " + objList.Count());
 
             IEnumerable<TempList> objPriceQuoteList = (from temp in objList
-                                    where temp.ModelId > 0 && temp.New && !temp.Futuristic
-                                    select temp);
+                                                       where temp.ModelId > 0 && temp.New && !temp.Futuristic
+                                                       select temp);
             Logs.WriteInfoLog("Price quote make model List count : " + objPriceQuoteList.Count());
             IEnumerable<TempList> ObjUserReviewList = objList.Where(x => x.UserRatingsCount > 0);
 
@@ -39,7 +39,7 @@ namespace BikewaleAutoSuggest
             CreateIndex(PriceSuggestionList, ConfigurationManager.AppSettings["PQindexName"]);
             Logs.WriteInfoLog("Price Quote Make Model Index Created successfully");
 
-            CreateIndex(UserReviewList,Bikewale.Utility.BWConfiguration.Instance.UserReviewIndexName);
+            CreateIndex(UserReviewList, Bikewale.Utility.BWConfiguration.Instance.UserReviewIndexName);
             Logs.WriteInfoLog("User Review Make Model Index Created successfully");
 
         }
@@ -61,9 +61,6 @@ namespace BikewaleAutoSuggest
                                 .Completion(c => c
                                     .Name(pN => pN.mm_suggest)
                                     .Payloads()
-                                     .Context(cont => cont
-                                    .Category("types", cate => cate
-                                        .Default("makemodelall")))
                                     .IndexAnalyzer("standard")
                                     .SearchAnalyzer("standard")
                                     .PreserveSeparators(false)))));
@@ -75,7 +72,7 @@ namespace BikewaleAutoSuggest
 
                 ElasticClientOperations.AddDocument<BikeList>(suggestionList.ToList(), indexName, ConfigurationManager.AppSettings["typeName"], obj => obj.Id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name, ex);
                 Console.WriteLine(ex.Message);
