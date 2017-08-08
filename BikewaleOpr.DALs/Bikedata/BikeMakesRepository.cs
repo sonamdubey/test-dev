@@ -9,6 +9,7 @@ using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
@@ -119,6 +120,19 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
+
+                    if (makeId > 0)
+                    {
+                        // Create name value collection
+                        NameValueCollection nvc = new NameValueCollection();
+                        nvc.Add("v_MakeId", makeId.ToString());
+                        nvc.Add("v_MakeName", make.MakeName);
+                        nvc.Add("v_MaskingName", make.MaskingName);
+                        nvc.Add("v_Futuristic", "0");
+                        nvc.Add("v_Used", "1");
+                        nvc.Add("v_New", "1");
+                        SyncBWData.PushToQueue("BW_AddBikeMakes", DataBaseName.CW, nvc);
+                    }                   
                 }
             }
             catch (Exception ex)
@@ -154,6 +168,19 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
+
+                    // Push the data to carwale DB
+                    // Create name value collection
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("v_MakeId", make.MakeId.ToString());
+                    nvc.Add("v_MakeName", make.MakeName);
+                    nvc.Add("v_IsNew", Convert.ToString(make.New ? 1:0));
+                    nvc.Add("v_IsUsed", Convert.ToString(make.Used ? 1 : 0));
+                    nvc.Add("v_IsFuturistic", Convert.ToString(make.Used ? 1 : 0));
+                    nvc.Add("v_MaskingName", make.MaskingName);
+                    nvc.Add("v_IsDeleted", null);
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
+
                 }
             }
             catch (Exception ex)
@@ -185,6 +212,16 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
+
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("v_MakeId", makeId.ToString());
+                    nvc.Add("v_MaskingName", null);
+                    nvc.Add("v_MakeName", null);
+                    nvc.Add("v_IsNew", null);
+                    nvc.Add("v_IsUsed", null);
+                    nvc.Add("v_IsFuturistic", null);
+                    nvc.Add("v_IsDeleted", "1");
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
                 }
             }
             catch (Exception ex)
