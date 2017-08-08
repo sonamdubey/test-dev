@@ -16,16 +16,18 @@
             </thead>
             <tbody>
                 <tr>
-                    <td align="left" width="72%" class="font12 text-light-grey padding-bottom10 divider-bottom">Versions</td>
-                    <td align="left" width="28%" class="font12 text-light-grey padding-bottom10 divider-bottom">Price</td>
+                    <td align="left" width="35%" class="font12 text-light-grey padding-bottom10 divider-bottom">Versions</td>
+                    <td align="left" width="20%" class="font12 text-light-grey padding-bottom10 divider-bottom">Price</td>
+                    <td align="left" width="45%" class="font12 text-light-grey padding-bottom10 divider-bottom">Specs</td>
                 </tr>
                 @foreach (var version in Model.ModelPageEntity.ModelVersions)
                 {                                        
                     <tr>
-                        <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.ModelName, version.VersionName)</td>
+                        <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@version.VersionName</td>
                         <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">
                             @Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
                         </td>
+                        <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
                     </tr>
                 }
                 <tr>
