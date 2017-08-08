@@ -219,52 +219,55 @@ var sponsoredComparisonManagement = function () {
         var ele = $(e.currentTarget), status = ele.attr("data-status");
         if (status && status != "0" && status > 0) {
 
-            var curEle = ele.closest("tr"), start = new Date(curEle.find("td[data-cell=startdate]").text().trim()), end = new Date(curEle.find("td[data-cell=enddate]").text().trim());
-            var now = new Date().getTime();
-            if (now >= start.getTime() && now <= end.getTime()) {
+            if (status == 2) {
+                var curEle = ele.closest("tr"), start = new Date(curEle.find("td[data-cell=startdate]").text().trim()), end = new Date(curEle.find("td[data-cell=enddate]").text().trim());
+                var now = new Date().getTime();
 
-                $.post("/api/compare/sponsored/" + self.currentId() + "/updatestatus/" + status + "/", function () {
-                    if (self.currentId() > 0) {
-                        pgContainer.find("tr[data-id=" + self.currentId() + "]").fadeOut();
-                    }
-                    Materialize.toast("Sponsored comparison status changed", 3000);
-                })
-           .fail(function () {
-               Materialize.toast("Sponsored comparison staus update failed", 3000);
-           })
-           .always(function () {
-               self.currentId(0);
-               $(".material-tooltip").hide();
-               if (status == 2) {
-
-                   //for abort
-                   var abEle = ele.clone();
-                   abEle.empty();
-                   abEle.append("<i class='material-icons icon-red'>cancel</i>");
-                   abEle.attr("data-status", 5)
-                   abEle.appendTo(ele.parent());
-                   ko.applyBindings(self, abEle[0]);
-
-                   ele.empty();
-                   ele.append("<i class='material-icons icon-blue'>pause_circle_filled</i>");
-                   ele.attr("data-status", 3);
-                   ele.closest("td").find("span").text("Active");
-               }
-               else if (status == 5) {
-                   ele.closest("td").text("Aborted");
-               }
-               else if (status == 3) {
-                   ele.empty();
-                   ele.attr("data-status", 2);
-                   ele.append("<i class='material-icons icon-green'>play_circle_filled</i>");
-                   ele.next().remove();
-                   ele.closest("td").find("span").text("Paused");
-               }
-           });
+                if (!(now >= start.getTime() && now <= end.getTime())) {
+                    Materialize.toast("Comparison expired.Please edit to restart", 3000);
+                    return false;
+                }
             }
-            else {
-                Materialize.toast("Comparison expired.Please edit to restart",3000);
-            }
+
+            $.post("/api/compare/sponsored/" + self.currentId() + "/updatestatus/" + status + "/", function () {
+                if (self.currentId() > 0) {
+                    pgContainer.find("tr[data-id=" + self.currentId() + "]").fadeOut();
+                }
+                Materialize.toast("Sponsored comparison status changed", 3000);
+            })
+       .fail(function () {
+           Materialize.toast("Sponsored comparison staus update failed", 3000);
+       })
+       .always(function () {
+           self.currentId(0);
+           $(".material-tooltip").hide();
+           if (status == 2) {
+
+               //for abort
+               var abEle = ele.clone();
+               abEle.empty();
+               abEle.append("<i class='material-icons icon-red'>cancel</i>");
+               abEle.attr("data-status", 5)
+               abEle.appendTo(ele.parent());
+               ko.applyBindings(self, abEle[0]);
+
+               ele.empty();
+               ele.append("<i class='material-icons icon-blue'>pause_circle_filled</i>");
+               ele.attr("data-status", 3);
+               ele.closest("td").find("span").text("Active");
+           }
+           else if (status == 5) {
+               ele.closest("td").text("Aborted");
+           }
+           else if (status == 3) {
+               ele.empty();
+               ele.attr("data-status", 2);
+               ele.append("<i class='material-icons icon-green'>play_circle_filled</i>");
+               ele.next().remove();
+               ele.closest("td").find("span").text("Paused");
+           }
+       });
+
         }
         return false;
     };
