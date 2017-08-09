@@ -216,7 +216,7 @@ docReady(function () {
         self.reviewsAvailable = ko.observable(true);
         self.categoryName = ko.observable('');
         self.IsLoading = ko.observable(false);
-        self.Filters = ko.observable({ pn: 1, ps: 8, model: modelid, so: 2, skipreviewid: reviewId });
+        self.Filters = ko.observable({ pn: 1, ps: 8, model: modelid, so: 1, skipreviewid: reviewId });
         self.QueryString = ko.computed(function () {
             var qs = "";
             $.each(self.Filters(), function (i, val) {
