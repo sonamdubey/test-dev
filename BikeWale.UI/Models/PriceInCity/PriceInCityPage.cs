@@ -16,7 +16,6 @@ using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 namespace Bikewale.Models
@@ -228,7 +227,6 @@ namespace Bikewale.Models
         public PriceInCityPageVM GetData()
         {
             PriceInCityPageVM objVM = null;
-            IEnumerable<BikeVersionMinSpecs> minSpecs = null;
             try
             {
                 if (Status == StatusCodes.ContentFound)
@@ -246,10 +244,24 @@ namespace Bikewale.Models
                             objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
                         }
                         versionCount = (uint)objVM.BikeVersionPrices.Count();
-                        minSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
-                        var objMin = minSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
-                        if (objMin != null)
-                            objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
+                        objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
+                        if (objVM.VersionSpecs != null)
+                        {
+                            var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
+                            if (objMin != null)
+                                objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
+
+                            foreach (var version in objVM.VersionSpecs)
+                            {
+                                var versionPrice = objVM.BikeVersionPrices.Where(m => m.VersionId.Equals(version.VersionId)).FirstOrDefault();
+                                if (versionPrice != null)
+                                {
+                                    version.Price = versionPrice.OnRoadPrice;
+                                }
+                            }
+                        }
+
+
 
                         BindBikeBasicDetails(objVM);
                         BindServiceCenters(objVM);
