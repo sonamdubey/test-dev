@@ -747,7 +747,7 @@ a.chosen-single:hover {
 .review-card__author-circle {
 	width: 40px;
 	height: 40px;
-	background: #f5f5f5 url('https://imgd.aeplcdn.com/0x0/bw/static/icons/john-doe-36x50.png') no-repeat 50% 0;
+	background: #f5f5f5 url('https://imgd.aeplcdn.com/0x0/bw/static/icons/john-doe-30x36.png') no-repeat 50% bottom;
     position: absolute;
     top: -20px;
     left: 0;
@@ -843,7 +843,7 @@ a.chosen-single:hover {
 	display: table;
 	min-height: 62px;
 	padding: 10px 15px;
-	background-color: #2e3192;
+	background: #2e3192 url('https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/m/city-bg-360x59.png') repeat-x center bottom;
 }
 
 .contest-banner__wrapper {
@@ -859,6 +859,17 @@ a.chosen-single:hover {
 
 .contest-banner__right-grid {
 	width: 66%;
+}
+
+.contest-banner__right-grid:hover {
+	text-decoration: none;
+}
+
+.yellow-arrow-7x10 {
+	width: 7px;
+	height: 10px;
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/ffe70c/arrow-right-7x10.png) no-repeat;
+	display: inline-block;
 }
 
 .contest-banner__title-13,

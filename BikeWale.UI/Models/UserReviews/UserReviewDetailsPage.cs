@@ -174,6 +174,7 @@ namespace Bikewale.Models.UserReviews
             try
             {
                 InputFilters filters = null;
+                // Set default category to be loaded here
                 FilterBy activeReviewCateory = FilterBy.MostHelpful;
                 if (!IsDesktop)
                 {

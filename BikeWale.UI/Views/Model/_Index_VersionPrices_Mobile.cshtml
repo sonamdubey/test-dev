@@ -16,24 +16,25 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td width="65%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Version</td>
+                        <td width="30%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Version</td>
                         <td width="35%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Price</td>
+                        <td width="35%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Specs</td>
                     </tr>
                     @foreach (var version in Model.ModelPageEntity.ModelVersions)
                     {
                         <tr>
-                            <td width="65%" class="padding-bottom10 padding-top10 padding-right10 font14 divider-bottom" valign="top">@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.ModelName, version.VersionName)</td>
-                            <td width="35%" class="padding-bottom10 padding-top10 divider-bottom" valign="top">
-                                @Html.Raw("<span class='font16' >&#x20B9;</span>")
-                                <span id="priced_@version.VersionId" class="font16 text-bold">
+                            <td width="30%" class="padding-bottom10 padding-top10 padding-right10 font14 divider-bottom" valign="top">@version.VersionName</td>
+                            <td width="35%" class="padding-bottom10 padding-top10 divider-bottom padding-right10" valign="top">
+                                @Html.Raw("<span class='font14' >&#x20B9;</span>")
+                                <span id="priced_@version.VersionId" class="font14 text-bold">
                                     <span>@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
                                 </span>
                             </td>
+                            <td width="35%" class="padding-bottom10 padding-top10 padding-right10 font14 divider-bottom" valign="top">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ?  "Alloy" :"Spoke")</td>
                         </tr>
                     }
                     <tr>
-                        <td colspan="2" class="padding-top5 font12 text-x-light">Above mentioned prices are @(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</td>
-
+                        <td colspan="3" class="padding-top5 font12 text-x-light">Above mentioned prices are @(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</td>
                     </tr>
                 </tbody>
             </table>

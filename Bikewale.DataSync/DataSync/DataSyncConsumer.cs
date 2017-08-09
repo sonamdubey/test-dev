@@ -104,14 +104,14 @@ namespace DataSync
                     IBasicProperties props = deliverEventArgs.BasicProperties;
 
                     NameValueCollection nvc = this.ByteArrayToObject(deliverEventArgs.Body);
-                    string DBName = nvc["DBNAME"], SPName = nvc["SPNAME"], iteration = nvc["iteration"];
+                    string dBName = nvc["DBNAME"], spName = nvc["SPNAME"], iteration = nvc["iteration"];
 
-                    if (!string.IsNullOrEmpty(DBName) && !string.IsNullOrEmpty(SPName))
+                    if (!string.IsNullOrEmpty(dBName) && !string.IsNullOrEmpty(spName))
                     {
                         if (iteration == _retryCount)
                         {
                             _model.BasicReject(deliverEventArgs.DeliveryTag, false);
-                            Logs.WriteInfoLog("Message Rejected because iteration count is" + nvc["iteration"]);
+                            Logs.WriteInfoLog("Message Rejected because iteration count is" + iteration);
                         }
                         else if (nvc.Count >= Convert.ToInt32(_retryCount))
                         {
@@ -126,18 +126,18 @@ namespace DataSync
 
                             Logs.WriteInfoLog(stringBuilder.ToString());
 
-                            using (IDbConnection dbConnection1 = (IDbConnection)this.GetDBConnection(nvc["DBNAME"]))
+                            using (IDbConnection dbConnection1 = (IDbConnection)this.GetDBConnection(dBName))
                             {
                                 try
                                 {
-                                    SqlMapper.Execute(dbConnection1, nvc["SPNAME"], (object)dynamicParameters1, (IDbTransaction)null, new int?(), new CommandType?(CommandType.StoredProcedure));
+                                    SqlMapper.Execute(dbConnection1, spName, (object)dynamicParameters1, (IDbTransaction)null, new int?(), new CommandType?(CommandType.StoredProcedure));
 
                                     _model.BasicAck(deliverEventArgs.DeliveryTag, false);
-                                    Logs.WriteInfoLog("RabbitMQExecution : The job with Database -> " + nvc["DBNAME"] + " :  Stored Procedure " + nvc["SPNAME"] + " executed successfully");
+                                    Logs.WriteInfoLog(string.Format("RabbitMQExecution : The job with Database -> {0} :  Stored Procedure {1} executed successfully", dBName,spName));
                                 }
                                 catch (Exception ex)
                                 {
-                                    Logs.WriteInfoLog("RabbitMQExecution : The job with Database -> " + nvc["DBNAME"] + " ;  Stored Procedure -> " + nvc["SPNAME"] + " failed to execute");
+                                    Logs.WriteInfoLog(string.Format("RabbitMQExecution : The job with Database -> {0} ;  Stored Procedure -> {1} failed to execute", dBName, spName));
                                     this.DeadLetterPublish(nvc, _queueName);
 
                                     _model.BasicReject(deliverEventArgs.DeliveryTag, false);
@@ -156,7 +156,7 @@ namespace DataSync
                     {
                         _model.BasicReject(deliverEventArgs.DeliveryTag, false);
                         Logs.WriteErrorLog("Incorrect input paramters");
-                        SendMail.HandleException(new Exception("Incorrect Input paramters provided"), String.Format("Message rejected fro paramters - DbName : {0}, Storedprocedure : {1}",DBName,SPName));
+                        SendMail.HandleException(new Exception("Incorrect Input paramters provided"), String.Format("Message rejected fro paramters - DbName : {0}, Storedprocedure : {1}",dBName,spName));
                     }
                 }
                 catch (Exception ex)
