@@ -24,6 +24,9 @@ using BikewaleOpr.Interface.UserReviews;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
+using BikewaleOpr.Interface.ServiceCenter;
+using BikewaleOpr.BAL.ServiceCenter;
+using BikewaleOpr.DALs.ServiceCenter;
 
 namespace BikewaleOpr
 {
@@ -61,8 +64,9 @@ namespace BikewaleOpr
                 .RegisterType<IBikeMakes, BikeMakes>()
                 .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
                 .RegisterType<IBannerRepository, BannerRepository>()
-                .RegisterType<IContractCampaign, ContractCampaign>();
-
+                .RegisterType<IContractCampaign, ContractCampaign>()
+                .RegisterType<IServiceCenter, ServiceCenter>()
+                .RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
 
 
 

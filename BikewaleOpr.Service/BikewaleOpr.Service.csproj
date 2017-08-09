@@ -139,6 +139,7 @@
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="AutoMappers\ManufacturerCampaign\SearchMapper.cs" />
     <Compile Include="AutoMappers\Location\CityMapper.cs" />
+    <Compile Include="AutoMappers\ServiceCenter\ServiceCenterMapper.cs" />
     <Compile Include="AutoMappers\UserReviews\UserReviewsMapper.cs" />
     <Compile Include="Controllers\Banner\BannerController.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Controllers\DealersController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ManufacturerCampaign\ManufacturerCampaignController.cs" />
+    <Compile Include="Controllers\ServiceCenter\ServiceCenterController.cs" />
     <Compile Include="Controllers\Used\UsedBikesController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsController.cs" />
     <Compile Include="Global.asax.cs">
