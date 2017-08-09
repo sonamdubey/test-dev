@@ -1,20 +1,38 @@
-﻿//Created By : Ashutosh Sharma
-//Discription : JS file for price monitoring page.
-$(document).ready(function () {
-    ko.applyBindings(new bikeModelsViewModel(), $("#makeModelContainer")[0]);
-    $("#btnShow").prop('disabled', true);
+﻿var vmPriceMonitoringIndex = new bikeModelsViewModel();
 
-    $("#ddlMakes").change();
-    $("#ddlModels").val($("#ddlModels").attr("data-content"));
-    $("#ddlModels").material_select();
+$(document).ready(function () {
+    ko.applyBindings(vmPriceMonitoringIndex, $("#makeModelContainer")[0]);
+   
+    init();
 });
+
+function init() {
+    try {
+        var ddlStates = $("#ddlStates");
+        var ddlMakes = $("#ddlMakes");
+        var ddlModels = $("#ddlModels");
+
+        ddlStates.material_select();
+        ddlMakes.material_select();
+
+        vmPriceMonitoringIndex.selectedMake(ddlMakes.data('makeid'));
+        vmPriceMonitoringIndex.selectMake();
+        vmPriceMonitoringIndex.selectedModel(ddlModels.data('modelid'));
+
+        ddlModels.material_select();
+    } catch (e) {
+
+    }
+}
+
 function bikeModelsViewModel() {
     var self = this;
     self.modelList = ko.observableArray(null);
-    self.selectedMake = ko.observable();
+    self.selectedState = ko.observable($("#ddlStates").data("stateid"));
+    self.selectedMake = ko.observable($("#ddlMakes").data('makeid'));
     self.selectedModel = ko.observable();
+    
     self.selectMake = function () {
-
         self.selectedMake($('#ddlMakes option:selected').val());
         if (self.selectedMake() != 'undefined' && self.selectedMake() > 0) {
             $.ajax({
@@ -23,7 +41,7 @@ function bikeModelsViewModel() {
                 datatype: "json",
                 async: false,
                 success: function (response) {
-                    response.unshift({ "ModelId": "0", "ModelName": "Any" });
+                    response.unshift({ "Id": "0", "Name": "All" });
                     var models = ko.toJS(response);
                     if (models) {
                         self.modelList(models);
@@ -37,7 +55,10 @@ function bikeModelsViewModel() {
                     Materialize.toast("Connection Problem/ Internal Server Error", 4000);
                 }
             });
-            $("#btnShow").prop('disabled', false);
+            //if ($("#ddlStates").val() != 0) {
+            //    $("#btnShow").prop('disabled', false);
+            //}
+            
         }
         else {
             self.modelList([]);
@@ -46,5 +67,9 @@ function bikeModelsViewModel() {
         }
     };
 
-
+    self.selectState = function () {
+        //if ($("#ddlMakes").val() != 0) {
+        //    $("#btnShow").prop('disabled', false);
+        //}
+    }
 }

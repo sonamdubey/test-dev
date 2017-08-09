@@ -32,7 +32,7 @@ namespace BikewaleOpr.Controllers
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
-        public ActionResult Index(uint? makeId, uint? modelId)
+        public ActionResult Index(uint? makeId, uint? modelId, uint? stateId)
         {
             PriceMonitoringModel priceMonitoringModel = new PriceMonitoringModel(_makesRepo, _pricesRepo);
             PriceMonitoringVM priceMonitoringVM = new PriceMonitoringVM();
@@ -40,13 +40,14 @@ namespace BikewaleOpr.Controllers
             try
             {
                 priceMonitoringVM.BikeMakes = priceMonitoringModel.GetMakes("NEW");
+                priceMonitoringVM.States = priceMonitoringModel.GetStates();
 
-                if (makeId.HasValue && modelId.HasValue)
+                if (makeId.HasValue && modelId.HasValue && stateId.HasValue)
                 {
                     priceMonitoringVM.MakeId = makeId ?? 0;
                     priceMonitoringVM.ModelId = modelId ?? 0;
-
-                    priceMonitoringVM.PriceMonitoringEntity = priceMonitoringModel.GetPriceMonitoringDetails(Convert.ToUInt32(makeId), Convert.ToUInt32(modelId));
+                    priceMonitoringVM.StateId = stateId ?? 0;
+                    priceMonitoringVM.PriceMonitoringEntity = priceMonitoringModel.GetPriceMonitoringDetails(Convert.ToUInt32(makeId), Convert.ToUInt32(modelId), Convert.ToUInt32(stateId));
                 }
             }
             catch (Exception ex)
@@ -65,9 +66,10 @@ namespace BikewaleOpr.Controllers
         /// </summary> 
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
-        public ActionResult GetReport(uint makeId, uint modelId)
+        [HttpPost]
+        public ActionResult GetReport(uint? makeId, uint? modelId, uint? stateId)
         {
-            return RedirectToAction("Index", "PriceMonitoring", new {@makeId = makeId, @modelId = modelId });
+            return RedirectToAction("Index", "PriceMonitoring", new {@makeId = makeId, @modelId = modelId, @stateId = stateId });
         }
     }
 }

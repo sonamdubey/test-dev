@@ -15,8 +15,12 @@ namespace BikewaleOpr.Models.ManagePrices
     public class PriceMonitoringVM
     {
         public PriceMonitoringEntity PriceMonitoringEntity { get; set; }
+
         public IEnumerable<BikeMakeEntityBase> BikeMakes { get; set; }
 
+        public IEnumerable<Entities.StateEntityBase> States { get; set; }
+
+        public uint StateId { get; set; }
         public uint MakeId { get; set; }
 
         public uint ModelId { get; set;}

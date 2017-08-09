@@ -18,6 +18,6 @@ namespace BikewaleOpr.Interface.BikePricing
         IEnumerable<BikePrice> GetBikePrices(uint makeId, uint cityId);
         bool SaveBikePrices(string versionPriceList, string citiesList, int updatedBy);
         IEnumerable<BikeModelEntityBase> GetModelsByMake(uint makeId);
-        PriceMonitoringEntity GetPriceMonitoringDetails(uint makeId, uint modelId);
+        PriceMonitoringEntity GetPriceMonitoringDetails(uint makeId, uint modelId, uint stateId);
     }
 }

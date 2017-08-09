@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using BikewaleOpr.DALs.Location;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikePricing;
 using BikewaleOpr.Interface.BikeData;
@@ -48,21 +49,38 @@ namespace BikewaleOpr.Models.ManagePrices
             return makesList;
         }
 
-       
-
+        /// <summary>
+        /// Created By: Ashutosh Sharma on 09-08-2017
+        /// Description
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Entities.StateEntityBase> GetStates()
+        {
+            IEnumerable<Entities.StateEntityBase> stateList = null;
+            try
+            {
+                LocationRepository _locationRepo = new LocationRepository();
+                stateList = _locationRepo.GetStates();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Models.ManagePrices.PriceMonitoringModel.GetStates");
+            }
+            return stateList;
+        }
         /// <summary>
         /// Created By: Ashutosh Sharma on 31-07-2017
-        /// Discription : Method to get price last updated details of bike versions in cities.
+        /// Description : Method to get price last updated details of bike versions in cities.
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public PriceMonitoringEntity GetPriceMonitoringDetails(uint makeId, uint modelId)
+        public PriceMonitoringEntity GetPriceMonitoringDetails(uint makeId, uint modelId, uint stateId)
         {
             PriceMonitoringEntity priceMonitoring = null;
             try
             {
-                priceMonitoring = _pricesRepo.GetPriceMonitoringDetails(makeId, modelId);
+                priceMonitoring = _pricesRepo.GetPriceMonitoringDetails(makeId, modelId, stateId);
               
             }
             catch (Exception ex)

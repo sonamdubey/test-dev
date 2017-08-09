@@ -14,7 +14,5 @@ namespace BikewaleOpr.Entities
     {
         public int VersionId { get; set; }
         public string BikeName { get; set; }
-        public int ModelId { get; set; }
-        public int MakeId { get; set; }
     }
 }

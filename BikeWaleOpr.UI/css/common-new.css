@@ -291,6 +291,10 @@ input[type=text].invalid + label.active:after {
     margin:0px !important;
 }
 
+.card-title-font14{
+    font-size:14px !important;
+}
+
 /* stepper-height-60 start */
 .stepper-height-60 .stepper.horizontal {
     margin-top: 0;
@@ -338,11 +342,11 @@ input[type=text].invalid + label.active:after {
 
 .fixed-table__header,
 .fixed-table__body {
-	width: 90%;
+	width: 84%;
 }
 
 .fixed-table__header {
-	margin-left: 10%;
+	margin-left: 16%;
 }
 
 .fixed-table__sidebar,
@@ -362,7 +366,7 @@ input[type=text].invalid + label.active:after {
 }
 
 .fixed-table__sidebar {
-	width: 10%;
+	width: 16%;
     float: left;
 	overflow: hidden;
 	border-top: 1px solid #ccc;

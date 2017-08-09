@@ -47,8 +47,8 @@ namespace BikewaleOpr.DALs.Bikedata
                             while (dr.Read())
                             {
                                 BikeModelEntityBase _objModel = new BikeModelEntityBase();
-                                _objModel.ModelName = Convert.ToString(dr["Text"]);
-                                _objModel.ModelId = SqlReaderConvertor.ToInt32(dr["Value"]);
+                                _objModel.Name = Convert.ToString(dr["Text"]);
+                                _objModel.Id = SqlReaderConvertor.ToInt32(dr["Value"]);
                                 _objBikeModels.Add(_objModel);
                             }
                         }
@@ -355,8 +355,8 @@ namespace BikewaleOpr.DALs.Bikedata
                             while (dr.Read())
                             {
                                 obj = new BikeModelMailEntity();
-                                obj.ModelId = Convert.ToInt32(dr["ModelId"]);
-                                obj.ModelName = Convert.ToString(dr["ModelName"]);
+                                obj.Id = Convert.ToInt32(dr["ModelId"]);
+                                obj.Name = Convert.ToString(dr["ModelName"]);
                                 obj.MaskingName = Convert.ToString(dr["ModelMasking"]);
                                 obj.OldUrl = string.Format("{0}/{1}-bikes/{2}/", hostUrl, oldMakeMasking, obj.MaskingName);
                                 obj.NewUrl = string.Format("{0}/{1}-bikes/{2}/", hostUrl, newMakeMasking, obj.MaskingName);

@@ -2,12 +2,12 @@
 @using BikewaleOpr.Entity.BikePricing;
 @using BikewaleOpr.Entities;
 @{
-    IEnumerable<PriceLastUpdateEntity> priceLastUpdatedList = null;
+    IList<PriceLastUpdateEntity> priceLastUpdatedList = null;
     IList<MfgCityEntity> cityList = null;
     IList<BikeVersionEntity> bikeVersionList = null;
     if (Model != null && Model.PriceMonitoringEntity != null)
     {
-        priceLastUpdatedList = Model.PriceMonitoringEntity.PriceLastUpdatedList;
+        priceLastUpdatedList = Model.PriceMonitoringEntity.PriceLastUpdatedList.ToList();
         if (priceLastUpdatedList != null && priceLastUpdatedList.Count() == 0)
         {
             priceLastUpdatedList = null;
@@ -33,82 +33,85 @@
 {
     <div class="row" style="margin-top:5px;">
         <div class="col s10 m10">
-            <div id="makesTable" class="fixed-table z-depth-3" style="display:@(priceLastUpdatedList == null ? "none": "")">
-                @if (bikeVersionList != null && bikeVersionList.Count() > 0)
-                {
-                    <div class="fixed-table__header">
-                        <table class="table centered highlight">
-                            <thead>
-
-                                <tr>
-                                    @foreach (var bikeVersion in bikeVersionList)
+            <div id="makesTable" class="fixed-table z-depth-3 @(priceLastUpdatedList == null ? "hide": "")">
+                <div class="fixed-table__header">
+                    <table class="table centered highlight">
+                        <thead>
+                            <tr>
+                                @if (bikeVersionList != null && bikeVersionList.Count() > 0)
+                                {
+                                    foreach (var bikeVersion in bikeVersionList)
                                     {
                                         <th>@bikeVersion.BikeName</th>
                                     }
-                                </tr>
-
-                            </thead>
-                        </table>
-                    </div>
-                }
-                <div class="fixed-table__sidebar" style="display:@(priceLastUpdatedList == null ? "none": "")">
-                    <table class="table centered highlight">
+                                }
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="fixed-table__sidebar @(priceLastUpdatedList == null ? "hide": "")">
+                    <table class="table  highlight">
                         <tbody>
-                            @if (Model.PriceMonitoringEntity != null && Model.PriceMonitoringEntity.CityList != null)
+                            @if (cityList != null)
                             {
                                 foreach (var city in cityList)
                                 {
                                     <tr>
-                                        <td><strong>@city.CityName</strong> </td>
+                                        <td><b>@city.CityName</b> </td>
                                     </tr>
                                 }
                             }
                         </tbody>
                     </table>
                 </div>
-                <div class="fixed-table__body" style="display:@(priceLastUpdatedList == null ? "none": "")">
+                <div class="fixed-table__body @(priceLastUpdatedList == null ? "hide": "")">
                     <table class="table centered highlight">
                         <tbody>
-                            @if (cityList != null && bikeVersionList != null)
+                            @if (cityList != null && priceLastUpdatedList != null)
                             {
-                                for (int i = 0; i < cityList.Count(); i++)
+                                for (int c = 0, i = 0; c < cityList.Count(); c++)
                                 {
                                     <tr>
-                                        @for (int j = 0; j < bikeVersionList.Count(); j++)
+                                        @for (int v = 0; v < bikeVersionList.Count(); v++)
                                         {
-                                            PriceLastUpdateEntity priceLastUpdated = priceLastUpdatedList
-                                                .FirstOrDefault(c => c.CityId == cityList[i].CityId && c.BikeVersionId == bikeVersionList[j].VersionId);
-                                            if (priceLastUpdated != null)
+                                            string color = string.Empty;
+                                            if (i < priceLastUpdatedList.Count() && priceLastUpdatedList[i].CityId == cityList[c].CityId
+                                                                && priceLastUpdatedList[i].BikeVersionId == bikeVersionList[v].VersionId)
                                             {
-                                                int days = (DateTime.Now - Convert.ToDateTime(priceLastUpdated.LastUpdated)).Days;
-                                                string color;
-                                                if (days <= 7)
+                                                PriceLastUpdateEntity priceLastUpdated = priceLastUpdatedList[i];
+                                                int days = 0;
+                                                if (priceLastUpdated != null)
                                                 {
-                                                    color = "green-text darken-1";
+                                                    days = (DateTime.Now - Convert.ToDateTime(priceLastUpdated.LastUpdated)).Days;
+
+                                                    if (days <= 7)
+                                                    {
+                                                        color = "green darken-4";
+                                                    }
+                                                    else if (days > 7 && days <= 15)
+                                                    {
+                                                        color = "yellow accent-4";
+                                                    }
+                                                    else if (days > 15 && days <= 30)
+                                                    {
+                                                        color = "orange";
+                                                    }
+                                                    else
+                                                    {
+                                                        color = "red accent-4";
+                                                    }
                                                 }
-                                                else if (days > 7 && days <= 15)
-                                                {
-                                                    color = "yellow-text darken-3";
-                                                }
-                                                else if (days > 15 && days <= 30)
-                                                {
-                                                    color = "orange-text darken-4";
-                                                }
-                                                else
-                                                {
-                                                    color = "red-text darken-3";
-                                                }
-                                                <td title="Price For:@cityList[i].CityName, Version: @bikeVersionList[j].BikeName">
-                                                    <a class="@color" target="_blank" href="/content/ShowroomPrices.aspx?City=@cityList[i].CityId&Make=@bikeVersionList[j].MakeId">
+                                                <td class="@color" title="Price For:@cityList[c].CityName, Version: @bikeVersionList[v].BikeName">
+                                                    <a class="white-text" target="_blank" href="/content/ShowroomPrices.aspx?city=@cityList[c].CityId&make=@Model.MakeId">
                                                         @days
                                                     </a>
-
                                                 </td>
+                                                i++;
                                             }
                                             else
                                             {
-                                                <td>
-                                                    <a target="_blank" class="black-text" href="/content/ShowroomPrices.aspx?City=@cityList[i].CityId&Make=@bikeVersionList[j].MakeId">
+                                                <td class="black" title="Price For:@cityList[c].CityName, Version: @bikeVersionList[v].BikeName">
+                                                    <a class="white-text" target="_blank" href="/content/ShowroomPrices.aspx?city=@cityList[c].CityId&make=@Model.MakeId">
                                                         NA
                                                     </a>
                                                 </td>
@@ -123,35 +126,44 @@
             </div>
         </div>
 
-
         <div id="makeModelContainer" class="col s2 m2">
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
-                    <div class="collapsible-header active"><strong>Select Bike</strong></div>
+                    <div class="collapsible-header active"><b>Show Price</b></div>
                     <div class="collapsible-body">
-                        @using (Html.BeginForm("GetReport", "PriceMonitoring", FormMethod.Get))
+                        @using (Html.BeginForm("GetReport", "PriceMonitoring", FormMethod.Post))
                         {
                             <div class="container">
                                 <div class="input-field row s12">
-                                    <select id="ddlMakes" name="makeId" data-bind="event:{change: selectMake}">
+                                    <select id="ddlStates" name="stateId" data-stateid="@Model.StateId" data-bind="value : selectedState, event:{change: selectState}">
+                                        <option value="0">Select State</option>
+                                        @if (Model.States != null)
+                                        {
+                                            foreach (var state in Model.States)
+                                            {
+                                                <option value="@state.StateId">@state.StateName</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="input-field row s12">
+                                    <select id="ddlMakes" name="makeId" data-makeid="@Model.MakeId" data-bind="value : selectedMake, event:{change: selectMake}">
                                         <option value="0">Select Make</option>
                                         @if (Model.BikeMakes != null)
                                         {
                                             foreach (var make in Model.BikeMakes)
                                             {
-                                                <option value="@make.MakeId" @(make.MakeId == Model.MakeId ? "selected" : "")>@make.MakeName</option>
+                                                <option value="@make.MakeId">@make.MakeName</option>
                                             }
                                         }
                                     </select>
-
                                 </div>
                                 <div class="input-field row s12">
-                                    <select id="ddlModels" name="modelId" data-content="@Model.ModelId" data-bind="value:selectedModel, options:modelList, optionsText:'ModelName',optionsValue:'ModelId'">
-                                        <option>Select Model</option>
+                                    <select id="ddlModels" name="modelId" data-modelid="@Model.ModelId" data-bind="value:selectedModel, options:modelList, optionsText:'Name',optionsValue:'Id', optionsCaption : 'Select Model'">
                                     </select>
                                 </div>
                                 <div class="input-field row s12">
-                                    <button id="btnShow" class="btn waves-effect waves-light" type="submit" formmethod="get">
+                                    <button id="btnShow" class="btn waves-effect waves-light" type="submit" data-bind="enable : selectedState() != 0 && selectedMake() && selectedMake() != 0 && selectedModel() && selectedModel() >= 0">
                                         Show
                                     </button>
                                 </div>
@@ -161,18 +173,21 @@
                 </li>
             </ul>
         </div>
-
-        <div class="col s2 @(priceLastUpdatedList == null ? "offset-s10": "" )">
+        <div class="col s2 @(priceLastUpdatedList == null ? "offset-s10": "")">
             <div class="card">
                 <div class="card-content">
-                    <p class="green darken-1"><=7 days</p>
-                    <p class="yellow darken-3"> 7 Days < & <=15 Days </p>
-                    <p class="orange darken-4">15 Days < & <=1 Month</p>
-                    <p class="red darken-3">More Than 1 Month</p>
+                    <span class="card-title"><b class="card-title-font14">Price Last Updated Codes</b></span>
+                    <ul class="collection">
+                        <li class="collection-item green darken-4 white-text">Less than or equal to 7 days</li>
+                        <li class="collection-item yellow accent-4">Between 7 Days and 15 Days</li>
+                        <li class="collection-item orange white-text">Between 15 Days and 1 Month</li>
+                        <li class="collection-item red accent-4 white-text">More Than 1 Month</li>
+                    </ul>
+                    
                 </div>
             </div>
         </div>
         <script type="text/javascript" src="~/src/ManagePrice/pricemonitoring.js"></script>
-        <script src="~/src/content/makes.js"></script>
+        
     </div>
 }

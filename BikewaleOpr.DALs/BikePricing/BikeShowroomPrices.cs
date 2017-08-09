@@ -18,14 +18,14 @@ namespace BikewaleOpr.DALs.BikePricing
     /// <summary>
     /// Created By : Ashish G. Kamble on 23 Sept 2016
     /// Summary : Class have functions to process pricing in the bikewale opr
+    /// Modified By : Ashutosh Sharma on 29-07-2017
+    /// Discription : Added GetModelsByMake and GetPriceMonitoringDetails
     /// </summary>
     public class BikeShowroomPrices : IShowroomPricesRepository
     {
         /// <summary>
         /// Writteny By : Ashish G. Kamble on 23 Sept 2016
         /// Summary : Function to get the existing pricing for the given make and city
-        /// Modified By : Ashutosh Sharma on 29-07-2017
-        /// Discription : Added GetModelsByMake and GetPriceMonitoringDetails
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="cityId"></param>
@@ -121,10 +121,11 @@ namespace BikewaleOpr.DALs.BikePricing
             {
                 var param = new DynamicParameters();
                 param.Add("par_makeid", makeId);
+                param.Add("par_requesttype", "NEW");
                 
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    modelList = connection.Query<BikeModelEntityBase>("getmodelsbymake", param: param, commandType: CommandType.StoredProcedure);
+                    modelList = connection.Query<BikeModelEntityBase>("getbikemodels_new", param: param, commandType: CommandType.StoredProcedure);
                 }
 
             }
@@ -143,7 +144,7 @@ namespace BikewaleOpr.DALs.BikePricing
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns>List of cities, bike versions and price last updated.</returns>
-        public PriceMonitoringEntity GetPriceMonitoringDetails(uint makeId, uint modelId)
+        public PriceMonitoringEntity GetPriceMonitoringDetails(uint makeId, uint modelId, uint stateId)
         {
             PriceMonitoringEntity priceMonitoring = null;
             try
@@ -151,6 +152,7 @@ namespace BikewaleOpr.DALs.BikePricing
                 var param = new DynamicParameters();
                 param.Add("par_makeId", makeId);
                 param.Add("par_modelId", modelId);
+                param.Add("par_stateId", stateId);
 
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
