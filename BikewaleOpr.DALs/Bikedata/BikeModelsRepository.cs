@@ -11,7 +11,6 @@ using System.Data;
 using System.Data.Common;
 using Bikewale.DAL.CoreDAL;
 using Dapper;
-using System.Linq;
 using System.Collections.ObjectModel;
 
 namespace BikewaleOpr.DALs.Bikedata
@@ -146,7 +145,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
-                        {
+                        {               
                             objImagesData = new UsedBikeImagesNotificationData();
 
                             _objBikeModels = new List<UsedBikeImagesModel>();
@@ -373,6 +372,51 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             return models;
         }
+
+        #region GetModelsWithMissingColorImage function
+        /// <summary>
+        /// Created By : vivek singh tomar on 27/07/2017
+        /// Summary : Function to fetch the list of models whose color images are not uploaded
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeModelData> GetModelsWithMissingColorImage()
+        {
+            IEnumerable<BikeMakeModelData> objBikeDataList = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    objBikeDataList = connection.Query<BikeModelEntityBase, BikeMakeEntityBase, BikeMakeModelData>
+                        (
+                            "getmodelswithmissingcolorimage",
+                            (bikeModelEntityBase, bikeMakeEntityBase) =>
+                            {
+                                BikeMakeModelData bikeData = new BikeMakeModelData()
+                                {
+                                    BikeMake = bikeMakeEntityBase,
+                                    BikeModel = bikeModelEntityBase
+                                };
+                                return bikeData;
+                            }, splitOn: "MakeId", commandType: CommandType.StoredProcedure
+                        );
+
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.BikeModelsRepository.GetModelsWithMissingColorImage"));
+            }
+
+            return objBikeDataList;
+        } 
+        #endregion
 
     }
 }

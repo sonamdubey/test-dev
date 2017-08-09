@@ -5,8 +5,7 @@
 }
 <div id="mfgCampaigns" class="row" style="margin-top:5px;">
     <div class="col m10">
-
-        <div id="tblCampaigns" class="hide" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]">
+        <div id="tblCampaigns" class="hide" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]" data-userid="@Model.UserId">
             <table class="bordered highlight z-depth-3 centered responsive-table" id="DealerCampaignsList">
                 <tr>
                     <th>CampaignId</th>
@@ -29,7 +28,6 @@
             </table>
         </div>
     </div>
-
     <div class="col m2">
         <ul class="collapsible" data-collapsible="accordion">
             <li>
@@ -100,7 +98,14 @@
         <td data-bind="text: dailyLeadLimit"></td>
         <td data-bind="text: dailyLeadsDelivered"></td>
         <td data-bind="text: totalLeadLimit"></td>
-        <td data-bind="text: totalLeadsDelivered"></td>
+        <td>
+            <div>
+                <span data-bind="text: totalLeadsDelivered"></span>
+                <p>
+                    <a href="javascript:void(0)" data-bind="visible: totalLeadsDelivered > 0, event: { click: function (data, event) { $parent.resetTotalLeadsDelivered(data, event); } }" class="tooltipped" data-tooltip="Reset total leads delivered"><i class="material-icons icon-blue">autorenew</i></a>
+                </p>
+            </div>
+        </td>
         <td data-bind="text: showCampaignOnExshowroom?'Yes':'No'"></td>
         <td>
             <a data-bind="attr: { href: '/manufacturercampaign/information/'+dealerId+'/?campaignId='+id }" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign" target="_blank"><i class="material-icons icon-blue">mode_edit</i></a>

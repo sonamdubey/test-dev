@@ -1,5 +1,7 @@
 ﻿
 using BikewaleOpr.Entity.BikeData;
+using System.Collections.Generic;
+
 namespace BikewaleOpr.Interface.BikeData
 {
     /// <summary>
@@ -9,5 +11,6 @@ namespace BikewaleOpr.Interface.BikeData
     public interface IBikeModels
     {
         UsedBikeImagesByMakeNotificationData GetPendingUsedBikesWithoutModelImage();
+        IEnumerable<BikeModelsByMake> GetModelsWithMissingColorImage();
     }
 }

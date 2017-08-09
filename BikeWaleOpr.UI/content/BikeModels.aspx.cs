@@ -162,8 +162,7 @@ namespace BikeWaleOpr.Content
                         nvc.Add("v_New", "1");
                         nvc.Add("v_Used", "1");
                         nvc.Add("v_Futuristic", "0");
-
-                        SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CWMD, nvc);
+                        SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
 
                         //CLear popularBikes key                       
                         UInt32 makeId;
@@ -259,6 +258,8 @@ namespace BikeWaleOpr.Content
         /// Modified By : Sushil Kumar on 9th July 2017
         /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
+        /// Modified by : Vivek Singh Tomar on 31 July 2017
+        /// Description : Refresh the cache when any model is updated
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
@@ -304,7 +305,7 @@ namespace BikeWaleOpr.Content
                     nvc.Add("v_HostUrl", null);
                     nvc.Add("v_OriginalImagePath", null);
                     nvc.Add("v_IsDeleted", null);
-                    SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CWMD, nvc);
+                    SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
 
 
@@ -359,6 +360,8 @@ namespace BikeWaleOpr.Content
                 //Refresh memcache object for popularBikes change
                 MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
 
+                //Refresh memcache object for upcoming bikes
+                BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikes();
 
             }
             catch (SqlException ex)

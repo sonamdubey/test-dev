@@ -19,14 +19,14 @@ namespace BikewaleOpr.Controllers
     public class UserReviewsController : Controller
     {
         private readonly IUserReviewsRepository _reviewsRepo = null;
-        private readonly IBikeMakes _makesRepo = null;
+        private readonly IBikeMakesRepository _makesRepo = null;
 
         /// <summary>
         /// Constructor to initialize all the dependencies
         /// </summary>
         /// <param name="reviewsRepo"></param>
         /// <param name="makesRepo"></param>
-        public UserReviewsController(IUserReviewsRepository reviewsRepo, IBikeMakes makesRepo)
+        public UserReviewsController(IUserReviewsRepository reviewsRepo, IBikeMakesRepository makesRepo)
         {
             _reviewsRepo = reviewsRepo;
             _makesRepo = makesRepo;            

@@ -19,13 +19,13 @@ namespace BikewaleOpr.Controllers
         public ActionResult Index(uint? id)
         {
 
-            Banner objBanner = new Banner(_objBannerRespository);            
+            Banner objBanner = new Banner(_objBannerRespository);
             BannerVM objVM = null;
             if (objBanner != null)
             {
-                uint bannerId =  id?? 0;
-              
-                objVM =objBanner.GetData(bannerId);
+                uint bannerId = id ?? 0;
+
+                objVM = objBanner.GetData(bannerId);
                 objVM.UserId = CurrentUser.Id;
             }
 
@@ -42,7 +42,7 @@ namespace BikewaleOpr.Controllers
                 objVm = objPageModel.GetData();
             }
 
-            return View(objVm);            
+            return View(objVm);
         }
 
 

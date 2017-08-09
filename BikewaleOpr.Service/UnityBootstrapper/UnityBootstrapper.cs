@@ -1,4 +1,9 @@
-﻿using Bikewale.ManufacturerCampaign.DAL;
+﻿using Bikewale.Cache.Core;
+using Bikewale.Comparison.BAL;
+using Bikewale.Comparison.Cache;
+using Bikewale.Comparison.DAL;
+using Bikewale.Comparison.Interface;
+using Bikewale.Interfaces.Cache.Core;
 using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.Images;
@@ -34,6 +39,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
     /// Description :   Register IDealerCampaignRepository
     /// Modified by : Sajal Gupta on 03-03-2017
     /// Description : Register IBikeModels
+    /// Modified by : Vivek Singh Tomar on 1st Aug 2017
+    /// Description : Added IBikeMakes
     /// </summary>
     public static class UnityBootstrapper
     {
@@ -51,14 +58,20 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<ISellBikes, SellBikes>();
             container.RegisterType<IColorImagesBikeRepository, ColorImagesBikeRepository>();
             container.RegisterType<IDealerCampaignRepository, DealerCampaignRepository>();
-            container.RegisterType<IBikeMakes, BikeMakesRepository>();
+            container.RegisterType<IBikeMakesRepository, BikeMakesRepository>();
             container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
             container.RegisterType<IImage, ImageBL>();
             container.RegisterType<IImageRepository, ImageRepository>();
             container.RegisterType<ISecurity, SecurityBL>();
             container.RegisterType<IBannerRepository, BannerRepository>();
             container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
+            container.RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>();
+            container.RegisterType<ICacheManager, MemcacheManager>();
+            container.RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>();
+            container.RegisterType<ISponsoredComparison, SponsoredComparison>();
+
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
+            container.RegisterType<IBikeMakes, BikeMakes>();
 
             return container;
         }

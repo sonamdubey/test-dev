@@ -108,6 +108,8 @@ namespace Bikewale.Models
                     objUserVM.ContestSrc = _contestsrc;
                     BindMetas(objUserVM);
                 }
+
+                objUserVM.UtmzCookieValue =  HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : String.Empty;
             }
             catch (System.Exception ex)
             {

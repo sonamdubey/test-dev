@@ -291,6 +291,8 @@ docReady(function () {
 
     ko.applyBindings(viewModelOnRoad, $("#OnRoadContent")[0]);
 
+
+
     ele = $('#OnRoadContent .final-price-citySelect')[0];
 
     ko.bindingHandlers.chosen = {

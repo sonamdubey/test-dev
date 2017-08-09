@@ -9,7 +9,12 @@
 function FormatHtml(strHtml) {
     try {
         var el = $("<section></section>");
-        el.html(strHtml.replace('@media', '@@media'));
+        if(strHtml.includes('@@media')){
+            el.html(strHtml); 
+        }
+        else {
+            el.html(strHtml.replace('@media', '@@media'));
+        }
         el.find('span[name="mfg_maskingNumber"]').text('@Model.MaskingNumber');
         el.find('span[name="mfg_organization"]').text('@Model.Organization');
 

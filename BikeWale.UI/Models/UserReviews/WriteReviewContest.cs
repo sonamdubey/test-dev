@@ -30,7 +30,11 @@ namespace Bikewale.Models.UserReviews
         {
             WriteReviewContestVM viewModel = new WriteReviewContestVM();
             viewModel.Makes = _makeRepository.GetMakesByType(Entities.BikeData.EnumBikeType.UserReviews);
-            viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}&contestsrc={1}", _isMobile? (int)UserReviewPageSourceEnum.Mobile_UserReviewContestPage: (int)UserReviewPageSourceEnum.Desktop_UserReviewContestPage, csrc));
+            if(csrc > 0)
+                viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", csrc));
+            else
+                viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", _isMobile ? (int)UserReviewPageSourceEnum.Mobile_UserReviewContestPage : (int)UserReviewPageSourceEnum.Desktop_UserReviewContestPage));
+
             BindPageMetas(viewModel);
             return viewModel;
         }

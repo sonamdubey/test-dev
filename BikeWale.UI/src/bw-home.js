@@ -312,4 +312,6 @@ docReady(function () {
     $("#ddlAreaOnRoad").chosen({ no_results_text: "No matches found!!" });
 
     ko.applyBindings(viewModelOnRoad, $("#OnRoadContent")[0]);
+   
+
 });
