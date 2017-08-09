@@ -10,7 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     @{
-        
         var StaticUrlPWA = Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA;
         var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
 
@@ -123,7 +122,6 @@
 
     <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
     <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
- 
 
     <script type="text/javascript" src="@VendorJsUrl" defer></script>
     <script type="text/javascript" src="@AppJsUrl" defer></script>
@@ -140,46 +138,59 @@
             window.state = @Html.Raw(Model.WindowState); 
     </script>
 
-    <div class="blackOut-window"></div>
-    
     <noscript id="asynced-css">
         <link href="@CssBTFUrl" rel="stylesheet" type="text/css" />
     </noscript>
     <script>
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
     </script>
-
-    <script type="text/javascript">
-        if(googletag) {
-            googletag.cmd.push(function(){                
-                googletag.display('div-gpt-ad-1395986297721-0');
-                googletag.display('div-gpt-ad-1395986297721-1');
-                
-            });
-        }        
-        
-        docReady(function () {
-            try {
-                AppEntryPoint();   
-            } catch (e) {
-                console.warn(e.message);
-            }
-        });
-
-
-    </script>
-
-
     <script defer type="text/javascript">
-        window.addEventListener('DOMContentLoaded', function() {
-            if('serviceWorker' in navigator) {
-                navigator.serviceWorker.register("@Url.Content(Bikewale.Utility.BWConfiguration.Instance.ServiceWorkerPath)").then(function(registration) {
-                }).catch(function(err) {
-                    console.log(err);
-                })
-            }
+    if(googletag) {
+        googletag.cmd.push(function(){
+            googletag.display('div-gpt-ad-1395986297721-0');
+            googletag.display('div-gpt-ad-1395986297721-1');
 
-        })
+        });
+    }
+    function triggerData(cat,act,lbl) {
+        if(typeof triggerDataToBhrigu == 'function') {
+            triggerDataToBhrigu(cat,act,lbl);
+        }
+    }
+    docReady(function () {
+        try {
+            AppEntryPoint();
+        } catch (e) {
+            console.warn(e.message);
+        }
+    });
+    window.addEventListener('DOMContentLoaded', function() {
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker.register("@Url.Content(Bikewale.Utility.BWConfiguration.Instance.ServiceWorkerPath)").then(function(registration) {
+                registration.addEventListener('updatefound', function () {
+                    var newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', function () {
+                        if (newWorker.state == 'redundant') {
+                            triggerData('ServiceWorker', 'Registration', 'status=redundant');
+                        }
+                        else if (newWorker.state == 'activated') {
+                            triggerData('ServiceWorker', 'Registration', 'status=successful');
+                        }
+                    })
+                });
+
+
+            }).catch(function(err) {
+                triggerData('ServiceWorker','Registration','status=unsuccessful|err='+err);
+                console.log(err);
+            })
+        }
+        else {
+            triggerData('ServiceWorker','Registration','status=unavailable');
+
+        }
+
+    })
     </script>
 
     <div class="back-to-top" id="back-to-top"></div>
