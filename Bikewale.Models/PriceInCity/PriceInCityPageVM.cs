@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.Location;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Models.PriceInCity;
@@ -27,6 +28,7 @@ namespace Bikewale.Models
         public BikeInfoVM BikeInfo { get; set; }
         public Entities.BikeData.BikeMakeEntityBase Make { get; set; }
         public Entities.BikeData.BikeModelEntityBase BikeModel { get; set; }
+        public IEnumerable<BikeVersionMinSpecs> VersionSpecs { get; set; }
         public IEnumerable<BikeQuotationEntity> BikeVersionPrices { get; set; }
         public CityEntityBase CityEntity { get; set; }
         public CityEntityBase CookieCityEntity { get; set; }
