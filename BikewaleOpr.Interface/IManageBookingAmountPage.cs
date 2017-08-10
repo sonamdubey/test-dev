@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Entity;
+﻿using BikewaleOpr.Entities;
+using BikewaleOpr.Entity;
 using System;
 
 namespace BikewaleOpr.Interface
@@ -10,5 +11,6 @@ namespace BikewaleOpr.Interface
     public interface IManageBookingAmountPage
     {
         ManageBookingAmountData GetManageBookingAmountData(UInt32 dealerId);
+        void AddBookingAmount(BookingAmountEntity objBookingAmountEntity, string updatedBy);
     }
 }

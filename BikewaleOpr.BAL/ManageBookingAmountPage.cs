@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using BikewaleOpr.Entities;
 using BikewaleOpr.Entity;
 using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.BikeData;
@@ -43,6 +44,24 @@ namespace BikewaleOpr.BAL
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.ManageBookingAmountPage Dealer Id {0}", dealerId));
             }
             return objManageBookingAmountData;
+        }
+
+        public void AddBookingAmount(BookingAmountEntity objBookingAmountEntity, string updatedBy)
+        {
+            try
+            {
+                UInt32 updatedById = 0;
+                UInt32.TryParse(updatedBy, out updatedById);
+                if(objBookingAmountEntity.DealerId > 0 && objBookingAmountEntity.BikeModel.ModelId > 0 && 
+                     objBookingAmountEntity.BookingAmountBase.Amount > 0 && updatedById > 0)
+                {
+                    _dealers.SaveBookingAmount(objBookingAmountEntity, updatedById);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.ManageBookingAmountPage.AddBookingAmount");
+            }
         }
     }
 }

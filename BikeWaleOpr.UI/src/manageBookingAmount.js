@@ -1,102 +1,148 @@
 ﻿function bindManageBookingAmount() {
-    var self = this;
-    self.makeMsg = ko.observable("");
-    self.modelMsg = ko.observable("");
-    self.versionMsg = ko.observable("");
-    self.bookingMsg = ko.observable("");
-    self.selectedMakeId = ko.observable();
-    self.selectedModelId = ko.observable();
-    self.selectedVersionId = ko.observable();
-    self.bookingAmount = ko.observable();
-    self.models = ko.observableArray([]);
-    self.versions = ko.observableArray([]);
-    self.getModels = function () {
-        var makeId = self.selectedMakeId();
-        if (makeId && makeId > 0) {
-            $.ajax({
-                type: "GET",
-                url: "/api/makes/" + makeId + "/models/2/",
-                contentType: "application/json",
-                dataType: 'json',
-                async: false,
-                success: function (response) {
-                    if (response) {
-                        self.models(response);
-                    }
-                },
-                complete: function (xhr) {
-                    if (xhr.status != 200) {
-                        showToast('some error occurred');
-                        self.models([]);
-                    }
-                    $('select').material_select();
-                }
-            });
-        }
-    };
-    self.getVersions = function () {
-        var modelId = self.selectedModelId();
-        if (modelId && modelId > 0) {
-            $.ajax({
-                type: 'GET',
-                url: '/api/models/' + modelId + '/versions/2/',
-                contentType: 'application/json',
-                async: false,
-                success: function (response) {
-                    if (response) {
-                        self.versions(response);
-                    }
-                },
-                complete: function (xhr) {
-                    if (xhr.status != 200) {
-                        showToast('some error occurred');
+    try{
+        var self = this;
+        self.dealerId = ko.observable();
+        self.bookingId = ko.observable();
+        self.selectedMakeId = ko.observable();
+        self.selectedModelId = ko.observable();
+        self.selectedVersionId = ko.observable();
+        self.bookingAmount = ko.observable();
+        self.models = ko.observableArray([]);
+        self.versions = ko.observableArray([]);
+        self.bookingMsg = ko.observable("");
+        var params = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        var dealerId = params[0].split('=')[1];
+        self.dealerId(dealerId);
+
+        self.getModels = function () {
+            var makeId = self.selectedMakeId();
+            if (makeId && makeId > 0) {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/makes/" + makeId + "/models/2/",
+                    contentType: "application/json",
+                    dataType: 'json',
+                    async: false,
+                    success: function (response) {
+                        if (response) {
+                            self.models(response);
+                        }
+                    },
+                    complete: function (xhr) {
+                        if (xhr.status != 200) {
+                            showToast('some error occurred');
+                            self.models([]);
+                        }
                         self.versions([]);
+                        $('#selectModel').material_select();
                     }
-                    $('select').material_select();
-                }
-            });
-        }
-    };
-    self.validateBookingSubmit = function () {
-        var isValid = true;
-        self.makeMsg("");
-        self.modelMsg("");
-        self.versionMsg("");
-        self.bookingMsg("");
-        if (self.selectedMakeId() == null || self.selectedMakeId() == "") {
-            self.makeMsg("please select a make");
-            isValid = false;
-        }
+                });
+            }
+        };
+        self.getVersions = function () {
+            var modelId = self.selectedModelId();
+            if (modelId && modelId > 0) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/models/' + modelId + '/versions/2/',
+                    contentType: 'application/json',
+                    async: false,
+                    success: function (response) {
+                        if (response) {
+                            self.versions(response);
+                        }
+                    },
+                    complete: function (xhr) {
+                        if (xhr.status != 200) {
+                            showToast('some error occurred');
+                            self.versions([]);
+                        }
+                        $('#selectVersion').material_select();
+                    }
+                });
+            }
+        };
+        self.validateBookingSubmit = function () {
+            var isValid = true;
+            self.bookingMsg("");
+            if (!self.bookingAmount() || self.bookingAmount() < 0) {
+                self.bookingMsg("please input valid amount");
+                isValid = false;
+            }
+            if (!self.selectedMakeId() || self.selectedMakeId() == "") {
+                showToast("Please select Make and Model");
+                isValid = false;
+                return isValid;
+            }
 
-        if (self.selectedModelId() == null || self.selectedModelId() == "") {
-            self.modelMsg("please select a model");
-            isValid = false;
-        }
+            if (!self.selectedModelId() || self.selectedModelId() == "") {
+                showToast("please select a model");
+                isValid = false;
+                return isValid;
+            }
+            return isValid;
+        };
 
-        if (self.selectedVersionId() == null || self.selectedVersionId() == "") {
-            self.versionMsg("please select a version");
-            isValid = false;
-        }
+        self.editBooking = function (e) {
+            $('#btnSave').html('Update');
+            element = $(e.target).closest("tr");
 
-        if (self.bookingAmount() == null || self.bookingAmount() < 0) {
-            self.bookingMsg("please input valid amount");
-            isValid = false;
-        }
-        return isValid;
-    };
+            self.bookingId($(element[0]).data("id"));
 
-    self.editBooking = function (e) {
-        element = $(e.target).closest("tr");
-        self.selectedMakeId($(element[0]).data("makeid"));
-        self.selectedModelId($(element[0]).data("modelid"));
-         $('select').material_select();
-        self.selectedVersionId($(element[0]).data("versionid"));
-        self.bookingAmount($(element[0]).data("amount"));
-    };
+            $('#selectMake').val($(element[0]).data("makeid"));
+            $('#selectMake').material_select();
+            $("#selectMake").trigger('change');
+
+            $('#selectModel').val($(element[0]).data("modelid"));
+            $('#selectModel').material_select();
+            $('#selectModel').trigger('change');
+
+            $('#selectVersion').val($(element[0]).data("versionid"));
+            $('#selectVersion').material_select();
+            $('#selectVersion').trigger('change');
+
+            self.bookingAmount($(element[0]).data("amount"));
+
+            Materialize.updateTextFields();
+            $('#cancelEdit').removeClass("hide");
+        };
+
+        self.cancelEdit = function () {
+            $('#btnSave').html('Save');
+            self.bookingId("");
+            self.bookingAmount("");
+            self.versions([]);
+            $('#selectVersion').material_select();
+            self.models([]);
+            $('#selectModel').material_select();
+            $('#selectMake').val(0);
+            $('#selectMake').material_select();
+            $("#selectMake").trigger('change');
+            $('#cancelEdit').addClass("hide");
+        };
+
+        self.deleteBooking = function (e) {
+            element = $(e.target).closest("tr");
+
+            self.bookingId($(element[0]).data("id"));
+
+            if (confirm("Are you sure you want to delete this record")) {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/Dealers/DeleteBookingAmount/?bookingId=" + self.bookingId(),
+                    success: function (response) {
+                        window.location.href = window.location.href;
+                    }
+                });
+            }
+        }
+    } catch (ex) {
+        showToast(ex.message);
+    }
 }
 
 $(document).ready(function () {
-    $('select').material_select();
+    $('#selectMake').material_select();
     ko.applyBindings(new bindManageBookingAmount);
 });
 

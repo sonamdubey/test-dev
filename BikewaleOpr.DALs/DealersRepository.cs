@@ -1122,25 +1122,34 @@ namespace BikewaleOpr.DAL
         /// <summary>
         /// Written By : Ashwini Todkar on 17 Dec 2014
         /// Summary    : Method to insert bike booking amount for a dealer
+        /// Modified By: Vivek Singh Tomar On 9th Aug 2017
+        /// Summary: Changed implementation using dapper
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="modelId"></param>
         /// <param name="versionId"></param>
         /// <param name="amount">booking amount</param>
         /// <returns>isrecord inserted</returns>
-        public bool SaveBookingAmount(BookingAmountEntity objBookingAmt)
+        public bool SaveBookingAmount(BookingAmountEntity objBookingAmt, UInt32 updatedBy)
         {
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savebookingamount"))
+                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, objBookingAmt.NewBikeDealers.DealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeModelId", DbType.Int32, objBookingAmt.BikeModel.ModelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeVersionId", DbType.Int32, (objBookingAmt.BikeVersion.VersionId > 0) ? objBookingAmt.BikeVersion.VersionId : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Amount", DbType.Int32, objBookingAmt.BookingAmountBase.Amount));
+                    DynamicParameters param = new DynamicParameters();
+                    param.Add("par_bookingid", objBookingAmt.BookingAmountBase.Id);
+                    param.Add("par_dealerid", objBookingAmt.DealerId);
+                    param.Add("par_bikemodelid", objBookingAmt.BikeModel.ModelId);
+                    param.Add("par_bikeversionid", objBookingAmt.BikeVersion.VersionId);
+                    param.Add("par_amount", objBookingAmt.BookingAmountBase.Amount);
+                    param.Add("par_updatedby", updatedBy);
 
-                    return (MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase));
+                    connection.Open();
+                    connection.Execute("bw_savebookingamount_08072017", param: param, commandType: CommandType.StoredProcedure);
+                    if(connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
             catch (Exception ex)

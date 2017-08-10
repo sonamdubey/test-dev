@@ -39,7 +39,7 @@ namespace BikewaleOpr.Interface
         #region bike booking amount function declaration
         IEnumerable<BookingAmountEntity> GetBikeBookingAmount(uint dealerId);
         bool UpdateBookingAmount(BookingAmountEntityBase objbookingAmtBase);
-        bool SaveBookingAmount(BookingAmountEntity objBookingAmt);
+        bool SaveBookingAmount(BookingAmountEntity objBookingAmt, UInt32 updatedById);
         BookingAmountEntity GetDealerBookingAmount(uint versionId, uint dealerId);
         #endregion
         bool DeleteBookingAmount(uint bookingId);

@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using BikewaleOpr.Entities;
 using BikewaleOpr.Entity;
 using BikewaleOpr.Interface;
 using System;
@@ -37,6 +38,37 @@ namespace BikewaleOpr.Controllers
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Controllers.ManageBookingAmountController dealer id {0}", dealerId));
             }
             return View(objManageBookingAmountData);
+        }
+
+        public ActionResult Add(uint dealerId, int modelId, uint bookingAmount, int versionId = 0, uint bookingId = 0)
+        {
+            try
+            {
+                BookingAmountEntity objBookingAmountEntity = new BookingAmountEntity()
+                {
+                    BookingAmountBase = new BookingAmountEntityBase()
+                    {
+                        Id = bookingId,
+                        Amount = bookingAmount
+                    },
+                    BikeModel = new BikeModelEntityBase()
+                    {
+                        ModelId = modelId
+                    },
+                    BikeVersion = new BikeVersionEntityBase()
+                    {
+                        VersionId = versionId
+                    },
+                    UpdatedOn = DateTime.Now,
+                    DealerId = dealerId
+                };
+                _manageBookingAmountPageData.AddBookingAmount(objBookingAmountEntity, BikeWaleOpr.Common.CurrentUser.Id);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Controllers.ManageBookingAmountController.Add"));
+            }
+            return RedirectToAction("/Index", new { dealerId = dealerId});
         }
     }
 }

@@ -272,12 +272,6 @@ namespace BikewaleOpr.DALs.Bikedata
             }
         }
 
-        /// <summary>
-        /// Modified by: Vivek Singh Tomar on 7th Aug 2017
-        /// Summary: Implemented dapper and changed the sp name to call
-        /// </summary>
-        /// <param name="requestType"></param>
-        /// <returns></returns>
         public IEnumerable<BikeMakeEntityBase> GetMakes(ushort requestType)
         {
             IEnumerable<BikeMakeEntityBase> objMakes = null;
@@ -292,7 +286,7 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     param.Add("par_requesttype", requestType);
 
-                    objMakes = connection.Query<BikeMakeEntityBase>("getbikemakes_new_07082017", param: param, commandType: CommandType.StoredProcedure);
+                    objMakes = connection.Query<BikeMakeEntityBase>("getbikemakes_1712017", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();

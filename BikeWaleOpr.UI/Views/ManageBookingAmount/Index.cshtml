@@ -6,7 +6,7 @@
 @if(Model != null)
 {
     <div class="row">
-        <div class="col m10">
+        <div class="col m9">
             @if(Model.BookingAmountList != null && Model.BookingAmountList.Count() > 0)
             {
                 <table id="bookingAmountList" class="bordered highlight z-depth-3 responsive-table">
@@ -24,8 +24,8 @@
                     </tr>
                     @foreach (var obj in Model.BookingAmountList)
                     {
-                        <tr class="@(obj.BookingAmountBase.IsActive? "teal lighten-4" : "red lighten-4")" 
-                            data-id="@obj.BookingAmountBase.Id" data-makeid="@obj.BikeMake.MakeId" data-modelid="@obj.BikeModel.ModelId" data-versionid="@obj.BikeVersion.VersionId" data-amount="@obj.BookingAmountBase.Amount" data-dealerid="@obj.DealerId">
+                        <tr data-id="@obj.BookingAmountBase.Id" data-makeid="@obj.BikeMake.MakeId" data-modelid="@obj.BikeModel.ModelId" 
+                                data-versionid="@obj.BikeVersion.VersionId" data-amount="@obj.BookingAmountBase.Amount">
                             <td>@obj.BookingAmountBase.Id</td>
                             <td>@obj.BikeMake.MakeName</td>
                             <td>@obj.BikeModel.ModelName</td>
@@ -33,9 +33,9 @@
                             <td>@obj.LastUpdatedBy</td>
                             <td>@obj.UpdatedOn.ToString("dd/MM/yyyy")</td>
                             <td>@obj.BookingAmountBase.Amount</td>
-                            <td>@obj.BookingAmountBase.IsActive.ToString()</td>
+                            <td><i class="material-icons @(obj.BookingAmountBase.IsActive?"icon-green":"icon-red")">@(obj.BookingAmountBase.IsActive ? "done" : "close")</i></td>
                             <td><a href="javascript:void(0)" rel="nofollow" data-bind="event: {click: function(d, e) { editBooking(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
-                            <td><a href="javascript:void(0)" rel="nofollow"><i class="material-icons icon-red">delete</i></a></td>
+                            <td><a href="javascript:void(0)" rel="nofollow" data-bind="event: {click: function(d, e) { deleteBooking(e) }}"><i class="material-icons icon-red">delete</i></a></td>
                         </tr>
                     }
                 </table>
@@ -43,10 +43,12 @@
         </div>
         @using (Html.BeginForm("Add", "ManageBookingAmount", FormMethod.Post))
         {
-            <div class="col m2">
+            <input id="dealerId" name="DealerId" type="number" data-bind="textInput: dealerId" hidden/>
+            <input id="bookingId" name="BookingId" type="number" data-bind="textInput: bookingId" hidden />
+            <div class="col m3">
                 <ul class="collapsible" data-collapsible="accordian">
-                    <li>
-                        <div class="collapsible-header">
+                    <li class="active">
+                        <div class="collapsible-header active">
                             <strong>
                                 Add New Booking Amount
                             </strong>
@@ -55,7 +57,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="input-field col m12">
-                                        <select id = "makeName" name="MakeName" data-bind="value: selectedMakeId, event: {change: getModels}, css:makeMsg()!=''?'invalid':'' ">
+                                        <select id = "selectMake" name="MakeId" data-bind="value: selectedMakeId, event: {change: getModels} ">
                                             <option value="" disabled selected>Select Make</option>
                                             @if (Model.BikeMakeList != null && Model.BikeMakeList.Count() > 0)
                                             {
@@ -65,35 +67,40 @@
                                                 }
                                             }
                                         </select>
-                                        <label for="makeName" data-error="" data-bind="attr:{'data-error': makeMsg}, css:makeMsg()!=''?'active':''">Make</label>
+                                        <label for="MakeId">Make</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col m12">
-                                        <select id="modelName" name="ModelName" data-bind="options: models, optionsText: 'modelName', optionsValue: 'modelId', value: selectedModelId, optionsCaption: 'Select Model', event: {change: getVersions()},css:modelMsg()!=''?'invalid':'' ">
+                                        <select id="selectModel" class="invalid" name="ModelId" data-bind="value: selectedModelId, event: {change: getVersions}, options: models, optionsText: 'modelName', optionsValue: 'modelId', optionsCaption: 'Select Model'">
                                             <option value="" disabled selected>Select Model</option>
                                         </select>
-                                        <label for="modelName" data-error="" data-bind="attr:{'data-error': modelMsg}, ,css:modelMsg()!=''?'active':''">Model</label>
+                                        <label for="ModelId">Model</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col m12">
-                                        <select id="versionName" name="versionName" data-bind="options: versions, optionsText: 'versionName', optionsValue: 'versionId', value: selectedVersionId, optionsCaption: 'Select Version', css:versionMsg()!=''?'invalid':'' ">
+                                        <select id="selectVersion" name="VersionId" data-bind="options: versions, optionsText: 'versionName', optionsValue: 'versionId', value: selectedVersionId, optionsCaption: 'Select Version'">
                                             <option value="" disabled selected>Select Version</option>
                                         </select>
-                                        <label for="versionName" data-error="" data-bind="attr:{'data-error': versionMsg}, css:versionMsg()!=''?'active':''">Version</label>
+                                        <label for="VersionId">Version</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col m12">
-                                        <input id="bookingAmount" name="BookingAmount" type="number" class="validate" data-bind="value: bookingAmount, css:bookingMsg()!=''?'invalid':'' "/>
-                                        <label for="BookingAmount" data-error="" data-bind="attr:{'data-error': bookingMsg, css:bookingMsg()!=''?'active':''">Enter Booking Amount</label>
+                                        <input id="bookingAmount" name="BookingAmount" type="number" class="validate" data-bind="textInput: bookingAmount, css:bookingMsg()!=''?'invalid':'' "/>
+                                        <label for="BookingAmount" data-error="" data-bind="attr:{'data-error': bookingMsg}, css:bookingMsg()!=''?'':'active'">Enter Booking Amount</label>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="input-field col m12">
+                                    <div class="input-field col m6">
                                         <button id="btnSave" class="btn waves-effect waves-light" type="submit" name="save" data-bind="event : { click : function() { return validateBookingSubmit();}}">
                                             Save
+                                        </button>
+                                    </div>
+                                    <div class="input-field col m6">
+                                        <button id="cancelEdit" class="btn waves-effect waves-light hide" name="cancel"  type="button" data-bind="event : { click : cancelEdit}">
+                                            Cancel
                                         </button>
                                     </div>
                                 </div>
