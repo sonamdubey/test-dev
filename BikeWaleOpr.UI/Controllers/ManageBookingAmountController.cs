@@ -40,35 +40,23 @@ namespace BikewaleOpr.Controllers
             return View(objManageBookingAmountData);
         }
 
-        public ActionResult Add(uint dealerId, int modelId, uint bookingAmount, int versionId = 0, uint bookingId = 0)
+        /// <summary>
+        /// Created by: Vivek Singh Tomar On 10th Aug 2017
+        /// summary: Function to add/update booking amounts
+        /// </summary>
+        /// <param name="objBookingAmountEntity"></param>
+        /// <returns></returns>
+        public ActionResult Add(BookingAmountEntity objBookingAmountEntity)
         {
             try
             {
-                BookingAmountEntity objBookingAmountEntity = new BookingAmountEntity()
-                {
-                    BookingAmountBase = new BookingAmountEntityBase()
-                    {
-                        Id = bookingId,
-                        Amount = bookingAmount
-                    },
-                    BikeModel = new BikeModelEntityBase()
-                    {
-                        ModelId = modelId
-                    },
-                    BikeVersion = new BikeVersionEntityBase()
-                    {
-                        VersionId = versionId
-                    },
-                    UpdatedOn = DateTime.Now,
-                    DealerId = dealerId
-                };
                 _manageBookingAmountPageData.AddBookingAmount(objBookingAmountEntity, BikeWaleOpr.Common.CurrentUser.Id);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Controllers.ManageBookingAmountController.Add"));
             }
-            return RedirectToAction("/Index", new { dealerId = dealerId});
+            return RedirectToAction("/Index/", new { dealerId = objBookingAmountEntity.DealerId});
         }
     }
 }

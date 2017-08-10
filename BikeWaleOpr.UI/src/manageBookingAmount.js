@@ -84,8 +84,9 @@
         };
 
         self.editBooking = function (e) {
+            self.bookingMsg("");
             $('#btnSave').html('Update');
-            element = $(e.target).closest("tr");
+            var element = $(e.target).closest("tr");
 
             self.bookingId($(element[0]).data("id"));
 
@@ -108,6 +109,7 @@
         };
 
         self.cancelEdit = function () {
+            self.bookingMsg("");
             $('#btnSave').html('Save');
             self.bookingId("");
             self.bookingAmount("");
@@ -119,21 +121,36 @@
             $('#selectMake').material_select();
             $("#selectMake").trigger('change');
             $('#cancelEdit').addClass("hide");
+            Materialize.updateTextFields();
         };
 
         self.deleteBooking = function (e) {
-            element = $(e.target).closest("tr");
-
-            self.bookingId($(element[0]).data("id"));
-
-            if (confirm("Are you sure you want to delete this record")) {
-                $.ajax({
-                    type: "GET",
-                    url: "/api/Dealers/DeleteBookingAmount/?bookingId=" + self.bookingId(),
-                    success: function (response) {
-                        window.location.href = window.location.href;
-                    }
-                });
+            var element = $(e.target).closest("tr");
+            var isActive = $(element[0]).data("isactive");
+            if (isActive == "True") {
+                self.bookingId($(element[0]).data("id"));
+                if (confirm("Are you sure you want to delete this record")) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/Dealers/DeleteBookingAmount/?bookingId=" + self.bookingId(),
+                        success: function (response) {
+                            //window.location.href = window.location.href;
+                            var activeIcon = $(e.target).closest("tr").find('.isActive');
+                            $(activeIcon).removeClass('icon-green');
+                            $(activeIcon).addClass('icon-red');
+                            $(activeIcon).html('close');
+                            $(element[0]).data("isactive", "False");
+                        },
+                        complete: function (xhr) {
+                            if (xhr.status != 200) {
+                                showToast('some error occurred');
+                            }
+                        }
+                    });
+                }
+            }
+            else {
+                showToast("Booking alreay deleted");
             }
         }
     } catch (ex) {

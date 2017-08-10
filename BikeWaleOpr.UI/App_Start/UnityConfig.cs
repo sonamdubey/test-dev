@@ -20,15 +20,6 @@ using BikewaleOpr.Interface.UserReviews;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
-using BikewaleOpr.Interface.UserReviews;
-using BikewaleOpr.DALs.UserReviews;
-using BikewaleOpr.Interface.ContractCampaign;
-using BikewaleOpr.DALs.ContractCampaign;
-using BikewaleOpr.CommuteDistance;
-using BikewaleOpr.Interface.Location;
-using BikewaleOpr.DALs.Location;
-using BikewaleOpr.BAL.ContractCampaign;
-using Bikewale.ManufacturerCampaign.DAL;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.DALs.Banner;
 using BikewaleOpr.DAL;
@@ -41,6 +32,8 @@ namespace BikewaleOpr
     /// Description : Added IBikeModels, IUsedBikes, IHomePage
     /// Modified by : Vivek Singh Tomar on 1st Aug 2017
     /// Description : Added IBikeMakes
+    /// Modified by : Vivek Singh Tomar on 7th Aug 2017
+    /// Summary : Added IDealers
     /// </summary>
     public static class UnityConfig
     {

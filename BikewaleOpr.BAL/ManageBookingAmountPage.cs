@@ -21,9 +21,10 @@ namespace BikewaleOpr.BAL
             _bikeMakesRepo = bikeMakesRepo;
             _dealers = dealers;
         }
+
         /// <summary>
         /// Created by : Vivek Singh Tomar On 5th Aug 2017
-        /// Summary : Function to get manage booking amount page data
+        /// Summary : Function to get booking amount page data
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
@@ -46,14 +47,21 @@ namespace BikewaleOpr.BAL
             return objManageBookingAmountData;
         }
 
+        /// <summary>
+        /// Created by: Vivek Singh Tomar On 10th Aug 2017
+        /// Summary: Function to validate booking amount entity and call DAL
+        /// </summary>
+        /// <param name="objBookingAmountEntity"></param>
+        /// <param name="updatedBy"></param>
         public void AddBookingAmount(BookingAmountEntity objBookingAmountEntity, string updatedBy)
         {
             try
             {
+                objBookingAmountEntity.UpdatedOn = DateTime.Now;
                 UInt32 updatedById = 0;
                 UInt32.TryParse(updatedBy, out updatedById);
                 if(objBookingAmountEntity.DealerId > 0 && objBookingAmountEntity.BikeModel.ModelId > 0 && 
-                     objBookingAmountEntity.BookingAmountBase.Amount > 0 && updatedById > 0)
+                     objBookingAmountEntity.BookingAmountBase.Amount >= 0 && updatedById > 0)
                 {
                     _dealers.SaveBookingAmount(objBookingAmountEntity, updatedById);
                 }

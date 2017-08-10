@@ -1123,7 +1123,7 @@ namespace BikewaleOpr.DAL
         /// Written By : Ashwini Todkar on 17 Dec 2014
         /// Summary    : Method to insert bike booking amount for a dealer
         /// Modified By: Vivek Singh Tomar On 9th Aug 2017
-        /// Summary: Changed implementation using dapper
+        /// Summary: Changed implementation using dapper and added new required parameters
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="modelId"></param>
@@ -1202,7 +1202,7 @@ namespace BikewaleOpr.DAL
         /// Written By : Ashwini Todkar on 17 Dec 2014
         /// Summary    : Method to get bike booking details
         /// Modified by : Vivek Singh Tomar
-        /// Summary : Implement dapper
+        /// Summary : Implemented dapper
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>

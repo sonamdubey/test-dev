@@ -5,7 +5,7 @@ namespace BikewaleOpr.Entity
 {
     /// <summary>
     /// Created by : Vivek Singh Tomar on 5th Aug 2017
-    /// Summary : Entity to hold Manage booking amount page
+    /// Summary : Entity to hold Manage booking amount page data
     /// </summary>
     public class ManageBookingAmountData
     {
