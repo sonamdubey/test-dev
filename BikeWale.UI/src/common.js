@@ -1318,7 +1318,7 @@ docReady(function () {
             dataLayer.push({ 'GlobalCity': cityName });
             ga('set', 'dimension3', cityName);
             if (city.cityId) {
-                //location.reload();
+                location.reload();
             }           
         },
         open: function (result) {
