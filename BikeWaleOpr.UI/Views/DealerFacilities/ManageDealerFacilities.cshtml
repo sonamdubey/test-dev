@@ -8,50 +8,47 @@
 
 @if (Model != null)
 {
-    <div id="dealerFacility" class="row margin-top10" style="margin-bottom : 60px">
+    <div id="dealerFacility" class="row margin-top10" style="margin-bottom : 60px" data-currentuser="@BikeWaleOpr.Common.CurrentUser.UserName" data-currentUserId="@BikeWaleOpr.Common.CurrentUser.Id" >
         <div class="col m10">
             <div id="displayDealerFacility" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]">
-                @*<div class="row">
-                        Facility
-                        <input type="text" data-bind="value:facility" maxlength="100" style="display:inline-block;width:300px;height:40px;border:groove">
-
-                        <input type="checkbox" id="chkActiveStatus" />
-                        <label for="chkActiveStatus" data-bind="checked: activeStatus()">Is Active</label>
-
-                        <button class="btn waves-effect waves-light" data-bind="click:addFacility" type="submit" name="action">
-                            Add Facility
-                        </button>
-
-                        <button class="btn waves-effect waves-light" data-bind="click:updateFacility" type="submit" name="action">
-                            Update Facility
-                        </button>
-                    </div>*@
-                @*<div class="col m10">*@
-
-
                 <table id="tblFacilityData" class="bordered highlight z-depth-3 centered responsive-table">
                     <tr>
-                        <th>FacilityId</th>
+                        <th>Facility Id</th>
                         <th>Facilities</th>
-                        <th>IsActive</th>
+                        <th>Is Active</th>
                         <th>Edit</th>
+                        <th>Last Updated By</th>
+                        <th>Last Updated On</th>
                     </tr>
                     <tbody id="tblFacilityBody">
 
                         @foreach (var record in Model.FacilityList)
                         {
-                            var statusId = "id_" + record.Id;
-                            <tr>
-                                <td data-facilityId="@record.Id">@record.Id</td>
-                                <td data-facilityName="@record.Facility">@record.Facility</td>
-                                <td>
-                                    <input type="checkbox" id="@statusId" value="@record.IsActive" @(record.IsActive ? "checked" : "") />
-                                    <label for="@statusId"></label>
+                            
+                            <tr data-id="@record.Id">
+                                <td data-element="facilityid">@record.Id</td>
+                                <td data-element="facilityname">@record.Facility</td>
+                                <td data-element="activeicon" data-status="@record.IsActive">
+                                    @{
+                                     
+                                        if (record.IsActive)
+                                        {
+                                            <i class="material-icons icon-blue">check_box</i>
+                                        }
+                                        else
+                                        {
+                                            <i class="material-icons icon-red">clear</i>
+                                        }
 
+                                    }
+                                   
+                                    
                                 </td>
-                                <td><a href="javascript:void(0)" data-bind="click : editFacility"><i class="material-icons icon-blue" srtle="line-height: 32px;">mode_edit</i></a></td>
-                            </tr>
+                                <td data-element="editicon"><a href="javascript:void(0)" data-bind="click : editFacility"><i class="material-icons icon-blue" style="line-height: 32px;">mode_edit</i></a></td>
+                                 <td data-element="updatedby">@record.LastUpdatedBy </td>
 
+                                 <td data-element="updatedon">@record.LastUpdatedOn</td>
+                             </tr>
                         }
 
                     </tbody>
@@ -102,7 +99,7 @@
                 </li>
             </ul>
         </div>
-        <input type="hidden" id="txtDealerId" value="@(Model.DealerId > 0 ? Model.DealerId : 0)" />
+        <input type="hidden" id="txtDealerId" data-bind="value:dealerId" value="@(Model.DealerId > 0 ? Model.DealerId : 0)" />
     </div>
 
 

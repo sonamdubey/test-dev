@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BikewaleOpr.DTO.Dealers
 {
-   public class DealerFacilityDTO
+    /// <summary>
+    /// Written By : Snehal Dange on 7th August 2017
+    /// Description : Dto for dealer facility
+    /// </summary>
+    public class DealerFacilityDTO
     {
       
         public string Facility { get; set; }
@@ -18,5 +22,7 @@ namespace BikewaleOpr.DTO.Dealers
         public uint Id { get; set; }
 
         public uint FacilityId { get; set; }
+
+        public UInt16 LastUpdatedById { get; set; }
     }
 }

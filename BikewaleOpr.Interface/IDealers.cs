@@ -15,9 +15,9 @@ namespace BikewaleOpr.Interface
     public interface IDealers
     {
         PQ_DealerDetailEntity GetDealerDetailsPQ(PQParameterEntity objParams);
-        List<FacilityEntity> GetDealerFacilities(uint dealerId);
+        IEnumerable<FacilityEntity> GetDealerFacilities(uint dealerId);
         DataTable GetAllDealers(UInt32 cityId);
-        bool SaveDealerFacility(FacilityEntity objData);
+        UInt16 SaveDealerFacility(FacilityEntity objData);
         DataTable GetDealerCities();
         bool UpdateDealerFacility(FacilityEntity objData);
         DataTable GetOfferTypes();

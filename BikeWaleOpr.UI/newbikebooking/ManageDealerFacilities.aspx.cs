@@ -20,13 +20,13 @@ namespace BikeWaleOpr.NewBikeBooking
 
         protected uint dealerId = 0;
 
-     /*   protected override void OnInit(EventArgs e)
+  /*     protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
             btnAddFacility.Click += new EventHandler(AddFacility);
             btnUpdateFacility.Click += new EventHandler(UpdateFacility);
         }
-*/
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["dealerId"] != null)
@@ -68,7 +68,7 @@ namespace BikeWaleOpr.NewBikeBooking
             }
         }
 
-        /*   protected void AddFacility(object sender, EventArgs e)
+           protected void AddFacility(object sender, EventArgs e)
            {
                try
                {

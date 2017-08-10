@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 
 namespace BikewaleOpr.Models.DealerFacility
 {
-   public class ManageDealerFacilityVM
+    /// <summary>
+    /// Written By : Snehal Dange on 7th August 2017
+    /// Description : Model for dealer facility
+    /// </summary>
+    public class ManageDealerFacilityVM
     {
-        public List<FacilityEntity> FacilityList { get; set; }
+        public IEnumerable<FacilityEntity> FacilityList { get; set; }
         public uint DealerId { get; set; }
 
     }

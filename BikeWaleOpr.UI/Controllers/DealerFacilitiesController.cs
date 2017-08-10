@@ -20,13 +20,22 @@ namespace BikewaleOpr.Controllers
     {
 
         private readonly IDealers _dealerRepo;
+        /// <summary>
+        /// Constuctor to initialize the dependencies
+        /// </summary>
+        /// <param name="dealer"></param>
         public DealerFacilitiesController(IDealers dealer)
         {
             _dealerRepo = dealer;
         }
 
-
-        // GET: DealerFacilities
+        /// <summary>
+        /// Created by :  Snehal Dange on 05-08-2017
+        /// Description :Action to get all facilities for dealer
+        /// </summary>
+        /// <param name="dealerId"></param> 
+        /// <returns></returns>
+        
         [Route("newbikebooking/ManageDealerFacilities/{dealerId}/")]
         public ActionResult ManageDealerFacilities(uint dealerId)
         {

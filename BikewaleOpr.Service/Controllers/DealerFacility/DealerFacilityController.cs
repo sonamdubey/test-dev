@@ -12,6 +12,10 @@ using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers.DealerFacility
 {
+    /// <summary>
+    /// Created By : Snehal Dange on 5th August , 2017
+    /// Description : Controller for Dealer Facility
+    /// </summary>
     public class DealerFacilityController : ApiController
     {
         private readonly IDealers _dealerRepo;
@@ -20,31 +24,36 @@ namespace BikewaleOpr.Service.Controllers.DealerFacility
             _dealerRepo = dealer;
         }
 
+
+        /// <summary>
+        /// Created By : Snehal Dange on 5th August , 2017
+        /// Description : Method for adding dealer Facility
+        /// </summary>
+        /// <param name="objDTO"></param>
+        /// <returns></returns>
         [HttpPost, Route("api/dealerfacility/add/")]
         public IHttpActionResult AddDealerFacility([FromBody] DealerFacilityDTO objDTO)
         {
             FacilityEntity objEntity = null;
           
-            bool status = false;
+            uint newId = 0;
             if (objDTO.Id > 0 && objDTO !=null)
             {
                 try
                 {
                     objEntity = DealerFacilityMapper.Convert(objDTO);
-
-
                     if (objEntity != null)
                     {
-                        status = _dealerRepo.SaveDealerFacility(objEntity);
-                        if(status)
+                        newId = _dealerRepo.SaveDealerFacility(objEntity);
+                        if(newId > 0)
                         {
-                            return Ok();
-
+                            return Ok(newId);
                         }
-
-
+                        else
+                        {
+                            return InternalServerError();
+                        }
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -60,6 +69,12 @@ namespace BikewaleOpr.Service.Controllers.DealerFacility
         }
 
 
+        /// <summary>
+        /// Created By : Snehal Dange on 5th August , 2017
+        /// Description : Method for updating dealer Facility
+        /// </summary>
+        /// <param name="objDTO"></param>
+        /// <returns></returns>
         [HttpPost, Route("api/dealerfacility/update/")]
         public IHttpActionResult UpdateDealerFacility([FromBody] DealerFacilityDTO objDTO)
         {
@@ -98,8 +113,5 @@ namespace BikewaleOpr.Service.Controllers.DealerFacility
             }
             return NotFound();
         }
-
-
-
     }
 }

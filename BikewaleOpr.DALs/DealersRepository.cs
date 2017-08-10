@@ -224,76 +224,65 @@ namespace BikewaleOpr.DAL
 
 
         /// <summary>
-        /// Written By : Ashish G. Kamble on 31 Oct 2014.
+        /// Written By :Snehal Dange on 5th August 2017
         /// Summary : Function to get all facilities provided by the dealer.
         /// </summary>
-        /// <param name="dealerId">Id of the dealer whose facilities are required.</param>
-        /// <returns>Returns list of the facilities for the given dealer id.</returns>
-        public List<FacilityEntity> GetDealerFacilities(uint dealerId)
+        /// <param name="dealerId">Id of the dealer whose facilities are required</param>
+        /// <returns>Returns list of the facilities for the given dealer id</returns>
+
+        public IEnumerable<FacilityEntity> GetDealerFacilities(uint dealerId)
         {
-            List<FacilityEntity> objFacilities = null;
-
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerFacilities"))
+          IEnumerable<FacilityEntity> objFacilities = null;
+          try
+          {
+                if (dealerId > 0)
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                     {
-                        objFacilities = new List<FacilityEntity>();
+                        connection.Open();
 
-                        while (dr.Read())
-                        {
-                            objFacilities.Add(new FacilityEntity()
-                            {
-                                Facility = dr["Facility"].ToString(),
-                                Id = Convert.ToInt32(dr["Id"]),
-                                IsActive = Convert.ToBoolean(dr["IsActive"])
-                            });
-                        }
+                        var param = new DynamicParameters();
+                        param.Add("par_DealerId", dealerId);
+
+                        objFacilities = connection.Query<FacilityEntity>("BW_GetDealerFacilities", param: param, commandType: CommandType.StoredProcedure);
+
+                        if (connection.State == ConnectionState.Open)
+                            connection.Close();
                     }
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("Exception at GetDealerFacilities : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.ServiceCenter.GetDealerFacilities");
             }
             return objFacilities;
+         }
 
-        }   // End of GetDealerFacilities
 
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 7 Nov 2014
         /// Summary : Function to save the dealer facility
         /// Modified by: Snehal Dange on 7th August 2017
-        /// Description: Changed Input type from individual parameters to entity. Code changed in Dapper.
+        /// Description: Changed Input type from individual parameters to entity.Added parameters 'par_updatedby' ,'par_latestInsertId' , 
         /// </summary>
         /// <param name="objData"></param>
-        public bool SaveDealerFacility(FacilityEntity objData)
+        public UInt16 SaveDealerFacility(FacilityEntity objData)
         {
-            byte status=0;
-            
+            UInt16 newID = 0;
             try
             {
-
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
-
                 {
                     connection.Open();
-
                     var param = new DynamicParameters();
                     param.Add("par_Facility", objData.Facility);
                     param.Add("par_IsActive", Convert.ToUInt16(objData.IsActive));
                     param.Add("par_DealerId", objData.Id);
-
-                    status = (byte)connection.Execute("bw_savedealerfacility", param: param, commandType: CommandType.StoredProcedure);
-
-
+                    param.Add("par_updatedby", objData.LastUpdatedById);
+                    param.Add("par_latestInsertId", dbType: DbType.UInt16, direction: ParameterDirection.Output);
+                    connection.Execute("bw_savedealerfacility", param: param, commandType: CommandType.StoredProcedure);
+                    newID = param.Get<UInt16>("par_latestInsertId");
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -303,19 +292,18 @@ namespace BikewaleOpr.DAL
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DAL.SaveDealerFacility");
-               
             }
 
-            return status > 0;
+            return newID;
         }
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 7 Nov 2014
         /// Summary : Function to update the dealer facility.
         /// Modified by: Snehal Dange on 7th August 2017
-        /// Description: Changed Input type from individual parameters to entity. Code changed in Dapper.
+        /// Description: Changed Input type from individual parameters to entity. Added parameter 'par_updatedby'.
         /// </summary>
-       
+
         public bool UpdateDealerFacility(FacilityEntity objData)
         {
             byte status = 0;
@@ -330,6 +318,7 @@ namespace BikewaleOpr.DAL
                     param.Add("par_facility", objData.Facility);
                     param.Add("par_isactive", Convert.ToUInt16(objData.IsActive));
                     param.Add("par_facilityid", objData.FacilityId);
+                    param.Add("par_updatedby", objData.LastUpdatedById);
 
                     status = (byte)connection.Execute("BW_UpdateDealerFacility", param: param, commandType: CommandType.StoredProcedure);
 
