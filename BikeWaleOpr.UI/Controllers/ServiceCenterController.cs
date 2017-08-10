@@ -1,4 +1,5 @@
 ﻿using BikewaleOpr.Entity.ServiceCenter;
+using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ServiceCenter;
 using BikewaleOpr.Models.ServiceCenter;
 using BikeWaleOpr.Common;
@@ -18,10 +19,12 @@ namespace BikewaleOpr.Controllers
     public class ServiceCenterController : Controller
     {
         private string _updatedBy = CurrentUser.Id;		
-        private readonly IServiceCenter _serviceCenter =null;		
-        public ServiceCenterController(IServiceCenter serviceCenter)
+        private readonly IServiceCenter _serviceCenter =null;
+        private readonly IBikeMakes _makes = null;
+        public ServiceCenterController(IServiceCenter serviceCenter, IBikeMakes makes)
         {		
-            _serviceCenter = serviceCenter;		
+            _serviceCenter = serviceCenter;
+            _makes = makes;
         }		
 		
         /// <summary>		
@@ -35,7 +38,7 @@ namespace BikewaleOpr.Controllers
         public ActionResult SearchServiceCenter()
         {		
             ServiceCenterPageVM pageVM = null;		
-            ServiceCenterPageModel pageModel = new ServiceCenterPageModel(_serviceCenter);		
+            ServiceCenterPageModel pageModel = new ServiceCenterPageModel(_serviceCenter, _makes);		
             if(pageModel != null)		
             {		
                 pageVM = pageModel.GetData();		

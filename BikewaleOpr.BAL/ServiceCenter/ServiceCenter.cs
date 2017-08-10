@@ -26,34 +26,34 @@ namespace BikewaleOpr.BAL.ServiceCenter
         }		
 		
 		
-        /// <summary>		
-        /// Created By:-Snehal Dange 27 July 2017		
-        /// Summary:- Get bikes Make list 		
-        /// </summary>		
-        /// <param name="requestType"></param>		
-        /// <returns></returns>		
-        public IEnumerable<Entities.BikeData.BikeMakeEntityBase> GetBikeMakes(ushort requestType)
-        {		
+        ///// <summary>		
+        ///// Created By:-Snehal Dange 27 July 2017		
+        ///// Summary:- Get bikes Make list 		
+        ///// </summary>		
+        ///// <param name="requestType"></param>		
+        ///// <returns></returns>		
+        //public IEnumerable<Entities.BikeData.BikeMakeEntityBase> GetBikeMakes(ushort requestType)
+        //{		
 		
-            IEnumerable<Entities.BikeData.BikeMakeEntityBase> objMakesList = null;		
-            try		
-            {		
+        //    IEnumerable<Entities.BikeData.BikeMakeEntityBase> objMakesList = null;		
+        //    try		
+        //    {		
                 		
-                if(_IBikeMake != null && requestType > 0)		
-                {		
-                    objMakesList = _IBikeMake.GetServiceCenterMakes(requestType);		
-                }		
-            }		
+        //        if(_IBikeMake != null && requestType > 0)		
+        //        {		
+        //            objMakesList = _IBikeMake.GetServiceCenterMakes(requestType);		
+        //        }		
+        //    }		
 		
-            catch (Exception ex)		
-            {		
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetBikeMakes");		
-            }		
+        //    catch (Exception ex)		
+        //    {		
+        //        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.ServiceCenterBL.GetBikeMakes");		
+        //    }		
 		
 		
-            return objMakesList;		
+        //    return objMakesList;		
 		
-        }		
+        //}		
 		
         /// <summary>		
         /// Created By:-Snehal Dange 28 July 2017		

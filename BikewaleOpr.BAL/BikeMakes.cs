@@ -43,10 +43,18 @@ namespace BikewaleOpr.BAL
             return objBikeModelEntityBaseList;
         }
 
-        public IEnumerable<BikeMakeEntityBase> GetServiceCenterMakes(ushort requestType)
+        public IEnumerable<BikeMakeEntityBase> GetMakes(ushort requestType)
         {
-            IEnumerable<BikeMakeEntityBase> bikeMakeEntity = null;
-            return bikeMakeEntity;
+            IEnumerable<BikeMakeEntityBase> objMakes = null;
+            try
+            {
+                objMakes = _bikeMakesRepository.GetMakes(requestType);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeMakes.GetMakes");
+            }
+            return objMakes;
         }
     }
 }

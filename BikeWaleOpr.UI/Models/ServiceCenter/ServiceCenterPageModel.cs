@@ -1,6 +1,8 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Notifications;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ServiceCenter;
+using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ServiceCenter;
 using System;
 using System.Collections.Generic;
@@ -19,11 +21,18 @@ namespace BikewaleOpr.Models.ServiceCenter
 
         StateCityEntity objStateCityData = null;
         private readonly IServiceCenter _serviceCenter = null;
+        private readonly IBikeMakes _makes = null;
 
 
         public ServiceCenterPageModel(IServiceCenter serviceCenter)
         {
             _serviceCenter = serviceCenter;
+        }
+
+        public ServiceCenterPageModel(IServiceCenter serviceCenter, IBikeMakes makes )
+        {
+            _serviceCenter = serviceCenter;
+            _makes = makes;
 
         }
 
@@ -84,12 +93,12 @@ namespace BikewaleOpr.Models.ServiceCenter
         public IEnumerable<Entities.BikeData.BikeMakeEntityBase> GetBikeMakes()
         {
             IEnumerable<Entities.BikeData.BikeMakeEntityBase> serviceCenterMakeList = null;
-            ushort requestType = 13;
+
             try
             {
                 if (_serviceCenter != null)
                 {
-                    serviceCenterMakeList = _serviceCenter.GetBikeMakes(requestType);
+                    serviceCenterMakeList = _makes.GetMakes((ushort)EnumBikeType.ServiceCenter);
                 }
             }
             catch (Exception ex)

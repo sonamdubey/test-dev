@@ -14,7 +14,7 @@ namespace BikewaleOpr.Interface.ServiceCenter
     /// </summary>		
     public interface IServiceCenter
     {		
-       IEnumerable<Entities.BikeData.BikeMakeEntityBase> GetBikeMakes(ushort requestType);		
+       //IEnumerable<Entities.BikeData.BikeMakeEntityBase> GetBikeMakes(ushort requestType);		
        IEnumerable<CityEntityBase> GetServiceCenterCities(uint makeId);		
 		
        IEnumerable<CityEntityBase> GetAllCities();		
