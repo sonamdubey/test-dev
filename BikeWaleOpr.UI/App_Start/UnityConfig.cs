@@ -27,6 +27,8 @@ using Unity.Mvc5;
 using BikewaleOpr.Interface.ServiceCenter;
 using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.DALs.ServiceCenter;
+using BikewaleOpr.Interface.BikePricing;
+using BikewaleOpr.DALs.BikePricing;
 
 namespace BikewaleOpr
 {
@@ -57,6 +59,8 @@ namespace BikewaleOpr
                 .RegisterType<ICommuteDistance, CommuteDistanceBL>()
                 .RegisterType<ILocation, LocationRepository>()
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
+                .RegisterType<IContractCampaign, ContractCampaign>()
+                .RegisterType<IShowroomPricesRepository, BikeShowroomPrices>()
                 .RegisterType<ICacheManager, MemcacheManager>()
                 .RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>()
                 .RegisterType<ISponsoredComparison, SponsoredComparison>()
@@ -67,7 +71,6 @@ namespace BikewaleOpr
                 .RegisterType<IContractCampaign, ContractCampaign>()
                 .RegisterType<IServiceCenter, ServiceCenter>()
                 .RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
-
 
 
 

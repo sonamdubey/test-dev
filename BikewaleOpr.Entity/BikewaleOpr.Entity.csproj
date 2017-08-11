@@ -139,6 +139,8 @@
     <Compile Include="BikeModelEntityBase.cs" />
     <Compile Include="BikePricing\BikePrice.cs" />
     <Compile Include="BikePricing\PriceCategoryEntity.cs" />
+    <Compile Include="BikePricing\PriceLastUpdateEntity.cs" />
+    <Compile Include="BikePricing\PriceMonitoringEntity.cs" />
     <Compile Include="BikeVersionEntityBase.cs" />
     <Compile Include="BookingAmountEntity.cs" />
     <Compile Include="BookingAmountEntityBase.cs" />
@@ -211,6 +213,12 @@
     <Compile Include="VersionColorBase.cs" />
     <Compile Include="VersionColorWithAvailability.cs" />
     <Compile Include="VersionEntityBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BikewaleOpr.DTO\BikewaleOpr.DTO.csproj">
+      <Project>{D2E7FEF3-CA0C-4739-B995-C226AF7CC41D}</Project>
+      <Name>BikewaleOpr.DTO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -193,3 +193,18 @@ var progress = {
         $(".progress").removeClass("show").addClass("hide");
     }
 }
+
+var fixedTable = function(element) {
+	var tableBody = $(element).find('.fixed-table__body'),
+		tableHeader = $(element).find('.fixed-table__header table'),
+		tableSidebar = $(element).find('.fixed-table__sidebar table');
+
+	return $(tableBody).scroll(function() {
+		$(tableSidebar).css('margin-top', -$(tableBody).scrollTop());
+		return $(tableHeader).css('margin-left', -$(tableBody).scrollLeft());
+	});
+}
+
+var priceMonitoringTable = new fixedTable($('#priceMonitoringTable'));
+
+
