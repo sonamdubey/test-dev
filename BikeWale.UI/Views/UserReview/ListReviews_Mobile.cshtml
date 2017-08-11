@@ -14,7 +14,7 @@
 
 
 <section id="section-review-list" data-modelid="@Model.ModelId">
-    <div class="container content-box-shadow card-bottom-margin">
+    <div id="modelName" data-modelName="@Model.RatingsInfo.Model.ModelName" class="container content-box-shadow card-bottom-margin">
         <h1 class="font20 padding-15-20 content-box-shadow">@Model.BikeName user reviews</h1>
         <div class="padding-15-20">
             <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName Reviews" class="left-grid-image inline-block">
