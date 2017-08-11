@@ -2,6 +2,7 @@
 using BikewaleOpr.Entity.BikePricing;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.BikePricing;
+using BikewaleOpr.Interface.Location;
 using BikewaleOpr.Models.ManagePrices;
 using System;
 using System.Collections.Generic;
@@ -19,41 +20,28 @@ namespace BikewaleOpr.Controllers
     {
         private readonly IBikeMakes _makesRepo = null;
         private readonly IShowroomPricesRepository _pricesRepo = null;
+        private readonly ILocation _locationRepo = null;
 
-        public PriceMonitoringController(IBikeMakes makesRepo, IShowroomPricesRepository pricesRepo)
+        public PriceMonitoringController(IBikeMakes makesRepo, IShowroomPricesRepository pricesRepo, ILocation locationRepo)
         {
             _makesRepo = makesRepo;
             _pricesRepo = pricesRepo;
+            _locationRepo = locationRepo;
         }
 
-        /// <summary>
-        /// Created By : Ashutosh Sharma on 31-07-2017
-        /// Discription: Action method for default view for price monitoring page.
-        /// </summary>
-        /// <param name="makeId"></param>
-        /// <param name="modelId"></param>
-        public ActionResult Index(uint? makeId, uint? modelId, uint? stateId)
+        [Route("pricemonitoring/")]
+        public ActionResult Index()
         {
-            PriceMonitoringModel priceMonitoringModel = new PriceMonitoringModel(_makesRepo, _pricesRepo);
-            PriceMonitoringVM priceMonitoringVM = new PriceMonitoringVM();
-
+            PriceMonitoringVM priceMonitoringVM = null;
             try
             {
-                priceMonitoringVM.BikeMakes = priceMonitoringModel.GetMakes("NEW");
-                priceMonitoringVM.States = priceMonitoringModel.GetStates();
-
-                if (makeId.HasValue && modelId.HasValue && stateId.HasValue)
-                {
-                    priceMonitoringVM.MakeId = makeId ?? 0;
-                    priceMonitoringVM.ModelId = modelId ?? 0;
-                    priceMonitoringVM.StateId = stateId ?? 0;
-                    priceMonitoringVM.PriceMonitoringEntity = priceMonitoringModel.GetPriceMonitoringDetails(Convert.ToUInt32(makeId), Convert.ToUInt32(modelId), Convert.ToUInt32(stateId));
-                }
+                PriceMonitoringModel priceMonitoringModel = new PriceMonitoringModel(_makesRepo, _pricesRepo, _locationRepo);
+                priceMonitoringVM = priceMonitoringModel.getData();
             }
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Controllers.PriceMonitoringController.Index_makeid:{0}_modelid:{1}", makeId, modelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PriceMonitoringController.Index"));
 
             }
 
@@ -62,14 +50,70 @@ namespace BikewaleOpr.Controllers
 
         /// <summary>
         /// Created By : Ashutosh Sharma on 31-07-2017
-        /// Discription : Action method to be called when form posted with make and model.
-        /// </summary> 
+        /// Discription: Action method for default view for price monitoring page.
+        /// </summary>
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
-        [HttpPost]
-        public ActionResult GetReport(uint? makeId, uint? modelId, uint? stateId)
+
+        [Route("pricemonitoring/make/{makeId}/state/{stateId}")]
+        public ActionResult IndexWithoutBikeModel(uint makeId, uint stateId)
         {
-            return RedirectToAction("Index", "PriceMonitoring", new {@makeId = makeId, @modelId = modelId, @stateId = stateId });
+            PriceMonitoringVM priceMonitoringVM = null;
+
+            try
+            {
+                PriceMonitoringModel priceMonitoringModel = new PriceMonitoringModel(_makesRepo, _pricesRepo, _locationRepo);
+                priceMonitoringVM = priceMonitoringModel.getData(makeId, stateId);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PriceMonitoringController.Index_makeId:{0}_stateId:{1}", makeId, stateId));
+            }
+
+            return View("Index", priceMonitoringVM);
+        }
+
+
+        [Route("pricemonitoring/make/{makeId}/model/{modelId}/state/{stateId}")]
+        public ActionResult IndexWithBikeModel(uint makeId, uint modelId, uint stateId)
+        {
+            PriceMonitoringVM priceMonitoringVM = null;
+
+            try
+            {
+                PriceMonitoringModel priceMonitoringModel = new PriceMonitoringModel(_makesRepo, _pricesRepo, _locationRepo);
+                priceMonitoringVM = priceMonitoringModel.getData(makeId, modelId, stateId);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PriceMonitoringController.Index_makeId:{0}_modelId:{1}_stateId:{2}", makeId, modelId, stateId));
+            }
+
+            return View("Index", priceMonitoringVM);
+        }
+
+
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="stateId"></param>
+        /// <returns></returns>
+        
+        [HttpPost]
+        public ActionResult Submit(uint makeId = 0, uint modelId = 0, uint stateId = 0)
+        {
+            if (modelId == 0)
+            {
+                return RedirectToAction("IndexWithoutBikeModel", "PriceMonitoring", new { @makeId = makeId, @stateId = stateId }); 
+            }
+            else
+            {
+                return RedirectToAction("IndexWithBikeModel", "PriceMonitoring", new { @makeId = makeId, @modelId = modelId, @stateId = stateId });
+            }
         }
     }
 }

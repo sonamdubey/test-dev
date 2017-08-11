@@ -22,7 +22,7 @@ namespace BikewaleOpr.Models.ManagePrices
 
         public uint StateId { get; set; }
         public uint MakeId { get; set; }
-
         public uint ModelId { get; set;}
+        public string PageTitle { get; set; }
     }
 }

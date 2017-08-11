@@ -14,6 +14,6 @@ namespace BikewaleOpr.Entity.BikePricing
     {
         public int CityId { get; set; }
         public int BikeVersionId { get; set; }
-        public DateTime LastUpdated { get; set; }
+        public uint LastUpdated { get; set; }
     }
 }

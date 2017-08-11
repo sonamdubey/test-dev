@@ -43,10 +43,11 @@ namespace BikeWaleOpr.Content
             {
                 BindMakes();
                 BindStates();
-                if (Request.QueryString["City"] != null && Request.QueryString["Make"] != null)
+                if (Request.QueryString["state"] != null && Request.QueryString["city"] != null && Request.QueryString["make"] != null)
                 {
-                    ddlMakes.SelectedValue = Request.QueryString["Make"].ToString();
-                    hdnSelectedCity.Value = Request.QueryString["City"].ToString();
+                    ddlMakes.SelectedValue = Request.QueryString["make"].ToString();
+                    ddlStates.SelectedValue = Request.QueryString["state"].ToString();
+                    hdnSelectedCity.Value = Request.QueryString["city"].ToString();
                     ShowBikePrices();
                     return;
                 }

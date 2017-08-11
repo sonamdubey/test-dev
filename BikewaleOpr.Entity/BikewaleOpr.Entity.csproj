@@ -109,7 +109,6 @@
     <Compile Include="BikePricing\PriceCategoryEntity.cs" />
     <Compile Include="BikePricing\PriceLastUpdateEntity.cs" />
     <Compile Include="BikePricing\PriceMonitoringEntity.cs" />
-    <Compile Include="BikeVersionEntity.cs" />
     <Compile Include="BikeVersionEntityBase.cs" />
     <Compile Include="BookingAmountEntity.cs" />
     <Compile Include="BookingAmountEntityBase.cs" />

@@ -198,6 +198,6 @@ var fixedTable = function(element) {
 	});
 }
 
-var makeTable = new fixedTable($('#makesTable'));
+var priceMonitoringTable = new fixedTable($('#priceMonitoringTable'));
 
 

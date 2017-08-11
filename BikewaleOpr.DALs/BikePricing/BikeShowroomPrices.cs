@@ -159,8 +159,9 @@ namespace BikewaleOpr.DALs.BikePricing
                     priceMonitoring = new PriceMonitoringEntity();
                     var reader = connection.QueryMultiple("getpricemonitoring", param: param, commandType: CommandType.StoredProcedure);
                     priceMonitoring.CityList = reader.Read<Entities.MfgCityEntity>();
-                    priceMonitoring.BikeVersionList = reader.Read<Entities.BikeVersionEntity>();
+                    priceMonitoring.BikeVersionList = reader.Read<BikeVersionEntityBase>();
                     priceMonitoring.PriceLastUpdatedList = reader.Read<PriceLastUpdateEntity>();
+                    priceMonitoring.BikeModelList = reader.Read<BikeModelEntityBase>();
                 }
 
             }
