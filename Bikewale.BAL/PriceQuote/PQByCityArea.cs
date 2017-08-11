@@ -577,7 +577,7 @@ namespace Bikewale.BAL.PriceQuote
 
                         if (detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null)
                         {
-                            pqEntity.IsPremium = detailedDealer.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium ? true : false;
+                            pqEntity.IsPremium = detailedDealer.PrimaryDealer.IsPremiumDealer;
                         }
                     }
                 }
