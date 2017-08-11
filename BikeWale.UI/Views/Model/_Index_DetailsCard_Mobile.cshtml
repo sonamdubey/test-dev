@@ -2,9 +2,9 @@
 
 @if (!Model.IsUpcomingBike)
 {
-    if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+    if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null)
     {
-        @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
+        @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
     }
 
     if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null && Model.ModelPageEntity.ModelColors.Count() > 0)
