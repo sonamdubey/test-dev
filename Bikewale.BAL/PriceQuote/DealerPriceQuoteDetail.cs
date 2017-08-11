@@ -61,7 +61,7 @@ namespace Bikewale.BAL.PriceQuote
                     {
                         if (dealerQuotation.PrimaryDealer != null && dealerQuotation.PrimaryDealer.DealerDetails != null)
                         {
-                            if (dealerQuotation.PrimaryDealer.EMIDetails == null && dealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium)
+                            if (dealerQuotation.PrimaryDealer.EMIDetails == null && (dealerQuotation.PrimaryDealer.IsPremiumDealer))
                             {
                                 dealerQuotation.PrimaryDealer.EMIDetails = new EMI();
                                 dealerQuotation.PrimaryDealer.EMIDetails.MaxDownPayment = 40;
@@ -115,7 +115,7 @@ namespace Bikewale.BAL.PriceQuote
                     {
                         if (dealerQuotation.PrimaryDealer != null && dealerQuotation.PrimaryDealer.DealerDetails != null)
                         {
-                            if (dealerQuotation.PrimaryDealer.EMIDetails == null && (dealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium || dealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Deluxe))
+                            if (dealerQuotation.PrimaryDealer.EMIDetails == null && (dealerQuotation.PrimaryDealer.IsPremiumDealer || dealerQuotation.PrimaryDealer.IsDeluxDealer))
                             {
                                 dealerQuotation.PrimaryDealer.EMIDetails = new EMI();
                                 dealerQuotation.PrimaryDealer.EMIDetails.MaxDownPayment = 40;

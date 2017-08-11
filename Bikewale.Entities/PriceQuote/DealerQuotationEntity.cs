@@ -67,9 +67,9 @@ namespace Bikewale.Entities.PriceQuote
             }
         }
 
-        public bool IsStandardDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Standard.Equals(this.DealerDetails.DealerPackageType)); } }
+        public bool IsStandardDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Standard == this.DealerDetails.DealerPackageType); } }
 
-        public bool IsDeluxDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Deluxe.Equals(this.DealerDetails.DealerPackageType)); } }
+        public bool IsDeluxDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Deluxe == this.DealerDetails.DealerPackageType); } }
 
     }
 }
