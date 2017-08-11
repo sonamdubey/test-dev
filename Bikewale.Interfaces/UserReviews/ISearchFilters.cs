@@ -8,6 +8,5 @@ namespace Bikewale.Interfaces.UserReviews.Search
     public interface IUserReviewsSearch
     {
         SearchResult GetUserReviewsList(InputFilters inputFilters);
-        SearchResult GetUserReviewsListDesktop(InputFilters inputFilters);
     }
 }

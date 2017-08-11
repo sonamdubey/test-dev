@@ -27,8 +27,7 @@ namespace Bikewale.Interfaces.UserReviews
         BikeReviewsInfo GetBikeReviewsInfo(uint modelId);
         Hashtable GetUserReviewsIdMapping();
         IEnumerable<UserReviewSummary> GetUserReviewSummaryList(IEnumerable<uint> reviewIdList);
-        BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);
-        SearchResult GetUserReviewsList(InputFilters inputFilters, string searchQuery);
+        BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);       
         QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
         IEnumerable<RecentReviewsWidget> GetRecentReviews();
 
