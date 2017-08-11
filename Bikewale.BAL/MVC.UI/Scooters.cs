@@ -64,9 +64,9 @@ namespace Bikewale.BAL.MVC.UI
             try
             {
                 metas = new PageMetaTags();
-                metas.CanonicalUrl = "https://www.bikewale.com/new-scooters/";
+                metas.CanonicalUrl = "https://www.bikewale.com/scooters/";
                 if (IsDesktop)
-                    metas.AlternateUrl = "https://www.bikewale.com/m/new-scooters/";
+                    metas.AlternateUrl = "https://www.bikewale.com/m/scooters/";
                 metas.Keywords = "Scooters, Scooty, New scooter, New Scooty, Scooter in India, scooty, Scooter comparison, compare scooter, scooter price, scooty price";
                 metas.Description = "Find scooters of Honda, Hero, TVS, Vespa and many more brands. Know about prices, images, colours, specs and reviews of scooters in India";
                 metas.Title = "New Scooters - Scooters Prices, Reviews, Images, Colours - BikeWale";
