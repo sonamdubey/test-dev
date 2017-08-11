@@ -77,6 +77,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_", inputs.ModelId));
                         MemCachedUtil.Remove("BW_RecentReviews");
+                        MemCachedUtil.Remove("BW_UserReviewIdMapping");
                     }
 
                 }
@@ -157,6 +158,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_", obj.ModelId));
                     }
+                    MemCachedUtil.Remove("BW_UserReviewIdMapping");
                 }
             }
             catch(Exception ex)
