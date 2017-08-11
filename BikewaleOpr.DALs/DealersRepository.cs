@@ -1125,10 +1125,8 @@ namespace BikewaleOpr.DAL
         /// Modified By: Vivek Singh Tomar On 9th Aug 2017
         /// Summary: Changed implementation using dapper and added new required parameters
         /// </summary>
-        /// <param name="dealerId"></param>
-        /// <param name="modelId"></param>
-        /// <param name="versionId"></param>
-        /// <param name="amount">booking amount</param>
+        /// <param name="objBookingAmt"></param>
+        /// <param name="updatedBy"></param>
         /// <returns>isrecord inserted</returns>
         public bool SaveBookingAmount(BookingAmountEntity objBookingAmt, UInt32 updatedBy)
         {
@@ -1220,7 +1218,7 @@ namespace BikewaleOpr.DAL
                     objBookingAmt = connection.Query<BookingAmountEntityBase, BikeMakeEntityBase, BikeModelEntityBase,
                                         BikeVersionEntityBase, BookingAmountEntity, BookingAmountEntity>
                                     (
-                                        "bw_getbikebookingamount",
+                                        "bw_getbikebookingamount_05082017",
                                         (bookingAmountBase, bikeMake, bikeModel, bikeVersion, bookingAmount) =>
                                         {
                                             bookingAmount.BookingAmountBase = bookingAmountBase;
