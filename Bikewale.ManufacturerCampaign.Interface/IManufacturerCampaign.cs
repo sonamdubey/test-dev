@@ -9,5 +9,6 @@ namespace Bikewale.ManufacturerCampaign.Interface
     public interface IManufacturerCampaign
     {
         ManufacturerCampaignEntity GetCampaigns(uint modelId, uint cityId, ManufacturerCampaignServingPages pageId);
+        bool SaveManufacturerIdInPricequotes(uint pqId,uint dealerId);
     }
 }
