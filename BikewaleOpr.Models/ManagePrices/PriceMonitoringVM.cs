@@ -19,9 +19,7 @@ namespace BikewaleOpr.Models.ManagePrices
         public IEnumerable<PriceLastUpdateEntity> PriceLastUpdatedList { get; set; }
         public IEnumerable<BikeVersionEntityBase> BikeVersionList { get; set; }
         public IEnumerable<ModelBase> BikeModelList { get; set; }
-
         public IEnumerable<BikeMakeEntityBase> BikeMakes { get; set; }
-
         public IEnumerable<Entities.StateEntityBase> States { get; set; }
 
         public uint StateId { get; set; }

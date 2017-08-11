@@ -7,7 +7,7 @@ $(document).ready(function () {
         ko.applyBindings(vmPriceMonitoringIndex, $("#makeModelContainer")[0]);
         init();
     } catch (e) {
-
+        
     }
 
 });
@@ -17,12 +17,10 @@ function init() {
         var ddlStates = $("#ddlStates");
         var ddlMakes = $("#ddlMakes");
         var ddlModels = $("#ddlModels");
-        var modelList = ddlModels.data('model');
+        var modelList = $("#hdnModelList").val();
        
-
-     
-
-        if ($.trim(modelList)) {
+        if (modelList != "null") {
+            modelList = JSON.parse(modelList);
             modelList.unshift({ "modelId": 0, "modelName": "All" });
             vmPriceMonitoringIndex.modelList(modelList);
         }
@@ -32,13 +30,13 @@ function init() {
         ddlStates.material_select();
         ddlMakes.material_select();
         ddlModels.material_select();
-    } catch (e) {
 
+    } catch (e) {
+        console.warn(e.message);
     }
 }
 
 function bikeModelsViewModel() {
-    try {
         var self = this;
         self.modelList = ko.observableArray(null);
         self.selectedState = ko.observable($("#ddlStates").data("stateid"));
@@ -46,16 +44,18 @@ function bikeModelsViewModel() {
         self.selectedModel = ko.observable();
 
         self.selectMake = function () {
-            self.selectedMake($('#ddlMakes option:selected').val());
             if (self.selectedMake() != 'undefined' && self.selectedMake() > 0) {
                 $.ajax({
                     type: "GET",
-                    url:"/api/makes/"+ self.selectedMake() + "/models/2" + "/",
+                    url:"/api/makes/"+ self.selectedMake() + "/models/2/",
                     datatype: "json",
                     async: false,
                     success: function (response) {
-                        response.unshift({ "modelId": "0", "modelName": "All" });
-                        self.modelList(response);
+                        if ($.trim(response)) {
+                            response.unshift({ "modelId": "0", "modelName": "All" });
+                            self.modelList(response);
+                        }
+                        
                     },
                     complete: function () {
                         $("#ddlModels").material_select();
@@ -73,9 +73,4 @@ function bikeModelsViewModel() {
 
             }
         };
-
-
-    } catch (e) {
-
-    }
 }

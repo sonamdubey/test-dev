@@ -49,14 +49,14 @@ namespace BikeWaleOpr.Content
                     ddlStates.SelectedValue = Request.QueryString["state"].ToString();
                     hdnSelectedCity.Value = Request.QueryString["city"].ToString();
                     ShowBikePrices();
-                    return;
                 }
-                hdnSelectedCity.Value = "0";
-                ddlCities.Enabled = false;
-                ddlPriceCities.Enabled = false;
+                else
+                {
+                    hdnSelectedCity.Value = "0";
+                    ddlCities.Enabled = false;
+                    ddlPriceCities.Enabled = false;
+                }
             }
-
-
         }
 
         /// <summary>

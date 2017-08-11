@@ -120,13 +120,13 @@
                                         {
                                             foreach (var state in Model.States)
                                             {
-                                                <option value="@state.StateId">@state.StateName</option>
+                                                <option value="@state.StateId" @(state.StateId == Model.StateId ? "selected":"")>@state.StateName</option>
                                             }
                                         }
                                     </select>
                                 </div>
                                 <div class="input-field row s12">
-                                    <select id="ddlMakes" name="makeId" data-makeid="@Model.MakeId" data-bind="value : selectedMake, event:{change: selectMake}">
+                                    <select id="ddlMakes" name="makeId"  data-bind="value : selectedMake, event:{change: selectMake}">
                                         <option value="0">Select Make</option>
                                         @if (Model.BikeMakes != null)
                                         {
@@ -138,7 +138,8 @@
                                     </select>
                                 </div>
                                 <div class="input-field row s12">
-                                    <select id="ddlModels" name="modelId" data-model="@(JsonConvert.SerializeObject(Model.BikeModelList))" data-modelid="@Model.ModelId" data-bind="value:selectedModel, options:modelList, optionsText:'modelName',optionsValue:'modelId', optionsCaption : 'Select Model'">
+                                    <input id="hdnModelList" type="hidden" value="@(JsonConvert.SerializeObject(Model.BikeModelList))">
+                                    <select id="ddlModels" name="modelId" data-modelid="@Model.ModelId" data-bind="value:selectedModel, options:modelList, optionsText:'modelName',optionsValue:'modelId', optionsCaption : 'Select Model'">
                                     </select>
                                 </div>
                                 <div class="input-field row s12">

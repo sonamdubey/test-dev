@@ -26,7 +26,7 @@ namespace BikewaleOpr.Models.ManagePrices
         private readonly IBikeMakes _makesRepo = null;
         private readonly IShowroomPricesRepository _pricesRepo = null;
         private readonly ILocation _locationRepo = null;
-        string pageTitle = "Price Monitoring Report";
+        private string pageTitle = "Price Monitoring Report";
 
         public PriceMonitoringModel(IBikeMakes makesRepo, IShowroomPricesRepository pricesRepo, ILocation locationRepo)
         {
@@ -40,7 +40,7 @@ namespace BikewaleOpr.Models.ManagePrices
         /// Description: Method to get bikemakes and states for price monitoring page.
         /// </summary>
         /// <returns></returns>
-        public PriceMonitoringVM getData()
+        public PriceMonitoringVM GetData()
         {
             PriceMonitoringVM priceMonitoringVM = null;
             try
@@ -65,7 +65,7 @@ namespace BikewaleOpr.Models.ManagePrices
         /// <param name="makeId"></param>
         /// <param name="stateId"></param>
         /// <returns></returns>
-        public PriceMonitoringVM getData(uint makeId, uint stateId)
+        public PriceMonitoringVM GetData(uint makeId, uint stateId)
         {
             PriceMonitoringVM priceMonitoringVM = null;
             PriceMonitoringEntity objPriceMonitoring = null;
@@ -94,7 +94,7 @@ namespace BikewaleOpr.Models.ManagePrices
                         Entities.StateEntityBase state =  priceMonitoringVM.States.FirstOrDefault(c => c.StateId == priceMonitoringVM.StateId);
                         if (bikeMake != null && state != null)
                         {
-                            priceMonitoringVM.PageTitle = string.Format(pageTitle + "- {0} ({1})", bikeMake.MakeName, state.StateName);
+                            priceMonitoringVM.PageTitle = string.Format("{0} - {1} ({2})", pageTitle, bikeMake.MakeName, state.StateName);
                         } 
                     }
                 }
@@ -115,7 +115,7 @@ namespace BikewaleOpr.Models.ManagePrices
         /// <param name="modelId"></param>
         /// <param name="stateId"></param>
         /// <returns></returns>
-        public PriceMonitoringVM getData(uint makeId, uint modelId, uint stateId)
+        public PriceMonitoringVM GetData(uint makeId, uint modelId, uint stateId)
         {
             PriceMonitoringVM priceMonitoringVM = null;
             PriceMonitoringEntity objPriceMonitoring = null;
@@ -145,7 +145,7 @@ namespace BikewaleOpr.Models.ManagePrices
                         Entities.StateEntityBase state = priceMonitoringVM.States.FirstOrDefault(c => c.StateId == priceMonitoringVM.StateId);
                         if (bikeMake != null && bikeModel != null &&state != null)
                         {
-                            priceMonitoringVM.PageTitle = string.Format(pageTitle + " - {0} ({1}) - {2}", bikeMake.MakeName, bikeModel.ModelName, state.StateName);
+                            priceMonitoringVM.PageTitle = string.Format("{0} - {1} ({2}) - {3}",pageTitle, bikeMake.MakeName, bikeModel.ModelName, state.StateName);
                         }
                     }
                 }

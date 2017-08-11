@@ -41,7 +41,7 @@ namespace BikewaleOpr.Controllers
             try
             {
                 PriceMonitoringModel priceMonitoringModel = new PriceMonitoringModel(_makesRepo, _pricesRepo, _locationRepo);
-                priceMonitoringVM = priceMonitoringModel.getData();
+                priceMonitoringVM = priceMonitoringModel.GetData();
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace BikewaleOpr.Controllers
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
 
-        [Route("pricemonitoring/make/{makeId}/state/{stateId}")]
+        [Route("pricemonitoring/make/{makeId}/state/{stateId}/")]
         public ActionResult IndexWithoutBikeModel(uint makeId, uint stateId)
         {
             PriceMonitoringVM priceMonitoringVM = null;
@@ -68,7 +68,7 @@ namespace BikewaleOpr.Controllers
             try
             {
                 PriceMonitoringModel priceMonitoringModel = new PriceMonitoringModel(_makesRepo, _pricesRepo, _locationRepo);
-                priceMonitoringVM = priceMonitoringModel.getData(makeId, stateId);
+                priceMonitoringVM = priceMonitoringModel.GetData(makeId, stateId);
 
             }
             catch (Exception ex)
@@ -87,7 +87,7 @@ namespace BikewaleOpr.Controllers
         /// <param name="modelId"></param>
         /// <param name="stateId"></param>
         /// <returns></returns>
-        [Route("pricemonitoring/make/{makeId}/model/{modelId}/state/{stateId}")]
+        [Route("pricemonitoring/make/{makeId}/model/{modelId}/state/{stateId}/")]
         public ActionResult IndexWithBikeModel(uint makeId, uint modelId, uint stateId)
         {
             PriceMonitoringVM priceMonitoringVM = null;
@@ -95,7 +95,7 @@ namespace BikewaleOpr.Controllers
             try
             {
                 PriceMonitoringModel priceMonitoringModel = new PriceMonitoringModel(_makesRepo, _pricesRepo, _locationRepo);
-                priceMonitoringVM = priceMonitoringModel.getData(makeId, modelId, stateId);
+                priceMonitoringVM = priceMonitoringModel.GetData(makeId, modelId, stateId);
 
             }
             catch (Exception ex)
