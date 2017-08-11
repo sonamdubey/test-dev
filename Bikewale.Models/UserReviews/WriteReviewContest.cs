@@ -10,6 +10,7 @@ namespace Bikewale.Models
     /// <summary>
     /// Summary: View model for write Review
     /// Created by: Sangram Nandkhile on 05 June 2017
+    /// Modified by:
     /// </summary>
     public class WriteReviewContestVM : ModelBase
     {
