@@ -30,6 +30,7 @@
                         <p class="line-height17 margin-top10">
                             @FormatDescription.TruncateDescription(news.Description, 280)
                         </p>
+                        <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId),news.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))" rel="nofollow">...Read more</a>
                     </div>
                     <div class="clear"></div>
                 </article>

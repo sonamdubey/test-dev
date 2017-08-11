@@ -1,30 +1,34 @@
 ﻿@model Bikewale.Models.RecentNewsVM
 @using Bikewale.Utility
-@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Count() > 0) {
-	<ul>
-		@foreach(var news in Model.ArticlesList){
-		<li class="margin-bottom20">
-			<div class="review-image-wrapper">
-				<a href="@string.Format("/m{0}", @UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))">
-					<img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._144x81, QualityFactor._70)" title="@news.Title" alt="@news.Title"/>
-				</a>
-			</div>
-			<div class="review-heading-wrapper">
-				<a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title"  class="target-link">@FormatDescription.TruncateDescription(news.Title, 44)</a>
-				<div class="grid-7 alpha padding-right5">
-					<span class="bwmsprite calender-grey-sm-icon"></span>
-					<span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(news.DisplayDate), "dd MMM yyyy")</span>
-				</div>
-				<div class="grid-5 alpha omega">
-					<span class="bwmsprite author-grey-sm-icon"></span>
-					<span class="article-stats-content">@news.AuthorName</span>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<p class="margin-top10">
-			@FormatDescription.TruncateDescription(@news.Description,180)
-			</p>
-		</li>
-		}
-	</ul>
+@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
+{
+    <ul>
+        @foreach (var news in Model.ArticlesList)
+        {
+            <li class="margin-bottom20">
+                <div class="review-image-wrapper">
+                    <a href="@string.Format("/m{0}", @UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))">
+                        <img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._144x81, QualityFactor._70)" title="@news.Title" alt="@news.Title" />
+                    </a>
+                </div>
+                <div class="review-heading-wrapper">
+                    <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" class="target-link">@FormatDescription.TruncateDescription(news.Title, 44)</a>
+                    <div class="grid-7 alpha padding-right5">
+                        <span class="bwmsprite calender-grey-sm-icon"></span>
+                        <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(news.DisplayDate), "dd MMM yyyy")</span>
+                    </div>
+                    <div class="grid-5 alpha omega">
+                        <span class="bwmsprite author-grey-sm-icon"></span>
+                        <span class="article-stats-content">@news.AuthorName</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <p class="margin-top10">
+                    @FormatDescription.TruncateDescription(@news.Description, 180)
+                </p>
+                <p class="margin-top10">
+                    <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" rel="nofollow">...Read more</a>
+                </p>
+            </li> }
+    </ul>
 }
