@@ -41,7 +41,8 @@ function secondarydealer_Click(dealerID) {
             "pageUrl": pageUrl,
             "sourceType": 2,
             "pQLeadId": pqSourceId,
-            "deviceId": getCookie('BWC')
+            "deviceId": getCookie('BWC'),
+            "refPQId": typeof pqId != 'undefined' ? pqId : '',
         };
 
         isSuccess = dleadvm.registerPQ(objData);
