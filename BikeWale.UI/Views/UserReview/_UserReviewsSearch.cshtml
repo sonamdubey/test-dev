@@ -36,7 +36,7 @@
                     <div class="position-rel" style="display: @(Model.Pager != null && Model.Pager.TotalResults > 0 ? "block" : "none")" data-bind="visible: reviewsAvailable()">
                         <ul class="user-review-list" data-bind="visible : (!noReviews() && TotalReviews() !== 0), css: IsLoading() ? 'loader-active' : ''">
                             @{ushort i = 0;}
-                            @foreach (UserReviewSummary review in Model.UserReviews.ResultDesktop)
+                            @foreach (UserReviewSummary review in Model.UserReviews.Result)
                             {
 
                                 if (@i == 0)

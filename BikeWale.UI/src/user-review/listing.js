@@ -463,16 +463,16 @@ docReady(function() {
 
             if (self.PreviousQS() != qs) {
                 self.IsLoading(true);                
-                var apiUrl = "/api/user-reviews/d/search/?reviews=true&" + qs;
+                var apiUrl = "/api/user-reviews/search/?reviews=true&" + qs;
                 $.getJSON(apiUrl)
                 .done(function (response) {
-                    if (response && response.resultDesktop) {
+                    if (response && response.result) {
                         self.IsApiData(true);
-                        self.activeReviewList(response.resultDesktop);
+                        self.activeReviewList(response.result);
                         self.TotalReviews(response.totalCount);
                         self.noReviews(false);                                                
                         var listItem = $('.user-review-list .list-item');
-                        for (var i = listItem.length; i >= response.resultDesktop.length; i--) {
+                        for (var i = listItem.length; i >= response.result.length; i--) {
                             $(listItem[i]).remove();
                             applyLikeDislikes();
                         }
