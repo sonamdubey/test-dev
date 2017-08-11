@@ -1,20 +1,9 @@
 ﻿
 
 var facilityActiveStatus = null;
-var record = { Facility: "", IsActive: "", Id: "", FacilityId: "", LastUpdatedById: "" };
+var record = { facilityName: "", isActive: "", dealerId: "", facilityId: "", lastUpdatedById: "" };
 var pageContainer = $("#dealerFacility");
 var today = new Date();
-
-$(document).ready(function () {
-    try {
-        BwOprHostUrl = document.getElementById("displayDealerFacility").getAttribute("data-BwOprHostUrl");
-    }
-    catch (e) {
-        console.warn(e);
-    }
-});
-
-
 
 var dealerFacilityOperations = function () {
     var self = this;
@@ -23,14 +12,13 @@ var dealerFacilityOperations = function () {
     self.activeStatus = ko.observable(false);
     self.isFacilityEdit = ko.observable(false);
     self.dealerId = $('#txtDealerId').val();
-    self.lastUpdatedById = $('#dealerFacility').attr('data-currentUserId');
-    self.currentUserName = $('#dealerFacility').attr('data-currentuser');
+    self.lastUpdatedById = $('#dealerFacility').data('currentuserid');
+    self.currentUserName = $('#dealerFacility').data('currentuser');
    
 
     self.activeIcon = function (iconStatus) {
 
-        try
-        {
+        try {
             if (iconStatus) {
                 facilityActiveStatus = ('<i class="material-icons icon-blue">check_box</i>');
             }
@@ -39,60 +27,58 @@ var dealerFacilityOperations = function () {
             }
             return facilityActiveStatus;
         }
-       
+
         catch (e) {
             console.warn(e);
         }
-    }
+    };
 
     self.addNewRow = function (record) {
 
-        try
-        {
-                var tableBody = $('#tblFacilityBody');
-                var newRow = ('<tr data-id="">' +
-                    '<td data-element="facilityid"></td>' +
-                    '<td data-element="facilityname"></td>' +
-                    '<td data-element="activeicon" data-status=' + record.IsActive + '>' +
-                    '<td data-element="editicon"><a href="javascript:void(0)" data-bind="click : editFacility"><i class="material-icons icon-blue" style="line-height: 32px;">mode_edit</i></a></td>' +
-                    '<td data-element="updatedby"></td>' +
-                    '<td data-element="updatedon"></td>' +
-                    '</tr>');
+        try {
+            var tableBody = $('#tblFacilityBody');
+            var newRow = ('<tr data-id="">' +
+                '<td data-element="facilityid"></td>' +
+                '<td data-element="facilityname"></td>' +
+                '<td data-element="activeicon" data-status=' + record.isActive + '>' +
+                '<td data-element="editicon"><a href="javascript:void(0)" data-bind="click : editFacility"><i class="material-icons icon-blue" style="line-height: 32px;">mode_edit</i></a></td>' +
+                '<td data-element="updatedby"></td>' +
+                '<td data-element="updatedon"></td>' +
+                '</tr>');
 
-                $(newRow).prependTo("table > tbody:last");
-                trNew = tableBody.find("tr:first");
+            $(newRow).prependTo("table > tbody:last");
+            trNew = tableBody.find("tr:first");
 
-                if (record.FacilityId > 0) {
-                    self.facilityId = record.FacilityId;
-                }
+            if (record.facilityId > 0) {
+                self.facilityId = record.facilityId;
+            }
 
-                var innerbutton = ('<a href="javascript:void(0)" data-bind="click : $root.editFacility"><i class="material-icons icon-blue" style="line-height: 32px;">mode_edit</i></a>');
+            var innerbutton = ('<a href="javascript:void(0)" data-bind="click : $root.editFacility"><i class="material-icons icon-blue" style="line-height: 32px;">mode_edit</i></a>');
 
-                facilityActiveStatus = self.activeIcon(record.IsActive);
+            facilityActiveStatus = self.activeIcon(record.isActive);
 
-                trNew.attr('data-id', self.facilityId);
-                trNew.find('td[data-element="facilityid"]').text(self.facilityId);
-                trNew.find('td[data-element="facilityname"]').text(record.Facility);
-                trNew.find('td[data-element="activeicon"]').html(facilityActiveStatus);
-                trNew.find('td[data-element="editicon"]').html(innerbutton);
-                trNew.find('td[data-element="updatedby"]').text(self.currentUserName);
-                trNew.find('td[data-element="updatedon"]').text(today.toLocaleString());
+            trNew.attr('data-id', self.facilityId);
+            trNew.find('td[data-element="facilityid"]').text(self.facilityId);
+            trNew.find('td[data-element="facilityname"]').text(record.facilityName);
+            trNew.find('td[data-element="activeicon"]').html(facilityActiveStatus);
+            trNew.find('td[data-element="editicon"]').html(innerbutton);
+            trNew.find('td[data-element="updatedby"]').text(self.currentUserName);
+            trNew.find('td[data-element="updatedon"]').text(today.toLocaleString());
 
-                var newRowElement = $('table tbody tr[data-id=' + self.facilityId + ']')
+            var newRowElement = $('table tbody tr[data-id=' + self.facilityId + ']')
 
-                ko.applyBindings(self, newRowElement[0]);
+            ko.applyBindings(self, newRowElement[0]);
         }
 
-       catch (e) {
-              console.warn(e);
+        catch (e) {
+            console.warn(e);
         }
-       
-    }
+
+    };
 
 
     self.addFacility = function () {
-        try
-        {
+        try {
             var status = self.validate();
             if ($('#chkActiveStatus').is(':checked')) {
                 self.activeStatus(true);
@@ -100,44 +86,44 @@ var dealerFacilityOperations = function () {
             else {
                 self.activeStatus(false);
             }
-            record.Facility = self.facility();
-            record.IsActive = self.activeStatus();
-            record.Id       = self.dealerId;
-            record.LastUpdatedById = self.lastUpdatedById;
+            record.facilityName = self.facility();
+            record.isActive = self.activeStatus();
+            record.dealerId = self.dealerId;
+            record.lastUpdatedById = self.lastUpdatedById;
             if (status) {
                 if (self.dealerId > 0) {
-              
+
                     $.ajax({
                         type: "POST",
-                        url: BwOprHostUrl + "api/dealerfacility/add/",
-                        data: record,
+                        url: "/api/dealers/" + record.dealerId + "/facilities/",
+                        contentType: "application/json",
+                        data: ko.toJSON(record),
                         success: function (data) {
-                            record.FacilityId = data;
+                            record.facilityId = data;
                             self.addNewRow(record);
                             self.facility("");
-                            Materialize.toast('successfully added', 4000);
+                            Materialize.toast('Successfully added dealer facility', 4000);
                         },
                         error: function (e) {
                             Materialize.toast('error occured', 4000);
                         }
                     });
-               
+
                 }
 
             }
 
-     }
+        }
         catch (e) {
             console.warn(e);
         }
 
 
-    }
+    };
 
     self.editFacility = function (d, e) {
 
-        try
-        {
+        try {
             var facilityName = $('#txtFacilityName');
             var thisrow = $(e.currentTarget).closest('tr');
             var facilityLabel = facilityName.next();
@@ -152,7 +138,7 @@ var dealerFacilityOperations = function () {
 
             self.facilityId = thisrow.find('td[data-element="facilityid"]').text();
             self.facility(thisrow.find('td[data-element="facilityname"]').text());
-        
+
             var isChecked = (thisrow.find('td[data-element="activeicon"]').attr('data-status').toLowerCase() == 'true')
 
             $('#chkActiveStatus').prop('checked', isChecked);
@@ -164,17 +150,16 @@ var dealerFacilityOperations = function () {
             if (!tab.hasClass("active")) {
                 tab.click();
             }
-      }
+        }
         catch (e) {
             console.warn(e);
         }
 
-    }
+    };
 
     self.validate = function () {
 
-        try
-        {
+        try {
             var currentEle = $('#txtFacilityName');
             var isValid = true;
             if (currentEle.val().trim() == '') {
@@ -186,16 +171,15 @@ var dealerFacilityOperations = function () {
                 isValid = true;
             }
             return isValid;
-      }
+        }
         catch (e) {
             console.warn(e);
         }
-    }
+    };
 
     self.updateFacility = function (d, e) {
 
-        try
-        {
+        try {
             var status = self.validate();
             if ($('#chkActiveStatus').is(':checked')) {
                 self.activeStatus(true);
@@ -204,31 +188,32 @@ var dealerFacilityOperations = function () {
                 self.activeStatus(false);
             }
 
-            record.Facility = self.facility();
-            record.IsActive = self.activeStatus();
-            record.FacilityId = self.facilityId;
-            record.LastUpdatedById = self.lastUpdatedById;
-
-            facilityActiveStatus = self.activeIcon(record.IsActive);
+            record.facilityName = self.facility();
+            record.isActive = self.activeStatus();
+            record.facilityId = self.facilityId;
+            record.lastUpdatedById = self.lastUpdatedById;
+            record.dealerId = self.dealerId;
+            facilityActiveStatus = self.activeIcon(record.isActive);
 
             if (status) {
                 if (self.facilityId > 0) {
 
                     $.ajax({
                         type: "POST",
-                        url: BwOprHostUrl + "api/dealerfacility/update/",
-                        data: record,
+                        url: "/api/dealers/" + (record.dealerId) + "/facilities/" + (record.facilityId),
+                        contentType: "application/json",
+                        data: ko.toJSON(record),
                         success: function () {
-                            var row = $('table tbody tr[data-id=' + record.FacilityId + ']')
+                            var row = $('table tbody tr[data-id=' + record.facilityId + ']')
                             // updating the selected row       
                             row.find('td[data-element="facilityid"]').text(self.facilityId);
                             row.find('td[data-element="facilityname"]').text(self.facility());
                             row.find('td[data-element="activeicon"]').html(facilityActiveStatus);
-                    
+                            row.find('td[data-element="activeicon"]').attr('data-status', self.activeStatus());
                             row.find('td[data-element="updatedby"]').text(self.currentUserName);
                             row.find('td[data-element="updatedon"]').text(today.toLocaleString());
 
-                            Materialize.toast('successfully updated', 4000);
+                            Materialize.toast('Successfully updated dealer facility', 4000);
 
                         },
                         error: function (e) {
@@ -239,26 +224,25 @@ var dealerFacilityOperations = function () {
                 }
             }
 
-       }
+        }
         catch (e) {
             console.warn(e);
         }
 
-    }
+    };
 
     self.cancelEditFacility = function (d, e) {
-        try
-        {
+        try {
             self.facility(undefined);
             self.activeStatus(false);
             self.isFacilityEdit(false);
             $('#txtFacilityName').removeClass("Invalid");
-     }
-      catch (e) {
+        }
+        catch (e) {
             console.warn(e);
         }
 
-    }
+    };
 
     };
 

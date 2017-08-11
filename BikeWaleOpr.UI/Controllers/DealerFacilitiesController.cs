@@ -36,10 +36,10 @@ namespace BikewaleOpr.Controllers
         /// <param name="dealerId"></param> 
         /// <returns></returns>
         
-        [Route("newbikebooking/ManageDealerFacilities/{dealerId}/")]
-        public ActionResult ManageDealerFacilities(uint dealerId)
+        [Route("dealers/{dealerId}/facilities/")]
+        public ActionResult Index(uint dealerId)
         {
-            ManageDealerFacilityVM viewModel = new ManageDealerFacilityVM();
+            ManageDealerFacilityVM viewModel = null;
             DealerFacilitiesModel objModel = new DealerFacilitiesModel(_dealerRepo);
             try
             {

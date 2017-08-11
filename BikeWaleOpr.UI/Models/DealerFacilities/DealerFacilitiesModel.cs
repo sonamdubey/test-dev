@@ -33,19 +33,19 @@ namespace BikewaleOpr.Models.DealerFacilities
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        public IEnumerable<FacilityEntity>  GetDealerFacilitiesData(uint dealerId)
+        private IEnumerable<FacilityEntity>  GetDealerFacilitiesData(uint dealerId)
         {
             IEnumerable<FacilityEntity> objFacilities = null;
             try
             {
-                if(_dealerRepo !=null)
+                if(dealerId > 0)
                 {
                     objFacilities = _dealerRepo.GetDealerFacilities(dealerId);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Models.DealerFacilities.GetDealerFacilitiesData");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Models.DealerFacilities.GetDealerFacilitiesData(), DealerId:{0}", dealerId) );
             }
             return objFacilities;
         }
@@ -62,7 +62,7 @@ namespace BikewaleOpr.Models.DealerFacilities
             ManageDealerFacilityVM viewModel = new ManageDealerFacilityVM();
             try
             {
-                if(dealerId>0 && _dealerRepo != null)
+                if(dealerId > 0)
                 {
                     viewModel.FacilityList = GetDealerFacilitiesData(dealerId);
                     viewModel.DealerId = dealerId;
@@ -70,7 +70,7 @@ namespace BikewaleOpr.Models.DealerFacilities
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Models.DealerFacilities.GetData");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Models.DealerFacilities.GetData() DealerId:{0}", dealerId));
             }
             return viewModel;
         }

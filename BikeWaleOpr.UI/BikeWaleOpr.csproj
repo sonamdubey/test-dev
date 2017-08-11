@@ -2005,7 +2005,7 @@
     <Content Include="Views\Comparison\AddSponsoredComparisonRules.cshtml" />
     <Content Include="Views\Banner\Index.cshtml" />
     <Content Include="Views\Banner\BannersList.cshtml" />
-    <Content Include="Views\DealerFacilities\ManageDealerFacilities.cshtml" />
+    <Content Include="Views\DealerFacilities\Index.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

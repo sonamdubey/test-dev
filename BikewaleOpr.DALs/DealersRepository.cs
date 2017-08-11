@@ -237,7 +237,7 @@ namespace BikewaleOpr.DAL
           {
                 if (dealerId > 0)
                 {
-                    using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+                    using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                     {
                         connection.Open();
 
@@ -253,7 +253,7 @@ namespace BikewaleOpr.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.ServiceCenter.GetDealerFacilities");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.ServiceCenter.GetDealerFacilities ,DealerId:{0}", dealerId));
             }
             return objFacilities;
          }
@@ -286,12 +286,11 @@ namespace BikewaleOpr.DAL
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
-
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DAL.SaveDealerFacility");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.SaveDealerFacility DealerId: {0} Facility: {1} FacilityId: {2} ActiveStatus: {3}", objData.Id, objData.Facility, newID, objData.IsActive));
             }
 
             return newID;
@@ -330,7 +329,7 @@ namespace BikewaleOpr.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DAL.UpdateDealerFacility");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.UpdateDealerFacility DealerId: {0} Facility: {1} FacilityId: {2} ActiveStatus: {3}",objData.Id, objData.Facility, objData.FacilityId, objData.IsActive));
 
             }
 

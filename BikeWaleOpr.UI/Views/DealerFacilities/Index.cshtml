@@ -8,9 +8,9 @@
 
 @if (Model != null)
 {
-    <div id="dealerFacility" class="row margin-top10" style="margin-bottom : 60px" data-currentuser="@BikeWaleOpr.Common.CurrentUser.UserName" data-currentUserId="@BikeWaleOpr.Common.CurrentUser.Id" >
+    <div id="dealerFacility" class="row margin-top10" style="margin-bottom : 60px" data-currentuser="@BikeWaleOpr.Common.CurrentUser.UserName" data-currentuserid="@BikeWaleOpr.Common.CurrentUser.Id">
         <div class="col m10">
-            <div id="displayDealerFacility" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]">
+            <div id="displayDealerFacility">
                 <table id="tblFacilityData" class="bordered highlight z-depth-3 centered responsive-table">
                     <tr>
                         <th>Facility Id</th>
@@ -24,13 +24,13 @@
 
                         @foreach (var record in Model.FacilityList)
                         {
-                            
+
                             <tr data-id="@record.Id">
                                 <td data-element="facilityid">@record.Id</td>
                                 <td data-element="facilityname">@record.Facility</td>
                                 <td data-element="activeicon" data-status="@record.IsActive">
                                     @{
-                                     
+
                                         if (record.IsActive)
                                         {
                                             <i class="material-icons icon-blue">check_box</i>
@@ -41,15 +41,15 @@
                                         }
 
                                     }
-                                   
-                                    
+
+
                                 </td>
                                 <td data-element="editicon"><a href="javascript:void(0)" data-bind="click : editFacility"><i class="material-icons icon-blue" style="line-height: 32px;">mode_edit</i></a></td>
-                                 <td data-element="updatedby">@record.LastUpdatedBy </td>
+                                <td data-element="updatedby">@record.LastUpdatedBy </td>
 
-                                 <td data-element="updatedon">@record.LastUpdatedOn</td>
-                             </tr>
-                        }
+                                <td data-element="updatedon">@record.LastUpdatedOn</td>
+                            </tr>
+                                        }
 
                     </tbody>
                 </table>
@@ -74,18 +74,18 @@
                                 </li>
 
                                 <li class="input-field">
-                                   <!-- ko if : isFacilityEdit() -->
-                                        <div class="col m12 text-align-center">
-                                            <button data-bind="click: updateFacility" style="width:100%" class="btn waves-effect waves-light margin-bottom20 green" type="submit" >
-                                                Update
-                                            </button>
-                                        </div>
-                                        <div class="col m12 text-align-center">
-                                            <button data-bind="click: cancelEditFacility" style="width:100%" class="btn waves-effect waves-light margin-bottom20 red" type="submit">
-                                                Cancel
-                                            </button>
-                                        </div>
-                                        <!-- /ko -->
+                                    <!-- ko if : isFacilityEdit() -->
+                                    <div class="col m12 text-align-center">
+                                        <button data-bind="click: updateFacility" style="width:100%" class="btn waves-effect waves-light margin-bottom20 green" type="submit">
+                                            Update
+                                        </button>
+                                    </div>
+                                    <div class="col m12 text-align-center">
+                                        <button data-bind="click: cancelEditFacility" style="width:100%" class="btn waves-effect waves-light margin-bottom20 red" type="submit">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                    <!-- /ko -->
                                     <!-- ko ifnot : isFacilityEdit()-->
                                     <button data-bind="click:addFacility" class="btn waves-effect waves-light margin-bottom20" type="submit">
                                         Add Facility
@@ -103,7 +103,7 @@
     </div>
 
 
-}
+                                        }
 
 <script src="~/src/DealerFacility/DealerFacility.js"></script>
 

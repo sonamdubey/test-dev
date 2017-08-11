@@ -680,7 +680,7 @@
             $("#selectCityPriceHead").addClass("hide");
             var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
-                window.open('/newbikebooking/ManageDealerFacilities/'+ dealerId + '', '_blank');
+                window.open('/dealers/' + dealerId + '/facilities/', '_blank');
             }
             else
                 alert("Please select dealer");

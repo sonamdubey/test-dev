@@ -31,13 +31,13 @@ namespace BikewaleOpr.Service.Controllers.DealerFacility
         /// </summary>
         /// <param name="objDTO"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/dealerfacility/add/")]
+        [HttpPost, Route("api/dealers/{dealerId}/facilities/")]
         public IHttpActionResult AddDealerFacility([FromBody] DealerFacilityDTO objDTO)
         {
             FacilityEntity objEntity = null;
           
             uint newId = 0;
-            if (objDTO.Id > 0 && objDTO !=null)
+            if (objDTO.Id > 0)
             {
                 try
                 {
@@ -57,7 +57,7 @@ namespace BikewaleOpr.Service.Controllers.DealerFacility
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, " BikewaleOpr.Service.Controllers.DealerFacility.AddDealerFacility");
+                    ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Service.Controllers.DealerFacility.AddDealerFacility dealerId: {0}", newId));
                     return InternalServerError();
                 }
             }
@@ -75,13 +75,13 @@ namespace BikewaleOpr.Service.Controllers.DealerFacility
         /// </summary>
         /// <param name="objDTO"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/dealerfacility/update/")]
+        [HttpPost, Route("api/dealers/{dealerId}/facilities/{facilityId}")]
         public IHttpActionResult UpdateDealerFacility([FromBody] DealerFacilityDTO objDTO)
         {
             FacilityEntity objEntity = null;
 
             bool status = false;
-            if (objDTO.FacilityId > 0 && objDTO != null)
+            if (objDTO.FacilityId > 0)
             {
                 try
                 {
@@ -103,7 +103,7 @@ namespace BikewaleOpr.Service.Controllers.DealerFacility
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, " BikewaleOpr.Service.Controllers.DealerFacility.AddDealerFacility");
+                    ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Service.Controllers.DealerFacility.UpdateDealerFacility FacilityId: {0} FacilityName: {1} ActiveStatus: {2}", objDTO.FacilityId, objDTO.Facility, objDTO.IsActive));
                     return InternalServerError();
                 }
             }
