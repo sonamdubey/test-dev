@@ -91,7 +91,6 @@
                         <td><input id="btnPView" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" type="button" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
                         <td><input class="approveList" id="btnPApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>" />
                             <input class="discardList" id="btnPDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
-                            <input class="markSold" type="button" value ="Sold" data-inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -120,7 +119,6 @@
                         <td><input id="btnFView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1350,height=660,resizable=0,scrollbars=yes')" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
                         <td>
                             <input class="approveList" id="btnFApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
-                            <input class="markSold" type="button" value ="Sold" data-inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -149,7 +147,6 @@
                         <td><input id="btnUView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
                         <td><input class="approveList" id="btnUApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>"inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>" />
                         <input class="discardList" id="btnUDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
-                            <input class="markSold" type="button" value ="Sold" data-inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
                         </td>
                     </tr>
                 </ItemTemplate>
