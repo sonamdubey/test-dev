@@ -24,6 +24,8 @@
         Mobile_HomePage  = 20,
         Desktop_NewBikePage = 21,
         Mobile_NewBikePage = 22,
-        Desktop_ModelPage_Slug = 23
+        Desktop_ModelPage_Slug = 23,
+        Mobile_ModelPage_Topslug=24,
+        Desktop_Hamburger =25
     }
 }
