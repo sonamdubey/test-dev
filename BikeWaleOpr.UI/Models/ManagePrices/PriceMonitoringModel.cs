@@ -19,7 +19,7 @@ namespace BikewaleOpr.Models.ManagePrices
 {
     /// <summary>
     /// Created By: Ashutosh Sharma on 31-07-2017
-    /// Discription : Model for Price monitoring report page.
+    /// Description : Model for Price monitoring report page.
     /// </summary>
     public class PriceMonitoringModel
     {
@@ -35,6 +35,11 @@ namespace BikewaleOpr.Models.ManagePrices
             _locationRepo = locationRepo;
         }
 
+        /// <summary>
+        /// Created By : Ashutosh Sharma on 09-08-2017
+        /// Description: Method to get bikemakes and states for price monitoring page.
+        /// </summary>
+        /// <returns></returns>
         public PriceMonitoringVM getData()
         {
             PriceMonitoringVM priceMonitoringVM = null;
@@ -53,6 +58,13 @@ namespace BikewaleOpr.Models.ManagePrices
         }
 
 
+        /// <summary>
+        /// Created By : Ashutosh Sharma on 09-08-2017
+        /// Description: Method to get bikemakes, states and price last updated details for price monitoring page.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="stateId"></param>
+        /// <returns></returns>
         public PriceMonitoringVM getData(uint makeId, uint stateId)
         {
             PriceMonitoringVM priceMonitoringVM = null;
@@ -95,6 +107,14 @@ namespace BikewaleOpr.Models.ManagePrices
             return priceMonitoringVM;
         }
 
+        /// <summary>
+        /// Created By : Ashutosh Sharma on 09-08-2017
+        /// Description: Method to get bikemakes, bikemodels, states and price last updated details for price monitoring page.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="stateId"></param>
+        /// <returns></returns>
         public PriceMonitoringVM getData(uint makeId, uint modelId, uint stateId)
         {
             PriceMonitoringVM priceMonitoringVM = null;
@@ -139,6 +159,12 @@ namespace BikewaleOpr.Models.ManagePrices
             return priceMonitoringVM;
         }
 
+        /// <summary>
+        /// Created By : Ashutosh Sharma on 11-08-2017
+        /// Description : Auto map BikeModelEntityBase to ModelBase.
+        /// </summary>
+        /// <param name="objModels"></param>
+        /// <returns></returns>
         private IEnumerable<ModelBase> Convert(IEnumerable<BikeModelEntityBase> objModels)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();

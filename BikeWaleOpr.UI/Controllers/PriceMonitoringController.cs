@@ -14,7 +14,7 @@ namespace BikewaleOpr.Controllers
 {
     /// <summary>
     /// Created By : Ashutosh Sharma on 31-07-2017
-    /// Discription : Price Monitoring Report Controller.
+    /// Description : Price Monitoring Report Controller.
     /// </summary>
     public class PriceMonitoringController : Controller
     {
@@ -29,6 +29,11 @@ namespace BikewaleOpr.Controllers
             _locationRepo = locationRepo;
         }
 
+        /// <summary>
+        /// Created By : Ashutosh Sharma on 31-Jul-2017
+        /// Description: Action method for default view for price monitoring page.
+        /// </summary>
+        /// <returns></returns>
         [Route("pricemonitoring/")]
         public ActionResult Index()
         {
@@ -49,8 +54,8 @@ namespace BikewaleOpr.Controllers
         }
 
         /// <summary>
-        /// Created By : Ashutosh Sharma on 31-07-2017
-        /// Discription: Action method for default view for price monitoring page.
+        /// Created By : Ashutosh Sharma on 09-08-2017
+        /// Description: Action method for price monitoring page when make and state is selected.
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
@@ -74,7 +79,14 @@ namespace BikewaleOpr.Controllers
             return View("Index", priceMonitoringVM);
         }
 
-
+        /// <summary>
+        /// Created By : Ashutosh Sharma on 09-08-2017
+        /// Description: Action method for price monitoring page when make, model and state is selected.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="stateId"></param>
+        /// <returns></returns>
         [Route("pricemonitoring/make/{makeId}/model/{modelId}/state/{stateId}")]
         public ActionResult IndexWithBikeModel(uint makeId, uint modelId, uint stateId)
         {
@@ -95,14 +107,15 @@ namespace BikewaleOpr.Controllers
         }
 
 
-        
+
         /// <summary>
-        /// 
+        /// Created By : Ashutosh Sharma on 09-08-2017
+        /// Description: Action method for form submit.
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="stateId"></param>
         /// <returns></returns>
-        
+
         [HttpPost]
         public ActionResult Submit(uint makeId = 0, uint modelId = 0, uint stateId = 0)
         {

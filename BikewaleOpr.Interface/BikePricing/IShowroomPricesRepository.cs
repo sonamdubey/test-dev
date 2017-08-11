@@ -11,7 +11,7 @@ namespace BikewaleOpr.Interface.BikePricing
 {
     /// <summary>
     /// Modified By : Ashutosh Sharma on 31-07-2017
-    /// Discription : Added GetModelsByMake and GetPriceMonitoringDetails
+    /// Discription : Added GetPriceMonitoringDetails
     /// </summary>
     public interface IShowroomPricesRepository
     {
