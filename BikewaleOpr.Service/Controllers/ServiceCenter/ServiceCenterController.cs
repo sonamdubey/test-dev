@@ -122,8 +122,8 @@ namespace BikewaleOpr.Service.Controllers.ServiceCenter
         /// <param name="serviceCenterId"></param>		
         /// <returns></returns>		
 		
-        [HttpGet, Route("api/updatestatus/currentuser/{currentUserId}/servicecenter/{serviceCenterId}/")]		
-        public IHttpActionResult UpdateServiceCenterStatus(uint serviceCenterId, string currentUserId)
+        [HttpGet, Route("api/servicecenter/{serviceCenterId}/make/{makeId}/city/{cityId}/currentuser/{currentUserId}/")]		
+        public IHttpActionResult UpdateServiceCenterStatus(uint cityId, uint makeId, uint serviceCenterId, string currentUserId)
         {		
             		
             bool status = false;		
@@ -131,7 +131,7 @@ namespace BikewaleOpr.Service.Controllers.ServiceCenter
             {		
                 try		
                 {		
-                    status = _IServiceCenter.UpdateServiceCenterStatus(serviceCenterId, currentUserId);		
+                    status = _IServiceCenter.UpdateServiceCenterStatus(cityId, makeId,serviceCenterId, currentUserId);		
                     if(status)		
                     {		
                         return Ok(status);		

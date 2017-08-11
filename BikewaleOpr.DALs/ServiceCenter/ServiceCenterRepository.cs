@@ -276,8 +276,8 @@ namespace BikewaleOpr.DALs.ServiceCenter
                             param.Add("par_serviceCenterId", serviceCenterId);		
 		
                         objData = connection.Query<ServiceCenterCompleteData, StateCityEntity, ServiceCenterCompleteData>		
-                            (		
-                           "getservicecenterdetails",		
+                            (
+                           "getservicecenterdetails_11082017",		
                          		
                            (ServiceCenterCompleteData,StateCityEntity) =>		
                            {		

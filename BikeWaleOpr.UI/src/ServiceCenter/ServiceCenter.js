@@ -1,10 +1,10 @@
-﻿var BwOprHostUrl;
+﻿
 var ddlServiceCenterCity = $('#ddlServiceCenterCity');
 $(document).ready(function () {
-    BwOprHostUrl = document.getElementById("tblServiceCenter").getAttribute("data-BwOprHostUrl");
+    
     $('#tblServiceCenter').hide();
     $(".chosen-select").chosen({
-        "width": "150px"
+        "width": "162px"
     });
 });
 
@@ -20,7 +20,7 @@ var serviceCenter = function ()
         if (makeId > 0) {
             $.ajax({
                 type: "GET",
-                url: BwOprHostUrl + "/api/servicecenter/cities/make/" + parseInt(makeId) +"/",
+                url: "/api/servicecenter/cities/make/" + parseInt(makeId) +"/",
                 success: function (data) {
                     if (data) {
                         self.cityList(data);
@@ -66,11 +66,13 @@ var serviceCenter = function ()
             $.ajax({
                 type: "GET",
 
-                url: BwOprHostUrl + "/api/servicecenter/make/" + +parseInt(makeId) + "/city/" + parseInt(cityId) + "/active/" + parseInt(activeStatus) + "/",
+                url: "/api/servicecenter/make/" + +parseInt(makeId) + "/city/" + parseInt(cityId) + "/active/" + parseInt(activeStatus) + "/",
                 success: function (data) {
 
                     if (data.length > 0) {
                         self.allServiceCenters(data);
+                        $('#tblServiceCenter').data('cityid', cityId);
+                        $('#tblServiceCenter').data('makeid', makeId);
                         $('#tblServiceCenter').removeClass();
                         $('#tblServiceCenter').show();
 
@@ -102,12 +104,14 @@ var serviceCenter = function ()
 
     self.UpdateServiceCenterStatus = function (d, e) {
         var currentUserId = $('#serviceCenter').attr("data-currentuser");
+        var makeId = $('#tblServiceCenter').data('makeid');
+        var cityId = $('#tblServiceCenter').data('cityid');
         var Id = d.Id;
         if (Id > 0) {
             $.ajax({
                 type: "GET",
 
-                url: BwOprHostUrl + "/api/updatestatus/currentuser/" + parseInt(currentUserId) +"/servicecenter/"+ parseInt(Id) + "/",
+                url:'/api/servicecenter/' + parseInt(Id) + '/make/' + makeId + '/city/' + cityId + '/currentuser/' + parseInt(currentUserId)+'/',
                 success: function () {
                     e.currentTarget.closest('tr').remove();
                     Materialize.toast('Service Center Status has been updated', 4000);
@@ -130,7 +134,7 @@ var serviceCenter = function ()
         cityId = $("#ddlSelectCity").val();
         cityName = $("#ddlSelectCity option:selected").text();
         if ((makeId) > 0 && cityId > 0) {
-            var url = BwOprHostUrl + '/servicecenter/details/make/' + makeId + '/' + makeName + '/city/' + cityId + "/" + cityName + '/';
+            var url = '/servicecenter/details/make/' + makeId + '/' + makeName + '/city/' + cityId + "/" + cityName + '/';
          
             window.open(url);
         }

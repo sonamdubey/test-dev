@@ -12,5 +12,7 @@ namespace BikewaleOpr.Interface.BikeData
     {
         IEnumerable<BikeModelEntityBase> GetModelsByMake(EnumBikeType requestType, uint makeId);
         IEnumerable<BikeMakeEntityBase> GetMakes(ushort requestType);
+
+       
     }
 }
