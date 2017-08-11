@@ -67,6 +67,7 @@ using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
+using Bikewale.ManufacturerCampaign.Interface;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
@@ -146,7 +147,7 @@ namespace Bikewale
             container.RegisterType<ICMS, CMS>();
             container.RegisterType<ISurveyRepository, SurveyRepository>();
             container.RegisterType<ISurvey, BAL.Survey>();
-            container.RegisterType<Interfaces.IManufacturerCampaign, Bikewale.BAL.ManufacturerCampaign.ManufacturerCampaign>();
+            container.RegisterType<IManufacturerCampaign, Bikewale.ManufacturerCampaign.BAL.ManufacturerCampaign>();
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
             container.RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>();
             container.RegisterType<ISponsoredComparison, SponsoredComparison>();

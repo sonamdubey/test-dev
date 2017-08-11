@@ -5,6 +5,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models;
 using Bikewale.Models.Price;
 using System.Web.Mvc;
@@ -25,7 +26,7 @@ namespace Bikewale.Controllers
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IPriceQuote _objPQ = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
-        private readonly Interfaces.IManufacturerCampaign _objManufacturerCampaign = null;
+        private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         /// <summary>
         /// Created By : Sushil Kumar on 23rd March 2017
         /// Resolve unity containers
@@ -37,7 +38,7 @@ namespace Bikewale.Controllers
         /// <param name="objCityCache"></param>
         /// <param name="objPQ"></param>
         /// <param name="objDealerCache"></param>
-        public PriceController(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, Interfaces.IManufacturerCampaign objManufacturerCampaign)
+        public PriceController(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache,IManufacturerCampaign objManufacturerCampaign)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
