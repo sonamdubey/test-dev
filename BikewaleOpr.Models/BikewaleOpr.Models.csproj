@@ -99,6 +99,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc">
       <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Mvc.dll</HintPath>
     </Reference>
@@ -113,7 +114,6 @@
     <Compile Include="Banner\BannerListVM.cs" />
     <Compile Include="Banner\BannerVM.cs" />
     <Compile Include="DealerCampaign\CampaignServingAreasVM.cs" />
-    <Compile Include="ManagePrices\BikeModelsListVM.cs" />
     <Compile Include="ManagePrices\PriceMonitoringVM.cs" />
     <Compile Include="ManufacturerCampaign\CampaignPropertiesVM.cs" />
     <Compile Include="ManufacturerCampaign\ManufacturerCampaignInformationModel.cs" />
