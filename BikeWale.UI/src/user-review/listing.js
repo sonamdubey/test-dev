@@ -1,4 +1,4 @@
-﻿var reviewId = 0, vmUserReviews, modelReviewsSection, modelid, abusereviewId = 0;
+﻿var reviewId = 0, vmUserReviews, modelReviewsSection, modelid, abusereviewId = 0, categoryId=1, pageNumber=1;
 
 var helpfulReviews = [];
 
@@ -359,7 +359,7 @@ docReady(function() {
             },
 
             getReviews: function (element) {
-                var categoryId = Number(element.attr('data-category')),
+                 categoryId = Number(element.attr('data-category')),
                     pageNumber = Number(element.attr('data-page-num') || 1),
                     categoryCount = Number(element.attr('data-count'));
 
@@ -603,6 +603,10 @@ docReady(function() {
 });
 
 function updateView(e) {
+    // for bhrigu updation
+    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + ([$('#listBind').data('id')]+1) * pageNumber + '|PageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("ReadMoreClick", label);
+
     try {
         var reviewId = e.currentTarget.getAttribute("data-reviewid");
         $.ajax({
