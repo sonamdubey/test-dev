@@ -18,7 +18,7 @@
                 <h1 class="box-shadow padding-15-20">@string.Format("{0}, {1}", Model.DealerDetails.DealerDetails.Name, Model.CityDetails.CityName)</h1>
             }
             <div class="dealer-details position-rel pos-top-3 content-inner-block-20 font14">
-                @if (Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
+                @if (Model.DealerDetails.DealerDetails.IsFeatured)
                 {
                     <span class="featured-tag inline-block margin-right10"><span class="bwmsprite star-white"></span>Featured</span>
                 }
@@ -85,7 +85,7 @@
             </div>
 
 
-            @if (Model.DealerDetails.DealerDetails.CampaignId > 0 && Model.DealerDetails.DealerDetails.DealerType != (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
+            @if (Model.DealerDetails.DealerDetails.CampaignId > 0 && Model.DealerDetails.DealerDetails.IsFeatured)
             {
                 <div class="grid-12 float-button clearfix float-fixed">
                     @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.MaskingNumber))
@@ -116,7 +116,7 @@
         </div>
     </section>
 }
-@if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null && Model.DealerDetails.DealerDetails.CampaignId > 0 && ((Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)|| Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Pricing))))
+@if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null && Model.DealerDetails.DealerDetails.CampaignId > 0 && Model.DealerDetails.DealerDetails.IsFeatured)
 {
     <section class="container bg-white margin-bottom10">
         <div class="box-shadow padding-top15 padding-right20 padding-bottom5 padding-left20">

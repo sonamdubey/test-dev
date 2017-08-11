@@ -531,7 +531,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_deviceid", deviceId);
                     param.Add("par_campaignId", campaignId);
                     param.Add("par_leadId", leadId, direction: ParameterDirection.InputOutput);
-                    connection.Query<dynamic>("savemanufacturerpqlead", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("savemanufacturerpqlead", param: param, commandType: CommandType.StoredProcedure);
                     retLeadId = param.Get<UInt32>("par_leadId");
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -543,6 +543,37 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
 
             return retLeadId;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 04 Aug 2017
+        /// Description :   Calls a sp to reset the total lead delivered to zero
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool ResetTotalLeadDelivered(uint campaignId, uint userId)
+        {
+            bool isSuccess = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_campaignid", campaignId);
+                    param.Add("par_userId", userId);
+                    connection.Execute("resetmanufacturerleadcount", param: param, commandType: CommandType.StoredProcedure);
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                    isSuccess = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignRepository.ResetTotalLeadDelivered({0},{1})", campaignId, userId));
+            }
+            return isSuccess;
         }
     }
 }

@@ -1,117 +1,112 @@
-(global => {
-
-    var jsVersion = '26May2017v1';
-	var baseUrl = 'https://stb.aeplcdn.com/staging/bikewale/pwa/build/';
-	var OFFLINE_PAGE = 'offline.html?' + jsVersion;
-	var VENDOR_JS = baseUrl + 'vendor.bundle.js?' + jsVersion;
-	var APP_JS = baseUrl + 'app.bundle.js?' + jsVersion;
-	var APP_BTF_CSS = baseUrl + 'app-btf.css?' + jsVersion;
-	var SW_TOOLBOX_JS = baseUrl + 'sw-toolbox.js?' + jsVersion;
-	var IMAGE_EXPIRATION_TIME = 864000;
-	var IMAGE_CDN_REGEX_PATTERN = /^https:\/\/imgd(\d)?.aeplcdn.com/;
-	var ST_CDN_REGEX_PATTERN = /^https:\/\/stb.aeplcdn.com/;
-	
-	importScripts(SW_TOOLBOX_JS);
-
-	toolbox.options.cache = {
-		name: "bw-offline-precache"
-	};
-	global.toolbox.options.debug = false;
-
-	global.toolbox.precache (
-		[
-			OFFLINE_PAGE,
-			VENDOR_JS,
-			APP_JS,
-            APP_BTF_CSS
-		]
-	);
-
-	global.toolbox.router.get('/api/pwa/*',global.toolbox.cacheFirst,
-								{
-									cache : {	
-										name : 'api',
-										maxAgeSeconds : 300,
-										maxEntries : 100
-									}
-								});
-	
-
-	global.toolbox.router.get('/m/news/*',function(request,values,options) {
-			return global.toolbox.networkOnly(request,values,options).then(function(response) {
-				return response;
-			}).catch(function(err) {
-				if('GET' === request.method && request.headers.get('accept').includes('text/html')) {
-					return global.toolbox.cacheOnly(new Request(OFFLINE_PAGE));
-				}
-				throw err;
-			});
-		},
-		{
-			cache : {
-				name : 'html-resource',
-				maxEntries : 25 , 
-				maxAgeSeconds : 86400
-			}
-		});
-	
-	global.toolbox.router.get('/*',global.toolbox.cacheFirst,		
-								{
-									cache : {
-												name : 'cdn-images',
-												maxAgeSeconds : IMAGE_EXPIRATION_TIME,
-												maxEntries : 150
-											},
-									origin : IMAGE_CDN_REGEX_PATTERN
-									
-								});
-   
-
-	global.toolbox.router.get('/*',function(request,values,options) {
-			return global.toolbox.cacheFirst(request,values,options).then(function(response) {
-				return response;
-			}).catch(function(err) {
-				if(request.url === VENDOR_JS ||
-					request.url === APP_JS ||
-                    request.url === APP_BTF_CSS) {
-					return global.toolbox.cacheOnly(new Request(request.url));
-				}
-				throw err;
-			});
-		}, {
-		mode: "cors",
-		cache : {
-			name : 'cdn-JS',
-			maxAgeSeconds : 864000,
-			maxEntries : 10
-		},
-		origin : ST_CDN_REGEX_PATTERN
-	});
-
-
-	global.toolbox.router.get('/*',global.toolbox.cacheFirst,{
-		cache : {
-			name : 'google-resources',
-			maxAgeSeconds : 864000,
-			maxEntries : 10
-		},
-		origin : /^(https:\/\/fonts.googleapis.com)|(https:\/\/fonts.gstatic.com)/
-	});
-
-
-	global.addEventListener('install',function(event) {
-		event.waitUntil(
-			global.skipWaiting()
-		)
-	});
-
-	global.addEventListener('activate',function(event) {
-		event.waitUntil(
-			global.clients.claim()
-		)
-	});
-
+var version = '9Aug2017v1';
+var baseUrl = 'https://stb.aeplcdn.com/staging/bikewale/pwa/build/';
+var APPSHELL = baseUrl + 'appshell.html?' + version;
+var VENDOR_JS = baseUrl + 'vendor.bundle.js?' + version;
+var APP_JS = baseUrl + 'app.bundle.js?' + version;
+var APP_BTF_CSS = baseUrl + 'app-btf.css?' + version; 
+var SW_TOOLBOX_JS = baseUrl + 'sw-toolbox.js?' + version;
+var IMAGE_EXPIRATION_TIME = 864000;
+var IMAGE_CDN_REGEX_PATTERN = /^https:\/\/imgd(\d)?.aeplcdn.com/;
+var ST_CDN_REGEX_PATTERN = /^https:\/\/stb.aeplcdn.com/;
+var precachedFiles = [APPSHELL,VENDOR_JS,APP_JS,APP_BTF_CSS];
+var precacheName = "bw-precache";
+importScripts(SW_TOOLBOX_JS);
+toolbox.options.cache = {name:precacheName};
+toolbox.options.debug = false;
+toolbox.precache (precachedFiles);
+function fetchFileFromCache(request,cacheName) {
+return caches.open(cacheName).then(function(cache) {
+return cache.match(request).then(function(response){
+if(response) {
+return response;
 }
-
-)(self);
-
+else {
+return fetch(request).then(function(response) {
+if(response.status==200) {
+cache.add(request);
+}
+return response;
+})}})})};
+function isPrecachedFile(fileName) {
+return precachedFiles.some(function(precachedFile) {
+return precachedFile == fileName;
+})
+};
+toolbox.router.get('/api/pwa/*',toolbox.cacheFirst,
+{
+cache : {	
+name : 'api',
+maxAgeSeconds : 300,
+maxEntries : 100
+}
+});
+toolbox.router.get('/m/news/*',function(request,values,options) {
+var regex = /\.*.bikewale.com\/m\/news\/(.*)-([\d]+)\/amp\/?/;
+var matches = regex.exec(request.url);
+if(matches)
+	return toolbox.networkOnly(request,values,options);
+if('GET' === request.method && request.headers.get('accept').includes('text/html')) {
+return fetchFileFromCache(APPSHELL,precacheName).then(function(response) {
+if(response)
+return response;
+return toolbox.networkOnly(request,values,options);
+}).catch(function() {
+return toolbox.networkOnly(request,values,options);
+});
+}
+},
+{
+cache : {
+name : 'html-resource',
+maxEntries : 25 , 
+maxAgeSeconds : 86400
+}
+});
+toolbox.router.get('/*',toolbox.cacheFirst,		
+{
+cache : {
+name : 'cdn-images',
+maxAgeSeconds : IMAGE_EXPIRATION_TIME,
+maxEntries : 150
+},
+origin : IMAGE_CDN_REGEX_PATTERN
+});
+toolbox.router.get('/*',function(request,values,options) { 
+if(isPrecachedFile(request.url)) {
+return fetchFileFromCache(request,precacheName).then(function(response) {
+if(response)
+return response;
+return toolbox.networkFirst(request,values,options);
+}).catch(function() {
+return toolbox.networkFirst(request,values,options);
+});
+}
+else{
+return toolbox.networkFirst(request,values,options);
+}
+}, {
+mode: "cors",
+cache : {
+name : 'cdn-JS',
+maxAgeSeconds : 864000,
+maxEntries : 10
+},
+origin : ST_CDN_REGEX_PATTERN 
+});
+toolbox.router.get('/*',toolbox.cacheFirst,{
+cache : {
+name : 'google-resources',
+maxAgeSeconds : 864000,
+maxEntries : 10
+},
+origin : /^(https:\/\/fonts.googleapis.com)|(https:\/\/fonts.gstatic.com)/
+});
+self.addEventListener('install',function(event) {
+event.waitUntil(
+self.skipWaiting()
+);
+});
+self.addEventListener('activate',function(event) {
+event.waitUntil(
+self.clients.claim()
+);});

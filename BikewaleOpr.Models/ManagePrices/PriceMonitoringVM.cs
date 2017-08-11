@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Entities.BikeData;
+﻿using BikewaleOpr.DTO.BikeData;
+using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikePricing;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,10 @@ namespace BikewaleOpr.Models.ManagePrices
     /// </summary>
     public class PriceMonitoringVM
     {
-        public PriceMonitoringEntity PriceMonitoringEntity { get; set; }
+        public IEnumerable<Entities.MfgCityEntity> CityList { get; set; }
+        public IEnumerable<PriceLastUpdateEntity> PriceLastUpdatedList { get; set; }
+        public IEnumerable<BikeVersionEntityBase> BikeVersionList { get; set; }
+        public IEnumerable<ModelBase> BikeModelList { get; set; }
 
         public IEnumerable<BikeMakeEntityBase> BikeMakes { get; set; }
 

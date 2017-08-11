@@ -1,8 +1,8 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.CMS;
@@ -10,10 +10,12 @@ using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.HomePage;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Used;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
 using System;
 using System.Linq;
+using Bikewale.Interfaces.BikeData.UpComing;
 
 namespace Bikewale.Models
 {
@@ -22,6 +24,8 @@ namespace Bikewale.Models
     /// Summary:  Model for homepage
     /// Modified by : Aditi Srivastava on 5 June 2017
     /// Summary     : Added BL instance instead of cache for comaprison carousel
+    /// Modified by : Vivek Singh Tomar on 31st July 2017
+    /// Summary : Added IUpcoming for filling upcoming bike list
     /// </summary>
     public class HomePageModel
     {
@@ -37,6 +41,8 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly ICMSCacheContent _expertReviews = null;
+        private readonly IUserReviewsCache _userReviewsCache = null;
+        private readonly IUpcoming _upcoming = null;
         #endregion
 
         #region Page level variables
@@ -49,7 +55,8 @@ namespace Bikewale.Models
 
         #endregion
 
-        public HomePageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
+        public HomePageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
+
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -64,6 +71,8 @@ namespace Bikewale.Models
             _videos = videos;
             _articles = articles;
             _expertReviews = expertReviews;
+            _userReviewsCache = userReviewsCache;
+            _upcoming = upcoming;
         }
 
 
@@ -76,6 +85,8 @@ namespace Bikewale.Models
         /// Summary  :  Added different functions to bind popular comparison carousel for msite and desktop
         /// Modified by : Aditi Srivastava on 3 June 2017
         /// Summary     : Added single function for comaprison carousel for both msite and desktop
+        /// Modified by: Vivek Singh Tomar on 31 July 2017
+        /// Summary    : Replaced logic of fetching upcoming bike list.
         /// </returns>
         public HomePageVM GetData()
         {
@@ -96,11 +107,11 @@ namespace Bikewale.Models
                 objVM.Location = cityName;
                 objVM.LocationMasking = cityMaskingName;
                 cityBase = new CityEntityBase()
-                    {
-                        CityId = cityId,
-                        CityMaskingName = cityMaskingName,
-                        CityName = cityName
-                    };
+                {
+                    CityId = cityId,
+                    CityMaskingName = cityMaskingName,
+                    CityName = cityName
+                };
             }
             else
             {
@@ -111,7 +122,7 @@ namespace Bikewale.Models
 
             BindPageMetas(objVM.PageMetaTags);
             BindAdTags(objVM.AdTags);
-            objVM.Banner = _cachedBanner.GetHomePageBanner();
+            objVM.Banner = _cachedBanner.GetHomePageBanner(IsMobile?(uint) 2:1);
             objVM.Brands = new BrandWidgetModel(TopCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.New);
             var popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false);
             popularBikes.TopCount = 9;
@@ -124,12 +135,22 @@ namespace Bikewale.Models
             objVM.NewLaunchedBikes.PQSourceId = (uint)PQSourceEnum.Desktop_New_NewLaunches;
 
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
-            objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
+            var objFiltersUpcoming = new UpcomingBikesListInputEntity()
+            {
+                PageSize = TopCount,
+                PageNo = 1
+            };
+            var sortBy = EnumUpcomingBikesFilter.Default;
+            objVM.UpcomingBikes.UpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+
             BindCompareBikes(objVM, CompareSource, cityId);
-            
+
             objVM.BestBikes = new BestBikeWidgetModel(null, _cachedModels).GetData();
 
-            objVM.UsedBikeCities = new UsedBikeCitiesWidgetModel(cityMaskingName, string.Empty, _IUsedBikesCache).GetData();
+            string cityWidgetTitle = string.Empty, cityWidgetHref = string.Empty;
+            cityWidgetTitle = "Second hand bikes in India";
+            cityWidgetHref = "/used/bikes-in-india/";
+            objVM.UsedBikeCities = new UsedBikeCitiesWidgetModel(cityWidgetTitle, cityWidgetHref, _IUsedBikesCache).GetData();
 
             objVM.UsedModels = BindUsedBikeByModel(cityId);
 
@@ -141,7 +162,8 @@ namespace Bikewale.Models
 
             SetFlags(objVM);
 
-
+            objVM.RecentUserReviewsList = new UserReviewSearchWidget(_userReviewsCache).GetData();
+            objVM.Source = "HP";
 
             return objVM;
         }

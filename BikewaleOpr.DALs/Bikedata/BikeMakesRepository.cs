@@ -9,6 +9,7 @@ using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace BikewaleOpr.DALs.Bikedata
     /// <summary>
     /// 
     /// </summary>
-    public class BikeMakesRepository : IBikeMakes
+    public class BikeMakesRepository : IBikeMakesRepository
     {
         /// <summary>
         /// Created By : Sushil Kumar on  25th Oct 2016
@@ -119,6 +120,19 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
+
+                    if (makeId > 0)
+                    {
+                        // Create name value collection
+                        NameValueCollection nvc = new NameValueCollection();
+                        nvc.Add("v_MakeId", makeId.ToString());
+                        nvc.Add("v_MakeName", make.MakeName);
+                        nvc.Add("v_MaskingName", make.MaskingName);
+                        nvc.Add("v_Futuristic", "0");
+                        nvc.Add("v_Used", "1");
+                        nvc.Add("v_New", "1");
+                        SyncBWData.PushToQueue("BW_AddBikeMakes", DataBaseName.CW, nvc);
+                    }                   
                 }
             }
             catch (Exception ex)
@@ -154,6 +168,19 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
+
+                    // Push the data to carwale DB
+                    // Create name value collection
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("v_MakeId", make.MakeId.ToString());
+                    nvc.Add("v_MakeName", make.MakeName);
+                    nvc.Add("v_IsNew", Convert.ToString(make.New ? 1:0));
+                    nvc.Add("v_IsUsed", Convert.ToString(make.Used ? 1 : 0));
+                    nvc.Add("v_IsFuturistic", Convert.ToString(make.Used ? 1 : 0));
+                    nvc.Add("v_MaskingName", make.MaskingName);
+                    nvc.Add("v_IsDeleted", null);
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
+
                 }
             }
             catch (Exception ex)
@@ -185,6 +212,16 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
+
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("v_MakeId", makeId.ToString());
+                    nvc.Add("v_MaskingName", null);
+                    nvc.Add("v_MakeName", null);
+                    nvc.Add("v_IsNew", null);
+                    nvc.Add("v_IsUsed", null);
+                    nvc.Add("v_IsFuturistic", null);
+                    nvc.Add("v_IsDeleted", "1");
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
                 }
             }
             catch (Exception ex)
@@ -272,7 +309,6 @@ namespace BikewaleOpr.DALs.Bikedata
             }
         }
 
-
         public IEnumerable<BikeMakeEntityBase> GetMakes(ushort requestType)
         {
             IEnumerable<BikeMakeEntityBase> objMakes = null;
@@ -301,6 +337,84 @@ namespace BikewaleOpr.DALs.Bikedata
             return objMakes;
         }
 
+         /// <summary>		
+        /// Written By : Snehal Dange 27 July 2017		
+        /// Description : Function to get makes for which service centers exits		
+        /// </summary>		
+        /// <param name="requestType"></param>		
+        /// <returns></returns>		
+		
+        public IEnumerable<BikeMakeEntityBase> GetServiceCenterMakes(ushort requestType)
+        {		
+            List<BikeMakeEntityBase> objMakesList = null;		
+		
+            try		
+            {		
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_08112016"))		
+                {		
+                    cmd.CommandType = CommandType.StoredProcedure;		
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.UInt16, 20, requestType));		
+		
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))		
+                    {		
+                        if (dr != null)		
+                        {		
+                            objMakesList = new List<BikeMakeEntityBase>();		
+                            while (dr.Read())		
+                            {		
+                                BikeMakeEntityBase _objMake = new BikeMakeEntityBase();		
+                                _objMake.MakeId = SqlReaderConvertor.ToInt16(dr["id"]);		
+                                _objMake.MakeName = Convert.ToString(dr["name"]);		
+                                _objMake.MaskingName = Convert.ToString(dr["maskingname"]);		
+		
+		
+                                objMakesList.Add(_objMake);		
+                            }		
+                        }		
+                    }		
+		
+                }		
+            }		
+            catch (Exception ex)		
+            {		
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.ServiceCenters.GetMakes");		
+            }		
+            return objMakesList;		
+        }
+
+
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 1st Aug 2017
+        /// Description : To fetch the model details list for given make id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeModelEntityBase> GetModelsByMake(EnumBikeType requestType, uint makeId)
+        {
+            IEnumerable<BikeModelEntityBase> objBikeModelEntityBaseList = null;
+            try
+            {
+                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    var param = new DynamicParameters();
+                    param.Add("par_makeid", makeId);
+                    param.Add("par_requesttype", requestType.ToString());
+                    connection.Open();
+                    objBikeModelEntityBaseList = connection.Query<BikeModelEntityBase>
+                        ("getbikemodels_new_07082017", param: param, commandType: CommandType.StoredProcedure);
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetModelsByMake");
+            }
+            return objBikeModelEntityBaseList;
+        }
 
     }   // class
 }   // namespace

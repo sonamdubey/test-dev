@@ -6,8 +6,8 @@ namespace BikewaleOpr.Entities.BikeData
     /// </summary>
     public class BikeModelEntityBase
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int ModelId { get; set; }
+        public string ModelName { get; set; }
         public string MaskingName { get; set; }
     }
 }

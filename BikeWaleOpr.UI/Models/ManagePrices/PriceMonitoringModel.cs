@@ -1,10 +1,15 @@
-﻿using Bikewale.Notifications;
+﻿
+using AutoMapper;
+using Bikewale.Notifications;
 using BikewaleOpr.DALs.Location;
+using BikewaleOpr.DTO.BikeData;
 using BikewaleOpr.Entities.BikeData;
+using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Entity.BikePricing;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.Interface.Location;
+using BikewaleOpr.Service.AutoMappers.BikeData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +41,7 @@ namespace BikewaleOpr.Models.ManagePrices
             try
             {
                 priceMonitoringVM = new PriceMonitoringVM();
-                priceMonitoringVM.BikeMakes = _makesRepo.GetMakes("NEW");
+                priceMonitoringVM.BikeMakes = _makesRepo.GetMakes((ushort)EnumBikeType.New);
                 priceMonitoringVM.States = _locationRepo.GetStates();
                 priceMonitoringVM.PageTitle = pageTitle;
             }
@@ -51,17 +56,25 @@ namespace BikewaleOpr.Models.ManagePrices
         public PriceMonitoringVM getData(uint makeId, uint stateId)
         {
             PriceMonitoringVM priceMonitoringVM = null;
+            PriceMonitoringEntity objPriceMonitoring = null;
+
             try
             {
                 if (makeId > 0 && stateId > 0)
                 {
                     priceMonitoringVM = new PriceMonitoringVM();
-                    priceMonitoringVM.BikeMakes = _makesRepo.GetMakes("NEW");
+                    priceMonitoringVM.BikeMakes = _makesRepo.GetMakes((ushort)EnumBikeType.New);
                     priceMonitoringVM.States = _locationRepo.GetStates();
 
                     priceMonitoringVM.MakeId = makeId;
                     priceMonitoringVM.StateId = stateId;
-                    priceMonitoringVM.PriceMonitoringEntity = _pricesRepo.GetPriceMonitoringDetails(makeId, 0, stateId);
+
+                    objPriceMonitoring = _pricesRepo.GetPriceMonitoringDetails(makeId, 0, stateId);
+
+                    priceMonitoringVM.BikeModelList = Convert(objPriceMonitoring.BikeModelList);
+                    priceMonitoringVM.PriceLastUpdatedList = objPriceMonitoring.PriceLastUpdatedList;
+                    priceMonitoringVM.BikeVersionList = objPriceMonitoring.BikeVersionList;
+                    priceMonitoringVM.CityList = objPriceMonitoring.CityList;
 
                     if (priceMonitoringVM.BikeMakes != null && priceMonitoringVM.States != null)
                     {
@@ -85,27 +98,34 @@ namespace BikewaleOpr.Models.ManagePrices
         public PriceMonitoringVM getData(uint makeId, uint modelId, uint stateId)
         {
             PriceMonitoringVM priceMonitoringVM = null;
+            PriceMonitoringEntity objPriceMonitoring = null;
+
             try
             {
                 if (makeId > 0 && modelId > 0 && stateId > 0)
                 {
                     priceMonitoringVM = new PriceMonitoringVM();
-                    priceMonitoringVM.BikeMakes = _makesRepo.GetMakes("NEW");
+                    priceMonitoringVM.BikeMakes = _makesRepo.GetMakes((ushort)EnumBikeType.New);
                     priceMonitoringVM.States = _locationRepo.GetStates();
 
                     priceMonitoringVM.MakeId = makeId;
                     priceMonitoringVM.StateId = stateId;
                     priceMonitoringVM.ModelId = modelId;
-                    priceMonitoringVM.PriceMonitoringEntity = _pricesRepo.GetPriceMonitoringDetails(makeId, modelId, stateId);
+                    objPriceMonitoring = _pricesRepo.GetPriceMonitoringDetails(makeId, modelId, stateId);
+
+                    priceMonitoringVM.BikeModelList = Convert(objPriceMonitoring.BikeModelList);
+                    priceMonitoringVM.PriceLastUpdatedList = objPriceMonitoring.PriceLastUpdatedList;
+                    priceMonitoringVM.BikeVersionList = objPriceMonitoring.BikeVersionList;
+                    priceMonitoringVM.CityList = objPriceMonitoring.CityList;
 
                     if (priceMonitoringVM.BikeMakes != null && priceMonitoringVM.States != null)
                     {
                         BikeMakeEntityBase bikeMake = priceMonitoringVM.BikeMakes.FirstOrDefault(c => c.MakeId == priceMonitoringVM.MakeId);
-                        BikeModelEntityBase bikeModel =  priceMonitoringVM.PriceMonitoringEntity.BikeModelList.FirstOrDefault(c => c.Id == priceMonitoringVM.ModelId);
+                        ModelBase bikeModel =  priceMonitoringVM.BikeModelList.FirstOrDefault(c => c.ModelId == priceMonitoringVM.ModelId);
                         Entities.StateEntityBase state = priceMonitoringVM.States.FirstOrDefault(c => c.StateId == priceMonitoringVM.StateId);
                         if (bikeMake != null && bikeModel != null &&state != null)
                         {
-                            priceMonitoringVM.PageTitle = string.Format(pageTitle + " - {0} ({1}) - {2}", bikeMake.MakeName, bikeModel.Name, state.StateName);
+                            priceMonitoringVM.PageTitle = string.Format(pageTitle + " - {0} ({1}) - {2}", bikeMake.MakeName, bikeModel.ModelName, state.StateName);
                         }
                     }
                 }
@@ -117,6 +137,12 @@ namespace BikewaleOpr.Models.ManagePrices
                 ErrorClass objErr = new ErrorClass(ex, string.Format("PriceMonitoringModel.getData._makeId:{0}_modelId:{1}_stateId:{2}", makeId, modelId,stateId));
             }
             return priceMonitoringVM;
+        }
+
+        private IEnumerable<ModelBase> Convert(IEnumerable<BikeModelEntityBase> objModels)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            return Mapper.Map<IEnumerable<BikeModelEntityBase>, IEnumerable<ModelBase>>(objModels);
         }
     }
 }

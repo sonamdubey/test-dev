@@ -6,6 +6,7 @@ namespace Bikewale.Entities.AutoComplete
         AllMakeModel = 1,
         PriceQuoteMakeModel = 2,
         AllCity = 3,
-        AreaPinCodes = 4
+        AreaPinCodes = 4,
+        UserReviews=5
     }
 }

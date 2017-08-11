@@ -259,7 +259,7 @@ namespace BikeWaleOpr.Common
                     nvc.Add("v_IsFuturistic", null);
                     nvc.Add("v_IsDeleted", null);
 
-                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CWMD, nvc);
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
                     if (_mc != null)
                     {

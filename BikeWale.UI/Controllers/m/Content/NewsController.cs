@@ -6,13 +6,13 @@ using System.Web.Mvc;
 using Bikewale.BAL.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
-using Bikewale.Entities.CMS.Articles;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using Bikewale.Utility;
+using Bikewale.Entities.CMS.Articles;
 
 namespace Bikewale.Controllers.Mobile.Content
 {    
@@ -87,65 +87,6 @@ namespace Bikewale.Controllers.Mobile.Content
         public ActionResult Details(int basicid)
         {
             return View();
-        }
-
-        /// <summary>
-        /// Action to get the map news details page
-        /// </summary>
-        /// <param name="basicid"></param>
-        /// <returns></returns>
-        [Route("m/news/details/{basicid}/amp/")]
-        public ActionResult DetailsAMP(int basicid)
-        {
-            try
-            {
-                ViewBag.TaggedModelId = 0;
-
-                ArticleDetails objNews = cache.GetNewsDetails(Convert.ToUInt32(basicid));
-
-                if (objNews != null && objNews.Content != null)
-                {
-                    ViewBag.Title = objNews.Title;
-                    ViewBag.ArticleSectionTitle = "- BikeWale News";
-                    ViewBag.Author = objNews.AuthorName;
-                    ViewBag.PublishedDate = objNews.DisplayDate.ToString();
-                    ViewBag.LastModified = objNews.DisplayDate.ToString();
-                    ViewBag.PageViews = objNews.Views;
-                    ViewBag.Canonical = String.Format("{0}/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, basicid, objNews.ArticleUrl);
-                    ViewBag.MobilePageUrl = String.Format("{0}/m/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, basicid, objNews.ArticleUrl);
-                    ViewBag.MainImageUrl = Bikewale.Utility.Image.GetPathToShowImages(objNews.OriginalImgUrl, objNews.HostUrl, Bikewale.Utility.ImageSize._640x348);
-                    ViewBag.Description = objNews.Description.StripHtml();
-
-                    //Convert article content to the amp content
-                    ViewBag.NewsContent = objNews.Content.ConvertToAmpContent();
-
-                    if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
-                    {
-                        ViewBag.NextPageTitle = objNews.NextArticle.Title;
-                        ViewBag.NextPageUrl = String.Format("{0}/m/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objNews.NextArticle.BasicId, objNews.NextArticle.ArticleUrl);
-                    }
-
-                    if (!String.IsNullOrEmpty(objNews.PrevArticle.ArticleUrl))
-                    {
-                        ViewBag.PrevPageTitle = objNews.PrevArticle.Title;
-                        ViewBag.PrevPageUrl = String.Format("{0}/m/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objNews.PrevArticle.BasicId, objNews.PrevArticle.ArticleUrl);
-                    }
-
-                    if (objNews.VehiclTagsList != null && objNews.VehiclTagsList.Count > 0)
-                    {
-
-                        VehicleTag objTag = objNews.VehiclTagsList.FirstOrDefault(m => m.ModelBase != null && m.ModelBase.ModelId > 0);
-
-                        if (objTag != null)
-                            ViewBag.TaggedModelId = objTag.ModelBase.ModelId;
-                    }
-                }                                    
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "m/news/details/{basicid}/amp/" + basicid);                
-            }
-            return View("~/views/m/content/news/details_amp.cshtml");
         }
 
         /// <summary>

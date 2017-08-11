@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\DataSync.exe.config
 D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\DataSync.exe
 D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\DataSync.pdb
@@ -12,6 +13,8 @@ D:\work\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\DataSync.exe
 D:\work\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\DataSync.pdb
 D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Gelf4Net.dll
 D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Gelf4Net.UdpAppender.dll
+=======
+>>>>>>> f-opr-changes-freshersprint
 D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\DataSync.exe.config
 D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\DataSync.exe
 D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\DataSync.pdb
@@ -20,8 +23,29 @@ D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Dapper.dll
 D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Gelf4Net.dll
 D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Gelf4Net.UdpAppender.dll
 D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\log4net.dll
+<<<<<<< HEAD
+=======
+D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\MySql.Data.dll
+>>>>>>> f-opr-changes-freshersprint
 D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\RabbitMQ.Client.dll
 D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\RabbitMqPublishing.dll
 D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\Bikewale.DataSync.csprojResolveAssemblyReference.cache
 D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\DataSync.exe
 D:\BW Code\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\DataSync.pdb
+<<<<<<< HEAD
+=======
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\DataSync.exe.config
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\DataSync.exe
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\DataSync.pdb
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Consumer.dll
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Dapper.dll
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Gelf4Net.dll
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\Gelf4Net.UdpAppender.dll
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\log4net.dll
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\MySql.Data.dll
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\RabbitMQ.Client.dll
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\bin\Debug\RabbitMqPublishing.dll
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\Bikewale.DataSync.csprojResolveAssemblyReference.cache
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\DataSync.exe
+E:\GIT\Test\bikewaleweb\Bikewale.DataSync\DataSync\obj\Debug\DataSync.pdb
+>>>>>>> f-opr-changes-freshersprint

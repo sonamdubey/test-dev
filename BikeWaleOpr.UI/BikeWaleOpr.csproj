@@ -415,12 +415,15 @@
       <DependentUpon>ViewReview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\ComparisonController.cs" />
+    <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\DealerCampaignController.cs" />
     <Compile Include="Controllers\MakesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
     <Compile Include="Controllers\PriceMonitoringController.cs" />
+    <Compile Include="Controllers\ServiceCenterController.cs" />
     <Compile Include="Controllers\UserReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="controls\DateControl.cs">
@@ -456,6 +459,8 @@
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Models\Banner\Banner.cs" />
+    <Compile Include="Models\Banner\BannersListPage.cs" />
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
     <Compile Include="Models\ManagePrices\PriceMonitoringModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\CampaignPropertiesModel.cs" />
@@ -463,6 +468,7 @@
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPopup.cs" />
     <Compile Include="Models\ManufacturerCampaign\ManufacturerCampaignRules.cs" />
     <Compile Include="Models\ManufacturerCampaign\SearchCampaign.cs" />
+    <Compile Include="Models\ServiceCenter\ServiceCenterPageModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsRatingsPage.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
@@ -1896,6 +1902,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="images\calendar.png" />
+    <Content Include="images\homePageBanner.png" />
     <Content Include="includes\footerNew.aspx" />
     <Content Include="includes\headerNew.aspx" />
     <Content Include="includes\HeaderUser.aspx" />
@@ -1920,11 +1927,15 @@
     <Content Include="pagenotfound.aspx" />
     <Content Include="research\urlmapping\map_models.txt" />
     <Content Include="src\AjaxFunctions.js" />
+    <Content Include="src\Banner.js" />
+    <Content Include="src\BannerList.js" />
     <Content Include="src\bt.js" />
     <Content Include="src\calender.js" />
     <Content Include="src\chains.js" />
     <Content Include="src\common.js" />
     <Content Include="src\common\common.js" />
+    <Content Include="src\Comparison\addcomparisonrules.js" />
+    <Content Include="src\Comparison\managecomparisons.js" />
     <Content Include="src\content\makes.js" />
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />
@@ -1941,6 +1952,8 @@
     <Content Include="src\modelImagesByColor.js" />
     <Content Include="src\PopUpDiv.js" />
     <Content Include="src\ManagePrice\pricemonitoring.js" />
+    <Content Include="src\ServiceCenter\ServiceCenter.js" />
+    <Content Include="src\ServiceCenter\ServiceCenterOperations.js" />
     <Content Include="src\userreviews\manageuserratings.js" />
     <Content Include="src\userreviews\manageuserreviews.js" />
     <Content Include="users\Login.aspx" />
@@ -1992,6 +2005,12 @@
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignPopup.cshtml" />
     <Content Include="Views\PriceMonitoring\Index.cshtml" />
     <Content Include="Views\Makes\Index.cshtml" />
+    <Content Include="Views\Comparison\ManageSponsoredCamparison.cshtml" />
+    <Content Include="Views\Comparison\AddSponsoredComparisonRules.cshtml" />
+    <Content Include="Views\Banner\Index.cshtml" />
+    <Content Include="Views\Banner\BannersList.cshtml" />
+    <Content Include="Views\ServiceCenter\SearchServiceCenter.cshtml" />
+    <Content Include="Views\ServiceCenter\AddServiceCenter.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -2006,6 +2025,26 @@
     <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
       <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>
       <Name>Bikewale.Cache.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.BAL\Bikewale.Comparison.BAL.csproj">
+      <Project>{5adf0084-bf88-47b9-a414-6e49a6b71383}</Project>
+      <Name>Bikewale.Comparison.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Cache\Bikewale.Comparison.Cache.csproj">
+      <Project>{19eec108-fdf3-40d1-b013-bce93fd90cd2}</Project>
+      <Name>Bikewale.Comparison.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.DAL\Bikewale.Comparison.DAL.csproj">
+      <Project>{3a88ecf7-a561-43ea-9e6f-922d43c43611}</Project>
+      <Name>Bikewale.Comparison.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Entities\Bikewale.Comparison.Entities.csproj">
+      <Project>{1cdaf20b-89e5-4f96-b8f4-7835e0291a80}</Project>
+      <Name>Bikewale.Comparison.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Interface\Bikewale.Comparison.Interface.csproj">
+      <Project>{18c44359-a725-4093-9c32-75898d3dd088}</Project>
+      <Name>Bikewale.Comparison.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
@@ -2042,6 +2081,10 @@
     <ProjectReference Include="..\BikewaleOpr.DALs\BikewaleOpr.DALs.csproj">
       <Project>{01134f89-c502-492e-a368-0a93d76430ef}</Project>
       <Name>BikewaleOpr.DALs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.DTO\BikewaleOpr.DTO.csproj">
+      <Project>{D2E7FEF3-CA0C-4739-B995-C226AF7CC41D}</Project>
+      <Name>BikewaleOpr.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
       <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
@@ -2092,6 +2135,33 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|x86'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>

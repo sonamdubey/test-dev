@@ -9,6 +9,6 @@ namespace BikewaleOpr.Entity.BikePricing
         public IEnumerable<Entities.MfgCityEntity> CityList { get; set; }
         public IEnumerable<PriceLastUpdateEntity> PriceLastUpdatedList{ get; set; }
         public IEnumerable<BikeVersionEntityBase> BikeVersionList { get; set; }
-        public IEnumerable<Entities.BikeModelEntityBase> BikeModelList { get; set; }
+        public IEnumerable<BikeModelEntityBase> BikeModelList { get; set; }
     }
 }

@@ -11,7 +11,6 @@ using System.Data;
 using System.Data.Common;
 using Bikewale.DAL.CoreDAL;
 using Dapper;
-using System.Linq;
 using System.Collections.ObjectModel;
 
 namespace BikewaleOpr.DALs.Bikedata
@@ -47,8 +46,8 @@ namespace BikewaleOpr.DALs.Bikedata
                             while (dr.Read())
                             {
                                 BikeModelEntityBase _objModel = new BikeModelEntityBase();
-                                _objModel.Name = Convert.ToString(dr["Text"]);
-                                _objModel.Id = SqlReaderConvertor.ToInt32(dr["Value"]);
+                                _objModel.ModelName = Convert.ToString(dr["Text"]);
+                                _objModel.ModelId = SqlReaderConvertor.ToInt32(dr["Value"]);
                                 _objBikeModels.Add(_objModel);
                             }
                         }
@@ -146,7 +145,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
-                        {
+                        {               
                             objImagesData = new UsedBikeImagesNotificationData();
 
                             _objBikeModels = new List<UsedBikeImagesModel>();
@@ -355,8 +354,8 @@ namespace BikewaleOpr.DALs.Bikedata
                             while (dr.Read())
                             {
                                 obj = new BikeModelMailEntity();
-                                obj.Id = Convert.ToInt32(dr["ModelId"]);
-                                obj.Name = Convert.ToString(dr["ModelName"]);
+                                obj.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                obj.ModelName = Convert.ToString(dr["ModelName"]);
                                 obj.MaskingName = Convert.ToString(dr["ModelMasking"]);
                                 obj.OldUrl = string.Format("{0}/{1}-bikes/{2}/", hostUrl, oldMakeMasking, obj.MaskingName);
                                 obj.NewUrl = string.Format("{0}/{1}-bikes/{2}/", hostUrl, newMakeMasking, obj.MaskingName);
@@ -372,6 +371,77 @@ namespace BikewaleOpr.DALs.Bikedata
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.GetModelsByMake : makeId {0}", makeId));
             }
             return models;
+        }
+
+        #region GetModelsWithMissingColorImage function
+        /// <summary>
+        /// Created By : vivek singh tomar on 27/07/2017
+        /// Summary : Function to fetch the list of models whose color images are not uploaded
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeModelData> GetModelsWithMissingColorImage()
+        {
+            IEnumerable<BikeMakeModelData> objBikeDataList = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    objBikeDataList = connection.Query<BikeModelEntityBase, BikeMakeEntityBase, BikeMakeModelData>
+                        (
+                            "getmodelswithmissingcolorimage",
+                            (bikeModelEntityBase, bikeMakeEntityBase) =>
+                            {
+                                BikeMakeModelData bikeData = new BikeMakeModelData()
+                                {
+                                    BikeMake = bikeMakeEntityBase,
+                                    BikeModel = bikeModelEntityBase
+                                };
+                                return bikeData;
+                            }, splitOn: "MakeId", commandType: CommandType.StoredProcedure
+                        );
+
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.BikeModelsRepository.GetModelsWithMissingColorImage"));
+            }
+
+            return objBikeDataList;
+        } 
+        #endregion
+
+        /// <summary>
+        ///  Created By: Ashutosh Sharma on 27-07-2017
+        /// Description: Update used bike as sold in 'classifiedindividualsellinquiries' table.
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        public bool UpdateInquiryAsSold(uint inquiryId)
+        {
+            int rowsAffected = 0;
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("par_inquiryId", inquiryId);
+
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    rowsAffected = connection.Execute("classified_updatelistingassold", param: param, commandType: CommandType.StoredProcedure);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UpdateAsSoldInquiry : inquiryId {0}", inquiryId));
+            }
+            return rowsAffected > 0;
         }
 
     }

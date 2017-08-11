@@ -1,6 +1,7 @@
 ﻿using RabbitMqPublishing.Common;
 using System;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace Bikewale.Utility
 {
@@ -13,38 +14,41 @@ namespace Bikewale.Utility
         /// Function will return the description with truncated content.
         /// Modified By :- Subodh Jain 23 jan 2017
         /// Summary :- Added white space reqex check
+        /// Modified By :- Sangram Nandkhile 02 Aug 2017
+        /// Summary :-  Removed \w regex operatior as it was removing commas and fullstop
         /// </summary>
-        /// <param name="_desc">description which needs to be truncated.</param>
+        /// <param name="text">description which needs to be truncated.</param>
         /// <param name="maxLength">Content lenth is optional. Default value is 170 chars</param>
         /// <returns></returns>
-        public static string TruncateDescription(string _desc, int? maxLength = null)
+        public static string TruncateDescription(string text, int? maxLength = null)
         {
             try
             {
                 int descLength = 170;
-                if (!string.IsNullOrEmpty(_desc))
+                if (!string.IsNullOrEmpty(text))
                 {
-                    _desc = Regex.Replace(_desc, @"<[^>]+>", string.Empty);
+                    text = HttpUtility.HtmlDecode(text);
+                    text = Regex.Replace(text, @"<[^>]+>", string.Empty);
 
-                    Regex regex = new Regex(@"\W+");
-                    _desc = regex.Replace(_desc, " ");
+                    //Regex regex = new Regex(@"\W+");
+                    //_desc = regex.Replace(_desc, " ");
                     if (maxLength.HasValue) { descLength = maxLength.Value; }
 
-                    if (_desc.Length < descLength)
-                        return _desc;
+                    if (text.Length < descLength)
+                        return text;
                     else
                     {
-                        _desc = _desc.Substring(0, (descLength - 5));
-                        _desc = _desc.Substring(0, _desc.LastIndexOf(" "));
-                        return _desc + "...";
+                        text = text.Substring(0, (descLength - 5));
+                        text = text.Substring(0, text.LastIndexOf(" "));
+                        return text + "...";
                     }
                 }
-                return _desc;
+                return text;
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "FormatDescription.TruncateDescription()");
-                return "";
+                ErrorClass objErr = new ErrorClass(ex, string.Format("FormatDescription.TruncateDescription() => {0}",text));
+                return string.Empty;
             }
 
         }

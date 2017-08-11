@@ -54,8 +54,8 @@
                                                     &nbsp;<span data-bind="text: value">@review.OverallRating.Value</span>
                                                 </span>
                                                 <!-- /ko -->
-                                                <a href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'title' : $data.title,'href' : '/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}, truncatedText: $data.title" class="list-item-title inline-block margin-right5"><span itemprop="name">@FormatDescription.TruncateDescription(review.Title, 65)</span></a>
-                                                <span itemprop="author" class="font12 inline-block text-light-grey" data-bind="text: $data.reviewAge + ' ago by '"></span>&nbsp;<span class="font12 inline-block text-light-grey" data-bind="trimText : $data.customerName"><meta itemprop="datePublished" content="@review.EntryDate.ToString("yyyy-MM-dd")">@review.ReviewAge ago by <span itemprop="author">@FormatDescription.TruncateDescription(review.CustomerName, 25)</span></span>
+                                                <a href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'title' : $data.title,'href' : '/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}, truncatedText: $data.title" class="list-item-title inline-block margin-right5"><span itemprop="name">@review.Title.Truncate(65)</span></a>
+                                                <span itemprop="author" class="font12 inline-block text-light-grey" data-bind="text: $data.reviewAge + ' ago by '"></span>&nbsp;<span class="font12 inline-block text-light-grey" data-bind="trimText : $data.customerName"><meta itemprop="datePublished" content="@review.EntryDate.ToString("yyyy-MM-dd")">@review.ReviewAge ago by <span itemprop="author">@review.CustomerName.Truncate(25)</span></span>
                                             </div>
                                             <div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">
                                                 <div class="main-content" data-bind="html: $data.shortDescription">
@@ -106,7 +106,7 @@
 
 
                                                 </div>
-                                                <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description" rel="nofollow">...Read more</a>
+                                                <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description" onclick="updateView(event)" data-reviewId="@review.ReviewId" rel="nofollow">...Read more</a>
                                             </div>
 
                                             <button id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" type="button" onclick="upVoteListReview(event)" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" class="btn btn-inv-teal-group margin-right10 upvoteListButton ">

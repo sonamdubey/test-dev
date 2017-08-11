@@ -29,6 +29,8 @@ namespace BikewaleOpr.BAL
         /// created by : Sajal Gupta on 21-3-2017
         /// Description : BAL layer function for getting homepage data
         /// </summary>
+        /// Modified by : Vivek Singh Tomar on 31 July 2017
+        /// Description : Add Another call to get models with missing color images
         /// <returns></returns>
         public HomePageData GetHomePageData(string id, string userName)
         {
@@ -61,6 +63,10 @@ namespace BikewaleOpr.BAL
                         if (objHomePageData.UsedModelsData.IsNotify)
                             _IUsedBikes.SendUploadUsedModelImageEmail();
                     }
+
+                    //Get models with their respective make id whose any color variation image is yet to be uploaded.
+
+                    objHomePageData.BikeModelByMakeList = _IBikeModel.GetModelsWithMissingColorImage();
                 }
             }
             catch (Exception ex)

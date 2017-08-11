@@ -1,15 +1,16 @@
 ﻿@model BikewaleOpr.Models.ManagePrices.PriceMonitoringVM
 @using BikewaleOpr.Entity.BikePricing;
 @using BikewaleOpr.Entities.BikeData;
+@using Newtonsoft.Json;
 @{
     IEnumerable<PriceLastUpdateEntity> priceLastUpdatedList = null;
     IEnumerable<BikewaleOpr.Entities.MfgCityEntity> cityList = null;
     IEnumerable<BikeVersionEntityBase> bikeVersionList = null;
-    if (Model != null && Model.PriceMonitoringEntity != null)
+    if (Model != null )
     {
-        priceLastUpdatedList = Model.PriceMonitoringEntity.PriceLastUpdatedList;
-        cityList = Model.PriceMonitoringEntity.CityList;
-        bikeVersionList = Model.PriceMonitoringEntity.BikeVersionList;
+        priceLastUpdatedList = Model.PriceLastUpdatedList;
+        cityList = Model.CityList;
+        bikeVersionList = Model.BikeVersionList;
     }
 }
 
@@ -137,7 +138,7 @@
                                     </select>
                                 </div>
                                 <div class="input-field row s12">
-                                    <select id="ddlModels" name="modelId" data-model="@(Model.PriceMonitoringEntity != null ? Json.Encode(Model.PriceMonitoringEntity.BikeModelList) : "") " data-modelid="@Model.ModelId" data-bind="value:selectedModel, options:modelList, optionsText:'modelName',optionsValue:'modelId', optionsCaption : 'Select Model'">
+                                    <select id="ddlModels" name="modelId" data-model="@(JsonConvert.SerializeObject(Model.BikeModelList))" data-modelid="@Model.ModelId" data-bind="value:selectedModel, options:modelList, optionsText:'modelName',optionsValue:'modelId', optionsCaption : 'Select Model'">
                                     </select>
                                 </div>
                                 <div class="input-field row s12">

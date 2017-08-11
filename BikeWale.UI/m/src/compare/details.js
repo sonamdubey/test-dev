@@ -104,6 +104,15 @@ $(document).ready(function () {
         }
     });
 
+    if ($(".sponsored-bike-details-block") && $(".sponsored-bike-details-block").length > 0) {
+        var sponsoredBike = $(".sponsored-bike-details-block").data("bikename");
+        dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Comparison_Page", "act": "Sponsored_Version_Shown", "lab": sponsoredBike });
+    }
+
+    if ($(".know-more-btn-shown") && $(".know-more-btn-shown").length > 0) {
+        var sponsoredBike = $(".sponsored-bike-details-block").data("bikename");
+        dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Comparison_Page", "act": "Sponsored_Comparison_Know_more_shown", "lab": sponsoredBike });
+    }
 });
 
 

@@ -1,9 +1,11 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.DAL.CoreDAL;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections;
@@ -879,14 +881,14 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId, ushort? sourceId)
+        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId, string utmzCookieValue, ushort? sourceId)
         {
             uint reviewIdNew = 0;
 
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_13072017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_04082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
@@ -901,6 +903,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_platformid", DbType.Int16, platformId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.Int16, reviewId > 0 ? reviewId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Int16, (sourceId.HasValue && sourceId.Value > 0) ? sourceId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, utmzCookieValue));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
@@ -1710,6 +1713,32 @@ namespace Bikewale.DAL.UserReviews
             }
 
             return objSummaryList;
+        }
+
+        public IEnumerable<RecentReviewsWidget> GetRecentReviews()
+        {
+            IEnumerable<RecentReviewsWidget> objReviewsList = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    objReviewsList = connection.Query<RecentReviewsWidget>("getrecentuserreview", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetRatingsList");
+            }
+
+            return objReviewsList;
         }
 
     }// class end

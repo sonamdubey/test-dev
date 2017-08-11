@@ -20,15 +20,13 @@ function init() {
         var modelList = ddlModels.data('model');
        
 
-       // ddlMakes.val(ddlMakes.data('makeid'));
+     
 
         if ($.trim(modelList)) {
-            modelList = JSON.parse(modelList);
-            modelList.unshift({ "Id": 0, "Name": "All" });
+            modelList.unshift({ "modelId": 0, "modelName": "All" });
             vmPriceMonitoringIndex.modelList(modelList);
         }
-      //  ddlMakes.val(ddlMakes.data('makeid'));
-     //   vmPriceMonitoringIndex.selectedMake(ddlMakes.data('makeid'));
+     
         vmPriceMonitoringIndex.selectedModel(ddlModels.data('modelid'));
 
         ddlStates.material_select();
@@ -52,15 +50,12 @@ function bikeModelsViewModel() {
             if (self.selectedMake() != 'undefined' && self.selectedMake() > 0) {
                 $.ajax({
                     type: "GET",
-                    url: "/api/manageprices/getmodels/" + self.selectedMake() + "/",
+                    url:"/api/makes/"+ self.selectedMake() + "/models/2" + "/",
                     datatype: "json",
                     async: false,
                     success: function (response) {
-                        response.unshift({ "Id": "0", "Name": "All" });
-                        var models = ko.toJS(response);
-                        if (models) {
-                            self.modelList(models);
-                        }
+                        response.unshift({ "modelId": "0", "modelName": "All" });
+                        self.modelList(response);
                     },
                     complete: function () {
                         $("#ddlModels").material_select();

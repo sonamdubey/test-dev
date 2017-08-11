@@ -307,7 +307,7 @@ docReady(function() {
         self.PageUrl = ko.observable();
         self.CurPageNo = ko.observable();
 
-        self.Filters = ko.observable({ pn: 1, ps: 10, model: modelid, so: 2, skipreviewid: reviewId });       
+        self.Filters = ko.observable({ pn: 1, ps: 10, model: modelid, so: 1, skipreviewid: reviewId });       
         self.QueryString = ko.computed(function () {
             var qs = "";
             $.each(self.Filters(), function (i, val) {

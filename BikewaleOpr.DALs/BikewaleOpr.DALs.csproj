@@ -66,6 +66,33 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|x64'">
+    <OutputPath>bin\x64\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|x86'">
+    <OutputPath>bin\x86\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper">
       <HintPath>..\Libs\Dapper.dll</HintPath>
@@ -83,6 +110,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banner\BannerRepository.cs" />
     <Compile Include="BikeColorImages\ColorImagesBikeRepository.cs" />
     <Compile Include="Bikedata\BikeMakesRepository.cs" />
     <Compile Include="Bikedata\BikeModelsRepository.cs" />
@@ -97,6 +125,7 @@
     <Compile Include="ManufactureCampaign\ManufacturerCampaign.cs" />
     <Compile Include="PopularComparisions\PopularBikeComparisions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceCenter\ServiceCenterRepository.cs" />
     <Compile Include="Used\SellerRepository.cs" />
     <Compile Include="UserReviews\UserReviewsRepository.cs" />
   </ItemGroup>
@@ -121,6 +150,10 @@
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.DTO\BikewaleOpr.DTO.csproj">
+      <Project>{D2E7FEF3-CA0C-4739-B995-C226AF7CC41D}</Project>
+      <Name>BikewaleOpr.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
       <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
       <Name>BikewaleOpr.Entity</Name>
@@ -128,6 +161,10 @@
     <ProjectReference Include="..\BikewaleOpr.Interface\BikewaleOpr.Interface.csproj">
       <Project>{539fa12c-3799-4e88-a833-f65594ea1934}</Project>
       <Name>BikewaleOpr.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Models\BikewaleOpr.Models.csproj">
+      <Project>{D41DA250-C329-4956-ABAC-17B9B1E53880}</Project>
+      <Name>BikewaleOpr.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

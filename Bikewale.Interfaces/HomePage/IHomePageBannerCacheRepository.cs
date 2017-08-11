@@ -8,6 +8,6 @@ namespace Bikewale.Interfaces.HomePage
     /// </summary>
     public interface IHomePageBannerCacheRepository
     {
-        HomePageBannerEntity GetHomePageBanner();
+        HomePageBannerEntity GetHomePageBanner(uint platformId);
     }
 }
