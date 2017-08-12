@@ -140,6 +140,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 09 May 2017
         /// Summary :- Function for GetComparisionTextAndMetas
+        /// Modified By:Snehal Dange on 12th August , 2017
+        /// Description : Added reverseComparisonText for page title
         /// </summary>
         /// <returns></returns>
         private void GetComparisionTextAndMetas(CompareDetailsVM obj)
@@ -164,11 +166,21 @@ namespace Bikewale.Models
                         }
                     }
 
+                    
                     obj.comparisionText = string.Join(" vs ", bikeList);
                     obj.templateSummaryTitle = string.Join(" vs ", bikeModels);
                     obj.targetModels = string.Join(",", bikeModels);
 
-                    obj.PageMetaTags.Title = string.Format("Compare {0} - BikeWale", obj.comparisionText);
+                    if(bikeList.Count()==2)
+                    {
+                        string reverseComparisonText = string.Join(" vs ", bikeList.Reverse());
+                        obj.PageMetaTags.Title = string.Format("{0} | {1} - BikeWale", obj.comparisionText, reverseComparisonText);
+                    }
+                    else
+                    {
+                        obj.PageMetaTags.Title = string.Format("{0} - BikeWale", obj.comparisionText);
+                    }
+                    
                     obj.PageMetaTags.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";
                     obj.PageMetaTags.Description = string.Format("Compare {0} at Bikewale. Compare Price, Mileage, Engine Power, Features, Specifications, Colours and much more.", string.Join(" and ", bikeList));
                     string compareUrl = CreateCanonicalUrl(obj);
