@@ -24,6 +24,8 @@ namespace Bikewale.DAL.NewBikeSearch
         /// Desc : Added UnitSoldDate in select clause
         /// Modified by : Sajal Gupta on 05-01-2017
         /// Desc : Added NewsCount
+        /// Modified by : Ashutosh Sharma on 12-Aug-2017
+        /// Description : Added moratingscount
         /// </summary>
         /// <returns></returns>
         public string GetSelectClause()
@@ -47,6 +49,7 @@ namespace Bikewale.DAL.NewBikeSearch
 		                        ,ifnull(sd.kerbweight,0) as weight
 		                        ,ifnull(mo.minprice, 0) as minprice
 		                        ,ifnull(mo.maxprice, 0) as maxprice
+                                ,ifnull(mo.ratingscount, 0) as moratingscount
 		                        ,ifnull(mo.reviewrate, 0) moreviewrate
 		                        ,ifnull(mo.reviewcount, 0) moreviewcount
 		                        ,ifnull(bv.reviewrate, 0) vsreviewrate

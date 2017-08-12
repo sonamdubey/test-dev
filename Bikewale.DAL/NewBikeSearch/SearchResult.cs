@@ -30,6 +30,8 @@ namespace Bikewale.DAL.NewBikeSearch
         /// <summary>
         /// Modified by : Sajal Gupta on 02-01-2017
         /// Desc : Read LastUpdatedModelSold, NewsCount from Db
+        /// Modified by : Ashutosh Sharma on 12-Aug-2017
+        /// Description : Read RatingCount of bikemodel from Db
         /// </summary>
         /// <param name="filterInputs"></param>
         /// <param name="input"></param>
@@ -82,6 +84,7 @@ namespace Bikewale.DAL.NewBikeSearch
                                 };
                                 objList.BikeModel.MinPrice = Convert.ToInt64(dr["MinPrice"]);
                                 objList.BikeModel.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
+                                objList.BikeModel.RatingCount = Convert.ToInt32(dr["MoRatingsCount"]);
                                 objList.BikeModel.ReviewCount = Convert.ToInt32(dr["MoReviewCount"]);
                                 objList.BikeModel.ReviewRate = Convert.ToDouble(dr["MoReviewRate"]);
                                 objList.FinalPrice = Format.FormatPrice(dr["MinPrice"].ToString());

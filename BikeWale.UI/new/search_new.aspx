@@ -13,11 +13,11 @@
         AdPath = "/1017752/Bikewale_NewBike_";
         isAd970x90Shown = true;
         isAd970x90BottomShown = true;
-      
+
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
         isAd970x90BTFShown = false;
-         
+
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <script>ga_pg_id = '5';</script>
@@ -104,6 +104,7 @@
                                             <input type="text" id="maxInput" class="priceBox" maxlength="9" placeholder="Max">
                                             <div class="bw-blackbg-tooltip bw-blackbg-tooltip-max text-center hide">
                                                 Max budget should be greater than Min budget.
+                                           
                                             </div>
                                         </div>
                                         <ul id="minList" class="text-left">
@@ -145,7 +146,7 @@
                                         <ul class="content-inner-block-10">
                                             <li class="uncheck" filterid="1"><span>Up to 110 cc</span></li>
                                             <li class="uncheck" filterid="7"><span>110-125 cc</span></li>
-                                             <li class="uncheck" filterid="8"><span>125-150 cc</span></li>
+                                            <li class="uncheck" filterid="8"><span>125-150 cc</span></li>
                                             <li class="uncheck" filterid="3"><span>150-200 cc</span></li>
                                             <li class="uncheck" filterid="4"><span>200-250 cc</span></li>
                                             <li class="uncheck" filterid="5"><span>250-500 cc</span></li>
@@ -333,15 +334,24 @@
                                     </div>
                                     <div class="bikeDescWrapper">
                                         <h3 class="bikeTitle margin-bottom10"><a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }"></a></h3>
-                                        <div class="text-xt-light-grey font14 margin-bottom15">
-                                            <span><span data-bind="html: availSpecs"></span></span>
+
+                                        <div id="reviewRatingsDiv" class="text-xt-light-grey font14 margin-bottom15">
+                                            <span class="rate-count-4">
+                                                <span class="bwsprite star-icon star-size-16"></span>
+                                                <span class="font14 text-bold inline-block">4.4</span>
+                                            </span>
+                                            <span class='font11 text-xt-light-grey inline-block padding-left3'>10 ratings</span>
+                                            
+                                            <a class='text-xt-light review-left-divider inline-block' href="">23 reviews</a>
+                                            
                                         </div>
+
                                         <div class="font14 text-light-grey margin-bottom5">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
                                         <div class="text-bold">
                                             <span class="bwsprite inr-lg"></span>
-                                            <span class="font18" data-bind="text: price"></span><span class="font14"> onwards</span>
+                                            <span class="font18" data-bind="text: price"></span><span class="font14">onwards</span>
                                         </div>
-                                        <a data-bind="visible:price()!='N/A',attr: { 'data-modelId': bikemodel.modelId, 'data-pqSourceId': PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                        <a data-bind="visible: price() != 'N/A', attr: { 'data-modelId': bikemodel.modelId, 'data-pqSourceId': PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
                                     </div>
                                 </div>
                             </li>
