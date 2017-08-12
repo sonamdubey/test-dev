@@ -1741,5 +1741,31 @@ namespace Bikewale.DAL.UserReviews
             return objReviewsList;
         }
 
+        /// <summary>
+        /// Created by: Vivek Singh Tomar On 11th Aug 2017
+        /// Summary: Get list of winner of user reviews contest (Top 4)
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<RecentReviewsWidget> GetUserReviewsWinners()
+        {
+            IEnumerable<RecentReviewsWidget> objReviewsWinnersList = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    objReviewsWinnersList = connection.Query<RecentReviewsWidget>("getuserreviewswinners", commandType: CommandType.StoredProcedure);
+                    if(connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.UserReviews.UserReviewsRepository.GetUserReviewsWinners");
+            }
+            return objReviewsWinnersList;
+        }
     }// class end
 }

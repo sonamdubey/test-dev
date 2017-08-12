@@ -31,6 +31,6 @@ namespace Bikewale.Interfaces.UserReviews
         SearchResult GetUserReviewsList(InputFilters inputFilters, string searchQuery);
         QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
         IEnumerable<RecentReviewsWidget> GetRecentReviews();
-
+        IEnumerable<RecentReviewsWidget> GetUserReviewsWinners();
     }
 }

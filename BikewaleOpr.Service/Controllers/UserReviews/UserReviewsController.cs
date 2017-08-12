@@ -172,6 +172,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         /// <summary>
         /// Created by sajal Gupta on 01-08-2017
         /// Descriptiopin : Api to save user review winner
+        /// Modified by: Vivek Singh Tomar on 12th Aug 2017
+        /// Summary: Clear Cache when new winner added
         /// </summary>
         /// <param name="reviewId"></param>
         /// <param name="moderatedId"></param>
@@ -182,7 +184,12 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             bool updateStatus = false;
             try
             {                
-                updateStatus = _userReviewsRepo.SaveUserReviewWinner(reviewId, moderatedId);                
+                updateStatus = _userReviewsRepo.SaveUserReviewWinner(reviewId, moderatedId);
+                if (updateStatus)
+                {
+                    //Clear user review contest winners cache when new winner added
+                    MemCachedUtil.Remove("BW_UserReviewsWinners");
+                }               
             }
             catch (Exception ex)
             {
