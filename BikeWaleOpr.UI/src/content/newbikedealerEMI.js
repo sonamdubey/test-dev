@@ -15,23 +15,99 @@
     self.txtFees = ko.observable($("#txtFees").data('value'));
 
     self.Reset = function () {
-        $("#txtMaxPayment").val("");
-        self.txtMinPayment = ko.observable("");
-        self.txtMaxPayment = ko.observable(null);
-        self.txtMinTenure = ko.observable(null);
-        self.txtMaxTenure = ko.observable(null);
-        self.txtMinROI = ko.observable(null);
-        self.txtMaxROI = ko.observable(null);
-        self.txtMinLtv = ko.observable(null);
-        self.txtMaxLtv = ko.observable(null);
-        self.textLoanProvider = ko.observable(null);
-        self.txtFees = ko.observable(null);
+
+        self.txtMinPayment("");
+        self.txtMaxPayment("");
+        self.txtMinTenure("");
+        self.txtMaxTenure("");
+        self.txtMinROI("");
+        self.txtMaxROI("");
+        self.txtMinLtv("");
+        self.txtMaxLtv("");
+        self.textLoanProvider("");
+        self.txtFees("");
     };
 
     self.SaveEMI_Validate = function () {
-        if (self.txtMinPayment()) {
-            console.log("12asdfafd");
+        var isValid = true;
+        $('input[type="text"]').each(function () {
+            var value = $.trim($(this).val());
+            if (value == '') {
+                isValid = false;
+                $(this).addClass('InValid');
+            }
+            else {
+                $(this).val(value);
+                $(this).removeClass('InValid');
+            }
+        });
+
+        if (isValid) {
+            var value = "";
+            var reg = /^\d+(\.\d+)?$/;
+            $('input[type="text"].perc').each(function () {
+                value = $(this).val();
+                if (reg.test(value) && parseFloat(value) >= 0 && parseFloat(value) <= 100) {
+                    $(this).removeClass('InValid');
+                }
+                else {
+                    isValid = false;
+                    $(this).addClass('InValid');
+                    return false;
+
+                }
+            });
+
         }
+
+        if (isValid) {
+
+            var reg = /^\d+$/;
+            $('input[type="text"].int').each(function () {
+                if (reg.test($(this).val())) {
+                    $(this).removeClass('InValid');
+                }
+                else {
+                    isValid = false;
+                    $(this).addClass('InValid');
+                    return false;
+                }
+            });
+        }
+
+        if (isValid) {
+
+            var reg = /^\d+$/;
+            var value = "";
+            $('input[type="text"].intperc').each(function () {
+                value = $(this).val();
+                if (reg.test(value) && parseFloat(value) >= 0 && parseFloat(value) <= 100) {
+                    $(this).removeClass('InValid');
+                }
+                else {
+                    isValid = false;
+                    $(this).addClass('InValid');
+                    return false;
+                }
+            });
+        }
+
+        if (isValid) {
+            var reg = /^\d+(\.\d+)?$/;
+            $('input[type="text"].double').each(function () {
+                if (reg.test($(this).val())) {
+                    $(this).removeClass('InValid');
+                }
+                else {
+                    isValid = false;
+                    $(this).addClass('InValid');
+                    return false;
+                    
+                }
+            });
+        }
+
+        return isValid;
     };
 
     self.Delete = function () {
@@ -64,3 +140,7 @@ $(document).ready(function () {
         console.log(e.message);
     }
 });
+
+
+
+

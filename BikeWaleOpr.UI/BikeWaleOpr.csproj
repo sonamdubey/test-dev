@@ -1934,6 +1934,7 @@
     <Content Include="src\Comparison\addcomparisonrules.js" />
     <Content Include="src\Comparison\managecomparisons.js" />
     <Content Include="src\content\makes.js" />
+    <Content Include="src\content\newbikedealerEMI.js" />
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />
     <Content Include="src\framework.js" />

@@ -710,7 +710,7 @@
             $("#selectCityPriceHead").addClass("hide");
             var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
-                window.open('/newbikebooking/ManageDealerLoanAmounts.aspx?dealerId=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
+                window.open('/newbikebooking/managedealerloanamounts/' + dealerId + '/' + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
             else
                 alert("Please select dealer");
