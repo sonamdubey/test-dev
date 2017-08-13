@@ -24,8 +24,9 @@ namespace Bikewale.Service.Controllers.Make
     public class MakeController : ApiController
     {
 
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
-        public MakeController(IBikeMakes<BikeMakeEntity, int> bikeMakes)
+        private readonly IBikeMakesCacheRepository<int> _bikeMakes = null;
+
+        public MakeController(IBikeMakesCacheRepository<int> bikeMakes)
         {
             _bikeMakes = bikeMakes;
         }
@@ -40,15 +41,23 @@ namespace Bikewale.Service.Controllers.Make
         {
             BikeMakeEntityBase objMake = null;
             MakeBase objDTOMakeBase = null;
+            uint bikeMakeId = default(uint);
             try
             {
-                objMake = _bikeMakes.GetMakeDetails(makeId);
-
-                if (objMake != null)
+                if (!string.IsNullOrEmpty(makeId) && uint.TryParse(makeId,out bikeMakeId))
                 {
-                    objDTOMakeBase = new MakeBase();
-                    objDTOMakeBase = MakeListMapper.Convert(objMake);
-                    return Ok(objDTOMakeBase);
+                    objMake = _bikeMakes.GetMakeDetails(bikeMakeId);
+
+                    if (objMake != null)
+                    {
+                        objDTOMakeBase = new MakeBase();
+                        objDTOMakeBase = MakeListMapper.Convert(objMake);
+                        return Ok(objDTOMakeBase);
+                    } 
+                }
+                else
+                {
+                    return BadRequest();
                 }
             }
             catch (Exception ex)

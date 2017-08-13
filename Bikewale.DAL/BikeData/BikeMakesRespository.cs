@@ -251,23 +251,33 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmakedetails_26042017";
+                    cmd.CommandText = "getmakedetails_14082017";
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makename", DbType.String, 30, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isScooterOnly", DbType.Boolean, ParameterDirection.Output));
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
-                    if (!string.IsNullOrEmpty(cmd.Parameters["par_makename"].Value.ToString()))
+
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        makeDetails = new BikeMakeEntityBase();
-                        makeDetails.MakeName = cmd.Parameters["par_makename"].Value.ToString();
-                        makeDetails.MaskingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
-                        makeDetails.MakeId = Convert.ToInt32(makeId);
-                        makeDetails.IsScooterOnly = SqlReaderConvertor.ToBoolean(cmd.Parameters["par_isScooterOnly"].Value);
+                        if (reader != null)
+                        {
+                            makeDetails = new BikeMakeEntityBase();
+                            while (reader.Read())
+                            {
+                                makeDetails.MakeId = Convert.ToInt32(reader["id"]);
+                                makeDetails.MakeName = Convert.ToString(reader["name"]);
+                                makeDetails.MaskingName = Convert.ToString(reader["maskingname"]);
+                                makeDetails.IsScooterOnly = SqlReaderConvertor.ToBoolean(reader["isscooteronly"]);
+                                makeDetails.Metas = new CustomPageMetas()
+                                {
+                                    Title = Convert.ToString(reader["title"]),
+                                    Description = Convert.ToString(reader["description"]),
+                                    Keywords = Convert.ToString(reader["keywords"]),
+                                    Heading = Convert.ToString(reader["heading"]),
+                                    Summary = Convert.ToString(reader["summary"])
+                                };
+
+                            }
+                            reader.Close();
+                        }
                     }
                 }
             }
@@ -279,54 +289,7 @@ namespace Bikewale.DAL.BikeData
 
             return makeDetails;
         }
-        /// <summary>
-        ///     Get Makeid and make name from the make id
-        /// </summary>
-        /// <param name="makeId"></param>
-        /// <returns></returns>
-        public BikeMakeEntityBase GetMakeDetails(string makeId)
-        {
-            // Validate the makeId
-            if (!CommonOpn.IsNumeric(makeId))
-                return null;
 
-            BikeMakeEntityBase makeDetails = null;
-
-            try
-            {
-
-                using (DbCommand cmd = DbFactory.GetDBCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmakedetails";
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makename", DbType.String, 30, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, ParameterDirection.Output));
-
-                    // LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
-
-                    if (!string.IsNullOrEmpty(cmd.Parameters["par_makename"].Value.ToString()))
-                    {
-                        makeDetails = new BikeMakeEntityBase();
-                        makeDetails.MakeName = cmd.Parameters["par_makename"].Value.ToString();
-                        makeDetails.MaskingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
-                        makeDetails.MakeId = Convert.ToInt32(makeId);
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return makeDetails;
-        }   // End of getMakeDetails
         /// <summary>
         /// Returns the Upcoming Bike's Make list
         /// Author  :   Sumit Kate

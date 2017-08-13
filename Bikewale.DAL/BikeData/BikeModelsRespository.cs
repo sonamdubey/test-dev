@@ -331,7 +331,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_28062017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_14082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -370,6 +370,14 @@ namespace Bikewale.DAL.BikeData
                                 t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
                                 t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
                                 t.IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]);
+                                t.Metas = new CustomPageMetas()
+                                {
+                                    Title = Convert.ToString(dr["title"]),
+                                    Description = Convert.ToString(dr["description"]),
+                                    Keywords = Convert.ToString(dr["keywords"]),
+                                    Heading = Convert.ToString(dr["heading"]),
+                                    Summary = Convert.ToString(dr["summary"])
+                                };
                             }
                             dr.Close();
                         }

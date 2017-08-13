@@ -28,7 +28,7 @@ namespace Bikewale.Models
     /// </summary>
     public class MakePageModel
     {
-        private string _makeName, _makeMaskingName;
+        private string _makeMaskingName;
         private uint _topCount, _makeId;
         private IDealerCacheRepository _dealerServiceCenters;
         private readonly IBikeModelsCacheRepository<int> _bikeModelsCache;
@@ -107,16 +107,16 @@ namespace Bikewale.Models
 
                 objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMake((int)_makeId);
                 BikeMakeEntityBase makeBase = _bikeMakesCache.GetMakeDetails(_makeId);
+                objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
                 if (makeBase != null)
                 {
                     objData.MakeMaskingName = makeBase.MaskingName;
-                    objData.MakeName = _makeName = makeBase.MakeName;
+                    objData.MakeName = makeBase.MakeName;
                 }
-                BindPageMetaTags(objData, objData.Bikes, _makeName);
+                BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindUpcomingBikes(objData);
                 BindCompareBikes(objData, CompareSource, cityId);
                 BindDealerServiceData(objData, cityId, makeBase, cityBase);
-                objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
                 BindCMSContent(objData);
                 objData.UsedModels = BindUsedBikeByModel(_makeId, cityId);
                 BindDiscontinuedBikes(objData);
@@ -154,7 +154,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, string.Format("MakePageModel.GetData() => MakeName: {0}", _makeName));
+                ErrorClass er = new ErrorClass(ex, string.Format("MakePageModel.GetData() => MakeId: {0}", _makeId));
             }
 
             return objData;
@@ -193,7 +193,7 @@ namespace Bikewale.Models
             }
             else
             {
-                objData.DealersServiceCenter = new DealersServiceCentersIndiaWidgetModel(_makeId, _makeName, _makeMaskingName, _cacheDealers).GetData();
+                objData.DealersServiceCenter = new DealersServiceCentersIndiaWidgetModel(_makeId, objData.MakeName, _makeMaskingName, _cacheDealers).GetData();
             }
         }
 
@@ -234,9 +234,9 @@ namespace Bikewale.Models
 
         private void BindCMSContent(MakePageVM objData)
         {
-            objData.News = new RecentNews(2, _makeId, _makeName, _makeMaskingName, string.Format("{0} News", _makeName), _articles).GetData();
-            objData.ExpertReviews = new RecentExpertReviews(2, _makeId, _makeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", _makeName)).GetData();
-            objData.Videos = new RecentVideos(1, 2, _makeId, _makeName, _makeMaskingName, _videos).GetData();
+            objData.News = new RecentNews(2, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
+            objData.ExpertReviews = new RecentExpertReviews(2, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName)).GetData();
+            objData.Videos = new RecentVideos(1, 2, _makeId, objData.MakeName, _makeMaskingName, _videos).GetData();
 
         }
 
@@ -250,22 +250,71 @@ namespace Bikewale.Models
                 foreach (var bike in objData.DiscontinuedBikes)
                 {
                     bike.Href = string.Format("/{0}-bikes/{1}/", _makeMaskingName, bike.ModelMasking);
-                    bike.BikeName = string.Format("{0} {1}", _makeName, bike.ModelName);
+                    bike.BikeName = string.Format("{0} {1}", objData.MakeName, bike.ModelName);
                 }
             }
         }
         /// Modified by :- Subodh Jain 19 june 2017
         /// Summary :- Added Target Make
-        private void BindPageMetaTags(MakePageVM objData, IEnumerable<MostPopularBikesBase> objModelList, string makeName)
+        private void BindPageMetaTags(MakePageVM objData, IEnumerable<MostPopularBikesBase> objModelList, BikeMakeEntityBase objMakeBase)
         {
             long minPrice = objModelList.Min(bike => bike.VersionPrice);
             long MaxPrice = objModelList.Max(bike => bike.VersionPrice);
-            objData.PageMetaTags.Title = string.Format("{0} Bikes | {1} {0} Models- Prices, Dealers, & Images- BikeWale", makeName, objData.Bikes.Count());
-            objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1} - Rs. {2}. Check out {0} on road price, reviews, mileage, versions, news & images at Bikewale.", makeName, Bikewale.Utility.Format.FormatPrice(minPrice.ToString()), Bikewale.Utility.Format.FormatPrice(MaxPrice.ToString()));
-            objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/", _makeMaskingName);
-            objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/", _makeMaskingName);
-            objData.PageMetaTags.Keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, {0} Images, new {0} Bikes", makeName);
-            objData.AdTags.TargetedMakes = makeName;
+            objData.PageMetaTags.Title = string.Format("{0} Bikes | {1} {0} Models- Prices, Dealers, & Images- BikeWale", objData.MakeName, objData.Bikes.Count());
+            objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1} - Rs. {2}. Check out {0} on road price, reviews, mileage, versions, news & images at Bikewale.", objData.MakeName, Bikewale.Utility.Format.FormatPrice(minPrice.ToString()), Bikewale.Utility.Format.FormatPrice(MaxPrice.ToString()));
+            objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
+            objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
+            objData.PageMetaTags.Keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, {0} Images, new {0} Bikes", objData.MakeName);
+            objData.AdTags.TargetedMakes = objData.MakeName;
+            objData.Page_H1 = string.Format("{0} Bikes", objData.MakeName);
+
+            CheckCustomPageMetas(objData,objMakeBase);
+
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 13th Aug 2017
+        /// Description : Function to check and set custom page metas and summary for the page
+        /// </summary>
+        /// <param name="objData"></param>
+        /// <param name="objMakeBase"></param>
+        private void CheckCustomPageMetas(MakePageVM objData,BikeMakeEntityBase objMakeBase)
+        {
+            try
+            {
+                if (objMakeBase != null && objMakeBase.Metas != null)
+                {
+                    if (!string.IsNullOrEmpty(objMakeBase.Metas.Title))
+                    {
+                        objData.PageMetaTags.Title = objMakeBase.Metas.Title;
+                    }
+                    if (!string.IsNullOrEmpty(objMakeBase.Metas.Description))
+                    {
+                        objData.PageMetaTags.Description = objMakeBase.Metas.Description;
+                    }
+                    if (!string.IsNullOrEmpty(objMakeBase.Metas.Keywords))
+                    {
+                        objData.PageMetaTags.Keywords = objMakeBase.Metas.Keywords;
+                    }
+                    if (!string.IsNullOrEmpty(objMakeBase.Metas.Heading))
+                    {
+                        objData.Page_H1 = objMakeBase.Metas.Heading;
+                    }
+                    if (!string.IsNullOrEmpty(objMakeBase.Metas.Summary))
+                    {
+                        if (objData.BikeDescription == null)
+                        {
+                            objData.BikeDescription = new BikeDescriptionEntity();
+                        }
+
+                        objData.BikeDescription.FullDescription = objData.BikeDescription.SmallDescription = objMakeBase.Metas.Summary;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.CheckCustomPageMetas() makeId:{0}", _makeId));
+            }
         }
 
         /// <summary>

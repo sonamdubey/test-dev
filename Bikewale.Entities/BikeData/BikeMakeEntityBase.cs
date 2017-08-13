@@ -13,37 +13,29 @@ namespace Bikewale.Entities.BikeData
     [Serializable, DataContract]
     public class BikeMakeEntityBase
     {
-        [JsonProperty(PropertyName = "makeId"), DataMember]
+        [DataMember]
         public int MakeId { get; set; }
-
-        [JsonProperty(PropertyName = "makeName"), DataMember]
+        [DataMember]
         public string MakeName { get; set; }
-
-        [JsonProperty(PropertyName = "maskingName"), DataMember]
+        [DataMember]
         public string MaskingName { get; set; }
-
-        [JsonProperty(PropertyName = "hostUrl"), DataMember]
+        [DataMember]
         public string HostUrl { get; set; }
-
-        [JsonProperty(PropertyName = "logoUrl"), DataMember]
+        [DataMember]
         public string LogoUrl { get; set; }
-
-        [JsonProperty("popularityIndex"), DataMember]
+        [DataMember]
         public ushort PopularityIndex { get; set; }
-
-        [JsonProperty("isScooterOnly"), DataMember]
+        [DataMember]
         public bool IsScooterOnly { get; set; }
-
-        [JsonProperty("totalCount"), DataMember]
+        [DataMember]
         public uint TotalCount { get; set; }
-
-        [JsonProperty("href"), DataMember]
+        [DataMember]
         public string Href { get; set; }
-
-        [JsonProperty("title"), DataMember]
+        [DataMember]
         public string Title { get; set; }
-
-        [JsonProperty("text"), DataMember]
+        [DataMember]
         public string Text { get; set; }
+        [DataMember]
+        public CustomPageMetas Metas { get; set; }
     }
 }

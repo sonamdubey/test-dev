@@ -48,8 +48,7 @@ namespace Bikewale.Entities.BikeData
         public uint UsedListingsCnt { get; set; }
         [DataMember]
         public bool IsGstPrice { get; set; }
-
-
+        public CustomPageMetas Metas { get; set; }
 
     }
 }

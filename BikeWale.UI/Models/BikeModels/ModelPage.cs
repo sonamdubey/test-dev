@@ -632,14 +632,58 @@ namespace Bikewale.Models.BikeModels
                     _objData.AdTags.TargetedCity = _objData.LocationCookie.City;
                     _objData.PageMetaTags.Keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", _objData.BikeName);
                     _objData.PageMetaTags.OGImage = Bikewale.Utility.Image.GetPathToShowImages(_objData.ModelPageEntity.ModelDetails.OriginalImagePath, _objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
-
+                    _objData.Page_H1 = _objData.BikeName;
 
                     BindDescription();
+
+                    CheckCustomPageMetas();
                 }
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> CreateMetas() ModelId: {0}, MaskingName: {1}", _modelId, ""));
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 13th Aug 2017
+        /// Description : Function to check and set custom page metas and summary for the page
+        /// </summary>
+        /// <param name="objData"></param>
+        /// <param name="objMakeBase"></param>
+        private void CheckCustomPageMetas()
+        {
+            try
+            {
+                if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.Metas != null)
+                {
+                    var metas = _objData.ModelPageEntity.ModelDetails.Metas;
+
+                    if (!string.IsNullOrEmpty(metas.Title))
+                    {
+                        _objData.PageMetaTags.Title = metas.Title;
+                    }
+                    if (!string.IsNullOrEmpty(metas.Description))
+                    {
+                        _objData.PageMetaTags.Description = metas.Description;
+                    }
+                    if (!string.IsNullOrEmpty(metas.Keywords))
+                    {
+                        _objData.PageMetaTags.Keywords = metas.Keywords;
+                    }
+                    if (!string.IsNullOrEmpty(metas.Heading))
+                    {
+                        _objData.Page_H1 = metas.Heading;
+                    }
+                    if (!string.IsNullOrEmpty(metas.Summary))
+                    {
+                        _objData.ModelSummary = metas.Summary;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage.CheckCustomPageMetas() modelId:{0}", _modelId));
             }
         }
 
