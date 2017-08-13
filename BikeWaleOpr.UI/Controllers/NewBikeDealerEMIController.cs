@@ -34,12 +34,15 @@ namespace BikewaleOpr.Controllers
             EMI loanAmount = null;
             try
             {
-                loanAmount = new EMI();
-                loanAmount = _dealer.GetDealerLoanAmounts(dealerId);
+                if (dealerId > 0)
+                {
+                    loanAmount = new EMI();
+                    loanAmount = _dealer.GetDealerLoanAmounts(dealerId);
+                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("NewBikeDealerEMIController_{0}",dealerId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("NewBikeDealerEMIController_{0}", dealerId));
             }
             return View(loanAmount);
         }
@@ -54,10 +57,14 @@ namespace BikewaleOpr.Controllers
         [HttpPost]
         public ActionResult Submit(uint dealerId, EMI emi)
         {
-            _dealer.SaveDealerEMI(dealerId, emi.MinDownPayment, emi.MaxDownPayment, emi.MinTenure, emi.MaxTenure
-                            , emi.MinRateOfInterest, emi.MaxRateOfInterest, emi.MinLoanToValue, emi.MaxLoanToValue
-                            , emi.LoanProvider, emi.ProcessingFee, emi.Id, Convert.ToUInt32(CurrentUser.Id));
+            if (dealerId > 0)
+            {
+                _dealer.SaveDealerEMI(dealerId, emi.MinDownPayment, emi.MaxDownPayment, emi.MinTenure, emi.MaxTenure
+                                    , emi.MinRateOfInterest, emi.MaxRateOfInterest, emi.MinLoanToValue, emi.MaxLoanToValue
+                                    , emi.LoanProvider, emi.ProcessingFee, emi.Id, Convert.ToUInt32(CurrentUser.Id));
+            }
             return RedirectToAction("Index", new { dealerId = dealerId });
-;        }
+            ;
+        }
     }
 }
