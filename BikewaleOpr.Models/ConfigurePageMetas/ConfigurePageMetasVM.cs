@@ -10,5 +10,8 @@ namespace BikewaleOpr.Models.ConfigurePageMetas
         public IEnumerable<BikeMakeEntityBase> Makes { get; set; }
         public string DesktopPages { get; set; }
         public string MobilePages { get; set; }
+        public int CurrentUserId { get; set; }
+        public uint PageMetaId { get; set; }
+        public PageMetasEntity PageMetas { get; set; }
     }
 }

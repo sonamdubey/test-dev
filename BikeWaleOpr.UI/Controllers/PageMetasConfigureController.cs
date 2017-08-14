@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Interface.BikeData;
+﻿using BikewaleOpr.Entity.ConfigurePageMetas;
+using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Models.ConfigurePageMetas;
 using BikewaleOpr.Models.PageMetasConfiguration;
@@ -22,11 +23,25 @@ namespace BikewaleOpr.Controllers
         }
 
         // GET: PageMetasConfigure
-        public ActionResult Index()
+        public ActionResult Index(uint? id)
         {
-            ConfigurePageMetas objPage = new ConfigurePageMetas(_makesRepo, _pageMetasRepo);
+            ConfigurePageMetas objPage = new ConfigurePageMetas(_makesRepo, _pageMetasRepo, id);
             ConfigurePageMetasVM PageModel = objPage.GetData();
             return View(PageModel);
+        }
+
+        public ActionResult SaveMetas(PageMetasEntity objMetas)
+        {
+            try
+            {
+                uint pageMetaId = _pageMetasRepo.SavePageMetas(objMetas);
+                return RedirectToAction("Index", new { id = pageMetaId });
+            }
+            catch
+            {
+                return null;
+            }
+                        
         }
     }
 }
