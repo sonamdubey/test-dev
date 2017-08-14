@@ -15,8 +15,5 @@ namespace BikewaleOpr.Models.ConfigurePageMetas
         public PageMetasEntity PageMetas { get; set; }
     }
 
-    public class ConfigurePageMetaSearchVM
-    {
-
-    }
+   
 }

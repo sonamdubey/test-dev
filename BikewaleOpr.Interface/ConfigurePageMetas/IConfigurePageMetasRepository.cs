@@ -12,5 +12,7 @@ namespace BikewaleOpr.Interface.ConfigurePageMetas
         IEnumerable<PageEntity> GetPagesList();
         uint SavePageMetas(PageMetasEntity objMetas);
         PageMetasEntity GetPageMetasById(uint pageMetaId);
+
+        IEnumerable<PageMetaEntity> GetPageMetas(uint pageMetaStatus);
     }
 }
