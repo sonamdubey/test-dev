@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Interface.BikeData;
+﻿using Bikewale.Notifications;
+using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Models.ConfigurePageMetas;
 using BikewaleOpr.Models.PageMetasConfiguration;
@@ -29,7 +30,11 @@ namespace BikewaleOpr.Controllers
             return View(PageModel);
         }
 
-
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 14-Aug-2017
+        /// Description : Action method for landing page for page metas search.
+        /// </summary>
+        /// <returns></returns>
         [Route("pageMetasconfigure/search/index/")]
         public ActionResult Search_Index()
         {
@@ -39,15 +44,19 @@ namespace BikewaleOpr.Controllers
                 ConfigurePageMetas objPage = new ConfigurePageMetas(_makesRepo, _pageMetasRepo);
                 objSearchData = objPage.GetPageMetasData();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasConfiguration.GetPageMetas_pageMetaStatus : {0}", pageMetaStatus));
             }
             return View(objSearchData);
         }
 
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 14-Aug-2017
+        /// Description : Action method to search active or inactive or both page metas.
+        /// </summary>
+        /// <returns></returns>
         [Route("pageMetasconfigure/search/index/{pageMetaStatus}/")]
         public ActionResult Search_Index(ushort pageMetaStatus)
         {
@@ -57,10 +66,9 @@ namespace BikewaleOpr.Controllers
                 ConfigurePageMetas objPage = new ConfigurePageMetas(_makesRepo, _pageMetasRepo);
                 objSearchData = objPage.GetPageMetasData(pageMetaStatus);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasConfiguration.GetPageMetas_pageMetaStatus : {0}", pageMetaStatus));
             }
             return View(objSearchData);
         }
