@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Entity.ConfigurePageMetas;
+﻿using Bikewale.Notifications;
+using BikewaleOpr.Entity.ConfigurePageMetas;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Models.ConfigurePageMetas;
@@ -43,6 +44,20 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
 
             }
             return objPageModel;
+        }
+
+        public ConfigurePageMetaSearchVM GetPageMetasData(ushort pageMetaStatus = 1)
+        {
+            ConfigurePageMetaSearchVM objPageMetaVM = new ConfigurePageMetaSearchVM();
+            try
+            {
+                objPageMetaVM.PageMetaList = _pageMetasRepo.GetPageMetas(pageMetaStatus);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasConfiguration.GetPageMetas_pageMetaStatus : {0}", pageMetaStatus));
+            }
+            return objPageMetaVM;
         }
     }
 }

@@ -33,6 +33,36 @@ namespace BikewaleOpr.Controllers
         [Route("pageMetasconfigure/search/index/")]
         public ActionResult Search_Index()
         {
+            ConfigurePageMetaSearchVM objSearchData = null;
+            try
+            {
+                ConfigurePageMetas objPage = new ConfigurePageMetas(_makesRepo, _pageMetasRepo);
+                objSearchData = objPage.GetPageMetasData();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return View(objSearchData);
+        }
+
+
+        [Route("pageMetasconfigure/search/index/{pageMetaStatus}/")]
+        public ActionResult Search_Index(ushort pageMetaStatus)
+        {
+            ConfigurePageMetaSearchVM objSearchData = null;
+            try
+            {
+                ConfigurePageMetas objPage = new ConfigurePageMetas(_makesRepo, _pageMetasRepo);
+                objSearchData = objPage.GetPageMetasData(pageMetaStatus);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return View(objSearchData);
         }
     }
 }

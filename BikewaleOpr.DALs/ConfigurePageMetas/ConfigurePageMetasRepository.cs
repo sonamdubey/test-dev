@@ -33,5 +33,24 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             }
             return objPageList;
         }
+
+        public IEnumerable<PageMetaEntity> GetPageMetas(uint pageMetaStatus)
+        {
+            IEnumerable<PageMetaEntity> objPageMetasList = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    var param = new DynamicParameters();
+                    param.Add("par_status", pageMetaStatus);
+                    objPageMetasList = connection.Query<PageMetaEntity>("getpagemetas", param: param, commandType: CommandType.StoredProcedure);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ConfigurePageMetasRepository.GetPageMetas_pageMetaStatus : {0}", pageMetaStatus));
+            }
+            return objPageMetasList;
+        }
     }
 }
