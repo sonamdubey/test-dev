@@ -41,12 +41,12 @@ namespace BikewaleOpr.Controllers
             ConfigurePageMetaSearchVM objSearchData = null;
             try
             {
-                ConfigurePageMetas objPage = new ConfigurePageMetas(_makesRepo, _pageMetasRepo);
-                objSearchData = objPage.GetPageMetasData();
+                PageMetasSearch objPage = new PageMetasSearch(_pageMetasRepo);
+                objSearchData = objPage.GetData();
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasConfiguration.GetPageMetas_pageMetaStatus : {0}", pageMetaStatus));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasConfiguration.Search_Index"));
             }
             return View(objSearchData);
         }
@@ -63,12 +63,12 @@ namespace BikewaleOpr.Controllers
             ConfigurePageMetaSearchVM objSearchData = null;
             try
             {
-                ConfigurePageMetas objPage = new ConfigurePageMetas(_makesRepo, _pageMetasRepo);
-                objSearchData = objPage.GetPageMetasData(pageMetaStatus);
+                PageMetasSearch objPage = new PageMetasSearch(_pageMetasRepo);
+                objSearchData = objPage.GetData(pageMetaStatus);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasConfiguration.GetPageMetas_pageMetaStatus : {0}", pageMetaStatus));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasConfiguration.Search_Index_pageMetaStatus : {0}", pageMetaStatus));
             }
             return View(objSearchData);
         }

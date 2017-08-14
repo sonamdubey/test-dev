@@ -46,24 +46,6 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
             return objPageModel;
         }
 
-        /// <summary>
-        /// Created by : Ashutosh Sharma on 14-Aug-2017
-        /// Description : Method to get active or inactive or both page metas list.
-        /// </summary>
-        /// <param name="pageMetaStatus"></param>
-        /// <returns></returns>
-        public ConfigurePageMetaSearchVM GetPageMetasData(ushort pageMetaStatus = 1)
-        {
-            ConfigurePageMetaSearchVM objPageMetaVM = new ConfigurePageMetaSearchVM();
-            try
-            {
-                objPageMetaVM.PageMetaList = _pageMetasRepo.GetPageMetas(pageMetaStatus);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasConfiguration.GetPageMetas_pageMetaStatus : {0}", pageMetaStatus));
-            }
-            return objPageMetaVM;
-        }
+        
     }
 }

@@ -16,7 +16,6 @@
                         <th>Updated By</th>
                         <th>Last Updated</th>
                         <th>Status</th>
-                        <th>View Details</th>
                         <th>Edit</th>
 
                     </tr>
@@ -34,7 +33,6 @@
                             <td>@item.UpdatedBy</td>
                             <td>@(item.UpdatedDate != null && item.UpdatedDate != DateTime.MinValue ? item.UpdatedDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
                             <td>@(item.IsActive ? "Active" : "InActive")</td>
-                            <td><a target="_blank" href="" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a></td>
                             <td>
                                 <a target="_blank" href="" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a>
                             </td>
@@ -69,7 +67,7 @@
                 <div class="collapsible-header"><strong>Add Page Meta</strong></div>
                 <div class="collapsible-body">
                     <div class="input-field row s12" style="margin-left:20px">
-                        <a target="_blank" class="btn waves-effect waves-light" href="/banner/index">Add new page meta</a>
+                        <a target="_blank" class="btn waves-effect waves-light" href="/banner/index">Add new</a>
                     </div>
                 </div>
             </li>
