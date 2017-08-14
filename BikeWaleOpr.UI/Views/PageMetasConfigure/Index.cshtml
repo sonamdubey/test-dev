@@ -16,9 +16,9 @@
                         <div class="row margin-top25">
                             <label>Select Platform</label>
                             <span>
-                                <input type="radio" id="chkDesktop" name="platformId" value="1" @(Model.PageMetas != null &&  Model.PageMetas.MakeId > 0 ? "disabled" : "") class="with-gap" @(Model.PageMetas != null && Model.PageMetas.PlatformId == 1 ? "checked" : "") />
+                                <input type="radio" id="chkDesktop" name="platformId" value="1" @(Model.PageMetas != null &&  Model.PageMetas.MakeId > 0 ? "disabled" : "") class="with-gap" @(Model.PageMetas != null && Model.PageMetas.PlatformId == 1 ? "checked" : "") data-bind="event :  { change : function(){ selectPlatform(); } }" />
                                 <label for="chkDesktop">Desktop</label>
-                                <input type="radio" id="chkMobile" name="platformId" value="2" class="with-gap" @(Model.PageMetas != null &&  Model.PageMetas.MakeId > 0 ? "disabled" : "") @(Model.PageMetas != null && Model.PageMetas.PlatformId == 2 ? "checked" : "") />
+                                <input type="radio" id="chkMobile" name="platformId" value="2" class="with-gap" @(Model.PageMetas != null &&  Model.PageMetas.MakeId > 0 ? "disabled" : "") @(Model.PageMetas != null && Model.PageMetas.PlatformId == 2 ? "checked" : "") data-bind="event :  { change : function(){ selectPlatform(); } }" />
                                 <label for="chkMobile">Mobile</label>
                             </span>
                         </div>
@@ -76,7 +76,7 @@
             <input type="hidden" name="EnteredBy" value="@Model.CurrentUserId" />
             <input id="pageMetaId" type="hidden" name="PageMetaId" value="@Model.PageMetaId" />
 
-            <button id="btnConfigurePageMeta" name="btnConfigureCampaign" class="btn waves-effect waves-light margin-bottom50" type="submit">
+            <button id="btnConfigurePageMeta" name="btnConfigureCampaign" class="btn waves-effect waves-light margin-bottom50" data-bind="click: validateData" type="submit">
                 Configure
             </button>
         </div>
