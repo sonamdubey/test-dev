@@ -36,13 +36,12 @@ namespace BikewaleOpr.Controllers
             {
                 if (dealerId > 0)
                 {
-                    loanAmount = new EMI();
                     loanAmount = _dealer.GetDealerLoanAmounts(dealerId);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("NewBikeDealerEMIController_{0}", dealerId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("NewBikeDealerEMIController.Index_{0}", dealerId));
             }
             return View(loanAmount);
         }
