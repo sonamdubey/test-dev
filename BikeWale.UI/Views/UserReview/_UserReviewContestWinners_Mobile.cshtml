@@ -14,7 +14,7 @@
                         <span class="rating-badge" data-rate-bg="@winner.Rating">
                             <span class="bwmsprite star-white"></span>@winner.Rating
                         </span>
-                        <p class="font14 font-bold text-black margin-top5">@winner.BikeName</p>
+                        <p class="font14 font-bold text-black margin-top5 text-truncate">@winner.BikeName</p>
                         <p class="font12 font-light margin-bottom15">@winner.ReviewDescription</p>
                         <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/",winner.MakeMaskingName,winner.ModelMaskingName,winner.ReviewId)" class="text-underline">Read full review</a>
                     </div>
