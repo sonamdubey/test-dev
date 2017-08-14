@@ -43,5 +43,11 @@ namespace BikewaleOpr.Controllers
             }
                         
         }
+
+
+        [Route("pageMetasconfigure/search/index/")]
+        public ActionResult Search_Index()
+        {
+        }
     }
 }
