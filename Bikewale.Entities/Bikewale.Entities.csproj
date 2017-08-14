@@ -365,6 +365,13 @@
     <Compile Include="PriceQuote\v2\PQByCityAreaEntity.cs" />
     <Compile Include="PriceQuote\VersionPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schema\AggregateRating.cs" />
+    <Compile Include="Schema\ProductItemList.cs" />
+    <Compile Include="Schema\Offer.cs" />
+    <Compile Include="Schema\Product.cs" />
+    <Compile Include="Schema\Review.cs" />
+    <Compile Include="Schema\ReviewRating.cs" />
+    <Compile Include="Schema\SchemaBase.cs" />
     <Compile Include="ServiceCenters\BrandServiceCenters.cs" />
     <Compile Include="ServiceCenters\CityBrandServiceCenters.cs" />
     <Compile Include="ServiceCenters\EnumServiceCenterSMSStatus.cs" />
