@@ -355,21 +355,16 @@
                             @if (Model.VersionSpecs != null)
                             {
                                 <div class="content-box-shadow card-bottom-margin content-inner-block-20">
+                                    <h2 class="card-h2-heading margin-bottom20">@Model.BikeName price in @Model.CityEntity.CityName (versions)</h2>
                                     <table width="100%" cellspacing="0" cellpadding="0">
                                         <thead>
                                             <tr>
-                                                <th colspan="3" align="left" class="padding-bottom10">
-                                                    <h2 class="card-h2-heading">@Model.BikeName price in @Model.CityEntity.CityName (versions)</h2>
-                                                </th>
+                                                <th align="left" width="30%" class="font12 text-light-grey padding-bottom10 border-solid-bottom text-unbold">Version</th>
+                                                <th align="left" width="35%" class="font12 text-light-grey padding-bottom10 border-solid-bottom text-unbold">Price</th>
+                                                <th align="left" width="35%" class="font12 text-light-grey padding-bottom10 border-solid-bottom text-unbold">Specs</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td align="left" width="30%" class="font12 text-light-grey padding-bottom10 border-solid-bottom">Version</td>
-                                                <td align="left" width="35%" class="font12 text-light-grey padding-bottom10 border-solid-bottom">Price</td>
-                                                <td align="left" width="35%" class="font12 text-light-grey padding-bottom10 border-solid-bottom">Specs</td>
-                                            </tr>
-
                                             @foreach (var version in Model.VersionSpecs)
                                             {
                                                 <tr>
@@ -378,11 +373,9 @@
                                                     <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>                                                    
                                                 </tr>
                                             }
-                                            <tr>
-                                                <td colspan="2" class="padding-top10 font12 text-light-grey">Above mentioned prices are On-road, @Model.CityEntity.CityName</td>
-                                            </tr>
                                         </tbody>
                                     </table>
+                                    <div class="padding-top10 font12 text-light-grey">Above mentioned prices are On-road, @Model.CityEntity.CityName</div>
                                 </div>
                             }
                             <!-- model prices in nearby cities start -->
