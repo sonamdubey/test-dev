@@ -29,6 +29,7 @@ using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.DALs.ServiceCenter;
 using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.DALs.BikePricing;
+using BikewaleOpr.DAL;
 
 namespace BikewaleOpr
 {
@@ -70,6 +71,7 @@ namespace BikewaleOpr
                 .RegisterType<IBannerRepository, BannerRepository>()
                 .RegisterType<IContractCampaign, ContractCampaign>()
                 .RegisterType<IServiceCenter, ServiceCenter>()
+                .RegisterType<IDealers, DealersRepository>()
                 .RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
 
 

@@ -423,6 +423,7 @@
     <Compile Include="Controllers\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
     <Compile Include="Controllers\PriceMonitoringController.cs" />
+    <Compile Include="Controllers\NewBikeDealerEMIController.cs" />
     <Compile Include="Controllers\ServiceCenterController.cs" />
     <Compile Include="Controllers\UserReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -1937,6 +1938,7 @@
     <Content Include="src\Comparison\addcomparisonrules.js" />
     <Content Include="src\Comparison\managecomparisons.js" />
     <Content Include="src\content\makes.js" />
+    <Content Include="src\content\newbikedealerEMI.js" />
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />
     <Content Include="src\framework.js" />
@@ -2010,6 +2012,7 @@
     <Content Include="Views\Banner\Index.cshtml" />
     <Content Include="Views\Banner\BannersList.cshtml" />
     <Content Include="Views\ServiceCenter\SearchServiceCenter.cshtml" />
+    <Content Include="Views\NewBikeDealerEMI\Index.cshtml" />
     <Content Include="Views\ServiceCenter\AddServiceCenter.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
