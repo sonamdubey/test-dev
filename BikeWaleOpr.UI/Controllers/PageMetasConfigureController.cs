@@ -28,5 +28,11 @@ namespace BikewaleOpr.Controllers
             ConfigurePageMetasVM PageModel = objPage.GetData();
             return View(PageModel);
         }
+
+
+        [Route("pageMetasconfigure/search/index/")]
+        public ActionResult Search_Index()
+        {
+        }
     }
 }

@@ -11,4 +11,9 @@ namespace BikewaleOpr.Models.ConfigurePageMetas
         public string DesktopPages { get; set; }
         public string MobilePages { get; set; }
     }
+
+    public class ConfigurePageMetaSearchVM
+    {
+
+    }
 }
