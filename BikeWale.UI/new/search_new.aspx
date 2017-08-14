@@ -342,7 +342,7 @@
                                             </span>
                                             <span class='font11 text-xt-light-grey inline-block padding-left3'>10 ratings</span>
                                             
-                                            <a class='text-xt-light review-left-divider inline-block' href="">23 reviews</a>
+                                            <a class='text-xt-light review-left-divider inline-block' data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/reviews/' }">23 reviews</a>
                                             
                                         </div>
 
