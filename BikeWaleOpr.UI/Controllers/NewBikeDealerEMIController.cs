@@ -28,7 +28,7 @@ namespace BikewaleOpr.Controllers
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        [Route("newbikebooking/managedealerloanamounts/{dealerId}/")]
+        [Route("dealer/{dealerId}/emi/")]
         public ActionResult Index(uint dealerId)
         {
             EMI loanAmount = null;
