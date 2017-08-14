@@ -113,6 +113,7 @@
     <Compile Include="BikePricing\IDealerPriceRepository.cs" />
     <Compile Include="BikePricing\IShowroomPricesRepository.cs" />
     <Compile Include="Comparison\ISponsoredComparison.cs" />
+    <Compile Include="ConfigurePageMetas\IConfigurePageMetasRepository.cs" />
     <Compile Include="ContractCampaign\IContractCampaign.cs" />
     <Compile Include="ContractCampaign\IDealerCampaignRepository.cs" />
     <Compile Include="ICommuteDistance.cs" />

@@ -422,6 +422,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
+    <Compile Include="Controllers\PageMetasConfigureController.cs" />
     <Compile Include="Controllers\UserReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="controls\DateControl.cs">
@@ -465,6 +466,7 @@
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPopup.cs" />
     <Compile Include="Models\ManufacturerCampaign\ManufacturerCampaignRules.cs" />
     <Compile Include="Models\ManufacturerCampaign\SearchCampaign.cs" />
+    <Compile Include="Models\PageMetasConfiguration\ConfigurePageMetas.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsRatingsPage.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
@@ -1932,6 +1934,7 @@
     <Content Include="src\common\common.js" />
     <Content Include="src\Comparison\addcomparisonrules.js" />
     <Content Include="src\Comparison\managecomparisons.js" />
+    <Content Include="src\configurePageMetas.js" />
     <Content Include="src\content\makes.js" />
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />
@@ -2001,6 +2004,7 @@
     <Content Include="Views\Comparison\AddSponsoredComparisonRules.cshtml" />
     <Content Include="Views\Banner\Index.cshtml" />
     <Content Include="Views\Banner\BannersList.cshtml" />
+    <Content Include="Views\PageMetasConfigure\Index.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

@@ -11,12 +11,14 @@ using BikewaleOpr.BAL.Used;
 using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.DALs.Banner;
 using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.DALs.ConfigurePageMetas;
 using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.DALs.Location;
 using BikewaleOpr.DALs.UserReviews;
 using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Location;
 using BikewaleOpr.Interface.Used;
@@ -61,13 +63,10 @@ namespace BikewaleOpr
                 .RegisterType<IBikeMakes, BikeMakes>()
                 .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
                 .RegisterType<IBannerRepository, BannerRepository>()
-                .RegisterType<IContractCampaign, ContractCampaign>();
-
-
-
-
-
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+                .RegisterType<IContractCampaign, ContractCampaign>()
+                .RegisterType<IConfigurePageMetasRepository, ConfigurePageMetasRepository>();
+            
+                DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
         }
     }

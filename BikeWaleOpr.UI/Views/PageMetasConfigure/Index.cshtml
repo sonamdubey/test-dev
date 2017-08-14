@@ -1,0 +1,84 @@
+﻿@model BikewaleOpr.Models.ConfigurePageMetas.ConfigurePageMetasVM
+@{
+    ViewBag.Title = "Bikewale Operations - Page Metas Configuration";
+    ViewBag.PageTitle = "Configure Page Metas";
+}
+<link href="~/css/materialize-stepper.css" rel="stylesheet" />
+<script src="~/src/materialize-stepper.min.js"></script>
+@using (Html.BeginForm("Index", "UserReviews", FormMethod.Post))
+{
+    <div class="row" id="pageMeta">
+        <div class="stepper-height-60 col m6 offset-m3">
+            <ul class="stepper vertical">
+                <li class="step">
+                    <div class="step-title waves-effect waves-dark">Select Page</div>
+                    <div class="step-content">
+                        <div class="row margin-top25">
+                            <label>Select Platform</label>
+                            <span>
+                                <input type="radio" id="chkDesktop" name="rdoPlatform" value="1" class="with-gap" />
+                                <label for="chkDesktop">Desktop</label>
+                                <input type="radio" id="chkMobile" name="rdoPlatform" value="2" class="with-gap" />
+                                <label for="chkMobile">Mobile</label>
+                            </span>
+                        </div>
+                        <div class="input-field row s2 m2">
+                            <div class="col m4">
+                                <select name="page" data-bind="options : pageList, value : selectedPage, optionsValue : 'PageId',optionsText : 'PageName',optionsCaption: 'Select Page', event :  { change : function(d,e){ changePageType(d,e); } }"></select>
+                            </div>
+                        </div>
+                        <div class="input-field row s2 m2">
+                            <div class="col m4">
+                                <select name="makeId" data-bind="event :  { change : function(d,e){ changeMake(d,e); } }">
+                                    <option value="" selected disabled>Select Make</option>
+                                    @foreach (var m in Model.Makes)
+                                    {
+                                        <option value="@m.MakeId">@m.MakeName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-field row s2 m2">
+                            <div class="col m4" data-bind="visible : bindModelDropDown()">
+                                <select name="modelId" data-bind="options : bikeModels,value : selectedModel,optionsValue : 'modelId',optionsText : 'modelName',optionsCaption: 'Select Model'"></select>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="step">
+                    <div class="step-title waves-effect waves-dark">Configure Page Metas</div>
+                    <div class="step-content">
+                        <div class="input-field col s12">
+                            <textarea id="title" name="title" class="materialize-textarea"></textarea>
+                            <label for="title">Title</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="description" name="description" class="materialize-textarea"></textarea>
+                            <label for="description">Description</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="keywords" name="keywords" class="materialize-textarea"></textarea>
+                            <label for="keywords">Keywords</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="heading" name="heading" class="materialize-textarea"></textarea>
+                            <label for="heading">Heading</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="summary" name="summary" class="materialize-textarea"></textarea>
+                            <label for="summary">Summary</label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <input type="hidden" id="dektopPagesList" value="@Model.DesktopPages" />
+            <input type="hidden" id="mobilePagesList" value="@Model.MobilePages" />
+
+            <button id="btnConfigureCampaign" name="btnConfigureCampaign" class="btn waves-effect waves-light margin-bottom50" type="submit">
+                Configure
+            </button>
+        </div>
+    </div>
+}
+
+<script src="~/src/configurePageMetas.js"></script>
