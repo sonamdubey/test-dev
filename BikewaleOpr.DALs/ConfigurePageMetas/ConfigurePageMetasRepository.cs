@@ -34,6 +34,12 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             return objPageList;
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 14-Aug-2017
+        /// Description : Method to get active or inactive or both page metas list.
+        /// </summary>
+        /// <param name="pageMetaStatus">0 for inactive, 1 for active and 2 for both.</param>
+        /// <returns></returns>
         public IEnumerable<PageMetaEntity> GetPageMetas(uint pageMetaStatus)
         {
             IEnumerable<PageMetaEntity> objPageMetasList = null;
