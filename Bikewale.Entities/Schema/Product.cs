@@ -12,6 +12,9 @@ namespace Bikewale.Entities.Schema
         [JsonProperty("@type")]
         public string Type { get { return "Product"; } }
 
+        [JsonProperty("@id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
         [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
         public string Url { get; set; }
 
@@ -32,9 +35,6 @@ namespace Bikewale.Entities.Schema
 
         [JsonProperty("offers", NullValueHandling = NullValueHandling.Ignore)]
         public Offer Offers { get; set; }
-
-        [JsonProperty("position", NullValueHandling = NullValueHandling.Ignore)]
-        public uint? Position { get; set; }
 
     }
 }

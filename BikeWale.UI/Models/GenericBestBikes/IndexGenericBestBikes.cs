@@ -97,22 +97,32 @@ namespace Bikewale.Models
         {
             if (obj.BestBikes != null)
             {
-                ProductItemList objSchema = new ProductItemList();
+                ProductList objSchema = new ProductList();
                 objSchema.ItemListOrder = ItemListOrder._Descending;
                 objSchema.NumberOfItems = 10;
                 objSchema.Url = obj.PageMetaTags.CanonicalUrl;
                 objSchema.Name = obj.PageName;
-                var lstItems = new List<Product>();
+                var lstItems = new List<ProductListItem>();
                 uint itemNo = 0;
 
                 foreach (var bike in obj.objBestBikesList)
                 {
                     var product = new Product();
+                    itemNo++;
                     product.Name = bike.BikeName;
                     product.Image = Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._310x174);
-                    product.Url = string.Format("{0}{1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName, bike.Model.MaskingName));
-                    //product.Position = ++itemNo;
-                    lstItems.Add(product);
+                    product.Id = string.Format("{0}{1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName, bike.Model.MaskingName));
+
+                    product.Description = bike.SmallModelDescription;
+                    product.Offers = new Offer() {
+                        Price = bike.Price
+                    };
+                    product.Url = string.Format("{0}#bike{1}", objSchema.Url, itemNo);
+                    lstItems.Add(new ProductListItem()
+                    {
+                        Position = itemNo,
+                        Item = product
+                    });
                 }
                 objSchema.ItemListElement = lstItems;
                 obj.JSONSchema = string.Format(@"<script type='application/ld+json'>{0}</script>", Newtonsoft.Json.JsonConvert.SerializeObject(objSchema));

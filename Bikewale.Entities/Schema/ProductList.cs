@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Schema
 {
-    public class ProductItemList : SchemaBase
+    public class ProductList : SchemaBase
     {
         [JsonProperty("@type")]
         public string Type { get { return "ItemList"; } }
@@ -25,7 +25,7 @@ namespace Bikewale.Entities.Schema
         public string ItemListOrder { get; set; }
 
         [JsonProperty("itemListElement", NullValueHandling = NullValueHandling.Ignore)]
-        public IEnumerable<Product> ItemListElement { get; set; }
+        public IEnumerable<ProductListItem> ItemListElement { get; set; }
     }
 
     public class ItemListOrder
