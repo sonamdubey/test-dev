@@ -58,6 +58,7 @@
                                     IEnumerator<PriceLastUpdateEntity> enumerator = priceLastUpdatedList.GetEnumerator();
                                     uint days = 0;
                                     string color = string.Empty;
+                                    string textcolor = string.Empty;
                                     string daysString = string.Empty;
                                     foreach (var city in cityList)
                                     {
@@ -67,6 +68,7 @@
                                                 if (enumerator.MoveNext())
                                                 {
                                                     days = enumerator.Current.LastUpdated;
+                                                    textcolor = string.Empty;
                                                     if (days <= 7)
                                                     {
                                                         color = "green darken-4";
@@ -74,6 +76,7 @@
                                                     else if (days > 7 && days <= 15)
                                                     {
                                                         color = "yellow accent-4";
+                                                        textcolor = "black-text";
                                                     }
                                                     else if (days > 15 && days <= 30)
                                                     {
@@ -90,7 +93,7 @@
                                                         daysString = "NA";
                                                     }
                                                     <td class="@color tooltipped" data-position="bottom" data-tooltip="Price For : @city.CityName, Version : @bike.VersionName">
-                                                        <a class="white-text" target="_blank" href=@string.Format("/content/ShowroomPrices.aspx?state={0}&city={1}&make={2}", Model.StateId, city.CityId, Model.MakeId)>
+                                                        <a class="@(textcolor != string.Empty ? "black-text" : "white-text")" target="_blank" href=@string.Format("/content/ShowroomPrices.aspx?state={0}&city={1}&make={2}", Model.StateId, city.CityId, Model.MakeId)>
                                                             @daysString
                                                         </a>
                                                     </td>
@@ -162,6 +165,7 @@
                         <li class="collection-item yellow accent-4"><b>Between 7 Days and 15 Days</b></li>
                         <li class="collection-item orange white-text">Between 15 Days and 1 Month</li>
                         <li class="collection-item red accent-4 white-text">More Than 1 Month</li>
+                        <li class="collection-item black white-text">NA</li>
                     </ul>
 
                 </div>
