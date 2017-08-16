@@ -598,7 +598,7 @@ h1,
   .contest-card .answer-star-list {
     width: 52%; } }
 
-.collapsible-content.active ~ .report-abuse-label {
+.collapsible-content.active ~ .review-block {
   display: inline; }
 
 .collapsible-content.main-content-off.active .main-content {

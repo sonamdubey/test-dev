@@ -124,7 +124,28 @@
                                 </span><span id="downvoteCount" class="btn-count">@Model.UserReviewDetailsObj.DownVotes</span>
                             </button>
 
-                            <p class="text-light-grey rightfloat line-height26" id="divReportAbuse" data-reviewid="@Model.ReviewId">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="btnReportClick" rel="nofollow">Report Abuse</a></p>
+                            @*<p class="text-light-grey rightfloat line-height26" id="divReportAbuse" data-reviewid="@Model.ReviewId">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="btnReportClick" rel="nofollow">Report Abuse</a></p>*@
+                            @*<div class="review-block grid-12 alpha margin-bottom10">
+
+                                <span class="review__question">Was this review helpful?</span>
+
+                                <button class="feedback-button" type="button" onclick="upVoteReview()">
+                                    <span class="bwmsprite like-sm"></span>
+                                    Yes
+                                    (<span id="upvoteCount" class="btn-count">@Model.UserReviewDetailsObj.UpVotes</span>)
+                                </button>
+
+
+                                <button class="feedback-button" id="downvoteBtn" type="button" onclick="downVoteReview()">
+                                    <span class="bwmsprite dislike-sm"></span>
+                                    No
+                                    (<span id="downvoteCount" class="btn-count">
+                                        @Model.UserReviewDetailsObj.DownVotes
+                                    </span>)
+                                </button>
+                                <p class="report-abuse-label rightfloat line-height26" id="divReportAbuse" data-reviewid="@Model.ReviewId">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="btnReportClick" rel="nofollow">Report Abuse</a></p>
+                            </div>*@                         
+                            
                             <div class="clear"></div>
 
                         </div>

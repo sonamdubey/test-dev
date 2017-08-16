@@ -833,7 +833,7 @@ h2.text-bold { font-weight: bold; }
 	display: none;
 }
 
-.collapsible-content.active ~ .report-abuse-label {
+.collapsible-content.active ~ .review-block  {
 	display: inline;
 }
 

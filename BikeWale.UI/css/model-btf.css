@@ -511,7 +511,7 @@
     line-height: 26px;
 }
 .report-abuse-label {
-    display: none;
+    display: block;
     color: #82888b;
 }
 
@@ -528,7 +528,7 @@
 .collapsible-content.toggle-off.active .read-more-target {
     display: none;
 }
-.collapsible-content.active ~ .report-abuse-label {
+.collapsible-content.active ~ .review-block {
     display: inline;
 }
 .collapsible-content.main-content-off.active .main-content {
@@ -1151,4 +1151,8 @@ li.offertxt:hover span {display:inline}
 
 .overall-circle-list.rating-circle-list li {
 	margin-right: 30px;
+}
+
+.review-block {
+    display:none;
 }
