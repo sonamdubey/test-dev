@@ -113,46 +113,10 @@
 			</div>
 		</div>
 
-		<div id="winnersContent" class="bw-model-tabs-data card-shadow">
-			<h2 class="h2-heading text-white">Winners' Reviews</h2>
-			<div class="swiper-container winner-review-swiper">
-				<ul class="swiper-wrapper">
-					<li class="swiper-slide">
-						<span class="review-author john-doe"></span>
-						<p class="card-title">Pravar</p>
-						<span class="rating-badge" data-rate-bg="3">
-							<span class="bwsprite star-white"></span>3
-						</span>
-						<p class="review-card-subtitle">Royal Enfield Thunderbird 350</p>
-						<p class="review-card-desc">"The buying experience was a bliss. As it's no surprise that at this price range.."</p>
-						<a href="/royalenfield-bikes/thunderbird/reviews/1933/" class="swiper-card-target text-underline">Read full review</a>
-					</li>
-					<li class="swiper-slide">
-						<span class="review-author john-doe"></span>
-						<p class="card-title">Shrikanth</p>
-						<span class="rating-badge" data-rate-bg="4">
-							<span class="bwsprite star-white"></span>4
-						</span>
-						<p class="review-card-subtitle">Hero Passion PRO i3s</p>
-						<p class="review-card-desc">"Hero passion pro is a budget bike which is available at a reasonable price.."</p>
-						<a href="/hero-bikes/passion-pro/reviews/2934/" class="swiper-card-target text-underline">Read full review</a>
-					</li>
-					<li class="swiper-slide">
-						<span class="review-author john-doe"></span>
-						<p class="card-title">Monnappa</p>
-						<span class="rating-badge" data-rate-bg="5">
-							<span class="bwsprite star-white"></span>5
-						</span>
-						<p class="review-card-subtitle">KTM 200 Duke</p>
-						<p class="review-card-desc">"1.Looks: amazing looks, resembles a brute. 2.Reliability: very reliable.."</p>
-						<a href="/ktm-bikes/duke-200/reviews/1808/" class="swiper-card-target text-underline">Read full review</a>
-					</li>
-				</ul>
-				<div class="swiper-pagination"></div>
-				<div class="swiper-button-next swiper-button-white"></div>
-				<div class="swiper-button-prev swiper-button-white"></div>
-			</div>
-		</div>
+        @if(Model.UserReviewsWinners != null && Model.UserReviewsWinners.Count() > 0)
+        {
+            @Html.Partial("~/Views/UserReview/_UserReviewContestWinners.cshtml", Model)
+        }
 
 		<div class="container padding-right10 padding-left10">
 			<div id="tncContent" class="bw-model-tabs-data card-shadow card-spacing">

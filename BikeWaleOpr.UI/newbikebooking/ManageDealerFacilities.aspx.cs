@@ -20,7 +20,7 @@ namespace BikeWaleOpr.NewBikeBooking
 
         protected uint dealerId = 0;
 
-        protected override void OnInit(EventArgs e)
+  /*     protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
             btnAddFacility.Click += new EventHandler(AddFacility);
@@ -68,53 +68,53 @@ namespace BikeWaleOpr.NewBikeBooking
             }
         }
 
-        protected void AddFacility(object sender, EventArgs e)
-        {
-            try
-            {
-                if (dealerId > 0)
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IDealers, DealersRepository>();
-                        IDealers objDealer = container.Resolve<DealersRepository>();
-                        objDealer.SaveDealerFacility(dealerId, txtFacility.Text.Trim(), chkIsActiveFacility.Checked);
-                    }
-                    GetFacilities();
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("AddFacility ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
+           protected void AddFacility(object sender, EventArgs e)
+           {
+               try
+               {
+                   if (dealerId > 0)
+                   {
+                       using (IUnityContainer container = new UnityContainer())
+                       {
+                           container.RegisterType<IDealers, DealersRepository>();
+                           IDealers objDealer = container.Resolve<DealersRepository>();
+                           objDealer.SaveDealerFacility(dealerId, txtFacility.Text.Trim(), chkIsActiveFacility.Checked);
+                       }
+                       GetFacilities();
+                   }
+               }
+               catch (Exception ex)
+               {
+                   HttpContext.Current.Trace.Warn("AddFacility ex : " + ex.Message + ex.Source);
+                   ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                   objErr.SendMail();
+               }
+           }
 
-        protected void UpdateFacility(object sender, EventArgs e)
-        {
-            uint facilityID = Convert.ToUInt32(hdnFacilityId.Value);
-            try
-            {
-                if (dealerId > 0)
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IDealers, DealersRepository>();
-                        IDealers objDealer = container.Resolve<DealersRepository>();
-                        objDealer.UpdateDealerFacility(facilityID, txtFacility.Text.Trim(), chkIsActiveFacility.Checked);
-                    }
-                    GetFacilities();
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("AddFacility ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            GetFacilities();
-        }
-
+           protected void UpdateFacility(object sender, EventArgs e)
+           {
+               uint facilityID = Convert.ToUInt32(hdnFacilityId.Value);
+               try
+               {
+                   if (dealerId > 0)
+                   {
+                       using (IUnityContainer container = new UnityContainer())
+                       {
+                           container.RegisterType<IDealers, DealersRepository>();
+                           IDealers objDealer = container.Resolve<DealersRepository>();
+                           objDealer.UpdateDealerFacility(facilityID, txtFacility.Text.Trim(), chkIsActiveFacility.Checked);
+                       }
+                       GetFacilities();
+                   }
+               }
+               catch (Exception ex)
+               {
+                   HttpContext.Current.Trace.Warn("AddFacility ex : " + ex.Message + ex.Source);
+                   ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                   objErr.SendMail();
+               }
+               GetFacilities();
+           }
+   */
     }   // Class
 }   // namespace

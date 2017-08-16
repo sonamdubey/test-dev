@@ -24,7 +24,7 @@ namespace BikewaleOpr.Interface.ServiceCenter
 		
         StateCityEntity GetStateDetailsByCity(uint cityId);		
 		
-        bool AddUpdateServiceCenter(ServiceCenterCompleteData serviceCenterDetails, string _updatedBy);		
-        bool UpdateServiceCenterStatus(uint serviceCenterId, string currentUserId);		
+        bool AddUpdateServiceCenter(ServiceCenterCompleteData serviceCenterDetails, string _updatedBy);
+        bool UpdateServiceCenterStatus(uint cityId, uint makeId, uint serviceCenterId, string currentUserId);
     }
 }

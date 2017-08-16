@@ -203,14 +203,13 @@ namespace Bikewale.Models.UserReviews
 
 
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
+                objUserReviews.IsDesktop = IsDesktop;
+
                 if (objUserReviews != null)
                 {
                     objUserReviews.ActiveReviewCateory = activeReviewCateory;                   
-
-                    if (IsDesktop)
-                        objPage.UserReviews = objUserReviews.GetDataDesktop();
-                    else
-                        objPage.UserReviews = objUserReviews.GetData();
+                   
+                    objPage.UserReviews = objUserReviews.GetData();                   
 
                     if(objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
                         objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0}", objPage.UserReviewDetailsObj.Model.ModelName);

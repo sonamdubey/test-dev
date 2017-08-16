@@ -1,9 +1,9 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 
 <section>
-	<a href="/m/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage)" class="contest-slug-sm slug-teal-target">
+	<a href="/m/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug)" class="contest-slug-sm slug-teal-target">
 		<span class="trophy-white"></span>
-		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;1000</p>
+		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;1,000</p>
 		<span class="bwmsprite arrow-white-right"></span>
 	</a>
 </section>
@@ -50,9 +50,20 @@
                         </div>
                     </div>
                 </div>
-                @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+
+                @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+                || (Model.ModelPageEntity.ModelVersionSpecs != null)))
                 {
-                    @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
+                    <div id="pricesContent" class="bw-model-tabs-data">
+                        @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+                        {
+                            @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
+                        }
+                        @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+                        {
+                            @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
+                        }
+                    </div>
                 }
             </div>
             @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)

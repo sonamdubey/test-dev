@@ -118,9 +118,16 @@ namespace BikewaleOpr.BAL.ServiceCenter
             {		
                 if(_IServiceCenter != null && serviceCenterDetails !=null)		
                 {		
-                   status = _IServiceCenter.AddUpdateServiceCenter(serviceCenterDetails, updatedBy);		
-                    		
-                 		
+                   status = _IServiceCenter.AddUpdateServiceCenter(serviceCenterDetails, updatedBy);
+                    if(status)
+                    {
+                        MemCachedUtil.Remove(string.Format("BW_ServiceCenterList_Make_{0}", serviceCenterDetails.MakeId));
+                        MemCachedUtil.Remove(string.Format("BW_ServiceCenterCity_Mk_{0}", serviceCenterDetails.MakeId));
+                        MemCachedUtil.Remove(string.Format("BW_ServiceCenterList_City_{0}_Make_{1}", serviceCenterDetails.Location.CityId , serviceCenterDetails.MakeId));
+                       
+                    }
+                   
+
                 }		
             }		
             catch (Exception ex)		
@@ -139,14 +146,22 @@ namespace BikewaleOpr.BAL.ServiceCenter
         /// </summary>		
         /// <param name="serviceCenterId"></param>		
         /// <returns></returns>		
-        public bool UpdateServiceCenterStatus(uint serviceCenterId, string currentUserId)
+        public bool UpdateServiceCenterStatus(uint cityId, uint makeId,uint serviceCenterId, string currentUserId)
         {		
             bool status = false;		
             try		
             {		
                 if(_IServiceCenter != null && serviceCenterId > 0)		
                 {		
-                    status = _IServiceCenter.UpdateServiceCenterStatus(serviceCenterId, currentUserId);		
+                    status = _IServiceCenter.UpdateServiceCenterStatus(serviceCenterId, currentUserId);
+                    if (status)
+                    {
+                        MemCachedUtil.Remove(string.Format("BW_ServiceCenterData_{0}", serviceCenterId));
+                        MemCachedUtil.Remove(string.Format("BW_ServiceCenterList_Make_{0}", makeId));
+                        MemCachedUtil.Remove(string.Format("BW_ServiceCenterCity_Mk_{0}", makeId));
+                        MemCachedUtil.Remove(string.Format("BW_ServiceCenterList_City_{0}_Make_{1}", cityId, makeId));
+                       
+                    }
                 }		
 		
             }		

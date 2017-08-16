@@ -47,6 +47,7 @@ namespace BikewaleOpr.Models.ServiceCenter
         {
             viewModel = new ServiceCenterPageVM();
             viewModel.Makes = GetBikeMakes();
+            viewModel.AllMakes = GetAllBikeMakes();
             viewModel.AllCityList = GetAllCityList();
             return viewModel;
         }
@@ -83,6 +84,34 @@ namespace BikewaleOpr.Models.ServiceCenter
             }
             return formModel;
         }
+
+
+        /// <summary>		
+        /// <summary>		
+        /// Written By : Snehal Dange  on 11th August 2017		
+        /// Summary : Returns list of all Bikes makes.		
+        /// </summary>		
+        /// <returns></returns>	
+        public IEnumerable<Entities.BikeData.BikeMakeEntityBase> GetAllBikeMakes()
+        {
+            IEnumerable<Entities.BikeData.BikeMakeEntityBase> allMakeList = null;
+
+            try
+            {
+                
+                    allMakeList = _makes.GetMakes((ushort)EnumBikeType.All);
+               
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Models.ServiceCenter.ServiceCenterPageModel.GetAllBikeMakes()");
+            }
+
+            return allMakeList;
+
+
+        }
+
 
         /// <summary>		
         /// <summary>		

@@ -55,7 +55,7 @@
 
 
             <div class="row">
-                <div class="input-field col s6 offset-s3">
+                <div class="input-field col s6 offset-s3 sctextarea">
 
                     <textarea style="padding:0" id="txtServiceCenterAddress" class="materialize-textarea required" maxlength="500" name="Address" value="@(Model.details.Address != null ? Model.details.Address : "")"> @(Model.details.Address != null ? Model.details.Address : "")</textarea>
                     <label for="txtServiceCenterAddress"> Address * </label>
@@ -109,7 +109,7 @@
                         Save
                     </button>
 
-                    <a href="/servicecenter/search/index/" id="backbutton" style="padding-left: 400px;" class="waves-effect waves-light">
+                    <a href="/servicecenter/search/" id="backbutton" style="padding-left: 400px;" class="waves-effect waves-light">
                         Back To Dashboard
                     </a>
 
