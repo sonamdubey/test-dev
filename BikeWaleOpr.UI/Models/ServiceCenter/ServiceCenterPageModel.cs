@@ -98,10 +98,9 @@ namespace BikewaleOpr.Models.ServiceCenter
 
             try
             {
-                if (_serviceCenter != null)
-                {
+                
                     allMakeList = _makes.GetMakes((ushort)EnumBikeType.All);
-                }
+               
             }
             catch (Exception ex)
             {

@@ -36,7 +36,7 @@ namespace BikewaleOpr.Service.Controllers.ServiceCenter
         /// </summary>		
         /// <param name="makeId"></param>		
         /// <returns></returns>		
-        [HttpGet, Route("api/servicecenter/cities/make/{makeId}/"), ResponseType(typeof(IEnumerable<CityBase>))]		
+        [HttpGet, Route("api/servicecenter/make/{makeId}/cities/"), ResponseType(typeof(IEnumerable<CityBase>))]		
         public IHttpActionResult Get(uint makeId)
         {		
             IEnumerable<CityEntityBase> objcityList = null;		
@@ -122,11 +122,12 @@ namespace BikewaleOpr.Service.Controllers.ServiceCenter
         /// <param name="serviceCenterId"></param>		
         /// <returns></returns>		
 		
-        [HttpGet, Route("api/servicecenter/{serviceCenterId}/make/{makeId}/city/{cityId}/currentuser/{currentUserId}/")]		
+        [HttpGet, Route("api/servicecenter/updatestatus/{serviceCenterId}/make/{makeId}/city/{cityId}/")]		
         public IHttpActionResult UpdateServiceCenterStatus(uint cityId, uint makeId, uint serviceCenterId, string currentUserId)
         {		
             		
-            bool status = false;		
+            bool status = false;
+          
             if (serviceCenterId>0)		
             {		
                 try		

@@ -20,7 +20,7 @@ var serviceCenter = function ()
         if (makeId > 0) {
             $.ajax({
                 type: "GET",
-                url: "/api/servicecenter/cities/make/" + parseInt(makeId) +"/",
+                url: "/api/servicecenter/make/" + parseInt(makeId) + "/cities/",
                 success: function (data) {
                     if (data) {
                         self.cityList(data);
@@ -49,7 +49,7 @@ var serviceCenter = function ()
         var makeId = $("#ddlServiceCenter").val();
         var cityId = $("#ddlServiceCenterCity :selected").val();
         var activeStatus = 0;
-      
+        var tblServiceCenter = $('#tblServiceCenter');
         if ($('#chkActiveStatus').is(':checked'))
         {
             activeStatus = 1;
@@ -71,24 +71,24 @@ var serviceCenter = function ()
 
                     if (data.length > 0) {
                         self.allServiceCenters(data);
-                        $('#tblServiceCenter').data('cityid', cityId);
-                        $('#tblServiceCenter').data('makeid', makeId);
-                        $('#tblServiceCenter').removeClass();
-                        $('#tblServiceCenter').show();
+                        tblServiceCenter.data('cityid', cityId);
+                        tblServiceCenter.data('makeid', makeId);
+                        tblServiceCenter.removeClass();
+                        tblServiceCenter.show();
 
                     }
                     else
                     {
-                        $('#tblServiceCenter').removeClass();
-                        $('#tblServiceCenter').hide();
+                        tblServiceCenter.removeClass();
+                        tblServiceCenter.hide();
                         Materialize.toast('No data to display', 5000);
                     }
                     
                 },
 
                 error: function (e) {
-                    $('#tblServiceCenter').removeClass();
-                    $('#tblServiceCenter').hide();
+                    tblServiceCenter.removeClass();
+                    tblServiceCenter.hide();
                     Materialize.toast('error occured', 4000);
                 }
 
@@ -104,14 +104,14 @@ var serviceCenter = function ()
 
     self.UpdateServiceCenterStatus = function (d, e) {
         var currentUserId = $('#serviceCenter').attr("data-currentuser");
-        var makeId = $('#tblServiceCenter').data('makeid');
-        var cityId = $('#tblServiceCenter').data('cityid');
-        var Id = d.Id;
-        if (Id > 0) {
+        var tblServiceCenter = $('#tblServiceCenter');
+        var makeId = tblServiceCenter.data('makeid');
+        var cityId = tblServiceCenter.data('cityid');
+        if (d.Id > 0) {
             $.ajax({
                 type: "GET",
 
-                url:'/api/servicecenter/' + parseInt(Id) + '/make/' + makeId + '/city/' + cityId + '/currentuser/' + parseInt(currentUserId)+'/',
+                url: '/api/servicecenter/updatestatus/' + parseInt(d.Id) + '/make/' + makeId + '/city/' + cityId + '/?currentUserId=' + currentUserId,
                 success: function () {
                     e.currentTarget.closest('tr').remove();
                     Materialize.toast('Service Center Status has been updated', 4000);
