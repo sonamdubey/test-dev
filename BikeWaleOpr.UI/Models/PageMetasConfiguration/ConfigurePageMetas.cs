@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Entity.ConfigurePageMetas;
+﻿using Bikewale.Notifications;
+using BikewaleOpr.Entity.ConfigurePageMetas;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Models.ConfigurePageMetas;
@@ -52,5 +53,7 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
             }
             return objPageModel;
         }
+
+        
     }
 }

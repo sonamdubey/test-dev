@@ -467,6 +467,7 @@
     <Compile Include="Models\ManufacturerCampaign\ManufacturerCampaignRules.cs" />
     <Compile Include="Models\ManufacturerCampaign\SearchCampaign.cs" />
     <Compile Include="Models\PageMetasConfiguration\ConfigurePageMetas.cs" />
+    <Compile Include="Models\PageMetasConfiguration\PageMetasSearch.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsRatingsPage.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
@@ -1949,6 +1950,7 @@
     <Content Include="src\ManufactureCampaign\rules.js" />
     <Content Include="src\ManufacturerCampaign\SearchManufacture.js" />
     <Content Include="src\modelImagesByColor.js" />
+    <Content Include="src\pagemetasearch.js" />
     <Content Include="src\PopUpDiv.js" />
     <Content Include="src\userreviews\manageuserratings.js" />
     <Content Include="src\userreviews\manageuserreviews.js" />
@@ -2005,6 +2007,7 @@
     <Content Include="Views\Banner\Index.cshtml" />
     <Content Include="Views\Banner\BannersList.cshtml" />
     <Content Include="Views\PageMetasConfigure\Index.cshtml" />
+    <Content Include="Views\PageMetasConfigure\Search_Index.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
