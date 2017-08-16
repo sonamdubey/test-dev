@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Bikewale.Entities.SEO;
 
 namespace Bikewale.Entities.BikeData
 {
@@ -48,7 +50,7 @@ namespace Bikewale.Entities.BikeData
         public uint UsedListingsCnt { get; set; }
         [DataMember]
         public bool IsGstPrice { get; set; }
-        public CustomPageMetas Metas { get; set; }
+        public IEnumerable<CustomPageMetas> Metas { get; set; }
 
     }
 }

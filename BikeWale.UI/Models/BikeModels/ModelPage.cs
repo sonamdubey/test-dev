@@ -12,7 +12,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 
 using Bikewale.Entities.UserReviews.Search;
-
+using Bikewale.Entities.SEO;
 using Bikewale.Interfaces;
 
 using Bikewale.Interfaces.BikeBooking;
@@ -657,27 +657,30 @@ namespace Bikewale.Models.BikeModels
             {
                 if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.Metas != null)
                 {
-                    var metas = _objData.ModelPageEntity.ModelDetails.Metas;
+                    var metas = _objData.ModelPageEntity.ModelDetails.Metas.FirstOrDefault(m => m.PageId == (IsMobile ? 3 : 4));
 
-                    if (!string.IsNullOrEmpty(metas.Title))
+                    if (metas != null)
                     {
-                        _objData.PageMetaTags.Title = metas.Title;
-                    }
-                    if (!string.IsNullOrEmpty(metas.Description))
-                    {
-                        _objData.PageMetaTags.Description = metas.Description;
-                    }
-                    if (!string.IsNullOrEmpty(metas.Keywords))
-                    {
-                        _objData.PageMetaTags.Keywords = metas.Keywords;
-                    }
-                    if (!string.IsNullOrEmpty(metas.Heading))
-                    {
-                        _objData.Page_H1 = metas.Heading;
-                    }
-                    if (!string.IsNullOrEmpty(metas.Summary))
-                    {
-                        _objData.ModelSummary = metas.Summary;
+                        if (!string.IsNullOrEmpty(metas.Title))
+                        {
+                            _objData.PageMetaTags.Title = metas.Title;
+                        }
+                        if (!string.IsNullOrEmpty(metas.Description))
+                        {
+                            _objData.PageMetaTags.Description = metas.Description;
+                        }
+                        if (!string.IsNullOrEmpty(metas.Keywords))
+                        {
+                            _objData.PageMetaTags.Keywords = metas.Keywords;
+                        }
+                        if (!string.IsNullOrEmpty(metas.Heading))
+                        {
+                            _objData.Page_H1 = metas.Heading;
+                        }
+                        if (!string.IsNullOrEmpty(metas.Summary))
+                        {
+                            _objData.ModelSummary = metas.Summary;
+                        }
                     }
                 }
             }

@@ -12,6 +12,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using Bikewale.Entities.SEO;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -262,19 +263,28 @@ namespace Bikewale.DAL.BikeData
                             makeDetails = new BikeMakeEntityBase();
                             while (reader.Read())
                             {
-                                makeDetails.MakeId = Convert.ToInt32(reader["id"]);
+                                makeDetails.MakeId = SqlReaderConvertor.ToInt32(reader["id"]);
                                 makeDetails.MakeName = Convert.ToString(reader["name"]);
                                 makeDetails.MaskingName = Convert.ToString(reader["maskingname"]);
                                 makeDetails.IsScooterOnly = SqlReaderConvertor.ToBoolean(reader["isscooteronly"]);
-                                makeDetails.Metas = new CustomPageMetas()
-                                {
-                                    Title = Convert.ToString(reader["title"]),
-                                    Description = Convert.ToString(reader["description"]),
-                                    Keywords = Convert.ToString(reader["keywords"]),
-                                    Heading = Convert.ToString(reader["heading"]),
-                                    Summary = Convert.ToString(reader["summary"])
-                                };
+                            }
 
+                            if (reader.NextResult())
+                            {
+                                var metas = new List<CustomPageMetas>();
+                                while (reader.Read())
+                                {
+                                    var meta = new CustomPageMetas();
+                                    meta.PageId = SqlReaderConvertor.ToUInt32(reader["pageid"]);
+                                    meta.Title = Convert.ToString(reader["title"]);
+                                    meta.Description = Convert.ToString(reader["description"]);
+                                    meta.Keywords = Convert.ToString(reader["keywords"]);
+                                    meta.Heading = Convert.ToString(reader["heading"]);
+                                    meta.Summary = Convert.ToString(reader["summary"]);
+                                    meta.MakeId = (uint)makeDetails.MakeId;
+                                    metas.Add(meta);
+                                }
+                                makeDetails.Metas = metas;
                             }
                             reader.Close();
                         }

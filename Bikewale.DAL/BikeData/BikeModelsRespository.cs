@@ -18,6 +18,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using Bikewale.Entities.SEO;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -370,15 +371,26 @@ namespace Bikewale.DAL.BikeData
                                 t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
                                 t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
                                 t.IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]);
-                                t.Metas = new CustomPageMetas()
-                                {
-                                    Title = Convert.ToString(dr["title"]),
-                                    Description = Convert.ToString(dr["description"]),
-                                    Keywords = Convert.ToString(dr["keywords"]),
-                                    Heading = Convert.ToString(dr["heading"]),
-                                    Summary = Convert.ToString(dr["summary"])
-                                };
                             }
+
+                            if (dr.NextResult())
+                            {
+                                var metas = new List<CustomPageMetas>();
+                                while (dr.Read())
+                                {
+                                    var meta = new CustomPageMetas();
+                                    meta.PageId = SqlReaderConvertor.ToUInt32(dr["pageid"]);
+                                    meta.Title = Convert.ToString(dr["title"]);
+                                    meta.Description = Convert.ToString(dr["description"]);
+                                    meta.Keywords = Convert.ToString(dr["keywords"]);
+                                    meta.Heading = Convert.ToString(dr["heading"]);
+                                    meta.Summary = Convert.ToString(dr["summary"]);
+                                    meta.ModelId = (uint)t.ModelId;
+                                    metas.Add(meta);
+                                }
+                                t.Metas = metas;
+                            }
+
                             dr.Close();
                         }
                     }

@@ -156,7 +156,6 @@
     <Compile Include="BikeData\BikeColorsbyVersion.cs" />
     <Compile Include="BikeData\BikeEntityBase.cs" />
     <Compile Include="BikeData\BikeInfoPageSource.cs" />
-    <Compile Include="BikeData\BikeMakeDetailsWithMetas.cs" />
     <Compile Include="BikeData\BikeMakeModelBase.cs" />
     <Compile Include="BikeData\BikeMakeModelEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
@@ -366,6 +365,7 @@
     <Compile Include="PriceQuote\v2\PQByCityAreaEntity.cs" />
     <Compile Include="PriceQuote\VersionPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SEO\CustomPageMetas.cs" />
     <Compile Include="ServiceCenters\BrandServiceCenters.cs" />
     <Compile Include="ServiceCenters\CityBrandServiceCenters.cs" />
     <Compile Include="ServiceCenters\EnumServiceCenterSMSStatus.cs" />

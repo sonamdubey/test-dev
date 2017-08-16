@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bikewale.Entities.Compare;
+using Bikewale.Entities.SEO;
 
 namespace Bikewale.Models
 {
@@ -45,6 +46,7 @@ namespace Bikewale.Models
         public MakeMaskingResponse objResponse;
         public string redirectUrl;
         public CompareSources CompareSource { get; set; }
+        public bool IsMobile { get; set; }
 
         public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC)
         {
@@ -262,13 +264,13 @@ namespace Bikewale.Models
             long MaxPrice = objModelList.Max(bike => bike.VersionPrice);
             objData.PageMetaTags.Title = string.Format("{0} Bikes | {1} {0} Models- Prices, Dealers, & Images- BikeWale", objData.MakeName, objData.Bikes.Count());
             objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1} - Rs. {2}. Check out {0} on road price, reviews, mileage, versions, news & images at Bikewale.", objData.MakeName, Bikewale.Utility.Format.FormatPrice(minPrice.ToString()), Bikewale.Utility.Format.FormatPrice(MaxPrice.ToString()));
-            objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
+            objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
             objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
             objData.PageMetaTags.Keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, {0} Images, new {0} Bikes", objData.MakeName);
             objData.AdTags.TargetedMakes = objData.MakeName;
             objData.Page_H1 = string.Format("{0} Bikes", objData.MakeName);
 
-            CheckCustomPageMetas(objData,objMakeBase);
+            CheckCustomPageMetas(objData, objMakeBase);
 
         }
 
@@ -278,36 +280,40 @@ namespace Bikewale.Models
         /// </summary>
         /// <param name="objData"></param>
         /// <param name="objMakeBase"></param>
-        private void CheckCustomPageMetas(MakePageVM objData,BikeMakeEntityBase objMakeBase)
+        private void CheckCustomPageMetas(MakePageVM objData, BikeMakeEntityBase objMakeBase)
         {
             try
             {
                 if (objMakeBase != null && objMakeBase.Metas != null)
                 {
-                    if (!string.IsNullOrEmpty(objMakeBase.Metas.Title))
+                    var metas = objMakeBase.Metas.FirstOrDefault(m => m.PageId == (IsMobile ? 2 : 1));
+                    if (metas != null)
                     {
-                        objData.PageMetaTags.Title = objMakeBase.Metas.Title;
-                    }
-                    if (!string.IsNullOrEmpty(objMakeBase.Metas.Description))
-                    {
-                        objData.PageMetaTags.Description = objMakeBase.Metas.Description;
-                    }
-                    if (!string.IsNullOrEmpty(objMakeBase.Metas.Keywords))
-                    {
-                        objData.PageMetaTags.Keywords = objMakeBase.Metas.Keywords;
-                    }
-                    if (!string.IsNullOrEmpty(objMakeBase.Metas.Heading))
-                    {
-                        objData.Page_H1 = objMakeBase.Metas.Heading;
-                    }
-                    if (!string.IsNullOrEmpty(objMakeBase.Metas.Summary))
-                    {
-                        if (objData.BikeDescription == null)
+                        if (!string.IsNullOrEmpty(metas.Title))
                         {
-                            objData.BikeDescription = new BikeDescriptionEntity();
+                            objData.PageMetaTags.Title = metas.Title;
                         }
+                        if (!string.IsNullOrEmpty(metas.Description))
+                        {
+                            objData.PageMetaTags.Description = metas.Description;
+                        }
+                        if (!string.IsNullOrEmpty(metas.Keywords))
+                        {
+                            objData.PageMetaTags.Keywords = metas.Keywords;
+                        }
+                        if (!string.IsNullOrEmpty(metas.Heading))
+                        {
+                            objData.Page_H1 = metas.Heading;
+                        }
+                        if (!string.IsNullOrEmpty(metas.Summary))
+                        {
+                            if (objData.BikeDescription == null)
+                            {
+                                objData.BikeDescription = new BikeDescriptionEntity();
+                            }
 
-                        objData.BikeDescription.FullDescription = objData.BikeDescription.SmallDescription = objMakeBase.Metas.Summary;
+                            objData.BikeDescription.FullDescription = objData.BikeDescription.SmallDescription = metas.Summary;
+                        }
                     }
                 }
             }
