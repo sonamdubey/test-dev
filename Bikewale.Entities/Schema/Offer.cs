@@ -20,5 +20,11 @@ namespace Bikewale.Entities.Schema
 
         [JsonProperty("priceCurrency")]
         public string PriceCurrency { get { return "INR"; } }
+
+        [JsonProperty("lowPrice", NullValueHandling = NullValueHandling.Ignore)]
+        private string LowPrice { get; set; }
+
+        [JsonProperty("highPrice", NullValueHandling = NullValueHandling.Ignore)]
+        public string HighPrice { get; set; }
     }
 }
