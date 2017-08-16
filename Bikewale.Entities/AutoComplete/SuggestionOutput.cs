@@ -10,5 +10,7 @@ namespace Bikewale.Entities.AutoComplete
     {
         public string Name { get; set; }
         public Payload Payload { get; set; }
+
+        public List<string> types { get; set; }
     }
 }

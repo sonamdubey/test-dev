@@ -131,7 +131,13 @@ namespace BikewaleAutoSuggest
                     //For Royal Enfield Bikes add Bullet in Suggestion
                     if (bikeName.Contains("Royal Enfield"))
                             ObjTemp.mm_suggest.input.Add("Bullet");
-                    
+                    //ObjTemp.mm_suggest.contexts.types = new List<string>();
+                    //ObjTemp.mm_suggest.contexts.types.Add("AllMakeModel");
+                    //if (bikeItem.ModelId > 0 && bikeItem.New && !bikeItem.Futuristic)
+                    //    ObjTemp.mm_suggest.contexts.types.Add("PriceQuoteMakeModel");
+
+                    //if(bikeItem.UserRatingsCount>0)
+                    //    ObjTemp.mm_suggest.contexts.types.Add("UserReviews");
 
                     objSuggestList.Add(ObjTemp);
                     count--;

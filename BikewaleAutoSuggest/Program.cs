@@ -39,7 +39,7 @@ namespace BikewaleAutoSuggest
             CreateIndex(PriceSuggestionList, ConfigurationManager.AppSettings["PQindexName"]);
             Logs.WriteInfoLog("Price Quote Make Model Index Created successfully");
 
-            CreateIndex(UserReviewList,Bikewale.Utility.BWConfiguration.Instance.UserReviewIndexName);
+            CreateIndex(UserReviewList, Bikewale.Utility.BWConfiguration.Instance.UserReviewIndexName);
             Logs.WriteInfoLog("User Review Make Model Index Created successfully");
 
         }
@@ -71,7 +71,11 @@ namespace BikewaleAutoSuggest
                                               c2.input).AutoMap())))
                               .Completion(c => c
                               .Name(pN => pN.mm_suggest)
-                             
+                              .Contexts(cont => cont
+                                    .Category(cate => cate
+                                        .Name("types").Path(s => s.mm_suggest.contexts.types)
+                                        ))
+
                               .Analyzer("standard")
                               .SearchAnalyzer("standard")
                               .PreserveSeparators(false))))));

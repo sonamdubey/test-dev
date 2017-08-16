@@ -16,8 +16,12 @@ namespace BikewaleAutoSuggest
     {
         public List<string> input { get; set; }
         public int Weight { get; set; }
+        public Context contexts { get; set; }
     }
-
+    public class Context
+    {
+        public List<string> types { get; set; }                         //  Context For new pricequote and user review
+    }
     public class PayLoad
     {
         public string MakeId { get; set; }
