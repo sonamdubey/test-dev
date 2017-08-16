@@ -107,7 +107,7 @@ var serviceCenter = function ()
         var tblServiceCenter = $('#tblServiceCenter');
         var makeId = tblServiceCenter.data('makeid');
         var cityId = tblServiceCenter.data('cityid');
-        if (confirm("Do you really want to update service center status ?"))
+        if (confirm("Do you really want to update service center status?"))
         {
             if (d.Id > 0) {
                 $.ajax({
