@@ -43,7 +43,9 @@
                                 {
                                 <!-- ko foreach: activeReviewList() -->
                                 }
+
                                 <li  class="list-item" data-bind="css: $data.isRatingQuestion ? 'rating-question-present': 'rating-question-absent'">
+
                                     <div class="item-grid alpha padding-right20 @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">
                                         <div class="margin-bottom10">
                                             <!-- ko with: $data.overallRating -->

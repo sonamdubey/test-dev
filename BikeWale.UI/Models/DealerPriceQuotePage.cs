@@ -10,6 +10,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.ManufacturerCampaign.Entities;
+using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.Price;
 using Bikewale.Utility;
 using System;
@@ -33,7 +34,7 @@ namespace Bikewale.Models
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IPriceQuote _objPQ = null;
-        private readonly Interfaces.IManufacturerCampaign _objManufacturerCampaign = null;
+        private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         public string RedirectUrl { get; set; }
         public uint OtherTopCount { get; set; }
         public StatusCodes Status { get; set; }
@@ -48,7 +49,7 @@ namespace Bikewale.Models
         /// Created By : Sushil Kumar on 23rd March 2017
         /// Description  : Resolve unity containers
         /// </summary>
-        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, Interfaces.IManufacturerCampaign objManufacturerCampaign)
+        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
@@ -492,6 +493,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Jun 2017
         /// Description :   Fetches Manufacturer Campaigns
+        /// Modified by  :  Sushil Kumar on 11th Aug 2017
+        /// Description :   Store dealerid for manufacturer campaigns for impressions tracking
         /// </summary>
         private void GetManufacturerCampaign(DealerPriceQuotePageVM objData)
         {
@@ -552,6 +555,16 @@ namespace Bikewale.Models
                         };
                         objData.IsManufacturerEMIAdShown = true;
                     }
+
+                    if(objData.IsManufacturerLeadAdShown)
+                    {
+                        _objManufacturerCampaign.SaveManufacturerIdInPricequotes(objData.PQId, campaigns.LeadCampaign.DealerId);
+                    }
+                    else if(objData.IsManufacturerEMIAdShown)
+                    {
+                        _objManufacturerCampaign.SaveManufacturerIdInPricequotes(objData.PQId, campaigns.EMICampaign.DealerId);
+                    }
+
                 }
             }
             catch (Exception ex)

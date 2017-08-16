@@ -3,7 +3,7 @@
 @using Bikewale.BikeBooking;
 
 <section>
-	<a href="/m/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage)" class="contest-slug-sm slug-teal-target">
+	<a href="/m/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug)" class="contest-slug-sm slug-teal-target">
 		<span class="trophy-white"></span>
 		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;1000</p>
 		<span class="bwmsprite arrow-white-right"></span>
@@ -93,14 +93,13 @@
                     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
                 </div>
                 }
-              
-                @if (Model.ModelPageEntity.ModelVersionSpecs != null)
-                {
-                    @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
-                }
-
             </div>
-
+            
+            @if (Model.ModelPageEntity!= null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+            {
+                @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
+            }
+            
             @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
 
         </div>

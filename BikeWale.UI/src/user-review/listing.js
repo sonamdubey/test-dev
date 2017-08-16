@@ -1,4 +1,6 @@
+
 ﻿var reviewId = 0, vmUserReviews, modelReviewsSection, modelid, abusereviewId = 0, categoryId=1, pageNumber=1;
+
 
 var helpfulReviews = [];
 
@@ -209,7 +211,7 @@ docReady(function() {
     modelReviewsSection = $("#modelReviewsListing");
 
     reviewId = $('#divReportAbuse').attr('data-reviewId');
-
+    modelName = $('#modelName').attr('data-modelName');
    var vote = bwcache.get("ReviewDetailPage_reviewVote_" + reviewId);
 
     if (vote != null && vote.vote) {
@@ -377,7 +379,8 @@ docReady(function() {
                 else {
                     self.tabEvents.setNoReview(categoryId);
                 }
-
+                
+                triggerGA('User_Reviews', 'Tabs_Clicked', modelName + ' _Clicked_on_' + reviewCategory[categoryId]);
                 self.getUserReviews();
             },
 

@@ -1,5 +1,7 @@
+
 var reviewId = 0, modelid, vmUserReviews, modelReviewsSection,categoryId = 1, pageNumber = 1;
 var reg = new RegExp('^[0-9]*$');
+
 var helpfulReviews = [];
 
 var reviewCategory = {
@@ -241,7 +243,7 @@ docReady(function () {
     applyLikeDislikes();
 
     modelReviewsSection = $("#modelReviewsListing");
-
+    modelName = $('#modelName').attr('data-modelName');
     reviewId = $('#divAbuse').attr('data-reviewId');
 
     if ($('#section-review-details').length > 0)
@@ -425,7 +427,7 @@ docReady(function () {
                 else {
                     self.tabEvents.setNoReview(categoryId);
                 }
-
+                triggerGA('User_Reviews', 'Tabs_Clicked', modelName + ' _Clicked_on_' + reviewCategory[categoryId]);
                 self.getUserReviews();
             },
 

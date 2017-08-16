@@ -260,7 +260,7 @@ namespace Bikewale.Models
         {
             long minPrice = objModelList.Min(bike => bike.VersionPrice);
             long MaxPrice = objModelList.Max(bike => bike.VersionPrice);
-            objData.PageMetaTags.Title = string.Format("{0} Bikes Prices, Reviews, Mileage & Images - BikeWale", makeName);
+            objData.PageMetaTags.Title = string.Format("{0} Bikes | {1} {0} Models- Prices, Dealers, & Images- BikeWale", makeName, objData.Bikes.Count());
             objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1} - Rs. {2}. Check out {0} on road price, reviews, mileage, versions, news & images at Bikewale.", makeName, Bikewale.Utility.Format.FormatPrice(minPrice.ToString()), Bikewale.Utility.Format.FormatPrice(MaxPrice.ToString()));
             objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/", _makeMaskingName);
             objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/", _makeMaskingName);
