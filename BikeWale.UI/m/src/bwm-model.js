@@ -739,14 +739,16 @@ docReady(function () {
 function upVoteListReview(e) {
     try {
         var localReviewId = e.currentTarget.getAttribute("data-reviewid");
-        bwcache.set("ReviewDetailPage_reviewVote_" + localReviewId, { "vote": "1" });
-        $('#upvoteBtn' + "-" + localReviewId).addClass('active');
-        $('#downvoteBtn' + "-" + localReviewId).attr('disabled', 'disabled');
+        if (!$('#upvoteBtn' + "-" + localReviewId).hasClass('active')) {
+            bwcache.set("ReviewDetailPage_reviewVote_" + localReviewId, { "vote": "1" });
+            $('#upvoteBtn' + "-" + localReviewId).addClass('active');
+            $('#downvoteBtn' + "-" + localReviewId).attr('disabled', 'disabled');
 
-        if (reg.test($('#upvoteCount' + "-" + localReviewId).text()))
-            $('#upvoteCount' + "-" + localReviewId).text(parseInt($('#upvoteCount' + "-" + localReviewId).text()) + 1);
+            if (reg.test($('#upvoteCount' + "-" + localReviewId).text()))
+                $('#upvoteCount' + "-" + localReviewId).text(parseInt($('#upvoteCount' + "-" + localReviewId).text()) + 1);
 
-        voteListUserReview(1, localReviewId);
+            voteListUserReview(1, localReviewId);
+        }
     } catch (e) {
         console.warn(e);
     }

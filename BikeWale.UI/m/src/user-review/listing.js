@@ -155,7 +155,7 @@ function upVoteReview() {
     try {
         bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "1" });
         $('#upvoteButton').addClass('active');
-        $('#upvoteText').text("Liked");
+        //$('#upvoteText').text("Liked");
         $('#downvoteButton').attr('disabled', 'disabled');
         $('#upvoteCount').text(parseInt($('#upvoteCount').text()) + 1);
         voteUserReview(1);
@@ -169,7 +169,7 @@ function downVoteReview() {
     try {
         bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "0" });
         $('#downvoteButton').addClass('active');
-        $('#downvoteText').text("Disliked");
+        //$('#downvoteText').text("Disliked");
         $('#upvoteButton').attr('disabled', 'disabled');
         $('#downvoteCount').text(parseInt($('#downvoteCount').text()) + 1);
         voteUserReview(0);
@@ -242,12 +242,12 @@ docReady(function () {
     if (vote != null && vote.vote) {
         if (vote.vote == "0") {
             $('#downvoteButton').addClass('active');
-            $('#downvoteText').text("Disliked");
+            //$('#downvoteText').text("Disliked");
             $('#upvoteButton').attr('disabled', 'disabled');
         }
         else {
             $('#upvoteButton').addClass('active');
-            $('#upvoteText').text("Liked");
+            //$('#upvoteText').text("Liked");
             $('#downvoteButton').attr('disabled', 'disabled');
         }
     }

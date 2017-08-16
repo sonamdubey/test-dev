@@ -272,6 +272,37 @@ $graph-bg: #eee
 .item-stats-grid
     min-width: 60px
 
+
+//review buttons
+.review-title
+	color: black
+
+.feedback-button
+	font-size: 12px
+	min-width: 60px
+	background: white
+	margin: 0 2px
+	padding: 4px 
+	color: #82888B
+	border: 1px solid #E2E2E2
+	border-radius: 2px
+
+.about-reviewer-list
+	li	
+		border:none
+	
+.feedback-button.active 
+    border-color: #41B4C4
+    background: #41B4C4
+    color: white
+    pointer-events: none
+
+.feedback-button.active 
+	.like-sm 
+		background-position: -94px -624px
+
+// review buttons
+
 .like-sm,
 .dislike-sm,
 .views-sm
@@ -609,3 +640,8 @@ $graph-bg: #eee
 		.main-content
 			display: none
 
+@media only screen and (max-width: 320px)
+	.review__question
+		display: block
+		padding-bottom: 5px
+	

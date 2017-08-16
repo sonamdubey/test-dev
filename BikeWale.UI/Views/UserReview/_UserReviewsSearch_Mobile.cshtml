@@ -40,7 +40,7 @@
                         {
                                 <!-- ko foreach: activeReviewList() -->
                         }
-                        <li class="list-item">
+                        <li class="list-item padding-top15 padding-bottom15">
                             <div class="margin-bottom10">
                                 <!-- ko with: $data.overallRating -->
                                 <span class="rating-badge" data-rate-bg="@review.OverallRating.Value" data-bind="attr: {'data-rate-bg': id }">
@@ -49,7 +49,7 @@
                                 </span>
                                 <!-- /ko -->
                                 <div class="grid-10-inline font15 text-black text-bold text-truncate">
-                                   <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'title' : $data.title,'href' : '/m/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}"> <span class="review-title position-rel" data-bind="text:$data.title">@review.Title</span></a>
+                                    <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'title' : $data.title,'href' : '/m/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}"> <span class="review-title position-rel" data-bind="text:$data.title">@review.Title</span></a>
                                 </div>
                             </div>
 
@@ -59,12 +59,12 @@
                             <div class="collapsible-content toggle-off main-content-off">
                                 <div class="main-content">
                                     <div class="font14 text-slate-grey margin-bottom10">
-                                        <p class="inline" data-bind="truncateDesc: $data.description">@FormatDescription.TruncateDescription(review.Description, 120)</p>
-                                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-reviewId="@review.ReviewId" onclick="updateView(event)">...Read more</a>
+                                        <p data-bind="truncateDesc: $data.description">@FormatDescription.TruncateDescription(review.Description, 120)</p>
+                                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-reviewId="@review.ReviewId" onclick="updateView(event)">Read more</a>
                                     </div>
                                 </div>
                                 <div class="more-content">
-                                    <div class="font14 text-slate-grey margin-bottom10">
+                                    <div class="font14 text-slate-grey">
                                         <p class="inline" data-bind="html: $data.description">@Html.Raw(review.Description)</p>
                                     </div>
 
@@ -103,19 +103,66 @@
                                         </ul>
                                     </div>
                                     <!-- /ko -->
+                                    <div class="rating-list">
+                                        <ul class="rating-circle-list">
+                                            <li>
+                                                <div class="rating-circle circle-rate-5">
+                                                    <p class="circle-label">5</p>
+                                                    <span class="rating-progress"></span>
+                                                </div>
+                                                <p class="list-item-label">Visual Appeal</p>
+                                            </li>
+                                            <li>
+                                                <div class="rating-circle circle-rate-4">
+                                                    <p class="circle-label">4</p>
+                                                    <span class="rating-progress"></span>
+                                                </div>
+                                                <p class="list-item-label">Reliability</p>
+                                            </li>
+                                            <li>
+                                                <div class="rating-circle circle-rate-3">
+                                                    <p class="circle-label">3</p>
+                                                    <span class="rating-progress"></span>
+                                                </div>
+                                                <p class="list-item-label">Performance</p>
+                                            </li>
+                                            <li>
+                                                <div class="rating-circle circle-rate-2">
+                                                    <p class="circle-label">2</p>
+                                                    <span class="rating-progress"></span>
+                                                </div>
+                                                <p class="list-item-label">Comfort</p>
+                                            </li>
+                                            <li>
+                                                <div class="rating-circle circle-rate-1">
+                                                    <p class="circle-label">1</p>
+                                                    <span class="rating-progress"></span>
+                                                </div>
+                                                <p class="list-item-label">Service Experience</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="grid-12 alpha">
 
-                                    <div class="grid-7 alpha">
+                                        <span class="review__question">Was this review helpful?</span>
 
-                                        <span>Was this review helpful?</span>
+                                        <button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="upVoteListReview(event)">
+                                            <span class="bwmsprite like-sm"></span>
+                                            Yes
+                                            (<span id="upvoteCount-@review.ReviewId" class="btn-count review-btn" data-bind="attr: { id: 'upvoteCount-' + $data.reviewId}, formattedVotes : $data.upVotes">
+                                                @Format.FormatNumbers(review.UpVotes)
+                                            </span>)
+                                        </button>
 
-                                        <div class="item-stats-grid">
-                                            <button id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="upVoteListReview(event)">Yes</button>
-                                            <span id="upvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'upvoteCount-' + $data.reviewId}, formattedVotes : $data.upVotes">@Format.FormatNumbers(review.UpVotes)</span>
-                                        </div>
-                                        <div class="item-stats-grid">
-                                            <button id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" data-bind="attr: { id: 'downvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="downVoteListReview(event)">No</button>
-                                            <span id="downvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'downvoteCount-' + $data.reviewId}, formattedVotes : $data.downVotes">@Format.FormatNumbers(review.DownVotes)</span>
-                                        </div>
+
+                                        <button class="feedback-button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" data-bind="attr: { id: 'downvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="downVoteListReview(event)">
+                                            <span class="bwmsprite dislike-sm"></span>
+                                            No
+                                            (<span id="downvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'downvoteCount-' + $data.reviewId}, formattedVotes : $data.downVotes">
+                                                @Format.FormatNumbers(review.DownVotes)
+                                            </span>)
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +182,11 @@
                     <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noReviews() && TotalReviews() != 0 && Pagination().paginated() > 0" style="display: @(Model.Pager!=null && Model.Pager.TotalResults > 0 ? "block" : "none")">
                         <div class="footer-pagination font14 border-solid-top padding-top10">
                             <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalReviews() > 0">
-                                <p><span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalReviews(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalReviews()">@Model.Pager.TotalResults</span> reviews</p>
+                                <p>
+                                    <span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-
+                                    <span class="text-bold" data-bind="CurrencyText: Math.min(TotalReviews(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of
+                                    <span class="text-bold" data-bind="CurrencyText: TotalReviews()">@Model.Pager.TotalResults</span> reviews
+                                </p>
                             </div>
                             @if (Model.Pager.TotalResults > 8)
                             {
@@ -158,7 +209,10 @@
                 <div class="circle-placeholder">
                     <span class="bwmsprite review-lg margin-top25"></span>
                 </div>
-                <p class="font14 text-light-grey">There are no <span data-bind="text: categoryName"></span> reviews for this bike</p>
+                <p class="font14 text-light-grey">
+                    There are no
+                    <span data-bind="text: categoryName"></span> reviews for this bike
+                </p>
             </div>
             <!-- /ko -->
             <div id="listingFooter"></div>

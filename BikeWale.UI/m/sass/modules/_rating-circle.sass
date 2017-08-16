@@ -1,0 +1,144 @@
+﻿$circle-dimension: 30px
+$rating-progress-width: 3px
+
+.rating-list
+	width: 100%
+	overflow-x: auto
+
+	.rating-circle-list li 
+		margin-right: 10px
+		padding-right: 10px
+		width: auto
+		display: table-cell
+		white-space: nowrap
+		float: none
+		border-top: 0
+
+.rating-list::-webkit-scrollbar
+	width: 0
+
+.rating-circle-list 
+	margin-top: 5px
+	display: table
+	width: 100%
+
+
+
+
+.rating-circle
+    width: $circle-dimension
+    height: $circle-dimension
+    position: relative
+    @include border-radius(50%)
+    background-color: #ccc
+    display: inline-block
+    vertical-align: middle
+
+.circle-label
+    width: $circle-dimension - ($rating-progress-width * 2)
+    height: $circle-dimension - ($rating-progress-width * 2)
+    font-size: 12px
+    font-weight: $font-semibold
+    color: #787878
+    position: absolute
+    top: $rating-progress-width
+    left: $rating-progress-width
+    line-height: $circle-dimension - ($rating-progress-width * 2)
+    @include border-radius(50%)
+    background: #fff
+    text-align: center
+    z-index: 1
+
+.rating-progress
+    width: $circle-dimension
+    height: $circle-dimension + 3
+    display: block
+    position: absolute
+    clip: rect(0, $circle-dimension, $circle-dimension, $circle-dimension/2)
+
+.rating-progress:before,
+.rating-progress:after
+    content: ''
+    width: $circle-dimension
+    height: $circle-dimension
+    display: block
+    position: absolute
+    border-width: $rating-progress-width
+    border-style: solid
+    @include border-radius(50%)
+    clip: rect(0, $circle-dimension/2, $circle-dimension, 0)
+
+.circle-rate-3,
+.circle-rate-4,
+.circle-rate-5
+    .rating-progress
+        clip: rect(auto, auto, auto, auto)
+
+        &:after
+            @include transform(rotate(180deg))
+
+.circle-rate-1
+    .rating-progress
+        &:before
+            border-color: #EF3F30
+            @include transform(rotate(62deg))
+
+.circle-rate-2
+    .rating-progress
+        &:before
+            border-color: #FD971C
+            @include transform(rotate(144deg))
+
+.circle-rate-3
+    .rating-progress
+        &:before
+            @include transform(rotate(216deg))
+
+.circle-rate-4
+    .rating-progress
+        &:before
+            @include transform(rotate(288deg))
+
+.circle-rate-3
+    .rating-progress
+        &:before,
+        &:after
+            border-color: #EFD700
+
+.circle-rate-4
+    .rating-progress
+        &:before,
+        &:after
+            border-color: #13B65D
+
+.circle-rate-5
+    .rating-progress
+        &:before,
+        &:after
+            border-color: #198D55
+
+
+
+.rating-circle-list:after 
+    content: ''
+    display: block
+    clear: both
+
+.rating-circle-list li 
+    float: left
+    margin-right: 15px
+    margin-top: 10px
+    margin-bottom: 10px
+
+.rating-circle-list li:last-child 
+    margin-right: 0
+
+.rating-circle-list .list-item-label 
+    font-size: 14px
+    color: #787878
+    padding-left: 5px
+    display: inline-block
+    vertical-align: middle
+
+
+

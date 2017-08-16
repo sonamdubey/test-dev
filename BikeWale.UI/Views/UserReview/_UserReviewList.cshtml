@@ -56,10 +56,10 @@
                             </ul>
                         }
                     </div>
-                    <a href="javascript:void(0)" class="read-more-target" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId">...Read more</a>
+                    <a href="javascript:void(0)" class="read-more-target" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId">Read more</a>
                 </div>
 
-                <button type="button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)" class="btn btn-inv-teal-group margin-right10 upvoteListButton">
+                @*<button type="button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)" class="btn btn-inv-teal-group margin-right10 upvoteListButton">
                     <span class="btn-label-grid">
                         <span class="bwsprite like-sm"></span>
                     </span><span class="btn-count" id="upvoteCount-@review.ReviewId">@review.UpVotes</span>
@@ -69,9 +69,27 @@
                     <span class="btn-label-grid">
                         <span class="bwsprite dislike-sm"></span>
                     </span><span id="downvoteCount-@review.ReviewId" class="btn-count">@review.DownVotes</span>
-                </button>
+                </button>*@
+                <div class="review-block grid-12 alpha margin-bottom10">
 
-                <p class="report-abuse-label rightfloat line-height26" id="pReport-@review.ReviewId">Inappropriate review? <a href="javascript:void(0)" data-reviewId="@review.ReviewId" onclick="reportReview(event)"  rel="nofollow">Report Abuse</a></p>
+                    <span class="review__question">Was this review helpful?</span>
+
+                    <button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)">
+                        <span class="bwmsprite like-sm"></span>
+                        Yes
+                        (<span id="upvoteCount-@review.ReviewId" class="btn-count">@review.UpVotes</span>)
+                    </button>
+
+
+                    <button class="feedback-button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="downVoteListReview(event)">
+                        <span class="bwmsprite dislike-sm"></span>
+                        No
+                        (<span id="downvoteCount-@review.ReviewId" class="btn-count">
+                            @review.DownVotes
+                        </span>)
+                    </button>
+                </div>
+         <p class="report-abuse-label rightfloat line-height26" id="pReport-@review.ReviewId">Inappropriate review? <a href="javascript:void(0)" data-reviewId="@review.ReviewId" onclick="reportReview(event)"  rel="nofollow">Report Abuse</a></p>
                 <div class="clear"></div>
             </div>
             <div class="grid-3 omega padding-left20">

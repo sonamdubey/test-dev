@@ -1112,3 +1112,43 @@ li.offertxt:hover span {display:inline}
 
 .rate-count-1 {
   color: #EF3F30; }
+
+
+
+/* review list starts here */
+.feedback-button {
+	font-size: 12px;
+	min-width: 60px;
+	background: white;
+	margin: 0 1px;
+	padding: 3px; 
+	color: #82888B;
+	border: 1px solid #E2E2E2;
+	border-radius: 2px;
+}
+
+.about-reviewer-list li {
+    border:none;
+}	
+
+.feedback-button.active {
+    border-color: #41B4C4;
+    background:#41B4C4;
+    color:white;
+    pointer-events: none;
+}
+.review-title {
+    color:black;
+}
+.feedback-button.active .like-sm {
+    background-position: -94px -624px;
+}
+.overall-circle-list {
+	border-bottom: 1px solid #e2e2e2;
+	padding-bottom: 10px;
+	margin-top: 5px;
+}
+
+.overall-circle-list.rating-circle-list li {
+	margin-right: 30px;
+}
