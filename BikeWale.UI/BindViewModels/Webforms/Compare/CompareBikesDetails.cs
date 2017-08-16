@@ -136,6 +136,8 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         /// <summary>
         /// Created By :  Sushil kumar on 2nd Feb 2017 
         /// Description : To get bike comaprision text and create page metas for multiple bikes
+        /// Modified By:Snehal Dange on 12th August , 2017
+        /// Description : Added reverseComparisonText for page title
         /// </summary>
         private void GetComparisionTextAndMetas()
         {
@@ -159,11 +161,12 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                         }
                     }
 
+                    string reverseComparisonText = string.Join(" vs ", bikeList.Reverse());
                     ComparisionText = string.Join(" vs ", bikeList);
                     TemplateSummaryTitle = string.Join(" vs ", bikeModels);
                     TargetedModels = string.Join(",", bikeModels);
 
-                    PageMetas.Title = string.Format("Compare {0} - BikeWale", ComparisionText);
+                    PageMetas.Title = string.Format("{0} | {1} - BikeWale", ComparisionText, reverseComparisonText);
                     PageMetas.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";
                     PageMetas.Description = string.Format("Compare {0} at Bikewale. Compare Price, Mileage, Engine Power, Space, Features, Specifications, Colours and much more.", string.Join(" and ", bikeList));
                     compareUrl = CreateCanonicalUrl(comparedBikes.BasicInfo);
