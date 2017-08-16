@@ -9,8 +9,8 @@
 <div id="serviceCenter" class="row" style="margin-top:5px;" data-currentuser="@BikeWaleOpr.Common.CurrentUser.Id">
     <div class="col m10">
 
-        <div id="tblServiceCenter" style="padding-bottom: 50px" class="hide" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]">
-            <table class="bordered highlight z-depth-3 centered responsive-table">
+        <div id="tblServiceCenter" style="padding-bottom: 50px" class="hide" >
+            <table class="bordered highlight z-depth-3 centered responsive-table" data-cityid="" data-makeid="">
                 <tr>
                     <th>Id</th>
                     <th> Name</th>
@@ -83,7 +83,7 @@
                             <div class="input-field row s12">
                                 <select id="ddlAddServiceCenter" class="form-control chosen-select" style="width:150px">
                                     <option value="0">Select Make</option>
-                                    @foreach (var makeList in Model.Makes)
+                                    @foreach (var makeList in Model.AllMakes)
                                     {
                                         <option value="@makeList.MakeId">@makeList.MakeName</option>
                                     }
