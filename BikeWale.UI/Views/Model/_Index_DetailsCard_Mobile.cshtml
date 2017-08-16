@@ -87,9 +87,9 @@
                         <span class="bwmsprite star-icon"></span>
                         <span class="font18 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span>
                     </span>
-                    @if (Model.UserReviews.UserReviews.ResultDesktop != null)
+                    @if (Model.UserReviews.UserReviews.Result != null)
                     {
-                        <span class="text-xt-light padding-left5">(@Model.UserReviews.UserReviews.ResultDesktop.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.ResultDesktop.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating"))</span>
+                        <span class="text-xt-light padding-left5">(@Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating"))</span>
                     }
                     <span class="text-xt-light review-left-divider">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}", Model.UserReviews.UserReviews.TotalCount > 1 ? "reviews" : "review")</span>
                 </div>

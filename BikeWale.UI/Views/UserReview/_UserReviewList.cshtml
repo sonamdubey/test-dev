@@ -17,7 +17,7 @@
     </ul> }
 
 <ul class="user-review-list">
-    @foreach (UserReviewSummary review in Model.UserReviews.ResultDesktop)
+    @foreach (UserReviewSummary review in Model.UserReviews.Result)
     {
         <li class="list-item">
             <div class="item-grid alpha padding-right20  @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">

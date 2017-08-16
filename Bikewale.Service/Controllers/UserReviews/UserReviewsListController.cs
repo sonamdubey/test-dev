@@ -70,49 +70,9 @@ namespace Bikewale.Service.Controllers.UserReviews
             return NotFound();
         }   // Get 
         #endregion
+        
 
-
-        #region Get UserReviews List - New
-        /// <summary>
-        /// To get all reviewed Bikes List
-        /// </summary>
-        /// <returns></returns>
-        [ResponseType(typeof(Bikewale.Entities.UserReviews.Search.SearchResult)), Route("api/user-reviews/search/")]
-        public IHttpActionResult Get([FromUri]Bikewale.Entities.UserReviews.Search.InputFilters filters)
-        {
-            Bikewale.Entities.UserReviews.Search.SearchResult objUserReviews = null;
-            Bikewale.DTO.UserReviews.Search.SearchResult objDTOUserReview = null;
-            try
-            {
-                if (filters != null && (!String.IsNullOrEmpty(filters.Model) || !String.IsNullOrEmpty(filters.Make)))
-                {
-                    objUserReviews = _userReviewsSearch.GetUserReviewsList(filters);                       
-                    if (objUserReviews != null)
-                    {
-
-                        objDTOUserReview = UserReviewsMapper.Convert(objUserReviews);
-
-                        return Ok(objDTOUserReview);
-                    }
-                }
-                else
-                {
-                    return BadRequest();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
-                objErr.SendMail();
-                return InternalServerError();
-            }
-
-            return NotFound();
-        }   // Get 
-        #endregion
-
-        [Route("api/user-reviews/d/search/")]
+        [Route("api/user-reviews/search/")]
         public IHttpActionResult GetUserReviewList([FromUri]Bikewale.Entities.UserReviews.Search.InputFilters filters)
         {
             Bikewale.Entities.UserReviews.Search.SearchResult objUserReviews = null;
@@ -121,7 +81,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             {
                 if (filters != null && (!String.IsNullOrEmpty(filters.Model) || !String.IsNullOrEmpty(filters.Make)))
                 {
-                    objUserReviews = _userReviewsSearch.GetUserReviewsListDesktop(filters);
+                    objUserReviews = _userReviewsSearch.GetUserReviewsList(filters);
                     if (objUserReviews != null)
                     {
                         objDTOUserReview = UserReviewsMapper.Convert(objUserReviews);
