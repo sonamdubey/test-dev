@@ -16,7 +16,7 @@
 <section>
 	<a href="/m/bike-review-contest/?csrc=<%=(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Landing %>" class="contest-slug-sm slug-teal-target">
 		<span class="trophy-white"></span>
-		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;1000</p>
+		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;1,000</p>
 		<span class="bwmsprite arrow-white-right"></span>
 	</a>
 </section>
