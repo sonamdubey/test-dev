@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Schema
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 15th August 2017
+    /// Description : To add additional properties to thing or a product type element
+    ///                 (it contains key value pair with unit to specify specifications nd other important values)
+    /// </summary>
     public class AdditionalProperty
     {
         [JsonProperty("@type")]

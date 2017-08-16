@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Schema
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 15th August 2017
+    /// Description : To create a list of items ( if item is used in list then url is null then
+    ///                 it would contain a link to other product or thing)
+    /// </summary>
     public class ListItem
     {
         [JsonProperty("@type")]
@@ -14,6 +19,9 @@ namespace Bikewale.Entities.Schema
 
         [JsonProperty("position", NullValueHandling = NullValueHandling.Ignore)]
         public uint? Position { get; set; }
+
+        [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
+        public string Url { get; set; }
     }
 
 }

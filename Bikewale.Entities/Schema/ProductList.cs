@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Schema
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 15th August 2017
+    /// Description : To show list of products (list of bikes)
+    /// </summary>
     public class ProductList : SchemaBase
     {
         [JsonProperty("@type")]

@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Schema
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 15th August 2017
+    /// Description : To show potential action to search witin websites and search linkages
+    /// </summary>
     public class PotentialAction
     {
         [JsonProperty("@type")]

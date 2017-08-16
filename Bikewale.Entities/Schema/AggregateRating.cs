@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Schema
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 15th August 2017
+    /// Description : To add aggregrate ratings to thing or a product type element
+    /// </summary>
     public class AggregateRating
     {
         [JsonProperty("@type")]
