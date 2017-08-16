@@ -50,7 +50,7 @@ namespace Bikewale.DAL.NewBikeSearch
 		                        ,ifnull(mo.minprice, 0) as minprice
 		                        ,ifnull(mo.maxprice, 0) as maxprice
                                 ,ifnull(mo.ratingscount, 0) as moratingscount
-		                        ,ifnull(mo.reviewrate, 0) moreviewrate
+		                        ,ifnull(round(mo.reviewrate, 1), 0) moreviewrate
 		                        ,ifnull(mo.reviewcount, 0) moreviewcount
 		                        ,ifnull(bv.reviewrate, 0) vsreviewrate
 		                        ,ifnull(bv.reviewcount, 0) vsreviewcount

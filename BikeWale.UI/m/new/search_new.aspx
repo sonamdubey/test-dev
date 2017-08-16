@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.Search" %>
+
 <%@ Register Src="~/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 
@@ -9,7 +10,7 @@
         title = "Search New Bikes by Brand, Budget, Mileage and Ride Style - BikeWale";
         keywords = "search new bikes, search bikes by brand, search bikes by budget, search bikes by price, search bikes by style, street bikes, scooters, commuter bikes, cruiser bikes";
         description = "Search through all the new bike models by various criteria. Get instant on-road price for the bike of your choice";
-        canonical = "https://www.bikewale.com/new/bike-search/"; 
+        canonical = "https://www.bikewale.com/new/bike-search/";
         AdPath = "/1017752/Bikewale_Mobile_Homepage";
         AdId = "1398766000399";
         Ad_320x50 = true;
@@ -19,13 +20,13 @@
 
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <script>ga_pg_id = '5';var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch %>';</script>
+    <script>ga_pg_id = '5'; var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch %>';</script>
 </head>
 <body class="bg-light-grey">
-    
+
     <link href="<%= staticUrl  %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
-   
+
     <div class="blackOut-window"></div>
     <!-- global-search-popup code starts here -->
 
@@ -74,12 +75,12 @@
 
     </header>
 
-    <section>            
+    <section>
         <div class="container">
             <div>
-                 <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
+                <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
             </div>
-        </div>     
+        </div>
     </section>
 
     <section>
@@ -122,23 +123,30 @@
                             <div class="contentWrapper">
                                 <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
                                 <div class="imageWrapper">
-                                    <a data-bind="click: function () { $.ModelClickGaTrack(bikemodel.modelName(),'/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' ) }">
+                                    <a data-bind="click: function () { $.ModelClickGaTrack(bikemodel.modelName(), '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/') }">
                                         <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()" />
                                     </a>
                                 </div>
                                 <div class="bikeDescWrapper">
                                     <div class="bikeTitle margin-bottom10">
-                                        <h3><a data-bind="attr: {title: bikeName }, text: bikeName, click: function () { $.ModelClickGaTrack(bikemodel.modelName(), '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/') }"></a></h3>
+                                        <h3><a data-bind="attr: { title: bikeName }, text: bikeName, click: function () { $.ModelClickGaTrack(bikemodel.modelName(), '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/') }"></a></h3>
                                     </div>
-                                    <div class="font14 text-x-light margin-bottom10">
-                                        <span data-bind="html: availSpecs"></span>
-                                    </div>
+                                    
+                                        <div id="reviewRatingsDiv" class=" font13 margin-bottom10 position-rel pos-right5">
+                                            <span data-bind="css: { 'rate-count-5': bikemodel.reviewRate() >= 4.5, 'rate-count-4': bikemodel.reviewRate() >= 3.5 && bikemodel.reviewRate() < 4.5, 'rate-count-3': bikemodel.reviewRate() >= 2.5 && bikemodel.reviewRate() < 3.5, 'rate-count-2': bikemodel.reviewRate() >= 1.5 && bikemodel.reviewRate() < 2.5, 'rate-count-1': bikemodel.reviewRate() >= 0.5 && bikemodel.reviewRate() < 1.5, 'rate-count-0': bikemodel.reviewRate() < .5 }">
+                                                <span class="bwmsprite star-icon star-size-16"></span><span class="font14 text-bold inline-block" data-bind="text: bikemodel.reviewRate() ? bikemodel.reviewRate() : 'Not rated yet'"></span></span>
+                                           <span class='font11  inline-block padding-left3' data-bind="template: { if: bikemodel.ratingCount() }"> (<span  data-bind="text: bikemodel.ratingCount()"></span><span data-bind="text: bikemodel.ratingCount() == 1 ? ' rating' : ' ratings'"></span>)</span>
+                                            <span data-bind="template: { if: bikemodel.reviewCount() }">
+                                               <a class='text-xt-light  inline-block' data-bind="    attr: { href: '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/reviews/' }"></span>
+                                               <span class="review-left-divider" data-bind="text: bikemodel.reviewCount()"></span><span data-bind="text: bikemodel.reviewCount() == 1 ? ' review' : ' reviews'"></span></a></span>
+                                        </div>
+                                    
                                     <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
                                     <div>
                                         <span class="bwmsprite inr-sm-icon"></span>
                                         <span class="text-bold font18" data-bind="text: price"></span>
-                                    </div>                                    
-                                    <a data-bind=" visible:price()!='N/A', attr: { 'data-modelId': bikemodel.modelId, 'data-pqSourceId': PQSourceId }" class="btn btn-sm btn-white font14 margin-top20 getquotation" rel="nofollow">Check on-road price</a>
+                                    </div>
+                                    <a data-bind=" visible: price() != 'N/A', attr: { 'data-modelId': bikemodel.modelId, 'data-pqSourceId': PQSourceId }" class="btn btn-sm btn-white font14 margin-top20 getquotation" rel="nofollow">Check on-road price</a>
                                 </div>
                             </div>
                         </div>
@@ -174,13 +182,13 @@
                 </div>
 
                 <div name="bike" class="multiSelect">
-                    <ul>   
+                    <ul>
                         <asp:Repeater ID="rptPopularBrand" runat="server">
                             <ItemTemplate>
                                 <li class="unchecked" filterid="<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"><span><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span></li>
                             </ItemTemplate>
                         </asp:Repeater>
-                        <hr class="border-solid" /> 
+                        <hr class="border-solid" />
                         <asp:Repeater ID="rptOtherBrands" runat="server">
                             <ItemTemplate>
                                 <li class="unchecked" filterid="<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"><span><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span></li>
@@ -214,13 +222,13 @@
 
                 <div name="displacement" class="multiSelect">
                     <ul>
-                         <li class="unchecked" filterid="1"><span>Up to 110 cc</span></li>
-                                            <li class="unchecked" filterid="7"><span>110-125 cc</span></li>
-                                             <li class="unchecked" filterid="8"><span>125-150 cc</span></li>
-                                            <li class="unchecked" filterid="3"><span>150-200 cc</span></li>
-                                            <li class="unchecked" filterid="4"><span>200-250 cc</span></li>
-                                            <li class="unchecked" filterid="5"><span>250-500 cc</span></li>
-                                            <li class="unchecked" filterid="6"><span>500 cc and more</span></li>
+                        <li class="unchecked" filterid="1"><span>Up to 110 cc</span></li>
+                        <li class="unchecked" filterid="7"><span>110-125 cc</span></li>
+                        <li class="unchecked" filterid="8"><span>125-150 cc</span></li>
+                        <li class="unchecked" filterid="3"><span>150-200 cc</span></li>
+                        <li class="unchecked" filterid="4"><span>200-250 cc</span></li>
+                        <li class="unchecked" filterid="5"><span>250-500 cc</span></li>
+                        <li class="unchecked" filterid="6"><span>500 cc and more</span></li>
                     </ul>
                 </div>
             </div>
