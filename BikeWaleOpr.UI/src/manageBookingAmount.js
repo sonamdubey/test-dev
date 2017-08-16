@@ -1,8 +1,6 @@
 ﻿function bindManageBookingAmount() {
     try{
         var self = this;
-        self.dealerId = ko.observable();
-        self.bookingId = ko.observable();
         self.selectedMakeId = ko.observable();
         self.selectedModelId = ko.observable();
         self.selectedVersionId = ko.observable();
@@ -12,14 +10,15 @@
         self.bookingMsg = ko.observable("");
         var params = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
         var dealerId = params[0].split('=')[1];
-        self.dealerId(dealerId);
+        $('#dealerId').val(dealerId);
 
         self.getModels = function () {
             var makeId = self.selectedMakeId();
+            var requestType = $('#requestType').val();
             if (makeId && makeId > 0) {
                 $.ajax({
                     type: "GET",
-                    url: "/api/makes/" + makeId + "/models/2/",
+                    url: "/api/makes/" + makeId + "/models/" + requestType + "/",
                     contentType: "application/json",
                     dataType: 'json',
                     async: false,
@@ -41,10 +40,11 @@
         };
         self.getVersions = function () {
             var modelId = self.selectedModelId();
+            var requestType = $('#requestType').val();
             if (modelId && modelId > 0) {
                 $.ajax({
                     type: 'GET',
-                    url: '/api/models/' + modelId + '/versions/2/',
+                    url: '/api/models/' + modelId + '/versions/' + requestType + '/',
                     contentType: 'application/json',
                     async: false,
                     success: function (response) {
@@ -87,20 +87,11 @@
             self.bookingMsg("");
             $('#btnSave').html('Update');
             var element = $(e.target).closest("tr");
+            $('#bookingId').val($(element[0]).data("id"));
 
-            self.bookingId($(element[0]).data("id"));
-
-            $('#selectMake').val($(element[0]).data("makeid"));
-            $('#selectMake').material_select();
-            $("#selectMake").trigger('change');
-
-            $('#selectModel').val($(element[0]).data("modelid"));
-            $('#selectModel').material_select();
-            $('#selectModel').trigger('change');
-
-            $('#selectVersion').val($(element[0]).data("versionid"));
-            $('#selectVersion').material_select();
-            $('#selectVersion').trigger('change');
+            self.clearDropdown($('#selectMake'), $(element[0]).data("makeid"));
+            self.clearDropdown($('#selectModel'), $(element[0]).data("modelid"));
+            self.clearDropdown($('#selectVersion'), $(element[0]).data("versionid"));
 
             self.bookingAmount($(element[0]).data("amount"));
 
@@ -111,7 +102,7 @@
         self.cancelEdit = function () {
             self.bookingMsg("");
             $('#btnSave').html('Save');
-            self.bookingId("");
+            $('#bookingId').val("");
             self.bookingAmount("");
             self.versions([]);
             $('#selectVersion').material_select();
@@ -128,13 +119,12 @@
             var element = $(e.target).closest("tr");
             var isActive = $(element[0]).data("isactive");
             if (isActive == "True") {
-                self.bookingId($(element[0]).data("id"));
+                $('#bookingId').val($(element[0]).data("id"));
                 if (confirm("Are you sure you want to delete this record")) {
                     $.ajax({
                         type: "GET",
-                        url: "/api/Dealers/DeleteBookingAmount/?bookingId=" + self.bookingId(),
+                        url: "/api/Dealers/DeleteBookingAmount/?bookingId=" + $('#bookingId').val(),
                         success: function (response) {
-                            //window.location.href = window.location.href;
                             var activeIcon = $(e.target).closest("tr").find('.isActive');
                             $(activeIcon).removeClass('icon-green');
                             $(activeIcon).addClass('icon-red');
@@ -152,7 +142,14 @@
             else {
                 showToast("Booking alreay deleted");
             }
-        }
+        };
+
+        self.clearDropdown = function (dropdownName, index) {
+            dropdownName.val(index);
+            dropdownName.material_select();
+            dropdownName.trigger('change');
+        };
+
     } catch (ex) {
         showToast(ex.message);
     }

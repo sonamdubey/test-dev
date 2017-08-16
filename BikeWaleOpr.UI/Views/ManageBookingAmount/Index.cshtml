@@ -27,7 +27,7 @@
                         if (obj.BikeMake != null && obj.BikeModel != null && obj.BikeVersion != null && obj.BookingAmountBase != null)
                         {
                             <tr data-id="@obj.BookingAmountBase.Id" data-makeid="@obj.BikeMake.MakeId" data-modelid="@obj.BikeModel.ModelId"
-                                data-versionid="@obj.BikeVersion.VersionId" data-amount="@obj.BookingAmountBase.Amount" data-isactive="@obj.BookingAmountBase.IsActive">
+                                data-versionid="@obj.BikeVersion.VersionId" data-amount="@obj.BookingAmountBase.Amount" data-isactive="@obj.BookingAmountBase.IsActive" data-requesttype="New">
                                 <td>@obj.BookingAmountBase.Id</td>
                                 <td>@obj.BikeMake.MakeName</td>
                                 <td>@obj.BikeModel.ModelName</td>
@@ -46,8 +46,9 @@
         </div>
         @using (Html.BeginForm("Add", "ManageBookingAmount", FormMethod.Post))
         {
-            <input id="dealerId" name="DealerId" type="number" data-bind="textInput: dealerId" hidden/>
-            <input id="bookingId" name="BookingAmountBase.Id" type="number" data-bind="textInput: bookingId" hidden />
+            <input id="dealerId" name="DealerId" type="hidden"/>
+            <input id="bookingId" name="BookingAmountBase.Id" type="hidden"/>
+            <input id="requestType" type="hidden" value="New"/>
             <div class="col m3">
                 <ul class="collapsible" data-collapsible="accordian">
                     <li class="active">
@@ -122,7 +123,7 @@ else
         <div class="col m4">
             <div class="card red lighten-5">
                 <div class="card-content red-text">
-                    <p>Please! select dealer</p>
+                    <p>No data present!</p>
                 </div>
             </div>
         </div>
