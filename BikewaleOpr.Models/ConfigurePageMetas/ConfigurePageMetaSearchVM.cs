@@ -11,5 +11,7 @@ namespace BikewaleOpr.Models.ConfigurePageMetas
     {
         public IEnumerable<PageMetaEntity> PageMetaList { get; set; }
 
+        public ushort PageMetaStatus { get; set; }
+
     }
 }

@@ -34,7 +34,7 @@
                             <td>@(item.UpdatedDate != null && item.UpdatedDate != DateTime.MinValue ? item.UpdatedDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
                             <td>@(item.IsActive ? "Active" : "InActive")</td>
                             <td>
-                                <a target="_blank" href="" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a>
+                                <a target="_blank" href="" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit page meta"><i class="material-icons icon-blue">mode_edit</i></a>
                             </td>
                         </tr>
                         }
@@ -50,15 +50,15 @@
                 <div class="collapsible-body">
                     <div class="container">
                         <div class="input-field row s12">
-                            <input name="group1" type="radio" id="chkFilter1" value="1" class="with-gap" />
+                            <input name="group1" type="radio" id="chkFilter1" value="1" class="with-gap" @(Model.PageMetaStatus == 1 ? "checked" : "")/>
                             <label for="chkFilter1">Show Active</label>
-                            <input name="group1" type="radio" id="chkFilter2" value="0" class="with-gap" />
+                            <input name="group1" type="radio" id="chkFilter2" value="0" class="with-gap" @(Model.PageMetaStatus == 0 ? "checked" : "")/>
                             <label for="chkFilter2">Show Inactive</label>
-                            <input name="group1" type="radio" id="chkFilter3" value="2" class="with-gap" />
+                            <input name="group1" type="radio" id="chkFilter3" value="2" class="with-gap" @(Model.PageMetaStatus == 2 ? "checked" : "")/>
                             <label for="chkFilter3">Show All</label>
                         </div>
                         <div style="margin-bottom:5px;">
-                            <a class="btn waves-effect waves-light" onclick="filterData()">Show Page Metas</a>
+                            <a class="btn waves-effect waves-light" onclick="Show()">Show</a>
                         </div>
                     </div>
                 </div>

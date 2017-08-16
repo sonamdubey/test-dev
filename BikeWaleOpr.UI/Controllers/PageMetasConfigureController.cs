@@ -43,6 +43,7 @@ namespace BikewaleOpr.Controllers
             {
                 PageMetasSearch objPage = new PageMetasSearch(_pageMetasRepo);
                 objSearchData = objPage.GetData();
+                objSearchData.PageMetaStatus = 1; //status active
             }
             catch (Exception ex)
             {
@@ -65,6 +66,7 @@ namespace BikewaleOpr.Controllers
             {
                 PageMetasSearch objPage = new PageMetasSearch(_pageMetasRepo);
                 objSearchData = objPage.GetData(pageMetaStatus);
+                objSearchData.PageMetaStatus = pageMetaStatus;
             }
             catch (Exception ex)
             {
