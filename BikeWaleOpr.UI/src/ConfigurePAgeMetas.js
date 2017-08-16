@@ -1,40 +1,51 @@
 ﻿var pageMeta;
+
 var ConfigurePageMetas = function () {
     var self = this;
     self.selectedMakeId = ko.observable();
     self.selectedModel = ko.observable();
-    self.bikeModels = ko.observableArray();
-    self.bindModelDropDown = ko.observable(false);
+    self.bikeModels = ko.observableArray();    
     self.pageList = ko.observableArray();
-    self.selectedPage = ko.observable();
+    self.selectedPage = ko.observable();        
 
-    self.changePageType = function (d, e) {        
-        var pageType = $(e.target).val();
-        if (parseInt(pageType) == "3" || parseInt(pageType) == "4")
-        {
-            self.bindModelDropDown(true);
+    self.validateData = function () {
+        var isValid = true;
+
+        if (!self.selectedMakeId()) {
+            Materialize.toast("Please select Make", 3000);
+            isValid = false;
         }
-        else
-        {
-            self.bindModelDropDown(false);
+
+        if (!self.selectedPage()) {
+            Materialize.toast("Please select Page", 3000);
+            isValid = false;
         }
+
+        if ((self.selectedPage() == '3' || self.selectedPage() == '4') && !self.selectedModel()) {
+            Materialize.toast("Please select Model", 3000);
+            isValid = false;
+        }
+
+        return isValid;
     };
 
-    self.changeMake = function (d, e) {       
-        var makeId = $(e.target).val();
+    self.changeMake = function () {       
+        var makeId = $('#selectMake').find(":selected").val();
         if (makeId) {
             self.selectedMakeId(parseInt(makeId));
-        }
-
-        if (self.selectedMakeId() && self.selectedMakeId() > 0 && self.bindModelDropDown()) {
+        }       
+        if (self.selectedMakeId() && self.selectedMakeId() > 0) {
             $.ajax({
                 type: "GET",
                 url: "/api/models/makeid/" + self.selectedMakeId() + "/requesttype/8/",
                 contentType: "application/json",
                 dataType: 'json',
-                success: function (response) {
-                    if (response && response.length > 0) {
+                success: function (response) {                    
+                    if (response && response.length > 0) {                      
                         self.bikeModels(response);
+
+                        if ($('#selectModel') && $('#selectModel').attr('data-selectedModel') > 0)
+                            vmConfigurePageMetas.selectedModel($('#selectModel').attr('data-selectedModel'));                       
                     }
                     else {
                         self.bikeModels([]);
@@ -52,31 +63,47 @@ var ConfigurePageMetas = function () {
 
     };
 
+    self.selectPlatform = function () {
+        if ($("input[name='platformId']:checked").val() == "1")
+            self.pageList(JSON.parse($('#dektopPagesList').val()));
+        else
+            self.pageList(JSON.parse($('#mobilePagesList').val()));
+
+        $('select[name="pageId"]').material_select();
+    };
+    
+    self.init = function () {
+        if ($('#pageMetaId').val() > 0) {        
+        if ($("input[name='platformId']:checked").val() == "1")
+            self.pageList(JSON.parse($('#dektopPagesList').val()));
+        else
+            self.pageList(JSON.parse($('#mobilePagesList').val()));
+
+
+        if ($('#selectPage') && $('#selectPage').attr('data-selectedPage') > 0)
+            self.selectedPage($('#selectPage').attr('data-selectedPage'));       
+
+        self.changeMake();
+    }
+
+    $('select[name="modelId"]').material_select();
+    $('select[name="pageId"]').material_select();   
+    };
 }
 
 var vmConfigurePageMetas = new ConfigurePageMetas;
 $(document).ready(function () {
 
-    if ($(".stepper"))
-    {
+    if ($(".stepper")) {
         $('.stepper').activateStepper({ autoFocusInput: false });
     }
 
     pageMeta = $('#pageMeta');
+    $('.stepper').nextStep();
 
     if (pageMeta) {
         ko.applyBindings(vmConfigurePageMetas, pageMeta[0]);
-    }
-    $('select[name="modelId"]').material_select();
-    $('select[name="page"]').material_select();
-    $(document).on("change", "input[type=radio][name='rdoPlatform']", function () {
-        if ($("input[name='rdoPlatform']:checked").val() == "1")
-            vmConfigurePageMetas.pageList(JSON.parse( $('#dektopPagesList').val()));
-        else
-            vmConfigurePageMetas.pageList(JSON.parse( $('#mobilePagesList').val()));
+        vmConfigurePageMetas.init();
+    }        
 
-        $('select[name="page"]').material_select();
-    });
 });
-
-

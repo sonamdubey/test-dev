@@ -34,7 +34,7 @@
                             <td>@(item.UpdatedDate != null && item.UpdatedDate != DateTime.MinValue ? item.UpdatedDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
                             <td>@(item.IsActive ? "Active" : "InActive")</td>
                             <td>
-                                <a target="_blank" href="" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit page meta"><i class="material-icons icon-blue">mode_edit</i></a>
+                                <a target="_blank" href="/PageMetasConfigure/index/?id=@item.Id" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit page meta"><i class="material-icons icon-blue">mode_edit</i></a>
                             </td>
                         </tr>
                         }
@@ -67,7 +67,7 @@
                 <div class="collapsible-header"><strong>Add Page Meta</strong></div>
                 <div class="collapsible-body">
                     <div class="input-field row s12" style="margin-left:20px">
-                        <a target="_blank" class="btn waves-effect waves-light" href="/banner/index">Add new</a>
+                        <a target="_blank" class="btn waves-effect waves-light" href="/PageMetasConfigure/index/">Add new</a>
                     </div>
                 </div>
             </li>

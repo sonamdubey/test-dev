@@ -144,6 +144,7 @@
     <Compile Include="BookingAmountEntityBase.cs" />
     <Compile Include="CallToActionEntityBase.cs" />
     <Compile Include="ColorCodeBase.cs" />
+    <Compile Include="ConfigurePageMetas\PageMetasEntity.cs" />
     <Compile Include="ConfigurePageMetas\PageMetaEntity.cs" />
     <Compile Include="ConfigurePageMetas\PagesList.cs" />
     <Compile Include="ContractCampaign\ContractCampaignInputEntity.cs" />
