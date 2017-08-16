@@ -10,6 +10,7 @@ using BikewaleOpr.BAL.Images;
 using BikewaleOpr.BAL.Security;
 using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.BAL.Used;
+using BikewaleOpr.DAL;
 using BikewaleOpr.DALs.Banner;
 using BikewaleOpr.DALs.BikeColorImages;
 using BikewaleOpr.DALs.Bikedata;
@@ -19,6 +20,7 @@ using BikewaleOpr.DALs.Images;
 using BikewaleOpr.DALs.ManufactureCampaign;
 using BikewaleOpr.DALs.ServiceCenter;
 using BikewaleOpr.DALs.UserReviews;
+using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Interface.BikeColorImages;
 using BikewaleOpr.Interface.BikeData;
@@ -80,6 +82,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
             container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
             container.RegisterType<IBikeMakes, BikeMakes>();
+            container.RegisterType<IDealers, DealersRepository>();
 
             container.RegisterType<IServiceCenter, ServiceCenter>();
             container.RegisterType<IServiceCenterRepository, ServiceCenterRepository>();

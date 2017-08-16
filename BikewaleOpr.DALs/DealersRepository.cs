@@ -11,7 +11,8 @@ using System.Data.Common;
 using System.Web;
 using Bikewale.Utility;
 using BikewaleOpr.Entity.ContractCampaign;
-
+using Dapper;
+using Bikewale.DAL.CoreDAL;
 
 namespace BikewaleOpr.DAL
 {
@@ -223,105 +224,116 @@ namespace BikewaleOpr.DAL
 
 
         /// <summary>
-        /// Written By : Ashish G. Kamble on 31 Oct 2014.
+        /// Written By :Snehal Dange on 5th August 2017
         /// Summary : Function to get all facilities provided by the dealer.
         /// </summary>
-        /// <param name="dealerId">Id of the dealer whose facilities are required.</param>
-        /// <returns>Returns list of the facilities for the given dealer id.</returns>
-        public List<FacilityEntity> GetDealerFacilities(uint dealerId)
+        /// <param name="dealerId">Id of the dealer whose facilities are required</param>
+        /// <returns>Returns list of the facilities for the given dealer id</returns>
+
+        public IEnumerable<FacilityEntity> GetDealerFacilities(uint dealerId)
         {
-            List<FacilityEntity> objFacilities = null;
-
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerFacilities"))
+          IEnumerable<FacilityEntity> objFacilities = null;
+          try
+          {
+                if (dealerId > 0)
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                     {
-                        objFacilities = new List<FacilityEntity>();
+                        connection.Open();
 
-                        while (dr.Read())
-                        {
-                            objFacilities.Add(new FacilityEntity()
-                            {
-                                Facility = dr["Facility"].ToString(),
-                                Id = Convert.ToInt32(dr["Id"]),
-                                IsActive = Convert.ToBoolean(dr["IsActive"])
-                            });
-                        }
+                        var param = new DynamicParameters();
+                        param.Add("par_DealerId", dealerId);
+
+                        objFacilities = connection.Query<FacilityEntity>("BW_GetDealerFacilities", param: param, commandType: CommandType.StoredProcedure);
+
+                        if (connection.State == ConnectionState.Open)
+                            connection.Close();
                     }
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("Exception at GetDealerFacilities : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.ServiceCenter.GetDealerFacilities ,DealerId:{0}", dealerId));
             }
             return objFacilities;
+         }
 
-        }   // End of GetDealerFacilities
 
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 7 Nov 2014
         /// Summary : Function to save the dealer facility
+        /// Modified by: Snehal Dange on 7th August 2017
+        /// Description: Changed Input type from individual parameters to entity.Added parameters 'par_updatedby' ,'par_latestInsertId' , 
         /// </summary>
-        /// <param name="dealerId"></param>
-        /// <param name="facility"></param>
-        /// <param name="isActive"></param>
-        public void SaveDealerFacility(uint dealerId, string facility, bool isActive)
+        /// <param name="objData"></param>
+        public UInt16 SaveDealerFacility(FacilityEntity objData)
         {
+            UInt16 newID = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealerfacility"))
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Facility", DbType.String, 500, facility));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbType.Boolean, isActive));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_Facility", objData.Facility);
+                    param.Add("par_IsActive", Convert.ToUInt16(objData.IsActive));
+                    param.Add("par_DealerId", objData.Id);
+                    param.Add("par_updatedby", objData.LastUpdatedById);
+                    param.Add("par_latestInsertId", dbType: DbType.UInt16, direction: ParameterDirection.Output);
+                    connection.Execute("bw_savedealerfacility", param: param, commandType: CommandType.StoredProcedure);
+                    newID = param.Get<UInt16>("par_latestInsertId");
 
-                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
-
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("Exception at SaveDealerFacility : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.SaveDealerFacility DealerId: {0} Facility: {1} FacilityId: {2} ActiveStatus: {3}", objData.Id, objData.Facility, newID, objData.IsActive));
             }
+
+            return newID;
         }
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 7 Nov 2014
         /// Summary : Function to update the dealer facility.
+        /// Modified by: Snehal Dange on 7th August 2017
+        /// Description: Changed Input type from individual parameters to entity. Added parameter 'par_updatedby'.
         /// </summary>
-        /// <param name="facilityId"></param>
-        /// <param name="facility"></param>
-        /// <param name="isActive"></param>
-        public void UpdateDealerFacility(uint facilityId, string facility, bool isActive)
+
+        public bool UpdateDealerFacility(FacilityEntity objData)
         {
+            byte status = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_UpdateDealerFacility"))
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Facility", DbType.String, 500, facility));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbType.Boolean, isActive));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_FacilityId", DbType.Int32, facilityId));
-                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+                    param.Add("par_facility", objData.Facility);
+                    param.Add("par_isactive", Convert.ToUInt16(objData.IsActive));
+                    param.Add("par_facilityid", objData.FacilityId);
+                    param.Add("par_updatedby", objData.LastUpdatedById);
+
+                    status = (byte)connection.Execute("BW_UpdateDealerFacility", param: param, commandType: CommandType.StoredProcedure);
+
+
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("Exception at UpdateDealerFacility : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.UpdateDealerFacility DealerId: {0} Facility: {1} FacilityId: {2} ActiveStatus: {3}",objData.Id, objData.Facility, objData.FacilityId, objData.IsActive));
+
             }
+
+            return status > 0;
         }
 
         public void SaveDealerLoanAmounts(uint dealerId, ushort tenure, float rateOfInterest, ushort ltv, string loanProvider)

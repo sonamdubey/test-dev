@@ -32,6 +32,7 @@ using BikewaleOpr.DALs.ServiceCenter;
 using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.DAL;
+using BikewaleOpr.DAL;
 
 namespace BikewaleOpr
 {
@@ -73,6 +74,7 @@ namespace BikewaleOpr
                 .RegisterType<IBannerRepository, BannerRepository>()
                 .RegisterType<IContractCampaign, ContractCampaign>()
                 .RegisterType<IServiceCenter, ServiceCenter>()
+                .RegisterType<IDealers, DealersRepository>()
                 .RegisterType<IDealers, DealersRepository>()
                 .RegisterType<IConfigurePageMetasRepository, ConfigurePageMetasRepository>()
                 .RegisterType<IServiceCenterRepository, ServiceCenterRepository>();

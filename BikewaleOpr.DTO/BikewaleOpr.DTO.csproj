@@ -114,6 +114,7 @@
     <Compile Include="City\CityBaseDTO.cs" />
     <Compile Include="Dealers\DealerBase.cs" />
     <Compile Include="Dealers\BikeMakeBase.cs" />
+    <Compile Include="Dealers\DealerFacilityDTO.cs" />
     <Compile Include="Images\ImageDTO.cs" />
     <Compile Include="Images\ImageTokenDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
