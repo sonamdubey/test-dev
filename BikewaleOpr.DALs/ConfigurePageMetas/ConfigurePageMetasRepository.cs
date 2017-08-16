@@ -34,6 +34,30 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             return objPageList;
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 14-Aug-2017
+        /// Description : Method to get active or inactive or both page metas list.
+        /// </summary>
+        /// <param name="pageMetaStatus">0 for inactive, 1 for active and 2 for both.</param>
+        /// <returns></returns>
+        public IEnumerable<PageMetaEntity> GetPageMetas(uint pageMetaStatus)
+        {
+            IEnumerable<PageMetaEntity> objPageMetasList = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    var param = new DynamicParameters();
+                    param.Add("par_status", pageMetaStatus);
+                    objPageMetasList = connection.Query<PageMetaEntity>("getpagemetas", param: param, commandType: CommandType.StoredProcedure);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ConfigurePageMetasRepository.GetPageMetas_pageMetaStatus : {0}", pageMetaStatus));
+            }
+            return objPageMetasList;
+        }
         public uint SavePageMetas(PageMetasEntity objMetas)
         {
             uint pageMetaId = 0;            
