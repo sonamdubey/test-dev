@@ -15,7 +15,10 @@ namespace BikewaleOpr.Models.ServiceCenter
     
     public class ServiceCenterPageVM
     {		
-        public IEnumerable<Entities.BikeData.BikeMakeEntityBase> Makes { get; set; }		
+        public IEnumerable<Entities.BikeData.BikeMakeEntityBase> Makes { get; set; }
+
+        public IEnumerable<Entities.BikeData.BikeMakeEntityBase> AllMakes { get; set; }
+
         public IEnumerable<CityEntityBase> AllCityList { get; set; }		
 		
     }

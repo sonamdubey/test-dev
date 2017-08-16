@@ -8767,3 +8767,9 @@ i.icon-green {
 i.icon-blue {
     color: #2196f3;
 }
+
+
+.sctextarea label:after{
+    top:56px !important;
+    font-size:11px;
+}

@@ -309,6 +309,12 @@ namespace BikewaleOpr.DALs.Bikedata
             }
         }
 
+        /// <summary>
+        /// Modified by : Snehal Dange on 11-08-2017
+        /// Description : Get Bike makes
+        /// </summary>
+        /// <param name="requestType"></param>
+        /// <returns></returns>
         public IEnumerable<BikeMakeEntityBase> GetMakes(ushort requestType)
         {
             IEnumerable<BikeMakeEntityBase> objMakes = null;
@@ -323,7 +329,7 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     param.Add("par_requesttype", requestType);
 
-                    objMakes = connection.Query<BikeMakeEntityBase>("getbikemakes_1712017", param: param, commandType: CommandType.StoredProcedure);
+                    objMakes = connection.Query<BikeMakeEntityBase>("getbikemakes_11082017", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -337,51 +343,7 @@ namespace BikewaleOpr.DALs.Bikedata
             return objMakes;
         }
 
-         /// <summary>		
-        /// Written By : Snehal Dange 27 July 2017		
-        /// Description : Function to get makes for which service centers exits		
-        /// </summary>		
-        /// <param name="requestType"></param>		
-        /// <returns></returns>		
-		
-        public IEnumerable<BikeMakeEntityBase> GetServiceCenterMakes(ushort requestType)
-        {		
-            List<BikeMakeEntityBase> objMakesList = null;		
-		
-            try		
-            {		
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_08112016"))		
-                {		
-                    cmd.CommandType = CommandType.StoredProcedure;		
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.UInt16, 20, requestType));		
-		
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))		
-                    {		
-                        if (dr != null)		
-                        {		
-                            objMakesList = new List<BikeMakeEntityBase>();		
-                            while (dr.Read())		
-                            {		
-                                BikeMakeEntityBase _objMake = new BikeMakeEntityBase();		
-                                _objMake.MakeId = SqlReaderConvertor.ToInt16(dr["id"]);		
-                                _objMake.MakeName = Convert.ToString(dr["name"]);		
-                                _objMake.MaskingName = Convert.ToString(dr["maskingname"]);		
-		
-		
-                                objMakesList.Add(_objMake);		
-                            }		
-                        }		
-                    }		
-		
-                }		
-            }		
-            catch (Exception ex)		
-            {		
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.ServiceCenters.GetMakes");		
-            }		
-            return objMakesList;		
-        }
-
+        
 
 
         /// <summary>
