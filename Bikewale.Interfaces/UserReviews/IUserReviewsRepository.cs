@@ -47,5 +47,6 @@ namespace Bikewale.Interfaces.UserReviews
         QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
 
         IEnumerable<RecentReviewsWidget> GetRecentReviews();
+        IEnumerable<RecentReviewsWidget> GetUserReviewsWinners();
     }   // class
 }   // namespace

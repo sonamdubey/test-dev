@@ -271,5 +271,25 @@ namespace Bikewale.Cache.UserReviews
             }
             return objList;
         }
+
+        /// <summary>
+        /// Created by: Vivek Singh Tomar On 11th Aug 2017
+        /// Summary: Cache layer to cache user reviews winners
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<RecentReviewsWidget> GetUserReviewsWinners()
+        {
+            IEnumerable<RecentReviewsWidget> objReviewsWinnersList = null;
+            try
+            {
+                string key = "BW_UserReviewsWinners";
+                objReviewsWinnersList = _cache.GetFromCache<IEnumerable<RecentReviewsWidget>>(key, new TimeSpan(6, 0, 0, 0), () => _objUserReviews.GetUserReviewsWinners());
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.UserReviews.UserReviewsCacheRepository.GetUserReviewsWinners");
+            }
+            return objReviewsWinnersList;
+        }
     }
 }

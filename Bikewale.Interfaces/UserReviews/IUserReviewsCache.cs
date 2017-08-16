@@ -30,6 +30,6 @@ namespace Bikewale.Interfaces.UserReviews
         BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);       
         QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
         IEnumerable<RecentReviewsWidget> GetRecentReviews();
-
+        IEnumerable<RecentReviewsWidget> GetUserReviewsWinners();
     }
 }

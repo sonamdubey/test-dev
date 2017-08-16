@@ -418,6 +418,32 @@ namespace BikewaleOpr.DALs.Bikedata
         } 
         #endregion
 
+        /// <summary>
+        ///  Created By: Ashutosh Sharma on 27-07-2017
+        /// Description: Update used bike as sold in 'classifiedindividualsellinquiries' table.
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        public bool UpdateInquiryAsSold(uint inquiryId)
+        {
+            int rowsAffected = 0;
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("par_inquiryId", inquiryId);
+
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    rowsAffected = connection.Execute("classified_updatelistingassold", param: param, commandType: CommandType.StoredProcedure);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UpdateAsSoldInquiry : inquiryId {0}", inquiryId));
+            }
+            return rowsAffected > 0;
+        }
+
     }
 }
 
