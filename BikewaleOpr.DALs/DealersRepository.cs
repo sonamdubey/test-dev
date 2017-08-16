@@ -1,6 +1,5 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.Entities;
-using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using MySql.CoreDAL;
 using System;
@@ -1134,25 +1133,32 @@ namespace BikewaleOpr.DAL
         /// <summary>
         /// Written By : Ashwini Todkar on 17 Dec 2014
         /// Summary    : Method to insert bike booking amount for a dealer
+        /// Modified By: Vivek Singh Tomar On 9th Aug 2017
+        /// Summary: Changed implementation using dapper and added new required parameters
         /// </summary>
-        /// <param name="dealerId"></param>
-        /// <param name="modelId"></param>
-        /// <param name="versionId"></param>
-        /// <param name="amount">booking amount</param>
+        /// <param name="objBookingAmt"></param>
+        /// <param name="updatedBy"></param>
         /// <returns>isrecord inserted</returns>
-        public bool SaveBookingAmount(BookingAmountEntity objBookingAmt)
+        public bool SaveBookingAmount(BookingAmountEntity objBookingAmt, UInt32 updatedBy)
         {
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savebookingamount"))
+                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, objBookingAmt.objDealer.DealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeModelId", DbType.Int32, objBookingAmt.objModel.ModelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeVersionId", DbType.Int32, (objBookingAmt.objVersion.VersionId > 0) ? objBookingAmt.objVersion.VersionId : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Amount", DbType.Int32, objBookingAmt.objBookingAmountEntityBase.Amount));
+                    DynamicParameters param = new DynamicParameters();
+                    param.Add("par_bookingid", objBookingAmt.BookingAmountBase.Id);
+                    param.Add("par_dealerid", objBookingAmt.DealerId);
+                    param.Add("par_bikemodelid", objBookingAmt.BikeModel.ModelId);
+                    param.Add("par_bikeversionid", objBookingAmt.BikeVersion.VersionId);
+                    param.Add("par_amount", objBookingAmt.BookingAmountBase.Amount);
+                    param.Add("par_updatedby", updatedBy);
 
-                    return (MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase));
+                    connection.Open();
+                    connection.Execute("bw_savebookingamount_08072017", param: param, commandType: CommandType.StoredProcedure);
+                    if(connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
             catch (Exception ex)
@@ -1204,42 +1210,36 @@ namespace BikewaleOpr.DAL
         /// <summary>
         /// Written By : Ashwini Todkar on 17 Dec 2014
         /// Summary    : Method to get bike booking details
+        /// Modified by : Vivek Singh Tomar
+        /// Summary : Implemented dapper
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        public List<BookingAmountEntity> GetBikeBookingAmount(uint dealerId)
+        public IEnumerable<BookingAmountEntity> GetBikeBookingAmount(uint dealerId)
         {
-            List<BookingAmountEntity> objBookingAmt = null;
+            IEnumerable<BookingAmountEntity> objBookingAmt = null;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetBikeBookingAmount"))
+                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null)
-                        {
-                            objBookingAmt = new List<BookingAmountEntity>();
-
-                            BookingAmountEntity objAmount = null;
-
-                            //Get booking amount with details
-                            while (dr.Read())
-                            {
-                                objAmount = new BookingAmountEntity()
-                                {
-                                    objMake = new BikeMakeEntityBase { MakeName = dr["BikeMake"].ToString() },
-                                    objModel = new BikeModelEntityBase { ModelName = dr["BikeModel"].ToString() },
-                                    objVersion = new BikeVersionEntityBase { VersionName = dr["BikeVersion"].ToString() },
-                                    objBookingAmountEntityBase = new BookingAmountEntityBase { Amount = Convert.ToUInt32(dr["Amount"]), Id = Convert.ToUInt32(dr["id"]) }
-                                };
-                                objBookingAmt.Add(objAmount);
-                            }
-                        }
-                    }
+                    var param = new DynamicParameters();
+                    param.Add("par_dealerid", dealerId);
+                    connection.Open();
+                    objBookingAmt = connection.Query<BookingAmountEntityBase, BikeMakeEntityBase, BikeModelEntityBase,
+                                        BikeVersionEntityBase, BookingAmountEntity, BookingAmountEntity>
+                                    (
+                                        "bw_getbikebookingamount_05082017",
+                                        (bookingAmountBase, bikeMake, bikeModel, bikeVersion, bookingAmount) =>
+                                        {
+                                            bookingAmount.BookingAmountBase = bookingAmountBase;
+                                            bookingAmount.BikeMake = bikeMake;
+                                            bookingAmount.BikeModel = bikeModel;
+                                            bookingAmount.BikeVersion = bikeVersion;
+                                            bookingAmount.DealerId = dealerId;
+                                            return bookingAmount;
+                                        }, splitOn: "MakeId, ModelId, VersionId, LastUpdatedBy", param: param, commandType: CommandType.StoredProcedure
+                                    );
                 }
             }
             catch (Exception ex)
