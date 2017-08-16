@@ -40,14 +40,14 @@ namespace BikewaleOpr.Controllers
             catch
             {
                 return null;
-            }
-                        
+            }        
         }
 
 
         [Route("pageMetasconfigure/search/index/")]
         public ActionResult Search_Index()
         {
+            return null;
         }
     }
 }

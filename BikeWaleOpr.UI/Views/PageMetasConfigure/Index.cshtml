@@ -68,6 +68,9 @@
                             <textarea id="summary" name="summary" class="materialize-textarea">@(Model.PageMetas != null ? Model.PageMetas.Summary : "" )</textarea>
                             <label for="summary">Summary</label>
                         </div>
+                        <button id="btnConfigurePageMeta" name="btnConfigureCampaign" class="btn waves-effect waves-light margin-bottom50" data-bind="click: validateData" type="submit">
+                            Configure
+                        </button>
                     </div>
                 </li>
             </ul>
@@ -76,9 +79,6 @@
             <input type="hidden" name="EnteredBy" value="@Model.CurrentUserId" />
             <input id="pageMetaId" type="hidden" name="PageMetaId" value="@Model.PageMetaId" />
 
-            <button id="btnConfigurePageMeta" name="btnConfigureCampaign" class="btn waves-effect waves-light margin-bottom50" data-bind="click: validateData" type="submit">
-                Configure
-            </button>
         </div>
     </div>
 }

@@ -36,7 +36,7 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
 
         public uint SavePageMetas(PageMetasEntity objMetas)
         {
-            uint pageMetaid = 0;            
+            uint pageMetaId = 0;            
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -55,14 +55,16 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
                     param.Add("par_summary", objMetas.Summary);
                     param.Add("par_enterdby", objMetas.EnteredBy);
 
-                    pageMetaid = connection.Query<uint>("setpagemetas", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();                    
+                    pageMetaId = connection.Query<uint>("setpagemetas", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    if(pageMetaId == 0)
+                        pageMetaId =  objMetas.PageMetaId;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("ConfigurePageMetasRepository.GetPagesList"));
             }
-            return pageMetaid;
+            return pageMetaId;
         }
 
         public PageMetasEntity GetPageMetasById (uint pageMetaId)
