@@ -132,25 +132,25 @@
                         </li>
                     </ul>
                 </div>
-                <div class="grid-12 alpha inline-block margin-bottom10">
+                <div class="margin-bottom10">
 
-                    <span class="review__question">Was this review helpful?</span>
+                    <span class="review__question text-light-grey font12">Was this review helpful?</span>
 
-                    <button type="button" class="review-button" id="upvoteButton" onclick="upVoteReview()">
+                    <button type="button" class="feedback-button" id="upvoteButton" onclick="upVoteReview()">
                         <span class="bwmsprite like-sm"></span>
                         Yes
-                        (<span id="upvoteText" class="btn-count review-btn">
-                            @Model.UserReviewDetailsObj.UpVotes
-                        </span>)
+                        <span id="upvoteText" class="btn-count review-btn">
+                            (@Model.UserReviewDetailsObj.UpVotes)
+                        </span>
                     </button>
 
 
-                    <button type="button" id="downvoteButton" onclick="downVoteReview()" class="review-button">
+                    <button type="button" id="downvoteButton" onclick="downVoteReview()" class="feedback-button">
                         <span class="bwmsprite dislike-sm"></span>
                         No
-                        (<span id="downvoteCount" class="btn-count">
-                            @Model.UserReviewDetailsObj.DownVotes
-                        </span>)
+                        <span id="downvoteCount" class="btn-count">
+                            (@Model.UserReviewDetailsObj.DownVotes)
+                        </span>
                     </button>
                 </div>
                 @*<button type="button" id="upvoteButton" onclick="upVoteReview()" class="btn btn-inv-teal-group margin-right5 margin-bottom10">

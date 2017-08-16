@@ -275,14 +275,14 @@ $graph-bg: #eee
 
 //review buttons
 .review-title
-	color: black
+	color: #1a1a1a
 
 .feedback-button
 	font-size: 12px
 	min-width: 60px
 	background: white
 	margin: 0 2px
-	padding: 4px 
+	padding: 6px 
 	color: #82888B
 	border: 1px solid #E2E2E2
 	border-radius: 2px
@@ -297,9 +297,19 @@ $graph-bg: #eee
     color: white
     pointer-events: none
 
-.feedback-button.active 
-	.like-sm 
-		background-position: -94px -624px
+.feedback-button
+	.like-sm,
+	.dislike-sm
+		opacity: 0.6
+
+	&.active 
+		.like-sm
+			opacity: 1
+			background-position: -94px -624px
+
+		.dislike-sm
+			opacity: 1
+			background-position: -110px -624px
 
 // review buttons
 
