@@ -34,7 +34,7 @@ namespace BikewaleOpr.Controllers
         /// </summary>		
         /// <returns></returns>		
 		
-        [Route("servicecenter/search/index/")]		
+        [Route("servicecenter/search/")]		
        		
         public ActionResult SearchServiceCenter()
         {		
