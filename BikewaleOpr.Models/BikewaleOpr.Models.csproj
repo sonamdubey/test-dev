@@ -113,6 +113,8 @@
     <Compile Include="Comparison\ManageSponsoredComparisonVM.cs" />
     <Compile Include="Banner\BannerListVM.cs" />
     <Compile Include="Banner\BannerVM.cs" />
+    <Compile Include="ConfigurePageMetas\ConfigurePageMetaSearchVM.cs" />
+    <Compile Include="ConfigurePageMetas\ConfigurePageMetasVM.cs" />
     <Compile Include="DealerCampaign\CampaignServingAreasVM.cs" />
     <Compile Include="ManagePrices\PriceMonitoringVM.cs" />
     <Compile Include="ManufacturerCampaign\CampaignPropertiesVM.cs" />
