@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Entity.ServiceCenter;
+﻿using BikewaleOpr.BAL;
+using BikewaleOpr.Entity.ServiceCenter;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ServiceCenter;
 using BikewaleOpr.Models.ServiceCenter;
@@ -33,7 +34,7 @@ namespace BikewaleOpr.Controllers
         /// </summary>		
         /// <returns></returns>		
 		
-        [Route("servicecenter/search/index/")]		
+        [Route("servicecenter/search/")]		
        		
         public ActionResult SearchServiceCenter()
         {		
@@ -87,13 +88,14 @@ namespace BikewaleOpr.Controllers
         /// <returns></returns>		
         [Route("servicecenter/save/details/")]		
         public ActionResult SaveServiceCenter([System.Web.Http.FromBody] ServiceCenterCompleteData objData)
-        {		
-            		
+        {
+	
             try		
             {		
                 if (objData != null)		
                 {		
-                    _serviceCenter.AddUpdateServiceCenter(objData, _updatedBy);		
+                    _serviceCenter.AddUpdateServiceCenter(objData, _updatedBy);	
+                    
                 }		
             }		
             catch (Exception ex)		

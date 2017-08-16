@@ -46,7 +46,7 @@ namespace BikewaleOpr.DALs.ServiceCenter
                        		
                         param.Add("par_makeid", makeId);		
 		
-                        objCityList = connection.Query<CityEntityBase>("getservicecenterscitiesbymakeid", param: param, commandType: CommandType.StoredProcedure);		
+                        objCityList = connection.Query<CityEntityBase>("getservicecenterscitiesbymakeid_new_16082017", param: param, commandType: CommandType.StoredProcedure);		
 		
                       		
 		
@@ -276,8 +276,8 @@ namespace BikewaleOpr.DALs.ServiceCenter
                             param.Add("par_serviceCenterId", serviceCenterId);		
 		
                         objData = connection.Query<ServiceCenterCompleteData, StateCityEntity, ServiceCenterCompleteData>		
-                            (		
-                           "getservicecenterdetails",		
+                            (
+                           "getservicecenterdetails_11082017",		
                          		
                            (ServiceCenterCompleteData,StateCityEntity) =>		
                            {		

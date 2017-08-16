@@ -11,12 +11,14 @@ using BikewaleOpr.BAL.Used;
 using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.DALs.Banner;
 using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.DALs.ConfigurePageMetas;
 using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.DALs.Location;
 using BikewaleOpr.DALs.UserReviews;
 using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Location;
 using BikewaleOpr.Interface.Used;
@@ -29,6 +31,7 @@ using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.DALs.ServiceCenter;
 using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.DALs.BikePricing;
+using BikewaleOpr.DAL;
 using BikewaleOpr.DAL;
 
 namespace BikewaleOpr
@@ -72,11 +75,11 @@ namespace BikewaleOpr
                 .RegisterType<IContractCampaign, ContractCampaign>()
                 .RegisterType<IServiceCenter, ServiceCenter>()
                 .RegisterType<IDealers, DealersRepository>()
+                .RegisterType<IDealers, DealersRepository>()
+                .RegisterType<IConfigurePageMetasRepository, ConfigurePageMetasRepository>()
                 .RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
-
-
-
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            
+                DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
         }
     }

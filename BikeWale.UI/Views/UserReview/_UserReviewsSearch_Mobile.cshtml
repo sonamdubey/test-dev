@@ -34,53 +34,97 @@
             <div style="display: @(Model.Pager != null && Model.Pager.TotalResults > 0 ? "block" : "none")" data-bind="visible: reviewsAvailable()">
                 <ul class="user-review-list" data-bind="visible : (!noReviews() && TotalReviews() !== 0), css: IsLoading() ? 'loader-active' : ''">
                     @{ushort i = 0;}
-                    @foreach (ReviewEntity review in Model.UserReviews.Result)
+                    @foreach (UserReviewSummary review in Model.UserReviews.Result)
                     {
-                         <!-- ko if : activeReviewList()[@i] -->
-                        <li>
-                            <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" title="@review.ReviewTitle" data-bind="attr : {'title' : activeReviewList()[@i].reviewTitle,'href' : '/m/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + activeReviewList()[@i].reviewId + '/'}" class="item-target">
-                                <div class="margin-bottom10">
-                                    <span class="rating-badge" data-rate-bg="@review.OverAllRating.OverAllRating" data-bind="attr: {'data-rate-bg' : activeReviewList()[@i].overAllRating.overAllRating } ">
-                                        <span class="bwmsprite star-white"></span>
-                                        <span data-bind="text: activeReviewList()[@i].overAllRating.overAllRating">@review.OverAllRating.OverAllRating</span>
-                                    </span>
-                                    <div class="grid-10-inline font15 text-black text-bold text-truncate">
-                                        <span class="review-title position-rel" data-bind="text: activeReviewList()[@i].reviewTitle">@review.ReviewTitle</span>
+                        if (@i == 0)
+                        {
+                                <!-- ko foreach: activeReviewList() -->
+                        }
+                        <li class="list-item">
+                            <div class="margin-bottom10">
+                                <!-- ko with: $data.overallRating -->
+                                <span class="rating-badge" data-rate-bg="@review.OverallRating.Value" data-bind="attr: {'data-rate-bg': id }">
+                                    <span class="bwmsprite star-white"></span>
+                                    <span data-bind="text: value">@review.OverallRating.Value</span>
+                                </span>
+                                <!-- /ko -->
+                                <div class="grid-10-inline font15 text-black text-bold text-truncate">
+                                   <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'title' : $data.title,'href' : '/m/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}"> <span class="review-title position-rel" data-bind="text:$data.title">@review.Title</span></a>
+                                </div>
+                            </div>
+
+                            <div class="margin-bottom10">
+                                <span class="font12 text-light-grey" data-bind="text: $data.reviewAge + ' ago by ' + $data.customerName">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
+                            </div>
+                            <div class="collapsible-content toggle-off main-content-off">
+                                <div class="main-content">
+                                    <div class="font14 text-slate-grey margin-bottom10">
+                                        <p class="inline" data-bind="truncateDesc: $data.description">@FormatDescription.TruncateDescription(review.Description, 120)</p>
+                                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-reviewId="@review.ReviewId" onclick="updateView(event)" data-id="@i">...Read more</a>
                                     </div>
                                 </div>
-
-                                <div class="margin-bottom10">
-                                    <span class="font12 text-light-grey" data-bind="text: activeReviewList()[@i].reviewAge + ' ago by ' + activeReviewList()[@i].writtenBy">@review.ReviewAge ago by @review.WrittenBy</span>
-                                </div>
-
-                                <div class="font14 text-slate-grey margin-bottom10">
-                                    <p class="inline" data-bind="text: activeReviewList()[@i].comments">@Bikewale.Utility.FormatDescription.TruncateDescription(review.Comments, 175)</p>
-
-                                    <span class="inline" style="display: @(!string.IsNullOrEmpty(review.Comments) && review.Comments.Length > 160 ? "inline" : "none")" data-bind="visible : activeReviewList()[@i].comments && activeReviewList()[@i].comments.length > 160">...<span class="text-link">Read more</span></span>
-                                </div>
-
-                                <div class="grid-7 alpha">
-                                    <div class="item-stats-grid">
-                                        <span class="bwmsprite like-sm"></span>
-                                        <span data-bind="CurrencyText: activeReviewList()[@i].liked">@Format.FormatNumeric(review.Liked.ToString())</span>
+                                <div class="more-content">
+                                    <div class="font14 text-slate-grey margin-bottom10">
+                                        <p class="inline" data-bind="html: $data.description">@Html.Raw(review.Description)</p>
                                     </div>
-                                    <div class="item-stats-grid">
-                                        <span class="bwmsprite dislike-sm"></span>
-                                        <span data-bind="CurrencyText: activeReviewList()[@i].disliked">@Format.FormatNumeric(review.Disliked.ToString())</span>
+
+                                    <div class="grid-10-inline font15 text-grey text-bold text-truncate">
+                                        About the reviewer
+                                    </div>
+
+                                    @if (review.RatingQuestionsCount > 0)
+                                    {
+                                        <div class="bg-light position-rel top3" data-bind="visible: !$root.IsInitialized()">
+                                            <ul class="about-reviewer-list item-count-@review.RatingQuestionsCount">
+                                                @foreach (var q in review.Questions.Where(q => q.Type == UserReviewQuestionType.Rating))
+                                                {
+                                                    <li>
+                                                        <span class="bwmsprite questionId-@q.Id"></span>
+                                                        <p class="item-question">@q.MinHeading</p>
+                                                        <p class="item-answer">@q.SelectedRatingText</p>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+
+                                    <!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
+                                    <div class="bg-light position-rel top3">
+                                        <ul data-bind="css: 'about-reviewer-list item-count-' +  $data.ratingQuestionsCount ">
+                                            <!-- ko foreach: $data.questions -->
+                                            <!-- ko if : $data.qtype == 1 -->
+                                            <li>
+                                                <span data-bind="css: 'bwmsprite questionId-' +  $data.qId "></span>
+                                                <p class="item-question" data-bind="text: $data.minHeading"> </p>
+                                                <p class="item-answer" data-bind="text: $data.selectedRatingText"> </p>
+                                            </li>
+                                            <!-- /ko -->
+                                            <!-- /ko -->
+                                        </ul>
+                                    </div>
+                                    <!-- /ko -->
+
+                                    <div class="grid-7 alpha">
+
+                                        <span>Was this review helpful?</span>
+
+                                        <div class="item-stats-grid">
+                                            <button id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="upVoteListReview(event)">Yes</button>
+                                            <span id="upvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'upvoteCount-' + $data.reviewId}, formattedVotes : $data.upVotes">@Format.FormatNumbers(review.UpVotes)</span>
+                                        </div>
+                                        <div class="item-stats-grid">
+                                            <button id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" data-bind="attr: { id: 'downvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="downVoteListReview(event)">No</button>
+                                            <span id="downvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'downvoteCount-' + $data.reviewId}, formattedVotes : $data.downVotes">@Format.FormatNumbers(review.DownVotes)</span>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="grid-5 omega text-right" style="display: @(review.Viewed > 0 ? "block" : "none")" data-bind="visible: activeReviewList()[@i].viewed >
-                                    0">
-                                    <div class="item-views-grid text-light-grey">
-                                        <span data-bind="CurrencyText: activeReviewList()[@i].viewed">@Format.FormatNumeric(review.Viewed.ToString())</span><span>&nbsp;views</span>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </a>
-
+                            </div>
+                            <div class="clear"></div>
                         </li>
-                         <!-- /ko -->
+                        if (@i == 0)
+                        {
+                                <!-- /ko -->
+                        }
                         i++;
                     }
 

@@ -433,7 +433,7 @@ namespace Bikewale.Models.BikeModels
                 if (objUserReviews != null)
                 {
                     objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;
-                    objPage.UserReviews = objUserReviews.GetDataDesktop();
+                    objPage.UserReviews = objUserReviews.GetData();
 
                 }
 

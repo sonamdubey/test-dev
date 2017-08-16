@@ -1,0 +1,109 @@
+﻿@model BikewaleOpr.Models.DealerFacility.ManageDealerFacilityVM
+
+@{
+    ViewBag.Title = "Manage Dealer Facilites";
+    ViewBag.PageTitle = "Manage Dealer Facilites";
+}
+
+
+@if (Model != null)
+{
+    <div id="dealerFacility" class="row margin-top10" style="margin-bottom : 60px" data-currentuser="@BikeWaleOpr.Common.CurrentUser.UserName" data-currentuserid="@BikeWaleOpr.Common.CurrentUser.Id">
+        <div class="col m10">
+            <div id="displayDealerFacility">
+                <table id="tblFacilityData" class="bordered highlight z-depth-3 centered responsive-table">
+                    <tr>
+                        <th>Facility Id</th>
+                        <th>Facilities</th>
+                        <th>Is Active</th>
+                        <th>Edit</th>
+                        <th>Last Updated By</th>
+                        <th>Last Updated On</th>
+                    </tr>
+                    <tbody id="tblFacilityBody">
+
+                        @foreach (var record in Model.FacilityList)
+                        {
+
+                            <tr data-id="@record.Id">
+                                <td data-element="facilityid">@record.Id</td>
+                                <td data-element="facilityname">@record.Facility</td>
+                                <td data-element="activeicon" data-status="@record.IsActive">
+                                    @{
+
+                                        if (record.IsActive)
+                                        {
+                                            <i class="material-icons icon-blue">check_box</i>
+                                        }
+                                        else
+                                        {
+                                            <i class="material-icons icon-red">clear</i>
+                                        }
+
+                                    }
+
+
+                                </td>
+                                <td data-element="editicon"><a href="javascript:void(0)" data-bind="click : editFacility"><i class="material-icons icon-blue" style="line-height: 32px;">mode_edit</i></a></td>
+                                <td data-element="updatedby">@record.LastUpdatedBy </td>
+
+                                <td data-element="updatedon">@record.LastUpdatedOn</td>
+                            </tr>
+                                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="col m2">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header"><strong>Add Facility</strong></div>
+                    <div class="collapsible-body">
+                        <div class="container">
+                            <ul class="input-field row m12">
+                                <li>
+                                    <input id="txtFacilityName" type="text" class="validate" data-bind="value:facility" maxlength="100" length="100">
+                                    <label for="txtFacilityName" data-error="Please enter facility">Faciltity Name *</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="chkActiveStatus" />
+                                    <label for="chkActiveStatus" data-bind="checked: activeStatus()">Is Active</label>
+                                </li>
+
+                                <li class="input-field">
+                                    <!-- ko if : isFacilityEdit() -->
+                                    <div class="col m12 text-align-center">
+                                        <button data-bind="click: updateFacility" style="width:100%" class="btn waves-effect waves-light margin-bottom20 green" type="submit">
+                                            Update
+                                        </button>
+                                    </div>
+                                    <div class="col m12 text-align-center">
+                                        <button data-bind="click: cancelEditFacility" style="width:100%" class="btn waves-effect waves-light margin-bottom20 red" type="submit">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko ifnot : isFacilityEdit()-->
+                                    <button data-bind="click:addFacility" class="btn waves-effect waves-light margin-bottom20" type="submit">
+                                        Add Facility
+                                    </button>
+                                    <!-- /ko -->
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <input type="hidden" id="txtDealerId" data-bind="value:dealerId" value="@(Model.DealerId > 0 ? Model.DealerId : 0)" />
+    </div>
+
+
+                                        }
+
+<script src="~/src/DealerFacility/DealerFacility.js"></script>
+
