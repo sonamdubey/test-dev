@@ -444,7 +444,7 @@ docReady(function() {
                         self.TotalReviews(activeReviewCat.attr('data-count'));
                         activeReviewCat.attr('data-page-num', pnum);
                     }
-
+                    pageNumber = pnum;
                     self.CurPageNo(pnum);
                     self.getUserReviews();                    
                 }
@@ -515,24 +515,22 @@ docReady(function() {
         };
     };
 
-    
+
     $(document).on("click", "#pagination-list-content ul li, .pagination-control-prev a, .pagination-control-next a", function (e) {
         e.preventDefault();
         if (!vmUserReviews.IsInitialized()) {
-            vmUserReviews.init(e);
-        }
-        vmUserReviews.ChangePageNumber(e);
-    });
-
-    vmUserReviews = new modelUserReviews();
-    $("#overallSpecsTab div a, #pagination-list-content ul li").click(function (e) {
-        if (vmUserReviews && !vmUserReviews.IsInitialized()) {
             vmUserReviews.IsLoading(true);
             $('html, body').scrollTop(modelReviewsSection.offset().top);
             vmUserReviews.init(e);
-            return false;
+
         }
-    });   
+        else {
+            vmUserReviews.ChangePageNumber(e);
+        }
+       
+    });
+
+    vmUserReviews = new modelUserReviews();  
 
     $window = $(window);
     overallSpecsTabsContainer = $('#overallTabsWrapper');
@@ -604,7 +602,16 @@ docReady(function() {
 
 function updateView(e) {
     // for bhrigu updation
-    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + ([$('#listBind').data('id')]+1) * pageNumber + '|PageSource=' + $('#pageSource').val();
+    var index=Number(e.currentTarget.getAttribute('data-id'))+1;
+    $.each(vmUserReviews.activeReviewList(),function (i, val){
+        if(e.currentTarget.getAttribute("data-reviewid")==val.reviewId)
+        {
+            index=i+1;
+            
+        }
+    
+    });
+    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index +(pageNumber-1)*10) + '|PageSource=' + $('#pageSource').val();
     cwTracking.trackUserReview("ReadMoreClick", label);
 
     try {

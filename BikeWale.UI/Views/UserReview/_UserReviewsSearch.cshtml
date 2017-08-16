@@ -43,7 +43,7 @@
                                 {
                                 <!-- ko foreach: activeReviewList() -->
                                 }
-                                <li id="listBind" data-id="@i" class="list-item" data-bind="css: $data.isRatingQuestion ? 'rating-question-present': 'rating-question-absent'">
+                                <li  class="list-item" data-bind="css: $data.isRatingQuestion ? 'rating-question-present': 'rating-question-absent'">
                                     <div class="item-grid alpha padding-right20 @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">
                                         <div class="margin-bottom10">
                                             <!-- ko with: $data.overallRating -->
@@ -102,9 +102,8 @@
 
 
                                             </div>
-                                                <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId">...Read more</a>
+                                                <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId" data-id="@i">...Read more</a>
                                         </div>
-
                                         <button id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" type="button" onclick="upVoteListReview(event)" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" class="btn btn-inv-teal-group margin-right10 upvoteListButton ">
                                             <span class="btn-label-grid">
                                                 <span class="bwsprite like-sm"></span>

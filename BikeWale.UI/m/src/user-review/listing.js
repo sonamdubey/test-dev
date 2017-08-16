@@ -1,4 +1,4 @@
-var reviewId = 0, modelid, vmUserReviews, modelReviewsSection;
+var reviewId = 0, modelid, vmUserReviews, modelReviewsSection,categoryId = 1, pageNumber = 1;
 var reg = new RegExp('^[0-9]*$');
 var helpfulReviews = [];
 
@@ -53,6 +53,18 @@ function downVoteListReview(e) {
 }
 
 function updateView(e) {
+    // for bhrigu updation
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+    $.each(vmUserReviews.activeReviewList(), function (i, val) {
+        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
+            index = i + 1;
+
+        }
+
+    });
+    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index + (pageNumber - 1) * 8) + '|PageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("ReadMoreClick", label);
+
     try {
         var reviewId = e.currentTarget.getAttribute("data-reviewid");
         $.ajax({
@@ -395,7 +407,7 @@ docReady(function () {
             },
 
             getReviews: function (element) {
-                var categoryId = Number(element.attr('data-category')),
+                 categoryId = Number(element.attr('data-category')),
                     pageNumber = Number(element.attr('data-page-num') || 1),
                     categoryCount = Number(element.attr('data-count'));
 
@@ -477,6 +489,7 @@ docReady(function () {
 
                     }
                     self.TotalReviews(activeReviewCat.attr('data-count'));
+                    pageNumber = pnum;
                     self.CurPageNo(pnum);
                     self.getUserReviews();
                     activeReviewCat.attr('data-page-num', pnum);
