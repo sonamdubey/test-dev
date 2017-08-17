@@ -11,7 +11,6 @@ namespace BikewaleOpr.Entity.Dealers
         public string MakeName { get; set; }
         public string ModelName { get; set; }
         public string VersionName { get; set; }
-
         public string BikeName { get { return String.Format("{0} {1} {2}", MakeName, ModelName, VersionName); } }
         public uint VersionId { get; set; }
         public uint NumberOfDays { get; set; }

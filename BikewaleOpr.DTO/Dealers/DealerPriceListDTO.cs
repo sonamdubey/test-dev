@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.DTO.Dealers
 {
@@ -14,9 +10,9 @@ namespace BikewaleOpr.DTO.Dealers
     public class DealerPriceListDTO
     {
         [JsonProperty("dealerId")]
-        public uint DealerId { get; set; }
+        public IEnumerable<uint> DealerIds { get; set; }
         [JsonProperty("cityId")]
-        public uint CityId { get; set; }
+        public IEnumerable<uint> CityIds { get; set; }
         public IEnumerable<uint> VersionIds { get; set; }
         public IEnumerable<uint> ItemIds { get; set; }
         public IEnumerable<uint> ItemValues { get; set; }

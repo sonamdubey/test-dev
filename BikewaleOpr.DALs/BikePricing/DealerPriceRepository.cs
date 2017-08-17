@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BikewaleOpr.Interface.Dealers;
-using BikewaleOpr.Entity.BikePricing;
+﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
+using Bikewale.Utility;
+using BikewaleOpr.Entity.BikePricing;
+using BikewaleOpr.Entity.Dealers;
+using BikewaleOpr.Interface.Dealers;
+using Dapper;
+using MySql.CoreDAL;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using MySql.CoreDAL;
-using System.Collections.ObjectModel;
-using Bikewale.Utility;
-using BikewaleOpr.Entity.Dealers;
-using Bikewale.DAL.CoreDAL;
-using Dapper;
 
 namespace BikewaleOpr.DALs.BikePricing
 {
@@ -80,7 +77,7 @@ namespace BikewaleOpr.DALs.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex,String.Format("BikewaleOpr.Dals.BikePricing.DealerPriceRepository.SaveBikeCategory : Category:{0}",categoryName));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.Dals.BikePricing.DealerPriceRepository.SaveBikeCategory : Category:{0}", categoryName));
             }
             return isSuccess;
         }
@@ -176,7 +173,7 @@ namespace BikewaleOpr.DALs.BikePricing
         /// <param name="itemValueList"></param>
         /// <param name="enteredBy"></param>
         /// <returns></returns>
-        public bool SaveDealerPrices(uint dealerId, uint cityId, string versionIdList,
+        public bool SaveDealerPrices(string dealerIdList, string cityIdList, string versionIdList,
             string itemIdList, string itemValueList, uint enteredBy)
         {
             bool isPriceSaved = false;
@@ -188,8 +185,8 @@ namespace BikewaleOpr.DALs.BikePricing
                     connection.Open();
 
                     var param = new DynamicParameters();
-                    param.Add("par_dealerid", dealerId);
-                    param.Add("par_cityid", cityId);
+                    param.Add("par_dealerid", dealerIdList);
+                    param.Add("par_cityid", cityIdList);
                     param.Add("par_bikeversionid", versionIdList);
                     param.Add("par_itemid", itemIdList);
                     param.Add("par_itemvalue", itemValueList);
@@ -206,7 +203,7 @@ namespace BikewaleOpr.DALs.BikePricing
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format(
                     "GetDealerPrices dealerId={0} cityId={1} versionIdList={2} itemIdList={3} itemValueList={4} enteredBy={5}",
-                    dealerId, cityId, versionIdList, itemIdList, itemValueList, enteredBy));
+                    dealerIdList, cityIdList, versionIdList, itemIdList, itemValueList, enteredBy));
             }
 
             return isPriceSaved;

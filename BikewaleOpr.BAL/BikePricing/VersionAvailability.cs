@@ -3,9 +3,6 @@ using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.Dealers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.BAL.BikePricing
 {
@@ -20,7 +17,14 @@ namespace BikewaleOpr.BAL.BikePricing
         {
             dealersRepository = dealersRepositoryObject;
         }
-
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 03 Aug 2017
+        /// Description :   Handles BAL operations for saving bikeversion availability.
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="bikeVersionIds"></param>
+        /// <param name="numberOfDays"></param>
+        /// <returns></returns>
         public bool SaveVersionAvailability(uint dealerId, IEnumerable<uint> bikeVersionIds, IEnumerable<uint> numberOfDays)
         {
             bool isSaved = false;
@@ -34,7 +38,7 @@ namespace BikewaleOpr.BAL.BikePricing
 
                 isSaved = dealersRepository.SaveVersionAvailability(dealerId, bikeVersionIdStrings, numberOfDaysStrings);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format(
                     "SaveBikeAvailability dealerId={0} bikeVersionId={1} numberOfDays={2}", dealerId, bikeVersionIdStrings, numberOfDaysStrings));
@@ -42,7 +46,13 @@ namespace BikewaleOpr.BAL.BikePricing
 
             return isSaved;
         }
-
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 03 Aug 2017
+        /// Description :   Handles BAL operations for deleting bikeversion availability.
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="bikeVersionIds"></param>
+        /// <returns></returns>
         public bool DeleteVersionAvailability(uint dealerId, IEnumerable<uint> bikeVersionIds)
         {
             bool isDeleted = false;

@@ -1,9 +1,5 @@
-﻿using System;
+﻿using BikewaleOpr.Entity.Dealers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BikewaleOpr.Entity.Dealers;
 
 namespace BikewaleOpr.Interface.Dealers
 {
@@ -15,7 +11,9 @@ namespace BikewaleOpr.Interface.Dealers
     {
         IEnumerable<DealerVersionPriceEntity> GetDealerPriceQuotes(uint cityId, uint makeId, uint dealerId);
         bool DeleteVersionPriceQuotes(uint dealerId, uint cityId, IEnumerable<uint> versionIds);
-        bool SaveVersionPriceQuotes(uint dealerId, uint cityId, IEnumerable<uint> versionIds,
+        bool SaveVersionPriceQuotes(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds,
              IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy);
+        UpdatePricingRulesResponseEntity SaveVersionPriceQuotes(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds,
+             IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, IEnumerable<uint> bikeModelIds, IEnumerable<string> bikeModelNames, uint enteredBy, uint makeId);
     }
 }

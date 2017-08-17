@@ -1,13 +1,11 @@
-﻿using Bikewale.Notifications;
-using BikewaleOpr.DALs;
+﻿using AutoMapper;
+using Bikewale.Notifications;
 using BikewaleOpr.Entity.Dealers;
+using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.Dealers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace BikewaleOpr.BAL.BikePricing
 {
@@ -18,10 +16,24 @@ namespace BikewaleOpr.BAL.BikePricing
     public class DealerPrice : IDealerPrice
     {
         private readonly IDealerPriceRepository dealerPriceRepository = null;
-        public DealerPrice(IDealerPriceRepository dealerPriceRepositoryObject)
+        private readonly IDealerPriceQuote dealerPriceQuoteRepository = null;
+        public DealerPrice(IDealerPriceRepository dealerPriceRepositoryObject, IDealerPriceQuote dealerPriceQuoteRepositoryObject)
         {
             dealerPriceRepository = dealerPriceRepositoryObject;
+            dealerPriceQuoteRepository = dealerPriceQuoteRepositoryObject;
         }
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 11 Aug 2017
+        /// Description :   Maps DealerVersionEntity and DealerVersionPriceEntity
+        /// </summary>
+        /// <param name="objDealers"></param>
+        /// <returns></returns>
+        private IList<DealerVersionPriceEntity> Convert(IEnumerable<DealerVersionEntity> objDealers)
+        {
+            Mapper.CreateMap<DealerVersionEntity, DealerVersionPriceEntity>();
+            return Mapper.Map<IEnumerable<DealerVersionEntity>, IList<DealerVersionPriceEntity>>(objDealers);
+        }
+
         /// <summary>
         /// Created by  :   Vishnu Teja Yalakuntla on 31-Jul-2017
         /// Description :   Fetches dealer pricings and performs grouping between version and category lists.
@@ -32,15 +44,47 @@ namespace BikewaleOpr.BAL.BikePricing
         /// <returns></returns>
         public IEnumerable<DealerVersionPriceEntity> GetDealerPriceQuotes(uint cityId, uint makeId, uint dealerId)
         {
-            IEnumerable<DealerVersionPriceEntity> dealerVersionPrices = null;
+            IList<DealerVersionPriceEntity> dealerVersionPrices = null;
+            //DealerVersionPriceEntity dealerVersionPriceEntity = null;
             DealerPriceBaseEntity dealerPriceBase = null;
+            ICollection<VersionPriceEntity> nullCategories = new List<VersionPriceEntity>();
+            nullCategories.Add(new VersionPriceEntity
+            {
+                VersionId = 0,
+                ItemCategoryId = 3,
+                ItemName = "Ex-showroom",
+                ItemValue = 0,
+            }
+            );
+            nullCategories.Add(new VersionPriceEntity
+            {
+                VersionId = 0,
+                ItemCategoryId = 5,
+                ItemName = "RTO",
+                ItemValue = 0,
+            }
+            );
 
             try
             {
                 dealerPriceBase = dealerPriceRepository.GetDealerPrices(cityId, makeId, dealerId);
 
-                if (dealerPriceBase != null && dealerPriceBase.DealerVersions != null)
+                if (dealerPriceBase != null && dealerPriceBase.DealerVersions != null && dealerPriceBase.VersionPrices.Count() > 0)
                 {
+                    ICollection<VersionPriceEntity> partialNullCategories = new List<VersionPriceEntity>();
+
+                    var temp = dealerPriceBase.VersionPrices.Select(o => new { o.ItemCategoryId, o.ItemName }).Distinct();
+
+                    foreach (var category in temp)
+                    {
+                        partialNullCategories.Add(new VersionPriceEntity
+                        {
+                            ItemCategoryId = category.ItemCategoryId,
+                            ItemName = category.ItemName
+                        }
+                        );
+                    }
+
                     dealerVersionPrices = dealerPriceBase.DealerVersions.GroupJoin(dealerPriceBase.VersionPrices,
                         model => model.VersionId,
                         category => category.VersionId,
@@ -50,11 +94,29 @@ namespace BikewaleOpr.BAL.BikePricing
                             VersionName = model.VersionName,
                             ModelName = model.ModelName,
                             VersionId = model.VersionId,
-                            Categories = categories,
+                            Categories = categories != null && categories.Count() > 0 ? categories : partialNullCategories,
                             NumberOfDays = model.NumberOfDays,
                             BikeModelId = model.BikeModelId
                         }
-                    );
+                    ).ToList();
+
+                    var compare = new VersionPriceEntityComparer();
+                    for (int i = 0; i < dealerVersionPrices.Count(); i++)
+                    {
+                        if (dealerVersionPrices[i].Categories.Count() != partialNullCategories.Count())
+                        {
+                            dealerVersionPrices[i].Categories = dealerVersionPrices[i].Categories.Union(partialNullCategories, compare).OrderBy(category => category.ItemCategoryId);
+                        }
+                    }
+
+                }
+                else if (dealerPriceBase != null && dealerPriceBase.DealerVersions != null || dealerPriceBase.VersionPrices.Count() == 0)
+                {
+                    dealerVersionPrices = Convert(dealerPriceBase.DealerVersions);
+                    foreach (DealerVersionPriceEntity dealerVersionEntity in dealerVersionPrices)
+                    {
+                        dealerVersionEntity.Categories = nullCategories;
+                    }
                 }
             }
             catch (Exception ex)
@@ -64,6 +126,30 @@ namespace BikewaleOpr.BAL.BikePricing
             }
 
             return dealerVersionPrices;
+        }
+        /// <summary>
+        /// Created By  :   Sumit Kate on 11 Aug 2017
+        /// Description :   Equality comparer for price categories
+        /// </summary>
+        private class VersionPriceEntityComparer : IEqualityComparer<VersionPriceEntity>
+        {
+            public bool Equals(VersionPriceEntity b1, VersionPriceEntity b2)
+            {
+                if (b2 == null && b1 == null)
+                    return true;
+                else if (b1 == null | b2 == null)
+                    return false;
+                else if (b1.ItemCategoryId == b2.ItemCategoryId && b1.ItemName == b2.ItemName)
+                    return true;
+                else
+                    return false;
+            }
+
+            public int GetHashCode(VersionPriceEntity bx)
+            {
+                int hCode = (int)bx.ItemCategoryId;
+                return hCode.GetHashCode();
+            }
         }
         /// <summary>
         /// Created by  :   Vishnu Teja Yalakuntla on 31-Jul-2017
@@ -92,6 +178,47 @@ namespace BikewaleOpr.BAL.BikePricing
             return isDeleted;
         }
         /// <summary>
+        ///  Created by  :   Vishnu Teja Yalakuntla on 31-Jul-2017
+        ///  Description :   Constructs comma seperated delimiter arrays and calls SaveDealerPrice for price updation or insertion. Calls AddRulesOnPriceUpdation for rules update.
+        /// </summary>
+        /// <param name="dealerIds"></param>
+        /// <param name="cityIds"></param>
+        /// <param name="versionIds"></param>
+        /// <param name="itemIds"></param>
+        /// <param name="itemValues"></param>
+        /// <param name="enteredBy"></param>
+        /// <returns></returns>
+        public bool SaveVersionPriceQuotes(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds,
+             IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy)
+        {
+            bool isSaved = false;
+
+            string versionIdsString = null;
+            string itemIdsString = null;
+            string itemValuesString = null;
+            string dealerIdsString = null;
+            string cityIdsString = null;
+
+            try
+            {
+                versionIdsString = string.Join<uint>(",", versionIds);
+                itemIdsString = string.Join<uint>(",", itemIds);
+                itemValuesString = string.Join<uint>(",", itemValues);
+                dealerIdsString = string.Join<uint>(",", dealerIds);
+                cityIdsString = string.Join<uint>(",", cityIds);
+
+                isSaved = dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                    "SaveVersionPriceQuotes dealerId={0} cityId={1} versionIdsString={2} itemIdsString={3} itemValuesString={4} enteredBy={5}",
+                    dealerIds, cityIds, versionIdsString, itemIdsString, itemValuesString, enteredBy));
+            }
+            return isSaved;
+        }
+        /// <summary>
         /// Created by  :   Vishnu Teja Yalakuntla on 31-Jul-2017
         /// Description :   Constructs comma seperated delimiter arrays and calls SaveDealerPrice for price updation or insertion.
         /// </summary>
@@ -102,29 +229,39 @@ namespace BikewaleOpr.BAL.BikePricing
         /// <param name="itemValues"></param>
         /// <param name="enteredBy"></param>
         /// <returns></returns>
-        public bool SaveVersionPriceQuotes(uint dealerId, uint cityId, IEnumerable<uint> versionIds,
-             IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, uint enteredBy)
+        public UpdatePricingRulesResponseEntity SaveVersionPriceQuotes(IEnumerable<uint> dealerIds, IEnumerable<uint> cityIds, IEnumerable<uint> versionIds,
+             IEnumerable<uint> itemIds, IEnumerable<uint> itemValues, IEnumerable<uint> bikeModelIds, IEnumerable<string> bikeModelNames, uint enteredBy, uint makeId)
         {
-            bool isSaved = false;
+            UpdatePricingRulesResponseEntity response = new UpdatePricingRulesResponseEntity();
+            response.IsPriceSaved = false;
 
             string versionIdsString = null;
             string itemIdsString = null;
             string itemValuesString = null;
+            string dealerIdsString = null;
+            string cityIdsString = null;
+            string modelIdNamesString = null;
 
             try
             {
                 versionIdsString = string.Join<uint>(",", versionIds);
                 itemIdsString = string.Join<uint>(",", itemIds);
                 itemValuesString = string.Join<uint>(",", itemValues);
-                isSaved = dealerPriceRepository.SaveDealerPrices(dealerId, cityId, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+                dealerIdsString = string.Join<uint>(",", dealerIds);
+                cityIdsString = string.Join<uint>(",", cityIds);
+                modelIdNamesString = string.Join<string>(",", bikeModelIds.Zip(bikeModelNames, (modelId, modelName) => string.Format("{0}:{1}", modelId, modelName)));
+
+                response.IsPriceSaved = dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+                if (dealerIds.Count() == 1)
+                    response.RulesUpdatedModelNames = dealerPriceQuoteRepository.AddRulesOnPriceUpdation(modelIdNamesString, dealerIds.First(), makeId, enteredBy);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format(
                     "SaveVersionPriceQuotes dealerId={0} cityId={1} versionIdsString={2} itemIdsString={3} itemValuesString={4} enteredBy={5}",
-                    dealerId, cityId, versionIdsString, itemIdsString, itemValuesString, enteredBy));
+                    dealerIds, cityIds, versionIdsString, itemIdsString, itemValuesString, enteredBy));
             }
-            return isSaved;
+            return response;
         }
     }
 }

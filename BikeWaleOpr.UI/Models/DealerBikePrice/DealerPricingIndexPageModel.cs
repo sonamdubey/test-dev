@@ -8,6 +8,10 @@ using System.Collections.Generic;
 
 namespace BikewaleOpr.Models.DealerBikePrice
 {
+    /// <summary>
+    /// Created By  :   Vishnu Teja Yalakuntla on 11 Aug 2017
+    /// Description :   Populates DealerPricingIndexPageVW
+    /// </summary>
     public class DealerPricingIndexPageModel
     {
         private readonly ILocation location = null;
@@ -19,7 +23,11 @@ namespace BikewaleOpr.Models.DealerBikePrice
             location = locationObject;
             dealerPriceQuote = dealerPriceQuoteObject;
         }
-
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 11 Aug 2017
+        /// Description :   Populates all the models need for landing page of dealer pricing management page
+        /// </summary>
+        /// <returns></returns>
         public DealerPricingIndexPageVM GetLandingInformation()
         {
             IEnumerable<CityNameEntity> dealerCities = null;
@@ -33,11 +41,13 @@ namespace BikewaleOpr.Models.DealerBikePrice
             try
             {
                 dealerCities = location.GetDealerCities();
+                dealerPricingLandingInfo.PageTitle = "Dealer Pricing Management";
                 dealerPricingLandingInfo.CopyPricingDealers.Cities = dealerCities;
                 dealerPricingLandingInfo.ShowPricingCities.Cities = location.GetAllCities();
                 dealerPricingLandingInfo.CopyPricingCities.States = location.GetStates();
                 dealerPricingLandingInfo.AddCategoryType.PriceCategories = dealerPriceQuote.GetBikeCategoryItems("");
                 dealerPricingLandingInfo.DealerOperationParams.DealerCities = dealerCities;
+                dealerPricingLandingInfo.DealerOperationParams.IsOpen = true;
             }
             catch (Exception ex)
             {

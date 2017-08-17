@@ -137,6 +137,7 @@
     <Compile Include="DealerPriceQuoteDetailed.cs" />
     <Compile Include="DealerPriceQuoteEntity.cs" />
     <Compile Include="DealerQuotation.cs" />
+    <Compile Include="Dealers\UpdatePricingRulesResponseEntity.cs" />
     <Compile Include="Dealers\VersionPriceEntity.cs" />
     <Compile Include="Dealers\DealerVersionEntity.cs" />
     <Compile Include="EMI.cs" />

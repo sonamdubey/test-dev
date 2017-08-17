@@ -1994,7 +1994,7 @@
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignPopup.cshtml" />
     <Content Include="Views\DealerBikePrice\Index.cshtml" />
     <Content Include="Views\DealerBikePrice\_SelectOperationCollapsable.cshtml" />
-    <Content Include="Views\DealerBikePrice\GetDealerPricing.cshtml" />
+    <Content Include="Views\DealerBikePrice\DealerPricing.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

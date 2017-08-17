@@ -1,22 +1,23 @@
-﻿using Bikewale.ManufacturerCampaign.DAL;
-using BikewaleOpr.BAL;
+﻿using BikewaleOpr.BAL;
+using BikewaleOpr.BAL.BikePricing;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.Images;
 using BikewaleOpr.BAL.Security;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.DAL;
-using BikewaleOpr.DALs.BikePricing;
+using BikewaleOpr.DALs;
 using BikewaleOpr.DALs.BikeColorImages;
 using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.DALs.Images;
 using BikewaleOpr.DALs.ManufactureCampaign;
 using BikewaleOpr.DALs.UserReviews;
 using BikewaleOpr.Interface;
-using BikewaleOpr.Interface.Dealers;
 using BikewaleOpr.Interface.BikeColorImages;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.Interface.Dealers;
 using BikewaleOpr.Interface.Images;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikewaleOpr.Interface.Security;
@@ -24,7 +25,6 @@ using BikewaleOpr.Interface.Used;
 using BikewaleOpr.Interface.UserReviews;
 using BikewaleOpr.Used;
 using Microsoft.Practices.Unity;
-using BikewaleOpr.BAL.BikePricing;
 
 namespace BikewaleOpr.Service.UnityConfiguration
 {
@@ -61,6 +61,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
             container.RegisterType<IDealerPriceRepository, DealerPriceRepository>();
+            container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
             container.RegisterType<IDealerPrice, DealerPrice>();
             container.RegisterType<IDealers, DealersRepository>();
             container.RegisterType<IVersionAvailability, VersionAvailability>();

@@ -5,13 +5,14 @@ namespace BikewaleOpr.DTO.Dealers
 {
     /// <summary>
     /// Created By  :   Vishnu Teja Yalakuntla on 11 Aug 2017
-    /// Description :   Entity holds dealer versions along with their availabilities
+    /// Description :   Entity holding dealerId, cityId and list of version Ids
     /// </summary>
-    public class VersionDaysDTO
+    public class DealerCityVersionsDTO
     {
         [JsonProperty("dealerId")]
         public uint DealerId { get; set; }
+        [JsonProperty("cityId")]
+        public uint CityId { get; set; }
         public IEnumerable<uint> BikeVersionIds { get; set; }
-        public IEnumerable<uint> NumberOfDays { get; set; }
     }
 }

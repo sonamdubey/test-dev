@@ -86,10 +86,13 @@
     <Compile Include="BikeData\SynopsisDataDto.cs" />
     <Compile Include="Dealers\DealerBase.cs" />
     <Compile Include="Dealers\BikeMakeBase.cs" />
+    <Compile Include="Dealers\DealerCityVersionDTO.cs" />
     <Compile Include="Dealers\DealerMakeDTO.cs" />
     <Compile Include="Dealers\DealerPriceListDTO.cs" />
     <Compile Include="Dealers\DealerVersionPriceDTO.cs" />
-    <Compile Include="Dealers\DealerVersionsDTO.cs" />
+    <Compile Include="Dealers\DealerVersionPricesAvailabilityDTO.cs" />
+    <Compile Include="Dealers\DeleteDealerPricingResponseDTO.cs" />
+    <Compile Include="Dealers\SaveDealerPricingResponseDTO.cs" />
     <Compile Include="Dealers\VersionDaysDTO.cs" />
     <Compile Include="Images\ImageDTO.cs" />
     <Compile Include="Images\ImageTokenDTO.cs" />

@@ -1,44 +1,39 @@
 ﻿@model BikewaleOpr.Models.DealerPricing.DealerOperationVM
 
 <li>
-    <div class="collapsible-header"><strong>Dealer Operation</strong></div>
+    <div class="@string.Format("collapsible-header {0}", (Model.IsOpen ? "active" : ""))"><strong>Dealer Operation</strong></div>
     <div class="collapsible-body">
         <div data-bind="with: dealerOperationsModel" class="container">
-            <div  class="input-field row s12">
-                <select data-bind="event:{ change: onCityChange}" id="ddlDealerCity">
+            <div class="materialize-select input-field row s12">
+                <select class="chosen-select" data-bind="event:{ change: onCityChange}" id="ddlDealerCity">
+                    <option value="0" disabled selected>Select Dealer City</option>
                     @foreach (var dealerCity in Model.DealerCities)
                     {
                         <option value=@dealerCity.CityId>@dealerCity.CityName</option>
                     }
                 </select>
             </div>
-            <div class="input-field row s12">
-                <select data-bind="options: makes,
+            <div class="materialize-select input-field row s12">
+                    <select class="chosen-select" id="ddlMakes" data-bind="options: makes,
                         optionsText: 'makeName',
                         optionsValue: 'makeId',
                         value: selectedMake,
-                        optionsCaption: 'Select Make',
                         event: { change: onMakeChange}
-                        ">
-                </select>
+                        "></select>
             </div>
-            <div class="input-field row s12">
-                <select data-bind="options: dealers,
+            <div class="materialize-select input-field row s12">
+                <select class="chosen-select" id="ddlDealers" data-bind="options: dealers,
                         optionsText: 'dealerName',
                         optionsValue: 'dealerId',
-                        value: selectedDealer,
-                        optionsCaption: 'Select Dealer'
-                        ">
-                </select>
+                        value: selectedDealer
+                        "></select>
             </div>
-            <div class="input-field row s12">
-                <select data-bind="options: operations,
+            <div class="materialize-select input-field row s12">
+                <select id="ddlDealerOperations" class="chosen-select" data-bind="options: operations,
                         optionsText: 'operationName',
                         optionsValue: 'operationId',
-                        value: selectedOperation,
-                        optionsCaption: 'Select Operation'
-                        ">
-                </select>
+                        value: selectedOperation
+                        "></select>
             </div>
             <div class="input-field row s12">
                 <button data-bind="event:{ click: getPricing}" class="btn waves-effect waves-light" name="action">
