@@ -1154,10 +1154,14 @@ namespace BikewaleOpr.DAL
                     param.Add("par_updatedby", updatedBy);
 
                     connection.Open();
-                    connection.Execute("bw_savebookingamount_08072017", param: param, commandType: CommandType.StoredProcedure);
+                    int isUpdated = connection.Execute("bw_savebookingamount_08072017", param: param, commandType: CommandType.StoredProcedure);
                     if(connection != null && connection.State == ConnectionState.Open)
                     {
                         connection.Close();
+                    }
+                    if(isUpdated > 0)
+                    {
+                        return true;
                     }
                 }
             }

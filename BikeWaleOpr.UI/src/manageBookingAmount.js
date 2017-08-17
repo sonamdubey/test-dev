@@ -60,12 +60,17 @@
                         $('#selectVersion').material_select();
                     }
                 });
+            } else {
+                self.versions([]);
+                $('#selectVersion').material_select();
             }
         };
         self.validateBookingSubmit = function () {
             var isValid = true;
-            self.bookingMsg("");
-            if (!self.bookingAmount() || self.bookingAmount() < 0) {
+            self.bookingMsg(undefined);
+            $('#bookingAmount').removeClass('invalid');
+            var bookingAmount = self.bookingAmount();
+            if (!bookingAmount || !/^\d+$/.test(bookingAmount)) {
                 self.bookingMsg("please input valid amount");
                 isValid = false;
             }
@@ -87,6 +92,10 @@
             self.bookingMsg("");
             $('#btnSave').html('Update');
             var element = $(e.target).closest("tr");
+            if ($('#bookingId').val()) {
+                $("tr[data-id='" + $('#bookingId').val() + "']")[0].bgColor = "";
+            }
+            element[0].bgColor = '#e0f2f1';
             $('#bookingId').val($(element[0]).data("id"));
 
             self.clearDropdown($('#selectMake'), $(element[0]).data("makeid"));
@@ -100,17 +109,21 @@
         };
 
         self.cancelEdit = function () {
+            $("tr[data-id='" + $('#bookingId').val() + "']")[0].bgColor = "";
             self.bookingMsg("");
             $('#btnSave').html('Save');
             $('#bookingId').val("");
             self.bookingAmount("");
             self.versions([]);
+            $('#selectVersion').prop('disabled', false);
             $('#selectVersion').material_select();
             self.models([]);
+            $('#selectModel').prop('disabled', false);
             $('#selectModel').material_select();
+            $('#selectMake').prop('disabled', false);
             $('#selectMake').val(0);
             $('#selectMake').material_select();
-            $("#selectMake").trigger('change');
+            $('#selectMake').trigger('change');
             $('#cancelEdit').addClass("hide");
             Materialize.updateTextFields();
         };
@@ -130,6 +143,7 @@
                             $(activeIcon).addClass('icon-red');
                             $(activeIcon).html('close');
                             $(element[0]).data("isactive", "False");
+                            showToast('Booking amount deleted');
                         },
                         complete: function (xhr) {
                             if (xhr.status != 200) {
@@ -145,6 +159,7 @@
         };
 
         self.clearDropdown = function (dropdownName, index) {
+            dropdownName.prop('disabled', true);
             dropdownName.val(index);
             dropdownName.material_select();
             dropdownName.trigger('change');
@@ -158,8 +173,12 @@
 $(document).ready(function () {
     $('#selectMake').material_select();
     ko.applyBindings(new bindManageBookingAmount);
+    var updateMessage = $('#manageBookingAmount').data('message');
+    if (updateMessage) {
+        showToast(updateMessage);
+    }
 });
 
 function showToast(msg) {
-    Materialize.toast(msg, 4000);
+    Materialize.toast(msg, 3000);
 }

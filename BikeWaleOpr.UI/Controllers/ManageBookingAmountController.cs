@@ -32,6 +32,18 @@ namespace BikewaleOpr.Controllers
             try
             {
                 objManageBookingAmountData = _manageBookingAmountPageData.GetManageBookingAmountData(dealerId);
+                objManageBookingAmountData.UpdateMessage = string.Empty;
+                if (TempData.ContainsKey("IsUpdated"))
+                {
+                    if ((bool)TempData["IsUpdated"])
+                    {
+                        objManageBookingAmountData.UpdateMessage = "Booking amount updated";
+                    }
+                    else
+                    {
+                        objManageBookingAmountData.UpdateMessage = "Failed to update booking amount";
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -50,7 +62,11 @@ namespace BikewaleOpr.Controllers
         {
             try
             {
-                _manageBookingAmountPageData.AddBookingAmount(objBookingAmountEntity, BikeWaleOpr.Common.CurrentUser.Id);
+                bool isUpdated = _manageBookingAmountPageData.AddBookingAmount(objBookingAmountEntity, BikeWaleOpr.Common.CurrentUser.Id);
+                if (isUpdated)
+                {
+                    TempData["IsUpdated"] = isUpdated;
+                }
             }
             catch (Exception ex)
             {

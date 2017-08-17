@@ -53,23 +53,35 @@ namespace BikewaleOpr.BAL
         /// </summary>
         /// <param name="objBookingAmountEntity"></param>
         /// <param name="updatedBy"></param>
-        public void AddBookingAmount(BookingAmountEntity objBookingAmountEntity, string updatedBy)
+        public bool AddBookingAmount(BookingAmountEntity objBookingAmountEntity, string updatedBy)
         {
+            bool isUpdated = false;
             try
             {
                 objBookingAmountEntity.UpdatedOn = DateTime.Now;
                 UInt32 updatedById = 0;
                 UInt32.TryParse(updatedBy, out updatedById);
-                if(objBookingAmountEntity.DealerId > 0 && objBookingAmountEntity.BikeModel.ModelId > 0 && 
-                     objBookingAmountEntity.BookingAmountBase.Amount >= 0 && updatedById > 0)
+                if(objBookingAmountEntity.BikeModel == null)
                 {
-                    _dealers.SaveBookingAmount(objBookingAmountEntity, updatedById);
+                    objBookingAmountEntity.BikeModel = new BikeModelEntityBase()
+                    {
+                        ModelId = 0
+                    };
+                    objBookingAmountEntity.BikeVersion = new BikeVersionEntityBase()
+                    {
+                        VersionId = 0
+                    };
+                }
+                if(objBookingAmountEntity.DealerId > 0 && objBookingAmountEntity.BookingAmountBase.Amount >= 0 && updatedById > 0)
+                {
+                   isUpdated = _dealers.SaveBookingAmount(objBookingAmountEntity, updatedById);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.ManageBookingAmountPage.AddBookingAmount");
             }
+            return isUpdated;
         }
     }
 }

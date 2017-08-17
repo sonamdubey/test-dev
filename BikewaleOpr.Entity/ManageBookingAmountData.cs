@@ -11,5 +11,6 @@ namespace BikewaleOpr.Entity
     {
         public IEnumerable<BookingAmountEntity> BookingAmountList { get; set; }
         public IEnumerable<Entities.BikeData.BikeMakeEntityBase> BikeMakeList { get; set; }
+        public string UpdateMessage { get; set; }
     }
 }

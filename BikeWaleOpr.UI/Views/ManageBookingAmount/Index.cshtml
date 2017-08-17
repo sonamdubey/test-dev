@@ -5,7 +5,7 @@
 }
 @if(Model != null)
 {
-    <div class="row">
+    <div id="manageBookingAmount" class="row" data-message="@Model.UpdateMessage">
         <div class="col m9">
             @if(Model.BookingAmountList != null && Model.BookingAmountList.Count() > 0)
             {
@@ -36,8 +36,8 @@
                                 <td>@obj.UpdatedOn.ToString("dd/MM/yyyy")</td>
                                 <td>@obj.BookingAmountBase.Amount</td>
                                 <td><i class="isActive material-icons @(obj.BookingAmountBase.IsActive?"icon-green":"icon-red")">@(obj.BookingAmountBase.IsActive ? "done" : "close")</i></td>
-                                <td><a href="javascript:void(0)" rel="nofollow" data-bind="event: {click: function(d, e) { editBooking(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
-                                <td><a href="javascript:void(0)" rel="nofollow" data-bind="event: {click: function(d, e) { deleteBooking(e) }}"><i class="material-icons icon-red">delete</i></a></td>
+                                <td><a href="javascript:void(0)" title="Edit Booking Amount" rel="nofollow" data-bind="event: {click: function(d, e) { editBooking(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                                <td><a href="javascript:void(0)" title="Delete Booking Amount" rel="nofollow" data-bind="event: {click: function(d, e) { deleteBooking(e) }}"><i class="material-icons icon-red">delete</i></a></td>
                             </tr>
                         }
                     }
@@ -71,7 +71,6 @@
                                                 }
                                             }
                                         </select>
-                                        <label for="BikeMake.MakeId">Make</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -79,7 +78,6 @@
                                         <select id="selectModel" class="disabled" name="BikeModel.ModelId" data-bind="value: selectedModelId, event: {change: getVersions}, options: models, optionsText: 'modelName', optionsValue: 'modelId', optionsCaption: 'Select Model'">
                                             <option value="" disabled selected>Select Model</option>
                                         </select>
-                                        <label for="BikeModel.ModelId">Model</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -87,13 +85,12 @@
                                         <select id="selectVersion" class="disabled" name="BikeVersion.VersionId" data-bind="options: versions, optionsText: 'versionName', optionsValue: 'versionId', value: selectedVersionId, optionsCaption: 'Select Version'">
                                             <option value="" disabled selected>Select Version</option>
                                         </select>
-                                        <label for="BikeVersion.VersionId">Version</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col m12">
                                         <input id="bookingAmount" name="BookingAmountBase.Amount" type="number" class="validate" data-bind="textInput: bookingAmount, css:bookingMsg()!=''?'invalid':'' "/>
-                                        <label for="BookingAmountBase.Amount" data-error="" data-bind="attr:{'data-error': bookingMsg}, css:bookingMsg()!=''?'':'active'">Enter Booking Amount</label>
+                                        <label for="BookingAmountBase.Amount" data-error="" data-bind="attr:{'data-error': bookingMsg}, css:bookingMsg()!=''?'active':''">Enter Booking Amount</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -103,7 +100,7 @@
                                         </button>
                                     </div>
                                     <div class="input-field col m6">
-                                        <button id="cancelEdit" class="btn waves-effect waves-light hide" name="cancel"  type="button" data-bind="event : { click : cancelEdit}">
+                                        <button id="cancelEdit" class="btn waves-effect waves-light red hide" name="cancel"  type="button" data-bind="event : { click : cancelEdit}">
                                             Cancel
                                         </button>
                                     </div>
