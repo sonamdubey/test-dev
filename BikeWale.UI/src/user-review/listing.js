@@ -602,29 +602,41 @@ docReady(function() {
     if (chkRating2)
         document.getElementById('rate-bikestar-' + parseInt(chkRating2)).checked = false;
 });
+function logBhrighu(e) {
 
-function updateView(e) {
-    // for bhrigu updation
-    var index=Number(e.currentTarget.getAttribute('data-id'))+1;
-    $.each(vmUserReviews.activeReviewList(),function (i, val){
-        if(e.currentTarget.getAttribute("data-reviewid")==val.reviewId)
-        {
-            index=i+1;
-            
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+    $.each(vmUserReviews.activeReviewList(), function (i, val) {
+        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
+            index = i + 1;
+
         }
-    
+
     });
-    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index +(pageNumber-1)*10) + '|PageSource=' + $('#pageSource').val();
+    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index + (pageNumber - 1) * 10) + '|PageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("TitleClick", label);
+}
+
+
+    function updateView(e) {
+        // for bhrigu updation
+    var index =Number(e.currentTarget.getAttribute('data-id')) +1;
+    $.each(vmUserReviews.activeReviewList(), function (i, val) {
+        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
+            index = i + 1;
+
+        }
+    });
+    label = 'ModelId=' + modelid + '|TabName=' +reviewCategory[categoryId] + '|ReviewOrder=' + (index +(pageNumber - 1) * 10) + '|PageSource=' +$('#pageSource').val();
     cwTracking.trackUserReview("ReadMoreClick", label);
 
     try {
         var reviewId = e.currentTarget.getAttribute("data-reviewid");
         $.ajax({
-            type: "POST",
-            url: "/api/user-reviews/updateView/" + reviewId + "/",
-            success: function (response) {                
-            }
-        });
+                type: "POST",
+                url: "/api/user-reviews/updateView/" + reviewId + "/",
+                success: function (response) {
+        }
+    });
     } catch (e) {
         console.log(e);
     }

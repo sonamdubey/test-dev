@@ -53,6 +53,19 @@ function downVoteListReview(e) {
         console.log(e);
     }
 }
+function logBhrighu(e) {
+
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+    $.each(vmUserReviews.activeReviewList(), function (i, val) {
+        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
+            index = i + 1;
+
+        }
+
+    });
+    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index + (pageNumber - 1) * 10) + '|PageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("TitleClick", label);
+}
 
 function updateView(e) {
     // for bhrigu updation
