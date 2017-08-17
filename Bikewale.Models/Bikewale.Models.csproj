@@ -180,6 +180,7 @@
     <Compile Include="UserReviews\UserReviewRatingVM.cs" />
     <Compile Include="Videos\MakeVideosPageVM.cs" />
     <Compile Include="Videos\ModelWiseVideoPageVM.cs" />
+    <Compile Include="Videos\ScooterVideosVM.cs" />
     <Compile Include="Videos\SimilarVideoModelsVM.cs" />
     <Compile Include="Videos\VideoDetailsPageVM.cs" />
     <Compile Include="Videos\VideosByCategoryPageVM.cs" />

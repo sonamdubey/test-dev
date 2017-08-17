@@ -1029,6 +1029,7 @@
     <Compile Include="Models\ServiceCenters\ServiceCentersInNearByCities.cs" />
     <Compile Include="Models\HomePageModel.cs" />
     <Compile Include="Models\Upcoming\UpcomingBikesWidget.cs" />
+    <Compile Include="Models\Videos\ScooterVideos.cs" />
     <Compile Include="Models\Videos\SimilarVideosModel.cs" />
     <Compile Include="Models\Videos\VideoDetails.cs" />
     <Compile Include="Models\Videos\VideosByCategoryPage.cs" />
@@ -2141,6 +2142,8 @@
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
     <Content Include="bin\DotNetOpenAuth.OpenId.xml" /> -->
     <!--     <Content Include="bin\Newtonsoft.Json.xml" /> -->
+    <Content Include="bin\grpc_csharp_ext.x64.dll" />
+    <Content Include="bin\grpc_csharp_ext.x86.dll" />
     <Content Include="contactus.aspx" />
     <Content Include="content\BikeCare\BikeCare.aspx" />
     <Content Include="content\BikeCare\ViewBikeCare.aspx" />
@@ -3770,6 +3773,8 @@
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel_Mobile.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
+    <Content Include="Views\Videos\ScooterVideos.cshtml" />
+    <Content Include="Views\Videos\ScooterVideos_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
