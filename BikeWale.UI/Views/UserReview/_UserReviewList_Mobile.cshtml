@@ -52,7 +52,7 @@
                     @if (review.RatingQuestionsCount > 0)
                 {
                         <div class="about-reviewer-content">
-							<p class="text-grey text-bold">About the reviewer</p>
+							<p class="font13 text-grey text-bold">About the reviewer</p>
                             <ul class="about-reviewer-list item-count-@review.RatingQuestionsCount">
                                 @foreach (var q in review.Questions.Where(q => q.Type == UserReviewQuestionType.Rating))
                                 {

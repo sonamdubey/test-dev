@@ -631,7 +631,7 @@ h1,
   padding-right: 20px;
   padding-left: 20px; }
 
-.user-review-list .collapsible-content.active ~ .report-abuse-label {
+.user-review-list .collapsible-content ~ .review-block {
   display: inline; }
 
 .user-review-list .collapsible-content.main-content-off.active .main-content {
