@@ -297,7 +297,8 @@ h1,
   color: #82888B;
   border: 1px solid #E2E2E2;
   border-radius: 2px;
-  cursor: pointer; }
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif, Arial; }
 
 .about-reviewer-list li {
   border-top: none; }

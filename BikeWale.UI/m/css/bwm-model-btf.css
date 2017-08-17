@@ -882,6 +882,7 @@ h2.text-bold { font-weight: bold; }
 	border: 1px solid #E2E2E2;
 	border-radius: 2px;
 	cursor: pointer;
+	font-family: 'Open Sans', sans-serif, Arial;
 }
 
 .feedback-button .like-sm,
