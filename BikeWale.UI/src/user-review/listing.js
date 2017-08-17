@@ -519,7 +519,7 @@ docReady(function() {
     };
 
 
-    $(document).on("click", "#pagination-list-content ul li, .pagination-control-prev a, .pagination-control-next a", function (e) {
+    $(document).on("click", "#pagination-list-content ul li, .pagination-control-prev a, .pagination-control-next a,#overallSpecsTab .overall-specs-tabs-wrapper a", function (e) {
         e.preventDefault();
         if (!vmUserReviews.IsInitialized()) {
             vmUserReviews.IsLoading(true);
@@ -530,7 +530,7 @@ docReady(function() {
         else {
             vmUserReviews.ChangePageNumber(e);
         }
-       
+
     });
 
     vmUserReviews = new modelUserReviews();  
