@@ -1,6 +1,6 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace Bikewale.DTO.Version
+namespace BikewaleOpr.DTO.BikeData
 {
     public class VersionBase
     {

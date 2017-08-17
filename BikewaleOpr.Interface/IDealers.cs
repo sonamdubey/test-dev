@@ -37,9 +37,9 @@ namespace BikewaleOpr.Interface
         List<DealerDisclaimerEntity> GetDealerDisclaimer(uint dealerId);
         bool EditDisclaimer(uint disclaimerId, string newDisclaimerText);
         #region bike booking amount function declaration
-        List<BookingAmountEntity> GetBikeBookingAmount(uint dealerId);
+        IEnumerable<BookingAmountEntity> GetBikeBookingAmount(uint dealerId);
         bool UpdateBookingAmount(BookingAmountEntityBase objbookingAmtBase);
-        bool SaveBookingAmount(BookingAmountEntity objBookingAmt);
+        bool SaveBookingAmount(BookingAmountEntity objBookingAmt, UInt32 updatedById);
         BookingAmountEntity GetDealerBookingAmount(uint versionId, uint dealerId);
         #endregion
         bool DeleteBookingAmount(uint bookingId);

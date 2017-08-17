@@ -32,7 +32,6 @@ using BikewaleOpr.DALs.ServiceCenter;
 using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.DAL;
-using BikewaleOpr.DAL;
 
 namespace BikewaleOpr
 {
@@ -42,6 +41,8 @@ namespace BikewaleOpr
     /// Description : Added IBikeModels, IUsedBikes, IHomePage
     /// Modified by : Vivek Singh Tomar on 1st Aug 2017
     /// Description : Added IBikeMakes
+    /// Modified by : Vivek Singh Tomar on 7th Aug 2017
+    /// Summary : Added IDealers
     /// </summary>
     public static class UnityConfig
     {
@@ -75,7 +76,7 @@ namespace BikewaleOpr
                 .RegisterType<IContractCampaign, ContractCampaign>()
                 .RegisterType<IServiceCenter, ServiceCenter>()
                 .RegisterType<IDealers, DealersRepository>()
-                .RegisterType<IDealers, DealersRepository>()
+                .RegisterType<IManageBookingAmountPage, ManageBookingAmountPage>()
                 .RegisterType<IConfigurePageMetasRepository, ConfigurePageMetasRepository>()
                 .RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
             

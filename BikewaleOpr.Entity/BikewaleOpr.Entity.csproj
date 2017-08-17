@@ -179,6 +179,7 @@
     <Compile Include="Images\ImageToken.cs" />
     <Compile Include="MakeEntity.cs" />
     <Compile Include="MakeEntityBase.cs" />
+    <Compile Include="ManageBookingAmountData.cs" />
     <Compile Include="ManufacturerCampaignEntity.cs" />
     <Compile Include="ManufacturerCampaign\ConfigureCampaignSave.cs" />
     <Compile Include="ManufacturerCampaign\ManuCamEntityForTemplate.cs" />

@@ -161,7 +161,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                         }
                     }
 
-                    string reverseComparisonText = string.Join(" vs ", bikeList.Reverse());
+                    string reverseComparisonText = string.Join(" vs ", bikeModels.Reverse());
                     ComparisionText = string.Join(" vs ", bikeList);
                     TemplateSummaryTitle = string.Join(" vs ", bikeModels);
                     TargetedModels = string.Join(",", bikeModels);

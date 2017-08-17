@@ -173,7 +173,7 @@ namespace Bikewale.Models
 
                     if(bikeList.Count()==2)
                     {
-                        string reverseComparisonText = string.Join(" vs ", bikeList.Reverse());
+                        string reverseComparisonText = string.Join(" vs ", bikeModels.Reverse());
                         obj.PageMetaTags.Title = string.Format("{0} | {1} - BikeWale", obj.comparisionText, reverseComparisonText);
                     }
                     else
