@@ -32,7 +32,6 @@
                                         <li><a href="/makes/">Makes</a></li>
                                         <li><a href="/content/bikemodels.aspx">Models</a></li>
                                         <li><a href="/content/bikeversions.aspx">Versions</a></li>
-                                        <li><a href="/pageMetas/">Configure Page Metas</a></li>
                                         <li><a href="/content/NewBikeModelColors_New.aspx">Model Colors</a></li>
                                         <li><a href="/content/ModelColorWiseImage.aspx">Model Images By Color</a></li>
                                         <li><a href="/content/expectedlanuches.aspx">Upcoming Bikes</a></li>                                       
@@ -121,4 +120,3 @@
             </ul>
 		</div>--%>
 	    <div class='toast' style='display:none'></div>
-
