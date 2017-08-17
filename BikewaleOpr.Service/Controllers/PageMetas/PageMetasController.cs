@@ -26,8 +26,8 @@ namespace BikewaleOpr.Service.Controllers.PageMetas
         }
 
         /// <summary>
-        /// Created by  :   Sumit Kate on 18 Jan 2017
-        /// Description :   Returns Dealer Campaigns
+        /// Created by  :   sangram Nandkhile on 17-08-2017
+        /// Description :   updates page mets status
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="activecontract"></param>

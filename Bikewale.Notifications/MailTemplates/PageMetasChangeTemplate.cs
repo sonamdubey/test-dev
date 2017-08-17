@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Notifications.MailTemplates
 {
+    /// <summary>
+    /// created by sajal gupta on 17-08-2017
+    /// desc : Added mail template for page metas change
+    /// </summary>
     public class PageMetasChangeTemplate : ComposeEmailBase
     {
         private string PageMetasChangeHtml = null;
