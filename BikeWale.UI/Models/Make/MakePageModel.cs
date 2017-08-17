@@ -287,7 +287,7 @@ namespace Bikewale.Models
             {
                 if (objMakeBase != null && objMakeBase.Metas != null)
                 {
-                    var metas = objMakeBase.Metas.FirstOrDefault(m => m.PageId == (int)(IsMobile ?BikewalePages.Mobile_MakePage : BikewalePages.Mobile_MakePage));
+                    var metas = objMakeBase.Metas.FirstOrDefault(m => m.PageId == (int)(IsMobile ?BikewalePages.Mobile_MakePage : BikewalePages.Desktop_MakePage));
                     if (metas != null)
                     {
                         if (!string.IsNullOrEmpty(metas.Title))
