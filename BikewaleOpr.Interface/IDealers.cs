@@ -16,11 +16,11 @@ namespace BikewaleOpr.Interface
     public interface IDealers
     {
         PQ_DealerDetailEntity GetDealerDetailsPQ(PQParameterEntity objParams);
-        List<FacilityEntity> GetDealerFacilities(uint dealerId);
+        IEnumerable<FacilityEntity> GetDealerFacilities(uint dealerId);
         IEnumerable<DealerMakeEntity> GetDealersByCity(UInt32 cityId);
-        void SaveDealerFacility(uint dealerId, string facility, bool isActive);
+        UInt16 SaveDealerFacility(FacilityEntity objData);
         DataTable GetDealerCities();
-        void UpdateDealerFacility(uint facilityId, string facility, bool isActive);
+        bool UpdateDealerFacility(FacilityEntity objData);
         DataTable GetOfferTypes();
         EMI GetDealerLoanAmounts(uint dealerId);
         List<OfferEntity> GetDealerOffers(int dealerId);
@@ -38,9 +38,9 @@ namespace BikewaleOpr.Interface
         List<DealerDisclaimerEntity> GetDealerDisclaimer(uint dealerId);
         bool EditDisclaimer(uint disclaimerId, string newDisclaimerText);
         #region bike booking amount function declaration
-        List<BookingAmountEntity> GetBikeBookingAmount(uint dealerId);
+        IEnumerable<BookingAmountEntity> GetBikeBookingAmount(uint dealerId);
         bool UpdateBookingAmount(BookingAmountEntityBase objbookingAmtBase);
-        bool SaveBookingAmount(BookingAmountEntity objBookingAmt);
+        bool SaveBookingAmount(BookingAmountEntity objBookingAmt, UInt32 updatedById);
         BookingAmountEntity GetDealerBookingAmount(uint versionId, uint dealerId);
         #endregion
         bool DeleteBookingAmount(uint bookingId);

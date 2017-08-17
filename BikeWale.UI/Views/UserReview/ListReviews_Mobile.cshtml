@@ -11,177 +11,166 @@
     Model.AdTags.Ad_300x100 = true;
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
-<div itemscope itemtype="http://schema.org/Product">
-    <meta itemprop="name" content="@Model.BikeName">
-    @if (Model.RatingsInfo != null)
-    {
-        <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-            <meta itemprop="ratingValue" content="@Model.RatingsInfo.OverallRating.ToString("0.0").TrimEnd('0', '.')">
-            <meta itemprop="worstRating" content="1">
-            <meta itemprop="bestRating" content="5">
-            <meta itemprop="itemreviewed" content="@Model.BikeName" />
-            <meta itemprop="ratingCount" content="@Model.RatingsInfo.TotalRatings" />
-        </span>
-    }
 
-    <section id="section-review-list" data-modelid="@Model.ModelId">
-        <div class="container content-box-shadow card-bottom-margin">
-            <h1 class="font20 padding-15-20 content-box-shadow">@Model.BikeName user reviews</h1>
-            <div class="padding-15-20">
-                <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName Reviews" class="left-grid-image inline-block">
-                    <img src="@Image.GetPathToShowImages(Model.RatingsInfo.OriginalImagePath,Model.RatingsInfo.HostUrl,ImageSize._110x61,QualityFactor._65)" alt="@Model.BikeName Reviews" />
-                </a>
-                <div class="right-grid-details inline-block">
-                    <h2 class="margin-bottom5 font12">
-                        <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName" class="text-black">@Model.BikeName</a>
-                    </h2>
-                    <p class="font11 text-light-grey">@(Model.ReviewsInfo.IsDiscontinued ? "Last known " : "") Ex-showroom, @BWConfiguration.Instance.DefaultName</p>
-                    @Html.Raw("<span class='font16'> &#x20B9;</span>")<span class='text-bold font16'>&nbsp;@Format.FormatPrice(Model.RatingReviewData.Price.ToString())</span>
-                </div>
+
+<section id="section-review-list" data-modelid="@Model.ModelId">
+    <div id="modelName" data-modelName="@Model.RatingsInfo.Model.ModelName" class="container content-box-shadow card-bottom-margin">
+        <h1 class="font20 padding-15-20 content-box-shadow">@Model.BikeName user reviews</h1>
+        <div class="padding-15-20">
+            <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName Reviews" class="left-grid-image inline-block">
+                <img src="@Image.GetPathToShowImages(Model.RatingsInfo.OriginalImagePath,Model.RatingsInfo.HostUrl,ImageSize._110x61,QualityFactor._65)" alt="@Model.BikeName Reviews" />
+            </a>
+            <div class="right-grid-details inline-block">
+                <h2 class="margin-bottom5 font12">
+                    <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName" class="text-black">@Model.BikeName</a>
+                </h2>
+                <p class="font11 text-light-grey">@(Model.ReviewsInfo.IsDiscontinued ? "Last known " : "") Ex-showroom, @BWConfiguration.Instance.DefaultName</p>
+                @Html.Raw("<span class='font16'> &#x20B9;</span>")<span class='text-bold font16'>&nbsp;@Format.FormatPrice(Model.RatingReviewData.Price.ToString())</span>
             </div>
         </div>
-    </section>
-
-    <section>
-        <div class="container content-box-shadow card-bottom-margin content-inner-block-20">
-            <div class="grid-5-inline padding-right15">
-                <div class="overall-rating-box text-center">
-                    <div class="table-cell">
-                        <p class="font12 text-default margin-bottom10">Overall rating:</p>
-                        <div class="margin-bottom10 rate-count-@Math.Round(Model.RatingsInfo.OverallRating)">
-                            <span class="bwmsprite star-icon"></span>
-                            <span class="font26 text-bold inline-block">@Model.RatingsInfo.OverallRating.ToString("0.0").TrimEnd('0', '.')</span>
-                        </div>
-                        <div class="font12 text-slate-grey border-light-top padding-top10">
-                            @if (Model.IsRatingsAvailable)
-                            {
-                                <p class="margin-bottom5">@Model.RatingsInfo.TotalRatings @(Model.RatingsInfo.TotalRatings > 1 ? "ratings" : "rating")</p>
-                            }
-                            @if (Model.IsReviewsAvailable)
-                            {
-                                <p>@Model.RatingsInfo.TotalReviews @(Model.RatingsInfo.TotalReviews > 1 ? "reviews" : "review")</p>
-                            }
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="grid-7-inline">
-                <ul class="horizontal-rating-graph margin-neg5">
-                    <li>
-                        <span class="bwmsprite star-0"></span>
-                        <span class="star-label">&nbsp;5&nbsp;</span>
-                        <span class="graph-bar-bg">
-                            <span style="width: @(Model.RatingsInfo.FiveStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-5"></span>
-                        </span>
-                        <span class="graph-bar-count">@Model.RatingsInfo.FiveStarRatings</span>
-                    </li>
-                    <li>
-                        <span class="bwmsprite star-0"></span>
-                        <span class="star-label">&nbsp;4&nbsp;</span>
-                        <span class="graph-bar-bg">
-                            <span style="width: @(Model.RatingsInfo.FourStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-4"></span>
-                        </span>
-                        <span class="graph-bar-count">@Model.RatingsInfo.FourStarRatings</span>
-                    </li>
-                    <li>
-                        <span class="bwmsprite star-0"></span>
-                        <span class="star-label">&nbsp;3&nbsp;</span>
-                        <span class="graph-bar-bg">
-                            <span style="width: @(Model.RatingsInfo.ThreeStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-3"></span>
-                        </span>
-                        <span class="graph-bar-count">@Model.RatingsInfo.ThreeStarRatings</span>
-                    </li>
-                    <li>
-                        <span class="bwmsprite star-0"></span>
-                        <span class="star-label">&nbsp;2&nbsp;</span>
-                        <span class="graph-bar-bg">
-                            <span style="width: @(Model.RatingsInfo.TwoStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-2"></span>
-                        </span>
-                        <span class="graph-bar-count">@Model.RatingsInfo.TwoStarRatings</span>
-                    </li>
-                    <li>
-                        <span class="bwmsprite star-0"></span>
-                        <span class="star-label">&nbsp;1&nbsp;</span>
-                        <span class="graph-bar-bg">
-                            <span style="width: @(Model.RatingsInfo.OneStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-1"></span>
-                        </span>
-                        <span class="graph-bar-count">@Model.RatingsInfo.OneStarRatings</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
-
-    <section>
-        <div id="bike-rating-box" class="container content-box-shadow card-bottom-margin content-inner-block-20 contest-card">
-            <h2 class="margin-bottom10">Bike Review Contest</h2>
-            <div class="border-solid-bottom padding-bottom15 margin-bottom15">
-                <div class="trophy-icon-wrapper">
-                    <span class="trophy-white-26"></span>
-                </div><p class="contest-slug__label">Write a review and stand a chance to win Amazon vouchers worth &#x20B9;1000</p>
-            </div>
-            <p class="font14 text-black inline-block line-height25">Rate this bike now</p>
-            <div class="answer-star-list inline-block text-right">
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-5" name="rate-bike" value="5">
-                <label class="bwmsprite star-0" for="rate-star-5" data-value="5"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-4" name="rate-bike" value="4">
-                <label class="bwmsprite star-0" for="rate-star-4" data-value="4"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=3&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-3" name="rate-bike" value="3">
-                <label class="bwmsprite star-0" for="rate-star-3" data-value="3"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=2&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-2" name="rate-bike" value="2">
-                <label class="bwmsprite star-0" for="rate-star-2" data-value="2"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=1&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-1" name="rate-bike" value="1">
-                <label class="bwmsprite star-0" for="rate-star-1" data-value="1"></label>
-            </div>
-        </div>
-    </section>
-
-    @Html.Partial("~/Views/UserReview/_UserReviewsSearch_Schema_Mobile.cshtml", Model.UserReviews)
-
-    <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x100_Middle.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>
+</section>
 
-    @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
-    {
-        <section>
-            <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
-                <div class="carousel-heading-content">
-                    <div class="swiper-heading-left-grid inline-block">
-                        <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
+<section>
+    <div class="container content-box-shadow card-bottom-margin content-inner-block-20">
+        <div class="grid-5-inline padding-right15">
+            <div class="overall-rating-box text-center">
+                <div class="table-cell">
+                    <p class="font12 text-default margin-bottom10">Overall rating:</p>
+                    <div class="margin-bottom10 rate-count-@Math.Round(Model.RatingsInfo.OverallRating)">
+                        <span class="bwmsprite star-icon"></span>
+                        <span class="font26 text-bold inline-block">@Model.RatingsInfo.OverallRating.ToString("0.0").TrimEnd('0', '.')</span>
                     </div>
-                    <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="/m@(Model.ExpertReviews.MoreExpertReviewUrl)" title="@string.Format(@"{0} {1} Expert Reviews",Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" class="btn view-all-target-btn">View all</a>
+                    <div class="font12 text-slate-grey border-light-top padding-top10">
+                        @if (Model.IsRatingsAvailable)
+                        {
+                            <p class="margin-bottom5">@Model.RatingsInfo.TotalRatings @(Model.RatingsInfo.TotalRatings > 1 ? "ratings" : "rating")</p>
+                        }
+                        @if (Model.IsReviewsAvailable)
+                        {
+                            <p>@Model.RatingsInfo.TotalReviews @(Model.RatingsInfo.TotalReviews > 1 ? "reviews" : "review")</p>
+                        }
+
                     </div>
-                    <div class="clear"></div>
                 </div>
-
-                @Html.Partial("~/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
-
             </div>
-        </section>
-    }
+        </div>
+        <div class="grid-7-inline">
+            <ul class="horizontal-rating-graph margin-neg5">
+                <li>
+                    <span class="bwmsprite star-0"></span>
+                    <span class="star-label">&nbsp;5&nbsp;</span>
+                    <span class="graph-bar-bg">
+                        <span style="width: @(Model.RatingsInfo.FiveStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-5"></span>
+                    </span>
+                    <span class="graph-bar-count">@Model.RatingsInfo.FiveStarRatings</span>
+                </li>
+                <li>
+                    <span class="bwmsprite star-0"></span>
+                    <span class="star-label">&nbsp;4&nbsp;</span>
+                    <span class="graph-bar-bg">
+                        <span style="width: @(Model.RatingsInfo.FourStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-4"></span>
+                    </span>
+                    <span class="graph-bar-count">@Model.RatingsInfo.FourStarRatings</span>
+                </li>
+                <li>
+                    <span class="bwmsprite star-0"></span>
+                    <span class="star-label">&nbsp;3&nbsp;</span>
+                    <span class="graph-bar-bg">
+                        <span style="width: @(Model.RatingsInfo.ThreeStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-3"></span>
+                    </span>
+                    <span class="graph-bar-count">@Model.RatingsInfo.ThreeStarRatings</span>
+                </li>
+                <li>
+                    <span class="bwmsprite star-0"></span>
+                    <span class="star-label">&nbsp;2&nbsp;</span>
+                    <span class="graph-bar-bg">
+                        <span style="width: @(Model.RatingsInfo.TwoStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-2"></span>
+                    </span>
+                    <span class="graph-bar-count">@Model.RatingsInfo.TwoStarRatings</span>
+                </li>
+                <li>
+                    <span class="bwmsprite star-0"></span>
+                    <span class="star-label">&nbsp;1&nbsp;</span>
+                    <span class="graph-bar-bg">
+                        <span style="width: @(Model.RatingsInfo.OneStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-1"></span>
+                    </span>
+                    <span class="graph-bar-count">@Model.RatingsInfo.OneStarRatings</span>
+                </li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
 
-    @if (Model.SimilarBikeReviewWidget != null && Model.SimilarBikeReviewWidget.Count() > 0)
-    {
-        <section>
-            <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
-                <div class="carousel-heading-content">
-                    <div class="swiper-heading-left-grid inline-block">
-                        <h2 class="h2-heading">Reviews of similar bikes</h2>
-                    </div>
-                    <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="/m/user-reviews/" title="@string.Format(@"{0} {1} User reviews",Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" class="btn view-all-target-btn">View all</a>
-                    </div>
-                    <div class="clear"></div>
-                </div>
+<section>
+    <div id="bike-rating-box" class="container content-box-shadow card-bottom-margin content-inner-block-20 contest-card">
+        <h2 class="margin-bottom10">Bike Review Contest</h2>
+        <div class="border-solid-bottom padding-bottom15 margin-bottom15">
+            <div class="trophy-icon-wrapper">
+                <span class="trophy-white-26"></span>
+            </div><p class="contest-slug__label">Write a review and stand a chance to win Amazon vouchers worth &#x20B9;1000</p>
+        </div>
+        <p class="font14 text-black inline-block line-height25">Rate this bike now</p>
+        <div class="answer-star-list inline-block text-right">
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-5" name="rate-bike" value="5">
+            <label class="bwmsprite star-0" for="rate-star-5" data-value="5"></label>
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-4" name="rate-bike" value="4">
+            <label class="bwmsprite star-0" for="rate-star-4" data-value="4"></label>
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=3&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-3" name="rate-bike" value="3">
+            <label class="bwmsprite star-0" for="rate-star-3" data-value="3"></label>
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=2&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-2" name="rate-bike" value="2">
+            <label class="bwmsprite star-0" for="rate-star-2" data-value="2"></label>
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=1&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-1" name="rate-bike" value="1">
+            <label class="bwmsprite star-0" for="rate-star-1" data-value="1"></label>
+        </div>
+    </div>
+</section>
 
-                @Html.Partial("~/views/UserReview/_SimilarBikeUserReview_Mobile.cshtml", Model.SimilarBikeReviewWidget)
+@Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
 
-            </div>
-        </section>
-    }
-
+<div class="margin-bottom20 text-center">
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x100_Middle.cshtml", new { AdId = Model.AdTags.AdId });}
 </div>
+
+@if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+{
+    <section>
+        <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="/m@(Model.ExpertReviews.MoreExpertReviewUrl)" title="@string.Format(@"{0} {1} Expert Reviews",Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            @Html.Partial("~/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
+
+        </div>
+    </section>
+}
+
+@if (Model.SimilarBikeReviewWidget != null && Model.SimilarBikeReviewWidget.Count() > 0)
+{
+    <section>
+        <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2 class="h2-heading">Reviews of similar bikes</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="/m/user-reviews/" title="@string.Format(@"{0} {1} User reviews",Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            @Html.Partial("~/views/UserReview/_SimilarBikeUserReview_Mobile.cshtml", Model.SimilarBikeReviewWidget)
+
+        </div>
+    </section>
+}
+
+<input type="hidden" id="pageSource" value="@((int)UserReviewPageSourceEnum.Mobile_UserReview_Listing)" />

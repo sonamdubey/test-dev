@@ -26,11 +26,13 @@ namespace Bikewale.Controllers
         private readonly ICityCacheRepository _cityCache = null;
         private readonly ICMSCacheContent _objArticles = null;       
         private readonly IBikeMakesCacheRepository<int> _makesRepository;
-
+        private readonly IUserReviewsCache _userReviewCache = null;
 
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
-        /// Description : Constructor to resolve dependencies
+        /// Description : Constructor to resolve dependencies    
+        /// Modified by: Vivek Singh Tomar on 12th Aug 2017
+        /// Summary: Added IUserReviewsCache to fetch list of winners of user reviews contest
         /// </summary>
         /// <param name="objArticles"></param>
         /// <param name="cityCache"></param>
@@ -40,7 +42,11 @@ namespace Bikewale.Controllers
         /// <param name="objModel"></param>
         /// <param name="userReviewsRepo"></param>
         /// <param name="userReviewsSearch"></param>
-        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo, IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository<int> makesRepository)
+        /// <param name="makesRepository"></param>
+        /// <param name="userReviewCache"></param>
+        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo, 
+            IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, 
+                IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository<int> makesRepository, IUserReviewsCache userReviewCache)
         {
 
             _userReviews = userReviews;
@@ -52,6 +58,7 @@ namespace Bikewale.Controllers
             _userReviewsSearch = userReviewsSearch;
             _objArticles = objArticles;
             _makesRepository = makesRepository;
+            _userReviewCache = userReviewCache;
         }
 
         /// <summary>
@@ -189,13 +196,13 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop, string returnUrl, ushort platformId, ushort? sourceId, int? contestSrc)
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop, string returnUrl, ushort platformId, ushort? sourceId, string utmzCookieValue, int? contestSrc)
         {
 
 
             UserReviewRatingObject objRating = null;
             userName = StringHelper.ToProperCase(userName);
-            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId, returnUrl, platformId, sourceId);
+            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId, returnUrl, platformId, utmzCookieValue, sourceId);
 
 
             string strQueryString = string.Empty;
@@ -438,11 +445,13 @@ namespace Bikewale.Controllers
         /// <summary>
         /// Summary: Controller to fetch contest data
         /// Created by: Sangram Nandkhile on 05 June 2017
+        /// Modified by: Vivek Singh Tomar on 12th Aug 2017
+        /// Summary: Added _userReviewCache to get winners of user review contest
         /// </summary>
         [Route("m/user-reviews/contest/")]
         public ActionResult WriteReviewContest_Mobile(int? csrc)
         {
-            WriteReviewContest objData = new WriteReviewContest(true,_makesRepository);
+            WriteReviewContest objData = new WriteReviewContest(true,_makesRepository, _userReviewCache);
             objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
             return View(objVM);
@@ -452,7 +461,7 @@ namespace Bikewale.Controllers
         [Route("user-reviews/contest/")]
         public ActionResult WriteReviewContest(int? csrc)
         {
-            WriteReviewContest objData = new WriteReviewContest(false,_makesRepository);
+            WriteReviewContest objData = new WriteReviewContest(false, _makesRepository, _userReviewCache);
             objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
             return View(objVM);

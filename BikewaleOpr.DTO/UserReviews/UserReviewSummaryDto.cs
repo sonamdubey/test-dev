@@ -5,6 +5,10 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 namespace BikewaleOpr.DTO.UserReviews
 {
+    /// <summary>
+    /// Modified By Sajal Gupta on 01-08-2017
+    /// Description : Added isWinner
+    /// </summary>
     public class UserReviewSummaryDto
     {
         [JsonProperty("overallRating")]
@@ -45,5 +49,7 @@ namespace BikewaleOpr.DTO.UserReviews
 
         [JsonProperty("isShortListed")]
         public bool IsShortListed { get; set; }
+        [JsonProperty("isWinner")]
+        public bool IsWinner { get; set; }
     }
 }

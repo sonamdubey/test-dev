@@ -40,7 +40,7 @@
                                         <li class="collapsible-body-title teal lighten-4">Manage Prices</li>
                                         <li><a href="/content/showroomprices.aspx">Pricing</a></li>
                                         <li><a href="/content/bulkpriceupload.aspx">Bulk Pricing</a></li>
-                                        <li><a href="/content/pricemonitoring.aspx">Price Monitoring</a></li>
+                                        <li><a href="/pricemonitoring/">Price Monitoring</a></li>
                                         <li class="collapsible-body-title teal lighten-4">Bikewale Dealers</li>
                                         <li><a href="/content/adddealers.aspx">Add delears</a></li>
                                         <li><a href="/content/editdealers.aspx">Edit delears</a></li>
@@ -66,9 +66,10 @@
                                 <div class="collapsible-body teal-text">
                                     <ul>
                                         <li><a href="/newbikebooking/default.aspx">Manage Dealers</a></li>
-                                        <li><a href="/campaign/SearchDealerCampaigns.aspx">Dealer Campaigns</a></li>
-                                        <li><a href="/manufacturercampaign/search/index/">Manufacturer Campaigns</a></li>
+                                        <li><a href="/campaign/SearchDealerCampaigns.aspx">Dealer Campaigns</a></li>                                        
                                         <li><a href="/campaign/ManageDealerPriceCategories.aspx">Dealer Price Categories</a></li>
+                                         <li><a href="/servicecenter/search/">Manage Service Centers</a></li>
+
                                     </ul>
                                 </div>
                             </li>

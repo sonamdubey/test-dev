@@ -349,38 +349,33 @@
             <!-- model emi calculator end -->
 
             <!-- model version prices start -->
-                    if (Model.IsNew && (Model.BikeVersionPrices != null || Model.HasNearestPriceCities))
+                    if (Model.IsNew && (Model.VersionSpecs != null || Model.HasNearestPriceCities))
                     {
                         <div id="versionContent" class="bw-model-tabs-data card-bottom-margin">
-                            @if (Model.BikeVersionPrices != null)
+                            @if (Model.VersionSpecs != null)
                             {
                                 <div class="content-box-shadow card-bottom-margin content-inner-block-20">
+                                    <h2 class="card-h2-heading margin-bottom20">@Model.BikeName price in @Model.CityEntity.CityName</h2>
                                     <table width="100%" cellspacing="0" cellpadding="0">
                                         <thead>
                                             <tr>
-                                                <th colspan="2" align="left" class="padding-bottom10">
-                                                    <h2 class="card-h2-heading">@Model.BikeName price in @Model.CityEntity.CityName (versions)</h2>
-                                                </th>
+                                                <th align="left" width="30%" class="font12 text-light-grey padding-bottom10 border-solid-bottom text-unbold">Variant</th>
+                                                <th align="left" width="35%" class="font12 text-light-grey padding-bottom10 border-solid-bottom text-unbold">Price</th>
+                                                <th align="left" width="35%" class="font12 text-light-grey padding-bottom10 border-solid-bottom text-unbold">Specs</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td align="left" width="72%" class="font12 text-light-grey padding-bottom10 border-solid-bottom">Version</td>
-                                                <td align="left" width="28%" class="font12 text-light-grey padding-bottom10 border-solid-bottom">Price</td>
-                                            </tr>
-
-                                            @foreach (var version in Model.BikeVersionPrices)
+                                            @foreach (var version in Model.VersionSpecs)
                                             {
                                                 <tr>
-                                                    <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@String.Format("{0} {1}", Model.BikeName, version.VersionName)</td>
-                                                    <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(version.OnRoadPrice))</span></td>
+                                                    <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@version.VersionName</td>
+                                                    <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(version.Price))</span></td>
+                                                    <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>                                                    
                                                 </tr>
                                             }
-                                            <tr>
-                                                <td colspan="2" class="padding-top10 font12 text-light-grey">Above mentioned prices are On-road, @Model.CityEntity.CityName</td>
-                                            </tr>
                                         </tbody>
                                     </table>
+                                    <div class="padding-top10 font12 text-light-grey">Above mentioned prices are On-road, @Model.CityEntity.CityName</div>
                                 </div>
                             }
                             <!-- model prices in nearby cities start -->

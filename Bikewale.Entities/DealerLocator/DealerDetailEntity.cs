@@ -51,5 +51,7 @@ namespace Bikewale.Entities.DealerLocator
         public string DisplayTextLarge { get; set; }
         [DataMember]
         public string DisplayTextSmall { get; set; }
+        [DataMember]
+        public bool IsFeatured { get; set; }
     }
 }

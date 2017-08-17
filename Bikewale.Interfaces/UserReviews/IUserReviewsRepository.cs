@@ -7,7 +7,7 @@ namespace Bikewale.Interfaces.UserReviews
 {
     /// <summary>
     /// Modified by sajal gupta on 13-07-2017
-    /// Description : Added SaveUserReviewMileage, GetReviewQuestionValuesByModel
+    /// Description : Added SaveUserReviewMileage, GetReviewQuestionValuesByModel, GetRecentReviews
     /// </summary>
     public interface IUserReviewsRepository
     {
@@ -29,12 +29,11 @@ namespace Bikewale.Interfaces.UserReviews
         bool UpdateReviewUseful(uint reviewId, bool isHelpful);
 
         UserReviewsData GetUserReviewsData();
-        uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId,ushort? sourceId);
+        uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId, string utmzCookieValue, ushort? sourceId);
         bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns);
         UserReviewSummary GetUserReviewSummary(uint reviewId);
         bool IsUserVerified(uint reviewId, ulong customerId);
-        ReviewListBase GetUserReviews();
-        SearchResult GetUserReviewsList(string searchQuery);
+        ReviewListBase GetUserReviews();       
         UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId);
         BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId);
         BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId);
@@ -46,5 +45,8 @@ namespace Bikewale.Interfaces.UserReviews
 
         bool SaveUserReviewMileage(uint reviewId, string mileage);
         QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
+
+        IEnumerable<RecentReviewsWidget> GetRecentReviews();
+        IEnumerable<RecentReviewsWidget> GetUserReviewsWinners();
     }   // class
 }   // namespace

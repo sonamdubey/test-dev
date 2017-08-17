@@ -1,5 +1,5 @@
 ﻿using Bikewale.Utility;
-using BikewaleOpr.common;
+using BikewaleOpr.Cache;
 using BikeWaleOpr.Common;
 using MySql.CoreDAL;
 using System;
@@ -117,6 +117,8 @@ namespace BikeWaleOpr.Content
         /// Modified By : Sushil Kumar on 9th July 2017
         /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
+        /// Modified By : Vivek Singh Tomar on 31st July 2017
+        /// Description : Clear Memcache when new version added
         /// <param name="id"></param>
         /// <returns></returns>
         string SaveData(string id)
@@ -162,6 +164,11 @@ namespace BikeWaleOpr.Content
                         SyncBWData.PushToQueue("BW_AddBikeVersions", DataBaseName.CW, nvc);
                     }
                 }
+                UInt32 modelId = Convert.ToUInt32(Request["cmbModels"]);
+                //Refresh memcache object for version details
+                BwMemCache.ClearVersionDetails(modelId);
+                //Refresh memcache object for versions by type
+                BwMemCache.ClearVersionByType(modelId);
             }
             catch (SqlException err)
             {
@@ -228,6 +235,8 @@ namespace BikeWaleOpr.Content
         /// Modified By : Sushil Kumar on 9th July 2017
         /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
+        /// Modified By : Vivek Singh Tomar on 31st July 2017
+        /// Description : Refresh cache when any of the version is updated
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
@@ -310,7 +319,12 @@ namespace BikeWaleOpr.Content
                 var makeId = Request.Form["cmbMakes"];
 
                 //Refresh memcache object for popularBikes change
-                MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", makeId));
+                BwMemCache.ClearPopularBikesByMakes(Convert.ToUInt32(makeId));
+                UInt32 modelId = Convert.ToUInt32(Request["cmbModels"]);
+                //Refresh memcache object for version details
+                BwMemCache.ClearVersionDetails(modelId);
+                //Refresh memcache object for versions by type
+                BwMemCache.ClearVersionByType(modelId);
             }
             catch (SqlException ex)
             {
@@ -336,6 +350,8 @@ namespace BikeWaleOpr.Content
         /// Modified By : Sushil Kumar on 9th July 2017
         /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
+        /// Modified By : Vivek Singh Tomar on 31st July 2017
+        /// Description : Clear Memcache when any version is deleted
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void dtgrdMembers_Delete(object sender, DataGridCommandEventArgs e)
@@ -366,6 +382,12 @@ namespace BikeWaleOpr.Content
                 uint makeId;
                 uint.TryParse(Request.Form["cmbMakes"], out makeId);
                 deleteVersionMostPopularBikes((uint)_versionId, makeId);
+
+                UInt32 modelId = Convert.ToUInt32(Request["cmbModels"]);
+                //Refresh memcache object for version details
+                BwMemCache.ClearVersionDetails(modelId);
+                //Refresh memcache object for versions by type
+                BwMemCache.ClearVersionByType(modelId);
             }
             catch (SqlException ex)
             {
@@ -400,13 +422,13 @@ namespace BikeWaleOpr.Content
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
 
-                MemCachedUtil.Remove(String.Format("BW_PopularBikesByMake_{0}", makeId));
+                BwMemCache.ClearPopularBikesByMakes(Convert.ToUInt32(makeId));
                 //CLear popularBikes key
 
-                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
-                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
-                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
-                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
+                BwMemCache.ClearPopularBikesCacheKey(null, makeId);
+                BwMemCache.ClearPopularBikesCacheKey(6, makeId);
+                BwMemCache.ClearPopularBikesCacheKey(9, makeId);
+                BwMemCache.ClearPopularBikesCacheKey(9, null);
             }
             catch (Exception ex)
             {

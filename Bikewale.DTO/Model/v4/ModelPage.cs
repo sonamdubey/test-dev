@@ -93,21 +93,6 @@ namespace Bikewale.DTO.Model.v4
         public UInt16 SecondaryDealerCount { get; set; }
 
         [JsonProperty("isPremium")]
-        public bool IsPremium
-        {
-            get
-            {
-                if (PrimaryDealer != null && PrimaryDealer.DealerPkgType == PriceQuote.DealerPackageType.Premium)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }  
-     
-
+        public bool IsPremium { get; set; }
     }
 }

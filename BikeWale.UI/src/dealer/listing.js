@@ -66,12 +66,12 @@ function mapDealersArray() {
     $("ul#dealersList li").each(function () {
         _self = $(this);
         _dealer = new Object();
-        _dealer.id = _self.attr("data-item-id");
-        _dealer.isFeatured = (_self.attr("data-item-type") == "3" || _self.attr("data-item-type") == "2");
-        _dealer.latitude = _self.attr("data-lat");
-        _dealer.longitude = _self.attr("data-log");
-        _dealer.address = _self.attr("data-address");
-        _dealer.name = _self.find(".dealer-name").text();
+        _dealer.id = _self.data("item-id");
+        _dealer.isFeatured = parseInt(_self.data("isfeatured")) > 0;
+        _dealer.latitude = _self.data("lat");
+        _dealer.longitude = _self.data("log");
+        _dealer.address = _self.data("address");
+        _dealer.name = _self.data("dealername");
         _dealer.maskingNumber = _self.attr("data-item-number");
         _dealer.dealermaskingname = _self.attr("data-item-url");
         dealerArr.push(_dealer);

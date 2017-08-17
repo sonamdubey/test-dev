@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.Comparison.Interface;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
@@ -27,19 +28,20 @@ namespace Bikewale.Models
         private readonly IBikeCompareCacheRepository _objCompareCache = null;
         private readonly IBikeCompare _objCompare = null;
         private readonly ICMSCacheContent _compareTest = null;
-
+        private readonly ISponsoredComparison _objSponsored = null;
         public StatusCodes status { get; set; }
         public string redirectionUrl { get; set; }
         private string originalUrl;
         private string _baseUrl = string.Empty, _bikeQueryString = string.Empty, _versionsList = string.Empty;
 
-        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository<int> objMakeCache, string originalUrl)
+        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository<int> objMakeCache, ISponsoredComparison objSponsored, string originalUrl)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objCompareCache = objCompareCache;
             _objCompare = objCompare;
             _objMakeCache = objMakeCache;
             _compareTest = compareTest;
+            _objSponsored = objSponsored;
             this.originalUrl = originalUrl;
 
             ProcessQueryString();
@@ -107,7 +109,14 @@ namespace Bikewale.Models
                 {
                     cityName = BWConfiguration.Instance.DefaultName;
                 }
-                obj.sponsoredVersionId = _objCompare.GetFeaturedBike(_versionsList);
+                var SponsoredBike = _objSponsored.GetSponsoredVersion(_versionsList);
+
+                if (SponsoredBike != null)
+                {
+                    obj.sponsoredVersionId = SponsoredBike.SponsoredVersionId;
+                    obj.KnowMoreLinkUrl = SponsoredBike.LinkUrl;
+                    obj.KnowMoreLinkText = !String.IsNullOrEmpty(SponsoredBike.LinkText) ? SponsoredBike.LinkText : "Know more";
+                }
 
                 if (obj.sponsoredVersionId > 0) _versionsList = string.Format("{0},{1}", _versionsList, obj.sponsoredVersionId);
                 var arrayVersionList = _versionsList.Split(',');
@@ -118,12 +127,6 @@ namespace Bikewale.Models
                 {
                     GetComparisionTextAndMetas(obj);
                     obj.isUsedBikePresent = obj.Compare.BasicInfo.FirstOrDefault(x => x.UsedBikeCount.BikeCount > 0) != null;
-
-
-                    var objFeaturedComparision = obj.Compare.BasicInfo.FirstOrDefault(f => f.VersionId == obj.sponsoredVersionId);
-                    if (objFeaturedComparision != null)
-                        obj.FeaturedBike = Bikewale.Utility.SponsoredComparision.FetchValue(objFeaturedComparision.ModelId.ToString());
-
                 }
 
                 obj.PQSourceId = PQSourceEnum.Desktop_CompareBike;
@@ -137,6 +140,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 09 May 2017
         /// Summary :- Function for GetComparisionTextAndMetas
+        /// Modified By:Snehal Dange on 12th August , 2017
+        /// Description : Added reverseComparisonText for page title
         /// </summary>
         /// <returns></returns>
         private void GetComparisionTextAndMetas(CompareDetailsVM obj)
@@ -161,11 +166,21 @@ namespace Bikewale.Models
                         }
                     }
 
+                    
                     obj.comparisionText = string.Join(" vs ", bikeList);
                     obj.templateSummaryTitle = string.Join(" vs ", bikeModels);
                     obj.targetModels = string.Join(",", bikeModels);
 
-                    obj.PageMetaTags.Title = string.Format("Compare {0} - BikeWale", obj.comparisionText);
+                    if(bikeList.Count()==2)
+                    {
+                        string reverseComparisonText = string.Join(" vs ", bikeModels.Reverse());
+                        obj.PageMetaTags.Title = string.Format("{0} | {1} - BikeWale", obj.comparisionText, reverseComparisonText);
+                    }
+                    else
+                    {
+                        obj.PageMetaTags.Title = string.Format("{0} - BikeWale", obj.comparisionText);
+                    }
+                    
                     obj.PageMetaTags.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";
                     obj.PageMetaTags.Description = string.Format("Compare {0} at Bikewale. Compare Price, Mileage, Engine Power, Features, Specifications, Colours and much more.", string.Join(" and ", bikeList));
                     string compareUrl = CreateCanonicalUrl(obj);

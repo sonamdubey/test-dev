@@ -239,7 +239,9 @@ var bwAutoComplete = function (options) {
             var ulItem = $("<li>")
                           .data("ui-autocomplete-item", item)
                           .append('<span class="bwmsprite ui-search-icon"></span><a OptionName=' + item.label.replace(/\s/g, '').toLowerCase() + '>' + __highlight(item.label, reqTerm) + '</a>');
-
+            if (options.source == '5') {
+                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.userRatingsCount + ' Ratings)</span>')
+            }
             if (options.source == '1') {
                 if (item.payload.modelId > 0) {
                     if (item.payload.futuristic == 'True') {
@@ -326,9 +328,9 @@ var getHost = function () {
 
 function SetCookie(cookieName, cookieValue) {
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /Trident\//.test(navigator.userAgent))
-        document.cookie = cookieName + "=" + cookieValue + '; path =/';
+    { document.cookie = cookieName + "=" + cookieValue + '; path =/'; }
     else
-        document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
+    { document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/'; }
 }
 
 function SetCookieInDays(cookieName, cookieValue, nDays) {
@@ -337,9 +339,9 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
     expire.setTime(today.getTime() + 3600000 * 24 * nDays);
     cookieValue = cookieValue.replace(/\s+/g, '-');
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /Trident\//.test(navigator.userAgent))
-        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
+    { document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/'; }
     else
-        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
+    { document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/'; }
 
     bwcache.remove("userchangedlocation", true);
 }
@@ -1082,10 +1084,12 @@ docReady(function () {
             CloseCityPopUp();
             showGlobalCity(ui.item.label);
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
+            dataLayer.push({ 'GlobalCity': cityName });
+            ga('set', 'dimension3', cityName);
             if (city.cityId) {
                 location.reload();
             }
-            dataLayer.push({ 'GlobalCity': cityName });
+            
         },
         open: function (result) {
             objCity.result = result;

@@ -31,7 +31,7 @@ namespace Bikewale.Entities.PriceQuote.v2
         public DealerPackageTypes DealerPackageType { get; set; }
 
         [JsonProperty("isPremium")]
-        public bool IsPremiumDealer { get { return (DealerPackageType == DealerPackageTypes.Premium ? true : false); } }
+        public bool IsPremiumDealer { get { return (DealerPackageType == DealerPackageTypes.Premium || DealerPackageType == DealerPackageTypes.CPS); } }
 
         [JsonProperty("versions")]
         public IEnumerable<VersionPriceEntity> Versions { get; set; }

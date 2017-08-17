@@ -43,10 +43,19 @@ namespace BikeWaleOpr.Content
             {
                 BindMakes();
                 BindStates();
-
-                hdnSelectedCity.Value = "0";
-                ddlCities.Enabled = false;
-                ddlPriceCities.Enabled = false;
+                if (Request.QueryString["state"] != null && Request.QueryString["city"] != null && Request.QueryString["make"] != null)
+                {
+                    ddlMakes.SelectedValue = Request.QueryString["make"].ToString();
+                    ddlStates.SelectedValue = Request.QueryString["state"].ToString();
+                    hdnSelectedCity.Value = Request.QueryString["city"].ToString();
+                    ShowBikePrices();
+                }
+                else
+                {
+                    hdnSelectedCity.Value = "0";
+                    ddlCities.Enabled = false;
+                    ddlPriceCities.Enabled = false;
+                }
             }
         }
 
@@ -210,6 +219,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Feb 2017
         /// Description :   ClearBWCache
+        /// Modified By : Vivek Singh Tomar on 31 July 2017
+        /// Description : Clear city list cache for model when city prices is updated
         /// </summary>
         private void ClearBWCache()
         {
@@ -226,7 +237,12 @@ namespace BikeWaleOpr.Content
                 {
                     BwMemCache.ClearVersionPrice(model, city);
                 }
+                //To clear price quote for city
+                BwMemCache.ClearPriceQuoteCity(Convert.ToUInt32(model));
+                
             }
+            //To clear new launched bikes cache
+            MemCachedUtil.Remove("BW_NewLaunchedBikes");
         }
 
         /// <summary>

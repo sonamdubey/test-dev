@@ -29,7 +29,7 @@ namespace Bikewale.Cache.UserReviews
         public UserReviewsCacheRepository(ICacheManager cache, IUserReviewsRepository objUserReviews)
         {
             _cache = cache;
-            _objUserReviews = objUserReviews;          
+            _objUserReviews = objUserReviews;
         }
 
         /// <summary>
@@ -96,60 +96,6 @@ namespace Bikewale.Cache.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
-            }
-            return reviews;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="inputFilters"></param>
-        /// <returns></returns>
-        public SearchResult GetUserReviewsList(InputFilters inputFilters, string searchQuery)
-        {
-            SearchResult reviews = null;
-            if (inputFilters != null && (!String.IsNullOrEmpty(inputFilters.Model) || !String.IsNullOrEmpty(inputFilters.Make)))
-            {
-                string key = "BW_UserReviews_MO_V1_" + inputFilters.Model;
-                bool skipDataLimit = (inputFilters.PN * inputFilters.PS) > 24;
-                try
-                {                    
-                    if (inputFilters.SO > 0)
-                    {
-                        key = string.Format("{0}_CAT_{1}", key, inputFilters.SO);
-                    }
-
-                    if (skipDataLimit)
-                    {
-                        key = string.Format("{0}_PN_{1}_PS_{2}", key, inputFilters.PN, inputFilters.PS);
-                    }
-                    else
-                    {
-                        key += "_PN_1_PS_24";
-                    }
-
-                    reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan((skipDataLimit ? 1 : 24), 0, 0), () => _objUserReviews.GetUserReviewsList(searchQuery));
-
-
-                    if (reviews != null && reviews.Result != null && !skipDataLimit)
-                    {
-                        if (inputFilters.PN != 1)
-                        {
-                            reviews.Result = reviews.Result.Skip((inputFilters.PN - 1) * inputFilters.PS);
-                        }
-
-                        reviews.Result = reviews.Result.Take(inputFilters.PS);
-
-                        if (inputFilters.SkipReviewId > 0)
-                        {
-                            reviews.Result = reviews.Result.Where(x => x.ReviewId != inputFilters.SkipReviewId);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
-                }
             }
             return reviews;
         }
@@ -281,7 +227,7 @@ namespace Bikewale.Cache.UserReviews
         /// <param name="modelId"></param>
         /// <returns></returns>
         public IEnumerable<UserReviewSummary> GetUserReviewSummaryList(IEnumerable<uint> reviewIdList)
-        {
+        {            
             IEnumerable<UserReviewSummary> objSummaryList = null;
             Dictionary<string, string> dictIdKeys = null;
             try
@@ -304,6 +250,46 @@ namespace Bikewale.Cache.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewSummaryList");
             }
             return objSummaryList;
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 02-08-2017
+        /// Description : Cache layer to cache recent reviews data
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<RecentReviewsWidget> GetRecentReviews()
+        {
+            IEnumerable<RecentReviewsWidget> objList = null;
+            try
+            {
+                string key = "BW_RecentReviews";
+                objList = _cache.GetFromCache<IEnumerable<RecentReviewsWidget>>(key, new TimeSpan(6, 0, 0), () => _objUserReviews.GetRecentReviews());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetRecentReviews");
+            }
+            return objList;
+        }
+
+        /// <summary>
+        /// Created by: Vivek Singh Tomar On 11th Aug 2017
+        /// Summary: Cache layer to cache user reviews winners
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<RecentReviewsWidget> GetUserReviewsWinners()
+        {
+            IEnumerable<RecentReviewsWidget> objReviewsWinnersList = null;
+            try
+            {
+                string key = "BW_UserReviewsWinners";
+                objReviewsWinnersList = _cache.GetFromCache<IEnumerable<RecentReviewsWidget>>(key, new TimeSpan(6, 0, 0, 0), () => _objUserReviews.GetUserReviewsWinners());
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.UserReviews.UserReviewsCacheRepository.GetUserReviewsWinners");
+            }
+            return objReviewsWinnersList;
         }
     }
 }

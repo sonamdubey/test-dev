@@ -1312,7 +1312,6 @@ namespace BikeWaleOpr.Common
 
                 sb.Append("\nfunction " + DropDownList1 + "_OnChange( e ) {");
                 sb.Append("\nfillChainTwo( '" + DropDownList2 + "', " + DropDownList1 + ", arrayValues, '" + selectString + "' ); }");
-
                 //sb.Append("document.getElementById('" + DropDownList1 + "').trigger('change');");
                 sb.Append("fillChainTwo( '" + DropDownList2 + "', " + DropDownList1 + ", arrayValues, '" + selectString + "' );");
 

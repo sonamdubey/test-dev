@@ -63,7 +63,7 @@ namespace BikewaleOpr.content
                 try
                 {
                     container.RegisterType<IPopularBikeComparisions, PopularBikeComparisionsRepository>()
-                    .RegisterType<IBikeMakes, BikeMakesRepository>()
+                    .RegisterType<IBikeMakesRepository, BikeMakesRepository>()
                     .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                     .RegisterType<IBikeVersions, BikeVersionsRepository>();
 

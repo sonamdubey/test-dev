@@ -5,7 +5,6 @@ var getOfferClick = false, getMoreDetailsClick = false, getEMIClick = false;
 function registerPQAndReload(eledealerId, eleversionId) {
     try {
         var isSuccess = false;
-
         var objData = {
             "dealerId": eledealerId || dealerId,
             "modelId": modelId,
@@ -16,7 +15,8 @@ function registerPQAndReload(eledealerId, eleversionId) {
             "pageUrl": pageUrl,
             "sourceType": 2,
             "pQLeadId": pqSourceId,
-            "deviceId": getCookie('BWC')
+            "deviceId": getCookie('BWC'),
+            "refPQId": typeof pqId != 'undefined' ? pqId : '',
         };
 
         isSuccess = dleadvm.registerPQ(objData);

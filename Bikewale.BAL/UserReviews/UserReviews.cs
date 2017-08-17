@@ -140,7 +140,7 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="userName"></param>
         /// <param name="emailId"></param>
         /// <returns></returns>        
-        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId, ushort? sourceId)
+        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId, string utmzCookieValue, ushort? sourceId)
         {
 
             UserReviewRatingObject objRating = null;
@@ -157,7 +157,7 @@ namespace Bikewale.BAL.UserReviews
 
                 if (!objRating.IsFake)
                 {
-                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, reviewId, returnUrl, platformId, sourceId);
+                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, reviewId, returnUrl, platformId, utmzCookieValue, sourceId);
                     objRating.CustomerId = objCust.CustomerId;
                 }
                 else

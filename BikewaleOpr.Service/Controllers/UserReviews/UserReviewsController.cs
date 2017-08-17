@@ -76,6 +76,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_", inputs.ModelId));
+                        MemCachedUtil.Remove("BW_RecentReviews");
+                        MemCachedUtil.Remove("BW_UserReviewIdMapping");
                     }
 
                 }
@@ -127,7 +129,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             }
             return NotFound();
         }   // Get review details
-        #endregion
+        #endregion       
 
         /// <summary>
         /// Created by Sajal Gupta on 19-06-2017
@@ -156,6 +158,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_", obj.ModelId));
                     }
+                    MemCachedUtil.Remove("BW_UserReviewIdMapping");
                 }
             }
             catch(Exception ex)
@@ -166,6 +169,35 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             return Ok(updateStatus);
         }
 
+        /// <summary>
+        /// Created by sajal Gupta on 01-08-2017
+        /// Descriptiopin : Api to save user review winner
+        /// Modified by: Vivek Singh Tomar on 12th Aug 2017
+        /// Summary: Clear Cache when new winner added
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="moderatedId"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/userreview/markwinner/id/{reviewId}/{moderatedId}/")]
+        public IHttpActionResult SaveUserReviewWinner(uint reviewId, uint moderatedId)
+        {
+            bool updateStatus = false;
+            try
+            {                
+                updateStatus = _userReviewsRepo.SaveUserReviewWinner(reviewId, moderatedId);
+                if (updateStatus)
+                {
+                    //Clear user review contest winners cache when new winner added
+                    MemCachedUtil.Remove("BW_UserReviewsWinners");
+                }               
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateRatingStatus");
+                return InternalServerError();
+            }
+            return Ok(updateStatus);
+        }
 
     }   // class
 }   // namespace

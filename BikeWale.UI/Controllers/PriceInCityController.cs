@@ -6,6 +6,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models;
 using System.Web.Mvc;
 
@@ -31,7 +32,7 @@ namespace Bikewale.Controllers
         private readonly IDealerPriceQuote _objDealerPQ = null;
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IAreaCacheRepository _objAreaCache = null;
-        private readonly Interfaces.IManufacturerCampaign _objManufacturerCampaign = null;
+        private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Constructor to intialize the member variables
@@ -46,7 +47,7 @@ namespace Bikewale.Controllers
         /// <param name="bikeInfo"></param>
         /// <param name="cityCache"></param>
         /// <param name="modelCache"></param>
-        public PriceInCityController(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenterCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, Interfaces.IManufacturerCampaign objManufacturerCampaign)
+        public PriceInCityController(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenterCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;

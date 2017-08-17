@@ -13,7 +13,7 @@ namespace Bikewale.Models
     /// </summary>
     public class CompareDetailsVM : ModelBase
     {
-        public string FeaturedBike { get; set; }
+        public string KnowMoreLinkUrl { get; set; }
         public BikeCompareEntity Compare { get; set; }
         public bool isSponsoredBike { get; set; }
         public Int64 sponsoredVersionId { get; set; }
@@ -25,6 +25,7 @@ namespace Bikewale.Models
         public string templateSummaryTitle { get; set; }
         public IEnumerable<ArticleSummary> ArticlesList { get; set; }
         public PQSourceEnum PQSourceId { get; set; }
-
+        public Bikewale.Comparison.Entities.SponsoredVersionEntityBase SponsoredBike { get; set; }
+        public string KnowMoreLinkText { get; set; }
     }
 }

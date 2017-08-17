@@ -1,4 +1,6 @@
-﻿var reviewId = 0, vmUserReviews, modelReviewsSection, modelid, abusereviewId = 0;
+
+﻿var reviewId = 0, vmUserReviews, modelReviewsSection, modelid, abusereviewId = 0, categoryId=1, pageNumber=1;
+
 
 var helpfulReviews = [];
 
@@ -209,7 +211,7 @@ docReady(function() {
     modelReviewsSection = $("#modelReviewsListing");
 
     reviewId = $('#divReportAbuse').attr('data-reviewId');
-
+    modelName = $('#modelName').attr('data-modelName');
    var vote = bwcache.get("ReviewDetailPage_reviewVote_" + reviewId);
 
     if (vote != null && vote.vote) {
@@ -307,7 +309,7 @@ docReady(function() {
         self.PageUrl = ko.observable();
         self.CurPageNo = ko.observable();
 
-        self.Filters = ko.observable({ pn: 1, ps: 10, model: modelid, so: 2, skipreviewid: reviewId });       
+        self.Filters = ko.observable({ pn: 1, ps: 10, model: modelid, so: 1, skipreviewid: reviewId });       
         self.QueryString = ko.computed(function () {
             var qs = "";
             $.each(self.Filters(), function (i, val) {
@@ -359,7 +361,7 @@ docReady(function() {
             },
 
             getReviews: function (element) {
-                var categoryId = Number(element.attr('data-category')),
+                 categoryId = Number(element.attr('data-category')),
                     pageNumber = Number(element.attr('data-page-num') || 1),
                     categoryCount = Number(element.attr('data-count'));
 
@@ -377,7 +379,8 @@ docReady(function() {
                 else {
                     self.tabEvents.setNoReview(categoryId);
                 }
-
+                
+                triggerGA('User_Reviews', 'Tabs_Clicked', modelName + ' _Clicked_on_' + reviewCategory[categoryId]);
                 self.getUserReviews();
             },
 
@@ -444,7 +447,7 @@ docReady(function() {
                         self.TotalReviews(activeReviewCat.attr('data-count'));
                         activeReviewCat.attr('data-page-num', pnum);
                     }
-
+                    pageNumber = pnum;
                     self.CurPageNo(pnum);
                     self.getUserReviews();                    
                 }
@@ -463,16 +466,16 @@ docReady(function() {
 
             if (self.PreviousQS() != qs) {
                 self.IsLoading(true);                
-                var apiUrl = "/api/user-reviews/d/search/?reviews=true&" + qs;
+                var apiUrl = "/api/user-reviews/search/?reviews=true&" + qs;
                 $.getJSON(apiUrl)
                 .done(function (response) {
-                    if (response && response.resultDesktop) {
+                    if (response && response.result) {
                         self.IsApiData(true);
-                        self.activeReviewList(response.resultDesktop);
+                        self.activeReviewList(response.result);
                         self.TotalReviews(response.totalCount);
                         self.noReviews(false);                                                
                         var listItem = $('.user-review-list .list-item');
-                        for (var i = listItem.length; i >= response.resultDesktop.length; i--) {
+                        for (var i = listItem.length; i >= response.result.length; i--) {
                             $(listItem[i]).remove();
                             applyLikeDislikes();
                         }
@@ -515,24 +518,22 @@ docReady(function() {
         };
     };
 
-    
-    $(document).on("click", "#pagination-list-content ul li, .pagination-control-prev a, .pagination-control-next a", function (e) {
+
+    $(document).on("click", "#pagination-list-content ul li, .pagination-control-prev a, .pagination-control-next a,#overallSpecsTab .overall-specs-tabs-wrapper a", function (e) {
         e.preventDefault();
         if (!vmUserReviews.IsInitialized()) {
-            vmUserReviews.init(e);
-        }
-        vmUserReviews.ChangePageNumber(e);
-    });
-
-    vmUserReviews = new modelUserReviews();
-    $("#overallSpecsTab div a, #pagination-list-content ul li").click(function (e) {
-        if (vmUserReviews && !vmUserReviews.IsInitialized()) {
             vmUserReviews.IsLoading(true);
             $('html, body').scrollTop(modelReviewsSection.offset().top);
             vmUserReviews.init(e);
-            return false;
+
         }
-    });   
+        else {
+            vmUserReviews.ChangePageNumber(e);
+        }
+
+    });
+
+    vmUserReviews = new modelUserReviews();  
 
     $window = $(window);
     overallSpecsTabsContainer = $('#overallTabsWrapper');
@@ -601,16 +602,41 @@ docReady(function() {
     if (chkRating2)
         document.getElementById('rate-bikestar-' + parseInt(chkRating2)).checked = false;
 });
+function logBhrighu(e) {
 
-function updateView(e) {
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+    $.each(vmUserReviews.activeReviewList(), function (i, val) {
+        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
+            index = i + 1;
+
+        }
+
+    });
+    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index + (pageNumber - 1) * 10) + '|PageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("TitleClick", label);
+}
+
+
+    function updateView(e) {
+        // for bhrigu updation
+    var index =Number(e.currentTarget.getAttribute('data-id')) +1;
+    $.each(vmUserReviews.activeReviewList(), function (i, val) {
+        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
+            index = i + 1;
+
+        }
+    });
+    label = 'ModelId=' + modelid + '|TabName=' +reviewCategory[categoryId] + '|ReviewOrder=' + (index +(pageNumber - 1) * 10) + '|PageSource=' +$('#pageSource').val();
+    cwTracking.trackUserReview("ReadMoreClick", label);
+
     try {
         var reviewId = e.currentTarget.getAttribute("data-reviewid");
         $.ajax({
-            type: "POST",
-            url: "/api/user-reviews/updateView/" + reviewId + "/",
-            success: function (response) {                
-            }
-        });
+                type: "POST",
+                url: "/api/user-reviews/updateView/" + reviewId + "/",
+                success: function (response) {
+        }
+    });
     } catch (e) {
         console.log(e);
     }

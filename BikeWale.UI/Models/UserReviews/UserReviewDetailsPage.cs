@@ -174,12 +174,14 @@ namespace Bikewale.Models.UserReviews
             try
             {
                 InputFilters filters = null;
+                // Set default category to be loaded here
+                FilterBy activeReviewCateory = FilterBy.MostHelpful;
                 if (!IsDesktop)
                 {
                     filters = new InputFilters()
                     {
                         Model = _modelId.ToString(),
-                        SO = 1,
+                        SO = (ushort)activeReviewCateory,
                         PN = 1,
                         PS = 8,
                         Reviews = true,
@@ -191,7 +193,7 @@ namespace Bikewale.Models.UserReviews
                     filters = new InputFilters()
                     {
                         Model = _modelId.ToString(),
-                        SO = 1,
+                        SO = (ushort)activeReviewCateory,
                         PN = 1,
                         PS = 10,
                         Reviews = true,
@@ -201,14 +203,13 @@ namespace Bikewale.Models.UserReviews
 
 
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
+                objUserReviews.IsDesktop = IsDesktop;
+
                 if (objUserReviews != null)
                 {
-                    objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;                   
-
-                    if (IsDesktop)
-                        objPage.UserReviews = objUserReviews.GetDataDesktop();
-                    else
-                        objPage.UserReviews = objUserReviews.GetData();
+                    objUserReviews.ActiveReviewCateory = activeReviewCateory;                   
+                   
+                    objPage.UserReviews = objUserReviews.GetData();                   
 
                     if(objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
                         objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0}", objPage.UserReviewDetailsObj.Model.ModelName);

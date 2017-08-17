@@ -187,7 +187,6 @@ namespace Bikewale.New
                                 if (modelArray.Contains(featuredModelId))
                                 {
                                     isSponsored = true;
-                                    knowMoreHref = Bikewale.Utility.SponsoredComparision.FetchValue(featuredModelId);
                                 }
                             }
                         }

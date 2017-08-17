@@ -104,5 +104,92 @@ namespace BikewaleOpr.Cache
                 ErrorClass objErr = new ErrorClass(ex, "ClearUserReviewsCache");
             }
         }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 3rd Aug 2017
+        /// Summary : Function to clear price quote details for given model id
+        /// </summary>
+        /// <param name="modelId"></param>
+        public static void ClearPriceQuoteCity(uint modelId)
+        {
+            try
+            {
+                MemCachedUtil.Remove(string.Format("BW_PQCity_{0}", modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearPriceQuoteCity");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 3rd Aug 2017
+        /// Summmary : Function to clear version details for given model id
+        /// </summary>
+        /// <param name="modelId"></param>
+        public static void ClearVersionDetails(uint modelId)
+        {
+            try
+            {
+                MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearVersionDetails");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 3rd Aug 2017
+        /// Summary : Function to clear popular bikes by makes
+        /// </summary>
+        /// <param name="modelId"></param>
+        public static void ClearPopularBikesByMakes(uint modelId)
+        {
+            try
+            {
+                MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{ 0}", modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearPopularBikesByMakes");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 3rd Aug 2017
+        /// Summary : Function to clear upcoming bikes
+        /// </summary>
+        public static void ClearUpcomingBikes()
+        {
+            try
+            {
+                MemCachedUtil.Remove(string.Format("BW_UpcomingModels"));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearUpcomingBikes");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 3rd Aug 2017
+        /// Summary : Function to clear version by type cache
+        /// </summary>
+        /// <param name="modelId"></param>
+        public static void ClearVersionByType(UInt32 modelId)
+        {
+            try
+            {
+                MemCachedUtil.Remove(string.Format("BW_VersionsByType_{0}_MO_{1}", 2, modelId)); // for new
+                MemCachedUtil.Remove(string.Format("BW_VersionsByType_{0}_MO_{1}", 4, modelId)); // for upcoming
+                MemCachedUtil.Remove(string.Format("BW_VersionsByType_{0}_MO_{1}", 7, modelId)); // for all 
+                MemCachedUtil.Remove(string.Format("BW_VersionsByType_{0}_MO_{1}", 16, modelId)); // for videos
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearVersionByType");
+            }
+        }
     }
 }

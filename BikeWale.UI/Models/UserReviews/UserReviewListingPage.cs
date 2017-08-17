@@ -2,6 +2,7 @@
 using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
@@ -100,12 +101,15 @@ namespace Bikewale.Models.UserReviews
             {                
 
                 InputFilters filters = null;
+
+                // Set default category to be loaded here
+                FilterBy activeReviewCateory = FilterBy.MostRecent;
                 if (!IsDesktop)
                 {
                     filters = new InputFilters()
                     {
                         Model = _modelId.ToString(),
-                        SO = 2,
+                        SO = (ushort)activeReviewCateory,
                         PN = (int)(PageNumber.HasValue ? PageNumber.Value : 1),
                         PS = 8,
                         Reviews = true
@@ -117,7 +121,7 @@ namespace Bikewale.Models.UserReviews
                     filters = new InputFilters()
                     {
                         Model = _modelId.ToString(),
-                        SO = 2,
+                        SO = (ushort)activeReviewCateory,
                         PN = (int)(PageNumber.HasValue ? PageNumber.Value : 1),
                         PS = 10,
                         Reviews = true
@@ -129,23 +133,17 @@ namespace Bikewale.Models.UserReviews
                 if (objData.RatingsInfo != null)
                 {
                     var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _objUserReviewCache, _userReviewsSearch);
-                    objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostHelpful;
+                    objUserReviews.ActiveReviewCateory = activeReviewCateory;
                     if (objUserReviews != null)
                     {
-                        objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostHelpful;
-
                         if (objData.ReviewsInfo != null)
                         {
                             objData.ReviewsInfo.Make = objData.RatingsInfo.Make;
                             objData.ReviewsInfo.Model = objData.RatingsInfo.Model;
                             objData.ReviewsInfo.IsDiscontinued = objData.RatingsInfo.IsDiscontinued;
                             objUserReviews.ReviewsInfo = objData.ReviewsInfo;
-                        }
-
-                        if(IsDesktop)
-                            objData.UserReviews = objUserReviews.GetDataDesktop();
-                        else
-                            objData.UserReviews = objUserReviews.GetData();
+                        }                        
+                            objData.UserReviews = objUserReviews.GetData();                        
 
                         objData.UserReviews.WidgetHeading = string.Format("Reviews on {0}", objData.RatingsInfo.Model.ModelName);
 

@@ -2,41 +2,35 @@
 @if (Model.IsShowPriceTab)
 {
     <div id="pricesContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin padding-top15 content-details-wrapper">
-            <h2 class="padding-right20 padding-left20">@Model.BikeName Price List</h2>
-        <div class="font14 text-light-grey line-height16  margin-bottom10 padding-right20 padding-left20">
-            @Html.Raw(Model.VersionPriceListSummary)
-
-
-        </div>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 margin-bottom20">
+            <h2 class="padding-right20 padding-left20">@Model.BikeName Price</h2>
+        @*<h3 class="padding-right20 padding-left20">@Model.BikeName Price (variants)</h3>*@
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20">
                 <thead>
                     <tr>
-                        <th align="left" colspan="2"><h3>@Model.BikeName Price (versions)</h3></th>
+                        <th width="30%" class="text-left font12 text-unbold text-x-light padding-bottom5 border-solid-bottom text-unbold">Variant</th>
+                        <th width="35%" class="text-left font12 text-unbold text-x-light padding-bottom5 border-solid-bottom text-unbold">Price</th>
+                        <th width="35%" class="text-left font12 text-unbold text-x-light padding-bottom5 border-solid-bottom text-unbold">Specs</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td width="65%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Version</td>
-                        <td width="35%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Price</td>
-                    </tr>
+                    
                     @foreach (var version in Model.ModelPageEntity.ModelVersions)
                     {
                         <tr>
-                            <td width="65%" class="padding-bottom10 padding-top10 padding-right10 font14 divider-bottom" valign="top">@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.ModelName, version.VersionName)</td>
-                            <td width="35%" class="padding-bottom10 padding-top10 divider-bottom" valign="top">
-                                @Html.Raw("<span class='font16' >&#x20B9;</span>")
-                                <span id="priced_@version.VersionId" class="font16 text-bold">
+                            <td width="30%" class="padding-bottom10 padding-top10 padding-right10 font14 divider-bottom" valign="top">@version.VersionName</td>
+                            <td width="35%" class="padding-bottom10 padding-top10 divider-bottom padding-right10" valign="top">
+                                @Html.Raw("<span class='font14' >&#x20B9;</span>")
+                                <span id="priced_@version.VersionId" class="font14 text-bold">
                                     <span>@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
                                 </span>
                             </td>
+                            <td width="35%" class="padding-bottom10 padding-top10 padding-right10 font14 divider-bottom" valign="top">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ?  "Alloy" :"Spoke")</td>
                         </tr>
                     }
-                    <tr>
-                        <td colspan="2" class="padding-top5 font12 text-x-light">Above mentioned prices are @(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</td>
-
-                    </tr>
                 </tbody>
             </table>
+
+        <div class="font12 text-x-light padding-right20 padding-left20 margin-bottom20 padding-top5">Above mentioned prices are @(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</div>
 
         @if (Model.IsPriceInTopCitiesAvailable)
         {
@@ -62,6 +56,10 @@
                 </div>
             }
         }
+
+        <div class="font14 text-light-grey line-height16 padding-bottom20 padding-right20 padding-left20">
+            @Html.Raw(Model.VersionPriceListSummary)
+        </div>
 
     </div>
 }

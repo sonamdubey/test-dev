@@ -39,7 +39,7 @@ namespace Bikewale.Cache.DealersLocator
         public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId, uint modelId = 0)
         {
             Entities.DealerLocator.DealersEntity dealers = null;
-            string key = modelId > 0 ? String.Format("BW_DealerList_Make_{0}_{1}_City_{2}", makeId, modelId, cityId) : String.Format("BW_DealerList_Make_{0}_City_{1}", makeId, cityId);
+            string key = modelId > 0 ? String.Format("BW_DealerList_Make_{0}_{1}_City_{2}_v1", makeId, modelId, cityId) : String.Format("BW_DealerList_Make_{0}_City_{1}_v1", makeId, cityId);
             try
             {
                 TimeSpan cacheTime = new TimeSpan(1, 0, 0);
@@ -70,7 +70,7 @@ namespace Bikewale.Cache.DealersLocator
         public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId)
         {
             DealerBikesEntity models = null;
-            string key = String.Format("BW_DealerBikeModel_{0}", dealerId);
+            string key = String.Format("BW_DealerBikeModel_v1_{0}", dealerId);
             try
             {
                 models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(0, 30, 0), () => _objDealersRepository.GetDealerDetailsAndBikes(dealerId, campaignId));
@@ -90,7 +90,7 @@ namespace Bikewale.Cache.DealersLocator
         public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
             DealerBikesEntity models = null;
-            string key = String.Format("BW_DealerBikeModel_{0}_{1}", dealerId, makeId);
+            string key = String.Format("BW_DealerBikeModel_v1_{0}_{1}", dealerId, makeId);
             try
             {
                 models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(0, 30, 0), () => _objDealersRepository.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId));
