@@ -41,6 +41,7 @@ namespace Bikewale.Controllers
         private readonly IServiceCenter _serviceCenter = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
+       
         public ScootersController(IBikeMakes<BikeMakeEntity, int> objMakeRepo, IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompare compareScooters, IDealerCacheRepository dealerCache, IBikeMakesCacheRepository<int> objMakeCache, IBikeModels<BikeModelEntity, int> objBikeModel, IBikeMakes<BikeMakeEntity, int> objMakeRepor, IServiceCenter serviceCenter, ICMSCacheContent articles, IVideos videos)
         {
             _newLaunches = newLaunches;
@@ -55,6 +56,9 @@ namespace Bikewale.Controllers
             _articles = articles;
             _videos = videos;
         }
+
+      
+
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -280,5 +284,31 @@ namespace Bikewale.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Created by : Snehal Dange on 17th August , 2017
+        /// Summmary   : Action method to render Scooter news - Desktop
+        /// </summary>
+        [Route("scooters/news/")]
+        public ActionResult Index_News()
+        {
+            NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _objMakeCache, _objBikeModel, _upcoming, _renderedArticles);
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.redirectUrl);
+            }
+            else
+            {
+                NewsIndexPageVM objData = obj.GetData(4);
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/pagenotfound.aspx");
+                else
+                    return View(objData);
+            }
+        }
     }
 }

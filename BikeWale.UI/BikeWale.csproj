@@ -3769,6 +3769,7 @@
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel_Mobile.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
+    <Content Include="Views\Scooters\News.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
