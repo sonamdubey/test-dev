@@ -291,9 +291,10 @@
 
 .report-abuse-label {
   display: block;
-  color: #82888b; }
+  color: #82888b;
+  font-size: 12px; }
 
-.collapsible-content.active ~ .review-block {
+.collapsible-content.active ~ .report-abuse-label {
   display: inline; }
 
 .collapsible-content.main-content-off.active .main-content {
@@ -443,40 +444,6 @@
   padding-left: 10px;
   margin-left: 10px; }
 
-/*.btn-inv-teal-group {
-  font-family: "Open Sans", sans-serif, Arial;
-  font-size: 14px;
-  color: #82888b;
-  padding: 0;
-  background: transparent;
-  border: 1px solid #d5d5d5; }
-  .btn-inv-teal-group span {
-    display: inline-block;
-    vertical-align: middle; }
-  .btn-inv-teal-group .btn-label-grid,
-  .btn-inv-teal-group .btn-count {
-    padding: 2px 6px;
-    background: transparent; }
-  .btn-inv-teal-group .btn-label-grid {
-    border-right: 1px solid #d5d5d5; }
-  .btn-inv-teal-group .btn-label {
-    position: relative;
-    top: -1px;
-    padding-left: 3px; }
-  .btn-inv-teal-group.active {
-    border-color: #41b4c4;
-    pointer-events: none; }
-    .btn-inv-teal-group.active .btn-label-grid {
-      color: #fff;
-      background: #41b4c4;
-      border-right-color: #41b4c4; }
-    .btn-inv-teal-group.active .btn-count {
-      color: #41b4c4; }
-    .btn-inv-teal-group.active .like-sm {
-      background-position: -105px -773px; }
-    .btn-inv-teal-group.active .dislike-sm {
-      background-position: -122px -773px; }*/
-
 .star-0,
 .star-1 {
   width: 26px;
@@ -510,6 +477,48 @@
     padding-left: 10px; }
   .horizontal-rating-graph .graph-bar-bg {
     width: 55%; } }
+
+.review-title {
+  color: #1a1a1a; }
+
+.review-block {
+  padding-top: 15px;
+  margin-top: 15px;
+  border-top: 1px solid #EEEEEE; }
+
+.review__question {
+  font-size: 12px;
+  color: #82888B;
+  padding-right: 6px; }
+
+.feedback-button {
+  font-size: 12px;
+  min-width: 60px;
+  background: white;
+  margin: 0 4px;
+  padding: 7px;
+  color: #82888B;
+  border: 1px solid #E2E2E2;
+  border-radius: 2px;
+  cursor: pointer; }
+
+.feedback-button.active {
+  border-color: #41B4C4;
+  background: #41B4C4;
+  color: white;
+  pointer-events: none; }
+
+.feedback-button .like-sm,
+.feedback-button .dislike-sm {
+  opacity: 0.6; }
+
+.feedback-button.active .like-sm {
+  opacity: 1;
+  background-position: -105px -773px; }
+
+.feedback-button.active .dislike-sm {
+  opacity: 1;
+  background-position: -122px -773px; }
 
 .overall-tabs {
   height: 45px; }
@@ -864,45 +873,3 @@
   top: 10px;
   right: 10px;
   cursor: pointer; }
-
-/* review list starts here */
-.feedback-button {
-	font-size: 12px;
-	min-width: 60px;
-	background: white;
-	margin: 0 1px;
-	padding: 3px; 
-	color: #82888B;
-	border: 1px solid #E2E2E2;
-	border-radius: 2px;
-}
-
-.about-reviewer-list li {
-    border:none;
-}	
-
-.feedback-button.active {
-    border-color: #41B4C4;
-    background:#41B4C4;
-    color:white;
-    pointer-events: none;
-}
-.review-title {
-    color:black;
-}
-.feedback-button.active .like-sm {
-    background-position: -94px -624px;
-}
-.overall-circle-list {
-	border-bottom: 1px solid #e2e2e2;
-	padding-bottom: 10px;
-	margin-top: 5px;
-}
-
-.overall-circle-list.rating-circle-list li {
-	margin-right: 30px;
-}
-
-.review-block {
-    display:none;
-}
