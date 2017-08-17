@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.SEO;
+using Bikewale.Entities.Pages;
 
 namespace Bikewale.Models
 {
@@ -286,7 +287,7 @@ namespace Bikewale.Models
             {
                 if (objMakeBase != null && objMakeBase.Metas != null)
                 {
-                    var metas = objMakeBase.Metas.FirstOrDefault(m => m.PageId == (IsMobile ? 2 : 1));
+                    var metas = objMakeBase.Metas.FirstOrDefault(m => m.PageId == (int)(IsMobile ?BikewalePages.Mobile_MakePage : BikewalePages.Mobile_MakePage));
                     if (metas != null)
                     {
                         if (!string.IsNullOrEmpty(metas.Title))

@@ -37,16 +37,15 @@ namespace Bikewale.Service.Controllers.Make
         /// <param name="makeId"></param>
         /// <returns>Make Details </returns>
         [ResponseType(typeof(MakeBase))]
-        public IHttpActionResult Get(string makeId)
+        public IHttpActionResult Get(uint makeId)
         {
             BikeMakeEntityBase objMake = null;
             MakeBase objDTOMakeBase = null;
-            uint bikeMakeId = default(uint);
             try
             {
-                if (!string.IsNullOrEmpty(makeId) && uint.TryParse(makeId,out bikeMakeId))
+                if (makeId > 0)
                 {
-                    objMake = _bikeMakes.GetMakeDetails(bikeMakeId);
+                    objMake = _bikeMakes.GetMakeDetails(makeId);
 
                     if (objMake != null)
                     {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.SEO
 {
+    [Serializable]
     public class CustomPageMetas
     {
         public uint PageId { get; set; }

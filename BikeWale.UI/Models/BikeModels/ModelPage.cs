@@ -42,6 +42,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
+using Bikewale.Entities.Pages;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -657,7 +658,7 @@ namespace Bikewale.Models.BikeModels
             {
                 if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.Metas != null)
                 {
-                    var metas = _objData.ModelPageEntity.ModelDetails.Metas.FirstOrDefault(m => m.PageId == (IsMobile ? 3 : 4));
+                    var metas = _objData.ModelPageEntity.ModelDetails.Metas.FirstOrDefault(m => m.PageId == (int)(IsMobile ? BikewalePages.Mobile_ModelPage : BikewalePages.Desktop_ModelPage));
 
                     if (metas != null)
                     {
