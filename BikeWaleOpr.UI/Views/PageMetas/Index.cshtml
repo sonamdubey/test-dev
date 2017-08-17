@@ -1,0 +1,88 @@
+﻿@model BikewaleOpr.Models.ConfigurePageMetas.ConfigurePageMetaSearchVM
+@{
+    ViewBag.Title = "Page Metas";
+    ViewBag.PageTitle = "Bikewale Operations - Page Metas";
+}
+<div class="row" style="margin-top:10px;">
+    <div class="col m10">
+        <div id="tblBanners" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]">
+            <table class="bordered highlight z-depth-3 centered responsive-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Page</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Last Updated</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                        <th>Update</th>
+                    </tr>
+                </thead>
+                @if (Model != null && Model.PageMetaList != null && Model.PageMetaList.Count() > 0)
+                {
+                    <tbody>
+                        @foreach (var item in Model.PageMetaList)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.PageName</td>
+                                <td>@item.MakeName</td>
+                                <td>@item.ModelName</td>
+                                <td>@(item.UpdatedDate != null && item.UpdatedDate != DateTime.MinValue ? item.UpdatedDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
+                                <td>@(item.IsActive ? "Active" : "InActive")</td>
+                                <td>
+                                    <a target="_blank" href="/PageMetas/add?id=@item.Id" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit page meta"><i class="material-icons icon-blue">mode_edit</i></a>
+                                </td>
+                                @if (item.IsActive)
+                                {
+                                    <td>
+                                        <a data-pagemetaid="@item.Id" data-setstatus="0" href="javascript:void(0)" class="tooltipped update-status" data-position="bottom" data-delay="50" data-tooltip="Delete page meta"><i class="material-icons icon-red">delete</i></a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <a data-pagemetaid="@item.Id" data-setstatus="1" href="javascript:void(0)" class="tooltipped update-status" data-position="bottom" data-delay="50" data-tooltip="Activate page meta"><i class="material-icons icon-green">play_circle_outline</i></a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                }
+            </table>
+        </div>
+    </div>
+    <div class="col s2 m2">
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header active"><strong>Page Metas Filter</strong></div>
+                <div class="collapsible-body">
+                    <div class="container">
+                        <div class="input-field row s12">
+                            <input name="group1" type="radio" id="chkFilter1" value="1" class="with-gap" @(Model.PageMetaStatus == 1 ? "checked" : "") />
+                            <label for="chkFilter1">Show Active</label>
+                            <input name="group1" type="radio" id="chkFilter2" value="0" class="with-gap" @(Model.PageMetaStatus == 0 ? "checked" : "") />
+                            <label for="chkFilter2">Show Inactive</label>
+                            @*<input name="group1" type="radio" id="chkFilter3" value="2" class="with-gap" @(Model.PageMetaStatus == 2 ? "checked" : "") />
+                            <label for="chkFilter3">Show All</label>*@
+                        </div>
+                        <div style="margin-bottom:5px;">
+                            <a class="btn waves-effect waves-light" onclick="Show()">Show</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><strong>Add Page Meta</strong></div>
+                <div class="collapsible-body">
+                    <div class="input-field row s12" style="margin-left:20px">
+                        <a target="_blank" class="btn waves-effect waves-light" href="/PageMetas/add/">Add new</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<script src="/src/pagemetasearch.js"></script>

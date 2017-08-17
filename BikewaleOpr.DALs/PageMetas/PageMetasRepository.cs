@@ -12,7 +12,13 @@ using System.Threading.Tasks;
 
 namespace BikewaleOpr.DALs.ConfigurePageMetas
 {
-    public class ConfigurePageMetasRepository : IConfigurePageMetasRepository
+    /// <summary>
+    /// Created by: Sangram Nandkhile on 17-Aug-2017
+    /// Summary: DAL for Page meta repository
+    /// 
+    /// </summary>
+    /// <seealso cref="BikewaleOpr.Interface.ConfigurePageMetas.IPageMetasRepository" />
+    public class PageMetasRepository : IPageMetasRepository
     {
         public IEnumerable<PageEntity> GetPagesList()
         {
@@ -29,7 +35,7 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ConfigurePageMetasRepository.GetPagesList"));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasRepository.GetPagesList"));
             }
             return objPageList;
         }
@@ -54,10 +60,11 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ConfigurePageMetasRepository.GetPageMetas_pageMetaStatus : {0}", pageMetaStatus));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasRepository.GetPageMetas_pageMetaStatus : {0}", pageMetaStatus));
             }
             return objPageMetasList;
         }
+
         public uint SavePageMetas(PageMetasEntity objMetas)
         {
             uint pageMetaId = 0;            
@@ -85,7 +92,7 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ConfigurePageMetasRepository.GetPagesList"));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasRepository.GetPagesList"));
             }
             return pageMetaId;
         }
@@ -107,9 +114,32 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ConfigurePageMetasRepository.GetPageMetasById"));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasRepository.GetPageMetasById"));
             }
             return objPageMetas;
+        }
+
+        public bool UpdatePageMetaStatus(uint id, ushort status)
+        {
+            bool result = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_id", id);
+                    param.Add("par_status", status);
+                    
+                    connection.Execute("setpagemetastatus", param: param, commandType: CommandType.StoredProcedure);
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasRepository.UpdatePageMetaStatus: id:{0}", id));
+            }
+            return result;
         }
     }
 }
