@@ -90,7 +90,7 @@
 
                                     <!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
                                     <div class="about-reviewer-content">
-										<p class="text-grey text-bold">About the reviewer</p>
+										<p class="text-grey text-bold hide" data-bind="css: ($data.ratingQuestionsCount > 0) ? 'show' : '' ">About the reviewer</p>
                                         <ul data-bind="css: 'about-reviewer-list item-count-' +  $data.ratingQuestionsCount ">
                                             <!-- ko foreach: $data.questions -->
                                             <!-- ko if : $data.qtype == 1 -->

@@ -106,6 +106,12 @@ function voteListUserReview(vote, locReviewId) {
     }
 }
 
+function resetCollapsibleContent() {
+    var activeCollapsible = $('.user-review-list').find('.collapsible-content.active');
+    activeCollapsible.removeClass('active');
+    activeCollapsible.find('.read-more-target').text('...Read more');
+}
+
 function applyLikeDislikes() {
     try {
         $(".upvoteListButton").each(function () {
@@ -579,6 +585,8 @@ docReady(function () {
 
 
             self.PreviousQS(qs);
+
+            resetCollapsibleContent();
         };
 
         self.setPageFilters = function (e) {
