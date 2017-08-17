@@ -964,6 +964,7 @@
     <Compile Include="Models\ComparisonTest\ComparisonTestWidget.cs" />
     <Compile Include="Models\ComparisonTests\ComparisonTestsIndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\ExpertReviews\ScooterExpertReviewsPage.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
@@ -3769,6 +3770,8 @@
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel_Mobile.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\Scooters.cshtml" />
+    <Content Include="Views\ExpertReviews\Scooters_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

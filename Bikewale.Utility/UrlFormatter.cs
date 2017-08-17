@@ -467,6 +467,26 @@ namespace Bikewale.Utility
         {
             return String.Format("/content/userreviews/writereviews.aspx?bikem={0}", modelId);
         }
+
+        /// <summary>
+        /// Created by: Vivek Singh Tomar on 18th Aug 2017
+        /// Summary: Format Scooter's expert review url
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <returns></returns>
+        public static string FormatScootersExpertReviewUrl(string makeMaskingName)
+        {
+            string url = string.Empty;
+            if (String.IsNullOrEmpty(makeMaskingName))
+            {
+                url = "/scooters/expert-reviews/";
+            }
+            else
+            {
+                url = String.Format("/{0}-scooters/expert-reviews/", makeMaskingName);
+            }
+            return url;
+        }
     }
 }
 
