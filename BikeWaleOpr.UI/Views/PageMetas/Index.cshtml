@@ -11,6 +11,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Page</th>
+                        <th>Platform</th>
                         <th>Make</th>
                         <th>Model</th>
                         <th>Last Updated</th>
@@ -27,6 +28,7 @@
                             <tr>
                                 <td>@item.Id</td>
                                 <td>@item.PageName</td>
+                                <td>@item.Platform</td>
                                 <td>@item.MakeName</td>
                                 <td>@item.ModelName</td>
                                 <td>@(item.UpdatedDate != null && item.UpdatedDate != DateTime.MinValue ? item.UpdatedDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>

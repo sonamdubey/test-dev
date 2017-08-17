@@ -10,6 +10,7 @@ namespace BikewaleOpr.Entity.ConfigurePageMetas
     {
         public uint Id { get; set; }
         public string PageName { get; set; }
+        public string Platform { get; set; }
         public string MakeName { get; set; }
         public string ModelName { get; set; }
         public string Title { get; set; }
