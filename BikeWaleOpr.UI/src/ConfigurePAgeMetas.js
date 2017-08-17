@@ -29,6 +29,14 @@ var ConfigurePageMetas = function () {
         if (!isValid) {
             e.preventDefault();
         }
+        
+        $('#makeName').val($("#selectMake option:selected").text());
+        $('#modelName').val($("#selectModel option:selected").text());
+        $('#pageName').val($("#selectPage option:selected").text());
+        $('#selectPage').prop('disabled', false);
+        $('#selectModel').prop('disabled', false);
+        $('#selectMake').prop('disabled', false);
+
         return isValid;
     };
 

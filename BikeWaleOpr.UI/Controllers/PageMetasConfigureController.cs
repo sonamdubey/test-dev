@@ -1,4 +1,6 @@
-﻿using Bikewale.Notifications;
+﻿using BikewaleOpr.Entity.ConfigurePageMetas;
+using Bikewale.Notifications;
+using Bikewale.Notifications;
 using BikewaleOpr.Entity.ConfigurePageMetas;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ConfigurePageMetas;
@@ -9,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Bikewale.Notifications.MailTemplates;
 
 namespace BikewaleOpr.Controllers
 {
@@ -54,15 +57,24 @@ namespace BikewaleOpr.Controllers
             try
             {
                 pageMetaId = _pageMetasRepo.SavePageMetas(objMetas);
+
+                string mailList = Bikewale.Utility.BWOprConfiguration.Instance.NotificationToMailIdForPageMetas;
+                string[] toMailList = mailList.Split(',');
+                ComposeEmailBase objEmail = new PageMetasChangeTemplate(objMetas.MakeName, objMetas.ModelName, objMetas.PageName);
+
+                foreach (var mail in toMailList)
+                {                    
+                    objEmail.Send(mail, "Metas Changed", "");
+                }
                 return RedirectToAction("Index", new { id = pageMetaId });
             }
             catch(Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasController.SaveMetas : {0}", pageMetaId));
                 return null;
-            }        
-        }
-
+            }  
+         }                          
+        
         /// <summary>
         /// Created by : Ashutosh Sharma on 14-Aug-2017
         /// Description : Action method to search active or inactive or both page metas.
@@ -76,5 +88,7 @@ namespace BikewaleOpr.Controllers
             ConfigurePageMetasVM PageModel = objPage.GetData();
             return View(PageModel);
         }
+
+       
     }
 }

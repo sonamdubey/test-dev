@@ -18,7 +18,10 @@ namespace BikewaleOpr.Entity.ConfigurePageMetas
         public string Keywords { get; set; }
         public string Heading { get; set; }
         public string Summary { get; set; }
-        public int EnteredBy { get; set; }        
+        public int EnteredBy { get; set; }   
+        public string MakeName { get; set; }
+        public string ModelName { get; set; }   
+        public string PageName { get; set; }  
 
     }
 }
