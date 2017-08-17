@@ -158,7 +158,8 @@ namespace BikeWaleOpr.Content
                         nvc.Add("v_IsNew", Convert.ToInt16(chkNew.Checked).ToString());
                         nvc.Add("v_IsUsed", Convert.ToInt16(chkUsed.Checked).ToString());
                         nvc.Add("v_Isfuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
-                        SyncBWData.PushToQueue("BW_AddBikeVersions", DataBaseName.CWMD, nvc);
+                        nvc.Add("v_bodystyleid", Convert.ToInt16(cmbBodyStyles.SelectedValue).ToString());
+                        SyncBWData.PushToQueue("BW_AddBikeVersions", DataBaseName.CW, nvc);
                     }
                 }
             }
@@ -302,7 +303,9 @@ namespace BikeWaleOpr.Content
                 nvc.Add("v_IsFuturistic", Convert.ToInt16(chkFuturistic1.Checked).ToString());
                 nvc.Add("v_ModelId", null);
                 nvc.Add("v_IsDeleted", null);
-                SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CWMD, nvc);
+                nvc.Add("v_bodystyleid", Convert.ToInt16(Request.Form["cmbGridBodyStyle"]).ToString());
+                SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
+
 
                 var makeId = Request.Form["cmbMakes"];
 
@@ -357,7 +360,7 @@ namespace BikeWaleOpr.Content
                     nvc.Add("v_IsFuturistic", null);
                     nvc.Add("v_ModelId", null);
                     nvc.Add("v_IsDeleted", "1");
-                    SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CWMD, nvc);
+                    SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
                 }
 
                 uint makeId;
