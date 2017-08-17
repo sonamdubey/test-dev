@@ -10,7 +10,7 @@ namespace Bikewale.Notifications.MailTemplates
     {
         private string PageMetasChangeHtml = null;
 
-        public PageMetasChangeTemplate(string makeName, string modelName, String pageName)
+        public PageMetasChangeTemplate(string makeName, string modelName, String pageName, string title, string description, string keywords, string heading, string summary)
         {
             try
             {
@@ -26,6 +26,21 @@ namespace Bikewale.Notifications.MailTemplates
                 {
                     message.Append("<p>Metas changed for " + pageName + " for parameters Make : " + makeName + ".</p>");
                 }
+
+                if (!string.IsNullOrEmpty(title))
+                    message.Append("<p>New Title : " + title + ".</p>");
+
+                if (!string.IsNullOrEmpty(description))
+                    message.Append("<p>New Description : " + description + ".</p>");
+
+                if (!string.IsNullOrEmpty(keywords))
+                    message.Append("<p>New Keywords : " + keywords + ".</p>");
+
+                if (!string.IsNullOrEmpty(heading))
+                    message.Append("<p>New Heading : " + heading + ".</p>");
+
+                if (!string.IsNullOrEmpty(summary))
+                    message.Append("<p>New Summary : " + summary + ".</p>");
 
                 PageMetasChangeHtml = message.ToString();
 

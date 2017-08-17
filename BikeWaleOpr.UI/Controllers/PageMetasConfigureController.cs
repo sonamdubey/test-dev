@@ -24,6 +24,7 @@ namespace BikewaleOpr.Controllers
     /// <author>
     /// Sangram Nandkhile on 17-Aug-2017
     /// </author>
+    [Authorize]
     public class PageMetasController : Controller
     {
         private readonly IBikeMakesRepository _makesRepo = null;
@@ -35,8 +36,7 @@ namespace BikewaleOpr.Controllers
             _pageMetasRepo = pageMetasRepo;
         }
 
-        // GET: PageMetasConfigure
-        [Authorize]
+        // GET: PageMetasConfigure        
         public ActionResult Index(ushort? pageMetaStatus)
         {
             ConfigurePageMetaSearchVM objSearchData = null;
@@ -58,21 +58,7 @@ namespace BikewaleOpr.Controllers
             try
             {
                 pageMetaId = _pageMetasRepo.SavePageMetas(objMetas);
-
-                string mailList = Bikewale.Utility.BWOprConfiguration.Instance.NotificationToMailIdForPageMetas;
-                string[] toMailList = mailList.Split(',');
-                ComposeEmailBase objEmail = new PageMetasChangeTemplate(objMetas.MakeName, objMetas.ModelName, objMetas.PageName);
-
-                foreach (var mail in toMailList)
-                {                    
-                    objEmail.Send(mail, "Metas Changed", "");
-                }
-
-                if (objMetas.ModelId > 0)
-                    MemCachedUtil.Remove("BW_ModelDetail_v1_" + objMetas.ModelId);
-
-                MemCachedUtil.Remove("BW_MakeDetails_" + objMetas.MakeId);
-
+                (new PageMetasSearch(_pageMetasRepo)).SaveMetas(objMetas);
                 return RedirectToAction("Index", new { id = pageMetaId });
             }
             catch(Exception ex)
