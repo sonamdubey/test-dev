@@ -71,19 +71,15 @@ namespace Bikewale.BAL.AutoComplete
             switch (source)
             {
                 case AutoSuggestEnum.AllMakeModel:
-                    indexName = Bikewale.Utility.BWConfiguration.Instance.MMindexName;
-                    break;
                 case AutoSuggestEnum.PriceQuoteMakeModel:
-                    indexName = Bikewale.Utility.BWConfiguration.Instance.PQindexName;
+                case AutoSuggestEnum.UserReviews:
+                    indexName = Bikewale.Utility.BWConfiguration.Instance.MMindexName;
                     break;
                 case AutoSuggestEnum.AllCity:
                     indexName = Bikewale.Utility.BWConfiguration.Instance.CityIndexName;
                     break;
                 case AutoSuggestEnum.AreaPinCodes:
                     indexName = Bikewale.Utility.BWConfiguration.Instance.PinCodesIndexName;
-                    break;
-                case AutoSuggestEnum.UserReviews:
-                    indexName = Bikewale.Utility.BWConfiguration.Instance.UserReviewIndexName;
                     break;
                 default:
                     indexName = Bikewale.Utility.BWConfiguration.Instance.MMindexName;
