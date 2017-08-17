@@ -1,4 +1,6 @@
-var reviewId = 0, modelid, vmUserReviews, modelReviewsSection,modelName;
+
+var reviewId = 0, modelid, vmUserReviews, modelReviewsSection,categoryId = 1, pageNumber = 1;
+var reg = new RegExp('^[0-9]*$');
 
 var helpfulReviews = [];
 
@@ -18,6 +20,122 @@ var reportAbusePopup, appendState;
 function abuseClick() {
     reportAbusePopup.open();
     appendState('reportPopup');
+}
+
+function upVoteListReview(e) {
+    try {
+        var localReviewId = e.currentTarget.getAttribute("data-reviewid");
+        bwcache.set("ReviewDetailPage_reviewVote_" + localReviewId, { "vote": "1" });
+        $('#upvoteBtn' + "-" + localReviewId).addClass('active');
+        $('#downvoteBtn' + "-" + localReviewId).attr('disabled', 'disabled');
+
+        if (reg.test($('#upvoteCount' + "-" + localReviewId).text()))
+            $('#upvoteCount' + "-" + localReviewId).text(parseInt($('#upvoteCount' + "-" + localReviewId).text()) + 1);
+
+        voteListUserReview(1, localReviewId);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function downVoteListReview(e) {
+    try {
+        var localReviewId = e.currentTarget.getAttribute("data-reviewid");
+        bwcache.set("ReviewDetailPage_reviewVote_" + localReviewId, { "vote": "0" });
+        $('#downvoteBtn' + "-" + localReviewId).addClass('active');
+        $('#upvoteBtn' + "-" + localReviewId).attr('disabled', 'disabled');
+
+        if (reg.test($('#downvoteCount' + "-" + localReviewId).text()))
+            $('#downvoteCount' + "-" + localReviewId).text(parseInt($('#downvoteCount' + "-" + localReviewId).text()) + 1);
+
+        voteListUserReview(0, localReviewId);
+    } catch (e) {
+        console.log(e);
+    }
+}
+function logBhrighu(e) {
+
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+    $.each(vmUserReviews.activeReviewList(), function (i, val) {
+        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
+            index = i + 1;
+
+        }
+
+    });
+    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index + (pageNumber - 1) * 10) + '|PageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("TitleClick", label);
+}
+
+function updateView(e) {
+    // for bhrigu updation
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+    $.each(vmUserReviews.activeReviewList(), function (i, val) {
+        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
+            index = i + 1;
+
+        }
+
+    });
+    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index + (pageNumber - 1) * 8) + '|PageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("ReadMoreClick", label);
+
+    try {
+        var reviewId = e.currentTarget.getAttribute("data-reviewid");
+        $.ajax({
+            type: "POST",
+            url: "/api/user-reviews/updateView/" + reviewId + "/",
+            success: function (response) {
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function voteListUserReview(vote, locReviewId) {
+    try {
+        $.ajax({
+            type: "POST",
+            url: "/api/user-reviews/voteUserReview/?reviewId=" + locReviewId + "&vote=" + vote,
+            success: function (response) {
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function resetCollapsibleContent() {
+    var activeCollapsible = $('.user-review-list').find('.collapsible-content.active');
+    activeCollapsible.removeClass('active');
+    activeCollapsible.find('.read-more-target').text('...Read more');
+}
+
+function applyLikeDislikes() {
+    try {
+        $(".upvoteListButton").each(function () {
+            var locReviewId = this.getAttribute("data-reviewid");
+            var listVote = bwcache.get("ReviewDetailPage_reviewVote_" + locReviewId);
+
+            if (listVote != null && listVote.vote) {
+                if (listVote.vote == "0") {
+                    $('#downvoteBtn' + "-" + locReviewId).addClass('active');
+                    $('#upvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+                }
+                else {
+                    $('#upvoteBtn' + "-" + locReviewId).addClass('active');
+                    $('#downvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+                }
+            }
+            else {
+                $('#upvoteBtn' + "-" + locReviewId).removeClass('active');
+                $('#downvoteBtn' + "-" + locReviewId).prop('disabled', false);
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 var vmPagination = function (curPgNum, pgSize, totalRecords) {
@@ -67,54 +185,70 @@ var vmPagination = function (curPgNum, pgSize, totalRecords) {
 
 
 function upVoteReview() {
-    bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "1" });
-    $('#upvoteButton').addClass('active');
-    $('#upvoteText').text("Liked");
-    $('#downvoteButton').attr('disabled', 'disabled');
-    $('#upvoteCount').text(parseInt($('#upvoteCount').text()) + 1);
-    voteUserReview(1);
+    try {
+        bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "1" });
+        $('#upvoteButton').addClass('active');
+        //$('#upvoteText').text("Liked");
+        $('#downvoteButton').attr('disabled', 'disabled');
+        $('#upvoteCount').text(parseInt($('#upvoteCount').text()) + 1);
+        voteUserReview(1);
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 
 function downVoteReview() {
-    bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "0" });
-    $('#downvoteButton').addClass('active');
-    $('#downvoteText').text("Disliked");
-    $('#upvoteButton').attr('disabled', 'disabled');
-    $('#downvoteCount').text(parseInt($('#downvoteCount').text()) + 1);
-    voteUserReview(0);
+    try {
+        bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "0" });
+        $('#downvoteButton').addClass('active');
+        //$('#downvoteText').text("Disliked");
+        $('#upvoteButton').attr('disabled', 'disabled');
+        $('#downvoteCount').text(parseInt($('#downvoteCount').text()) + 1);
+        voteUserReview(0);
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 
 function voteUserReview(vote) {
-    $.ajax({
-        type: "POST",
-        url: "/api/user-reviews/voteUserReview/?reviewId=" + reviewId + "&vote=" + vote,
-        success: function (response) {
-        }
-    });
-}
-function reportAbuse() {
-    var isError = false;
-
-    if ($("#txtAbuseComments").val().trim() == "") {
-        $("#spnAbuseComments").html("Comments are required");
-        isError = true;
-    } else {
-        $("#spnAbuseComments").html("");
-    }
-
-    if (!isError) {
-        var commentsForAbuse = $("#txtAbuseComments").val().trim();
-
+    try {
         $.ajax({
             type: "POST",
-            url: "/api/user-reviews/abuseUserReview/?reviewId=" + reviewId + "&comments=" + commentsForAbuse,
+            url: "/api/user-reviews/voteUserReview/?reviewId=" + reviewId + "&vote=" + vote,
             success: function (response) {
-                reportAbusePopup.close();
-                document.getElementById("divAbuse").innerHTML = "Your request has been sent to the administrator.";
             }
         });
+    } catch (e) {
+        console.log(e);
+    }
+}
+function reportAbuse() {
+    try {
+        var isError = false;
+
+        if ($("#txtAbuseComments").val().trim() == "") {
+            $("#spnAbuseComments").html("Comments are required");
+            isError = true;
+        } else {
+            $("#spnAbuseComments").html("");
+        }
+
+        if (!isError) {
+            var commentsForAbuse = $("#txtAbuseComments").val().trim();
+
+            $.ajax({
+                type: "POST",
+                url: "/api/user-reviews/abuseUserReview/?reviewId=" + reviewId + "&comments=" + commentsForAbuse,
+                success: function (response) {
+                    reportAbusePopup.close();
+                    document.getElementById("divAbuse").innerHTML = "Your request has been sent to the administrator.";
+                }
+            });
+        }
+    } catch (e) {
+        console.log(e);
     }
 }
 
@@ -124,6 +258,8 @@ docReady(function () {
     bwcache.setOptions({ 'EnableEncryption': true });
 
     bwcache.removeAll(true);
+
+    applyLikeDislikes();
 
     modelReviewsSection = $("#modelReviewsListing");
     modelName = $('#modelName').attr('data-modelName');
@@ -139,12 +275,12 @@ docReady(function () {
     if (vote != null && vote.vote) {
         if (vote.vote == "0") {
             $('#downvoteButton').addClass('active');
-            $('#downvoteText').text("Disliked");
+            //$('#downvoteText').text("Disliked");
             $('#upvoteButton').attr('disabled', 'disabled');
         }
         else {
             $('#upvoteButton').addClass('active');
-            $('#upvoteText').text("Liked");
+            //$('#upvoteText').text("Liked");
             $('#downvoteButton').attr('disabled', 'disabled');
         }
     }
@@ -186,14 +322,11 @@ docReady(function () {
         }
     };
 
-    ko.bindingHandlers.truncatedText = {
-        update: function (element, valueAccessor, allBindingsAccessor) {
-            var originalText = ko.utils.unwrapObservable(valueAccessor()),
-                length = ko.utils.unwrapObservable(allBindingsAccessor().maxTextLength) || 20,
-                truncatedText = originalText.length > length ? originalText.substring(0, length) + "...Read more" : originalText;
-            ko.bindingHandlers.text.update(element, function () {
-                return truncatedText;
-            });
+    ko.bindingHandlers.truncateDesc = {
+        update: function (element, valueAccessor) {
+            var originalText = strip(valueAccessor());
+            var formattedText = originalText && originalText.length > 120 ? originalText.substring(0, 120) : originalText;
+            $(element).text(formattedText);
         }
     };
 
@@ -202,6 +335,20 @@ docReady(function () {
             var amount = valueAccessor();
             var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
             $(element).text(formattedAmount);
+        }
+    };
+
+    function strip(html) {
+        var tmp = document.createElement("div");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+    }
+
+    ko.bindingHandlers.formattedVotes = {
+        update: function (element, valueAccessor) {
+            var amount = valueAccessor();
+            var formattedVote = ko.unwrap(amount) > 999 ? (amount / 1000).toFixed(1) + 'K' : amount;
+            $(element).text(formattedVote);
         }
     };
 
@@ -281,7 +428,7 @@ docReady(function () {
             },
 
             getReviews: function (element) {
-                var categoryId = Number(element.attr('data-category')),
+                 categoryId = Number(element.attr('data-category')),
                     pageNumber = Number(element.attr('data-page-num') || 1),
                     categoryCount = Number(element.attr('data-count'));
 
@@ -363,6 +510,7 @@ docReady(function () {
 
                     }
                     self.TotalReviews(activeReviewCat.attr('data-count'));
+                    pageNumber = pnum;
                     self.CurPageNo(pnum);
                     self.getUserReviews();
                     activeReviewCat.attr('data-page-num', pnum);
@@ -381,11 +529,10 @@ docReady(function () {
             var qs = self.QueryString();
 
             if (self.PreviousQS() != qs) {
-                self.IsLoading(true);               
-                var cacheKey = "UserReviews_mo_" + modelid + "_cat_" + self.Filters()["so"] + "_pn_" + self.Filters()["pn"] + "_ps_" + self.Filters()["ps"],skipreviewid = self.Filters()["skipreviewid"];
+                self.IsLoading(true);
+                var cacheKey = "UserReviews_mo_" + modelid + "_cat_" + self.Filters()["so"] + "_pn_" + self.Filters()["pn"] + "_ps_" + self.Filters()["ps"], skipreviewid = self.Filters()["skipreviewid"];
 
-                if (skipreviewid && skipreviewid > 0)
-                {
+                if (skipreviewid && skipreviewid > 0) {
                     cacheKey += "_skiprid_" + skipreviewid;
                 }
 
@@ -405,6 +552,13 @@ docReady(function () {
                     .fail(function () {
                         self.noReviews(true);
                     })
+                    .success(function () {
+                        var listItem = $('.user-review-list .list-item');
+                        for (var i = listItem.length - 1; i > 0 ; i--) {
+                            if ($(listItem[i]).find('.rating-badge').length == 0)
+                                $(listItem[i]).remove();
+                        }
+                    })
                     .always(function () {
                         self.ApplyPagination();
                         //window.location.hash = qs;
@@ -420,10 +574,19 @@ docReady(function () {
                     //window.location.hash = qs;
                     self.IsLoading(false);
                     $('html, body').scrollTop(modelReviewsSection.offset().top);
+                    var listItem = $('.user-review-list .list-item');
+                    for (var i = listItem.length - 1; i > 0 ; i--) {
+                        if ($(listItem[i]).find('.rating-badge').length == 0)
+                            $(listItem[i]).remove();
+                    }
                 }
-
             }
+
+
+
             self.PreviousQS(qs);
+
+            resetCollapsibleContent();
         };
 
         self.setPageFilters = function (e) {
@@ -446,8 +609,7 @@ docReady(function () {
 
         };
 
-        self.checkValidCache = function()
-        {
+        self.checkValidCache = function () {
 
         }
 
