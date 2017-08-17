@@ -20,12 +20,14 @@ namespace Bikewale.Notifications.MailTemplates
 
                 if (string.IsNullOrEmpty(modelName))
                 {
-                    message.Append("<p>Metas changed for" + pageName + "for parameters Make : " + makeName + "and Model :" + modelName + ".</p>");
+                    message.Append("<p>Metas changed for " + pageName + " for parameters Make : " + makeName + " and Model :" + modelName + ".</p>");
                 }
                 else
                 {
-                    message.Append("<p>Metas changed for" + pageName + "page for parameters Make : " + makeName + ".</p>");
+                    message.Append("<p>Metas changed for " + pageName + " for parameters Make : " + makeName + ".</p>");
                 }
+
+                PageMetasChangeHtml = message.ToString();
 
             }
             catch(Exception ex)
