@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Bikewale.Notifications.MailTemplates;
 
 namespace BikewaleOpr.Controllers
 {
@@ -38,15 +39,22 @@ namespace BikewaleOpr.Controllers
             try
             {
                 uint pageMetaId = _pageMetasRepo.SavePageMetas(objMetas);
+
+                string mailList = Bikewale.Utility.BWOprConfiguration.Instance.NotificationToMailIdForPageMetas;
+                string[] toMailList = mailList.Split(',');
+                ComposeEmailBase objEmail = new PageMetasChangeTemplate(objMetas.MakeName, objMetas.ModelName, objMetas.PageName);
+
+                foreach (var mail in toMailList)
+                {                    
+                    objEmail.Send(mail, "Metas Changed", "");
+                }
                 return RedirectToAction("Index", new { id = pageMetaId });
             }
             catch
             {
                 return null;
             }  
-         }      
-
-                    
+         }                          
         
         /// <summary>
         /// Created by : Ashutosh Sharma on 14-Aug-2017
