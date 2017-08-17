@@ -26,6 +26,12 @@ using BikewaleOpr.Interface.UserReviews;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
+using BikewaleOpr.Interface.ServiceCenter;
+using BikewaleOpr.BAL.ServiceCenter;
+using BikewaleOpr.DALs.ServiceCenter;
+using BikewaleOpr.Interface.BikePricing;
+using BikewaleOpr.DALs.BikePricing;
+using BikewaleOpr.DAL;
 
 namespace BikewaleOpr
 {
@@ -35,6 +41,8 @@ namespace BikewaleOpr
     /// Description : Added IBikeModels, IUsedBikes, IHomePage
     /// Modified by : Vivek Singh Tomar on 1st Aug 2017
     /// Description : Added IBikeMakes
+    /// Modified by : Vivek Singh Tomar on 7th Aug 2017
+    /// Summary : Added IDealers
     /// </summary>
     public static class UnityConfig
     {
@@ -56,6 +64,8 @@ namespace BikewaleOpr
                 .RegisterType<ICommuteDistance, CommuteDistanceBL>()
                 .RegisterType<ILocation, LocationRepository>()
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
+                .RegisterType<IContractCampaign, ContractCampaign>()
+                .RegisterType<IShowroomPricesRepository, BikeShowroomPrices>()
                 .RegisterType<ICacheManager, MemcacheManager>()
                 .RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>()
                 .RegisterType<ISponsoredComparison, SponsoredComparison>()
@@ -64,7 +74,11 @@ namespace BikewaleOpr
                 .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
                 .RegisterType<IBannerRepository, BannerRepository>()
                 .RegisterType<IContractCampaign, ContractCampaign>()
-                .RegisterType<IConfigurePageMetasRepository, ConfigurePageMetasRepository>();
+                .RegisterType<IServiceCenter, ServiceCenter>()
+                .RegisterType<IDealers, DealersRepository>()
+                .RegisterType<IManageBookingAmountPage, ManageBookingAmountPage>()
+                .RegisterType<IConfigurePageMetasRepository, ConfigurePageMetasRepository>()
+                .RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
             
                 DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 

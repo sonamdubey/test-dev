@@ -1,5 +1,7 @@
 ﻿using BikewaleOpr.Entity.ConfigurePageMetas;
 using Bikewale.Notifications;
+using Bikewale.Notifications;
+using BikewaleOpr.Entity.ConfigurePageMetas;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Models.ConfigurePageMetas;
@@ -41,44 +43,25 @@ namespace BikewaleOpr.Controllers
             catch
             {
                 return null;
-            }
-                        
-        }
-        
-        /// <summary>
-        /// Created by : Ashutosh Sharma on 14-Aug-2017
-        /// Description : Action method for landing page for page metas search.
-        /// </summary>
-        /// <returns></returns>
-        [Route("pageMetasconfigure/search/index/")]
-        public ActionResult Search_Index()
-        {
-            ConfigurePageMetaSearchVM objSearchData = null;
-            try
-            {
-                PageMetasSearch objPage = new PageMetasSearch(_pageMetasRepo);
-                objSearchData = objPage.GetData();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasConfiguration.Search_Index"));
-            }
-            return View(objSearchData);
-        }
+            }  
+         }      
+
                     
+        
         /// <summary>
         /// Created by : Ashutosh Sharma on 14-Aug-2017
         /// Description : Action method to search active or inactive or both page metas.
         /// </summary>
         /// <returns></returns>
-        [Route("pageMetasconfigure/search/index/{pageMetaStatus}/")]
-        public ActionResult Search_Index(ushort pageMetaStatus)
+        [Route("pageMetasconfigure/search/")]
+        public ActionResult Search_Index(ushort? pageMetaStatus)
         {
             ConfigurePageMetaSearchVM objSearchData = null;
             try
             {
                 PageMetasSearch objPage = new PageMetasSearch(_pageMetasRepo);
-                objSearchData = objPage.GetData(pageMetaStatus);
+                objSearchData = objPage.GetData(pageMetaStatus??1);
+                objSearchData.PageMetaStatus = pageMetaStatus??1;
             }
             catch (Exception ex)
             {

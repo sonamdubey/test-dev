@@ -170,7 +170,7 @@
     </div>
 </section>
 
-@if (Model.UserReviews != null && Model.UserReviews.UserReviews != null && Model.UserReviews.UserReviews.ResultDesktop != null && Model.UserReviews.UserReviews.ResultDesktop.Count() > 0)
+@if (Model.UserReviews != null && Model.UserReviews.UserReviews != null && Model.UserReviews.UserReviews.Result != null && Model.UserReviews.UserReviews.Result.Count() > 0)
 {
     @Html.Partial("~/views/UserReview/_UserReviewsSearch.cshtml", Model.UserReviews)
 }
@@ -261,4 +261,5 @@
         <a id="btnReportReviewAbuse" class="btn btn-orange" rel="nofollow">Report</a>
     </div>
 </div>
+<input type="hidden" id="pageSource" value="@((int)UserReviewPageSourceEnum.Desktop_UserReview_Listing)"/>
 <div id="report-background"></div>

@@ -674,3 +674,27 @@ h1,
   .pagination-list-content .pagination-list a {
     font-size: 12px;
     min-width: 22px; } }
+
+.collapsible-content .main-content {
+	display: inline;
+}
+
+.collapsible-content .more-content {
+	display: none;
+}
+
+.collapsible-content.active .more-content {
+	display: inline;
+}
+
+.collapsible-content.toggle-off.active .read-more-target {
+	display: none;
+}
+
+.collapsible-content.active ~ .report-abuse-label {
+	display: inline;
+}
+
+.collapsible-content.main-content-off.active .main-content {
+	display: none;
+}

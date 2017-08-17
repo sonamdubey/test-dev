@@ -6,9 +6,8 @@ namespace Bikewale.Entities.UserReviews.Search
 {
     [Serializable]
     public class SearchResult
-    {
-        public IEnumerable<ReviewEntity> Result { get; set; }
-        public IEnumerable<UserReviewSummary> ResultDesktop { get; set; }
+    {       
+        public IEnumerable<UserReviewSummary> Result { get; set; }
         public PagingUrl PageUrl { get; set; }
         public int TotalCount { get; set; }
         public int CurrentPageNo { get; set; }

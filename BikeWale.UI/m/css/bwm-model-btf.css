@@ -817,3 +817,27 @@ h2.text-bold { font-weight: bold; }
 		min-width: 95px;
 	}
 }
+
+.collapsible-content .main-content {
+	display: inline;
+}
+
+.collapsible-content .more-content {
+	display: none;
+}
+
+.collapsible-content.active .more-content {
+	display: inline;
+}
+
+.collapsible-content.toggle-off.active .read-more-target {
+	display: none;
+}
+
+.collapsible-content.active ~ .report-abuse-label {
+	display: inline;
+}
+
+.collapsible-content.main-content-off.active .main-content {
+	display: none;
+}

@@ -8,21 +8,28 @@ using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.Images;
 using BikewaleOpr.BAL.Security;
+using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.BAL.Used;
+using BikewaleOpr.DAL;
 using BikewaleOpr.DALs.Banner;
 using BikewaleOpr.DALs.BikeColorImages;
 using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.DALs.Images;
 using BikewaleOpr.DALs.ManufactureCampaign;
+using BikewaleOpr.DALs.ServiceCenter;
 using BikewaleOpr.DALs.UserReviews;
+using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Interface.BikeColorImages;
 using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Images;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikewaleOpr.Interface.Security;
+using BikewaleOpr.Interface.ServiceCenter;
 using BikewaleOpr.Interface.Used;
 using BikewaleOpr.Interface.UserReviews;
 using BikewaleOpr.Used;
@@ -41,6 +48,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
     /// Description : Register IBikeModels
     /// Modified by : Vivek Singh Tomar on 1st Aug 2017
     /// Description : Added IBikeMakes
+    /// Modified By : Ashutosh Sharma on 29-07-2017
+    /// Description : Added IShowroomPricesRepository registration to BikeShowroomPrices
     /// </summary>
     public static class UnityBootstrapper
     {
@@ -71,7 +80,12 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<ISponsoredComparison, SponsoredComparison>();
 
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
+            container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
             container.RegisterType<IBikeMakes, BikeMakes>();
+            container.RegisterType<IDealers, DealersRepository>();
+
+            container.RegisterType<IServiceCenter, ServiceCenter>();
+            container.RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
 
             return container;
         }

@@ -50,15 +50,15 @@
                 <div class="collapsible-body">
                     <div class="container">
                         <div class="input-field row s12">
-                            <input name="group1" type="radio" id="chkFilter1" value="1" class="with-gap" />
+                            <input name="group1" type="radio" id="chkFilter1" value="1" class="with-gap" @(Model.PageMetaStatus == 1 ? "checked" : "")/>
                             <label for="chkFilter1">Show Active</label>
-                            <input name="group1" type="radio" id="chkFilter2" value="0" class="with-gap" />
+                            <input name="group1" type="radio" id="chkFilter2" value="0" class="with-gap" @(Model.PageMetaStatus == 0 ? "checked" : "")/>
                             <label for="chkFilter2">Show Inactive</label>
-                            <input name="group1" type="radio" id="chkFilter3" value="2" class="with-gap" />
+                            <input name="group1" type="radio" id="chkFilter3" value="2" class="with-gap" @(Model.PageMetaStatus == 2 ? "checked" : "")/>
                             <label for="chkFilter3">Show All</label>
                         </div>
                         <div style="margin-bottom:5px;">
-                            <a class="btn waves-effect waves-light" onclick="filterData()">Show Page Metas</a>
+                            <a class="btn waves-effect waves-light" onclick="Show()">Show</a>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                 <div class="collapsible-header"><strong>Add Page Meta</strong></div>
                 <div class="collapsible-body">
                     <div class="input-field row s12" style="margin-left:20px">
-                        <a target="_blank" class="btn waves-effect waves-light" href="/banner/index">Add new</a>
+                        <a target="_blank" class="btn waves-effect waves-light" href="/PageMetasConfigure/index/">Add new</a>
                     </div>
                 </div>
             </li>

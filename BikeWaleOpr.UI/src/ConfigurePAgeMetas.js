@@ -8,7 +8,7 @@ var ConfigurePageMetas = function () {
     self.pageList = ko.observableArray();
     self.selectedPage = ko.observable();        
 
-    self.validateData = function () {
+    self.validateData = function (d, e) {
         var isValid = true;
 
         if (!self.selectedMakeId()) {
@@ -26,6 +26,9 @@ var ConfigurePageMetas = function () {
             isValid = false;
         }
 
+        if (!isValid) {
+            e.preventDefault();
+        }
         return isValid;
     };
 
