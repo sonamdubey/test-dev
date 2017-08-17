@@ -1,7 +1,7 @@
 ﻿@model BikewaleOpr.Models.ConfigurePageMetas.ConfigurePageMetaSearchVM
 @{
     ViewBag.Title = "Page Metas";
-    ViewBag.PageTitle = "Bikewale Operations - Page Metas";
+    ViewBag.PageTitle = "Page Metas";
 }
 <div class="row" style="margin-top:10px;">
     <div class="col m10">
@@ -61,9 +61,9 @@
                     <div class="container">
                         <div class="input-field row s12">
                             <input name="group1" type="radio" id="chkFilter1" value="1" class="with-gap" @(Model.PageMetaStatus == 1 ? "checked" : "") />
-                            <label for="chkFilter1">Show Active</label>
+                            <label for="chkFilter1">Active</label>
                             <input name="group1" type="radio" id="chkFilter2" value="0" class="with-gap" @(Model.PageMetaStatus == 0 ? "checked" : "") />
-                            <label for="chkFilter2">Show Inactive</label>
+                            <label for="chkFilter2">Inactive</label>
                             @*<input name="group1" type="radio" id="chkFilter3" value="2" class="with-gap" @(Model.PageMetaStatus == 2 ? "checked" : "") />
                             <label for="chkFilter3">Show All</label>*@
                         </div>
