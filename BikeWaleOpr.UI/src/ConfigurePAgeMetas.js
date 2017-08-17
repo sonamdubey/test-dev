@@ -21,7 +21,7 @@ var ConfigurePageMetas = function () {
             isValid = false;
         }
 
-        if ((self.selectedPage() == '3' || self.selectedPage() == '4') && !self.selectedModel()) {
+        if ((self.selectedPage() == '5' || self.selectedPage() == '6') && !self.selectedModel()) {
             Materialize.toast("Please select Model", 3000);
             isValid = false;
         }
