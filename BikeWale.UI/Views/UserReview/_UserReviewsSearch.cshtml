@@ -56,7 +56,7 @@
                                             <a onclick="logBhrighu(event)" href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'data-reviewId': $data.reviewId ,'title' : $data.title,'href' : '/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}, truncatedText: $data.title" class="list-item-title inline-block margin-right5" data-id="@i" data-reviewId="@review.ReviewId">@review.Title.Truncate(65)</a>
                                             <span class="font12 inline-block text-light-grey" data-bind="text: $data.reviewAge + ' ago by '"></span>&nbsp;<span class="font12 inline-block text-light-grey" data-bind="trimText : $data.customerName">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
                                         </div>
-                                        <div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">
+                                        <div class="collapsible-content toggle-off main-content-off font14 text-slate-grey">
                                             <div class="main-content" data-bind="html: $data.shortDescription">
                                                 @Html.Raw((review.Description.TruncateHtml(270)))
                                             </div>
@@ -101,26 +101,33 @@
                                                     <!-- /ko -->
                                                 </ul>
                                                 <!-- /ko -->
+                                                   <div class="review-block">
 
+                                                    <span class="review__question">Was this review helpful?</span>
+
+                                                    <button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)">
+                                                <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId" data-id="@i">...Read more</a>
+                                                        <span class="bwsprite like-sm"></span>
+                                                        Yes
+                                                        (<span id="upvoteCount-@review.ReviewId" class="btn-count">@review.UpVotes</span>)
+                                                    </button>
+
+
+                                                    <button class="feedback-button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="downVoteListReview(event)">
+                                                        <span class="bwsprite dislike-sm"></span>
+                                                        No
+                                                        (<span id="downvoteCount-@review.ReviewId" class="btn-count">
+                                                            @review.DownVotes
+                                                        </span>)
+                                                    </button>
+                                                    <p class="report-abuse-label rightfloat line-height26" id="pReport-@review.ReviewId">Inappropriate review? <a href="javascript:void(0)" data-reviewId="@review.ReviewId" onclick="reportReview(event)" rel="nofollow">Report Abuse</a></p>
+                                                </div>
+                                                <div class="clear"></div>
 
                                             </div>
-                                                <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId" data-id="@i">...Read more</a>
+                                            <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId">Read more</a>
                                         </div>
-                                        <button id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" type="button" onclick="upVoteListReview(event)" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" class="btn btn-inv-teal-group margin-right10 upvoteListButton ">
-                                            <span class="btn-label-grid">
-                                                <span class="bwsprite like-sm"></span>
-                                            </span><span id="upvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'upvoteCount-' + $data.reviewId}, text : $data.upVotes">@review.UpVotes</span>
-                                        </button>
-
-                                        <button id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" type="button" onclick="downVoteListReview(event)" data-bind="attr: { id: 'downvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" class="btn btn-inv-teal-group downvoteListButton">
-                                            <span class="btn-label-grid">
-                                                <span class="bwsprite dislike-sm"></span>
-                                            </span><span id="downvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'downvoteCount-' + $data.reviewId}, text : $data.downVotes">@review.DownVotes</span>
-                                        </button>
-
-                                        <p class="report-abuse-label rightfloat line-height26" data-bind="attr: { id: 'pReport-' + $data.reviewId}" id="pReport-@review.ReviewId">Inappropriate review? <a href="javascript:void(0)" data-bind="attr: {'data-reviewId': $data.reviewId }, click: function(d, e){ reportReview(e)}" data-reviewId="@review.ReviewId" onclick="reportReview(event)" rel="nofollow">Report Abuse</a></p>
-                                        <div class="clear"></div>
-
+                                        
                                     </div>
                                     <div class="grid-3 omega padding-left20">
                                         @if (review.Questions != null)

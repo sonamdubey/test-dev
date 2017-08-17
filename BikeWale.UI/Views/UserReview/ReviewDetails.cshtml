@@ -79,7 +79,7 @@
                                 <span class="font12 inline-block text-light-grey">@Model.ReviewAge ago by @Model.UserReviewDetailsObj.CustomerName</span>
                                 <span class="text-light-grey margin-left10">@string.Format("{0} view{1}", Bikewale.Utility.Format.FormatNumeric(Model.UserReviewDetailsObj.Views.ToString()), Model.UserReviewDetailsObj.Views > 1 ? "s" : "")</span>
                             </div>
-                            <div class="margin-bottom10 font14 text-slate-grey">
+                            <div class="font14 text-slate-grey">
                                 @if (!string.IsNullOrEmpty(Model.UserReviewDetailsObj.Description))
                                 {
                                     <p>@Html.Raw(Model.UserReviewDetailsObj.Description)</p>
@@ -109,8 +109,7 @@
                                     </ul>
                                 }
                             </div>
-
-                            <button id="upvoteBtn" type="button" onclick="upVoteReview()" class="btn btn-inv-teal-group margin-right10">
+                            @*<button id="upvoteBtn" type="button" onclick="upVoteReview()" class="btn btn-inv-teal-group margin-right10">
                                 <span class="btn-label-grid">
                                     <span class="bwsprite like-sm"></span>
                                     <span id="upvoteTxt" class="btn-label">Likes</span>
@@ -122,10 +121,31 @@
                                     <span class="bwsprite dislike-sm"></span>
                                     <span id="downvoteTxt" class="btn-label">Dislikes</span>
                                 </span><span id="downvoteCount" class="btn-count">@Model.UserReviewDetailsObj.DownVotes</span>
-                            </button>
+                            </button>*@
 
-                            <p class="text-light-grey rightfloat line-height26" id="divReportAbuse" data-reviewid="@Model.ReviewId">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="btnReportClick" rel="nofollow">Report Abuse</a></p>
-                            <div class="clear"></div>
+                            @*<p class="text-light-grey rightfloat line-height26" id="divReportAbuse" data-reviewid="@Model.ReviewId">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="btnReportClick" rel="nofollow">Report Abuse</a></p>*@
+                           <div class="review-block">
+
+                                <span class="review__question">Was this review helpful?</span>
+
+                                <button id="upvoteBtn" class="feedback-button" type="button" onclick="upVoteReview()">
+                                    <span class="bwsprite like-sm"></span>
+                                    Yes
+                                    (<span id="upvoteCount" class="btn-count">@Model.UserReviewDetailsObj.UpVotes</span>)
+                                </button>
+
+
+                                <button class="feedback-button" id="downvoteBtn" type="button" onclick="downVoteReview()">
+                                    <span class="bwsprite dislike-sm"></span>
+                                    No
+                                    (<span id="downvoteCount" class="btn-count">
+                                        @Model.UserReviewDetailsObj.DownVotes
+                                    </span>)
+                                </button>
+                                <p class="report-abuse-label rightfloat line-height26" id="divReportAbuse" data-reviewid="@Model.ReviewId">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="btnReportClick" rel="nofollow">Report Abuse</a></p>
+                            </div>                         
+                            <div class="clear"></div> 
+                            
 
                         </div>
                         @if (Model.RatingQuestions != null && Model.RatingQuestions.Count > 0)
