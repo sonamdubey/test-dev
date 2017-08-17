@@ -15,6 +15,7 @@ using BikewaleOpr.DALs.Banner;
 using BikewaleOpr.DALs.BikeColorImages;
 using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.DALs.BikePricing;
+using BikewaleOpr.DALs.ConfigurePageMetas;
 using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.DALs.Images;
 using BikewaleOpr.DALs.ManufactureCampaign;
@@ -25,6 +26,7 @@ using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Interface.BikeColorImages;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.BikePricing;
+using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Images;
 using BikewaleOpr.Interface.ManufacturerCampaign;
@@ -86,6 +88,10 @@ namespace BikewaleOpr.Service.UnityConfiguration
 
             container.RegisterType<IServiceCenter, ServiceCenter>();
             container.RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
+
+            
+            container.RegisterType<IPageMetasRepository, PageMetasRepository>();
+            container.RegisterType<IPageMetas, PageMetas>();
 
             return container;
         }
