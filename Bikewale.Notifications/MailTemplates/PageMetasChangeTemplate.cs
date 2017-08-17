@@ -18,7 +18,7 @@ namespace Bikewale.Notifications.MailTemplates
 
                 message.Append("<h4>Dear Sir,</h4>");
 
-                if (string.IsNullOrEmpty(modelName))
+                if (!string.IsNullOrEmpty(modelName))
                 {
                     message.Append("<p>Metas changed for " + pageName + " for parameters Make : " + makeName + " and Model :" + modelName + ".</p>");
                 }
