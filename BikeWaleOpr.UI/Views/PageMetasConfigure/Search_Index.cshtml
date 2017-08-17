@@ -34,7 +34,7 @@
                             <td>@(item.UpdatedDate != null && item.UpdatedDate != DateTime.MinValue ? item.UpdatedDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
                             <td>@(item.IsActive ? "Active" : "InActive")</td>
                             <td>
-                                <a target="_blank" href="" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a>
+                                <a target="_blank" href="/pagemetasconfigure/?id=@item.Id" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a>
                             </td>
                         </tr>
                         }
@@ -76,3 +76,5 @@
 
 </div>
 <script src="/src/pagemetasearch.js"></script>
+
+
