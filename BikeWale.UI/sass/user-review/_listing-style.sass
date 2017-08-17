@@ -314,8 +314,9 @@ $grid-base-size: 8.33333333
 	line-height: 26px
 
 .report-abuse-label
-	display: none
+	display: block
 	color: #82888b
+	font-size: 12px
 
 .collapsible-content
 	&.active
@@ -463,50 +464,6 @@ $grid-base-size: 8.33333333
 		padding-left: 10px
 		margin-left: 10px
 
-// button
-.btn-inv-teal-group
-	font-family: $font-open-sans
-	font-size: 14px
-	color: #82888b
-	padding: 0
-	background: transparent
-	border: 1px solid #d5d5d5
-
-	span
-		display: inline-block
-		vertical-align: middle
-
-	.btn-label-grid,
-	.btn-count
-		padding: 2px 6px
-		background: transparent
-
-	.btn-label-grid
-		border-right: 1px solid #d5d5d5
-
-	.btn-label
-		position: relative
-		top: -1px
-		padding-left: 3px
-
-	&.active
-		border-color: #41b4c4
-		pointer-events: none
-
-		.btn-label-grid
-			color: #fff
-			background: #41b4c4
-			border-right-color: #41b4c4
-
-		.btn-count
-			color: #41b4c4
-
-		.like-sm
-			background-position: -105px -773px
-
-		.dislike-sm
-			background-position: -122px -773px
-
 // icons
 .star-0,
 .star-1
@@ -546,3 +503,58 @@ $grid-base-size: 8.33333333
 	.horizontal-rating-graph
 		.graph-bar-bg
 			width: 55%
+
+
+
+
+// review list 
+.review-title
+	color: #1a1a1a
+
+.review-block
+	padding-top: 15px
+	margin-top: 15px
+	border-top: 1px solid #EEEEEE
+
+.review__question
+	font-size: 12px
+	color: #82888B
+	padding-right: 6px
+
+.feedback-button
+	font-size: 12px
+	min-width: 60px
+	background: white
+	margin: 0 4px
+	padding: 7px 
+	color: #82888B
+	border: 1px solid #E2E2E2
+	border-radius: 2px
+	cursor: pointer
+
+.about-reviewer-list
+	li	
+		border:none
+	
+.feedback-button.active 
+    border-color: #41B4C4
+    background: #41B4C4
+    color: white
+    pointer-events: none
+
+.feedback-button
+	.like-sm,
+	.dislike-sm
+		opacity: 0.6
+
+// review buttons
+
+.feedback-button
+	&.active 
+		.like-sm
+			opacity: 1
+			background-position: -105px -773px
+
+		.dislike-sm
+			opacity: 1
+			background-position: -122px -773px
