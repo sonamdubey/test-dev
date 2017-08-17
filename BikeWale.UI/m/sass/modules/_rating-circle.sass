@@ -3,7 +3,14 @@ $rating-progress-width: 3px
 
 .rating-list
 	width: 100%
+	display: block
 	overflow-x: auto
+	overflow-y: hidden
+
+	&::-webkit-scrollbar
+		width: 0
+		height: 0
+		display: none
 
 	.rating-circle-list li 
 		margin-right: 10px
@@ -12,18 +19,13 @@ $rating-progress-width: 3px
 		display: table-cell
 		white-space: nowrap
 		float: none
-		border-top: 0
 
-.rating-list::-webkit-scrollbar
-	width: 0
+		&:after
+			border-top: 0
 
-.rating-circle-list 
-	margin-top: 5px
+.rating-circle-list
 	display: table
 	width: 100%
-
-
-
 
 .rating-circle
     width: $circle-dimension
@@ -123,12 +125,6 @@ $rating-progress-width: 3px
     content: ''
     display: block
     clear: both
-
-.rating-circle-list li 
-    float: left
-    margin-right: 15px
-    margin-top: 10px
-    margin-bottom: 10px
 
 .rating-circle-list li:last-child 
     margin-right: 0

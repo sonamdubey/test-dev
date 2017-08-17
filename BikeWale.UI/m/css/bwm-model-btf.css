@@ -334,11 +334,29 @@ h2.text-bold { font-weight: bold; }
     background-position: -110px -667px;
 }
 
-/* rating circle list */
-.rating-circle-list {
-	margin-bottom: 5px;
-	border-bottom: 1px solid #e2e2e2;
+/* rating circle list container */
+.rating-list {
+	width: 100%;
+	display: block;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
+.rating-list::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+	display: none;
+}
+.rating-list .rating-circle-list li {
+    margin-right: 10px;
+    padding-right: 10px;
+    width: auto;
+    display: table-cell;
+    white-space: nowrap;
+    float: none;
+	border-top: 0;
+}
+
+/* rating circle list */
 .rating-circle-list:after {
     content: '';
     display: block;
@@ -359,7 +377,6 @@ h2.text-bold { font-weight: bold; }
     padding-left: 5px;
     display: inline-block;
     vertical-align: middle;
-	min-width: 115px;
 }
 
 .rating-circle {
@@ -468,10 +485,21 @@ h2.text-bold { font-weight: bold; }
 
 /* user reviews list */
 .user-review-list li {
-    border-top: 1px solid #eee;
+    position: relative
 }
-.user-review-list li:first-child {
-    border-top: 0;
+.user-review-list li:after {
+    content: '';
+	width: 90%;
+	height: 1px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	border-top: 1px solid #eee;
+}
+.user-review-list li:first-child:after {
+	border-top: 0;
 }
 .user-review-list .item-target {
     display: block;
@@ -818,7 +846,9 @@ h2.text-bold { font-weight: bold; }
 }
 
 .collapsible-content .main-content {
-	display: inline;
+	display: block;
+	padding-right: 20px;
+	padding-left: 20px;
 }
 
 .collapsible-content .more-content {
@@ -826,7 +856,7 @@ h2.text-bold { font-weight: bold; }
 }
 
 .collapsible-content.active .more-content {
-	display: inline;
+	display: block;
 }
 
 .collapsible-content.toggle-off.active .read-more-target {
@@ -834,25 +864,24 @@ h2.text-bold { font-weight: bold; }
 }
 
 .collapsible-content.active ~ .report-abuse-label {
-	display: inline;
+	display: block;
 }
 
 .collapsible-content.main-content-off.active .main-content {
 	display: none;
 }
 
-
-
-
+/* feedback buttons */
 .feedback-button {
 	font-size: 12px;
 	min-width: 60px;
 	background: white;
-	margin: 0 1px;
+	margin: 0 4px;
 	padding: 6px; 
 	color: #82888B;
 	border: 1px solid #E2E2E2;
 	border-radius: 2px;
+	cursor: pointer;
 }
 
 .feedback-button .like-sm,
@@ -860,7 +889,7 @@ h2.text-bold { font-weight: bold; }
 	opacity: 0.6;
 }
 
-.about-reviewer-list li {
+.about-reviewer-list li:after {
     border:none;
 }	
 
@@ -889,7 +918,6 @@ h2.text-bold { font-weight: bold; }
 	margin-right: 30px;
 }
 
-
 @media only screen and (max-width: 320px) {
     .review__question {
 		display: block;
@@ -898,6 +926,13 @@ h2.text-bold { font-weight: bold; }
 }
 
 /* about reviewer */
+.about-reviewer-content {
+	padding: 15px 20px 0;
+	background: #f5f5f5;
+}
+.about-reviewer-content .item-answer {
+	font-size: 13px;
+}
 .about-reviewer-list li {
   text-align: center;
   display: inline-block;

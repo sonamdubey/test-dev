@@ -5,7 +5,7 @@
 {
     if (Model.ObjQuestionValue.QuestionsList.Count() > 0)
     {
-        <ul class="rating-circle-list">
+        <ul class="rating-circle-list margin-bottom15">
             @foreach (var obj in Model.ObjQuestionValue.QuestionsList)
             {
                 <li>
@@ -23,18 +23,20 @@
     @foreach (UserReviewSummary review in Model.UserReviews.Result)
     {
         <li class="list-item padding-top15">
-            <div class="margin-bottom10">
-                <span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
-                    <span class="bwmsprite star-white"></span>
-                    <span>@review.OverallRating.Value</span>
-                </span>
-                <div class="grid-10-inline font15 text-bold text-truncate">
-                    <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" class="text-black">@review.Title</a>
-                </div>
-            </div>
-            <div class="margin-bottom10">
-                <span class="font12 text-light-grey">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
-            </div>
+			<div class="padding-right20 padding-left20">
+				<div class="margin-bottom10">
+					<span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
+						<span class="bwmsprite star-white"></span>
+						<span>@review.OverallRating.Value</span>
+					</span>
+					<div class="grid-10-inline font15 text-bold text-truncate">
+						<a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" class="text-black">@review.Title</a>
+					</div>
+				</div>
+				<div class="margin-bottom10">
+					<span class="font12 text-light-grey">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
+				</div>
+			</div>
             <div class="collapsible-content toggle-off main-content-off">
                 <div class="main-content">
                     <div class="font14 text-slate-grey margin-bottom10">
@@ -43,17 +45,14 @@
                     </div>
                 </div>
                 <div class="more-content">
-                    <div class="font14 text-slate-grey margin-bottom10">
+                    <div class="padding-right20 padding-left20 font14 text-slate-grey margin-bottom10">
                         <p class="inline" data-bind="html: $data.description">@Html.Raw(review.Description)</p>
-                    </div>
-
-                    <div class="grid-10-inline font15 text-grey text-bold text-truncate">
-                        About the reviewer
                     </div>
 
                     @if (review.RatingQuestionsCount > 0)
                 {
-                        <div class="bg-light position-rel top3">
+                        <div class="about-reviewer-content">
+							<p class="text-grey text-bold">About the reviewer</p>
                             <ul class="about-reviewer-list item-count-@review.RatingQuestionsCount">
                                 @foreach (var q in review.Questions.Where(q => q.Type == UserReviewQuestionType.Rating))
                                 {
@@ -66,24 +65,21 @@
                             </ul>
                         </div>
                     }
-                    <div class="margin-bottom10">
+
+                    <div class="margin-top15 margin-bottom15 padding-right20 padding-left20">
 
                         <span class="review__question text-light-grey font12">Was this review helpful?</span>
 
                         <button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)">
                             <span class="bwmsprite like-sm"></span>
                             Yes
-                            <span id="upvoteCount-@review.ReviewId" class="btn-count review-btn">
-								(@Format.FormatNumbers(review.UpVotes))
-							</span>
+                            (<span id="upvoteCount-@review.ReviewId" class="btn-count review-btn">@Format.FormatNumbers(review.UpVotes)</span>)
                         </button>
 
                         <button class="feedback-button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="downVoteListReview(event)">
                             <span class="bwmsprite dislike-sm"></span>
                             No
-                            <span id="downvoteCount-@review.ReviewId" class="btn-count">
-                               (@Format.FormatNumbers(review.DownVotes))
-                            </span>
+                            (<span id="downvoteCount-@review.ReviewId" class="btn-count">@Format.FormatNumbers(review.DownVotes)</span>)
                         </button>
                     </div>
 					
