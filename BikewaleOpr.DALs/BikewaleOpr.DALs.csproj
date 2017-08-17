@@ -117,6 +117,7 @@
     <Compile Include="Bikedata\BikeVersionsRepository.cs" />
     <Compile Include="BikePricing\BikeShowroomPrices.cs" />
     <Compile Include="BikePricing\DealerPriceRepository.cs" />
+    <Compile Include="ConfigurePageMetas\ConfigurePageMetasRepository.cs" />
     <Compile Include="ContractCampaign\DealerCampaignRepository.cs" />
     <Compile Include="DealerPriceQuoteRepository.cs" />
     <Compile Include="DealersRepository.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="ManufactureCampaign\ManufacturerCampaign.cs" />
     <Compile Include="PopularComparisions\PopularBikeComparisions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceCenter\ServiceCenterRepository.cs" />
     <Compile Include="Used\SellerRepository.cs" />
     <Compile Include="UserReviews\UserReviewsRepository.cs" />
   </ItemGroup>
@@ -148,6 +150,10 @@
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
       <Name>Bikewale.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.DTO\BikewaleOpr.DTO.csproj">
+      <Project>{D2E7FEF3-CA0C-4739-B995-C226AF7CC41D}</Project>
+      <Name>BikewaleOpr.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
       <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>

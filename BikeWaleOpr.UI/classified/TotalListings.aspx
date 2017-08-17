@@ -1,38 +1,48 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.Classified.TotalListings" Trace="false" %>
+
 <%@ Import Namespace="BikeWaleOpr.Common" %>
 <%@ Import Namespace="BikeWaleOpr.Classified" %>
 <%--<title>Total Listings By Customer</title>--%>
 <link href="/css/Common.css" rel="stylesheet" />
 <script src="/src/jquery-1.6.min.js"></script>
 <style>
-    .tdStyle { background-color:#d4d4d4; text-align:left;height:30px;}
-    #totalListing th {color:black;}
+    .tdStyle {
+        background-color: #d4d4d4;
+        text-align: left;
+        height: 30px;
+    }
+
+    #totalListing th {
+        color: black;
+    }
 </style>
 <link rel="stylesheet" href="/css/common.css?03102016" type="text/css" />
-<div style="padding:5px;">
-    <table id=totalListing border="1" class="tableViw"  style="border-width:1px;text-align:center;border-style:solid;border-collapse:collapse;border-spacing:0;">
+<div style="padding: 5px;">
+    <table id="totalListing" border="1" class="tableViw" style="border-width: 1px; text-align: center; border-style: solid; border-collapse: collapse; border-spacing: 0;">
         <tbody>
             <tr class="dtHeader">
-                <th style="font-size:13px">Profile Id</th>
-                <th style="font-size:13px">Customer Name</th>
-                <th style="font-size:13px">Customer Mobile</th>
-                <th style="font-size:13px">Bike Name</th>
-                <th style="font-size:13px">Price</th>
-                <th style="font-size:13px">City</th>
-                <th style="font-size:13px">State</th>   
-                <th style="font-size:13px">Make Year</th>
-                <th style="font-size:13px">Kilometers</th>
-                <th style="font-size:13px">Color</th>
-                <th style="font-size:13px">Owner</th>
-                <th style="font-size:13px">Insurance Type</th>
-                <th style="font-size:13px">Insurance Expiry Date</th>
-                <th style="font-size:13px">Lifetime Tax</th>
-                <th style="font-size:13px;">Entry Date</th>
-                <th style="font-size:13px;">Photos</th>
-                <th colspan ="2" style="font-size:13px">Listing Status</th>
+                <th style="font-size: 13px">Profile Id</th>
+                <th style="font-size: 13px">Customer Name</th>
+                <th style="font-size: 13px">Customer Mobile</th>
+                <th style="font-size: 13px">Bike Name</th>
+                <th style="font-size: 13px">Price</th>
+                <th style="font-size: 13px">City</th>
+                <th style="font-size: 13px">State</th>
+                <th style="font-size: 13px">Make Year</th>
+                <th style="font-size: 13px">Kilometers</th>
+                <th style="font-size: 13px">Color</th>
+                <th style="font-size: 13px">Owner</th>
+                <th style="font-size: 13px">Insurance Type</th>
+                <th style="font-size: 13px">Insurance Expiry Date</th>
+                <th style="font-size: 13px">Lifetime Tax</th>
+                <th style="font-size: 13px;">Entry Date</th>
+                <th style="font-size: 13px;">Photos</th>
+                <th colspan="2" style="font-size: 13px">Listing Status</th>
             </tr>
-             <tr class="<%= ((listType == (int)ListingType.TotalListings) )? "" :"hide"  %>"><td id="tdLiveListing" colspan="19" class="tdStyle"><b>Live Listings</b></td></tr>
-            <asp:Repeater id="rptCustomerLiveList" runat="server">
+            <tr class="<%= ((listType == (int)ListingType.TotalListings) )? "" :"hide"  %>">
+                <td id="tdLiveListing" colspan="19" class="tdStyle"><b>Live Listings</b></td>
+            </tr>
+            <asp:repeater id="rptCustomerLiveList" runat="server">
                 <ItemTemplate>
                     <tr class="dtItem">
                         <td id ="Lprofile_id"><%# DataBinder.Eval(Container.DataItem,"ProfileId")%></td>
@@ -51,12 +61,16 @@
                         <td><%# DataBinder.Eval(Container.DataItem,"LifetimeTax")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"EntryDate","{0:dd-MMM-yyyy}")%></td>
                         <td><input id="btnLView" onclick ="<%# string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0}','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')",DataBinder.Eval(Container.DataItem,"InquiryId").ToString()) %>"  <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> type="button" value ="View Photos"  /></td>
-                        <td><input class="discardList" id="btnLDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/></td>
+                        <td><input class="discardList" id="btnLDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
+                            <input class="markSold" type="button" value ="Sold" data-inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
+                        </td>
                     </tr>
                 </ItemTemplate>
-            </asp:Repeater>
-            <tr class="<%= ((listType == (int)ListingType.TotalListings) )? "" :"hide"  %>"><td id="tdPendingListing" colspan="19" class="tdStyle"><b>Pending Listings</b></td></tr>
-            <asp:Repeater id="rptCustomerPendingList" runat="server">
+            </asp:repeater>
+            <tr class="<%= ((listType == (int)ListingType.TotalListings) )? "" :"hide"  %>">
+                <td id="tdPendingListing" colspan="19" class="tdStyle"><b>Pending Listings</b></td>
+            </tr>
+            <asp:repeater id="rptCustomerPendingList" runat="server">
                 <ItemTemplate>
                     <tr class="dtItem">
                         <td id ="Pprofile_id"><%# DataBinder.Eval(Container.DataItem,"ProfileId")%></td>
@@ -76,12 +90,15 @@
                         <td><%# DataBinder.Eval(Container.DataItem,"EntryDate","{0:dd-MMM-yyyy}")%></td>
                         <td><input id="btnPView" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" type="button" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
                         <td><input class="approveList" id="btnPApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>" />
-                       <input class="discardList" id="btnPDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/></td>
+                            <input class="discardList" id="btnPDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
+                        </td>
                     </tr>
                 </ItemTemplate>
-            </asp:Repeater>
-             <tr class="<%= ((listType == (int)ListingType.TotalListings)) ? "" :"hide"  %>"><td id="tdFakeListing" colspan="19" class="tdStyle"><b>Fake Listings</b></td></tr>
-              <asp:Repeater id="rptCustomerFakeList" runat="server">
+            </asp:repeater>
+            <tr class="<%= ((listType == (int)ListingType.TotalListings)) ? "" :"hide"  %>">
+                <td id="tdFakeListing" colspan="19" class="tdStyle"><b>Fake Listings</b></td>
+            </tr>
+            <asp:repeater id="rptCustomerFakeList" runat="server">
                 <ItemTemplate>
                     <tr class="dtItem">
                         <td id ="Fprofile_id"><%# DataBinder.Eval(Container.DataItem,"ProfileId")%></td>
@@ -100,12 +117,16 @@
                         <td><%# DataBinder.Eval(Container.DataItem,"LifetimeTax")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"EntryDate","{0:dd-MMM-yyyy}")%></td>
                         <td><input id="btnFView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1350,height=660,resizable=0,scrollbars=yes')" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
-                        <td><input class="approveList" id="btnFApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/></td>
+                        <td>
+                            <input class="approveList" id="btnFApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
+                        </td>
                     </tr>
                 </ItemTemplate>
-            </asp:Repeater>
-            <tr class="<%= ((listType == (int)ListingType.TotalListings)) ? "" :"hide"  %>"><td id="tdUnVerifiedListing" colspan="19" class="tdStyle"><b>Mobile Unverified Listings</b></td></tr>
-              <asp:Repeater id="rptCustomerUnVerifiedList" runat="server">
+            </asp:repeater>
+            <tr class="<%= ((listType == (int)ListingType.TotalListings)) ? "" :"hide"  %>">
+                <td id="tdUnVerifiedListing" colspan="19" class="tdStyle"><b>Mobile Unverified Listings</b></td>
+            </tr>
+            <asp:repeater id="rptCustomerUnVerifiedList" runat="server">
                 <ItemTemplate>
                     <tr class="dtItem">
                         <td id ="Uprofile_id"><%# DataBinder.Eval(Container.DataItem,"ProfileId")%></td>
@@ -125,12 +146,15 @@
                         <td><%# DataBinder.Eval(Container.DataItem,"EntryDate","{0:dd-MMM-yyyy}")%></td>
                         <td><input id="btnUView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
                         <td><input class="approveList" id="btnUApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>"inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>" />
-                        <input class="discardList" id="btnUDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/></td>
+                        <input class="discardList" id="btnUDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/>
+                        </td>
                     </tr>
                 </ItemTemplate>
-            </asp:Repeater>
-            <tr class="<%= ((listType == (int)ListingType.TotalListings)) ? "" :"hide"  %>"><td id="tdSoldListing" colspan="19" class="tdStyle"><b>Sold Listings</b></td></tr>
-              <asp:Repeater id="rptCustomerSoldList" runat="server">
+            </asp:repeater>
+            <tr class="<%= ((listType == (int)ListingType.TotalListings)) ? "" :"hide"  %>">
+                <td id="tdSoldListing" colspan="19" class="tdStyle"><b>Sold Listings</b></td>
+            </tr>
+            <asp:repeater id="rptCustomerSoldList" runat="server">
                 <ItemTemplate>
                     <tr class="dtItem">
                         <td id ="Sprofile_id"><%# DataBinder.Eval(Container.DataItem,"ProfileId")%></td>
@@ -152,7 +176,7 @@
                         <td></td>
                     </tr>
                 </ItemTemplate>
-            </asp:Repeater>
+            </asp:repeater>
         </tbody>
     </table>
 </div>
@@ -215,5 +239,36 @@
             });
         }
     });
-    </script>
+
+    $(".markSold").click(function(){
+        var inquiryId=Number($(this).attr("data-inquiryId"));
+        var thisBtn= $(this);
+        if (confirm("Are you sure you want to mark this listing as Sold?") && inquiryId > 0) {
+            $.ajax({
+                type: "POST",
+                url: "/api/used/listing/" + inquiryId + "/markassold/",
+                
+                success: function(response){
+                    if(response){  
+                        thisBtn.parents('.dtItem').remove();
+                        alert("Listing marked as sold successfully!");
+                    }
+                    else
+                    {
+                        alert("Something went wrong, your listing doesn't marked as sold.");
+                    }
+
+                },
+                error: function(){
+                        alert("Something went wrong, your listing doesn't marked as sold.");
+                }
+
+                
+                
+            })
+        }
+    });
+
+    
+</script>
 <!-- #Include file="/includes/footerNew.aspx" -->

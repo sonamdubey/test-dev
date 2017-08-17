@@ -52,7 +52,7 @@
                 <span class="bwmsprite photos-sm">
                 </span>
                 <span class="inline-block">
-                    <span class="font12">@Model.ModelPageEntity.ModelDetails.PhotosCount</span>&nbsp;<span class="font11">@string.Format("{0}", Model.ModelPageEntity.ModelDetails.PhotosCount > 1 ? "images" : "image")</span>
+                    <span class="font12">@Model.ModelPageEntity.AllPhotos.Count()</span>&nbsp;<span class="font11">@string.Format("{0}", Model.ModelPageEntity.AllPhotos.Count() > 1 ? "images" : "image")</span>
                 </span>
             </a>
         </li>

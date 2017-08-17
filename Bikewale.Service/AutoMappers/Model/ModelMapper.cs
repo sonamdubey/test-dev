@@ -390,10 +390,12 @@ namespace Bikewale.Service.AutoMappers.Model
                             objDTOModelPage.PrimaryDealer.Area = dealers.PrimaryDealer.DealerDetails.objArea.AreaName;
                             objDTOModelPage.PrimaryDealer.DealerId = dealers.PrimaryDealer.DealerDetails.DealerId;
                             objDTOModelPage.PrimaryDealer.DealerPkgType = (Bikewale.DTO.PriceQuote.DealerPackageType)dealers.PrimaryDealer.DealerDetails.DealerPackageType;
+                            objDTOModelPage.IsPremium = dealers.PrimaryDealer.IsPremiumDealer;
                         }
 
                     }
                     objDTOModelPage.SecondaryDealerCount = (ushort)dealers.SecondaryDealerCount;
+
                 }
             }
             catch (System.Exception)

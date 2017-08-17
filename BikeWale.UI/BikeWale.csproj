@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -380,7 +380,6 @@
     <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
-    <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\BikeCareModels.cs" />
     <Compile Include="BindViewModels\Webforms\Photos\ModelPhotos.cs" />
     <Compile Include="BindViewModels\Webforms\Service\ServiceDetailsPage.cs" />
@@ -1019,6 +1018,7 @@
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewsSearchWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewSummaryPage.cs" />
+    <Compile Include="Models\UserReviews\UserReviewWinnerWidget.cs" />
     <Compile Include="Models\UserReviews\WriteReviewContest.cs" />
     <Compile Include="Models\UserReviews\WriteReviewPageModel..cs" />
     <Compile Include="Models\Videos\MakeVideosPage.cs" />
@@ -3095,6 +3095,7 @@
     <Content Include="sass\modules\_collapsible-list.sass" />
     <Content Include="sass\user-review\_review-swiper-3d.sass" />
     <Content Include="sass\user-review\_swiper.sass" />
+    <Content Include="m\sass\modules\_rating-circle.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3767,6 +3768,8 @@
     <Content Include="Views\UserReview\_UserReviewsSearch_Schema.cshtml" />
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel.cshtml" />
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
+    <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

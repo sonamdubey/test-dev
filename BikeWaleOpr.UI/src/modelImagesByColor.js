@@ -89,10 +89,11 @@ $(document).ready(function () {
             self.models = ko.observableArray([]);
             self.getModels = function () {
                 var makeId = $('#cmbMake').val();
+                var requestType = $('#requestType').val();
                 if (makeId && makeId > 0) {
                     $.ajax({
                         type: "GET",
-                        url: "/api/makes/" + makeId + "/models/7/",
+                        url: "/api/makes/" + makeId + "/models/"+ requestType +"/",
                         contentType: "application/json",
                         dataType: 'json',
                         async: false,
@@ -146,7 +147,7 @@ $("#btnSubmit").live("click", function () {
 
 $('.deleteImage').live("click", function () {
     try{
-        if (confirm("Are you sure?")) {
+        if (confirm("Are you sure you want to delete this image?")) {
             var delBtn = $(this);
             var colorId = $(this).attr('data-id');
             $.ajax({
