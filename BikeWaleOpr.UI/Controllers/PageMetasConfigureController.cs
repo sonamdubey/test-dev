@@ -12,6 +12,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Bikewale.Notifications.MailTemplates;
+using BikewaleOpr.BAL;
 
 namespace BikewaleOpr.Controllers
 {
@@ -48,6 +49,12 @@ namespace BikewaleOpr.Controllers
                 {                    
                     objEmail.Send(mail, "Metas Changed", "");
                 }
+
+                if (objMetas.ModelId > 0)
+                    MemCachedUtil.Remove("BW_ModelDetail_v1_" + objMetas.ModelId);
+
+                MemCachedUtil.Remove("BW_MakeDetails_" + objMetas.MakeId);
+
                 return RedirectToAction("Index", new { id = pageMetaId });
             }
             catch
