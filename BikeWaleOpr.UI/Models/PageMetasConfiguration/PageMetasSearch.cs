@@ -12,9 +12,9 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
     /// </summary>
     public class PageMetasSearch
     {
-        private readonly IConfigurePageMetasRepository _pageMetasRepo = null;
+        private readonly IPageMetasRepository _pageMetasRepo = null;
 
-        public PageMetasSearch(IConfigurePageMetasRepository pageMetasRepo)
+        public PageMetasSearch(IPageMetasRepository pageMetasRepo)
         {
             _pageMetasRepo = pageMetasRepo;
         }
@@ -30,6 +30,8 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
             try
             {
                 objPageMetaVM.PageMetaList = _pageMetasRepo.GetPageMetas(pageMetaStatus);
+                objPageMetaVM.PageMetaStatus = pageMetaStatus;
+
             }
             catch (Exception ex)
             {

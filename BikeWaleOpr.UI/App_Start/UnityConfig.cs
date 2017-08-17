@@ -77,7 +77,7 @@ namespace BikewaleOpr
                 .RegisterType<IServiceCenter, ServiceCenter>()
                 .RegisterType<IDealers, DealersRepository>()
                 .RegisterType<IManageBookingAmountPage, ManageBookingAmountPage>()
-                .RegisterType<IConfigurePageMetasRepository, ConfigurePageMetasRepository>()
+                .RegisterType<IPageMetasRepository, PageMetasRepository>()
                 .RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
             
                 DependencyResolver.SetResolver(new UnityDependencyResolver(container));

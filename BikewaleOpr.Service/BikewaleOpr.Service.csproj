@@ -154,6 +154,7 @@
     <Compile Include="Controllers\DealersController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ManufacturerCampaign\ManufacturerCampaignController.cs" />
+    <Compile Include="Controllers\PageMetas\PageMetasController.cs" />
     <Compile Include="Controllers\ServiceCenter\ServiceCenterController.cs" />
     <Compile Include="Controllers\Used\UsedBikesController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsController.cs" />

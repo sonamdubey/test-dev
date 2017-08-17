@@ -5,7 +5,7 @@
 }
 <link href="~/css/materialize-stepper.css" rel="stylesheet" />
 <script src="~/src/materialize-stepper.min.js"></script>
-@using (Html.BeginForm("SaveMetas", "PageMetasConfigure", FormMethod.Post))
+@using (Html.BeginForm("SaveMetas", "PageMetas", FormMethod.Post))
 {
     <div class="row" id="pageMeta">
         <div class="stepper-height-60 col m6 offset-m3">
@@ -49,23 +49,23 @@
                     <div class="step-title waves-effect waves-dark">Configure Page Metas</div>
                     <div class="step-content">
                         <div class="input-field col s12">
-                            <textarea id="title" name="title" class="materialize-textarea" >@(Model.PageMetas != null ? Model.PageMetas.Title : "" )</textarea>
+                            <textarea id="title" name="title" class="materialize-textarea">@(Model.PageMetas != null ? Model.PageMetas.Title : "" )</textarea>
                             <label for="title">Title</label>
                         </div>
                         <div class="input-field col s12">
-                            <textarea id="description" name="description" class="materialize-textarea" >@(Model.PageMetas != null ? Model.PageMetas.Description : "" )</textarea>
+                            <textarea id="description" name="description" class="materialize-textarea">@(Model.PageMetas != null ? Model.PageMetas.Description : "" )</textarea>
                             <label for="description">Description</label>
                         </div>
                         <div class="input-field col s12">
-                            <textarea id="keywords" name="keywords" class="materialize-textarea" required>@(Model.PageMetas != null ? Model.PageMetas.Keywords : "" )</textarea>
+                            <textarea id="keywords" name="keywords" class="materialize-textarea">@(Model.PageMetas != null ? Model.PageMetas.Keywords : "" )</textarea>
                             <label for="keywords">Keywords</label>
                         </div>
                         <div class="input-field col s12">
-                            <textarea id="heading" name="heading" class="materialize-textarea" required>@(Model.PageMetas != null ? Model.PageMetas.Heading : "" )</textarea>
+                            <textarea id="heading" name="heading" class="materialize-textarea">@(Model.PageMetas != null ? Model.PageMetas.Heading : "" )</textarea>
                             <label for="heading">Heading</label>
                         </div>
                         <div class="input-field col s12">
-                            <textarea id="summary" name="summary" class="materialize-textarea" required>@(Model.PageMetas != null ? Model.PageMetas.Summary : "" )</textarea>
+                            <textarea id="summary" name="summary" class="materialize-textarea">@(Model.PageMetas != null ? Model.PageMetas.Summary : "" )</textarea>
                             <label for="summary">Summary</label>
                         </div>
                        <input id="btnSubmit" class="btn margin-bottom50" name="btnSubmit" type="submit" value="Configure" data-bind="click: validateData" />
