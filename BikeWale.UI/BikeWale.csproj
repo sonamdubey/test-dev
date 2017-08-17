@@ -1018,6 +1018,7 @@
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewsSearchWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewSummaryPage.cs" />
+    <Compile Include="Models\UserReviews\UserReviewWinnerWidget.cs" />
     <Compile Include="Models\UserReviews\WriteReviewContest.cs" />
     <Compile Include="Models\UserReviews\WriteReviewPageModel..cs" />
     <Compile Include="Models\Videos\MakeVideosPage.cs" />
@@ -3745,6 +3746,8 @@
     <Content Include="Views\UserReview\_UserReviewsSearch_Schema.cshtml" />
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel.cshtml" />
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
+    <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

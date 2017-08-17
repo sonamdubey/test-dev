@@ -100,5 +100,36 @@ namespace BikewaleOpr.Service.Controllers.Used
                 return InternalServerError();
             }
         }
+
+        /// <summary>
+        /// Created By: Ashutosh Sharma on 27-07-2017
+        /// Description: API to update used bike as sold on the Manage used bike listing page.
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        /// <returns></returns>
+
+        [HttpPost, Route("api/used/listing/{inquiryid}/markassold/")]
+        public IHttpActionResult UpdateInquiryAsSold(uint inquiryId)
+        {
+           
+                if (inquiryId > 0)
+                {
+                    try
+                    {
+                        bool success = false;
+                        success = _objBikeModels.UpdateInquiryAsSold(inquiryId);
+                        return Ok(success);
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesController.UpdateAsSoldInquiry inquiryId {0}", inquiryId));
+                        return InternalServerError();
+                    } 
+                }
+                else
+            {
+                return BadRequest();
+            }
+        }
     }
 }

@@ -1,0 +1,113 @@
+﻿@model BikewaleOpr.Entities.EMI
+@{
+    ViewBag.Title = "Manage Dealer Loan Amounts";
+    ViewBag.PageTitle = "Manage Dealer Loan Amounts";
+}
+<div class="container">
+    <div class="container">
+        <div class="row">
+            <div class="col s5">
+                <h1 class="header">Add loan properties</h1>
+            </div>
+        </div>
+
+        @using (Html.BeginForm("Submit", "NewBikeDealerEMI", new { dealerId = Request.QueryString["dealerId"] }, FormMethod.Post, new { id = "emiForm" }))
+            {
+            <input id="hdnLoanAmountId" name="id" type="hidden" data-value="@(Model == null ? "" : Convert.ToString(Model.Id))" data-bind="textInput: hdnLoanAmountId" />
+            <div class="row valign-wrapper">
+                <div class="col s6"><span>Select Down Payment(%) Ex. 55.50 :</span> </div>
+                <div class="input-field col s3">
+                    <input id="txtMinPayment" class="validate perc" type="text" name="minDownPayment" maxlength="10" data-value="@(Model == null ? "" : Convert.ToString(Model.MinDownPayment))" data-bind="textInput: txtMinPayment" />
+                    <label class="active" for="txtMinPayment" data-error="Required field. Only numbers allowed. Ex. 55.50">Min</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="txtMaxPayment" class="validate perc" type="text" name="maxDownPayment" maxlength="10" data-value="@(Model == null ? "" : Convert.ToString(Model.MaxDownPayment))" data-bind="textInput: txtMaxPayment" />
+                    <label class="active" for="txtMaxPayment" data-error="Required field. Only numbers allowed. Ex. 55.50">Max</label>
+                </div>
+            </div>
+
+            <div class="row valign-wrapper">
+                <div class="col s6">
+                    Tenure(months), Ex. 12 :
+                </div>
+                <div class="input-field col s3">
+                    <input id="txtMinTenure" class="validate int" type="text" name="minTenure" maxlength="10" data-value="@(Model == null ? "" : Convert.ToString(Model.MinTenure))" data-bind="textInput: txtMinTenure" />
+                    <label class="active" for="txtMinTenure" data-error="Required field. Only whole numbers allowed. Ex. 12">Min</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="txtMaxTenure" class="validate int" type="text" name="maxTenure" maxlength="10" data-value="@(Model == null ? "" : Convert.ToString(Model.MaxTenure))" data-bind="textInput: txtMaxTenure" />
+                    <label class="active" for="txtMaxTenure" data-error="Required field. Only whole numbers allowed. Ex. 12">Max</label>
+                </div>
+            </div>
+
+                <div class="row valign-wrapper">
+                    <div class="col s6">
+                        Rate of interest (%), Ex 12.45 :
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtMinROI" class="validate perc" type="text" name="minRateOfInterest" maxlength="10" data-value="@(Model == null ? "" : Convert.ToString(Model.MinRateOfInterest))" data-bind="textInput: txtMinROI" />
+                        <label class="active" for="txtMinROI" data-error="Required field. Only numbers allowed. Ex. 15.50">Min</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtMaxROI" class="validate perc" type="text" name="maxRateOfInterest" maxlength="10" data-value="@(Model == null ? "" : Convert.ToString(Model.MaxRateOfInterest))" data-bind="textInput: txtMaxROI" />
+                        <label class="active" for="txtMaxROI" data-error="Required field. Only numbers allowed. Ex. 15.50">Max</label>
+                    </div>
+                </div>
+
+                <div class="row valign-wrapper">
+                    <div class="col s6">
+                        Loan To Value (LTV %), Ex. 20
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtMinLtv" class="validate intperc" type="text" name="minLoanToValue" maxlength="10" data-value="@(Model == null ? "" : Convert.ToString(Model.MinLoanToValue))" data-bind="textInput: txtMinLtv" />
+                        <label class="active" for="txtMinLtv" data-error="Required field. Only numbers allowed. Ex. 20.50">Min</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtMaxLtv" class="validate intperc" type="text" name="maxLoanToValue" maxlength="10" data-value="@(Model == null ? "" : Convert.ToString(Model.MaxLoanToValue))" data-bind="textInput: txtMaxLtv" />
+                        <label class="active" for="txtMaxLtv" data-error="Required field. Only numbers allowed. Ex. 20.50">Max</label>
+                    </div>
+                </div>
+
+                <div class="row valign-wrapper">
+                    <div class="col s6">
+                        Select Loan Provider :
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="textLoanProvider" class="validate" type="text" name="loanProvider" maxlength="10" data-value="@(Model == null ? "" : Model.LoanProvider)" data-bind="textInput: textLoanProvider" />
+                        <label class="active" for="textLoanProvider" data-error="Required field.">Loan Provider</label>
+                    </div>
+                </div>
+
+                <div class="row valign-wrapper">
+                    <div class="col s6">
+                        Select Processing Fees Ex. 3,000 :
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="txtFees" class="validate double" type="text" name="processingFee" maxlength="10" data-value="@(Model == null ? "" : Convert.ToString(Model.ProcessingFee))" data-bind="textInput: txtFees" />
+                        <label class="active" for="txtFees" data-error="Required field. Only numbers allowed. Ex. 3000">Processing Fees</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <button id="btnSaveEMI" class="btn waves-effect waves-light" type="submit" data-bind="click: SaveEMI_Validate">Add EMI</button>
+                    <button id="btnReset" class="btn waves-effect waves-light" type="button" data-bind="click: Reset">Reset</button>
+                    <button id="btnDelete" class="btn waves-effect waves-light modal-trigger @(Model == null ? "hide" : "")" data-target="confirm-modal" type="button">Delete EMI</button>
+                </div>
+        }
+        <!-- Modal Structure -->
+        <div id="confirm-modal" class="modal">
+            <div class="modal-content">
+                <h4>Delete EMI</h4>
+                <p>Are you sure you want to delete this record?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" id="anchor-delete" class="modal-action modal-close waves-effect waves-green btn-flat" data-bind="click: Delete">Yes</a>
+                <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+            </div>
+        </div>
+
+
+
+        <script type="text/javascript" src="~/src/content/newbikedealerEMI.js"></script>
+    </div>
+
+</div>
