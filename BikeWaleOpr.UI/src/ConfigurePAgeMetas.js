@@ -8,7 +8,7 @@ var ConfigurePageMetas = function () {
     self.pageList = ko.observableArray();
     self.selectedPage = ko.observable();        
 
-    self.validateData = function () {
+    self.validateData = function (d, e) {
         var isValid = true;
 
         if (!self.selectedMakeId()) {
@@ -25,6 +25,17 @@ var ConfigurePageMetas = function () {
             Materialize.toast("Please select Model", 3000);
             isValid = false;
         }
+
+        if (!isValid) {
+            e.preventDefault();
+        }
+        
+        $('#makeName').val($("#selectMake option:selected").text());
+        $('#modelName').val($("#selectModel option:selected").text());
+        $('#pageName').val($("#selectPage option:selected").text());
+        $('#selectPage').prop('disabled', false);
+        $('#selectModel').prop('disabled', false);
+        $('#selectMake').prop('disabled', false);
 
         return isValid;
     };

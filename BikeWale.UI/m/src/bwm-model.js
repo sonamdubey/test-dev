@@ -412,7 +412,7 @@ docReady(function () {
         },
     });
 
-    if (photosCount > 10) {
+    if (photosCount > 0) {
         var overlayCount = '<span class="black-overlay text-white"><span class="font16 text-bold">+' + photosCount + '</span><br><span class="font14">images</span></span>';
         $("#model-photos-swiper .swiper-slide").last().find("a").append(overlayCount);
     }
@@ -740,14 +740,16 @@ docReady(function () {
 function upVoteListReview(e) {
     try {
         var localReviewId = e.currentTarget.getAttribute("data-reviewid");
-        bwcache.set("ReviewDetailPage_reviewVote_" + localReviewId, { "vote": "1" });
-        $('#upvoteBtn' + "-" + localReviewId).addClass('active');
-        $('#downvoteBtn' + "-" + localReviewId).attr('disabled', 'disabled');
+        if (!$('#upvoteBtn' + "-" + localReviewId).hasClass('active')) {
+            bwcache.set("ReviewDetailPage_reviewVote_" + localReviewId, { "vote": "1" });
+            $('#upvoteBtn' + "-" + localReviewId).addClass('active');
+            $('#downvoteBtn' + "-" + localReviewId).attr('disabled', 'disabled');
 
-        if (reg.test($('#upvoteCount' + "-" + localReviewId).text()))
-            $('#upvoteCount' + "-" + localReviewId).text(parseInt($('#upvoteCount' + "-" + localReviewId).text()) + 1);
+            if (reg.test($('#upvoteCount' + "-" + localReviewId).text()))
+                $('#upvoteCount' + "-" + localReviewId).text(parseInt($('#upvoteCount' + "-" + localReviewId).text()) + 1);
 
-        voteListUserReview(1, localReviewId);
+            voteListUserReview(1, localReviewId);
+        }
     } catch (e) {
         console.warn(e);
     }

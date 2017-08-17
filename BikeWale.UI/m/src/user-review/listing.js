@@ -53,6 +53,19 @@ function downVoteListReview(e) {
         console.log(e);
     }
 }
+function logBhrighu(e) {
+
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+    $.each(vmUserReviews.activeReviewList(), function (i, val) {
+        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
+            index = i + 1;
+
+        }
+
+    });
+    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index + (pageNumber - 1) * 10) + '|PageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("TitleClick", label);
+}
 
 function updateView(e) {
     // for bhrigu updation
@@ -91,6 +104,12 @@ function voteListUserReview(vote, locReviewId) {
     } catch (e) {
         console.log(e);
     }
+}
+
+function resetCollapsibleContent() {
+    var activeCollapsible = $('.user-review-list').find('.collapsible-content.active');
+    activeCollapsible.removeClass('active');
+    activeCollapsible.find('.read-more-target').text('...Read more');
 }
 
 function applyLikeDislikes() {
@@ -169,7 +188,7 @@ function upVoteReview() {
     try {
         bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "1" });
         $('#upvoteButton').addClass('active');
-        $('#upvoteText').text("Liked");
+        //$('#upvoteText').text("Liked");
         $('#downvoteButton').attr('disabled', 'disabled');
         $('#upvoteCount').text(parseInt($('#upvoteCount').text()) + 1);
         voteUserReview(1);
@@ -183,7 +202,7 @@ function downVoteReview() {
     try {
         bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "0" });
         $('#downvoteButton').addClass('active');
-        $('#downvoteText').text("Disliked");
+        //$('#downvoteText').text("Disliked");
         $('#upvoteButton').attr('disabled', 'disabled');
         $('#downvoteCount').text(parseInt($('#downvoteCount').text()) + 1);
         voteUserReview(0);
@@ -256,12 +275,12 @@ docReady(function () {
     if (vote != null && vote.vote) {
         if (vote.vote == "0") {
             $('#downvoteButton').addClass('active');
-            $('#downvoteText').text("Disliked");
+            //$('#downvoteText').text("Disliked");
             $('#upvoteButton').attr('disabled', 'disabled');
         }
         else {
             $('#upvoteButton').addClass('active');
-            $('#upvoteText').text("Liked");
+            //$('#upvoteText').text("Liked");
             $('#downvoteButton').attr('disabled', 'disabled');
         }
     }
@@ -566,6 +585,8 @@ docReady(function () {
 
 
             self.PreviousQS(qs);
+
+            resetCollapsibleContent();
         };
 
         self.setPageFilters = function (e) {

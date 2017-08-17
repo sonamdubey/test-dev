@@ -14,7 +14,7 @@
     <RootNamespace>BikewaleOpr</RootNamespace>
     <AssemblyName>BikewaleOpr</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -421,6 +421,7 @@
     <Compile Include="Controllers\DealerFacilitiesController.cs" />
     <Compile Include="Controllers\MakesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageBookingAmountController.cs" />
     <Compile Include="Controllers\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
     <Compile Include="Controllers\PriceMonitoringController.cs" />
@@ -1954,6 +1955,7 @@
     <Content Include="src\imageUpload.js" />
     <Content Include="src\jquery-1.6.min.js" />
     <Content Include="src\knockout.js" />
+    <Content Include="src\manageBookingAmount.js" />
     <Content Include="src\ManufactureCampaign\ConfigureCampaign.js" />
     <Content Include="src\ManufactureCampaign\configureCampaignProperties.js" />
     <Content Include="src\ManufactureCampaign\rules.js" />
@@ -2020,10 +2022,11 @@
     <Content Include="Views\Banner\Index.cshtml" />
     <Content Include="Views\Banner\BannersList.cshtml" />
     <Content Include="Views\ServiceCenter\SearchServiceCenter.cshtml" />
+    <Content Include="Views\ManageBookingAmount\Index.cshtml" />
     <Content Include="Views\DealerFacilities\Index.cshtml" />
     <Content Include="Views\NewBikeDealerEMI\Index.cshtml" />
-    <Content Include="Views\PageMetasConfigure\Index.cshtml" />
-    <Content Include="Views\PageMetasConfigure\Search_Index.cshtml" />
+    <Content Include="Views\PageMetas\Search_Index.cshtml" />
+    <Content Include="Views\PageMetas\Index.cshtml" />
     <Content Include="Views\ServiceCenter\AddServiceCenter.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>

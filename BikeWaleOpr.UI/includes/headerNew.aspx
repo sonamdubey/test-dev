@@ -68,7 +68,8 @@
                                         <li><a href="/newbikebooking/default.aspx">Manage Dealers</a></li>
                                         <li><a href="/campaign/SearchDealerCampaigns.aspx">Dealer Campaigns</a></li>                                        
                                         <li><a href="/campaign/ManageDealerPriceCategories.aspx">Dealer Price Categories</a></li>
-                                         <li><a href="/servicecenter/search/">Manage Service Centers</a></li>
+                                         <li><a href="/servicecenter/search/">Manage Service Centers</a></li>
+
                                     </ul>
                                 </div>
                             </li>
@@ -119,4 +120,3 @@
             </ul>
 		</div>--%>
 	    <div class='toast' style='display:none'></div>
-

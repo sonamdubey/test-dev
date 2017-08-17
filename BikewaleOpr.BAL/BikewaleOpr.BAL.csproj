@@ -124,8 +124,10 @@
     <Compile Include="Dealers.cs" />
     <Compile Include="HomePage.cs" />
     <Compile Include="Images\ImageBL.cs" />
+    <Compile Include="ManageBookingAmountPage.cs" />
     <Compile Include="ManufacturerReleaseMaskingNumber.cs" />
     <Compile Include="MemCachedUtil.cs" />
+    <Compile Include="PageMetas\PageMetas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SecurityBL.cs" />
     <Compile Include="ServiceCenter\ServiceCenter.cs" />

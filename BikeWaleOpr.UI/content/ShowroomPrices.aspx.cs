@@ -239,6 +239,7 @@ namespace BikeWaleOpr.Content
                 }
                 //To clear price quote for city
                 BwMemCache.ClearPriceQuoteCity(Convert.ToUInt32(model));
+                
             }
             //To clear new launched bikes cache
             MemCachedUtil.Remove("BW_NewLaunchedBikes");
