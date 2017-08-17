@@ -146,6 +146,9 @@ span.ui-helper-hidden-accessible { display: none; }
     -o-transform: scale(0.6);
     transform: scale(0.6); }
 
+.rate-count-0 .star-icon {
+    background-position: -144px -667px;
+}
 .rate-count-1 .star-icon {
   background-position: 0 -667px; }
 
