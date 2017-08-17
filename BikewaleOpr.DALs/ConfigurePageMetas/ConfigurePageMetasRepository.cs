@@ -66,12 +66,11 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     connection.Open();
-
                     var param = new DynamicParameters();
                     param.Add("par_id", objMetas.PageMetaId);
                     param.Add("par_pageid", objMetas.PageId);
                     param.Add("par_makeid", objMetas.MakeId);
-                    param.Add("par_modelid", objMetas.ModelId);
+                    param.Add("par_modelid", objMetas.ModelId == 0 ? null: objMetas.ModelId);
                     param.Add("par_title", objMetas.Title);
                     param.Add("par_description", objMetas.Description);
                     param.Add("par_keywords", objMetas.Keywords);
