@@ -16,6 +16,8 @@ namespace BikewaleOpr.Controllers
     /// Created By : Ashutosh Sharma on 31-07-2017
     /// Description : Price Monitoring Report Controller.
     /// </summary>
+
+    [Authorize]
     public class PriceMonitoringController : Controller
     {
         private readonly IBikeMakes _makesRepo = null;
