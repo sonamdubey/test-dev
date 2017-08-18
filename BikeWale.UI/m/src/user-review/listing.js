@@ -109,7 +109,7 @@ function voteListUserReview(vote, locReviewId) {
 function resetCollapsibleContent() {
     var activeCollapsible = $('.user-review-list').find('.collapsible-content.active');
     activeCollapsible.removeClass('active');
-    activeCollapsible.find('.read-more-target').text('...Read more');
+    activeCollapsible.find('.read-more-target').text('Read more');
 }
 
 function applyLikeDislikes() {
@@ -564,6 +564,7 @@ docReady(function () {
                         //window.location.hash = qs;
                         self.IsLoading(false);
                         $('html, body').scrollTop(modelReviewsSection.offset().top);
+                        resetCollapsibleContent();
                     });
                 }
                 else {
@@ -579,14 +580,11 @@ docReady(function () {
                         if ($(listItem[i]).find('.rating-badge').length == 0)
                             $(listItem[i]).remove();
                     }
+                    resetCollapsibleContent();
                 }
             }
 
-
-
-            self.PreviousQS(qs);
-
-            resetCollapsibleContent();
+            self.PreviousQS(qs);            
         };
 
         self.setPageFilters = function (e) {
