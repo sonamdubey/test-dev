@@ -347,7 +347,7 @@ docReady(function () {
     ko.bindingHandlers.formattedVotes = {
         update: function (element, valueAccessor) {
             var amount = valueAccessor();
-            var formattedVote = ko.unwrap(amount) > 999 ? (amount / 1000).toFixed(1) + 'K' : amount;
+            var formattedVote = ko.unwrap(amount) > 999 ? ((amount / 1000).toString().match(/\d+[.]+\d/))[0] + 'k' : amount;
             $(element).text(formattedVote);
         }
     };

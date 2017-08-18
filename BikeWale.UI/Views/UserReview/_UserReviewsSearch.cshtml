@@ -105,20 +105,17 @@
 
                                                     <span class="review__question">Was this review helpful?</span>
 
-                                                    <button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)">
-                                                <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId" data-id="@i">...Read more</a>
+                                                    <button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="upVoteListReview(event)">                                               
                                                         <span class="bwsprite like-sm"></span>
                                                         Yes
-                                                        (<span id="upvoteCount-@review.ReviewId" class="btn-count">@review.UpVotes</span>)
+                                                        (<span id="upvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'upvoteCount-' + $data.reviewId}, formattedVotes : $data.upVotes">@Format.FormatNumbers(review.UpVotes)</span>)
                                                     </button>
 
 
-                                                    <button class="feedback-button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="downVoteListReview(event)">
+                                                    <button class="feedback-button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" data-bind="attr: { id: 'downvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="downVoteListReview(event)">
                                                         <span class="bwsprite dislike-sm"></span>
                                                         No
-                                                        (<span id="downvoteCount-@review.ReviewId" class="btn-count">
-                                                            @review.DownVotes
-                                                        </span>)
+                                                        (<span id="downvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'downvoteCount-' + $data.reviewId}, formattedVotes : $data.downVotes">@Format.FormatNumbers(review.DownVotes)</span>)                                                            
                                                     </button>
                                                     <p class="report-abuse-label rightfloat line-height26" id="pReport-@review.ReviewId">Inappropriate review? <a href="javascript:void(0)" data-reviewId="@review.ReviewId" onclick="reportReview(event)" rel="nofollow">Report Abuse</a></p>
                                                 </div>
