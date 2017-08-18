@@ -467,40 +467,41 @@
         <div class="clear"></div>
     </div>
 </section>
+@(Html.Raw(Model.JSONSchema))
 <script type="text/javascript">
     var descWrapper;
-           docReady(function () {
-                if ($(window).scrollTop() > 40) {
-                    $('#header').removeClass("header-landing").addClass("header-fixed");
-                }
-                $(window).on("scroll", function () {
-                    if ($(window).scrollTop() > 40)
-                        $('#header').removeClass("header-landing").addClass("header-fixed");
-                    else
-                        $('#header').removeClass("header-fixed").addClass("header-landing");
-                });
+    docReady(function () {
+        if ($(window).scrollTop() > 40) {
+            $('#header').removeClass("header-landing").addClass("header-fixed");
+        }
+        $(window).on("scroll", function () {
+            if ($(window).scrollTop() > 40)
+                $('#header').removeClass("header-landing").addClass("header-fixed");
+            else
+                $('#header').removeClass("header-fixed").addClass("header-landing");
+        });
 
-                $('.read-more-desc-target').on('click', function () {
-                     descWrapper = $(this).closest('.description-content');
+        $('.read-more-desc-target').on('click', function () {
+            descWrapper = $(this).closest('.description-content');
 
-                    description.toggleContent(descWrapper);
-                });
-            });
+            description.toggleContent(descWrapper);
+        });
+    });
 
-           
 
-            var description = {
-                toggleContent: function (descWrapper) {
-                    var readMoreTarget = $(descWrapper).find('.read-more-desc-target');
 
-                    if (!$(descWrapper).hasClass('active')) {
-                        $(descWrapper).addClass('active');
-                        readMoreTarget.text('Collapse');
-                    }
-                    else {
-                        $(descWrapper).removeClass('active');
-                        readMoreTarget.text('...Read more');
-                    }
-                }
-            };
+    var description = {
+        toggleContent: function (descWrapper) {
+            var readMoreTarget = $(descWrapper).find('.read-more-desc-target');
+
+            if (!$(descWrapper).hasClass('active')) {
+                $(descWrapper).addClass('active');
+                readMoreTarget.text('Collapse');
+            }
+            else {
+                $(descWrapper).removeClass('active');
+                readMoreTarget.text('...Read more');
+            }
+        }
+    };
 </script>
