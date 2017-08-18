@@ -357,6 +357,11 @@ h2.text-bold { font-weight: bold; }
 }
 
 /* rating circle list */
+.rating-circle-list {
+	margin: 0 20px 15px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #e2e2e2;
+}
 .rating-circle-list:after {
     content: '';
     display: block;
@@ -873,7 +878,7 @@ h2.text-bold { font-weight: bold; }
 
 /* feedback buttons */
 .feedback-button {
-	font-size: 12px;
+	font-size: 11px;
 	min-width: 60px;
 	background: white;
 	margin: 0 4px;
@@ -929,7 +934,7 @@ h2.text-bold { font-weight: bold; }
 /* about reviewer */
 .about-reviewer-content {
 	padding: 15px 20px 0;
-	background: #f5f5f5;
+	background: #fafafa;
 }
 .about-reviewer-content .item-answer {
 	font-size: 13px;
