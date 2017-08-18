@@ -27,7 +27,6 @@ using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Interface.BikeColorImages;
 using BikewaleOpr.Interface.BikeData;
-using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Dealers;
@@ -94,7 +93,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IServiceCenter, ServiceCenter>();
             container.RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
 
-            
+
             container.RegisterType<IPageMetasRepository, PageMetasRepository>();
             container.RegisterType<IPageMetas, PageMetas>();
 

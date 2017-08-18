@@ -585,7 +585,7 @@ namespace BikewaleOpr.Service
                             dealerPricesAvaialabilities.MakeId
                         );
 
-                    if (dealerPricesAvaialabilities.DealerVersionAvailabilities.DealerId > 0 && dealerPricesAvaialabilities.DealerVersionAvailabilities.BikeVersionIds.Count() > 0 && dealerPricesAvaialabilities.DealerVersionAvailabilities.NumberOfDays.Count() > 0)
+                    if (dealerPricesAvaialabilities.DealerVersionAvailabilities.DealerId > 0 && dealerPricesAvaialabilities.DealerVersionAvailabilities.BikeVersionIds != null && dealerPricesAvaialabilities.DealerVersionAvailabilities.BikeVersionIds.Count() > 0 && dealerPricesAvaialabilities.DealerVersionAvailabilities.NumberOfDays != null && dealerPricesAvaialabilities.DealerVersionAvailabilities.NumberOfDays.Count() > 0)
                         isAvailabilitySaved = versionAvailability.SaveVersionAvailability(
                             dealerPricesAvaialabilities.DealerVersionAvailabilities.DealerId,
                             dealerPricesAvaialabilities.DealerVersionAvailabilities.BikeVersionIds,
