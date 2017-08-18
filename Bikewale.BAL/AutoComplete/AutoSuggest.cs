@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Bikewale.BAL.AutoComplete
 {
-    public class AutoSuggest : IAutoSuggest
+    public class AutoSuggest :IAutoSuggest
     {
         #region GetAutoSuggestResult PopulateWhere
         /// <summary>
@@ -22,40 +22,50 @@ namespace Bikewale.BAL.AutoComplete
         /// <param name="inputText"></param>
         /// <param name="noOfRecords"></param>
         /// <returns></returns>
-        public IEnumerable<SuggestOption> GetAutoSuggestResult(string inputText, int noOfRecords, AutoSuggestEnum source)
+     
+        public IEnumerable<Nest.SuggestOption<T>> GetAutoSuggestResult<T>(string inputText, int noOfRecords, AutoSuggestEnum source) where T : class
         {
-            IEnumerable<SuggestOption> suggestionList = null;
+            IEnumerable<Nest.SuggestOption<T>> suggestionList = null;
             string completion_field = "mm_suggest";
             string indexName = string.Empty;
             try
             {
                 indexName = GetIndexName(source);
                 ElasticClient client = ElasticSearchInstance.GetInstance();
+               
+                    var context = GetContext(source);
+                    Func<SearchDescriptor<T>, SearchDescriptor<T>> selectorWithContext = null;
+                    Func<SuggestContextQueriesDescriptor<T>, IPromise<IDictionary<string,IList<ISuggestContextQuery>>>> contentDict = null;
+             
+                    contentDict =new Func<SuggestContextQueriesDescriptor<T>, IPromise<IDictionary<string, IList<ISuggestContextQuery>>>>
+                    (cc => cc.Context("types", context.Select<string, Func<SuggestContextQueryDescriptor<T>, ISuggestContextQuery>>(v => cd => cd.Context(v)).ToArray()));
 
-                ISuggestResponse _result = client.Suggest<SuggestionOutput>(s => s.Index(indexName).GlobalText(inputText).Completion(completion_field, c => c.OnField(completion_field).Size(noOfRecords)));
+                selectorWithContext = new Func<SearchDescriptor<T>, SearchDescriptor<T>>(sd => sd.Index(indexName)
+                    .Suggest(s => s.Completion(completion_field, c => c.Field(completion_field).Prefix(inputText).Contexts(contentDict).Size(noOfRecords)))); 
+            
 
-                if (_result != null && _result.Suggestions != null && _result.Suggestions.ContainsKey(completion_field))
-                {
-                    if (_result.Suggestions[completion_field][0].Options.Count() > 0)
-                        suggestionList = _result.Suggestions[completion_field][0].Options;//.ToList<Nest.SuggestOption>();
-                    else
+                ISearchResponse<T> _result = client.Search<T>( selectorWithContext);
+
+                if (_result.Suggest[completion_field][0].Options.Count <= 0)
                     {
-                        if (!source.Equals(AutoSuggestEnum.AreaPinCodes))
+                        Func<SearchDescriptor<T>, SearchDescriptor<T>> selectorWithoutContextAndFuzyy = new Func<SearchDescriptor<T>, SearchDescriptor<T>>(
+                            sd => sd.Index(indexName).Suggest(s => s.Completion(completion_field, c => c.Field(completion_field)
+                                .Fuzzy(ff => ff.MinLength(2).PrefixLength(0).Fuzziness(Fuzziness.EditDistance(1))).Prefix(inputText).Size(noOfRecords))));
+                        Func<SearchDescriptor<T>, SearchDescriptor<T>> selectorWithContextAndFuzyy = null;
+                        if (context != null)
                         {
-                            _result = client.Suggest<SuggestionOutput>(s => s.Index(indexName).GlobalText(inputText)
-                       .Completion(completion_field, c => c.OnField(completion_field).Fuzzy(ff => ff.MinLength(3).PrefixLength(0).Fuzziness(1)).Size(noOfRecords)
-                       ));
+                            selectorWithContextAndFuzyy = new Func<SearchDescriptor<T>, SearchDescriptor<T>>(sd => sd.Index(indexName)
+                                .Suggest(s => s.Completion(completion_field, c => c
+                                    .Field(completion_field)
+                                    .Fuzzy(ff => ff.MinLength(2).PrefixLength(0).Fuzziness(Fuzziness.EditDistance(1)))
+                                    .Size(noOfRecords)
+                                    .Contexts(contentDict)
+                                    .Prefix(inputText))));
                         }
-                        else
-                        {
-                            _result = client.Suggest<SuggestionOutput>(s => s.Index(indexName).GlobalText(inputText)
-                     .Completion(completion_field, c => c.OnField(completion_field).Size(noOfRecords)
-                     ));
-                        }
-
-                        suggestionList = _result.Suggestions[completion_field][0].Options;
+                        _result = client.Search<T>(context == null ? selectorWithoutContextAndFuzyy : selectorWithContextAndFuzyy);
                     }
-                }
+                    suggestionList = _result.Suggest[completion_field][0].Options;
+                
 
             }
             catch (Exception ex)
@@ -63,8 +73,8 @@ namespace Bikewale.BAL.AutoComplete
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.ElasticSearchManger.GetAutoSuggestResult");
             }
             return suggestionList;
-        }
 
+        }
         private string GetIndexName(AutoSuggestEnum source)
         {
             string indexName = string.Empty;
@@ -88,5 +98,34 @@ namespace Bikewale.BAL.AutoComplete
             return indexName;
         }
         #endregion
+
+        public List<string> GetContext(AutoSuggestEnum source)
+        {
+            List<string> indexName =new List<string>();
+            switch (source)
+            {
+                case AutoSuggestEnum.AllMakeModel:
+                    indexName.Add("AllMakeModel");
+                    break;
+                case AutoSuggestEnum.PriceQuoteMakeModel:
+                    indexName.Add("PriceQuoteMakeModel");
+                    break;
+                case AutoSuggestEnum.UserReviews:
+                    indexName.Add("UserReviews");
+                    break;
+                case AutoSuggestEnum.AllCity:
+                    indexName.Add("AllCity");
+                    break;
+                case AutoSuggestEnum.AreaPinCodes:
+                    indexName.Add("AreaPinCodes");
+                    break;
+                default:
+                    indexName.Add("AllMakeModel");
+                    break;
+            }
+            return indexName;
+
+        }
+
     }   //End of class
 }   //End of namespace
