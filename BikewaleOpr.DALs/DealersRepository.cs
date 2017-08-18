@@ -1143,7 +1143,8 @@ namespace BikewaleOpr.DAL
         {
             try
             {
-                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                int isUpdated;
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_bookingid", objBookingAmt.BookingAmountBase.Id);
@@ -1154,11 +1155,12 @@ namespace BikewaleOpr.DAL
                     param.Add("par_updatedby", updatedBy);
 
                     connection.Open();
-                    connection.Execute("bw_savebookingamount_08072017", param: param, commandType: CommandType.StoredProcedure);
+                    isUpdated = connection.Execute("bw_savebookingamount_08072017", param: param, commandType: CommandType.StoredProcedure);
                     if(connection != null && connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
+                    return (isUpdated > 0) ;
                 }
             }
             catch (Exception ex)

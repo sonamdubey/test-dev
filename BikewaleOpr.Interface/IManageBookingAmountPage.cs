@@ -11,6 +11,6 @@ namespace BikewaleOpr.Interface
     public interface IManageBookingAmountPage
     {
         ManageBookingAmountData GetManageBookingAmountData(UInt32 dealerId);
-        void AddBookingAmount(BookingAmountEntity objBookingAmountEntity, string updatedBy);
+        bool AddBookingAmount(BookingAmountEntity objBookingAmountEntity, string updatedBy);
     }
 }
