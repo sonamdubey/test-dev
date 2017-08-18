@@ -134,10 +134,13 @@
 
                                     <div id="reviewRatingsDiv" class=" font13 margin-bottom10 position-rel pos-right5">
                                         <span data-bind="css: { 'rate-count-5': bikemodel.reviewRate() >= 4.5, 'rate-count-4': bikemodel.reviewRate() >= 3.5 && bikemodel.reviewRate() < 4.5, 'rate-count-3': bikemodel.reviewRate() >= 2.5 && bikemodel.reviewRate() < 3.5, 'rate-count-2': bikemodel.reviewRate() >= 1.5 && bikemodel.reviewRate() < 2.5, 'rate-count-1': bikemodel.reviewRate() >= 0.5 && bikemodel.reviewRate() < 1.5, 'rate-count-0': bikemodel.reviewRate() < .5 }">
-                                            <span class="bwmsprite star-icon star-size-16"></span><span class="font14 text-bold inline-block" data-bind="text: bikemodel.reviewRate() ? bikemodel.reviewRate() : 'Not rated yet'"></span></span>
+                                            <span class="bwmsprite star-icon star-size-16"></span
+                                                ><span data-bind="template: {if: bikemodel.reviewRate()}"><span class="font14 text-bold inline-block" data-bind="text: bikemodel.reviewRate()"></span></span>
+                                                <span data-bind="template: {if: bikemodel.reviewRate() == 0}"><span class="font13 text-light-grey inline-block" >Not rated yet</span></span>
+                                            </span>
                                         <span class='font11  inline-block padding-left3' data-bind="template: { if: bikemodel.ratingCount() }">(<span data-bind="    text: bikemodel.ratingCount()"></span><span data-bind="    text: bikemodel.ratingCount() == 1 ? ' rating' : ' ratings'"></span>)</span>
                                         <span data-bind="template: { if: bikemodel.reviewCount() }">
-                                            <a class='text-xt-light  inline-block' data-bind="    attr: { href: '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/reviews/' }">
+                                            <a class='text-xt-light  inline-block' data-bind="    attr: { href: '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/reviews/', title: bikeName() + ' user reviews' }">
                                         <span class="review-left-divider" data-bind="text: bikemodel.reviewCount()"></span><span data-bind="    text: bikemodel.reviewCount() == 1 ? ' review' : ' reviews'"></span></a></span>
                                        
                                     </div>
