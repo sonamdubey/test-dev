@@ -402,6 +402,6 @@ input[type=number].invalid + label.active:after {
 	top: 0;
 	left: 0;
 	font-weight: bold;
-	padding: 25px 5px;
+	padding: 25px 50px;
 }
 /* fixed table end */
