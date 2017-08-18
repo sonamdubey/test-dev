@@ -6,7 +6,7 @@
             <div class="grid-12 margin-bottom20">
                 <div class="content-box-shadow">
                     <div class="padding-top15 padding-left20">
-                        <h1 class="inline-block margin-right15">@Model.BikeName</h1>
+                        <h1 class="inline-block margin-right15">@Model.Page_H1</h1>
                         <div class="inline-block">
                             @Html.Partial("~/Views/Model/_Index_Reviews.cshtml", Model)
                         </div>
@@ -59,13 +59,26 @@
             </div>
             <div class="clear"></div>
 
-            @if (Model.IsModelDescriptionAvailable)
+            @if ((Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
+                || (Model.IsModelDescriptionAvailable))
             {
-                <div class="grid-12">
+                <div id="modelPricesContent" class="bw-model-tabs-data">
+                    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
+                {
+                        <div class="grid-12">
+                            @Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
+                        </div>
+                    }
+                    @if (Model.IsModelDescriptionAvailable)
+                {   <div class="grid-12">
                     @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
                 </div>
-                <div class="clear"></div>
-            }
+                    }
+                    <div class="clear"></div>
+                </div>
+            }        
+
+           
 
         </div>
         @Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)

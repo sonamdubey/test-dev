@@ -2,11 +2,6 @@
 
 <div class="grid-12">
 
-    @if (Model.IsModelDescriptionAvailable)
-    {
-        @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
-    }
-
     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null && Model.ModelPageEntity.ModelColors.Count() > 0)
     {
         @Html.Partial("~/Views/Model/_Index_ModelColors.cshtml", Model)
@@ -104,9 +99,9 @@
                             <span class="bwsprite star-icon star-size-18"></span>
                             <span class="font18 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span>
                         </span>
-                        @if (Model.UserReviews.UserReviews.ResultDesktop != null)
+                        @if (Model.UserReviews.UserReviews.Result != null)
                         {
-                            <span class="font14 text-xt-light padding-left5">(@Model.UserReviews.UserReviews.ResultDesktop.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.ResultDesktop.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating"))</span>
+                            <span class="font14 text-xt-light padding-left5">(@Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating"))</span>
                         }
                         
                         <span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}", Model.UserReviews.UserReviews.TotalCount > 1 ? "reviews" : "review")</span>

@@ -1,0 +1,28 @@
+﻿@model Bikewale.Models.WriteReviewContestVM
+
+@if (Model.UserReviewsWinners != null && Model.UserReviewsWinners.Count() > 0)
+{
+    <div id="winnersContent" class="bw-model-tabs-data card-shadow padding-top25 margin-bottom40">
+        <h2 class="h2-heading text-white text-center">Winners' Reviews</h2>
+        <div class="swiper-container noSwiper winner-review-swiper">
+            <div class="swiper-wrapper">
+                @foreach (var winner in Model.UserReviewsWinners)
+                {
+                    <div class="swiper-slide">
+                        <span class="review-author john-doe"></span>
+                        <p class="card-title">@winner.CustomerName</p>
+                        <span class="rating-badge" data-rate-bg="@winner.Rating">
+                            <span class="bwmsprite star-white"></span>@winner.Rating
+                        </span>
+                        <p class="font14 font-bold text-black margin-top5">@winner.BikeName</p>
+                        <p class="font12 font-light margin-bottom15">@winner.ReviewDescription</p>
+                        <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/",winner.MakeMaskingName,winner.ModelMaskingName,winner.ReviewId)" class="text-underline">Read full review</a>
+                    </div>
+                }
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+}
+
+

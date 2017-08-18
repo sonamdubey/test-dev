@@ -66,5 +66,8 @@ namespace Bikewale.DTO.UserReviews
 
         [JsonProperty("isRatingQuestion"), DataMember]
         public bool IsRatingQuestion { get; set; }
+
+        [JsonProperty("ratingQuestionsCount"), DataMember]
+        public ushort RatingQuestionsCount { get; set; }
     }
 }

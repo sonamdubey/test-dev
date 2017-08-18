@@ -217,6 +217,7 @@
     <Compile Include="BikeData\UsedBikeMakeEntity.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
     <Compile Include="BikeBooking\FeedBackEntity.cs" />
+    <Compile Include="BikewalePages.cs" />
     <Compile Include="CMS\Articles\ArticleBase.cs" />
     <Compile Include="CMS\Articles\ArticleDetails.cs" />
     <Compile Include="CMS\Articles\ArticlePageDetails.cs" />
@@ -377,6 +378,7 @@
     <Compile Include="Schema\ReviewRating.cs" />
     <Compile Include="Schema\SchemaBase.cs" />
     <Compile Include="Schema\SearchAction.cs" />
+    <Compile Include="SEO\CustomPageMetas.cs" />
     <Compile Include="ServiceCenters\BrandServiceCenters.cs" />
     <Compile Include="ServiceCenters\CityBrandServiceCenters.cs" />
     <Compile Include="ServiceCenters\EnumServiceCenterSMSStatus.cs" />
@@ -441,6 +443,7 @@
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
     <Compile Include="UserReviews\SearchResult.cs" />
+    <Compile Include="UserReviews\SortOrderEnum.cs" />
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
     <Compile Include="UserReviews\UserReviewPageSourceEnum.cs" />
     <Compile Include="UserReviews\UserReviewPriceRange.cs" />
