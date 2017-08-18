@@ -13,6 +13,7 @@
     self.txtMaxLtv = ko.observable($("#txtMaxLtv").data('value'));
     self.textLoanProvider = ko.observable($("#textLoanProvider").data('value'));
     self.txtFees = ko.observable($("#txtFees").data('value'));
+    self.dealerOperationsModel = ko.observable(new dealerOperationModel(dpParams));
 
     self.Reset = function () {
 
@@ -129,7 +130,6 @@
 
 var vmNewBikeDealerEMI = new NewBikeDealerEMIViewModel();
 $(document).ready(function () {
-
     try {
         ko.applyBindings(vmNewBikeDealerEMI);
 
@@ -139,6 +139,15 @@ $(document).ready(function () {
     } catch (e) {
         console.log(e.message);
     }
+
+    (function () {
+        $('select.chosen-select').chosen({
+            "width": "250px"
+        });
+
+        $('#ddlDealerOperations').val(4);
+        $("#ddlDealerOperations").trigger('chosen:updated')
+    }());
 });
 
 

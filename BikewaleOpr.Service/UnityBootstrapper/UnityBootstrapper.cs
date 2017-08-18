@@ -5,12 +5,14 @@ using Bikewale.Comparison.DAL;
 using Bikewale.Comparison.Interface;
 using Bikewale.Interfaces.Cache.Core;
 using BikewaleOpr.BAL;
+using BikewaleOpr.BAL.BikePricing;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.Images;
 using BikewaleOpr.BAL.Security;
 using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.DAL;
+using BikewaleOpr.DALs;
 using BikewaleOpr.DALs.Banner;
 using BikewaleOpr.DALs.BikeColorImages;
 using BikewaleOpr.DALs.Bikedata;
@@ -28,6 +30,7 @@ using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.Interface.Dealers;
 using BikewaleOpr.Interface.Images;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikewaleOpr.Interface.Security;
@@ -36,7 +39,6 @@ using BikewaleOpr.Interface.Used;
 using BikewaleOpr.Interface.UserReviews;
 using BikewaleOpr.Used;
 using Microsoft.Practices.Unity;
-
 
 namespace BikewaleOpr.Service.UnityConfiguration
 {
@@ -82,10 +84,13 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<ISponsoredComparison, SponsoredComparison>();
 
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
+            container.RegisterType<IDealerPriceRepository, DealerPriceRepository>();
+            container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
+            container.RegisterType<IDealerPrice, DealerPrice>();
+            container.RegisterType<IDealers, DealersRepository>();
+            container.RegisterType<IVersionAvailability, VersionAvailability>();
             container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
             container.RegisterType<IBikeMakes, BikeMakes>();
-            container.RegisterType<IDealers, DealersRepository>();
-
             container.RegisterType<IServiceCenter, ServiceCenter>();
             container.RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
 

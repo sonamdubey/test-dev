@@ -94,6 +94,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\Libs\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Enyim.Caching">
       <HintPath>..\Libs\Enyim.Caching.dll</HintPath>
     </Reference>
@@ -121,7 +124,9 @@
     <Compile Include="BikeMakes.cs" />
     <Compile Include="BikeModels.cs" />
     <Compile Include="ContractCampaign\ContractCampaignMapping.cs" />
+    <Compile Include="BikePricing\DealerPrice.cs" />
     <Compile Include="Dealers.cs" />
+    <Compile Include="BikePricing\VersionAvailability.cs" />
     <Compile Include="HomePage.cs" />
     <Compile Include="Images\ImageBL.cs" />
     <Compile Include="ManageBookingAmountPage.cs" />

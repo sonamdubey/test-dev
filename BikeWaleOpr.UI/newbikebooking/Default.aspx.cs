@@ -335,7 +335,7 @@ namespace BikeWaleOpr.BikeBooking
             {
                 container.RegisterType<IDealers, DealersRepository>();
                 IDealers objDays = container.Resolve<DealersRepository>();
-                isDeleted = objDays.DeleteBikeAvailabilityDays(dtDelDays);
+                //isDeleted = objDays.DeleteBikeAvailabilityDays(dtDelDays);
             }
             if (isDeleted)
             {
@@ -488,7 +488,7 @@ namespace BikeWaleOpr.BikeBooking
             {
                 container.RegisterType<IDealers, DealersRepository>();
                 IDealers objDays = container.Resolve<DealersRepository>();
-                isSaved = objDays.SaveBikeAvailability(daysTable);
+                //isSaved = objDays.SaveBikeAvailability(daysTable);
             }
             if (isSaved)
             {

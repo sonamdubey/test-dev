@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.Entities
 {
@@ -19,5 +15,8 @@ namespace BikewaleOpr.Entities
         public DateTime UpdatedOn { get; set; }
         public NewBikeDealers NewBikeDealers { get; set; }
         public uint DealerId { get; set; }
+        public string DealerName { get; set; }
+        public uint CityId { get; set; }
+        public uint MakeId { get; set; }
     }
 }

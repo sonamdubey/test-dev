@@ -1,7 +1,7 @@
 using BikewaleOpr.Cache;
 using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.Entities.BikePricing;
-using BikewaleOpr.Interface.BikePricing;
+using BikewaleOpr.Interface.Dealers;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 /*******************************************************************************************************

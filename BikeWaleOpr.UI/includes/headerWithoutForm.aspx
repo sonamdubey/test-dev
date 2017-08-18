@@ -35,7 +35,7 @@
             <ul>
                 <li><a href="/content/default.aspx" accesskey="p">Contents</a></li>
                 <li><a href="/classified/default.aspx" accesskey="e">Classified</a></li>
-                <li><a href="/newbikebooking/default.aspx" accesskey="e">Manage Dealers</a></li>
+                <li><a href="/dealers/operations/" accesskey="e">Manage Dealers</a></li>
             </ul>
         </div>
 
