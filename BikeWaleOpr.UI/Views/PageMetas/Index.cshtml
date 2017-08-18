@@ -30,7 +30,7 @@
                                 <td>@item.PageName</td>
                                 <td>@item.Platform</td>
                                 <td>@item.MakeName</td>
-                                <td>@item.ModelName</td>
+                                <td>@(string.IsNullOrEmpty(item.ModelName) ? "---" : item.ModelName)</td>
                                 <td>@(item.UpdatedDate != null && item.UpdatedDate != DateTime.MinValue ? item.UpdatedDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
                                 <td>@(item.IsActive ? "Active" : "InActive")</td>
                                 <td>
