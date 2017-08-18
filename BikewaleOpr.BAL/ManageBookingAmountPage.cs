@@ -57,24 +57,27 @@ namespace BikewaleOpr.BAL
         {
             bool isUpdated = false;
             try
-            {
-                objBookingAmountEntity.UpdatedOn = DateTime.Now;
-                UInt32 updatedById = 0;
-                UInt32.TryParse(updatedBy, out updatedById);
-                if(objBookingAmountEntity.BikeModel == null)
+            {   
+                if(objBookingAmountEntity != null && objBookingAmountEntity.BookingAmountBase != null)
                 {
-                    objBookingAmountEntity.BikeModel = new BikeModelEntityBase()
+                    objBookingAmountEntity.UpdatedOn = DateTime.Now;
+                    UInt32 updatedById = 0;
+                    UInt32.TryParse(updatedBy, out updatedById);
+                    if (objBookingAmountEntity.BikeModel == null)
                     {
-                        ModelId = 0
-                    };
-                    objBookingAmountEntity.BikeVersion = new BikeVersionEntityBase()
+                        objBookingAmountEntity.BikeModel = new BikeModelEntityBase()
+                        {
+                            ModelId = 0
+                        };
+                        objBookingAmountEntity.BikeVersion = new BikeVersionEntityBase()
+                        {
+                            VersionId = 0
+                        };
+                    }
+                    if (objBookingAmountEntity.DealerId > 0 && objBookingAmountEntity.BookingAmountBase.Amount >= 0 && updatedById > 0)
                     {
-                        VersionId = 0
-                    };
-                }
-                if(objBookingAmountEntity.DealerId > 0 && objBookingAmountEntity.BookingAmountBase.Amount >= 0 && updatedById > 0)
-                {
-                   isUpdated = _dealers.SaveBookingAmount(objBookingAmountEntity, updatedById);
+                        isUpdated = _dealers.SaveBookingAmount(objBookingAmountEntity, updatedById);
+                    }
                 }
             }
             catch (Exception ex)
