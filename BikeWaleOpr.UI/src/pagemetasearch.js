@@ -10,7 +10,9 @@ $('.update-status').on('click', function () {
     var ele = $(this);
     var status = ele.data('setstatus');
     var id = ele.data('pagemetaid');
-    var apiPath = `/api/pagemetas/update/${id}/${status}`;
+    var modelid = ele.data('modelid');
+    var makeid = ele.data('makeid');
+    var apiPath = `/api/pagemetas/update/${id}/${status}/${modelid}/${makeid}/`;
     $.ajax({
         type: "POST",
         url: apiPath,

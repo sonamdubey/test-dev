@@ -23,5 +23,7 @@ namespace BikewaleOpr.Entity.ConfigurePageMetas
         public ushort Enterdby { get; set; }
         public short? UpdatedBy { get; set; }
         public bool IsActive { get; set; }
+        public uint MakeId { get; set; }
+        public uint ModelId { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using BikewaleOpr.BAL;
 using BikewaleOpr.Interface;
 using System;
 using System.Collections.Generic;
@@ -32,14 +33,19 @@ namespace BikewaleOpr.Service.Controllers.PageMetas
         /// <param name="dealerId"></param>
         /// <param name="activecontract"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/pagemetas/update/{pageMetaId}/{status}/")]
-        public IHttpActionResult UpdatePageMetaStatus(uint pageMetaId, ushort status)
+        [HttpPost, Route("api/pagemetas/update/{pageMetaId}/{status}/{modelId}/{makeId}/")]
+        public IHttpActionResult UpdatePageMetaStatus(uint pageMetaId, ushort status, uint modelId, uint makeId)
         {
             try
             {
                 bool result = _pageMetas.UpdatePageMetaStatus(pageMetaId, status);
                 if (result)
                 {
+                    if (modelId > 0)
+                        MemCachedUtil.Remove("BW_ModelDetail_v1_" + modelId);
+
+                    MemCachedUtil.Remove("BW_MakeDetails_" + makeId);
+
                     return Ok(true);
                 }
                 else

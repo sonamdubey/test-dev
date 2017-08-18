@@ -48,7 +48,7 @@ var ConfigurePageMetas = function () {
         if (self.selectedMakeId() && self.selectedMakeId() > 0) {
             $.ajax({
                 type: "GET",
-                url: "/api/models/makeid/" + self.selectedMakeId() + "/requesttype/8/",
+                url: "/api/models/makeid/" + self.selectedMakeId() + "/requesttype/7/",
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (response) {                    
