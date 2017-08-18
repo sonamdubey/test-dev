@@ -1,6 +1,8 @@
 ﻿using Bikewale.Entities;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +17,8 @@ namespace Bikewale.Models.Videos
     public class ScooterVideos
     {
         private readonly IVideos _videos = null;
+        private uint _cookieCityId;
 
-        
 
         public ScooterVideos(IVideos videos)
         {
@@ -30,16 +32,22 @@ namespace Bikewale.Models.Videos
         /// <returns>List of scooter videos.</returns>
         public ScooterVideosVM GetData()
         {
-            ScooterVideosVM objVideosList = null;
+            ScooterVideosVM objVideos = null;
 
             try
             {
                 string bodyStyleId = "5";
 
-                objVideosList = new ScooterVideosVM();
-                objVideosList.VideosList = _videos.GetVideosByMakeModel(0, 0, bodyStyleId, 0, 0);
+                objVideos = new ScooterVideosVM();
+                objVideos.VideosList = _videos.GetVideosByMakeModel(0, 0, bodyStyleId, 0, 0);
 
-                
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                _cookieCityId = currentCityArea.CityId;
+
+                objVideos.CityId = _cookieCityId;
+
+                objVideos.PageMetaTags.Title = "Scooter Videos | Expert Review & First Launch  videos on Scooters- BikeWale";
+                objVideos.PageMetaTags.Description = "Watch latest videos on scooters by experts. Know more about latest scooter launches, road test and comparison of scooters";
 
             }
             catch (Exception ex)
@@ -47,7 +55,7 @@ namespace Bikewale.Models.Videos
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.Videos.ScooterVideos.GetData"));
                 
             }
-            return objVideosList;
+            return objVideos;
         }
     }
 }

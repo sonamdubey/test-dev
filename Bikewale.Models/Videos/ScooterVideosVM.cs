@@ -10,5 +10,7 @@ namespace Bikewale.Models.Videos
     public class ScooterVideosVM : ModelBase
     {
         public IEnumerable<BikeVideoEntity> VideosList { get; set; }
+        public uint CityId { get; set; }
+
     }
 }

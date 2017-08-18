@@ -63,7 +63,7 @@ namespace Bikewale.Controllers
         public ActionResult PopularBodyStyleDesktop(int modelId, int topCount, uint cityId)
         {
             cityId = cityId == 0 ? Convert.ToUInt32(BWConfiguration.Instance.DefaultCity) : cityId;
-            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyle(modelId, topCount, cityId);
+            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyleViaModel(modelId, topCount, cityId);
             if (objPopularBodyStyle != null && objPopularBodyStyle.FirstOrDefault() != null)
             {
                 ViewBag.BodyStyle = objPopularBodyStyle.FirstOrDefault().BodyStyle;
@@ -80,14 +80,50 @@ namespace Bikewale.Controllers
         public ActionResult PopularBodyStyleMobile(int modelId, int topCount, uint cityId)
         {
             cityId = cityId == 0 ? Convert.ToUInt32(BWConfiguration.Instance.DefaultCity) : cityId;
-            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyle(modelId, topCount, cityId);
+            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyleViaModel(modelId, topCount, cityId);
             if (objPopularBodyStyle != null && objPopularBodyStyle.FirstOrDefault() != null)
             {
                 ViewBag.BodyStyle = objPopularBodyStyle.FirstOrDefault().BodyStyle;
             }
             return View("~/Views/m/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
         }
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 18-Aug-2017
+        /// Description : Popular bikes widget by body style for desktop.
+        /// </summary>
+        /// <param name="bodyStyleId"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public ActionResult MostPopularBikesByBodyStyle(ushort bodyStyleId, uint topCount, uint cityId)
+        {
+            cityId = cityId == 0 ? Convert.ToUInt32(BWConfiguration.Instance.DefaultCity) : cityId;
+            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId);
+            if (objPopularBodyStyle != null && objPopularBodyStyle.FirstOrDefault() != null)
+            {
+                ViewBag.BodyStyle = objPopularBodyStyle.FirstOrDefault().BodyStyle;
+            }
+            return View("~/Views/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
+        }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 18-Aug-2017
+        /// Description : Popular bikes widget by body style for mobile.
+        /// </summary>
+        /// <param name="bodyStyleId"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public ActionResult MostPopularBikesByBodyStyle_Mobile(ushort bodyStyleId, uint topCount, uint cityId)
+        {
+            cityId = cityId == 0 ? Convert.ToUInt32(BWConfiguration.Instance.DefaultCity) : cityId;
+            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId);
+            if (objPopularBodyStyle != null && objPopularBodyStyle.FirstOrDefault() != null)
+            {
+                ViewBag.BodyStyle = objPopularBodyStyle.FirstOrDefault().BodyStyle;
+            }
+            return View("~/Views/m/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
+        }
 
     }
 }

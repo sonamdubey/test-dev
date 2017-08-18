@@ -45,4 +45,6 @@
             </div>
         </section>
     }
+    { Html.RenderAction("MostPopularBikesByBodyStyle_Mobile", "PopularBikes", new { bodyStyleId = Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter, topCount = 9, cityId = Model.CityId }); }
+
 }
