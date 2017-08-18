@@ -684,7 +684,6 @@ docReady(function () {
             tooltipParent.slideUp();
         }
     });
-
     applyLikeDislikes();
 
     $('#report-background, .report-abuse-close-btn').on('click', function() {
@@ -721,7 +720,7 @@ function voteListUserReview(vote, locReviewId) {
 }
 
 function applyLikeDislikes() {
-    $(".upvoteListButton").each(function () {
+    $(".feedback-button").each(function () {
         var locReviewId = this.getAttribute("data-reviewid");
         var listVote = bwcache.get("ReviewDetailPage_reviewVote_" + locReviewId);
 
