@@ -63,10 +63,7 @@ namespace BikewaleOpr.Controllers
             try
             {
                 bool isUpdated = _manageBookingAmountPageData.AddBookingAmount(objBookingAmountEntity, BikeWaleOpr.Common.CurrentUser.Id);
-                if (isUpdated)
-                {
-                    TempData["IsUpdated"] = isUpdated;
-                }
+                TempData["IsUpdated"] = isUpdated;
             }
             catch (Exception ex)
             {
