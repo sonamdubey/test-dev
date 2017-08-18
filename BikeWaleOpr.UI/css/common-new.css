@@ -339,6 +339,7 @@ input[type=number].invalid + label.active:after {
 /* fixed table start */
 .fixed-table {
 	margin-bottom: 20px;
+	position: relative;
 }
 
 .fixed-table:after {
@@ -394,5 +395,13 @@ input[type=number].invalid + label.active:after {
 .table thead {
 	border-bottom: 0;
 	border-left: 1px solid #ccc;
+}
+
+.sidebar-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-weight: bold;
+	padding: 25px 5px;
 }
 /* fixed table end */
