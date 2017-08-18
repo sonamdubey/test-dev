@@ -36,12 +36,12 @@ namespace BikewaleOpr.Models.DealerBikePrice
             dealerPricingLandingInfo.CopyPricingCities = new CityCopyPricingVM();
             dealerPricingLandingInfo.ShowPricingCities = new ShowPricingVM();
             dealerPricingLandingInfo.AddCategoryType = new AddCategoryVM();
-            dealerPricingLandingInfo.DealerOperationParams = new DealerOperationVM();
+            dealerPricingLandingInfo.DealerOperationParams = new DealerOperationPricingVM();
 
             try
             {
                 dealerCities = location.GetDealerCities();
-                dealerPricingLandingInfo.PageTitle = "Dealer Pricing Management";
+                dealerPricingLandingInfo.PageTitle = "Dealers Operations";
                 dealerPricingLandingInfo.CopyPricingDealers.Cities = dealerCities;
                 dealerPricingLandingInfo.ShowPricingCities.Cities = location.GetAllCities();
                 dealerPricingLandingInfo.CopyPricingCities.States = location.GetStates();

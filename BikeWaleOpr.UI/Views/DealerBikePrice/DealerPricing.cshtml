@@ -44,7 +44,7 @@
                         <td data-availability=@dealerVersionPricing.NumberOfDays data-value=@dealerVersionPricing.NumberOfDays class="editableValue">@dealerVersionPricing.NumberOfDays</td>
 
                         <td class="colorAvailability editableColumns">
-                            <a data-tooltip="View Colors" data-bind="click: onColorAvailabilityClick" href="Javascript:void(0)" class="material-icons availabilityByColor tooltipped" data-url="@(string.Format("/newbikebooking/ManageBikeAvailabilityByColorAndCost.aspx?dealerId={0}&versionId={1}&versionAvailDays={2}",@Model.DealerId, dealerVersionPricing.VersionId,@dealerVersionPricing.NumberOfDays))">color_lens</a>
+                            <a data-tooltip="View Colors" data-bind="click: onColorAvailabilityClick" href="Javascript:void(0)" class="material-icons availabilityByColor tooltipped" data-url="@(string.Format("/newbikebooking/ManageBikeAvailabilityByColorAndCost.aspx?dealerId={0}&versionId={1}&versionAvailDays={2}",@Model.DealerOperationParams.DealerId, dealerVersionPricing.VersionId,@dealerVersionPricing.NumberOfDays))">color_lens</a>
                         </td>
 
                     </tr>
@@ -52,17 +52,12 @@
             </tbody>
         </table>
         <div class="input-field row">
-            <a data-bind="event: {click: onUpdateClick}" data-city-id=@Model.CurrentCityId data-dealer-id=@Model.DealerId data-entered-by=@Model.EnteredBy id="btnUpdate" class="waves-effect waves-light btn">Update</a>
-            <a data-bind="event: {click: onDeleteClick}" data-city-id=@Model.CurrentCityId data-dealer-id=@Model.DealerId data-entered-by=@Model.EnteredBy id="btnDelete" class="waves-effect waves-light btn red">Delete</a>
+            <a data-bind="event: {click: onUpdateClick}" data-city-id=@Model.CurrentCityId data-dealer-id=@Model.DealerOperationParams.DealerId data-entered-by=@Model.EnteredBy id="btnUpdate" class="waves-effect waves-light btn">Update</a>
+            <a data-bind="event: {click: onDeleteClick}" data-city-id=@Model.CurrentCityId data-dealer-id=@Model.DealerOperationParams.DealerId data-entered-by=@Model.EnteredBy id="btnDelete" class="waves-effect waves-light btn red">Delete</a>
         </div>
     </div>
     <div class="col m3">
-        <input type="hidden" id="makesListString" value=@Model.DealerOperationParams.MakesString>
-        <input type="hidden" id="dealersListString" value=@Model.DealerOperationParams.DealersString>
         <input type="hidden" id="selectedCategories" value=@Model.SelectedCategoriesString>
-        <input type="hidden" id="cityId" value=@Model.CityId>
-        <input type="hidden" id="makeId" value=@Model.MakeId>
-        <input type="hidden" id="dealerId" value=@Model.DealerId>
 
         @if (Model.OtherCityId > 0)
         {
@@ -134,7 +129,7 @@
                                     "></select>
                         </div>
                         <div class="input-field row s12">
-                            <button data-bind="click: copyPricingToCity" data-city-id=@Model.CurrentCityId data-dealer-id=@Model.DealerId data-entered-by=@Model.EnteredBy class="btn waves-effect waves-light" name="action">
+                            <button data-bind="click: copyPricingToCity" data-city-id=@Model.CurrentCityId data-dealer-id=@Model.DealerOperationParams.DealerId data-entered-by=@Model.EnteredBy class="btn waves-effect waves-light" name="action">
                                 Copy Pricing
                             </button>
                         </div>
@@ -173,4 +168,5 @@
     </div>
 </div>
 
+<script src="~/src/DealerPricing/dealeroperationcollapsable.js"></script>
 <script src="~/src/DealerPricing/dealerpricingindex.js"></script>

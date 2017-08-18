@@ -32,7 +32,7 @@ namespace BikewaleOpr.Controllers
         /// Description :   Performs UI binding for Index page
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Route("dealer/pricing/")]
+        [HttpGet, Route("dealers/operations/")]
         public ActionResult Index()
         {
             DealerPricingIndexPageModel DP_IndexPageModel = new DealerPricingIndexPageModel(location, dealerPriceQuote);
@@ -49,7 +49,7 @@ namespace BikewaleOpr.Controllers
         /// <param name="dealerName"></param>
         /// <param name="cityName"></param>
         /// <returns></returns>
-        [HttpGet, Route("dealer/{dealerId}/dealercity/{cityId}/brand/{makeId}/pricing/")]
+        [HttpGet, Route("dealers/{dealerId}/dealercity/{cityId}/brand/{makeId}/pricing/")]
         public ActionResult DealerPricing(uint cityId, uint makeId, uint dealerId, uint? otherCityId, string dealerName, string cityName)
         {
             DealerPricingSheetPageModel DPSheetPageModel = new DealerPricingSheetPageModel(location, dealerPriceQuote, dealerPrice, dealersRepository);

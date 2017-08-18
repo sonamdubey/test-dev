@@ -1,11 +1,10 @@
 ﻿
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
+using BikewaleOpr.Interface.Location;
+using BikewaleOpr.Models.DealerEMI;
 using BikeWaleOpr.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
@@ -14,12 +13,16 @@ namespace BikewaleOpr.Controllers
     /// Created by : Ashutosh Sharma on 05-Aug-2017
     /// Description : Controller for Manage EMI page.
     /// </summary>
+    [Authorize]
     public class NewBikeDealerEMIController : Controller
     {
         private IDealers _dealer = null;
-        public NewBikeDealerEMIController(IDealers dealer)
+        private readonly ILocation _location = null;
+
+        public NewBikeDealerEMIController(IDealers dealer, ILocation locationObject)
         {
             _dealer = dealer;
+            _location = locationObject;
         }
 
         /// <summary>
@@ -28,22 +31,24 @@ namespace BikewaleOpr.Controllers
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        [Route("dealer/{dealerId}/emi/")]
-        public ActionResult Index(uint dealerId)
+        [Route("dealers/{dealerId}/emi/")]
+        public ActionResult Index(uint dealerId, uint? cityId, uint? makeId, string dealerName = null)
         {
-            EMI loanAmount = null;
+            DealerEMIModel dealerEmiModel = new DealerEMIModel(_location, _dealer);
+            DealerEMIVM dealerEmiPageInfo = null;
+
             try
             {
                 if (dealerId > 0)
                 {
-                    loanAmount = _dealer.GetDealerLoanAmounts(dealerId);
+                    dealerEmiPageInfo = dealerEmiModel.GetDealerEmiInfo(dealerId, cityId.Value, makeId.Value, dealerName);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("NewBikeDealerEMIController.Index_{0}", dealerId));
             }
-            return View(loanAmount);
+            return View(dealerEmiPageInfo);
         }
 
         /// <summary>
@@ -63,7 +68,6 @@ namespace BikewaleOpr.Controllers
                                     , emi.LoanProvider, emi.ProcessingFee, emi.Id, Convert.ToUInt32(CurrentUser.Id));
             }
             return RedirectToAction("Index", new { dealerId = dealerId });
-            ;
         }
     }
 }

@@ -76,8 +76,9 @@ namespace BikewaleOpr.Models.DealerBikePrice
             dealerPricingSheetInfo.AddCategoryType = new AddCategoryVM();
             dealerPricingSheetInfo.DealerOperationParams = new DealerOperationPricingVM();
             dealerPricingSheetInfo.CityId = cityId;
-            dealerPricingSheetInfo.MakeId = makeId;
-            dealerPricingSheetInfo.DealerId = dealerId;
+            dealerPricingSheetInfo.DealerOperationParams.CityId = cityId;
+            dealerPricingSheetInfo.DealerOperationParams.MakeId = makeId;
+            dealerPricingSheetInfo.DealerOperationParams.DealerId = dealerId;
 
             try
             {

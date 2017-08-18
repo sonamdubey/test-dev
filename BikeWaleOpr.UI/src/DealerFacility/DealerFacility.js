@@ -1,6 +1,4 @@
-﻿
-
-var facilityActiveStatus = null;
+﻿var facilityActiveStatus = null;
 var record = { facilityName: "", isActive: "", dealerId: "", facilityId: "", lastUpdatedById: "" };
 var pageContainer = $("#dealerFacility");
 var today = new Date();
@@ -14,13 +12,13 @@ var dealerFacilityOperations = function () {
     self.dealerId = $('#txtDealerId').val();
     self.lastUpdatedById = $('#dealerFacility').data('currentuserid');
     self.currentUserName = $('#dealerFacility').data('currentuser');
-   
+    self.dealerOperationsModel = ko.observable(new dealerOperationModel(dpParams));
 
     self.activeIcon = function (iconStatus) {
 
         try {
             if (iconStatus) {
-                facilityActiveStatus = ('<i class="material-icons icon-blue">check_box</i>');
+                facilityActiveStatus = ('<i class="material-icons icon-green">done</i>');
             }
             else {
                 facilityActiveStatus = ('<i class="material-icons icon-red">clear</i>');
@@ -244,9 +242,16 @@ var dealerFacilityOperations = function () {
 
     };
 
-    };
-
-
+};
 
 var viewModel = new dealerFacilityOperations();
 ko.applyBindings(viewModel, $("#dealerFacility")[0]);
+
+(function () {
+    $('select.chosen-select').chosen({
+        "width": "250px"
+    });
+
+    $('#ddlDealerOperations').val(3);
+    $("#ddlDealerOperations").trigger('chosen:updated')
+}());

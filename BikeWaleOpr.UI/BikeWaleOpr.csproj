@@ -14,7 +14,7 @@
     <RootNamespace>BikewaleOpr</RootNamespace>
     <AssemblyName>BikewaleOpr</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -469,6 +469,7 @@
     <Compile Include="Models\Banner\Banner.cs" />
     <Compile Include="Models\Banner\BannersListPage.cs" />
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
+    <Compile Include="Models\DealerEMI\DealerEMIModel.cs" />
     <Compile Include="Models\ManagePrices\PriceMonitoringModel.cs" />
     <Compile Include="Models\DealerFacilities\DealerFacilitiesModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\CampaignPropertiesModel.cs" />
@@ -1951,6 +1952,7 @@
     <Content Include="src\content\newbikedealerEMI.js" />
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />
+    <Content Include="src\DealerPricing\dealeroperationcollapsable.js" />
     <Content Include="src\DealerPricing\dealerpricingindex.js" />
     <Content Include="src\DealerFacility\DealerFacility.js" />
     <Content Include="src\framework.js" />

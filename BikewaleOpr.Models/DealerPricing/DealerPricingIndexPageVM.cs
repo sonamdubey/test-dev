@@ -7,7 +7,7 @@
     public class DealerPricingIndexPageVM
     {
         public string PageTitle { get; set; }
-        public DealerOperationVM DealerOperationParams { get; set; }
+        public DealerOperationPricingVM DealerOperationParams { get; set; }
         public ShowPricingVM ShowPricingCities { get; set; }
         public AddCategoryVM AddCategoryType { get; set; }
         public CityCopyPricingVM CopyPricingCities { get; set; }

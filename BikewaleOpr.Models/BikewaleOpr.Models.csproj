@@ -116,6 +116,7 @@
     <Compile Include="ConfigurePageMetas\ConfigurePageMetaSearchVM.cs" />
     <Compile Include="ConfigurePageMetas\ConfigurePageMetasVM.cs" />
     <Compile Include="DealerCampaign\CampaignServingAreasVM.cs" />
+    <Compile Include="DealerEMI\DealerEMIVM.cs" />
     <Compile Include="DealerPricing\AddCategoryVM.cs" />
     <Compile Include="DealerPricing\CityCopyPricingVM.cs" />
     <Compile Include="ManagePrices\PriceMonitoringVM.cs" />

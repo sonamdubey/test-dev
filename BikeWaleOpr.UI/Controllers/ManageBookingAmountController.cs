@@ -56,7 +56,7 @@ namespace BikewaleOpr.Controllers
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Controllers.ManageBookingAmountController.Add"));
             }
-            return RedirectToAction("/Index/", new { dealerId = objBookingAmountEntity.DealerId});
+            return RedirectToAction("/Index/", new { dealerId = objBookingAmountEntity.DealerId });
         }
     }
 }

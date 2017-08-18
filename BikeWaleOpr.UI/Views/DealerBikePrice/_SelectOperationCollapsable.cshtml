@@ -1,6 +1,12 @@
-﻿@model BikewaleOpr.Models.DealerPricing.DealerOperationVM
+﻿@model BikewaleOpr.Models.DealerPricing.DealerOperationPricingVM
 
 <li>
+    <input type="hidden" id="makesListString" value=@Model.MakesString>
+    <input type="hidden" id="dealersListString" value=@Model.DealersString>
+    <input type="hidden" id="cityId" value=@Model.CityId>
+    <input type="hidden" id="makeId" value=@Model.MakeId>
+    <input type="hidden" id="dealerId" value=@Model.DealerId>
+
     <div class="@string.Format("collapsible-header {0}", (Model.IsOpen ? "active" : ""))"><strong>Dealer Operation</strong></div>
     <div class="collapsible-body">
         <div data-bind="with: dealerOperationsModel" class="container">

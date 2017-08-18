@@ -10,10 +10,8 @@ namespace BikewaleOpr.Models.DealerPricing
     public class DealerPricingSheetPageVM
     {
         public string PageTitle { get; set; }
-        public uint CityId { get; set; }
-        public uint MakeId { get; set; }
-        public uint DealerId { get; set; }
         public uint OtherCityId { get; set; }
+        public uint CityId { get; set; }
         public uint CurrentCityId { get { return (OtherCityId > 0 ? OtherCityId : CityId); } }
         public uint EnteredBy { get; set; }
         public IEnumerable<VersionPriceEntity> DealerVersionCategories { get; set; }

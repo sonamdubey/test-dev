@@ -12,6 +12,9 @@ namespace BikewaleOpr.Models.DealerPricing
     {
         public IEnumerable<BikeMakeEntityBase> Makes { get; set; }
         public IEnumerable<DealerEntityBase> Dealers { get; set; }
+        public uint CityId { get; set; }
+        public uint MakeId { get; set; }
+        public uint DealerId { get; set; }
         public string MakesString { get; set; }
         public string DealersString { get; set; }
     }
