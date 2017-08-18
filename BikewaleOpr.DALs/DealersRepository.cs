@@ -1,7 +1,11 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.DAL.CoreDAL;
+using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity.ContractCampaign;
 using BikewaleOpr.Entity.Dealers;
 using BikewaleOpr.Interface;
+using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -9,11 +13,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Web;
-using Bikewale.Utility;
-using BikewaleOpr.Entity.ContractCampaign;
-using BikewaleOpr.Entity;
-using Bikewale.DAL.CoreDAL;
-using Dapper;
 
 namespace BikewaleOpr.DAL
 {
@@ -233,9 +232,9 @@ namespace BikewaleOpr.DAL
 
         public IEnumerable<FacilityEntity> GetDealerFacilities(uint dealerId)
         {
-          IEnumerable<FacilityEntity> objFacilities = null;
-          try
-          {
+            IEnumerable<FacilityEntity> objFacilities = null;
+            try
+            {
                 if (dealerId > 0)
                 {
                     using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -257,7 +256,7 @@ namespace BikewaleOpr.DAL
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.ServiceCenter.GetDealerFacilities ,DealerId:{0}", dealerId));
             }
             return objFacilities;
-         }
+        }
 
 
 
@@ -330,7 +329,7 @@ namespace BikewaleOpr.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.UpdateDealerFacility DealerId: {0} Facility: {1} FacilityId: {2} ActiveStatus: {3}",objData.Id, objData.Facility, objData.FacilityId, objData.IsActive));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.UpdateDealerFacility DealerId: {0} Facility: {1} FacilityId: {2} ActiveStatus: {3}", objData.Id, objData.Facility, objData.FacilityId, objData.IsActive));
 
             }
 
@@ -1147,9 +1146,10 @@ namespace BikewaleOpr.DAL
         /// <returns>isrecord inserted</returns>
         public bool SaveBookingAmount(BookingAmountEntity objBookingAmt, UInt32 updatedBy)
         {
+            bool isUpdated = false;
             try
             {
-                int isUpdated;
+
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     DynamicParameters param = new DynamicParameters();
@@ -1161,12 +1161,12 @@ namespace BikewaleOpr.DAL
                     param.Add("par_updatedby", updatedBy);
 
                     connection.Open();
-                    isUpdated = connection.Execute("bw_savebookingamount_08072017", param: param, commandType: CommandType.StoredProcedure);
-                    if(connection != null && connection.State == ConnectionState.Open)
+                    connection.Execute("bw_savebookingamount_08072017", param: param, commandType: CommandType.StoredProcedure);
+                    isUpdated = true;
+                    if (connection != null && connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
-                    return (isUpdated > 0) ;
                 }
             }
             catch (Exception ex)
@@ -1176,7 +1176,7 @@ namespace BikewaleOpr.DAL
                 objErr.SendMail();
             }
 
-            return false;
+            return isUpdated;
         }
 
         /// <summary>
@@ -1229,7 +1229,7 @@ namespace BikewaleOpr.DAL
 
             try
             {
-                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     var param = new DynamicParameters();
                     param.Add("par_dealerid", dealerId);
@@ -1628,7 +1628,7 @@ namespace BikewaleOpr.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.DAL.DealerRepository.GetDealerMakesByCity:CityId :{0}",cityId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.DAL.DealerRepository.GetDealerMakesByCity:CityId :{0}", cityId));
             }
             return objMakeList;
         }
@@ -1639,7 +1639,7 @@ namespace BikewaleOpr.DAL
         /// <returns></returns>
         public IEnumerable<DealerEntityBase> GetDealersByMake(uint makeId, uint cityId)
         {
-            ICollection<DealerEntityBase> objDealerList = null; 
+            ICollection<DealerEntityBase> objDealerList = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikedealersbymake"))
@@ -1669,7 +1669,7 @@ namespace BikewaleOpr.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.DAL.DealerRepository.GetDealersByMake: MakeId:{0},CityId:{1}",makeId,cityId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.DAL.DealerRepository.GetDealersByMake: MakeId:{0},CityId:{1}", makeId, cityId));
             }
             return objDealerList;
         }

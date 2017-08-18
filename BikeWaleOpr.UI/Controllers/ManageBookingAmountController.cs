@@ -1,7 +1,8 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.Entities;
-using BikewaleOpr.Entity;
 using BikewaleOpr.Interface;
+using BikewaleOpr.Interface.Location;
+using BikewaleOpr.Models.DealerBookingAmount;
 using System;
 using System.Web.Mvc;
 
@@ -15,10 +16,14 @@ namespace BikewaleOpr.Controllers
     public class ManageBookingAmountController : Controller
     {
         private readonly IManageBookingAmountPage _manageBookingAmountPageData = null;
+        private readonly ILocation _location = null;
+        private readonly IDealers _dealersRepository = null;
 
-        public ManageBookingAmountController(IManageBookingAmountPage manageBookingAmountPage)
+        public ManageBookingAmountController(IManageBookingAmountPage manageBookingAmountPage, ILocation locationObject, IDealers dealersRepositoryObject)
         {
             _manageBookingAmountPageData = manageBookingAmountPage;
+            _location = locationObject;
+            _dealersRepository = dealersRepositoryObject;
         }
 
         /// <summary>
@@ -26,22 +31,28 @@ namespace BikewaleOpr.Controllers
         /// Summary : Get data model for manage booking amount page
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(UInt32 dealerId = 0)
+        [HttpGet, Route("dealers/{dealerId}/bookingamount/")]
+        public ActionResult Index(uint dealerId, uint? cityId, uint? makeId, string dealerName = null)
         {
-            ManageBookingAmountData objManageBookingAmountData = null;
+            //ManageBookingAmountData objManageBookingAmountData = null;
+            DealerBookingAmountVM dealerBookingAmountInfo = null;
+            DealerBookingAmountModel dealerBookingAmountModel = null;
+
             try
             {
-                objManageBookingAmountData = _manageBookingAmountPageData.GetManageBookingAmountData(dealerId);
-                objManageBookingAmountData.UpdateMessage = string.Empty;
+                dealerBookingAmountModel = new DealerBookingAmountModel(_location, _dealersRepository, _manageBookingAmountPageData);
+                dealerBookingAmountInfo = dealerBookingAmountModel.GetDealerBookingAmountData(dealerId, cityId.Value, makeId.Value, dealerName);
+                //objManageBookingAmountData = _manageBookingAmountPageData.GetManageBookingAmountData(dealerId);
+                //objManageBookingAmountData.UpdateMessage = string.Empty;
                 if (TempData.ContainsKey("IsUpdated"))
                 {
                     if ((bool)TempData["IsUpdated"])
                     {
-                        objManageBookingAmountData.UpdateMessage = "Booking amount updated";
+                        dealerBookingAmountInfo.DealerBookingAmountData.UpdateMessage = "Booking amount updated";
                     }
                     else
                     {
-                        objManageBookingAmountData.UpdateMessage = "Failed to update booking amount";
+                        dealerBookingAmountInfo.DealerBookingAmountData.UpdateMessage = "Failed to update booking amount";
                     }
                 }
             }
@@ -49,7 +60,7 @@ namespace BikewaleOpr.Controllers
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Controllers.ManageBookingAmountController dealer id {0}", dealerId));
             }
-            return View(objManageBookingAmountData);
+            return View(dealerBookingAmountInfo);
         }
 
         /// <summary>
@@ -58,6 +69,7 @@ namespace BikewaleOpr.Controllers
         /// </summary>
         /// <param name="objBookingAmountEntity"></param>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult Add(BookingAmountEntity objBookingAmountEntity)
         {
             try
@@ -69,7 +81,12 @@ namespace BikewaleOpr.Controllers
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Controllers.ManageBookingAmountController.Add"));
             }
-            return RedirectToAction("/Index/", new { dealerId = objBookingAmountEntity.DealerId });
+            return Redirect(string.Format("/dealers/{0}/bookingamount/?cityId={1}&makeId={2}&dealerName={3}",
+                objBookingAmountEntity.DealerId,
+                objBookingAmountEntity.CityId,
+                objBookingAmountEntity.MakeId,
+                objBookingAmountEntity.DealerName
+                ));
         }
     }
 }

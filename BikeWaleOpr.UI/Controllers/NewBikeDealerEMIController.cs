@@ -31,7 +31,7 @@ namespace BikewaleOpr.Controllers
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        [Route("dealers/{dealerId}/emi/")]
+        [HttpGet, Route("dealers/{dealerId}/emi/")]
         public ActionResult Index(uint dealerId, uint? cityId, uint? makeId, string dealerName = null)
         {
             DealerEMIModel dealerEmiModel = new DealerEMIModel(_location, _dealer);

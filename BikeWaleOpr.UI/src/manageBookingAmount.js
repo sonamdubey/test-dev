@@ -8,9 +8,7 @@
         self.models = ko.observableArray([]);
         self.versions = ko.observableArray([]);
         self.bookingMsg = ko.observable("");
-        var params = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-        var dealerId = params[0].split('=')[1];
-        $('#dealerId').val(dealerId);
+        self.dealerOperationsModel = ko.observable(new dealerOperationModel(dpParams));
 
         self.getModels = function () {
             try{
@@ -210,4 +208,11 @@ $(document).ready(function () {
     } catch (e) {
         console.warn(e.message);
     }
+
+    $('select.chosen-select').chosen({
+        "width": "250px"
+    });
+
+    $('#ddlDealerOperations').val(6);
+    $("#ddlDealerOperations").trigger('chosen:updated');
 });

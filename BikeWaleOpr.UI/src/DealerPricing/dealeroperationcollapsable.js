@@ -180,6 +180,9 @@ var dealerOperationModel = function (dealerOperationModelParams) {
             else if (self.selectedOperation() == 4) {
                 window.location = "/dealers/" + self.selectedDealer() + "/emi/?cityId=" + self.selectedCity + "&makeId=" + self.selectedMake() + "&dealerName=" + ddlDealers.find('option[value=' + self.selectedDealer() + ']').text();
             }
+            else if (self.selectedOperation() == 6) {
+                window.location = "/dealers/" + self.selectedDealer() + "/bookingamount/?cityId=" + self.selectedCity + "&makeId=" + self.selectedMake() + "&dealerName=" + ddlDealers.find('option[value=' + self.selectedDealer() + ']').text();
+            }
             else if (self.selectedOperation() == 7) {
                 window.open("/newbikebooking/ManageDealerBenefits.aspx?dealerId=" + self.selectedDealer() + "&cityId=" + self.selectedCity, 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }

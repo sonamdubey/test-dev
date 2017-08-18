@@ -253,5 +253,5 @@ ko.applyBindings(viewModel, $("#dealerFacility")[0]);
     });
 
     $('#ddlDealerOperations').val(3);
-    $("#ddlDealerOperations").trigger('chosen:updated')
+    $("#ddlDealerOperations").trigger('chosen:updated');
 }());

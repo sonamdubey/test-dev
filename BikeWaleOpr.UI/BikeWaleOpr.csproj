@@ -468,6 +468,7 @@
     <Compile Include="Models\DealerBikePrice\DealerPricingSheetPageModel.cs" />
     <Compile Include="Models\Banner\Banner.cs" />
     <Compile Include="Models\Banner\BannersListPage.cs" />
+    <Compile Include="Models\DealerBookingAmount\DealerBookingAmountModel.cs" />
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
     <Compile Include="Models\DealerEMI\DealerEMIModel.cs" />
     <Compile Include="Models\ManagePrices\PriceMonitoringModel.cs" />

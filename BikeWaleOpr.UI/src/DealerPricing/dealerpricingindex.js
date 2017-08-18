@@ -660,8 +660,6 @@
             self.dealerCopyPricing = ko.observable(new dealerCopyPricing(dcpParams, ddlDealersByCity));
         if (tblPricingSheet.length > 0) {
             self.priceSheetModel = ko.observable(new priceSheetModel());
-            $('#ddlDealerOperations').val(2);
-            $("#ddlDealerOperations").trigger('chosen:updated')
         }
         if ($('#liAddCategory').length > 0)
             self.addCategoryModel = ko.observable(new addCategoryModel());
@@ -678,5 +676,10 @@
         $('select.chosen-select').chosen({
            "width": "250px"
         });
+
+        if ($('#tblPricingSheet').length > 0) {
+            $('#ddlDealerOperations').val(2);
+            $("#ddlDealerOperations").trigger('chosen:updated');
+        }
     }());
 });
