@@ -106,7 +106,7 @@
                                                     <span class="review__question">Was this review helpful?</span>
 
                                                     <button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)">
-                                                <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId" data-id="@i">...Read more</a>
+                                                
                                                         <span class="bwsprite like-sm"></span>
                                                         Yes
                                                         (<span id="upvoteCount-@review.ReviewId" class="btn-count">@review.UpVotes</span>)
@@ -125,7 +125,7 @@
                                                 <div class="clear"></div>
 
                                             </div>
-                                            <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId">Read more</a>
+                                            <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId" data-id="@i">Read more</a>
                                         </div>
                                         
                                     </div>

@@ -51,7 +51,7 @@
 									<!-- /ko -->
 									<div class="grid-10-inline font15 text-black text-bold text-truncate">
                                   
-										<a onclick="logBhrighu(event)"  data-id="@i" data-reviewId="@review.ReviewId" href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)"                               data-bind="attr : {'title' : $data.title,'href' : '/m/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}"> <span class="review-title position-rel" data-bind="text:$data.title">@review.Title</span></a>
+										<a onclick="logBhrighu(event)"  data-id="@i" data-reviewId="@review.ReviewId" href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'data-reviewId': $data.reviewId, 'title' : $data.title,'href' : '/m/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}"> <span class="review-title position-rel" data-bind="text:$data.title">@review.Title</span></a>
 									</div>
 								</div>
 
@@ -63,17 +63,17 @@
                                 <div class="main-content">
                                     <div class="font14 text-slate-grey">
                                         <p data-bind="truncateDesc: $data.description">@FormatDescription.TruncateDescription(review.Description, 120)</p>
-                                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-reviewId="@review.ReviewId" onclick="updateView(event)" data-id="@i">...Read more</a>
+                                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-reviewId="@review.ReviewId" onclick="updateView(event)" data-id="@i" data-bind="attr: {'data-reviewId': $data.reviewId }">Read more</a>
                                     </div>
                                 </div>
                                 <div class="more-content">
-                                    <div class="font14 text-slate-grey padding-right20 padding-left20">
+                                    <div class="font14 text-slate-grey padding-right20 padding-left20 margin-bottom15">
                                         <p class="inline" data-bind="html: $data.description">@Html.Raw(review.Description)</p>
                                     </div>
 
                                     @if (review.RatingQuestionsCount > 0)
                                     {
-                                        <div class="about-reviewer-content" data-bind="visible: !$root.IsInitialized()">
+                                        <div class="about-reviewer-content margin-bottom15" data-bind="visible: !$root.IsInitialized()">
 											<p class="text-grey text-bold">About the reviewer</p>
                                             <ul class="about-reviewer-list item-count-@review.RatingQuestionsCount">
                                                 @foreach (var q in review.Questions.Where(q => q.Type == UserReviewQuestionType.Rating))
@@ -89,8 +89,8 @@
                                     }
 
                                     <!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
-                                    <div class="about-reviewer-content">
-										<p class="text-grey text-bold hide" data-bind="css: ($data.ratingQuestionsCount > 0) ? 'show' : '' ">About the reviewer</p>
+                                    <div class="about-reviewer-content margin-bottom15 hide" data-bind="css: ($data.ratingQuestionsCount > 0) ? 'show' : '' ">
+										<p class="text-grey text-bold" >About the reviewer</p>
                                         <ul data-bind="css: 'about-reviewer-list item-count-' +  $data.ratingQuestionsCount ">
                                             <!-- ko foreach: $data.questions -->
                                             <!-- ko if : $data.qtype == 1 -->
@@ -104,49 +104,11 @@
                                         </ul>
                                     </div>
                                     <!-- /ko -->
-                                    <div class="rating-list margin-top15 margin-bottom15 padding-right20 padding-left20">
-                                        <ul class="rating-circle-list">
-                                            <li>
-                                                <div class="rating-circle circle-rate-5">
-                                                    <p class="circle-label">5</p>
-                                                    <span class="rating-progress"></span>
-                                                </div>
-                                                <p class="list-item-label">Visual Appeal</p>
-                                            </li>
-                                            <li>
-                                                <div class="rating-circle circle-rate-4">
-                                                    <p class="circle-label">4</p>
-                                                    <span class="rating-progress"></span>
-                                                </div>
-                                                <p class="list-item-label">Reliability</p>
-                                            </li>
-                                            <li>
-                                                <div class="rating-circle circle-rate-3">
-                                                    <p class="circle-label">3</p>
-                                                    <span class="rating-progress"></span>
-                                                </div>
-                                                <p class="list-item-label">Performance</p>
-                                            </li>
-                                            <li>
-                                                <div class="rating-circle circle-rate-2">
-                                                    <p class="circle-label">2</p>
-                                                    <span class="rating-progress"></span>
-                                                </div>
-                                                <p class="list-item-label">Comfort</p>
-                                            </li>
-                                            <li>
-                                                <div class="rating-circle circle-rate-1">
-                                                    <p class="circle-label">1</p>
-                                                    <span class="rating-progress"></span>
-                                                </div>
-                                                <p class="list-item-label">Service Experience</p>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    
                                     
                                     <div class="padding-right20 padding-left20">
 
-                                        <span class="review__question text-light-grey">Was this review helpful?</span>
+                                        <span class="review__question text-light-grey font12">Was this review helpful?</span>
 
                                         <button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="upVoteListReview(event)">
                                             <span class="bwmsprite like-sm"></span>

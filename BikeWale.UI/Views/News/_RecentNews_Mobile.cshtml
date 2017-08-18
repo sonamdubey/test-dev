@@ -27,7 +27,7 @@
                     @FormatDescription.TruncateDescription(@news.Description, 180)
                 </p>
                 <p class="margin-top10">
-                    <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" rel="nofollow">...Read more</a>
+                    <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title" rel="nofollow">...Read more</a>
                 </p>
             </li> }
     </ul>

@@ -84,7 +84,7 @@ namespace BikewaleOpr
                 .RegisterType<IContractCampaign, ContractCampaign>()
                 .RegisterType<IServiceCenter, ServiceCenter>()
                 .RegisterType<IManageBookingAmountPage, ManageBookingAmountPage>()
-                .RegisterType<IConfigurePageMetasRepository, ConfigurePageMetasRepository>()
+                .RegisterType<IPageMetasRepository, PageMetasRepository>()
                 .RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
