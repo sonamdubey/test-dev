@@ -30,7 +30,7 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
             ConfigurePageMetasVM objPageModel = new ConfigurePageMetasVM();
             try
             {
-                objPageModel.Makes = _makesRepo.GetMakes(8);
+                objPageModel.Makes = _makesRepo.GetMakes(7);
                 IEnumerable<PageEntity> pagesList = _pageMetasRepo.GetPagesList();
 
                 var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
