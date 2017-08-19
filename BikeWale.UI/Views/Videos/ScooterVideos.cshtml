@@ -1,10 +1,7 @@
 ﻿@model Bikewale.Models.Videos.ScooterVideosVM
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = " Scooter Videos | Expert Review & First Launch videos on Scooters- BikeWale";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/videosByModel.css' />";
-    Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/scooters/videos/";
-    Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/scooters/videos/";
     Model.IsHeaderFix = true;
 }
 @if (Model != null)
@@ -15,7 +12,7 @@
                 <div class="breadcrumb margin-top15 margin-bottom10">
                     <ul>
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title" title="BikeWale">Home</span></a></li>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/new-scooters/" title="Scooters"><span itemprop="title">Scooters</span></a></li>
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/scooters/" title="Scooters"><span itemprop="title">Scooters</span></a></li>
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span itemprop="title">Scooter Videos</span></li>
                     </ul>
                 </div>
@@ -58,6 +55,6 @@
             </div>
         </section>
     }
-    { Html.RenderAction("MostPopularBikesByBodyStyle", "PopularBikes", new { bodyStyleId = Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter, topCount = 9, cityId = Model.CityId }); }
+    Html.RenderAction("MostPopularBikesByBodyStyle", "PopularBikes", new { bodyStyleId = Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter, topCount = 9, cityId = Model.CityId });
 
 }

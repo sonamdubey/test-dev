@@ -90,7 +90,7 @@ namespace Bikewale.Interfaces.BikeData
         EnumBikeBodyStyles GetBikeBodyType(uint modelId);
 
         IEnumerable<MostPopularBikesBase> GetPopularBikesByBodyStyle(ushort bodyStyleId, uint topCount, uint cityId);
-        ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyleViaModel(int modelId, int topCount, uint cityId);
+        ICollection<MostPopularBikesBase> GetPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId);
         GenericBikeInfo GetBikeInfo(uint modelId, uint cityId);
         GenericBikeInfo GetBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);

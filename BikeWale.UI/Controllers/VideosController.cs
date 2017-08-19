@@ -343,7 +343,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Controllers.Videos.ScooterVideos"));
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.Videos.ScooterVideos");
 
             }
 
@@ -367,13 +367,16 @@ namespace Bikewale.Controllers.Desktop.Videos
             {
 
                 ScooterVideos objVideosModel = new ScooterVideos(_video);
+
+                objVideosModel.IsMobile = true;
+
                 objVideosList = objVideosModel.GetData();
 
             }
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Controllers.Videos.ScooterVideos_Mobile"));
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.Videos.ScooterVideos_Mobile");
 
             }
 

@@ -168,7 +168,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                             if (modelId > 0)
                             {
 
-                                bikes = _objModelCache.GetPopularBikesByBodyStyleViaModel((int)modelId, 9, cityId);
+                                bikes = _objModelCache.GetMostPopularBikesByModelBodyStyle((int)modelId, 9, cityId);
 
                                 if (bikes != null && bikes.Count()>0)
                                 {

@@ -3,7 +3,6 @@
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/videosByModel.css' />";
-    Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/scooters/videos/";
     Model.IsHeaderFix = false;
     Model.IsHeaderRequired = false;
 }
@@ -45,6 +44,6 @@
             </div>
         </section>
     }
-    { Html.RenderAction("MostPopularBikesByBodyStyle_Mobile", "PopularBikes", new { bodyStyleId = Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter, topCount = 9, cityId = Model.CityId }); }
+    Html.RenderAction("MostPopularBikesByBodyStyle_Mobile", "PopularBikes", new { bodyStyleId = Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter, topCount = 9, cityId = Model.CityId });
 
 }

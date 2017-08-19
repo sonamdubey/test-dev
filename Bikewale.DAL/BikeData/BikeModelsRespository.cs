@@ -1791,7 +1791,7 @@ namespace Bikewale.DAL.BikeData
         /// <param name="bodyStyleId"></param>
         /// <param name="topCount"></param>
         /// <returns></returns>
-        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyleViaModel(int modelId, int topCount, uint cityId)
+        public ICollection<MostPopularBikesBase> GetPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId)
         {
             ICollection<MostPopularBikesBase> popularBikesList = null;
             try
@@ -2625,8 +2625,8 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandText = "getmostpopularbikesbybodystyle";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int32, bodyStyleId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId > 0 ? cityId : Convert.DBNull));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId > 0 ? cityId : 0));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {

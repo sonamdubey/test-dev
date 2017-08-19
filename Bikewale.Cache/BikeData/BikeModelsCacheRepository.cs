@@ -1120,13 +1120,13 @@ namespace Bikewale.Cache.BikeData
         /// <param name="topCount"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyleViaModel(int modelId, int topCount, uint cityId)
+        public ICollection<MostPopularBikesBase> GetMostPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId)
         {
             ICollection<MostPopularBikesBase> popularBikesList = null;
             string key = string.Format("BW_PopularBikesListByBodyType_MO_{0}_city_{1}_topcount_{2}", modelId, cityId, topCount);
             try
             {
-                popularBikesList = _cache.GetFromCache<Collection<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (Collection<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyleViaModel(modelId, topCount, cityId));
+                popularBikesList = _cache.GetFromCache<Collection<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (Collection<MostPopularBikesBase>)_modelRepository.GetPopularBikesByModelBodyStyle(modelId, topCount, cityId));
             }
             catch (Exception ex)
             {
@@ -1363,10 +1363,25 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetPopularBikesByBodyStyle(ushort bodyStyleId, uint topCount, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_PopularBikesListByBodyType_bodystyle_{0}_topCount_{1}_city_{2}", bodyStyleId, topCount, cityId);
+            string key = string.Empty;
+
+
             try
             {
-                popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (IEnumerable<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId));
+                if (cityId > 0)
+                {
+
+                    key = string.Format("BW_PopularBikesListByBodyType_Bodystyle_{0}_TopCount_{1}_City_{2}", bodyStyleId, topCount, cityId);
+                    popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (IEnumerable<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId));
+                }
+                else
+                {
+
+                    key = string.Format("BW_PopularBikesListByBodyType_Bodystyle_{0}_TopCount_{1}", bodyStyleId, topCount);
+                    popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => (IEnumerable<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId));
+                }
+
+                
             }
             catch (Exception ex)
             {

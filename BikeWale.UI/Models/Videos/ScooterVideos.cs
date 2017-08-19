@@ -17,7 +17,8 @@ namespace Bikewale.Models.Videos
     public class ScooterVideos
     {
         private readonly IVideos _videos = null;
-        private uint _cookieCityId;
+        public bool IsMobile = false;
+        
 
 
         public ScooterVideos(IVideos videos)
@@ -36,26 +37,52 @@ namespace Bikewale.Models.Videos
 
             try
             {
-                string bodyStyleId = "5";
+                string bodyStyleId = Convert.ToString((int)Entities.GenericBikes.EnumBikeBodyStyles.Scooter);
 
                 objVideos = new ScooterVideosVM();
                 objVideos.VideosList = _videos.GetVideosByMakeModel(0, 0, bodyStyleId, 0, 0);
 
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                _cookieCityId = currentCityArea.CityId;
+                objVideos.CityId = currentCityArea.CityId;
 
-                objVideos.CityId = _cookieCityId;
-
-                objVideos.PageMetaTags.Title = "Scooter Videos | Expert Review & First Launch  videos on Scooters- BikeWale";
-                objVideos.PageMetaTags.Description = "Watch latest videos on scooters by experts. Know more about latest scooter launches, road test and comparison of scooters";
+                BindPageMetas(objVideos);
+                
 
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.Videos.ScooterVideos.GetData"));
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Videos.ScooterVideos.GetData");
                 
             }
             return objVideos;
+        }
+
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17-Aug-2017
+        /// Description : Method to bind page metas..
+        /// </summary>
+        /// <param name="scooterVideo"></param>
+        private void BindPageMetas(ScooterVideosVM scooterVideo)
+        {
+            try
+            {
+                if (scooterVideo != null)
+                {
+                    scooterVideo.PageMetaTags.Title = "Scooter Videos | Expert Review & First Launch  videos on Scooters- BikeWale";
+                    scooterVideo.PageMetaTags.Description = "Watch latest videos on scooters by experts. Know more about latest scooter launches, road test and comparison of scooters";
+
+                    scooterVideo.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/scooters/videos/";
+                    if (!IsMobile)
+                    {
+                        scooterVideo.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/scooters/videos/";
+                    } 
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.Videos.ScooterVideos.BindPageMetas_scooterVideo_{0}", scooterVideo));
+            }
         }
     }
 }

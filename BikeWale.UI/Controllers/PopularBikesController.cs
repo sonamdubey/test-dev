@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace Bikewale.Controllers
         public ActionResult PopularBodyStyleDesktop(int modelId, int topCount, uint cityId)
         {
             cityId = cityId == 0 ? Convert.ToUInt32(BWConfiguration.Instance.DefaultCity) : cityId;
-            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyleViaModel(modelId, topCount, cityId);
+            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetMostPopularBikesByModelBodyStyle(modelId, topCount, cityId);
             if (objPopularBodyStyle != null && objPopularBodyStyle.FirstOrDefault() != null)
             {
                 ViewBag.BodyStyle = objPopularBodyStyle.FirstOrDefault().BodyStyle;
@@ -80,7 +81,7 @@ namespace Bikewale.Controllers
         public ActionResult PopularBodyStyleMobile(int modelId, int topCount, uint cityId)
         {
             cityId = cityId == 0 ? Convert.ToUInt32(BWConfiguration.Instance.DefaultCity) : cityId;
-            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyleViaModel(modelId, topCount, cityId);
+            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetMostPopularBikesByModelBodyStyle(modelId, topCount, cityId);
             if (objPopularBodyStyle != null && objPopularBodyStyle.FirstOrDefault() != null)
             {
                 ViewBag.BodyStyle = objPopularBodyStyle.FirstOrDefault().BodyStyle;
@@ -97,12 +98,25 @@ namespace Bikewale.Controllers
         /// <returns></returns>
         public ActionResult MostPopularBikesByBodyStyle(ushort bodyStyleId, uint topCount, uint cityId)
         {
-            cityId = cityId == 0 ? Convert.ToUInt32(BWConfiguration.Instance.DefaultCity) : cityId;
-            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId);
-            if (objPopularBodyStyle != null && objPopularBodyStyle.FirstOrDefault() != null)
+
+            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = null;
+            try
             {
-                ViewBag.BodyStyle = objPopularBodyStyle.FirstOrDefault().BodyStyle;
+                objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId);
+
+                if (objPopularBodyStyle != null)
+                {
+                    MostPopularBikesBase objBike = objPopularBodyStyle.FirstOrDefault();
+                    ViewBag.BodyStyle = objBike == null ? Entities.GenericBikes.EnumBikeBodyStyles.AllBikes : objPopularBodyStyle.FirstOrDefault().BodyStyle;
+                }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PopularBikesController.MostPopularBikesByBodyStyle: BodyStyleId: {0}, topCount: {1}, CityId {2}", bodyStyleId, topCount, cityId));
+
+
+            }
+
             return View("~/Views/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
         }
 
@@ -114,14 +128,24 @@ namespace Bikewale.Controllers
         /// <param name="topCount"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public ActionResult MostPopularBikesByBodyStyle_Mobile(ushort bodyStyleId, uint topCount, uint cityId)
+        public ActionResult MostPopularBikesByBodyStyle_Mobile(ushort bodyStyleId, uint topCount, uint cityId = 0)
         {
-            cityId = cityId == 0 ? Convert.ToUInt32(BWConfiguration.Instance.DefaultCity) : cityId;
-            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId);
-            if (objPopularBodyStyle != null && objPopularBodyStyle.FirstOrDefault() != null)
+            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = null;
+            try
             {
-                ViewBag.BodyStyle = objPopularBodyStyle.FirstOrDefault().BodyStyle;
+                objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId);
+
+                if (objPopularBodyStyle != null)
+                {
+                    MostPopularBikesBase objBike = objPopularBodyStyle.FirstOrDefault();
+                    ViewBag.BodyStyle = objBike == null ? Entities.GenericBikes.EnumBikeBodyStyles.AllBikes : objPopularBodyStyle.FirstOrDefault().BodyStyle;
+                }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("PopularBikesController.MostPopularBikesByBodyStyle_Mobile: BodyStyleId: {0}, topCount: {1}, CityId {2}", bodyStyleId, topCount, cityId));
+            }
+
             return View("~/Views/m/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
         }
 
