@@ -285,30 +285,6 @@ namespace Bikewale.Controllers
         }
 
 
-        /// <summary>
-        /// Created by : Snehal Dange on 17th August , 2017
-        /// Summmary   : Action method to render Scooter news - Desktop
-        /// </summary>
-        [Route("scooters/news/")]
-        public ActionResult Index_News()
-        {
-            NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _objMakeCache, _objBikeModel, _upcoming, _renderedArticles);
-            if (obj.status == Entities.StatusCodes.ContentNotFound)
-            {
-                return Redirect("/pagenotfound.aspx");
-            }
-            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
-            {
-                return RedirectPermanent(obj.redirectUrl);
-            }
-            else
-            {
-                NewsIndexPageVM objData = obj.GetData(4);
-                if (obj.status == Entities.StatusCodes.ContentNotFound)
-                    return Redirect("/pagenotfound.aspx");
-                else
-                    return View(objData);
-            }
-        }
+       
     }
 }
