@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Schema
 {
-    class SearchAction
+    public class SearchTarget
     {
+
     }
 }

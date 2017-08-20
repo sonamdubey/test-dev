@@ -376,7 +376,7 @@
     <Compile Include="Schema\Review.cs" />
     <Compile Include="Schema\ReviewRating.cs" />
     <Compile Include="Schema\SchemaBase.cs" />
-    <Compile Include="Schema\SearchAction.cs" />
+    <Compile Include="Schema\WebSite.cs" />
     <Compile Include="ServiceCenters\BrandServiceCenters.cs" />
     <Compile Include="ServiceCenters\CityBrandServiceCenters.cs" />
     <Compile Include="ServiceCenters\EnumServiceCenterSMSStatus.cs" />
