@@ -1,196 +1,214 @@
 ﻿@model  Bikewale.Models.IndexBestBikesVM
 @using Bikewale.Utility;
 @using Bikewale.Entities.GenericBikes;
-    @{
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/generic/listing.css' />";
     int i = 10;
     string prevMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
     Model.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/best-{0}-in-india/", Model.PageMaskingName);
 
-    }
-    <header>
-        <div class="generic-banner @Model.bannerImagePos" style="background-image: url(@Model.bannerImage)">
-            <div class="container">
-                <div class="banner-box text-center">
-                    <h1 class="font30 text-uppercase margin-bottom5 text-white">Best @Model.PageName in India</h1>
-                    <h2 class="font20 text-unbold text-white">Explore the list of top 10 @Model.PageName.ToLower() in India</h2>
-                </div>
+}
+<header>
+    <div class="generic-banner @Model.bannerImagePos" style="background-image: url(@Model.bannerImage)">
+        <div class="container">
+            <div class="banner-box text-center">
+                <h1 class="font30 text-uppercase margin-bottom5 text-white">Best @Model.PageName in India</h1>
+                <h2 class="font20 text-unbold text-white">Explore the list of top 10 @Model.PageName.ToLower() in India</h2>
             </div>
         </div>
-    </header>
-    @if (!string.IsNullOrEmpty(Model.Content))
+    </div>
+</header>
+@if (!string.IsNullOrEmpty(Model.Content))
 {
-        <section>
-            <div class="container section-bottom-margin">
-                <div class="grid-12">
-                    <div class="content-box-shadow content-inner-block-20 margin-minus50 description-content font14 text-light-grey">
-                        @if(Model.Content.Length > 410){
-                    <p class="desc-main-content">@Model.Content.Substring(0,410)</p><p class="desc-more-content">@Model.Content.Substring(410)</p><a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
-                    } else{
-                    <p class="desc-main-content">@Model.Content</p>
+    <section>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow content-inner-block-20 margin-minus50 description-content font14 text-light-grey">
+                    @if (Model.Content.Length > 410)
+                    {
+                        <p class="desc-main-content">@Model.Content.Substring(0, 410)</p><p class="desc-more-content">@Model.Content.Substring(410)</p><a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
                     }
-                    </div>
+                    else
+                    {
+                        <p class="desc-main-content">@Model.Content</p>
+                    }
                 </div>
-                <div class="clear"></div>
             </div>
-        </section>
+            <div class="clear"></div>
+        </div>
+    </section>
 }
 
 
-    @if (Model.objBestBikesList != null && Model.objBestBikesList.Count() > 0)
+@if (Model.objBestBikesList != null && Model.objBestBikesList.Count() > 0)
 {
-        <section>
-            <div class="container section-bottom-margin">
-                <div class="grid-12">
-                    <div class="content-box-shadow">
-                        <div class="padding-right20 padding-left20">
-                            <h2 class="font18 text-black padding-top15 padding-bottom15 border-light-bottom">And the top 10 @Model.PageName.ToLower()  are...</h2>
-                        </div>
+    <section>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow">
+                    <div class="padding-right20 padding-left20">
+                        <h2 class="font18 text-black padding-top15 padding-bottom15 border-light-bottom">And the top 10 @Model.PageName.ToLower()  are...</h2>
+                    </div>
 
-                        <ul id="bike-list" class="font14">
+                    <ul id="bike-list" class="font14">
 
-                            @foreach(var bike in Model.objBestBikesList) {
+                        @foreach (var bike in Model.objBestBikesList)
+                        {
 
-                        <li class="list-item">
-                            <div class="item-details-content">
-                                <div class="grid-3 padding-left20">
-                                    <a href="@string.Format("/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName)" title="@bike.BikeName" class="item-image-content">
-                                        <span class="item-rank">#@i@{i--;} </span>
-                                        <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._227x128) " alt="@bike.BikeName " src="" />
-                                    </a>
-                                </div>
-                                <div class="grid-6 bike-details-block border-grey-right padding-right20">
-                                    <h3><a href="@string.Format(" /{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName " class="bikeTitle">@bike.BikeName </a></h3>
-                                    <ul class="key-specs-list text-light-grey padding-bottom15 margin-bottom15 border-solid-bottom">
-                                        @if (bike.MinSpecs.Displacement != 0)
-                                        {
-                                            <li>
-                                                <span class="bwsprite capacity-sm"></span>
-                                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(),"cc") </span>
-                                            </li>
-                                         }
-                                        @if (bike.MinSpecs.FuelEfficiencyOverall != 0)
-                                        {
-                                            <li>
-                                                <span class="bwsprite mileage-sm"></span>
-                                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(),"kmpl") </span>
-                                            </li>
-                                        }
-                                        @if (bike.MinSpecs.MaxPower != 0)
-                                        {
-                                            <li>
-                                                <span class="bwsprite power-sm"></span>
-                                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaxPower.ToString(),"bhp") </span>
-                                            </li>
-                                        }
-                                    </ul>
-                                    <table class="item-table-content" width="100%" cellspacing="0" cellpadding="0">
-                                        <thead>
-                                            <tr class="table-head-row">
-                                                <th valign="top" width="35%">Available in</th>
-                                                <th valign="top" width="25%">Launched in</th>
-                                                <th valign="top" width="30%">Unit sold @string.Format("{0}", (bike.UnitsSold > 0) ? string.Format("({0})",bike.LastUpdatedModelSold.Value.ToString("MMMM")):"")</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td valign="top" class="text-bold text-grey">
-                                                    @if (bike.TotalVersions + bike.TotalModelColors > 0)
-                                                    {
-                                                        <text>@string.Format("{0} {1}{2}", bike.TotalVersions, bike.TotalVersions > 1 ? " variants" : " variant", (bike.TotalModelColors > 0)?string.Format(", {0} {1}", bike.TotalModelColors, (bike.TotalModelColors > 1) ? " colors" : " color") : "")</text>
-                                                    } 
-                                                </td>
-                                                <td valign="top" class="text-bold text-grey">@string.Format("{0}",bike.LaunchDate.HasValue ? FormatDate.GetFormatDate(bike.LaunchDate.ToString(),"MMMM yyyy") : "Before 2012") </td>
-                                                <td valign="top" class="text-bold text-grey">@string.Format("{0}",bike.UnitsSold > 0 ? Format.FormatNumeric(bike.UnitsSold.ToString()) : "Not Available") </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="grid-3 padding-left20 padding-right20">
-                                    <p class="font14 text-grey margin-bottom5">Ex-showroom price, @bike.PriceInCity </p>
-                                    <div class="margin-bottom10 font18">
-                                        @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) </span>
+                            <li class="list-item" id="bike@(i)">
+                                <div class="item-details-content">
+                                    <div class="grid-3 padding-left20">
+                                        <a href="@string.Format("/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName)" title="@bike.BikeName" class="item-image-content">
+                                            <span class="item-rank">#@i@{i--;} </span>
+                                            @if (i > 7)
+                                            {
+                                                <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._227x128,QualityFactor._85) " alt="@bike.BikeName " />
+                                            }
+                                            else
+                                            {
+                                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._227x128,QualityFactor._85) " alt="@bike.BikeName " src="" />
+                                            }
+
+                                        </a>
                                     </div>
-                                    @if(bike.Price > 0) {
-                                        <a href="javascript:void(0)" data-pagecatid="0"
-                                           data-pqsourceid="(int)@Model.pqSource " data-makename="@bike.Make.MakeName "
-                                           data-modelname="@bike.Model.ModelName " data-modelid="@bike.Model.ModelId "
-                                           class="btn btn-grey btn-sm font14 getquotation">Check on-road price</a>
-                                    }
-                                </div>
-                                <div class="clear"></div>
-
-                                <div class="margin-top15 padding-right20 description-content padding-left20">
-                                    <p class="font14 text-light-grey margin-bottom15">@bike.SmallModelDescription </p>
-                                    <div class="leftfloat">
-                                        <span class="text-light-grey inline-block">More about @bike.Model.ModelName :</span>
-                                        <ul class="item-more-details-list inline-block">
-                                            @if(bike.NewsCount > 0) {
+                                    <div class="grid-6 bike-details-block border-grey-right padding-right20">
+                                        <h3><a href="@string.Format(" /{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName " class="bikeTitle">@bike.BikeName </a></h3>
+                                        <ul class="key-specs-list text-light-grey padding-bottom15 margin-bottom15 border-solid-bottom">
+                                            @if (bike.MinSpecs.Displacement != 0)
+                                            {
                                                 <li>
-                                                    <a href="@UrlFormatter.FormatNewsUrl(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  News">
-                                                        <span class="bwsprite news-sm"></span>
-                                                        <span class="icon-label">News</span>
-                                                    </a>
+                                                    <span class="bwsprite capacity-sm"></span>
+                                                    <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc") </span>
                                                 </li>
                                             }
-                                            @if(bike.ExpertReviewsCount > 0) {
+                                            @if (bike.MinSpecs.FuelEfficiencyOverall != 0)
+                                            {
                                                 <li>
-                                                    <a href="@UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  Reviews">
-                                                        <span class="bwsprite reviews-sm"></span>
-                                                        <span class="icon-label">Reviews</span>
-                                                    </a>
-                                                </li>
-                                                    }
-                                            @if(bike.PhotosCount > 0) {
-                                                <li>
-                                                    <a href="@UrlFormatter.FormatPhotoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  Images">
-                                                        <span class="bwsprite photos-sm"></span>
-                                                        <span class="icon-label">Images</span>
-                                                    </a>
+                                                    <span class="bwsprite mileage-sm"></span>
+                                                    <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl") </span>
                                                 </li>
                                             }
-                                            @if(bike.VideosCount > 0) {
+                                            @if (bike.MinSpecs.MaxPower != 0)
+                                            {
                                                 <li>
-                                                    <a href="@UrlFormatter.FormatVideoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  Videos">
-                                                        <span class="bwsprite videos-sm"></span>
-                                                        <span class="icon-label">Videos</span>
-                                                    </a>
-                                                </li>
-                                            }
-                                            @if(bike.MinSpecs !=null) {
-                                                <li>
-                                                    <a href="@UrlFormatter.ViewAllFeatureSpecs(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  Specs">
-                                                        <span class="bwsprite specs-sm"></span>
-                                                        <span class="icon-label">Specs</span>
-                                                    </a>
+                                                    <span class="bwsprite power-sm"></span>
+                                                    <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaxPower.ToString(), "bhp") </span>
                                                 </li>
                                             }
                                         </ul>
+                                        <table class="item-table-content" width="100%" cellspacing="0" cellpadding="0">
+                                            <thead>
+                                                <tr class="table-head-row">
+                                                    <th valign="top" width="35%">Available in</th>
+                                                    <th valign="top" width="25%">Launched in</th>
+                                                    <th valign="top" width="30%">Unit sold @string.Format("{0}", (bike.UnitsSold > 0) ? string.Format("({0})", bike.LastUpdatedModelSold.Value.ToString("MMMM")) : "")</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td valign="top" class="text-bold text-grey">
+                                                        @if (bike.TotalVersions + bike.TotalModelColors > 0)
+                                                        {
+                                                            <text>@string.Format("{0} {1}{2}", bike.TotalVersions, bike.TotalVersions > 1 ? " variants" : " variant", (bike.TotalModelColors > 0) ? string.Format(", {0} {1}", bike.TotalModelColors, (bike.TotalModelColors > 1) ? " colors" : " color") : "")</text>
+                                                        }
+                                                    </td>
+                                                    <td valign="top" class="text-bold text-grey">@string.Format("{0}", bike.LaunchDate.HasValue ? FormatDate.GetFormatDate(bike.LaunchDate.ToString(), "MMMM yyyy") : "Before 2012") </td>
+                                                    <td valign="top" class="text-bold text-grey">@string.Format("{0}", bike.UnitsSold > 0 ? Format.FormatNumeric(bike.UnitsSold.ToString()) : "Not Available") </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-
-                                    @if (bike.UsedBikesCount > 0 && bike.UsedCity != null && bike.Make != null && bike.Model != null)
-                                    {
-                                        <div class="used-bike-target-link leftfloat">
-                                            <span class="text-light-grey">Check out:</span>
-                                            <a href="@UrlFormatter.ViewMoreUsedBikes(bike.UsedCity.CityId, bike.UsedCity.CityMaskingName, bike.Make.MaskingName, bike.Model.MaskingName) " title="Used @bike.Model.ModelName  bikes">@bike.UsedBikesCount  Used @bike.Model.ModelName @string.Format("bike{0}",bike.UsedBikesCount > 1?"s":"")</a>
+                                    <div class="grid-3 padding-left20 padding-right20">
+                                        <p class="font14 text-grey margin-bottom5">Ex-showroom price, @bike.PriceInCity </p>
+                                        <div class="margin-bottom10 font18">
+                                            @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) </span>
                                         </div>
-                                    }
+                                        @if (bike.Price > 0)
+                                        {
+                                            <a href="javascript:void(0)" data-pagecatid="0"
+                                               data-pqsourceid="(int)@Model.pqSource " data-makename="@bike.Make.MakeName "
+                                               data-modelname="@bike.Model.ModelName " data-modelid="@bike.Model.ModelId "
+                                               class="btn btn-grey btn-sm font14 getquotation">Check on-road price</a>
+                                        }
+                                    </div>
                                     <div class="clear"></div>
+
+                                    <div class="margin-top15 padding-right20 description-content padding-left20">
+                                        <p class="font14 text-light-grey margin-bottom15">@bike.SmallModelDescription </p>
+                                        <div class="leftfloat">
+                                            <span class="text-light-grey inline-block">More about @bike.Model.ModelName :</span>
+                                            <ul class="item-more-details-list inline-block">
+                                                @if (bike.NewsCount > 0)
+                                                {
+                                                    <li>
+                                                        <a href="@UrlFormatter.FormatNewsUrl(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  News">
+                                                            <span class="bwsprite news-sm"></span>
+                                                            <span class="icon-label">News</span>
+                                                        </a>
+                                                    </li>
+                                                }
+                                                @if (bike.ExpertReviewsCount > 0)
+                                                {
+                                                    <li>
+                                                        <a href="@UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  Reviews">
+                                                            <span class="bwsprite reviews-sm"></span>
+                                                            <span class="icon-label">Reviews</span>
+                                                        </a>
+                                                    </li>
+                                                }
+                                                @if (bike.PhotosCount > 0)
+                                                {
+                                                    <li>
+                                                        <a href="@UrlFormatter.FormatPhotoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  Images">
+                                                            <span class="bwsprite photos-sm"></span>
+                                                            <span class="icon-label">Images</span>
+                                                        </a>
+                                                    </li>
+                                                }
+                                                @if (bike.VideosCount > 0)
+                                                {
+                                                    <li>
+                                                        <a href="@UrlFormatter.FormatVideoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  Videos">
+                                                            <span class="bwsprite videos-sm"></span>
+                                                            <span class="icon-label">Videos</span>
+                                                        </a>
+                                                    </li>
+                                                }
+                                                @if (bike.MinSpecs != null)
+                                                {
+                                                    <li>
+                                                        <a href="@UrlFormatter.ViewAllFeatureSpecs(bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName  Specs">
+                                                            <span class="bwsprite specs-sm"></span>
+                                                            <span class="icon-label">Specs</span>
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+
+                                        @if (bike.UsedBikesCount > 0 && bike.UsedCity != null && bike.Make != null && bike.Model != null)
+                                        {
+                                            <div class="used-bike-target-link leftfloat">
+                                                <span class="text-light-grey">Check out:</span>
+                                                <a href="@UrlFormatter.ViewMoreUsedBikes(bike.UsedCity.CityId, bike.UsedCity.CityMaskingName, bike.Make.MaskingName, bike.Model.MaskingName) " title="Used @bike.Model.ModelName  bikes">@bike.UsedBikesCount  Used @bike.Model.ModelName @string.Format("bike{0}", bike.UsedBikesCount > 1 ? "s" : "")</a>
+                                            </div>
+                                        }
+                                        <div class="clear"></div>
+                                    </div>
                                 </div>
-                            </div>
 
-                        </li>
+                            </li>
 
-                        }
-                        </ul>
-                    </div>
+                                                }
+                    </ul>
                 </div>
-                <div class="clear"></div>
             </div>
-        </section>
+            <div class="clear"></div>
+        </div>
+    </section>
 
-}
+                                                }
 
 @if (Model.Brands != null && Model.BestBikes.CurrentPage != EnumBikeBodyStyles.Scooter)
 {
@@ -453,7 +471,7 @@
             <div class="clear"></div>
         </div>
     </section>
-}
+                        }
 
 
 <section>
@@ -467,7 +485,9 @@
         <div class="clear"></div>
     </div>
 </section>
+
 @(Html.Raw(Model.JSONSchema))
+
 <script type="text/javascript">
     var descWrapper;
     docReady(function () {

@@ -17,9 +17,10 @@ namespace Bikewale.Entities.Schema
         public string Type { get { return "SearchAction"; } }
 
         [JsonProperty("target", NullValueHandling = NullValueHandling.Ignore)]
-        public string Target { get; set; }
+        public string TargetUrl { get; set; }
 
-        [JsonProperty("query-input")]
-        public string Query_Input { get { return "required name=search_term_string";  } }
+        [JsonProperty("query-input", NullValueHandling = NullValueHandling.Ignore)]
+        public string Query_Input { get { return (!String.IsNullOrEmpty(this.TargetUrl) ? "required name=search_term_string" : null);  } }
+
     }
 }

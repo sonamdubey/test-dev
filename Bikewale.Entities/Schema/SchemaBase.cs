@@ -12,7 +12,7 @@ namespace Bikewale.Entities.Schema
         [JsonProperty("@context")]
         public string Context { get { return "http://schema.org"; } }
 
-        [JsonProperty("id")]
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
     }
 }
