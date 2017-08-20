@@ -19,10 +19,7 @@ namespace Bikewale.BAL.UserReviews.Search
     /// </summary>
     public class UserReviewsSearch : IUserReviewsSearch
     {
-        ProcessedInputFilters filterInputs = null;
-        private string whereClause = string.Empty;
-        private uint _maxRecords = 24;
-
+        ProcessedInputFilters filterInputs = null;        
         private readonly IPager _pager = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
 
@@ -38,7 +35,7 @@ namespace Bikewale.BAL.UserReviews.Search
             _pager = pager;
         }
 
-        public SearchResult GetUserReviewsListDesktop(InputFilters inputFilters)
+        public SearchResult GetUserReviewsList(InputFilters inputFilters)
         {
             SearchResult objResult = null;
             try
@@ -58,27 +55,27 @@ namespace Bikewale.BAL.UserReviews.Search
                 {
                     switch (SortOrder)
                     {
-                        case 1:
+                        case (ushort)SortOrderEnum.RecentReviews:
                             {
                                 reviewIdList = reviewIdLists.RecentReviews;
                                 break;
                             }
-                        case 2:
+                        case (ushort)SortOrderEnum.HelpfulReviews:
                             {
                                 reviewIdList = reviewIdLists.HelpfulReviews;
                                 break;
                             }
-                        case 5:
+                        case (ushort)SortOrderEnum.PositiveReviews:
                             {
                                 reviewIdList = reviewIdLists.PositiveReviews;
                                 break;
                             }
-                        case 6:
+                        case (ushort)SortOrderEnum.NegativeReviews:
                             {
                                 reviewIdList = reviewIdLists.NegativeReviews;
                                 break;
                             }
-                        case 7:
+                        case (ushort)SortOrderEnum.NeutralReviews:
                             {
                                 reviewIdList = reviewIdLists.NeutralReviews;
                                 break;
@@ -122,74 +119,24 @@ namespace Bikewale.BAL.UserReviews.Search
                         objResult.PageUrl.NextPageUrl = objResult.PageUrl.NextPageUrl.Replace("+", "%2b");
                     }
 
-                    objResult.ResultDesktop = objReviewSummaryList;
+                    foreach(var review in objReviewSummaryList)
+                    {
+                        foreach (var ques in review.Questions)
+                        {
+                            if (ques.Type == UserReviewQuestionType.Rating)
+                                review.RatingQuestionsCount++;
+                        }
+                    }
+
+                    objResult.Result = objReviewSummaryList;
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetUserReviewsListDesktop");
+                ErrorClass objErr = new ErrorClass(ex, "GetUserReviewsList");
             }
             return objResult;
         }
-
-        public SearchResult GetUserReviewsList(InputFilters inputFilters)
-        {
-            SearchResult objResult = null;
-
-            try
-            {
-                // Process all filters and get the search query
-                string searchQuery = GetSearchResultQuery(inputFilters);
-
-                // Get search result from database
-                objResult = _userReviewsCache.GetUserReviewsList(inputFilters, searchQuery);
-
-                if (objResult != null)
-                {
-                    SetpaginationProperties(objResult, inputFilters);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.GetUserReviewsSearchBikesList");
-
-            }
-
-            return objResult;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="inputFilters"></param>
-        /// <returns></returns>
-        private string GetSearchResultQuery(InputFilters inputFilters)
-        {
-            string searchQuery = string.Empty;
-            bool SkipRecordsLimit = (inputFilters.PN * inputFilters.PS) > _maxRecords;
-
-            InitSearchQuery(inputFilters);
-
-            try
-            {
-                searchQuery = string.Format(@" select sql_calc_found_rows {0}
-                                               from {1} 
-                                               where {2}
-                                               order by {3} limit {4},{5};
-                                            
-                                               select found_rows() as RecordCount;"
-                    , GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), (SkipRecordsLimit) ? filterInputs.StartIndex - 1 : 0, (SkipRecordsLimit) ? filterInputs.PageSize : (int)_maxRecords);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.SearchQuery.GetSearchResultQuery");
-
-            }
-
-            return searchQuery;
-        }
-
 
         private void SetpaginationProperties(SearchResult objResult, InputFilters inputFilters)
         {
@@ -327,230 +274,6 @@ namespace Bikewale.BAL.UserReviews.Search
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviews.Search.ProcessPaging");
             }
         }
-
-
-        /// <summary>
-        /// Function to initialize the where clause and get the processed filters data to create a query
-        /// </summary>
-        /// <param name="inputFilters">raw input filters</param>
-        private void InitSearchQuery(InputFilters inputFilters)
-        {
-            try
-            {
-                this.filterInputs = ProcessFilters(inputFilters);
-
-                // Do not change the sequence
-                ApplyUserSearchType();
-                ApplyBikeFilter();
-                ApplyReviewTypeFilter();
-                SkipReviewId();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.SearchQuery.InitSearchQuery");
-
-            }
-        }
-
-        private void SkipReviewId()
-        {
-            if (filterInputs.SkipReviewId > 0)
-            {
-                whereClause += string.Format(" and ur.id <> {0} ", filterInputs.SkipReviewId);
-            }
-
-        }
-
-        private void ApplyUserSearchType()
-        {
-            if (!filterInputs.Ratings && filterInputs.Reviews)
-            {
-                whereClause += " and (title is not null or title <> '') ";
-            }
-        }
-
-
-        /// <summary>
-        /// Function to get the make  and model filter clause
-        /// </summary>
-        private void ApplyBikeFilter()
-        {
-            string makeList = string.Empty, modelList = string.Empty, makeFilter = string.Empty, modelFilter = string.Empty;
-
-            try
-            {
-                if (filterInputs.Make != null && filterInputs.Make.Length > 0)
-                {
-                    foreach (string str in filterInputs.Make)
-                    {
-                        makeList += "," + str;
-                    }
-
-                    makeList = makeList.Substring(1);
-
-                    makeFilter = string.Format(" ur.makeid in ({0}) ", makeList);
-                }
-
-                if (filterInputs.Model != null && filterInputs.Model.Length > 0)
-                {
-                    foreach (string str in filterInputs.Model)
-                    {
-                        modelList += "," + str;
-                    }
-
-                    modelList = modelList.Substring(1);
-
-                    modelFilter = string.Format(" ur.modelid in ({0}) ", modelList);
-                }
-
-                if (!String.IsNullOrEmpty(makeFilter) && !String.IsNullOrEmpty(modelFilter))
-                    whereClause += string.Format(" and ( {0} or {1} ) ", makeFilter, modelFilter);
-                else if (!String.IsNullOrEmpty(makeFilter))
-                    whereClause += string.Format(" and {0} ", makeFilter);
-                else if (!String.IsNullOrEmpty(modelFilter))
-                    whereClause += string.Format(" and {0} ", modelFilter);
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.SearchQuery.ApplyBikeFilter");
-            }
-        }
-
-
-        /// <summary>
-        /// Function to get the seller types filter in the query
-        /// </summary>
-        private void ApplyReviewTypeFilter()
-        {
-            string reviewType = string.Empty;
-
-            try
-            {
-                if (filterInputs.Category != null && filterInputs.Category.Length > 0)
-                {
-                    foreach (string str in filterInputs.Category)
-                    {
-                        reviewType += "," + str;
-                    }
-
-                    reviewType = reviewType.Substring(1);
-
-                    whereClause += string.Format(" and ur.overallratingid in ({0}) ", reviewType);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.SearchQuery.ApplySellerTypeFilter");
-            }
-        }
-
-        /// <summary>
-        /// Function to get the select clause for the search query
-        /// Modified by :   Sumit Kate on 25 Oct 2016
-        /// Description :   Added LastUpdated in select clause
-        /// </summary>
-        /// <returns></returns>
-        private string GetSelectClause()
-        {
-            string selectClause = string.Empty;
-
-            try
-            {
-                selectClause = @" id as reviewid, 
-                customername as writtenby,
-                title as reviewtitle,
-                substring(striphtml(review),1,175) comments,
-                ifnull(ur.entrydate,ur.lastmoderateddate) reviewdate,
-                upvotes liked,
-                downvotes disliked, 
-                views viewed,
-                overallratingid overallrating,
-                if(views >= 100,1,2) bucket,
-                if(views >= 100,(upvotes - downvotes) / views ,upvotes) as helpfulness ";
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.SearchQuery.GetSelectClause");
-            }
-
-            return selectClause;
-        }
-
-        /// <summary>
-        /// Function to get the from clause
-        /// </summary>
-        /// <returns></returns>
-        private string GetFromClause()
-        {
-            string fromClause = string.Empty;
-
-            try
-            {
-                fromClause = @" userreviews as ur ";
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.SearchQuery.GetFromClause");
-            }
-
-            return fromClause;
-        }
-
-        /// <summary>
-        /// Function to get the where clause
-        /// </summary>
-        /// <returns></returns>
-        private string GetWhereClause()
-        {
-            if (!string.IsNullOrEmpty(whereClause))
-                whereClause = string.Format(" isactive=1 and status=2 {0} ", whereClause);
-
-            return whereClause;
-        }
-
-        /// <summary>
-        /// Function to get the order by clause
-        /// Modified by :   Sumit Kate on 25 Oct 2016
-        /// Description :   For Default sort, show listing with images of that day first followed by listing without image
-        /// </summary>
-        /// <returns></returns>
-        private string GetOrderByClause()
-        {
-            string orderBy = string.Empty;
-
-            try
-            {
-                switch (filterInputs.SortOrder)
-                {
-                    case 1:
-                        orderBy = " ifnull(ur.entrydate,ur.lastmoderateddate) desc "; //most recent
-                        break;
-                    case 2:
-                    case 5:
-                    case 6:
-                    case 7:
-                        orderBy = " bucket, helpfulness desc "; //most helpful
-                        break;
-                    case 3:
-                        orderBy = " ur.views desc "; //most read or viewed
-                        break;
-                    case 4:
-                        orderBy = " ur.overallratingid desc "; //most rated 
-                        break;
-                    default:
-                        orderBy = " ifnull(ur.entrydate,ur.lastmoderateddate) desc "; //most recent
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetOrderByClause");
-            }
-            return orderBy;
-        }
-
-
 
         /// <summary>
         /// Created By: Aditi Srivastava on 16 Sep 2016

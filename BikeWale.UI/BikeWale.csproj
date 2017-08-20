@@ -1018,6 +1018,7 @@
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewsSearchWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewSummaryPage.cs" />
+    <Compile Include="Models\UserReviews\UserReviewWinnerWidget.cs" />
     <Compile Include="Models\UserReviews\WriteReviewContest.cs" />
     <Compile Include="Models\UserReviews\WriteReviewPageModel..cs" />
     <Compile Include="Models\Videos\MakeVideosPage.cs" />
@@ -1577,22 +1578,6 @@
     </Compile>
     <Compile Include="new\photos\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="servicecenter\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="servicecenter\ServiceCenterDetails.aspx.cs">
-      <DependentUpon>ServiceCenterDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="servicecenter\ServiceCenterInCountry.aspx.cs">
-      <DependentUpon>ServiceCenterInCountry.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="servicecenter\ServiceCenterList.aspx.cs">
-      <DependentUpon>ServiceCenterList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\BikeDealerDetails.aspx.cs">
@@ -3094,17 +3079,12 @@
     <Content Include="sass\modules\_collapsible-list.sass" />
     <Content Include="sass\user-review\_review-swiper-3d.sass" />
     <Content Include="sass\user-review\_swiper.sass" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
     <Content Include="Scripts\vendor.bundle.js" />
-    <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
-    <Content Include="servicecenter\ServiceCenterInCountry.aspx" />
-    <Content Include="servicecenter\ServiceCenterDetails.aspx" />
-    <Content Include="servicecenter\ServiceCenterList.aspx" />
     <Content Include="new\BikeDealerDetails.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\modelSpecsFeatures.aspx" />
@@ -3766,6 +3746,8 @@
     <Content Include="Views\UserReview\_UserReviewsSearch_Schema.cshtml" />
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel.cshtml" />
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
+    <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

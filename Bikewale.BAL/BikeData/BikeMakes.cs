@@ -45,15 +45,6 @@ namespace Bikewale.BAL.BikeData
             return objDescription;
         }
 
-        public BikeMakeEntityBase GetMakeDetails(string makeId)
-        {
-            BikeMakeEntityBase objMakeList = null;
-
-            objMakeList = makesRepository.GetMakeDetails(makeId);
-
-            return objMakeList;
-        }
-
         public BikeMakeEntityBase GetMakeDetails(uint makeId)
         {
             return makesRepository.GetMakeDetails(makeId);

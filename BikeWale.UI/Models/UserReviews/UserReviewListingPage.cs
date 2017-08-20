@@ -142,12 +142,8 @@ namespace Bikewale.Models.UserReviews
                             objData.ReviewsInfo.Model = objData.RatingsInfo.Model;
                             objData.ReviewsInfo.IsDiscontinued = objData.RatingsInfo.IsDiscontinued;
                             objUserReviews.ReviewsInfo = objData.ReviewsInfo;
-                        }
-
-                        if(IsDesktop)
-                            objData.UserReviews = objUserReviews.GetDataDesktop();
-                        else
-                            objData.UserReviews = objUserReviews.GetData();
+                        }                        
+                            objData.UserReviews = objUserReviews.GetData();                        
 
                         objData.UserReviews.WidgetHeading = string.Format("Reviews on {0}", objData.RatingsInfo.Model.ModelName);
 

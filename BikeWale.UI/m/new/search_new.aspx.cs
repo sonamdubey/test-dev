@@ -10,15 +10,13 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+
 
 namespace Bikewale.Mobile.New
 {
 	public class Search : System.Web.UI.Page
 	{
-        protected Repeater rptPopularBrand, rptOtherBrands;
+        protected IEnumerable<BikeMakeEntityBase> rptPopularBrand, rptOtherBrands;
 
         protected override void OnInit(EventArgs e)
         {
@@ -50,11 +48,9 @@ namespace Bikewale.Mobile.New
 
                     if (makes != null && makes.Count() > 0)
                     {
-                        rptPopularBrand.DataSource = makes.Where(m => m.PopularityIndex > 0);
-                        rptPopularBrand.DataBind();
+                        rptPopularBrand = makes.Where(m => m.PopularityIndex > 0);
 
-                        rptOtherBrands.DataSource = makes.Where(m => m.PopularityIndex == 0);
-                        rptOtherBrands.DataBind();
+                        rptOtherBrands = makes.Where(m => m.PopularityIndex == 0);
                     }
                 }
             }

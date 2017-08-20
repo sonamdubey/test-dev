@@ -47,5 +47,6 @@ namespace Bikewale.Entities.UserReviews
         public uint TotalReviews { get; set; }
         public float OverAllModelRating { get; set; }
         public string Mileage { get; set; }
+        public ushort RatingQuestionsCount { get; set; }        
     }
 }

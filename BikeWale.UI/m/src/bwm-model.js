@@ -6,6 +6,7 @@ var dropdown;
 var window, overallSpecsTabsContainer, modelSpecsTabsContentWrapper, modelSpecsFooter, topNavBarHeight;
 var backToTopBtn, halfBodyHeight, overViewContentHeight;
 var lastScrollTop = 0;
+var reg;
 
 function getBikeVersion() {
     return versionName;
@@ -90,7 +91,7 @@ var appendState = function (state) {
     window.history.pushState(state, '', '');
 };
 
-docReady(function () {    
+docReady(function () {
 
     dealersPopupDiv = $('#more-dealers-popup'),
     dealerOffersDiv = $('#dealer-offers-popup'),
@@ -125,7 +126,7 @@ docReady(function () {
     $("#viewprimarydealer, #dealername").on("click", function () {
         var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
         window.location.href = "/m/pricequote/dealer/?MPQ=" + Base64.encode(rediurl);
-    });    
+    });
     backToTopBtn = $('#scroll-to-top');
     overViewContentHeight = $('#overviewContent').height();
     halfBodyHeight = $('body').height() / 2;
@@ -151,7 +152,7 @@ docReady(function () {
                 "pinCodeRequired": ele.attr("data-ispincodrequired"),
                 "emailRequired": ele.attr("data-isemailrequired"),
                 "dealersRequired": ele.attr("data-dealersrequired"),
-                "eventcategory"  : "Model_Page",
+                "eventcategory": "Model_Page",
                 "gaobject": {
                     cat: ele.attr("c"),
                     act: ele.attr("a"),
@@ -167,7 +168,7 @@ docReady(function () {
 
     });
 
-   
+
     $("#templist input").on("click", function () {
         if ($(this).attr('data-option-value') == $('#hdnVariant').val()) {
             return false;
@@ -190,13 +191,13 @@ docReady(function () {
 
     if (bikeVersionLocation == '') {
         bikeVersionLocation = getBikeVersionLocation();
-      }
+    }
     if (bikeVersion == '') {
         bikeVersion = getBikeVersion();
     }
 
     getCityArea = GetGlobalCityArea();
-    
+
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),
             modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
@@ -267,7 +268,7 @@ docReady(function () {
 
         if (windowScrollTop < overViewContentHeight) {
             backToTopBtn.fadeOut();
-        };     
+        };
 
     });
 
@@ -283,7 +284,7 @@ docReady(function () {
         centerItVariableWidth($(this), '.overall-specs-tabs-container');
         return false;
     });
-    
+
     // dropdown
     dropdown = {
         setDropdown: function () {
@@ -368,10 +369,14 @@ docReady(function () {
             $('.dropdown-select-wrapper').find('.dropdown-list-wrapper').css('width', newWidth / 2);
         }
     };
+
+    applyLikeDislikes();
+
+    reg = new RegExp('^[0-9]*$');
 });
 
 docReady(function () {
-    
+
     var userEventSource = true;
 
     var gallerySwiper = new Swiper('#model-photos-swiper', {
@@ -406,8 +411,8 @@ docReady(function () {
             }
         },
     });
-    
-    if (photosCount > 10) {
+
+    if (photosCount > 0) {
         var overlayCount = '<span class="black-overlay text-white"><span class="font16 text-bold">+' + photosCount + '</span><br><span class="font14">images</span></span>';
         $("#model-photos-swiper .swiper-slide").last().find("a").append(overlayCount);
     }
@@ -506,7 +511,7 @@ docReady(function () {
         }
     });
 
-  
+
     $(window).on('popstate', function (event) {
         if ($('.model-gallery-container').is(':visible')) {
             gallery.close();
@@ -619,7 +624,7 @@ docReady(function () {
             $('.floating-btn').hide();
         else
             $('.floating-btn').show();
-    });   
+    });
 
     $(document).on('click', function (event) {
         event.stopPropagation();
@@ -694,40 +699,127 @@ docReady(function () {
         var tooltipParent = $(this).closest('.bw-tooltip');
 
         tooltipParent.slideUp();
-    });    
+    });
 
     $('#scroll-to-top').click(function (event) {
         $('html, body').stop().animate({ scrollTop: 0 });
         event.preventDefault();
-    });    
+    });
 
-    $('#report-background, .report-abuse-close-btn').on('click', function() {
+    $('#report-background, .report-abuse-close-btn').on('click', function () {
         reportAbusePopup.close();
     });
 
     $(document).keydown(function (event) {
-        if(event.keyCode == 27) {
-            if(reportAbusePopup.popupElement.is(':visible')) {
+        if (event.keyCode == 27) {
+            if (reportAbusePopup.popupElement.is(':visible')) {
                 reportAbusePopup.close();
             }
         }
     });
 
-	var reportAbusePopup = {
-		popupElement: $('#report-abuse'),
+    var reportAbusePopup = {
+        popupElement: $('#report-abuse'),
 
-		bgContainer: $('#report-background'),
+        bgContainer: $('#report-background'),
 
-		open: function () {
-			reportAbusePopup.popupElement.show();
-			popup.lock();
-			$(".blackOut-window").hide();
-			reportAbusePopup.bgContainer.show();
-		},
-		close: function () {
-			reportAbusePopup.popupElement.hide();
-			popup.unlock();
-			reportAbusePopup.bgContainer.hide();
-		}
-	};
+        open: function () {
+            reportAbusePopup.popupElement.show();
+            popup.lock();
+            $(".blackOut-window").hide();
+            reportAbusePopup.bgContainer.show();
+        },
+        close: function () {
+            reportAbusePopup.popupElement.hide();
+            popup.unlock();
+            reportAbusePopup.bgContainer.hide();
+        }
+    };
 });
+
+function upVoteListReview(e) {
+    try {
+        var localReviewId = e.currentTarget.getAttribute("data-reviewid");
+        if (!$('#upvoteBtn' + "-" + localReviewId).hasClass('active')) {
+            bwcache.set("ReviewDetailPage_reviewVote_" + localReviewId, { "vote": "1" });
+            $('#upvoteBtn' + "-" + localReviewId).addClass('active');
+            $('#downvoteBtn' + "-" + localReviewId).attr('disabled', 'disabled');
+
+            if (reg.test($('#upvoteCount' + "-" + localReviewId).text()))
+                $('#upvoteCount' + "-" + localReviewId).text(parseInt($('#upvoteCount' + "-" + localReviewId).text()) + 1);
+
+            voteListUserReview(1, localReviewId);
+        }
+    } catch (e) {
+        console.warn(e);
+    }
+}
+
+function downVoteListReview(e) {
+    try {
+        var localReviewId = e.currentTarget.getAttribute("data-reviewid");
+        bwcache.set("ReviewDetailPage_reviewVote_" + localReviewId, { "vote": "0" });
+        $('#downvoteBtn' + "-" + localReviewId).addClass('active');
+        $('#upvoteBtn' + "-" + localReviewId).attr('disabled', 'disabled');
+
+        if (reg.test($('#downvoteCount' + "-" + localReviewId).text()))
+            $('#downvoteCount' + "-" + localReviewId).text(parseInt($('#downvoteCount' + "-" + localReviewId).text()) + 1);
+
+        voteListUserReview(0, localReviewId);
+    } catch (e) {
+        console.warn(e);
+    }
+}
+
+function voteListUserReview(vote, locReviewId) {
+    try {
+        $.ajax({
+            type: "POST",
+            url: "/api/user-reviews/voteUserReview/?reviewId=" + locReviewId + "&vote=" + vote,
+            success: function (response) {
+            }
+        });
+    } catch (e) {
+        console.warn(e);
+    }
+}
+
+function applyLikeDislikes() {
+    try {
+        $(".upvoteListButton").each(function () {
+            var locReviewId = this.getAttribute("data-reviewid");
+            var listVote = bwcache.get("ReviewDetailPage_reviewVote_" + locReviewId);
+
+            if (listVote != null && listVote.vote) {
+                if (listVote.vote == "0") {
+                    $('#downvoteBtn' + "-" + locReviewId).addClass('active');
+                    $('#upvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+                }
+                else {
+                    $('#upvoteBtn' + "-" + locReviewId).addClass('active');
+                    $('#downvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+                }
+            }
+            else {
+                $('#upvoteBtn' + "-" + locReviewId).removeClass('active');
+                $('#downvoteBtn' + "-" + locReviewId).prop('disabled', false);
+            }
+        });
+    } catch (e) {
+        console.warn(e);
+    }
+}
+
+function updateView(e) {
+    try {
+        var reviewId = e.currentTarget.getAttribute("data-reviewid");
+        $.ajax({
+            type: "POST",
+            url: "/api/user-reviews/updateView/" + reviewId + "/",
+            success: function (response) {
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}

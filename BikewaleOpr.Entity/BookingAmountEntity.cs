@@ -11,10 +11,13 @@ namespace BikewaleOpr.Entities
     /// </summary>
     public class BookingAmountEntity
     {
-        public BookingAmountEntityBase objBookingAmountEntityBase { get; set; }
-        public NewBikeDealers objDealer { get; set; }
-        public BikeMakeEntityBase objMake { get; set; }
-        public BikeModelEntityBase objModel { get; set; }
-        public BikeVersionEntityBase objVersion { get; set; }
+        public BookingAmountEntityBase BookingAmountBase { get; set; }
+        public BikeMakeEntityBase BikeMake { get; set; }
+        public BikeModelEntityBase BikeModel { get; set; }
+        public BikeVersionEntityBase BikeVersion { get; set; }
+        public string LastUpdatedBy { get; set; }
+        public DateTime UpdatedOn { get; set; }
+        public NewBikeDealers NewBikeDealers { get; set; }
+        public uint DealerId { get; set; }
     }
 }

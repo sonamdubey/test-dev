@@ -33,8 +33,7 @@ namespace Bikewale.Interfaces.UserReviews
         bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns);
         UserReviewSummary GetUserReviewSummary(uint reviewId);
         bool IsUserVerified(uint reviewId, ulong customerId);
-        ReviewListBase GetUserReviews();
-        SearchResult GetUserReviewsList(string searchQuery);
+        ReviewListBase GetUserReviews();       
         UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId);
         BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId);
         BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId);
@@ -48,5 +47,6 @@ namespace Bikewale.Interfaces.UserReviews
         QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
 
         IEnumerable<RecentReviewsWidget> GetRecentReviews();
+        IEnumerable<RecentReviewsWidget> GetUserReviewsWinners();
     }   // class
 }   // namespace
