@@ -24,8 +24,10 @@
                 <span class="article-stats-content">@review.AuthorName</span>
             </div>
             <p class="line-height17 margin-top10">@FormatDescription.TruncateDescription(review.Description, 280)</p>
+            <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))" title="@review.Title" rel="nofollow">...Read more</a>
         </div>
         <div class="clear"></div>
+       
     </article>
 }
 }

@@ -415,9 +415,68 @@ namespace BikewaleOpr.DALs.Bikedata
             }
 
             return objBikeDataList;
-        } 
+        }
         #endregion
 
+        /// <summary>
+        ///  Created By: Ashutosh Sharma on 27-07-2017
+        /// Description: Update used bike as sold in 'classifiedindividualsellinquiries' table.
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        public bool UpdateInquiryAsSold(uint inquiryId)
+        {
+            int rowsAffected = 0;
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("par_inquiryId", inquiryId);
+
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    rowsAffected = connection.Execute("classified_updatelistingassold", param: param, commandType: CommandType.StoredProcedure);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UpdateAsSoldInquiry : inquiryId {0}", inquiryId));
+            }
+            return rowsAffected > 0;
+        }
+
+        #region GetVersionsByModel function
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 7th Aug 2017
+        /// Summary : Function to fetch list of versions respect to their model id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeVersionEntityBase> GetVersionsByModel(EnumBikeType requestType, uint modelId)
+        {
+            IEnumerable<BikeVersionEntityBase> objBikeVersionEntityBaseList = null;
+            try
+            {
+                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    var param = new DynamicParameters();
+                    param.Add("par_modelid", modelId);
+                    param.Add("par_requesttype", requestType);
+                    param.Add("par_cityid", 0);
+                    connection.Open();
+                    objBikeVersionEntityBaseList = connection.Query<BikeVersionEntityBase>("getbikeversions_new", param: param, commandType: CommandType.StoredProcedure);
+                    if(connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.BikeData.BikeModelsRepository.GetVersionsByMake");
+            }
+            return objBikeVersionEntityBaseList;
+        }
+        #endregion
     }
 }
 

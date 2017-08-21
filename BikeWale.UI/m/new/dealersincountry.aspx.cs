@@ -64,7 +64,7 @@ namespace Bikewale.Mobile.New
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
                     var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                    objMMV = makesRepository.GetMakeDetails(makeId.ToString());
+                    objMMV = makesRepository.GetMakeDetails(makeId);
 
                 }
 

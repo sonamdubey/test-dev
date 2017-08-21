@@ -111,14 +111,28 @@
     <Compile Include="BikeData\ModelBase.cs" />
     <Compile Include="BikeData\MakeBase.cs" />
     <Compile Include="BikeData\SynopsisDataDto.cs" />
+    <Compile Include="City\CityBaseDTO.cs" />
+    <Compile Include="BikeData\VersionBase.cs" />
     <Compile Include="Dealers\DealerBase.cs" />
     <Compile Include="Dealers\BikeMakeBase.cs" />
+    <Compile Include="Dealers\DealerCityVersionDTO.cs" />
+    <Compile Include="Dealers\DealerFacilityDTO.cs" />
+    <Compile Include="Dealers\DealerMakeDTO.cs" />
+    <Compile Include="Dealers\DealerPriceListDTO.cs" />
+    <Compile Include="Dealers\DealerVersionPriceDTO.cs" />
+    <Compile Include="Dealers\DealerVersionPricesAvailabilityDTO.cs" />
+    <Compile Include="Dealers\DeleteDealerPricingResponseDTO.cs" />
+    <Compile Include="Dealers\SaveDealerPricingResponseDTO.cs" />
+    <Compile Include="Dealers\VersionDaysDTO.cs" />
     <Compile Include="Images\ImageDTO.cs" />
     <Compile Include="Images\ImageTokenDTO.cs" />
+    <Compile Include="Location\CityNameDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceCenter\ServiceCenterBaseDTO.cs" />
     <Compile Include="UserReviews\UserReviewOverallRatingDto.cs" />
     <Compile Include="UserReviews\UserReviewQuestionDto.cs" />
     <Compile Include="UserReviews\UserReviewSummaryDto.cs" />
+    <Compile Include="Dealers\VersionPriceDTO.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

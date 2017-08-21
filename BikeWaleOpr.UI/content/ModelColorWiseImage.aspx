@@ -32,6 +32,7 @@
     }
 </style>
 <div class="left min-height600" id="divManagePrices">
+    <input id="requestType" type="hidden" value="All" />
     <h1>Model Images by Color</h1>
     <span id="spnError" class="error" runat="server"></span>
     <fieldset id="inputSection" class="position-rel">

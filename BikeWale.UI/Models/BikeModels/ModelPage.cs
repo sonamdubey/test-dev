@@ -12,7 +12,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 
 using Bikewale.Entities.UserReviews.Search;
-
+using Bikewale.Entities.SEO;
 using Bikewale.Interfaces;
 
 using Bikewale.Interfaces.BikeBooking;
@@ -30,6 +30,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Entities;
+using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Models.Used;
@@ -41,6 +42,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
+using Bikewale.Entities.Pages;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -97,7 +99,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsMobile { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, Interfaces.IManufacturerCampaign objManufacturerCampaign)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -432,7 +434,7 @@ namespace Bikewale.Models.BikeModels
                 if (objUserReviews != null)
                 {
                     objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;
-                    objPage.UserReviews = objUserReviews.GetDataDesktop();
+                    objPage.UserReviews = objUserReviews.GetData();
 
                 }
 
@@ -631,14 +633,61 @@ namespace Bikewale.Models.BikeModels
                     _objData.AdTags.TargetedCity = _objData.LocationCookie.City;
                     _objData.PageMetaTags.Keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", _objData.BikeName);
                     _objData.PageMetaTags.OGImage = Bikewale.Utility.Image.GetPathToShowImages(_objData.ModelPageEntity.ModelDetails.OriginalImagePath, _objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
-
+                    _objData.Page_H1 = _objData.BikeName;
 
                     BindDescription();
+
+                    CheckCustomPageMetas();
                 }
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> CreateMetas() ModelId: {0}, MaskingName: {1}", _modelId, ""));
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 13th Aug 2017
+        /// Description : Function to check and set custom page metas and summary for the page
+        /// </summary>
+        /// <param name="objData"></param>
+        /// <param name="objMakeBase"></param>
+        private void CheckCustomPageMetas()
+        {
+            try
+            {
+                if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.Metas != null)
+                {
+                    var metas = _objData.ModelPageEntity.ModelDetails.Metas.FirstOrDefault(m => m.PageId == (int)(IsMobile ? BikewalePages.Mobile_ModelPage : BikewalePages.Desktop_ModelPage));
+
+                    if (metas != null)
+                    {
+                        if (!string.IsNullOrEmpty(metas.Title))
+                        {
+                            _objData.PageMetaTags.Title = metas.Title;
+                        }
+                        if (!string.IsNullOrEmpty(metas.Description))
+                        {
+                            _objData.PageMetaTags.Description = metas.Description;
+                        }
+                        if (!string.IsNullOrEmpty(metas.Keywords))
+                        {
+                            _objData.PageMetaTags.Keywords = metas.Keywords;
+                        }
+                        if (!string.IsNullOrEmpty(metas.Heading))
+                        {
+                            _objData.Page_H1 = metas.Heading;
+                        }
+                        if (!string.IsNullOrEmpty(metas.Summary))
+                        {
+                            _objData.ModelSummary = metas.Summary;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage.CheckCustomPageMetas() modelId:{0}", _modelId));
             }
         }
 
@@ -997,6 +1046,8 @@ namespace Bikewale.Models.BikeModels
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Jun 2017
         /// Description :   Fetches Manufacturer Campaigns
+        /// Modified by  :  Sushil Kumar on 11th Aug 2017
+        /// Description :   Store dealerid for manufacturer campaigns for impressions tracking
         /// </summary>
         private void GetManufacturerCampaign()
         {
@@ -1034,6 +1085,8 @@ namespace Bikewale.Models.BikeModels
 
                         _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
                         _objData.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
+
+                        _objManufacturerCampaign.SaveManufacturerIdInPricequotes(_objData.PQId, campaigns.LeadCampaign.DealerId);
                     }
                 }
             }

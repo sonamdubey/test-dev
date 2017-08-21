@@ -9,15 +9,13 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+
 
 namespace Bikewale.New
 {
 	public class Search : System.Web.UI.Page
 	{
-        protected Repeater rptPopularBrand, rptOtherBrands;
+        protected IEnumerable<BikeMakeEntityBase> rptPopularBrand, rptOtherBrands;
 
         protected override void OnInit(EventArgs e)
         {
@@ -46,7 +44,7 @@ namespace Bikewale.New
         /// </summary>
         private void BindRepeaters()
         {
-            IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
+            IEnumerable<BikeMakeEntityBase> makes = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -59,11 +57,9 @@ namespace Bikewale.New
                     makes = objCache.GetMakesByType(EnumBikeType.New);
                     if (makes != null && makes.Count() > 0)
                     {
-                        rptPopularBrand.DataSource = makes.Take(9);
-                        rptPopularBrand.DataBind();
+                        rptPopularBrand= makes.Take(9);
 
-                        rptOtherBrands.DataSource = makes.Skip(9).OrderBy(m => m.MakeName);
-                        rptOtherBrands.DataBind();
+                        rptOtherBrands = makes.Skip(9).OrderBy(m => m.MakeName);
                     }
                 }
             }

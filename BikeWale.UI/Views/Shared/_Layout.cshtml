@@ -1,18 +1,17 @@
 ﻿@model Bikewale.Models.ModelBase
 <!doctype html>
-<html>
+<html itemscope itemtype="http://schema.org/WebPage">
 <head>
     @if (Model != null && Model.PageMetaTags != null)
     {
         Model.PageMetaTags.EnableOG = true;
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
-
         {
-            <title>@Html.Raw(Model.PageMetaTags.Title)</title>
+            <title itemprop="name">@Html.Raw(Model.PageMetaTags.Title)</title>
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
         {
-            <meta name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
+            <meta itemprop="description" name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
         {
@@ -23,7 +22,7 @@
             <meta property="og:title" content="@Model.PageMetaTags.Title" />
             <meta property="og:type" content="website" />
             <meta property="og:description" content="@Model.PageMetaTags.Description" />
-            <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+            <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
             if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
             {
                 <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
@@ -51,8 +50,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
-    <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
     <link rel='stylesheet' type='text/css' href='/css/bw-common-atf.css' />
+
+    <link href="//www.googletagservices.com" rel="dns-prefetch" />
+    <link href="//ad.doubleclick.net" rel="dns-prefetch" />
+    <link href="//www.googleadservices.com" rel="dns-prefetch" />
+    <link href="//www.bikewale.com" rel="dns-prefetch" />
+    <link href="//imgd.aeplcdn.com" rel="dns-prefetch" />
+    <link href="//@Bikewale.Utility.BWConfiguration.Instance.StaticUrl" rel="dns-prefetch" />
+    <link href="//fonts.googleapis.com" rel="dns-prefetch" />
+    <link href="//www.google-analytics.com" rel="dns-prefetch" />
+    <link href="//bhrigu.bikewale.com" rel="dns-prefetch" />
+    <link href="//tpc.googlesyndication.com" rel="dns-prefetch" />
+
+    <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
     <script defer type="text/javascript" src="@String.Format("{0}/src/frameworks.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></script>
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -268,7 +279,7 @@
                 </a>
                 <ul class="nestedUL">
                     <li><a href="/new-bikes-in-india/">Find New Bikes</a></li>
-                    <li><a href="/new-scooters/">Find New Scooters</a></li>
+                    <li><a href="/scooters/">Find New Scooters</a></li>
                     <li><a href="/comparebikes/">Compare Bikes</a></li>
                     <li><a href="/pricequote/">Check On-Road Price</a></li>
                     <li><a href="/dealer-showroom-locator/">Locate Dealer</a></li>
@@ -327,6 +338,12 @@
                 <a href="/bike-loan-emi-calculator/">
                     <span class="bwsprite forum-icon"></span>
                     <span class="navbarTitle">Tools</span>
+                </a>
+            </li>
+            <li>
+                <a href="/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_Hamburger)">
+                    <span class="bwsprite myBikeWale-icon"></span>
+                    <span class="navbarTitle">Bike Review Contest</span>
                 </a>
             </li>
             <li>

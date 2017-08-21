@@ -107,7 +107,7 @@ namespace Bikewale.Cache.BikeData
             string key = String.Format("BW_MakeDetails_{0}", makeId);
             try
             {
-                objMakeDetails = _cache.GetFromCache<BikeMakeEntityBase>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetMakeDetails(makeId.ToString()));
+                objMakeDetails = _cache.GetFromCache<BikeMakeEntityBase>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetMakeDetails(makeId));
             }
             catch (Exception ex)
             {

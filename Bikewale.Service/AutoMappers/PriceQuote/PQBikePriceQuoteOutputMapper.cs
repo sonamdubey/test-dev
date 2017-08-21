@@ -43,7 +43,7 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
             output.emi = ConvertEMI(objDealerQuotation.PrimaryDealer.EMIDetails);
             output.Versions = ConvertVersions(varients);
 
-            if (objDealerQuotation != null && objDealerQuotation.PrimaryDealer != null && objDealerQuotation.PrimaryDealer.DealerDetails != null && objDealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium)
+            if (objDealerQuotation != null && objDealerQuotation.PrimaryDealer != null && objDealerQuotation.PrimaryDealer.DealerDetails != null && (objDealerQuotation.PrimaryDealer.IsPremiumDealer))
             {
                 output.Benefits = ConvertBenefits(objDealerQuotation.PrimaryDealer.Benefits);
                 output.Offers = ConvertOffers(objDealerQuotation.PrimaryDealer.OfferList);

@@ -110,7 +110,7 @@
 
 .materialize-select .chosen-container-single .chosen-search input[type=text] {
     border: none;
-    padding: 15px;
+    padding: 21px;
     border-bottom: 1px solid #009688;
 }
 
@@ -121,6 +121,10 @@
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
+.materialize-select .chosen-container.chosen-container-multi .chosen-drop {
+    top: 100%;    
+}
+
 .materialize-select .chosen-container .chosen-results {
     margin: 0;
     padding: 0;
@@ -129,6 +133,11 @@
 .materialize-select .chosen-container .chosen-results li {
     padding: 15px;
     color: #26a69a;
+}
+
+.materialize-select .chosen-container .chosen-results li.result-selected{
+    padding: 15px;
+    color: #778684;    
 }
 
 .materialize-select .chosen-container .chosen-results li.highlighted {
@@ -146,6 +155,9 @@
 
 .materialize-select .chosen-container .chosen-results::-webkit-scrollbar-thumb {
     background: #ddd;
+}
+.materialize-select input {
+    box-sizing: border-box;
 }
 
 /* toggle-input-field */
@@ -304,6 +316,10 @@ input[type=number].invalid + label.active:after {
     margin:0px !important;
 }
 
+.card-title-font14{
+    font-size:14px !important;
+}
+
 /* stepper-height-60 start */
 .stepper-height-60 .stepper.horizontal {
     margin-top: 0;
@@ -331,3 +347,73 @@ input[type=number].invalid + label.active:after {
 	margin-bottom: 0;
 }
 /* stepper-height-60 end */
+
+/* fixed table start */
+.fixed-table {
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.fixed-table:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.fixed-table__header {
+	min-height: 30px;
+	overflow: hidden;
+	border-bottom: 1px solid #ccc;
+}
+
+.fixed-table__header,
+.fixed-table__body {
+	width: 84%;
+}
+
+.fixed-table__header {
+	margin-left: 16%;
+}
+
+.fixed-table__sidebar,
+.fixed-table__body {
+	height: 500px;
+}
+
+.fixed-table table {
+	background-color: #fff;
+	width: 100%;
+}
+
+.fixed-table .table tr td,
+.fixed-table .table tr th {
+	min-width: 100px;
+    min-height: 20px;
+}
+
+.fixed-table__sidebar {
+	width: 16%;
+    float: left;
+	overflow: hidden;
+	border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.fixed-table__body {
+	float: left;
+	overflow: auto;
+}
+
+.table thead {
+	border-bottom: 0;
+	border-left: 1px solid #ccc;
+}
+
+.sidebar-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-weight: bold;
+	padding: 25px 50px;
+}
+/* fixed table end */
