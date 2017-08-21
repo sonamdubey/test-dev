@@ -24,9 +24,9 @@ namespace Bikewale.Entities.AutoComplete
         [JsonProperty("futuristic")]
         public string Futuristic { get; set; }
 
-        [JsonProperty("isnew")]
+        [JsonProperty("isNew")]
         public string IsNew { get; set; }
-        [JsonProperty("userratingscount")]
+        [JsonProperty("userRatingsCount")]
         public string UserRatingsCount { get; set; }
 
     }

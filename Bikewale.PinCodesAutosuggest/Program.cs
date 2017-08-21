@@ -3,7 +3,7 @@ using ElasticClientManager;
 using Nest;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 namespace Bikewale.PinCodesAutosuggest
 {
     public class Program
@@ -18,13 +18,13 @@ namespace Bikewale.PinCodesAutosuggest
             try
             {
                 log4net.Config.XmlConfigurator.Configure();
-                List<PayLoad> objList = GetPinCodeListDb.GetPinCodeList();
+                IEnumerable<PayLoad> objList = GetPinCodeListDb.GetPinCodeList();
 
                 if (objList != null)
                 {
-                    Logs.WriteInfoLog("All PinCodes List : " + objList.Count);
+                    Logs.WriteInfoLog("All PinCodes List : " + objList.Count());
 
-                    List<PinCodeList> suggestionList = GetPinCodeListDb.GetSuggestList(objList);
+                    IEnumerable<PinCodeList> suggestionList = GetPinCodeListDb.GetSuggestList(objList);
 
                     CreateIndex(suggestionList);
                     Logs.WriteInfoLog("All Make Model Index Created successfully");
@@ -51,7 +51,7 @@ namespace Bikewale.PinCodesAutosuggest
         /// </summary>
         /// <param name="suggestionList"></param>
         /// <param name="indexName"></param>
-        private static void CreateIndex(List<PinCodeList> suggestionList)
+        private static void CreateIndex(IEnumerable<PinCodeList> suggestionList)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace Bikewale.PinCodesAutosuggest
 
                 if (isUpdateOperation)
                 {
-                    ElasticClientOperations.AddDocument<PinCodeList>(suggestionList, NewIndexName, s => s.Id);
+                    ElasticClientOperations.AddDocument<PinCodeList>(suggestionList.ToList(), NewIndexName, s => s.Id);
                 }
                 else
                 {
@@ -96,7 +96,7 @@ namespace Bikewale.PinCodesAutosuggest
                     
 
 
-                    ElasticClientOperations.AddDocument<PinCodeList>(suggestionList, NewIndexName, s => s.Id);
+                    ElasticClientOperations.AddDocument<PinCodeList>(suggestionList.ToList(), NewIndexName, s => s.Id);
                     ElasticClientOperations.Alias(aliases => aliases.Remove(a => a.Alias(aliasIndexName).Index("*"))
                                                .Add(a => a.Alias(aliasIndexName).Index(NewIndexName)));
                     if (isDeleteOldIndex)

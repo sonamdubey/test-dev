@@ -36,8 +36,8 @@ namespace Bikewale.Service.Controllers.AutoComplete
         /// <param name="inputText">user entered input in search box</param>
         /// <returns></returns>
         public IHttpActionResult Get(string inputText, AutoSuggestEnum source, int? noOfRecords = null)
-        {
-            string platformId = string.Empty;
+       {
+          string platformId = string.Empty;
             uint appVersion = 0;
             CityPayload city = null;
             try
@@ -47,7 +47,7 @@ namespace Bikewale.Service.Controllers.AutoComplete
 
                 var objSuggestion = _autoSuggest.GetAutoSuggestResult<SuggestionOutput>(HttpContext.Current.Server.UrlDecode(inputText), noOfSuggestion, source);
 
-                objBikes.Bikes = SuggestionListMapper.Convert<SuggestionOutput>(objSuggestion);
+                objBikes.Bikes = SuggestionListMapper.Convert(objSuggestion);
 
                 objSuggestion = null;
 

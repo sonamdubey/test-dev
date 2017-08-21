@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using ElasticClientManager;
 using System.Reflection;
-
+using System.Linq;
 namespace CityAutoSuggest
 {
     class Program
@@ -13,19 +13,18 @@ namespace CityAutoSuggest
         static void Main(string[] args)
         {
             log4net.Config.XmlConfigurator.Configure();
-            List<CityTempList> objCityList = GetCityList.CityList();                                    //  Call City SP
-            Logs.WriteInfoLog("city List count : " + objCityList.Count);
+            IEnumerable<CityTempList> objCityList = GetCityList.CityList();                                    //  Call City SP
+            Logs.WriteInfoLog("city List count : " + objCityList.Count());
 
-            List<CityList> CityList = GetCityList.GetSuggestList(objCityList);                          //  Create Inputs, Outputs and Payload
+            IEnumerable<CityList> CityList = GetCityList.GetSuggestList(objCityList);                          //  Create Inputs, Outputs and Payload
 
-            CreateIndex(CityList, ConfigurationManager.AppSettings["cityIndexName"]);                   //  Create Index
+            CreateIndex(CityList, ConfigurationManager.AppSettings["cityIndexName"]);                          //  Create Index
         }
 
-        private static void CreateIndex(List<CityList> suggestionList, string indexName)
+        private static void CreateIndex(IEnumerable<CityList> suggestionList, string indexName)
         {
             try
             {
-              
                 ElasticClient client = ElasticClientOperations.GetElasticClient();
                 if (!client.IndexExists(indexName).Exists)
                 {
@@ -46,6 +45,10 @@ namespace CityAutoSuggest
                                               c2.input).AutoMap())))
                               .Completion(c => c
                               .Name(pN => pN.mm_suggest)
+                                .Contexts(cont => cont
+                                    .Category(cate => cate
+                                        .Name("types").Path(s => s.mm_suggest.contexts.types)
+                                        ))
                               .Analyzer("standard")
                               .SearchAnalyzer("standard")
                               .PreserveSeparators(false))))));
@@ -57,7 +60,7 @@ namespace CityAutoSuggest
                     );
 
 
-                ElasticClientOperations.AddDocument<CityList>(suggestionList, indexName, obj => obj.Id);
+                ElasticClientOperations.AddDocument<CityList>(suggestionList.ToList(), indexName, obj => obj.Id);
          
             }
             catch (Exception ex)
