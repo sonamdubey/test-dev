@@ -223,6 +223,6 @@ $(document).ready(function () {
         "width": "250px"
     });
 
-    $('#ddlDealerOperations').val(6);
+    $('#ddlDealerOperations').val(6).change();
     $("#ddlDealerOperations").trigger('chosen:updated');
 });

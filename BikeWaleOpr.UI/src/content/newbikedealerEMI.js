@@ -196,7 +196,7 @@ $(document).ready(function () {
             "width": "250px"
         });
 
-        $('#ddlDealerOperations').val(4);
+        $('#ddlDealerOperations').val(4).change();
         $("#ddlDealerOperations").trigger('chosen:updated')
     }());
 });
