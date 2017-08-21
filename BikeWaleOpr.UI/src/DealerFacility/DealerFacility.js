@@ -253,6 +253,6 @@ ko.applyBindings(viewModel, $("#dealerFacility")[0]);
         "width": "250px"
     });
 
-    $('#ddlDealerOperations').val(3);
+    $('#ddlDealerOperations').val(3).change();
     $("#ddlDealerOperations").trigger('chosen:updated');
 }());

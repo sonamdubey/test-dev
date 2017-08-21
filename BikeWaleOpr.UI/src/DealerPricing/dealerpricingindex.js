@@ -506,7 +506,7 @@
         });
 
         if ($('#tblPricingSheet').length > 0) {
-            $('#ddlDealerOperations').val(2);
+            $('#ddlDealerOperations').val(2).change();
             $("#ddlDealerOperations").trigger('chosen:updated');
         }
     }());
