@@ -39,6 +39,7 @@ namespace Bikewale.Controllers
         private readonly ICMSCacheContent _articles = null;
         private readonly IPager _pager = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
+        private readonly IBikeMakesCacheRepository<int> _makes = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeInfo _bikeInfo = null;
@@ -47,7 +48,7 @@ namespace Bikewale.Controllers
         #endregion
 
         #region Constructor
-        public NewsController(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IPWACMSCacheRepository renderedArticles)
+        public NewsController(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository<int> makes, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IPWACMSCacheRepository renderedArticles)
         {
             _articles = articles;
             _pager = pager;
@@ -57,6 +58,7 @@ namespace Bikewale.Controllers
             _bikeInfo = bikeInfo;
             _cityCache = cityCache;
             _renderedArticles = renderedArticles;
+            _makes = makes;
 
         }
         #endregion
@@ -302,26 +304,37 @@ namespace Bikewale.Controllers
         /// Created by : Snehal Dange on 17th August , 2017
         /// Summmary   : Action method to render Scooter news - Desktop
         /// </summary>
-        [Route("scooters/news/index")]
+        [Route("scooters/news/")]
         public ActionResult Scooters()
         {
-            NewsScootersPage obj = new NewsScootersPage(_articles, _pager, _models, _bikeModels, _upcoming, _renderedArticles);
-            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            NewsScootersPageVM objData = null;
+            
+            try
             {
-                return Redirect("/pagenotfound.aspx");
-            }
-            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
-            {
-                return RedirectPermanent(obj.redirectUrl);
-            }
-            else
-            {
-                NewsScootersPageVM objData =obj.GetData(4);
-                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                ScooterNewsPage obj = new ScooterNewsPage(_articles, _pager, _models,_makes, _bikeModels, _upcoming, _renderedArticles);
+                if (obj.Status == Entities.StatusCodes.ContentNotFound)
+                {
                     return Redirect("/pagenotfound.aspx");
+                }
+                else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(obj.RedirectUrl);
+                }
                 else
-                    return View(objData);
+                {
+                    obj.WidgetTopCount = 4;
+                    objData = obj.GetData();
+                    if (obj.Status == Entities.StatusCodes.ContentNotFound)
+                        return Redirect("/pagenotfound.aspx");
+                   
+                        
+                }
             }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Controllers.Scooters");
+            }
+            return View(objData);
         }
 
 
@@ -329,27 +342,37 @@ namespace Bikewale.Controllers
         /// Created by : Snehal Dange on 18th August , 2017
         /// Summmary   : Action method to render scooter news listing page -mobile
         /// </summary>
-        [Route("m/scooters/news/index/")]
+        [Route("m/scooters/news/")]
         public ActionResult Scooters_Mobile()
         {
-            NewsScootersPage obj = new NewsScootersPage(_articles, _pager, _models, _bikeModels, _upcoming, _renderedArticles);
-            obj.IsMobile = true;
-            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            NewsScootersPageVM objData = null;
+            
+            try
             {
-                return Redirect("/m/pagenotfound.aspx");
-            }
-            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
-            {
-                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
-            }
-            else
-            {
-                NewsScootersPageVM objData = obj.GetData(9);
-                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                ScooterNewsPage obj = new ScooterNewsPage(_articles, _pager, _models,_makes, _bikeModels, _upcoming, _renderedArticles);
+                obj.IsMobile = true;
+                if (obj.Status == Entities.StatusCodes.ContentNotFound)
+                {
                     return Redirect("/m/pagenotfound.aspx");
+                }
+                else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(string.Format("/m{0}", obj.RedirectUrl));
+                }
                 else
-                    return View(objData);
+                {
+                    obj.WidgetTopCount = 9;
+                    objData = obj.GetData();
+                    if (obj.Status == Entities.StatusCodes.ContentNotFound)
+                        return Redirect("/m/pagenotfound.aspx");
+                   
+                }
             }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Controllers.Scooters_Mobile");
+            }
+            return View(objData);
         }
 
         #endregion

@@ -995,7 +995,7 @@
     <Compile Include="Models\NewLaunches\NewLaunchesBikesModel.cs" />
     <Compile Include="Models\News\NewsIndexPage.cs" />
     <Compile Include="Models\Location\ChangeLocationPopup.cs" />
-    <Compile Include="Models\News\NewsScootersPage.cs" />
+    <Compile Include="Models\News\ScooterNewsPage.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
@@ -3771,7 +3771,6 @@
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel_Mobile.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
-    <Content Include="Views\ExpertReviews\Scooters.cshtml" />
     <Content Include="Views\News\Scooters.cshtml" />
     <Content Include="Views\News\Scooters_Mobile.cshtml" />
     <None Include="Web.Debug.config">
