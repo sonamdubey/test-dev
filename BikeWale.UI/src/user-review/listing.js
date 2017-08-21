@@ -639,7 +639,7 @@ function logBhrighu(e) {
         }
 
     });
-    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index + (pageNumber - 1) * 10) + '|PageSource=' + $('#pageSource').val();
+    label = 'modelId=' + modelid + '|tabName=' + reviewCategory[categoryId] + '|reviewOrder=' + (index + (pageNumber - 1) * 10) + '|pageSource=' + $('#pageSource').val();
     cwTracking.trackUserReview("TitleClick", label);
 }
 
@@ -653,7 +653,7 @@ function updateView(e) {
 
         }
     });
-    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index + (pageNumber - 1) * 10) + '|PageSource=' + $('#pageSource').val();
+    label = 'modelId=' + modelid + '|tabName=' + reviewCategory[categoryId] + '|reviewOrder=' + (index + (pageNumber - 1) * 10) + '|pageSource=' + $('#pageSource').val();
     cwTracking.trackUserReview("ReadMoreClick", label);
 
     try {
