@@ -49,7 +49,6 @@ var ConfigurePageMetas = function () {
                     selectedGroupId = pages[index].GroupId;
 
             });
-
         }
         return isValid;
     };
