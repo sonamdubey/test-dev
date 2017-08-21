@@ -53,17 +53,15 @@ namespace BikewaleOpr.Controllers
         }
 
         public ActionResult SaveMetas(PageMetasEntity objMetas)
-        {
-            uint pageMetaId = 0;
+        {            
             try
-            {
-                pageMetaId = _pageMetasRepo.SavePageMetas(objMetas);
+            {                
                 (new PageMetasSearch(_pageMetasRepo)).SaveMetas(objMetas);
-                return RedirectToAction("Index", new { id = pageMetaId });
+                return RedirectToAction("Index");
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasController.SaveMetas : {0}", pageMetaId));
+                ErrorClass objErr = new ErrorClass(ex, "PageMetasController.SaveMetas");
                 return null;
             }  
          }                          

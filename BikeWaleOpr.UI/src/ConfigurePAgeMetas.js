@@ -37,6 +37,11 @@ var ConfigurePageMetas = function () {
         $('#selectModel').prop('disabled', false);
         $('#selectMake').prop('disabled', false);
 
+        if ($("input[name='platformId']:checked").val() == "3") {            
+            $('#bothPlatform').val(true);
+        }
+
+
         return isValid;
     };
 
@@ -75,11 +80,15 @@ var ConfigurePageMetas = function () {
     };
 
     self.selectPlatform = function () {
-        if ($("input[name='platformId']:checked").val() == "1")
+
+        var checkedPlatform = $("input[name='platformId']:checked").val();
+
+        if (checkedPlatform == "1")
             self.pageList(JSON.parse($('#dektopPagesList').val()));
         else
             self.pageList(JSON.parse($('#mobilePagesList').val()));
 
+        
         $('select[name="pageId"]').material_select();
     };
     
