@@ -3,18 +3,19 @@ using Bikewale.Utility.Terms;
 using BikewaleOpr.DAL;
 using BikewaleOpr.DTO.Dealers;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entity.Dealers;
 using BikewaleOpr.Interface;
+using BikewaleOpr.Interface.Dealers;
+using BikewaleOpr.Service.AutoMappers.Dealer;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Linq;
-using System.Collections.ObjectModel;
-using BikewaleOpr.Service.AutoMappers.Dealer;
-using BikewaleOpr.Entity.ContractCampaign;
 
 namespace BikewaleOpr.Service
 {
@@ -23,6 +24,20 @@ namespace BikewaleOpr.Service
     /// </summary>
     public class DealersController : ApiController
     {
+        private readonly IDealerPriceRepository dealerPriceRepository = null;
+        private readonly IDealerPrice dealerPrice = null;
+        private readonly IDealers dealersRepository = null;
+        private readonly IVersionAvailability versionAvailability = null;
+        public DealersController(IDealerPriceRepository dealerPriceRepositoryObject, IDealerPrice dealerPriceObject,
+            IDealers dealersRepositoryObject, IVersionAvailability versionAvailabilityObject)
+        {
+            dealerPriceRepository = dealerPriceRepositoryObject;
+            dealerPrice = dealerPriceObject;
+            dealersRepository = dealersRepositoryObject;
+            versionAvailability = versionAvailabilityObject;
+
+        }
+
         /// <summary>
         /// Created by : Aditi Srivastava on 9 feb 2017
         /// Summary    : To get makes in a city
@@ -32,7 +47,7 @@ namespace BikewaleOpr.Service
         [HttpGet, ResponseType(typeof(BikeMakeBase)), Route("api/makes/city/{cityId}/")]
         public IHttpActionResult GetDealerMakesByCity(int cityId)
         {
-             if (cityId > 0)
+            if (cityId > 0)
             {
                 IEnumerable<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> objMakes = null;
                 IEnumerable<BikeMakeBase> objMakesDTO = null;
@@ -61,7 +76,7 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealerMakesByCity: CityId:{0}",cityId));
+                    ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealerMakesByCity: CityId:{0}", cityId));
                     return InternalServerError();
                 }
 
@@ -70,7 +85,7 @@ namespace BikewaleOpr.Service
             {
                 return BadRequest();
             }
-            
+
         }
         /// <summary>
         /// Created by : Aditi Srivastava on 9 feb 2017
@@ -79,9 +94,9 @@ namespace BikewaleOpr.Service
         /// <param name="cityId"></param>
         /// <returns></returns>
         [HttpGet, ResponseType(typeof(DealerBase)), Route("api/dealers/make/{makeid}/city/{cityId}/")]
-        public IHttpActionResult GetDealersByMake(uint makeId,uint cityId)
+        public IHttpActionResult GetDealersByMake(uint makeId, uint cityId)
         {
-            if (cityId > 0 && makeId>0)
+            if (cityId > 0 && makeId > 0)
             {
                 IEnumerable<DealerEntityBase> objDealers = null;
                 IEnumerable<DealerBase> objDealersDTO = null;
@@ -110,7 +125,7 @@ namespace BikewaleOpr.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealersByMake: MakeId:{0}, CityId:{1}", makeId,cityId));
+                    ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealersByMake: MakeId:{0}, CityId:{1}", makeId, cityId));
                     return InternalServerError();
                 }
 
@@ -123,35 +138,30 @@ namespace BikewaleOpr.Service
         }
         /// <summary>
         /// Created By : Suresh Prajapati on 28th Oct, 2014.
+        /// Modified By :   Vishnu Teja Yalakuntla on 01 Aug 2017.
         /// Description : To Get Dealer's name by cityId.
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns>Dealer's Name</returns>
-
-        [HttpGet]
-        public IHttpActionResult GetAllDealers(UInt32 cityId)
+        [HttpGet, ResponseType(typeof(DealerMakeDTO)), Route("api/dealers/city/{cityId}/")]
+        public IHttpActionResult GetDealersByCity(UInt32 cityId)
         {
             if (cityId > 0)
             {
-                DataTable objDealer = null;
+                IEnumerable<DealerMakeEntity> dealerEntities = null;
+                IEnumerable<DealerMakeDTO> dealerDtos = null;
 
                 try
                 {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IDealers, DealersRepository>();
-                        IDealers objAllDealer = container.Resolve<DealersRepository>();
-                        objDealer = objAllDealer.GetAllDealers(cityId);
-                    }
+                    dealerEntities = dealersRepository.GetDealersByCity(cityId);
+                    dealerDtos = DealerListMapper.Convert(dealerEntities);
                 }
                 catch (Exception ex)
                 {
-                    HttpContext.Current.Trace.Warn("GetAllDealers ex : " + ex.Message + ex.Source);
                     ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
                 }
-                if (objDealer != null)
-                    return Ok(objDealer);
+                if (dealerDtos != null)
+                    return Ok(dealerDtos);
                 else
                     return NotFound();
             }
@@ -508,5 +518,219 @@ namespace BikewaleOpr.Service
             else
                 return InternalServerError();
         }
-    }
-}
+
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 02 Aug 2017
+        /// Description :   Fetches all dealer pricing for specified city, state and dealer.
+        /// </summary>
+        /// <param name="benefitIds">Comma seperated benefit ids</param>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetDealerPrices(uint cityId, uint makeId, uint dealerId)
+        {
+            IEnumerable<DealerVersionPriceDTO> dealerPricesDtos = null;
+            IEnumerable<DealerVersionPriceEntity> dealerPricesEntities = null;
+            if (cityId > 0 && makeId > 0 && dealerId > 0)
+            {
+                try
+                {
+                    dealerPricesEntities = dealerPrice.GetDealerPriceQuotes(cityId, makeId, dealerId);
+                    dealerPricesDtos = DealerListMapper.Convert(dealerPricesEntities);
+
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, string.Format(
+                        "GetDealerPrices cityId={0} makeId={1} dealerId={2}", cityId, makeId, dealerId));
+                    objErr.SendMail();
+                }
+                if (dealerPricesDtos != null)
+                    return Ok(dealerPricesDtos);
+                else
+                    return NotFound();
+            }
+            else
+                return BadRequest();
+        }
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 11 Aug 2017
+        /// Description :   Saves pricing to list of dealers cross joined with list of cities
+        /// </summary>
+        /// <param name="dealerPricesAvaialabilities"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/dealers/savepricesandavailability/")]
+        public IHttpActionResult SaveDealerPricesAndAvailability(DealerVersionPricesAvailabilityDTO dealerPricesAvaialabilities)
+        {
+            SaveDealerPricingResponseDTO apiResponse = new SaveDealerPricingResponseDTO();
+            UpdatePricingRulesResponseEntity savePriceResponse = new UpdatePricingRulesResponseEntity();
+
+            apiResponse.IsPriceSaved = false;
+            apiResponse.IsAvailabilitySaved = false;
+            bool isAvailabilitySaved = false;
+
+            if (dealerPricesAvaialabilities != null)
+            {
+                try
+                {
+                    if (dealerPricesAvaialabilities.DealerVersionPrices.ItemIds != null && dealerPricesAvaialabilities.DealerVersionPrices.ItemIds.Count() > 0 && dealerPricesAvaialabilities.DealerVersionPrices.ItemValues != null && dealerPricesAvaialabilities.DealerVersionPrices.ItemValues.Count() > 0 && dealerPricesAvaialabilities.DealerVersionPrices.VersionIds != null && dealerPricesAvaialabilities.DealerVersionPrices.VersionIds.Count() > 0 && dealerPricesAvaialabilities.DealerVersionPrices.CityIds != null && dealerPricesAvaialabilities.DealerVersionPrices.CityIds.Count() > 0 && dealerPricesAvaialabilities.DealerVersionPrices.DealerIds.Count() > 0)
+                        savePriceResponse = dealerPrice.SaveVersionPriceQuotes(
+                            dealerPricesAvaialabilities.DealerVersionPrices.DealerIds,
+                            dealerPricesAvaialabilities.DealerVersionPrices.CityIds,
+                            dealerPricesAvaialabilities.DealerVersionPrices.VersionIds,
+                            dealerPricesAvaialabilities.DealerVersionPrices.ItemIds,
+                            dealerPricesAvaialabilities.DealerVersionPrices.ItemValues,
+                            dealerPricesAvaialabilities.BikeModelIds,
+                            dealerPricesAvaialabilities.BikeModelNames,
+                            dealerPricesAvaialabilities.DealerVersionPrices.EnteredBy,
+                            dealerPricesAvaialabilities.MakeId
+                        );
+
+                    if (dealerPricesAvaialabilities.DealerVersionAvailabilities.DealerId > 0 && dealerPricesAvaialabilities.DealerVersionAvailabilities.BikeVersionIds != null && dealerPricesAvaialabilities.DealerVersionAvailabilities.BikeVersionIds.Count() > 0 && dealerPricesAvaialabilities.DealerVersionAvailabilities.NumberOfDays != null && dealerPricesAvaialabilities.DealerVersionAvailabilities.NumberOfDays.Count() > 0)
+                        isAvailabilitySaved = versionAvailability.SaveVersionAvailability(
+                            dealerPricesAvaialabilities.DealerVersionAvailabilities.DealerId,
+                            dealerPricesAvaialabilities.DealerVersionAvailabilities.BikeVersionIds,
+                            dealerPricesAvaialabilities.DealerVersionAvailabilities.NumberOfDays
+                        );
+                    apiResponse = SaveDealerPricingResponseMapper.Convert(savePriceResponse, isAvailabilitySaved);
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "SaveDealerPrice");
+                }
+                if (apiResponse.IsPriceSaved || apiResponse.IsAvailabilitySaved)
+                    return Ok(apiResponse);
+                else
+                    return NotFound();
+            }
+            else
+                return BadRequest();
+        }
+
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 02 Aug 2017
+        /// Description :   Saves dealer pricing.
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="makeId"></param>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/dealers/saveprices/")]
+        public IHttpActionResult SaveDealerPrices(DealerPriceListDTO dealerPrices)
+        {
+            bool isSaved = false;
+            if (dealerPrices != null && dealerPrices.CityIds != null && dealerPrices.DealerIds != null && dealerPrices.CityIds.Count() > 0 && dealerPrices.DealerIds.Count() > 0)
+            {
+                try
+                {
+                    isSaved = dealerPrice.SaveVersionPriceQuotes(dealerPrices.DealerIds, dealerPrices.CityIds, dealerPrices.VersionIds,
+                        dealerPrices.ItemIds, dealerPrices.ItemValues, dealerPrices.EnteredBy);
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "SaveDealerPrices");
+                }
+                if (isSaved)
+                    return Ok(isSaved);
+                else
+                    return NotFound();
+            }
+            else
+                return BadRequest();
+        }
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 08 Aug 2017
+        /// Description :   Deletes dealer pricing and version availability.
+        /// </summary>
+        /// <param name="dealerCityVersions"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/dealers/deletepricesandavailability/")]
+        public IHttpActionResult DeleteDealerPricesAndAvailability(DealerCityVersionsDTO dealerCityVersions)
+        {
+            DeleteDealerPricingResponseDTO apiResponse = new DeleteDealerPricingResponseDTO();
+            apiResponse.IsPriceDeleted = false;
+            apiResponse.IsAvailabilityDeleted = false;
+
+            if (dealerCityVersions.CityId > 0 && dealerCityVersions.DealerId > 0)
+            {
+                try
+                {
+                    apiResponse.IsPriceDeleted = dealerPrice.DeleteVersionPriceQuotes(
+                        dealerCityVersions.DealerId,
+                        dealerCityVersions.CityId,
+                        dealerCityVersions.BikeVersionIds
+                    );
+
+                    apiResponse.IsAvailabilityDeleted = versionAvailability.DeleteVersionAvailability(dealerCityVersions.DealerId, dealerCityVersions.BikeVersionIds);
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "DeleteDealerPricesAndAvailability");
+                }
+                if (apiResponse.IsPriceDeleted || apiResponse.IsAvailabilityDeleted)
+                    return Ok(apiResponse);
+                else
+                    return NotFound();
+            }
+            else
+                return BadRequest();
+        }
+
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 03 Aug 2017
+        /// Description :   Saves the version availability.
+        /// </summary>
+        /// <param name="versionDays"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult SaveVersionAvailability(VersionDaysDTO versionDays)
+        {
+            bool isSaved = false;
+            if (versionDays.DealerId > 0)
+            {
+                try
+                {
+                    isSaved = versionAvailability.SaveVersionAvailability(versionDays.DealerId, versionDays.BikeVersionIds, versionDays.NumberOfDays);
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "SaveVersionAvailability");
+                }
+                if (isSaved)
+                    return Ok(isSaved);
+                else
+                    return NotFound();
+            }
+            else
+                return BadRequest();
+        }
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 03 Aug 2017
+        /// Description :   Deletes the availability of a version.
+        /// </summary>
+        /// <param name="dealerVersions"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult DeleteVersionAvailability(DealerCityVersionsDTO dealerVersions)
+        {
+            bool isDeleted = false;
+            if (dealerVersions.DealerId > 0)
+            {
+                try
+                {
+                    isDeleted = versionAvailability.DeleteVersionAvailability(dealerVersions.DealerId, dealerVersions.BikeVersionIds);
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "DeleteVersionAvailability");
+                }
+                if (isDeleted)
+                    return Ok(isDeleted);
+                else
+                    return NotFound();
+            }
+            else
+                return BadRequest();
+        }
+
+    } // class
+} // namespace

@@ -1031,6 +1031,7 @@
     <Compile Include="Models\ServiceCenters\ServiceCentersInNearByCities.cs" />
     <Compile Include="Models\HomePageModel.cs" />
     <Compile Include="Models\Upcoming\UpcomingBikesWidget.cs" />
+    <Compile Include="Models\Videos\ScooterVideos.cs" />
     <Compile Include="Models\Videos\SimilarVideosModel.cs" />
     <Compile Include="Models\Videos\VideoDetails.cs" />
     <Compile Include="Models\Videos\VideosByCategoryPage.cs" />
@@ -1584,19 +1585,15 @@
     </Compile>
     <Compile Include="servicecenter\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="servicecenter\ServiceCenterDetails.aspx.cs">
       <DependentUpon>ServiceCenterDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="servicecenter\ServiceCenterInCountry.aspx.cs">
       <DependentUpon>ServiceCenterInCountry.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="servicecenter\ServiceCenterList.aspx.cs">
       <DependentUpon>ServiceCenterList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\BikeDealerDetails.aspx.cs">
       <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
@@ -2143,6 +2140,8 @@
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
     <Content Include="bin\DotNetOpenAuth.OpenId.xml" /> -->
     <!--     <Content Include="bin\Newtonsoft.Json.xml" /> -->
+    <Content Include="bin\grpc_csharp_ext.x64.dll" />
+    <Content Include="bin\grpc_csharp_ext.x86.dll" />
     <Content Include="contactus.aspx" />
     <Content Include="content\BikeCare\BikeCare.aspx" />
     <Content Include="content\BikeCare\ViewBikeCare.aspx" />
@@ -3097,6 +3096,7 @@
     <Content Include="sass\modules\_collapsible-list.sass" />
     <Content Include="sass\user-review\_review-swiper-3d.sass" />
     <Content Include="sass\user-review\_swiper.sass" />
+    <Content Include="m\sass\modules\_rating-circle.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3774,6 +3774,8 @@
     <Content Include="Views\ExpertReviews\Scooters.cshtml" />
     <Content Include="Views\News\Scooters.cshtml" />
     <Content Include="Views\News\Scooters_Mobile.cshtml" />
+    <Content Include="Views\Videos\ScooterVideos.cshtml" />
+    <Content Include="Views\Videos\ScooterVideos_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

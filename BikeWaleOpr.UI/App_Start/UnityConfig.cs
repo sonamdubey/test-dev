@@ -6,32 +6,34 @@ using Bikewale.Comparison.Interface;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.ManufacturerCampaign.DAL;
 using BikewaleOpr.BAL;
+using BikewaleOpr.BAL.BikePricing;
 using BikewaleOpr.BAL.ContractCampaign;
+using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.CommuteDistance;
+using BikewaleOpr.DAL;
+using BikewaleOpr.DALs;
 using BikewaleOpr.DALs.Banner;
 using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.DALs.ConfigurePageMetas;
 using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.DALs.Location;
+using BikewaleOpr.DALs.ServiceCenter;
 using BikewaleOpr.DALs.UserReviews;
 using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.Interface.Dealers;
 using BikewaleOpr.Interface.Location;
+using BikewaleOpr.Interface.ServiceCenter;
 using BikewaleOpr.Interface.Used;
 using BikewaleOpr.Interface.UserReviews;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
-using BikewaleOpr.Interface.ServiceCenter;
-using BikewaleOpr.BAL.ServiceCenter;
-using BikewaleOpr.DALs.ServiceCenter;
-using BikewaleOpr.Interface.BikePricing;
-using BikewaleOpr.DALs.BikePricing;
-using BikewaleOpr.DAL;
 
 namespace BikewaleOpr
 {
@@ -65,6 +67,12 @@ namespace BikewaleOpr
                 .RegisterType<ILocation, LocationRepository>()
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
                 .RegisterType<IContractCampaign, ContractCampaign>()
+
+                .RegisterType<ILocation, LocationRepository>()
+                .RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>()
+                .RegisterType<IDealerPrice, DealerPrice>()
+                .RegisterType<IDealers, DealersRepository>()
+                .RegisterType<IDealerPriceRepository, DealerPriceRepository>()
                 .RegisterType<IShowroomPricesRepository, BikeShowroomPrices>()
                 .RegisterType<ICacheManager, MemcacheManager>()
                 .RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>()
@@ -75,12 +83,11 @@ namespace BikewaleOpr
                 .RegisterType<IBannerRepository, BannerRepository>()
                 .RegisterType<IContractCampaign, ContractCampaign>()
                 .RegisterType<IServiceCenter, ServiceCenter>()
-                .RegisterType<IDealers, DealersRepository>()
                 .RegisterType<IManageBookingAmountPage, ManageBookingAmountPage>()
-                .RegisterType<IConfigurePageMetasRepository, ConfigurePageMetasRepository>()
+                .RegisterType<IPageMetasRepository, PageMetasRepository>()
                 .RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
-            
-                DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
         }
     }

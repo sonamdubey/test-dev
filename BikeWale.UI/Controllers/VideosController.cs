@@ -325,5 +325,64 @@ namespace Bikewale.Controllers.Desktop.Videos
             SimilarVideosModel model = new SimilarVideosModel(modelId, videoId, _video);
             return PartialView("~/views/videos/_SimilarVideos_Mobile.cshtml", model.GetData());
         }
+
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17-Aug-2017
+        /// Description : Action method for scooter videos for desktop .
+        /// </summary>
+        [Filters.DeviceDetection()]
+        [Route("scooters/videos/")]
+        public ActionResult ScooterVideos()
+        {
+            ScooterVideosVM objVideosList = null;
+            try
+            {
+                ScooterVideos objVideosModel = new ScooterVideos(_video);
+                objVideosList = objVideosModel.GetData();
+            }
+            catch (System.Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.Videos.ScooterVideos");
+
+            }
+
+
+            return View(objVideosList);
+            
+
+        }
+
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17-Aug-2017
+        /// Description : Action method for scooter videos for desktop .
+        /// </summary>
+        [Route("m/scooters/videos/")]
+        public ActionResult ScooterVideos_Mobile()
+        {
+
+            ScooterVideosVM objVideosList = null;
+            try
+            {
+
+                ScooterVideos objVideosModel = new ScooterVideos(_video);
+
+                objVideosModel.IsMobile = true;
+
+                objVideosList = objVideosModel.GetData();
+
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.Videos.ScooterVideos_Mobile");
+
+            }
+
+            return View(objVideosList);
+           
+
+        }
     }
 }

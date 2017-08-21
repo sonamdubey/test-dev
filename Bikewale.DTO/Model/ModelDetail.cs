@@ -9,6 +9,10 @@ using Newtonsoft.Json;
 
 namespace Bikewale.DTO.Model
 {
+    /// <summary>
+    /// Modified by : Ashutosh Sharma on 12-Aug-2017
+    /// Description : RatingCount property added.
+    /// </summary>
     public class ModelDetail  : ModelBase
     {
         [JsonProperty("makeBase")]
@@ -37,6 +41,9 @@ namespace Bikewale.DTO.Model
 
         [JsonProperty("maxPrice")]
         public Int64 MaxPrice { get; set; }
+
+        [JsonProperty("ratingCount")]
+        public int RatingCount { get; set; }
 
         [JsonProperty("reviewRate")]
         public double ReviewRate { get; set; }

@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.ModelBase
 <!doctype html>
-<html>
+<html  itemscope itemtype="http://schema.org/WebPage">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,11 +11,11 @@
 
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
         {
-            <title>@Model.PageMetaTags.Title</title>
+            <title itemprop="name">@Model.PageMetaTags.Title</title>
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
         {
-            <meta name="description" content="@Model.PageMetaTags.Description" />
+            <meta itemprop="description" name="description" content="@Model.PageMetaTags.Description" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
         {
@@ -26,7 +26,7 @@
             <meta property="og:title" content="@Model.PageMetaTags.Title" />
             <meta property="og:type" content="website" />
             <meta property="og:description" content="@Model.PageMetaTags.Description" />
-            <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+            <meta itemprop="image"  property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
             if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
             {
                 <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
@@ -49,8 +49,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <meta name="theme-color" content="#2a2a2a" />
-    <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
     <link rel='stylesheet' type='text/css' href='/m/css/bwm-common-atf.css' />
+
+    <link href="//www.googletagservices.com" rel="dns-prefetch" />
+    <link href="//ad.doubleclick.net" rel="dns-prefetch" />
+    <link href="//www.googleadservices.com" rel="dns-prefetch" />
+    <link href="//www.bikewale.com" rel="dns-prefetch" />
+    <link href="//imgd.aeplcdn.com" rel="dns-prefetch" />
+    <link href="//@Bikewale.Utility.BWConfiguration.Instance.StaticUrl" rel="dns-prefetch" />
+    <link href="//fonts.googleapis.com" rel="dns-prefetch" />
+    <link href="//www.google-analytics.com" rel="dns-prefetch" />
+    <link href="//bhrigu.bikewale.com" rel="dns-prefetch" />
+    <link href="//tpc.googlesyndication.com" rel="dns-prefetch" />
+
+    <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
     <script defer type="text/javascript" src="@String.Format("{0}/src/frameworks.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></script>
     <script defer type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
     @{Bikewale.Utility.BWCookies.SetBWUtmz();}

@@ -117,7 +117,7 @@
     <Compile Include="Bikedata\BikeVersionsRepository.cs" />
     <Compile Include="BikePricing\BikeShowroomPrices.cs" />
     <Compile Include="BikePricing\DealerPriceRepository.cs" />
-    <Compile Include="ConfigurePageMetas\ConfigurePageMetasRepository.cs" />
+    <Compile Include="PageMetas\PageMetasRepository.cs" />
     <Compile Include="ContractCampaign\DealerCampaignRepository.cs" />
     <Compile Include="DealerPriceQuoteRepository.cs" />
     <Compile Include="DealersRepository.cs" />
@@ -168,7 +168,9 @@
       <Name>BikewaleOpr.Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Dealers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

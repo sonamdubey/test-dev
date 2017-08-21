@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace BikewaleOpr.Interface.ConfigurePageMetas
 {
-    public interface IConfigurePageMetasRepository
+    /// <summary>
+    /// Interface for Page meta repository
+    /// </summary>
+    public interface IPageMetasRepository
     {
         IEnumerable<PageEntity> GetPagesList();
-
-        IEnumerable<PageMetaEntity> GetPageMetas(uint pageMetaStatus);
-        uint SavePageMetas(PageMetasEntity objMetas);
+        bool SavePageMetas(PageMetasEntity objMetas);
         PageMetasEntity GetPageMetasById(uint pageMetaId);
+        bool UpdatePageMetaStatus(uint id, ushort status);
+        IEnumerable<PageMetaEntity> GetPageMetas(uint pageMetaStatus);
     }
 }

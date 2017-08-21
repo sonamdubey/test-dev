@@ -232,15 +232,6 @@ $graph-bg: #eee
 
 // user-review-list
 .user-review-list
-    padding-right: 20px
-    padding-left: 20px
-
-    li
-        border-top: 1px solid #eee
-
-        &:first-child
-            border-top: 0
-
     .item-target
         display: block
         padding-top: 15px
@@ -255,6 +246,26 @@ $graph-bg: #eee
 
     .star-white
         margin-right: 0
+
+.user-review-list
+	li
+		position: relative
+
+		&:after
+			content: ''
+			width: 90%
+			height: 1px
+			position: absolute
+			top: 0
+			left: 0
+			right: 0
+			margin: 0 auto
+			border-top: 1px solid #eee
+
+	.about-reviewer-content
+		li
+			&:after
+				border-top: 0
 
 .read-more-text
     color: #0288d1
@@ -271,6 +282,49 @@ $graph-bg: #eee
 
 .item-stats-grid
     min-width: 60px
+
+
+//review buttons
+.review-title
+	color: #1a1a1a
+
+.feedback-button
+	font-size: 11px
+	min-width: 60px
+	background: white
+	margin: 0 4px
+	padding: 6px 
+	color: #82888B
+	border: 1px solid #E2E2E2
+	border-radius: 2px
+	cursor: pointer
+	font-family: 'Open Sans', sans-serif, Arial
+
+.about-reviewer-list
+	li	
+		border-top: none
+	
+.feedback-button.active 
+    border-color: #41B4C4
+    background: #41B4C4
+    color: white
+    pointer-events: none
+
+.feedback-button
+	.like-sm,
+	.dislike-sm
+		opacity: 0.6
+
+	&.active 
+		.like-sm
+			opacity: 1
+			background-position: -94px -624px
+
+		.dislike-sm
+			opacity: 1
+			background-position: -110px -624px
+
+// review buttons
 
 .like-sm,
 .dislike-sm,
@@ -367,6 +421,10 @@ $graph-bg: #eee
     top: 3px
 
 // about-reviewer-list
+.about-reviewer-content
+	padding: 15px 20px 0
+	background: #fafafa
+
 .about-reviewer-list
     li
         text-align: center
@@ -381,7 +439,7 @@ $graph-bg: #eee
         margin-bottom: 4px
 
     .item-answer
-        font-size: 14px
+        font-size: 13px
         color: #787878
 
 @mixin grid-item-count($count)
@@ -600,12 +658,23 @@ $graph-bg: #eee
 		.answer-star-list
 			width: 52%
 
-.collapsible-content
-	&.active
-		~ .report-abuse-label
-			display: inline
-
-	&.main-content-off.active
+.user-review-list
+	.collapsible-content
 		.main-content
-			display: none
+			display: block
+			padding-right: 20px
+			padding-left: 20px
 
+		&.active
+		~ .review-block 
+				display: inline
+
+		&.main-content-off.active
+			.main-content
+				display: none
+
+@media only screen and (max-width: 320px)
+	.review__question
+		display: block
+		padding-bottom: 5px
+	

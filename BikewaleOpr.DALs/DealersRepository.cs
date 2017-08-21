@@ -1,6 +1,11 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.DAL.CoreDAL;
+using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entity.Dealers;
 using BikewaleOpr.Interface;
+using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -8,10 +13,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Web;
-using Bikewale.Utility;
-using BikewaleOpr.Entity.ContractCampaign;
-using Dapper;
-using Bikewale.DAL.CoreDAL;
 
 namespace BikewaleOpr.DAL
 {
@@ -231,9 +232,9 @@ namespace BikewaleOpr.DAL
 
         public IEnumerable<FacilityEntity> GetDealerFacilities(uint dealerId)
         {
-          IEnumerable<FacilityEntity> objFacilities = null;
-          try
-          {
+            IEnumerable<FacilityEntity> objFacilities = null;
+            try
+            {
                 if (dealerId > 0)
                 {
                     using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -255,7 +256,7 @@ namespace BikewaleOpr.DAL
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.ServiceCenter.GetDealerFacilities ,DealerId:{0}", dealerId));
             }
             return objFacilities;
-         }
+        }
 
 
 
@@ -328,7 +329,7 @@ namespace BikewaleOpr.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.UpdateDealerFacility DealerId: {0} Facility: {1} FacilityId: {2} ActiveStatus: {3}",objData.Id, objData.Facility, objData.FacilityId, objData.IsActive));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.UpdateDealerFacility DealerId: {0} Facility: {1} FacilityId: {2} ActiveStatus: {3}", objData.Id, objData.Facility, objData.FacilityId, objData.IsActive));
 
             }
 
@@ -439,32 +440,35 @@ namespace BikewaleOpr.DAL
 
         /// <summary>
         /// Written By : Suresh Prajapati on 29th Oct 2014.
+        /// Modified By :   Vishnu Teja Yalakuntla on 01 Aug 2017
         /// Description : To Get Dealer's Name By Selected City.
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns>Dealer's Name</returns>
-
-        public DataTable GetAllDealers(UInt32 cityId)
+        public IEnumerable<DealerMakeEntity> GetDealersByCity(UInt32 cityId)
         {
+            IEnumerable<DealerMakeEntity> dealers = null;
 
-            DataTable dt = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getbikedealers"))
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
-                    dt = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly).Tables[0];
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_cityid", cityId);
 
+                    dealers = connection.Query<DealerMakeEntity>("bw_getbikedealers_01082017", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetAllDealers ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, string.Format("GetDealersByCity cityId={0}", cityId));
             }
-            return dt;
+
+            return dealers;
         }
 
         /// <summary>
@@ -768,67 +772,68 @@ namespace BikewaleOpr.DAL
 
         /// <summary>
         /// Created By  : Suresh Prajapati on 11th Nov, 2014.
+        /// Modified by :   Vishnu Teja Yalakuntla on 03 Aug 2017
         /// Description : Method to save New Bike Availability.
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public bool SaveBikeAvailability(DataTable dt)
+        public bool SaveVersionAvailability(uint dealerId, string bikeVersionIds, string numberOfDays)
         {
-
+            bool isSaved = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savebikeavailability"))
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.UpdatedRowSource = UpdateRowSource.None;
+                    connection.Open();
 
-                    cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_BikeVersionId", DbType.Int32, 8, dt.Columns[1].ColumnName));
-                    cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_DealerId", DbType.Int32, 8, dt.Columns[0].ColumnName));
-                    cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_NumOfDays", DbType.Int32, 8, dt.Columns[2].ColumnName));
+                    var param = new DynamicParameters();
+                    param.Add("par_dealerid", dealerId);
+                    param.Add("par_bikeversionids", bikeVersionIds);
+                    param.Add("par_numofdays", numberOfDays);
 
-                    //run the command
-
-                    return (MySqlDatabase.InsertQueryViaAdaptor(cmd, dt, ConnectionType.MasterDatabase) > 0);
+                    connection.Execute("bw_savebikeavailability_03082017", param: param, commandType: CommandType.StoredProcedure);
+                    isSaved = true;
                 }
-
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("SaveDealerPrice ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                    "SaveVersionAvailability dealerId={0} bikeVersionId={1} numberOfDays={2}", dealerId, bikeVersionIds, numberOfDays));
             }
 
-            return false;
+            return isSaved;
         }
-
-        public bool DeleteBikeAvailabilityDays(DataTable dt)
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 03 Aug 2017
+        /// Description :   Deletes the availability of specified version.
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="bikeVersionId"></param>
+        /// <returns></returns>
+        public bool DeleteVersionAvailability(uint dealerId, string bikeVersionId)
         {
-
+            bool isDeleted = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_DeleteBikeAvailability"))
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.UpdatedRowSource = UpdateRowSource.None;
+                    connection.Open();
 
-                    cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_BikeVersionId", DbType.Int32, 8, dt.Columns[0].ColumnName));
-                    cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_DealerId", DbType.Int32, 8, dt.Columns[1].ColumnName));
+                    var param = new DynamicParameters();
+                    param.Add("par_dealerid", dealerId);
+                    param.Add("par_bikeversionids", bikeVersionId);
 
-                    //run the command
-
-                    return (MySqlDatabase.UpdateQueryViaAdaptor(cmd, dt, ConnectionType.MasterDatabase) > 0);
+                    connection.Execute("bw_deletebikeavailability_03082017", param: param, commandType: CommandType.StoredProcedure);
+                    isDeleted = true;
                 }
-
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("DeleteBikeAvailabilityDays ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, string.Format(
+                    "DeleteVersionAvailability dealerId={0} bikeVersionId={1}", dealerId, bikeVersionId));
             }
 
-            return false;
+            return isDeleted;
         }
 
         /// <summary>
@@ -1141,9 +1146,11 @@ namespace BikewaleOpr.DAL
         /// <returns>isrecord inserted</returns>
         public bool SaveBookingAmount(BookingAmountEntity objBookingAmt, UInt32 updatedBy)
         {
+            bool isUpdated = false;
             try
             {
-                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_bookingid", objBookingAmt.BookingAmountBase.Id);
@@ -1155,7 +1162,8 @@ namespace BikewaleOpr.DAL
 
                     connection.Open();
                     connection.Execute("bw_savebookingamount_08072017", param: param, commandType: CommandType.StoredProcedure);
-                    if(connection != null && connection.State == ConnectionState.Open)
+                    isUpdated = true;
+                    if (connection != null && connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
@@ -1168,7 +1176,7 @@ namespace BikewaleOpr.DAL
                 objErr.SendMail();
             }
 
-            return false;
+            return isUpdated;
         }
 
         /// <summary>
@@ -1221,7 +1229,7 @@ namespace BikewaleOpr.DAL
 
             try
             {
-                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     var param = new DynamicParameters();
                     param.Add("par_dealerid", dealerId);
@@ -1620,7 +1628,7 @@ namespace BikewaleOpr.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.DAL.DealerRepository.GetDealerMakesByCity:CityId :{0}",cityId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.DAL.DealerRepository.GetDealerMakesByCity:CityId :{0}", cityId));
             }
             return objMakeList;
         }
@@ -1631,7 +1639,7 @@ namespace BikewaleOpr.DAL
         /// <returns></returns>
         public IEnumerable<DealerEntityBase> GetDealersByMake(uint makeId, uint cityId)
         {
-            ICollection<DealerEntityBase> objDealerList = null; 
+            ICollection<DealerEntityBase> objDealerList = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikedealersbymake"))
@@ -1661,7 +1669,7 @@ namespace BikewaleOpr.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.DAL.DealerRepository.GetDealersByMake: MakeId:{0},CityId:{1}",makeId,cityId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.DAL.DealerRepository.GetDealersByMake: MakeId:{0},CityId:{1}", makeId, cityId));
             }
             return objDealerList;
         }
