@@ -25,7 +25,7 @@ namespace Bikewale.PinCodesAutosuggest
         public static IEnumerable<PayLoad> GetPinCodeList()
         {
             IList<PayLoad> lstPinCodes = null;
-            PayLoad pinCode = null;
+          
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getallpincodes"))
@@ -39,7 +39,7 @@ namespace Bikewale.PinCodesAutosuggest
                             lstPinCodes = new List<PayLoad>();
                             while (reader.Read())
                             {
-                                pinCode = new PayLoad();
+                                PayLoad pinCode = new PayLoad();
                                 pinCode.PinCodeId = Convert.ToUInt32(reader["Id"]);
                                 pinCode.PinCode = Convert.ToString(reader["PinCode"]);
                                 pinCode.District = Convert.ToString(reader["District"]);
@@ -81,7 +81,7 @@ namespace Bikewale.PinCodesAutosuggest
                 {
                     PinCodeList ObjTemp = new PinCodeList();
 
-                    ObjTemp.Id = pinCode.PinCodeId.ToString();
+                    ObjTemp.Id = Convert.ToString(pinCode.PinCodeId);
                     ObjTemp.name = string.Format("{0}_{1}", pinCode.PinCodeId, pinCode.PinCode);
                     string displayName = string.Format("{0}, {1} - {2}", pinCode.PinCode, pinCode.Area, pinCode.District);
 
@@ -98,7 +98,7 @@ namespace Bikewale.PinCodesAutosuggest
                     string tokenName = string.Format("{0} {1} {2}", pinCode.PinCode, pinCode.Area, pinCode.District);
 
                     var tokens = tokenName.Split(' ');
-                    int length = tokens.Length;
+                    int length = Math.Min(tokens.Length,5);
 
 
                     ObjTemp.mm_suggest.input = new List<string>();
@@ -119,6 +119,7 @@ namespace Bikewale.PinCodesAutosuggest
                             ObjTemp.mm_suggest.input.Add(value);
 
                     }
+
                     ObjTemp.mm_suggest.contexts = new Context();
                     ObjTemp.mm_suggest.contexts.types = new List<string>();
                     ObjTemp.mm_suggest.contexts.types.Add("AreaPinCodes");

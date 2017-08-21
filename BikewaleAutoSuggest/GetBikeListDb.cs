@@ -110,7 +110,7 @@ namespace BikewaleAutoSuggest
                     ObjTemp.mm_suggest.input = new List<string>();
                     string[] tokens = bikeName.Split(' ');
 
-                    int length = tokens.Length;
+                    int length = Math.Min(tokens.Length,5);
                     // For creating input in mm_suggest
                     for (int index = 1; index < 1 << length; index++)
                     {
@@ -131,9 +131,12 @@ namespace BikewaleAutoSuggest
                     //For Royal Enfield Bikes add Bullet in Suggestion
                     if (bikeName.Contains("Royal Enfield"))
                             ObjTemp.mm_suggest.input.Add("Bullet");
+
                     ObjTemp.mm_suggest.contexts = new Context();
                     ObjTemp.mm_suggest.contexts.types = new List<string>();
+
                     ObjTemp.mm_suggest.contexts.types.Add("AllMakeModel");
+
                     if (bikeItem.ModelId > 0 && bikeItem.New && !bikeItem.Futuristic)
                         ObjTemp.mm_suggest.contexts.types.Add("PriceQuoteMakeModel");
 
