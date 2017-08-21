@@ -70,7 +70,8 @@ namespace Bikewale.Utility
             _notificationToUserMailId = String.Empty,
             _notificationCCUserMailId = String.Empty,
             _EmailsForBikeChange = String.Empty,
-            _BwHostUrl = String.Empty;
+            _BwHostUrl = String.Empty,
+            _notificationToMailIdForPageMetas = string.Empty;
 
 
         private readonly bool _CORSEnabled = false, _IsAppTrackDayVisible = false;
@@ -141,6 +142,7 @@ namespace Bikewale.Utility
             _AWSS3Region = Convert.ToString(ConfigurationManager.AppSettings["AWSS3Region"]);
             _EmailsForBikeChange = Convert.ToString(ConfigurationManager.AppSettings["EmailsForBikeChange"]);
             _BwHostUrl = Convert.ToString(ConfigurationManager.AppSettings["BwHostUrl"]);
+            _notificationToMailIdForPageMetas = Convert.ToString(ConfigurationManager.AppSettings["notificationToMailIdForPageMetas"]);
         }
 
         // Static method to provide access to instance
@@ -268,6 +270,8 @@ namespace Bikewale.Utility
         public string NotificationOtherUserId { get { return _notificationOtherUserId; } }
 
         public string NotificationToUserMailId { get { return _notificationToUserMailId; } }
+
+        public string NotificationToMailIdForPageMetas { get { return _notificationToMailIdForPageMetas; } }
 
         public string NotificationCCUserMailId { get { return _notificationCCUserMailId; } }
 

@@ -54,7 +54,7 @@
                         </div>
                         <div class="materialize-select">
                             <div class="input-field row s12">
-                                <select data-placeholder="Select City" class="form-control chosen-select" id="ddlServiceCenterCity" data-bind="options: cityList, optionsText:'CityMaskingName', optionsValue:'CityId',  value:selectedCity()" ></select>
+                                <select data-placeholder="Select City" class="form-control chosen-select" id="ddlServiceCenterCity" data-bind="options: cityList, optionsText:'CityName', optionsValue:'CityId',  value:selectedCity()" ></select>
                                 <span class="caret">▼</span>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                     <option value="0">Select City</option>
                                     @foreach (var CityList in Model.AllCityList)
                                     {
-                                        <option value="@CityList.CityId">@CityList.CityMaskingName</option>
+                                        <option value="@CityList.CityId" style="text-transform:capitalize">@CityList.CityMaskingName</option>
                                     }
                                 </select>
                                 <span class="caret">▼</span>

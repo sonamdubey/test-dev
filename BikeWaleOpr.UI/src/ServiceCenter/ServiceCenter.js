@@ -107,22 +107,26 @@ var serviceCenter = function ()
         var tblServiceCenter = $('#tblServiceCenter');
         var makeId = tblServiceCenter.data('makeid');
         var cityId = tblServiceCenter.data('cityid');
-        if (d.Id > 0) {
-            $.ajax({
-                type: "GET",
+        if (confirm("Do you really want to update service center status?"))
+        {
+            if (d.Id > 0) {
+                $.ajax({
+                    type: "GET",
 
-                url: '/api/servicecenter/updatestatus/' + parseInt(d.Id) + '/make/' + makeId + '/city/' + cityId + '/?currentUserId=' + currentUserId,
-                success: function () {
-                    e.currentTarget.closest('tr').remove();
-                    Materialize.toast('Service Center Status has been updated', 4000);
-                },
+                    url: '/api/servicecenter/updatestatus/' + parseInt(d.Id) + '/make/' + makeId + '/city/' + cityId + '/?currentUserId=' + currentUserId,
+                    success: function () {
+                        e.currentTarget.closest('tr').remove();
+                        Materialize.toast('Service Center Status has been updated', 4000);
+                    },
 
-                error: function (e) {
-                    Materialize.toast('Error occured', 4000);
-                }
+                    error: function (e) {
+                        Materialize.toast('Error occured', 4000);
+                    }
 
-            });
+                });
+            }
         }
+       
 
     }
 

@@ -139,6 +139,7 @@ namespace Grpc.CMS
                         {
                             log.Error(e);
                             ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
+
                             if (i > 0)
                             {
                                 log.Error("Error104 Get another Channel " + ch.ResolvedTarget);

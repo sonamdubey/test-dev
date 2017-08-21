@@ -145,7 +145,6 @@ namespace Bikewale.Cache.CMS
         public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId)
         {
             CMSContent _objArticlesList = null;
-
             try
             {
                 if (_objArticles != null)

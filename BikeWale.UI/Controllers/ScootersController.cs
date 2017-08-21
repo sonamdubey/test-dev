@@ -41,6 +41,7 @@ namespace Bikewale.Controllers
         private readonly IServiceCenter _serviceCenter = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
+       
         public ScootersController(IBikeMakes<BikeMakeEntity, int> objMakeRepo, IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompare compareScooters, IDealerCacheRepository dealerCache, IBikeMakesCacheRepository<int> objMakeCache, IBikeModels<BikeModelEntity, int> objBikeModel, IBikeMakes<BikeMakeEntity, int> objMakeRepor, IServiceCenter serviceCenter, ICMSCacheContent articles, IVideos videos)
         {
             _newLaunches = newLaunches;
@@ -55,6 +56,9 @@ namespace Bikewale.Controllers
             _articles = articles;
             _videos = videos;
         }
+
+      
+
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -122,7 +126,7 @@ namespace Bikewale.Controllers
         [Bikewale.Filters.DeviceDetection]
         public ActionResult BikesByMake(string makeMaskingName)
         {
-            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter,_articles,_videos);
+            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter,_articles,_videos);
             obj.EditorialTopCount = 2;
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
 
@@ -162,7 +166,7 @@ namespace Bikewale.Controllers
         [Route("m/scooters/make/{makemaskingname}/")]
         public ActionResult BikesByMake_Mobile(string makeMaskingName)
         {
-            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter, _articles, _videos);
+            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter, _articles, _videos);
             obj.EditorialTopCount = 2;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
            
@@ -280,5 +284,7 @@ namespace Bikewale.Controllers
             }
         }
 
+
+       
     }
 }

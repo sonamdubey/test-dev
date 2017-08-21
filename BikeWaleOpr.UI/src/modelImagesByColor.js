@@ -155,6 +155,7 @@ $('.deleteImage').live("click", function () {
                 url: "/api/image/delete/modelid/?photoId=" + colorId + "&modelid=" + modelId,
                 contentType: 'application/json',
                 dataType: 'json',
+                crossDomain: true,
                 async: false,
                 beforeSend: function (xhr) {
                     startLoading($("#inputSection"));

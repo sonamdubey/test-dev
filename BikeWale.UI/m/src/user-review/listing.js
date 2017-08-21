@@ -53,6 +53,19 @@ function downVoteListReview(e) {
         console.log(e);
     }
 }
+function logBhrighu(e) {
+
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+    $.each(vmUserReviews.activeReviewList(), function (i, val) {
+        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
+            index = i + 1;
+
+        }
+
+    });
+    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index + (pageNumber - 1) * 10) + '|PageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("TitleClick", label);
+}
 
 function updateView(e) {
     // for bhrigu updation
@@ -91,6 +104,12 @@ function voteListUserReview(vote, locReviewId) {
     } catch (e) {
         console.log(e);
     }
+}
+
+function resetCollapsibleContent() {
+    var activeCollapsible = $('.user-review-list').find('.collapsible-content.active');
+    activeCollapsible.removeClass('active');
+    activeCollapsible.find('.read-more-target').text('Read more');
 }
 
 function applyLikeDislikes() {
@@ -169,7 +188,7 @@ function upVoteReview() {
     try {
         bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "1" });
         $('#upvoteButton').addClass('active');
-        $('#upvoteText').text("Liked");
+        //$('#upvoteText').text("Liked");
         $('#downvoteButton').attr('disabled', 'disabled');
         $('#upvoteCount').text(parseInt($('#upvoteCount').text()) + 1);
         voteUserReview(1);
@@ -183,7 +202,7 @@ function downVoteReview() {
     try {
         bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "0" });
         $('#downvoteButton').addClass('active');
-        $('#downvoteText').text("Disliked");
+        //$('#downvoteText').text("Disliked");
         $('#upvoteButton').attr('disabled', 'disabled');
         $('#downvoteCount').text(parseInt($('#downvoteCount').text()) + 1);
         voteUserReview(0);
@@ -256,12 +275,12 @@ docReady(function () {
     if (vote != null && vote.vote) {
         if (vote.vote == "0") {
             $('#downvoteButton').addClass('active');
-            $('#downvoteText').text("Disliked");
+            //$('#downvoteText').text("Disliked");
             $('#upvoteButton').attr('disabled', 'disabled');
         }
         else {
             $('#upvoteButton').addClass('active');
-            $('#upvoteText').text("Liked");
+            //$('#upvoteText').text("Liked");
             $('#downvoteButton').attr('disabled', 'disabled');
         }
     }
@@ -327,9 +346,19 @@ docReady(function () {
 
     ko.bindingHandlers.formattedVotes = {
         update: function (element, valueAccessor) {
-            var amount = valueAccessor();
-            var formattedVote = ko.unwrap(amount) > 999 ? (amount / 1000).toFixed(1) + 'K' : amount;
-            $(element).text(formattedVote);
+            try {
+                var amount = valueAccessor();
+                var formattedStringArray = (amount / 1000).toString().match(/\d+[.]+\d/);
+                if (amount % 1000 == 0 && amount > 0) {
+                    var formattedVote = amount / 1000 + '.0k';
+                }
+                else {
+                    var formattedVote = ko.unwrap(amount) > 999 && formattedStringArray ? formattedStringArray[0] + 'k' : amount;
+                }
+                $(element).text(formattedVote);
+            } catch (e) {
+                console.warn(e);
+            }
         }
     };
 
@@ -545,6 +574,7 @@ docReady(function () {
                         //window.location.hash = qs;
                         self.IsLoading(false);
                         $('html, body').scrollTop(modelReviewsSection.offset().top);
+                        resetCollapsibleContent();
                     });
                 }
                 else {
@@ -560,12 +590,11 @@ docReady(function () {
                         if ($(listItem[i]).find('.rating-badge').length == 0)
                             $(listItem[i]).remove();
                     }
+                    resetCollapsibleContent();
                 }
             }
 
-
-
-            self.PreviousQS(qs);
+            self.PreviousQS(qs);            
         };
 
         self.setPageFilters = function (e) {

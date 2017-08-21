@@ -326,7 +326,6 @@ namespace Bikewale.BAL.EditCMS
                     default:
                         break;
                 }
-
                 _objArticleList = GetArticlesByCategoryViaGrpc(categoryIdList, startIndex, endIndex, bodyStyleId, makeId);
             }
             catch (Exception ex)
@@ -352,7 +351,6 @@ namespace Bikewale.BAL.EditCMS
         {
             try
             {
-
                 var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIds, (uint)startIndex, (uint)endIndex, bodyStyleId, makeId);
 
                 if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)

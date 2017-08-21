@@ -23,6 +23,7 @@ namespace Bikewale.Controllers
     using Common;
     using Entities.CMS.Articles;
     using Interfaces.PWA.CMS;
+    using Models.News;
     using System.Linq;
     using AssemblyRegistration = React.AssemblyRegistration;
 
@@ -293,6 +294,62 @@ namespace Bikewale.Controllers
                 ErrorClass objErr = new ErrorClass(err, "m/news/details/{basicid}/amp/" + basicid);
             }
             return View("~/views/m/content/news/details_amp.cshtml");
+        }
+
+
+
+        /// <summary>
+        /// Created by : Snehal Dange on 17th August , 2017
+        /// Summmary   : Action method to render Scooter news - Desktop
+        /// </summary>
+        [Route("scooters/news/index")]
+        public ActionResult Scooters()
+        {
+            NewsScootersPage obj = new NewsScootersPage(_articles, _pager, _models, _bikeModels, _upcoming, _renderedArticles);
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.redirectUrl);
+            }
+            else
+            {
+                NewsScootersPageVM objData =obj.GetData(4);
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/pagenotfound.aspx");
+                else
+                    return View(objData);
+            }
+        }
+
+
+        /// <summary>
+        /// Created by : Snehal Dange on 18th August , 2017
+        /// Summmary   : Action method to render scooter news listing page -mobile
+        /// </summary>
+        [Route("m/scooters/news/index/")]
+        public ActionResult Scooters_Mobile()
+        {
+            NewsScootersPage obj = new NewsScootersPage(_articles, _pager, _models, _bikeModels, _upcoming, _renderedArticles);
+            obj.IsMobile = true;
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/m/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
+            }
+            else
+            {
+                NewsScootersPageVM objData = obj.GetData(9);
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pagenotfound.aspx");
+                else
+                    return View(objData);
+            }
         }
 
         #endregion

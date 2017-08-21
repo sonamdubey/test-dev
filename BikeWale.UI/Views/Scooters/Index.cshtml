@@ -239,6 +239,11 @@
                     {
                         @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
                     }
+                   
+                     <div class="more-article-target view-all-btn-container">
+                        <a href="/scooters/news/" title="Scooter News" class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
+                    </div>
+
                 </div>
                 <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlExpertReviews">
                     @if (Model.ExpertReviews.FetchedCount > 0)
@@ -254,6 +259,9 @@
                     {
                         @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
                     }
+                    <div class="padding-left10 more-article-target view-all-btn-container">
+                        <a title="Scooter Videos" href="/scooters/videos/" class="btn view-all-target-btn">View all videos<span class="bwsprite teal-right"></span></a>
+                    </div>
                 </div>
             </div>
         </div>
