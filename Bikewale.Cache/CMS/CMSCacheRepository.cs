@@ -141,20 +141,18 @@ namespace Bikewale.Cache.CMS
         /// <param name="endIndex"></param>
         /// <param name="bodyStyleId"></param>
         /// <param name="makeId"></param>
-        /// <param name="modelId"></param>
         /// <returns></returns>
-        public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId, int modelId)
+        public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId)
         {
             CMSContent _objArticlesList = null;
-
             try
             {
                 if (_objArticles != null)
-                    _objArticlesList = _objArticles.GetArticlesByCategoryList(categoryIdList, startIndex, endIndex, bodyStyleId, makeId, modelId);
+                    _objArticlesList = _objArticles.GetArticlesByCategoryList(categoryIdList, startIndex, endIndex, bodyStyleId, makeId);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetArticlesByCategoryList");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.CMS.CMSCacheRepository.GetArticlesByCategoryList");
                 objErr.SendMail();
             }
             return _objArticlesList;

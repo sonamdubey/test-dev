@@ -30,9 +30,9 @@ namespace Bikewale.Controllers
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
-
+        private readonly IBikeMakesCacheRepository<int> _bikeMakesCacheRepository = null;
         #region Constructor
-        public ExpertReviewsController(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache)
+        public ExpertReviewsController(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IBikeMakesCacheRepository<int> bikeMakesCacheRepository)
         {
             _cmsCache = cmsCache;
             _pager = pager;
@@ -41,6 +41,7 @@ namespace Bikewale.Controllers
             _upcoming = upcoming;
             _bikeInfo = bikeInfo;
             _cityCache = cityCache;
+            _bikeMakesCacheRepository = bikeMakesCacheRepository;
         }
         #endregion
 
@@ -216,7 +217,76 @@ namespace Bikewale.Controllers
         /// Summary: Action method to render expert reviews for scooters
         /// </summary>
         /// <returns></returns>
-        [Route("scooters/expertreviews/")]
+        [Route("scooter/expertreviews/")]
+        [Filters.DeviceDetection()]
+        public ActionResult Scooters()
+        {
+            try
+            {
+
+                ScooterExpertReviewsPage obj = new ScooterExpertReviewsPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository);
+                if (obj.status == StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/pagenotfound.aspx");
+                }
+                else if (obj.status == StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(obj.redirectUrl);
+                }
+                else
+                {
+                    ScooterExpertReviewsPageVM objData = obj.GetData();
+                    if (obj.status == StatusCodes.ContentNotFound)
+                        return Redirect("/pagenotfound.aspx");
+                    else
+                        return View(objData);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.ExpertReviewsController.Scooters");
+                return Redirect("/pagenotfound.aspx");
+            }
+        }
+
+        /// <summary>
+        /// Created by: Vivek Singh Tomar on 18th Aug 2017
+        /// Summary: Action method to render expert reviews for scooters on mobile
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/scooter/expertreviews/")]
+        public ActionResult Scooters_Mobile()
+        {
+            try
+            {
+                ScooterExpertReviewsPage obj = new ScooterExpertReviewsPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository);
+                obj.IsMobile = true;
+                if (obj.status == StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/m/pagenotfound.aspx");
+                }
+                else if (obj.status == StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
+                }
+                else
+                {
+                    ScooterExpertReviewsPageVM objData = obj.GetData();
+                    if (obj.status == StatusCodes.ContentNotFound)
+                        return Redirect("/m/pagenotfound.aspx");
+                    else
+                        return View(objData);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.ExpertReviewsController.Scooters_Mobile");
+                return Redirect("/m/pagenotfound.aspx");
+            }
+        }
+        
+         [Route("scooters/expertreviews/")]
         [Filters.DeviceDetection()]
         public ActionResult Scooters()
         {
@@ -238,7 +308,6 @@ namespace Bikewale.Controllers
                     return View(objData);
             }
         }
-
 
         #endregion
     }

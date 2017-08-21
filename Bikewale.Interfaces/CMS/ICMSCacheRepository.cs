@@ -19,6 +19,6 @@ namespace Bikewale.Interfaces.CMS
         IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords,string bodyStyleId, uint makeId, uint modelId);
         CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId);
         CMSContent GetTrackDayArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId);
-        CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId, int modelId);
+        CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId);
     }
 }

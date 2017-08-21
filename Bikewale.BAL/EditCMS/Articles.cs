@@ -308,9 +308,8 @@ namespace Bikewale.BAL.EditCMS
         /// <param name="endIndex"></param>
         /// <param name="bodyStyleId"></param>
         /// <param name="makeId"></param>
-        /// <param name="modelId"></param>
         /// <returns></returns>
-        public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId, int modelId)
+        public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId)
         {
             CMSContent _objArticleList = null;
             try
@@ -327,12 +326,11 @@ namespace Bikewale.BAL.EditCMS
                     default:
                         break;
                 }
-
-                _objArticleList = GetArticlesByCategoryViaGrpc(categoryIdList, startIndex, endIndex, bodyStyleId, makeId, modelId);
+                _objArticleList = GetArticlesByCategoryViaGrpc(categoryIdList, startIndex, endIndex, bodyStyleId, makeId);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.EditCMS.Articles.GetArticlesByCategoryList");
                 objErr.SendMail();
             }
 
@@ -348,14 +346,12 @@ namespace Bikewale.BAL.EditCMS
         /// <param name="endIndex"></param>
         /// <param name="bikeBodyType"></param>
         /// <param name="makeId"></param>
-        /// <param name="modelId"></param>
         /// <returns></returns>
-        private CMSContent GetArticlesByCategoryViaGrpc(string categoryIds, int startIndex, int endIndex, string bodyStyleId, int makeId, int modelId)
+        private CMSContent GetArticlesByCategoryViaGrpc(string categoryIds, int startIndex, int endIndex, string bodyStyleId, int makeId)
         {
             try
             {
-
-                var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIds, (uint)startIndex, (uint)endIndex, bodyStyleId, makeId, modelId);
+                var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIds, (uint)startIndex, (uint)endIndex, bodyStyleId, makeId);
 
                 if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
                 {
@@ -363,9 +359,10 @@ namespace Bikewale.BAL.EditCMS
 
                 }
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                _logger.Error(err.Message, err);
+                _logger.Error(ex.Message, ex);
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.EditCMS.Articles.GetArticlesByCategoryViaGrpc");
             }
             return null;
         }

@@ -1,4 +1,5 @@
 using Bikewale.Entities.Videos;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using EditCMSWindowsService.Messages;
 using Grpc.Core;
@@ -104,9 +105,8 @@ namespace Grpc.CMS
         /// <param name="endIdx"></param>
         /// <param name="bodyStyleId"></param>
         /// <param name="makeid"></param>
-        /// <param name="modelid"></param>
         /// <returns></returns>
-        public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx, string bodyStyleId, int makeid = 0, int modelid = 0)
+        public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx, string bodyStyleId, int makeid = 0)
         {
             Stopwatch sw = null;
             try
@@ -130,7 +130,6 @@ namespace Grpc.CMS
                                 CategoryIdList = catIdList,
                                 EndIndex = endIdx,
                                 MakeId = makeid,
-                                ModelId = modelid,
                                 StartIndex = startIdx,
                                 BodyStyleIds = bodyStyleId
                             },
@@ -139,6 +138,8 @@ namespace Grpc.CMS
                         catch (RpcException e)
                         {
                             log.Error(e);
+                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
+
                             if (i > 0)
                             {
                                 log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
@@ -150,6 +151,7 @@ namespace Grpc.CMS
                         catch (Exception e)
                         {
                             log.Error(e);
+                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
                         }
                     }
                     else
@@ -157,6 +159,11 @@ namespace Grpc.CMS
                 }
 
 
+                return null;
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
                 return null;
             }
             finally
