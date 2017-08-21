@@ -41,7 +41,7 @@
                 <div class="main-content">
                     <div class="font14 text-slate-grey margin-bottom10">
                         <p>@FormatDescription.TruncateDescription(review.Description, 150)</p>
-                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-reviewId="@review.ReviewId" onclick="updateView(event)">Read more</a>
+                        <a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-reviewId="@review.ReviewId" onclick="updateView(event)">Read more</a>
                     </div>
                 </div>
                 <div class="more-content">
