@@ -88,7 +88,7 @@ function reportReview(e) {
     reportAbusePopup.open();
 }
 
-function applyLikeDislikes() {
+function applyLikeDislikes() {   
     $(".feedback-button").each(function () {
         var locReviewId = this.getAttribute("data-reviewid");
         var listVote = bwcache.get("ReviewDetailPage_reviewVote_" + locReviewId);
@@ -96,11 +96,11 @@ function applyLikeDislikes() {
         if (listVote != null && listVote.vote) {
             if (listVote.vote == "0") {
                 $('#downvoteBtn' + "-" + locReviewId).addClass('active');
-                $('#upvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+                $('#upvoteBtn' + "-" + locReviewId).removeClass('active').attr('disabled', 'disabled');
             }
             else {
                 $('#upvoteBtn' + "-" + locReviewId).addClass('active');
-                $('#downvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+                $('#downvoteBtn' + "-" + locReviewId).removeClass('active').attr('disabled', 'disabled');
             }
         }
         else {
@@ -503,10 +503,10 @@ docReady(function () {
                         self.noReviews(false);
                         var listItem = $('.user-review-list .list-item');
                         for (var i = listItem.length; i >= response.result.length; i--) {
-                            $(listItem[i]).remove();
-                            applyLikeDislikes();
+                            $(listItem[i]).remove();                            
                         }
                         resetCollapsibleContent();
+                        applyLikeDislikes();
                     }
 
                 })

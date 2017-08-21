@@ -121,11 +121,11 @@ function applyLikeDislikes() {
             if (listVote != null && listVote.vote) {
                 if (listVote.vote == "0") {
                     $('#downvoteBtn' + "-" + locReviewId).addClass('active');
-                    $('#upvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+                    $('#upvoteBtn' + "-" + locReviewId).removeClass('active').attr('disabled', 'disabled');
                 }
                 else {
                     $('#upvoteBtn' + "-" + locReviewId).addClass('active');
-                    $('#downvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+                    $('#downvoteBtn' + "-" + locReviewId).removeClass('active').attr('disabled', 'disabled');
                 }
             }
             else {
