@@ -1,6 +1,6 @@
 
 ﻿var reviewId = 0, vmUserReviews, modelReviewsSection, modelid, abusereviewId = 0, categoryId=1, pageNumber=1;
-
+var reg = new RegExp('^[0-9]*$');
 
 var helpfulReviews = [];
 
@@ -35,7 +35,10 @@ function upVoteListReview(e) {
     bwcache.set("ReviewDetailPage_reviewVote_" + localReviewId, { "vote": "1" });
     $('#upvoteBtn' + "-" + localReviewId).addClass('active');
     $('#downvoteBtn' + "-" + localReviewId).attr('disabled', 'disabled');
-    $('#upvoteCount' + "-" + localReviewId).text(parseInt($('#upvoteCount' + "-" + localReviewId).text()) + 1);
+
+    if (reg.test($('#upvoteCount' + "-" + localReviewId).text()))
+        $('#upvoteCount' + "-" + localReviewId).text(parseInt($('#upvoteCount' + "-" + localReviewId).text()) + 1);
+
     voteListUserReview(1, localReviewId);
 }
 
@@ -53,7 +56,12 @@ function downVoteListReview(e) {
     bwcache.set("ReviewDetailPage_reviewVote_" + localReviewId, { "vote": "0" });
     $('#downvoteBtn' + "-" + localReviewId).addClass('active');
     $('#upvoteBtn' + "-" + localReviewId).attr('disabled', 'disabled');
-    $('#downvoteCount' + "-" + localReviewId).text(parseInt($('#downvoteCount' + "-" + localReviewId).text()) + 1);
+   
+    if (reg.test($('#downvoteCount' + "-" + localReviewId).text())) {
+       
+        $('#downvoteCount' + "-" + localReviewId).text(parseInt($('#downvoteCount' + "-" + localReviewId).text()) + 1);
+    }
+
     voteListUserReview(0, localReviewId);
 }
 
@@ -286,6 +294,20 @@ docReady(function() {
         var q = $('#rate-bikestar-' + buttonValue).attr('data-querystring');
         window.location.href = "/rate-your-bike/" + modelid + "/?q=" + q;
     });    
+
+
+    ko.bindingHandlers.formattedVotes = {
+        update: function (element, valueAccessor) {
+            try {
+                var amount = valueAccessor();
+                var formattedStringArray = (amount / 1000).toString().match(/\d+[.]+\d/);
+                var formattedVote = ko.unwrap(amount) > 999 && formattedStringArray ? formattedStringArray[0] + 'k' : amount;
+                $(element).text(formattedVote);
+            } catch (e) {
+                console.warn(e);
+            }
+        }
+    };
 
     var modelUserReviews = function () {
         var self = this;
