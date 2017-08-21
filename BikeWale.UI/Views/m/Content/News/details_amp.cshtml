@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout_Mobile_AMP.cshtml";
+    Layout = "~/Views/Shared/_Layout_Mobile_AMP_PWA.cshtml";
     ViewBag.ArticleType = "NewsArticle";
 }
 @if(!String.IsNullOrEmpty(ViewBag.NewsContent))
@@ -84,5 +84,4 @@ else
         </div>        
     </article>
 }
-<amp-install-serviceworker src="/m/news/sw.js" data-iframe-src="https://www.bikewale.com/n/news/sw.html" layout="nodisplay"/>
 
