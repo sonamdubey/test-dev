@@ -10,6 +10,7 @@
         self.bookingMsg = ko.observable("");
         self.dealerOperationsModel = ko.observable(new dealerOperationModel(dpParams));
 
+
         self.getModels = function () {
             try{
                 var makeId = self.selectedMakeId();
@@ -120,6 +121,11 @@
                     Materialize.updateTextFields();
                     $('#cancelEdit').removeClass("hide");
                 }
+
+                $('.booking-amount-collapsible').each(function(){
+                    if (!$(this).hasClass('active'))
+                        $(this).click();
+                });
             } catch (e) {
                 console.warn(e.message);
             }
@@ -139,7 +145,7 @@
                 $('#selectModel').prop('disabled', false);
                 $('#selectModel').material_select();
                 $('#selectMake').prop('disabled', false);
-                $('#selectMake').val(0);
+                $('#selectMake').val(parseInt($('#makeId').val()));
                 $('#selectMake').material_select();
                 $('#selectMake').trigger('change');
                 $('#cancelEdit').addClass("hide");
@@ -192,6 +198,9 @@
             dropdownName.trigger('change');
         };
 
+        self.selectedMakeId(parseInt($('#makeId').val()));
+        
+
     } catch (ex) {
         console.warn(e.message);
     }
@@ -199,8 +208,9 @@
 
 $(document).ready(function () {
     try {
-        $('#selectMake').material_select();
         ko.applyBindings(new bindManageBookingAmount);
+        $('#selectMake').material_select();
+        $('#selectMake').trigger('change');
         var updateMessage = $('#manageBookingAmount').data('message');
         if (updateMessage) {
             Materialize.toast(updateMessage, 3000);

@@ -124,7 +124,7 @@
                 type: "GET",
                 url: makesByCityURL,
                 success: function (resultData, textStatus, xhr) {
-                    if (resultData.length > 0) {                  
+                    if (resultData.length > 0) {
                         self.cities(self.defaultAllcities.concat(resultData));
                         ddlCity.find('option[value=0]').attr('disabled', 'disabled');
                         ddlCity.trigger("chosen:updated");
@@ -186,7 +186,7 @@
                         Materialize.toast('Price copied successfully to ' + selectedCityNames, 4000);
                     },
                     complete: function (xhr) {
-                        if(xhr == 404)
+                        if (xhr == 404)
                             Materialize.toast('Something went wrong. Please try again', 4000);
                     }
                 });
@@ -297,129 +297,145 @@
         }
 
         self.onUpdateClick = function (data, event) {
-            if (confirm("Do you want to update the pricing?")) {
-                var versionIds = [];
-                var bikeVersionIds = [];
-                var bikeModelIds = [];
-                var bikeModelNames = [];
-                var itemIds = [];
-                var itemValues = [];
-                var versionAvailabilityDays = [];
-                var dealerIds = [parseInt(event.target.dataset.dealerId)];
-                var cityIds = [parseInt(event.target.dataset.cityId)];
-                var enteredBy = parseInt(event.target.dataset.enteredBy);
+            var versionIds = [];
+            var bikeVersionIds = [];
+            var bikeModelIds = [];
+            var bikeModelNames = [];
+            var itemIds = [];
+            var itemValues = [];
+            var versionAvailabilityDays = [];
+            var dealerIds = [parseInt(event.target.dataset.dealerId)];
+            var cityIds = [parseInt(event.target.dataset.cityId)];
+            var enteredBy = parseInt(event.target.dataset.enteredBy);
+            var anyChange = false;
 
-                $('tbody').find('tr').filter(':has(:checkbox:checked)').each(function () {
-                    var isPriceUpdated = false;
-                    currentVersionId = parseInt(this.dataset.versionid);
+            $('tbody').find('tr').filter(':has(:checkbox:checked)').each(function () {
+                var isPriceUpdated = false;
+                currentVersionId = parseInt(this.dataset.versionid);
 
-                    $(this).find('[data-itemid]').each(function () {
-                        if ($(this).find('input').val() != this.dataset.value) {
-                            isPriceUpdated = true;
-                            versionIds.push(currentVersionId);
-                            itemIds.push(parseInt(this.dataset.itemid));
-                            itemValues.push(parseInt($(this).find('input').val()));
-                        }
-                    });
-
-                    $(this).find('[data-availability]').each(function () {
-                        if ($(this).find('input').val() != this.dataset.value) {
-                            bikeVersionIds.push(currentVersionId);
-                            versionAvailabilityDays.push(parseInt($(this).find('input').val()));
-                        }
-                    });
-
-                    if (isPriceUpdated) {
-                        debugger;
-                        bikeModelIds.push(parseInt(this.dataset.modelid));
-                        bikeModelNames.push(this.dataset.modelname);
+                $(this).find('[data-itemid]').each(function () {
+                    if ($(this).find('input').val() != this.dataset.value) {
+                        anyChange = true;
+                        isPriceUpdated = true;
+                        versionIds.push(currentVersionId);
+                        itemIds.push(parseInt(this.dataset.itemid));
+                        itemValues.push(parseInt($(this).find('input').val()));
                     }
                 });
 
-                var dealerVersionPriceDto = {
-                    dealerIds: dealerIds,
-                    cityIds: cityIds,
-                    enteredBy: enteredBy,
-                    versionIds: versionIds,
-                    itemIds: itemIds,
-                    itemValues: itemValues
-                };
-
-                var dealerVersionAvailabilityDto = {
-                    dealerId: parseInt(event.target.dataset.dealerId),
-                    bikeVersionIds: bikeVersionIds,
-                    numberOfDays: versionAvailabilityDays
-                };
-
-
-                var dealerPricesAvaialabilities = {
-                    dealerVersionPrices: dealerVersionPriceDto,
-                    dealerVersionAvailabilities: dealerVersionAvailabilityDto,
-                    bikeModelIds: bikeModelIds,
-                    makeId: $('#makeId').val(),
-                    bikeModelNames: bikeModelNames
-                };
-
-
-                var saveDealerPricingURL = "/api/dealers/savepricesandavailability/";
-
-                $.ajax({
-                    type: "POST",
-                    url: saveDealerPricingURL,
-                    data: dealerPricesAvaialabilities,
-                    success: function (resultData, textStatus, xhr) {
-                        $(".rowCheckbox").attr('disabled', false);
-                        $('#allRowsSelect').attr('disabled', false);
-                        if (resultData.isPriceSaved || resultData.isAvailabilitySaved) {
-                            self.onPriceOrAvaialabilityUpdateSucess(resultData);
-                        }
-                        else {
-                            Materialize.toast('Something went wrong, please try again', 4000);
-                        }
+                $(this).find('[data-availability]').each(function () {
+                    if ($(this).find('input').val() != this.dataset.value) {
+                        anyChange = true;
+                        bikeVersionIds.push(currentVersionId);
+                        versionAvailabilityDays.push(parseInt($(this).find('input').val()));
                     }
                 });
+
+                if (isPriceUpdated) {
+                    bikeModelIds.push(parseInt(this.dataset.modelid));
+                    bikeModelNames.push(this.dataset.modelname);
+                }
+            });
+
+            if (!anyChange) {
+                Materialize.toast('No value updated', 4000);
             } else {
-                Materialize.toast('Update cancelled', 4000);
+                if (confirm("Do you want to update the pricing?")) {
+                    var dealerVersionPriceDto = {
+                        dealerIds: dealerIds,
+                        cityIds: cityIds,
+                        enteredBy: enteredBy,
+                        versionIds: versionIds,
+                        itemIds: itemIds,
+                        itemValues: itemValues
+                    };
+
+                    var dealerVersionAvailabilityDto = {
+                        dealerId: parseInt(event.target.dataset.dealerId),
+                        bikeVersionIds: bikeVersionIds,
+                        numberOfDays: versionAvailabilityDays
+                    };
+
+
+                    var dealerPricesAvaialabilities = {
+                        dealerVersionPrices: dealerVersionPriceDto,
+                        dealerVersionAvailabilities: dealerVersionAvailabilityDto,
+                        bikeModelIds: bikeModelIds,
+                        makeId: $('#makeId').val(),
+                        bikeModelNames: bikeModelNames
+                    };
+
+
+                    var saveDealerPricingURL = "/api/dealers/savepricesandavailability/";
+
+                    if (anyChange) {
+                        $.ajax({
+                            type: "POST",
+                            url: saveDealerPricingURL,
+                            data: dealerPricesAvaialabilities,
+                            success: function (resultData, textStatus, xhr) {
+                                $(".rowCheckbox").attr('disabled', false);
+                                $('#allRowsSelect').attr('disabled', false);
+                                if (resultData.isPriceSaved || resultData.isAvailabilitySaved) {
+                                    self.onPriceOrAvaialabilityUpdateSucess(resultData);
+                                }
+                                else {
+                                    Materialize.toast('Something went wrong, please try again', 4000);
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    Materialize.toast('Update cancelled', 4000);
+                }
             }
         };
 
         self.onDeleteClick = function (data, event) {
-            if (confirm("Do you want to delete the pricing?")) {
-                var bikeVersionIds = [];
-                var dealerId = parseInt(event.target.dataset.dealerId);
-                var cityId = parseInt(event.target.dataset.cityId);
+            var bikeVersionIds = [];
+            var dealerId = parseInt(event.target.dataset.dealerId);
+            var cityId = parseInt(event.target.dataset.cityId);
+            var isBoxChecked = false;
 
-                $('tr').filter(':has(:checkbox:checked)').each(function () {
-                    bikeVersionIds.push(parseInt(this.dataset.versionid));
-                });
+            $('tr').filter(':has(:checkbox:checked)').each(function () {
+                bikeVersionIds.push(parseInt(this.dataset.versionid));
+                isBoxChecked = true;
+            });
 
-                var dealerCityVersionsDto = {
-                    dealerId: dealerId,
-                    cityId: cityId,
-                    bikeVersionIds: bikeVersionIds
-                };
-
-                $.ajax({
-                    type: "POST",
-                    url: "/api/dealers/deletepricesandavailability/",
-                    data: dealerCityVersionsDto,
-                    success: function (resultData, textStatus, xhr) {
-                        self.onPriceOrAvaialabilityDeleteSucess(resultData);
-                    },
-                    complete: function (xhr) {
-                        if(xhr == 404)
-                            Materialize.toast('Something went wrong. Please try again', 4000);
-                    }
-                });
+            if (!isBoxChecked) {
+                Materialize.toast('No version selected', 4000);
             }
             else {
-                Materialize.toast('Delete cancelled', 4000);
+                if (confirm("Do you want to delete the pricing?")) {
+                    var dealerCityVersionsDto = {
+                        dealerId: dealerId,
+                        cityId: cityId,
+                        bikeVersionIds: bikeVersionIds
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/dealers/deletepricesandavailability/",
+                        data: dealerCityVersionsDto,
+                        success: function (resultData, textStatus, xhr) {
+                            self.onPriceOrAvaialabilityDeleteSucess(resultData);
+                        },
+                        complete: function (xhr) {
+                            if (xhr == 404)
+                                Materialize.toast('Something went wrong. Please try again', 4000);
+                        }
+                    });
+                }
+                else {
+                    Materialize.toast('Delete cancelled', 4000);
+                }
             }
         }
     }
 
     var addCategoryModel = function () {
         self.onAddCategoryClick = function () {
+            debugger;
             var selectedCategories = $('#ddlCategories').val();
 
             if (selectedCategories != null) {
@@ -447,10 +463,10 @@
                     $(this).append(tdsStr).append(tdColor);
                 });
 
-                $('#allRowsSelect').attr('checked', true);
+                $('#allRowsSelect').prop('checked', true);
                 $('#allRowsSelect').trigger('change');
-                $(".rowCheckbox").attr('disabled', true);
-                $('#allRowsSelect').attr('disabled', true);
+                $(".rowCheckbox").prop('disabled', true);
+                $('#allRowsSelect').prop('disabled', true);
 
                 Materialize.toast('Added the selected categories successfully. Please fill in the values', 4000);
             }
@@ -486,7 +502,7 @@
         $('#ddlCity').find('option[value=0]').attr('disabled', 'disabled');
 
         $('select.chosen-select').chosen({
-           "width": "250px"
+            "width": "250px"
         });
 
         if ($('#tblPricingSheet').length > 0) {

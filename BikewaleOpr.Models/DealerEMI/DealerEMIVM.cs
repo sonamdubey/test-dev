@@ -12,5 +12,6 @@ namespace BikewaleOpr.Models.DealerEMI
         public string PageTitle { get; set; }
         public DealerOperationPricingVM DealerOperationParams { get; set; }
         public EMI dealerEmiFormInfo { get; set; }
+        public string DealerName { get; set; }
     }
 }

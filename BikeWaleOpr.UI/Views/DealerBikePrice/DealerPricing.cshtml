@@ -17,7 +17,7 @@
                     <th>Bike</th>
                     @foreach (var category in Model.DealerVersionCategories)
                     {
-                        <th class="editableColumns" data-item-id=@category.ItemCategoryId>@category.ItemName</th>
+                        <th class="editableColumns" data-item-id="@category.ItemCategoryId">@category.ItemName</th>
                     }
                     <th class="editableColumns">Availability(days)</th>
                     <th class="editableColumns colorAvailability">Colors</th>
@@ -27,7 +27,7 @@
             <tbody>
                 @foreach (var dealerVersionPricing in Model.DealerPriceSheet.dealerVersionPricings)
                 {
-                    <tr class="dealerVersionPrice" data-modelname="@dealerVersionPricing.ModelName" data-modelid=@dealerVersionPricing.BikeModelId data-versionid=@dealerVersionPricing.VersionId>
+                    <tr class="dealerVersionPrice" data-modelname="@dealerVersionPricing.ModelName" data-modelid="@dealerVersionPricing.BikeModelId" data-versionid="@dealerVersionPricing.VersionId">
                         <td>
                             @{
                                 var checkBoxId = dealerVersionPricing.VersionId;
@@ -39,9 +39,9 @@
                         <td>@dealerVersionPricing.BikeName</td>
                         @foreach (var category in dealerVersionPricing.Categories)
                         {
-                            <td class="editableValue" data-value=@category.ItemValue data-itemid=@category.ItemCategoryId>@category.ItemValue</td>
+                            <td class="editableValue" data-value="@category.ItemValue" data-itemid="@category.ItemCategoryId">@category.ItemValue</td>
                         }
-                        <td data-availability=@dealerVersionPricing.NumberOfDays data-value=@dealerVersionPricing.NumberOfDays class="editableValue">@dealerVersionPricing.NumberOfDays</td>
+                        <td data-availability="@dealerVersionPricing.NumberOfDays" data-value="@dealerVersionPricing.NumberOfDays" class="editableValue">@dealerVersionPricing.NumberOfDays</td>
 
                         <td class="colorAvailability editableColumns">
                             <a data-tooltip="View Colors" data-bind="click: onColorAvailabilityClick" href="Javascript:void(0)" class="material-icons availabilityByColor tooltipped" data-url="@(string.Format("/newbikebooking/ManageBikeAvailabilityByColorAndCost.aspx?dealerId={0}&versionId={1}&versionAvailDays={2}",@Model.DealerOperationParams.DealerId, dealerVersionPricing.VersionId,@dealerVersionPricing.NumberOfDays))">color_lens</a>
@@ -52,16 +52,16 @@
             </tbody>
         </table>
         <div class="input-field row">
-            <a data-bind="event: {click: onUpdateClick}" data-city-id=@Model.CurrentCityId data-dealer-id=@Model.DealerOperationParams.DealerId data-entered-by=@Model.EnteredBy id="btnUpdate" class="waves-effect waves-light btn">Update</a>
-            <a data-bind="event: {click: onDeleteClick}" data-city-id=@Model.CurrentCityId data-dealer-id=@Model.DealerOperationParams.DealerId data-entered-by=@Model.EnteredBy id="btnDelete" class="waves-effect waves-light btn red">Delete</a>
+            <a data-bind="event: {click: onUpdateClick}" data-city-id="@Model.CurrentCityId" data-dealer-id="@Model.DealerOperationParams.DealerId" data-entered-by="@Model.EnteredBy" id="btnUpdate" class="waves-effect waves-light btn">Update</a>
+            <a data-bind="event: {click: onDeleteClick}" data-city-id="@Model.CurrentCityId" data-dealer-id="@Model.DealerOperationParams.DealerId" data-entered-by="@Model.EnteredBy" id="btnDelete" class="waves-effect waves-light btn red">Delete</a>
         </div>
     </div>
     <div class="col m3">
-        <input type="hidden" id="selectedCategories" value=@Model.SelectedCategoriesString>
+        <input type="hidden" id="selectedCategories" value="@Model.SelectedCategoriesString">
 
         @if (Model.OtherCityId > 0)
         {
-            <input type="hidden" id="otherCityId" value=@Model.OtherCityId>
+            <input type="hidden" id="otherCityId" value="@Model.OtherCityId">
         }
 
         <ul class="collapsible margin-top10" data-collapsible="accordion">
@@ -75,7 +75,7 @@
                                 <option value="0" disabled selected>Select City</option>
                                 @foreach (var city in Model.ShowPricingCities.Cities)
                                 {
-                                    <option value=@city.CityId>@city.CityName</option>
+                                    <option value="@city.CityId">@city.CityName</option>
                                 }
                             </select>
                         </div>
@@ -96,7 +96,7 @@
                                 <option value="0" disabled>Select categories</option>
                                 @foreach (var category in Model.AddCategoryType.PriceCategories)
                                 {
-                                    <option value=@category.CategoryId>@category.CategoryName</option>
+                                    <option value="@category.CategoryId">@category.CategoryName</option>
                                 }
                             </select>
                         </div>
@@ -117,7 +117,7 @@
                                 <option value="0" disabled selected>Select State</option>
                                 @foreach (var state in Model.CopyPricingCities.States)
                                 {
-                                    <option value=@state.StateId>@state.StateName</option>
+                                    <option value="@state.StateId">@state.StateName</option>
                                 }
                             </select>
                         </div>
@@ -129,7 +129,7 @@
                                     "></select>
                         </div>
                         <div class="input-field row s12">
-                            <button data-bind="click: copyPricingToCity" data-city-id=@Model.CurrentCityId data-dealer-id=@Model.DealerOperationParams.DealerId data-entered-by=@Model.EnteredBy class="btn waves-effect waves-light" name="action">
+                            <button data-bind="click: copyPricingToCity" data-city-id="@Model.CurrentCityId" data-dealer-id="@Model.DealerOperationParams.DealerId" data-entered-by="@Model.EnteredBy" class="btn waves-effect waves-light" name="action">
                                 Copy Pricing
                             </button>
                         </div>
@@ -145,7 +145,7 @@
                                 <option value="0" disabled selected>Select City</option>
                                 @foreach (var city in Model.CopyPricingDealers.Cities)
                                 {
-                                    <option value=@city.CityId>@city.CityName</option>
+                                    <option value="@city.CityId">@city.CityName</option>
                                 }
                             </select>
                         </div>

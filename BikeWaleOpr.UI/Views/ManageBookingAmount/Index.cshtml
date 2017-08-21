@@ -36,8 +36,8 @@
                         <td>@obj.UpdatedOn.ToString("dd/MM/yyyy")</td>
                         <td>@obj.BookingAmountBase.Amount</td>
                         <td><i class="isActive material-icons @(obj.BookingAmountBase.IsActive?"icon-green":"icon-red")">@(obj.BookingAmountBase.IsActive ? "done" : "close")</i></td>
-                        <td><a href="javascript:void(0)" title="Edit Booking Amount" rel="nofollow" data-bind="event: {click: function(d, e) { editBooking(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
-                        <td><a href="javascript:void(0)" title="Delete Booking Amount" rel="nofollow" data-bind="event: {click: function(d, e) { deleteBooking(e) }}"><i class="material-icons icon-red">delete</i></a></td>
+                        <td><a class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Edit Booking Amount" rel="nofollow" data-bind="event: {click: function(d, e) { editBooking(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                        <td><a class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Delete Booking Amount" rel="nofollow" data-bind="event: {click: function(d, e) { deleteBooking(e) }}"><i class="material-icons icon-red">delete</i></a></td>
                     </tr>
                         }
                     }
@@ -54,10 +54,10 @@
                 <input id="makeId" name="MakeId" value="@Model.MakeId" type="hidden">
                 <input id="requestType" type="hidden" value="New" />
                 <div>
-                    <ul class="collapsible margin-top10" data-collapsible="accordian">
+                    <ul class="collapsible margin-top10" data-collapsible="accordion">
                         @Html.Partial("~/Views/DealerBikePrice/_SelectOperationCollapsable.cshtml", Model.DealerOperationParams)
-                        <li class="active">
-                            <div class="collapsible-header active">
+                        <li>
+                            <div class="collapsible-header booking-amount-collapsible">
                                 <strong>
                                     Add New Booking Amount
                                 </strong>
