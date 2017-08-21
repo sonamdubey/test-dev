@@ -8,7 +8,6 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models;
-using Bikewale.Models.ExpertReviews;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
@@ -285,30 +284,6 @@ namespace Bikewale.Controllers
                 return Redirect("/m/pagenotfound.aspx");
             }
         }
-        
-         [Route("scooters/expertreviews/")]
-        [Filters.DeviceDetection()]
-        public ActionResult Scooters()
-        {
-            ExpertReviewsScootersPage obj = new ExpertReviewsScootersPage(_cmsCache, _pager, _models, _bikeModels, _upcoming);
-            if (obj.status == StatusCodes.ContentNotFound)
-            {
-                return Redirect("/pagenotfound.aspx");
-            }
-            else if (obj.status == StatusCodes.RedirectPermanent)
-            {
-                return RedirectPermanent(obj.redirectUrl);
-            }
-            else
-            {
-                ExpertReviewsScootersPageVM objData = obj.GetData(4);
-                if (obj.status == StatusCodes.ContentNotFound)
-                    return Redirect("/pagenotfound.aspx");
-                else
-                    return View(objData);
-            }
-        }
-
         #endregion
     }
 }

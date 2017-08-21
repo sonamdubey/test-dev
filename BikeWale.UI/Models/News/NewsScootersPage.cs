@@ -15,7 +15,6 @@ using Bikewale.Models.BestBikes;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 
 namespace Bikewale.Models.News
@@ -383,7 +382,7 @@ namespace Bikewale.Models.News
                     objData.Model = objModel;
 
 
-                objData.Articles = _articles.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, Convert.ToString((int)EnumBikeBodyStyles.Scooter), (int)MakeId, (int)ModelId);
+                objData.Articles = _articles.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, Convert.ToString((int)EnumBikeBodyStyles.Scooter), (int)MakeId);
 
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {

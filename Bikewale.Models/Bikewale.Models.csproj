@@ -115,7 +115,6 @@
     <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />
     <Compile Include="DealerShowroom\IndexVM.cs" />
     <Compile Include="ExpertReviews\ScooterExpertReviewsPageVM.cs" />
-    <Compile Include="ExpertReviews\ExpertReviewsScootersPageVM.cs" />
     <Compile Include="Features\DetailFeatureVM.cs" />
     <Compile Include="Features\IndexFeatureVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsDetailPageVM.cs" />
