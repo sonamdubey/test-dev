@@ -349,7 +349,7 @@ docReady(function () {
             try {
                 var amount = valueAccessor();
                 var formattedStringArray = (amount / 1000).toString().match(/\d+[.]+\d/);
-                if (amount % 1000 == 0) {
+                if (amount % 1000 == 0 && amount > 0) {
                     var formattedVote = amount / 1000 + '.0k';
                 }
                 else {
