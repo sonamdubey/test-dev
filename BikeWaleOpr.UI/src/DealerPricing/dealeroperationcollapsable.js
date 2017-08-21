@@ -85,10 +85,10 @@ var dealerOperationModel = function (dealerOperationModelParams) {
                         self.dealers(self.defaultDealersList);
                         ddlDealers.find('option[value=0]').attr('disabled', 'disabled');
                         self.selectedDealer(undefined);
-                        self.selectedOperation(undefined);
+                        //self.selectedOperation(undefined);
                         ddlMakes.trigger("chosen:updated");
                         ddlDealers.trigger("chosen:updated");
-                        ddlDealerOperations.trigger("chosen:updated");
+                        //ddlDealerOperations.trigger("chosen:updated");
                         progress.hideProgress();
                     }
                     else {
@@ -103,10 +103,10 @@ var dealerOperationModel = function (dealerOperationModelParams) {
                         self.dealers(self.defaultDealersList);
                         ddlDealers.find('option[value=0]').attr('disabled', 'disabled');
                         self.selectedDealer(undefined);
-                        self.selectedOperation(undefined);
+                        //self.selectedOperation(undefined);
                         ddlMakes.trigger("chosen:updated");
                         ddlDealers.trigger("chosen:updated");
-                        ddlDealerOperations.trigger("chosen:updated");
+                        //ddlDealerOperations.trigger("chosen:updated");
                         progress.hideProgress();
                         Materialize.toast(ddlDealerCity.find('option[value=' + self.selectedCity + ']').text() + ' has no dealers', 4000);
                     }
@@ -130,8 +130,8 @@ var dealerOperationModel = function (dealerOperationModelParams) {
                         ddlDealers.find('option[value=0]').attr('disabled', 'disabled');
                         self.selectedDealer(undefined);
                         ddlDealers.trigger("chosen:updated");
-                        self.selectedOperation(undefined);
-                        ddlDealerOperations.trigger("chosen:updated");
+                        //self.selectedOperation(undefined);
+                        //ddlDealerOperations.trigger("chosen:updated");
                         progress.hideProgress();
                     }
                     else {
@@ -143,9 +143,9 @@ var dealerOperationModel = function (dealerOperationModelParams) {
                         self.dealers(self.defaultDealersList);
                         ddlDealers.find('option[value=0]').attr('disabled', 'disabled');
                         self.selectedDealer(undefined);
-                        self.selectedOperation(undefined);
+                        //self.selectedOperation(undefined);
                         ddlDealers.trigger("chosen:updated");
-                        ddlDealerOperations.trigger("chosen:updated");
+                        //ddlDealerOperations.trigger("chosen:updated");
                         progress.hideProgress();
                         Materialize.toast(ddlMakes.find('option[value=' + self.selectedMake() + ']').text() + ' has no dealers', 4000);
                     }

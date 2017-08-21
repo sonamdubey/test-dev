@@ -144,7 +144,7 @@ var dealerFacilityOperations = function () {
 
             self.isFacilityEdit(true);
 
-            var tab = pageContainer.find(".collapsible-header").first();
+            var tab = pageContainer.find(".add-facilities-collapsible").first();
             if (!tab.hasClass("active")) {
                 tab.click();
             }
@@ -212,6 +212,7 @@ var dealerFacilityOperations = function () {
                             row.find('td[data-element="updatedon"]').text(today.toLocaleString());
 
                             Materialize.toast('Successfully updated dealer facility', 4000);
+                            self.cancelEditFacility();
 
                         },
                         error: function (e) {

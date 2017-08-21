@@ -62,6 +62,7 @@ namespace BikewaleOpr.Models.DealerEMI
 
             try
             {
+                dealerEmiInfo.DealerName = dealerName;
                 dealerEmiInfo.dealerEmiFormInfo = _dealersRepository.GetDealerLoanAmounts(dealerId);
 
                 dealerEmiInfo.DealerOperationParams.DealerId = dealerId;
@@ -81,7 +82,7 @@ namespace BikewaleOpr.Models.DealerEMI
                 dealerEmiInfo.DealerOperationParams.CityId = cityId;
                 dealerEmiInfo.DealerOperationParams.MakeId = makeId;
 
-                dealerEmiInfo.PageTitle = "Dealer Loan Amounts of " + dealerName;
+                dealerEmiInfo.PageTitle = "Configure EMI properties for " + dealerName;
             }
             catch (Exception ex)
             {

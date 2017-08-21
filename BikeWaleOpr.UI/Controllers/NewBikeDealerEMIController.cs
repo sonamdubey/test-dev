@@ -59,7 +59,7 @@ namespace BikewaleOpr.Controllers
         /// <param name="emi"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Submit(uint dealerId, EMI emi)
+        public ActionResult Submit(uint dealerId, EMI emi, uint cityId, uint makeId, string dealerName)
         {
             if (dealerId > 0)
             {
@@ -67,7 +67,8 @@ namespace BikewaleOpr.Controllers
                                     , emi.MinRateOfInterest, emi.MaxRateOfInterest, emi.MinLoanToValue, emi.MaxLoanToValue
                                     , emi.LoanProvider, emi.ProcessingFee, emi.Id, Convert.ToUInt32(CurrentUser.Id));
             }
-            return RedirectToAction("Index", new { dealerId = dealerId });
+            return Redirect(
+                string.Format("/dealers/{0}/emi/?cityId={1}&makeId={2}&dealerName={3}", dealerId, cityId, makeId, dealerName));
         }
     }
 }
