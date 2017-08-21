@@ -123,9 +123,7 @@
                                 <button class="feedback-button" id="downvoteBtn" type="button" onclick="downVoteReview()">
                                     <span class="bwsprite dislike-sm"></span>
                                     No
-                                    (<span id="downvoteCount" class="btn-count">
-                                        @Format.FormatNumbers(@Model.UserReviewDetailsObj.DownVotes)
-                                    </span>)
+                                    (<span id="downvoteCount" class="btn-count">@Format.FormatNumbers(@Model.UserReviewDetailsObj.DownVotes)</span>)                                                                           
                                 </button>
                                 <p class="report-abuse-label rightfloat line-height26" id="divReportAbuse" data-reviewid="@Model.ReviewId">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="btnReportClick" rel="nofollow">Report Abuse</a></p>
                             </div>                         
