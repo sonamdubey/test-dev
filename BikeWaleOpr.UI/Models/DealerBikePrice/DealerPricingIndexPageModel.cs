@@ -14,14 +14,14 @@ namespace BikewaleOpr.Models.DealerBikePrice
     /// </summary>
     public class DealerPricingIndexPageModel
     {
-        private readonly ILocation location = null;
-        private readonly IDealerPriceQuote dealerPriceQuote = null;
+        private readonly ILocation _location = null;
+        private readonly IDealerPriceQuote _dealerPriceQuote = null;
 
         public DealerPricingIndexPageModel(
             ILocation locationObject, IDealerPriceQuote dealerPriceQuoteObject)
         {
-            location = locationObject;
-            dealerPriceQuote = dealerPriceQuoteObject;
+            _location = locationObject;
+            _dealerPriceQuote = dealerPriceQuoteObject;
         }
         /// <summary>
         /// Created By  :   Vishnu Teja Yalakuntla on 11 Aug 2017
@@ -40,12 +40,12 @@ namespace BikewaleOpr.Models.DealerBikePrice
 
             try
             {
-                dealerCities = location.GetDealerCities();
+                dealerCities = _location.GetDealerCities();
                 dealerPricingLandingInfo.PageTitle = "Dealers Operations";
                 dealerPricingLandingInfo.CopyPricingDealers.Cities = dealerCities;
-                dealerPricingLandingInfo.ShowPricingCities.Cities = location.GetAllCities();
-                dealerPricingLandingInfo.CopyPricingCities.States = location.GetStates();
-                dealerPricingLandingInfo.AddCategoryType.PriceCategories = dealerPriceQuote.GetBikeCategoryItems("");
+                dealerPricingLandingInfo.ShowPricingCities.Cities = _location.GetAllCities();
+                dealerPricingLandingInfo.CopyPricingCities.States = _location.GetStates();
+                dealerPricingLandingInfo.AddCategoryType.PriceCategories = _dealerPriceQuote.GetBikeCategoryItems("");
                 dealerPricingLandingInfo.DealerOperationParams.DealerCities = dealerCities;
                 dealerPricingLandingInfo.DealerOperationParams.IsOpen = true;
             }

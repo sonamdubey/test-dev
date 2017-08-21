@@ -12,10 +12,10 @@ namespace BikewaleOpr.BAL.BikePricing
     /// </summary>
     public class VersionAvailability : IVersionAvailability
     {
-        private readonly IDealers dealersRepository;
+        private readonly IDealers _dealersRepository;
         public VersionAvailability(IDealers dealersRepositoryObject)
         {
-            dealersRepository = dealersRepositoryObject;
+            _dealersRepository = dealersRepositoryObject;
         }
         /// <summary>
         /// Created By  :   Vishnu Teja Yalakuntla on 03 Aug 2017
@@ -36,7 +36,7 @@ namespace BikewaleOpr.BAL.BikePricing
                 bikeVersionIdStrings = string.Join<uint>(",", bikeVersionIds);
                 numberOfDaysStrings = string.Join<uint>(",", numberOfDays);
 
-                isSaved = dealersRepository.SaveVersionAvailability(dealerId, bikeVersionIdStrings, numberOfDaysStrings);
+                isSaved = _dealersRepository.SaveVersionAvailability(dealerId, bikeVersionIdStrings, numberOfDaysStrings);
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace BikewaleOpr.BAL.BikePricing
             {
                 bikeVersionIdStrings = string.Join<uint>(",", bikeVersionIds);
 
-                isDeleted = dealersRepository.DeleteVersionAvailability(dealerId, bikeVersionIdStrings);
+                isDeleted = _dealersRepository.DeleteVersionAvailability(dealerId, bikeVersionIdStrings);
             }
             catch (Exception ex)
             {

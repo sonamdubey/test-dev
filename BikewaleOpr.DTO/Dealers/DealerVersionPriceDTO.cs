@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.DTO.Dealers
 {
@@ -25,6 +21,7 @@ namespace BikewaleOpr.DTO.Dealers
         public uint NumberOfDays { get; set; }
         [JsonProperty("bikeModelId")]
         public uint BikeModelId { get; set; }
+        [JsonProperty("categories")]
         public IEnumerable<VersionPriceDTO> Categories { get; set; }
     }
 }
