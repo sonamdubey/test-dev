@@ -23,6 +23,5 @@ namespace BikewaleOpr.Entity.ConfigurePageMetas
         public string ModelName { get; set; }   
         public string PageName { get; set; }  
         public bool BothPlatform { get; set; }
-
     }
 }

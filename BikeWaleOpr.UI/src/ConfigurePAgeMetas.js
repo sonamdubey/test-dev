@@ -38,8 +38,9 @@ var ConfigurePageMetas = function () {
         $('#selectMake').prop('disabled', false);
 
         if ($("input[name='platformId']:checked").val() == "3") {            
-            $('bothPlatform').val('True');
+            $('#bothPlatform').val(true);
         }
+
 
         return isValid;
     };
