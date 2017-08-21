@@ -37,19 +37,10 @@ var ConfigurePageMetas = function () {
         $('#selectModel').prop('disabled', false);
         $('#selectMake').prop('disabled', false);
 
-
-        if ($("input[name='platformId']:checked").val() == "3") {
-
-            var selectedGroupId;
-
-            var pages = JSON.parse($('#mobilePagesList').val());
-            $.each(pages, function (index, value) {
-
-                if (pages[index].PageId == self.selectedPage())
-                    selectedGroupId = pages[index].GroupId;
-
-            });
+        if ($("input[name='platformId']:checked").val() == "3") {            
+            $('bothPlatform').val('True');
         }
+
         return isValid;
     };
 

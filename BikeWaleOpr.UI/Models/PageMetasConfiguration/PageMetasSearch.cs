@@ -43,10 +43,13 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
             return objPageMetaVM;
         }
 
-        public void SaveMetas(PageMetasEntity objMetas)
+        public uint SaveMetas(PageMetasEntity objMetas)
         {
+            uint pageMetaId = 0;
             try
             {
+                pageMetaId =  _pageMetasRepo.SavePageMetas(objMetas);
+
                 string mailList = Bikewale.Utility.BWOprConfiguration.Instance.NotificationToMailIdForPageMetas;
                 string[] toMailList = mailList.Split(',');
                 ComposeEmailBase objEmail = new PageMetasChangeTemplate(objMetas.MakeName, objMetas.ModelName, objMetas.PageName, objMetas.Title, objMetas.Description, objMetas.Keywords, objMetas.Heading, objMetas.Summary);
@@ -65,6 +68,7 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
             {
                 ErrorClass objErr = new ErrorClass(ex, "PageMetasSearch.SaveMetas");
             }
+            return pageMetaId;
         }
     }
 }
