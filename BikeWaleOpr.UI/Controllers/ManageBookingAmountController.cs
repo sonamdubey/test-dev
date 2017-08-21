@@ -34,7 +34,6 @@ namespace BikewaleOpr.Controllers
         [HttpGet, Route("dealers/{dealerId}/bookingamount/")]
         public ActionResult Index(uint dealerId, uint? cityId, uint? makeId, string dealerName = null)
         {
-            //ManageBookingAmountData objManageBookingAmountData = null;
             DealerBookingAmountVM dealerBookingAmountInfo = null;
             DealerBookingAmountModel dealerBookingAmountModel = null;
 
@@ -42,8 +41,6 @@ namespace BikewaleOpr.Controllers
             {
                 dealerBookingAmountModel = new DealerBookingAmountModel(_location, _dealersRepository, _manageBookingAmountPageData);
                 dealerBookingAmountInfo = dealerBookingAmountModel.GetDealerBookingAmountData(dealerId, cityId.Value, makeId.Value, dealerName);
-                //objManageBookingAmountData = _manageBookingAmountPageData.GetManageBookingAmountData(dealerId);
-                //objManageBookingAmountData.UpdateMessage = string.Empty;
                 if (TempData.ContainsKey("IsUpdated"))
                 {
                     if ((bool)TempData["IsUpdated"])

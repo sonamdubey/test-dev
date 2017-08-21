@@ -15,12 +15,12 @@ namespace BikewaleOpr.BAL.BikePricing
     /// </summary>
     public class DealerPrice : IDealerPrice
     {
-        private readonly IDealerPriceRepository dealerPriceRepository = null;
-        private readonly IDealerPriceQuote dealerPriceQuoteRepository = null;
+        private readonly IDealerPriceRepository _dealerPriceRepository = null;
+        private readonly IDealerPriceQuote _dealerPriceQuoteRepository = null;
         public DealerPrice(IDealerPriceRepository dealerPriceRepositoryObject, IDealerPriceQuote dealerPriceQuoteRepositoryObject)
         {
-            dealerPriceRepository = dealerPriceRepositoryObject;
-            dealerPriceQuoteRepository = dealerPriceQuoteRepositoryObject;
+            _dealerPriceRepository = dealerPriceRepositoryObject;
+            _dealerPriceQuoteRepository = dealerPriceQuoteRepositoryObject;
         }
         /// <summary>
         /// Created By  :   Vishnu Teja Yalakuntla on 11 Aug 2017
@@ -67,7 +67,7 @@ namespace BikewaleOpr.BAL.BikePricing
 
             try
             {
-                dealerPriceBase = dealerPriceRepository.GetDealerPrices(cityId, makeId, dealerId);
+                dealerPriceBase = _dealerPriceRepository.GetDealerPrices(cityId, makeId, dealerId);
 
                 if (dealerPriceBase != null && dealerPriceBase.DealerVersions != null && dealerPriceBase.VersionPrices.Count() > 0)
                 {
@@ -167,7 +167,7 @@ namespace BikewaleOpr.BAL.BikePricing
             try
             {
                 versionIdsString = string.Join<uint>(",", versionIds);
-                isDeleted = dealerPriceRepository.DeleteVersionPrices(dealerId, cityId, versionIdsString);
+                isDeleted = _dealerPriceRepository.DeleteVersionPrices(dealerId, cityId, versionIdsString);
             }
             catch (Exception ex)
             {
@@ -207,7 +207,7 @@ namespace BikewaleOpr.BAL.BikePricing
                 dealerIdsString = string.Join<uint>(",", dealerIds);
                 cityIdsString = string.Join<uint>(",", cityIds);
 
-                isSaved = dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+                isSaved = _dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
 
             }
             catch (Exception ex)
@@ -251,9 +251,9 @@ namespace BikewaleOpr.BAL.BikePricing
                 cityIdsString = string.Join<uint>(",", cityIds);
                 modelIdNamesString = string.Join<string>(",", bikeModelIds.Zip(bikeModelNames, (modelId, modelName) => string.Format("{0}:{1}", modelId, modelName)));
 
-                response.IsPriceSaved = dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+                response.IsPriceSaved = _dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
                 if (dealerIds.Count() == 1)
-                    response.RulesUpdatedModelNames = dealerPriceQuoteRepository.AddRulesOnPriceUpdation(modelIdNamesString, dealerIds.First(), makeId, enteredBy);
+                    response.RulesUpdatedModelNames = _dealerPriceQuoteRepository.AddRulesOnPriceUpdation(modelIdNamesString, dealerIds.First(), makeId, enteredBy);
             }
             catch (Exception ex)
             {
