@@ -618,7 +618,7 @@ namespace BikewaleOpr.Service
         public IHttpActionResult SaveDealerPrices(DealerPriceListDTO dealerPrices)
         {
             bool isSaved = false;
-            if (dealerPrices != null && dealerPrices.CityIds != null && dealerPrices.DealerIds != null && dealerPrices.CityIds.Count() > 0 && dealerPrices.DealerIds.Count() > 0)
+            if (dealerPrices != null && dealerPrices.VersionIds != null && dealerPrices.VersionIds.Count() > 0 && dealerPrices.CityIds != null && dealerPrices.DealerIds != null && dealerPrices.CityIds.Count() > 0 && dealerPrices.DealerIds.Count() > 0)
             {
                 try
                 {
