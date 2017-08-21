@@ -1371,17 +1371,16 @@ namespace Bikewale.Cache.BikeData
                 if (cityId > 0)
                 {
 
-                    key = string.Format("BW_PopularBikesListByBodyType_Bodystyle_{0}_TopCount_{1}_City_{2}", bodyStyleId, topCount, cityId);
+                    key = string.Format("BW_PopularBikesListByBodyType_Bodystyle_{0}_City_{1}", bodyStyleId, cityId);
                     popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (IEnumerable<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId));
                 }
                 else
                 {
 
-                    key = string.Format("BW_PopularBikesListByBodyType_Bodystyle_{0}_TopCount_{1}", bodyStyleId, topCount);
+                    key = string.Format("BW_PopularBikesListByBodyType_Bodystyle_{0}", bodyStyleId);
                     popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => (IEnumerable<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId));
                 }
 
-                
             }
             catch (Exception ex)
             {
