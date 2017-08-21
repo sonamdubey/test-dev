@@ -20,6 +20,8 @@
                                 <label for="chkDesktop">Desktop</label>
                                 <input type="radio" id="chkMobile" name="platformId" value="2" class="with-gap" @(Model.PageMetas != null &&  Model.PageMetas.MakeId > 0 ? "disabled" : "") @(Model.PageMetas != null && Model.PageMetas.PlatformId == 2 ? "checked" : "") data-bind="event :  { change : function(){ selectPlatform(); } }" />
                                 <label for="chkMobile">Mobile</label>
+                                <input type="radio" id="chkBoth" name="platformId" value="3" class="with-gap" @(Model.PageMetas != null && Model.PageMetas.MakeId > 0 ? "disabled" : "") data-bind="event :  { change : function(){ selectPlatform(); } }" />
+                                <label for="chkBoth">Both</label>
                             </span>
                         </div>
                         <div class="input-field row s2 m2">
@@ -78,6 +80,7 @@
             <input id="makeName" type="hidden" name="MakeName" />
             <input id="modelName" type="hidden" name="ModelName" />
             <input id="pageName" type="hidden" name="PageName" />
+            <input id="othePageId" type="hidden" name="othePageId" />
             <input id="pageMetaId" type="hidden" name="PageMetaId" value="@Model.PageMetaId" />
 
         </div>
