@@ -82,19 +82,35 @@
                     </ul>
                 }
             </div>
-
-            <div class="padding-right20 padding-left20 padding-bottom20">
+            <div class="padding-bottom20">
                 @if (!string.IsNullOrEmpty(Model.UserReviewDetailsObj.Description))
                 {
-                    <div class="padding-bottom10 font14 text-light-grey"><p>@Html.Raw(Model.UserReviewDetailsObj.Description)</p></div>
-                }
-                @if (Model.UserReviewDetailsObj.Tips.Length > 0)
-                {
-                    <p class="font14 font-bold text-black margin-top20 margin-bottom15">Tips for @Model.UserReviewDetailsObj.Make.MakeName @Model.UserReviewDetailsObj.Model.ModelName</p>
-                    <p class="font14 text-light-grey margin-bottom15">@Model.UserReviewDetailsObj.Tips</p>
+                    <div class="padding-right20 padding-left20 padding-bottom10 font14 text-light-grey"><p>@Html.Raw(Model.UserReviewDetailsObj.Description)</p></div>
                 }
 
-                <button type="button" id="upvoteButton" onclick="upVoteReview()" class="btn btn-inv-teal-group margin-right5 margin-bottom10">
+                @if (Model.UserReviewDetailsObj.Tips.Length > 0)
+                {
+                    <p class="padding-right20 padding-left20 font14 font-bold text-black margin-top20 margin-bottom15">Tips for @Model.UserReviewDetailsObj.Make.MakeName @Model.UserReviewDetailsObj.Model.ModelName</p>
+                    <p class="padding-right20 padding-left20 font14 text-light-grey margin-bottom15">@Model.UserReviewDetailsObj.Tips</p>
+                }
+                <div class="margin-bottom15 padding-right20 padding-left20">
+
+                    <span class="review__question text-light-grey font12">Was this review helpful?</span>
+
+                    <button type="button" class="feedback-button" id="upvoteButton" onclick="upVoteReview()">
+                        <span class="bwmsprite like-sm"></span>
+                        Yes
+                        (<span id="upvoteText" class="btn-count review-btn">@Model.UserReviewDetailsObj.UpVotes</span>)
+                    </button>
+
+
+                    <button type="button" id="downvoteButton" onclick="downVoteReview()" class="feedback-button">
+                        <span class="bwmsprite dislike-sm"></span>
+                        No
+                        (<span id="downvoteCount" class="btn-count">@Model.UserReviewDetailsObj.DownVotes</span>)
+                    </button>
+                </div>
+                @*<button type="button" id="upvoteButton" onclick="upVoteReview()" class="btn btn-inv-teal-group margin-right5 margin-bottom10">
                     <span class="btn-label-grid">
                         <span class="bwmsprite like-sm"></span>
                         <span id="upvoteText" class="btn-label">Likes</span>
@@ -108,15 +124,15 @@
                         <span id="downvoteText" class="btn-label">Dislikes</span>
                     </span>
                     <span id="downvoteCount" class="btn-count">&nbsp;@Model.UserReviewDetailsObj.DownVotes</span>
-                </button>
+                </button>*@
 
-                <div class="inline-block margin-bottom10">
+                @*<div class="inline-block margin-bottom10 float-none">
                     <span class="bwmsprite views-sm"></span>
                     <span class="font12 text-light-grey inline-block">&nbsp;@string.Format("{0} view{1}", Format.FormatNumeric(Model.UserReviewDetailsObj.Views.ToString()), Model.UserReviewDetailsObj.Views > 1 ? "s" : "")</span>
-                </div>
+                </div>*@
 
-                <div class="border-solid-top margin-top10 margin-bottom10"></div>
-                <p id="divAbuse" data-reviewid="@Model.ReviewId" class="font12 text-light-grey">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="report-abuse-target">Report Abuse</a></p>
+                <div class="border-solid-top margin-top10 margin-bottom10 margin-right20 margin-left20"></div>
+                <p id="divAbuse" data-reviewid="@Model.ReviewId" class="font12 text-light-grey padding-right20 padding-left20">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="report-abuse-target">Report Abuse</a></p>
             </div>
 
         </div>
@@ -210,3 +226,4 @@
             <div id="popup-background"></div>
 
             }
+<input type="hidden" id="pageSource" value="@((int)UserReviewPageSourceEnum.Mobile_UserReview_Details)" />

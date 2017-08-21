@@ -17,7 +17,7 @@ namespace Bikewale.DTO.BikeData
         public uint ExpectedLaunchId { get; set; }
 
         [JsonProperty(PropertyName = "launchDate")]
-        public string ExpectedLaunchDate { get; set; }
+        public string ExpectedLaunchDate { get { return ExpectedLaunchedDate.ToString("MMM yyyy"); } }
 
         [JsonProperty(PropertyName = "minPrice")]
         public ulong EstimatedPriceMin { get; set; }
@@ -42,5 +42,8 @@ namespace Bikewale.DTO.BikeData
 
         [JsonProperty(PropertyName = "isLaunchingThisMonth")]
         public bool IsLaunchingThisMonth { get; set; }
+
+        [JsonIgnore]
+        public DateTime ExpectedLaunchedDate {get; set;}
     }
 }

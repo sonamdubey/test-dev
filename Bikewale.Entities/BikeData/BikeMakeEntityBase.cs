@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using Bikewale.Entities.SEO;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
@@ -45,5 +47,8 @@ namespace Bikewale.Entities.BikeData
 
         [JsonProperty("text"), DataMember]
         public string Text { get; set; }
+
+        [JsonProperty("metas"), DataMember]
+        public IEnumerable<CustomPageMetas> Metas { get; set; }
     }
 }

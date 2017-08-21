@@ -27,7 +27,6 @@ namespace Bikewale.Models
     /// </summary>
     public class ScootersMakePageModel
     {
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompare _compareScooters = null;
@@ -49,7 +48,6 @@ namespace Bikewale.Models
         /// </summary>
         public ScootersMakePageModel(
             string makeMaskingName,
-            IBikeMakes<BikeMakeEntity, int> bikeMakes,
             IBikeModels<BikeModelEntity, int> bikeModels,
             IUpcoming upcoming,
             IBikeCompare compareScooters,
@@ -61,7 +59,6 @@ namespace Bikewale.Models
             )
         {
             _makeMaskingName = makeMaskingName;
-            _bikeMakes = bikeMakes;
             _bikeModels = bikeModels;
             _upcoming = upcoming;
             _compareScooters = compareScooters;
@@ -105,7 +102,7 @@ namespace Bikewale.Models
                 }
                 objViewModel.PageCatId = 8;
               
-                objViewModel.Make = _bikeMakes.GetMakeDetails(_makeId);
+                objViewModel.Make = _objMakeCache.GetMakeDetails(_makeId);
                 if (objViewModel.Make != null)
                 {
                     _makeName = objViewModel.Make.MakeName;

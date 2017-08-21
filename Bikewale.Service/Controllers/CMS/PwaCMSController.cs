@@ -35,7 +35,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         private readonly ICMSCacheContent _CMSCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModelEntity = null;
         private readonly IUpcoming _upcoming = null;
-        private readonly IBikeMakes<BikeMakeEntity, int>  _bikeMakesEntity;
+        private readonly IBikeMakesCacheRepository<int>  _bikeMakesEntity;
         private readonly IBikeModelsCacheRepository<int> _objModelCache;
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _cityCacheRepository;
@@ -47,7 +47,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             IBikeModelsCacheRepository<int> objModelCache, 
             IBikeModels<BikeModelEntity, int> bikeModelEntity,
             IUpcoming upcoming,
-            IBikeMakes<BikeMakeEntity, int> bikeMakesEntity,
+            IBikeMakesCacheRepository<int> bikeMakesEntity,
             IBikeInfo bikeInfo,
             ICityCacheRepository cityCacheRepository)
         {
@@ -168,7 +168,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                             if (modelId > 0)
                             {
 
-                                bikes = _objModelCache.GetPopularBikesByBodyStyle((int)modelId, 9, cityId);
+                                bikes = _objModelCache.GetMostPopularBikesByModelBodyStyle((int)modelId, 9, cityId);
 
                                 if (bikes != null && bikes.Count()>0)
                                 {

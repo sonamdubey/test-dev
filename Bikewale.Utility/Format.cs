@@ -209,6 +209,12 @@ namespace Bikewale.Utility
         }
 
 
+        /// <summary>
+        /// Formats the numbers.
+        /// Created by: Sajal Gupta on 18 Aug 2017
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <returns></returns>
         public static string FormatNumbers(uint number)
         {            
             try
@@ -219,11 +225,11 @@ namespace Bikewale.Utility
                 }
                 else if(number < 1000000) //less than million
                 {
-                    return String.Format("{0:0.0}K", (number / 1000));
+                    return String.Format("{0:0.0}k", ((double)number / 1000));
                 }
                 else // greater than million
                 {
-                    return String.Format("{0:0.0}K", (number / 1000000));
+                    return String.Format("{0:0.0}m", (number / 1000000));
                 }
                                             
             }

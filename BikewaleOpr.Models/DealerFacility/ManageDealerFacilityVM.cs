@@ -1,9 +1,6 @@
 ﻿using BikewaleOpr.Entities;
-using System;
+using BikewaleOpr.Models.DealerPricing;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.Models.DealerFacility
 {
@@ -13,8 +10,9 @@ namespace BikewaleOpr.Models.DealerFacility
     /// </summary>
     public class ManageDealerFacilityVM
     {
+        public string PageTitle { get; set; }
         public IEnumerable<FacilityEntity> FacilityList { get; set; }
         public uint DealerId { get; set; }
-
+        public DealerOperationPricingVM DealerOperationParams { get; set; }
     }
 }
