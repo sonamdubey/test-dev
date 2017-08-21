@@ -157,7 +157,7 @@ namespace BikewaleOpr.DALs.BikePricing
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format(
-                    "GetDealerPrices dealerId={0} cityId={1} versionIdList={2}", dealerId, cityId, versionIdList));
+                    "DeleteVersionPrices dealerId={0} cityId={1} versionIdList={2}", dealerId, cityId, versionIdList));
             }
 
             return isSuccess;
@@ -202,7 +202,7 @@ namespace BikewaleOpr.DALs.BikePricing
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format(
-                    "GetDealerPrices dealerId={0} cityId={1} versionIdList={2} itemIdList={3} itemValueList={4} enteredBy={5}",
+                    "SaveDealerPrices dealerId={0} cityId={1} versionIdList={2} itemIdList={3} itemValueList={4} enteredBy={5}",
                     dealerIdList, cityIdList, versionIdList, itemIdList, itemValueList, enteredBy));
             }
 

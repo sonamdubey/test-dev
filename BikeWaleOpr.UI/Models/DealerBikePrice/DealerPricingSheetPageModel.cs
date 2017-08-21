@@ -20,19 +20,19 @@ namespace BikewaleOpr.Models.DealerBikePrice
     /// </summary>
     public class DealerPricingSheetPageModel
     {
-        private readonly ILocation location = null;
-        private readonly IDealerPriceQuote dealerPriceQuote = null;
-        private readonly IDealerPrice dealerPrice = null;
-        private readonly IDealers dealersRepository = null;
+        private readonly ILocation _location = null;
+        private readonly IDealerPriceQuote _dealerPriceQuote = null;
+        private readonly IDealerPrice _dealerPrice = null;
+        private readonly IDealers _dealersRepository = null;
 
         public DealerPricingSheetPageModel(
             ILocation locationObject, IDealerPriceQuote dealerPriceQuoteObject,
             IDealerPrice dealerPriceObject, IDealers dealersRepositoryObject)
         {
-            location = locationObject;
-            dealerPriceQuote = dealerPriceQuoteObject;
-            dealerPrice = dealerPriceObject;
-            dealersRepository = dealersRepositoryObject;
+            _location = locationObject;
+            _dealerPriceQuote = dealerPriceQuoteObject;
+            _dealerPrice = dealerPriceObject;
+            _dealersRepository = dealersRepositoryObject;
         }
         /// <summary>
         /// Created By  :   Vishnu Teja Yalakuntla on 11 Aug 2017
@@ -82,20 +82,20 @@ namespace BikewaleOpr.Models.DealerBikePrice
 
             try
             {
-                dealerCities = location.GetDealerCities();
+                dealerCities = _location.GetDealerCities();
                 dealerPricingSheetInfo.EnteredBy = System.Convert.ToUInt32(CurrentUser.Id, 16);
                 dealerPricingSheetInfo.CopyPricingDealers.Cities = dealerCities;
-                dealerPricingSheetInfo.ShowPricingCities.Cities = location.GetAllCities();
-                dealerPricingSheetInfo.CopyPricingCities.States = location.GetStates();
-                dealerPricingSheetInfo.AddCategoryType.PriceCategories = dealerPriceQuote.GetBikeCategoryItems("");
+                dealerPricingSheetInfo.ShowPricingCities.Cities = _location.GetAllCities();
+                dealerPricingSheetInfo.CopyPricingCities.States = _location.GetStates();
+                dealerPricingSheetInfo.AddCategoryType.PriceCategories = _dealerPriceQuote.GetBikeCategoryItems("");
                 dealerPricingSheetInfo.DealerOperationParams.DealerCities = dealerCities;
-                dealerPricingSheetInfo.DealerOperationParams.Makes = dealersRepository.GetDealerMakesByCity((int)cityId);
+                dealerPricingSheetInfo.DealerOperationParams.Makes = _dealersRepository.GetDealerMakesByCity((int)cityId);
 
                 dealerPricingSheetInfo.DealerOperationParams.MakesString = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(
                     Newtonsoft.Json.JsonConvert.SerializeObject(
                         Convert(
                             dealerPricingSheetInfo.DealerOperationParams.Makes)));
-                dealerPricingSheetInfo.DealerOperationParams.Dealers = dealersRepository.GetDealersByMake(makeId, cityId);
+                dealerPricingSheetInfo.DealerOperationParams.Dealers = _dealersRepository.GetDealersByMake(makeId, cityId);
 
                 dealerPricingSheetInfo.DealerOperationParams.DealersString = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(
                     Newtonsoft.Json.JsonConvert.SerializeObject(
@@ -128,7 +128,7 @@ namespace BikewaleOpr.Models.DealerBikePrice
             try
             {
                 dealerPricingSheetInfo = GetPriceSheetAndLandingInfo(cityId, makeId, dealerId);
-                dealerPricingSheetInfo.DealerPriceSheet.dealerVersionPricings = dealerPrice.GetDealerPriceQuotes(cityId, makeId, dealerId);
+                dealerPricingSheetInfo.DealerPriceSheet.dealerVersionPricings = _dealerPrice.GetDealerPriceQuotes(cityId, makeId, dealerId);
                 dealerPricingSheetInfo.DealerVersionCategories = dealerPricingSheetInfo.DealerPriceSheet.dealerVersionPricings.First().Categories;
                 foreach (var categories in dealerPricingSheetInfo.DealerVersionCategories)
                 {
@@ -166,7 +166,7 @@ namespace BikewaleOpr.Models.DealerBikePrice
             try
             {
                 dealerPricingSheetInfo = GetPriceSheetAndLandingInfo(cityId, makeId, dealerId);
-                dealerPricingSheetInfo.DealerPriceSheet.dealerVersionPricings = dealerPrice.GetDealerPriceQuotes(otherCityId, makeId, dealerId);
+                dealerPricingSheetInfo.DealerPriceSheet.dealerVersionPricings = _dealerPrice.GetDealerPriceQuotes(otherCityId, makeId, dealerId);
                 dealerPricingSheetInfo.DealerVersionCategories = dealerPricingSheetInfo.DealerPriceSheet.dealerVersionPricings.First().Categories;
                 foreach (var categories in dealerPricingSheetInfo.DealerVersionCategories)
                 {

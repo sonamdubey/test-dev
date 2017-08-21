@@ -349,7 +349,12 @@ docReady(function () {
             try {
                 var amount = valueAccessor();
                 var formattedStringArray = (amount / 1000).toString().match(/\d+[.]+\d/);
-                var formattedVote = ko.unwrap(amount) > 999 && formattedStringArray ? formattedStringArray[0] + 'k' : amount;
+                if (amount % 1000 == 0) {
+                    var formattedVote = amount / 1000 + '.0k';
+                }
+                else {
+                    var formattedVote = ko.unwrap(amount) > 999 && formattedStringArray ? formattedStringArray[0] + 'k' : amount;
+                }
                 $(element).text(formattedVote);
             } catch (e) {
                 console.warn(e);

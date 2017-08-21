@@ -13,6 +13,7 @@ namespace BikewaleOpr.DTO.Dealers
         public uint DealerId { get; set; }
         [JsonProperty("cityId")]
         public uint CityId { get; set; }
+        [JsonProperty("bikeVersionIds")]
         public IEnumerable<uint> BikeVersionIds { get; set; }
     }
 }

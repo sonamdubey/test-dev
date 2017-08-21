@@ -225,7 +225,7 @@ namespace Bikewale.Utility
                 }
                 else if(number < 1000000) //less than million
                 {
-                    return String.Format("{0:0.0}k", (number / 1000));
+                    return String.Format("{0:0.0}k", ((double)number / 1000));
                 }
                 else // greater than million
                 {
