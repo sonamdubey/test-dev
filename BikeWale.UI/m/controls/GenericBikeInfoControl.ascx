@@ -27,7 +27,7 @@
         &nbsp;<span class='font11 text-xt-light-grey inline-block padding-left3'>(<%=string.Format("{0} {1}", RatingCount, RatingCount > 1 ? "ratings" : "rating") %>)</span>
         <%if (UserReviewCount > 0)
             {  %>
-        <a class='text-xt-light review-left-divider inline-block' href="<%=string.Format("/m{0}reviews/", bikeUrl) %>" title="<%=bikeName %> user reviews"><%=string.Format("{0} {1}", UserReviewCount, UserReviewCount > 1 ? "reviews" : "review") %></a>
+        <a class='text-xt-light review-left-divider inline-block' href="<%=string.Format("{0}reviews/", bikeUrl) %>" title="<%=bikeName %> user reviews"><%=string.Format("{0} {1}", UserReviewCount, UserReviewCount > 1 ? "reviews" : "review") %></a>
         <% }
             }
             else
