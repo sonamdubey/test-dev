@@ -575,6 +575,7 @@ docReady(function () {
                         self.IsLoading(false);
                         $('html, body').scrollTop(modelReviewsSection.offset().top);
                         resetCollapsibleContent();
+                        applyLikeDislikes();
                     });
                 }
                 else {
@@ -591,6 +592,7 @@ docReady(function () {
                             $(listItem[i]).remove();
                     }
                     resetCollapsibleContent();
+                    applyLikeDislikes();
                 }
             }
 
