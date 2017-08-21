@@ -14,7 +14,7 @@
     <RootNamespace>BikewaleOpr</RootNamespace>
     <AssemblyName>BikewaleOpr</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -415,6 +415,7 @@
       <DependentUpon>ViewReview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\DealerBikePriceController.cs" />
     <Compile Include="Controllers\ComparisonController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\DealerCampaignController.cs" />
@@ -463,9 +464,13 @@
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Models\DealerBikePrice\DealerPricingIndexPageModel.cs" />
+    <Compile Include="Models\DealerBikePrice\DealerPricingSheetPageModel.cs" />
     <Compile Include="Models\Banner\Banner.cs" />
     <Compile Include="Models\Banner\BannersListPage.cs" />
+    <Compile Include="Models\DealerBookingAmount\DealerBookingAmountModel.cs" />
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
+    <Compile Include="Models\DealerEMI\DealerEMIModel.cs" />
     <Compile Include="Models\ManagePrices\PriceMonitoringModel.cs" />
     <Compile Include="Models\DealerFacilities\DealerFacilitiesModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\CampaignPropertiesModel.cs" />
@@ -1948,6 +1953,8 @@
     <Content Include="src\content\newbikedealerEMI.js" />
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />
+    <Content Include="src\DealerPricing\dealeroperationcollapsable.js" />
+    <Content Include="src\DealerPricing\dealerpricingindex.js" />
     <Content Include="src\DealerFacility\DealerFacility.js" />
     <Content Include="src\framework.js" />
     <Content Include="src\graybox.js" />
@@ -2015,6 +2022,9 @@
     <Content Include="Views\ManufacturerCampaign\_NavigationBreadcrumbs.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignProperties.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignPopup.cshtml" />
+    <Content Include="Views\DealerBikePrice\Index.cshtml" />
+    <Content Include="Views\DealerBikePrice\_SelectOperationCollapsable.cshtml" />
+    <Content Include="Views\DealerBikePrice\DealerPricing.cshtml" />
     <Content Include="Views\PriceMonitoring\Index.cshtml" />
     <Content Include="Views\Makes\Index.cshtml" />
     <Content Include="Views\Comparison\ManageSponsoredCamparison.cshtml" />
@@ -2025,8 +2035,8 @@
     <Content Include="Views\ManageBookingAmount\Index.cshtml" />
     <Content Include="Views\DealerFacilities\Index.cshtml" />
     <Content Include="Views\NewBikeDealerEMI\Index.cshtml" />
-    <Content Include="Views\PageMetasConfigure\Index.cshtml" />
-    <Content Include="Views\PageMetasConfigure\Search_Index.cshtml" />
+    <Content Include="Views\PageMetas\Search_Index.cshtml" />
+    <Content Include="Views\PageMetas\Index.cshtml" />
     <Content Include="Views\ServiceCenter\AddServiceCenter.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
@@ -2098,6 +2108,10 @@
     <ProjectReference Include="..\BikewaleOpr.DALs\BikewaleOpr.DALs.csproj">
       <Project>{01134f89-c502-492e-a368-0a93d76430ef}</Project>
       <Name>BikewaleOpr.DALs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.DTO\BikewaleOpr.DTO.csproj">
+      <Project>{D2E7FEF3-CA0C-4739-B995-C226AF7CC41D}</Project>
+      <Name>BikewaleOpr.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.DTO\BikewaleOpr.DTO.csproj">
       <Project>{D2E7FEF3-CA0C-4739-B995-C226AF7CC41D}</Project>

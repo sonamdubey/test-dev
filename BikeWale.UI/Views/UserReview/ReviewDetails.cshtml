@@ -131,7 +131,7 @@
                                 <button id="upvoteBtn" class="feedback-button" type="button" onclick="upVoteReview()">
                                     <span class="bwsprite like-sm"></span>
                                     Yes
-                                    (<span id="upvoteCount" class="btn-count">@Model.UserReviewDetailsObj.UpVotes</span>)
+                                    (<span id="upvoteCount" class="btn-count">@Format.FormatNumbers(Model.UserReviewDetailsObj.UpVotes)</span>)
                                 </button>
 
 
@@ -139,7 +139,7 @@
                                     <span class="bwsprite dislike-sm"></span>
                                     No
                                     (<span id="downvoteCount" class="btn-count">
-                                        @Model.UserReviewDetailsObj.DownVotes
+                                        @Format.FormatNumbers(@Model.UserReviewDetailsObj.DownVotes)
                                     </span>)
                                 </button>
                                 <p class="report-abuse-label rightfloat line-height26" id="divReportAbuse" data-reviewid="@Model.ReviewId">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="btnReportClick" rel="nofollow">Report Abuse</a></p>

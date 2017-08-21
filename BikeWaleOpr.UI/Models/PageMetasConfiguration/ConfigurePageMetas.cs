@@ -14,11 +14,11 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
     public class ConfigurePageMetas
     {
         private readonly IBikeMakesRepository _makesRepo = null;
-        private readonly IConfigurePageMetasRepository _pageMetasRepo = null;
+        private readonly IPageMetasRepository _pageMetasRepo = null;
 
         private readonly uint? _pageMetaId;
 
-        public ConfigurePageMetas(IBikeMakesRepository makesRepo, IConfigurePageMetasRepository pageMetasRepo, uint? pageMetaId)
+        public ConfigurePageMetas(IBikeMakesRepository makesRepo, IPageMetasRepository pageMetasRepo, uint? pageMetaId)
         {           
             _makesRepo = makesRepo;
             _pageMetasRepo = pageMetasRepo;
@@ -30,7 +30,7 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
             ConfigurePageMetasVM objPageModel = new ConfigurePageMetasVM();
             try
             {
-                objPageModel.Makes = _makesRepo.GetMakes(8);
+                objPageModel.Makes = _makesRepo.GetMakes(7);
                 IEnumerable<PageEntity> pagesList = _pageMetasRepo.GetPagesList();
 
                 var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();

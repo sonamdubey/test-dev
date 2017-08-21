@@ -96,6 +96,7 @@ namespace Bikewale.Controllers
             {
                 if (obj.status == StatusCodes.ContentFound)
                 {
+                    obj.IsMobile = true;
                     objData = obj.GetData();
                     return View(objData);
                 }

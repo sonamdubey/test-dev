@@ -17,7 +17,7 @@
 		<ul>
 			<li><a href="/content/showroomprices.aspx">Showroom Prices</a></li>
             <li><a href="/content/bulkpriceupload.aspx">Bulk Price Upload</a></li>
-            <li><a href="/content/pricemonitoring.aspx">Price Monitoring</a></li>
+            <li><a href="/pricemonitoring/">Price Monitoring</a></li>
 		</ul>
 	</div>
     <h3>Dealers</h3>

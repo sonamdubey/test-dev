@@ -13,6 +13,11 @@
     self.txtMaxLtv = ko.observable($("#txtMaxLtv").data('value'));
     self.textLoanProvider = ko.observable($("#textLoanProvider").data('value'));
     self.txtFees = ko.observable($("#txtFees").data('value'));
+    
+    self.errorMsgNumber = ko.observable("Only numbers allowed.");
+    self.errorMsgWholeNumber =  ko.observable("Only whole numbers allowed.");
+
+    self.dealerOperationsModel = ko.observable(new dealerOperationModel(dpParams));
 
     self.Reset = function () {
 
@@ -29,8 +34,11 @@
     };
 
     self.SaveEMI_Validate = function () {
+        debugger;
+        self.errorMsgNumber("Only numbers allowed upto 100.");
+        self.errorMsgWholeNumber("Only whole numbers allowed.");
         var isValid = true;
-        $('input[type="text"]').each(function () {
+        $('input[type="text"].emiInfo').each(function () {
             var value = $.trim($(this).val());
             if (value == '') {
                 isValid = false;
@@ -53,8 +61,6 @@
                 else {
                     isValid = false;
                     $(this).addClass('InValid');
-                    return false;
-
                 }
             });
 
@@ -70,7 +76,6 @@
                 else {
                     isValid = false;
                     $(this).addClass('InValid');
-                    return false;
                 }
             });
         }
@@ -87,7 +92,6 @@
                 else {
                     isValid = false;
                     $(this).addClass('InValid');
-                    return false;
                 }
             });
         }
@@ -101,11 +105,61 @@
                 else {
                     isValid = false;
                     $(this).addClass('InValid');
-                    return false;
-                    
                 }
             });
         }
+        debugger;
+        if (isValid) {
+            if (self.txtMinPayment() > self.txtMaxPayment()) {
+                isValid = false;
+                self.errorMsgNumber("");
+                $("#txtMinPayment").addClass('InValid');
+                $("#txtMaxPayment").addClass('InValid');
+                Materialize.toast('Min field should be less than Max field', 5000);
+            }
+            else if (self.txtMinTenure() > self.txtMaxTenure()) {
+
+                self.errorMsgWholeNumber("");
+                $("#txtMinPayment").removeClass('InValid');
+                $("#txtMaxPayment").removeClass('InValid');
+
+
+                isValid = false;
+                $("#txtMinTenure").addClass('InValid');
+                $("#txtMaxTenure").addClass('InValid');
+                Materialize.toast('Min field should be less than Max field', 5000);
+            }
+            else if (self.txtMinROI() > self.txtMaxROI()) {
+
+                self.errorMsgNumber("");
+                $("#txtMinTenure").removeClass('InValid');
+                $("#txtMaxTenure").removeClass('InValid');
+
+                isValid = false;
+                $("#txtMinROI").addClass('InValid');
+                $("#txtMaxROI").addClass('InValid');
+                Materialize.toast('Min field should be less than Max field', 5000);
+            }
+            else if (self.txtMinLtv() > self.txtMaxLtv()) {
+
+                self.errorMsgNumber("");
+                $("#txtMinROI").removeClass('InValid');
+                $("#txtMaxROI").removeClass('InValid');
+
+                isValid = false;
+                $("#txtMinLtv").addClass('InValid');
+                $("#txtMaxLtv").addClass('InValid');
+                Materialize.toast('Min field should be less than Max field', 5000);
+            }
+            else {
+                isValid = true;
+                $("#txtMinLtv").removeClass('InValid');
+                $("#txtMaxLtv").removeClass('InValid');
+
+            }
+        }
+
+        
 
         return isValid;
     };
@@ -129,7 +183,6 @@
 
 var vmNewBikeDealerEMI = new NewBikeDealerEMIViewModel();
 $(document).ready(function () {
-
     try {
         ko.applyBindings(vmNewBikeDealerEMI);
 
@@ -139,6 +192,15 @@ $(document).ready(function () {
     } catch (e) {
         console.log(e.message);
     }
+
+    (function () {
+        $('select.chosen-select').chosen({
+            "width": "250px"
+        });
+
+        $('#ddlDealerOperations').val(4);
+        $("#ddlDealerOperations").trigger('chosen:updated')
+    }());
 });
 
 

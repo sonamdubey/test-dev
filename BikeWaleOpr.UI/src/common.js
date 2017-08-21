@@ -6,11 +6,7 @@ $('.tooltipped').tooltip({ delay: 50 });
 // Do not remove this code. Its written to get values from checkbox to controller
 $("input:checkbox").change(function () { $(this).val($(this).is(':checked')); });
 var select = $('select');
-select.each(function () {
-    if (!$(this).hasClass('chosen-select')) {
-        $(this).material_select();
-    }
-});
+
 $(document).ready(function () {
     pageFooter.setPosition();
 });
@@ -136,6 +132,12 @@ $(document).ready(function () {
 
         if (autocompleteElement.find('label').length == 0) {
             labelElement.insertAfter(autocompleteElement.find('input'));
+        }
+    });
+
+    select.each(function () {
+        if (!$(this).hasClass('chosen-select')) {
+            $(this).material_select();
         }
     });
 });

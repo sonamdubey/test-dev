@@ -556,9 +556,19 @@ var mvcPageViews = [
         stylesheet: 'css/video/videosByModel.css'
     },
 	  {
+        folderName: 'Views/GenericBestBikes/',
+        fileName: 'Index.cshtml',
+        stylesheet: 'css/generic/listing.css'
+    },
+	  {
         folderName: 'Views/Videos/',
         fileName: 'ScooterVideos_Mobile.cshtml',
         stylesheet: 'm/css/videos/videosByModel.css'
+    },
+      {
+        folderName: 'Views/GenericBestBikes/',
+        fileName: 'Index_Mobile.cshtml',
+        stylesheet: 'm/css/generic/listing.css'
     }
 ];
 

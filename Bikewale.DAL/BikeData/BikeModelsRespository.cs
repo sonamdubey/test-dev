@@ -20,6 +20,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using Bikewale.Entities.SEO;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -333,7 +334,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_28062017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_14082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -373,6 +374,25 @@ namespace Bikewale.DAL.BikeData
                                 t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
                                 t.IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]);
                             }
+
+                            if (dr.NextResult())
+                            {
+                                var metas = new List<CustomPageMetas>();
+                                while (dr.Read())
+                                {
+                                    var meta = new CustomPageMetas();
+                                    meta.PageId = SqlReaderConvertor.ToUInt32(dr["pageid"]);
+                                    meta.Title = Convert.ToString(dr["title"]);
+                                    meta.Description = Convert.ToString(dr["description"]);
+                                    meta.Keywords = Convert.ToString(dr["keywords"]);
+                                    meta.Heading = Convert.ToString(dr["heading"]);
+                                    meta.Summary = Convert.ToString(dr["summary"]);
+                                    meta.ModelId = (uint)t.ModelId;
+                                    metas.Add(meta);
+                                }
+                                t.Metas = metas;
+                            }
+
                             dr.Close();
                         }
                     }

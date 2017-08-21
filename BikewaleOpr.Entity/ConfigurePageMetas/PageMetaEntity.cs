@@ -9,7 +9,8 @@ namespace BikewaleOpr.Entity.ConfigurePageMetas
     public class PageMetaEntity
     {
         public uint Id { get; set; }
-        public uint PageId { get; set; }
+        public string PageName { get; set; }
+        public string Platform { get; set; }
         public string MakeName { get; set; }
         public string ModelName { get; set; }
         public string Title { get; set; }
@@ -20,7 +21,9 @@ namespace BikewaleOpr.Entity.ConfigurePageMetas
         public DateTime EntryDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public ushort Enterdby { get; set; }
-        public ushort UpdatedBy { get; set; }
+        public short? UpdatedBy { get; set; }
         public bool IsActive { get; set; }
+        public uint MakeId { get; set; }
+        public uint ModelId { get; set; }
     }
 }

@@ -138,6 +138,7 @@
     <Compile Include="AutoMappers\Dealer\DealerCampaignMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerFacilityMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
+    <Compile Include="AutoMappers\Dealer\SaveDealerPricingResponseMapper.cs" />
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="AutoMappers\ManufacturerCampaign\SearchMapper.cs" />
     <Compile Include="AutoMappers\Location\CityMapper.cs" />
@@ -153,7 +154,9 @@
     <Compile Include="Controllers\DealerPriceQuoteController.cs" />
     <Compile Include="Controllers\DealersController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\Location\CitiesController.cs" />
     <Compile Include="Controllers\ManufacturerCampaign\ManufacturerCampaignController.cs" />
+    <Compile Include="Controllers\PageMetas\PageMetasController.cs" />
     <Compile Include="Controllers\ServiceCenter\ServiceCenterController.cs" />
     <Compile Include="Controllers\Used\UsedBikesController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsController.cs" />

@@ -84,7 +84,7 @@ namespace Bikewale.BindViewModels.Webforms.Service
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
                     var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                    objBikeMakeEntityBase = makesRepository.GetMakeDetails(makeId.ToString());
+                    objBikeMakeEntityBase = makesRepository.GetMakeDetails(makeId);
                 }
 
                 if (objBikeMakeEntityBase != null)

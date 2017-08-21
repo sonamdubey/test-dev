@@ -8,7 +8,7 @@ var ConfigurePageMetas = function () {
     self.pageList = ko.observableArray();
     self.selectedPage = ko.observable();        
 
-    self.validateData = function () {
+    self.validateData = function (d, e) {
         var isValid = true;
 
         if (!self.selectedMakeId()) {
@@ -21,10 +21,21 @@ var ConfigurePageMetas = function () {
             isValid = false;
         }
 
-        if ((self.selectedPage() == '3' || self.selectedPage() == '4') && !self.selectedModel()) {
+        if ((self.selectedPage() == '5' || self.selectedPage() == '6') && !self.selectedModel()) {
             Materialize.toast("Please select Model", 3000);
             isValid = false;
         }
+
+        if (!isValid) {
+            e.preventDefault();
+        }
+        
+        $('#makeName').val($("#selectMake option:selected").text());
+        $('#modelName').val($("#selectModel option:selected").text());
+        $('#pageName').val($("#selectPage option:selected").text());
+        $('#selectPage').prop('disabled', false);
+        $('#selectModel').prop('disabled', false);
+        $('#selectMake').prop('disabled', false);
 
         return isValid;
     };
@@ -37,7 +48,7 @@ var ConfigurePageMetas = function () {
         if (self.selectedMakeId() && self.selectedMakeId() > 0) {
             $.ajax({
                 type: "GET",
-                url: "/api/models/makeid/" + self.selectedMakeId() + "/requesttype/8/",
+                url: "/api/models/makeid/" + self.selectedMakeId() + "/requesttype/7/",
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (response) {                    

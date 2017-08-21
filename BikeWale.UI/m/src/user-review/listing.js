@@ -106,6 +106,12 @@ function voteListUserReview(vote, locReviewId) {
     }
 }
 
+function resetCollapsibleContent() {
+    var activeCollapsible = $('.user-review-list').find('.collapsible-content.active');
+    activeCollapsible.removeClass('active');
+    activeCollapsible.find('.read-more-target').text('Read more');
+}
+
 function applyLikeDislikes() {
     try {
         $(".upvoteListButton").each(function () {
@@ -340,9 +346,14 @@ docReady(function () {
 
     ko.bindingHandlers.formattedVotes = {
         update: function (element, valueAccessor) {
-            var amount = valueAccessor();
-            var formattedVote = ko.unwrap(amount) > 999 ? (amount / 1000).toFixed(1) + 'K' : amount;
-            $(element).text(formattedVote);
+            try {
+                var amount = valueAccessor();
+                var formattedStringArray = (amount / 1000).toString().match(/\d+[.]+\d/);
+                var formattedVote = ko.unwrap(amount) > 999 && formattedStringArray ? formattedStringArray[0] + 'k' : amount;
+                $(element).text(formattedVote);
+            } catch (e) {
+                console.warn(e);
+            }
         }
     };
 
@@ -558,6 +569,7 @@ docReady(function () {
                         //window.location.hash = qs;
                         self.IsLoading(false);
                         $('html, body').scrollTop(modelReviewsSection.offset().top);
+                        resetCollapsibleContent();
                     });
                 }
                 else {
@@ -573,12 +585,11 @@ docReady(function () {
                         if ($(listItem[i]).find('.rating-badge').length == 0)
                             $(listItem[i]).remove();
                     }
+                    resetCollapsibleContent();
                 }
             }
 
-
-
-            self.PreviousQS(qs);
+            self.PreviousQS(qs);            
         };
 
         self.setPageFilters = function (e) {

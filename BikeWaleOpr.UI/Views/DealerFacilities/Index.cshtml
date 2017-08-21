@@ -1,17 +1,17 @@
 ﻿@model BikewaleOpr.Models.DealerFacility.ManageDealerFacilityVM
 
 @{
-    ViewBag.Title = "Manage Dealer Facilites";
-    ViewBag.PageTitle = "Manage Dealer Facilites";
+    ViewBag.Title = Model.PageTitle;
+    ViewBag.PageTitle = Model.PageTitle;
 }
 
 
 @if (Model != null)
 {
-    <div id="dealerFacility" class="row margin-top10" style="margin-bottom : 60px" data-currentuser="@BikeWaleOpr.Common.CurrentUser.UserName" data-currentuserid="@BikeWaleOpr.Common.CurrentUser.Id">
-        <div class="col m10">
-            <div id="displayDealerFacility">
-                <table id="tblFacilityData" class="bordered highlight z-depth-3 centered responsive-table">
+    <div id="dealerFacility" class="row" data-currentuser="@BikeWaleOpr.Common.CurrentUser.UserName" data-currentuserid="@BikeWaleOpr.Common.CurrentUser.Id">
+        <div class="col m9 ">
+            <table id="tblFacilityData" class="bordered highlight centered z-depth-3 margin-top10">
+                <thead>
                     <tr>
                         <th>Facility Id</th>
                         <th>Facilities</th>
@@ -20,52 +20,51 @@
                         <th>Last Updated By</th>
                         <th>Last Updated On</th>
                     </tr>
-                    <tbody id="tblFacilityBody">
+                </thead>
+                <tbody id="tblFacilityBody">
 
-                        @foreach (var record in Model.FacilityList)
-                        {
+                    @foreach (var record in Model.FacilityList)
+                    {
 
-                            <tr data-id="@record.Id">
-                                <td data-element="facilityid">@record.Id</td>
-                                <td data-element="facilityname">@record.Facility</td>
-                                <td data-element="activeicon" data-status="@record.IsActive">
-                                    @{
+                        <tr data-id="@record.Id">
+                            <td data-element="facilityid">@record.Id</td>
+                            <td data-element="facilityname">@record.Facility</td>
+                            <td data-element="activeicon" data-status="@record.IsActive">
+                                @{
 
-                                        if (record.IsActive)
-                                        {
-                                            <i class="material-icons icon-blue">check_box</i>
-                                        }
-                                        else
-                                        {
-                                            <i class="material-icons icon-red">clear</i>
-                                        }
-
+                                    if (record.IsActive)
+                                    {
+                                        <i class="material-icons icon-green">done</i>
+                                    }
+                                    else
+                                    {
+                                        <i class="material-icons icon-red">clear</i>
                                     }
 
+                                }
+                            </td>
+                            <td data-element="editicon"><a href="javascript:void(0)" data-bind="click : editFacility"><i data-tooltip="Edit facility" class="material-icons icon-blue tooltipped" style="line-height: 32px;">mode_edit</i></a></td>
+                            <td data-element="updatedby">@record.LastUpdatedBy </td>
 
-                                </td>
-                                <td data-element="editicon"><a href="javascript:void(0)" data-bind="click : editFacility"><i class="material-icons icon-blue" style="line-height: 32px;">mode_edit</i></a></td>
-                                <td data-element="updatedby">@record.LastUpdatedBy </td>
+                            <td data-element="updatedon">@record.LastUpdatedOn</td>
+                        </tr>
+                                    }
 
-                                <td data-element="updatedon">@record.LastUpdatedOn</td>
-                            </tr>
-                                        }
+                </tbody>
+            </table>
 
-                    </tbody>
-                </table>
-
-            </div>
         </div>
 
-        <div class="col m2">
-            <ul class="collapsible" data-collapsible="accordion">
+        <div class="col m3">
+            <ul class="collapsible margin-top10" data-collapsible="accordion">
+                @Html.Partial("~/Views/DealerBikePrice/_SelectOperationCollapsable.cshtml", Model.DealerOperationParams)
                 <li>
-                    <div class="collapsible-header"><strong>Add Facility</strong></div>
+                    <div class="collapsible-header add-facilities-collapsible"><strong>Add Facility</strong></div>
                     <div class="collapsible-body">
                         <div class="container">
                             <ul class="input-field row m12">
                                 <li>
-                                    <input id="txtFacilityName" type="text" class="validate" data-bind="value:facility" maxlength="100" length="100">
+                                    <input id="txtFacilityName" type="text" class="validate" data-bind="value:facility" maxlength="500" length="500">
                                     <label for="txtFacilityName" data-error="Please enter facility">Faciltity Name *</label>
                                 </li>
                                 <li>
@@ -103,7 +102,7 @@
     </div>
 
 
-                                        }
-
+                                    }
+<script src="~/src/DealerPricing/dealeroperationcollapsable.js"></script>
 <script src="~/src/DealerFacility/DealerFacility.js"></script>
 

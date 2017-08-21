@@ -1,13 +1,9 @@
 ﻿using Bikewale.Notifications;
-using BikewaleOpr.Entity.BikePricing;
 using BikewaleOpr.Interface.BikeData;
-using BikewaleOpr.Interface.BikePricing;
+using BikewaleOpr.Interface.Dealers;
 using BikewaleOpr.Interface.Location;
 using BikewaleOpr.Models.ManagePrices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
@@ -16,6 +12,8 @@ namespace BikewaleOpr.Controllers
     /// Created By : Ashutosh Sharma on 31-07-2017
     /// Description : Price Monitoring Report Controller.
     /// </summary>
+
+    [Authorize]
     public class PriceMonitoringController : Controller
     {
         private readonly IBikeMakes _makesRepo = null;
@@ -121,7 +119,7 @@ namespace BikewaleOpr.Controllers
         {
             if (modelId == 0)
             {
-                return RedirectToAction("IndexWithoutBikeModel", "PriceMonitoring", new { @makeId = makeId, @stateId = stateId }); 
+                return RedirectToAction("IndexWithoutBikeModel", "PriceMonitoring", new { @makeId = makeId, @stateId = stateId });
             }
             else
             {

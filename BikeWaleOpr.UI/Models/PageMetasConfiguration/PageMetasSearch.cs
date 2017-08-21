@@ -1,4 +1,7 @@
 ﻿using Bikewale.Notifications;
+using Bikewale.Notifications.MailTemplates;
+using BikewaleOpr.BAL;
+using BikewaleOpr.Entity.ConfigurePageMetas;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Models.ConfigurePageMetas;
@@ -12,9 +15,9 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
     /// </summary>
     public class PageMetasSearch
     {
-        private readonly IConfigurePageMetasRepository _pageMetasRepo = null;
+        private readonly IPageMetasRepository _pageMetasRepo = null;
 
-        public PageMetasSearch(IConfigurePageMetasRepository pageMetasRepo)
+        public PageMetasSearch(IPageMetasRepository pageMetasRepo)
         {
             _pageMetasRepo = pageMetasRepo;
         }
@@ -30,12 +33,38 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
             try
             {
                 objPageMetaVM.PageMetaList = _pageMetasRepo.GetPageMetas(pageMetaStatus);
+                objPageMetaVM.PageMetaStatus = pageMetaStatus;
+
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("PageMetasSearch.GetData_pageMetaStatus : {0}", pageMetaStatus));
             }
             return objPageMetaVM;
+        }
+
+        public void SaveMetas(PageMetasEntity objMetas)
+        {
+            try
+            {
+                string mailList = Bikewale.Utility.BWOprConfiguration.Instance.NotificationToMailIdForPageMetas;
+                string[] toMailList = mailList.Split(',');
+                ComposeEmailBase objEmail = new PageMetasChangeTemplate(objMetas.MakeName, objMetas.ModelName, objMetas.PageName, objMetas.Title, objMetas.Description, objMetas.Keywords, objMetas.Heading, objMetas.Summary);
+
+                foreach (var mail in toMailList)
+                {
+                    objEmail.Send(mail, "Metas Changed", "");
+                }
+
+                if (objMetas.ModelId > 0)
+                    MemCachedUtil.Remove("BW_ModelDetail_v1_" + objMetas.ModelId);
+
+                MemCachedUtil.Remove("BW_MakeDetails_" + objMetas.MakeId);
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "PageMetasSearch.SaveMetas");
+            }
         }
     }
 }

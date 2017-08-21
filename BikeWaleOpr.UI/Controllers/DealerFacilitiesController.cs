@@ -1,11 +1,9 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.Interface;
+using BikewaleOpr.Interface.Location;
 using BikewaleOpr.Models.DealerFacilities;
 using BikewaleOpr.Models.DealerFacility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
@@ -20,13 +18,15 @@ namespace BikewaleOpr.Controllers
     {
 
         private readonly IDealers _dealerRepo;
+        private readonly ILocation _location = null;
         /// <summary>
         /// Constuctor to initialize the dependencies
         /// </summary>
         /// <param name="dealer"></param>
-        public DealerFacilitiesController(IDealers dealer)
+        public DealerFacilitiesController(IDealers dealer, ILocation locationObject)
         {
             _dealerRepo = dealer;
+            _location = locationObject;
         }
 
         /// <summary>
@@ -35,18 +35,17 @@ namespace BikewaleOpr.Controllers
         /// </summary>
         /// <param name="dealerId"></param> 
         /// <returns></returns>
-        
-        [Route("dealers/{dealerId}/facilities/")]
-        public ActionResult Index(uint dealerId)
+
+        [HttpGet, Route("dealers/{dealerId}/facilities/")]
+        public ActionResult Index(uint dealerId, uint? cityId, uint? makeId, string dealerName = null)
         {
             ManageDealerFacilityVM viewModel = null;
-            DealerFacilitiesModel objModel = new DealerFacilitiesModel(_dealerRepo);
+            DealerFacilitiesModel objModel = new DealerFacilitiesModel(_dealerRepo, _location);
             try
             {
-                if(dealerId >0)
+                if (dealerId > 0)
                 {
-                    viewModel = objModel.GetData(dealerId);
-
+                    viewModel = objModel.GetData(dealerId, cityId.Value, makeId.Value, dealerName);
                 }
 
             }
@@ -57,7 +56,7 @@ namespace BikewaleOpr.Controllers
 
             return View(viewModel);
 
-           
+
         }
     }
 }
