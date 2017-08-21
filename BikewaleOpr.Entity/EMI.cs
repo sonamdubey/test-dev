@@ -11,7 +11,6 @@ namespace BikewaleOpr.Entities
 
     public class EMI
     {
-
         [JsonProperty("id")]
         public UInt32 Id { get; set; }
 
@@ -56,6 +55,5 @@ namespace BikewaleOpr.Entities
 
         [JsonProperty("emiAmount")]
         public UInt32 EMIAmount { get; set; }
-
     }
 }

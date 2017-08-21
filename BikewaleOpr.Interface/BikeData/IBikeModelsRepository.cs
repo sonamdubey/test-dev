@@ -30,5 +30,6 @@ namespace BikewaleOpr.Interface.BikeData
         IEnumerable<BikeModelMailEntity> GetModelsByMake(uint makeId, string hostUrl, string oldMakeMasking, string newMakeMasking);
         IEnumerable<BikeMakeModelData> GetModelsWithMissingColorImage();
         bool UpdateInquiryAsSold(uint inquiryId);
+        IEnumerable<BikeVersionEntityBase> GetVersionsByModel(EnumBikeType requestType, uint modelId);
     }
 }

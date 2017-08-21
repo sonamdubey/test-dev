@@ -145,6 +145,7 @@
     <Compile Include="BookingAmountEntity.cs" />
     <Compile Include="BookingAmountEntityBase.cs" />
     <Compile Include="CallToActionEntityBase.cs" />
+    <Compile Include="CityNameEntity.cs" />
     <Compile Include="ColorCodeBase.cs" />
     <Compile Include="ConfigurePageMetas\PageMetasEntity.cs" />
     <Compile Include="ConfigurePageMetas\PageMetaEntity.cs" />
@@ -164,12 +165,18 @@
     <Compile Include="DealerCustDistanceMapping.cs" />
     <Compile Include="DealerDisclaimerEntity.cs" />
     <Compile Include="DealerLatLong.cs" />
+    <Compile Include="Dealers\DealerMakeEntity.cs" />
     <Compile Include="DealerOffersEntity.cs" />
     <Compile Include="DealerPackageTypes.cs" />
+    <Compile Include="Dealers\DealerVersionPriceEntity.cs" />
+    <Compile Include="Dealers\DealerPriceBaseEntity.cs" />
     <Compile Include="DealerPriceEntity.cs" />
     <Compile Include="DealerPriceQuoteDetailed.cs" />
     <Compile Include="DealerPriceQuoteEntity.cs" />
     <Compile Include="DealerQuotation.cs" />
+    <Compile Include="Dealers\UpdatePricingRulesResponseEntity.cs" />
+    <Compile Include="Dealers\VersionPriceEntity.cs" />
+    <Compile Include="Dealers\DealerVersionEntity.cs" />
     <Compile Include="EMI.cs" />
     <Compile Include="FacilityEntity.cs" />
     <Compile Include="GeoLocationDestinationEntity.cs" />
@@ -179,6 +186,7 @@
     <Compile Include="Images\ImageToken.cs" />
     <Compile Include="MakeEntity.cs" />
     <Compile Include="MakeEntityBase.cs" />
+    <Compile Include="ManageBookingAmountData.cs" />
     <Compile Include="ManufacturerCampaignEntity.cs" />
     <Compile Include="ManufacturerCampaign\ConfigureCampaignSave.cs" />
     <Compile Include="ManufacturerCampaign\ManuCamEntityForTemplate.cs" />
@@ -223,6 +231,7 @@
       <Name>BikewaleOpr.DTO</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -7,7 +7,7 @@ using BikewaleOpr.Entities.BikePricing;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikePricing;
 
-namespace BikewaleOpr.Interface.BikePricing
+namespace BikewaleOpr.Interface.Dealers
 {
     /// <summary>
     /// Modified By : Ashutosh Sharma on 31-07-2017

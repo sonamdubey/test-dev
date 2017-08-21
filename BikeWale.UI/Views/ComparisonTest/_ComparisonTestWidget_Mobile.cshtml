@@ -25,6 +25,7 @@
             <p class="margin-top10">
                 @FormatDescription.TruncateDescription(review.Description, 150)
             </p>
+            <a   title="@review.Title" href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" rel="nofollow">...Read more</a>
         </div>
     }
 }
