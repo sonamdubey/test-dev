@@ -549,6 +549,16 @@ var mvcPageViews = [
         folderName: 'Views/CompareBikes/',
         fileName: 'Index.cshtml',
         stylesheet: 'css/compare/landing.css'
+    },
+	  {
+        folderName: 'Views/Videos/',
+        fileName: 'ScooterVideos.cshtml',
+        stylesheet: 'css/video/videosByModel.css'
+    },
+	  {
+        folderName: 'Views/Videos/',
+        fileName: 'ScooterVideos_Mobile.cshtml',
+        stylesheet: 'm/css/videos/videosByModel.css'
     }
 ];
 
