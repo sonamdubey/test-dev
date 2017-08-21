@@ -95,6 +95,82 @@ namespace Grpc.CMS
 
         }
 
+        /// <summary>
+        /// Created by: Vivek Singh Tomar on 16th Aug 2017
+        /// Summary: Get Article List by Category for provided body style
+        /// </summary>
+        /// <param name="catIdList"></param>
+        /// <param name="startIdx"></param>
+        /// <param name="endIdx"></param>
+        /// <param name="bodyStyleId"></param>
+        /// <param name="makeid"></param>
+        /// <param name="modelid"></param>
+        /// <returns></returns>
+        public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx, string bodyStyleId, int makeid = 0, int modelid = 0)
+        {
+            Stopwatch sw = null;
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
+                    {
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+                            return client.GetContentListByCategory(new GrpcArticleByCatURI()
+                            {
+                                ApplicationId = 2,
+                                CategoryIdList = catIdList,
+                                EndIndex = endIdx,
+                                MakeId = makeid,
+                                ModelId = modelid,
+                                StartIndex = startIdx,
+                                BodyStyleIds = bodyStyleId
+                            },
+                          null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
+                            {
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
+                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                            }
+                            else
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
+                    }
+                    else
+                        break;
+                }
+
+
+                return null;
+            }
+            finally
+            {
+                if (_logGrpcErrors)
+                {
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetArticleListByCategory took " + sw.ElapsedMilliseconds);
+                }
+            }
+
+        }
+
         public static GrpcArticleSummaryList MostRecentList(string contenTypes, int totalRecords, int? makeId = 0, int? modelId = 0)
         {
             Stopwatch sw = null;

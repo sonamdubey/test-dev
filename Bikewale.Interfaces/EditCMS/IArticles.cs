@@ -11,6 +11,8 @@ namespace Bikewale.Interfaces.EditCMS
     /// Description :   Added a method to Update the view count of article
     /// Modified by : Aditi Srivastava on 14 June 2017
     /// Summary     : Added overload for GetMostRecentArticlesByIdList(bodystyleId)
+    /// Modified by: Vivek Singh Tomar on 16th Aug 2017
+    /// Summary: Added overload for GetArticlesByCategoryList(bodyStyleId)
     /// </summary>
     public interface IArticles
     {
@@ -21,5 +23,6 @@ namespace Bikewale.Interfaces.EditCMS
         CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId);
         void UpdateViewCount(uint basicId);
         IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords,string bodyStyleId, uint makeId, uint modelId);
+        CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId, int modelId);
     }
 }

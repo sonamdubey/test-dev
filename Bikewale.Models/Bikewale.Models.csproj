@@ -114,6 +114,7 @@
     <Compile Include="DealerShowroom\DealerCardVM.cs" />
     <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />
     <Compile Include="DealerShowroom\IndexVM.cs" />
+    <Compile Include="ExpertReviews\ExpertReviewsScootersPageVM.cs" />
     <Compile Include="Features\DetailFeatureVM.cs" />
     <Compile Include="Features\IndexFeatureVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsDetailPageVM.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="NewLaunches\NewLaunchesBikesVM.cs" />
     <Compile Include="News\NewsIndexPageVM.cs" />
     <Compile Include="NewLaunches\NewLaunchedWidgetVM.cs" />
+    <Compile Include="News\NewsScootersPageVM.cs" />
     <Compile Include="Price\DealerPriceQuotePageVM.cs" />
     <Compile Include="News\RecentNewsVM.cs" />
     <Compile Include="PriceInCity\PriceInCityPageVM.cs" />
