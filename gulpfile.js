@@ -555,6 +555,11 @@ var mvcPageViews = [
         fileName: 'Scooters.cshtml',
         stylesheet: 'css/content/listing.css'
     },
+    {
+        folderName: 'Views/News/',
+        fileName: 'Scooters.cshtml',
+        stylesheet: 'css/content/listing.css'
+    },
       {
         folderName: 'Views/ExpertReviews/',
         fileName: 'Scooters_Mobile.cshtml',
@@ -565,11 +570,17 @@ var mvcPageViews = [
         fileName: 'ScooterVideos.cshtml',
         stylesheet: 'css/video/videosByModel.css'
     },
-	  {
+	{
+        folderName: 'Views/News/',
+        fileName: 'Scooters_Mobile.cshtml',
+        stylesheet: 'm/css/content/listing.css'
+    },
+      {
         folderName: 'Views/GenericBestBikes/',
         fileName: 'Index.cshtml',
         stylesheet: 'css/generic/listing.css'
     },
+	
 	  {
         folderName: 'Views/Videos/',
         fileName: 'ScooterVideos_Mobile.cshtml',
