@@ -34,7 +34,6 @@
     };
 
     self.SaveEMI_Validate = function () {
-        debugger;
         self.errorMsgNumber("Only numbers allowed upto 100.");
         self.errorMsgWholeNumber("Only whole numbers allowed.");
         var isValid = true;
@@ -108,7 +107,6 @@
                 }
             });
         }
-        debugger;
         if (isValid) {
             if (self.txtMinPayment() > self.txtMaxPayment()) {
                 isValid = false;

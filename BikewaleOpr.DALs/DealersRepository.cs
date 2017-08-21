@@ -798,7 +798,7 @@ namespace BikewaleOpr.DAL
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format(
-                    "SaveBikeAvailability dealerId={0} bikeVersionId={1} numberOfDays={2}", dealerId, bikeVersionIds, numberOfDays));
+                    "SaveVersionAvailability dealerId={0} bikeVersionId={1} numberOfDays={2}", dealerId, bikeVersionIds, numberOfDays));
             }
 
             return isSaved;
@@ -830,7 +830,7 @@ namespace BikewaleOpr.DAL
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format(
-                    "DeleteBikeAvailabilityDays dealerId={0} bikeVersionId={1}", dealerId, bikeVersionId));
+                    "DeleteVersionAvailability dealerId={0} bikeVersionId={1}", dealerId, bikeVersionId));
             }
 
             return isDeleted;

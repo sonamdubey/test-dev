@@ -35,7 +35,6 @@ namespace BikewaleOpr.Controllers
         /// </summary>
         /// <param name="dealerId"></param> 
         /// <returns></returns>
-
         [HttpGet, Route("dealers/{dealerId}/facilities/")]
         public ActionResult Index(uint dealerId, uint? cityId, uint? makeId, string dealerName = null)
         {
@@ -55,8 +54,6 @@ namespace BikewaleOpr.Controllers
             }
 
             return View(viewModel);
-
-
         }
     }
 }

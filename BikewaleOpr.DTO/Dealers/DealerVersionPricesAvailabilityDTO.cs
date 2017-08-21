@@ -9,7 +9,9 @@ namespace BikewaleOpr.DTO.Dealers
     /// </summary>
     public class DealerVersionPricesAvailabilityDTO
     {
+        [JsonProperty("dealerVersionPrices")]
         public DealerPriceListDTO DealerVersionPrices { get; set; }
+        [JsonProperty("dealerVersionAvailabilities")]
         public VersionDaysDTO DealerVersionAvailabilities { get; set; }
         [JsonProperty("makeId")]
         public uint MakeId { get; set; }

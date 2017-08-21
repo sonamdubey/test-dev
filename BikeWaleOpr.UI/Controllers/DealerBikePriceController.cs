@@ -14,18 +14,18 @@ namespace BikewaleOpr.Controllers
     [Authorize]
     public class DealerBikePriceController : Controller
     {
-        private readonly ILocation location = null;
-        private readonly IDealerPriceQuote dealerPriceQuote = null;
-        private readonly IDealerPrice dealerPrice = null;
-        private readonly IDealers dealersRepository = null;
+        private readonly ILocation _location = null;
+        private readonly IDealerPriceQuote _dealerPriceQuote = null;
+        private readonly IDealerPrice _dealerPrice = null;
+        private readonly IDealers _dealersRepository = null;
         public DealerBikePriceController(
             ILocation locationObject, IDealerPriceQuote dealerPriceQuoteObject,
             IDealerPrice dealerPriceObject, IDealers dealersRepositoryObject)
         {
-            location = locationObject;
-            dealerPriceQuote = dealerPriceQuoteObject;
-            dealerPrice = dealerPriceObject;
-            dealersRepository = dealersRepositoryObject;
+            _location = locationObject;
+            _dealerPriceQuote = dealerPriceQuoteObject;
+            _dealerPrice = dealerPriceObject;
+            _dealersRepository = dealersRepositoryObject;
         }
         /// <summary>
         /// Created By  :   Vishnu Teja Yalakuntla on 11 Aug 2017
@@ -35,7 +35,7 @@ namespace BikewaleOpr.Controllers
         [HttpGet, Route("dealers/operations/")]
         public ActionResult Index()
         {
-            DealerPricingIndexPageModel DP_IndexPageModel = new DealerPricingIndexPageModel(location, dealerPriceQuote);
+            DealerPricingIndexPageModel DP_IndexPageModel = new DealerPricingIndexPageModel(_location, _dealerPriceQuote);
             return View(DP_IndexPageModel.GetLandingInformation());
         }
         /// <summary>
@@ -52,7 +52,7 @@ namespace BikewaleOpr.Controllers
         [HttpGet, Route("dealers/{dealerId}/dealercity/{cityId}/brand/{makeId}/pricing/")]
         public ActionResult DealerPricing(uint cityId, uint makeId, uint dealerId, uint? otherCityId, string dealerName, string cityName)
         {
-            DealerPricingSheetPageModel DPSheetPageModel = new DealerPricingSheetPageModel(location, dealerPriceQuote, dealerPrice, dealersRepository);
+            DealerPricingSheetPageModel DPSheetPageModel = new DealerPricingSheetPageModel(_location, _dealerPriceQuote, _dealerPrice, _dealersRepository);
             DealerPricingSheetPageVM DPSheetPageVM = null;
 
             if (otherCityId.HasValue && otherCityId.Value > 0)
