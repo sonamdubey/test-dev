@@ -160,7 +160,6 @@ var dealerOperationModel = function (dealerOperationModelParams) {
     };
 
     self.getPricing = function () {
-        debugger;
         if (!parseInt(self.selectedCity) > 0)
             Materialize.toast("Please select a dealer city", 4000);
         else if (!self.selectedMake())
