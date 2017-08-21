@@ -108,26 +108,25 @@
             });
         }
         if (isValid) {
-            if (self.txtMinPayment() > self.txtMaxPayment()) {
+            if (parseInt(self.txtMinPayment()) > parseInt(self.txtMaxPayment()) ) {
                 isValid = false;
                 self.errorMsgNumber("");
                 $("#txtMinPayment").addClass('InValid');
                 $("#txtMaxPayment").addClass('InValid');
                 Materialize.toast('Min field should be less than Max field', 5000);
             }
-            else if (self.txtMinTenure() > self.txtMaxTenure()) {
+            else if (parseInt(self.txtMinTenure())  > parseInt(self.txtMaxTenure())  ) {
 
                 self.errorMsgWholeNumber("");
                 $("#txtMinPayment").removeClass('InValid');
                 $("#txtMaxPayment").removeClass('InValid');
-
 
                 isValid = false;
                 $("#txtMinTenure").addClass('InValid');
                 $("#txtMaxTenure").addClass('InValid');
                 Materialize.toast('Min field should be less than Max field', 5000);
             }
-            else if (self.txtMinROI() > self.txtMaxROI()) {
+            else if (parseInt(self.txtMinROI())  > parseInt(self.txtMaxROI()) ) {
 
                 self.errorMsgNumber("");
                 $("#txtMinTenure").removeClass('InValid');
@@ -138,7 +137,7 @@
                 $("#txtMaxROI").addClass('InValid');
                 Materialize.toast('Min field should be less than Max field', 5000);
             }
-            else if (self.txtMinLtv() > self.txtMaxLtv()) {
+            else if (parseInt(self.txtMinLtv()) > parseInt(self.txtMaxLtv())) {
 
                 self.errorMsgNumber("");
                 $("#txtMinROI").removeClass('InValid');
@@ -157,7 +156,15 @@
             }
         }
 
-        
+        if (isValid == true) {
+            var form = $("#emiForm");
+            if (self.hdnLoanAmountId() == "") {
+                form.attr('action', form.attr('action') + '&isAdded=1');
+            }
+            else {
+                form.attr('action', form.attr('action') + '&isAdded=2');
+            }
+        }
 
         return isValid;
     };
@@ -186,6 +193,12 @@ $(document).ready(function () {
 
         if (vmNewBikeDealerEMI.hdnLoanAmountId() != "") {
             $("#btnSaveEMI").html('Update EMI');
+        }
+        if ($("#hdnLoanAmountId").data('msg') == "2") {
+            Materialize.toast('Data has been updated.', 6000);
+        }
+        else if ($("#hdnLoanAmountId").data('msg') == "1") {
+            Materialize.toast('Data has been added.', 6000);
         }
     } catch (e) {
         console.log(e.message);

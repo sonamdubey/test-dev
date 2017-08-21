@@ -32,17 +32,14 @@ namespace BikewaleOpr.Controllers
         /// <param name="dealerId"></param>
         /// <returns></returns>
         [HttpGet, Route("dealers/{dealerId}/emi/")]
-        public ActionResult Index(uint dealerId, uint? cityId, uint? makeId, string dealerName = null)
+        public ActionResult Index(uint dealerId, uint? cityId, uint? makeId, string dealerName = null, ushort isAdded = 0)
         {
             DealerEMIModel dealerEmiModel = new DealerEMIModel(_location, _dealer);
             DealerEMIVM dealerEmiPageInfo = null;
 
             try
             {
-                if (dealerId > 0)
-                {
-                    dealerEmiPageInfo = dealerEmiModel.GetDealerEmiInfo(dealerId, cityId.Value, makeId.Value, dealerName);
-                }
+                dealerEmiPageInfo = dealerEmiModel.GetDealerEmiInfo(dealerId, cityId.Value, makeId.Value, dealerName);
             }
             catch (Exception ex)
             {
@@ -59,16 +56,15 @@ namespace BikewaleOpr.Controllers
         /// <param name="emi"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Submit(uint dealerId, EMI emi, uint cityId, uint makeId, string dealerName)
+        public ActionResult Submit(uint dealerId, EMI emi, uint cityId, uint makeId, string dealerName, ushort isAdded = 0)
         {
-            if (dealerId > 0)
-            {
+            
                 _dealer.SaveDealerEMI(dealerId, emi.MinDownPayment, emi.MaxDownPayment, emi.MinTenure, emi.MaxTenure
                                     , emi.MinRateOfInterest, emi.MaxRateOfInterest, emi.MinLoanToValue, emi.MaxLoanToValue
                                     , emi.LoanProvider, emi.ProcessingFee, emi.Id, Convert.ToUInt32(CurrentUser.Id));
-            }
+
             return Redirect(
-                string.Format("/dealers/{0}/emi/?cityId={1}&makeId={2}&dealerName={3}", dealerId, cityId, makeId, dealerName));
+                string.Format("/dealers/{0}/emi/?cityId={1}&makeId={2}&dealerName={3}&isAdded={4}", dealerId, cityId, makeId, dealerName, isAdded));
         }
     }
 }
