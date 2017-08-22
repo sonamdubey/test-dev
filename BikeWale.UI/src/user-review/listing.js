@@ -105,7 +105,9 @@ function applyLikeDislikes() {
         }
         else {
             $('#upvoteBtn' + "-" + locReviewId).removeClass('active');
-            $('#downvoteBtn' + "-" + locReviewId).prop('disabled', false);
+            $('#upvoteBtn' + "-" + locReviewId).prop('disabled', false);
+            $('#downvoteBtn' + "-" + locReviewId).removeClass('active');
+            $('#downvoteBtn' + "-" + locReviewId).prop('disabled', false);                        
         }
     });
 }
