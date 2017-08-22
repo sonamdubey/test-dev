@@ -28,7 +28,7 @@ namespace Bikewale.Models
 
 
         public ushort makeTopCount { get; set; }
-
+        public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         public EnumBikeBodyStyles BodyStyleType = EnumBikeBodyStyles.AllBikes;
         public IndexGenericBestBikes(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes)
@@ -106,7 +106,11 @@ namespace Bikewale.Models
                 {
                     ProductList objSchema = new ProductList();
                     objSchema.NumberOfItems = 10;
-                    objSchema.Url = obj.PageMetaTags.CanonicalUrl;
+                    objSchema.Url = IsMobile ? obj.PageMetaTags.AlternateUrl : obj.PageMetaTags.CanonicalUrl;
+
+                    if(IsMobile)
+                    objSchema.CanonicalUrl = obj.PageMetaTags.CanonicalUrl;
+
                     objSchema.Name = obj.PageName;
                     var lstItems = new List<ProductListItem>();
                     uint itemNo = (uint)obj.objBestBikesList.Count();
@@ -242,6 +246,7 @@ namespace Bikewale.Models
                 obj.PageMetaTags.Description = string.Format("BikeWale brings the list of best {0} in  India for {1}. Explore the top 10 {0} to buy the best bike of your  choice.", obj.PageMaskingName, formattedDate);
                 obj.PageMetaTags.Title = string.Format("Best {0} in India - {1} | Top 10 {0} - BikeWale", obj.PageName, formattedDate);
                 obj.PageMetaTags.CanonicalUrl = string.Format("{0}/best-{1}-in-india/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.PageMaskingName);
+                obj.PageMetaTags.AlternateUrl = string.Format("{0}/m/best-{1}-in-india/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.PageMaskingName);
             }
             catch (Exception ex)
             {
