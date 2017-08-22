@@ -63,7 +63,7 @@ function logBhrighu(e) {
         }
 
     });
-    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index + (pageNumber - 1) * 10) + '|PageSource=' + $('#pageSource').val();
+    label = 'modelId=' + modelid + '|tabName=' + reviewCategory[categoryId] + '|reviewOrder=' + (index + (pageNumber - 1) * 10) + '|pageSource=' + $('#pageSource').val();
     cwTracking.trackUserReview("TitleClick", label);
 }
 
@@ -77,7 +77,7 @@ function updateView(e) {
         }
 
     });
-    label = 'ModelId=' + modelid + '|TabName=' + reviewCategory[categoryId] + '|ReviewOrder=' + (index + (pageNumber - 1) * 8) + '|PageSource=' + $('#pageSource').val();
+    label = 'modelId=' + modelid + '|tabName=' + reviewCategory[categoryId] + '|reviewOrder=' + (index + (pageNumber - 1) * 10) + '|pageSource=' + $('#pageSource').val();
     cwTracking.trackUserReview("ReadMoreClick", label);
 
     try {
@@ -121,16 +121,18 @@ function applyLikeDislikes() {
             if (listVote != null && listVote.vote) {
                 if (listVote.vote == "0") {
                     $('#downvoteBtn' + "-" + locReviewId).addClass('active');
-                    $('#upvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+                    $('#upvoteBtn' + "-" + locReviewId).removeClass('active').attr('disabled', 'disabled');
                 }
                 else {
                     $('#upvoteBtn' + "-" + locReviewId).addClass('active');
-                    $('#downvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+                    $('#downvoteBtn' + "-" + locReviewId).removeClass('active').attr('disabled', 'disabled');
                 }
             }
             else {
                 $('#upvoteBtn' + "-" + locReviewId).removeClass('active');
+                $('#downvoteBtn' + "-" + locReviewId).removeClass('active');
                 $('#downvoteBtn' + "-" + locReviewId).prop('disabled', false);
+                $('#upvoteBtn' + "-" + locReviewId).prop('disabled', false);
             }
         });
     } catch (e) {
@@ -325,7 +327,7 @@ docReady(function () {
     ko.bindingHandlers.truncateDesc = {
         update: function (element, valueAccessor) {
             var originalText = strip(valueAccessor());
-            var formattedText = originalText && originalText.length > 120 ? originalText.substring(0, 120) : originalText;
+            var formattedText = originalText && originalText.length > 120 ? originalText.substring(0, 120) + '...' : originalText;
             $(element).text(formattedText);
         }
     };
@@ -575,6 +577,7 @@ docReady(function () {
                         self.IsLoading(false);
                         $('html, body').scrollTop(modelReviewsSection.offset().top);
                         resetCollapsibleContent();
+                        applyLikeDislikes();
                     });
                 }
                 else {
@@ -591,6 +594,7 @@ docReady(function () {
                             $(listItem[i]).remove();
                     }
                     resetCollapsibleContent();
+                    applyLikeDislikes();
                 }
             }
 

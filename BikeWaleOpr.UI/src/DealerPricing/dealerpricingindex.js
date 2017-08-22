@@ -62,7 +62,7 @@
                 var itemValues = [];
                 var dealerIds = self.selectedDealers();
                 var cityIds = [];
-                cityIds.push(parseInt(event.target.dataset.dealerId));
+                cityIds.push(parseInt(self.selectedCity));
                 var enteredBy = parseInt(event.target.dataset.enteredBy);
 
                 $('tbody').find('tr').each(function () {
@@ -435,7 +435,6 @@
 
     var addCategoryModel = function () {
         self.onAddCategoryClick = function () {
-            debugger;
             var selectedCategories = $('#ddlCategories').val();
 
             if (selectedCategories != null) {

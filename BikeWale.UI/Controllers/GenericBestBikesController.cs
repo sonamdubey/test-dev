@@ -71,8 +71,9 @@ namespace Bikewale.Controllers
 
                 if (objBestBikes.status == Entities.StatusCodes.ContentFound)
                 {
+                    objBestBikes.IsMobile = true;
                     objBestBikes.makeTopCount = 6;
-                    IndexBestBikesVM obj = new IndexBestBikesVM();
+                    IndexBestBikesVM obj = new IndexBestBikesVM();                    
                     obj = objBestBikes.GetData();
                     if (obj != null)
                         return View(obj);

@@ -46,6 +46,7 @@ namespace Bikewale.Models
         #region Page level variables
         public ushort TopCount { get; private set; }
         public ushort LaunchedRecordCount { get; private set; }
+        public ushort UpcomingRecordCount { get; private set; }
         public bool IsMobile { get; set; }
         public string redirectUrl;
         public StatusCodes status;
@@ -53,10 +54,11 @@ namespace Bikewale.Models
 
         #endregion
 
-        public NewPageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
+        public NewPageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
+            UpcomingRecordCount = upcomingRecordCount;
             _bikeMakes = bikeMakes;
             _newLaunches = newLaunches;
             _bikeModels = bikeModels;
@@ -117,7 +119,7 @@ namespace Bikewale.Models
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
             var objFiltersUpcoming = new UpcomingBikesListInputEntity()
             {
-                PageSize = TopCount,
+                PageSize = UpcomingRecordCount,
                 PageNo = 1
             };
             var sortBy = EnumUpcomingBikesFilter.Default;

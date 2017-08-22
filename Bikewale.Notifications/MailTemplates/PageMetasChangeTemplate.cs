@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BikewaleOpr.Entity.ConfigurePageMetas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Bikewale.Notifications.MailTemplates
     {
         private string PageMetasChangeHtml = null;
 
-        public PageMetasChangeTemplate(string makeName, string modelName, String pageName, string title, string description, string keywords, string heading, string summary)
+        public PageMetasChangeTemplate(PageMetasEntity objMetas)
         {
             try
             {
@@ -22,31 +23,35 @@ namespace Bikewale.Notifications.MailTemplates
 
                 message.Append("<h4>Dear Sir,</h4>");
 
-                if (!string.IsNullOrEmpty(modelName))
+                if (objMetas != null)
                 {
-                    message.Append("<p>Metas changed for " + pageName + " for parameters Make : " + makeName + " and Model :" + modelName + ".</p>");
+
+                    if (!string.IsNullOrEmpty(objMetas.ModelName))
+                    {
+                        message.Append("<p>Metas changed for " + objMetas.PageName + " for parameters Make : " + objMetas.MakeName + " and Model :" + objMetas.ModelName + ".</p>");
+                    }
+                    else
+                    {
+                        message.Append("<p>Metas changed for " + objMetas.PageName + " for parameters Make : " + objMetas.MakeName + ".</p>");
+                    }
+
+                    if (!string.IsNullOrEmpty(objMetas.Title))
+                        message.Append("<p>New Title : " + objMetas.Title + ".</p>");
+
+                    if (!string.IsNullOrEmpty(objMetas.Description))
+                        message.Append("<p>New Description : " + objMetas.Description + ".</p>");
+
+                    if (!string.IsNullOrEmpty(objMetas.Keywords))
+                        message.Append("<p>New Keywords : " + objMetas.Keywords + ".</p>");
+
+                    if (!string.IsNullOrEmpty(objMetas.Heading))
+                        message.Append("<p>New Heading : " + objMetas.Heading + ".</p>");
+
+                    if (!string.IsNullOrEmpty(objMetas.Summary))
+                        message.Append("<p>New Summary : " + objMetas.Summary + ".</p>");
+
+                    PageMetasChangeHtml = message.ToString();
                 }
-                else
-                {
-                    message.Append("<p>Metas changed for " + pageName + " for parameters Make : " + makeName + ".</p>");
-                }
-
-                if (!string.IsNullOrEmpty(title))
-                    message.Append("<p>New Title : " + title + ".</p>");
-
-                if (!string.IsNullOrEmpty(description))
-                    message.Append("<p>New Description : " + description + ".</p>");
-
-                if (!string.IsNullOrEmpty(keywords))
-                    message.Append("<p>New Keywords : " + keywords + ".</p>");
-
-                if (!string.IsNullOrEmpty(heading))
-                    message.Append("<p>New Heading : " + heading + ".</p>");
-
-                if (!string.IsNullOrEmpty(summary))
-                    message.Append("<p>New Summary : " + summary + ".</p>");
-
-                PageMetasChangeHtml = message.ToString();
 
             }
             catch(Exception ex)

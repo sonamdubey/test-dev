@@ -12,9 +12,6 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 
 using Bikewale.Entities.UserReviews.Search;
-using Bikewale.Entities.SEO;
-using Bikewale.Interfaces;
-
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;

@@ -47,21 +47,24 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
         {           
             try
             {
-                _pageMetasRepo.SavePageMetas(objMetas);
+                bool isSuccess =  _pageMetasRepo.SavePageMetas(objMetas);
 
-                string mailList = Bikewale.Utility.BWOprConfiguration.Instance.NotificationToMailIdForPageMetas;
-                string[] toMailList = mailList.Split(',');
-                ComposeEmailBase objEmail = new PageMetasChangeTemplate(objMetas.MakeName, objMetas.ModelName, objMetas.PageName, objMetas.Title, objMetas.Description, objMetas.Keywords, objMetas.Heading, objMetas.Summary);
-
-                foreach (var mail in toMailList)
+                if (isSuccess)
                 {
-                    objEmail.Send(mail, "Metas Changed", "");
+                    string mailList = Bikewale.Utility.BWOprConfiguration.Instance.NotificationToMailIdForPageMetas;
+                    string[] toMailList = mailList.Split(',');
+                    ComposeEmailBase objEmail = new PageMetasChangeTemplate(objMetas);
+
+                    foreach (var mail in toMailList)
+                    {
+                        objEmail.Send(mail, "Metas Changed", "");
+                    }
+
+                    if (objMetas.ModelId > 0)
+                        MemCachedUtil.Remove("BW_ModelDetail_v1_" + objMetas.ModelId);
+
+                    MemCachedUtil.Remove("BW_MakeDetails_" + objMetas.MakeId);
                 }
-
-                if (objMetas.ModelId > 0)
-                    MemCachedUtil.Remove("BW_ModelDetail_v1_" + objMetas.ModelId);
-
-                MemCachedUtil.Remove("BW_MakeDetails_" + objMetas.MakeId);
             }
             catch(Exception ex)
             {

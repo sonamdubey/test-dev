@@ -127,7 +127,10 @@
     </div>
 </section>
 
-@Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
+@if (Model.UserReviews != null && Model.UserReviews.UserReviews != null && Model.UserReviews.UserReviews.Result != null && Model.UserReviews.UserReviews.Result.Count() > 0)
+{
+    @Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
+}
 
 <div class="margin-bottom20 text-center">
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x100_Middle.cshtml", new { AdId = Model.AdTags.AdId });}

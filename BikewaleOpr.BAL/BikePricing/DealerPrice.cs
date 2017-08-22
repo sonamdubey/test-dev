@@ -201,14 +201,16 @@ namespace BikewaleOpr.BAL.BikePricing
 
             try
             {
-                versionIdsString = string.Join<uint>(",", versionIds);
-                itemIdsString = string.Join<uint>(",", itemIds);
-                itemValuesString = string.Join<uint>(",", itemValues);
-                dealerIdsString = string.Join<uint>(",", dealerIds);
-                cityIdsString = string.Join<uint>(",", cityIds);
 
-                isSaved = _dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
-
+                if (itemIds != null && itemValues != null && itemValues.Count() > 0 && itemIds.Count() > 0)
+                {
+                    itemIdsString = string.Join<uint>(",", itemIds);
+                    itemValuesString = string.Join<uint>(",", itemValues);
+                    versionIdsString = string.Join<uint>(",", versionIds);
+                    dealerIdsString = string.Join<uint>(",", dealerIds);
+                    cityIdsString = string.Join<uint>(",", cityIds);
+                    isSaved = _dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+                }
             }
             catch (Exception ex)
             {
@@ -244,14 +246,19 @@ namespace BikewaleOpr.BAL.BikePricing
 
             try
             {
-                versionIdsString = string.Join<uint>(",", versionIds);
-                itemIdsString = string.Join<uint>(",", itemIds);
-                itemValuesString = string.Join<uint>(",", itemValues);
-                dealerIdsString = string.Join<uint>(",", dealerIds);
-                cityIdsString = string.Join<uint>(",", cityIds);
-                modelIdNamesString = string.Join<string>(",", bikeModelIds.Zip(bikeModelNames, (modelId, modelName) => string.Format("{0}:{1}", modelId, modelName)));
+                if (itemIds != null && itemValues != null && itemValues.Count() > 0 && itemIds.Count() > 0)
+                {
+                    itemIdsString = string.Join<uint>(",", itemIds);
+                    itemValuesString = string.Join<uint>(",", itemValues);
 
-                response.IsPriceSaved = _dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+                    versionIdsString = string.Join<uint>(",", versionIds);
+                    dealerIdsString = string.Join<uint>(",", dealerIds);
+                    cityIdsString = string.Join<uint>(",", cityIds);
+                    modelIdNamesString = string.Join<string>(",", bikeModelIds.Zip(bikeModelNames, (modelId, modelName) => string.Format("{0}:{1}", modelId, modelName)));
+
+                    response.IsPriceSaved = _dealerPriceRepository.SaveDealerPrices(dealerIdsString, cityIdsString, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+                }
+
                 if (dealerIds.Count() == 1)
                     response.RulesUpdatedModelNames = _dealerPriceQuoteRepository.AddRulesOnPriceUpdation(modelIdNamesString, dealerIds.First(), makeId, enteredBy);
             }

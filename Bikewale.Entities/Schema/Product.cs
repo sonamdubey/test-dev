@@ -22,6 +22,9 @@ namespace Bikewale.Entities.Schema
         [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
         public string Url { get; set; }
 
+        [JsonProperty("sameAs", NullValueHandling = NullValueHandling.Ignore)]
+        public string CanonicalUrl { get; set; }
+
         [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
         public string Description { get; set; }
 

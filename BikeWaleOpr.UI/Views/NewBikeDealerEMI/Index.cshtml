@@ -8,7 +8,7 @@
     <div class="col m9 margin-top10">
         @using (Html.BeginForm("Submit", "NewBikeDealerEMI", new { dealerId = Request.QueryString["dealerId"] }, FormMethod.Post, new { id = "emiForm" }))
             {
-            <input id="hdnLoanAmountId" name="id" type="hidden" data-value="@(Model.dealerEmiFormInfo == null ? "" : Convert.ToString(Model.dealerEmiFormInfo.Id))" data-bind="textInput: hdnLoanAmountId" />
+            <input id="hdnLoanAmountId" name="id" type="hidden" data-msg="@Request.QueryString["isAdded"]" data-value="@(Model.dealerEmiFormInfo == null ? "" : Convert.ToString(Model.dealerEmiFormInfo.Id))" data-bind="textInput: hdnLoanAmountId" />
             <input name="cityId" type="hidden" value="@Model.DealerOperationParams.CityId">
             <input name="makeId" type="hidden" value="@Model.DealerOperationParams.MakeId">
             <input name="dealerName" type="hidden" value="@Model.DealerName">
@@ -78,7 +78,7 @@
 
                 <div class="row valign-wrapper">
                     <div class="col s6">
-                        Processing Fees Ex. 3,000 :
+                        Processing Fees (&#8377) Ex. 3,000 :
                     </div>
                     <div class="input-field col s6">
                         <input id="txtFees" class="emiInfo validate double" type="text" name="processingFee" maxlength="10" data-value="@(Model.dealerEmiFormInfo == null ? "" : Convert.ToString(Model.dealerEmiFormInfo.ProcessingFee))" data-bind="textInput: txtFees" />
@@ -87,8 +87,8 @@
                 </div>
                 <div class="row">
                     <button id="btnSaveEMI" class="btn waves-effect waves-light" type="submit" data-bind="click: SaveEMI_Validate">Add EMI</button>
-                    <button id="btnReset" class="btn waves-effect waves-light" type="button" data-bind="click: Reset">Reset</button>
-                    <button id="btnDelete" class="btn waves-effect waves-light modal-trigger @(Model.dealerEmiFormInfo == null ? "hide" : "")" data-target="confirm-modal" type="button">Delete EMI</button>
+                    <button id="btnReset" class="btn waves-effect waves-light black" type="button" data-bind="click: Reset">Reset</button>
+                    <button id="btnDelete" class="btn waves-effect waves-light modal-trigger red @(Model.dealerEmiFormInfo == null ? "hide" : "")" data-target="confirm-modal" type="button">Delete EMI</button>
                 </div>
         }
         <!-- Modal Structure -->

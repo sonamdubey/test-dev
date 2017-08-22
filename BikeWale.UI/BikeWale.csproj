@@ -2859,6 +2859,7 @@
     <Content Include="m\css\used\details.css" />
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
+    <Content Include="m\css\user-review\landing.css" />
     <Content Include="m\css\user-review\listing-old.css" />
     <Content Include="m\css\user-review\listing.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
@@ -2872,6 +2873,7 @@
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
     <Content Include="m\news\offline.html" />
+    <Content Include="m\news\sw_installer.html" />
     <Content Include="m\news\sw.js" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\service\Default.aspx" />
@@ -3746,6 +3748,7 @@
     <Content Include="Views\UserReview\_UserReviewsSearch_Schema.cshtml" />
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel.cshtml" />
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel_Mobile.cshtml" />
+    <Content Include="Views\Shared\_Layout_Mobile_AMP_PWA.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
     <None Include="Web.Debug.config">
@@ -4012,8 +4015,9 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent Condition="'$(Configuration)' == 'Release'">xcopy "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
-xcopy "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\runtimes\win7-x64\native\*" "$(ProjectDir)bin\x64\"</PostBuildEvent>
+    <PostBuildEvent Condition="'$(Configuration)' == 'Release'">
+      xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
+      xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\runtimes\win7-x64\native\*" "$(ProjectDir)bin\x64\"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
