@@ -50,10 +50,8 @@
 <script type="text/javascript">
 
     docReady(function () {
-        $("#backBtn").on('click', BackBtnClick);
+        $("#backBtn").on('click', function () {
+            window.history.back();
+        });
     });
-
-    function BackBtnClick() {
-        window.history.back();
-    }
 </script>
