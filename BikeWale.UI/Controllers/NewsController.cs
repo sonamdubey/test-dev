@@ -305,6 +305,7 @@ namespace Bikewale.Controllers
         /// Summmary   : Action method to render Scooter news - Desktop
         /// </summary>
         [Route("scooters/news/")]
+        [Filters.DeviceDetection()]
         public ActionResult Scooters()
         {
             NewsScootersPageVM objData = null;

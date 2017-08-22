@@ -309,7 +309,7 @@ namespace Bikewale.Models.News
 
                 List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
                 categorList.Add(EnumCMSContentType.News);
-                if (MakeId == 0 && ModelId == 0)
+                if (MakeId == 0)
                 {
                     categorList.Add(EnumCMSContentType.AutoExpo2016);
                     categorList.Add(EnumCMSContentType.Features);
