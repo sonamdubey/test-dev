@@ -6,7 +6,8 @@
     Model.AdTags.Ad320x150_Bottom = true;
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/scooters/landing.css' />";
     Model.PageMetaTags.AlternateUrl = "";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";    
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.IsTransparentHeader = true;
 }
 
 <section>
@@ -231,7 +232,7 @@
                             {
                                 @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
                             }
-                            <div class="view-all-btn-container text-center">
+                            <div class="view-all-btn-container">
                                 <a title="Scooter Videos" href="/m/scooters/videos/" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
                             </div>
                         </div>
