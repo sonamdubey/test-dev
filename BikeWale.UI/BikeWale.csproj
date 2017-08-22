@@ -2872,6 +2872,7 @@
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
     <Content Include="m\news\offline.html" />
+    <Content Include="m\news\sw_installer.html" />
     <Content Include="m\news\sw.js" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\service\Default.aspx" />
@@ -3746,6 +3747,7 @@
     <Content Include="Views\UserReview\_UserReviewsSearch_Schema.cshtml" />
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel.cshtml" />
     <Content Include="Views\UserReview\_SearchUserReviewMakeModel_Mobile.cshtml" />
+    <Content Include="Views\Shared\_Layout_Mobile_AMP_PWA.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
     <None Include="Web.Debug.config">
