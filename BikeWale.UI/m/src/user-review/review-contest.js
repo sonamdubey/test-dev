@@ -165,7 +165,7 @@ docReady(function () {
 		self.modelName = ko.computed(function() {
 			return self.bikeSelection().modelName();
 		});
-
+		debugger;
         self.openBikeSelection = function () {
             try {
                 self.bikePopup.open();
@@ -192,10 +192,8 @@ docReady(function () {
     var vmRateBikeVM = new rateBikeVM();
 
     ko.applyBindings(vmRateBikeVM, document.getElementById("bike-selection-form"));
+    ko.applyBindings(vmRateBikeVM, document.getElementById("write-review-target"));
 
-	$('#write-review-target').on('click', function (){
-		$('html, body').animate({ scrollTop: $('#bike-selection-form').offset().top - (topNavBarHeight * 2) }, 1000);
-	});
 
     $(window).on('popstate', function (event) {
         if ($('#select-bike-cover-popup').is(':visible')) {
