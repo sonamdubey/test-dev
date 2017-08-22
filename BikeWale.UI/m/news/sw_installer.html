@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <title>Service Worker installer</title>
     <script type="text/javascript">
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register("/m/news/sw.js").then(function (registration) {
+            navigator.serviceWorker.register("https://www.bikewale.com/m/news/sw.js").then(function (registration) {
             })
         }
     </script>

@@ -1,8 +1,15 @@
-﻿<!doctype html>
+﻿@using Bikewale.Utility
+<!doctype html>
 <html amp lang="en">
     <head>
         <meta charset="utf-8">
         <title>@ViewBag.Title @ViewBag.ArticleSectionTitle</title>
+        @{
+            var swLocation = Bikewale.Utility.BWConfiguration.Instance.AMPDomainForSW;
+            var swLink = (!String.IsNullOrEmpty(swLocation) ? swLocation : "") + "/m/news/sw.js";
+            var swInstallerLink = (!String.IsNullOrEmpty(swLocation) ? swLocation : "") + "/m/news/sw_installer.html";
+            
+        }
         <link rel="canonical" href="@ViewBag.Canonical" />
         <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
         <style amp-custom>
@@ -17,6 +24,7 @@
         {
             "@@context": "http://schema.org",
             "@@type": "@ViewBag.ArticleType",
+            .
             "mainEntityOfPage":{
                 "@@type": "WebPage",
                 "@@id": "@ViewBag.MobilePageUrl"
@@ -62,7 +70,7 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
     </head>
     <body>
-        <amp-install-serviceworker src="https://www.bikewale.com/m/news/sw.js" data-iframe-src="https://www.bikewale.com/m/news/sw_installer.html" layout="nodisplay" />
+        <amp-install-serviceworker src="@swLink" data-iframe-src="@swInstallerLink" layout="nodisplay"></amp-install-serviceworker>
         <amp-sidebar id="nav" layout="nodisplay" side="left">
             <ul class="navUL">
                 <li>
