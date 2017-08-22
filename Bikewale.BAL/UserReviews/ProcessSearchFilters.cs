@@ -119,12 +119,15 @@ namespace Bikewale.BAL.UserReviews.Search
                         objResult.PageUrl.NextPageUrl = objResult.PageUrl.NextPageUrl.Replace("+", "%2b");
                     }
 
-                    foreach(var review in objReviewSummaryList)
+                    if (objReviewSummaryList != null)
                     {
-                        foreach (var ques in review.Questions)
+                        foreach (var review in objReviewSummaryList)
                         {
-                            if (ques.Type == UserReviewQuestionType.Rating)
-                                review.RatingQuestionsCount++;
+                            foreach (var ques in review.Questions)
+                            {
+                                if (ques.Type == UserReviewQuestionType.Rating)
+                                    review.RatingQuestionsCount++;
+                            }
                         }
                     }
 
