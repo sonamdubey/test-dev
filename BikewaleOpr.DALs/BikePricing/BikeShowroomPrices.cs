@@ -1,17 +1,25 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.Entities.BikePricing;
-using BikewaleOpr.Interface.BikePricing;
+using BikewaleOpr.Interface.Dealers;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Data.Common;
+using BikewaleOpr.Entities.BikeData;
+using BikewaleOpr.Entity.BikePricing;
+using Bikewale.Utility;
+using Dapper;
+using Bikewale.DAL.CoreDAL;
 
 namespace BikewaleOpr.DALs.BikePricing
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 23 Sept 2016
     /// Summary : Class have functions to process pricing in the bikewale opr
+    /// Modified By : Ashutosh Sharma on 29-07-2017
+    /// Discription : Added GetModelsByMake and GetPriceMonitoringDetails
     /// </summary>
     public class BikeShowroomPrices : IShowroomPricesRepository
     {
@@ -70,6 +78,7 @@ namespace BikewaleOpr.DALs.BikePricing
         }
 
 
+
         public bool SaveBikePrices(string versionPriceList, string citiesList, int updatedBy)
         {
             bool isUpdated = false;
@@ -97,6 +106,72 @@ namespace BikewaleOpr.DALs.BikePricing
             }
 
             return isUpdated;
+        }
+
+        /// <summary>
+        /// Created By : Ashutosh Sharma on 29-07-2017
+        /// Discription : DAL method to get list of bike models of a bike make.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns>List of Bike models.</returns>
+        public IEnumerable<BikeModelEntityBase> GetModelsByMake(uint makeId)
+        {
+            IEnumerable<BikeModelEntityBase> modelList = null;
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("par_makeid", makeId);
+                param.Add("par_requesttype", "NEW");
+                
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    modelList = connection.Query<BikeModelEntityBase>("getbikemodels_new", param: param, commandType: CommandType.StoredProcedure);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.BikePricing.BikeShowroomPrices.GetModelsByMake_makeId:{0}",makeId));
+            }
+
+            return modelList;
+        }
+
+        /// <summary>
+        /// Created By : Ashutosh Sharma on 29-07-2017
+        /// Discription : DAL Method to get price last updated details of bike versions in cities.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns>List of cities, bike versions and price last updated.</returns>
+        public PriceMonitoringEntity GetPriceMonitoringDetails(uint makeId, uint modelId, uint stateId)
+        {
+            PriceMonitoringEntity priceMonitoring = null;
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("par_makeId", makeId);
+                param.Add("par_modelId", modelId);
+                param.Add("par_stateId", stateId);
+
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    priceMonitoring = new PriceMonitoringEntity();
+                    var reader = connection.QueryMultiple("getpricemonitoring", param: param, commandType: CommandType.StoredProcedure);
+                    priceMonitoring.CityList = reader.Read<Entities.MfgCityEntity>();
+                    priceMonitoring.BikeVersionList = reader.Read<BikeVersionEntityBase>();
+                    priceMonitoring.PriceLastUpdatedList = reader.Read<PriceLastUpdateEntity>();
+                    priceMonitoring.BikeModelList = reader.Read<BikeModelEntityBase>();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.BikePricing.BikeShowroomPrices.GetPriceMonitoringDetails makeid:{0} modelid:{1}", makeId, modelId));
+            }
+
+            return priceMonitoring;
         }
     }
 }

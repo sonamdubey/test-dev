@@ -23,6 +23,9 @@
 .collapsible-content.active .more-content {
   display: inline; }
 
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none; }
+
 .padding-10-15 {
   padding: 10px 15px; }
 

@@ -15,7 +15,7 @@
             </a>
             <ul class="nestedUL">
                 <li><a href="/new-bikes-in-india/">Find New Bikes</a></li>
-                <li><a href="/new-scooters/">Find New Scooters</a></li>
+                <li><a href="/scooters/">Find New Scooters</a></li>
                 <li><a href="/comparebikes/">Compare Bikes</a></li>
                 <li><a href="/pricequote/">Check On-Road Price</a></li>
                 <li><a href="/dealer-showroom-locator/">Locate Dealer</a></li>
@@ -74,7 +74,14 @@
                 <span class="bwsprite forum-icon"></span>
                 <span class="navbarTitle">Tools</span>
             </a>
-        </li>
+		</li>
+		<li>
+			<a href="/bike-review-contest/?csrc=<%= ((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_Hamburger)%>">
+				<span class="teal-trophy-circle"></span>
+				<span class="navbarTitle inline-block">Bike Review Contest</span>
+				<span class="bwsprite nav-right-arrow"></span>
+			</a>
+		</li>
         <li>
             <a href="/mybikewale/">
                 <span class="bwsprite myBikeWale-icon"></span>

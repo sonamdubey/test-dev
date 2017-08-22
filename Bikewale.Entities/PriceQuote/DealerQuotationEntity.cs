@@ -55,11 +55,21 @@ namespace Bikewale.Entities.PriceQuote
         [JsonProperty("totalPrice")]
         public ulong TotalPrice { get { return (PriceList != null ? Convert.ToUInt64(PriceList.Sum(m => Convert.ToInt64(m.Price))) : 0UL); } }
 
-        public bool IsPremiumDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Premium.Equals(this.DealerDetails.DealerPackageType)); } }
+        public bool IsPremiumDealer
+        {
+            get
+            {
+                return (this.DealerDetails != null
+                    && (DealerPackageTypes.Premium == this.DealerDetails.DealerPackageType
+                    || DealerPackageTypes.CPS == this.DealerDetails.DealerPackageType
+                    )
+                    );
+            }
+        }
 
-        public bool IsStandardDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Standard.Equals(this.DealerDetails.DealerPackageType)); } }
+        public bool IsStandardDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Standard == this.DealerDetails.DealerPackageType); } }
 
-        public bool IsDeluxDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Deluxe.Equals(this.DealerDetails.DealerPackageType)); } }
+        public bool IsDeluxDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Deluxe == this.DealerDetails.DealerPackageType); } }
 
     }
 }

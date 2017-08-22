@@ -309,6 +309,12 @@ namespace BikewaleOpr.DALs.Bikedata
             }
         }
 
+        /// <summary>
+        /// Modified by : Snehal Dange on 11-08-2017
+        /// Description : Get Bike makes
+        /// </summary>
+        /// <param name="requestType"></param>
+        /// <returns></returns>
         public IEnumerable<BikeMakeEntityBase> GetMakes(ushort requestType)
         {
             IEnumerable<BikeMakeEntityBase> objMakes = null;
@@ -323,7 +329,7 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     param.Add("par_requesttype", requestType);
 
-                    objMakes = connection.Query<BikeMakeEntityBase>("getbikemakes_1712017", param: param, commandType: CommandType.StoredProcedure);
+                    objMakes = connection.Query<BikeMakeEntityBase>("getbikemakes_11082017", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -337,6 +343,7 @@ namespace BikewaleOpr.DALs.Bikedata
             return objMakes;
         }
 
+        
 
 
         /// <summary>

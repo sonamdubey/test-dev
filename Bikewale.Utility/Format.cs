@@ -208,6 +208,38 @@ namespace Bikewale.Utility
             return retValue;
         }
 
+
+        /// <summary>
+        /// Formats the numbers.
+        /// Created by: Sajal Gupta on 18 Aug 2017
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <returns></returns>
+        public static string FormatNumbers(uint number)
+        {            
+            try
+            {   
+                if(number < 1000)
+                {
+                    return number.ToString();
+                }
+                else if(number < 1000000) //less than million
+                {
+                    return String.Format("{0:0.0}k", ((double)number / 1000));
+                }
+                else // greater than million
+                {
+                    return String.Format("{0:0.0}m", (number / 1000000));
+                }
+                                            
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("FormatPriceShort, input : {0}", number));
+                return "0";
+            }           
+        }
+
         /// <summary>
         /// Created by Subodh Jain on 6 Sep 2016
         /// To format manufacturer's params

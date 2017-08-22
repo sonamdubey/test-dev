@@ -172,7 +172,7 @@
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <HintPath>..\Libs\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Unity.Mvc5">
@@ -415,13 +415,20 @@
       <DependentUpon>ViewReview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\DealerBikePriceController.cs" />
     <Compile Include="Controllers\ComparisonController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\DealerCampaignController.cs" />
+    <Compile Include="Controllers\DealerFacilitiesController.cs" />
     <Compile Include="Controllers\MakesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageBookingAmountController.cs" />
     <Compile Include="Controllers\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
+    <Compile Include="Controllers\PriceMonitoringController.cs" />
+    <Compile Include="Controllers\PageMetasConfigureController.cs" />
+    <Compile Include="Controllers\NewBikeDealerEMIController.cs" />
+    <Compile Include="Controllers\ServiceCenterController.cs" />
     <Compile Include="Controllers\UserReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="controls\DateControl.cs">
@@ -457,14 +464,23 @@
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Models\DealerBikePrice\DealerPricingIndexPageModel.cs" />
+    <Compile Include="Models\DealerBikePrice\DealerPricingSheetPageModel.cs" />
     <Compile Include="Models\Banner\Banner.cs" />
     <Compile Include="Models\Banner\BannersListPage.cs" />
+    <Compile Include="Models\DealerBookingAmount\DealerBookingAmountModel.cs" />
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
+    <Compile Include="Models\DealerEMI\DealerEMIModel.cs" />
+    <Compile Include="Models\ManagePrices\PriceMonitoringModel.cs" />
+    <Compile Include="Models\DealerFacilities\DealerFacilitiesModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\CampaignPropertiesModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPageModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPopup.cs" />
     <Compile Include="Models\ManufacturerCampaign\ManufacturerCampaignRules.cs" />
     <Compile Include="Models\ManufacturerCampaign\SearchCampaign.cs" />
+    <Compile Include="Models\ServiceCenter\ServiceCenterPageModel.cs" />
+    <Compile Include="Models\PageMetasConfiguration\ConfigurePageMetas.cs" />
+    <Compile Include="Models\PageMetasConfiguration\PageMetasSearch.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsRatingsPage.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
@@ -1932,21 +1948,31 @@
     <Content Include="src\common\common.js" />
     <Content Include="src\Comparison\addcomparisonrules.js" />
     <Content Include="src\Comparison\managecomparisons.js" />
+    <Content Include="src\configurePageMetas.js" />
     <Content Include="src\content\makes.js" />
+    <Content Include="src\content\newbikedealerEMI.js" />
     <Content Include="src\content\usedimageupload.js" />
     <Content Include="src\dealercampaign\campaignservingareas.js" />
+    <Content Include="src\DealerPricing\dealeroperationcollapsable.js" />
+    <Content Include="src\DealerPricing\dealerpricingindex.js" />
+    <Content Include="src\DealerFacility\DealerFacility.js" />
     <Content Include="src\framework.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
     <Content Include="src\imageUpload.js" />
     <Content Include="src\jquery-1.6.min.js" />
     <Content Include="src\knockout.js" />
+    <Content Include="src\manageBookingAmount.js" />
     <Content Include="src\ManufactureCampaign\ConfigureCampaign.js" />
     <Content Include="src\ManufactureCampaign\configureCampaignProperties.js" />
     <Content Include="src\ManufactureCampaign\rules.js" />
     <Content Include="src\ManufacturerCampaign\SearchManufacture.js" />
     <Content Include="src\modelImagesByColor.js" />
+    <Content Include="src\pagemetasearch.js" />
     <Content Include="src\PopUpDiv.js" />
+    <Content Include="src\ManagePrice\pricemonitoring.js" />
+    <Content Include="src\ServiceCenter\ServiceCenter.js" />
+    <Content Include="src\ServiceCenter\ServiceCenterOperations.js" />
     <Content Include="src\userreviews\manageuserratings.js" />
     <Content Include="src\userreviews\manageuserreviews.js" />
     <Content Include="users\Login.aspx" />
@@ -1961,7 +1987,6 @@
     <Content Include="campaign\web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Makes\Index.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_MenuContent.cshtml" />
@@ -1997,10 +2022,22 @@
     <Content Include="Views\ManufacturerCampaign\_NavigationBreadcrumbs.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignProperties.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ConfigureCampaignPopup.cshtml" />
+    <Content Include="Views\DealerBikePrice\Index.cshtml" />
+    <Content Include="Views\DealerBikePrice\_SelectOperationCollapsable.cshtml" />
+    <Content Include="Views\DealerBikePrice\DealerPricing.cshtml" />
+    <Content Include="Views\PriceMonitoring\Index.cshtml" />
+    <Content Include="Views\Makes\Index.cshtml" />
     <Content Include="Views\Comparison\ManageSponsoredCamparison.cshtml" />
     <Content Include="Views\Comparison\AddSponsoredComparisonRules.cshtml" />
     <Content Include="Views\Banner\Index.cshtml" />
     <Content Include="Views\Banner\BannersList.cshtml" />
+    <Content Include="Views\ServiceCenter\SearchServiceCenter.cshtml" />
+    <Content Include="Views\ManageBookingAmount\Index.cshtml" />
+    <Content Include="Views\DealerFacilities\Index.cshtml" />
+    <Content Include="Views\NewBikeDealerEMI\Index.cshtml" />
+    <Content Include="Views\PageMetas\Search_Index.cshtml" />
+    <Content Include="Views\PageMetas\Index.cshtml" />
+    <Content Include="Views\ServiceCenter\AddServiceCenter.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -2071,6 +2108,14 @@
     <ProjectReference Include="..\BikewaleOpr.DALs\BikewaleOpr.DALs.csproj">
       <Project>{01134f89-c502-492e-a368-0a93d76430ef}</Project>
       <Name>BikewaleOpr.DALs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.DTO\BikewaleOpr.DTO.csproj">
+      <Project>{D2E7FEF3-CA0C-4739-B995-C226AF7CC41D}</Project>
+      <Name>BikewaleOpr.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.DTO\BikewaleOpr.DTO.csproj">
+      <Project>{D2E7FEF3-CA0C-4739-B995-C226AF7CC41D}</Project>
+      <Name>BikewaleOpr.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
       <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>

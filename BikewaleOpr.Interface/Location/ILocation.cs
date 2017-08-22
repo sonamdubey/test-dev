@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity;
 
 namespace BikewaleOpr.Interface.Location
 {
@@ -14,5 +15,8 @@ namespace BikewaleOpr.Interface.Location
     public interface ILocation
     {        
         IEnumerable<StateEntityBase> GetStates();
+        IEnumerable<CityNameEntity> GetDealerCities();
+        IEnumerable<CityNameEntity> GetCitiesByState(uint stateId);
+        IEnumerable<CityNameEntity> GetAllCities();
     }
 }

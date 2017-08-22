@@ -217,7 +217,6 @@
     <Compile Include="Images\ImageBL.cs" />
     <Compile Include="Location\Cities.cs" />
     <Compile Include="Location\States.cs" />
-    <Compile Include="ManufacturerCampaign\ManufacturerCampaign.cs" />
     <Compile Include="MobileAppAlert\MobileFCMNotifications.cs" />
     <Compile Include="MobileVerification\MobileVerification.cs" />
     <Compile Include="MVC.UI\Scooters.cs" />
