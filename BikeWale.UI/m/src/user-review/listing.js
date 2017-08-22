@@ -327,7 +327,7 @@ docReady(function () {
     ko.bindingHandlers.truncateDesc = {
         update: function (element, valueAccessor) {
             var originalText = strip(valueAccessor());
-            var formattedText = originalText && originalText.length > 120 ? originalText.substring(0, 120) : originalText;
+            var formattedText = originalText && originalText.length > 120 ? originalText.substring(0, 120) + '...' : originalText;
             $(element).text(formattedText);
         }
     };
