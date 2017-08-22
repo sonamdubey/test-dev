@@ -43,7 +43,7 @@ namespace Bikewale.BindViewModels.Controls
                     IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                     if (ModelId > 0)
                     {
-                        popularBikesList = modelCache.GetPopularBikesByBodyStyle((int)ModelId, WidgetItemCount, CityId);
+                        popularBikesList = modelCache.GetMostPopularBikesByModelBodyStyle((int)ModelId, WidgetItemCount, CityId);
                         if (popularBikesList != null && popularBikesList.Count() > 0)
                             popularBikesList = popularBikesList.Take(TopCount).ToList();
                         FetchedRecordsCount = popularBikesList.Count();

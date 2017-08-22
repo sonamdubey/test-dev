@@ -405,6 +405,33 @@ namespace Bikewale.Utility
             }
             return url;
         }
+
+        /// <summary>
+        /// Created by  :   Snehal Dange on 18th August,2017
+        /// Description :   Format News Url
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <param name="modelMaskingName"></param>
+        /// <returns></returns>
+        public static string FormatScootersNewsUrl(string makeMaskingName, string modelMaskingName)
+        {
+            string url = String.Empty;
+            if (String.IsNullOrEmpty(makeMaskingName) && String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = "/scooters/news/";
+            }
+            else if (String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = String.Format("/{0}-scooters/news/", makeMaskingName);
+            }
+            else
+            {
+                url = String.Format("/{0}-scooters/{1}/news/", makeMaskingName, modelMaskingName);
+            }
+            return url;
+        }
+
+
         /// <summary>
         /// Created By : Aditi Srivastava on 13 Jan 2017
         /// Summary    : To format url for generic pages
@@ -466,6 +493,26 @@ namespace Bikewale.Utility
         public static string FormatWriteReviewLink(uint modelId)
         {
             return String.Format("/content/userreviews/writereviews.aspx?bikem={0}", modelId);
+        }
+
+        /// <summary>
+        /// Created by: Vivek Singh Tomar on 18th Aug 2017
+        /// Summary: Format Scooter's expert review url
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <returns></returns>
+        public static string FormatScootersExpertReviewUrl(string makeMaskingName)
+        {
+            string url = string.Empty;
+            if (String.IsNullOrEmpty(makeMaskingName))
+            {
+                url = "/scooters/expert-reviews/";
+            }
+            else
+            {
+                url = String.Format("/{0}-scooters/expert-reviews/", makeMaskingName);
+            }
+            return url;
         }
     }
 }

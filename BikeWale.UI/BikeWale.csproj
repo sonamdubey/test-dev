@@ -964,6 +964,7 @@
     <Compile Include="Models\ComparisonTest\ComparisonTestWidget.cs" />
     <Compile Include="Models\ComparisonTests\ComparisonTestsIndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\ExpertReviews\ScooterExpertReviewsPage.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
@@ -994,6 +995,7 @@
     <Compile Include="Models\NewLaunches\NewLaunchesBikesModel.cs" />
     <Compile Include="Models\News\NewsIndexPage.cs" />
     <Compile Include="Models\Location\ChangeLocationPopup.cs" />
+    <Compile Include="Models\News\ScooterNewsPage.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
@@ -1029,6 +1031,7 @@
     <Compile Include="Models\ServiceCenters\ServiceCentersInNearByCities.cs" />
     <Compile Include="Models\HomePageModel.cs" />
     <Compile Include="Models\Upcoming\UpcomingBikesWidget.cs" />
+    <Compile Include="Models\Videos\ScooterVideos.cs" />
     <Compile Include="Models\Videos\SimilarVideosModel.cs" />
     <Compile Include="Models\Videos\VideoDetails.cs" />
     <Compile Include="Models\Videos\VideosByCategoryPage.cs" />
@@ -2125,6 +2128,8 @@
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
     <Content Include="bin\DotNetOpenAuth.OpenId.xml" /> -->
     <!--     <Content Include="bin\Newtonsoft.Json.xml" /> -->
+    <Content Include="bin\grpc_csharp_ext.x64.dll" />
+    <Content Include="bin\grpc_csharp_ext.x86.dll" />
     <Content Include="contactus.aspx" />
     <Content Include="content\BikeCare\BikeCare.aspx" />
     <Content Include="content\BikeCare\ViewBikeCare.aspx" />
@@ -3081,6 +3086,8 @@
     <Content Include="sass\modules\_collapsible-list.sass" />
     <Content Include="sass\user-review\_review-swiper-3d.sass" />
     <Content Include="sass\user-review\_swiper.sass" />
+    <Content Include="m\sass\modules\_rating-circle.sass" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
@@ -3751,6 +3758,11 @@
     <Content Include="Views\Shared\_Layout_Mobile_AMP_PWA.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\Scooters_Mobile.cshtml" />
+    <Content Include="Views\News\Scooters.cshtml" />
+    <Content Include="Views\News\Scooters_Mobile.cshtml" />
+    <Content Include="Views\Videos\ScooterVideos.cshtml" />
+    <Content Include="Views\Videos\ScooterVideos_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
