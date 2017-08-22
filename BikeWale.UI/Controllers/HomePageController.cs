@@ -65,7 +65,7 @@ namespace Bikewale.Controllers
         [DeviceDetection]
         public ActionResult Index()
         {
-            HomePageVM objData = null;            HomePageModel obj = new HomePageModel(10, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _expertReviews, _upcoming, _userReviewsCache);
+            HomePageVM objData = null;            HomePageModel obj = new HomePageModel(10, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _expertReviews, _upcoming, _userReviewsCache);
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
             objData = obj.GetData();
             return View(objData);
@@ -76,7 +76,7 @@ namespace Bikewale.Controllers
         [Route("m/homepage/")]
         public ActionResult Index_Mobile()
         {
-            HomePageVM objData = null;            HomePageModel obj = new HomePageModel(6, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _expertReviews, _upcoming, _userReviewsCache);
+            HomePageVM objData = null;            HomePageModel obj = new HomePageModel(6, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _expertReviews, _upcoming, _userReviewsCache);
             obj.IsMobile = true;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             objData = obj.GetData();
