@@ -12,7 +12,7 @@
 @if (Model != null)
 {
     <header id="categoryHeader">
-        <div class="category-back-btn">
+        <div id="backBtn" class="category-back-btn">
             <span class="bwmsprite fa-arrow-back"></span>
         </div>
         <h1 class="font18">@Model.PageHeading</h1>
@@ -77,3 +77,13 @@
     <div id="js-variable" class="hide" data-catid="@Model.CategoryId" data-maxpage="@Model.Videos.TotalRecords" data-apiurl="/api/videos/cat/" data-cachekey="@Model.CategoryId"></div>
 
 }
+<script type="text/javascript">
+
+    docReady(function () {
+        $("#backBtn").on('click', BackBtnClick);
+    });
+
+    function BackBtnClick() {
+        window.history.back();
+    }
+</script>

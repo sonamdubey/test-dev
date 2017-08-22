@@ -13,7 +13,7 @@
 @if (Model != null && Model.Make != null && Model.Model != null)
 {
     <header id="categoryHeader">
-        <div class="category-back-btn">
+        <div id="backBtn" class="category-back-btn">
             <span class="bwmsprite fa-arrow-back"></span>
         </div>
         <h1 class="font18">@String.Format("{0} {1} Videos", @Model.Make.MakeName, @Model.Model.ModelName)</h1>
@@ -95,3 +95,13 @@
 
     { Html.RenderAction("PopularBodyStyleMobile", "PopularBikes", new { modelId = Model.Model.ModelId, topCount = 9, cityId = Model.CityId }); }
 }
+<script type="text/javascript">
+   
+    docReady(function () {
+        $("#backBtn").on('click', BackBtnClick);
+    });
+
+    function BackBtnClick() {
+        window.history.back();
+    }
+</script>
