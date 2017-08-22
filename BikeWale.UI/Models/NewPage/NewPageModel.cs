@@ -117,7 +117,7 @@ namespace Bikewale.Models
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
             var objFiltersUpcoming = new UpcomingBikesListInputEntity()
             {
-                PageSize = TopCount,
+                PageSize = LaunchedRecordCount,
                 PageNo = 1
             };
             var sortBy = EnumUpcomingBikesFilter.Default;
