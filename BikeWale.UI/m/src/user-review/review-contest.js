@@ -165,7 +165,7 @@ docReady(function () {
 		self.modelName = ko.computed(function() {
 			return self.bikeSelection().modelName();
 		});
-		debugger;
+	
         self.openBikeSelection = function () {
             try {
                 self.bikePopup.open();
