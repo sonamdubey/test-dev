@@ -1195,76 +1195,6 @@ namespace Bikewale.DAL.UserReviews
             return reviews;
         }
 
-        public SearchResult GetUserReviewsList(string searchQuery)
-        {
-            SearchResult objResult = null;
-
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand(searchQuery))
-                {
-                    cmd.CommandType = CommandType.Text;
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null)
-                        {
-                            objResult = new SearchResult();
-
-                            IList<ReviewEntity> objUserReviewList = new List<ReviewEntity>();
-
-                            // populate bikes listings into the entity
-                            while (dr.Read())
-                            {
-                                ReviewEntity objUserReview = new ReviewEntity();
-                                objUserReview.ReviewId = SqlReaderConvertor.ToUInt32(dr["ReviewId"]);
-                                objUserReview.ReviewTitle = Convert.ToString(dr["ReviewTitle"]);
-                                objUserReview.WrittenBy = Convert.ToString(dr["WrittenBy"]);
-                                objUserReview.Comments = Convert.ToString(dr["Comments"]);
-                                objUserReview.Liked = SqlReaderConvertor.ToUInt16(dr["Liked"]);
-                                objUserReview.Disliked = SqlReaderConvertor.ToUInt16(dr["Disliked"]);
-                                objUserReview.Viewed = SqlReaderConvertor.ToUInt32(dr["Viewed"]);
-                                objUserReview.ReviewDate = Utility.SqlReaderConvertor.ToDateTime(dr["ReviewDate"]);
-                                objUserReview.ReviewAge = FormatDate.GetTimeSpan(SqlReaderConvertor.ToDateTime(dr["ReviewDate"]));
-                                objUserReview.OverAllRating = new ReviewRatingEntityBase()
-                                {
-                                    OverAllRating = SqlReaderConvertor.ToUInt16(dr["overallrating"])
-                                };
-                                objUserReviewList.Add(objUserReview);
-                            }
-
-                            // Add fetched listings to the result set
-                            objResult.Result = objUserReviewList;
-
-                            // process the next result for the total number of listings
-                            if (dr.NextResult())
-                            {
-
-                                if (dr.Read())
-                                {
-                                    objResult.TotalCount = Convert.ToInt32(dr["RecordCount"]);
-                                }
-
-                            }
-
-                            if (dr != null)
-                                dr.Close();
-                        }
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, String.Format("Bikewale.DAL.Used.Search.GetUsedBikesList({0})", searchQuery));
-                objError.SendMail();
-            }
-
-
-            return objResult;
-        }
-
-
         public BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId)
         {
             BikeReviewsInfo objBikeReviewInfo = null;
@@ -1741,5 +1671,31 @@ namespace Bikewale.DAL.UserReviews
             return objReviewsList;
         }
 
+        /// <summary>
+        /// Created by: Vivek Singh Tomar On 11th Aug 2017
+        /// Summary: Get list of winner of user reviews contest (Top 4)
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<RecentReviewsWidget> GetUserReviewsWinners()
+        {
+            IEnumerable<RecentReviewsWidget> objReviewsWinnersList = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    objReviewsWinnersList = connection.Query<RecentReviewsWidget>("getuserreviewswinners", commandType: CommandType.StoredProcedure);
+                    if(connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.UserReviews.UserReviewsRepository.GetUserReviewsWinners");
+            }
+            return objReviewsWinnersList;
+        }
     }// class end
 }

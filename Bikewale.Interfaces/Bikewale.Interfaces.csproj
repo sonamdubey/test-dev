@@ -174,7 +174,6 @@
     <Compile Include="Location\ICityMaskingCacheRepository.cs" />
     <Compile Include="Location\IState.cs" />
     <Compile Include="Location\IStateCacheRepository.cs" />
-    <Compile Include="ManufacturerCampaign\IManufacturerCampaign.cs" />
     <Compile Include="MobileAppAlert\IMobileAppAlert.cs" />
     <Compile Include="MobileAppAlert\IMobileAppAlertRepository.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />

@@ -4,11 +4,14 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Bikewale.Utility.GenericBikes;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -25,7 +28,7 @@ namespace Bikewale.Models
 
 
         public ushort makeTopCount { get; set; }
-
+        public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         public EnumBikeBodyStyles BodyStyleType = EnumBikeBodyStyles.AllBikes;
         public IndexGenericBestBikes(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes)
@@ -79,14 +82,68 @@ namespace Bikewale.Models
                 obj.BestBikes = new BestBikeWidgetModel(null, _objBestBikes).GetData();
                 obj.BestBikes.CurrentPage = BodyStyleType;
                 obj.Brands = new BrandWidgetModel(makeTopCount, _bikeMakes).GetData(BodyStyleType == EnumBikeBodyStyles.Scooter ? Entities.BikeData.EnumBikeType.Scooters : Entities.BikeData.EnumBikeType.New);
+                SetPageJSONLDSchema(obj);
             }
             catch (Exception ex)
             {
-
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.IndexGenericBestBikes.GetData");
             }
+
             return obj;
 
+        }
+
+        /// <summary>
+        /// Created By  :Sushil Kumar on 15th Aug 2017
+        /// Description : To load json schema for the list items
+        /// </summary>
+        /// <param name="obj"></param>
+        private void SetPageJSONLDSchema(IndexBestBikesVM obj)
+        {
+            try
+            {
+                if (obj.objBestBikesList != null)
+                {
+                    ProductList objSchema = new ProductList();
+                    objSchema.NumberOfItems = 10;
+                    objSchema.Url = IsMobile ? obj.PageMetaTags.AlternateUrl : obj.PageMetaTags.CanonicalUrl;
+
+                    if(IsMobile)
+                    objSchema.CanonicalUrl = obj.PageMetaTags.CanonicalUrl;
+
+                    objSchema.Name = obj.PageName;
+                    var lstItems = new List<ProductListItem>();
+                    uint itemNo = (uint)obj.objBestBikesList.Count();
+
+                    foreach (var bike in obj.objBestBikesList)
+                    {
+                        var product = new Product();
+                        product.Name = bike.BikeName;
+                        product.Image = Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._310x174);
+                        product.Id = string.Format("{0}{1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName, bike.Model.MaskingName));
+
+                        product.Description = bike.SmallModelDescription;
+                        product.Offers = new Offer()
+                        {
+                            Price = bike.Price
+                        };
+                        product.Url = string.Format("{0}#bike{1}", objSchema.Url, itemNo);
+                        lstItems.Add(new ProductListItem()
+                        {
+                            Position = itemNo,
+                            Item = product
+                        });
+
+                        itemNo--;
+                    }
+                    objSchema.ItemListElement = lstItems;
+                    obj.JSONSchema = string.Format(@"<script type='application/ld+json'>{0}</script>", Newtonsoft.Json.JsonConvert.SerializeObject(objSchema));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.IndexGenericBestBikes.SetPageJSONLDSchema");
+            }
         }
 
         /// <summary>
@@ -188,7 +245,8 @@ namespace Bikewale.Models
                 string formattedDate = Bikewale.Utility.FormatDate.GetFormatDate(DateTime.Now.AddMonths(-1).ToString(), "Y");
                 obj.PageMetaTags.Description = string.Format("BikeWale brings the list of best {0} in  India for {1}. Explore the top 10 {0} to buy the best bike of your  choice.", obj.PageMaskingName, formattedDate);
                 obj.PageMetaTags.Title = string.Format("Best {0} in India - {1} | Top 10 {0} - BikeWale", obj.PageName, formattedDate);
-                obj.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/best-{0}-in-india/", obj.PageMaskingName);
+                obj.PageMetaTags.CanonicalUrl = string.Format("{0}/best-{1}-in-india/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.PageMaskingName);
+                obj.PageMetaTags.AlternateUrl = string.Format("{0}/m/best-{1}-in-india/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, obj.PageMaskingName);
             }
             catch (Exception ex)
             {

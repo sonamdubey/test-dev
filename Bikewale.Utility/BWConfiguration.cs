@@ -112,6 +112,7 @@ namespace Bikewale.Utility
         private string _ServiceWorkerPath;
         private string _StaticCSSBTFPWAVersion;
         private bool _DisablePWA;
+        private string _AMPDomainForSW;
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
         {
@@ -206,6 +207,7 @@ namespace Bikewale.Utility
             _DisablePWA = string.IsNullOrEmpty(ConfigurationManager.AppSettings["DisablePWA"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["DisablePWA"]);
             _StaticCSSBTFPWAVersion = ConfigurationManager.AppSettings["StaticCSSBTFPWAVersion"];
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
+            _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];
         }
 
         // Static method to provide access to instance
@@ -351,6 +353,7 @@ namespace Bikewale.Utility
         public string ServiceWorkerPath { get { return _ServiceWorkerPath; } }
         public string StaticCSSBTFPWAVersion { get { return _StaticCSSBTFPWAVersion; } }
         public bool DisablePWA { get { return _DisablePWA; } }
+        public string AMPDomainForSW { get { return _AMPDomainForSW; } }
 
         public string UserReviewIndexName { get { return _UserReviewIndexName; } }
     }   // class

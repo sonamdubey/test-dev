@@ -19,7 +19,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using BikewaleOpr.DALs.BikePricing;
-using BikewaleOpr.Interface.BikePricing;
+using BikewaleOpr.Interface.Dealers;
 using System.Collections.ObjectModel;
 
 namespace BikewaleOpr.Campaign

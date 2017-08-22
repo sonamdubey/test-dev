@@ -1,7 +1,7 @@
 using BikewaleOpr.Cache;
 using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.Entities.BikePricing;
-using BikewaleOpr.Interface.BikePricing;
+using BikewaleOpr.Interface.Dealers;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 /*******************************************************************************************************
@@ -43,10 +43,19 @@ namespace BikeWaleOpr.Content
             {
                 BindMakes();
                 BindStates();
-
-                hdnSelectedCity.Value = "0";
-                ddlCities.Enabled = false;
-                ddlPriceCities.Enabled = false;
+                if (Request.QueryString["state"] != null && Request.QueryString["city"] != null && Request.QueryString["make"] != null)
+                {
+                    ddlMakes.SelectedValue = Request.QueryString["make"].ToString();
+                    ddlStates.SelectedValue = Request.QueryString["state"].ToString();
+                    hdnSelectedCity.Value = Request.QueryString["city"].ToString();
+                    ShowBikePrices();
+                }
+                else
+                {
+                    hdnSelectedCity.Value = "0";
+                    ddlCities.Enabled = false;
+                    ddlPriceCities.Enabled = false;
+                }
             }
         }
 
@@ -230,6 +239,7 @@ namespace BikeWaleOpr.Content
                 }
                 //To clear price quote for city
                 BwMemCache.ClearPriceQuoteCity(Convert.ToUInt32(model));
+                
             }
             //To clear new launched bikes cache
             MemCachedUtil.Remove("BW_NewLaunchedBikes");

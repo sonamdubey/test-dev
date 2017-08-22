@@ -6,11 +6,7 @@ $('.tooltipped').tooltip({ delay: 50 });
 // Do not remove this code. Its written to get values from checkbox to controller
 $("input:checkbox").change(function () { $(this).val($(this).is(':checked')); });
 var select = $('select');
-select.each(function () {
-    if (!$(this).hasClass('chosen-select')) {
-        $(this).material_select();
-    }
-});
+
 $(document).ready(function () {
     pageFooter.setPosition();
 });
@@ -138,6 +134,12 @@ $(document).ready(function () {
             labelElement.insertAfter(autocompleteElement.find('input'));
         }
     });
+
+    select.each(function () {
+        if (!$(this).hasClass('chosen-select')) {
+            $(this).material_select();
+        }
+    });
 });
 
 var materialSelect = {
@@ -193,3 +195,18 @@ var progress = {
         $(".progress").removeClass("show").addClass("hide");
     }
 }
+
+var fixedTable = function(element) {
+	var tableBody = $(element).find('.fixed-table__body'),
+		tableHeader = $(element).find('.fixed-table__header table'),
+		tableSidebar = $(element).find('.fixed-table__sidebar table');
+
+	return $(tableBody).scroll(function() {
+		$(tableSidebar).css('margin-top', -$(tableBody).scrollTop());
+		return $(tableHeader).css('margin-left', -$(tableBody).scrollLeft());
+	});
+}
+
+var priceMonitoringTable = new fixedTable($('#priceMonitoringTable'));
+
+

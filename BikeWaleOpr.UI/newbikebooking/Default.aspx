@@ -673,12 +673,14 @@
             dVm.cityChanged();
          }
 
+
+        //code my
         $("#btnManagefacilities").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
             var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
-                window.open('/newbikebooking/ManageDealerFacilities.aspx?dealerId=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
+                window.open('/dealers/' + dealerId + '/facilities/', '_blank');
             }
             else
                 alert("Please select dealer");
@@ -710,7 +712,7 @@
             $("#selectCityPriceHead").addClass("hide");
             var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
-                window.open('/newbikebooking/ManageDealerLoanAmounts.aspx?dealerId=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
+                window.open('/dealer/' + dealerId + '/emi/' + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
             else
                 alert("Please select dealer");

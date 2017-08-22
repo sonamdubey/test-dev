@@ -1967,3 +1967,27 @@ input[type="number"] {
 	position: absolute;
 }
 /* review contest slidein slug end */
+
+/* bike review contest navigation */
+.teal-trophy-circle {
+	width: 30px;
+	height: 30px;
+	margin-right: 5px;
+	display: inline-block;
+	vertical-align: middle;
+	background: #41b4c4 url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/trophy-14x16.png') no-repeat center;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	border-radius: 50%;
+}
+
+.nav-right-arrow {
+	width: 6px;
+	height: 10px;
+	position: absolute;
+	right: 15px;
+	top: 42%;
+	background-position: -222px -28px;
+	display: inline-block;
+}

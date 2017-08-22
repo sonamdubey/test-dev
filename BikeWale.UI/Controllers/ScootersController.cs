@@ -122,7 +122,7 @@ namespace Bikewale.Controllers
         [Bikewale.Filters.DeviceDetection]
         public ActionResult BikesByMake(string makeMaskingName)
         {
-            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter,_articles,_videos);
+            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter,_articles,_videos);
             obj.EditorialTopCount = 2;
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
 
@@ -162,7 +162,7 @@ namespace Bikewale.Controllers
         [Route("m/scooters/make/{makemaskingname}/")]
         public ActionResult BikesByMake_Mobile(string makeMaskingName)
         {
-            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter, _articles, _videos);
+            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter, _articles, _videos);
             obj.EditorialTopCount = 2;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
            
