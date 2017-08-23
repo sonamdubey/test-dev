@@ -1,5 +1,4 @@
 ﻿@model  Bikewale.Models.DealerShowroomCityPageVM
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_JS_Path = "/src/dealer/listing.js";
@@ -11,7 +10,6 @@
     Model.AdTags.Ad_970x90 = true;
     Model.AdTags.Ad_970x90Bottom = true;
 }
-
 <section>
     <div class="container padding-top10">
         <div class="grid-12">
@@ -35,7 +33,6 @@
         <div class="clear"></div>
     </div>
 </section>
-
 <section>
     <div class="container margin-bottom20">
         <div class="grid-12">
@@ -53,7 +50,6 @@
         <div class="clear"></div>
     </div>
 </section>
-
 <section>
     <div class="container margin-bottom20">
         <div class="grid-12">
@@ -62,15 +58,14 @@
                     <h2 class="font18 text-black text-bold bg-white dealer-heading inline-block margin-right10">@String.Format("{0} {1} showroom{2} in {3}", Model.TotalDealers, Model.Make.MakeName, Model.TotalDealers > 1 ? "s" : "", Model.CityDetails.CityName)</h2>
                     <div class="inline-block">
                         <span class="edit-blue-link" id="brandSelect"><span class="bwsprite edit-blue text-link"></span> <span class="change text-link">change</span></span>
-                       @if (Model.BrandCityPopUp!=null)
-                       {
+                        @if (Model.BrandCityPopUp != null)
+                        {
                             @Html.Partial("~/Views/Make/_BrandCityPopup.cshtml", Model.BrandCityPopUp)
-                       }
-                        
-                     </div>
+                        }
+
+                    </div>
                     <div class="clear"></div>
                 </div>
-
                 <div id="listing-left-column" class="grid-4">
                     <ul id="dealersList">
                         @foreach (var Details in Model.DealersList.Dealers)
@@ -78,12 +73,23 @@
                             <li data-item-type="@Details.DealerType" data-isfeatured="@(Details.IsFeatured ? 1 : 0)" data-item-id="@Details.DealerId" data-item-inquired="false" data-item-number="@Details.MaskingNumber" data-lat="@Details.objArea.Latitude" data-log="@Details.objArea.Longitude" data-address="@Details.Address" data-campid="@Details.CampaignId" data-item-url="@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)" data-dealername="@Details.Name">
                                 <a href="/@Model.Make.MaskingName-dealer-showrooms-in-@Model.CityDetails.CityMaskingName/@Details.DealerId-@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)/" title="@Details.Name" class="dealer-card-target font14">
                                     <div class="margin-bottom5">
-                                        @if (Details.IsFeatured) {
-                                        <div>
-                                            <span class="featured-tag margin-bottom5"><span class="bwsprite star-white"></span>Featured</span>
-                                        </div>
+                                        @if (Details.IsFeatured)
+                                        {
+                                            <div>
+                                                <span class="featured-tag margin-bottom5"><span class="bwsprite star-white"></span>Featured</span>
+                                            </div>
                                         }
-                                        <h3 class="dealer-name text-black text-bold">@Details.Name</h3>
+                                        @if (Details.objArea != null)
+                                        {
+                                            if (Details.objArea.AreaName != string.Empty)
+                                            {
+                                                <h3 class="dealer-name text-black text-bold">@Details.Name, @Details.objArea.AreaName</h3>
+                                            }
+                                            else
+                                            {
+                                                <h3 class="dealer-name text-black text-bold">@Details.Name</h3>
+                                            }
+                                        }
                                     </div>
                                     <p class="@string.Format("{0}", string.IsNullOrEmpty(Details.Address) ? "hide" : "text-light-grey margin-bottom5")">
                                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
@@ -103,13 +109,12 @@
                                 </a>
                                 @if (Details.IsFeatured)
                                 {
-                                <div class="margin-top20">
-                                    <a id="dealerLead" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-areaname="@Details.objArea.AreaName" data-cityname="@Model.CityDetails.CityName" data-campid="@Details.CampaignId" data-pqsourceid="(int)@Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton" data-eventcategory="Dealer_Locator" class="btn btn-white btn-full-width font14 leadcapturebtn bw-ga" c="Dealer_Locator" a="Get_Offers_Clicked" l="@Details.GetOffersGALabel">@Details.DisplayTextLarge</a>
-                                  </div>
+                                    <div class="margin-top20">
+                                        <a id="dealerLead" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-areaname="@Details.objArea.AreaName" data-cityname="@Model.CityDetails.CityName" data-campid="@Details.CampaignId" data-pqsourceid="(int)@Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton" data-eventcategory="Dealer_Locator" class="btn btn-white btn-full-width font14 leadcapturebtn bw-ga" c="Dealer_Locator" a="Get_Offers_Clicked" l="@Details.GetOffersGALabel">@Details.DisplayTextLarge</a>
+                                    </div>
                                 }
                             </li>
                         }
-
 
                     </ul>
                 </div>
@@ -128,7 +133,6 @@
     <div id="listing-footer"></div>
 </section>
 
-
 @if (Model.DealerCountCity != null && Model.DealerCountCity.objDealerInNearCityList.Count() > 0)
 {
     <section>
@@ -136,14 +140,11 @@
             <div class="grid-12 margin-bottom20">
                 <div class="content-box-shadow padding-top20 padding-bottom20">
                     <h2 class="font18 padding-bottom20 padding-left20">Explore @Model.Make.MakeName showrooms in cities near @Model.CityDetails.CityName</h2>
-
                     @Html.Partial("~/Views/DealerShowroom/_DealersInNearByCities.cshtml", Model.DealerCountCity)
                 </div>
             </div>
-
             <div class="clear"></div>
         </div>
-
     </section>
 }
 @if ((Model.PopularBikes != null && Model.PopularBikes.Bikes != null && Model.PopularBikes.Bikes.Count() > 0) || (Model.ServiceCenterDetails != null && Model.ServiceCenterDetails.ServiceCentersList != null && Model.ServiceCenterDetails.ServiceCentersList.Count() > 0) || (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0))
@@ -156,9 +157,9 @@
                     <div class="bw-model-tabs-data padding-top20 padding-bottom20 border-solid-bottom font14">
                         <div class="carousel-heading-content">
                             <div class="swiper-heading-left-grid inline-block">
-                                <h2>@string.Format("Popular {0} bikes in {1}",Model.Make.MakeName ,Model.CityDetails.CityName) </h2>
+                                <h2>@string.Format("Popular {0} bikes in {1}", Model.Make.MakeName, Model.CityDetails.CityName) </h2>
                             </div><div class="swiper-heading-right-grid inline-block text-right">
-                                      <a href="@string.Format("/{0}-bikes/",Model.Make.MaskingName)" title="@string.Format("{0} Bikes",Model.Make.MakeName)" class="btn view-all-target-btn">View all</a>
+                                <a href="@string.Format("/{0}-bikes/",Model.Make.MaskingName)" title="@string.Format("{0} Bikes",Model.Make.MakeName)" class="btn view-all-target-btn">View all</a>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -168,12 +169,12 @@
                 }
                 @if (Model.ServiceCenterDetails != null && Model.ServiceCenterDetails.ServiceCentersList != null && Model.ServiceCenterDetails.ServiceCentersList.Count() > 0)
                 {
-                    
+
                     <div class="carousel-heading-content padding-top20">
                         <div class="swiper-heading-left-grid inline-block">
                             <h2>@string.Format("{0} service centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)</h2>
                         </div><div class="swiper-heading-right-grid inline-block text-right">
-                                  <a href="@string.Format("/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View all</a>
+                            <a href="@string.Format("/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View all</a>
                         </div>
                     </div>
                     <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
@@ -186,7 +187,7 @@
                 }
                 @if (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0)
                 {
-                   
+
                     <section>
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <div class="carousel-heading-content padding-top15">
@@ -197,11 +198,9 @@
                             </div>
                         </div>
                         <div class="clear"></div>
-
                         <div class="padding-bottom20">
                             @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikeModel)
                         </div>
-
                         <div class="clear"></div>
                     </section>
 
@@ -212,7 +211,7 @@
         <div class="clear"></div>
     </div>
 }
-@if(Model.LeadCapture != null)
+@if (Model.LeadCapture != null)
 {
     @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
 }
@@ -226,10 +225,9 @@
         <div class="clear"></div>
     </div>
 </section>
-
 @Html.Partial("~/Views/Make/_BrandCityPopup.cshtml", Model.BrandCityPopupWidget)
 @{Html.RenderAction("ChangeLocation", "Location", new { cityId = Model.CityDetails.CityId, cityName = Model.CityDetails.CityName });}
 <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>
 <script type="text/javascript">
-    eventCategory = "Dealer_Locator";  
+    eventCategory = "Dealer_Locator";
 </script>

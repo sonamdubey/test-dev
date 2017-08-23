@@ -37,9 +37,17 @@
                             <span class="bwmsprite star-white"></span>Featured
                         </div>
                         }
-                        <h3 class="text-truncate margin-bottom5">
-                            @Details.Name
-                        </h3>
+                        @if (Details.objArea != null)
+                        {
+                            if (Details.objArea.AreaName != string.Empty)
+                            {
+                                <h3 class="text-truncate margin-bottom5">@Details.Name, @Details.objArea.AreaName</h3>
+                            }
+                            else
+                            {
+                                <h3 class="text-truncate margin-bottom5">@Details.Name</h3>
+                            }
+                        }
                         <p class="@string.Format("{0}", string.IsNullOrEmpty(Details.Address) ? "hide" : "margin-bottom5")">
                             <span class="bwmsprite dealership-loc-icon vertical-top"></span>
                             @if (string.IsNullOrEmpty(Details.objArea.PinCode))
