@@ -157,7 +157,7 @@
                 else
                 {
                     if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
-                    {
+                    {                        
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                             <h2>@Model.UpcomingBikes.WidgetHeading</h2>
                             @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
@@ -169,7 +169,7 @@
                 }
                 <div class="margin-bottom20">
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
-                </div>
+                </div>               
                 @Html.Partial("~/Views/PriceInCity/_OnRoadPriceWidget.cshtml")
             </div>
             <div class="clear"></div>

@@ -1000,6 +1000,7 @@
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\Scooters\PopularScooterBrandsWidget.cs" />
     <Compile Include="Models\Scooters\ScootersMakePageModel.cs" />
     <Compile Include="Models\ServiceCenters\ShowroomsWidgetModel.Cs" />
     <Compile Include="Models\Scooters\ScootersIndexPageModel.cs" />
@@ -2849,6 +2850,8 @@
     <Content Include="m\css\leadcapture.css" />
     <Content Include="m\css\new-launch\new-launch.css" />
     <Content Include="m\css\photos.css" />
+    <Content Include="m\css\scooters\landing.css" />
+    <Content Include="m\css\scooters\listing.css" />
     <Content Include="m\css\service\details.css" />
     <Content Include="m\css\service\landing.css" />
     <Content Include="m\css\service\listing.css" />
@@ -3763,6 +3766,8 @@
     <Content Include="Views\News\Scooters_Mobile.cshtml" />
     <Content Include="Views\Videos\ScooterVideos.cshtml" />
     <Content Include="Views\Videos\ScooterVideos_Mobile.cshtml" />
+    <Content Include="Views\Scooters\_PopularScooterBrandsVerticalWidget.cshtml" />
+    <Content Include="Views\ExpertReviews\Scooters.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

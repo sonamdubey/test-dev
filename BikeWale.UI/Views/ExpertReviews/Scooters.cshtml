@@ -141,12 +141,17 @@
 					</div>
 				}
 
-				@if (Model.UpcomingScooters != null && Model.UpcomingScooters.UpcomingBikes != null && Model.UpcomingScooters.UpcomingBikes.Count() > 0)
+				@if (Model.MakesWidgetData != null &&  Model.MakesWidgetData.Count() > 0)
 				{
-					<div class="content-box-shadow padding-15-20-10 margin-bottom20">
-						<h2>@Model.UpcomingScooters.WidgetHeading</h2>
-						@Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingScooters)
-					</div>
+                <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                    <h2>Popular scooter brands</h2>
+                    @Html.Partial("~/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml", Model.MakesWidgetData)
+                    <div class="view-all-btn-container padding-top10 padding-bottom10">
+                        <a href="/scooters/" title="Scooters" class="btn view-all-target-btn">
+                            View all scooters<span class="bwsprite teal-right"></span>
+                        </a>
+                    </div>
+                </div>
 				}
 				
 				<div class="margin-bottom20">

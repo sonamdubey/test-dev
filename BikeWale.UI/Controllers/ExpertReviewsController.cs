@@ -223,7 +223,7 @@ namespace Bikewale.Controllers
             try
             {
 
-                ScooterExpertReviewsPage obj = new ScooterExpertReviewsPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository);
+                ScooterExpertReviewsPage obj = new ScooterExpertReviewsPage(_cmsCache, _pager, _models, _bikeModels, _bikeMakesCacheRepository);
                 if (obj.status == StatusCodes.ContentNotFound)
                 {
                     return Redirect("/pagenotfound.aspx");
@@ -258,7 +258,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                ScooterExpertReviewsPage obj = new ScooterExpertReviewsPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository);
+                ScooterExpertReviewsPage obj = new ScooterExpertReviewsPage(_cmsCache, _pager, _models, _bikeModels, _bikeMakesCacheRepository);
                 obj.IsMobile = true;
                 if (obj.status == StatusCodes.ContentNotFound)
                 {
