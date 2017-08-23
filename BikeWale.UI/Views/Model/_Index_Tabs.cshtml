@@ -14,7 +14,7 @@
 }
 @if (Model.IsSimilarBikesAvailable)
 {
-    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Similar Bikes" href="#modelSimilarContent" rel="nofollow">Compare Bikes</a>
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Similar Bikes" href="#modelSimilarContent" rel="nofollow">Compare @string.Format("{0}", Model.BodyStyle == Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter? "Scooters" : "Bikes") </a>
 }
 @if (Model.IsVersionSpecsAvailable)
 {
