@@ -368,7 +368,8 @@ h2.text-bold { font-weight: bold; }
     clear: both;
 }
 .rating-circle-list li {
-    float: left;
+	float: left;
+	min-width: 148px;
     margin-right: 7px;
     margin-top: 7px;
     margin-bottom: 7px;
