@@ -4,7 +4,7 @@ var redMarkerImage = 'https://imgd.aeplcdn.com/0x0/bw/static/design15/map-marker
 var clientip;
 function initializeMap(dealerArr) {
     var i, marker, dealer, markerPosition, content, zIndex;
-    currentCityName = document.getElementById("dealerMapWrapper").getAttribute("data-currentcityname");
+    currentCityName = $("dealerMapWrapper").attr("data-currentcityname");
     var mapProp = {
         scrollwheel: false,
         streetViewControl: false,
@@ -84,7 +84,7 @@ function initializeDealerMap() {
 };
 
 docReady(function () {
-    clientip = document.getElementById("dealerLead").getAttribute("data-clientip");
+    clientip = $("dealerLead").attr("data-clientip");
     var windowHeight = window.innerHeight,
         mapWrapper = $('#listing-right-column'),
         mapColumn = $('#dealerMapWrapper'),
