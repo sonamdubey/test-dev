@@ -316,6 +316,9 @@ namespace Bikewale.Models
                     {
                         Status = StatusCodes.ContentNotFound;
                     }
+
+                    BindSimilarBikeExploreMoreLink(objVM);
+                    objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
                 }
             }
             catch (Exception ex)
@@ -391,6 +394,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Bind Similar Bikes
+        /// Modified by: Vivek Singh Tomar on 23 Aug 2017
+        /// Summary: Added page enum to similar bike widget
         /// </summary>
         /// <param name="objVM"></param>
         private void BindSimilarBikes(PriceInCityPageVM objVM)
@@ -401,10 +406,14 @@ namespace Bikewale.Models
                 similarBikes.CityId = cityId;
                 similarBikes.TopCount = 9;
                 var similarBikesVM = similarBikes.GetData();
-                similarBikesVM.Make = objVM.Make;
-                similarBikesVM.Model = objVM.BikeModel;
-                similarBikesVM.VersionId = objVM.FirstVersion.VersionId;
-                objVM.AlternateBikes = similarBikesVM;
+                if(similarBikesVM != null)
+                {
+                    similarBikesVM.Make = objVM.Make;
+                    similarBikesVM.Model = objVM.BikeModel;
+                    similarBikesVM.VersionId = objVM.FirstVersion.VersionId;
+                    objVM.AlternateBikes = similarBikesVM;
+                    objVM.AlternateBikes.Page = Entities.Pages.GAPages.PriceInCity_Page;
+                }
             }
             catch (Exception ex)
             {
@@ -722,6 +731,22 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", modelId, cityId, ManufacturerCampaignPageId));
+            }
+        }
+
+        /// <summary>
+        /// Created by: Vivek Singh Tomar on 23 Aug 2017
+        /// Summary: Function to bind explore more links in similar bikes widget
+        /// </summary>
+        private void BindSimilarBikeExploreMoreLink(PriceInCityPageVM objVM)
+        {
+            if ((byte)objVM.BikeRank.Rank.BodyStyle == 5)
+            {
+                objVM.AlternateBikes.ExploreMoreLink = string.Format("{0}/scooters/", ((byte)Platform == 2) ? "/m" : "");
+            }
+            else
+            {
+                objVM.AlternateBikes.ExploreMoreLink = string.Format("{0}/new-bikes-in-india/", ((byte)Platform == 2) ? "/m" : "");
             }
         }
     }

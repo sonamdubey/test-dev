@@ -95,6 +95,8 @@ namespace Bikewale.Models
 
                         };
                     }
+                    BindSimilarBikeExploreMoreLink(objData);
+                    objData.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
                 }
 
 
@@ -166,8 +168,10 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By  : Sushil Kumar on 11th Jan 2016
         /// Description : Bind page related widgets
-        /// Modifued By :- Subodh Jain 01 march 2017
+        /// Modified By :- Subodh Jain 01 march 2017
         /// Summary :- lead capture pop up
+        /// Modified by: Vivek Singh Tomar on 23 Aug 2017
+        /// Summary: Added page enum to similar bikes widget
         /// </summary>
         private void BindPageWidgets(DealerPriceQuotePageVM objData)
         {
@@ -187,6 +191,10 @@ namespace Bikewale.Models
                         objSimilarBikes.TopCount = 9;
                         objSimilarBikes.CityId = _cityId;
                         objData.SimilarBikesVM = objSimilarBikes.GetData();
+                        if(objData.SimilarBikesVM != null)
+                        {
+                            objData.SimilarBikesVM.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
+                        }
                     }
                 }
 
@@ -571,6 +579,22 @@ namespace Bikewale.Models
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", _modelId, _cityId, ManufacturerCampaignPageId));
             }
+        }
+
+        /// <summary>
+        /// Created by: Vivek Singh Tomar on 23 Aug 2017
+        /// Summary: Function to bind explore more links in similar bikes widget
+        /// </summary>
+        private void BindSimilarBikeExploreMoreLink(DealerPriceQuotePageVM objData)
+        {
+            /*if ((byte)_objData.BikeRanking.BodyStyle == 5)
+            {
+                _objData.SimilarBikes.ExploreMoreLink = string.Format("{0}/scooters/", IsMobile ? "/m" : "");
+            }
+            else
+            {
+                _objData.SimilarBikes.ExploreMoreLink = string.Format("{0}/new-bikes-in-india/", IsMobile ? "/m" : "");
+            }*/
         }
     }
 }

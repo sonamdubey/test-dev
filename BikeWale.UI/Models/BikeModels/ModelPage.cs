@@ -161,6 +161,7 @@ namespace Bikewale.Models.BikeModels
 
                     BindVersionPriceListSummary();
 
+                    _objData.Page = GAPages.Model_Page;
                     #endregion Do Not change the sequence
                 }
             }
@@ -300,6 +301,8 @@ namespace Bikewale.Models.BikeModels
         /// Description :  Added dealer card and service center card
         /// Modified by :   Sumit Kate on 02 Jan 2017
         /// Description :   Set makename,modelname,make and model masking name to news widget
+        /// Modified by: Vivek Singh Tomar on 23 Aug 2017
+        /// Summary: Added page enum to similar bike widget
         /// </summary>
         private void BindControls()
         {
@@ -329,11 +332,13 @@ namespace Bikewale.Models.BikeModels
                             objSimilarBikes.TopCount = 9;
                             objSimilarBikes.CityId = _cityId;
                             _objData.SimilarBikes = objSimilarBikes.GetData();
-
-                            _objData.SimilarBikes.Make = objMake;
-                            _objData.SimilarBikes.Model = _objData.ModelPageEntity.ModelDetails;
-                            _objData.SimilarBikes.VersionId = _objData.VersionId;
-
+                            if (_objData.SimilarBikes != null)
+                            {
+                                _objData.SimilarBikes.Make = objMake;
+                                _objData.SimilarBikes.Model = _objData.ModelPageEntity.ModelDetails;
+                                _objData.SimilarBikes.VersionId = _objData.VersionId;
+                                _objData.SimilarBikes.Page = GAPages.Model_Page;
+                            }
                         }
 
                         if (_cityId > 0)
