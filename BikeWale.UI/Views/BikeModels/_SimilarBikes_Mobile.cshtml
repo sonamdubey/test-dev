@@ -55,6 +55,22 @@
                     </div>
                 </div>
             }
+            @if (!string.IsNullOrEmpty(Model.ExploreMoreLink))
+            {
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="@Model.ExploreMoreLink" title="Make Model">
+                            <div class="swiper-image-preview">
+                                <img class="swiper-lazy" data-src="" title="Make Model" alt="Make Model" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            <p class="text-bold text-default">
+                                <span class="font14">Price not available</span>
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 

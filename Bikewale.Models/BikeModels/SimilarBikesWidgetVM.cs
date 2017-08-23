@@ -6,6 +6,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by  :   Sumit Kate on 24 Mar 2017
     /// Description :   SimilarBikesWidgetVM view model
+    /// Created by: Vivek Singh Tomar on 23 Aug 2017
+    /// Description: Added property to hold link to bike/scooters landing page
     /// </summary>
     public class SimilarBikesWidgetVM
     {
@@ -16,5 +18,6 @@ namespace Bikewale.Models
         public BikeModelEntityBase Model { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public uint VersionId { get; set; }
+        public string ExploreMoreLink { get; set; }
     }
 }
