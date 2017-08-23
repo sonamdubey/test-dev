@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Bikewale.Models
     /// Created by  :   Sumit Kate on 24 Mar 2017
     /// Description :   SimilarBikesWidgetVM view model
     /// Created by: Vivek Singh Tomar on 23 Aug 2017
-    /// Description: Added ExploreMoreLink to hold link to new landing page and Page to hold page id and page name
+    /// Description: Added bodystyle and Page to hold page id and page name
     /// </summary>
     public class SimilarBikesWidgetVM
     {
@@ -19,7 +20,7 @@ namespace Bikewale.Models
         public BikeModelEntityBase Model { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public uint VersionId { get; set; }
-        public string ExploreMoreLink { get; set; }
+        public EnumBikeBodyStyles BodyStyle { get; set; }
         public GAPages Page { get; set; }
     }
 }
