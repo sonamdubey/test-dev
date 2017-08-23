@@ -213,7 +213,7 @@ namespace Bikewale.Cache.Core
             }
             finally
             {
-                if (t.Count == 0)
+                if (t != null && t.Count == 0)
                 {
                     IList<T> list = GetFromDb(keyValuePair, cacheDuration, doCallback);
                     t = list != null ? list.ToList() : null;
