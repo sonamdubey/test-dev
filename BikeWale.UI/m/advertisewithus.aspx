@@ -12,13 +12,13 @@
         <h2 class="new-line10">West and South Zone</h2>
         <div class="box1 new-line5">
             <span class="bold">Vijay Menon</span><br />
-            <span class="bFontCol">Email: <a href="mailto:vijay.menon@carwale.com" class="viewDetails">vijay.menon@carwale.com</a></span>
+            <span class="bFontCol">Email: <a href="mailto:vijay@bikewale.com" class="viewDetails">vijay@bikewale.com</a></span>
         </div>
         <div class="border-solid-top margin-top25"></div>
         <h2 class="new-line10">North and East Zone</h2>
         <div class="box1 new-line5">
             <span class="bold">Nikhil Pillai</span><br />
-            <span class="bFontCol">Email: <a href="mailto:nikhil.pillai@carwale.com" class="viewDetails">nikhil.pillai@carwale.com</a></span>
+            <span class="bFontCol">Email: <a href="mailto:nikhil.pillai@bikewale.com" class="viewDetails">nikhil.pillai@bikewale.com</a></span>
         </div>             
     </div>
 <!-- #include file="/includes/footermobile.aspx" -->

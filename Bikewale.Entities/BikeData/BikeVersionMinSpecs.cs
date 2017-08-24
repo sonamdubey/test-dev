@@ -8,6 +8,8 @@ namespace Bikewale.Entities.BikeData
     /// Modified By :Sushil Kumar
     /// Modified On : 21st Jan 2016
     /// Description : Added provision to get version colors
+    /// Modified by: Vivek Singh Tomar on 23 Aug 2017
+    /// Summary: Added body style
     /// </summary>
     [Serializable, DataContract]
     public class BikeVersionMinSpecs : BikeVersionsListEntity

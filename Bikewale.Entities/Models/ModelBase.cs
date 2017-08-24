@@ -1,4 +1,6 @@
 ﻿
+using Bikewale.Entities.Pages;
+
 namespace Bikewale.Models
 {
     /// <summary>
@@ -10,6 +12,8 @@ namespace Bikewale.Models
     /// Description :   Added PageH1 property of the page for binding
     /// Modified by Sajal Gupta on 01-04-2017
     /// Description : Added IsHeaderRequired, IsAppBannerNeeded
+    /// Modified by: Vivek Singh Tomar on 23 Aug 2017
+    /// Summary: Added page property to hold page id and name for GA
     /// </summary>
     public class ModelBase
     {
@@ -42,5 +46,6 @@ namespace Bikewale.Models
         }
 
         public bool ExcludeContestSlug { get; set; }
+        public GAPages Page { get; set; }
     }
 }
