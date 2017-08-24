@@ -315,7 +315,6 @@ namespace Bikewale.Models.BikeModels
                     _objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName, (int)(IsMobile ? UserReviewPageSourceEnum.Mobile_ModelPage : UserReviewPageSourceEnum.Desktop_ModelPage)));
 
 
-
                     if (!_objData.IsUpcomingBike)
                     {
                         DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
@@ -333,8 +332,6 @@ namespace Bikewale.Models.BikeModels
                             _objData.SimilarBikes.Make = objMake;
                             _objData.SimilarBikes.Model = _objData.ModelPageEntity.ModelDetails;
                             _objData.SimilarBikes.VersionId = _objData.VersionId;
-
-
 
                         }
 
@@ -358,12 +355,9 @@ namespace Bikewale.Models.BikeModels
                             _objData.IsShowPriceTab = true;
                         }
 
-
                         GetBikeRankingCategory();
 
-
                         BindUserReviewsWidget(_objData);
-
 
                         if (_objData.BikeRanking != null)
                         {
@@ -388,13 +382,24 @@ namespace Bikewale.Models.BikeModels
                             _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
                         }
 
-
-
                     }
                     if (_objData.IsUpcomingBike)
                     {
 
                         _objData.objUpcomingBikes = BindUpCompingBikesWidget();
+                    }
+                }
+
+
+                // Set body style
+                if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions!= null && _objData.ModelPageEntity.ModelVersions.Count > 0)
+                {
+                    var selected = _objData.ModelPageEntity.ModelVersions.Where(x => x.VersionId == _objData.VersionId).FirstOrDefault();
+                    if(selected != null)
+                    {
+                        _objData.BodyStyle = selected.BodyStyle;
+                        _objData.BodyStyleText = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
+                        _objData.BodyStyleTextSingular = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
                     }
                 }
 
@@ -821,6 +826,7 @@ namespace Bikewale.Models.BikeModels
                                 _objData.VersionName = firstVer.VersionName;
                         }
                     }
+                    
                 }
             }
             catch (Exception ex)

@@ -101,6 +101,7 @@ namespace Bikewale.Models
                     objViewModel.LocationMasking = "india";
                 }
                 objViewModel.PageCatId = 8;
+              
                 objViewModel.Make = _objMakeCache.GetMakeDetails(_makeId);
                 if (objViewModel.Make != null)
                 {
@@ -115,6 +116,7 @@ namespace Bikewale.Models
                 BindCompareScootes(objViewModel,CompareSource);
                 BindEditorialWidget(objViewModel);
                 SetFlags(objViewModel, CityId);
+                objViewModel.ScooterNewsUrl = UrlFormatter.FormatScootersNewsUrl(objViewModel.News.MakeMasking, objViewModel.News.ModelMasking);
             }
             catch (Exception ex)
             {
