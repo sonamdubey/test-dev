@@ -228,6 +228,8 @@ namespace Bikewale.Models
         /// Summary    : Get data for the page widgets
         ///  Modified By Sajal Gupta on 25-04-20187
         /// Descrition : Call most popular bike widget by body type
+        /// Modified by Sajal Gupta on 24-08-2017
+        /// description : Added Popular Scooter Brands widget
         /// </summary>
         private void GetWidgetData(ExpertReviewsDetailPageVM objData, int topCount)
         {
