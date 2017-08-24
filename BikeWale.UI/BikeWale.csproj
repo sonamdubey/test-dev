@@ -952,6 +952,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BestBikes\BestBikeByBodyStyle.cs" />
     <Compile Include="Models\BikeCare\BikeCareDetailPage.cs" />
     <Compile Include="Models\BikeCare\BikeCareIndexPage.cs" />
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
@@ -3751,6 +3752,8 @@
     <Content Include="Views\Shared\_Layout_Mobile_AMP_PWA.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
+    <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel.cshtml" />
+    <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
