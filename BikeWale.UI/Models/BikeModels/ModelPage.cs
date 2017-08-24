@@ -399,6 +399,7 @@ namespace Bikewale.Models.BikeModels
                     {
                         _objData.BodyStyle = selected.BodyStyle;
                         _objData.BodyStyleText = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
+                        _objData.BodyStyleTextSingular = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
                     }
                 }
 
