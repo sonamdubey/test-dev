@@ -391,7 +391,7 @@ namespace Bikewale.Models.BikeModels
                 }
 
 
-                // Sey body style
+                // Set body style
                 if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions!= null && _objData.ModelPageEntity.ModelVersions.Count > 0)
                 {
                     var selected = _objData.ModelPageEntity.ModelVersions.Where(x => x.VersionId == _objData.VersionId).FirstOrDefault();
