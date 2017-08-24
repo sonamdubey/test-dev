@@ -41,7 +41,7 @@
                         {
                             if (Details.objArea.AreaName != string.Empty)
                             {
-                                <h3 class="text-truncate margin-bottom5">@Details.Name, @Details.objArea.AreaName</h3>
+                                <h3 class="text-truncate margin-bottom5">@string.Format("{0}, {1}", Details.Name, Details.objArea.AreaName)</h3>
                             }
                             else
                             {

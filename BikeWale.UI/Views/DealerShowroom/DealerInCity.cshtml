@@ -83,7 +83,7 @@
                                         {
                                             if (Details.objArea.AreaName != string.Empty)
                                             {
-                                                <h3 class="dealer-name text-black text-bold">@Details.Name, @Details.objArea.AreaName</h3>
+                                                <h3 class="dealer-name text-black text-bold">@string.Format("{0}, {1}", Details.Name, Details.objArea.AreaName)</h3>
                                             }
                                             else
                                             {
