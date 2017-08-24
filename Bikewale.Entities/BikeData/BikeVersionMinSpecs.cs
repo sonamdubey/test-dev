@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.GenericBikes;
+using System;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
@@ -19,5 +20,7 @@ namespace Bikewale.Entities.BikeData
         public bool ElectricStart { get; set; }
         [DataMember]
         public bool AntilockBrakingSystem { get; set; }
+        [DataMember]
+        public EnumBikeBodyStyles BodyStyle { get; set; }
     }
 }
