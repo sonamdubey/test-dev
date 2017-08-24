@@ -132,7 +132,7 @@ namespace Bikewale.DAL.BikeData
                                     AlloyWheels = Convert.ToBoolean(dr["AlloyWheels"]),
                                     ElectricStart = Convert.ToBoolean(dr["ElectricStart"]),
                                     AntilockBrakingSystem = Convert.ToBoolean(dr["AntilockBrakingSystem"]),
-                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToUInt16(dr["BodyStyleId"])
+                                    BodyStyle = (EnumBikeBodyStyles)Enum.Parse(typeof(EnumBikeBodyStyles), Convert.ToString(dr["BodyStyleId"]))
                                 });
                             }
                             dr.Close();

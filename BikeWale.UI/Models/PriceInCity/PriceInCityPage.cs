@@ -331,6 +331,15 @@ namespace Bikewale.Models
                     {
                         Status = StatusCodes.ContentNotFound;
                     }
+                    if(objVM.AlternateBikes != null)
+                    {
+                        var objVersionSpec = objVM.VersionSpecs.FirstOrDefault();
+                        if(objVersionSpec != null)
+                        {
+                            objVM.AlternateBikes.BodyStyle = objVersionSpec.BodyStyle;
+                        }
+                    }
+                    objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
                 }
             }
             catch (Exception ex)
@@ -406,6 +415,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Bind Similar Bikes
+        /// Modified by: Vivek Singh Tomar on 23 Aug 2017
+        /// Summary: Added page enum to similar bike widget
         /// </summary>
         /// <param name="objVM"></param>
         private void BindSimilarBikes(PriceInCityPageVM objVM)
@@ -416,10 +427,14 @@ namespace Bikewale.Models
                 similarBikes.CityId = cityId;
                 similarBikes.TopCount = 9;
                 var similarBikesVM = similarBikes.GetData();
-                similarBikesVM.Make = objVM.Make;
-                similarBikesVM.Model = objVM.BikeModel;
-                similarBikesVM.VersionId = objVM.FirstVersion.VersionId;
-                objVM.AlternateBikes = similarBikesVM;
+                if(similarBikesVM != null)
+                {
+                    similarBikesVM.Make = objVM.Make;
+                    similarBikesVM.Model = objVM.BikeModel;
+                    similarBikesVM.VersionId = objVM.FirstVersion.VersionId;
+                    objVM.AlternateBikes = similarBikesVM;
+                    objVM.AlternateBikes.Page = Entities.Pages.GAPages.PriceInCity_Page;
+                }
             }
             catch (Exception ex)
             {

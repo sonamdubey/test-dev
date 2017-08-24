@@ -42,8 +42,7 @@ namespace Bikewale.Models
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         private uint _modelId, _versionId, _cityId, _areaId, _pqId, _dealerId, _makeId;
         private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty;
-
-
+        
 
         /// <summary>
         /// Created By : Sushil Kumar on 23rd March 2017
@@ -95,6 +94,14 @@ namespace Bikewale.Models
 
                         };
                     }
+                    if(objData.SimilarBikesVM != null)
+                    {
+                        objData.SimilarBikesVM.Model = objData.SelectedVersion.ModelBase;
+                        objData.SimilarBikesVM.Make = objData.SelectedVersion.MakeBase;
+                        objData.SimilarBikesVM.BodyStyle = objData.BodyStyle;
+                    }
+                    objData.BodyStyleText = objData.BodyStyle.Equals(Entities.GenericBikes.EnumBikeBodyStyles.Scooter)? "Scooters" : "Bikes";
+                    objData.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
                 }
 
 
@@ -166,8 +173,10 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By  : Sushil Kumar on 11th Jan 2016
         /// Description : Bind page related widgets
-        /// Modifued By :- Subodh Jain 01 march 2017
+        /// Modified By :- Subodh Jain 01 march 2017
         /// Summary :- lead capture pop up
+        /// Modified by: Vivek Singh Tomar on 23 Aug 2017
+        /// Summary: Added page enum to similar bikes widget
         /// </summary>
         private void BindPageWidgets(DealerPriceQuotePageVM objData)
         {
@@ -187,6 +196,10 @@ namespace Bikewale.Models
                         objSimilarBikes.TopCount = 9;
                         objSimilarBikes.CityId = _cityId;
                         objData.SimilarBikesVM = objSimilarBikes.GetData();
+                        if(objData.SimilarBikesVM != null)
+                        { 
+                            objData.SimilarBikesVM.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
+                        }
                     }
                 }
 
@@ -382,7 +395,10 @@ namespace Bikewale.Models
                         minSpecs = _objVersionCache.GetVersionMinSpecs(_modelId, true);
                         var objMin = minSpecs.FirstOrDefault(x => x.VersionId == _versionId);
                         if (objMin != null)
+                        {
                             objData.MinSpecsHtml = FormatVarientMinSpec(objMin);
+                            objData.BodyStyle = objMin.BodyStyle;
+                        }
                     }
                 }
             }
