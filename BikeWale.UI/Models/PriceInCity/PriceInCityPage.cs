@@ -3,6 +3,7 @@ using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
@@ -250,7 +251,21 @@ namespace Bikewale.Models
                         {
                             var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
                             if (objMin != null)
+                            {
                                 objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
+
+                                // Set body style
+                                objVM.BodyStyle = objMin.BodyStyle;
+                            }
+                            else
+                            {
+                                var firstVersion = objVM.VersionSpecs.FirstOrDefault();
+                                if (firstVersion!= null)
+                                {
+                                    objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
+   
+                                }
+                            }
 
                             foreach (var version in objVM.VersionSpecs)
                             {
@@ -260,9 +275,9 @@ namespace Bikewale.Models
                                     version.Price = versionPrice.OnRoadPrice;
                                 }
                             }
+
+                            objVM.BodyStyleText = objVM.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                         }
-
-
 
                         BindBikeBasicDetails(objVM);
                         BindServiceCenters(objVM);

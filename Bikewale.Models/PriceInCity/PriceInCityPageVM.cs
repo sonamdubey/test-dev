@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
@@ -76,6 +77,10 @@ namespace Bikewale.Models
         public bool IsManufacturerLeadAdShown { get; set; }
         public ManufactureCampaignEMIEntity EMICampaign { get; set; }
         public bool IsManufacturerEMIAdShown { get; set; }
+
+        public EnumBikeBodyStyles BodyStyle { get; set; }
+        public string BodyStyleText { get; set; } 
+
     }
 
 }

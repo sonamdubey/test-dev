@@ -550,12 +550,43 @@ var mvcPageViews = [
         fileName: 'Index.cshtml',
         stylesheet: 'css/compare/landing.css'
     },
+      {
+        folderName: 'Views/ExpertReviews/',
+        fileName: 'Scooters.cshtml',
+        stylesheet: 'css/content/listing.css'
+    },
+    {
+        folderName: 'Views/News/',
+        fileName: 'Scooters.cshtml',
+        stylesheet: 'css/content/listing.css'
+    },
+      {
+        folderName: 'Views/ExpertReviews/',
+        fileName: 'Scooters_Mobile.cshtml',
+        stylesheet: 'm/css/content/listing.css'
+    },
+	  {
+        folderName: 'Views/Videos/',
+        fileName: 'ScooterVideos.cshtml',
+        stylesheet: 'css/video/videosByModel.css'
+    },
 	{
+        folderName: 'Views/News/',
+        fileName: 'Scooters_Mobile.cshtml',
+        stylesheet: 'm/css/content/listing.css'
+    },
+      {
         folderName: 'Views/GenericBestBikes/',
         fileName: 'Index.cshtml',
         stylesheet: 'css/generic/listing.css'
     },
-    {
+	
+	  {
+        folderName: 'Views/Videos/',
+        fileName: 'ScooterVideos_Mobile.cshtml',
+        stylesheet: 'm/css/videos/videosByModel.css'
+    },
+      {
         folderName: 'Views/GenericBestBikes/',
         fileName: 'Index_Mobile.cshtml',
         stylesheet: 'm/css/generic/listing.css'
