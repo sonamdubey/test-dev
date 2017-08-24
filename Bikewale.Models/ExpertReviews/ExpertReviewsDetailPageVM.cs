@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Bikewale.Models
@@ -7,6 +8,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by : Aditi Srivastava on 30 Mar 2017
     /// Summary    : View model for expert reviews detail page
+    /// Modified by sajal Gupta on 24-08-2017
+    /// description : added MakesWidgetData
     /// </summary>
     public class ExpertReviewsDetailPageVM : ModelBase
     {
@@ -19,5 +22,6 @@ namespace Bikewale.Models
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }
         public StringBuilder BikeTested { get; set; }
+        public IEnumerable<BikeMakeEntityBase> MakesWidgetData { get; set; }
     }
 }

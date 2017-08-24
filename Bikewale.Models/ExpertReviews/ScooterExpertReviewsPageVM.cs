@@ -21,5 +21,6 @@ namespace Bikewale.Models
         public string PageH1 { get; set; }
         public MostPopularBikeWidgetVM MostPopularScooters { get; set; }       
         public IEnumerable<BikeMakeEntityBase> MakesWidgetData { get; set; }
+        public string PopularScooterBrandsWidgetHeading { get; set; }
     }
 }

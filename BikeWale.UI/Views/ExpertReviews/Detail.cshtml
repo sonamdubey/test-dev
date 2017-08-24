@@ -1,5 +1,6 @@
 ﻿@model Bikewale.Models.ExpertReviewsDetailPageVM
 @using Bikewale.Utility
+@using Bikewale.Entities.GenericBikes
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' />";
     Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
@@ -108,7 +109,20 @@
                 <div class="margin-bottom20">
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                 </div>
-                @if (Model.Model != null && Model.Model.ModelId > 0)
+
+                @if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && Model.MakesWidgetData != null && Model.MakesWidgetData.Count() > 0)
+                {
+                    <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                        <h2>Popular scooter brands</h2>
+                        @Html.Partial("~/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml", Model.MakesWidgetData)
+                        <div class="view-all-btn-container padding-top10 padding-bottom10">
+                            <a href="/scooters/" title="Scooters" class="btn view-all-target-btn">
+                                View all scooters<span class="bwsprite teal-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                }
+                else if (Model.Model != null && Model.Model.ModelId > 0)
                 {
                     if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Count() > 0)
                     {

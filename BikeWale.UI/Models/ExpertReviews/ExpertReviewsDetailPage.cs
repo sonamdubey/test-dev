@@ -10,6 +10,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
+using Bikewale.Models.Scooters;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
@@ -34,6 +35,7 @@ namespace Bikewale.Models
         private readonly ICityCacheRepository _cityCacheRepo;
         private IUpcoming _upcoming = null;
         private string _basicId;
+        private readonly IBikeMakesCacheRepository<int> _bikeMakesCacheRepository = null;       
         #endregion
 
         #region Page level variables
@@ -55,7 +57,7 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId)
+        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, string basicId)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -64,6 +66,7 @@ namespace Bikewale.Models
             _bikeInfo = bikeInfo;
             _cityCacheRepo = cityCacheRepo;
             _basicId = basicId;
+            _bikeMakesCacheRepository = bikeMakesCacheRepository;           
             ProcessQueryString();
         }
         #endregion
@@ -252,6 +255,13 @@ namespace Bikewale.Models
                     BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId);
                     objData.BikeInfo = objBikeInfo.GetData();
                     objData.BikeInfo.IsSmallSlug = true;
+
+                    if(bikeType.Equals(EnumBikeType.Scooters))
+                    {
+                        PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
+                        objPopularScooterBrands.TopCount = 4;
+                        objData.MakesWidgetData = objPopularScooterBrands.GetData();
+                    }
                 }
                 else
                 {

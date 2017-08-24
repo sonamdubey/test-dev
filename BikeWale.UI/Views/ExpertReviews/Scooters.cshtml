@@ -144,7 +144,7 @@
 				@if (Model.MakesWidgetData != null &&  Model.MakesWidgetData.Count() > 0)
 				{
                 <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                    <h2>Popular scooter brands</h2>
+                    <h2>@Model.PopularScooterBrandsWidgetHeading</h2>
                     @Html.Partial("~/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml", Model.MakesWidgetData)
                     <div class="view-all-btn-container padding-top10 padding-bottom10">
                         <a href="/scooters/" title="Scooters" class="btn view-all-target-btn">
