@@ -120,6 +120,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsManufacturerEMIAdShown { get; set; }
 
         public EnumBikeBodyStyles BodyStyle { get; set; }
+        public string BodyStyleText { get; set; }
     }
 
 }

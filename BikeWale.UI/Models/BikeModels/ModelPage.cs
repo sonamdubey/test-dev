@@ -395,9 +395,10 @@ namespace Bikewale.Models.BikeModels
                 if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions!= null && _objData.ModelPageEntity.ModelVersions.Count > 0)
                 {
                     var selected = _objData.ModelPageEntity.ModelVersions.Where(x => x.VersionId == _objData.VersionId).FirstOrDefault();
-                    if(selected != null && selected.BodyStyleId > 0)
+                    if(selected != null)
                     {
-                        _objData.BodyStyle = (EnumBikeBodyStyles) selected.BodyStyleId;
+                        _objData.BodyStyle = selected.BodyStyle;
+                        _objData.BodyStyleText = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                     }
                 }
 
