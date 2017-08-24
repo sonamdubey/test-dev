@@ -9,7 +9,7 @@
 @if (Model != null)
 {
     <header id="categoryHeader">
-        <div class="category-back-btn">
+        <div id="backBtn" class="category-back-btn">
             <span class="bwmsprite fa-arrow-back"></span>
         </div>
         <h1 class="font18">Scooter Videos</h1>
@@ -47,3 +47,11 @@
     Html.RenderAction("MostPopularBikesByBodyStyle_Mobile", "PopularBikes", new { bodyStyleId = Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter, topCount = 9, cityId = Model.CityId });
 
 }
+<script type="text/javascript">
+
+    docReady(function () {
+        $("#backBtn").on('click', function () {
+            window.history.back();
+        });
+    });
+</script>
