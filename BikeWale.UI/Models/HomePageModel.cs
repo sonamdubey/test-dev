@@ -147,7 +147,9 @@ namespace Bikewale.Models
 
             BindCompareBikes(objVM, CompareSource, cityId);
 
-            objVM.BestBikes = new BestBikeWidgetModel(null, _cachedModels).GetData();
+            BestBikeByBodyStyle objBestBike = new BestBikeByBodyStyle(_cachedModels);
+            objBestBike.topCount = 9;
+            objVM.BestBikes = objBestBike.GetData();
 
             string cityWidgetTitle = string.Empty, cityWidgetHref = string.Empty;
             cityWidgetTitle = "Second hand bikes in India";
