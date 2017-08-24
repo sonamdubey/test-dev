@@ -34,21 +34,6 @@
     {
         <li data-tabs="#videosContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Videos">Videos</li>
     }
-
-    @*@if (Model.IsNewBike && ((Model.IsServiceCentersAvailable || Model.IsOtherDealersAvailable)))
-    {
-        <li data-tabs="#dealerAndServiceContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;DealersServiceCenters">
-            @String.Format("{0} {1} {2}", ((Model.IsOtherDealersAvailable) ? "Dealers" : ""), (((Model.IsServiceCentersAvailable && Model.IsOtherDealersAvailable)) ? "&" : ""), ((Model.IsServiceCentersAvailable) ? "Service Centers" : ""))
-        </li>
-    }
-    @if (Model.DealersServiceCenter != null && Model.DealersServiceCenter.DealerServiceCenters != null)
-    {
-
-        <li data-tabs="#dealerAndServiceContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;DealersServiceCenters">
-            @String.Format("{0} {1} {2}", ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Dealers" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "&" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "Service Centers" : ""))
-        </li>
-    }*@
-
     @if (Model.IsUsedBikesAvailable)
     {
         <li data-tabs="#makeUsedBikeContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Used">Used</li>

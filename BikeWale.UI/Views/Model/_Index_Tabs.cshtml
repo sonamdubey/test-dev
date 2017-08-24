@@ -40,22 +40,6 @@
 {
     <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Videos" href="#modelVideosContent" rel="nofollow">Videos</a>
 }
-
-@*@if (Model.IsNewBike && ((Model.IsServiceCentersAvailable || Model.IsOtherDealersAvailable)))
-    {
-        <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Dealers&ServiceCenters" href="#dealerAndServiceContent" rel="nofollow">
-            @String.Format("{0} {1} {2}", ((Model.IsOtherDealersAvailable) ? "Dealers" : ""), (((Model.IsServiceCentersAvailable && Model.IsOtherDealersAvailable)) ? "&" : ""), ((Model.IsServiceCentersAvailable) ? "Service Centers" : ""))
-        </a>
-    }
-
-    @if (Model.DealersServiceCenter != null && Model.DealersServiceCenter.DealerServiceCenters != null && Model.IsDealersServiceCenterAvailable)
-    {
-
-        <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Dealers&ServiceCenters" href="#dealerAndServiceContent" rel="nofollow">
-            @String.Format("{0} {1} {2}", ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Dealers" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "&" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "Service Centers" : ""))
-        </a>
-    }*@
-
 @if (Model.IsUsedBikesAvailable)
 {
     <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Used" href="#makeUsedBikeContent" rel="nofollow">Used</a>

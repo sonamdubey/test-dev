@@ -128,16 +128,7 @@
                     <div id="report-background"></div>
                
             </div>
-            @*
-                @if (Model.IsUserReviewsAvailable)
-                {
-                    <h3 class="font-bold padding-left10 margin-bottom20">User reviews</h3>
-                    @Html.Partial("~/Views/UserReviews/_UserReviewsList.cshtml", Model.UserReviews);
-                    <div class="padding-left10 view-all-btn-container">
-                        <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
-                    </div>
-                }
-            *@
+         
     }
 
      @if (Model.IsReviewsAvailable)
