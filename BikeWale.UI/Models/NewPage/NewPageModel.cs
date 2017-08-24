@@ -126,8 +126,10 @@ namespace Bikewale.Models
             objVM.UpcomingBikes.UpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
 
             BindCompareBikes(objVM, CompareSource, cityId);
-          
-            objVM.BestBikes = new BestBikeWidgetModel(null, _cachedModels).GetData();
+
+            BestBikeByBodyStyle objBestBike = new BestBikeByBodyStyle(_cachedModels);
+            objBestBike.topCount = 9;
+            objVM.BestBikes = objBestBike.GetData();
 
             objVM.News = new RecentNews(3, _articles).GetData();
 

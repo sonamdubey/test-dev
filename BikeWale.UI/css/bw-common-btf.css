@@ -1610,3 +1610,4 @@ input[type="number"] {
 	background-position: -222px -28px;
 	display: inline-block;
 }
+.text-semibold { font-weight: 600 }
