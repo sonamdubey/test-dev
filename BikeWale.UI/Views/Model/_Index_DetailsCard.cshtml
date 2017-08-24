@@ -17,7 +17,7 @@
     @if (Model.IsSimilarBikesAvailable)
     {
         <div id="modelSimilarContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin font14">
-            <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15">Bikes Similar to @Model.ModelPageEntity.ModelDetails.ModelName</h2>
+            <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15">@string.Format("{0}", Model.BodyStyle == Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes") Similar to @Model.ModelPageEntity.ModelDetails.ModelName</h2>
             @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
         </div>
     }

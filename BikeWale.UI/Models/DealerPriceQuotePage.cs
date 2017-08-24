@@ -42,8 +42,7 @@ namespace Bikewale.Models
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         private uint _modelId, _versionId, _cityId, _areaId, _pqId, _dealerId, _makeId;
         private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty;
-
-
+        
 
         /// <summary>
         /// Created By : Sushil Kumar on 23rd March 2017
@@ -95,7 +94,12 @@ namespace Bikewale.Models
 
                         };
                     }
-                    BindSimilarBikeExploreMoreLink(objData);
+                    if(objData.SimilarBikesVM != null)
+                    {
+                        objData.SimilarBikesVM.Model = objData.SelectedVersion.ModelBase;
+                        objData.SimilarBikesVM.Make = objData.SelectedVersion.MakeBase;
+                        objData.SimilarBikesVM.BodyStyle = objData.BodyStyle;
+                    }
                     objData.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
                 }
 
@@ -192,7 +196,7 @@ namespace Bikewale.Models
                         objSimilarBikes.CityId = _cityId;
                         objData.SimilarBikesVM = objSimilarBikes.GetData();
                         if(objData.SimilarBikesVM != null)
-                        {
+                        { 
                             objData.SimilarBikesVM.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
                         }
                     }
@@ -391,6 +395,7 @@ namespace Bikewale.Models
                         var objMin = minSpecs.FirstOrDefault(x => x.VersionId == _versionId);
                         if (objMin != null)
                             objData.MinSpecsHtml = FormatVarientMinSpec(objMin);
+                        objData.BodyStyle = minSpecs.FirstOrDefault().BodyStyle;
                     }
                 }
             }
@@ -579,22 +584,6 @@ namespace Bikewale.Models
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", _modelId, _cityId, ManufacturerCampaignPageId));
             }
-        }
-
-        /// <summary>
-        /// Created by: Vivek Singh Tomar on 23 Aug 2017
-        /// Summary: Function to bind explore more links in similar bikes widget
-        /// </summary>
-        private void BindSimilarBikeExploreMoreLink(DealerPriceQuotePageVM objData)
-        {
-            /*if ((byte)_objData.BikeRanking.BodyStyle == 5)
-            {
-                _objData.SimilarBikes.ExploreMoreLink = string.Format("{0}/scooters/", IsMobile ? "/m" : "");
-            }
-            else
-            {
-                _objData.SimilarBikes.ExploreMoreLink = string.Format("{0}/new-bikes-in-india/", IsMobile ? "/m" : "");
-            }*/
         }
     }
 }

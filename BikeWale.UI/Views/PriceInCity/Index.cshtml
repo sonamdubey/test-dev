@@ -483,7 +483,7 @@
                         <div id="similarContent" class="bw-model-tabs-data section-bottom-margin">
                             <div class="grid-12 grid-no-padding">
                                 <div class="content-box-shadow padding-top20 padding-bottom20">
-                                    <h2 class="card-h2-heading padding-right20 padding-left20">Prices of similar bikes in @Model.CityEntity.CityName</h2>
+                                    <h2 class="card-h2-heading padding-right20 padding-left20">@String.Format("Prices of similar {0} in", Model.AlternateBikes.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes") @Model.CityEntity.CityName</h2>
                                     <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14 ">
                                         @Html.Partial("~/views/Bikemodels/_SimilarBikes.cshtml", Model.AlternateBikes)
                                     </div>

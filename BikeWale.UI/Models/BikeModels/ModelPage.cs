@@ -160,7 +160,10 @@ namespace Bikewale.Models.BikeModels
                     CreateMetas();
 
                     BindVersionPriceListSummary();
-
+                    if(_objData.SimilarBikes != null)
+                    {
+                        _objData.SimilarBikes.BodyStyle = _objData.BodyStyle;
+                    }
                     _objData.Page = GAPages.Model_Page;
                     #endregion Do Not change the sequence
                 }
@@ -318,7 +321,6 @@ namespace Bikewale.Models.BikeModels
                     _objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName, (int)(IsMobile ? UserReviewPageSourceEnum.Mobile_ModelPage : UserReviewPageSourceEnum.Desktop_ModelPage)));
 
 
-
                     if (!_objData.IsUpcomingBike)
                     {
                         DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
@@ -361,11 +363,9 @@ namespace Bikewale.Models.BikeModels
                             _objData.IsShowPriceTab = true;
                         }
 
-
                         GetBikeRankingCategory();
 
                         BindUserReviewsWidget(_objData);
-
 
                         if (_objData.BikeRanking != null)
                         {
@@ -394,6 +394,17 @@ namespace Bikewale.Models.BikeModels
                     {
 
                         _objData.objUpcomingBikes = BindUpCompingBikesWidget();
+                    }
+                }
+
+
+                // Sey body style
+                if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions!= null && _objData.ModelPageEntity.ModelVersions.Count > 0)
+                {
+                    var selected = _objData.ModelPageEntity.ModelVersions.Where(x => x.VersionId == _objData.VersionId).FirstOrDefault();
+                    if(selected != null && selected.BodyStyleId > 0)
+                    {
+                        _objData.BodyStyle = (EnumBikeBodyStyles) selected.BodyStyleId;
                     }
                 }
 
@@ -820,6 +831,7 @@ namespace Bikewale.Models.BikeModels
                                 _objData.VersionName = firstVer.VersionName;
                         }
                     }
+                    
                 }
             }
             catch (Exception ex)

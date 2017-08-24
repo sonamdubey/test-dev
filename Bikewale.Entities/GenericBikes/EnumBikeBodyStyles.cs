@@ -14,6 +14,5 @@ namespace Bikewale.Entities.GenericBikes
         SemiFaired = 4,
         Scooter = 5,
         Mileage = 6
-
     }
 }

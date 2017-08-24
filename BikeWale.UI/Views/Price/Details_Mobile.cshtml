@@ -301,7 +301,7 @@
     <section>
         <div class="bg-white bottom-shadow margin-top10 margin-bottom20 padding-bottom10">
             <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top15 font14 margin-bottom20">
-                <h2 class="padding-left20 padding-right20 margin-bottom20">Bikes Similar to @Model.BikeName</h2>
+                <h2 class="padding-left20 padding-right20 margin-bottom20">@String.Format("{0} Similar to", Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter)? "Scooters" : "Bikes") @Model.BikeName</h2>
                 @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikesVM)
             </div>
         </div>

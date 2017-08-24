@@ -316,8 +316,10 @@ namespace Bikewale.Models
                     {
                         Status = StatusCodes.ContentNotFound;
                     }
-
-                    BindSimilarBikeExploreMoreLink(objVM);
+                    if(objVM.AlternateBikes != null)
+                    {
+                        objVM.AlternateBikes.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
+                    }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
                 }
             }
@@ -731,22 +733,6 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", modelId, cityId, ManufacturerCampaignPageId));
-            }
-        }
-
-        /// <summary>
-        /// Created by: Vivek Singh Tomar on 23 Aug 2017
-        /// Summary: Function to bind explore more links in similar bikes widget
-        /// </summary>
-        private void BindSimilarBikeExploreMoreLink(PriceInCityPageVM objVM)
-        {
-            if ((byte)objVM.BikeRank.Rank.BodyStyle == 5)
-            {
-                objVM.AlternateBikes.ExploreMoreLink = string.Format("{0}/scooters/", ((byte)Platform == 2) ? "/m" : "");
-            }
-            else
-            {
-                objVM.AlternateBikes.ExploreMoreLink = string.Format("{0}/new-bikes-in-india/", ((byte)Platform == 2) ? "/m" : "");
             }
         }
     }

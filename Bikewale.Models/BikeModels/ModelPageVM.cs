@@ -118,6 +118,8 @@ namespace Bikewale.Models.BikeModels
         public bool IsManufacturerTopLeadAdShown { get; set; }
         public ManufactureCampaignEMIEntity EMICampaign { get; set; }
         public bool IsManufacturerEMIAdShown { get; set; }
+
+        public EnumBikeBodyStyles BodyStyle { get; set; }
     }
 
 }
