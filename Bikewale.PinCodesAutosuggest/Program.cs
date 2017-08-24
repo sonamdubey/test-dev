@@ -57,7 +57,7 @@ namespace Bikewale.PinCodesAutosuggest
             {
                 bool isUpdateOperation = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["isUpdate"]);
                 string NewIndexName = System.Configuration.ConfigurationManager.AppSettings["NewIndexName"];
-                string TypeName = System.Configuration.ConfigurationManager.AppSettings["typeName"];
+                
 
                 if (isUpdateOperation)
                 {

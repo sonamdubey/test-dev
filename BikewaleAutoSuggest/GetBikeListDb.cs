@@ -112,6 +112,7 @@ namespace BikewaleAutoSuggest
 
                     int length = Math.Min(tokens.Length,5);
                     // For creating input in mm_suggest
+                    //example :- bajaj pulsar rs200 than combination will be bajaj,pulsar,rs200,bajaj pulsar and so on
                     for (int index = 1; index < 1 << length; index++)
                     {
                         int temp_value = index, jindex = 0;
