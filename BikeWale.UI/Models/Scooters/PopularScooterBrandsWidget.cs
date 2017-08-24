@@ -32,7 +32,7 @@ namespace Bikewale.Models.Scooters
 
                 if (bikeList != null && bikeList.Count() > 0 && SkipMakeId > 0)
                 {
-                    bikeList.Where(x => x.MakeId != SkipMakeId);
+                    bikeList = bikeList.Where(x => x.MakeId != SkipMakeId);
                 }
 
                 if(bikeList != null && TopCount > 0 && bikeList.Count() > TopCount)

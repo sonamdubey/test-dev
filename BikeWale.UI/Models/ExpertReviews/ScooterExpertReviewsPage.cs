@@ -221,6 +221,10 @@ namespace Bikewale.Models
 
                 PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
                 objPopularScooterBrands.TopCount = 4;
+
+                if(MakeId > 0)
+                    objPopularScooterBrands.SkipMakeId = MakeId;
+
                 objData.MakesWidgetData = objPopularScooterBrands.GetData();
             }
             catch (Exception ex)
