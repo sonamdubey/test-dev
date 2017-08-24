@@ -116,6 +116,11 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_UpcomiingBikes_NewLaunchesWidget = 90,
         Mobile_UpcomiingBikes_NewLaunchesWidget = 91,
         Desktop_PriceInCity_Manufacturer_LeadCapture = 92,
-        Mobile_PriceInCity_Manufacturer_LeadCapture = 93
+        Mobile_PriceInCity_Manufacturer_LeadCapture = 93,
+        Desktop_HomePage_BestBikes=94,
+        Desktop_NewPage_BestBikes=95,
+        Mobile_HomePage_BestBikes = 96,
+        Mobile_NewPage_BestBikes = 97
+
     }
 }
