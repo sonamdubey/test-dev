@@ -225,4 +225,7 @@
         <div class="clear"></div>
     </div>
 </section>
+
+@(Html.Raw(Model.JSONSchema))
+
 <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>

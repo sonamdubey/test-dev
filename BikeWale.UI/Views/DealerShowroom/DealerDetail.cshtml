@@ -4,8 +4,6 @@
    Layout = "~/Views/Shared/_Layout.cshtml";
    Model.Page_ATF_CSS ="<link rel='stylesheet' type='text/css' href='/css/dealer/details.css' />";
    Model.Page_JS_Path = "/src/dealer/details.js";
-   Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Model.DealerDetails.DealerDetails.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Model.DealerDetails.DealerDetails.Name));
-   Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName,Model.DealerDetails.DealerDetails.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Model.DealerDetails.DealerDetails.Name));
    Model.AdTags.AdId = "1395986297721";
    Model.AdTags.AdPath = "/1017752/BikeWale_New_";
    Model.AdTags.Ad_970x90 = true;
@@ -317,7 +315,10 @@
         </div>
         <div class="clear"></div>
     </div>
-</section>  
+</section> 
+
+@(Html.Raw(Model.JSONSchema))
+ 
         <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>
 <script type="text/javascript">
      cityArea = "@Model.CityDetails.CityName" + "@(Model.DealerDetails.DealerDetails.Area!=null ? ("_"+Model.DealerDetails.DealerDetails.Area.AreaName) : "")";
