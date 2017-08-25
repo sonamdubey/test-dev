@@ -101,7 +101,7 @@
     </ul>
 
     <div id="nav-app-content">
-        <p class="font12 text-bold inline-block">India’s #1 Bike Research Destination</p><a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank" rel="noopener" class="btn btn-orange nav-app-install-btn font12 text-bold inline-block" rel="nofollow">Install</a>
+        <p class="font12 text-bold inline-block">India’s #1 Bike Research Destination</p><a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank" rel="noopener nofollow" class="btn btn-orange nav-app-install-btn font12 text-bold inline-block" >Install</a>
     </div>
 </nav>
 <!-- nav code ends here -->

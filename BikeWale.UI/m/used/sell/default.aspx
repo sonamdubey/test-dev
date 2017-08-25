@@ -24,7 +24,7 @@
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
         <div id="ub-ajax-loader">
-            <div id="popup-loader"></div>
+            <div class="cover-popup-loader"></div>
         </div>
         
         <section class="hide">            

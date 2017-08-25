@@ -79,7 +79,7 @@
                 <p class="font13 text-white margin-bottom10">Download Mobile App</p>
                     
                 <div>
-                    <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" rel="noopener" class="bwsprite gplay-icon margin-right5" rel="nofollow">
+                    <a class="bwmsprite google-play-logo gplay-icon margin-right5" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" rel="noopener nofollow" >
                     </a>
                 </div>
             </div>

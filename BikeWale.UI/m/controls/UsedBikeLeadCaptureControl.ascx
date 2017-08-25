@@ -117,7 +117,7 @@
 </div>
 <!-- get seller details pop up end  -->
 <div id="ub-ajax-loader">
-    <div id="popup-loader"></div>
+    <div class="cover-popup-loader"></div>
 </div>
 <script type="text/javascript">
     var getUserName = $('#getUserName'),
