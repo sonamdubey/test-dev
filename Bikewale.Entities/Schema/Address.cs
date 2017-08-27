@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Schema
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 23rd Aug 2017
+    /// Description : Address schema for local bussiness and places 
+    /// </summary>
     public class Address
     {
         [JsonProperty("@type")]

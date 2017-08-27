@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 namespace Bikewale.Entities.Schema
 {
     /// <summary>
+    /// Created By : Sushil Kumar on 23rd Aug 2017
+    /// Description : MotorcycleDealer schema for dealer locator's dealer details page 
     /// </summary>
     public class MotorcycleDealer : SchemaBase
     {
