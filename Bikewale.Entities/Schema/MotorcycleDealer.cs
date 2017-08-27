@@ -67,6 +67,5 @@ namespace Bikewale.Entities.Schema
         [JsonProperty("currenciesAccepted", NullValueHandling = NullValueHandling.Ignore)]
         public string CurrenciesAccepted { get { return "INR"; } }
 
-
     }
 }

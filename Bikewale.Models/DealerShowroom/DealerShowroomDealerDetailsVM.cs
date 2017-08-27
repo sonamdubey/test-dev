@@ -27,6 +27,5 @@ namespace Bikewale.Models
         public string PQAreaName { get; set; }
         public string CustomerAreaName { get; set; }
         public string GALabel { get; set; }
-        public string JSONSchema { get; set; }
     }
 }

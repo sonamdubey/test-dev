@@ -223,7 +223,7 @@ namespace Bikewale.Models
             }
 
 
-            objDealerDetails.JSONSchema = string.Format(@"<script type='application/ld+json'>{0}</script>", Newtonsoft.Json.JsonConvert.SerializeObject(objSchema));
+            objDealerDetails.PageMetaTags.SchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
         }
 
         /// <summary>
