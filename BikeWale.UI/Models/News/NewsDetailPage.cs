@@ -18,6 +18,7 @@ using System.Web;
 using Newtonsoft.Json;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.PWA.Utils;
+using Bikewale.Entities.Schema;
 
 namespace Bikewale.Models
 {
@@ -134,8 +135,8 @@ namespace Bikewale.Models
                     SetPageMetas(objData);
                     GetWidgetData(objData, widgetTopCount);
 
-                    if (objData.Model != null&& ModelId!=0 && objData.Model.ModelId != ModelId)
-                        objData.Model.ModelId = (int)ModelId;                  
+                    if (objData.Model != null && ModelId != 0 && objData.Model.ModelId != ModelId)
+                        objData.Model.ModelId = (int)ModelId;
                 }
                 else
                     status = StatusCodes.ContentNotFound;
@@ -220,11 +221,41 @@ namespace Bikewale.Models
                     objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/news/{2}-{3}.html", BWConfiguration.Instance.BwHostUrl, objData.BaseUrl, objData.ArticleDetails.PrevArticle.BasicId, objData.ArticleDetails.PrevArticle.ArticleUrl);
                 if (objData.ArticleDetails.NextArticle != null && objData.ArticleDetails.NextArticle.ArticleUrl != null)
                     objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/news/{2}-{3}.html", BWConfiguration.Instance.BwHostUrl, objData.BaseUrl, objData.ArticleDetails.NextArticle.BasicId, objData.ArticleDetails.NextArticle.ArticleUrl);
+
+                SetPageJSONSchema(objData);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.NewsDetailPage.SetPageMetas");
             }
+        }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 25th Aug 2017
+        /// Description : To load json schema for the news articles
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetPageJSONSchema(NewsDetailPageVM objData)
+        {
+            var objSchema = new NewsArticle();
+            objSchema.HeadLine = objData.ArticleDetails.Title;
+            objSchema.DateModified = objData.ArticleDetails.DisplayDate.ToString();
+            objSchema.DatePublished = objSchema.DateModified;
+            objSchema.Description = objData.ArticleDetails.Description;
+            objSchema.ArticleBody = Bikewale.Utility.FormatDescription.SanitizeHtml(objData.ArticleDetails.Content);
+            objSchema.ArticleImage = new ImageObject()
+            {
+                ImageUrl = objData.PageMetaTags.ShareImage,
+                Height = "348",
+                Width = "640"
+            };
+            objSchema.Author = new Author()
+            {
+                Name = objData.ArticleDetails.AuthorName
+            };
+            objSchema.MainEntityOfPage = new MainEntityOfPage() { PageUrlId = objData.PageMetaTags.CanonicalUrl };
+
+            objData.PageMetaTags.SchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
         }
 
         /// <summary>

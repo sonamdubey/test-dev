@@ -116,6 +116,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Modified By : Sushil Kumar on 9th July 2017
         /// Description : Change input parametres as per carwale mysql master base conventions
+        /// Modified by : Ashutosh Sharma on 21-Aug-2017
+        /// Description : Called clear cache for popular bikes by bodystyle.
         /// </summary>
         /// Modified By : Vivek Singh Tomar on 31st July 2017
         /// Description : Clear Memcache when new version added
@@ -169,6 +171,8 @@ namespace BikeWaleOpr.Content
                 BwMemCache.ClearVersionDetails(modelId);
                 //Refresh memcache object for versions by type
                 BwMemCache.ClearVersionByType(modelId);
+                
+                BwMemCache.ClearPopularBikesByBodyStyle(Convert.ToUInt16(cmbBodyStyles.SelectedValue));
             }
             catch (SqlException err)
             {

@@ -1,0 +1,128 @@
+﻿@model  Bikewale.Models.ScooterExpertReviewsPageVM
+@using Bikewale.Utility
+@using System.Text.RegularExpressions
+@{
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' />";
+	Model.AdTags.AdId = "1395986297721";
+	Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
+	Model.AdTags.Ad_320x50 = true;
+	Model.AdTags.Ad_Mid_320x50 = true;
+	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+<section>
+	<div class="container box-shadow bg-white section-bottom-margin">
+		<h1 class="box-shadow padding-15-20">@Model.PageH1</h1>
+		@if (Model.Articles != null && Model.Articles.Articles != null && Model.Articles.Articles.Count() > 0)
+		{
+			<ul id="divListing" class="article-list">
+				@{ushort i = 0;}
+				@foreach (var article in Model.Articles.Articles)
+				{
+					<li>
+						<a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="Expert Review: @article.Title">
+							<div class="article-item-content">
+								@Html.Raw(Regex.Match(article.AuthorName, @"\b(sponsored)\b", RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "")
+								<div class="article-wrapper">
+									<div class="article-image-wrapper">
+										<img class="lazy" alt='Expert Review: @article.Title' title="Expert reviews: @article.Title" data-original='@Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._110x61, QualityFactor._70)' width="100%" border="0" src="">
+									</div>
+									<div class="padding-left10 article-desc-wrapper">
+										<h2 class="font14">Expert Review: @article.Title</h2>
+									</div>
+								</div>
+
+								<div class="article-stats-wrapper font12 leftfloat text-light-grey">
+									<span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block">@FormatDate.GetFormatDate(Convert.ToString(article.DisplayDate), "dd MMMM yyyy")</span>
+								</div>
+								<div class="article-stats-wrapper font12 leftfloat text-light-grey">
+									<span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block">@article.AuthorName</span>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</a>
+					</li>if (Model.PagerEntity.PageNo == 1 && Model.EndIndex == 10 && i == 4)
+					{
+						<li class="list-item__slug hide" id="writereviewslug">
+							<span class="bwmsprite list-slug__close"></span>
+							<div class="list-slug__wrapper">
+								<div class="slug-content--top-align">
+									<img class="list-slug__image lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/review-contest-slug-120.png" alt="Bike Review Contest" src="" />
+								</div>
+								<div class="list-slug__details slug-content--top-align">
+									<p class="list-slug__heading">Bike review contest</p>
+									<p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;1,000</p>
+									<a href="/m/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ExpertReviews)" title="Bike Review Contest" class="list-slug__target">Participate now<span class="bwmsprite target-arrow"></span></a>
+								</div>
+							</div>
+						</li>
+					}
+					i++;
+				}
+			</ul>
+					}
+		<div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
+			<div class="grid-5 omega text-light-grey font13">
+				<span class="text-bold text-default">@string.Format("{0}-{1}", Model.StartIndex, Model.EndIndex)</span> of <span class="text-bold text-default">@Model.Articles.RecordCount</span> articles
+			</div>
+			@if (Model.Articles.RecordCount > 10)
+			{
+				Html.RenderAction("Index", "Pager", new { objPager = @Model.PagerEntity });
+			}
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</section>
+<div class="margin-bottom15">
+	@Html.Partial("~/Views/Shared/Ads/Mobile/Ad320x50_Middle.cshtml", Model.AdTags)
+</div>
+
+@if (Model.MostPopularScooters != null && Model.MostPopularScooters.Bikes != null && Model.MostPopularScooters.Bikes.Count() > 0)
+{
+	<section>
+		<div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
+			<div class="carousel-heading-content">
+				<div class="swiper-heading-left-grid inline-block">
+					<h2>@Model.MostPopularScooters.WidgetHeading</h2>
+				</div>
+				<div class="swiper-heading-right-grid inline-block text-right">
+					<a href="@string.Format("/m{0}",Model.MostPopularScooters.WidgetHref)" title="@Model.MostPopularScooters.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+				</div>
+				<div class="clear"></div>
+			</div>
+			@Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.MostPopularScooters)
+		</div>
+	</section>
+}
+
+@if (Model.UpcomingScooters != null && Model.UpcomingScooters.UpcomingBikes != null && Model.UpcomingScooters.UpcomingBikes.Count() > 0)
+{
+	<section>
+		<div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
+			<div class="carousel-heading-content">
+				<div class="swiper-heading-left-grid inline-block">
+					<h2>@Model.UpcomingScooters.WidgetHeading</h2>
+				</div>
+				<div class="clear"></div>
+			</div>
+			@Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingScooters)
+		</div>
+	</section>
+}
+
+<script type="text/javascript">
+	ga_pg_id = "12";
+	docReady(function () {
+		if (!bwcache.get('showeditcmsreviewslug',true)) {
+			$('#writereviewslug').show();
+		}
+		$('.list-slug__close').on('click', function () {
+			bwcache.set('showeditcmsreviewslug', '1', true);
+			var slugItem = $(this).closest('.list-item__slug');
+
+			slugItem.slideUp(500, function() {
+				slugItem.remove();
+			});
+		});
+	});
+</script>

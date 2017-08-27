@@ -6,7 +6,8 @@
     Model.AdTags.Ad320x150_Bottom = true;
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/scooters/landing.css' />";
     Model.PageMetaTags.AlternateUrl = "";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";    
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.IsTransparentHeader = true;
 }
 
 <section>
@@ -194,6 +195,7 @@
                                         @if (Model.News.FetchedCount > 0)
                                         {
                                             <li data-tabs="ctrlNews" class="@string.Format("{0}", Model.IsNewsActive ? "active" : "hide")">News</li>
+
                                         }
                                         @if (Model.ExpertReviews.FetchedCount > 0)
                                         {
@@ -212,11 +214,17 @@
                             {
                                 @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
                             }
+                            <div class="view-all-btn-container">
+                                <a href="/m/scooters/news/" title="Scooter News" class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
+                            </div>
                         </div>
                         <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlExpertReviews">
                             @if (Model.ExpertReviews.FetchedCount > 0)
                             {
                                 @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                                <div class="view-all-btn-container">
+                                    <a title="@Model.ExpertReviews.LinkTitle" href="@string.Format("/m{0}",Model.ExpertReviews.MoreExpertReviewUrl)" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
+                                </div>
                             }
                         </div>
                         <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlVideos">
@@ -224,6 +232,9 @@
                             {
                                 @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
                             }
+                            <div class="view-all-btn-container">
+                                <a title="Scooter Videos" href="/m/scooters/videos/" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
+                            </div>
                         </div>
                     </div>
                 </div>
