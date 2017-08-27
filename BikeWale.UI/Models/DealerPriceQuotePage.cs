@@ -266,6 +266,7 @@ namespace Bikewale.Models
         private void SetDealerPriceQuoteDetail(DealerPriceQuotePageVM objData)
         {
             Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity detailedDealer = null;
+            bool isBikewalePQ = true;
             try
             {
                 detailedDealer = _objDealerPQDetails.GetDealerQuotationV2(_cityId, _versionId, _dealerId, _areaId);
@@ -319,18 +320,10 @@ namespace Bikewale.Models
                             objData.TotalPrice = (uint)detailedDealer.PrimaryDealer.TotalPrice;
                             #endregion
                         }
-                        else
-                        {
-                            #region Bikewale PriceQuote
-                            objData.Quotation = _objPQ.GetPriceQuoteById(Convert.ToUInt64(_pqId), LeadSource);
-                            if (objData.Quotation != null)
-                            {
-                                objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;                                
-                            }
-                            #endregion
-                        }
+                        else isBikewalePQ = false;                        
                     }
-                    else
+
+                    if (isBikewalePQ)
                     {
                         #region Bikewale PriceQuote
                         objData.Quotation = _objPQ.GetPriceQuoteById(Convert.ToUInt64(_pqId), LeadSource);
@@ -338,15 +331,15 @@ namespace Bikewale.Models
                         {
                             objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;
                         }
-                        #endregion                        
+                        #endregion
                     }
+
                 }
                 else
                 {
                     RedirectUrl = "/pricequote/";
                     Status = StatusCodes.RedirectPermanent;
                 }
-
             }
             catch (Exception ex)
             {
