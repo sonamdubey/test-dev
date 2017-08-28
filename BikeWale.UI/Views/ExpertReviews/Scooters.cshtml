@@ -141,11 +141,11 @@
 					</div>
 				}
 
-				@if (Model.MakesWidgetData != null &&  Model.MakesWidgetData.Count() > 0)
-				{
+				@if (Model.PopularScooterMakesWidget != null &&  Model.PopularScooterMakesWidget.Count() > 0)
+                {
                 <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                     <h2>@Model.PopularScooterBrandsWidgetHeading</h2>
-                    @Html.Partial("~/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml", Model.MakesWidgetData)
+                    @Html.Partial("~/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml", Model.PopularScooterMakesWidget)
                     <div class="view-all-btn-container padding-top10 padding-bottom10">
                         <a href="/scooters/" title="Scooters" class="btn view-all-target-btn">
                             View all scooters<span class="bwsprite teal-right"></span>

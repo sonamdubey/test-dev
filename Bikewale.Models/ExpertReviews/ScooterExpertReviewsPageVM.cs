@@ -9,7 +9,7 @@ namespace Bikewale.Models
     /// Created by: Vivek Singh Tomar on 17th Aug 2017
     /// Summary: VM for Expert Reviews for scooters page
     /// Modified by sajal Gupta on 23-08-2017
-    /// Description : added MakesWidgetData
+    /// Description : added PopularScooterMakesWidget
     /// </summary>
     public class ScooterExpertReviewsPageVM: ModelBase
     {
@@ -20,7 +20,7 @@ namespace Bikewale.Models
         public PagerEntity PagerEntity { get; set; }
         public string PageH1 { get; set; }
         public MostPopularBikeWidgetVM MostPopularScooters { get; set; }       
-        public IEnumerable<BikeMakeEntityBase> MakesWidgetData { get; set; }
+        public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
         public string PopularScooterBrandsWidgetHeading { get; set; }
     }
 }

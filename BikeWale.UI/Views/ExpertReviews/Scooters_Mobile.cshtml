@@ -94,7 +94,7 @@
     </section>
 }
 
-@if (Model.MakesWidgetData != null && Model.MakesWidgetData.Count() > 0)
+@if (Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0)
 {
     <section>
         <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
@@ -107,7 +107,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            @Html.Partial("~/views/m/shared/_otherbrands.cshtml", Model.MakesWidgetData)
+            @Html.Partial("~/views/m/shared/_otherbrands.cshtml", Model.PopularScooterMakesWidget)
         </div>
     </section>
 }

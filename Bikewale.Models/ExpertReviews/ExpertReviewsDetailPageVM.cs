@@ -9,7 +9,7 @@ namespace Bikewale.Models
     /// Created by : Aditi Srivastava on 30 Mar 2017
     /// Summary    : View model for expert reviews detail page
     /// Modified by sajal Gupta on 24-08-2017
-    /// description : added MakesWidgetData
+    /// description : added PopularScooterMakesWidget
     /// </summary>
     public class ExpertReviewsDetailPageVM : ModelBase
     {
@@ -22,6 +22,6 @@ namespace Bikewale.Models
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }
         public StringBuilder BikeTested { get; set; }
-        public IEnumerable<BikeMakeEntityBase> MakesWidgetData { get; set; }
+        public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
     }
 }

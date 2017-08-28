@@ -24,7 +24,7 @@ namespace Bikewale.Models
         public PopularBodyStyleVM PopularBodyStyle { get; set; }
         public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
-        public IEnumerable<BikeMakeEntityBase> MakesWidgetData { get; set; }
+        public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
     }
 
 

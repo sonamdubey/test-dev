@@ -272,7 +272,7 @@ namespace Bikewale.Models
                     {
                         PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_objMakeCache);
                         objPopularScooterBrands.TopCount = 4;
-                        objData.MakesWidgetData = objPopularScooterBrands.GetData();
+                        objData.PopularScooterMakesWidget = objPopularScooterBrands.GetData();
                         bikeType = EnumBikeType.Scooters;
                     }
                     else

@@ -232,7 +232,7 @@ namespace Bikewale.Models
                 else
                     objData.PopularScooterBrandsWidgetHeading = "Popular scooter brands";
 
-                objData.MakesWidgetData = objPopularScooterBrands.GetData();
+                objData.PopularScooterMakesWidget = objPopularScooterBrands.GetData();
             }
             catch (Exception ex)
             {
