@@ -250,7 +250,7 @@ namespace Bikewale.Models
                     if (objVersionsList != null && objVersionsList.Count > 0)
                         bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
 
-                    if (bodyStyle.Equals(EnumBikeType.Scooters))
+                    if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                     {
                         PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
                         objPopularScooterBrands.TopCount = 4;
