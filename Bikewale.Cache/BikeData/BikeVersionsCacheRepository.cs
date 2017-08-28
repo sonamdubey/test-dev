@@ -56,7 +56,7 @@ namespace Bikewale.Cache.BikeData
             return versions;
         }
 
-
+        
         /// <summary>
         /// Created by  :    Sushil Kumar on 28th June 2016
         /// Summary     :   Gets the versions by type and modelid and cityId

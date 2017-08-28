@@ -24,7 +24,7 @@ namespace Bikewale.Controllers
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
-        private readonly ICMSCacheContent _objArticles = null;       
+        private readonly ICMSCacheContent _objArticles = null;
         private readonly IBikeMakesCacheRepository<int> _makesRepository;
         private readonly IUserReviewsCache _userReviewCache = null;
 
@@ -44,8 +44,8 @@ namespace Bikewale.Controllers
         /// <param name="userReviewsSearch"></param>
         /// <param name="makesRepository"></param>
         /// <param name="userReviewCache"></param>
-        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo, 
-            IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, 
+        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo,
+            IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel,
                 IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository<int> makesRepository, IUserReviewsCache userReviewCache)
         {
 
@@ -451,7 +451,7 @@ namespace Bikewale.Controllers
         [Route("m/user-reviews/contest/")]
         public ActionResult WriteReviewContest_Mobile(int? csrc)
         {
-            WriteReviewContest objData = new WriteReviewContest(true,_makesRepository, _userReviewCache);
+            WriteReviewContest objData = new WriteReviewContest(true, _makesRepository, _userReviewCache);
             objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
             return View(objVM);

@@ -19,7 +19,7 @@ namespace Bikewale.BAL.UserReviews.Search
     /// </summary>
     public class UserReviewsSearch : IUserReviewsSearch
     {
-        ProcessedInputFilters filterInputs = null;        
+        ProcessedInputFilters filterInputs = null;
         private readonly IPager _pager = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
 
@@ -123,11 +123,15 @@ namespace Bikewale.BAL.UserReviews.Search
                     {
                         foreach (var review in objReviewSummaryList)
                         {
-                            foreach (var ques in review.Questions)
+                            if (review.Questions != null)
                             {
-                                if (ques.Type == UserReviewQuestionType.Rating)
-                                    review.RatingQuestionsCount++;
+                                foreach (var ques in review.Questions)
+                                {
+                                    if (ques.Type == UserReviewQuestionType.Rating)
+                                        review.RatingQuestionsCount++;
+                                }
                             }
+
                         }
                     }
 

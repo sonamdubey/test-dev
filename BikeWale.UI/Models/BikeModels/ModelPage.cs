@@ -160,7 +160,11 @@ namespace Bikewale.Models.BikeModels
                     CreateMetas();
 
                     BindVersionPriceListSummary();
-
+                    if(_objData.SimilarBikes != null)
+                    {
+                        _objData.SimilarBikes.BodyStyle = _objData.BodyStyle;
+                    }
+                    _objData.Page = GAPages.Model_Page;
                     #endregion Do Not change the sequence
                 }
             }
@@ -300,6 +304,8 @@ namespace Bikewale.Models.BikeModels
         /// Description :  Added dealer card and service center card
         /// Modified by :   Sumit Kate on 02 Jan 2017
         /// Description :   Set makename,modelname,make and model masking name to news widget
+        /// Modified by: Vivek Singh Tomar on 23 Aug 2017
+        /// Summary: Added page enum to similar bike widget
         /// </summary>
         private void BindControls()
         {
@@ -315,7 +321,6 @@ namespace Bikewale.Models.BikeModels
                     _objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName, (int)(IsMobile ? UserReviewPageSourceEnum.Mobile_ModelPage : UserReviewPageSourceEnum.Desktop_ModelPage)));
 
 
-
                     if (!_objData.IsUpcomingBike)
                     {
                         DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
@@ -329,13 +334,13 @@ namespace Bikewale.Models.BikeModels
                             objSimilarBikes.TopCount = 9;
                             objSimilarBikes.CityId = _cityId;
                             _objData.SimilarBikes = objSimilarBikes.GetData();
-
-                            _objData.SimilarBikes.Make = objMake;
-                            _objData.SimilarBikes.Model = _objData.ModelPageEntity.ModelDetails;
-                            _objData.SimilarBikes.VersionId = _objData.VersionId;
-
-
-
+                            if (_objData.SimilarBikes != null)
+                            {
+                                _objData.SimilarBikes.Make = objMake;
+                                _objData.SimilarBikes.Model = _objData.ModelPageEntity.ModelDetails;
+                                _objData.SimilarBikes.VersionId = _objData.VersionId;
+                                _objData.SimilarBikes.Page = GAPages.Model_Page;
+                            }
                         }
 
                         if (_cityId > 0)
@@ -358,12 +363,9 @@ namespace Bikewale.Models.BikeModels
                             _objData.IsShowPriceTab = true;
                         }
 
-
                         GetBikeRankingCategory();
 
-
                         BindUserReviewsWidget(_objData);
-
 
                         if (_objData.BikeRanking != null)
                         {
@@ -387,14 +389,24 @@ namespace Bikewale.Models.BikeModels
 
                             _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
                         }
-
-
-
                     }
                     if (_objData.IsUpcomingBike)
                     {
 
                         _objData.objUpcomingBikes = BindUpCompingBikesWidget();
+                    }
+                }
+
+
+                // Set body style
+                if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions!= null && _objData.ModelPageEntity.ModelVersions.Count > 0)
+                {
+                    var selected = _objData.ModelPageEntity.ModelVersions.Where(x => x.VersionId == _objData.VersionId).FirstOrDefault();
+                    if(selected != null)
+                    {
+                        _objData.BodyStyle = selected.BodyStyle;
+                        _objData.BodyStyleText = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
+                        _objData.BodyStyleTextSingular = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
                     }
                 }
 
@@ -821,6 +833,7 @@ namespace Bikewale.Models.BikeModels
                                 _objData.VersionName = firstVer.VersionName;
                         }
                     }
+                    
                 }
             }
             catch (Exception ex)
@@ -1268,7 +1281,6 @@ namespace Bikewale.Models.BikeModels
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeModels.ModelPage -->" + "BindColorString()");
             }
         }
-
         #endregion Methods
 
     }

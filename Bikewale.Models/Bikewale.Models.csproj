@@ -103,6 +103,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BestBikes\BestBikeByCategoryVM.cs" />
     <Compile Include="BikeCare\BikeCareDetailPageVM.cs" />
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="GenericBestBikes\IndexBestBikesVM.cs" />
     <Compile Include="Make\BrandCityPopupVM.cs" />
     <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
+    <Compile Include="Make\MakeModelPopupVM.cs" />
     <Compile Include="Make\MakePageVM.cs" />
     <Compile Include="BikeCare\RecentBikeCareVM.cs" />
     <Compile Include="BikeModels\BikeModelRankVM.cs" />

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Bikewale.DTO.AutoComplete;
+using Bikewale.Entities.AutoComplete;
 using Nest;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,13 @@ namespace Bikewale.Service.AutoMappers.AutoComplete
 {
     public class SuggestionListMapper
     {
-        internal static List<DTO.AutoComplete.SuggestionList> Convert(IEnumerable<Nest.SuggestOption> objSuggestion)
+     
+        internal static IEnumerable<DTO.AutoComplete.SuggestionList> Convert(IEnumerable<Nest.SuggestOption<SuggestionOutput>> objSuggestion)
         {
-            Mapper.CreateMap<SuggestOption, SuggestionList>();
+            Mapper.CreateMap<Nest.SuggestOption<SuggestionOutput>, SuggestionList>().ForMember(d => d.Text, opt => opt.MapFrom(s => s.Source.output));
+            Mapper.CreateMap<Nest.SuggestOption<SuggestionOutput>, SuggestionList>().ForMember(d => d.Payload, opt => opt.MapFrom(s => s.Source.Payload));
             if (objSuggestion != null)
-                return Mapper.Map<List<SuggestOption>, List<SuggestionList>>(objSuggestion.ToList());
+                return Mapper.Map<IEnumerable<Nest.SuggestOption<SuggestionOutput>>, IEnumerable<SuggestionList>>(objSuggestion);
             else
                 return null;
         }
