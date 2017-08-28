@@ -245,7 +245,7 @@ namespace Bikewale.Models
 
                 if (ModelId > 0)
                 {
-                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, true);
+                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
                     if (objVersionsList != null && objVersionsList.Count > 0)
                         bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
