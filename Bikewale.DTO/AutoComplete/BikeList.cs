@@ -10,6 +10,6 @@ namespace Bikewale.DTO.AutoComplete
     public class BikeList
     {
         [JsonProperty("suggestionList")]
-        public List<SuggestionList> Bikes { get; set; }
+        public IEnumerable<SuggestionList> Bikes { get; set; }
     }
 }

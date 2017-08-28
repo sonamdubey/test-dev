@@ -797,8 +797,19 @@ var reportAbusePopup = {
         reportAbusePopup.bgContainer.hide();
     }
 };
+function logBhrighu(e) {
 
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+ 
+    label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + index + '|pageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("TitleClick", label);
+}
 function updateView(e) {
+    // for bhrigu updation
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+
+    label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + index + '|pageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("ReadMoreClick", label);
     try {
         var reviewId = e.currentTarget.getAttribute("data-reviewid");
         $.ajax({

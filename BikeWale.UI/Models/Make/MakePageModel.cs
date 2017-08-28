@@ -1,7 +1,9 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -16,9 +18,6 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bikewale.Entities.Compare;
-using Bikewale.Entities.SEO;
-using Bikewale.Entities.Pages;
 
 namespace Bikewale.Models
 {
@@ -123,7 +122,7 @@ namespace Bikewale.Models
                 BindCMSContent(objData);
                 objData.UsedModels = BindUsedBikeByModel(_makeId, cityId);
                 BindDiscontinuedBikes(objData);
-
+                BindOtherMakes(objData);
                 #region Set Visible flags
 
                 if (objData != null)
@@ -162,6 +161,28 @@ namespace Bikewale.Models
 
             return objData;
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 24 Aug 2017
+        /// Description :   Bind Other Make list
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindOtherMakes(MakePageVM objData)
+        {
+            try
+            {
+                var makes = _bikeMakesCache.GetMakesByType(EnumBikeType.New);
+                if (makes != null && makes.Count() > 0)
+                {
+                    objData.OtherMakes = makes.Where(m => m.MakeId != _makeId).Take(9);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass er = new ErrorClass(ex, string.Format("MakePageModel.BindOtherMakes() => MakeId: {0}", _makeId));
+            }
+        }
+
         private UsedBikeModelsWidgetVM BindUsedBikeByModel(uint makeId, uint cityId)
         {
             UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
@@ -267,11 +288,11 @@ namespace Bikewale.Models
             long MaxPrice = 0;
             try
             {
-                if(objModelList!=null && objModelList.Count() > 0)
+                if (objModelList != null && objModelList.Count() > 0)
                 {
                     minPrice = objModelList.Min(bike => bike.VersionPrice);
                     MaxPrice = objModelList.Max(bike => bike.VersionPrice);
-                }               
+                }
 
                 objData.PageMetaTags.Title = string.Format("{0} Bikes | {1} {0} Models- Prices, Dealers, & Images- BikeWale", objData.MakeName, objData.Bikes.Count());
                 objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1} - Rs. {2}. Check out {0} on road price, reviews, mileage, versions, news & images at Bikewale.", objData.MakeName, Bikewale.Utility.Format.FormatPrice(minPrice.ToString()), Bikewale.Utility.Format.FormatPrice(MaxPrice.ToString()));
@@ -302,7 +323,7 @@ namespace Bikewale.Models
             {
                 if (objMakeBase != null && objMakeBase.Metas != null)
                 {
-                    var metas = objMakeBase.Metas.FirstOrDefault(m => m.PageId == (int)(IsMobile ?BikewalePages.Mobile_MakePage : BikewalePages.Desktop_MakePage));
+                    var metas = objMakeBase.Metas.FirstOrDefault(m => m.PageId == (int)(IsMobile ? BikewalePages.Mobile_MakePage : BikewalePages.Desktop_MakePage));
                     if (metas != null)
                     {
                         if (!string.IsNullOrEmpty(metas.Title))

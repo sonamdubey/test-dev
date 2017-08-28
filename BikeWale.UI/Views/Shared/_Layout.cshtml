@@ -203,7 +203,7 @@
             </script>
         }
 </head>
-<body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")"  @string.Format("{0}",Model.ExcludeContestSlug?"data-contestslug='true'":"")>
+<body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")"  @string.Format("{0}",Model.ExcludeContestSlug?"data-contestslug='true'":"") data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
 
     <div id="header" class='@(Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
         <!-- Fixed Header code starts here -->

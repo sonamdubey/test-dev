@@ -192,7 +192,8 @@
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ElasticSearch\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NReco.PdfGenerator">
       <HintPath>..\Libs\NReco.PdfGenerator.dll</HintPath>
@@ -952,6 +953,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BestBikes\BestBikeByBodyStyle.cs" />
     <Compile Include="Models\BikeCare\BikeCareDetailPage.cs" />
     <Compile Include="Models\BikeCare\BikeCareIndexPage.cs" />
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
@@ -1000,6 +1002,7 @@
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\Scooters\PopularScooterBrandsWidget.cs" />
     <Compile Include="Models\Scooters\ScootersMakePageModel.cs" />
     <Compile Include="Models\ServiceCenters\ShowroomsWidgetModel.Cs" />
     <Compile Include="Models\Scooters\ScootersIndexPageModel.cs" />
@@ -2849,6 +2852,8 @@
     <Content Include="m\css\leadcapture.css" />
     <Content Include="m\css\new-launch\new-launch.css" />
     <Content Include="m\css\photos.css" />
+    <Content Include="m\css\scooters\landing.css" />
+    <Content Include="m\css\scooters\listing.css" />
     <Content Include="m\css\service\details.css" />
     <Content Include="m\css\service\landing.css" />
     <Content Include="m\css\service\listing.css" />
@@ -3758,11 +3763,23 @@
     <Content Include="Views\Shared\_Layout_Mobile_AMP_PWA.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
+    <Content Include="Views\Make\_BrandsModelCount.cshtml" />
+    <Content Include="Views\Make\_BrandsModelCount_Mobile.cshtml" />
+    <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel.cshtml" />
+    <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\Scooters_Mobile.cshtml" />
     <Content Include="Views\News\Scooters.cshtml" />
     <Content Include="Views\News\Scooters_Mobile.cshtml" />
     <Content Include="Views\Videos\ScooterVideos.cshtml" />
     <Content Include="Views\Videos\ScooterVideos_Mobile.cshtml" />
+    <Content Include="Views\Scooters\_PopularScooterBrandsVerticalWidget.cshtml" />
+    <Content Include="Views\ExpertReviews\Scooters.cshtml" />
+    <Content Include="Views\PriceInCity\_Index_Tabs.cshtml" />
+    <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\_ModelPriceInTopCitiesWidget.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInTopCities.cshtml.orig" />
+    <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3983,7 +4000,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

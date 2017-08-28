@@ -20,5 +20,14 @@ namespace Bikewale.Entities.AutoComplete
 
         [JsonProperty("modelMaskingName")]
         public string ModelMaskingName { get; set; }
+
+        [JsonProperty("futuristic")]
+        public string Futuristic { get; set; }
+
+        [JsonProperty("isNew")]
+        public string IsNew { get; set; }
+        [JsonProperty("userRatingsCount")]
+        public string UserRatingsCount { get; set; }
+
     }
 }
