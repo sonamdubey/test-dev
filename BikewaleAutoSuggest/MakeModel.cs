@@ -7,16 +7,21 @@ namespace BikewaleAutoSuggest
         public string Id { get; set; }
         public BikeSuggestion mm_suggest { get; set; }
         public string name { get; set; }
+        public string output { get; set; }
+
+        public PayLoad payload { get; set; }
     }
 
     public class BikeSuggestion
     {
-        public List<string> input { get; set; }
-        public string output { get; set; }
-        public PayLoad payload { get; set; }
+        public IList<string> input { get; set; }
         public int Weight { get; set; }
+        public Context contexts { get; set; }
     }
-
+    public class Context
+    {
+        public IList<string> types { get; set; }                         //  Context For new pricequote and user review
+    }
     public class PayLoad
     {
         public string MakeId { get; set; }

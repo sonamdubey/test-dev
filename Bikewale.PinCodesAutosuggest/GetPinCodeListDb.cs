@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Reflection;
-
+using System.Linq;
 namespace Bikewale.PinCodesAutosuggest
 {
     /// <summary>
@@ -22,10 +22,10 @@ namespace Bikewale.PinCodesAutosuggest
         /// Description : To fetch pincodes from database 
         /// </summary>
         /// <returns></returns>
-        public static List<PayLoad> GetPinCodeList()
+        public static IEnumerable<PayLoad> GetPinCodeList()
         {
-            List<PayLoad> lstPinCodes = null;
-            PayLoad pinCode = null;
+            IList<PayLoad> lstPinCodes = null;
+          
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getallpincodes"))
@@ -39,7 +39,7 @@ namespace Bikewale.PinCodesAutosuggest
                             lstPinCodes = new List<PayLoad>();
                             while (reader.Read())
                             {
-                                pinCode = new PayLoad();
+                                PayLoad pinCode = new PayLoad();
                                 pinCode.PinCodeId = Convert.ToUInt32(reader["Id"]);
                                 pinCode.PinCode = Convert.ToString(reader["PinCode"]);
                                 pinCode.District = Convert.ToString(reader["District"]);
@@ -69,11 +69,11 @@ namespace Bikewale.PinCodesAutosuggest
         /// </summary>
         /// <param name="objPinCodes"></param>
         /// <returns></returns>
-        public static List<PinCodeList> GetSuggestList(List<PayLoad> objPinCodes)
+        public static IEnumerable<PinCodeList> GetSuggestList(IEnumerable<PayLoad> objPinCodes)
         {
-            List<PinCodeList> objSuggestList = null;
+            IList<PinCodeList> objSuggestList = null;
 
-            int count = objPinCodes.Count;
+            int count = objPinCodes.Count();
             try
             {
                 objSuggestList = new List<PinCodeList>();
@@ -81,14 +81,14 @@ namespace Bikewale.PinCodesAutosuggest
                 {
                     PinCodeList ObjTemp = new PinCodeList();
 
-                    ObjTemp.Id = pinCode.PinCodeId.ToString();
+                    ObjTemp.Id = Convert.ToString(pinCode.PinCodeId);
                     ObjTemp.name = string.Format("{0}_{1}", pinCode.PinCodeId, pinCode.PinCode);
                     string displayName = string.Format("{0}, {1} - {2}", pinCode.PinCode, pinCode.Area, pinCode.District);
 
                     ObjTemp.mm_suggest = new PinCodeSuggestion();
-                    ObjTemp.mm_suggest.output = displayName;
+                    ObjTemp.output = displayName;
 
-                    ObjTemp.mm_suggest.payload = pinCode;
+                    ObjTemp.payload = pinCode;
 
                     ObjTemp.mm_suggest.Weight = count;
 
@@ -98,13 +98,31 @@ namespace Bikewale.PinCodesAutosuggest
                     string tokenName = string.Format("{0} {1} {2}", pinCode.PinCode, pinCode.Area, pinCode.District);
 
                     var tokens = tokenName.Split(' ');
-                    int l = tokens.Length;
+                    int length = Math.Min(tokens.Length,5);
 
-                    for (int p = 1; p <= l; p++)                                        //  Break The Input into Different Tokens
+
+                    ObjTemp.mm_suggest.input = new List<string>();
+
+                    // For creating input in mm_suggest
+                    for (int index = 1; index < 1 << length; index++)
                     {
-                        printSeq(l, p, tokens, ObjTemp);
+                        int temp_value = index, jindex = 0;
+                        string value = string.Empty;
+                        while (temp_value > 0)
+                        {
+                            if ((temp_value & 1) > 0)
+                                value = string.Format("{0} {1}", value, tokens[jindex]);
+                            temp_value >>= 1;
+                            jindex++;
+                        }
+                        if (!string.IsNullOrEmpty(value))
+                            ObjTemp.mm_suggest.input.Add(value);
+
                     }
 
+                    ObjTemp.mm_suggest.contexts = new Context();
+                    ObjTemp.mm_suggest.contexts.types = new List<string>();
+                    ObjTemp.mm_suggest.contexts.types.Add("AreaPinCodes");
                     objSuggestList.Add(ObjTemp);
                     count--;
                 }
@@ -118,71 +136,7 @@ namespace Bikewale.PinCodesAutosuggest
         }
 
 
-        /// <summary>
-        /// Description : Function to print combinations of words related to pincode and areaname
-        /// </summary>
-        /// <param name="n"></param>
-        /// <param name="k"></param>
-        /// <param name="len"></param>
-        /// <param name="arr"></param>
-        /// <param name="combination"></param>
-        /// <param name="obj"></param>
-        private static void printSeqUtil(int n, int k, ref int len, int[] arr, string[] combination, PinCodeList obj)
-        {
-            // If length of current increasing sequence becomes k, print it
-            if (len == k)
-            {
-                if (k == 1)
-                    obj.mm_suggest.input.Add(String.Format("{0}", combination[arr[0] - 1].Trim()));
-                else if (k == 2)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim()));
-                else if (k == 3)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim()));
-                else if (k == 4)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2} {3}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim(), combination[arr[3] - 1].Trim()));
-                else if (k == 5)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2} {3} {4}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim(), combination[arr[3] - 1].Trim(), combination[arr[4] - 1].Trim()));
-                else if (k == 6)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2} {3} {4} {5}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim(), combination[arr[3] - 1].Trim(), combination[arr[4] - 1].Trim(), combination[arr[5] - 1].Trim()));
-                else if (k == 7)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2} {3} {4} {5} {6}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim(), combination[arr[3] - 1].Trim(), combination[arr[4] - 1].Trim(), combination[arr[5] - 1].Trim(), combination[arr[6] - 1].Trim()));
-                else if (k == 8)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2} {3} {4} {5} {6} {7}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim(), combination[arr[3] - 1].Trim(), combination[arr[4] - 1].Trim(), combination[arr[5] - 1].Trim(), combination[arr[6] - 1].Trim(), combination[arr[7] - 1].Trim()));
-                else if (k == 9)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim(), combination[arr[3] - 1].Trim(), combination[arr[4] - 1].Trim(), combination[arr[5] - 1].Trim(), combination[arr[6] - 1].Trim(), combination[arr[7] - 1].Trim(), combination[arr[8] - 1].Trim()));
-                else if (k == 10)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim(), combination[arr[3] - 1].Trim(), combination[arr[4] - 1].Trim(), combination[arr[5] - 1].Trim(), combination[arr[6] - 1].Trim(), combination[arr[7] - 1].Trim(), combination[arr[8] - 1].Trim(), combination[arr[9] - 1].Trim()));
-                else if (k == 11)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim(), combination[arr[3] - 1].Trim(), combination[arr[4] - 1].Trim(), combination[arr[5] - 1].Trim(), combination[arr[6] - 1].Trim(), combination[arr[7] - 1].Trim(), combination[arr[8] - 1].Trim(), combination[arr[9] - 1].Trim(), combination[arr[10] - 1].Trim()));
-                return;
-            }
-
-            int i = (len == 0) ? 1 : arr[len - 1] + 1;
-            len++;	// Increase length
-            // Put all numbers (which are greater than the previous element) at new position.
-            while (i <= n)
-            {
-                arr[len - 1] = i;
-                printSeqUtil(n, k, ref len, arr, combination, obj);
-                i++;
-            }
-            // This is important. The variable 'len' is shared among all function calls in recursion tree. Its value must be brought back before next iteration of while loop
-            len--;
-        }
-
-        /// <summary>
-        /// Description : Recursive function to print combinations of words related to pincode and areaname
-        /// </summary>
-        /// <param name="l"></param>
-        /// <param name="p"></param>
-        /// <param name="combination"></param>
-        /// <param name="obj"></param>
-        private static void printSeq(int l, int p, string[] combination, PinCodeList obj)
-        {
-            int[] arr = new int[p];
-            int len = 0;
-            printSeqUtil(l, p, ref len, arr, combination, obj);
-        }
+ 
     }   //class
 }   //namespace
 
