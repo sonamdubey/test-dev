@@ -4,6 +4,7 @@ using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -156,11 +157,44 @@ namespace Bikewale.Models
                     objData.PageMetaTags.Description = string.Format("BikeWale tests {0}, Read the complete road test report to know how it performed.", (objData.Model!=null)?objData.Model.ModelName:"");
                 else
                     objData.PageMetaTags.Description = "Learn about the trending stories related to bike and bike products. Know more about features, do's and dont's of different bike products exclusively on BikeWale";
+
+                //SetPageJSONSchema(objData);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ExpertReviewsDetailPage.SetPageMetas");
             }
+        }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 25th Aug 2017
+        /// Description : To load json schema for the expert reviews articles
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetPageJSONSchema(ExpertReviewsDetailPageVM objData)
+        {
+            var objSchema = new NewsArticle();
+            objSchema.HeadLine = objData.ArticleDetails.Title;
+            objSchema.DateModified = objData.ArticleDetails.DisplayDate.ToString();
+            objSchema.DatePublished = objSchema.DateModified;
+            objSchema.Description = FormatDescription.SanitizeHtml(objData.ArticleDetails.Description);
+            if (objData.ArticleDetails.PageList != null && objData.ArticleDetails.PageList.Count() > 0)
+            {
+                objSchema.ArticleBody = Bikewale.Utility.FormatDescription.SanitizeHtml(Convert.ToString(objData.ArticleDetails.PageList.First().Content));
+            }
+            objSchema.ArticleImage = new ImageObject()
+            {
+                ImageUrl = objData.PageMetaTags.ShareImage,
+                Height = "348",
+                Width = "640"
+            };
+            objSchema.Author = new Author()
+            {
+                Name = objData.ArticleDetails.AuthorName
+            };
+            objSchema.MainEntityOfPage = new MainEntityOfPage() { PageUrlId = objData.PageMetaTags.CanonicalUrl };
+
+            objData.PageMetaTags.SchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
         }
 
         /// <summary>
