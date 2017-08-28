@@ -1,5 +1,7 @@
 ﻿@model Bikewale.Models.Videos.VideosLandingPageVM
 @using Bikewale.Utility;
+@using Newtonsoft.Json;
+@using Bikewale.Entities.PWA.Articles;
 
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
@@ -9,8 +11,10 @@
 }
 
 
+@Html.Raw(JsonConvert.SerializeObject(new VideosReducer()));
 @if (Model != null)
-{
+{    
+
     <section>
         <div class="container">
             @if (Model.LandingFirstVideoData != null)

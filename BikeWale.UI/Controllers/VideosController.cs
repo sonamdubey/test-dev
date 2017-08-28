@@ -95,6 +95,8 @@ namespace Bikewale.Controllers.Desktop.Videos
 
                 VideosLandingPageVM objVM = modelObj.GetData();
 
+                // BikeWale.Temp.Utility.ObjectDumper.Write(objVM,10);
+                
                 return View(objVM);
             }
             catch (System.Exception ex)
