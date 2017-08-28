@@ -19,6 +19,11 @@
 .line-height17 {
   line-height: 1.7; }
 
+.grid-6-inline {
+  width: 49%;
+  display: inline-block;
+  vertical-align: middle; }
+
 .rate-count-5 {
   color: #198D55; }
 
@@ -72,11 +77,11 @@
   -moz-transform: scale(0.8);
   -o-transform: scale(0.8);
   transform: scale(0.8); }
-  .star-icon.star-size-16 {
-    -webkit-transform: scale(0.6);
-    -moz-transform: scale(0.6);
-    -o-transform: scale(0.6);
-    transform: scale(0.6); }
+  .star-icon.star-size-14 {
+    -webkit-transform: scale(0.5);
+    -moz-transform: scale(0.5);
+    -o-transform: scale(0.5);
+    transform: scale(0.5); }
 
 .rate-count-1 .star-icon {
   background-position: 0 -790px; }
@@ -441,8 +446,7 @@
   width: 1px;
   height: 15px;
   border-left: 1px solid #eee;
-  padding-left: 10px;
-  margin-left: 10px; }
+  padding-left: 10px; }
 
 .star-0,
 .star-1 {
@@ -457,6 +461,26 @@
 
 .star-1 {
   background-position: 0 -757px; }
+
+.rating-container {
+  position: relative;
+  left: -7px; }
+
+.rating-text-pos {
+  position: relative;
+  left: -5px;
+  top: 1px; }
+
+.next-grey-icon-listing {
+  right: 0px;
+  position: absolute;
+  top: 7px;
+  width: 8px;
+  height: 12px;
+  background-position: -222px -187px; }
+
+.border-divider {
+  border-bottom: 1px solid #e2e2e2; }
 
 .spinner-full-width {
   width: 100%;

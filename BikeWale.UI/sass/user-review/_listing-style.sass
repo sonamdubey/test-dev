@@ -19,6 +19,11 @@
 .line-height17
 	line-height: 1.7
 
+.grid-6-inline
+    width: 49%
+    display: inline-block
+    vertical-align: middle
+
 // rating colors
 $rating-colors: (1: #EF3F30, 2: #FD971C, 3: #EFD700, 4: #13B65D, 5: #198D55)
 
@@ -74,9 +79,9 @@ $graph-bg: #eee
 	height: 25px
 	vertical-align: middle
 	@include transform(scale(0.8))
-	
-	&.star-size-16
-		@include transform(scale(0.6))
+
+	&.star-size-14
+		@include transform(scale(0.5))
 
 .rate-count-1
     .star-icon
@@ -111,7 +116,7 @@ $grid-base-size: 8.33333333
 
 @include grid-inline(7)
 
-// horizontal-rating-graph   
+// horizontal-rating-graph
 .horizontal-rating-graph
     span
         display: inline-block
@@ -157,15 +162,15 @@ $grid-base-size: 8.33333333
 
 @include contest-slug-fullwidth()
 
-// user review details	
+// user review details
 .model-card-details
 	.left-grid-image
 		width: 82px
 		height: 46px
-		
+
 		img
 			height: 46px
-			
+
 	.right-grid-details
 		width: 73%
 		padding-left: 15px
@@ -374,7 +379,7 @@ $grid-base-size: 8.33333333
 // rating badges
 .rating-badge
     min-width: 40px
-    height: 20px	
+    height: 20px
     padding-right: 5px
     padding-left: 5px
     font-size: 14px
@@ -462,7 +467,6 @@ $grid-base-size: 8.33333333
 		height: 15px
 		border-left: 1px solid #eee
 		padding-left: 10px
-		margin-left: 10px
 
 // icons
 .star-0,
@@ -480,6 +484,26 @@ $grid-base-size: 8.33333333
 .star-1
 	background-position: 0 -757px
 
+// rating-number
+.rating-container
+    position: relative
+    left: -7px
+
+.rating-text-pos
+    position: relative
+    left: -5px
+    top: 1px
+
+.next-grey-icon-listing
+    right: 0px
+    position: absolute
+    top: 7px
+    width: 8px
+    height: 12px
+    background-position: -222px -187px
+
+.border-divider
+    border-bottom: 1px solid #e2e2e2
 // spinner-full-width
 .spinner-full-width
 	width: 100%
@@ -507,7 +531,7 @@ $grid-base-size: 8.33333333
 
 
 
-// review list 
+// review list
 .review-title
 	color: #1a1a1a
 
@@ -526,7 +550,7 @@ $grid-base-size: 8.33333333
 	min-width: 60px
 	background: white
 	margin: 0 4px
-	padding: 7px 
+	padding: 7px
 	color: #82888B
 	border: 1px solid #E2E2E2
 	border-radius: 2px
@@ -534,10 +558,10 @@ $grid-base-size: 8.33333333
 	font-family: 'Open Sans', sans-serif, Arial
 
 .about-reviewer-list
-	li	
+	li
 		border:none
-	
-.feedback-button.active 
+
+.feedback-button.active
     border-color: #41B4C4
     background: #41B4C4
     color: white
@@ -551,7 +575,7 @@ $grid-base-size: 8.33333333
 // review buttons
 
 .feedback-button
-	&.active 
+	&.active
 		.like-sm
 			opacity: 1
 			background-position: -105px -773px
@@ -559,3 +583,5 @@ $grid-base-size: 8.33333333
 		.dislike-sm
 			opacity: 1
 			background-position: -122px -773px
+
+// Showrooom and Price

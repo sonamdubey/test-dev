@@ -11,12 +11,20 @@
                                     </div>
                                     <div class="card-desc-block">
                                         <h3 class="font15 text-black margin-bottom10">@bikeName</h3>
-                                        <span class="rating-badge" data-rate-bg="@Math.Round(bike.OverAllRating)"><span class="bwsprite star-white"></span>@bike.OverAllRating.ToString("0.0").TrimEnd('0', '.')</span>
-                                        <span class="font14 text-light-grey inline-block">@string.Format("{0} rating{1}", bike.NumberOfRating, (bike.NumberOfRating > 1 ? "s" : ""))</span>
-                                        @if (bike.NumberOfReviews > 0)
-                                        {
-                                        <span class="font14 text-light-grey inline-block divider-left">@string.Format("{0} review{1}", bike.NumberOfReviews, (bike.NumberOfReviews > 1 ? "s" : ""))</span>
-                                        }
+                                        <p class="font12 text-slate-grey margin-bottom5">Ex-showroom, Mumbai</p>
+                                        <p class="font18 text-bold text-black margin-bottom5 padding-bottom10 border-divider">&#x20b9; 57,912 onwards</p>
+                                        <div class="rating-container">
+                                            <div class="grid-6-inline rate-count-@Math.Round(bike.OverAllRating)" data-rate-bg="@Math.Round(bike.OverAllRating)">
+                                                <span class="bwsprite star-icon star-size-14"></span>
+                                                <span class="rating-text-pos">@bike.OverAllRating.ToString("0.0").TrimEnd('0', '.')</span>
+                                                <span class="font11 text-xt-light">(@string.Format("{0} rating{1}", bike.NumberOfRating, (bike.NumberOfRating > 1 ? "s" : "")))</span>
+                                            </div>
+                                            @if (bike.NumberOfReviews > 0)
+                                            {
+                                                <div class="grid-6-inline font12 text-default divider-left">Read @string.Format("{0} review{1}", bike.NumberOfReviews, (bike.NumberOfReviews > 1 ? "s" : ""))</div>
+                                            }
+                                            <span class="bwsprite next-grey-icon-listing"></span>
+                                        </div>
                                     </div>
                                 </a>
                             </li>
