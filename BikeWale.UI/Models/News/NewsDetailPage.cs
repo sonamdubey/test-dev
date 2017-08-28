@@ -222,7 +222,7 @@ namespace Bikewale.Models
                 if (objData.ArticleDetails.NextArticle != null && objData.ArticleDetails.NextArticle.ArticleUrl != null)
                     objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/news/{2}-{3}.html", BWConfiguration.Instance.BwHostUrl, objData.BaseUrl, objData.ArticleDetails.NextArticle.BasicId, objData.ArticleDetails.NextArticle.ArticleUrl);
 
-                SetPageJSONSchema(objData);
+                //SetPageJSONSchema(objData);
             }
             catch (Exception ex)
             {
@@ -241,7 +241,7 @@ namespace Bikewale.Models
             objSchema.HeadLine = objData.ArticleDetails.Title;
             objSchema.DateModified = objData.ArticleDetails.DisplayDate.ToString();
             objSchema.DatePublished = objSchema.DateModified;
-            objSchema.Description = objData.ArticleDetails.Description;
+            objSchema.Description = FormatDescription.SanitizeHtml(objData.ArticleDetails.Description);
             objSchema.ArticleBody = Bikewale.Utility.FormatDescription.SanitizeHtml(objData.ArticleDetails.Content);
             objSchema.ArticleImage = new ImageObject()
             {

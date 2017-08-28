@@ -188,7 +188,7 @@ namespace Bikewale.Models.Features
                 objPage.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objPage.objFeature.Title);
                 objPage.PageMetaTags.Keywords = string.Format("features, stories, travelogues, specials, drives.");
 
-                SetPageJSONSchema(objPage);
+                //SetPageJSONSchema(objPage);
             }
             catch (Exception ex)
             {
@@ -207,8 +207,8 @@ namespace Bikewale.Models.Features
             objSchema.HeadLine = objData.objFeature.Title;
             objSchema.DateModified = objData.objFeature.DisplayDate.ToString();
             objSchema.DatePublished = objSchema.DateModified;
-            objSchema.Description = objData.objFeature.Description;
-            if(objData.objFeature.PageList!=null && objData.objFeature.PageList.Count() > 0)
+            objSchema.Description = FormatDescription.SanitizeHtml(objData.objFeature.Description);
+            if (objData.objFeature.PageList!=null && objData.objFeature.PageList.Count() > 0)
             {
                 objSchema.ArticleBody = Bikewale.Utility.FormatDescription.SanitizeHtml(Convert.ToString(objData.objFeature.PageList.First().Content));
             }

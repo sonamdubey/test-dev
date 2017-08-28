@@ -153,7 +153,7 @@ namespace Bikewale.Models
                 else
                     objData.PageMetaTags.Description = "Learn about the trending stories related to bike and bike products. Know more about features, do's and dont's of different bike products exclusively on BikeWale";
 
-                SetPageJSONSchema(objData);
+                //SetPageJSONSchema(objData);
             }
             catch (Exception ex)
             {
@@ -172,7 +172,7 @@ namespace Bikewale.Models
             objSchema.HeadLine = objData.ArticleDetails.Title;
             objSchema.DateModified = objData.ArticleDetails.DisplayDate.ToString();
             objSchema.DatePublished = objSchema.DateModified;
-            objSchema.Description = objData.ArticleDetails.Description;
+            objSchema.Description = FormatDescription.SanitizeHtml(objData.ArticleDetails.Description);
             if (objData.ArticleDetails.PageList != null && objData.ArticleDetails.PageList.Count() > 0)
             {
                 objSchema.ArticleBody = Bikewale.Utility.FormatDescription.SanitizeHtml(Convert.ToString(objData.ArticleDetails.PageList.First().Content));
