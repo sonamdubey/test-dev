@@ -614,3 +614,79 @@
     padding: 5px;
     font-size: 14px;    
 }
+
+/*explore more card starts here*/
+.exploremore__imagebackground {
+    
+    padding-top: 15px;
+    padding-bottom: 10px;
+    background: rgba(65,180,196,0.3);
+}
+
+.exploremore__icon-background {
+    height: 64px;
+    width: 64px;
+    background: white url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/bike-36x22.png) no-repeat center;
+    margin: 0 auto;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+
+.exploremore-detailblock {
+    margin: 0 auto;
+    padding-top: 20px;
+    min-height:115px;
+    text-align:center;
+}
+
+.detailblock__title {
+    font-size: 14px;
+    color: #4D5057;
+    font-weight: 600;
+    line-height:25px;
+    margin-bottom: 10px;
+}
+
+.detailblock__description {
+    font-size: 12px;
+    color: #A2A2A2;
+}
+/*explore more card ends here*/
+
+/* similar bikes */
+.swiper-type-similar .swiper-btn-block {
+    padding-bottom: 15px;
+}
+.swiper-type-similar .right-arrow {
+    right: 18px;
+    top: 13px;
+    transform: scale(0.8);
+}
+
+.compare-with-target {
+    display: block;
+    padding: 10px 35px 10px 15px;
+    position: relative;
+    font-size: 12px;
+    color: #4d5057;    
+}
+.compare-with-target:before {
+    content: '';
+    position: absolute;
+    left: 8%;
+    top: 0;
+    width: 168px;
+    height: 1px;
+    border-top: 1px solid #e2e2e2;
+}
+
+.compare-sm {
+    width: 17px;
+    height: 12px;
+    background-position: -173px -596px;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+}

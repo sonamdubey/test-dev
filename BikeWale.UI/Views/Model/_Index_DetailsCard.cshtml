@@ -17,7 +17,7 @@
     @if (Model.IsSimilarBikesAvailable)
     {
         <div id="modelSimilarContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin font14">
-            <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15">Bikes Similar to @Model.ModelPageEntity.ModelDetails.ModelName</h2>
+            <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15">@Model.BodyStyleText Similar to @Model.ModelPageEntity.ModelDetails.ModelName</h2>
             @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
         </div>
     }
@@ -73,64 +73,67 @@
 		</div>
     }    
     
-    @if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable)
+    @if (Model.IsUserReviewsAvailable)
     {
-        <div id="modelReviewsContent" class="bw-model-tabs-data font14">
-			<div class="card-bottom-margin">
-				<div class="content-box-shadow content-inner-block-20">
-					<div class="leftfloat">
-						<span class="contest-fullwidth__trophy-circle"></span>
-						<p class="contest-fullwidth__heading">Bike Review Contest</p>
-						<p class="contest-fullwidth__subheading">Rate &amp; write a detailed review to win Amazon vouchers worth &#x20B9; 1,000</p>
-					</div>
-					<div class="rightfloat padding-top15">
-						<a href="/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ModelPage_Slug)" class="btn btn-inv-teal contest-fullwidth__target">Participate &amp; win<span class="bwsprite teal-right"></span></a>
-					</div>
-					<div class="clear"></div>
-				</div>
-			</div>
-
-            @if (Model.IsUserReviewsAvailable)
-            {
-                <div class="content-box-shadow card-bottom-margin content-inner-block-20">
-                    <h2 class="h2-heading inline-block margin-right10">@Model.BikeName User Reviews</h2>
-                    <div class="model-overall-rating inline-block">
-                        <span class="rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
-                            <span class="bwsprite star-icon star-size-18"></span>
-                            <span class="font18 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span>
-                        </span>
-                        @if (Model.UserReviews.UserReviews.Result != null)
-                        {
-                            <span class="font14 text-xt-light padding-left5">(@Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating"))</span>
-                        }
-                        
-                        <span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}", Model.UserReviews.UserReviews.TotalCount > 1 ? "reviews" : "review")</span>
-                    </div>
-                    @Html.Partial("~/Views/UserReview/_UserReviewList.cshtml", Model.UserReviews)
-                    <div class="more-article-target view-all-btn-container">
-                        <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)"  class="btn view-all-target-btn">Read all user reviews<span class="bwsprite teal-right"></span></a>
+       
+            <div id="modelReviewsContent" class="bw-model-tabs-data font14">
+                <div class="card-bottom-margin">
+                    <div class="content-box-shadow content-inner-block-20">
+                        <div class="leftfloat">
+                            <span class="contest-fullwidth__trophy-circle"></span>
+                            <p class="contest-fullwidth__heading">Bike Review Contest</p>
+                            <p class="contest-fullwidth__subheading">Rate &amp; write a detailed review to win Amazon vouchers worth &#x20B9; 1,000</p>
+                        </div>
+                        <div class="rightfloat padding-top15">
+                            <a href="/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ModelPage_Slug)" class="btn btn-inv-teal contest-fullwidth__target">Participate &amp; win<span class="bwsprite teal-right"></span></a>
+                        </div>
+                        <div class="clear"></div>
                     </div>
                 </div>
 
-                <div id="report-abuse">
-                    <p class="font20 text-bold text-center margin-bottom20">Why do you want to report it abuse?</p>
+                    <div class="content-box-shadow card-bottom-margin content-inner-block-20">
+                        <h2 class="h2-heading inline-block margin-right10">@Model.BikeName User Reviews</h2>
+                        <div class="model-overall-rating inline-block">
+                            <span class="rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
+                                <span class="bwsprite star-icon star-size-18"></span>
+                                <span class="font18 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span>
+                            </span>
+                            @if (Model.UserReviews.UserReviews.Result != null)
+                            {
+                                <span class="font14 text-xt-light padding-left5">(@Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating"))</span>
+                            }
 
-                    <span class="bwsprite report-abuse-close-btn"></span>
-
-                    <p class="margin-bottom10 font14">Comment</p>
-
-                    <textarea id="txtAbuseComments"></textarea>
-                    <span id="spnAbuseComments" class="error font12 text-red"></span>
-
-                    <div class="text-center margin-top10">
-                        <a id="btnReportReviewAbuse" onclick="reportAbuse()" class="btn btn-orange" rel="nofollow">Report</a>
+                            <span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}", Model.UserReviews.UserReviews.TotalCount > 1 ? "reviews" : "review")</span>
+                        </div>
+                        @Html.Partial("~/Views/UserReview/_UserReviewList.cshtml", Model.UserReviews)
+                        <div class="more-article-target view-all-btn-container">
+                            <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="btn view-all-target-btn">Read all user reviews<span class="bwsprite teal-right"></span></a>
+                        </div>
                     </div>
-                </div>
-                <div id="report-background"></div>}
 
-            @if (Model.IsReviewsAvailable)
-            {
-                <div class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin">
+                    <div id="report-abuse">
+                        <p class="font20 text-bold text-center margin-bottom20">Why do you want to report it abuse?</p>
+
+                        <span class="bwsprite report-abuse-close-btn"></span>
+
+                        <p class="margin-bottom10 font14">Comment</p>
+
+                        <textarea id="txtAbuseComments"></textarea>
+                        <span id="spnAbuseComments" class="error font12 text-red"></span>
+
+                        <div class="text-center margin-top10">
+                            <a id="btnReportReviewAbuse" onclick="reportAbuse()" class="btn btn-orange" rel="nofollow">Report</a>
+                        </div>
+                    </div>
+                    <div id="report-background"></div>
+               
+            </div>
+         
+    }
+
+     @if (Model.IsReviewsAvailable)
+     {
+          <div id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin bw-model-tabs-data active">
                     @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
                     {
 					<!-- expert review starts-->
@@ -142,20 +145,12 @@
                         </div>
 					<!-- expert review ends-->
                     }
-                </div>}
+          </div>
+     }
 
-            @*
-                @if (Model.IsUserReviewsAvailable)
-                {
-                    <h3 class="font-bold padding-left10 margin-bottom20">User reviews</h3>
-                    @Html.Partial("~/Views/UserReviews/_UserReviewsList.cshtml", Model.UserReviews);
-                    <div class="padding-left10 view-all-btn-container">
-                        <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
-                    </div>
-                }
-            *@
-        </div>
-    }
+          
+      
+    
 
     @if (Model.IsNewsAvailable)
     {

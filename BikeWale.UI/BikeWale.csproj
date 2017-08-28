@@ -952,6 +952,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BestBikes\BestBikeByBodyStyle.cs" />
     <Compile Include="Models\BikeCare\BikeCareDetailPage.cs" />
     <Compile Include="Models\BikeCare\BikeCareIndexPage.cs" />
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
@@ -3761,6 +3762,10 @@
     <Content Include="Views\Shared\_Layout_Mobile_AMP_PWA.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners.cshtml" />
     <Content Include="Views\UserReview\_UserReviewContestWinners_Mobile.cshtml" />
+    <Content Include="Views\Make\_BrandsModelCount.cshtml" />
+    <Content Include="Views\Make\_BrandsModelCount_Mobile.cshtml" />
+    <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel.cshtml" />
+    <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\Scooters_Mobile.cshtml" />
     <Content Include="Views\News\Scooters.cshtml" />
     <Content Include="Views\News\Scooters_Mobile.cshtml" />
@@ -3768,6 +3773,12 @@
     <Content Include="Views\Videos\ScooterVideos_Mobile.cshtml" />
     <Content Include="Views\Scooters\_PopularScooterBrandsVerticalWidget.cshtml" />
     <Content Include="Views\ExpertReviews\Scooters.cshtml" />
+    <Content Include="Views\PriceInCity\_Index_Tabs.cshtml" />
+    <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\_ModelPriceInTopCitiesWidget.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInTopCities.cshtml.orig" />
+    <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

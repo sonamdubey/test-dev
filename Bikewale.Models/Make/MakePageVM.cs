@@ -12,6 +12,8 @@ namespace Bikewale.Models
     /// Summary:  View Model for Make page controller
     /// Modified by : Aditi Srivastava on 27 Apr 2017
     /// Summary  : Added new viewModel for similar comparisons carousel
+    /// Modified by :   Sumit Kate on 24 Aug 2017
+    /// Description :   Added Other Makes property
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -49,6 +51,8 @@ namespace Bikewale.Models
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
         public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
         public DealerCardVM Dealers { get; set; }
-       
+
+        public IEnumerable<BikeMakeEntityBase> OtherMakes { get; set; }
+
     }
 }

@@ -110,7 +110,7 @@
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                 </div>
 
-                @if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && Model.MakesWidgetData != null && Model.MakesWidgetData.Count() > 0)
+                @if ( Model.MakesWidgetData != null && Model.MakesWidgetData.Count() > 0)
                 {
                     <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                         <h2>Popular scooter brands</h2>
