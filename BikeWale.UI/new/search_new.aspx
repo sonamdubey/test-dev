@@ -344,7 +344,7 @@
                                         <div class="font14 text-light-grey margin-bottom5">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
                                         <div class="text-bold">
                                             <span class="bwsprite inr-lg"></span>
-                                            <span class="font18" data-bind="text: price"></span><span class="font14">onwards</span>
+                                            <span class="font18" data-bind="text: price"></span><span class="font14 padding-left5">onwards</span>
                                         </div>
                                         <a data-bind="visible: price() != 'N/A', attr: { 'data-modelId': bikemodel.modelId, 'data-pqSourceId': PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
                                     </div>
