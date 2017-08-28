@@ -1,6 +1,11 @@
-﻿using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Models.Make;
+using Bikewale.Notifications;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Models.UserReviews
 {
@@ -24,21 +29,40 @@ namespace Bikewale.Models.UserReviews
 
         public int csrc { get; set; }
         /// <summary>
-        /// Summary: To Create Write review contest GET data
         /// Modified by: Vivek Singh Tomar On 12th Aug 2017
+        /// Summary: To Create Write review contest GET data
+        /// Modified By :   Vishnu Teja Yalakuntla on 22nd Aug 2017
+        /// Summary :   Populated MakeModelPopupVM and added try catch
         /// Summary: Added functionality to get winners of user reviews contest
         /// </summary>
         /// <returns></returns>
         public WriteReviewContestVM GetData()
         {
             WriteReviewContestVM viewModel = new WriteReviewContestVM();
-            viewModel.Makes = _makeRepository.GetMakesByType(Entities.BikeData.EnumBikeType.UserReviews);
-            if(csrc > 0)
-                viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", csrc));
-            else
-                viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", _isMobile ? (int)UserReviewPageSourceEnum.Mobile_UserReviewContestPage : (int)UserReviewPageSourceEnum.Desktop_UserReviewContestPage));
-            viewModel.UserReviewsWinners = new UserReviewWinnerWidget(_userReviewCache).GetData();
-            BindPageMetas(viewModel);
+            viewModel.UserReviewPopup = new Make.UserReviewPopupVM();
+
+            try
+            {
+                IEnumerable<BikeMakeEntityBase> makesList = _makeRepository.GetMakesByType(Entities.BikeData.EnumBikeType.UserReviews);
+                viewModel.Makes = makesList;
+
+                viewModel.UserReviewPopup = new Make.UserReviewPopupVM();
+                UserReviewPopupModel userReviewPopupModel = new UserReviewPopupModel(_makeRepository, makesList);
+                viewModel.UserReviewPopup.Makes = userReviewPopupModel.GetMakesList();
+
+                if (csrc > 0)
+                    viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", csrc));
+                else
+                    viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", _isMobile ? (int)UserReviewPageSourceEnum.Mobile_UserReviewContestPage : (int)UserReviewPageSourceEnum.Desktop_UserReviewContestPage));
+
+                viewModel.UserReviewsWinners = new UserReviewWinnerWidget(_userReviewCache).GetData();
+                BindPageMetas(viewModel);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass errCls = new ErrorClass(ex, "GetData");
+            }
+
             return viewModel;
         }
 

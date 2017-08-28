@@ -1018,6 +1018,7 @@
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewListingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewDetailsPage.cs" />
+    <Compile Include="Models\UserReviews\UserReviewPopupModel.cs" />
     <Compile Include="Models\UserReviews\UserReviewRatingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewSearchWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
@@ -3768,6 +3769,7 @@
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel.cshtml" />
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\Scooters_Mobile.cshtml" />
+    <Content Include="Views\Make\_MakeModelPopup.cshtml" />
     <Content Include="Views\News\Scooters.cshtml" />
     <Content Include="Views\News\Scooters_Mobile.cshtml" />
     <Content Include="Views\Videos\ScooterVideos.cshtml" />
