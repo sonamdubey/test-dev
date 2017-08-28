@@ -8,7 +8,7 @@
     }
 
     @if (Model.AreModelPhotosAvailable)
-    {        
+    {
         <div class="swiper-wrapper">
 
             @{int imageIndex = 0; var bikeImages = Model.ModelPageEntity.AllPhotos.Take(10);}
@@ -40,7 +40,17 @@
             <span id="prev-btn" class="bwmsprite prev-arrow-btn"></span>
         </div>
     }
-
+    else
+    {
+        <div class="model-thumbnail-image">
+            <a>
+                <div class="bg-light-grey">
+                    <span class="bwmsprite no-image-icon margin-bottom15"></span>
+                    <p class="font12 text-bold text-light-grey">Image not available</p>
+                </div>
+            </a>
+        </div>
+    }
 </div>
 
 <!-- media links start -->
