@@ -25,7 +25,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
 <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
 <% if(!String.IsNullOrEmpty(keywords)) { %><meta name="keywords" content="<%= keywords %>" /><% } %>
-<%if(!String.IsNullOrEmpty(alternate)) { %><meta name="alternate" content="<%= alternate %>" /><% } %>
+<%if(!String.IsNullOrEmpty(alternate)) { %><link rel="alternate" type="text/html" media="handheld" href="<%= alternate %>" title="Mobile/PDA" /><% } %>
 <%if(!String.IsNullOrEmpty(canonical)) { %>
 <link rel="canonical" href="<%=canonical %>" /> 
 <% } %>
