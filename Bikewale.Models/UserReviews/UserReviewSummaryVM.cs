@@ -11,8 +11,8 @@ namespace Bikewale.Models
     {
         public UserReviewSummary Summary { get; set; }
         public string WriteReviewLink { get; set; }
-        public ICollection<UserReviewQuestion> RatingQuestions { get; set; }
-        public ICollection<UserReviewQuestion> ReviewQuestions { get; set; }
+        public IEnumerable<UserReviewQuestion> RatingQuestions { get; set; }
+        public IEnumerable<UserReviewQuestion> ReviewQuestions { get; set; }
     }
 
 }
