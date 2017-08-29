@@ -17,7 +17,6 @@ namespace Bikewale.Models
         public PQSourceEnum pqSource { get; set; }
         public string bannerImage { get; set; }
         public BestBikeWidgetVM BestBikes { get; set; }
-        public BrandWidgetVM Brands { get; set; }
-        public string JSONSchema { get; set; }        
+        public BrandWidgetVM Brands { get; set; }       
     }
 }

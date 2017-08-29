@@ -167,7 +167,9 @@ docReady(function () {
             {
                 var imageUrl = image.attr("data-original") || image.attr("src");
                 if (imageUrl == "")
-                { imageUrl = "https://imgd.aeplcdn.com/393x221/bikewaleimg/images/noimage.png?q=85"; }
+                {
+                    imageUrl = "https://imgd.aeplcdn.com/393x221/bikewaleimg/images/noimage.png?q=85";
+                }
                 $('#colourCarousel a img').attr("src", imageUrl);
                 $('#colourCarousel a').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical));
             }
@@ -795,8 +797,19 @@ var reportAbusePopup = {
         reportAbusePopup.bgContainer.hide();
     }
 };
+function logBhrighu(e) {
 
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+ 
+    label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + index + '|pageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("TitleClick", label);
+}
 function updateView(e) {
+    // for bhrigu updation
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+
+    label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + index + '|pageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("ReadMoreClick", label);
     try {
         var reviewId = e.currentTarget.getAttribute("data-reviewid");
         $.ajax({
