@@ -175,15 +175,21 @@
                 }
                 else
                 {
-                    if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
+
+                    if (Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0)
                     {
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                            <h2>@Model.UpcomingBikes.WidgetHeading</h2>
-                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
+                            <h2>@Model.PopularScooterBrandsWidgetHeading</h2>
+                            @Html.Partial("~/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml", Model.PopularScooterMakesWidget)
+                            <div class="view-all-btn-container padding-top10 padding-bottom10">
+                                <a href="/scooters/" title="Scooters" class="btn view-all-target-btn">
+                                    View all scooters<span class="bwsprite teal-right"></span>
+                                </a>
+                            </div>
                         </div>
                     }
 
-                    
+
                 }
                 <div class="margin-bottom20">
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)

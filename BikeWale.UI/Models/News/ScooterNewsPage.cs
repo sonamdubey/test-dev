@@ -31,7 +31,7 @@ namespace Bikewale.Models.News
         private readonly IBikeModelsCacheRepository<int> _models = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private readonly IBikeMakesCacheRepository<int> _makes = null;
+        private readonly IBikeMakesCacheRepository<int> _bikeMakesCacheRepository = null;
 
         #endregion
 
@@ -58,7 +58,7 @@ namespace Bikewale.Models.News
         #endregion
 
         #region Constructor
-        public ScooterNewsPage(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository<int> makes, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles)
+        public ScooterNewsPage(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles)
         {
             _articles = articles;
             _pager = pager;
@@ -66,7 +66,7 @@ namespace Bikewale.Models.News
             _bikeModels = bikeModels;
             _upcoming = upcoming;
             _renderedArticles = renderedArticles;
-            _makes=makes;
+            _bikeMakesCacheRepository = bikeMakesCacheRepository;
             ProcessQueryString();
         }
         #endregion
@@ -115,14 +115,14 @@ namespace Bikewale.Models.News
                 {
                     makeResponse = new MakeMaskingResponse();
                
-                    makeResponse = _makes.GetMakeMaskingResponse(make);
+                    makeResponse = _bikeMakesCacheRepository.GetMakeMaskingResponse(make);
                 }
                 if (makeResponse != null)
                 {
                     if (makeResponse.StatusCode == 200)
                     {
                         MakeId = makeResponse.MakeId;
-                        _objMake = _makes.GetMakeDetails(MakeId);
+                        _objMake = _bikeMakesCacheRepository.GetMakeDetails(MakeId);
                     }
                     else if (makeResponse.StatusCode == 301)
                     {
@@ -261,30 +261,19 @@ namespace Bikewale.Models.News
                     objData.MostPopularBikes.WidgetLinkTitle = "Best Scooters in India";
                 }
 
-                    UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
-                    objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
-                    objUpcomingBikes.Filters.BodyStyleId = 5;
-                    objUpcomingBikes.Filters.PageNo = 1;
-                    objUpcomingBikes.Filters.PageSize = WidgetTopCount;
-                    if (MakeId > 0)
-                    {
-                        objUpcomingBikes.Filters.MakeId = (int)MakeId;
-                    }
-                    objUpcomingBikes.SortBy = EnumUpcomingBikesFilter.Default;
-                    objData.UpcomingBikes = objUpcomingBikes.GetData();
+                Scooters.PopularScooterBrandsWidget objPopularScooterBrands = new Scooters.PopularScooterBrandsWidget(_bikeMakesCacheRepository);
+                objPopularScooterBrands.TopCount = 4;
 
-                    if (_objMake != null)
-                    {
-                        objData.UpcomingBikes.WidgetHeading = string.Format("Upcoming {0} Scooters", _objMake.MakeName);
-                        objData.UpcomingBikes.WidgetHref = string.Format("/{0}-bikes/upcoming/", _objMake.MaskingName);
-                    }
-                    else
-                    {
-                        objData.UpcomingBikes.WidgetHeading = "Upcoming Scooters";
-                        objData.UpcomingBikes.WidgetHref = "/upcoming-scooters/";
-                    }
-                    objData.UpcomingBikes.WidgetLinkTitle = "Upcoming Scooters in India";
-              
+                if (MakeId > 0)
+                {
+                    objPopularScooterBrands.SkipMakeId = MakeId;
+                    objData.PopularScooterBrandsWidgetHeading = "Other scooter brands";
+                }
+                else
+                    objData.PopularScooterBrandsWidgetHeading = "Popular scooter brands";
+
+                objData.PopularScooterMakesWidget = objPopularScooterBrands.GetData();
+
             }
             catch (Exception ex)
             {

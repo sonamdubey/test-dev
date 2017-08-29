@@ -18,6 +18,8 @@ using System.Web;
 using Newtonsoft.Json;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.PWA.Utils;
+using Bikewale.Models.Scooters;
+using System.Collections.Generic;
 using Bikewale.Entities.Schema;
 
 namespace Bikewale.Models
@@ -25,6 +27,9 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by : Aditi Srivastava on 29 Mar 2017
     /// Summary    : Model for news details page
+    /// Modified by:Snehal Dange on 24 August,2017
+    /// Description: Added _bikeMakesCacheRepository,_objBikeVersionsCache.
+    ///              Added PopularScooterBrandsWidget
     /// </summary>
     public class NewsDetailPage
     {
@@ -37,6 +42,8 @@ namespace Bikewale.Models
         private IUpcoming _upcoming = null;
         private string _basicId;
         private readonly IPWACMSCacheRepository _renderedArticles = null;
+        private readonly IBikeMakesCacheRepository<int> _bikeMakesCacheRepository = null;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
         #endregion
 
         #region Page level variables
@@ -73,7 +80,7 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles)
+        public NewsDetailPage(ICMSCacheContent cmsCache,IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -83,6 +90,8 @@ namespace Bikewale.Models
             _cityCacheRepo = cityCacheRepo;
             _basicId = basicId;
             _renderedArticles = renderedArticles;
+            _bikeMakesCacheRepository = bikeMakesCacheRepository;
+            _objBikeVersionsCache = objBikeVersionsCache;
             ProcessQueryString();
         }
         #endregion
@@ -132,8 +141,8 @@ namespace Bikewale.Models
                     status = StatusCodes.ContentFound;
                     GetTaggedBikeListByMake(objData);
                     GetTaggedBikeListByModel(objData);
-                    SetPageMetas(objData);
                     GetWidgetData(objData, widgetTopCount);
+                    SetPageMetas(objData);
 
                     if (objData.Model != null && ModelId != 0 && objData.Model.ModelId != ModelId)
                         objData.Model.ModelId = (int)ModelId;
@@ -166,8 +175,8 @@ namespace Bikewale.Models
                     status = StatusCodes.ContentFound;
                     GetTaggedBikeListByMake(objData);
                     GetTaggedBikeListByModel(objData);
-                    SetPageMetas(objData);
                     GetWidgetData(objData, widgetTopCount);
+                    SetPageMetas(objData);
 
                     if (objData.Model != null && ModelId != 0 && objData.Model.ModelId != ModelId)
                         objData.Model.ModelId = (int)ModelId;
@@ -334,25 +343,42 @@ namespace Bikewale.Models
                 if (currentCityArea != null)
                     CityId = currentCityArea.CityId;
 
+                EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
 
                 if (ModelId > 0)
                 {
-                    PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
-                    objPopularStyle.ModelId = ModelId;
-                    objPopularStyle.CityId = CityId;
-                    objPopularStyle.TopCount = topCount;
-                    objData.PopularBodyStyle = objPopularStyle.GetData();
-                    if (objData.PopularBodyStyle != null)
+                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, true);
+
+                    if (objVersionsList != null && objVersionsList.Count > 0)
+                        bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+
+                    if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                     {
-                        objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
-                        objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
-                        objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
-                        bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
+                        PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
+                        objPopularScooterBrands.TopCount = 4;
+                        objData.PopularScooterMakesWidget = objPopularScooterBrands.GetData();
+                        bikeType = EnumBikeType.Scooters;
+                    }
+                    else
+                    {
+                        PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
+                        objPopularStyle.ModelId = ModelId;
+                        objPopularStyle.CityId = CityId;
+                        objPopularStyle.TopCount = topCount;
+                        objData.PopularBodyStyle = objPopularStyle.GetData();
+                        if (objData.PopularBodyStyle != null)
+                        {
+                            objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
+                            objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
+                            objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
+                            bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
+                        }
+
+                        BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId);
+                        objData.BikeInfo = objBikeInfo.GetData();
+                        objData.BikeInfo.IsSmallSlug = true;
                     }
 
-                    BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId);
-                    objData.BikeInfo = objBikeInfo.GetData();
-                    objData.BikeInfo.IsSmallSlug = true;
                 }
                 else
                 {
