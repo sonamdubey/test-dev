@@ -7,6 +7,10 @@ namespace Bikewale.Utility
 {
     public static class UrlFormatter
     {
+        public static string BikeMakeUrl(string makeMaskingName)
+        {
+            return String.Format("/{0}-bikes/", makeMaskingName);
+        }
         public static string BikePageUrl(string makeMaskingName, string modelMaskingName)
         {
             return String.Format("/{0}-bikes/{1}/", makeMaskingName, modelMaskingName);
@@ -373,7 +377,7 @@ namespace Bikewale.Utility
             if (String.IsNullOrEmpty(makeMaskingName) && String.IsNullOrEmpty(modelMaskingName))
             {
                 url = "/user-reviews/";
-            }            
+            }
             else
             {
                 url = String.Format("/{0}-bikes/{1}/reviews/", makeMaskingName, modelMaskingName);
