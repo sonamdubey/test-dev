@@ -20,91 +20,93 @@
                             <span class="trophy-a2a2a2-14"></span>
                             <p class="contest-slug__title">Rate &amp; write a detailed review and stand a chance to win Amazon vouchers worth &#x20B9; 1,000. Help others in making the right decision.</p>
                         </div>
-                        <div class="padding-15-20 main-container">
-                            <div class="grid-2">
-                                <ul class="review-progress">
-                                    <li class="active"><p class="review-progress__text">Rate this Bike</p></li>
-                                    <li><p class="review-progress__text">Write Review</p></li>
-                                    <li><p class="review-progress__text">Other details</p></li>
-                                </ul>
-                            </div>
-                            <div class="grid-10 alpha">
-                                <p class="font15 margin-bottom10 font-bold text-black">Rate this bike</p>
-                                <p class="text-slate-grey">Consider looks & styling, performance, servicing experience, mileage etc. before you rate.</p>
-                                <div id="bike-rating-box" data-make-model="@string.Format("{0}_{1}_",Model.objModelEntity.MakeBase.MakeName, Model.objModelEntity.ModelName)" data-selectedrating="@Model.SelectedRating">
-                                    <div class="rating-placeholder">
-                                        <p class="error-text margin-bottom10" data-bind="slideIn: validateRatingCountFlag(), text: ratingErrorText"></p>
-
-                                        <div class="answer-star-list hover-effect" data-bind="foreach: overallRating.slice(0).reverse()">
-                                            <input type="radio" name="rate-box" data-bind="attr: {id: 'rate-' + ($root.overallRating().length - $index()), value: ($root.overallRating().length - $index())}" />
-                                            <label class="bwsprite star-zero" data-bind="hoverRating: $root.clickEventRatingCount, attr: {for: 'rate-' + ($root.overallRating().length - $index()), 'data-value': ($root.overallRating().length - $index())}"></label>
-                                        </div>
-                                        <h3 class="font20 font-bold margin-bottom5 leftfloat" data-bind="text: feedbackTitle">Rate your bike</h3>
-                                        <div class="clear"></div>
-
-                                    </div>
+                        <div class="padding-15-20">
+                            <div class="padding-15-20 main-container">
+                                <div class="grid-2">
+                                    <ul class="review-progress">
+                                        <li class="active"><p class="review-progress__text">Rate this Bike</p></li>
+                                        <li><p class="review-progress__text">Write Review</p></li>
+                                        <li><p class="review-progress__text">Other details</p></li>
+                                    </ul>
                                 </div>
+                                <div class="grid-10 alpha">
+                                    <p class="font15 margin-bottom10 text-bold text-black">Rate this bike</p>
+                                    <p class="text-slate-grey">Consider looks & styling, performance, servicing experience, mileage etc. before you rate.</p>
+                                    <div id="bike-rating-box" data-make-model="@string.Format("{0}_{1}_",Model.objModelEntity.MakeBase.MakeName, Model.objModelEntity.ModelName)" data-selectedrating="@Model.SelectedRating">
+                                        <div class="rating-placeholder">
+                                            <p class="error-text margin-bottom10" data-bind="slideIn: validateRatingCountFlag(), text: ratingErrorText"></p>
 
-                                <div class="margin-bottom5">
-                                    <div class="margin-bottom20">
-                                        <p class="font15 text-black font-bold margin-bottom10">Personal details</p>
-                                        <p class="text-slate-grey">We wish to credit this rating to you. We will never spam your inbox.</p>
-                                    </div>
+                                            <div class="answer-star-list hover-effect" data-bind="foreach: overallRating.slice(0).reverse()">
+                                                <input type="radio" name="rate-box" data-bind="attr: {id: 'rate-' + ($root.overallRating().length - $index()), value: ($root.overallRating().length - $index())}" />
+                                                <label class="bwsprite star-zero" data-bind="hoverRating: $root.clickEventRatingCount, attr: {for: 'rate-' + ($root.overallRating().length - $index()), 'data-value': ($root.overallRating().length - $index())}"></label>
+                                            </div>
+                                            <h3 class="font20 font-bold margin-top5 leftfloat" data-bind="text: feedbackTitle">Rate your bike</h3>
+                                            <div class="clear"></div>
 
-                                    <div class="grid-6 alpha">
-                                        <div class="input-box bw-ga" c="Rate_Bike" a="Name_Field_Focus" l="@gaLabel" data-bind="css: userName().length > 0 ? 'not-empty' : ''">
-                                            <input type="text" id="txtUserName" name="userName" data-bind="textInput: userName" value="@(string.IsNullOrEmpty(Model.CustomerName) ? "" : Model.CustomerName)" />
-                                            <label for="getUserName">Name<sup>*</sup></label>
-                                            <span class="boundary"></span>
-                                            <span class="error-text"></span>
                                         </div>
                                     </div>
-                                    <div class="grid-6 omega">
-                                        <div class="input-box  bw-ga" c="Rate_Bike" a="Email_Field_Focus" l="@gaLabel" data-bind="css: emailId().length > 0 ? 'not-empty' : ''">
-                                            <input type="email" id="txtEmailID" name="emailId" data-bind="textInput: emailId" value="@(string.IsNullOrEmpty(Model.CustomerEmail) ? "" : Model.CustomerEmail)" />
-                                            <label for="getEmailID">Email ID<sup>*</sup></label>
-                                            <span class="boundary"></span>
-                                            <span class="error-text"></span>
-                                        </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
 
-                                <ul id="rate-bike-questions" class="margin-bottom20 border-solid-bottom" data-bind="foreach: ratingQuestions">
-                                    <!-- ko if: displayType == 2 -->
-                                    <li class="question-field question-type-text" data-bind="visible: visibility, attr:{id: 'question-' + qId, 'data-sub-question': subQuestionId, 'data-required': isRequired}">
-                                        <p class="question-item font-bold" data-bind="text: heading"></p>
-                                        <p class="error-text" data-bind="" style="display: none">This is a compulsory field.</p>
-                                        <div class="answer-radio-list" data-bind="foreach: rating">
-                                            <input type="radio" data-bind="attr: {questionId:$parentContext.$index()+1, id: 'q-' + $parentContext.$index() + '-' + $index(), name: 'rating-q-' + $parentContext.$index(), value: ratingValue,'data-checked' : (ratingValue == $parentContext.$data.selectedRatingId) ? 'true' : 'false'}" />
-                                            <label data-bind="attr: {for: 'q-' + $parentContext.$index() + '-' + $index(), 'data-value': ratingValue}, text: ratingText"></label>
+                                    <div class="margin-bottom5">
+                                        <div class="margin-bottom20">
+                                            <p class="font15 text-black text-bold margin-bottom10">Personal details</p>
+                                            <p class="text-slate-grey">We wish to credit this rating to you. We will never spam your inbox.</p>
+                                        </div>
+
+                                        <div class="grid-6 alpha">
+                                            <div class="input-box bw-ga" c="Rate_Bike" a="Name_Field_Focus" l="@gaLabel" data-bind="css: userName().length > 0 ? 'not-empty' : ''">
+                                                <input type="text" id="txtUserName" name="userName" data-bind="textInput: userName" value="@(string.IsNullOrEmpty(Model.CustomerName) ? "" : Model.CustomerName)" />
+                                                <label for="getUserName">Name<sup>*</sup></label>
+                                                <span class="boundary"></span>
+                                                <span class="error-text"></span>
+                                            </div>
+                                        </div>
+                                        <div class="grid-6 omega">
+                                            <div class="input-box  bw-ga" c="Rate_Bike" a="Email_Field_Focus" l="@gaLabel" data-bind="css: emailId().length > 0 ? 'not-empty' : ''">
+                                                <input type="email" id="txtEmailID" name="emailId" data-bind="textInput: emailId" value="@(string.IsNullOrEmpty(Model.CustomerEmail) ? "" : Model.CustomerEmail)" />
+                                                <label for="getEmailID">Email ID<sup>*</sup></label>
+                                                <span class="boundary"></span>
+                                                <span class="error-text"></span>
+                                            </div>
                                         </div>
                                         <div class="clear"></div>
-                                    </li>
-                                    <!-- /ko -->
-                                </ul>
-                                <div>
-                                    <input type="hidden" id="overallratingQuestion" value="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Model.OverAllRatingText)" />
-                                    <input type="hidden" id="rating-question" value="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Model.RatingQuestion)" />
-                                    <input type="hidden" name="overAllrating" id="finaloverallrating" />
-                                    <input type="hidden" name="reviewed-rating" id="reviewedoverallrating" value="@Model.ReviewsOverAllrating" />
+                                    </div>
 
-                                    <input type="hidden" name="modelId" value="@Model.objModelEntity.ModelId" />
-                                    <input type="hidden" name="makeId" value="@Model.objModelEntity.MakeBase.MakeId" />
-                                    <input type="hidden" name="ratingQuestionAns" id="rating-quesition-ans" />
-                                    <input type="hidden" name="priceRangeId" value="@Model.PriceRangeId" />
-                                    <input type="hidden" name="reviewId" value="@Model.ReviewId" />
-                                    <input type="hidden" name="isDesktop" value="true" />
-                                    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
-                                    <input type="hidden" name="platformId" value="1" />
-                                    <input type="hidden" name="sourceId" id="pageSourceId" value="@Model.SourceId" />
-                                    <input type="hidden" name="contestSrc" id="contestSrc" value="@Model.ContestSrc" />
-                                    <input type="hidden" name="utmzCookieValue" value='@Model.UtmzCookieValue' />
-                                    <input type="submit" class="btn btn-orange btn-220-40" value="Submit rating" data-bind="click: submitRating" />
+                                    <ul id="rate-bike-questions" class="margin-bottom20 border-solid-bottom" data-bind="foreach: ratingQuestions">
+                                        <!-- ko if: displayType == 2 -->
+                                        <li class="question-field question-type-text" data-bind="visible: visibility, attr:{id: 'question-' + qId, 'data-sub-question': subQuestionId, 'data-required': isRequired}">
+                                            <p class="question-item text-bold" data-bind="text: heading"></p>
+                                            <p class="error-text" data-bind="" style="display: none">This is a compulsory field.</p>
+                                            <div class="answer-radio-list" data-bind="foreach: rating">
+                                                <input type="radio" data-bind="attr: {questionId:$parentContext.$index()+1, id: 'q-' + $parentContext.$index() + '-' + $index(), name: 'rating-q-' + $parentContext.$index(), value: ratingValue,'data-checked' : (ratingValue == $parentContext.$data.selectedRatingId) ? 'true' : 'false'}" />
+                                                <label data-bind="attr: {for: 'q-' + $parentContext.$index() + '-' + $index(), 'data-value': ratingValue}, text: ratingText"></label>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </li>
+                                        <!-- /ko -->
+                                    </ul>
+                                    <div>
+                                        <input type="hidden" id="overallratingQuestion" value="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Model.OverAllRatingText)" />
+                                        <input type="hidden" id="rating-question" value="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Model.RatingQuestion)" />
+                                        <input type="hidden" name="overAllrating" id="finaloverallrating" />
+                                        <input type="hidden" name="reviewed-rating" id="reviewedoverallrating" value="@Model.ReviewsOverAllrating" />
+
+                                        <input type="hidden" name="modelId" value="@Model.objModelEntity.ModelId" />
+                                        <input type="hidden" name="makeId" value="@Model.objModelEntity.MakeBase.MakeId" />
+                                        <input type="hidden" name="ratingQuestionAns" id="rating-quesition-ans" />
+                                        <input type="hidden" name="priceRangeId" value="@Model.PriceRangeId" />
+                                        <input type="hidden" name="reviewId" value="@Model.ReviewId" />
+                                        <input type="hidden" name="isDesktop" value="true" />
+                                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                                        <input type="hidden" name="platformId" value="1" />
+                                        <input type="hidden" name="sourceId" id="pageSourceId" value="@Model.SourceId" />
+                                        <input type="hidden" name="contestSrc" id="contestSrc" value="@Model.ContestSrc" />
+                                        <input type="hidden" name="utmzCookieValue" value='@Model.UtmzCookieValue' />
+                                        <input type="submit" class="btn btn-orange btn-220-40" value="Next" data-bind="click: submitRating" />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="clear"></div>
+                                <div class="clear"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

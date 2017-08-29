@@ -45,7 +45,6 @@ h1,
   vertical-align: middle; }
 
 .main-container {
-  margin: 15px 20px;
   border: 1px solid #e2e2e2; }
 
 #bike-rating-box {
@@ -213,13 +212,19 @@ h1,
 
 #review-summary-card #bike-rating-box {
   width: 602px;
-  margin: 30px auto 20px; }
+  margin: 30px auto 20px;
+  text-align: center;
+  background: #F5F5F5; }
+
+#review-summary-card .rating-placeholder .answer-star-list {
+  margin: auto;
+  float: none; }
 
 .item-rating-list.no-float li {
   float: left;
   width: 50px; }
   .item-rating-list.no-float li:last-child {
-    width: 25px; }
+    width: 36px; }
 
 .full-review-box p {
   margin-bottom: 10px; }
@@ -262,8 +267,8 @@ h1,
 
 .star-zero,
 .star-one {
-  width: 26px;
-  height: 25px;
+  width: 36px;
+  height: 36px;
   vertical-align: middle; }
 
 .star-zero {
@@ -400,9 +405,19 @@ h1,
 
 .review-progress li.active {
   border: 1px solid #41b4c4;
-  box-shadow: 0px 4px 4px #a2a2a2;
+  box-shadow: 0px 2px 5px #a2a2a2;
+  background-color: #fff;
+  cursor: pointer;
+  pointer-events: none; }
+
+.review-progress li.completed {
+  border: 1px solid #E2E2E2;
   background-color: #fff;
   cursor: pointer; }
+
+.review-progress li.completed::before {
+  background-image: url("../../../images/completed.png");
+  background-color: transparent; }
 
 .review-progress__text {
   width: 50px;
