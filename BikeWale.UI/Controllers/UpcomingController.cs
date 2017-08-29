@@ -18,12 +18,14 @@ namespace Bikewale.Controllers
         private IUpcoming _upcoming = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
 
-        public UpcomingController(IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> bikeMakesCache)
+        public UpcomingController(IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels)
         {
             _upcoming = upcoming;
             _newLaunches = newLaunches;
             _bikeMakesCache = bikeMakesCache;
+            _bikeModels = bikeModels;
         }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace Bikewale.Controllers
         public ActionResult BikesByMake(string maskingName, ushort? pageNumber, EnumUpcomingBikesFilter? sort)
         {
             string baseUrl = string.Format("/{0}-bikes/upcoming/", maskingName);
-            UpcomingByMakePageModel objData = new UpcomingByMakePageModel(maskingName, _upcoming, pageNumber, 15, _newLaunches, baseUrl, _bikeMakesCache);
+            UpcomingByMakePageModel objData = new UpcomingByMakePageModel(maskingName, _upcoming, pageNumber, 15, _bikeModels, baseUrl, _bikeMakesCache);
 
             if (objData.Status == Entities.StatusCodes.ContentFound)
             {
@@ -104,7 +106,7 @@ namespace Bikewale.Controllers
         public ActionResult BikesByMake_Mobile(string maskingName, ushort? pageNumber, EnumUpcomingBikesFilter? sort)
         {
             string baseUrl = string.Format("/m/{0}-bikes/upcoming/", maskingName);
-            UpcomingByMakePageModel objData = new UpcomingByMakePageModel(maskingName, _upcoming, pageNumber, 10, _newLaunches, baseUrl, _bikeMakesCache);
+            UpcomingByMakePageModel objData = new UpcomingByMakePageModel(maskingName, _upcoming, pageNumber, 10, _bikeModels, baseUrl, _bikeMakesCache);
 
             if (objData.Status == Entities.StatusCodes.ContentFound)
             {
