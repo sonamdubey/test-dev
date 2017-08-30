@@ -34,7 +34,7 @@
                         <div class="clear"></div>
 
                         <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                            <p class="font12 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? string.Format("GST On-road price {0}", Model.IsGstPrice ? "" : "(estimated)") : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? string.Format("GST On-road price {0}", Model.IsGstPrice ? "" : "(estimated)") : string.Format("GST Ex-showroom price {0}", Model.IsGstPrice ? "" : "(estimated)"))) in @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</p>
+                            <p class="font12 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price " : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price " : "Ex-showroom price ")) in @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</p>
                             <div>
                                 <span itemprop="priceCurrency" content="INR">
                                     @if (Model.BikePrice > 0)
@@ -51,10 +51,6 @@
                                 {
                                     <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" class="font14 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
                                 }
-                            </div>
-                            <div class="margin-top2 padding-bottom5">
-                                <span class="bwmsprite info-grey-14"></span>
-                                <span class="text-light-grey font12">@string.Format("{0}", Model.IsGstPrice ? "Price in accordance with GST rates" : "Estimated GST price as dealer price is unavailable.")</span>
                             </div>
                         </div>
 

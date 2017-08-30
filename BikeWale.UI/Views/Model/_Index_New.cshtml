@@ -27,11 +27,7 @@
                             @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs.cshtml", Model)
 
                             <div id="modelPriceContainer">
-                                <p class="font14 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? string.Format("GST On-road price {0}", Model.IsGstPrice ? "" : "(estimated)") : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? string.Format("GST On-road price {0}", Model.IsGstPrice ? "" : "(estimated)") : string.Format("GST Ex-showroom price {0}", Model.IsGstPrice ? "" : "(estimated)"))) in @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))
-                                    <span class="bwsprite info-grey-14 tooltip-icon-target">
-                                        <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">@string.Format("{0}", Model.IsGstPrice ? "Price in accordance with GST rates" : "Estimated GST price as final dealer price is  unavailable.")</span></span>
-                                    </span>
-                                </p>
+                                <p class="font14 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price " : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price " : "Ex-showroom price ")) in @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</p>
                                 
                                 @if (Model.BikePrice > 0)
                                 {

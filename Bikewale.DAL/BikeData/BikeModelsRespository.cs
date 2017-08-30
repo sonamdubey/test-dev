@@ -255,6 +255,8 @@ namespace Bikewale.DAL.BikeData
 
         /// <summary>
         /// Versions list with Min specs
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Changed SP from 'getversions_23082017' to 'getversions_30082017', removed IsGstPrice flag
         /// </summary>
         /// <param name="modelId">model id</param>
         /// <param name="isNew">is new</param>
@@ -266,7 +268,7 @@ namespace Bikewale.DAL.BikeData
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_23082017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_30082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -284,7 +286,6 @@ namespace Bikewale.DAL.BikeData
                                     VersionId = Convert.ToInt32(dr["ID"]),
                                     VersionName = Convert.ToString(dr["Version"]),
                                     ModelName = Convert.ToString(dr["Model"]),
-                                    IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]),
                                     Price = Convert.ToUInt64(dr["VersionPrice"]),
                                     BrakeType = !Convert.IsDBNull(dr["BrakeType"]) ? Convert.ToString(dr["BrakeType"]) : String.Empty,
                                     AlloyWheels = !Convert.IsDBNull(dr["AlloyWheels"]) ? Convert.ToBoolean(dr["AlloyWheels"]) : false,
@@ -324,6 +325,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary: Used a different sp(earlier getmodeldetails_new) to retrieve model details using data reader'
         /// Modified by sajal gupta on 19/05/2017
         /// Description : Added ratings count
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Changed SP from 'getmodeldetails_new_28062017' to 'getmodeldetails_new_30082017', removed IsGstPrice flag
         /// </summary>
         /// <param name="id">Model Id should be a positive number.</param>
         /// <returns>Returns object containing the particular model's all details.</returns>
@@ -332,7 +335,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_28062017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_30082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -370,7 +373,6 @@ namespace Bikewale.DAL.BikeData
                                 t.PhotosCount = Convert.ToInt32(dr["PhotosCount"]);
                                 t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
                                 t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
-                                t.IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]);
                             }
                             dr.Close();
                         }

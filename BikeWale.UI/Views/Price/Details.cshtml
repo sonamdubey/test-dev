@@ -123,7 +123,7 @@
 
                                         <tr>
                                             <td>
-                                                <p class="font14 text-bold">GST On-road price @string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "" : "(estimated)") in @Html.Raw(Model.Location)</p>
+                                                <p class="font14 text-bold">On-road price in @Html.Raw(Model.Location)</p>
                                             </td>
                                             <td align="right">
                                                 @Html.Raw("<span class='font22'>&#x20B9;</span>")&nbsp;<span class="font22 text-bold">@CommonOpn.FormatPrice(Model.TotalPrice.ToString())</span>
@@ -157,10 +157,6 @@
                                             <td colspan="3"></td>
                                         </tr>
                                     </table>
-                                    <div class="margin-top5">
-										<span class="bwsprite info-grey-14"></span>
-                                        <span class="text-light-grey">@string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "Price in accordance with GST rates" : "Estimated GST price as final dealer price is  unavailable.")</span>
-                                    </div>
                                 }
                                 else if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
                                 {
@@ -197,7 +193,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <p class="font14 text-bold">GST On-road price @string.Format("{0}",Model.Quotation.IsGstPrice?"":"(estimated)") in @Html.Raw(Model.Location)</p>
+                                                <p class="font14 text-bold">On-road price in @Html.Raw(Model.Location)</p>
                                             </td>
                                             <td align="right">
                                                 @Html.Raw("<span class='font22'>&#x20B9;</span>")&nbsp;<span class="font22 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.OnRoadPrice.ToString())</span>
@@ -219,10 +215,6 @@
                                             </tr>
                                         }
                                     </table>
-                                    <div class="margin-top5">
-										<span class="bwsprite info-grey-14"></span>
-                                        <span class="text-light-grey">@string.Format("{0}", Model.Quotation.IsGstPrice ? "Price in accordance with GST rates" : "Estimated GST price as final dealer price is  unavailable.")</span>
-                                    </div>
                                 }
                                 else
                                 {

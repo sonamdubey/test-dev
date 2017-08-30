@@ -45,7 +45,9 @@ namespace Bikewale.Models.BikeModels
 {
     /// <summary>
     /// Modified By : Sangram Nandkhile on 07 Dec 2016.
-    /// Description : Removed unncessary functions,
+    /// Description : Removed unncessary functions
+    /// Modified by : Ashutosh Sharma on 30 Aug 2017
+    /// Description : Removed GST related code (revert GST related changes)
     /// </summary>
     public class ModelPage
     {
@@ -613,6 +615,8 @@ namespace Bikewale.Models.BikeModels
         /// Desc:- Metas description according to discountinue,upcoming,continue bikes
         /// Modified by :- Subodh Jain 19 june 2017
         /// Summary :- Added TargetModels and Target Make
+        /// Modified by :- Ashutosh Sharma on 30 Aug 2017
+        /// Description :- Removed GST from Title and Description 
         /// </summary>
         private void CreateMetas()
         {
@@ -630,10 +634,10 @@ namespace Bikewale.Models.BikeModels
                     }
                     else
                     {
-                        _objData.PageMetaTags.Description = String.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and GST On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric(_objData.BikePrice.ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
+                        _objData.PageMetaTags.Description = String.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric(_objData.BikePrice.ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
                     }
 
-                    _objData.PageMetaTags.Title = String.Format("{0} Price (GST Rates), Images, Colours, Mileage | BikeWale", _objData.BikeName);
+                    _objData.PageMetaTags.Title = String.Format("{0} Price , Images, Colours, Mileage | BikeWale", _objData.BikeName);
 
                     _objData.PageMetaTags.CanonicalUrl = String.Format("{0}/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName);
 
@@ -708,6 +712,8 @@ namespace Bikewale.Models.BikeModels
         /// Description     :   Loads the default selected version based on pricing
         /// - Default version is selected based on the priority
         ///     Dealer Pricing (Highest priority) -> Bikewale Pricing -> Version pricing (Lowest)
+        ///  Modified by : Ashutosh Sharma on 30 Aug 2017 
+        ///  Description : Removed IsGstPrice flag
         /// </summary>
         private void LoadVariants(BikeModelPageEntity modelPg)
         {
@@ -763,13 +769,11 @@ namespace Bikewale.Models.BikeModels
                                         _objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
                                         _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
                                         _objData.BikePrice = _objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0;
-                                        _objData.IsGstPrice = _objData.SelectedVersion.IsGstPrice;
                                     }
                                     else
                                     {
                                         _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
                                         _objData.BikePrice = _objData.CityId == 0 ? (uint)modelPg.ModelVersions.FirstOrDefault().Price : 0;
-                                        _objData.IsGstPrice = modelPg.ModelVersions.FirstOrDefault().IsGstPrice;
                                     }
                                 }
                             }
@@ -802,14 +806,11 @@ namespace Bikewale.Models.BikeModels
                                         _objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
                                         _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
                                         _objData.BikePrice = _objData.ShowOnRoadButton ? (uint)_objData.SelectedVersion.Price : (_objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0);
-                                        _objData.IsGstPrice = _objData.SelectedVersion.IsGstPrice;
                                     }
                                     else
                                     {
                                         _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
                                         _objData.BikePrice = _objData.ShowOnRoadButton ? (uint)_objData.SelectedVersion.Price : (_objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0);
-                                        _objData.IsGstPrice = modelPg.ModelVersions.FirstOrDefault().IsGstPrice;
-
                                     }
                                 }
                             }
@@ -891,6 +892,8 @@ namespace Bikewale.Models.BikeModels
         /// Created Date    :   18 Nov 2015
         /// Modified by : Sajal Gupta on 28-02-2017
         /// Description : Get model page data from calling BAL layer instead of calling cache layer.
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017
+        /// Description : Removed IsGstPrice flag.
         /// </summary>
         private BikeModelPageEntity FetchModelPageDetails(uint modelID)
         {
@@ -908,18 +911,15 @@ namespace Bikewale.Models.BikeModels
                         {
                             if (_objData.VersionId > 0)
                                 _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(v => v.VersionId == _objData.VersionId);
-                            _objData.IsGstPrice = modelPg.ModelDetails != null ? modelPg.ModelDetails.IsGstPrice : false;
                         }
 
                         if (_objData.VersionId > 0 && _objData.SelectedVersion != null)
                         {
                             _objData.BikePrice = _objData.CityId == 0 ? Convert.ToUInt32(_objData.SelectedVersion.Price) : (_objData.HasCityPricing ? Convert.ToUInt32(_objData.SelectedVersion.Price) : 0);
-                            _objData.IsGstPrice = modelPg.ModelDetails != null ? modelPg.ModelDetails.IsGstPrice : false;
                         }
                         else if (modelPg.ModelDetails != null)
                         {
                             _objData.BikePrice = _objData.CityId == 0 ? Convert.ToUInt32(modelPg.ModelDetails.MinPrice) : (_objData.HasCityPricing ? Convert.ToUInt32(modelPg.ModelDetails.MinPrice) : 0);
-                            _objData.IsGstPrice = modelPg.ModelDetails != null ? modelPg.ModelDetails.IsGstPrice : false;
                         }
 
                         // for new bike
@@ -940,7 +940,6 @@ namespace Bikewale.Models.BikeModels
                         if (modelPg.ModelDetails != null && !modelPg.ModelDetails.New && modelPg.ModelVersions != null && modelPg.ModelVersions.Count > 1 && _objData.SelectedVersion != null)
                         {
                             _objData.BikePrice = (uint)_objData.SelectedVersion.Price;
-                            _objData.IsGstPrice = modelPg.ModelVersions.FirstOrDefault().IsGstPrice;
                         }
 
                         if (modelPg.ModelDetails != null && modelPg.ModelDetails.PhotosCount > 0 && modelPg.ModelColors != null && modelPg.ModelColors.Count() > 0)
@@ -981,6 +980,8 @@ namespace Bikewale.Models.BikeModels
         /// Description     :   Changed flag objData.IsLocationSelected if onroad price not available
         /// Modifide By :- Subodh jain on 02 March 2017
         /// Summary:- added manufacturer campaign leadpopup changes
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017
+        /// Description : Removed IsGstPrice flag
         /// </summary>
         private void FetchOnRoadPrice(BikeModelPageEntity modelPage)
         {
@@ -1014,7 +1015,6 @@ namespace Bikewale.Models.BikeModels
                                 if (selectedVariant.PriceList != null)
                                 {
                                     totalDiscountedPrice = CommonModel.GetTotalDiscount(_pqOnRoad.discountedPriceList);
-                                    _objData.IsGstPrice = _pqOnRoad.DPQOutput.PriceList.FirstOrDefault().IsGstPrice;
                                 }
 
                                 if (_pqOnRoad.discountedPriceList != null && _pqOnRoad.discountedPriceList.Count > 0)
@@ -1109,6 +1109,8 @@ namespace Bikewale.Models.BikeModels
         /// <summary>
         /// Created by : Sangram Nandkhile on 14 Feb 2017
         /// Summary: To set price variable with bikewale pricequote
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Removed IsGstPrice flag
         /// </summary>
         /// <param name="pqOnRoad"></param>
         private void SetBikeWalePQ(PQOnRoadPrice pqOnRoad)
@@ -1125,7 +1127,6 @@ namespace Bikewale.Models.BikeModels
                     _objData.BikePrice = _objData.IsLocationSelected && !_objData.ShowOnRoadButton ? Convert.ToUInt32(objSelectedVariant.OnRoadPrice) : Convert.ToUInt32(objSelectedVariant.Price);
 
                 _objData.IsBPQAvailable = true;
-                _objData.IsGstPrice = pqOnRoad.BPQOutput.IsGstPrice;
             }
         }
 

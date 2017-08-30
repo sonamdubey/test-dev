@@ -66,12 +66,7 @@
                     <td height="1" colspan="2" class="break-line padding-bottom15"></td>
                 </tr>
                 <tr>
-                    <td align="left" class="font16 padding-bottom5 position-rel">GST On-road price @string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "" : "(estimated)")
-						<div class="price--label-position pos-bottom-40">
-							<span class="bwmsprite info-grey-14"></span>
-							<span class="text-light-grey font12">@string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "In accordance with GST rates" : "Final dealer price unavailable.")</span>
-						</div>
-					</td>
+                    <td align="left" class="font16 padding-bottom5 position-rel">On-road price</td>
                     <td align="right" valign="top" class="font18 text-bold padding-bottom5">@Html.Raw("<span > &#x20B9;</span>")&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.TotalPrice.ToString())</td>
                 </tr>
                 <tr>
@@ -107,12 +102,7 @@
                     <td height="1" colspan="2" class="break-line padding-bottom10"></td>
                 </tr>
                 <tr>
-                    <td class="font16 position-rel" align="left">GST On-road price @string.Format("{0}", Model.Quotation.IsGstPrice ? "" : "(estimated)")
-						<div class="price--label-position pos-bottom-40">
-							<span class="bwmsprite info-grey-14"></span>
-							<span class="text-light-grey font12">@string.Format("{0}", Model.Quotation.IsGstPrice ? "In accordance with GST rates" : "Estimated GST price as dealer price is unavailable.")</span>
-						</div>
-					</td>
+                    <td class="font16 position-rel" align="left">On-road price</td>
                     <td valign="top" class="font18 text-bold" align="right">
                         @Html.Raw("<span> &#x20B9;</span>")&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())
                     </td>
@@ -129,9 +119,6 @@
 			if (Model.IsPrimaryDealerAvailable)
 			{
 				<div class="padding-bottom10"></div>
-			}
-			else {
-				<div class="padding-bottom40"></div>
 			}
         <!-- Bikewale PQ ends -->
         }
