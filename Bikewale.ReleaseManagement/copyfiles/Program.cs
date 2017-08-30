@@ -155,7 +155,7 @@ namespace CopyFiles
                     }
 
                     //copy files to the respective folders, it will even overwrite files if already exists
-                    if (!fileExtension.Equals(".config") || (Path.GetFileName(fileName).Equals("Web.config")))
+                    if ( (!fileExtension.Equals(".config") && !fileExtension.Equals(".xml")) || (Path.GetFileName(fileName).Equals("Web.config") || Path.GetFileName(fileName).Equals("rewriterules.config") || Path.GetFileName(fileName).Equals("web_browsers_patch.xml") || Path.GetFileName(fileName).Equals("wurfl.xml") ))
                     {
                         File.Copy(fileName, targetPath + Path.GetFileName(fileName), true);
                     }
