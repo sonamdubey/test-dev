@@ -22,5 +22,8 @@ namespace Bikewale.Models
         public uint VersionId { get; set; }
         public EnumBikeBodyStyles BodyStyle { get; set; }
         public GAPages Page { get; set; }
+        public bool IsNew { get; set; }
+        public bool IsUpcoming { get; set; }
+        public bool IsDiscontinued { get; set; }
     }
 }

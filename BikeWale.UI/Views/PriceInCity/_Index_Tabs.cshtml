@@ -17,5 +17,8 @@
 }
 @if (Model.HasAlternateBikes)
 {
-    <a href="#similarContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Similar bikes",Model.GABikeName))">Compare @Model.BodyStyleText</a>
+    <a href="#similarContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Similar bikes",Model.GABikeName))">Similar @Model.BodyStyleText</a>
+}
+else if(Model.IsPopularBodyStyleAvailable){
+    <a href="#popularContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Popular bikes",Model.GABikeName))">Popular @Model.BodyStyleText</a>
 }

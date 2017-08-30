@@ -14,7 +14,11 @@
 }
 @if (Model.IsSimilarBikesAvailable)
 {
-    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Similar Bikes" href="#modelSimilarContent" rel="nofollow">Compare @Model.BodyStyleText </a>
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Similar Bikes" href="#modelSimilarContent" rel="nofollow">Similar @Model.BodyStyleText </a>
+}
+else if (Model.IsPopularBodyStyleAvailable)
+{
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Popular Bikes" href="#modelPopularContent" rel="nofollow">Popular @Model.BodyStyleText</a>
 }
 @if (Model.IsVersionSpecsAvailable)
 {

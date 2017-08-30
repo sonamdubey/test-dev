@@ -42,7 +42,7 @@ namespace Bikewale.Models
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         private uint _modelId, _versionId, _cityId, _areaId, _pqId, _dealerId, _makeId;
         private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty;
-        
+
 
         /// <summary>
         /// Created By : Sushil Kumar on 23rd March 2017
@@ -94,13 +94,13 @@ namespace Bikewale.Models
 
                         };
                     }
-                    if(objData.SimilarBikesVM != null)
+                    if (objData.SimilarBikesVM != null)
                     {
                         objData.SimilarBikesVM.Model = objData.SelectedVersion.ModelBase;
                         objData.SimilarBikesVM.Make = objData.SelectedVersion.MakeBase;
                         objData.SimilarBikesVM.BodyStyle = objData.BodyStyle;
                     }
-                    objData.BodyStyleText = objData.BodyStyle.Equals(Entities.GenericBikes.EnumBikeBodyStyles.Scooter)? "Scooters" : "Bikes";
+                    objData.BodyStyleText = objData.BodyStyle.Equals(Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes";
                     objData.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
                 }
 
@@ -190,17 +190,7 @@ namespace Bikewale.Models
                     objDealer.TopCount = OtherTopCount;
                     objData.OtherDealers = objDealer.GetData();
 
-                    var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, _versionId, PQSourceEnum.Desktop_DPQ_Alternative);
-                    if (objSimilarBikes != null)
-                    {
-                        objSimilarBikes.TopCount = 9;
-                        objSimilarBikes.CityId = _cityId;
-                        objData.SimilarBikesVM = objSimilarBikes.GetData();
-                        if(objData.SimilarBikesVM != null)
-                        { 
-                            objData.SimilarBikesVM.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
-                        }
-                    }
+                    BindSimilarBikes(objData);
                 }
 
             }
@@ -209,6 +199,21 @@ namespace Bikewale.Models
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.DealerPriceQuotePage.BindPageWidgets");
             }
 
+        }
+
+        private void BindSimilarBikes(DealerPriceQuotePageVM objData)
+        {
+            var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, _versionId, PQSourceEnum.Desktop_DPQ_Alternative);
+            if (objSimilarBikes != null)
+            {
+                objSimilarBikes.TopCount = 9;
+                objSimilarBikes.CityId = _cityId;
+                objData.SimilarBikesVM = objSimilarBikes.GetData();
+                if (objData.SimilarBikesVM != null)
+                {
+                    objData.SimilarBikesVM.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
+                }
+            }
         }
 
         /// <summary>
@@ -338,7 +343,7 @@ namespace Bikewale.Models
                             objData.Quotation = _objPQ.GetPriceQuoteById(Convert.ToUInt64(_pqId), LeadSource);
                             if (objData.Quotation != null)
                             {
-                                objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;                                
+                                objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;
                             }
                             #endregion
                         }
@@ -572,11 +577,11 @@ namespace Bikewale.Models
                         objData.IsManufacturerEMIAdShown = true;
                     }
 
-                    if(objData.IsManufacturerLeadAdShown)
+                    if (objData.IsManufacturerLeadAdShown)
                     {
                         _objManufacturerCampaign.SaveManufacturerIdInPricequotes(objData.PQId, campaigns.LeadCampaign.DealerId);
                     }
-                    else if(objData.IsManufacturerEMIAdShown)
+                    else if (objData.IsManufacturerEMIAdShown)
                     {
                         _objManufacturerCampaign.SaveManufacturerIdInPricequotes(objData.PQId, campaigns.EMICampaign.DealerId);
                     }
