@@ -30,7 +30,7 @@
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.AlternateUrl))
         {
-            <meta name="alternate" content="@Model.PageMetaTags.AlternateUrl" />
+            <link rel="alternate" type="text/html" media="handheld" href="@Model.PageMetaTags.AlternateUrl" title="Mobile/PDA" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
         {

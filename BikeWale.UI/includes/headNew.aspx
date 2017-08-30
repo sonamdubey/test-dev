@@ -13,7 +13,7 @@
 <meta name="description" content="<%= description %>" />
 <%if(keywords != "") {%><meta name="keywords" content="<%= keywords %>" /> <%} %>
 <%if(!string.IsNullOrEmpty(alternate)) {%>
-<meta name="alternate" content="<%= alternate %>" /><%} %>
+ <link rel="alternate" type="text/html" media="handheld" href="<%= alternate %>" title="Mobile/PDA" />
 <% if(EnableOG){ %>
 <meta property="og:title" content="<%= title %>" />
 <meta property="og:type" content="website" />
