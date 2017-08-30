@@ -796,15 +796,38 @@ var reportAbusePopup = {
     }
 };
 
-function updateView(e) {
-    try {
-        var reviewId = e.currentTarget.getAttribute("data-reviewid");
+function updateView(reviewId) {
+    try {       
         $.ajax({
             type: "POST",
             url: "/api/user-reviews/updateView/" + reviewId + "/",
             success: function (response) {               
             }
         });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+
+
+function readMore(event) {
+    try {
+        
+        var reviewId = event.currentTarget.getAttribute("data-reviewid");
+        $.ajax({
+            type: "GET",
+            url: "/api/user-reviews/summary/" + reviewId + '/',
+            success: function (response) {
+                if (response) {
+                    var result = JSON.parse(response);
+
+                    debugger;
+                }
+            }
+        });
+
+        updateView(reviewId);
     } catch (e) {
         console.log(e);
     }
