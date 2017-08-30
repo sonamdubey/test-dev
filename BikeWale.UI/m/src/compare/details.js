@@ -138,6 +138,10 @@ $('.dropdown-select-wrapper').on('click', '.dropdown-menu-list li', function () 
                 {
                     searchQuery += ("&bike" + (i + 1) + "=" + $(this).data("versionid"));
                 }
+                else if ($(this).hasClass('sponsored-bike-details-block') && i < 3)
+                {
+                    searchQuery += ("&sponseredBike=" + element[0].getAttribute('data-option-value'));
+                }
             });
             window.location.search = searchQuery + (searchQuery != "" ? "&source=" + compareSource : "");
         }       
