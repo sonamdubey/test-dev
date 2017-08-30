@@ -4033,12 +4033,15 @@
   <!--<Target Name="AfterBuild">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(DestFolder)%(RelativeDir)%(Filename)%(Extension)')" />
   </Target>-->
-<Target Name="CreateReleaseFolder" AfterTargets="BeforeBuild" DependsOnTargets="ExecuteGulpEvent" Condition="'$(Configuration)' != 'Debug'">
+  <Target Name="AfterBuild" DependsOnTargets="ExecuteGulpEvent" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Creating Release folder $(Configuration)" Importance="high" />
     <Exec Command="$(ProjectDir)..\Bikewale.ReleaseManagement\copyfiles\bin\$(Configuration)\copyfiles.exe $(DaysOld) $(ProjectDir)" WorkingDirectory="$(ProjectDir)" />
   </Target>
+
+
   <PropertyGroup>
     <PreBuildEvent>
+
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
@@ -4051,7 +4054,7 @@
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x64.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x86.dll" "$(ProjectDir)bin\"
 	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"-->			
-	</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
