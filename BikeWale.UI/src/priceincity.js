@@ -6,7 +6,7 @@ var $window, overallSpecsTabsContainer, modelSpecsTabsContentWrapper, modelSpecs
 
 docReady(function () {
 
-    $('.overall-specs-tabs-wrapper a').first().addClass('active');
+    $('.overall-specs-tabs-wrapper span').first().addClass('active');
    
     // ad blocker active than fallback method
     if (window.canRunAds === undefined) {
@@ -115,12 +115,12 @@ docReady(function () {
             var top = $(this).offset().top - overallSpecsTabsContainer.height(),
                 bottom = top + $(this).outerHeight();
             if (windowScrollTop >= top && windowScrollTop <= bottom) {
-                overallSpecsTabsContainer.find('a').removeClass('active');
+                overallSpecsTabsContainer.find('span').removeClass('active');
                 $('#modelSpecsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
 
                 $(this).addClass('active');
 
-                overallSpecsTabsContainer.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+                overallSpecsTabsContainer.find('span[data-href="#' + $(this).attr('id') + '"]').addClass('active');
             }
         });
 
@@ -379,3 +379,18 @@ function getBikeVersionName() {
     var bikeNameVersion = bikeName + '_' + bikeVersion;
     return bikeNameVersion;
 }
+
+$(".navtab").click(function () {
+
+    try {
+        var scrollSectionId = $(this).data('href');
+        $('html,body').animate({
+            scrollTop: $(scrollSectionId).offset().top - 40
+        },
+      'slow');
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+});

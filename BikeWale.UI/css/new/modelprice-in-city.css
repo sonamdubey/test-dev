@@ -221,21 +221,22 @@
 .overall-specs-tabs-wrapper {
     display: table;
     background: #fff;
+    cursor: pointer;
 }
 
-.overall-specs-tabs-wrapper a {
+.overall-specs-tabs-wrapper span {
     padding: 10px 20px;
     display: table-cell;
     font-size: 14px;
     color: #82888b;
 }
 
-.overall-specs-tabs-wrapper a:hover {
+.overall-specs-tabs-wrapper span:hover {
     text-decoration: none;
     color: #4d5057;
 }
 
-.overall-specs-tabs-wrapper a.active {
+.overall-specs-tabs-wrapper span.active {
     border-bottom: 3px solid #ef3f30;
     font-weight: bold;
     color: #4d5057;
