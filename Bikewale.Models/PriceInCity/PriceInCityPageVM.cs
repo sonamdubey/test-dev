@@ -13,6 +13,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by  :   Sumit Kate on 28 Mar 2017
     /// Description :   Price In city page view model
+    /// Modified by: Vivek Singh Tomar on 30th Aug 2017
+    /// Summary: Added property to hold city list for given model id
     /// </summary>
     public class PriceInCityPageVM : ModelBase
     {
@@ -80,7 +82,8 @@ namespace Bikewale.Models
 
         public EnumBikeBodyStyles BodyStyle { get; set; }
         public string BodyStyleText { get; set; } 
-
+        public IEnumerable<CityEntityBase> Cities { get; set; }
+       
     }
 
 }

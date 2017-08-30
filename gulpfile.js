@@ -611,6 +611,14 @@ var mvcPwaPageViews=[
     }
 ];
 
+var mvcAmpPageViews=[
+	{
+		folderName: 'Views/PriceInCity/',
+		fileName: 'Index_Mobile_Amp.cshtml',
+		stylesheet: '/m/css/amp/bwm-mpdelprice-in-city.css'
+	}
+];
+
 // replace css reference with internal css for MVC views
 gulp.task('replace-mvc-layout-css-reference', function () {
     var pageLength = mvcLayoutPages.length;
@@ -677,6 +685,22 @@ gulp.task('replace-css-reference', function () {
     }
 
     console.log('internal css reference replaced');
+});
+
+//replace mvc amp pageview css reference 
+gulp.task('replace-mvc-amp-pageviews-css-reference', function () {
+	var pageLength = mvcAmpPageViews.length;
+	
+	for(var i = 0; i < mvcAmpPageViews; i++) {
+		var element = mvcAmpPageViews[i],
+			style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
+            styleTag = '<style type="text/css">\n@charset "utf-8";' + style + '\n</style>',
+            styleLink = '<link rel="stylesheet" type="text/css" href="/' + element.stylesheet + '" />';
+
+        gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
+            .pipe(replace(styleLink, styleTag))
+            .pipe(gulp.dest(buildFolder + element.folderName));
+	}
 });
 // replace desktop frameworks js, ie8 fix
 gulp.task('bw-framework-js', function () {

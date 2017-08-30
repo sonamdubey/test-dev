@@ -42,5 +42,7 @@ namespace Bikewale.Models
         }
 
         public bool ExcludeContestSlug { get; set; }
+
+        public string Amp_Page_CSS { get; set; }
     }
 }
