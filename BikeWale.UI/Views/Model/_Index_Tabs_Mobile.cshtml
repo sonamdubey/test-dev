@@ -11,7 +11,11 @@
     }
     @if (Model.IsSimilarBikesAvailable)
     {
-        <li data-tabs="#similarContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SimilarBikes">Compare @Model.BodyStyleText</li>
+        <li data-tabs="#similarContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SimilarBikes">Similar @Model.BodyStyleText</li>
+    }
+    else if (Model.IsPopularBodyStyleAvailable)
+    {
+        <li data-tabs="#popularContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SimilarBikes">Popular @Model.BodyStyleText</li>
     }
     @if (Model.IsVersionSpecsAvailable)
     {

@@ -8,9 +8,9 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.manufacturecampaign;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
-
 using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
@@ -28,6 +28,7 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
+using Bikewale.Models.BestBikes;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Models.Used;
@@ -39,7 +40,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
-using Bikewale.Entities.Pages;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -160,7 +160,7 @@ namespace Bikewale.Models.BikeModels
                     CreateMetas();
 
                     BindVersionPriceListSummary();
-                    if(_objData.SimilarBikes != null)
+                    if (_objData.SimilarBikes != null)
                     {
                         _objData.SimilarBikes.BodyStyle = _objData.BodyStyle;
                     }
@@ -327,22 +327,6 @@ namespace Bikewale.Models.BikeModels
                         objDealer.TopCount = OtherDealersTopCount;
                         _objData.OtherDealers = objDealer.GetData();
 
-
-                        var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, _objData.VersionId, PQSourceEnum.Desktop_DPQ_Alternative);
-                        if (objSimilarBikes != null)
-                        {
-                            objSimilarBikes.TopCount = 9;
-                            objSimilarBikes.CityId = _cityId;
-                            _objData.SimilarBikes = objSimilarBikes.GetData();
-                            if (_objData.SimilarBikes != null)
-                            {
-                                _objData.SimilarBikes.Make = objMake;
-                                _objData.SimilarBikes.Model = _objData.ModelPageEntity.ModelDetails;
-                                _objData.SimilarBikes.VersionId = _objData.VersionId;
-                                _objData.SimilarBikes.Page = GAPages.Model_Page;
-                            }
-                        }
-
                         if (_cityId > 0)
                         {
                             var dealerData = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
@@ -390,32 +374,98 @@ namespace Bikewale.Models.BikeModels
                             _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
                         }
                     }
+
                     if (_objData.IsUpcomingBike)
                     {
-
                         _objData.objUpcomingBikes = BindUpCompingBikesWidget();
                     }
-                }
 
 
-                // Set body style
-                if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions!= null && _objData.ModelPageEntity.ModelVersions.Count > 0)
-                {
-                    var selected = _objData.ModelPageEntity.ModelVersions.Where(x => x.VersionId == _objData.VersionId).FirstOrDefault();
-                    if(selected != null)
+                    // Set body style
+                    if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Count > 0)
                     {
-                        _objData.BodyStyle = selected.BodyStyle;
-                        _objData.BodyStyleText = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
-                        _objData.BodyStyleTextSingular = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
+                        var selected = _objData.ModelPageEntity.ModelVersions.Where(x => x.VersionId == _objData.VersionId).FirstOrDefault();
+                        if (selected != null)
+                        {
+                            _objData.BodyStyle = selected.BodyStyle;
+                            _objData.BodyStyleText = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
+                            _objData.BodyStyleTextSingular = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
+                        }
                     }
+                    BindSimilarBikes(_objData);
                 }
-
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindControls");
             }
         }
+
+        private void BindSimilarBikes(ModelPageVM objData)
+        {
+            try
+            {
+                if (_modelId > 0)
+                {
+                    var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, _objData.VersionId, PQSourceEnum.Desktop_DPQ_Alternative);
+                    if (objSimilarBikes != null)
+                    {
+                        objSimilarBikes.TopCount = 9;
+                        objSimilarBikes.CityId = _cityId;
+                        objSimilarBikes.IsNew = _objData.IsNewBike;
+                        objSimilarBikes.IsUpcoming = _objData.IsUpcomingBike;
+                        objSimilarBikes.IsDiscontinued = _objData.IsDiscontinuedBike;
+                        _objData.SimilarBikes = objSimilarBikes.GetData();
+                        if (_objData.IsSimilarBikesAvailable)
+                        {
+                            _objData.SimilarBikes.Make = objData.ModelPageEntity.ModelDetails.MakeBase;
+                            _objData.SimilarBikes.Model = _objData.ModelPageEntity.ModelDetails;
+                            _objData.SimilarBikes.VersionId = _objData.VersionId;
+                            _objData.SimilarBikes.Page = GAPages.Model_Page;
+                        }
+                        else
+                        {
+                            BindPopularBodyStyle(_objData);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.Models.ModelPage.BindSimilarBikes({0})", _modelId));
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 30 Aug 2017
+        /// Description :   Bind Popular by BodyStyle
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindPopularBodyStyle(ModelPageVM objData)
+        {
+            try
+            {
+                if (_modelId > 0)
+                {
+                    var modelPopularBikesByBodyStyle = new PopularBikesByBodyStyle(_objBestBikes);
+                    modelPopularBikesByBodyStyle.CityId = _cityId;
+                    modelPopularBikesByBodyStyle.ModelId = _modelId;
+                    modelPopularBikesByBodyStyle.TopCount = 9;
+
+                    objData.PopularBodyStyle = modelPopularBikesByBodyStyle.GetData();
+                    objData.PopularBodyStyle.PQSourceId = PQSource;
+                    objData.PopularBodyStyle.ShowCheckOnRoadCTA = true;
+                    objData.BodyStyle = objData.PopularBodyStyle.BodyStyle;
+                    objData.BodyStyleText = objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
+                    objData.BodyStyleTextSingular = objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass ec = new ErrorClass(ex, String.Format("Bikewale.Models.ModelPage.BindPopularBodyStyle({0})", _modelId));
+            }
+        }
+
         /// <summary>
         /// created by :- Subodh Jain on 17 july 2017
         /// Summary added BindUserReviewSWidget
@@ -833,7 +883,7 @@ namespace Bikewale.Models.BikeModels
                                 _objData.VersionName = firstVer.VersionName;
                         }
                     }
-                    
+
                 }
             }
             catch (Exception ex)
