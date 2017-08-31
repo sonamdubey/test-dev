@@ -1018,6 +1018,7 @@
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewListingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewDetailsPage.cs" />
+    <Compile Include="Models\UserReviews\UserReviewOtherDetailsPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewPopupModel.cs" />
     <Compile Include="Models\UserReviews\UserReviewRatingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewSearchWidget.cs" />
@@ -3784,6 +3785,9 @@
     <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCities.cshtml.orig" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
+    <Content Include="Views\UserReview\RateBike_old.cshtml" />
+    <Content Include="Views\UserReview\WriteReview_old.cshtml" />
+    <Content Include="Views\UserReview\RateOtherDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

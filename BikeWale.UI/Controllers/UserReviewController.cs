@@ -156,6 +156,11 @@ namespace Bikewale.Controllers
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
         }
 
+               
+        public ActionResult RateOtherDetails(uint modelId, string q, uint? selectedRating)
+        {
+            return null; 
+        }
 
         /// <summary>
         /// Created by Subodh Jain on 10-04-2017
