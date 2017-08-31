@@ -812,13 +812,12 @@ function updateView(e) {
     label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + index + '|pageSource=' + $('#pageSource').val();
     cwTracking.trackUserReview("ReadMoreClick", label);
     try {
-        var reviewId = e.currentTarget.getAttribute("data-reviewid");
-        $.ajax({
-            type: "POST",
-            url: "/api/user-reviews/updateView/" + reviewId + "/",
-            success: function (response) {
-            }
-        });
+        var currentElement = $(e.currentTarget);
+        var reviewId = currentElement.data("reviewid");
+        if (reviewId != undefined)
+        {
+            $.post("/api/user-reviews/updateView/" + reviewId + "/");
+        }
     } catch (e) {
         console.log(e);
     }
