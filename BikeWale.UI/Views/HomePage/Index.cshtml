@@ -302,7 +302,7 @@
         </section>
                 }
     @Html.Partial("~/Views/UserReview/_SearchUserReviewMakeModel.cshtml", Model.RecentUserReviewsList)
-    
+
     <section>
         <div class="container section-bottom-margin">
             <div class="grid-12">
@@ -338,10 +338,74 @@
 
         </section>
     }
+    @if (Model.BestBikes != null)
+    {<section>
 
-    <section>
-        @Html.Partial("~/Views/BestBikes/_BestBikes.cshtml", Model.BestBikes)
-    </section>   
+        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">@string.Format("Best bikes of {0}", string.Format("{0} {1}", DateTime.Now.AddMonths(-1).ToString("MMMM"), DateTime.Now.AddMonths(-1).Year))</h2>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <div class="bw-tabs-panel content-box-shadow brand-budget-mileage-style-wrapper padding-bottom15">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul class="brand-collapsible-present">
+                            @if (Model.BestBikes.objBestScootersList != null && Model.BestBikes.objBestScootersList.Count() > 0)
+                            {
+                                <li class="active" data-tabs="compareTypeBike"><h3>Scooters</h3></li>}
+                            @if (Model.BestBikes.objBestMileageBikesList != null && Model.BestBikes.objBestMileageBikesList.Count() > 0)
+                            {
+                                <li data-tabs="compareTypeScooter"><h3>Mileage Bikes</h3></li>}
+                            @if (Model.BestBikes.objBestSportsBikeList != null && Model.BestBikes.objBestSportsBikeList.Count() > 0)
+                            {
+                                <li data-tabs="compareTypeCruiser"><h3>Sports</h3></li>}
+                            @if (Model.BestBikes.objBestCruiserBikesList != null && Model.BestBikes.objBestCruiserBikesList.Count() > 0)
+                            {
+                                <li data-tabs="compareTypeSport"><h3>Cruisers</h3></li>}
+                        </ul>
+                    </div>
+                    @if (Model.BestBikes.objBestScootersList != null && Model.BestBikes.objBestScootersList.Count() > 0)
+                    {
+                        <div id="compareTypeBike" class="bw-tabs-data">
+                            @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel.cshtml", Model.BestBikes.objBestScootersList)
+                            <div class="view-all-btn-container padding-top15">
+                                <a href="/best-scooters-in-india/" class="btn view-all-target-btn" title="Best Scooters"> View complete list<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.BestBikes.objBestMileageBikesList != null && Model.BestBikes.objBestMileageBikesList.Count() > 0)
+                    {
+                        <div id="compareTypeScooter" class="bw-tabs-data hide">
+                            @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel.cshtml", Model.BestBikes.objBestMileageBikesList)
+                            <div class="view-all-btn-container padding-top15">
+                                <a href="/best-mileage-bikes-in-india/" class="btn view-all-target-btn" title="Best Mileage Bikes"> View complete list<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.BestBikes.objBestSportsBikeList != null && Model.BestBikes.objBestSportsBikeList.Count() > 0)
+                    {
+                        <div id="compareTypeCruiser" class="bw-tabs-data hide">
+                            @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel.cshtml", Model.BestBikes.objBestSportsBikeList)
+                            <div class="view-all-btn-container padding-top15">
+                                <a href="/best-sports-bikes-in-india/" class="btn view-all-target-btn" title="Best Sports Bikes"> View complete list<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.BestBikes.objBestCruiserBikesList != null && Model.BestBikes.objBestCruiserBikesList.Count() > 0)
+                    {
+                        <div id="compareTypeSport" class="bw-tabs-data hide">
+                            @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel.cshtml", Model.BestBikes.objBestCruiserBikesList)
+                            <div class="view-all-btn-container padding-top15">
+                                <a href="/best-cruiser-bikes-in-india/" class="btn view-all-target-btn" title="Best Cruisers"> View complete list<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    }
+
+
 
     <section>
         <!--  Discover your bike code starts here -->
@@ -435,9 +499,9 @@
             </div>
             <div class="clear"></div>
         </div>
-    </section>    
+    </section>
 
-   
+
     <section>
         <!--  News Bikes latest updates code starts here -->
         <div class="@string.Format("container {0}", Model.TabCount == 0 ? "hide" : string.Empty)">
@@ -500,7 +564,7 @@
             </div>
             <div class="clear"></div>
         </div>
-      
+
     </section>
     <!-- Ends here -->
     <input type="hidden" id="source" value="@Model.Source" />

@@ -42,7 +42,7 @@ namespace BikewaleOpr.Service.Controllers.PageMetas
                 if (result)
                 {
                     if (modelId > 0)
-                        MemCachedUtil.Remove("BW_ModelDetail_v1_" + modelId);
+                        MemCachedUtil.Remove("BW_ModelDetail_" + modelId);
 
                     MemCachedUtil.Remove("BW_MakeDetails_" + makeId);
 

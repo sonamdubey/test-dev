@@ -10,7 +10,9 @@ namespace CityAutoSuggest
     {
         public string Id { get; set; }                                              //  Object Id
         public CitySuggestion mm_suggest { get; set; }                              //  City Type
-        public string name { get; set; }                                            //  Object Name
+        public string name { get; set; }
+        public string output { get; set; }                                          //  For Output
+        public Payload payload { get; set; }                                        //  Object Name
     }    
 
     public class CityTempList

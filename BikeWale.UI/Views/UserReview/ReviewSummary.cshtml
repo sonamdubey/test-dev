@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.UserReviewSummaryVM
+@using Bikewale.Utility;
 @{
     Model.IsHeaderFix = false;
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/user-review/write-review.css' />";
@@ -7,149 +8,153 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/rate-your-bike/{0}/", Model.Summary.Model.ModelId);
 }
-
-<section>
-    <div class="container section-bottom-margin">
-        <div class="grid-12">
-            <div class="content-box-shadow content-inner-block-20 margin-top20">
-                <div class="thankyou-card inline-block">
-                    <div class="icon-outer-container rounded-corner50">
-                        <div class="icon-inner-container rounded-corner50 text-center">
-                            <span class="bwsprite thankyou-icon"></span>
+@if (Model != null && Model.Summary != null)
+{
+    <section>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow content-inner-block-20 margin-top20">
+                    <div class="thankyou-card inline-block">
+                        <div class="icon-outer-container rounded-corner50">
+                            <div class="icon-inner-container rounded-corner50 text-center">
+                                <span class="bwsprite thankyou-icon"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="model-details-grid inline-block">
-                    <p class="font18 text-black text-bold margin-bottom5 ">Thank you, @Model.Summary.CustomerName!</p>
-                    @if (!string.IsNullOrEmpty(Model.Summary.Description))
-                    {
-                        <p class="font14 text-light-grey">Your review has been recorded. We will inform you once it is published.</p>
-                    }
-                    else
-                    {<p class="font14 text-light-grey">Your rating has been recorded. We look forward to your detailed review about this bike.</p> }
-
-                </div>
-            </div>
-        </div>
-        <div class="clear"></div>
-    </div>
-</section>
-
-<section>
-    <div id="review-summary-card" class="container section-bottom-margin font14">
-        <div class="grid-12">
-            <div class="content-box-shadow content-inner-block-20">
-                <h1 class="font18 margin-bottom10">Your review for @string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)</h1>
-                <p class="padding-bottom10 border-solid-bottom text-light-grey margin-bottom20">Check, how others will see your review!</p>
-
-                <div class="grid-@string.Format("{0}", string.IsNullOrEmpty(Model.Summary.Tips) && !(Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0) && !string.IsNullOrEmpty(Model.Summary.Description)?"12 omega":"8 padding-right20 border-solid-right") alpha">
-                    <div id="bike-rating-box">
-                        <div class="circle-placeholder">
-                            <span class="bwsprite @string.Format("feedback-{0}",Model.Summary.OverallRating.Value)"></span>
-                        </div>
-                        <div class="rating-placeholder">
-                            <h3 class="font20 font-bold">@Model.Summary.OverallRating.Heading</h3>
-                            <p class="margin-top5">@Model.Summary.OverallRating.Description</p>
-
-                            <ul class="item-rating-list answer-star-list no-float">
-                                @for (int i = 0; i < 5; i++)
-                                {
-                                    if (i < Model.Summary.OverallRating.Value)
-                                    {
-                                        <li class="bwsprite star-one"></li>
-                                    }
-                                    else
-                                    {
-                                        <li class="bwsprite star-zero"></li>
-                                    }
-                                }
-                            </ul>
-                            <div class="clear"></div>
-
-                        </div>
-                    </div>
-
-
-
-                    @if (!string.IsNullOrEmpty(Model.Summary.Description))
-                    {
-                        <h2 class="font18 margin-bottom10">@Model.Summary.Title</h2>
-                        <div class="full-review-box text-light-grey">
-
-                            <p>@Html.Raw(Model.Summary.Description)</p>
-                        </div>
-                        <a href="@Model.Summary.ReturnUrl" class="btn btn-orange btn-220-40 margin-top10">Done</a>
-
-
-                    }
-                    @if ((!string.IsNullOrEmpty(Model.Summary.Tips) || (Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0)) && string.IsNullOrEmpty(Model.Summary.Description))
-                    {
-                        <p class="font15 text-bold text-black margin-bottom10">Tell us more about your experience!</p>
-                        <p class="text-slate-grey margin-bottom15">Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. 1,000.</p>
-                        <a href="@Model.WriteReviewLink" class="btn btn-white btn-220-40">Write a review</a>
-                        <a href="@Model.Summary.ReturnUrl" class="btn btn-orange btn-220-40 margin-left15">Done</a>
-
-                    }
-
-                </div>
-
-                <div class="grid-4 padding-left20 omega">
-                    @if (Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0)
-                    {
-                        <h3 class="font15 text-black margin-bottom20">You also rated</h3>
-                        <ul class="user-rated-list padding-bottom5 opacity-active">
-                            @foreach (var question in Model.Summary.Questions)
-                            {
-                                var objRating = question.Rating.First(x => x.Value == question.SelectedRatingId.ToString()); int ratingValue = Convert.ToInt32(objRating.Value);
-                                <li class="list-item">
-                                    <p class="category-label leftfloat">@question.Heading</p>
-                                    <p class="category-rating rightfloat padding-left5 text-truncate">@objRating.Text</p>
-                                    <div class="clear"></div>
-                                </li>
-                            }
-                        </ul>
-                        if (!string.IsNullOrEmpty(Model.Summary.Tips))
+                    <div class="model-details-grid inline-block">
+                        <p class="font18 text-black text-bold margin-bottom5 ">Thank you, @Model.Summary.CustomerName!</p>
+                        @if (!string.IsNullOrEmpty(Model.Summary.Description))
                         {
-                            <div class="margin-bottom20 border-solid-bottom"></div>
+                            <p class="font14 text-light-grey">Your review has been recorded. We will inform you once it is published.</p>
                         }
-                    }
-
-                    @if (!string.IsNullOrEmpty(Model.Summary.Tips))
-                    {
-
-                        <h3 class="font15 text-black margin-bottom10">Tips for other riders</h3>
-                        <div class="text-light-grey collapsible-content">
-                            <p class="collapsible-main-content">@Model.Summary.TipsDescriptionSmall</p>
-                            <p class="collapsible-more-content">@Model.Summary.Tips</p>
-                            @if (Model.Summary.Tips.Length > 150)
-                            {
-                                <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
-                            }
-
-                        </div>
-                    }
-                    @if (string.IsNullOrEmpty(Model.Summary.Tips) && !(Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0) && string.IsNullOrEmpty(Model.Summary.Description))
-                    {
-                        <p class="font15 text-bold text-black margin-bottom10">Tell us more about your experience!</p>
-                        <p class="text-slate-grey margin-bottom15">Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. 1,000.</p>
-                        <a href="@Model.WriteReviewLink" class="btn btn-white btn-220-40">Write a review</a>
-
-                    }
+                        else
+                        {<p class="font14 text-light-grey">Your rating has been recorded. We look forward to your detailed review about this bike.</p> }
+                    </div>
                 </div>
-
-
-                <div class="clear"></div>
-                @if (string.IsNullOrEmpty(Model.Summary.Tips) && !(Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0) && string.IsNullOrEmpty(Model.Summary.Description))
-                {
-                    <a href="@Model.Summary.ReturnUrl" class="btn btn-orange btn-220-40 margin-left15">Done</a>
-                }
             </div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-    </div>
-    <input id="pageSource" type="hidden" value="@Model.Summary.ReturnUrl" />
-    <div id="review-summary-page"></div>
-</section>
+    </section>
+
+    if (!string.IsNullOrEmpty(Model.Summary.Description))
+    {
+        <section>
+            <div class="container card-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <div class="content-inner-block-20">
+                            <div class="margin-bottom15 padding-bottom15 border-solid-bottom">
+                                <p class="font14 text-light-grey margin-bottom10">Check, how others will see your review!</p>
+                                <span class="rating-badge" data-rate-bg="@Model.Summary.OverallRating.Value"><span class="bwsprite star-white"></span>@Model.Summary.OverallRating.Value</span>
+                                <p class="font18 text-black text-bold inline-block margin-right5"><span itemprop="name">@Model.Summary.Title.Truncate(45)</span></p>
+                            </div>
+                            <div class="padding-right20 @((Model.RatingQuestions != null && Model.RatingQuestions.Count() > 0)?"grid-9 alpha border-light-right":"grid-12")">
+                                <div class="font14 text-slate-grey">
+                                    @Html.Raw(Model.Summary.Description)
+                                    @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Count() > 0)
+                                    {
+                                        <ul class="rating-circle-list">
+                                            @foreach (var q in Model.ReviewQuestions)
+                                            {
+                                                if (q.SelectedRatingId > 0)
+                                                {
+                                                    <li>
+                                                        <div class="rating-circle circle-rate-@q.SelectedRatingId">
+                                                            <p class="circle-label">@q.SelectedRatingId</p>
+                                                            <span class="rating-progress">
+                                                            </span>
+                                                        </div>
+                                                        <p class="list-item-label">@q.Heading</p>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    }
+                                    @if (Model.Summary.Tips.Length > 0)
+                                    {
+                                        <p class="font14 font-bold text-black margin-top20 margin-bottom10">Tips for @Model.Summary.Make.MakeName @Model.Summary.Model.ModelName</p>
+                                        <p class="margin-bottom15">@Model.Summary.Tips</p>
+                                    }
+                                </div>
+                                <a href="@Model.Summary.ReturnUrl" class="btn btn-orange btn-180-34 margin-top20">Done</a>
+                            </div>
+                            <div class="grid-3 omega padding-left20">
+                                <ul>
+                                    @foreach (var q in Model.RatingQuestions)
+                                    {
+                                        <li class="margin-bottom10">
+                                            <span class="bwsprite questionId-@q.Id"></span>
+                                            <div class="inline-block">
+                                                <p class="font10 text-xt-light">@q.MinHeading</p>
+                                                <p class="font14 text-slate-grey">@q.SelectedRatingText</p>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+    }
+    else
+    {
+        <section>
+            <div class="container card-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <div class="content-inner-block-20">
+                            <div class="margin-bottom15 padding-bottom15 border-solid-bottom">
+                                <h1 class="font18 margin-bottom10">Your review for @string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)</h1>
+                                <p class="font14 text-light-grey margin-bottom10">Check, how others will see your review!</p>
+                            </div>
+                            <div class="padding-right20 @((Model.RatingQuestions != null && Model.RatingQuestions.Count() > 0)?"grid-9 alpha border-light-right":"grid-12")">
+
+                                <div id="bike-rating-box">
+                                    <div class="circle-placeholder">
+                                        <span class="bwsprite @string.Format("feedback-{0}", Model.Summary.OverallRating.Value)"></span>
+                                    </div>
+                                    <div class="rating-placeholder">
+                                        <h3 class="font20 font-bold">@Model.Summary.OverallRating.Heading</h3>
+                                        <p class="margin-top5">@Model.Summary.OverallRating.Description</p>
+                                        <ul class="item-rating-list answer-star-list no-float">
+                                            @for (int i = 0; i < 5; i++)
+                                            {
+                                                if (i < Model.Summary.OverallRating.Value)
+                                                {
+                                                    <li class="bwsprite star-one"></li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="bwsprite star-zero"></li>
+                                                }
+                                            }
+                                        </ul>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <a href="@Model.Summary.ReturnUrl" class="btn btn-orange btn-180-34 margin-top20">Done</a>
+                            </div>
+                            <div class="grid-3 omega padding-left20">
+                                <p class="font15 text-bold text-black margin-bottom10">Tell us more about your experience!</p>
+                                <p class="text-slate-grey margin-bottom15">Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. 1,000.</p>
+                                <a href="@Model.WriteReviewLink" class="btn btn-white btn-220-40">Write a review</a>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+
+}
 <script type="text/javascript">
     docReady(function () {
         var handleBrowserBack = function (prevPage, curPage) {

@@ -25,5 +25,6 @@ namespace Bikewale.Models
         public string FBImage { get; set; }
         public bool EnableOG { get; set; }
         public string OGImage { get; set; }
+        public string SchemaJSON { get; set; }
     }
 }

@@ -8,11 +8,16 @@ namespace CityAutoSuggest
 {
     public class CitySuggestion
     {
-        public List<string> input { get; set; }                                     //  For Inputs
-        public string output { get; set; }                                          //  For Output
-        public Payload payload { get; set; }                                        //  Define Payload
-        public int weight { get; set; }                                             //  Weight For Ordering
+        public IList<string> input { get; set; }                                     //  For Inputs
+                                           //  Define Payload
+        public int weight { get; set; } //  Weight For Ordering
+        public Context contexts { get; set; } 
     }
+    public class Context
+    {
+        public IList<string> types { get; set; }                         //  Context For new pricequote and user review
+    }
+
     public class Payload
     {
         public int CityId { get; set; }                                             //  CityId for Url
