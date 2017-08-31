@@ -8,6 +8,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
+using Bikewale.Utility;
 using System;
 using System.Web;
 namespace Bikewale.Models.UserReviews
@@ -75,7 +76,7 @@ namespace Bikewale.Models.UserReviews
                         objData.BikeName = string.Format("{0} {1}", objData.RatingsInfo.Make.MakeName, objData.RatingsInfo.Model.ModelName);
                         objData.PageUrl = string.Format("/{0}-bikes/{1}/reviews/", objData.RatingsInfo.Make.MaskingName, objData.RatingsInfo.Model.MaskingName);
                         objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/", objData.RatingsInfo.Make.MaskingName, objData.RatingsInfo.Model.MaskingName);
-                        objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/reviews/", objData.RatingsInfo.Make.MaskingName, objData.RatingsInfo.Model.MaskingName);                      
+                        objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/reviews/", objData.RatingsInfo.Make.MaskingName, objData.RatingsInfo.Model.MaskingName);
                     }
 
                     BindWidgets(objData);
@@ -98,7 +99,7 @@ namespace Bikewale.Models.UserReviews
         private void BindWidgets(UserReviewListingVM objData)
         {
             try
-            {                
+            {
 
                 InputFilters filters = null;
 
@@ -142,8 +143,8 @@ namespace Bikewale.Models.UserReviews
                             objData.ReviewsInfo.Model = objData.RatingsInfo.Model;
                             objData.ReviewsInfo.IsDiscontinued = objData.RatingsInfo.IsDiscontinued;
                             objUserReviews.ReviewsInfo = objData.ReviewsInfo;
-                        }                        
-                            objData.UserReviews = objUserReviews.GetData();                        
+                        }
+                        objData.UserReviews = objUserReviews.GetData();
 
                         objData.UserReviews.WidgetHeading = string.Format("Reviews on {0}", objData.RatingsInfo.Model.ModelName);
 
@@ -152,8 +153,9 @@ namespace Bikewale.Models.UserReviews
                     }
                     objData.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objData.ReviewsInfo.Model.ModelName)).GetData();
 
-                    objData.SimilarBikeReviewWidget = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, SimilarBikeReviewWidgetCount);
-
+                    objData.SimilarBikesWidget = new UserReviewSimilarBikesWidgetVM();
+                    objData.SimilarBikesWidget.SimilarBikes = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, GlobalCityArea.GetGlobalCityArea().CityId, SimilarBikeReviewWidgetCount);
+                    objData.SimilarBikesWidget.GlobalCityName = GlobalCityArea.GetGlobalCityArea().City;
                 }
             }
             catch (Exception ex)
@@ -210,16 +212,16 @@ namespace Bikewale.Models.UserReviews
                     objPage.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName);
 
                     uint curPageNo = PageNumber.HasValue ? PageNumber.Value : 1;
-                    
 
-                    if(curPageNo > 1)
+
+                    if (curPageNo > 1)
                     {
                         objPage.PageMetaTags.PreviousPageUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/page/{2}/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName, curPageNo - 1);
                     }
-                    if((curPageNo * _pageSize) < _totalResults)
+                    if ((curPageNo * _pageSize) < _totalResults)
                     {
                         objPage.PageMetaTags.NextPageUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/page/{2}/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName, curPageNo + 1);
-                    }                     
+                    }
                 }
             }
             catch (Exception ex)

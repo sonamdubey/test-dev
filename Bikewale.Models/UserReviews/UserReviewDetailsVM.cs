@@ -1,5 +1,4 @@
-﻿using Bikewale.Entities;
-using Bikewale.Entities.UserReviews;
+﻿using Bikewale.Entities.UserReviews;
 using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 
@@ -17,7 +16,7 @@ namespace Bikewale.Models
         public uint RatingQuestionCount { get; set; }
         public BikeInfoVM GenericBikeWidgetData { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }
-        public IEnumerable<SimilarBikeUserReview> SimilarBikeReviewWidget { get; set; }
+        public UserReviewSimilarBikesWidgetVM SimilarBikesWidget { get; set; }
         public uint ReviewId { get; set; }
         public UserReviewsSearchVM UserReviews { get; set; }
         public string PageUrl { get; set; }

@@ -19,5 +19,7 @@ namespace Bikewale.Entities
         public double OverAllRating { get; set; }
         public uint NumberOfRating { get; set; }
         public uint NumberOfReviews { get; set; }
+        public uint ExShowroomPriceMumbai { get; set; }
+        public uint OnRoadPriceInCity { get; set; }
     }
 }

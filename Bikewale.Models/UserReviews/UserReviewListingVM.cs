@@ -1,6 +1,5 @@
 ﻿
 using Bikewale.Entities.UserReviews;
-using System.Collections.Generic;
 namespace Bikewale.Models.UserReviews
 {
     /// <summary>
@@ -18,7 +17,7 @@ namespace Bikewale.Models.UserReviews
         public bool IsReviewsAvailable { get { return ReviewsInfo != null && ReviewsInfo.TotalReviews > 0; } }
         public UserReviewsSearchVM UserReviews { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }
-        public IEnumerable<Entities.SimilarBikeUserReview> SimilarBikeReviewWidget { get; set; }
+        public UserReviewSimilarBikesWidgetVM SimilarBikesWidget { get; set; }
         public string PageUrl { get; set; }
     }
 }

@@ -102,6 +102,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
-        IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviews(uint modelId, uint totalRecords);
+        IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviewsWithPrice(uint modelId, uint totalRecords);
+        IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviewsWithPriceInCity(uint modelId, uint cityId, uint totalRecords);
     }
 }
