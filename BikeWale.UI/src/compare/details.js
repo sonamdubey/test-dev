@@ -78,7 +78,25 @@ docReady(function() {
     });
     var getUrl = function ()
     {
-       
+        var queryStringSponser = window.location.search;
+        if (queryStringSponser != "")
+        {
+            var index = -1;
+            var obj = queryStringSponser.split("&");
+            $.each(obj, function (i, val) {
+                if (val.match(/sponseredBike/g))
+                    index = i;
+
+            });
+            if (index > -1)
+            {
+                    queryStringSponser =index > 0? "&"+obj[index]:"&sponseredBike=" + obj[index].split("=")[1];             
+
+            }
+
+
+        }
+
         $.each(bikeDetails, function (i, val) {
             val.index = i + 1;
 
@@ -103,7 +121,7 @@ docReady(function() {
                 querystring += ("bike" + (val.index) + "=" + val.versionId);
 
         });
-        window.location = '/comparebikes/' + result + querystring + "&source=" + '7';
+        window.location = '/comparebikes/' + result + querystring + queryStringSponser + "&source=" + '7';
 
     }
     $('.compare-bike-list').on('click', '.add-bike-form', function () {
@@ -304,7 +322,7 @@ docReady(function() {
             else if ($(selectBox).hasClass('select-version')) {
                 var listItem = selectBox.closest('.list-item'),
                     list = listItem.closest('.compare-box-list')[0];
-                if (listItem[0].getAttribute('data-value') && bikeDetails[Number(listItem[0].getAttribute('data-value'))].versionId != elementValue) {
+                if (listItem[0].getAttribute('data-value') && bikeDetails[Number(listItem[0].getAttribute('data-value'))]!=null&&bikeDetails[Number(listItem[0].getAttribute('data-value'))].versionId != elementValue) {
                     $.each(bikeDetails, function (i, val) {
                         if (val.versionId == elementValue)
                             sameversion = true;
@@ -321,8 +339,39 @@ docReady(function() {
                     }
                 }
                 else {
-                    listItem.first().find('.error-text').hide();
+                    if (JSON.parse(Base64.decode(document.getElementById("bike-comparison-grid").getAttribute("data-basicInfo"))).length-1 == listItem[0].getAttribute('data-value')) {
+                        var currentURL = window.location.href;
+                        var queryString = window.location.search;
+                        if (queryString != "") {
+                            var index = 0;
+                            var obj = queryString.split("&");
+                            $.each(obj, function (i, val) {
+                                if (val.match(/sponseredBike/g))
+                                    index = i;
+                                    
+                            });
+                            if (index > 0)
+                                obj[index] = "sponseredBike=" + elementValue;
+                            else
+                                obj.push("sponseredBike=" + elementValue);
+
+                            currentURL = window.location.pathname + obj.join('&');
+
+                        }
+                           
+                        else
+                            currentURL += "?sponseredBike=" + elementValue;
+                        window.location = currentURL;
+                    }
+                    else {
+                        listItem.first().find('.error-text').hide();
                     compareBox.getVersionData(elementValue, listItem);
+
+                    }
+                   
+                 
+
+                   
                 }
             }
         },
@@ -373,7 +422,6 @@ docReady(function() {
             });
         },
         getVersionData: function (versionId, selectBox) {
-           
             isSameVersion = false;
             $.each(bikeDetails, function (i, val) {
                 if (val.versionId == versionId)
