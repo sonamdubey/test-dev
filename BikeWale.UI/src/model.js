@@ -817,12 +817,16 @@ function readMore(e) {
             $.ajax({
                 type: "GET",
                 dataType: 'json',
-                url: "/api/user-reviews/summary/" + reviewId + '/',
+				url: "/api/user-reviews/summary/" + reviewId + '/',
+				beforeSend: function() {
+					$('#userReviewSpinner').show();
+				},
                 success: function (response) {
                     if (response) {
-                        var moreContentEle = ele.parent().find(".more-content p").first();
+                        var moreContentEle = ele.closest('.collapsible-content').find(".more-description");
                         if (moreContentEle) moreContentEle.html(response.description);
-                        updateView(reviewId);
+						updateView(reviewId);
+						$('#userReviewSpinner').hide();
                     }
                 }
             });
