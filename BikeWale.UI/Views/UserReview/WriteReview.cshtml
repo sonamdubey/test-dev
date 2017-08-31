@@ -25,124 +25,76 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="contest-slug-sm contest-slug-container margin-bottom20">
+                            <span class="trophy-a2a2a2-14"></span>
+                            <p class="contest-slug__title">Rate &amp; write a detailed review and stand a chance to win Amazon vouchers worth &#x20B9; 1,000. Help others in making the right decision.</p>
+                        </div>
                         <div class="padding-15-20">
-							<div class="contest-slug-sm slug-grey-info margin-bottom20">
-								<span class="trophy-a2a2a2-14"></span>
-								<p class="contest-slug__label">Great! A detailed review can win you Amazon vouchers worth &#x20B9; 1,000. Share your detailed experience with the world.</p>
-							</div>
+                            <div class="padding-15-20 main-container">
+                                <div class="grid-2">
+                                    <ul class="review-progress">
+                                        <li class="completed"><p class="review-progress__text">Rate this Bike</p></li>
+                                        <li class="active"><p class="review-progress__text">Write Review</p></li>
+                                        <li><p class="review-progress__text">Other details</p></li>
+                                    </ul>
+                                </div>
+                                <div class="grid-10 alpha">
+                                    <h2 class="font15 margin-bottom10">@Model.Rating.ResponseHeading</h2>
+                                    <p class="text-slate-grey margin-bottom10">Tell us more about it. You may consider writing about:</p>
+                                    <ol class="numeric-list margin-bottom20">
+                                        <li>Buying experience</li>
+                                        <li>Riding experience</li>
+                                        <li>Details about looks, performance etc.</li>
+                                        <li>Servicing and maintenance</li>
+                                        <li>Pros and Cons</li>
+                                    </ol>
 
-                            <div class="grid-8 alpha">
-                                <h2 class="font18 margin-bottom10">@Model.Rating.ResponseHeading</h2>
-                                <p class="text-slate-grey margin-bottom10">Tell us more about it. You may consider writing about:</p>
-                                <ol class="numeric-list margin-bottom20">
-                                    <li>Buying experience</li>
-                                    <li>Riding experience</li>
-                                    <li>Details about looks, performance etc.</li>
-                                    <li>Servicing and maintenance</li>
-                                    <li>Pros and Cons</li>
-                                </ol>
+                                    <div class="textarea-box margin-bottom15">
+                                        <textarea data-bind="textInput: detailedReview" id="reviewDesc" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.ReviewErrorText)) ? Model.SubmitResponse.ReviewErrorText : "")" rows="4" cols="80" maxlength="7900" placeholder="@Html.Raw("Write a detailed review & stand a chance to win Amazon vouchers worth &#x20B9; 1,000.")"></textarea>
 
-                                <div class="textarea-box margin-bottom15">
-                                    <textarea data-bind="textInput: detailedReview" id="reviewDesc" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.ReviewErrorText)) ? Model.SubmitResponse.ReviewErrorText : "")" rows="4" cols="80" maxlength="7900" placeholder="@Html.Raw("Write a detailed review & stand a chance to win Amazon vouchers worth &#x20B9; 1,000.")"></textarea>
+                                        <div data-bind="visible: !detailedReviewFlag() && descLength() < 300" class="review-char-count position-abt font12">
+                                            <span data-bind="visible: descLength() > 0"><span data-bind="text: descLength"></span>/</span><span data-bind="text: reviewCharLimit"></span>&nbsp;min
+                                        </div>
 
-                                    <div data-bind="visible: !detailedReviewFlag() && descLength() < 300" class="review-char-count position-abt font12">
-                                        <span data-bind="visible: descLength() > 0"><span data-bind="text: descLength"></span>/</span><span data-bind="text: reviewCharLimit"></span>&nbsp;min
+                                        <div data-bind="visible: detailedReviewFlag" class="textarea-error position-abt">
+                                            <span class="error-text" data-bind="text: detailedReviewError"></span>
+                                        </div>
                                     </div>
 
-                                    <div data-bind="visible: detailedReviewFlag" class="textarea-error position-abt">
-                                        <span class="error-text" data-bind="text: detailedReviewError"></span>
-                                    </div>
-                                </div>
+                                    <h3 class="font15 text-black margin-bottom10">Give a title to your review</h3>
+                                    <p class="text-slate-grey margin-bottom20">A catchy title will grab eyeballs, and more people will read your review.</p>
 
-                                <h3 class="font15 text-black margin-bottom10">Give a title to your review</h3>
-                                <p class="text-slate-grey margin-bottom20">A catchy title will grab eyeballs, and more people will read your review.</p>
-
-                                <div class="input-box form-control-box" data-bind="css: reviewTitle().length > 0 ? 'not-empty' : ''">
-                                    <input type="text" name="reviewTitle" id="getReviewTitle" maxlength="149" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.TitleErrorText)) ? Model.SubmitResponse.TitleErrorText : "")" data-bind="textInput: reviewTitle" />
-                                    <label for="getReviewTitle">Your title</label>
-                                    <span class="boundary"></span>
-                                    <span class="error-text"></span>
-                                </div>
-
-                                <h3 class="font15 text-black margin-bottom10">Can you share a little more about this bike?<span class="text-light-grey text-unbold font14">&nbsp;(Optional)</span></h3>
-                                <p class="margin-bottom5 text-bold">Mileage</p>
-                                    <p class="text-slate-grey margin-bottom20">What mileage does your bike offer? Enter a numeric value between 0 & 150.</p>
-                                    <div class="input-box form-control-box" data-bind="css: bikeMileage() && bikeMileage().length > 0 ? 'not-empty' : ''">
-                                        <input name="mileage" type="text" id="getMileage" data-bind="textInput: bikeMileage" maxlength="190">
-                                        <label for="getMileage">Your mileage (kmpl)</label>
+                                    <div class="input-box form-control-box" data-bind="css: reviewTitle().length > 0 ? 'not-empty' : ''">
+                                        <input type="text" name="reviewTitle" id="getReviewTitle" maxlength="149" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.TitleErrorText)) ? Model.SubmitResponse.TitleErrorText : "")" data-bind="textInput: reviewTitle" />
+                                        <label for="getReviewTitle">Your title</label>
                                         <span class="boundary"></span>
                                         <span class="error-text"></span>
                                     </div>
-                                
-                                <ul id="bike-review-questions" data-make-model="@string.Format("{0}_{1}_", Model.Make.MakeName, Model.Model.ModelName)" class="review-question-list margin-bottom20" data-bind="foreach: reviewQuestions">                                   
-                                    <li class="list-item question-type-text">
-                                        <p class="item-title" data-bind="text: heading"></p>
-                                        <p class="item-subtitle" data-bind="text: description"></p>
 
-                                        <div class="answer-radio-list" data-bind="foreach: rating">
-                                            <input type="radio" data-bind="attr: {ratingId : 'review-' + $parent.qId + '-' + ($index() + 1), questiontId : $parent.qId, id: 'review-' + $parentContext.$index() + '-' + ($index() + 1), name: 'review-q-' + $parentContext.$index(), value: $index() + 1}" data-type="text" />
-                                            <label data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + ($index() + 1), name: 'review-q-' + $parentContext.$index(), 'data-value': $index() + 1}, text: ratingText"></label>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </li>                                   
-                                </ul>
+                                    
+                                    <div class="clear"></div>
 
+                                    <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
+                                    <input type="hidden" id="formattedDescripton" name="reviewDescription" />
+                                    <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
+                                    <input type="hidden" name="encodedId" value="@Utils.Utils.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
+                                    <input type="hidden" name="userName" value="@Model.UserName" />
+                                    <input type="hidden" name="emailId" value="@Model.EmailId" />
+                                    <input type="hidden" name="makeName" value="@Model.Make.MakeName" />
+                                    <input type="hidden" name="modelName" value="@Model.Model.ModelName" />
+                                    <input type="hidden" name="encodedString" value="@Model.EncodedWriteUrl" />
+                                    <input type="hidden" name="queryEncoded" value="@Model.EncodedWriteUrl" />
+                                    <input type="hidden" name="isDesktop" value="true" />
+                                    <input type="hidden" id="overAllRatings" value="@Model.Rating.Value" />
+                                    <input type="hidden" id="pageSourceId" value="@Model.PageSourceId" />
+                                    <input type="hidden" id="contestSrc" value="@Model.ContestSrc" />
+
+                                    @Html.AntiForgeryToken()
+                                    <input id="submitReviewBtn" type="submit" class="btn btn-orange btn-220-40" value="Submit review" data-bind="click: submitReview" />
+
+                                </div>
                                 <div class="clear"></div>
-
-                                <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
-                                <input type="hidden" id="formattedDescripton" name="reviewDescription" />
-                                <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
-                                <input type="hidden" name="encodedId" value="@Utils.Utils.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
-                                <input type="hidden" name="userName" value="@Model.UserName" />
-                                <input type="hidden" name="emailId" value="@Model.EmailId" />
-                                <input type="hidden" name="makeName" value="@Model.Make.MakeName" />
-                                <input type="hidden" name="modelName" value="@Model.Model.ModelName" />
-                                <input type="hidden" name="encodedString" value="@Model.EncodedWriteUrl" />
-                                <input type="hidden" name="queryEncoded" value="@Model.EncodedWriteUrl" />
-                                <input type="hidden" name="isDesktop" value="true" />
-                                <input type="hidden" id="overAllRatings" value="@Model.Rating.Value" />
-                                <input type="hidden" id="pageSourceId" value="@Model.PageSourceId" />
-                                <input type="hidden" id="contestSrc" value="@Model.ContestSrc" />
-                                 <h3 class="font15 margin-bottom10">Maintenance tips for other riders</h3>
-                                <p class="text-light-grey margin-bottom20">Share key tips which you think were useful while owning/riding this bike.</p>
-
-                                <div class="input-box form-control-box" data-bind="css: reviewTips().length > 0 ? 'not-empty' : ''">
-                                    <input name="reviewTips" type="text" id="getReviewTip" maxlength="1000" data-bind="textInput: reviewTips" />
-                                    <label for="getReviewTip">Eg. Change oil after 3,000 kms, Use tubeless tyres etc</label>
-                                    <span class="boundary"></span>
-                                </div>
-                               
-                                @Html.AntiForgeryToken()
-                                <input id="submitReviewBtn" type="submit" class="btn btn-orange btn-220-40" value="Submit review" data-bind="click: submitReview" />
-
                             </div>
-                            <div class="grid-4 omega">
-                                <div id="review-sidebar">
-                                    <div class="sidebar-circle-placeholder">
-                                        <div class="sidebar-circle">
-                                            <span class="review-sprite write-icon"></span>
-                                        </div>
-                                    </div>
-                                    <div class="sidebar-content">
-                                        <p class="font18 text-default text-bold text-uppercase text-center">Share your experience</p>
-                                        <ul class="sidebar-list">
-                                            <li>
-                                                <span class="bwsprite ui-search-icon"></span>
-                                                <p>6 million+ people visit BikeWale to research about bikes every month</p>
-                                            </li>
-                                            <li>
-                                                <span class="review-sprite user-review-lg"></span>
-                                                <p>More than 2 lakh people read reviews every month on BikeWale</p>
-                                            </li>
-                                            <li>
-                                                <span class="bwsprite info-icon"></span>
-                                                <p>Help others in making the right decision!</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
                         </div>
                     </div>
                 </div>
@@ -152,6 +104,98 @@
             <span id="review-question-list" class="hide">@Model.JsonQuestionList</span>
             <span id="previousPageUrl" class="hide">@Model.PreviousPageUrl</span>
         </section>
+
+        <section>
+            <div id="question-review-form" class="container section-bottom-margin font14 margin-top20">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <div class="content-box-shadow padding-15-20">
+                            <p class="font22 text-black text-bold inline-block">You rated @Model.Make.MakeName @Model.Model.ModelName</p>
+                            <div class="inline-block user-rating-box">
+                                <span class="bwsprite star-one"></span>
+                                <span class="inline-block">
+                                    <span class="font18 text-bold">@Model.Rating.Value</span>&nbsp;<span class="font12 text-xx-light">/&nbsp;5</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="contest-slug-sm contest-slug-container margin-bottom20">
+                            <span class="trophy-a2a2a2-14"></span>
+                            <p class="contest-slug__title">Rate &amp; write a detailed review and stand a chance to win Amazon vouchers worth &#x20B9; 1,000. Help others in making the right decision.</p>
+                        </div>
+                        <div class="padding-15-20">
+                            <div class="padding-15-20 main-container">
+                                <div class="grid-2">
+                                    <ul class="review-progress">
+                                        <li class="completed"><p class="review-progress__text">Rate this Bike</p></li>
+                                        <li class="active"><p class="review-progress__text">Write Review</p></li>
+                                        <li><p class="review-progress__text">Other details</p></li>
+                                    </ul>
+                                </div>
+                                <div class="grid-10 alpha">
+                                    <h3 class="font15 text-black margin-bottom10">Can you share a little more about this bike?<span class="text-light-grey text-unbold font14">&nbsp;(Optional)</span></h3>
+                                    <p class="margin-bottom5 text-bold">Mileage</p>
+                                    <p class="text-slate-grey margin-bottom20">What mileage does your bike offer? Enter a numeric value between 0 & 150.</p>
+                                    <div class="input-box form-control-box" data-bind="css: bikeMileage() && bikeMileage().length > 0 ? 'not-empty' : ''">
+                                        <input name="mileage" type="text" id="getMileage" data-bind="textInput: bikeMileage" maxlength="190">
+                                        <label for="getMileage">Your mileage (kmpl)</label>
+                                        <span class="boundary"></span>
+                                        <span class="error-text"></span>
+                                    </div>
+
+                                    <ul id="bike-review-questions" data-make-model="@string.Format("{0}_{1}_", Model.Make.MakeName, Model.Model.ModelName)" class="review-question-list margin-bottom20" data-bind="foreach: reviewQuestions">
+                                        <li class="list-item question-type-text">
+                                            <p class="item-title" data-bind="text: heading"></p>
+                                            <p class="item-subtitle" data-bind="text: description"></p>
+
+                                            <div class="answer-radio-list" data-bind="foreach: rating">
+                                                <input type="radio" data-bind="attr: {ratingId : 'review-' + $parent.qId + '-' + ($index() + 1), questiontId : $parent.qId, id: 'review-' + $parentContext.$index() + '-' + ($index() + 1), name: 'review-q-' + $parentContext.$index(), value: $index() + 1}" data-type="text" />
+                                                <label data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + ($index() + 1), name: 'review-q-' + $parentContext.$index(), 'data-value': $index() + 1}, text: ratingText"></label>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </li>
+                                    </ul>
+
+                                    <div class="clear"></div>
+
+                                    <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
+                                    <input type="hidden" id="formattedDescripton" name="reviewDescription" />
+                                    <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
+                                    <input type="hidden" name="encodedId" value="@Utils.Utils.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
+                                    <input type="hidden" name="userName" value="@Model.UserName" />
+                                    <input type="hidden" name="emailId" value="@Model.EmailId" />
+                                    <input type="hidden" name="makeName" value="@Model.Make.MakeName" />
+                                    <input type="hidden" name="modelName" value="@Model.Model.ModelName" />
+                                    <input type="hidden" name="encodedString" value="@Model.EncodedWriteUrl" />
+                                    <input type="hidden" name="queryEncoded" value="@Model.EncodedWriteUrl" />
+                                    <input type="hidden" name="isDesktop" value="true" />
+                                    <input type="hidden" id="overAllRatings" value="@Model.Rating.Value" />
+                                    <input type="hidden" id="pageSourceId" value="@Model.PageSourceId" />
+                                    <input type="hidden" id="contestSrc" value="@Model.ContestSrc" />
+                                    <h3 class="font15 margin-bottom10">Maintenance tips for other riders</h3>
+                                    <p class="text-light-grey margin-bottom20">Share key tips which you think were useful while owning/riding this bike.</p>
+
+                                    <div class="input-box form-control-box" data-bind="css: reviewTips().length > 0 ? 'not-empty' : ''">
+                                        <input name="reviewTips" type="text" id="getReviewTip" maxlength="1000" data-bind="textInput: reviewTips" />
+                                        <label for="getReviewTip">Eg. Change oil after 3,000 kms, Use tubeless tyres etc</label>
+                                        <span class="boundary"></span>
+                                    </div>
+
+                                    @Html.AntiForgeryToken()
+                                    <input id="submitReviewBtn" type="submit" class="btn btn-orange btn-220-40" value="Submit review" data-bind="click: submitReview" />
+
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <span id="review-page-data" class="hide">@Model.JsonReviewSummary</span>
+            <span id="review-question-list" class="hide">@Model.JsonQuestionList</span>
+            <span id="previousPageUrl" class="hide">@Model.PreviousPageUrl</span>
+        </section>
+
     </form>
 }
 <script type="text/javascript">
