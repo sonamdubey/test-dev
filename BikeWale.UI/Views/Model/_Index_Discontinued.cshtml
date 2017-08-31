@@ -48,10 +48,7 @@
                             <div class="position-rel">
                                 <span class="model-ribbon discontinued-ribbon">Discontinued</span>
                             </div>
-                            @if (Model.AreModelPhotosAvailable)
-                            {
-                                @Html.Partial("~/Views/Model/_Index_ModelGallery.cshtml", Model)
-                            }
+                            @Html.Partial("~/Views/Model/_Index_ModelGallery.cshtml", Model)
                         </div>
                         <div class="clear"></div>
                     </div>

@@ -80,10 +80,7 @@
                             }
                         </div>
                         <div class="grid-5 alpha margin-bottom20">
-                            @if (Model.AreModelPhotosAvailable)
-                            {
-                                @Html.Partial("~/Views/Model/_Index_ModelGallery.cshtml", Model)
-                            }
+                            @Html.Partial("~/Views/Model/_Index_ModelGallery.cshtml", Model)
                         </div>
                         <div class="clear"></div>
                         @if (Model.IsDealerDetailsExists && Model.IsPremiumDealer)
