@@ -799,13 +799,12 @@ var reportAbusePopup = {
 
 function updateView(e) {
     try {
-        var reviewId = e.currentTarget.getAttribute("data-reviewid");
-        $.ajax({
-            type: "POST",
-            url: "/api/user-reviews/updateView/" + reviewId + "/",
-            success: function (response) {
-            }
-        });
+        var currentElement = $(e.currentTarget);
+        var reviewId = currentElement.data("reviewid");
+        if (reviewId != undefined)
+        {
+            $.post("/api/user-reviews/updateView/" + reviewId + "/");
+        }
     } catch (e) {
         console.log(e);
     }
