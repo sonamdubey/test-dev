@@ -693,8 +693,7 @@ gulp.task('replace-mvc-amp-pageviews-css-reference', function () {
 	
 	for(var i = 0; i < pageLength; i++) {
 		var element = mvcAmpPageViews[i],
-			style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
-            styleTag = '<style amp-custom>' + style + '</style>',
+			styleTag = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
             styleLink = "<link rel='stylesheet' type='text/css' href='/" + element.stylesheet + "' />";
 
         gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
