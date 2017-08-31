@@ -33,9 +33,7 @@
                         <p>@Html.Raw(System.StrinHtmlHelpers.StripHtml(review.Description).TruncateHtml(270))</p>
                     </div>
                     <div class="more-content">
-                        <div>
-                            <p>@Html.Raw(review.Description)</p>
-                        </div>
+                        <p><!-- more content goes here --></p>
                         @if (review.Questions != null)
                         {
                             <ul class="rating-circle-list">
@@ -75,7 +73,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <a href="javascript:void(0)" class="read-more-target bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" onclick="readMore(event)" data-reviewId="@review.ReviewId">Read more</a>
+                    <span class="read-more-target bw-ga text-link" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" onclick="readMore(event)" data-reviewId="@review.ReviewId">Read more</span>
                 </div>
               
             </div>

@@ -809,25 +809,24 @@ function updateView(reviewId) {
     }
 }
 
-
-
-function readMore(event) {
+function readMore(e) {
     try {
-        
-        var reviewId = event.currentTarget.getAttribute("data-reviewid");
-        $.ajax({
-            type: "GET",
-            url: "/api/user-reviews/summary/" + reviewId + '/',
-            success: function (response) {
-                if (response) {
-                    var result = JSON.parse(response);
-
-                    debugger;
+        var ele = $(event.currentTarget);
+        var reviewId = ele.data("reviewid");
+        if (reviewId) {
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                url: "/api/user-reviews/summary/" + reviewId + '/',
+                success: function (response) {
+                    if (response) {
+                        var moreContentEle = ele.parent().find(".more-content p").first();
+                        if (moreContentEle) moreContentEle.html(response.description);
+                        updateView(reviewId);
+                    }
                 }
-            }
-        });
-
-        updateView(reviewId);
+            });
+        }
     } catch (e) {
         console.log(e);
     }
