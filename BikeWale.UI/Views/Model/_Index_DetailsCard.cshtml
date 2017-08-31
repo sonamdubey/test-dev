@@ -37,10 +37,10 @@
     }
     @if (Model.ModelPageEntity.ModelVersionSpecs != null || (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)))
     {
-        <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data">
+        <div id="modelSpecsFeaturesAboutContent" class="bw-model-tabs-data">
             @if (Model.ModelPageEntity.ModelVersionSpecs != null)
             {
-                <div class="content-box-shadow card-bottom-margin font14">
+                <div id ="modelSpecsFeaturesContent" class="content-box-shadow card-bottom-margin font14">
                     @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures.cshtml", Model)
                 </div>
             }
@@ -84,7 +84,7 @@
                 </div>
                             }
         </div>
-                            }
+      }
 
     @if (Model.IsUserReviewsAvailable)
     {
@@ -180,7 +180,7 @@
     }
 
 
-    <div id="videosAndServicecCenterContent" class="bw-model-tabs-data">
+    <div id="videosAndServiceCenterContent" class="bw-model-tabs-data">
         @if (Model.IsVideosAvailable)
         {
             <div id="modelVideosContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
@@ -256,6 +256,7 @@
         }
     </div>
 
+    
     <!-- Used bikes widget -->
     @if (Model.IsUsedBikesAvailable)
     {
