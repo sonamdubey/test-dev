@@ -15,7 +15,7 @@ namespace Bikewale.Controllers
         {
             PoupCityAreaVM objPopupCityAreaVM = new PoupCityAreaVM();
 
-            return View("~/Views/m/Shared/_PopupWidget.cshtml");
+            return View("~/Views/m/Shared/_PopupWidget.cshtml", objPopupCityAreaVM);
         }
     }
 }

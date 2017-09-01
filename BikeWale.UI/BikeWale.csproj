@@ -3773,6 +3773,7 @@
     <Content Include="Views\PriceInCity\_PriceInTopCities.cshtml.orig" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\Index_Mobile_Amp.cshtml" />
+    <Content Include="Views\PopUp\PopUpCityArea_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3801,7 +3802,6 @@
     <Folder Include="Views\BikeInfo\" />
     <Folder Include="Views\Content\News\Amp\" />
     <Folder Include="Views\GenericBikeInfo\" />
-    <Folder Include="Views\PopUp\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
