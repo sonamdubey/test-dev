@@ -56,7 +56,7 @@ namespace Bikewale.Cache.BikeData
             return versions;
         }
 
-        
+
         /// <summary>
         /// Created by  :    Sushil Kumar on 28th June 2016
         /// Summary     :   Gets the versions by type and modelid and cityId
@@ -70,11 +70,11 @@ namespace Bikewale.Cache.BikeData
             List<BikeVersionsListEntity> versions = null;
             int timeSpan = 24;
 
-            string key = String.Format("BW_VersionsByType_{0}_MO_{1}{2}", (int)requestType, modelId);
+            string key = String.Format("BW_VersionsByType_{0}_MO_{1}", (int)requestType, modelId);
 
-            if(cityId.HasValue && cityId.Value > 0)
+            if (cityId.HasValue && cityId.Value > 0)
             {
-                key = string.Format("{0}_CI_{1}",key,cityId);
+                key = string.Format("{0}_CI_{1}", key, cityId);
                 timeSpan = 1;
             }
             try
