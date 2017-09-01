@@ -16,13 +16,7 @@
     <div class="inline-block">
         @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.ReviewRate > 0 && Model.ModelPageEntity.ModelDetails.RatingCount > 0)
         {
-            <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-                <meta itemprop="ratingCount" content="@Model.ModelPageEntity.ModelDetails.RatingCount">
-                <meta itemprop="ratingValue" content="@Model.ModelPageEntity.ModelDetails.ReviewRate">
-                <meta itemprop="worstRating" content="1">
-                <meta itemprop="bestRating" content="5">
-                <meta itemprop="itemreviewed" content="@Model.BikeName" />
-
+            <span>
                @if (@Model.ModelPageEntity.ModelDetails.ReviewCount > 0)
                {
                 <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="leftfloat margin-right10 padding-left10 font12 ">
