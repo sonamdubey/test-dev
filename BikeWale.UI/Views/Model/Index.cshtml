@@ -33,19 +33,21 @@
         <div class="container">
             <div class="grid-12">
                 <div class="breadcrumb margin-bottom15">
-                    <ul>
-                        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <a href="/" itemprop="url">
-                                <span itemprop="title">Home</span>
+                    <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                            <a href="/" itemprop="item">
+                                <span itemprop="name">Home</span>
                             </a>
+                            <meta itemprop="position" content="1" />
                         </li>
                         @if (Model.IsModelDetails && Model.ModelPageEntity.ModelDetails.MakeBase != null)
                         {
-                            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
-                                <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/" itemprop="url">
-                                    <span itemprop="title">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Bikes</span>
+                                <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/" itemprop="item">
+                                    <span itemprop="name">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Bikes</span>
                                 </a>
+                                <meta itemprop="position" content="2" />
                             </li>
                         }
                         <li>
