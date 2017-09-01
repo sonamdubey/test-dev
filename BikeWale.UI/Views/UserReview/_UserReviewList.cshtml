@@ -1,6 +1,7 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewsSearchVM
 @using Bikewale.Entities.UserReviews;
 @using Bikewale.Utility;
+
 @if (Model != null&&Model.ObjQuestionValue!=null && Model.ObjQuestionValue.QuestionsList!=null)
 {<ul class="rating-circle-list overall-circle-list">
         @foreach (var obj in Model.ObjQuestionValue.QuestionsList)
@@ -14,7 +15,8 @@
                 <p class="list-item-label">@obj.QuestionHeading</p>
             </li>
         }
-    </ul> }
+    </ul> 
+}
 
 <div class="position-rel">
 	<ul class="user-review-list">
@@ -34,7 +36,7 @@
 							<p>@Html.Raw(System.StrinHtmlHelpers.StripHtml(review.Description).TruncateHtml(270))</p>
 						</div>
 						<div class="more-content">
-							<div class="more-description"><!-- more content goes here --></div>
+							<div class="more-description" data-description="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(review.Description)"></div>
 							@if (review.Questions != null)
 							{
 								<ul class="rating-circle-list">

@@ -2,7 +2,7 @@ var assistFormSubmit, assistGetName, assistGetEmail, assistGetMobile;
 var getOnRoadPriceBtn, onroadPriceConfirmBtn;
 var getOffersClick = false, selectDropdownBox;
 var $window, modelDetailsFloatingCard, modelSpecsTabsContentWrapper;
-var abusereviewId;
+var abusereviewId,userreviewsListStr;
 
 // colour carousel
 var colourCarousel, carouselColorList;
@@ -810,26 +810,16 @@ function updateView(reviewId) {
 }
 
 function readMore(e) {
+
     try {
+        $('#userReviewSpinner').show();
         var ele = $(event.currentTarget);
         var reviewId = ele.data("reviewid");
         if (reviewId) {
-            $.ajax({
-                type: "GET",
-                dataType: 'json',
-				url: "/api/user-reviews/summary/" + reviewId + '/',
-				beforeSend: function() {
-					$('#userReviewSpinner').show();
-				},
-                success: function (response) {
-                    if (response) {
-                        var moreContentEle = ele.closest('.collapsible-content').find(".more-description");
-                        if (moreContentEle) moreContentEle.html(response.description);
-						updateView(reviewId);
-						$('#userReviewSpinner').hide();
-                    }
-                }
-            });
+            var moreContentEle = ele.closest('.collapsible-content').find(".more-description"),desc = Base64.decode(moreContentEle.data("description"));
+            if (moreContentEle) moreContentEle.html(desc);
+            updateView(reviewId);
+            $('#userReviewSpinner').hide();
         }
     } catch (e) {
         console.log(e);

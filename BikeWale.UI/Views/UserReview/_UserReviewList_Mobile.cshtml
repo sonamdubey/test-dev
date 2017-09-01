@@ -41,12 +41,12 @@
                 <div class="main-content">
                     <div class="font14 text-slate-grey margin-bottom10">
                         <p>@FormatDescription.TruncateDescription(review.Description, 150)</p>
-                        <a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-reviewId="@review.ReviewId" onclick="updateView(event)">Read more</a>
+                        <a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-reviewId="@review.ReviewId" onclick="readMore(event)">Read more</a>
                     </div>
                 </div>
                 <div class="more-content">
                     <div class="padding-right20 padding-left20 font14 text-slate-grey margin-bottom10">
-                        <p class="inline" data-bind="html: $data.description">@Html.Raw(review.Description)</p>
+                        <p class="more-description inline" data-bind="html: $data.description" data-description="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(review.Description)"></p>
                     </div>
 
                     @if (review.RatingQuestionsCount > 0)
@@ -82,18 +82,6 @@
                             (<span id="downvoteCount-@review.ReviewId" class="btn-count">@Format.FormatNumbers(review.DownVotes)</span>)
                         </button>
                     </div>
-					
-                    @*<div class="grid-7 alpha">
-                        <span>Was this review helpful?</span>
-                        <div class="item-stats-grid">
-                            <button id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)">Yes</button>
-                            <span id="upvoteCount-@review.ReviewId" class="btn-count">@Format.FormatNumbers(review.UpVotes)</span>
-                        </div>
-                        <div class="item-stats-grid">
-                            <button id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="downVoteListReview(event)">No</button>
-                            <span id="downvoteCount-@review.ReviewId" class="btn-count">@Format.FormatNumbers(review.DownVotes)</span>
-                        </div>
-                    </div>*@
                 </div>
             </div>
             <div class="clear"></div>
