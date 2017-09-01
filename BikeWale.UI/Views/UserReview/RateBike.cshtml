@@ -44,7 +44,21 @@
                                             <div class="clear"></div>
 
                                         </div>
-                                    </div>
+                                    </div>                                    
+
+                                    <ul id="rate-bike-questions" class="margin-bottom20 border-solid-bottom" data-bind="foreach: ratingQuestions">
+                                        <!-- ko if: displayType == 2 -->
+                                        <li class="question-field question-type-text" data-bind="visible: visibility, attr:{id: 'question-' + qId, 'data-sub-question': subQuestionId, 'data-required': isRequired}">
+                                            <p class="question-item text-bold" data-bind="text: heading"></p>
+                                            <p class="error-text" data-bind="" style="display: none">This is a compulsory field.</p>
+                                            <div class="answer-radio-list" data-bind="foreach: rating">
+                                                <input type="radio" data-bind="attr: {questionId:$parentContext.$index()+1, id: 'q-' + $parentContext.$index() + '-' + $index(), name: 'rating-q-' + $parentContext.$index(), value: ratingValue,'data-checked' : (ratingValue == $parentContext.$data.selectedRatingId) ? 'true' : 'false'}" />
+                                                <label data-bind="attr: {for: 'q-' + $parentContext.$index() + '-' + $index(), 'data-value': ratingValue}, text: ratingText"></label>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </li>
+                                        <!-- /ko -->
+                                    </ul>
 
                                     <div class="margin-bottom5">
                                         <div class="margin-bottom20">
@@ -71,19 +85,6 @@
                                         <div class="clear"></div>
                                     </div>
 
-                                    <ul id="rate-bike-questions" class="margin-bottom20 border-solid-bottom" data-bind="foreach: ratingQuestions">
-                                        <!-- ko if: displayType == 2 -->
-                                        <li class="question-field question-type-text" data-bind="visible: visibility, attr:{id: 'question-' + qId, 'data-sub-question': subQuestionId, 'data-required': isRequired}">
-                                            <p class="question-item text-bold" data-bind="text: heading"></p>
-                                            <p class="error-text" data-bind="" style="display: none">This is a compulsory field.</p>
-                                            <div class="answer-radio-list" data-bind="foreach: rating">
-                                                <input type="radio" data-bind="attr: {questionId:$parentContext.$index()+1, id: 'q-' + $parentContext.$index() + '-' + $index(), name: 'rating-q-' + $parentContext.$index(), value: ratingValue,'data-checked' : (ratingValue == $parentContext.$data.selectedRatingId) ? 'true' : 'false'}" />
-                                                <label data-bind="attr: {for: 'q-' + $parentContext.$index() + '-' + $index(), 'data-value': ratingValue}, text: ratingText"></label>
-                                            </div>
-                                            <div class="clear"></div>
-                                        </li>
-                                        <!-- /ko -->
-                                    </ul>
                                     <div>
                                         <input type="hidden" id="overallratingQuestion" value="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Model.OverAllRatingText)" />
                                         <input type="hidden" id="rating-question" value="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Model.RatingQuestion)" />
