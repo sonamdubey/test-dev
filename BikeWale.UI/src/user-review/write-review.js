@@ -160,6 +160,7 @@ docReady(function () {
                 vmRateBike.feedbackSubtitle(descText);
 
                 vmRateBike.ratingCount(reviewOverallRatingId);
+                vmRateBike.clickEventRatingCount(reviewOverallRatingId);
                 ratingBox.find('.answer-star-list input[type=radio][value="' + reviewOverallRatingId + '"]').trigger("click");
             }
 
