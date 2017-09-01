@@ -272,6 +272,7 @@ namespace Bikewale.Controllers
                     //Convert article content to the amp content
                     ViewBag.NewsContent = objNews.Content.ConvertToAmpContent();
 
+
                     if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
                     {
                         ViewBag.NextPageTitle = objNews.NextArticle.Title;

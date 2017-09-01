@@ -188,7 +188,7 @@ namespace Bikewale.Models.Features
                 objPage.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objPage.objFeature.Title);
                 objPage.PageMetaTags.Keywords = string.Format("features, stories, travelogues, specials, drives.");
 
-                //SetPageJSONSchema(objPage);
+                SetPageJSONSchema(objPage);
             }
             catch (Exception ex)
             {

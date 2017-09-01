@@ -231,7 +231,7 @@ namespace Bikewale.Models
                 if (objData.ArticleDetails.NextArticle != null && objData.ArticleDetails.NextArticle.ArticleUrl != null)
                     objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/news/{2}-{3}.html", BWConfiguration.Instance.BwHostUrl, objData.BaseUrl, objData.ArticleDetails.NextArticle.BasicId, objData.ArticleDetails.NextArticle.ArticleUrl);
 
-                //SetPageJSONSchema(objData);
+                SetPageJSONSchema(objData);
             }
             catch (Exception ex)
             {
