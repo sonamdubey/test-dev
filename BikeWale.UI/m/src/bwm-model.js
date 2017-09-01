@@ -810,27 +810,39 @@ function applyLikeDislikes() {
     }
 }
 
-function logBhrighu(e) {
-
-    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
-
-    label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + index + '|pageSource=' + $('#pageSource').val();
-    cwTracking.trackUserReview("TitleClick", label);
+function logBhrighu(itemNo, eventName) {
+    label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + (++itemNo) + '|pageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview(eventName, label);
 }
-function updateView(e) {
-    // for bhrigu updation
-    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
 
-    label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + index + '|pageSource=' + $('#pageSource').val();
-    cwTracking.trackUserReview("ReadMoreClick", label);
+function updateView(reviewId) {
     try {
-        var reviewId = e.currentTarget.getAttribute("data-reviewid");
-        $.ajax({
-            type: "POST",
-            url: "/api/user-reviews/updateView/" + reviewId + "/",
-            success: function (response) {
-            }
-        });
+        if (reviewId)
+        {
+            $.post("/api/user-reviews/updateView/" + reviewId + "/");
+        }
+       
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function readMore(e) {
+
+    try {
+        var ele = $(event.currentTarget);
+        var reviewId = ele.data("reviewid");
+        if (reviewId) {
+			var moreContentEle = ele.closest('.collapsible-content').find(".more-description"),
+				desc = Base64.decode(moreContentEle.data("description")), itemNo = ele.data("id");
+
+            if (moreContentEle) {
+				moreContentEle.html(desc);
+			}
+			
+            updateView(reviewId);
+            logBhrighu(itemNo, "ReadMoreClick");
+        }
     } catch (e) {
         console.log(e);
     }
