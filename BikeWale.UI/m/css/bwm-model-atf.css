@@ -746,7 +746,7 @@ a.btn:hover {
     display: table;
     text-align: center;
     background: #f5f5f5;
-    margin: 0 auto;
+    margin: 10px auto;
     position: relative;
     overflow: hidden;
 }
