@@ -812,14 +812,17 @@ function updateView(reviewId) {
 function readMore(e) {
 
     try {
-        $('#userReviewSpinner').show();
         var ele = $(event.currentTarget);
         var reviewId = ele.data("reviewid");
         if (reviewId) {
-            var moreContentEle = ele.closest('.collapsible-content').find(".more-description"),desc = Base64.decode(moreContentEle.data("description"));
-            if (moreContentEle) moreContentEle.html(desc);
+			var moreContentEle = ele.closest('.collapsible-content').find(".more-description"),
+				desc = Base64.decode(moreContentEle.data("description"));
+
+            if (moreContentEle) {
+				moreContentEle.html(desc);
+			}
+			
             updateView(reviewId);
-            $('#userReviewSpinner').hide();
         }
     } catch (e) {
         console.log(e);

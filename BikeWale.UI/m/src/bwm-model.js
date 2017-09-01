@@ -830,8 +830,13 @@ function readMore(e) {
         var ele = $(event.currentTarget);
         var reviewId = ele.data("reviewid");
         if (reviewId) {
-            var moreContentEle = ele.closest('.collapsible-content').find(".more-description"), desc = Base64.decode(moreContentEle.data("description"));
-            if (moreContentEle) moreContentEle.html(desc);
+			var moreContentEle = ele.closest('.collapsible-content').find(".more-description"),
+				desc = Base64.decode(moreContentEle.data("description"));
+
+            if (moreContentEle) {
+				moreContentEle.html(desc);
+			}
+			
             updateView(reviewId);
         }
     } catch (e) {
