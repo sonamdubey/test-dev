@@ -810,15 +810,13 @@ function applyLikeDislikes() {
     }
 }
 
-function updateView(e) {
+function updateView(reviewId) {
     try {
-        var reviewId = e.currentTarget.getAttribute("data-reviewid");
-        $.ajax({
-            type: "POST",
-            url: "/api/user-reviews/updateView/" + reviewId + "/",
-            success: function (response) {
-            }
-        });
+        if (reviewId)
+        {
+            $.post("/api/user-reviews/updateView/" + reviewId + "/");
+        }
+       
     } catch (e) {
         console.log(e);
     }
