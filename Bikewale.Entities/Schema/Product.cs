@@ -51,5 +51,8 @@ namespace Bikewale.Entities.Schema
         [JsonProperty("model", NullValueHandling = NullValueHandling.Ignore)]
         public string Model { get; set; }
 
+        [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
+        public IEnumerable<string> Color { get; set; }
+
     }
 }

@@ -37,6 +37,7 @@ using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
 using Bikewale.Utility.GenericBikes;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -180,7 +181,6 @@ namespace Bikewale.Models.BikeModels
         /// Created By  : Sangram Nandkhile on 31st Aug 2017
         /// Description : To load json schema for the list items
         /// </summary>
-        /// <param name="obj"></param>
         private void SetPageJSONLDSchema()
         {
             try
@@ -227,12 +227,96 @@ namespace Bikewale.Models.BikeModels
                         HighPrice = (uint)_objData.ModelPageEntity.ModelDetails.MaxPrice
                     };
                 }
+                product.Color = _objData.ModelPageEntity.ModelColors.Select(x => x.ColorName);
+
+                SetAdditionalProperties(product);
+
                 _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(product);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ModelPage.SetPageJSONLDSchema => BikeName: {0}", _objData.BikeName));
             }
+        }
+
+        /// <summary>
+        /// Sets the additional properties for JSONLD
+        /// </summary>
+        /// <param name="product">The product.</param>
+        private void SetAdditionalProperties(Product product)
+        {
+            try
+            {
+                List<AdditionalProperty> listSpecs = new List<AdditionalProperty>();
+                AdditionalProperty property = default(AdditionalProperty);
+
+                if (_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
+                {
+                    property = new AdditionalProperty()
+                    {
+                        Name = "Mileage",
+                        Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall),
+                        UnitText = "KMPL"
+
+                    };
+                    listSpecs.Add(property);
+                }
+
+                if (_objData.ModelPageEntity.ModelVersionSpecs.Displacement > 0)
+                {
+                    property = new AdditionalProperty()
+                    {
+                        Name = "Displacement",
+                        Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.Displacement),
+                        UnitText = "CC"
+
+                    };
+                    listSpecs.Add(property);
+                }
+
+                if (_objData.ModelPageEntity.ModelVersionSpecs.MaxPower > 0)
+                {
+                    property = new AdditionalProperty()
+                    {
+                        Name = "Max Power",
+                        MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.MaxPower),
+                        UnitText = "BHP"
+
+                    };
+                    listSpecs.Add(property);
+
+                }
+                if (_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight > 0)
+                {
+                    property = new AdditionalProperty()
+                    {
+                        Name = "Weight",
+                        Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight),
+                        UnitText = "KG"
+
+                    };
+                }
+                listSpecs.Add(property);
+
+                if (_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
+                {
+                    property = new AdditionalProperty()
+                    {
+                        Name = "Top speed",
+                        MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed),
+                        UnitText = "KMPH"
+
+                    };
+                    listSpecs.Add(property);
+                }
+
+                product.AdditionalProperty = listSpecs;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeModels.ModelPage --> SetAdditionalProperties()");
+            }
+
         }
 
         private void BindVersionPriceListSummary()
