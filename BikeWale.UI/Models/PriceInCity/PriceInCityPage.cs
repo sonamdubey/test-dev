@@ -690,7 +690,7 @@ namespace Bikewale.Models
                 if (objPQOutput != null)
                 {
                     objVM.PQId = objPQOutput.PQId;
-                    var bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSource);
+                    //var bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSource);
                     if (objPQOutput.IsDealerAvailable)
                     {
                         try
