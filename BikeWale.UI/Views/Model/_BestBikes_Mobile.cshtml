@@ -10,7 +10,7 @@
             <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName))" class="list-item-target" title="@Bike.Make.MakeName @Bike.Model.ModelName">
                 <div class="item-image-block inline-block">
                     <span class="item-rank-label">#@i</span>
-                    <img class="lazy" src="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" />
+                    <img class="lazy" src="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" alt="@Bike.Make.MakeName @Bike.Model.ModelName" title="@Bike.Make.MakeName @Bike.Model.ModelName" />
                 </div>
                 <div class="item-details-block inline-block">
                     <p class="font14 text-bold text-default text-truncate">@Bike.Make.MakeName @Bike.Model.ModelName</p>
