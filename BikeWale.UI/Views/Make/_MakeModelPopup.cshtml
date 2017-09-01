@@ -84,7 +84,7 @@
                 bKey = modelCacheKeyPrefix + cityId;
                 if (bwcache.get(bKey)) return true;
                 else return false;
-            }
+            };
 
             self.onModelChange = function () {
                 if (!isNaN(self.selectedModel()) && self.selectedModel() != "0") {
@@ -131,7 +131,7 @@
 
                 $("#divModelsPopup .placeholder-loading-text").hide();
                 $("#divModelsPopup .divModelsSelectPopup").show();
-            }
+            };
 
             self.onClickWriteReview = function () {
                 var isValidMakeModel = false;
@@ -145,7 +145,7 @@
                 if (isValidMakeModel)
                     window.location = "/rate-your-bike/" + self.selectedModel() + "/?q=" + $('#querystring').data('query');
 
-            }
+            };
         };
 
         ko.applyBindings(makeModelPopupModel, $("#divUserReviewBikePopup")[0]);
