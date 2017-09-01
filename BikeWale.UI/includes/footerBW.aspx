@@ -41,24 +41,24 @@
                 <a href="/" class="bwsprite bw-footer-icon" title="Bikewale"></a>
             </div>
             <div class="grid-4">
-                <a href="https://www.carwale.com/" target="_blank" class="bwsprite cw-footer-icon" title="CarWale"></a>
+                <a href="https://www.carwale.com/" target="_blank" rel="noopener" class="bwsprite cw-footer-icon" title="CarWale"></a>
                 <p class="cw-logo-label">ask the experts</p>
             </div>
             <div class="grid-4">
-                <a href="https://www.cartrade.com/" target="_blank" class="bwsprite ct-footer-icon" title="CarTrade"></a>
+                <a href="https://www.cartrade.com/" target="_blank" rel="noopener" class="bwsprite ct-footer-icon" title="CarTrade"></a>
             </div>
             <div class="clear"></div>
         </div>
         <div class="grid-4">
             <p class="font18 text-white margin-bottom20">Join us on</p>
             <div class="footer-social-icons">
-                    <a href="https://www.facebook.com/Bikewale.Official" target="_blank" title="Facebook" class="margin-right30 fa-fb" rel="nofollow">
+                    <a href="https://www.facebook.com/Bikewale.Official" target="_blank" rel="noopener" title="Facebook" class="margin-right30 fa-fb" rel="nofollow">
                     <span class="bwsprite fa-facebook"></span>
                 </a>
-                    <a href="https://twitter.com/bikewale" target="_blank" title="Twitter" class="margin-right30 fa-tw" rel="nofollow">
+                    <a href="https://twitter.com/bikewale" target="_blank" rel="noopener" title="Twitter" class="margin-right30 fa-tw" rel="nofollow">
                     <span class="bwsprite fa-twitter"></span>
                 </a>
-                    <a href="https://plus.google.com/115751055341108541383/posts" target="_blank" class="fa-gp" title="Google+" rel="nofollow">
+                    <a href="https://plus.google.com/115751055341108541383/posts" target="_blank" rel="noopener" class="fa-gp" title="Google+" rel="nofollow">
                     <span class="bwsprite fa-google-plus"></span>
                 </a>
             </div>
@@ -80,7 +80,7 @@
         <div class="grid-3 footer-company-section-three">
             <p class="font18 text-white margin-bottom30">Download Mobile App</p>
             <div class="margin-bottom15">
-                <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Desktopsite%2520Footer" target="_blank" class="bwsprite gplay-icon margin-right5" rel="nofollow"></a>
+                <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Desktopsite%2520Footer" target="_blank" rel="noopener" class="bwsprite gplay-icon margin-right5" rel="nofollow"></a>
                 </div>
         </div>
         <div class="clear"></div>

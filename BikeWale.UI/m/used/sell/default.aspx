@@ -310,7 +310,7 @@
 
                         <div id="terms-content" class="row-bottom-margin padding-top10">
                             <span class="bwmsprite unchecked-box" data-bind="click: terms, css: termsCheckbox ? 'active' : ''"></span>
-                            <p>I agree with BikeWale sell bike <a href="/TermsConditions.aspx" target="_blank">Terms & Conditions</a>, <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a> *.<br /><br />I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.</p>
+                            <p>I agree with BikeWale sell bike <a href="/TermsConditions.aspx" target="_blank" rel="noopener">Terms & Conditions</a>, <a target="_blank" rel="noopener" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" rel="noopener" href="/privacypolicy.aspx">privacy policy</a> *.<br /><br />I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.</p>
                             <span class="error-text" data-bind="validationMessage: termsCheckbox"></span>
                         </div>
 

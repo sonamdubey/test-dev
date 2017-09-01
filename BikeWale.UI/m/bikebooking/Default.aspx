@@ -181,19 +181,19 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <p class="font16">How can I book a bike on BikeWale?</p>
-                            <p class="font14 text-light-grey">To book a bike, you have to pay a fixedbooking amount online mentioned against the...<a href="/m/faq.aspx#2" target="_blank">read more</a></p>
+                            <p class="font14 text-light-grey">To book a bike, you have to pay a fixedbooking amount online mentioned against the...<a href="/m/faq.aspx#2" target="_blank" rel="noopener">read more</a></p>
                         </div>
                         <div class="swiper-slide">
                             <p class="font16">Where do I have to pay the balance amount? How much will it be?</p>
-                            <p class="font14 text-light-grey">You will pay the balance amount directly to the assigned...<a href="/m/faq.aspx#14" target="_blank">read more</a></p>
+                            <p class="font14 text-light-grey">You will pay the balance amount directly to the assigned...<a href="/m/faq.aspx#14" target="_blank" rel="noopener">read more</a></p>
                         </div>
                         <div class="swiper-slide">
                             <p class="font16">How will I get the benefits of the offers?</p>
-                            <p class="font14 text-light-grey">Depending upon the offer, you will get the benefit of some offers directly at the...<a href="/m/faq.aspx#16" target="_blank">read more</a></p>
+                            <p class="font14 text-light-grey">Depending upon the offer, you will get the benefit of some offers directly at the...<a href="/m/faq.aspx#16" target="_blank" rel="noopener">read more</a></p>
                         </div>
                     </div>
                 </div>
-                <p class="padding-left10 padding-right10 font14 text-center">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a> or <a href="mailto:contact@bikewale.com" target="_blank">Email Us</a> <%--or call us on <a href="tel:18001208300" class="text-grey text-bold">1800 120 8300</a>--%></p>
+                <p class="padding-left10 padding-right10 font14 text-center">We’re here to help. Read our <a href="/faq.aspx" target="_blank" rel="noopener">FAQs</a> or <a href="mailto:contact@bikewale.com" target="_blank" rel="noopener">Email Us</a> <%--or call us on <a href="tel:18001208300" class="text-grey text-bold">1800 120 8300</a>--%></p>
             </div>
         </section>
         

@@ -124,14 +124,14 @@
                 <h2 class="padding-top15 padding-right20 padding-left20">Tips from BikeWale experts to keep your bike in good shape!</h2>
                 <ul id="bw-tips-list">
                     <li>
-                        <a href="/m/bike-care/" target="_blank" title="Bike Care - Maintenance tips">
+                        <a href="/m/bike-care/" target="_blank" rel="noopener" title="Bike Care - Maintenance tips">
                             <span class="service-sprite care-icon"></span>
                             <h3 class="text-unbold margin-left10 vertical-middle">Bike Care - Maintenance tips</h3>
                             <span class="bwmsprite right-arrow"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="/m/bike-troubleshooting/" target="_blank" title="Bike troubleshooting - FAQs">
+                        <a href="/m/bike-troubleshooting/" target="_blank" rel="noopener" title="Bike troubleshooting - FAQs">
                             <span class="service-sprite faq-icon"></span>
                             <h3 class="text-unbold margin-left10 vertical-middle">Bike troubleshooting - FAQs</h3>
                             <span class="bwmsprite right-arrow"></span>
