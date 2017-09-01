@@ -776,7 +776,10 @@ namespace Bikewale.Models.BikeModels
                                 {
                                     var selectVersion = _pqOnRoad.DPQOutput.Varients.Where(m => m.objVersion.VersionId == version.VersionId).FirstOrDefault();
                                     if (selectVersion != null)
-                                        version.Price = selectVersion.OnRoadPrice;
+                                    {
+                                        version.Price = selectVersion.OnRoadPrice; break;
+                                    }
+
                                 }
 
                                 ///Choose the min price version of dealer
@@ -793,6 +796,7 @@ namespace Bikewale.Models.BikeModels
                                     if (selected != null)
                                     {
                                         version.Price = !_objData.ShowOnRoadButton ? selected.OnRoadPrice : selected.Price;
+                                        break;
                                     }
                                 }
                                 ///Choose the min price version of city level pricing
@@ -1215,7 +1219,8 @@ namespace Bikewale.Models.BikeModels
                     if (objPQOutput != null && objPQOutput.PQId > 0)
                     {
                         _objData.PQId = (uint)objPQOutput.PQId;
-                        bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSource);
+                        //bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSource);
+                        bpqOutput = new BikeQuotationEntity();
                         bpqOutput.Varients = _objPQCache.GetOtherVersionsPrices(_modelId, _cityId);
                         if (bpqOutput != null)
                         {
