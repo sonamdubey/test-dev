@@ -95,7 +95,7 @@
                         <div class="margin-bottom17 font13 text-left">
                                 <input type="checkbox" id="chkAgreeSignup" onClick="checkStatus(this)" name="chkPrivacy" checked value="checkbox">
                                 <label for="agreecheck">I agree with 
-                                <a href="/visitoragreement.aspx" target="_blank">User Agreement</a> &amp; <a href="/privacypolicy.aspx" target="_blank">Privacy Policy</a></label>
+                                <a href="/visitoragreement.aspx" target="_blank" rel="noopener">User Agreement</a> &amp; <a href="/privacypolicy.aspx" target="_blank" rel="noopener">Privacy Policy</a></label>
                             </div>
                         <asp:Button name="btnSignup" Text="Sign up"  id="btnSignup" class="btn btn-orange btn-full-width margin-bottom10" OnClientClick="return pressSignupbutton(e)"  runat="server"/>                       
                         <a href="javascript:void(0)" class="font14 signup-box-back-btn">back to login</a>
