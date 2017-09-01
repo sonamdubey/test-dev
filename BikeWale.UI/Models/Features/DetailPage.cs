@@ -187,8 +187,8 @@ namespace Bikewale.Models.Features
                 objPage.PageMetaTags.Title = string.Format("{0} - Bikewale ", objPage.objFeature.Title);
                 objPage.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objPage.objFeature.Title);
                 objPage.PageMetaTags.Keywords = string.Format("features, stories, travelogues, specials, drives.");
-
-                //SetPageJSONSchema(objPage);
+                objPage.PageMetaTags.ShareImage = Image.GetPathToShowImages(objPage.objFeature.OriginalImgUrl, objPage.objFeature.HostUrl, ImageSize._468x263);
+                SetPageJSONSchema(objPage);
             }
             catch (Exception ex)
             {

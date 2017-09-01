@@ -195,11 +195,10 @@ namespace Bikewale.Models
                 {
                     if (cityId > 0)
                     {
-                        var cities = _objCityCache.GetPriceQuoteCities(modelId);
-
-                        if (cities != null)
+                        objVM.Cities = _objCityCache.GetPriceQuoteCities(modelId);
+                        if (objVM.Cities != null)
                         {
-                            var selectedCity = cities.FirstOrDefault(m => m.CityId == cityId);
+                            var selectedCity = objVM.Cities.FirstOrDefault(m => m.CityId == cityId);
                             objVM.CookieCityEntity = selectedCity;
                             if (selectedCity != null && selectedCity.HasAreas && areaId > 0)
                             {
@@ -646,7 +645,7 @@ namespace Bikewale.Models
                 string bikeName = String.Format("{0} {1}", firstVersion.MakeName, firstVersion.ModelName);
                 objVM.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
                 objVM.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
-                objVM.PageMetaTags.Title = string.Format("{0} price in {1} - Check GST On Road Price &amp; Dealer Info. - BikeWale", bikeName, firstVersion.City);
+                objVM.PageMetaTags.Title = string.Format("{0} price in {1} - Check GST On Road Price &amp; Dealer Info - BikeWale", bikeName, firstVersion.City);
 
                 if (firstVersion != null && !isNew)
                     objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));
