@@ -1,5 +1,5 @@
 var version = '9Aug2017v1';
-var baseUrl = 'https://stb.aeplcdn.com/staging/bikewale/pwa/build/';
+var baseUrl = 'https://stb.aeplcdn.com/bikewale/pwa/build/';
 var APPSHELL = baseUrl + 'appshell.html?' + version;
 var VENDOR_JS = baseUrl + 'vendor.bundle.js?' + version;
 var APP_JS = baseUrl + 'app.bundle.js?' + version;
