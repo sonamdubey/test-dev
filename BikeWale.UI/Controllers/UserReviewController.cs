@@ -10,6 +10,7 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility.StringExtention;
+using System;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -154,13 +155,7 @@ namespace Bikewale.Controllers
             }
             else
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-        }
-
-               
-        public ActionResult RateOtherDetails(uint modelId, string q, uint? selectedRating)
-        {
-            return null; 
-        }
+        }                     
 
         /// <summary>
         /// Created by Subodh Jain on 10-04-2017
@@ -310,15 +305,17 @@ namespace Bikewale.Controllers
         /// 
         [ValidateInput(false)]
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, uint reviewId, string encodedString, bool? isDesktop, string mileage)
+        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, uint reviewId, string encodedString, bool? isDesktop, string mileage, bool fromThirdScreen)
         {
             WriteReviewPageSubmitResponse objResponse = null;
 
-            objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips.Trim(), reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName, mileage);
+            objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips != null ? reviewTips.Trim() : "", reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName, mileage);
 
             if (objResponse.IsSuccess)
             {
-                if (isDesktop.HasValue && isDesktop.Value)
+                if (isDesktop.HasValue && isDesktop.Value && !fromThirdScreen)
+                    return Redirect(string.Format("/parameter-ratings/?q={0}", encodedString));
+                else if(isDesktop.HasValue && isDesktop.Value)
                     return Redirect(string.Format("/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
                 else
                     return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
@@ -329,6 +326,35 @@ namespace Bikewale.Controllers
                 var objData = objPage.GetData();
                 objData.SubmitResponse = objResponse;
                 return View("WriteReview_Mobile", objData);
+            }
+        }
+
+
+        /// <summary>
+        /// Created by sajal gupta on 31-08-2017
+        /// description : Controller for rate other details p[age
+        /// </summary>
+        /// <param name="encodedString"></param>
+        /// <returns></returns>
+        [Route("parameter-ratings/")]
+        public ActionResult RateOtherDetails(string q)
+        {
+            try
+            {
+                UserReviewOtherDetailsPage objRateOtherDetails = new UserReviewOtherDetailsPage(_userReviews, q);
+                UserReviewsOtherDetailsPageVM objPageData = null;
+                if (objRateOtherDetails != null && (objRateOtherDetails.Status == StatusCodes.ContentFound))
+                {
+                    objPageData = objRateOtherDetails.GetData();
+                    return View(objPageData);
+                }
+                else
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "RateOtherDetails()");
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
         }
 

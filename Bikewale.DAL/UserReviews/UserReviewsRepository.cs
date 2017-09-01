@@ -933,6 +933,8 @@ namespace Bikewale.DAL.UserReviews
         /// Summary     : Changed SP
         /// Modified by : Sajal Gupta on 17-07-2017
         /// Summary     : Changed SP
+        ///  Modified by : Sajal Gupta on 31-08-2017
+        /// Summary     : Changed SP
         /// </summary>
         /// <param name="reviewId"></param>
         /// <param name="tipsnAdvices"></param>
@@ -947,7 +949,7 @@ namespace Bikewale.DAL.UserReviews
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserreviews_13072017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserreviews_31082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.UInt32, reviewId));
