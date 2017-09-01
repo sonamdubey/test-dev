@@ -123,9 +123,10 @@ namespace Bikewale.Models
                         product.Id = string.Format("{0}{1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName, bike.Model.MaskingName));
 
                         product.Description = bike.SmallModelDescription;
-                        product.Offers = new Offer()
+                        product.AggregateOffer = new AggregateOffer()
                         {
-                            Price = bike.Price
+                            HighPrice = bike.Price,
+                            LowPrice = bike.Price
                         };
                         product.Url = string.Format("{0}#bike{1}", objSchema.Url, itemNo);
                         lstItems.Add(new ProductListItem()
@@ -133,7 +134,7 @@ namespace Bikewale.Models
                             Position = itemNo,
                             Item = product
                         });
-
+                        
                         itemNo--;
                     }
                     objSchema.ItemListElement = lstItems;
