@@ -112,7 +112,7 @@ namespace Bikewale.Models.Upcoming
             MostPopularBikeWidgetVM objPopularBikes = new MostPopularBikeWidgetVM();
             try
             {
-                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, false, true, PQSourceEnum.Desktop_Scooter_MakePage_PopularBikes, 0, MakeId);
+                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false, PQSourceEnum.Desktop_Scooter_MakePage_PopularBikes, 0, MakeId);
                 popularBikes.TopCount = 9;
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
                 popularBikes.CityId = location.CityId;

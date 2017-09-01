@@ -15,17 +15,17 @@ namespace Bikewale.Entities.Schema
     {
         /* Commnted by Sangram on 31 Aug 2017, Use AgreegateOffer instead*/
 
-        //[JsonProperty("@type")]
-        //public string Type { get { return "Offer"; } }
-        
-        //[JsonProperty("availability", NullValueHandling = NullValueHandling.Ignore)]
-        //public string Availability { get; set; }
-        
-        //[JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
-        //public double Price { get; set; }
+        [JsonProperty("@type")]
+        public string Type { get { return "Offer"; } }
 
-        //[JsonProperty("priceCurrency")]
-        //public string PriceCurrency { get { return "INR"; } }
+        [JsonProperty("availability", NullValueHandling = NullValueHandling.Ignore)]
+        public string Availability { get; set; }
+
+        [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
+        public double Price { get; set; }
+
+        [JsonProperty("priceCurrency")]
+        public string PriceCurrency { get { return "INR"; } }
 
         //[JsonProperty("lowPrice", NullValueHandling = NullValueHandling.Ignore)]
         //private string LowPrice { get; set; }
