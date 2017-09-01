@@ -21,7 +21,7 @@
             @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
         </div>
     }
-    else if (Model.IsPopularBodyStyleAvailable)
+    else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomingBike))
     {
         <div id="modelPopularContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin padding-bottom15">
             <div class="carousel-heading-content padding-top20">
