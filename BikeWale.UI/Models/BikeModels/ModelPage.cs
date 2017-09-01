@@ -206,6 +206,7 @@ namespace Bikewale.Models.BikeModels
                     {
                         RatingCount = (uint)_objData.ModelPageEntity.ModelDetails.RatingCount,
                         RatingValue = Convert.ToDouble(_objData.ModelPageEntity.ModelDetails.ReviewUIRating),
+                        ReviewCount = (uint) _objData.ModelPageEntity.ModelDetails.ReviewCount,
                         WorstRating = 1,
                         BestRating = 5,
                         ItemReviewed = product.Name
@@ -250,71 +251,74 @@ namespace Bikewale.Models.BikeModels
                 List<AdditionalProperty> listSpecs = new List<AdditionalProperty>();
                 AdditionalProperty property = default(AdditionalProperty);
 
-                if (_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
+                if (_objData != null && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionSpecs != null)
                 {
-                    property = new AdditionalProperty()
+                    if (_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
                     {
-                        Name = "Mileage",
-                        Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall),
-                        UnitText = "KMPL"
+                        property = new AdditionalProperty()
+                        {
+                            Name = "Mileage",
+                            Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall),
+                            UnitText = "KMPL"
 
-                    };
+                        };
+                        listSpecs.Add(property);
+                    }
+
+                    if (_objData.ModelPageEntity.ModelVersionSpecs.Displacement > 0)
+                    {
+                        property = new AdditionalProperty()
+                        {
+                            Name = "Displacement",
+                            Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.Displacement),
+                            UnitText = "CC"
+
+                        };
+                        listSpecs.Add(property);
+                    }
+
+                    if (_objData.ModelPageEntity.ModelVersionSpecs.MaxPower > 0)
+                    {
+                        property = new AdditionalProperty()
+                        {
+                            Name = "Max Power",
+                            MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.MaxPower),
+                            UnitText = "BHP"
+
+                        };
+                        listSpecs.Add(property);
+
+                    }
+                    if (_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight > 0)
+                    {
+                        property = new AdditionalProperty()
+                        {
+                            Name = "Weight",
+                            Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight),
+                            UnitText = "KG"
+
+                        };
+                    }
                     listSpecs.Add(property);
-                }
 
-                if (_objData.ModelPageEntity.ModelVersionSpecs.Displacement > 0)
-                {
-                    property = new AdditionalProperty()
+                    if (_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
                     {
-                        Name = "Displacement",
-                        Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.Displacement),
-                        UnitText = "CC"
+                        property = new AdditionalProperty()
+                        {
+                            Name = "Top speed",
+                            MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed),
+                            UnitText = "KMPH"
 
-                    };
-                    listSpecs.Add(property);
+                        };
+                        listSpecs.Add(property);
+                    }
+                    product.AdditionalProperty = listSpecs;
                 }
 
-                if (_objData.ModelPageEntity.ModelVersionSpecs.MaxPower > 0)
-                {
-                    property = new AdditionalProperty()
-                    {
-                        Name = "Max Power",
-                        MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.MaxPower),
-                        UnitText = "BHP"
-
-                    };
-                    listSpecs.Add(property);
-
-                }
-                if (_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight > 0)
-                {
-                    property = new AdditionalProperty()
-                    {
-                        Name = "Weight",
-                        Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight),
-                        UnitText = "KG"
-
-                    };
-                }
-                listSpecs.Add(property);
-
-                if (_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
-                {
-                    property = new AdditionalProperty()
-                    {
-                        Name = "Top speed",
-                        MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed),
-                        UnitText = "KMPH"
-
-                    };
-                    listSpecs.Add(property);
-                }
-
-                product.AdditionalProperty = listSpecs;
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeModels.ModelPage --> SetAdditionalProperties()");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> SetAdditionalProperties(), Model: {0}", _objData.BikeName));
             }
 
         }

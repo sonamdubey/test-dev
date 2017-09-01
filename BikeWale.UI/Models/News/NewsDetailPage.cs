@@ -3,6 +3,8 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.PWA.Articles;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -10,17 +12,15 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
+using Bikewale.Models.Scooters;
 using Bikewale.Notifications;
+using Bikewale.PWA.Utils;
 using Bikewale.Utility;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Newtonsoft.Json;
-using Bikewale.Entities.PWA.Articles;
-using Bikewale.PWA.Utils;
-using Bikewale.Models.Scooters;
-using System.Collections.Generic;
-using Bikewale.Entities.Schema;
 
 namespace Bikewale.Models
 {
@@ -80,7 +80,7 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public NewsDetailPage(ICMSCacheContent cmsCache,IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
+        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -353,7 +353,7 @@ namespace Bikewale.Models
 
                 if (ModelId > 0)
                 {
-                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, true);
+                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
                     if (objVersionsList != null && objVersionsList.Count > 0)
                         bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
