@@ -23,6 +23,9 @@ namespace Bikewale.Models
         #region Public Property
         public uint TopCount { get; set; }
         public uint CityId { get; set; }
+        public bool IsNew { get; set; }
+        public bool IsUpcoming { get; set; }
+        public bool IsDiscontinued { get; set; }
         #endregion
 
         /// <summary>
@@ -87,6 +90,9 @@ namespace Bikewale.Models
                 objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
                 objVM.Bikes = _versionCache.GetSimilarBikesList(_versionId, TopCount, CityId);
                 objVM.PQSourceId = _pqSource;
+                objVM.IsNew = IsNew;
+                objVM.IsUpcoming = IsUpcoming;
+                objVM.IsDiscontinued = IsDiscontinued;
             }
             catch (Exception ex)
             {

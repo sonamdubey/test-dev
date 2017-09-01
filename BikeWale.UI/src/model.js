@@ -165,7 +165,12 @@ docReady(function () {
             var image = $("#imageCarousel img[data-colorid="+colorId+"]");
             if (image)
             {
-                $('#colourCarousel a img').attr("src", image.attr("data-original"));
+                var imageUrl = image.attr("data-original") || image.attr("src");
+                if (imageUrl == "")
+                {
+                    imageUrl = "https://imgd.aeplcdn.com/393x221/bikewaleimg/images/noimage.png?q=85";
+                }
+                $('#colourCarousel a img').attr("src", imageUrl);
                 $('#colourCarousel a').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical));
             }
         }
@@ -383,7 +388,7 @@ docReady(function () {
     topNavBar = overallTabs;
 
     // highlight 1st tab
-    overallTabs.find('a').first().addClass('active');
+    overallTabs.find('span').first().addClass('active');
 
     $(window).scroll(function () {
         try {
@@ -409,11 +414,12 @@ docReady(function () {
                     
                 if (windowScrollTop >= top && windowScrollTop <= bottom) {
 					if(!$(this).hasClass('active')) {
-						topNavBar.find('a').removeClass('active');
+						topNavBar.find('span').removeClass('active');
 						$('#modelDetailsContainer .bw-model-tabs-data').removeClass('active');
 
 						$(this).addClass('active');
-						topNavBar.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+						topNavBar.find('span[data-href="#' + $(this).attr('id') + '"]').addClass('active');
+
 					}
                 }
             });
@@ -792,17 +798,42 @@ var reportAbusePopup = {
         reportAbusePopup.bgContainer.hide();
     }
 };
+function logBhrighu(e) {
 
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+ 
+    label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + index + '|pageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("TitleClick", label);
+}
 function updateView(e) {
+    // for bhrigu updation
+    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
+
+    label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + index + '|pageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview("ReadMoreClick", label);
     try {
         var reviewId = e.currentTarget.getAttribute("data-reviewid");
         $.ajax({
             type: "POST",
             url: "/api/user-reviews/updateView/" + reviewId + "/",
-            success: function (response) {               
+            success: function (response) {
             }
         });
     } catch (e) {
         console.log(e);
     }
-}
+};
+$(".navtab").click(function () {
+
+    try {
+        var scrollSectionId = $(this).data('href');
+        $('html,body').animate({
+            scrollTop: $(scrollSectionId).offset().top - 40
+        },
+      'slow');
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+});

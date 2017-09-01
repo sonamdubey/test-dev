@@ -36,8 +36,8 @@
             <span class="star-span star-zero-icon leftfloat"></span>
             <span class="font12 text-light-grey leftfloat margin-right10 padding-left5">Not rated yet</span>
         }
-        <a href="@string.Format("/m/rate-your-bike/{0}/?q={1}", Model.ModelId,Model.ReturnUrl)" class="border-light-left leftfloat margin-right10 padding-left10 font12 ">
-           <span>Rate this bike</span>
+        <a rel="nofollow" href="@string.Format("/m/rate-your-bike/{0}/?q={1}", Model.ModelId,Model.ReturnUrl)" class="border-light-left leftfloat margin-right10 padding-left10 font12 bw-ga" l='@string.Format("{0}_{1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName)' a="Clicked_RateThisBike" c="Model_Page">
+           <span>Rate this @Model.BodyStyleTextSingular</span>
         </a>
 
     </div>

@@ -30,7 +30,7 @@
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.AlternateUrl))
         {
-            <meta name="alternate" content="@Model.PageMetaTags.AlternateUrl" />
+            <link rel="alternate" type="text/html" media="handheld" href="@Model.PageMetaTags.AlternateUrl" title="Mobile/PDA" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
         {
@@ -44,7 +44,8 @@
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.AmpUrl))
         {
-            <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> }
+            <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> 
+        }
     }
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -194,8 +195,15 @@
         googletag.enableServices();
     });
     </script>
+
+        @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
+        {
+            <script type="application/ld+json">
+                @(Html.Raw(Model.PageMetaTags.SchemaJSON))
+            </script>
+        }
 </head>
-<body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")"  @string.Format("{0}",Model.ExcludeContestSlug?"data-contestslug='true'":"")>
+<body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")"  @string.Format("{0}",Model.ExcludeContestSlug?"data-contestslug='true'":"") data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
 
     <div id="header" class='@(Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
         <!-- Fixed Header code starts here -->

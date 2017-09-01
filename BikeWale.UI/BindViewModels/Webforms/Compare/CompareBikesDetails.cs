@@ -49,7 +49,8 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         public IEnumerable<BikeMakeEntityBase> makes = null;
         public ushort maxComparisions = 5;
         public int CityId = 0;
-        public Bikewale.Comparison.Entities.SponsoredVersionEntityBase SponsoredBike { get; set; }
+        private uint _sponseredBikeVersionId;
+        public Comparison.Entities.SponsoredVersionEntityBase SponsoredBike { get; set; }
 
         /// <summary>
         /// Created By : Sushil kumar on 2nd Feb 2017 
@@ -111,7 +112,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
 
                 if (SponsoredBike != null)
                 {
-                    SponsoredVersionId = SponsoredBike.SponsoredVersionId;
+                    SponsoredVersionId = _sponseredBikeVersionId > 0 ? _sponseredBikeVersionId : SponsoredBike.SponsoredVersionId;
                     FeaturedBikeLink = SponsoredBike.LinkUrl;
                 }
 
@@ -272,6 +273,14 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                 var request = HttpContext.Current.Request;
                 string modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
                 ParseQueryString();
+                if (bikeQueryString.Contains("sponseredBike"))
+                {
+                    uint vId = 0;
+                    if (uint.TryParse(request["sponseredBike"], out vId) && vId > 0)
+                    {
+                        _sponseredBikeVersionId = vId;
+                    }
+                }
                 if (request.QueryString.ToString().Contains("bike"))
                 {
                     for (ushort i = 1; i <= maxComparisions; i++)

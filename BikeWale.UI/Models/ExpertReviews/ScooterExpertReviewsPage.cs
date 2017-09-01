@@ -12,6 +12,7 @@ using Bikewale.Utility;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Pager;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Models.Scooters;
 
 namespace Bikewale.Models
 {
@@ -23,8 +24,7 @@ namespace Bikewale.Models
     {
         #region Variables for dependency injection
         private readonly ICMSCacheContent _cmsCache = null;
-        private readonly IPager _pager;
-        private readonly IUpcoming _upcoming = null;
+        private readonly IPager _pager;        
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCacheRepository = null;
         #endregion
@@ -49,12 +49,11 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public ScooterExpertReviewsPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository<int> bikeMakesCacheRepository)
+        public ScooterExpertReviewsPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IBikeMakesCacheRepository<int> bikeMakesCacheRepository)
         {
             _cmsCache = cmsCache;
             _pager = pager;
-            _bikeModels = bikeModels;
-            _upcoming = upcoming;
+            _bikeModels = bikeModels;            
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             ProcessQueryString();
         }
@@ -194,6 +193,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Vivek Singh Tomar on 17th Aug 2017
         /// Summary    : Get view model for page widgets
+        /// Modified by Sajal Gupta on 24-08-2017
+        /// description : Added Popular Scooter Brands widget
         /// </summary>
         private void GetWidgetData(ScooterExpertReviewsPageVM objData, int topCount)
         {
@@ -219,27 +220,19 @@ namespace Bikewale.Models
                     objData.MostPopularScooters.WidgetHref = "/best-scooters-in-india/";
                     objData.MostPopularScooters.WidgetLinkTitle = "Best Scooters in India";
                 }
-               
-                UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
-                objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
-                objUpcomingBikes.Filters.PageNo = 1;
-                objUpcomingBikes.Filters.PageSize = topCount;
-                objUpcomingBikes.Filters.BodyStyleId = 5;
+
+                PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
+                objPopularScooterBrands.TopCount = 4;
+
                 if (MakeId > 0)
                 {
-                    objUpcomingBikes.Filters.MakeId = (int)MakeId;
-                }
-                objUpcomingBikes.SortBy = EnumUpcomingBikesFilter.Default;
-                objData.UpcomingScooters = objUpcomingBikes.GetData();
-
-                if (objMake != null)
-                {
-                    objData.UpcomingScooters.WidgetHeading = string.Format("Upcoming {0} scooters", objMake.MakeName);
+                    objPopularScooterBrands.SkipMakeId = MakeId;
+                    objData.PopularScooterBrandsWidgetHeading = "Other scooter brands";
                 }
                 else
-                {
-                    objData.UpcomingScooters.WidgetHeading = "Upcoming Scooters";
-                }
+                    objData.PopularScooterBrandsWidgetHeading = "Popular scooter brands";
+
+                objData.PopularScooterMakesWidget = objPopularScooterBrands.GetData();
             }
             catch (Exception ex)
             {

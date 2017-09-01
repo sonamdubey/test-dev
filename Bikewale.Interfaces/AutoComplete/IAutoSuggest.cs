@@ -1,10 +1,8 @@
-﻿using Bikewale.Entities.AutoComplete;
+﻿using Bikewale.DTO.AutoComplete;
+using Bikewale.Entities.AutoComplete;
 using Nest;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Bikewale.Interfaces.AutoComplete
 {
@@ -13,6 +11,6 @@ namespace Bikewale.Interfaces.AutoComplete
     /// </summary>
     public interface IAutoSuggest
     {
-        IEnumerable<SuggestOption> GetAutoSuggestResult(string inputText, int noOfRecords,AutoSuggestEnum source);
+        IEnumerable<Nest.SuggestOption<T>> GetAutoSuggestResult<T>(string inputText, int noOfRecords, AutoSuggestEnum source) where T : class;
     }
 }
