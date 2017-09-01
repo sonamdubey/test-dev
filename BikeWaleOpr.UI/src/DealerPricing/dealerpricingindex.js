@@ -248,7 +248,6 @@
                 type: "GET",
                 url: getPricingUrl,
                 success: function (resultData, textStatus, xhr) {
-                    debugger;
                     var recordCount = resultData.length;
                     var tableInnerHtmlString = "";
                     $('thead').find('tr').each(function () {
