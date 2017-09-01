@@ -271,7 +271,7 @@ namespace Bikewale.Controllers
 
                     //Convert article content to the amp content
                     ViewBag.NewsContent = objNews.Content.ConvertToAmpContent();
-
+                    ViewBag.SanitizedNewsContent = objNews.Content.StripHtml();
 
                     if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
                     {

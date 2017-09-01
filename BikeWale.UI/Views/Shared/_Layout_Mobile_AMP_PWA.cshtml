@@ -28,7 +28,7 @@
                 "@@type": "WebPage",
                 "@@id": "@ViewBag.MobilePageUrl"
             },
-            "articleBody" : @ViewBag.NewsContent.StripHtml(),
+            "articleBody" : "@ViewBag.SanitizedNewsContent",
             "headline": "@ViewBag.Title",
             "image": {
                 "@@type": "ImageObject",
