@@ -425,7 +425,8 @@ namespace Bikewale.Models.BikeModels
                         }
                         else
                         {
-                            BindPopularBodyStyle(_objData);
+                            if (_objData.IsNewBike || _objData.IsUpcomingBike)
+                                BindPopularBodyStyle(_objData);
                         }
                     }
                 }
