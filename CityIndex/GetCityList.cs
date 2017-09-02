@@ -7,13 +7,14 @@ using System.Data;
 using System.Data.Common;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Linq;
 namespace CityAutoSuggest
 {
     public class GetCityList
     {
-        public static List<CityTempList> CityList()
+        public static IEnumerable<CityTempList> CityList()
         {
-            List<CityTempList> objCity = null;
+            IList<CityTempList> objCity = null;
             Regex r = new Regex(@"\[([A-z0-9\s\S]+)?(\-)?([A-z0-9\s\S]+)?\]");
             try
             {
@@ -52,10 +53,10 @@ namespace CityAutoSuggest
         /// </summary>
         /// <param name="objCityList"></param>
         /// <returns></returns>
-        public static List<CityList> GetSuggestList(List<CityTempList> objCityList)
+        public static IEnumerable<CityList> GetSuggestList(IEnumerable<CityTempList> objCityList)
         {
-            List<CityList> objSuggestList = null;
-            int count = objCityList.Count;
+            IList<CityList> objSuggestList = null;
+            int count = objCityList.Count();
             try
             {
                 Hashtable ht = new Hashtable();                                                 //Add old name corresponding to new city
@@ -106,44 +107,74 @@ namespace CityAutoSuggest
                         cityItem.CityName = htd[cityItem.CityName].ToString();
 
                     string cityName = cityItem.CityName.Trim();
-                    ObjTemp.mm_suggest.output = cityItem.CityName + ", " + cityItem.StateName;  //Display
+                    ObjTemp.output = cityItem.CityName + ", " + cityItem.StateName;  //Display
                     ObjTemp.mm_suggest.weight = cityItem.Wt;                                    //Weight corresponding to PQ
 
-                    ObjTemp.mm_suggest.payload = new Payload()                                  //Payload
+                    ObjTemp.payload = new Payload()                                  //Payload
                     {
                         CityId = cityItem.CityId,                                               //Add CityId in Payload
                         CityMaskingName = cityItem.MaskingName.Trim(),                          //Add masking name in payload
                     };
 
                     if (htf.ContainsKey(cityItem.CityName))                                     //Set flag true for duplicate city
-                        ObjTemp.mm_suggest.payload.IsDuplicate = true;
+                        ObjTemp.payload.IsDuplicate = true;
 
                     //ObjTemp.mm_suggest.Weight = count;                                        //This is Basically For Order By Text
 
                     ObjTemp.mm_suggest.input = new List<string>();
                     cityName = cityName.Replace('-', ' ');                                      //Remove - From Name
-                    string[] combinations = cityName.Split(' ');                                //Break City in Diff Token
+                    string[] tokens = cityName.Split(' ');                                //Break City in Diff Token
 
-                    ObjTemp.mm_suggest.input.Add(ObjTemp.mm_suggest.output);                    //Add output as input
-                    //Generate all combination of a string
-                    int l = combinations.Length;
-                    for (int p = 1; p <= l; p++)
+                    ObjTemp.mm_suggest.input.Add(ObjTemp.output);                    //Add output as input
+                   
+                    int length = Math.Min(tokens.Length,8);
+
+
+                    ObjTemp.mm_suggest.input = new List<string>();
+
+                    // For creating input in mm_suggest
+                    for (int index = 1; index < 1 << length; index++)
                     {
-                        printSeq(l, p, combinations, ObjTemp);                                  //Add All Tokens
-                    }
+                        int temp_value = index, jindex = 0;
+                        string value = string.Empty;
+                        while (temp_value > 0)
+                        {
+                            if ((temp_value & 1) > 0)
+                                value = string.Format("{0} {1}", value, tokens[jindex]);
+                            temp_value >>= 1;
+                            jindex++;
+                        }
+                        if (!string.IsNullOrEmpty(value))
+                            ObjTemp.mm_suggest.input.Add(value);
 
+                    }
                     if (ht.ContainsKey(cityName))
                     {
                         string newcity = string.Empty;                                          //Generate all combinations for new string
                         newcity = ht[cityName].ToString();                                      //Take Old City
                         string[] newcombinations = newcity.Split(' ');                          //Break City in Diff Token
                         int l_new = newcombinations.Length;
-                        for (int p = 1; p <= l_new; p++)
+                        for (int index = 1; index < 1 << l_new; index++)
                         {
-                            printSeq(l_new, p, newcombinations, ObjTemp);                       //Add All Tokens
+                            int temp_value = index, jindex = 0;
+                            string value = string.Empty;
+                            while (temp_value > 0)
+                            {
+                                if ((temp_value & 1) > 0)
+                                    value = string.Format("{0} {1}", value, newcombinations[jindex]);
+                                temp_value >>= 1;
+                                jindex++;
+                            }
+                            if (!string.IsNullOrEmpty(value))
+                                ObjTemp.mm_suggest.input.Add(value);
+
                         }
+
                     }
 
+                    ObjTemp.mm_suggest.contexts = new Context();
+                    ObjTemp.mm_suggest.contexts.types = new List<string>();
+                    ObjTemp.mm_suggest.contexts.types.Add("AllCity");
                     objSuggestList.Add(ObjTemp);                                                //Add document in list
                     count--;
                 }
@@ -154,41 +185,6 @@ namespace CityAutoSuggest
                 Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name + " :Error In creating City autosuggest list: ", ex);
             }
             return objSuggestList;
-        }
-
-        public static void printSeqUtil(int n, int k, ref int len, int[] arr, string[] combination, CityList obj)
-        {
-            if (len == k)                                                                       //If length of current increasing sequence becomes k, print it
-            {
-                if (k == 1)
-                    obj.mm_suggest.input.Add(String.Format("{0}", combination[arr[0] - 1].Trim()));
-                else if (k == 2)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim()));
-                else if (k == 3)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim()));
-                else if (k == 4)
-                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2} {3}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim(), combination[arr[3] - 1].Trim()));
-                return;
-            }
-
-            int i = (len == 0) ? 1 : arr[len - 1] + 1;
-            len++;	// Increase length
-            // Put all numbers (which are greater than the previous element) at new position.
-            while (i <= n)
-            {
-                arr[len - 1] = i;
-                printSeqUtil(n, k, ref len, arr, combination, obj);
-                i++;
-            }
-            // This is important. The variable 'len' is shared among all function calls in recursion tree. Its value must be brought back before next iteration of while loop
-            len--;
-        }
-
-        public static void printSeq(int l, int p, string[] combination, CityList obj)
-        {
-            int[] arr = new int[p];
-            int len = 0;
-            printSeqUtil(l, p, ref len, arr, combination, obj);
         }
     }
 }

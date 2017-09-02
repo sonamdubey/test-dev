@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
 	<meta name="keywords" content="<%= keywords %>" />
 	<meta name="description" content="<%= description %>" />
-	<meta name="alternate" content="<%= alternate %>" />
+    <link rel="alternate" type="text/html" media="handheld" href="<%= alternate %>" title="Mobile/PDA" />
 	<title><%= title %></title>
 	<link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
 	<!-- #include file="globalStaticFiles.aspx"-->

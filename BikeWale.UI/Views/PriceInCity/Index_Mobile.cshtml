@@ -88,7 +88,7 @@
                                             Insurance (Comprehensive)<br><p class='position-rel'>
                                                 @if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
                                                 {
-                                                    <a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
+                                                    <a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
 
                                                 }
                                             </p>
@@ -104,7 +104,7 @@
                                 </tbody>
                             </table>
                             <div class="border-solid-bottom padding-bottom15">
-								<span class="bwmsprite info-grey-14"></span>
+                                <span class="bwmsprite info-grey-14"></span>
                                 <span class="text-light-grey font12">@string.Format("{0}", Model.FirstVersion.IsGstPrice ? "Price in accordance with GST rates" : "Estimated GST price as dealer price is unavailable.")</span>
                             </div>
                         }
@@ -132,7 +132,7 @@
                             @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
                         </div>
                         <div class="campaign__floating-btn floating-btn clearfix">
-                            <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile,Model.LeadCampaign.Organization)</p>
+                            <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
                             <div class="grid-5 alpha omega">
                                 <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage,Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsPropertyTextMobile,Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@Model.LeadCampaign.LeadsButtonTextMobile</a>
                             </div>
@@ -336,13 +336,13 @@
                             <div class="clear"></div>
                             @if (Model.IsManufacturerEMIAdShown)
                             {
-                                <div class="powered-by-campaign-wrapper margin-top15">
-                                    <a href="javascript:void(0)" type="button" class="btn btn-teal btn-160-32 font14 margin-right10 leadcapturebtn" data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@String.Format(Model.EMICampaign.PopupSuccessMessage,Model.EMICampaign.Organization)" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired">@Model.EMICampaign.EMIButtonTextMobile</a>
-                                    <div class="inline-block">
-                                        <p class="campaign__powered-key">Powered by</p>
-                                        <p class="campaign__powered-value" title="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)">@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)</p>
-                                    </div>
+                            <div class="powered-by-campaign-wrapper margin-top15">
+                                <a href="javascript:void(0)" type="button" class="btn btn-teal btn-160-32 font14 margin-right10 leadcapturebtn" data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@String.Format(Model.EMICampaign.PopupSuccessMessage,Model.EMICampaign.Organization)" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired">@Model.EMICampaign.EMIButtonTextMobile</a>
+                                <div class="inline-block">
+                                    <p class="campaign__powered-key">Powered by</p>
+                                    <p class="campaign__powered-value" title="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)">@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)</p>
                                 </div>
+                            </div>
                             }
                         </div>
                     </div>
@@ -370,7 +370,7 @@
                                                 <tr>
                                                     <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@version.VersionName</td>
                                                     <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(version.Price))</span></td>
-                                                    <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>                                                    
+                                                    <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
                                                 </tr>
                                             }
                                         </tbody>
@@ -417,16 +417,30 @@
                 @if (Model.HasAlternateBikes)
                 {
                     <div id="similarContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
-                        <h2 class="card-h2-heading margin-bottom10 padding-left20 padding-right20">Prices of similar bikes in @Model.CityEntity.CityName</h2>
+                        <h2 class="card-h2-heading margin-bottom10 padding-left20 padding-right20">Prices of similar @Model.BodyStyleText in @Model.CityEntity.CityName</h2>
                         @Html.Partial("~/views/Bikemodels/_SimilarBikes_Mobile.cshtml", Model.AlternateBikes)
                     </div>
                 }
-                <!-- model prices similar bikes end -->
+                else if (Model.IsPopularBodyStyleAvailable)
+                {
+                    <div id="popularContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin">
+                        <div class="carousel-heading-content">                                
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2 class="card-h2-heading padding-right20">Popular @Model.BodyStyleText</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BodyStyle))" title="Best @Model.BodyStyleText in India" class="btn view-all-target-btn">View all</a>
+                            </div>
+                        </div>
+                        @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile.cshtml", Model.PopularBodyStyle)
+                    </div>
+                 }
+                        <!-- model prices similar bikes end -->
 
                 <div id="modelSpecsFooter"></div>
             </div>
-        </div>
-    </section>
+    </div>
+</section>
 
     <section>
         <div class="container card-bottom-margin">
@@ -470,7 +484,7 @@
                             <div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
                                 <p class="text-default text-bold">Disclaimer:</p>
                                 <p>
-                                    BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank">&nbsp;visitor agreement</a>&nbsp;and&nbsp;<a href="/privacypolicy.aspx" target="_blank">privacy policy</a>.
+                                    BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank" rel="noopener">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank" rel="noopener">&nbsp;visitor agreement</a>&nbsp;and&nbsp;<a href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.
                                 </p>
                             </div>
                             <div class="hide" id="dvPgVar" data-cityarea="@Model.CookieCityArea" data-bikename="@Model.BikeName" data-modelid="@Model.BikeModel.ModelId"></div>

@@ -94,7 +94,7 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created By  :Sushil Kumar on 15th Aug 2017
+        /// Created By  : Sushil Kumar on 15th Aug 2017
         /// Description : To load json schema for the list items
         /// </summary>
         /// <param name="obj"></param>
@@ -123,9 +123,10 @@ namespace Bikewale.Models
                         product.Id = string.Format("{0}{1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName, bike.Model.MaskingName));
 
                         product.Description = bike.SmallModelDescription;
-                        product.Offers = new Offer()
+                        product.AggregateOffer = new AggregateOffer()
                         {
-                            Price = bike.Price
+                            HighPrice = bike.Price,
+                            LowPrice = bike.Price
                         };
                         product.Url = string.Format("{0}#bike{1}", objSchema.Url, itemNo);
                         lstItems.Add(new ProductListItem()
@@ -133,11 +134,11 @@ namespace Bikewale.Models
                             Position = itemNo,
                             Item = product
                         });
-
+                        
                         itemNo--;
                     }
                     objSchema.ItemListElement = lstItems;
-                    obj.JSONSchema = string.Format(@"<script type='application/ld+json'>{0}</script>", Newtonsoft.Json.JsonConvert.SerializeObject(objSchema));
+                    obj.PageMetaTags.SchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
                 }
             }
             catch (Exception ex)

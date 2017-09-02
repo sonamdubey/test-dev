@@ -14,20 +14,7 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 
-<div itemscope itemtype="http://schema.org/Product">
-    @if (Model.IsModelDetails)
-    {
-        if (Model.ModelPageEntity.ModelDesc != null)
-        {
-            <meta itemprop="description" itemtype="https://schema.org/description" content="@Model.ModelPageEntity.ModelDesc.SmallDescription" />
-        }
-        <meta itemprop="name" content="@Model.BikeName " />
-        <meta itemprop="image" content="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._210x118)" />
-        <meta itemprop="manufacturer" name="manufacturer" content="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName">
-        <meta itemprop="model" content="@Model.ModelPageEntity.ModelDetails.ModelName" />
-        <meta itemprop="brand" content="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName" />
-    }
-
+<div>
 
     @if (Model.IsNewBike)
     {
