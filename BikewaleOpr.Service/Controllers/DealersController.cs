@@ -525,7 +525,7 @@ namespace BikewaleOpr.Service
         /// </summary>
         /// <param name="benefitIds">Comma seperated benefit ids</param>
         /// <returns></returns>
-        [HttpGet, Route("api/dealers/getpricing")]
+        [HttpGet]
         public IHttpActionResult GetDealerPrices(uint cityId, uint makeId, uint dealerId)
         {
             IEnumerable<DealerVersionPriceDTO> dealerPricesDtos = null;
