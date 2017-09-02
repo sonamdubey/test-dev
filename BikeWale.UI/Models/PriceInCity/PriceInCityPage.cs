@@ -289,29 +289,34 @@ namespace Bikewale.Models
                         {
                             BindPriceInNearestCities(objVM);
                             BindPriceInTopCities(objVM);
-                            if ((objVM.CookieCityEntity.HasAreas && areaId > 0) || !objVM.CookieCityEntity.HasAreas)
+                            if (objVM.CookieCityEntity!=null)
                             {
-                                GetDealerPriceQuote(objVM);
-                            }
-                            else
-                            {
-                                if (objVM.CookieCityEntity.HasAreas && areaId == 0)
+                                if ((objVM.CookieCityEntity.HasAreas && areaId > 0) || !objVM.CookieCityEntity.HasAreas)
                                 {
-                                    objVM.IsAreaAvailable = true;
+                                    GetDealerPriceQuote(objVM);
                                 }
+                                else
+                                {
+                                    if (objVM.CookieCityEntity.HasAreas && areaId == 0)
+                                    {
+                                        objVM.IsAreaAvailable = true;
+                                    }
+                                }
+
+                                GetManufacturerCampaign(objVM);
+                                objVM.LeadCapture = new LeadCaptureEntity()
+                                {
+                                    ModelId = modelId,
+                                    CityId = cityId,
+                                    AreaId = areaId,
+                                    Area = area,
+                                    City = city,
+                                    Location = String.Format("{0} {1}", area, city),
+                                    BikeName = objVM.BikeName
+                                }; 
                             }
-                            GetManufacturerCampaign(objVM);
-                            objVM.LeadCapture = new LeadCaptureEntity()
-                            {
-                                ModelId = modelId,
-                                CityId = cityId,
-                                AreaId = areaId,
-                                Area = area,
-                                City = city,
-                                Location = String.Format("{0} {1}", area, city),
-                                BikeName = objVM.BikeName
-                            };
                         }
+
                         BindDealersWidget(objVM);
 
                         var objModelColours = _modelCache.GetModelColor(Convert.ToInt16(modelId));
@@ -345,7 +350,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("FetchVersionPrices({0},{1})", modelMaskingName, cityMaskingName));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("PriceInCityPage.GetData({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
         }

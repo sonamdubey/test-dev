@@ -114,7 +114,7 @@ namespace Bikewale.Models
                     mappedCWId = qsBasicId;
                     redirectUrl = string.Format("/news/{0}-{1}.html", mappedCWId, request["t"]);
                 }
-                if (uint.TryParse(qsBasicId, out basicId) && basicId > 0)
+                else if (uint.TryParse(qsBasicId, out basicId) && basicId > 0)
                     status = StatusCodes.ContentFound;
                 else
                     status = StatusCodes.ContentNotFound;
