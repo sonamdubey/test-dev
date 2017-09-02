@@ -1,6 +1,8 @@
 ﻿using Bikewale.DTO.UserReviews;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UserReviews;
@@ -13,6 +15,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Bikewale.BAL.UserReviews;
+using Bikewale.Service.AutoMappers.Model;
 
 namespace Bikewale.Service.Controllers.UserReviews
 {
@@ -30,16 +34,21 @@ namespace Bikewale.Service.Controllers.UserReviews
         private readonly IUserReviewsRepository _userReviewsRepo = null;
         private readonly IUserReviews _userReviews = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objBikeModel = null;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userReviewsRepo"></param>
-        public UserReviewsController(IUserReviewsRepository userReviewsRepo, IUserReviews userReviews, IUserReviewsCache userReviewsCache)
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="userReviewsRepo"></param>
+       /// <param name="userReviews"></param>
+       /// <param name="userReviewsCache"></param>
+       /// <param name="objBikeModel"></param>
+        public UserReviewsController(IUserReviewsRepository userReviewsRepo, IUserReviews userReviews, IUserReviewsCache userReviewsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objBikeModel)
         {
             _userReviewsRepo = userReviewsRepo;
             _userReviews = userReviews;
             _userReviewsCache = userReviewsCache;
+            _objBikeModel = objBikeModel;
         }
 
         #region User Reviews Details
@@ -311,7 +320,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// Description : Save abuse user review 
         /// </summary>
         /// <param name="reviewId"></param>
-        /// <param name="vote"></param>
+        /// <param name="comments"></param>
         /// <returns></returns>
         [HttpPost, Route("api/user-reviews/abuseUserReview/")]
         public IHttpActionResult SaveUserReviewAbuse(uint reviewId, string comments)
@@ -333,6 +342,38 @@ namespace Bikewale.Service.Controllers.UserReviews
                 return InternalServerError();
             }
         }
+
+
+        /// <summary>
+        /// Created by Snehal Dange on 01-09-2017
+        /// Description : This action will fetch rate bike page.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("api/user-reviews/rate-bike/")]
+        public IHttpActionResult RateBike([FromBody] RateBikeInput objRateBike)
+        {
+            try
+            {
+                RateBikeDetails objRateBikeDetails = null;
+                UserReviewRatingData objReviewRatingData = null;
+                if (objRateBike !=null)
+                {
+                    objReviewRatingData = _userReviews.GetRateBikeData(objRateBike.ModelId, objRateBike.ReviewId, objRateBike.CustomerId, objRateBike.SourceId, objRateBike.SelectedRating, objRateBike.IsFake, objRateBike.ReturnUrl, objRateBike.Contestsrc);
+                    if(objReviewRatingData !=null)
+                    {
+                        objRateBikeDetails = UserReviewsMapper.Convert(objReviewRatingData);
+                         return Ok(objRateBikeDetails);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.RateBike");
+                return InternalServerError();
+            }
+            return NotFound();
+        }
+
         #endregion
 
     }

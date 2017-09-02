@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
+using Bikewale.DTO.Series;
 using Bikewale.DTO.UserReviews;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
@@ -101,6 +102,20 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();           
             Mapper.CreateMap<Entities.UserReviews.Search.SearchResult, Bikewale.DTO.UserReviews.Search.SearchResult>();
             return Mapper.Map<Entities.UserReviews.Search.SearchResult, Bikewale.DTO.UserReviews.Search.SearchResult>(objUserReviews);
+        }
+
+
+        /// <summary>
+        /// Created by : Snehal Dange on 1st Sep 2017
+        /// Summary     : Mapper for Rate Bike api 
+        /// </summary>
+        public static RateBikeDetails Convert(UserReviewRatingData reviewRatingDataEntity)
+        {
+            Mapper.CreateMap<BikeModelEntity, ModelDetails>();
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
+            return Mapper.Map<UserReviewRatingData, RateBikeDetails>(reviewRatingDataEntity);
         }
     }
 }
