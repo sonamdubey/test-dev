@@ -269,7 +269,7 @@ namespace Bikewale.Models
                 Name = objData.ArticleDetails.AuthorName
             };
             objSchema.MainEntityOfPage = new MainEntityOfPage() { PageUrlId = objData.PageMetaTags.CanonicalUrl };
-
+            objSchema.Url = objData.PageMetaTags.CanonicalUrl;
             objData.PageMetaTags.SchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
         }
 

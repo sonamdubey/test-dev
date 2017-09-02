@@ -151,13 +151,15 @@ namespace Bikewale.New.Photos
             }
             finally
             {
-                if (vmModelPhotos.isRedirectToModelPage)  ///new/ page for photos exception
-                {
-                    Response.Redirect("/m/new-bikes-in-india/", true);
-                }
-                else if (vmModelPhotos.isPermanentRedirection) //301 redirection
+                if (vmModelPhotos.isPermanentRedirection) //301 redirection
                 {
                     Bikewale.Common.CommonOpn.RedirectPermanent(vmModelPhotos.pageRedirectUrl);
+                }
+                else if (vmModelPhotos.isRedirectToModelPage)  ///new/ page for photos exception
+                {
+                    Response.Redirect("/new-bikes-in-india/", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
                 else if (vmModelPhotos.isPageNotFound)  //page not found
                 {

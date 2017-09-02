@@ -893,7 +893,7 @@ namespace Bikewale.Models.BikeModels
                             {
                                 foreach (var version in modelPg.ModelVersions)
                                 {
-                                    var selectVersion = _pqOnRoad.DPQOutput.Varients.Where(m => m.objVersion.VersionId == version.VersionId).FirstOrDefault();
+                                    var selectVersion = _pqOnRoad.DPQOutput.Varients.FirstOrDefault(m => m.objVersion.VersionId == version.VersionId);
                                     if (selectVersion != null)
                                     {
                                         version.Price = selectVersion.OnRoadPrice; break;
@@ -911,7 +911,7 @@ namespace Bikewale.Models.BikeModels
                             {
                                 foreach (var version in modelPg.ModelVersions)
                                 {
-                                    var selected = _pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
+                                    var selected = _pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == version.VersionId);
                                     if (selected != null)
                                     {
                                         version.Price = !_objData.ShowOnRoadButton ? selected.OnRoadPrice : selected.Price;
@@ -985,9 +985,7 @@ namespace Bikewale.Models.BikeModels
                                     }
                                 }
                             }
-                            else
-                            {
-                            }
+
                             if (_objData.CityId != 0 && !_objData.IsDiscontinuedBike && !_objData.HasCityPricing)
                             {
                                 foreach (var version in modelPg.ModelVersions)
