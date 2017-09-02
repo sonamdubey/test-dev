@@ -23,6 +23,7 @@ namespace Bikewale.Controllers
     using Common;
     using Entities.CMS.Articles;
     using Interfaces.PWA.CMS;
+    using Models.News;
     using System.Linq;
     using AssemblyRegistration = React.AssemblyRegistration;
 
@@ -38,15 +39,18 @@ namespace Bikewale.Controllers
         private readonly ICMSCacheContent _articles = null;
         private readonly IPager _pager = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
+        private readonly IBikeMakesCacheRepository<int> _makes = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
         private readonly IPWACMSCacheRepository _renderedArticles = null;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+
         #endregion
 
         #region Constructor
-        public NewsController(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IPWACMSCacheRepository renderedArticles)
+        public NewsController(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository<int> makes, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
         {
             _articles = articles;
             _pager = pager;
@@ -56,6 +60,8 @@ namespace Bikewale.Controllers
             _bikeInfo = bikeInfo;
             _cityCache = cityCache;
             _renderedArticles = renderedArticles;
+            _makes = makes;
+            _objBikeVersionsCache = objBikeVersionsCache;
 
         }
         #endregion
@@ -69,7 +75,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _models, _bikeModels, _upcoming,_renderedArticles);
+            NewsIndexPage obj = new NewsIndexPage(_articles, _pager,_makes, _models, _bikeModels, _upcoming,_renderedArticles, _objBikeVersionsCache);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -94,7 +100,7 @@ namespace Bikewale.Controllers
         [Route("m/news/index/")]
         public ActionResult Index_Mobile()
         {
-            NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _models, _bikeModels, _upcoming,_renderedArticles);
+            NewsIndexPage obj = new NewsIndexPage(_articles, _pager,_makes, _models, _bikeModels, _upcoming,_renderedArticles, _objBikeVersionsCache);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -121,7 +127,7 @@ namespace Bikewale.Controllers
         [Route("m/news/index_pwa/")]
         public ActionResult Index_Mobile_Pwa()
         {
-            NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _models, _bikeModels, _upcoming,_renderedArticles);
+            NewsIndexPage obj = new NewsIndexPage(_articles, _pager,_makes, _models, _bikeModels, _upcoming,_renderedArticles, _objBikeVersionsCache);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -168,7 +174,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
-            NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles);
+            NewsDetailPage obj = new NewsDetailPage(_articles, _makes,_models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -194,7 +200,7 @@ namespace Bikewale.Controllers
         [Route("m/news/detail/{basicid}/")]
         public ActionResult Detail_Mobile(string basicid)
         {
-            NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid,_renderedArticles);
+            NewsDetailPage obj = new NewsDetailPage(_articles,_makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid,_renderedArticles, _objBikeVersionsCache);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -265,6 +271,7 @@ namespace Bikewale.Controllers
 
                     //Convert article content to the amp content
                     ViewBag.NewsContent = objNews.Content.ConvertToAmpContent();
+                    ViewBag.SanitizedNewsContent = objNews.Content.StripHtml();
 
                     if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
                     {
@@ -293,6 +300,84 @@ namespace Bikewale.Controllers
                 ErrorClass objErr = new ErrorClass(err, "m/news/details/{basicid}/amp/" + basicid);
             }
             return View("~/views/m/content/news/details_amp.cshtml");
+        }
+
+
+
+        /// <summary>
+        /// Created by : Snehal Dange on 17th August , 2017
+        /// Summmary   : Action method to render Scooter news - Desktop
+        /// </summary>
+        [Route("scooters/news/")]
+        [Filters.DeviceDetection()]
+        public ActionResult Scooters()
+        {
+            NewsScootersPageVM objData = null;
+            
+            try
+            {
+                ScooterNewsPage obj = new ScooterNewsPage(_articles, _pager, _models,_makes, _bikeModels, _upcoming, _renderedArticles);
+                if (obj.Status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/pagenotfound.aspx");
+                }
+                else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(obj.RedirectUrl);
+                }
+                else
+                {
+                    obj.WidgetTopCount = 4;
+                    objData = obj.GetData();
+                    if (obj.Status == Entities.StatusCodes.ContentNotFound)
+                        return Redirect("/pagenotfound.aspx");
+                   
+                        
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Controllers.Scooters");
+            }
+            return View(objData);
+        }
+
+
+        /// <summary>
+        /// Created by : Snehal Dange on 18th August , 2017
+        /// Summmary   : Action method to render scooter news listing page -mobile
+        /// </summary>
+        [Route("m/scooters/news/")]
+        public ActionResult Scooters_Mobile()
+        {
+            NewsScootersPageVM objData = null;
+            
+            try
+            {
+                ScooterNewsPage obj = new ScooterNewsPage(_articles, _pager, _models,_makes, _bikeModels, _upcoming, _renderedArticles);
+                obj.IsMobile = true;
+                if (obj.Status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/m/pagenotfound.aspx");
+                }
+                else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(string.Format("/m{0}", obj.RedirectUrl));
+                }
+                else
+                {
+                    obj.WidgetTopCount = 9;
+                    objData = obj.GetData();
+                    if (obj.Status == Entities.StatusCodes.ContentNotFound)
+                        return Redirect("/m/pagenotfound.aspx");
+                   
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Controllers.Scooters_Mobile");
+            }
+            return View(objData);
         }
 
         #endregion

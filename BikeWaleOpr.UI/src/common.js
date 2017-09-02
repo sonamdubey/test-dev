@@ -80,7 +80,7 @@ var pageFooter = {
                                     return ('<div class="list-item" >' + value + '</div>');
                                 }
                                 
-                            case 2:
+                            case 3:
                               return  ('<div class="list-item" data-cityId="' + item.payload.cityId + '">' + value + '</div>');
                         }
                     }

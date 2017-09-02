@@ -183,7 +183,7 @@
                                             <td class="font14">
                                                 Insurance (Comprehensive)@if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
                                                 {
-                                                    <br><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName)" rel=" nofollow">Buy Policy Now</a></p>
+                                                    <br><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName)" rel=" nofollow">Buy Policy Now</a></p>
                                                 }
                                             </td>
                                             <td align="right">
@@ -418,7 +418,7 @@
                 <div class="container margin-bottom30">
                     <div class="grid-12">
                         <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
-                            <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to @Model.BikeName</h2>
+                            <h2 class="padding-left20 padding-right20 margin-bottom15">@Model.BodyStyleText Similar to @Model.BikeName</h2>
                             @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikesVM)
                         </div>
                     </div>

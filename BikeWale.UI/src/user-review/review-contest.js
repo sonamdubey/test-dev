@@ -17,9 +17,9 @@ docReady(function () {
         $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
     });
 
-	$('#bannerTargetBtn').on('click', function () {
-		$('html, body').animate({ scrollTop: $('#selectBikeForm').offset().top - topNavBarHeight }, 1000);
-	});
+	//$('#bannerTargetBtn').on('click', function () {
+	//	$('html, body').animate({ scrollTop: $('#selectBikeForm').offset().top - topNavBarHeight }, 1000);
+	//});
 
 	$('.bike-select-field').on('change', function () {
 		if(parseInt($(this).val()) > 0) {

@@ -60,6 +60,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 23 Mar 2017
         /// Summary    : To get list of expert review articles
+        /// Modified by: Vivek Singh Tomar on 18th Aug 2017
+        /// Summary: Change the view all reviews url if make is scooter
         /// </summary>
         public RecentExpertReviewsVM GetData()
         {
@@ -92,9 +94,15 @@ namespace Bikewale.Models
                     recentReviews.ModelName = _modelName;
                     recentReviews.ModelMasking = _modelMasking;
                 }
-                recentReviews.MoreExpertReviewUrl = UrlFormatter.FormatExpertReviewUrl(_makeMasking, _modelMasking);
-
-
+                if (IsScooter)
+                {
+                    recentReviews.MoreExpertReviewUrl = UrlFormatter.FormatScootersExpertReviewUrl(_makeMasking);
+                }
+                else
+                {
+                    recentReviews.MoreExpertReviewUrl = UrlFormatter.FormatExpertReviewUrl(_makeMasking, _modelMasking);
+                }
+                
                 if (!String.IsNullOrEmpty(_modelName) && !String.IsNullOrEmpty(_makeName))
                 {
                     recentReviews.LinkTitle = string.Format("{0} {1} Expert Reviews", _makeName, _modelName);
@@ -106,7 +114,14 @@ namespace Bikewale.Models
                 }
                 else
                 {
-                    recentReviews.LinkTitle = "Expert Reviews on Bikes";
+                    if (IsScooter)
+                    {
+                        recentReviews.LinkTitle = "Expert Reviews on Scooters";
+                    }
+                    else
+                    {
+                        recentReviews.LinkTitle = "Expert Reviews on Bikes";
+                    }
                 }
                 recentReviews.Title = Title;
             }

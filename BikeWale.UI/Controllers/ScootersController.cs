@@ -41,6 +41,7 @@ namespace Bikewale.Controllers
         private readonly IServiceCenter _serviceCenter = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
+       
         public ScootersController(IBikeMakes<BikeMakeEntity, int> objMakeRepo, IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompare compareScooters, IDealerCacheRepository dealerCache, IBikeMakesCacheRepository<int> objMakeCache, IBikeModels<BikeModelEntity, int> objBikeModel, IBikeMakes<BikeMakeEntity, int> objMakeRepor, IServiceCenter serviceCenter, ICMSCacheContent articles, IVideos videos)
         {
             _newLaunches = newLaunches;
@@ -55,6 +56,9 @@ namespace Bikewale.Controllers
             _articles = articles;
             _videos = videos;
         }
+
+      
+
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -280,5 +284,7 @@ namespace Bikewale.Controllers
             }
         }
 
+
+       
     }
 }

@@ -89,7 +89,7 @@ namespace BikeWaleOpr.Content
                         {
                             selModelId += lblModelId.Text + ",";
                             MemCachedUtil.Remove(String.Format("BW_ModelDetails_{0}", lblModelId.Text));
-                            MemCachedUtil.Remove(String.Format("BW_ModelDetail_v1_{0}", lblModelId.Text));
+                            MemCachedUtil.Remove(String.Format("BW_ModelDetail_{0}", lblModelId.Text));
                             MemCachedUtil.Remove(String.Format("BW_GenericBikeInfo_MO_{0}", lblModelId.Text));
 
                         }

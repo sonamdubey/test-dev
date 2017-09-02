@@ -2,7 +2,7 @@ var assistFormSubmit, assistGetName, assistGetEmail, assistGetMobile;
 var getOnRoadPriceBtn, onroadPriceConfirmBtn;
 var getOffersClick = false, selectDropdownBox;
 var $window, modelDetailsFloatingCard, modelSpecsTabsContentWrapper;
-var abusereviewId;
+var abusereviewId,userreviewsListStr;
 
 // colour carousel
 var colourCarousel, carouselColorList;
@@ -167,7 +167,9 @@ docReady(function () {
             {
                 var imageUrl = image.attr("data-original") || image.attr("src");
                 if (imageUrl == "")
-                { imageUrl = "https://imgd.aeplcdn.com/393x221/bikewaleimg/images/noimage.png?q=85"; }
+                {
+                    imageUrl = "https://imgd.aeplcdn.com/393x221/bikewaleimg/images/noimage.png?q=85";
+                }
                 $('#colourCarousel a img').attr("src", imageUrl);
                 $('#colourCarousel a').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical));
             }
@@ -386,7 +388,7 @@ docReady(function () {
     topNavBar = overallTabs;
 
     // highlight 1st tab
-    overallTabs.find('a').first().addClass('active');
+    overallTabs.find('span').first().addClass('active');
 
     $(window).scroll(function () {
         try {
@@ -412,11 +414,12 @@ docReady(function () {
                     
                 if (windowScrollTop >= top && windowScrollTop <= bottom) {
 					if(!$(this).hasClass('active')) {
-						topNavBar.find('a').removeClass('active');
+						topNavBar.find('span').removeClass('active');
 						$('#modelDetailsContainer .bw-model-tabs-data').removeClass('active');
 
 						$(this).addClass('active');
-						topNavBar.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+						topNavBar.find('span[data-href="#' + $(this).attr('id') + '"]').addClass('active');
+
 					}
                 }
             });
@@ -796,16 +799,53 @@ var reportAbusePopup = {
     }
 };
 
-function updateView(e) {
+function logBhrighu(itemNo, eventName) {
+    label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + (++itemNo) + '|pageSource=' + $('#pageSource').val();
+    cwTracking.trackUserReview(eventName, label);
+}
+
+function updateView(reviewId) {
     try {
-        var reviewId = e.currentTarget.getAttribute("data-reviewid");
-        $.ajax({
-            type: "POST",
-            url: "/api/user-reviews/updateView/" + reviewId + "/",
-            success: function (response) {               
-            }
-        });
+        if (reviewId) {
+            $.post("/api/user-reviews/updateView/" + reviewId + "/");
+        }
+
     } catch (e) {
         console.log(e);
     }
 }
+
+function readMore(e) {
+
+    try {
+        var ele = $(event.currentTarget);
+        var reviewId = ele.data("reviewid");
+        if (reviewId) {
+			var moreContentEle = ele.closest('.collapsible-content').find(".more-description"),
+				desc = Base64.decode(moreContentEle.data("description")), itemNo = ele.data("id");
+
+            if (moreContentEle) {
+				moreContentEle.html(desc);
+			}
+			
+            updateView(reviewId);
+            logBhrighu(itemNo, "ReadMoreClick");
+        }
+    } catch (e) {
+        console.log(e);
+    }
+};
+$(".navtab").click(function () {
+
+    try {
+        var scrollSectionId = $(this).data('href');
+        $('html,body').animate({
+            scrollTop: $(scrollSectionId).offset().top - 40
+        },
+      'slow');
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+});

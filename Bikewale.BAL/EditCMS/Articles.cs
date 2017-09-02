@@ -2,6 +2,7 @@
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -299,15 +300,73 @@ namespace Bikewale.BAL.EditCMS
         }
 
         /// <summary>
-        /// Created By : Sushil Kumar on 21st July 2016
-        /// Description : Caching for Articles by list according to pagination using carwale api call
+        /// Created by: Vivek Singh Tomar on 16th Aug 2017
+        /// Summary: Get articles for given category and body style using grpc
+        /// </summary>
+        /// <param name="categoryIdList"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="bodyStyleId"></param>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId)
+        {
+            CMSContent _objArticleList = null;
+            try
+            {
+                switch (categoryIdList)
+                {
+                    case "8": //EnumCMSContentType.RoadTest
+                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
+                        break;
+
+                    case "1": //EnumCMSContentType.News
+                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
+                        break;
+                    default:
+                        break;
+                }
+                _objArticleList = GetArticlesByCategoryViaGrpc(categoryIdList, startIndex, endIndex, bodyStyleId, makeId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.EditCMS.Articles.GetArticlesByCategoryList");
+                objErr.SendMail();
+            }
+
+            return _objArticleList;
+        }
+
+        /// <summary>
+        /// Created by: Vivek Singh Tomar on 16th Aug 2017
+        /// Summary: Get articles for given category and body style using grpc
         /// </summary>
         /// <param name="categoryIds"></param>
         /// <param name="startIndex"></param>
         /// <param name="endIndex"></param>
+        /// <param name="bikeBodyType"></param>
         /// <param name="makeId"></param>
-        /// <param name="modelId"></param>
         /// <returns></returns>
+        private CMSContent GetArticlesByCategoryViaGrpc(string categoryIds, int startIndex, int endIndex, string bodyStyleId, int makeId)
+        {
+            try
+            {
+                var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIds, (uint)startIndex, (uint)endIndex, bodyStyleId, makeId);
+
+                if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
+                {
+                    return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message, ex);
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.EditCMS.Articles.GetArticlesByCategoryViaGrpc");
+            }
+            return null;
+        }
+
         #endregion
 
 

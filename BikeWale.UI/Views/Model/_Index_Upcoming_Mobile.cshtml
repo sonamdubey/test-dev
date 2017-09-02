@@ -10,7 +10,6 @@
 
 <section>
     <div class="contaniner clearfix">
-        <span itemprop="name" class="hide">@Model.BikeName</span>
         <div class="padding-top10 padding-left20 padding-right20 bg-white">
             <h1 class="padding-bottom5">@Model.Page_H1</h1>
         </div>
@@ -31,10 +30,7 @@
                             <p class="font12 text-light-grey">Expected price</p>
                             @if (Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
                             {
-                                <div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
-                                    <meta itemprop="priceCurrency" content="INR">
-                                    <meta itemprop="lowPrice" content="@Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin">
-                                    <meta itemprop="highPrice" content="@Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax">
+                                <div>
                                     <span class="font24 text-bold">
                                         @Html.Raw("<span >&#x20B9;</span>")
                                         @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin)) -

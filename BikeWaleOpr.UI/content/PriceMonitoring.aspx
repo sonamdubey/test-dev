@@ -60,7 +60,7 @@
 								<asp:Repeater runat="server" DataSource='<%# GetVersionPrices(DataBinder.Eval(Container.DataItem,"ID").ToString(),DataBinder.Eval(Container.DataItem,"CityName").ToString()) %>'>
 									<itemtemplate>
 										<td style="width:45px;" title='Price for : <%# DataBinder.Eval(Container.DataItem,"CityName") %>,Version : <%# DataBinder.Eval(Container.DataItem,"BikeName") %> '  class='<%# DataBinder.Eval(Container.DataItem,"Class") %>' }>
-											<a href="ShowroomPrices.aspx?City=<%#DataBinder.Eval(Container.DataItem,"CityId")%>&Make=<%#DataBinder.Eval(Container.DataItem,"MakeId")%>&Model=<%#DataBinder.Eval(Container.DataItem,"ModelId")%>&Version=<%#DataBinder.Eval(Container.DataItem,"VersionId")%>" target="_blank" class='<%# DataBinder.Eval(Container.DataItem,"Class") %>'>
+											<a href="ShowroomPrices.aspx?City=<%#DataBinder.Eval(Container.DataItem,"CityId")%>&Make=<%#DataBinder.Eval(Container.DataItem,"MakeId")%>&Model=<%#DataBinder.Eval(Container.DataItem,"ModelId")%>&Version=<%#DataBinder.Eval(Container.DataItem,"VersionId")%>" target="_blank" rel="noopener" class='<%# DataBinder.Eval(Container.DataItem,"Class") %>'>
 												<%# DataBinder.Eval(Container.DataItem,"Value") %>
 											</a>
 										</td>

@@ -286,7 +286,7 @@
                                             <div class="panel-row margin-bottom20">
                                                 <div id="terms-content">
                                                     <span class="bwsprite unchecked-box" data-bind="click: personalDetails().terms, css: personalDetails().termsCheckbox ? 'checked': ''"></span>
-                                                    <p>I agree with BikeWale sell bike <a href="/TermsConditions.aspx" target="_blank">Terms & Conditions</a>, <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a> *. I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.</p>
+                                                    <p>I agree with BikeWale sell bike <a href="/TermsConditions.aspx" target="_blank" rel="noopener">Terms & Conditions</a>, <a target="_blank" rel="noopener" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" rel="noopener" href="/privacypolicy.aspx">privacy policy</a> *. I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.</p>
                                                     <span class="error-text" data-bind="validationMessage: personalDetails().termsCheckbox"></span>
                                                 </div>
                                             </div>

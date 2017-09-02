@@ -237,7 +237,7 @@
              <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
             <div id="sort-filters-loader">
-                <div id="popup-loader"></div>
+                <div class="cover-popup-loader"></div>
             </div>
 
                 <div id="sortNFilters" >

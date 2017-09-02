@@ -10,7 +10,14 @@ namespace Bikewale.PinCodesAutosuggest
     {
         public string Id { get; set; }
         public PinCodeSuggestion mm_suggest { get; set; }
+        public string output { get; set; }
+        public PayLoad payload { get; set; }
         public string name { get; set; }
+    }
+
+    public class Context
+    {
+        public IList<string> types { get; set; }                         //  Context For new pricequote and user review
     }
 
     /// <summary>
@@ -19,10 +26,11 @@ namespace Bikewale.PinCodesAutosuggest
     /// </summary>
     public class PinCodeSuggestion
     {
-        public List<string> input { get; set; }
-        public string output { get; set; }
-        public PayLoad payload { get; set; }
+        public IList<string> input { get; set; }
+      
         public int Weight { get; set; }
+
+        public Context contexts { get; set; }
     }
 
 

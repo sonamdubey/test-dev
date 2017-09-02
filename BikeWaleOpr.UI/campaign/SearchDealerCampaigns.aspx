@@ -135,15 +135,15 @@
             <td data-bind="text: MaskingNumber"></td>
             <td data-bind="text: Status"></td>            
             <td>
-                <a data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + DealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + DealerId() }" target="_blank">
+                <a data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + DealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + DealerId() }" target="_blank" rel="noopener">
                     <img src="https://opr.carwale.com/images/edit.jpg" alt="Edit" />
                 </a>
             </td>
             <td >
-                <a data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid=' + DealerId() + '&dealerName=' + DealerName() }, text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
+                <a data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid=' + DealerId() + '&dealerName=' + DealerName() }, text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank" rel="noopener"></a>
             </td>
             <td>
-                <a  data-bind="attr: { href: '/dealercampaign/servingareas/dealerid/' + DealerId() + '/campaignid/' + CampaignId() + '/' }" target="_blank">
+                <a  data-bind="attr: { href: '/dealercampaign/servingareas/dealerid/' + DealerId() + '/campaignid/' + CampaignId() + '/' }" target="_blank" rel="noopener">
                     <img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/>
                 </a>
             </td>

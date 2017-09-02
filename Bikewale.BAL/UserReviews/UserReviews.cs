@@ -204,6 +204,8 @@ namespace Bikewale.BAL.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 16th April 2017
         /// Description : Get user reviews summary for all pages
+        /// Modified by : Ashutosh Sharma on 24-Aug-2017
+        /// Description : Added lines to get SelectedRatingText and MinHeading
         /// </summary>
         /// <param name="reviewId"></param>
         /// <returns></returns>
@@ -227,6 +229,8 @@ namespace Bikewale.BAL.UserReviews
                         if (objQuestion != null)
                         {
                             objQuestion.SelectedRatingId = question.SelectedRatingId;
+                            objQuestion.SelectedRatingText = question.SelectedRatingText;
+                            objQuestion.MinHeading = question.MinHeading;
                             if (objQuestion.SelectedRatingId == 0)
                             {
                                 objQuestion.Visibility = false;

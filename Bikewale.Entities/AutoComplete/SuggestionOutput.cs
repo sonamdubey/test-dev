@@ -8,7 +8,7 @@ namespace Bikewale.Entities.AutoComplete
 {
     public class SuggestionOutput
     {
-        public string Name { get; set; }
-        public Payload Payload { get; set; }
+        public string output { get; set; }
+        public object Payload { get; set; }
     }
 }

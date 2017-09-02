@@ -1008,6 +1008,9 @@ namespace Bikewale.DAL.UserReviews
         /// Description : Get user reviews summary for all pages
         /// Modified by : Aditi Srivastava on 8 May 2017
         /// Summary    : Get return url from database
+        /// Modified by : Ashutosh Sharma on 24-Aug-2017
+        /// Description :  Changed SP from 'getUserReviewSummary_12072017' to 'getUserReviewSummary_24082017'
+        ///             to get SelectedRatingText and MinHeading
         /// </summary>
         /// <param name="reviewId"></param>
         /// <returns></returns>
@@ -1016,12 +1019,13 @@ namespace Bikewale.DAL.UserReviews
             UserReviewSummary objUserReviewSummary = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummary_12072017"))
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummary_24082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.UInt32, reviewId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -1061,7 +1065,9 @@ namespace Bikewale.DAL.UserReviews
                                 objQuestions.Add(new UserReviewQuestion()
                                 {
                                     SelectedRatingId = SqlReaderConvertor.ToUInt32(dr["answerValue"]),
-                                    Id = SqlReaderConvertor.ToUInt32(dr["QuestionId"])
+                                    Id = SqlReaderConvertor.ToUInt32(dr["QuestionId"]),
+                                    SelectedRatingText = Convert.ToString(dr["answerText"]),
+                                    MinHeading = Convert.ToString(dr["minHeading"])
                                 });
                             }
                             objUserReviewSummary.Questions = objQuestions;

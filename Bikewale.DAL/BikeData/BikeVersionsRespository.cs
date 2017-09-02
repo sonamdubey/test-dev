@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -111,7 +112,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getversions";
+                    cmd.CommandText = "getversions_23082017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
 
@@ -130,7 +131,8 @@ namespace Bikewale.DAL.BikeData
                                     BrakeType = dr["BrakeType"].ToString(),
                                     AlloyWheels = Convert.ToBoolean(dr["AlloyWheels"]),
                                     ElectricStart = Convert.ToBoolean(dr["ElectricStart"]),
-                                    AntilockBrakingSystem = Convert.ToBoolean(dr["AntilockBrakingSystem"])
+                                    AntilockBrakingSystem = Convert.ToBoolean(dr["AntilockBrakingSystem"]),
+                                    BodyStyle = (EnumBikeBodyStyles)Enum.Parse(typeof(EnumBikeBodyStyles), Convert.ToString(dr["BodyStyleId"]))
                                 });
                             }
                             dr.Close();
