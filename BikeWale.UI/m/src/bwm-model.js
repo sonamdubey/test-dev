@@ -383,7 +383,10 @@ docReady(function () {
         spaceBetween: 0,
         direction: 'horizontal',
         nextButton: '.gallery-type-next',
-        prevButton: '.gallery-type-prev',
+		prevButton: '.gallery-type-prev',
+		preloadImages: false,
+		lazyLoading: true,
+		lazyLoadingInPrevNext: true,
         onSlideChangeEnd: function (swiper) {
             if (userEventSource) {
                 if (swiper.activeIndex < swiper.previousIndex) {
