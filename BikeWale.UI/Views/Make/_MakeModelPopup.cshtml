@@ -61,6 +61,8 @@
         ddlMakesPopup = $('#ddlMakesPopup');
         ddlModelsPopup = $('#ddlModelsPopup');
 
+        ddlModelsPopup.prop('disabled', true);
+
         var makeModelPopupModel = function () {
             var self = this;
             var modelCacheKeyPrefix = "userReviewsPopupModels-";
@@ -108,6 +110,7 @@
                                 bwcache.set(modelCacheKeyPrefix + self.selectedMake(), responseData.modelList, 15);
                                 self.models(responseData.modelList);
                                 self.selectedModel(undefined);
+                                ddlModelsPopup.removeAttr('disabled');
                                 ddlModelsPopup.trigger("chosen:updated").chosen({ "width": "100%" });
                             },
                             complete: function (xhr) {
@@ -120,6 +123,7 @@
                         cachedModels = bwcache.get(modelCacheKeyPrefix + self.selectedMake());
                         self.models(cachedModels);
                         self.selectedModel(undefined);
+                        ddlModelsPopup.removeAttr('disabled');
                         ddlModelsPopup.trigger("chosen:updated").chosen({ "width": "100%" });
                     }
                 }
