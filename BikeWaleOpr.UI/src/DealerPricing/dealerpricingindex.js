@@ -241,47 +241,24 @@
             window.open(event.target.dataset.url, 'mywin', 'scrollbars=yes,left=25%,top=25%,width=600,height=400');
         };
 
-        self.fetchUpdatedPricingTable = function (dealerId, cityId) {
-            var getPricingUrl = "/api/dealers/getpricing?dealerId=" + dealerId + "&cityId=" + cityId + "&makeid=" + $('#makeId').val();
+        self.onPriceOrAvaialabilityUpdateSucess = function (resultData) {
+            $('tbody').find('tr').filter(':has(:checkbox:checked)').each(function () {
 
-            $.ajax({
-                type: "GET",
-                url: getPricingUrl,
-                success: function (resultData, textStatus, xhr) {
-                    var recordCount = resultData.length;
-                    var tableInnerHtmlString = "";
-                    $('thead').find('tr').each(function () {
-                        var tdsStr = "", tdColor = $(this).find("th.colorAvailability");
-                        var categoriesLength = resultData[0].categories.length;
-                        for (var index = 0; index < categoriesLength; index++) {
-                            itemName = resultData[0].categories[index].itemName;
-                            tdsStr += '<th class="editableColumns" data-item-id=' + resultData[0].categories[index].itemCategoryId + '>' + itemName + '</th>';
-                        }
-                        tdsStr += '<th class="editableColumns">Availability(days)</th>';
-                        $(this).find('th.editableColumns').remove();
-                        $(this).append(tdsStr).append(tdColor);
+                if (resultData.isPriceSaved) {
+                    $(this).find('[data-itemid]').each(function () {
+                        this.dataset.value = $(this).find('input').val();
                     });
-
-                    $('tbody').find('tr').each(function (index) {
-                        tableInnerHtmlString = ""
-                        var categoriesLength = resultData[0].categories.length;
-                        if (parseInt(this.dataset.versionid) == resultData[index].versionId) {
-                            var tdsStr = "", tdColor = $(this).find("td.colorAvailability");
-                            for (var categoryIndex = 0; categoryIndex < categoriesLength; categoryIndex++) {
-                                tdsStr += '<td class="editableValue" data-value="' + resultData[index].categories[categoryIndex].itemValue + '" data-itemid="' + resultData[index].categories[categoryIndex].itemCategoryId + '">' + resultData[index].categories[categoryIndex].itemValue + '</td>';
-                            }
-                            tdsStr += '<td data-availability="' + resultData[index].numberOfDays + '" data-value="' + resultData[index].numberOfDays + '" class="editableValue">' + resultData[index].numberOfDays + '</td>';
-                            $(this).find('td.editableValue').remove();
-                            $(this).append(tdsStr).append(tdColor);
-                        }
-                    });
-
-                    $('#allRowsSelect').prop('checked', false).trigger('change');
                 }
-            });
-        }
 
-        self.showStatusForPriceUpdate = function (resultData) {
+                if (resultData.isAvailabilitySaved) {
+                    $(this).find('[data-availability]').each(function () {
+                        this.dataset.value = $(this).find('input').val();
+                    });
+                }
+
+                $(this).find('input[type="checkbox"]').prop('checked', false).trigger('change');
+            });
+
             if (resultData.isPriceSaved && resultData.isAvailabilitySaved)
                 Materialize.toast('Price and availability updated successfully', 4000);
             else if (resultData.isPriceSaved)
@@ -293,72 +270,30 @@
                 Materialize.toast("Rules have been added for this dealer for models " + resultData.rulesUpdatedModelNames, 4000);
         }
 
-        self.onPriceOrAvaialabilityUpdateSucess = function (resultData, dealerId, cityId, isWholeTableUpdated) {
-            if (!isWholeTableUpdated) {
-                $('tbody').find('tr').filter(':has(:checkbox:checked)').each(function () {
+        self.onPriceOrAvaialabilityDeleteSucess = function (resultData) {
+            $('tbody').find('tr').filter(':has(:checkbox:checked)').each(function () {
 
-                    if (resultData.isPriceSaved) {
-                        $(this).find('[data-itemid]').each(function () {
-                            this.dataset.value = $(this).find('input').val();
-                        });
-                    }
+                if (resultData.isPriceDeleted) {
+                    $(this).find('[data-itemid]').each(function () {
+                        this.dataset.value = 0;
+                    });
+                }
 
-                    if (resultData.isAvailabilitySaved) {
-                        $(this).find('[data-availability]').each(function () {
-                            this.dataset.value = $(this).find('input').val();
-                        });
-                    }
+                if (resultData.isAvailabilityDeleted) {
+                    $(this).find('[data-availability]').each(function () {
+                        this.dataset.value = 0;
+                    });
+                }
 
-                    $(this).find('input[type="checkbox"]').prop('checked', false).trigger('change');
+                $(this).find('input[type="checkbox"]').prop('checked', false).trigger('change');
+            });
 
-                    self.showStatusForPriceUpdate(resultData);
-                });
-            }
-            else {
-                $.when(
-                    self.fetchUpdatedPricingTable(dealerId, cityId)
-                ).then(function () {
-                    self.showStatusForPriceUpdate(resultData)
-                });
-            }
-        }
-
-        self.showStatusForPriceDelete = function (resultData) {
             if (resultData.isPriceDeleted && resultData.isAvailabilityDeleted)
                 Materialize.toast('Price and availability deleted successfully', 4000);
             else if (resultData.isPriceDeleted)
                 Materialize.toast('Price deleted successfully', 4000);
             else if (resultData.isAvailabilityDeleted)
                 Materialize.toast('Availability deleted successfully', 4000);
-        };
-
-        self.onPriceOrAvaialabilityDeleteSucess = function (resultData, dealerId, cityId, isWholeTableUpdated) {
-            if (!isWholeTableUpdated) {
-                $('tbody').find('tr').filter(':has(:checkbox:checked)').each(function () {
-                    if (resultData.isPriceDeleted) {
-                        $(this).find('[data-itemid]').each(function () {
-                            this.dataset.value = 0;
-                        });
-                    }
-
-                    if (resultData.isAvailabilityDeleted) {
-                        $(this).find('[data-availability]').each(function () {
-                            this.dataset.value = 0;
-                        });
-                    }
-
-                    $(this).find('input[type="checkbox"]').prop('checked', false).trigger('change');
-                });
-
-                self.showStatusForPriceDelete(resultData);
-            }
-            else {
-                $.when(
-                    self.fetchUpdatedPricingTable(dealerId, cityId)
-                ).then(function () {
-                    self.showStatusForPriceDelete(resultData);
-                });
-            }
         }
 
         self.onUpdateClick = function (data, event) {
@@ -442,7 +377,7 @@
                                 $(".rowCheckbox").attr('disabled', false);
                                 $('#allRowsSelect').attr('disabled', false);
                                 if (resultData.isPriceSaved || resultData.isAvailabilitySaved) {
-                                    self.onPriceOrAvaialabilityUpdateSucess(resultData, parseInt(event.target.dataset.dealerId), parseInt(event.target.dataset.cityId), $('#allRowsSelect').is(':checked'));
+                                    self.onPriceOrAvaialabilityUpdateSucess(resultData);
                                 }
                                 else {
                                     Materialize.toast('Something went wrong, please try again', 4000);
@@ -483,7 +418,7 @@
                         url: "/api/dealers/deletepricesandavailability/",
                         data: dealerCityVersionsDto,
                         success: function (resultData, textStatus, xhr) {
-                            self.onPriceOrAvaialabilityDeleteSucess(resultData, event.target.dataset.dealerId, event.target.dataset.cityId, $('#allRowsSelect').is(':checked'));
+                            self.onPriceOrAvaialabilityDeleteSucess(resultData);
                         },
                         complete: function (xhr) {
                             if (xhr == 404)
