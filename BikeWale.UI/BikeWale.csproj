@@ -3787,6 +3787,7 @@
     <Content Include="Views\PriceInCity\_PriceInTopCities.cshtml.orig" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\Index_Mobile_Amp.cshtml" />
+    <Content Include="Views\Price\_PriceInCityPopUp_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4035,7 +4036,6 @@
     <Message Text="Checking and installing NPM on machine.." Importance="high" />
     <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />
   </Target>
-
   <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running gulp task $(Configuration)" Importance="high" />
     <Exec Command=".\..\node_modules\.bin\gulp" WorkingDirectory="$(ProjectDir)" />
