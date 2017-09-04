@@ -13,37 +13,21 @@ var ratingError = false, questionError = false, userNameError = false, emailErro
 
 docReady(function () {
     bwcache.setScope('ReviewPage');
-    if (page == "writeReview") {
-        setTimeout(function () { window.location.hash = "writeReview"; }, 1000);
-        $(window).on('hashchange', function (e) {
-            oldUrl = e.originalEvent.oldURL;
-            if (oldUrl && (oldUrl.indexOf('#') > 0)) {
-                if ($("#previousPageUrl") && $("#previousPageUrl").length)
-                    window.location.href = $('#previousPageUrl').text();
-            }
-        });
-    }
-    else if (page == "otherDetails" ) {
-        setTimeout(function () { window.location.hash = "otherDetails"; }, 1000);
-        $(window).on('hashchange', function (e) {
-            oldUrl = e.originalEvent.oldURL;
-            if (oldUrl && (oldUrl.indexOf('#') > 0)) {
-                if ($("#returnUrl") && $("#returnUrl").length)
-                    window.location.href = $('#returnUrl').text();
-            }
-        });
-    }
-    else if (page == "reviewSummary")
-    {
-        setTimeout(function () { window.location.hash = "reviewSummary"; }, 1000);
-        $(window).on('hashchange', function (e) {
-            oldUrl = e.originalEvent.oldURL;
-            if (oldUrl && (oldUrl.indexOf('#') > 0)) {
-                if ($("#pageSource") && $("#pageSource").length)
-                    window.location.href = $("#pageSource").val();
-            }
-        });
-    }
+    window.history.pushState('ReviewPage', '', '');
+
+    $(window).on('popstate', function (event) {                
+
+        if (page == "writeReview" && $("#previousPageUrl") && $("#previousPageUrl").length) {            
+                window.location.href = $('#previousPageUrl').text();
+        }
+        else if (page == "otherDetails" && $("#returnUrl") && $("#returnUrl").length) {
+            window.location.href = $('#returnUrl').text();
+        }
+        else if (page == "reviewSummary" && $("#pageSource") && $("#pageSource").length) {
+            window.location.href = $("#pageSource").val();
+        }
+
+    });    
 
     if ($('#review-question-list') && $('#review-question-list').text())
         reviewQuestion = JSON.parse($('#review-question-list').text());
@@ -196,6 +180,9 @@ docReady(function () {
 
         self.validateRateBikeForm = function () {
             var isValid = false;
+
+            self.userName($('#txtUserName').val());
+            self.emailId($('#txtEmailID').val());           
 
             isValid = self.validate.ratingCount();
             isValid &= self.validate.ratingForm();
