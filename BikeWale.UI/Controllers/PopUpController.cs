@@ -1,8 +1,4 @@
 ﻿using Bikewale.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -15,7 +11,7 @@ namespace Bikewale.Controllers
         {
             PoupCityAreaVM objPopupCityAreaVM = new PoupCityAreaVM();
 
-            return View("~/Views/m/Shared/_PopupWidget.cshtml", objPopupCityAreaVM);
+            return View("~/Views/PopUp/PopUpCityArea_Mobile.cshtml", objPopupCityAreaVM);
         }
     }
 }

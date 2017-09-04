@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Models
 {
-    public class PoupCityAreaVM
+    public class PoupCityAreaVM:ModelBase
     {
         public uint ModelId { get; set; }
 
