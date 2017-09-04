@@ -31,7 +31,7 @@
         <section>
             <% if (vmCompare.BasicInfo != null)
                 { %>
-            <div <%= !isSponsoredBike ? "" : "id='sponsored-column-active'"  %>>
+            <div id='sponsored-column-active' <%= !isSponsoredBike ? "" : "id='sponsored-column-active'"  %>>
                 <%-- add sponsored-column-active for sponsored bike--%>
                 <div class="container box-shadow bg-white card-bottom-margin bw-tabs-panel">
                     <h1 class="box-shadow padding-15-20 margin-bottom3 text-bold"><%= comparisionText %></h1>
@@ -39,7 +39,7 @@
                         <% foreach (var bike in vmCompare.BasicInfo)
                             {
                                 string bikeName = string.Format("{0} {1}", bike.Make, bike.Model); %>
-                        <div class="bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>" data-masking="<%= string.Format("{0}-{1}",bike.MakeMaskingName,bike.ModelMaskingName)%>" data-changed="" data-modelid="<%= bike.ModelId %>" data-versionid="<%= bike.VersionId %>" data-bikename="<%= String.Format("{0}_{1}_{2}",bike.Make,bike.Model,bike.Version) %>">
+                        <div class="bike-details-block sponsored-bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>" data-masking="<%= string.Format("{0}-{1}",bike.MakeMaskingName,bike.ModelMaskingName)%>" data-changed="" data-modelid="<%= bike.ModelId %>" data-versionid="<%= bike.VersionId %>" data-bikename="<%= String.Format("{0}_{1}_{2}",bike.Make,bike.Model,bike.Version) %>">
                             <% if (bike.VersionId == sponsoredVersionId)
                                 {%>
                             <span class="position-abt pos-top5 label-text">Sponsored</span>
@@ -95,7 +95,7 @@
                     <div id="comparison-floating-card" class="box-shadow slideIn-transition">
                         <% foreach (var bike in vmCompare.BasicInfo)
                             {   %>
-                        <div class="bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>">
+                        <div class="bike-details-block sponsored-bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>">
                             <% if (bike.VersionId == sponsoredVersionId)
                                 {%>
                             <span class="position-abt pos-top5 label-text">Sponsored</span>
@@ -124,6 +124,7 @@
                                 <li data-tabs="specsTabContent" class="active">Specifications</li>
                                 <li data-tabs="featuresTabContent">Features</li>
                                 <li data-tabs="coloursTabContent">Colours</li>
+                                <li data-tabs="reviewTabContent">Reviews</li>
                             </ul>
                             <div class="clear"></div>
                         </div>
@@ -139,6 +140,9 @@
                             </li>
                             <li data-tabs="coloursTabContent">
                                 <h3>Colours</h3>
+                            </li>
+                            <li data-tabs="reviewTabContent">
+                                <h3>Reviews</h3>
                             </li>
                         </ul>
                         <div class="clear"></div>
@@ -241,6 +245,242 @@
                             </tbody>
                         </table>
                         <% } %>
+                    </div>
+
+                    <div id="reviewTabContent" class="review-tab bw-tabs-data">
+                        <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                            <tbody>
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Overall rating</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td>
+                                        <div class="rate-count-4 rating">
+                                            <span class="bwmsprite star-icon"></span>
+                                            <span class="font18 text-bold">4.4</span>
+                                        </div>
+                                        <div class="rating-count">(7 ratings)</div>
+                                        <a href="#" class="font12">55 reviews</a>
+                                    </td>
+                                    <td>
+                                        <div class="rate-count-3 rating">
+                                            <span class="bwmsprite star-icon"></span>
+                                            <span class="font18 text-bold">3.4</span>
+                                        </div>
+                                        <div class="rating-count">(17 ratings)</div>
+                                        <a href="#" class="font12">55 reviews</a>
+                                    </td>
+                                    <td>
+                                        <div class="rate-count-3 rating">
+                                            <span class="bwmsprite star-icon"></span>
+                                            <span class="font18 text-bold">3.4</span>
+                                        </div>
+                                        <div class="rating-count">(17 ratings)</div>
+                                        <a href="#" class="font12">55 reviews</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Mileage by Users</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td>55.55&nbsp
+                                        <span class="font12 text-xt-light">kmpl</span>
+                                    </td>
+                                    <td>35.55&nbsp
+                                        <span class="font12 text-xt-light">kmpl</span>
+                                    </td>
+                                    <td>55.55&nbsp
+                                        <span class="font12 text-xt-light">kmpl</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Performance Parameters</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="data-head">
+                                    <td colspan="2">Visual appear</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td class="border-bottom-grey margin-bottom5">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-1'></span>
+                                        </div>
+                                        &nbsp
+                                        1   
+                                    </td>
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-2'></span>
+                                        </div>
+                                        &nbsp
+                                        2   
+                                    </td>
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-2'></span>
+                                        </div>
+                                        &nbsp
+                                        2   
+                                    </td>
+                                </tr>
+                                <tr class="data-head">
+                                    <td colspan="2">Handling</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-1'></span>
+                                        </div>
+                                        &nbsp
+                                        1   
+                                    </td>
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-2'></span>
+                                        </div>
+                                        &nbsp
+                                        2   
+                                    </td>
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-2'></span>
+                                        </div>
+                                        &nbsp
+                                        2   
+                                    </td>
+                                </tr>
+                                <tr class="data-head">
+                                    <td colspan="2">Ride quality</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-1'></span>
+                                        </div>
+                                        &nbsp
+                                        1   
+                                    </td>
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <div class='rate-2'></div>
+                                        </div>
+                                        &nbsp
+                                       2   
+                                    </td>
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-2'></span>
+                                        </div>
+                                        &nbsp
+                                        2   
+                                    </td>
+                                </tr>
+                                <tr class="data-head">
+                                    <td colspan="2">Value of money</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-1'></span>
+                                        </div>
+                                        &nbsp
+                                        1   
+                                    </td>
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-5'></span>
+                                        </div>
+                                        &nbsp
+                                        5   
+                                    </td>
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-2'></span>
+                                        </div>
+                                        &nbsp
+                                        2   
+                                    </td>
+                                </tr>
+                                <tr class="data-head">
+                                    <td colspan="2">Service cost</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-4'></span>
+                                        </div>
+                                        &nbsp
+                                        4   
+                                    </td>
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-5'></span>
+                                        </div>
+                                        &nbsp
+                                        5   
+                                    </td>
+                                    <td class="border-bottom-grey">
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-2'></span>
+                                        </div>
+                                        &nbsp
+                                        2   
+                                    </td>
+                                </tr>
+
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Reviews</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td>
+                                        <p class="review-title">
+                                            Royal enfield-royalty bikes
+                                        </p>
+                                        <p class="review-title">
+                                            Beast royal enfield classic 350
+                                        </p>
+                                        <p class="review-title margin-bottom5">
+                                            Not affordable
+                                        </p>
+                                        <a href="#" class="reviews review-link font12">All reviews</a>
+                                    </td>
+                                    <td>
+                                        <p class="review-title">
+                                            Royal enfield-royalty bikes
+                                        </p>
+                                        <p class="review-title">
+                                            Beast royal enfield classic 350
+                                        </p>
+                                        <p class="review-title margin-bottom5">
+                                            Not affordable
+                                        </p>
+                                        <a href="#" class="review-title review-link font12">All reviews</a>
+                                    </td>
+                                    <td>
+                                        <p class="review-title">
+                                            Royal enfield-royalty bikes
+                                        </p>
+                                        <p class="review-title">
+                                            Beast royal enfield classic 350
+                                        </p>
+                                        <p class="review-title margin-bottom5">
+                                            Not affordable
+                                        </p>
+                                        <a href="#" class="review-title review-link font12">All reviews</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
                     <div id="toggle-float-button" class="grid-12 float-button float-fixed clearfix slideIn-transition">
