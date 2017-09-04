@@ -2,7 +2,7 @@
 var userNameField, userEmailIdField, vmWriteReview;
 var detailedReviewField, reviewTitleField, reviewQuestion, ratingOverAll, pageSourceID, contentSourceId;
 var writeReview, isSubmit = false;
-var makeModelName, ratingErrorFields="", reviewErrorFields="";
+var makeModelName, ratingErrorFields = "", reviewErrorFields = "";
 var bikeRating = {
     ratingCount: 0,
     overallRating: []
@@ -20,6 +20,27 @@ docReady(function () {
             if (oldUrl && (oldUrl.indexOf('#') > 0)) {
                 if ($("#previousPageUrl") && $("#previousPageUrl").length)
                     window.location.href = $('#previousPageUrl').text();
+            }
+        });
+    }
+    else if (page == "otherDetails" ) {
+        setTimeout(function () { window.location.hash = "otherDetails"; }, 1000);
+        $(window).on('hashchange', function (e) {
+            oldUrl = e.originalEvent.oldURL;
+            if (oldUrl && (oldUrl.indexOf('#') > 0)) {
+                if ($("#returnUrl") && $("#returnUrl").length)
+                    window.location.href = $('#returnUrl').text();
+            }
+        });
+    }
+    else if (page == "reviewSummary")
+    {
+        setTimeout(function () { window.location.hash = "reviewSummary"; }, 1000);
+        $(window).on('hashchange', function (e) {
+            oldUrl = e.originalEvent.oldURL;
+            if (oldUrl && (oldUrl.indexOf('#') > 0)) {
+                if ($("#pageSource") && $("#pageSource").length)
+                    window.location.href = $("#pageSource").val();
             }
         });
     }
@@ -46,7 +67,7 @@ docReady(function () {
 
     if ($('#contestSrc') && $('#contestSrc').length)
         contentSourceId = Number($('#contestSrc').val());
-    
+
 
     if (document.getElementById("bike-rating-box") != null && document.getElementById("bike-rating-box").getAttribute("data-make-model")) {
         makeModelName = document.getElementById("bike-rating-box").getAttribute("data-make-model");
@@ -60,7 +81,7 @@ docReady(function () {
             value ? $(element).show() : $(element).fadeOut(200);
         }
     };
-    
+
     ko.bindingHandlers.hoverRating = {
         update: function (element, valueAccessor) {
             var value = ko.utils.unwrapObservable(valueAccessor());
@@ -103,7 +124,7 @@ docReady(function () {
         userEmailIdField = $('#txtEmailID');
         if (document.getElementById("rate-bike-form") != null && document.getElementById("rate-bike-form").getAttribute("data-value")) {
             validate.setError(userEmailIdField, 'Please enter an authorised email ID to continue.');
-          }
+        }
 
         self.init = function () {
             $('#rate-bike-questions .question-type-text input[type=radio][data-checked="true"]').each(function () {
@@ -121,7 +142,7 @@ docReady(function () {
                 else {
                     userNameField.val = userNameField.val();
                 }
-                if (array_cookie[1] != null && array_cookie[1]!="undefined" && userEmailIdField.val() == "") {
+                if (array_cookie[1] != null && array_cookie[1] != "undefined" && userEmailIdField.val() == "") {
                     userEmailIdField.parent('div').addClass("not-empty");
                     userEmailIdField.val(array_cookie[1]);
                     vmRateBike.emailId(array_cookie[1]);
@@ -139,6 +160,7 @@ docReady(function () {
                 vmRateBike.feedbackSubtitle(descText);
 
                 vmRateBike.ratingCount(reviewOverallRatingId);
+                vmRateBike.clickEventRatingCount(reviewOverallRatingId);
                 ratingBox.find('.answer-star-list input[type=radio][value="' + reviewOverallRatingId + '"]').trigger("click");
             }
 
@@ -146,7 +168,7 @@ docReady(function () {
 
         };
 
-        self.submitRating = function () {            
+        self.submitRating = function () {
             if (self.validateRateBikeForm()) {
                 array_rating = new Array;
                 value_overallrating = $("#bike-rating-box input[type='radio']:checked").attr("value");
@@ -182,8 +204,7 @@ docReady(function () {
             if (isValid) {
                 triggerGA('Rate_Bike', 'Rating_Submit_Success', makeModelName + pageSourceID);
             }
-            else
-            {
+            else {
                 ratingErrorFields = "";
                 if (ratingError)
                     ratingErrorFields = ratingErrorFields + '_' + 'Rating_Field';
@@ -247,7 +268,7 @@ docReady(function () {
                     isValid = true;
                     questionError = false;
                 }
-             
+
                 return isValid;
             }
         };
@@ -265,7 +286,7 @@ docReady(function () {
 
             isValid = self.validateUserName();
             isValid &= self.validateEmailId();
-                        
+
             return isValid;
         };
 
@@ -293,7 +314,7 @@ docReady(function () {
                 validate.setError(userNameField, 'Please enter your name');
                 userNameError = true;
             }
-           
+
             return isValid;
         };
 
@@ -315,7 +336,7 @@ docReady(function () {
                 isValid = true;
                 emailError = false;
             }
-            
+
             return isValid;
         };
     };
@@ -352,7 +373,7 @@ docReady(function () {
             subQuestionId = Number(questionField.attr('data-sub-question'));
 
         questionField.find('.error-text').slideUp();
-      
+
         if (subQuestionId > 0) {
             var buttonValue = Number($(this).val()),
                 subQuestionField = $('#question-' + subQuestionId);
@@ -473,8 +494,8 @@ docReady(function () {
                     return toReplace.toUpperCase();
                 }));
             }
-           
-            
+
+
 
             if ($('#formattedDescripton'))
                 $('#formattedDescripton').val(formattedDescArray);
@@ -484,7 +505,8 @@ docReady(function () {
                 isValidMileage = $.isNumeric(self.bikeMileage()) && Number(self.bikeMileage()) <= 150 && Number(self.bikeMileage()) >= 0;
 
             if (isValidMileage) {
-                if (self.detailedReview().length > 0 || self.reviewTitle().length > 0) {
+
+                if ($('#reviewDesc').length > 0) {
                     if (self.validateReviewForm()) {
                         return true;
                     }
@@ -506,7 +528,7 @@ docReady(function () {
 
         self.validateReviewForm = function () {
             var isValidDesc = true;
-            var isValidTitle=true;
+            var isValidTitle = true;
             isValidDesc = self.validate.detailedReview();
             isValidTitle = self.validate.reviewTitle();
             var isValid = isValidDesc && isValidTitle;
@@ -534,7 +556,12 @@ docReady(function () {
                 if (self.descLength() < 300) {
                     self.detailedReview(self.detailedReview().trim());
                     self.detailedReviewFlag(true);
-                    self.detailedReviewError('Your review should contain at least 300 characters.');
+
+                    if (self.descLength() == 0)
+                        self.detailedReviewError('This is a compulsory field!');
+                    else
+                        self.detailedReviewError('Your review should contain at least 300 characters.');
+
                     self.focusFormActive(true);
                     answer.focusForm(descReviewField);
                 }
@@ -549,7 +576,12 @@ docReady(function () {
                 var isValid = false;
 
                 if (self.reviewTitle().trim().length == 0) {
-                    validate.setError(reviewTitleField, 'Please provide a title for your review!');
+
+                    if (self.descLength() == 0)
+                        validate.setError(reviewTitleField, 'This is a compulsory field!');
+                    else
+                        validate.setError(reviewTitleField, 'Please provide a title for your review!');
+
                     if (!self.focusFormActive()) {
                         answer.focusForm(descReviewField);
                     }
@@ -630,7 +662,7 @@ docReady(function () {
 
     if (writeReviewForm) {
         ko.applyBindings(vmWriteReview, writeReviewForm);
-		descReviewField.focus();
+        descReviewField.focus();
     }
 
     $('#bike-review-questions').find('.question-type-star input[type=radio]').change(function () {
@@ -704,12 +736,12 @@ docReady(function () {
 
         vmWriteReview.validate.reviewTitle();
     }
-     
+
 
     vmWriteReview.GetFromBwCache();
     vmWriteReview.FillReviewData();
     window.onbeforeunload = function () {
-        if((!isSubmit && $("#bike-rating-box input[type='radio']:checked").attr("value") != null))
+        if ((!isSubmit && $("#bike-rating-box input[type='radio']:checked").attr("value") != null))
             return false;
     }
 });

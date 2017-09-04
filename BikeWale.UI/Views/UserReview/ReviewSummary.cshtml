@@ -150,23 +150,14 @@
                     </div>
                 </div>
                 <div class="clear"></div>
-            </div>
+            </div>            
         </section>
     }
+    <input id="pageSource" type="hidden" value="@Model.Summary.ReturnUrl" />
+    <div id="review-summary-page"></div>
 
 }
 <script type="text/javascript">
-    docReady(function () {
-        var handleBrowserBack = function (prevPage, curPage) {
-            setTimeout(function () { window.location.hash = curPage; }, 1000);
-            $(window).on('hashchange', function (e) {
-                oldUrl = e.originalEvent.oldURL;
-                if (oldUrl && (oldUrl.indexOf('#') > 0)) {
-                    if (prevPage && prevPage.length)
-                        window.location.href = prevPage.val();
-                }
-            });
-        };
-        handleBrowserBack(($("#pageSource")), "reviewSummary");
-    });
+    var page = "reviewSummary";
+    var vmWriteReview;
 </script>
