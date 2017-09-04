@@ -337,6 +337,7 @@
     <Compile Include="UserReviews\v2\Review.cs" />
     <Compile Include="UserReviews\v2\ReviewBase.cs" />
     <Compile Include="UserReviews\v2\ReviewRatingBase.cs" />
+    <Compile Include="UserReviews\WriteReviewInput.cs" />
     <Compile Include="Version\ModelVersionList.cs" />
     <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteInput.cs" />
     <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteOutput.cs" />

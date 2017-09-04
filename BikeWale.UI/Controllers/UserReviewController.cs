@@ -10,6 +10,8 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility.StringExtention;
+using System.Collections.Specialized;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -309,7 +311,16 @@ namespace Bikewale.Controllers
         {
             WriteReviewPageSubmitResponse objResponse = null;
 
-            objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips.Trim(), reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName, mileage);
+            uint encodedreviewId;
+            ulong encodedCustomerId;
+
+            string decodedString = Utils.Utils.DecryptTripleDES(encodedId);
+            NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
+
+            uint.TryParse(queryCollection["reviewid"], out encodedreviewId);
+            ulong.TryParse(queryCollection["customerid"], out encodedCustomerId);
+
+            objResponse = _userReviews.SaveUserReviews(encodedreviewId, encodedCustomerId, reviewTips.Trim(), reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName, mileage);
 
             if (objResponse.IsSuccess)
             {

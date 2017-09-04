@@ -1,8 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
-using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.UserReviews;
@@ -12,10 +10,8 @@ using Bikewale.Utility;
 using Bikewale.Utility.LinqHelpers;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
 
 namespace Bikewale.BAL.UserReviews
 {
@@ -349,61 +345,44 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="reviewDescription"></param>
         /// <param name="reviewTitle"></param>
         /// <returns></returns>
-        public WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName, string mileage)
-        {            
+        public WriteReviewPageSubmitResponse SaveUserReviews(uint reviewId, ulong customerId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName, string mileage)
+        {
             WriteReviewPageSubmitResponse objResponse = null;
             try
             {
-
-
-                if (!string.IsNullOrEmpty(encodedId))
+                if (reviewId > 0 && customerId > 0 && _userReviewsRepo.IsUserVerified(reviewId, customerId))
                 {
-                    uint _reviewId;
-                    ulong _customerId;
+                    bool isValid = true;
 
-                    string decodedString = Utils.Utils.DecryptTripleDES(encodedId);
-                    NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
+                    objResponse = new WriteReviewPageSubmitResponse();
 
-                    uint.TryParse(queryCollection["reviewid"], out _reviewId);
-                    ulong.TryParse(queryCollection["customerid"], out _customerId);
-
-
-                    if (_reviewId > 0 && _customerId > 0 && _userReviewsRepo.IsUserVerified(_reviewId, _customerId))
+                    if (!string.IsNullOrEmpty(comment) && comment.Length < 300 && string.IsNullOrEmpty(commentTitle))
                     {
-                        bool isValid = true;
-
-                        objResponse = new WriteReviewPageSubmitResponse();
-
-                        if (!string.IsNullOrEmpty(comment) && comment.Length < 300 && string.IsNullOrEmpty(commentTitle))
-                        {
-                            objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
-                            objResponse.TitleErrorText = "Please provide a title for your review.";
-                            isValid = false;
-                        }
-                        else if (string.IsNullOrEmpty(comment) && !string.IsNullOrEmpty(commentTitle))
-                        {
-                            objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
-                            isValid = false;
-                        }
-                        else if (!string.IsNullOrEmpty(comment) && comment.Length > 300 && string.IsNullOrEmpty(commentTitle))
-                        {
-                            objResponse.TitleErrorText = "Please provide a title for your review.";
-                            isValid = false;
-                        }
-
-                        if (isValid)
-                        {
-                            objResponse.IsSuccess = SaveUserReviews(_reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
-
-                            if (!string.IsNullOrEmpty(comment))
-                                UserReviewsEmails.SendReviewSubmissionEmail(userName, emailId, makeName, modelName);
-
-                            if (mileage != null && mileage.Length > 0)
-                                _userReviewsRepo.SaveUserReviewMileage(_reviewId, mileage);
-                        }
+                        objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
+                        objResponse.TitleErrorText = "Please provide a title for your review.";
+                        isValid = false;
                     }
-                    else
-                        objResponse.IsSuccess = false;
+                    else if (string.IsNullOrEmpty(comment) && !string.IsNullOrEmpty(commentTitle))
+                    {
+                        objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
+                        isValid = false;
+                    }
+                    else if (!string.IsNullOrEmpty(comment) && comment.Length > 300 && string.IsNullOrEmpty(commentTitle))
+                    {
+                        objResponse.TitleErrorText = "Please provide a title for your review.";
+                        isValid = false;
+                    }
+
+                    if (isValid)
+                    {
+                        objResponse.IsSuccess = SaveUserReviews(reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
+
+                        if (!string.IsNullOrEmpty(comment))
+                            UserReviewsEmails.SendReviewSubmissionEmail(userName, emailId, makeName, modelName);
+
+                        if (mileage != null && mileage.Length > 0)
+                            _userReviewsRepo.SaveUserReviewMileage(reviewId, mileage);
+                    }
                 }
                 else
                     objResponse.IsSuccess = false;
@@ -510,9 +489,9 @@ namespace Bikewale.BAL.UserReviews
             {
                 Entities.UserReviews.UserReviewsData objReviewData = new Entities.UserReviews.UserReviewsData();
                 objReviewData = GetUserReviewsData();
-                if (reviewId==0)
+                if (reviewId == 0)
                 {
-                    if(objReviewData !=null)
+                    if (objReviewData != null)
                     {
                         if (objReviewData.OverallRating != null)
                         {
@@ -574,7 +553,7 @@ namespace Bikewale.BAL.UserReviews
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.GetUserRatings({0})", reviewId));
             }
-          
+
         }
 
         /// <summary>
@@ -586,19 +565,19 @@ namespace Bikewale.BAL.UserReviews
             UserReviewRatingData objUserReviewRatingData = new UserReviewRatingData();
             try
             {
-               
+
                 BikeModelEntity objBikeModelEntity = null;
 
                 objBikeModelEntity = _objBikeModel.GetById((int)modelId);
-                GetUserRatings(objUserReviewRatingData,reviewId, isFake);
+                GetUserRatings(objUserReviewRatingData, reviewId, isFake);
 
                 objUserReviewRatingData.SelectedRating = selectedRating;
                 if (objUserReviewRatingData != null && objUserReviewRatingData.objModelEntity != null)
                 {
-                    objUserReviewRatingData.SourceId =  sourceId;
+                    objUserReviewRatingData.SourceId = sourceId;
                     objUserReviewRatingData.ReturnUrl = returnUrl;
                     objUserReviewRatingData.ContestSrc = contestsrc;
-                   
+
                 }
 
             }
@@ -607,7 +586,7 @@ namespace Bikewale.BAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, String.Format("GetRateBikeData({0},{1},{2},{3},{4},{5},{6})", modelId, reviewId, customerId, sourceId, selectedRating, returnUrl, contestsrc));
             }
             return objUserReviewRatingData;
-         }
+        }
 
     }   // Class
 }   // Namespace

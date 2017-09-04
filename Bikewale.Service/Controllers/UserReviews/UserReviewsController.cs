@@ -4,6 +4,7 @@ using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UserReviews;
 using Bikewale.Service.Utilities;
@@ -15,8 +16,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.BAL.UserReviews;
-using Bikewale.Service.AutoMappers.Model;
 
 namespace Bikewale.Service.Controllers.UserReviews
 {
@@ -36,13 +35,13 @@ namespace Bikewale.Service.Controllers.UserReviews
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objBikeModel = null;
 
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <param name="userReviewsRepo"></param>
-       /// <param name="userReviews"></param>
-       /// <param name="userReviewsCache"></param>
-       /// <param name="objBikeModel"></param>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userReviewsRepo"></param>
+        /// <param name="userReviews"></param>
+        /// <param name="userReviewsCache"></param>
+        /// <param name="objBikeModel"></param>
         public UserReviewsController(IUserReviewsRepository userReviewsRepo, IUserReviews userReviews, IUserReviewsCache userReviewsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objBikeModel)
         {
             _userReviewsRepo = userReviewsRepo;
@@ -105,20 +104,20 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <returns></returns>
         [HttpPost, Route("api/user-reviews/updateView/{reviewId}/")]
         public IHttpActionResult UpdateUserReviewViews(uint reviewId)
-        {            
+        {
             try
             {
                 NameValueCollection nvc = new NameValueCollection();
                 nvc.Add("par_reviewId", reviewId.ToString());
                 SyncBWData.PushToQueue("updateUserReviewViews", DataBaseName.BW, nvc);
 
-                return Ok();                
+                return Ok();
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.UpdateUserReviewViews");                
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.UpdateUserReviewViews");
                 return InternalServerError();
-            }           
+            }
         }
 
         #region Get User Review Ratings
@@ -280,6 +279,53 @@ namespace Bikewale.Service.Controllers.UserReviews
         }   // Get review details
         #endregion
 
+        #region SaveUserReviewDetails
+        [HttpPost, ResponseType(typeof(UserReviewSummaryDto)), Route("api/write-review/save/")]
+        public IHttpActionResult SaveUserReviewDetails(WriteReviewInput writeReviewInput)
+        {
+            UserReviewSummary objUserReview = null;
+            UserReviewSummaryDto objDTOUserReview = null;
+            WriteReviewPageSubmitResponse objResponse = null;
+
+            try
+            {
+                objResponse = _userReviews.SaveUserReviews(
+                    writeReviewInput.ReviewId,
+                    writeReviewInput.CustomerId,
+                    writeReviewInput.ReviewTips.Trim(),
+                    writeReviewInput.ReviewDescription,
+                    writeReviewInput.ReviewTitle,
+                    writeReviewInput.ReviewQuestion,
+                    writeReviewInput.EmailId,
+                    writeReviewInput.UserName,
+                    writeReviewInput.MakeName,
+                    writeReviewInput.ModelName,
+                    writeReviewInput.Mileage
+                );
+
+                if (objResponse.IsSuccess)
+                {
+                    objUserReview = _userReviews.GetUserReviewSummary(writeReviewInput.ReviewId);
+                }
+
+                if (objUserReview != null)
+                {
+                    // Auto map the properties
+                    objDTOUserReview = new UserReviewSummaryDto();
+                    objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
+
+                    return Ok(objDTOUserReview);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                return InternalServerError();
+            }
+            return NotFound();
+        }   // Get review details
+        #endregion
+
         #region User Reviews voting
         /// <summary>
         /// Created by Sajal Gupta on 05-05-2017
@@ -356,13 +402,13 @@ namespace Bikewale.Service.Controllers.UserReviews
             {
                 RateBikeDetails objRateBikeDetails = null;
                 UserReviewRatingData objReviewRatingData = null;
-                if (objRateBike !=null)
+                if (objRateBike != null)
                 {
                     objReviewRatingData = _userReviews.GetRateBikeData(objRateBike.ModelId, objRateBike.ReviewId, objRateBike.CustomerId, objRateBike.SourceId, objRateBike.SelectedRating, objRateBike.IsFake, objRateBike.ReturnUrl, objRateBike.Contestsrc);
-                    if(objReviewRatingData !=null)
+                    if (objReviewRatingData != null)
                     {
                         objRateBikeDetails = UserReviewsMapper.Convert(objReviewRatingData);
-                         return Ok(objRateBikeDetails);
+                        return Ok(objRateBikeDetails);
                     }
                 }
             }
