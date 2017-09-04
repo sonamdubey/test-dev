@@ -605,8 +605,11 @@ h1,
   min-height: 110px; }
 
 .user-reviews-type-carousel .swiper-details-block {
-  padding-top: 7px;
-  padding-bottom: 15px; }
+  padding-top: 7px; }
+
+.swiper-review-target {
+  display: block;
+  padding: 0 15px 5px; }
 
 #report-abuse-popup {
   display: none;

@@ -1,10 +1,10 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewSimilarBikesWidgetVM
 <div class="swiper-container card-container user-reviews-type-carousel">
-    <div class="swiper-wrapper">
+    <ul class="swiper-wrapper">
         @foreach (var bike in Model.SimilarBikes)
         {
             var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
-            <div class="swiper-slide">
+            <li class="swiper-slide">
                 <div class="swiper-card">
                     <a href=@string.Format("/m/{0}-bikes/{1}/", @bike.Make.MaskingName, @bike.Model.MaskingName) title="@bikeName user review" class="block">
                         <div class="swiper-image-preview">
@@ -24,24 +24,24 @@
                                     @string.Format("{0} {1}", formatedPrice, (priceToShow == bike.ExShowroomPriceMumbai ? "onwards" : ""))
                                 </span>
                             </p>
-                            <a href=@string.Format("/m/{0}-bikes/{1}/reviews/", @bike.Make.MaskingName, @bike.Model.MaskingName) title="@bikeName user review">
-                                <div class="rating-container">
-                                    <div class="grid-4-inline rate-count-@Math.Round(bike.OverAllRating)" data-rate-bg="@Math.Round(bike.OverAllRating)">
-                                        <span class="bwmsprite star-icon star-size-14"></span>
-                                        <span class="rating-text-pos">@bike.OverAllRating.ToString("0.0").TrimEnd('0', '.')</span>
-                                    </div>
-                                    @*<span class="font12 text-light-grey inline-block">@string.Format("{0} rating{1}", bike.NumberOfRating, (bike.NumberOfRating > 1 ? "s" : ""))</span>*@
-                                    @if (bike.NumberOfReviews > 0)
-                                    {
-                                        <div class="grid-8-inline font12 text-default review-left-divider">Read @string.Format("{0} review{1}", bike.NumberOfReviews, (bike.NumberOfReviews > 1 ? "s" : ""))</div>
-                                    }
-                                    <span class="bwmsprite next-grey-icon-listing"></span>
-                                </div>
-                            </a>
                         </div>
                     </a>
+					<a href=@string.Format("/m/{0}-bikes/{1}/reviews/", @bike.Make.MaskingName, @bike.Model.MaskingName) title="@bikeName user review" class="swiper-review-target">
+						<div class="rating-container">
+							<div class="grid-4-inline rate-count-@Math.Round(bike.OverAllRating)" data-rate-bg="@Math.Round(bike.OverAllRating)">
+								<span class="bwmsprite star-icon star-size-14"></span>
+								<span class="rating-text-pos">@bike.OverAllRating.ToString("0.0").TrimEnd('0', '.')</span>
+							</div>
+							@*<span class="font12 text-light-grey inline-block">@string.Format("{0} rating{1}", bike.NumberOfRating, (bike.NumberOfRating > 1 ? "s" : ""))</span>*@
+							@if (bike.NumberOfReviews > 0)
+							{
+								<div class="grid-8-inline font12 text-default review-left-divider">Read @string.Format("{0} review{1}", bike.NumberOfReviews, (bike.NumberOfReviews > 1 ? "s" : ""))</div>
+							}
+							<span class="bwmsprite next-grey-icon-listing"></span>
+						</div>
+					</a>
                 </div>
-            </div>
-                                        }
-    </div>
+            </li>
+		}
+    </ul>
 </div>
