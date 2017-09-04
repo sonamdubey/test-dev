@@ -221,7 +221,7 @@
                         }
                         @if (Model.HasServiceCenters)
                         {
-                <!-- model service centers start -->
+                            <!-- model service centers start -->
                             <div class="content-box-shadow card-bottom-margin content-inner-block-20">
                                 <div class="margin-bottom10">
                                     <span class="bwmsprite service-center-grey"></span>
@@ -232,7 +232,7 @@
                                 <p class="font14 text-slate-grey margin-bottom15">Get in touch with your nearest @Model.Make.MakeName service center in @Model.CityEntity.CityName for service enquiries, service and repair costs and more!</p>
                                 <a href="@String.Format("/m{0}", Model.ServiceCenterWidget_ViewAll_Href)" title="@Model.ServiceCenterWidget_ViewAll_Title" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
                             </div>
-                <!-- model service centers end -->
+                            <!-- model service centers end -->
                         }
                     </div>
                 }
@@ -406,13 +406,13 @@
                                     }
                                 </div>
                             }
+                            <!-- model prices in nearby cities end -->
                         </div>
                     }
             <!-- model version prices end -->
 
 
                 }
-                <!-- model prices in nearby cities end -->
                 <!-- model prices similar bikes start -->
                 @if (Model.HasAlternateBikes)
                 {
