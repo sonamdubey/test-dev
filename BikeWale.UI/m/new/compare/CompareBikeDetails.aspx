@@ -452,7 +452,7 @@
                                         <p class="review-title margin-bottom5">
                                             Not affordable
                                         </p>
-                                        <a href="#" class="reviews review-link font12">All reviews</a>
+                                        <a href="#" class="review-title review-link font12">All reviews</a>
                                     </td>
                                     <td>
                                         <p class="review-title">
