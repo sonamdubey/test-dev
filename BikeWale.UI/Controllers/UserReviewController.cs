@@ -198,16 +198,12 @@ namespace Bikewale.Controllers
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
         public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop, string returnUrl, ushort platformId, ushort? sourceId, string utmzCookieValue, int? contestSrc)
         {
-
-
             UserReviewRatingObject objRating = null;
             userName = StringHelper.ToProperCase(userName);
             objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId, returnUrl, platformId, utmzCookieValue, sourceId);
 
 
             string strQueryString = string.Empty;
-
-
             if (objRating != null)
                 strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}&returnUrl={9}&sourceid={10}&contestsrc={11}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, objRating.IsFake, returnUrl, sourceId, contestSrc);
 

@@ -77,6 +77,7 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
                 container.RegisterType<IUserReviewsSearch, UserReviewsSearch>();
                 container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
+                container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
                 container.RegisterType<IBikeModelsCacheRepository<U>, BikeModelsCacheRepository<T, U>>();
                 container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
                 container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();

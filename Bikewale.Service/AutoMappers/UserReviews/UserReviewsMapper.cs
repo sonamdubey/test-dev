@@ -109,13 +109,15 @@ namespace Bikewale.Service.AutoMappers.UserReviews
         /// Created by : Snehal Dange on 1st Sep 2017
         /// Summary     : Mapper for Rate Bike api 
         /// </summary>
-        public static RateBikeDetails Convert(UserReviewRatingData reviewRatingDataEntity)
+        public static Bikewale.DTO.UserReviews.RateBikeDetails Convert(Bikewale.Entities.UserReviews.UserReviewRatingData reviewRatingDataEntity)
         {
+
             Mapper.CreateMap<BikeModelEntity, ModelDetails>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-            return Mapper.Map<UserReviewRatingData, RateBikeDetails>(reviewRatingDataEntity);
+            Mapper.CreateMap<Bikewale.Entities.UserReviews.UserReviewRatingData, Bikewale.DTO.UserReviews.RateBikeDetails>();
+            return Mapper.Map<Bikewale.Entities.UserReviews.UserReviewRatingData, Bikewale.DTO.UserReviews.RateBikeDetails>(reviewRatingDataEntity);
         }
     }
 }

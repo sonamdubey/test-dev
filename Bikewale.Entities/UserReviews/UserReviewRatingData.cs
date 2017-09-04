@@ -14,7 +14,7 @@ namespace Bikewale.Entities.UserReviews
     /// </summary>
     public class UserReviewRatingData 
     {
-        public BikeModelEntity objModelEntity { get; set; }
+        public BikeModelEntity ObjModelEntity { get; set; }
         public string OverAllRatingText { get; set; }
         public string RatingQuestion { get; set; }
         public string ErrorMessage { get; set; }
@@ -28,6 +28,9 @@ namespace Bikewale.Entities.UserReviews
         public string ReturnUrl { get; set; }
         public ushort SourceId { get; set; }
         public int ContestSrc { get; set; }
-       
+        public ushort PlatFormId { get; set; }
+
+        public string UtmzCookieValue { get; set; }
+
     }
 }

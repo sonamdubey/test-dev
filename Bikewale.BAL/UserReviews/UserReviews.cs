@@ -33,12 +33,13 @@ namespace Bikewale.BAL.UserReviews
         // container.RegisterType<IUserReviewsCache, Bikewale.Cache.UserReviews.UserReviewsCacheRepository>();
 
         public UserReviews(IUserReviewsCache userReviewsCache, IUserReviewsRepository userReviewsRepo, ICustomer<CustomerEntity, UInt32> objCustomer,
-            ICustomerRepository<CustomerEntity, UInt32> objCustomerRepo)
+            ICustomerRepository<CustomerEntity, UInt32> objCustomerRepo, IBikeMaskingCacheRepository<BikeModelEntity, int> objBikeModel)
         {
             _userReviewsCache = userReviewsCache;
             _userReviewsRepo = userReviewsRepo;
             _objCustomer = objCustomer;
             _objCustomerRepo = objCustomerRepo;
+            _objBikeModel = objBikeModel;
 
         }
 
@@ -558,13 +559,13 @@ namespace Bikewale.BAL.UserReviews
                 }
 
                 var objLastPrice = objReviewData.PriceRange.Last();
-                if (objUserReviewRatingData.objModelEntity != null && objUserReviewRatingData.objModelEntity.MinPrice >= objLastPrice.MaxPrice)
+                if (objUserReviewRatingData.ObjModelEntity != null && objUserReviewRatingData.ObjModelEntity.MinPrice >= objLastPrice.MaxPrice)
                 {
                     objUserReviewRatingData.PriceRangeId = objLastPrice.RangeId;
                 }
                 else
                 {
-                    objUserReviewRatingData.PriceRangeId = objReviewData.PriceRange.First(x => x.MinPrice <= objUserReviewRatingData.objModelEntity.MinPrice && x.MaxPrice >= objUserReviewRatingData.objModelEntity.MinPrice).RangeId;
+                    objUserReviewRatingData.PriceRangeId = objReviewData.PriceRange.First(x => x.MinPrice <= objUserReviewRatingData.ObjModelEntity.MinPrice && x.MaxPrice >= objUserReviewRatingData.ObjModelEntity.MinPrice).RangeId;
                 }
                 objUserReviewRatingData.IsFake = isFake;
                 objUserReviewRatingData.ReviewId = reviewId;
@@ -586,14 +587,11 @@ namespace Bikewale.BAL.UserReviews
             UserReviewRatingData objUserReviewRatingData = new UserReviewRatingData();
             try
             {
-               
-                BikeModelEntity objBikeModelEntity = null;
-
-                objBikeModelEntity = _objBikeModel.GetById((int)modelId);
+                objUserReviewRatingData.ObjModelEntity = _objBikeModel.GetById((int)modelId);
                 GetUserRatings(objUserReviewRatingData,reviewId, isFake);
 
                 objUserReviewRatingData.SelectedRating = selectedRating;
-                if (objUserReviewRatingData != null && objUserReviewRatingData.objModelEntity != null)
+                if (objUserReviewRatingData != null && objUserReviewRatingData.ObjModelEntity != null)
                 {
                     objUserReviewRatingData.SourceId =  sourceId;
                     objUserReviewRatingData.ReturnUrl = returnUrl;

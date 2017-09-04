@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 namespace Bikewale.DTO.UserReviews
 {
     /// <summary>
-    /// Created by Snehal Dange on 01-09-2017
+    /// Created by: Snehal Dange on 01-09-2017
     /// Description: DTO created as output for rate-bike page 
     /// </summary>
     public class RateBikeDetails
     {
-        public ModelDetails BikeDetails { get; set; }
+        public ModelDetails ObjModelEntity { get; set; }
 
         //   public UserReviewsData UserReviewInfo { get; set; }
         [JsonProperty("customerName")]
@@ -53,6 +53,10 @@ namespace Bikewale.DTO.UserReviews
 
         [JsonProperty("contestSrc")]
         public int ContestSrc { get; set; }
+
+        [JsonProperty("utmzCookieValue")]
+        public string UtmzCookieValue { get; set; }
+
 
     }
 }
