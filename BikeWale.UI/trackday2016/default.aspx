@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <% 
+    <%
         title = "BikeWale Track Day 2016";
         description = "BikeWale brings to you the celebration of motoring in its finest and purest form! The idea is to bring together bikes on a racetrack that have impressed us by their sheer dynamic ability and their prowess.";
         isHeaderFix = false;
@@ -12,10 +12,18 @@
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
         isAd970x90BottomShown = false;
+        alternate = String.Format("{0}/m/trackday2016/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl);
+        canonical = String.Format("{0}/trackday2016/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl);
+       
     %>
 
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="<%= staticUrl  %>/trackday2016/css/track-day.css?<%= staticFileVersion %>" />
+     <link rel="stylesheet" type="text/css" href="<%= staticUrl  %>/trackday2016/css/track-day.css?<%= staticFileVersion %>" />
+    <%if(!string.IsNullOrEmpty(alternate)) {%>
+    <link rel="alternate" type="text/html" media="handheld" href="<%= alternate %>" title="Mobile/PDA" /> <%} %>
+
+     <%if(!string.IsNullOrEmpty(canonical)) {%>
+    <link rel="canonical" href="<%= canonical %>" /> <%} %>
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -34,7 +42,7 @@
                 </div>
             </div>
         </header>
-
+       
         <%  if (objTrackDayArticles!=null && objTrackDayArticles.RecordCount > 0) { %>
         <section>
             <div class="container section-container">
