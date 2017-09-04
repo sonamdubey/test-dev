@@ -26,19 +26,6 @@ h1,
 .text-link {
   color: #0288d1; }
 
-.border-divider {
-  border-bottom: 1px solid #e2e2e2; }
-
-.grid-8-inline {
-  width: 63%;
-  display: inline-block;
-  vertical-align: middle; }
-
-.grid-4-inline {
-  width: 30%;
-  display: inline-block;
-  vertical-align: middle; }
-
 .left-grid-image {
   width: 102px;
   height: 57px; }
@@ -139,11 +126,6 @@ h1,
   -moz-transform: scale(0.8);
   -o-transform: scale(0.8);
   transform: scale(0.8); }
-  .star-icon.star-size-14 {
-    -webkit-transform: scale(0.5);
-    -moz-transform: scale(0.5);
-    -o-transform: scale(0.5);
-    transform: scale(0.5); }
 
 .rate-count-1 .star-icon {
   background-position: 0 -667px; }
@@ -415,6 +397,7 @@ h1,
 
 .review-left-divider {
   position: relative;
+  margin-left: 10px;
   padding-left: 10px; }
   .review-left-divider:before {
     content: '';
@@ -560,31 +543,6 @@ h1,
 .star-0 {
   background-position: -144px -667px; }
 
-.rating-container {
-  position: relative;
-  left: -6px; }
-
-.rating-text-pos {
-  position: relative;
-  left: -5px;
-  top: 1px; }
-
-.next-grey-icon-listing {
-  width: 8px;
-  height: 12px;
-  background-position: -182px -394px;
-  position: absolute;
-  right: 0px;
-  top: 7px;
-  -webkit-transform: scale(0.8);
-  -moz-transform: scale(0.8);
-  -o-transform: scale(0.8);
-  transform: scale(0.8); }
-
-.star-position-offset {
-  position: relative;
-  left: -7px; }
-
 .article-type-carousel .swiper-slide,
 .article-type-carousel .swiper-card {
   min-height: 200px; }
@@ -605,11 +563,8 @@ h1,
   min-height: 110px; }
 
 .user-reviews-type-carousel .swiper-details-block {
-  padding-top: 7px; }
-
-.swiper-review-target {
-  display: block;
-  padding: 0 15px 5px; }
+  padding-top: 7px;
+  padding-bottom: 15px; }
 
 #report-abuse-popup {
   display: none;

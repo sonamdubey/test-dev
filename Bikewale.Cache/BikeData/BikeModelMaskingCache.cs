@@ -237,23 +237,13 @@ namespace Bikewale.Cache.BikeData
             return similarBikes;
         }
 
-        public IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviews(uint modelId, uint cityId, uint totalRecords)
+        public IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviews(uint modelId, uint totalRecords)
         {
             IEnumerable<SimilarBikeUserReview> similarBikes = null;
-            string key = null;
-
+            string key = string.Format("BW_SimilarBikes_UserReviews_{0}", modelId);
             try
             {
-                if (cityId > 0)
-                {
-                    key = string.Format("BW_SimilarBikes_UserReviews_{0}_City_{1}", modelId, cityId);
-                    similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikeUserReview>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetSimilarBikesUserReviewsWithPriceInCity(modelId, cityId, totalRecords));
-                }
-                else
-                {
-                    key = string.Format("BW_SimilarBikes_UserReviews_{0}_V1", modelId);
-                    similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikeUserReview>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetSimilarBikesUserReviewsWithPrice(modelId, totalRecords));
-                }
+                similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikeUserReview>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetSimilarBikesUserReviews(modelId, totalRecords));
             }
             catch (Exception ex)
             {
