@@ -284,7 +284,7 @@ namespace Bikewale.Models
         private void SetDealerPriceQuoteDetail(DealerPriceQuotePageVM objData)
         {
             Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity detailedDealer = null;
-            bool isBikewalePQ = true;
+            bool isBikewalePQ = false;
             try
             {
                 detailedDealer = _objDealerPQDetails.GetDealerQuotationV2(_cityId, _versionId, _dealerId, _areaId);
@@ -338,7 +338,7 @@ namespace Bikewale.Models
                             objData.TotalPrice = (uint)detailedDealer.PrimaryDealer.TotalPrice;
                             #endregion
                         }
-                        else isBikewalePQ = false;                        
+                        else { isBikewalePQ = true; }
                     }
 
                     if (isBikewalePQ)
