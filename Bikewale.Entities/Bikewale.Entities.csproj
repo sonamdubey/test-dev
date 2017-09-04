@@ -449,6 +449,7 @@
     <Compile Include="UserReviews\ReviewListBase.cs" />
     <Compile Include="UserReviews\ReviewRatingEntity.cs" />
     <Compile Include="UserReviews\ReviewRatingEntityBase.cs" />
+    <Compile Include="UserReviews\ReviewSubmitData.cs" />
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
     <Compile Include="UserReviews\SearchResult.cs" />

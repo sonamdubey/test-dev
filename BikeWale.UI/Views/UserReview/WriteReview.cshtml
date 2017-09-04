@@ -87,8 +87,8 @@
                                     <input type="hidden" name="isDesktop" value="true" />
                                     <input type="hidden" id="overAllRatings" value="@Model.Rating.Value" />
                                     <input type="hidden" id="pageSourceId" value="@Model.PageSourceId" />
-                                    <input type="hidden" id="contestSrc" value="@Model.ContestSrc" />
-                                    <input type="hidden" name="fromThirdScreen" value="false" />
+                                    <input type="hidden" id="contestSrc" value="@Model.ContestSrc" />    
+                                    <input type="hidden" name="fromParametersRatingScreen" value="false" />                              
 
                                     @Html.AntiForgeryToken()
                                     <input id="submitReviewBtn" type="submit" class="btn btn-orange btn-220-40" value="Submit review" data-bind="click: submitReview" />

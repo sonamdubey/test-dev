@@ -305,28 +305,39 @@ namespace Bikewale.Controllers
         /// 
         [ValidateInput(false)]
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, uint reviewId, string encodedString, bool? isDesktop, string mileage, bool fromThirdScreen)
+        public ActionResult SaveReview(ReviewSubmitData objReviewData, bool? fromParametersRatingScreen)
         {
-            WriteReviewPageSubmitResponse objResponse = null;
-
-            objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips != null ? reviewTips.Trim() : "", reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName, mileage);
-
-            if (objResponse.IsSuccess)
+            try
             {
-                if (isDesktop.HasValue && isDesktop.Value && !fromThirdScreen)
-                    return Redirect(string.Format("/parameter-ratings/?q={0}", encodedString));
-                else if(isDesktop.HasValue && isDesktop.Value)
-                    return Redirect(string.Format("/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
-                else
-                    return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
+                WriteReviewPageSubmitResponse objResponse = null;
+
+                objResponse = _userReviews.SaveUserReviews(objReviewData);
+
+                if (objReviewData != null)
+                {
+                    if (objResponse.IsSuccess)
+                    {
+                        if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value && fromParametersRatingScreen.HasValue && !fromParametersRatingScreen.Value)
+                            return Redirect(string.Format("/parameter-ratings/?q={0}", objReviewData.EncodedString));
+                        else if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value)
+                            return Redirect(string.Format("/user-reviews/review-summary/{0}/?q={1}", objReviewData.ReviewId, objReviewData.EncodedString));
+                        else
+                            return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", objReviewData.ReviewId, objReviewData.EncodedString));
+                    }
+                    else
+                    {
+                        WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, objReviewData.EncodedString);
+                        var objData = objPage.GetData();
+                        objData.SubmitResponse = objResponse;
+                        return View("WriteReview_Mobile", objData);
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, encodedString);
-                var objData = objPage.GetData();
-                objData.SubmitResponse = objResponse;
-                return View("WriteReview_Mobile", objData);
+                ErrorClass objErr = new ErrorClass(ex, "RateOtherDetails()");                 
             }
+            return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
         }
 
 
