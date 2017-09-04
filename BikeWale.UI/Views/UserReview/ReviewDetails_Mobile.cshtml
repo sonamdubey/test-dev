@@ -172,7 +172,7 @@
                 </section>
             }
 
-            if (Model.SimilarBikesWidget.SimilarBikes != null && Model.SimilarBikesWidget.SimilarBikes.Count() > 0)
+            if (Model.SimilarBikeReviewWidget != null && Model.SimilarBikeReviewWidget.Count() > 0)
             {
                 <section>
                     <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
@@ -186,7 +186,7 @@
                             <div class="clear"></div>
                         </div>
 
-                        @Html.Partial("~/views/UserReview/_SimilarBikeUserReview_Mobile.cshtml", Model.SimilarBikesWidget)
+                        @Html.Partial("~/views/UserReview/_SimilarBikeUserReview_Mobile.cshtml", Model.SimilarBikeReviewWidget)
 
                     </div>
                 </section>
