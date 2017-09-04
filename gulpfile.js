@@ -616,6 +616,16 @@ var mvcAmpPageViews=[
 		folderName: 'Views/PriceInCity/',
 		fileName: 'Index_Mobile_Amp.cshtml',
 		stylesheet: 'm/css/amp/bwm-modelprice-in-city-amp.css'
+	},
+	{
+		folderName: 'Views/m/Content/ExpertReviews/',
+		fileName: 'details_amp.cshtml',
+		stylesheet: 'm/css/amp/content-amp.css'
+	},
+	{
+		folderName: 'Views/m/Content/Features/',
+		fileName: 'details_amp.cshtml',
+		stylesheet: 'm/css/amp/content-amp.css'
 	}
 ];
 
@@ -693,8 +703,7 @@ gulp.task('replace-mvc-amp-pageviews-css-reference', function () {
 	
 	for(var i = 0; i < pageLength; i++) {
 		var element = mvcAmpPageViews[i],
-			style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
-            styleTag = '<style amp-custom>' + style + '</style>',
+			styleTag = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
             styleLink = "<link rel='stylesheet' type='text/css' href='/" + element.stylesheet + "' />";
 
         gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })

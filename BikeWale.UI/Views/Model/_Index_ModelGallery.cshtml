@@ -1,4 +1,6 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@using Bikewale.Utility
+
 @{ string bikeName = string.Format("{0}_{1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName);
 }
 
@@ -7,8 +9,8 @@
     {
         <div class="bw-tabs bw-group-flex text-center margin-bottom5">
             <ul>
-				<li data-tabs="imageCarousel" class="tabs-group__list-item active bw-ga" l="@bikeName" a="Image_Tab_Clicked" c="Model_Page">
-					<span class="label-count">@Model.ModelPageEntity.AllPhotos.Count() Images</span>
+                <li data-tabs="imageCarousel" class="tabs-group__list-item active bw-ga" l="@bikeName" a="Image_Tab_Clicked" c="Model_Page">
+                    <span class="label-count">@Model.ModelPageEntity.AllPhotos.Count() Images</span>
                     <span class="label-overview">See Images</span>
                 </li>
                 <li data-tabs="colourCarousel" class="tabs-group__list-item bw-ga" l="@bikeName" a="Colours_Tab_Clicked" c="Model_Page">
@@ -16,11 +18,11 @@
                     <span class="label-overview">See Colour@(Model.ColorImages.Count() != 1 ? "s" : "")</span>
                 </li>
             </ul>
-        </div>        
-        <div class="bw-tabs-data hide" id="colourCarousel">            
+        </div>
+        <div class="bw-tabs-data hide" id="colourCarousel">
             <div class="carousel-type-color">
                 <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/@Model.ModelPageEntity.ModelDetails.MaskingName/images/?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))" class="carousel-img-container">
-                    <img class="bw-ga" l="@bikeName" a="Main_Image_Clicked" c="Model_Page"  src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" title="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" border="0">
+                    <img class="bw-ga" l="@bikeName" a="Main_Image_Clicked" c="Model_Page" src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" title="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" border="0">
                 </a>
             </div>
 
@@ -50,75 +52,93 @@
                     </div>
                 }
 
-            }            
+            }
         </div>
     }
 
-    <input hidden id="canonical" value="@Model.PageMetaTags.CanonicalUrl"/>
+    <input hidden id="canonical" value="@Model.PageMetaTags.CanonicalUrl" />
     <input hidden id="imageUrl" value="@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" />
 
-    <div class="bw-tabs-data connected-carousels carousel-controls" id="imageCarousel">
 
+    <div class="bw-tabs-data connected-carousels carousel-controls" id="imageCarousel">
         <div class="stage">
             <div class="carousel carousel-stage">
                 <ul>
-                    @{ int imageIndex = 0;}
-                    @foreach (var image in Model.ModelPageEntity.AllPhotos)
+                    @if (Model.ModelPageEntity.AllPhotos != null && Model.ModelPageEntity.AllPhotos.Count() > 0)
                     {
-                        string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
+                        int imageIndex = 0;
+                        foreach (var image in Model.ModelPageEntity.AllPhotos)
+                        {
+                            string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
 
+                            <li>
+                                <a href="@String.Format(@"{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))" class="carousel-img-container">
+
+                                    @if (imageIndex < 4)
+                                    {
+                                        <img class="bw-ga" l="@bikeName" a="Main_Image_Clicked" c="Model_Page" data-colorid="@image.ColorId" data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,Bikewale.Utility.QualityFactor._85)" alt="@imageProperty" title="@imageProperty" border="0" />
+                                    }
+                                    else
+                                    {
+                                        <img l="@bikeName" a="Main_Image_Clicked" c="Model_Page" data-colorid="@image.ColorId" class="lazy bw-ga" src="" data-original="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
+
+                                    }
+                                </a>
+                            </li>
+                            imageIndex++;
+                        }
+                    }
+                    else
+                    {
                         <li>
-                            <a href="@String.Format(@"{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))" class="carousel-img-container">
-
-                                @if (imageIndex < 4)
-                                {
-                                    <img class="bw-ga" l="@bikeName" a="Main_Image_Clicked" c="Model_Page" data-colorid="@image.ColorId" data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,Bikewale.Utility.QualityFactor._85)" alt="@imageProperty" title="@imageProperty" border="0" />
-                                }
-                                else
-                                {
-                                    <img l="@bikeName" a="Main_Image_Clicked" c="Model_Page" data-colorid="@image.ColorId" class="lazy bw-ga" src="" data-original="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
-
-                                }
-                            </a>
+                            <div class="model-thumbnail-image">
+                                <a>
+                                    <div class="bg-light-grey">
+                                        <span class="bwsprite no-image-icon margin-bottom15"></span>
+                                        <p class="font12 text-bold text-light-grey">Image not available</p>
+                                    </div>
+                                </a>
+                            </div>
                         </li>
-                                imageIndex++;
                     }
                 </ul>
             </div>
-            @if (Model.ModelPageEntity.AllPhotos.Count() > 1)
+            @if (Model.ModelPageEntity.AllPhotos != null && Model.ModelPageEntity.AllPhotos.Count() > 1)
             {
                 <a href="#!" class="prev-control prev-stage bwsprite bw-ga" rel="nofollow" l="@bikeName&#95;Previous" a="Top_Image_Carousel_Clicked" c="Model_Page"></a>
                 <a href="#!" class="next-control next-stage bwsprite bw-ga" rel="nofollow" l="@bikeName&#95;Next" a="Top_Image_Carousel_Clicked" c="Model_Page"></a>
             }
         </div>
 
-        @if (Model.ModelPageEntity.AllPhotos.Count() > 1)
-        {
+        @if (Model.ModelPageEntity.AllPhotos != null && Model.ModelPageEntity.AllPhotos.Count() > 1)
+            {
             <div class="navigation">
                 <a href="#!" class="prev-control prev-navigation bwsprite bw-ga" rel="nofollow" l="@bikeName&#95;Previous" a="Bottom_Image_Carousel_Clicked" c="Model_Page"></a>
                 <a href="#!" class="next-control next-navigation bwsprite bw-ga" rel="nofollow" l="@bikeName&#95;Next" a="Bottom_Image_Carousel_Clicked" c="Model_Page"></a>
                 <div class="carousel carousel-navigation">
                     <ul>
-                        @{ imageIndex = 0;}
-                        @foreach (var image in Model.ModelPageEntity.AllPhotos)
-                        {
-                            string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
+                        @{
+                            int imageIndex = 0;
+                            foreach (var image in Model.ModelPageEntity.AllPhotos)
+                            {
+                                string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
 
-                            <li class="bw-ga" l="@bikeName&#95;@image.ImageCategory" a="Image_Carousel_Clicked" c="Model_Page">
-                                <a href="@String.Format(@"{0}?modelpage=true&imageindex={1}#modelGallery",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName),imageIndex)" class="carousel-nav-img-container">
-                                    @if (imageIndex < 7)
-                                    {
-                                        <img data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
-                                    }
-                                    else
-                                    {
-                                        <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" data-original="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
+                                <li class="bw-ga" l="@bikeName&#95;@image.ImageCategory" a="Image_Carousel_Clicked" c="Model_Page">
+                                    <a href="@String.Format(@"{0}?modelpage=true&imageindex={1}#modelGallery",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName),imageIndex)" class="carousel-nav-img-container">
+                                        @if (imageIndex < 7)
+                                        {
+                                            <img data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
+                                        }
+                                        else
+                                        {
+                                            <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" data-original="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
 
-                                    }
-                                </a>
-                            </li>
+                                        }
+                                    </a>
+                                </li>
 
-                                    imageIndex++;
+                                imageIndex++;
+                            }
                         }
 
                         @if (Model.ModelPageEntity != null && Model.ModelPageEntity.AllPhotos != null && Model.ModelPageEntity.AllPhotos.Count() > 4)
@@ -130,7 +150,6 @@
                     </ul>
                 </div>
             </div>
-        }
+                            }
     </div>
-
 </div>

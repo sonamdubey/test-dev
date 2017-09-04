@@ -1,5 +1,5 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.SEO;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -12,7 +12,6 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using Bikewale.Entities.SEO;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -47,7 +46,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_08112016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_24082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, makeType));
@@ -62,12 +61,13 @@ namespace Bikewale.DAL.BikeData
                             {
                                 objMakesList.Add(new BikeMakeEntityBase()
                                 {
-                                    MakeId = Convert.ToInt32(dr["ID"]),
-                                    MakeName = dr["NAME"].ToString(),
-                                    MaskingName = dr["MaskingName"].ToString(),
-                                    HostUrl = Convert.IsDBNull(dr["HostUrl"]) ? "" : dr["HostUrl"].ToString(),
-                                    LogoUrl = Convert.IsDBNull(dr["LogoUrl"]) ? "" : dr["LogoUrl"].ToString(),
-                                    PopularityIndex = Convert.IsDBNull(dr["PopularityIndex"]) ? default(UInt16) : Convert.ToUInt16(dr["PopularityIndex"])
+                                    MakeId = SqlReaderConvertor.ToInt32(dr["ID"]),
+                                    MakeName = Convert.ToString(dr["NAME"]),
+                                    MaskingName = Convert.ToString(dr["MaskingName"]),
+                                    HostUrl = Convert.ToString(dr["HostUrl"]),
+                                    LogoUrl = Convert.ToString(dr["LogoUrl"]),
+                                    PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
+                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"])
                                 });
                             }
 

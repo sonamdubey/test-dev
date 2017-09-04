@@ -492,10 +492,32 @@
                             <div class="clear"></div>
                         </div>
                     }
-                    <!-- model similar end -->
-
+                    else if (Model.IsPopularBodyStyleAvailable)
+                    {
+                        <div id="popularContent" class="bw-model-tabs-data">
+                            <div class="section-bottom-margin">
+                                <div class="grid-12 grid-no-padding">
+                                    <div class="content-box-shadow">
+                                        <div class="padding-top20 font14">
+                                            <div class="carousel-heading-content">
+                                                <div class="swiper-heading-left-grid inline-block">
+                                                    <h2 class="card-h2-heading">Other popular @Model.BodyStyleText.ToLower()</h2>
+                                                </div>
+                                                <div class="swiper-heading-right-grid inline-block text-right">
+                                                    <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BodyStyle)" title="Best @Model.BodyStyleText in India" class="btn view-all-target-btn">View all</a>
+                                                </div>
+                                            </div>
+                                            @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel.cshtml", Model.PopularBodyStyle)
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    }
                     <div id="modelSpecsFooter"></div>
-                </div>
+                    <!-- model similar end -->
             </div>
             <div class="clear"></div>
         </div>

@@ -1,5 +1,6 @@
 ﻿@model Bikewale.Models.ExpertReviewsDetailPageVM
 @using Bikewale.Utility
+@using Bikewale.Entities.GenericBikes
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/details.css' />";
     Model.Page_JS_Path = "/m/src/content/details.js";
@@ -101,7 +102,24 @@
     </section>
 }
 
-@if (Model.Model != null && Model.Model.ModelId > 0)
+@if (Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0)
+{
+    <section>
+        <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>Popular scooter brands</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="/m/scooters/" title="Scooters" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @Html.Partial("~/views/m/shared/_otherbrands.cshtml", Model.PopularScooterMakesWidget)
+        </div>
+    </section>
+}
+else if (Model.Model != null && Model.Model.ModelId > 0)
 {
     if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Count() > 0)
     {

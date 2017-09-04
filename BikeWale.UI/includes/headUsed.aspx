@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="<%= keywords %>" />
-    <meta name="description" content="<%= description %>" />    <% if( alternate != "" ) { %><meta name="alternate" content="<%= alternate %>" /><% } %>
+    <meta name="description" content="<%= description %>" />    <% if( alternate != "" ) { %><link rel="alternate" type="text/html" media="handheld" href="<%= alternate %>" title="Mobile/PDA" /><% } %>
     <title><%= title %></title>
     <% if( canonical != "" ) { %><link rel="canonical" href="<%=canonical%>" /><% } %>
     <% if( prevPageUrl != "" ) { %><link rel="prev" href="<%= prevPageUrl %>" /><% } %>

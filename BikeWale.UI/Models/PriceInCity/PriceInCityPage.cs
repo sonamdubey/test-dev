@@ -15,6 +15,7 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
+using Bikewale.Models.BestBikes;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Utility;
 using System;
@@ -259,10 +260,10 @@ namespace Bikewale.Models
                             else
                             {
                                 var firstVersion = objVM.VersionSpecs.FirstOrDefault();
-                                if (firstVersion!= null)
+                                if (firstVersion != null)
                                 {
                                     objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
-   
+
                                 }
                             }
 
@@ -330,6 +331,15 @@ namespace Bikewale.Models
                     {
                         Status = StatusCodes.ContentNotFound;
                     }
+                    if (objVM.AlternateBikes != null)
+                    {
+                        var objVersionSpec = objVM.VersionSpecs.FirstOrDefault();
+                        if (objVersionSpec != null)
+                        {
+                            objVM.AlternateBikes.BodyStyle = objVersionSpec.BodyStyle;
+                        }
+                    }
+                    objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
                 }
             }
             catch (Exception ex)
@@ -405,6 +415,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Bind Similar Bikes
+        /// Modified by: Vivek Singh Tomar on 23 Aug 2017
+        /// Summary: Added page enum to similar bike widget
         /// </summary>
         /// <param name="objVM"></param>
         private void BindSimilarBikes(PriceInCityPageVM objVM)
@@ -414,15 +426,54 @@ namespace Bikewale.Models
                 var similarBikes = new SimilarBikesWidget(_versionCache, firstVersion.VersionId, pqSource, false, true);
                 similarBikes.CityId = cityId;
                 similarBikes.TopCount = 9;
+                similarBikes.IsNew = objVM.IsNew;
+                similarBikes.IsDiscontinued = objVM.IsDiscontinued;
                 var similarBikesVM = similarBikes.GetData();
-                similarBikesVM.Make = objVM.Make;
-                similarBikesVM.Model = objVM.BikeModel;
-                similarBikesVM.VersionId = objVM.FirstVersion.VersionId;
-                objVM.AlternateBikes = similarBikesVM;
+                if (similarBikesVM != null)
+                {
+                    similarBikesVM.Make = objVM.Make;
+                    similarBikesVM.Model = objVM.BikeModel;
+                    similarBikesVM.VersionId = objVM.FirstVersion.VersionId;
+                    objVM.AlternateBikes = similarBikesVM;
+                    objVM.AlternateBikes.Page = Entities.Pages.GAPages.PriceInCity_Page;
+                }
+                if (!objVM.HasAlternateBikes)
+                {
+                    BindPopularBodyStyle(objVM);
+                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("BindSimilarBikes({0},{1})", modelMaskingName, cityMaskingName));
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 30 Aug 2017
+        /// Description :   Bind Popular by BodyStyle
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindPopularBodyStyle(PriceInCityPageVM objData)
+        {
+            try
+            {
+                if (modelId > 0)
+                {
+                    var modelPopularBikesByBodyStyle = new PopularBikesByBodyStyle(_modelCache);
+                    modelPopularBikesByBodyStyle.CityId = cityId;
+                    modelPopularBikesByBodyStyle.ModelId = modelId;
+                    modelPopularBikesByBodyStyle.TopCount = 9;
+
+                    objData.PopularBodyStyle = modelPopularBikesByBodyStyle.GetData();
+                    objData.PopularBodyStyle.PQSourceId = PQSource;
+                    objData.PopularBodyStyle.ShowCheckOnRoadCTA = true;
+                    objData.BodyStyle = objData.PopularBodyStyle.BodyStyle;
+                    objData.BodyStyleText = objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass ec = new ErrorClass(ex, String.Format("Bikewale.Models.PriceInCity.BindPopularBodyStyle({0},{1})", modelId, cityId));
             }
         }
 
@@ -594,7 +645,7 @@ namespace Bikewale.Models
                 string bikeName = String.Format("{0} {1}", firstVersion.MakeName, firstVersion.ModelName);
                 objVM.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
                 objVM.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
-                objVM.PageMetaTags.Title = string.Format("{0} price in {1} - Check GST On Road Price &amp; Dealer Info. - BikeWale", bikeName, firstVersion.City);
+                objVM.PageMetaTags.Title = string.Format("{0} price in {1} - Check GST On Road Price &amp; Dealer Info - BikeWale", bikeName, firstVersion.City);
 
                 if (firstVersion != null && !isNew)
                     objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));

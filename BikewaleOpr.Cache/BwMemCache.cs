@@ -143,12 +143,12 @@ namespace BikewaleOpr.Cache
         /// Created by : Vivek Singh Tomar on 3rd Aug 2017
         /// Summary : Function to clear popular bikes by makes
         /// </summary>
-        /// <param name="modelId"></param>
-        public static void ClearPopularBikesByMakes(uint modelId)
+        /// <param name="makeId"></param>
+        public static void ClearPopularBikesByMakes(uint makeId)
         {
             try
             {
-                MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{ 0}", modelId));
+                MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", makeId));
             }
             catch (Exception ex)
             {

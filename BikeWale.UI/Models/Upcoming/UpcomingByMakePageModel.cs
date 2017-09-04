@@ -18,7 +18,7 @@ namespace Bikewale.Models.Upcoming
         #region Private variables
 
         private IUpcoming _upcoming = null;
-        private readonly INewBikeLaunchesBL _newLaunches = null;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         public uint topbrandCount { get; set; }
         private UpcomingBikesListInputEntity _filters;
         private readonly ushort _pageNumber;
@@ -41,7 +41,7 @@ namespace Bikewale.Models.Upcoming
 
         #region Constructor
 
-        public UpcomingByMakePageModel(string makeMaskingName, IUpcoming upcoming, ushort? pageNumber, int pageSize, INewBikeLaunchesBL newLaunches, string baseUrl, IBikeMakesCacheRepository<int> bikeMakesCache)
+        public UpcomingByMakePageModel(string makeMaskingName, IUpcoming upcoming, ushort? pageNumber, int pageSize, IBikeModels<BikeModelEntity, int> bikeModels, string baseUrl, IBikeMakesCacheRepository<int> bikeMakesCache)
         {
             _upcoming = upcoming;
 
@@ -58,7 +58,7 @@ namespace Bikewale.Models.Upcoming
             BaseUrl = baseUrl;
             PageSize = pageSize;
 
-            _newLaunches = newLaunches;
+            _bikeModels = bikeModels;
             _makeMaskingName = makeMaskingName;
             _bikeMakesCache = bikeMakesCache;
             ProcessQueryString();
@@ -84,8 +84,7 @@ namespace Bikewale.Models.Upcoming
                 BindPageMetaTags(objUpcoming.PageMetaTags, _makeMaskingName, objUpcoming.Make.MakeName);
                 var upcomingBikes = _upcoming.GetModels(_filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(topbrandCount);
-                objUpcoming.NewLaunches = new NewLaunchedWidgetModel(MakeId, location.CityId, 9, _newLaunches).GetData();
-                objUpcoming.NewLaunches.PQSourceId = (uint)PQSourceEnum.Desktop_UpcomiingBikes_NewLaunchesWidget;
+                objUpcoming.PopularBikes = BindMostPopularBikes();
                 UpcomingBikeResult bikeResult = _upcoming.GetBikes(_filters, SortBy);
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
@@ -101,6 +100,32 @@ namespace Bikewale.Models.Upcoming
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.GetData");
             }
             return objUpcoming;
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To fetch data for most popular bikes
+        /// </summary>
+        /// <returns></returns>
+        private MostPopularBikeWidgetVM BindMostPopularBikes()
+        {
+            MostPopularBikeWidgetVM objPopularBikes = new MostPopularBikeWidgetVM();
+            try
+            {
+                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, false, true, PQSourceEnum.Desktop_Scooter_MakePage_PopularBikes, 0, MakeId);
+                popularBikes.TopCount = 9;
+                GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
+                popularBikes.CityId = location.CityId;
+                objPopularBikes = popularBikes.GetData();
+                objPopularBikes.PageCatId = 5;
+                objPopularBikes.PQSourceId = PQSourceEnum.Desktop_HP_MostPopular;
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomDealerDetail.BindMostPopularBikes()");
+            }
+            return objPopularBikes;
         }
 
         /// <summary>

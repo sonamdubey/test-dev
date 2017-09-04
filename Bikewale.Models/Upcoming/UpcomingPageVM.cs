@@ -13,6 +13,7 @@ namespace Bikewale.Models
         public BikeMakeEntityBase Make { get; set; }
         public BrandWidgetVM Brands { get; set; }
         public NewLaunchedWidgetVM NewLaunches { get; set; }
+        public MostPopularBikeWidgetVM PopularBikes { get; set; }
         public IEnumerable<UpcomingBikeEntity> UpcomingBikeModels { get; set; }
         public OtherMakesVM OtherMakes { get; set; }
         public bool HasBikes { get; set; }

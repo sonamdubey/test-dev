@@ -11,11 +11,15 @@
     }
     @if (Model.IsSimilarBikesAvailable)
     {
-        <li data-tabs="#similarContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SimilarBikes">Compare @Model.BodyStyleText</li>
+        <li data-tabs="#similarContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SimilarBikes">Similar @Model.BodyStyleText</li>
+    }
+    else if (Model.IsPopularBodyStyleAvailable)
+    {
+        <li data-tabs="#popularContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SimilarBikes">Popular @Model.BodyStyleText</li>
     }
     @if (Model.IsVersionSpecsAvailable)
     {
-        <li data-tabs="#specsFeaturesContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SpecsFeatures">Specs & Features</li>
+        <li data-tabs="#specsFeaturesAndAboutContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SpecsFeatures">Specs & Features</li>
     }
    
     @if (Model.IsUserReviewsAvailable)
@@ -32,7 +36,7 @@
     }
     @if (Model.IsVideosAvailable)
     {
-        <li data-tabs="#videosContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Videos">Videos</li>
+        <li data-tabs="#videosAndServicecCenterContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Videos">Videos</li>
     }
     @if (Model.IsUsedBikesAvailable)
     {

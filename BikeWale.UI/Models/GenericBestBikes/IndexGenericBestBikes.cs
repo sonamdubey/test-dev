@@ -94,7 +94,7 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created By  :Sushil Kumar on 15th Aug 2017
+        /// Created By  : Sushil Kumar on 15th Aug 2017
         /// Description : To load json schema for the list items
         /// </summary>
         /// <param name="obj"></param>
@@ -137,7 +137,7 @@ namespace Bikewale.Models
                         itemNo--;
                     }
                     objSchema.ItemListElement = lstItems;
-                    obj.JSONSchema = string.Format(@"<script type='application/ld+json'>{0}</script>", Newtonsoft.Json.JsonConvert.SerializeObject(objSchema));
+                    obj.PageMetaTags.SchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
                 }
             }
             catch (Exception ex)

@@ -81,9 +81,10 @@ namespace Bikewale.Models
         public bool IsManufacturerEMIAdShown { get; set; }
 
         public EnumBikeBodyStyles BodyStyle { get; set; }
-        public string BodyStyleText { get; set; } 
+        public string BodyStyleText { get; set; }
+        public PopularBodyStyleVM PopularBodyStyle { get; set; }
         public IEnumerable<CityEntityBase> Cities { get; set; }
-       
+        public bool IsPopularBodyStyleAvailable { get { return (PopularBodyStyle != null && PopularBodyStyle.PopularBikes != null && PopularBodyStyle.PopularBikes.Count() > 0); } }
     }
 
 }

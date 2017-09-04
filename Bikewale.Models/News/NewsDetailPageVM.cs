@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.PWA.Articles;
+using System.Collections.Generic;
 using System.Web;
 
 namespace Bikewale.Models
@@ -22,5 +23,7 @@ namespace Bikewale.Models
         public PwaReduxStore ReduxStore { get; set; }
         public IHtmlString ServerRouterWrapper { get; set; }
         public string WindowState { get; set; }
+
+        public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
     }
 }

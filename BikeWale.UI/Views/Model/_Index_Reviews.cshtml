@@ -20,7 +20,7 @@
                 </a>
             }
         </span>
-        <a href="@string.Format("/rate-your-bike/{0}/?q={1}", Model.ModelId,Model.ReturnUrl)" class="left-divider">Rate this @Model.BodyStyleTextSingular</a>
+        <a rel="nofollow" href="@string.Format("/rate-your-bike/{0}/?q={1}", Model.ModelId,Model.ReturnUrl)" class="left-divider bw-ga" l='@string.Format("{0}_{1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName)' a="Clicked_RateThisBike" c="Model_Page">Rate this @Model.BodyStyleTextSingular</a>
     </div>
 }
 else
