@@ -52,7 +52,7 @@
                 <tr>
                     <td colspan="2">
                         <div id="terms">
-                        By clicking on the button above, I agree with <a target="_blank" href="/visitoragreement.aspx">BikeWale visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a>.
+                        By clicking on the button above, I agree with <a target="_blank" rel="noopener" href="/visitoragreement.aspx">BikeWale visitor agreement</a> and <a target="_blank" rel="noopener" href="/privacypolicy.aspx">privacy policy</a>.
                         By providing your contact details you agree to be contacted for assistance in your bike buying by us and/or any of our 
                         partners including dealers, bike manufacturers, banks like HDFC bank etc.
                       </div>

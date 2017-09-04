@@ -56,7 +56,7 @@ namespace Bikewale.Cache.BikeData
             return versions;
         }
 
-        
+
         /// <summary>
         /// Created by  :    Sushil Kumar on 28th June 2016
         /// Summary     :   Gets the versions by type and modelid and cityId
@@ -68,10 +68,18 @@ namespace Bikewale.Cache.BikeData
         public List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null)
         {
             List<BikeVersionsListEntity> versions = null;
-            string key = String.Format("BW_VersionsByType_{0}_MO_{1}{2}", (int)requestType, modelId, cityId.HasValue && cityId.Value > 0 ? "_CI_" + cityId : "");
+            int timeSpan = 24;
+
+            string key = String.Format("BW_VersionsByType_{0}_MO_{1}", (int)requestType, modelId);
+
+            if (cityId.HasValue && cityId.Value > 0)
+            {
+                key = string.Format("{0}_CI_{1}", key, cityId);
+                timeSpan = 1;
+            }
             try
             {
-                versions = _cache.GetFromCache<List<BikeVersionsListEntity>>(key, new TimeSpan(1, 0, 0), () => _objVersions.GetVersionsByType(requestType, modelId, cityId));
+                versions = _cache.GetFromCache<List<BikeVersionsListEntity>>(key, new TimeSpan(timeSpan, 0, 0), () => _objVersions.GetVersionsByType(requestType, modelId, cityId));
             }
             catch (Exception ex)
             {

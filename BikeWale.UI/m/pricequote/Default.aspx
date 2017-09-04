@@ -59,7 +59,7 @@
             <div class="new-line15">
 		        <div><input type="checkbox" style="margin-top:3px;" id="userAgreement" checked="checked" /></div>
 		        <div style="margin-left:35px; !important;"> 
-			        I agree with BikeWale <a href="/visitoragreement.aspx" target="_blank">Visitor Agreement</a> and <a href="/privacypolicy.aspx" target="_blank">Privacy Policy</a>.
+			        I agree with BikeWale <a href="/visitoragreement.aspx" target="_blank" rel="noopener">Visitor Agreement</a> and <a href="/privacypolicy.aspx" target="_blank" rel="noopener">Privacy Policy</a>.
 		        </div>
 	        </div>
 	        <p class="lightgray f-12 new-line10">

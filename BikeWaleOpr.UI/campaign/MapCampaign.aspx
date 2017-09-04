@@ -88,7 +88,7 @@
                                 <span id="addMaskingNumber_<%= campaignEntity.CampaignId %>"><%= campaignEntity.MaskingNumber == "" ? "" : campaignEntity.MaskingNumber %></span>
                             </td>
                             <td><%= campaignEntity.ServingRadius %></td>
-                            <td><a target="_blank" href="/campaign/ManageDealers.aspx?contractid=<%= contractId %>&campaignid=<%= campaignEntity.CampaignId %>&dealerid=<%= dealerId %>&dealername=<%= dealerName %>&no=<%=dealerNumber %>">Edit</a></td>            
+                            <td><a target="_blank" rel="noopener" href="/campaign/ManageDealers.aspx?contractid=<%= contractId %>&campaignid=<%= campaignEntity.CampaignId %>&dealerid=<%= dealerId %>&dealername=<%= dealerName %>&no=<%=dealerNumber %>">Edit</a></td>            
                         </tr>
                     </table>
                 </div>
@@ -132,7 +132,7 @@
                                 <span id="addMaskingNumber_<%#DataBinder.Eval(Container.DataItem,"CampaignId") %>"><%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() == "" ? "" : DataBinder.Eval(Container.DataItem,"MaskingNumber") %></span>
                             </td>
                             <td><%#DataBinder.Eval(Container.DataItem,"ServingRadius") %></td>
-                            <td><a target="_blank" href="/campaign/ManageDealers.aspx?contractid=<%= contractId %>&campaignid=<%#DataBinder.Eval(Container.DataItem,"CampaignId") %>&dealerid=<%= dealerId %>&dealername=<%= dealerName %>&no=<%=dealerNumber %>">Edit</a></td>            
+                            <td><a target="_blank" rel="noopener" href="/campaign/ManageDealers.aspx?contractid=<%= contractId %>&campaignid=<%#DataBinder.Eval(Container.DataItem,"CampaignId") %>&dealerid=<%= dealerId %>&dealername=<%= dealerName %>&no=<%=dealerNumber %>">Edit</a></td>            
                         </tr>
                     </ItemTemplate>                    
                 </asp:repeater>

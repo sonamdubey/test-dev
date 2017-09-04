@@ -3783,9 +3783,9 @@
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInTopCitiesWidget.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
-    <Content Include="Views\PriceInCity\_PriceInTopCities.cshtml.orig" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\UserReview\RateBike_old.cshtml" />
+    <Content Include="Views\Model\_BestBikes.cshtml" />
     <Content Include="Views\UserReview\WriteReview_old.cshtml" />
     <Content Include="Views\UserReview\RateOtherDetails.cshtml" />
     <None Include="Web.Debug.config">

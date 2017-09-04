@@ -1,8 +1,7 @@
 ﻿<%@ Register TagPrefix="BikeWale" TagName="LoginStatus" src="/Controls/loginstatus.ascx" %>
 <%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/controls/BrowseBikeManufacturerMin.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"> 
-    <%--html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" --%>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" lang="en"> 
 <head>
     <script language="c#" runat="server">
         private bool EnableOG = true;
@@ -13,7 +12,7 @@
 <meta name="description" content="<%= description %>" />
 <%if(keywords != "") {%><meta name="keywords" content="<%= keywords %>" /> <%} %>
 <%if(!string.IsNullOrEmpty(alternate)) {%>
- <link rel="alternate" type="text/html" media="handheld" href="<%= alternate %>" title="Mobile/PDA" />
+ <link rel="alternate" type="text/html" media="handheld" href="<%= alternate %>" title="Mobile/PDA" /> <%} %>
 <% if(EnableOG){ %>
 <meta property="og:title" content="<%= title %>" />
 <meta property="og:type" content="website" />

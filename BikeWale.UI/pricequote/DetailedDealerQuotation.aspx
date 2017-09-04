@@ -265,7 +265,7 @@
                                                 </ul>
                                             </div>
                                         </li>
-                                        <li>Get one year of <a target="_blank" href="/Absure Bike RSA.pdf">Bike Roadside Assistance</a>  absolutely FREE.</li>--%>
+                                        <li>Get one year of <a target="_blank" rel="noopener" href="/Absure Bike RSA.pdf">Bike Roadside Assistance</a>  absolutely FREE.</li>--%>
                                     <%-- End 102155010 --%>
                                         </ul>
                                 </FooterTemplate>
@@ -417,7 +417,7 @@
             <div class="margin-top20">
                 <p><b>This price quote is valid only till <%= CommonOpn.GetValidDate(7).ToString("dd MMM, yyyy") %>.</b><br />
                 </p>
-                <p><i>Please read other <a target="_blank" href="/termsconditions.aspx" class="blue">Important Terms & Conditions</a></i></p>
+                <p><i>Please read other <a target="_blank" rel="noopener" href="/termsconditions.aspx" class="blue">Important Terms & Conditions</a></i></p>
             </div>
 
                 <div class="mid-box margin-top15 center-align">

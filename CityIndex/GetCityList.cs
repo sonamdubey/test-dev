@@ -148,8 +148,30 @@ namespace CityAutoSuggest
                             ObjTemp.mm_suggest.input.Add(value);
 
                     }
+                    if (ht.ContainsKey(cityName))
+                    {
+                        string newcity = string.Empty;                                          //Generate all combinations for new string
+                        newcity = ht[cityName].ToString();                                      //Take Old City
+                        string[] newcombinations = newcity.Split(' ');                          //Break City in Diff Token
+                        int l_new = newcombinations.Length;
+                        for (int index = 1; index < 1 << l_new; index++)
+                        {
+                            int temp_value = index, jindex = 0;
+                            string value = string.Empty;
+                            while (temp_value > 0)
+                            {
+                                if ((temp_value & 1) > 0)
+                                    value = string.Format("{0} {1}", value, newcombinations[jindex]);
+                                temp_value >>= 1;
+                                jindex++;
+                            }
+                            if (!string.IsNullOrEmpty(value))
+                                ObjTemp.mm_suggest.input.Add(value);
 
-                  
+                        }
+
+                    }
+
                     ObjTemp.mm_suggest.contexts = new Context();
                     ObjTemp.mm_suggest.contexts.types = new List<string>();
                     ObjTemp.mm_suggest.contexts.types.Add("AllCity");
