@@ -15,11 +15,11 @@
                                         <p class="font18 text-bold text-black margin-bottom5 padding-bottom10 border-divider">&#x20b9;
                                             @{ 
                                                 var priceToShow = bike.OnRoadPriceInCity > bike.ExShowroomPriceMumbai ? bike.OnRoadPriceInCity : bike.ExShowroomPriceMumbai;
-                                                var formatedPrice = Bikewale.Utility.Format.FormatPrice(priceToShow.ToString());
+                                                var formatedPrice = Bikewale.Utility.Format.FormatPrice(Convert.ToString(priceToShow));
                                             }
                                             @string.Format("{0} {1}", formatedPrice, (priceToShow == bike.ExShowroomPriceMumbai ? "onwards" : ""))
                                         </p>
-                                        <a href="@string.Format("/{0}-bikes/{1}/reviews/", @bike.Make.MaskingName, @bike.Model.MaskingName)" title="@bikeName user review">
+                                        <a href="@string.Format("/{0}-bikes/{1}/reviews/", bike.Make.MaskingName, bike.Model.MaskingName)" title="@bikeName user review">
                                         <div class="rating-container">
                                             <div class="grid-6-inline rate-count-@Math.Round(bike.OverAllRating)" data-rate-bg="@Math.Round(bike.OverAllRating)">
                                                 <span class="bwsprite star-icon star-size-14"></span>

@@ -57,6 +57,8 @@ namespace Bikewale.Models.UserReviews
             UserReviewDetailsVM objPage = null;
             try
             {
+                objPage.SimilarBikesWidget = new UserReviewSimilarBikesWidgetVM();
+
                 UpdateViewCount();
 
                 objPage = new UserReviewDetailsVM();
@@ -80,9 +82,8 @@ namespace Bikewale.Models.UserReviews
                     objPage.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objPage.UserReviewDetailsObj.Make.MakeId, _modelId, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objPage.UserReviewDetailsObj.Model.ModelName)).GetData();
                 }
 
-                objPage.SimilarBikesWidget = new UserReviewSimilarBikesWidgetVM();
-                objPage.SimilarBikesWidget.SimilarBikes = _bikeModelsCache.GetSimilarBikesUserReviews(_modelId, GlobalCityArea.GetGlobalCityArea().CityId, SimilarBikeReviewWidgetCount);
-                objPage.SimilarBikesWidget.GlobalCityName = GlobalCityArea.GetGlobalCityArea().City;
+                objPage.SimilarBikesWidget.SimilarBikes = _bikeModelsCache.GetSimilarBikesUserReviews(_modelId, currentCityArea.CityId, SimilarBikeReviewWidgetCount);
+                objPage.SimilarBikesWidget.GlobalCityName = currentCityArea.City;
 
                 BindQuestions(objPage);
 

@@ -42,6 +42,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary :- Added GetMostPopularScooters
     /// Modified by : Ashutosh Sharma on 18-Aug-2017
     /// Description : Added GetPopularBikesByBodyStyle
+    /// Modified By :   Vishnu Teja Yalakuntla on 09 Sep 2017
+    /// Description :   Added GetSimilarBikesUserReviewsWithPrice and GetSimilarBikesUserReviewsWithPriceInCity methods.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>

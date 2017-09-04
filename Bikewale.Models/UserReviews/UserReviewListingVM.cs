@@ -5,6 +5,8 @@ namespace Bikewale.Models.UserReviews
     /// <summary>
     /// Created By : Sushil Kumar on 7th May 2017
     /// Description : Viewmodel for user reviews listing page
+    /// Modifed By  :   Vishnu Teja Yalakuntla on 09 Sep 2017
+    /// Description :   Added property UserReviewSimilarBikesWidgetVM and removed IEnumerable<Bikewale.Entities.SimilarBikeUserReview>
     /// </summary>
     public class UserReviewListingVM : ModelBase
     {

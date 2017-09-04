@@ -240,7 +240,8 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviews(uint modelId, uint cityId, uint totalRecords)
         {
             IEnumerable<SimilarBikeUserReview> similarBikes = null;
-            string key = string.Format("BW_SimilarBikes_UserReviews_{0}", modelId);
+            string key = null;
+
             try
             {
                 if (cityId > 0)
@@ -250,7 +251,7 @@ namespace Bikewale.Cache.BikeData
                 }
                 else
                 {
-                    key = string.Format("BW_SimilarBikes_UserReviews_{0}", modelId);
+                    key = string.Format("BW_SimilarBikes_UserReviews_{0}_V1", modelId);
                     similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikeUserReview>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetSimilarBikesUserReviewsWithPrice(modelId, totalRecords));
                 }
             }

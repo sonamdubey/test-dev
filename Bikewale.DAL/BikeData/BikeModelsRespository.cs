@@ -2185,6 +2185,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by :- Sajal Gupta on 08-05-2017
         /// Summary :- Bind User review count for similar bikes
+        /// Modified By :   Vishnu Teja Yalakuntla on 09 Sep 2017
+        /// Description :   Getting the ex-showroom price in mumbai in addition. Changed the method name. 
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="totalRecords"></param>
@@ -2237,6 +2239,14 @@ namespace Bikewale.DAL.BikeData
             return SimilarBikeInfoList;
         }
 
+        /// <summary>
+        /// Modified By :   Vishnu Teja Yalakuntla on 09 Sep 2017
+        /// Description :   Getting Similar Bikes UserReviews with on-road price in city.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
         public IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviewsWithPriceInCity(uint modelId, uint cityId, uint totalRecords)
         {
             IList<SimilarBikeUserReview> SimilarBikeInfoList = null;

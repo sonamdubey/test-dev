@@ -2,6 +2,7 @@
 using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeData;
@@ -100,6 +101,7 @@ namespace Bikewale.Models.UserReviews
         {
             try
             {
+                objData.SimilarBikesWidget = new UserReviewSimilarBikesWidgetVM();
 
                 InputFilters filters = null;
 
@@ -153,9 +155,10 @@ namespace Bikewale.Models.UserReviews
                     }
                     objData.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objData.ReviewsInfo.Model.ModelName)).GetData();
 
-                    objData.SimilarBikesWidget = new UserReviewSimilarBikesWidgetVM();
-                    objData.SimilarBikesWidget.SimilarBikes = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, GlobalCityArea.GetGlobalCityArea().CityId, SimilarBikeReviewWidgetCount);
-                    objData.SimilarBikesWidget.GlobalCityName = GlobalCityArea.GetGlobalCityArea().City;
+                    GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+
+                    objData.SimilarBikesWidget.SimilarBikes = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, currentCityArea.CityId, SimilarBikeReviewWidgetCount);
+                    objData.SimilarBikesWidget.GlobalCityName = currentCityArea.City;
                 }
             }
             catch (Exception ex)
