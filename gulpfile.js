@@ -621,6 +621,16 @@ var mvcAmpPageViews=[
 		folderName: 'Views/PriceInCity/',
 		fileName: 'Index_Mobile_Amp.cshtml',
 		stylesheet: 'm/css/amp/bwm-modelprice-in-city-amp.css'
+	},
+	{
+		folderName: 'Views/m/Content/ExpertReviews/',
+		fileName: 'details_amp.cshtml',
+		stylesheet: 'm/css/amp/content-amp.css'
+	},
+	{
+		folderName: 'Views/m/Content/Features/',
+		fileName: 'details_amp.cshtml',
+		stylesheet: 'm/css/amp/content-amp.css'
 	}
 ];
 

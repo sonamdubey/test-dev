@@ -3,8 +3,11 @@
 <html amp lang="en">
     <head>
         <meta charset="utf-8">
-        <title>@ViewBag.Title @ViewBag.ArticleSectionTitle</title>
-        <link rel="canonical" href="@ViewBag.Canonical" />
+        @if (Model != null && Model.PageMetaTags != null)
+        {
+            <title>@Model.PageMetaTags.Title</title>
+            <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />
+        }
         <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
         <style amp-boilerplate>
             body {
@@ -313,41 +316,13 @@ amp-accordion > section[expanded] .fa-angle-down {
 
         @Html.Raw(Model.Amp_Page_CSS)
         </style>
-        <script type="application/ld+json">
+        @if (!string.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
         {
-            "@@context": "http://schema.org",
-            "@@type": "@ViewBag.ArticleType",
-            "mainEntityOfPage":{
-                "@@type": "WebPage",
-                "@@id": "@ViewBag.MobilePageUrl"
-            },
+            <script type="application/ld+json">
+                @Html.Raw(Model.PageMetaTags.SchemaJSON)
             "articleBody" : "@ViewBag.SanitizedNewsContent",
-            "headline": "@ViewBag.Title",
-            "image": {
-                "@@type": "ImageObject",
-                "url": "@ViewBag.MainImageUrl",
-                "width": 696,
-                "height": 318
-            },
-            "datePublished": "@ViewBag.PublishedDate",
-            "dateModified": "@ViewBag.LastModified",
-            "author": {
-                "@@type": "Person",
-                "name": "@ViewBag.Author"
-            },
-            "publisher": {
-                "@@type": "Organization",
-                "name": "BikeWale",
-                "logo": {
-                    "@@type": "ImageObject",
-                    "url": "https://imgd.aeplcdn.com/0x0/bw/static/design15/bikewale-logo-amp.png",
-                    "width": 55,
-                    "height": 16
-                }
-            },
-            "description": "@ViewBag.Description"
-        }
-        </script>
+            </script>
+        }     
         <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
         <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
         <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
@@ -501,7 +476,7 @@ amp-accordion > section[expanded] .fa-angle-down {
                         "on": "visible",
                         "request": "pageview",
                         "vars": {
-                            "title": "@ViewBag.Title"
+                            "title": "@Model.PageMetaTags.Title"
                         }
                     }
                 }

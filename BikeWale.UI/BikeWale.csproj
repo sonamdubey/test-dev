@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -514,6 +514,7 @@
     <Compile Include="Controllers\NewPageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NewLaunchesController.cs" />
+    <Compile Include="Controllers\PopUpController.cs" />
     <Compile Include="Controllers\ScootersController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\UpcomingController.cs" />
@@ -999,6 +1000,7 @@
     <Compile Include="Models\Location\ChangeLocationPopup.cs" />
     <Compile Include="Models\News\ScooterNewsPage.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
+    <Compile Include="Models\PopUp\PopUpCityArea.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
@@ -3787,6 +3789,7 @@
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\Model\_BestBikes.cshtml" />
     <Content Include="Views\PriceInCity\Index_Mobile_Amp.cshtml" />
+    <Content Include="Views\PopUp\PopUpCityArea_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4035,7 +4038,6 @@
     <Message Text="Checking and installing NPM on machine.." Importance="high" />
     <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />
   </Target>
-
   <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running gulp task $(Configuration)" Importance="high" />
     <Exec Command=".\..\node_modules\.bin\gulp" WorkingDirectory="$(ProjectDir)" />

@@ -293,7 +293,7 @@ namespace Bikewale.Models
                     {
                         objData.Make = objData.ArticleDetails.VehiclTagsList.FirstOrDefault().MakeBase;
                         if (objData.Make != null)
-                            objData.Make = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)objData.Make.MakeId);
+                            objData.Make = new Common.MakeHelper().GetMakeNameByMakeId((uint)objData.Make.MakeId);
                     }
                     MakeId = (uint)objData.Make.MakeId;
                 }
