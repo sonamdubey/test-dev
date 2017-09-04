@@ -157,5 +157,48 @@ namespace Bikewale.Controllers
                 return Redirect("/pagenotfound.aspx");
             }
         }
+
+        /// <summary>
+        /// Created by: Vivek Singh Tomar on 30th Aug 2017
+        /// Summary: Action method for price in city amp page
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/model/{modelName}/pricein/{cityName}/amp/")]
+        public ActionResult Index_Mobile_Amp(string modelName, string cityName)
+        {
+            PriceInCityPageVM objVM = new PriceInCityPageVM();
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _cityCache, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName);
+            if (model.Status == Entities.StatusCodes.ContentFound)
+            {
+                model.BikeInfoTabCount = 3;
+                model.NearestCityCount = 8;
+                model.TopCount = 9;
+                model.PQSource = PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click;
+                model.Platform = DTO.PriceQuote.PQSources.Mobile;
+                model.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
+                model.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_PriceInCity;
+                objVM = model.GetData();
+                if (model.Status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/pagenotfound.aspx");
+                }
+                else
+                {
+                    return View(objVM);
+                }
+            }
+            else if (model.Status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (model.Status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(model.RedirectUrl);
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+        }
     }
 }
