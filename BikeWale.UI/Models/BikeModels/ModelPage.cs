@@ -637,7 +637,7 @@ namespace Bikewale.Models.BikeModels
                         _objData.PageMetaTags.Description = String.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric(_objData.BikePrice.ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
                     }
 
-                    _objData.PageMetaTags.Title = String.Format("{0} Price , Images, Colours, Mileage | BikeWale", _objData.BikeName);
+                    _objData.PageMetaTags.Title = String.Format("{0} Price, Images, Colours, Mileage & Reviews | BikeWale", _objData.BikeName);
 
                     _objData.PageMetaTags.CanonicalUrl = String.Format("{0}/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName);
 
