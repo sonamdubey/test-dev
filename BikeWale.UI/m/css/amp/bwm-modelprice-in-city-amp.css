@@ -754,11 +754,13 @@ color: #EF3F30;
 
 
 .dealership-address {
-	color: #82888b;
-	width: 92%;
-	font-size: 14px;
-	display: inline-block;
-	vertical-align: top;
+    color: #82888b;
+    width: 92%;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: top;
+	white-space: normal;
+	text-align: left;
 }
 
 .tel-sm-grey-icon {
@@ -965,7 +967,14 @@ color: #EF3F30;
 	width: 34px;
 	background-position: -373px 0;
 }
-
+.c-bangalore-icon {
+    width: 82px;
+    background-position: -202px 0;
+}
+.c-lucknow-icon {
+    width: 106px;
+    background-position: -529px 0;
+}
 #swiper-city .swiper-details-block {
 	padding-top: 10px;
 }
