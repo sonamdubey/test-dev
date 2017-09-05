@@ -19,13 +19,8 @@
 
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
      <link rel="stylesheet" type="text/css" href="<%= staticUrl  %>/trackday2016/css/track-day.css?<%= staticFileVersion %>" />
-    <%if(!string.IsNullOrEmpty(alternate)) {%>
-    <link rel="alternate" type="text/html" media="handheld" href="<%= alternate %>" title="Mobile/PDA" /> <%} %>
-
-     <%if(!string.IsNullOrEmpty(canonical)) {%>
-    <link rel="canonical" href="<%= canonical %>" /> <%} %>
-
-    <script type="text/javascript">
+  
+      <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
     
