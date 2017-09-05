@@ -206,7 +206,7 @@ namespace Bikewale.Models.BikeModels
                     {
                         RatingCount = (uint)_objData.ModelPageEntity.ModelDetails.RatingCount,
                         RatingValue = Convert.ToDouble(_objData.ModelPageEntity.ModelDetails.ReviewUIRating),
-                        ReviewCount = (uint) _objData.ModelPageEntity.ModelDetails.ReviewCount,
+                        ReviewCount = (uint)_objData.ModelPageEntity.ModelDetails.ReviewCount,
                         WorstRating = 1,
                         BestRating = 5,
                         ItemReviewed = product.Name
@@ -589,14 +589,41 @@ namespace Bikewale.Models.BikeModels
                     objData.PopularBodyStyle.PQSourceId = PQSource;
                     objData.PopularBodyStyle.ShowCheckOnRoadCTA = true;
                     objData.BodyStyle = objData.PopularBodyStyle.BodyStyle;
-                    objData.BodyStyleText = objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
-                    objData.BodyStyleTextSingular = objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
+                    objData.BodyStyleName = BindPopularBikesStyle(objData.BodyStyle);
+                    objData.BodyStyleText = BindPopularBikesStyle(objData.BodyStyle);
+
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass ec = new ErrorClass(ex, String.Format("Bikewale.Models.ModelPage.BindPopularBodyStyle({0})", _modelId));
             }
+        }
+
+        private string BindPopularBikesStyle(EnumBikeBodyStyles bodyStyle)
+        {
+            string strBodyStyle = String.Empty;
+            switch (bodyStyle)
+            {
+
+                case EnumBikeBodyStyles.Mileage:
+                    strBodyStyle = "Mileage Bikes";
+                    break;
+                case EnumBikeBodyStyles.Sports:
+                    strBodyStyle = "Sports Bikes";
+                    break;
+                case EnumBikeBodyStyles.Cruiser:
+                    strBodyStyle = "Cruisers";
+                    break;
+                case EnumBikeBodyStyles.Scooter:
+                    strBodyStyle = "Scooters";
+                    break;
+                case EnumBikeBodyStyles.AllBikes:
+                default:
+                    strBodyStyle = "Bikes";
+                    break;
+            }
+            return strBodyStyle;
         }
 
         /// <summary>
