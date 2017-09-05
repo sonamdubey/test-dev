@@ -33,7 +33,7 @@
             </div>
             <p class="font14 red-text margin-bottom10"  data-bind="visible: message() && message().length > 0, text: message()"  style="display:none"></p>
             <a class="btn btn-orange btn-fixed-width" id="submit-user-details-btn" rel="nofollow" data-bind="click: function (data, event) { submitUserDetails(); }">Get seller details</a>
-            <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+            <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank" rel="noopener">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.</p>
         </div>
 
         <div id="mobile-verification-section">
@@ -117,7 +117,7 @@
 </div>
 <!-- get seller details pop up end  -->
 <div id="ub-ajax-loader">
-    <div id="popup-loader"></div>
+    <div class="cover-popup-loader"></div>
 </div>
 <script type="text/javascript">
     var getUserName = $('#getUserName'),

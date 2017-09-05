@@ -24,9 +24,9 @@
 .overall-floating-tabs { width:976px; background: #fff; border-bottom:1px solid #e2e2e2; }
 #makeOverallTabs.fixed-tab { position:fixed; top:0; margin:0 auto; z-index:5; border-bottom:0; -moz-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; }
 .overall-specs-tabs-wrapper { display:table; background:#fff; }
-.overall-specs-tabs-wrapper a { padding:10px 20px; display:table-cell; font-size:14px; color:#82888b; }
-.overall-specs-tabs-wrapper a:hover { text-decoration:none; color:#4d5057; }
-.overall-specs-tabs-wrapper a.active { border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057; }
+.overall-specs-tabs-wrapper span { padding:10px 20px; display:table-cell; font-size:14px; color:#82888b; cursor: pointer; }
+.overall-specs-tabs-wrapper span:hover { text-decoration:none; color:#4d5057; }
+.overall-specs-tabs-wrapper span.active { border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057; }
 .content-details-wrapper h2 { margin-bottom:15px; }
 .content-details-wrapper h3 { font-weight:bold; margin-bottom:12px; }
 #makeReviewsContent h3.model-section-subtitle { margin-bottom:20px; }

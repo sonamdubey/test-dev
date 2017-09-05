@@ -1,21 +1,24 @@
 ﻿@model Bikewale.Models.PriceInCityPageVM
 @if (Model.FirstVersion != null)
 {
-    <a href="#orpContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_On-road Price",Model.GABikeName))">On-road price</a>
+    <span data-href="#orpContent" rel="nofollow" class="bw-ga navtab" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_On-road Price",Model.GABikeName))">On-road price</span>
 }
 @if (Model.HasDealers || Model.HasServiceCenters)
 {
-    <a href="#dealerContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Dealers",Model.GABikeName))">Dealers</a>
+    <span data-href="#dealerContent" rel="nofollow" class="bw-ga navtab" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Dealers",Model.GABikeName))">Dealers</span>
 }
 @if (Model.IsNew)
 {
-    <a href="#emiContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_EMI calculator",Model.GABikeName))">EMI calculator</a>
+    <span data-href="#emiContent" rel="nofollow" class="bw-ga navtab" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_EMI calculator",Model.GABikeName))">EMI calculator</span>
 }
 @if (Model.IsNew && (Model.BikeVersionPrices != null || Model.HasNearestPriceCities))
 {
-    <a href="#priceListContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Price list",Model.GABikeName))">Price list</a>
+    <span data-href="#priceListContent" rel="nofollow" class="bw-ga navtab" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Price list",Model.GABikeName))">Price list</span>
 }
 @if (Model.HasAlternateBikes)
 {
-    <a href="#similarContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Similar bikes",Model.GABikeName))">Compare @Model.BodyStyleText</a>
+    <span data-href="#similarContent" class="bw-ga navtab" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Similar bikes",Model.GABikeName))">Similar @Model.BodyStyleText</span>
+}
+else if(Model.IsPopularBodyStyleAvailable){
+    <span data-href="#popularContent" rel="nofollow" class="bw-ga navtab" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Popular bikes",Model.GABikeName))">Popular @Model.BodyStyleText</span>
 }

@@ -27,9 +27,8 @@ namespace Bikewale.Models.News
         public string PageH2 { get; set; }
         public PopularBodyStyleVM PopularBodyStyle { get; set; }
         public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
-        public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
-        public PwaReduxStore ReduxStore { get; set; }
-        public IHtmlString ServerRouterWrapper { get; set; }
-        public string WindowState { get; set; }
+        public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
+        public string PopularScooterBrandsWidgetHeading { get; set; }
+
     }
 }

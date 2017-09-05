@@ -1018,6 +1018,8 @@
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewListingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewDetailsPage.cs" />
+    <Compile Include="Models\UserReviews\UserReviewOtherDetailsPage.cs" />
+    <Compile Include="Models\UserReviews\UserReviewPopupModel.cs" />
     <Compile Include="Models\UserReviews\UserReviewRatingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewSearchWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
@@ -2277,6 +2279,7 @@
     <Content Include="css\components\select-box.css" />
     <Content Include="css\user-review\listing.css" />
     <Content Include="css\survey\bajaj-survey.css" />
+    <Content Include="css\user-review\write-review.css" />
     <Content Include="m\css\content\app.css" />
     <Content Include="css\content\details.css" />
     <Content Include="css\components\sidebar-bike-list.css" />
@@ -2872,6 +2875,7 @@
     <Content Include="m\css\user-review\landing.css" />
     <Content Include="m\css\user-review\listing-old.css" />
     <Content Include="m\css\user-review\listing.css" />
+    <Content Include="m\css\user-review\write-review.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
     <Content Include="m\css\videos\video-detail.css" />
     <Content Include="m\css\videos\videos-by-make.css" />
@@ -3768,6 +3772,7 @@
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel.cshtml" />
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\Scooters_Mobile.cshtml" />
+    <Content Include="Views\Make\_MakeModelPopup.cshtml" />
     <Content Include="Views\News\Scooters.cshtml" />
     <Content Include="Views\News\Scooters_Mobile.cshtml" />
     <Content Include="Views\Videos\ScooterVideos.cshtml" />
@@ -3778,9 +3783,11 @@
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInTopCitiesWidget.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
-    <Content Include="Views\PriceInCity\_PriceInTopCities.cshtml.orig" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\Model\_BestBikes.cshtml" />
+    <Content Include="Views\UserReview\RateBike_old.cshtml" />
+    <Content Include="Views\UserReview\WriteReview_old.cshtml" />
+    <Content Include="Views\UserReview\RateOtherDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

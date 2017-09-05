@@ -590,6 +590,11 @@ var mvcPageViews = [
         folderName: 'Views/GenericBestBikes/',
         fileName: 'Index_Mobile.cshtml',
         stylesheet: 'm/css/generic/listing.css'
+    },
+	{
+        folderName: 'Views/UserReview/',
+        fileName: 'WriteReviewContest.cshtml',
+        stylesheet: '/css/user-review/review-contest.css'
     }
 ];
 

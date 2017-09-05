@@ -10,6 +10,7 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility.StringExtention;
+using System;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -24,7 +25,7 @@ namespace Bikewale.Controllers
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
-        private readonly ICMSCacheContent _objArticles = null;       
+        private readonly ICMSCacheContent _objArticles = null;
         private readonly IBikeMakesCacheRepository<int> _makesRepository;
         private readonly IUserReviewsCache _userReviewCache = null;
 
@@ -44,8 +45,8 @@ namespace Bikewale.Controllers
         /// <param name="userReviewsSearch"></param>
         /// <param name="makesRepository"></param>
         /// <param name="userReviewCache"></param>
-        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo, 
-            IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, 
+        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo,
+            IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel,
                 IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository<int> makesRepository, IUserReviewsCache userReviewCache)
         {
 
@@ -154,8 +155,7 @@ namespace Bikewale.Controllers
             }
             else
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-        }
-
+        }                     
 
         /// <summary>
         /// Created by Subodh Jain on 10-04-2017
@@ -305,25 +305,67 @@ namespace Bikewale.Controllers
         /// 
         [ValidateInput(false)]
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, uint reviewId, string encodedString, bool? isDesktop, string mileage)
+        public ActionResult SaveReview(ReviewSubmitData objReviewData, bool? fromParametersRatingScreen)
         {
-            WriteReviewPageSubmitResponse objResponse = null;
-
-            objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips.Trim(), reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName, mileage);
-
-            if (objResponse.IsSuccess)
+            try
             {
-                if (isDesktop.HasValue && isDesktop.Value)
-                    return Redirect(string.Format("/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
-                else
-                    return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
+                WriteReviewPageSubmitResponse objResponse = null;
+
+                objResponse = _userReviews.SaveUserReviews(objReviewData);
+
+                if (objReviewData != null)
+                {
+                    if (objResponse.IsSuccess)
+                    {
+                        if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value && fromParametersRatingScreen.HasValue && !fromParametersRatingScreen.Value)
+                            return Redirect(string.Format("/parameter-ratings/?q={0}", objReviewData.EncodedString));
+                        else if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value)
+                            return Redirect(string.Format("/user-reviews/review-summary/{0}/?q={1}", objReviewData.ReviewId, objReviewData.EncodedString));
+                        else
+                            return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", objReviewData.ReviewId, objReviewData.EncodedString));
+                    }
+                    else
+                    {
+                        WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, objReviewData.EncodedString);
+                        var objData = objPage.GetData();
+                        objData.SubmitResponse = objResponse;
+                        return View("WriteReview_Mobile", objData);
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, encodedString);
-                var objData = objPage.GetData();
-                objData.SubmitResponse = objResponse;
-                return View("WriteReview_Mobile", objData);
+                ErrorClass objErr = new ErrorClass(ex, "RateOtherDetails()");                 
+            }
+            return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+        }
+
+
+        /// <summary>
+        /// Created by sajal gupta on 31-08-2017
+        /// description : Controller for rate other details p[age
+        /// </summary>
+        /// <param name="encodedString"></param>
+        /// <returns></returns>
+        [Route("parameter-ratings/")]
+        public ActionResult RateOtherDetails(string q)
+        {
+            try
+            {
+                UserReviewOtherDetailsPage objRateOtherDetails = new UserReviewOtherDetailsPage(_userReviews, q);
+                UserReviewsOtherDetailsPageVM objPageData = null;
+                if (objRateOtherDetails != null && (objRateOtherDetails.Status == StatusCodes.ContentFound))
+                {
+                    objPageData = objRateOtherDetails.GetData();
+                    return View(objPageData);
+                }
+                else
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "RateOtherDetails()");
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
         }
 
@@ -451,7 +493,7 @@ namespace Bikewale.Controllers
         [Route("m/user-reviews/contest/")]
         public ActionResult WriteReviewContest_Mobile(int? csrc)
         {
-            WriteReviewContest objData = new WriteReviewContest(true,_makesRepository, _userReviewCache);
+            WriteReviewContest objData = new WriteReviewContest(true, _makesRepository, _userReviewCache);
             objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
             return View(objVM);

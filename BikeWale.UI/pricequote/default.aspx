@@ -90,7 +90,7 @@
                             <div>
                                 <p class="margin-top10">
                                     <input type="checkbox" checked="checked" id="userAgreement" runat="server"><label for="userAgreement"> I agree with BikeWale</label>
-                                    <a href="/visitoragreement.aspx" target="_blank" class="blue">visitor agreement</a> and <a href="/privacypolicy.aspx" target="_blank" class="blue">privacy policy</a>.<br />
+                                    <a href="/visitoragreement.aspx" target="_blank" rel="noopener" class="blue">visitor agreement</a> and <a href="/privacypolicy.aspx" target="_blank" rel="noopener" class="blue">privacy policy</a>.<br />
                                     <span class="error" id="spnAgree" runat="server"></span>
                                 </p>
                             </div>

@@ -368,13 +368,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schema\AdditionalProperty.cs" />
     <Compile Include="Schema\Address.cs" />
+    <Compile Include="Schema\AggregateOffer.cs" />
     <Compile Include="Schema\AggregateRating.cs" />
     <Compile Include="Schema\Author.cs" />
+    <Compile Include="Schema\Brand.cs" />
     <Compile Include="Schema\ContactPoint.cs" />
     <Compile Include="Schema\GeoCoordinates.cs" />
     <Compile Include="Schema\ImageObject.cs" />
     <Compile Include="Schema\ListItem.cs" />
     <Compile Include="Schema\MainEntityOfPage.cs" />
+    <Compile Include="Schema\Manufacturer.cs" />
     <Compile Include="Schema\MotorcycleDealer.cs" />
     <Compile Include="Schema\NewsArticle.cs" />
     <Compile Include="Schema\PotentialAction.cs" />
@@ -449,6 +452,7 @@
     <Compile Include="UserReviews\ReviewListBase.cs" />
     <Compile Include="UserReviews\ReviewRatingEntity.cs" />
     <Compile Include="UserReviews\ReviewRatingEntityBase.cs" />
+    <Compile Include="UserReviews\ReviewSubmitData.cs" />
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
     <Compile Include="UserReviews\SearchResult.cs" />

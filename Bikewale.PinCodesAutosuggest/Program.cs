@@ -89,6 +89,10 @@ namespace Bikewale.PinCodesAutosuggest
                                                   c2.input).AutoMap())))
                                   .Completion(c => c
                                   .Name(pN => pN.mm_suggest)
+                                   .Contexts(cont => cont
+                                        .Category(cate => cate
+                                            .Name("types").Path(s => s.mm_suggest.contexts.types)
+                                            ))
                                   .Analyzer("standard")
                                   .SearchAnalyzer("standard")
                                   .PreserveSeparators(false))))));

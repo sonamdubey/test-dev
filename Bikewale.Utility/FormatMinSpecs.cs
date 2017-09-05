@@ -4,44 +4,7 @@ namespace Bikewale.Utility
 {
     public static class FormatMinSpecs
     {
-        /// <summary>
-        /// Modified By : Lucky Rathore
-        /// Dated : 20 January 2016
-        /// Description : IsNullOrEmpty validation added. 
-        /// </summary>
-        /// <param name="displacement"></param>
-        /// <param name="fuelEffecient"></param>
-        /// <param name="maxpower"></param>
-        /// <returns></returns>
-        public static string GetMinSpecs(string displacement, string fuelEffecient, string maxpower)
-        {
-            string str = String.Empty;
-            try
-            {
-                if (!string.IsNullOrEmpty(displacement) && displacement != "0")
-                    str += "<span><span>" + displacement + "</span><span> cc</span></span>";
-
-                if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
-                    str += "<span>, <span>" + fuelEffecient + "</span><span> kmpl</span></span>";
-
-                if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
-                    str += "<span>, <span>" + maxpower + "</span><span> bhp</span></span>";
-
-                //if (!string.IsNullOrEmpty(weight) && weight != "0")
-                //    str += "<span>, <span>" + weight + "</span><span class='text-light-grey'> kgs</span></span>";
-
-                //if (str != string.Empty)
-                //    return str;
-                else
-                    return "Specs Unavailable";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return str;
-        }
-
+        
         /// <summary>
         /// Summary: Overload created to cater weight in Min specs
         /// </summary>
@@ -56,24 +19,27 @@ namespace Bikewale.Utility
             try
             {
                 if (!string.IsNullOrEmpty(displacement) && displacement != "0")
-                    str += "<span>" + displacement + " cc</span>";
+                    str = string.Format("{0}, <span>{1} cc</span>", str, displacement);
 
                 if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
-                    str += ", <span>" + fuelEffecient + " kmpl</span>";
+                    str = string.Format("{0}, <span>{1} kmpl</span>", str, fuelEffecient);
+
 
                 if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
-                    str += ", <span>" + maxpower + " bhp</span>";
+                    str = string.Format("{0}, <span>{1} bhp</span>", str, maxpower);
 
                 if (!string.IsNullOrEmpty(weight) && weight != "0")
-                    str += ", <span>" + weight + " kgs</span>";
+                    str = string.Format("{0}, <span>{1} kgs</span>", str, weight);
 
-                if (str.StartsWith(","))
-                    str = str.Remove(0, 2).Trim();
-
-                if (str != string.Empty)
-                    return str;
+                if (!string.IsNullOrEmpty(str))
+                {
+                    return str.Substring(1);  
+                }
                 else
+                {
                     return "Specs Unavailable";
+                }
+                    
             }
             catch (Exception ex)
             {
