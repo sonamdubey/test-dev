@@ -179,177 +179,192 @@
             </div>
         </div>
 
+        @if (Model.HasDealers || Model.HasServiceCenters || Model.HasCampaignDealer)
+        {
+            <div id="dealerContent" class="bw-model-tabs-data card-bottom-margin">
+                @if (Model.HasDealers || Model.HasCampaignDealer)
+                {
+                    <div class="content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
+                        @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
+                        {
+                            <div class="ShowroomInCity">
+                                <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Showrooms in @Model.CityEntity.CityName</h2>
+                                <div class="font14 text-slate-grey">
+                                    <p class="margin-bottom10">Please provide your location to get information on:</p>
+                                    <ul class="list-type-disc margin-bottom15">
+                                        <li>Nearest dealer details in @Model.CityEntity.CityName</li>
+                                        <li>Exclusive offers</li>
+                                        <li>Complete buying assistance</li>
+                                    </ul>
+                                    <a href="@string.Format("/m/popup/?queryString={0}", Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}",(int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea, Model.CityEntity.CityId, Model.BikeModel.ModelId, Model.ReturnUrl)))" class="btn btn-orange btn-auto-32 changeCity" rel="nofollow">Select your location</a>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            if (Model.HasCampaignDealer && Model.IsNew && !Model.IsManufacturerLeadAdShown)
+                            {
+                                <div class="ShowroomInCity">
+                                    <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealer near you</h2>
+                                    <div class="font14 text-slate-grey">
+                                        <p class="margin-bottom10">Get in touch with @Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization for:</p>
+                                        <ul class="list-type-disc margin-bottom15">
+                                            <li>Best offers</li>
+                                            <li>EMI options</li>
+                                            <li>Complete buying assistance</li>
+                                        </ul>
+                                        <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="View_dealer_details_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.FirstVersion.VersionName)" class="btn btn-orange btn-180-32" rel="nofollow">View dealer details</a>
+                                    </div>
+                                </div>
+                            }
 
-        <div id="dealerContent" class="bw-model-tabs-data card-bottom-margin">
-            <div class="content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
+                        }
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Royal Enfield Showrooms in Bangalore</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/m/royalenfield-dealer-showrooms-in-bangalore/" title="Royal Enfield Showrooms in Bangalore" class="btn view-all-target-btn">View all</a>
+                            </div>
+                        </div>
+                        <amp-carousel class="dealer-horizontal-swiper" height="180" layout="fixed-height" type="carousel">
+                            <div class="swiper-card">
+                                <a href="/m/royalenfield-dealer-showrooms-in-bangalore/14953-acclaim-motors-re-yelahanka/" title="Acclaim Motors RE - Yelahanka" class="block">
+                                    <div class="dealer-name">Acclaim Motors RE - Yelahanka</div>
+                                    <p class="margin-bottom10 text-light-grey ">
+                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
 
-                <div class="ShowroomInCity">
-                    <h2 class="card-h2-heading margin-bottom10">Honda Showrooms in Bangalore</h2>
-                    <div class="font14 text-slate-grey">
-                        <p class="margin-bottom10">Please provide your location to get information on:</p>
-                        <ul class="list-type-disc margin-bottom15">
-                            <li>Nearest dealer details in Bangalore</li>
-                            <li>Exclusive offers</li>
-                            <li>Complete buying assistance</li>
-                        </ul>
-                        <a href="javascript:void(0)" class="btn btn-orange btn-auto-32  changeCity" rel="nofollow">Select your location</a>
+                                        <span class="dealership-address">G-1, Pyramid North Square, No.<br>520 / 432, Bellary Road, <br> Nehru Nagar </span>
+
+
+                                    </p>
+
+                                </a>
+
+
+                                <a href="tel:9420232788" class="dealer-contact"><span class="bwmsprite tel-sm-grey-icon"></span>9420232788</a>
+                            </div>
+                            <div class="swiper-card">
+                                <a href="/m/royalenfield-dealer-showrooms-in-bangalore/14953-acclaim-motors-re-yelahanka/" title="Acclaim Motors RE - Yelahanka" class="block">
+                                    <div class="dealer-name">Acclaim Motors RE - Yelahanka</div>
+                                    <p class="margin-bottom10 text-light-grey ">
+                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+
+                                        <span class="dealership-address">G-1, Pyramid North Square, No.<br>520/432, Bellary Road, <br>Nehru Nagar</span>
+                                    </p>
+                                </a>
+                                <a href="tel:9420232788" class="dealer-contact"><span class="bwmsprite tel-sm-grey-icon"></span>9420232788</a>
+                            </div>
+                        </amp-carousel>
                     </div>
+                }
+                <div class="content-box-shadow card-bottom-margin content-inner-block-20">
+                    <div class="margin-bottom10">
+                        <span class="bwmsprite service-center-grey"></span>
+                        <div class="grid-11-inline padding-left10">
+                            <h2 class="card-h2-heading">22 Royal Enfield Service centers in Bangalore</h2>
+                        </div>
+                    </div>
+                    <p class="font14 text-slate-grey margin-bottom15">Get in touch with your nearest Royal Enfield service center in Bangalore for service enquiries, service and repair costs and more!</p>
+                    <a href="/m/royalenfield-service-center-in-bangalore/" title="Royal Enfield Service Centers in Bangalore" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
                 </div>
-
-                <div class="ShowroomInCity">
-                    <h2 class="card-h2-heading margin-bottom10">Honda Dealer near you</h2>
-                    <div class="font14 text-slate-grey">
-                        <p class="margin-bottom10">Get in touch with @*@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization*@ for:</p>
-                        <ul class="list-type-disc margin-bottom15">
-                            <li>Best offers</li>
-                            <li>EMI options</li>
-                            <li>Complete buying assistance</li>
-                        </ul>
-                        @*<a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="View_dealer_details_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.FirstVersion.VersionName)" class="btn btn-orange btn-180-32" rel="nofollow">View dealer details</a>*@
-                    </div>
-                </div>
-
-
-                <div class="carousel-heading-content">
-                    <div class="swiper-heading-left-grid inline-block">
-                        <h2>Royal Enfield Showrooms in Bangalore</h2>
-                    </div>
-                    <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="/m/royalenfield-dealer-showrooms-in-bangalore/" title="Royal Enfield Showrooms in Bangalore" class="btn view-all-target-btn">View all</a>
-                    </div>
-                </div>
-                <amp-carousel class="dealer-horizontal-swiper" height="180" layout="fixed-height" type="carousel">
-                    <div class="swiper-card">
-                        <a href="/m/royalenfield-dealer-showrooms-in-bangalore/14953-acclaim-motors-re-yelahanka/" title="Acclaim Motors RE - Yelahanka" class="block">
-                            <div class="dealer-name">Acclaim Motors RE - Yelahanka</div>
-                            <p class="margin-bottom10 text-light-grey ">
-                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-
-                                <span class="dealership-address">G-1, Pyramid North Square, No.<br>520 / 432, Bellary Road, <br> Nehru Nagar </span>
-
-
-                            </p>
-
-                        </a>
-
-
-                        <a href="tel:9420232788" class="dealer-contact"><span class="bwmsprite tel-sm-grey-icon"></span>9420232788</a>
-                    </div>
-                    <div class="swiper-card">
-                        <a href="/m/royalenfield-dealer-showrooms-in-bangalore/14953-acclaim-motors-re-yelahanka/" title="Acclaim Motors RE - Yelahanka" class="block">
-                            <div class="dealer-name">Acclaim Motors RE - Yelahanka</div>
-                            <p class="margin-bottom10 text-light-grey ">
-                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-
-                                <span class="dealership-address">G-1, Pyramid North Square, No.</br>520/432, Bellary Road, </br>Nehru Nagar</span>
-                            </p>
-                        </a>
-                        <a href="tel:9420232788" class="dealer-contact"><span class="bwmsprite tel-sm-grey-icon"></span>9420232788</a>
-                    </div>
-                </amp-carousel>
-
             </div>
+        }
 
-            <div class="content-box-shadow card-bottom-margin content-inner-block-20">
-                <div class="margin-bottom10">
-                    <span class="bwmsprite service-center-grey"></span>
-                    <div class="grid-11-inline padding-left10">
-                        <h2 class="card-h2-heading">22 Royal Enfield Service centers in Bangalore</h2>
-                    </div>
-                </div>
-                <p class="font14 text-slate-grey margin-bottom15">Get in touch with your nearest Royal Enfield service center in Bangalore for service enquiries, service and repair costs and more!</p>
-                <a href="/m/royalenfield-service-center-in-bangalore/" title="Royal Enfield Service Centers in Bangalore" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
-            </div>
-        </div>
-
-        <div id="emiContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
-            <h2 class="card-h2-heading margin-bottom10">Classic 350 EMI Calculator</h2>
-            <div class="finance-emi-container font14">
-
-
-
-                <div class="emi-slider-box">
-                    <div class="emi-slider-box-left-section">
-                        <p class="grid-8 alpha text-slate-grey font14">Down payment</p>
-                        <div class="emi-slider-box-right-section grid-4 omega">
-                            <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="downPayment" class="font14 text-bold">50,122</span>
-                            <span class="hide" [class]="((Popup.formatedDownPayment.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="Popup.formatedDownPayment.lastIndexOf('.')-5 <=1? Popup.formatedDownPayment.substr(Popup.formatedDownPayment.lastIndexOf('.')-6, 1)+',' : Popup.formatedDownPayment.substr(Popup.formatedDownPayment.lastIndexOf('.')-7, 2)+','">0,</span>
-                            <span class="hide" [class]="((Popup.formatedDownPayment.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="Popup.formatedDownPayment.lastIndexOf('.')-3 <=1? Popup.formatedDownPayment.substr(Popup.formatedDownPayment.lastIndexOf('.')-4, 1) : Popup.formatedDownPayment.substr(Popup.formatedDownPayment.lastIndexOf('.')-5, 2)">0</span>
-                            <span class="hide" [class]="((Popup.formatedDownPayment.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="Popup.formatedDownPayment.lastIndexOf('.')>3? ',' + Popup.formatedDownPayment.substr(Popup.formatedDownPayment.lastIndexOf('.')-3,3) : Popup.formatedDownPayment.substr(Popup.formatedDownPayment.lastIndexOf('.')-3,3)">0</span>
-
-                        </div>
-                        <div class="clear"></div>
-
-                        <input id="downPaymentSlider" class="margin-bottom20" type="range" min="16707" max="66829" step="1" value="50122" [value]="Popup.downPayment" on="change:downPayment.hide, AMP.setState({Popup:{downPayment:(event.value),formatedDownPayment:event.value+'.', totalAmount:(Popup.bikePrice-event.value)+Popup.fees+((Popup.bikePrice-event.value) * Popup.tenure * Popup.interest / 1200)}}); input-debounced:AMP.setState({Popup:{emi:round(Popup.totalAmount/Popup.tenure)+ '.', loanAmount:Popup.bikePrice-event.value, formatedTotalAmount:round(Popup.totalAmount) + '.', formatedLoanAmount:Popup.bikePrice-event.value+'.'} }), totalemi.hide, totalAmount.hide, loanAmount.hide" />
-                    </div>
-                    <div class="clear"></div>
-                </div>
-
-                <div class="emi-slider-box font14">
-                    <div class="emi-slider-box-left-section">
-                        <p class="grid-8 alpha text-slate-grey font14">Loan amount</p>
-                        <div class="emi-slider-box-right-section grid-4 omega">
-                            <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="loanAmount" class="text-bold font14">1,16,952</span>
-                            <span class="hide" [class]="((Popup.formatedLoanAmount.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="Popup.formatedLoanAmount.lastIndexOf('.')-5 <=1? Popup.formatedLoanAmount.substr(Popup.formatedLoanAmount.lastIndexOf('.')-6, 1)+',' : Popup.formatedLoanAmount.substr(Popup.formatedLoanAmount.lastIndexOf('.')-7, 2)+','">0,</span>
-                            <span class="hide" [class]="((Popup.formatedLoanAmount.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="Popup.formatedLoanAmount.lastIndexOf('.')-3 <=1? Popup.formatedLoanAmount.substr(Popup.formatedLoanAmount.lastIndexOf('.')-4, 1) : Popup.formatedLoanAmount.substr(Popup.formatedLoanAmount.lastIndexOf('.')-5, 2)">0</span>
-                            <span class="hide" [class]="((Popup.formatedLoanAmount.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="Popup.formatedLoanAmount.lastIndexOf('.')>3? ',' + Popup.formatedLoanAmount.substr(Popup.formatedLoanAmount.lastIndexOf('.')-3,3) : Popup.formatedLoanAmount.substr(Popup.formatedLoanAmount.lastIndexOf('.')-3,3)">0</span>
-                        </div>
-                        <div class="clear"></div>
-                        <input id="loanAmountSlider" class="margin-bottom20" type="range" min="100693" max="150366" step="1" value="116952" [value]="Popup.loanAmount" on="change:AMP.setState({Popup:{loanAmount:event.value, downPayment:Popup.bikePrice-event.value, totalAmount:event.value+Popup.fees+(event.value * Popup.tenure * Popup.interest / 1200)}});input-debounced:AMP.setState({Popup:{ emi:round(Popup.totalAmount/Popup.tenure)+ '.' , formatedTotalAmount:round(Popup.totalAmount) + '.', formatedDownPayment:Popup.downPayment+'.', formatedLoanAmount:event.value+'.'}}),totalAmount.hide, totalemi.hide, downPayment.hide, loanAmount.hide" />
-                    </div>
-                    <div class="clear"></div>
-                </div>
-
-                <div class="emi-slider-box">
-                    <div class="emi-slider-box-left-section">
-                        <p class="grid-8 alpha text-slate-grey font14">Tenure</p>
-                        <div class="emi-slider-box-right-section grid-4 omega text-bold">
-                            <span id="tenurePeriod" [text]="Popup.tenure"> 30 </ span > &nbsp; Months
-                        </div>
-                        <div class="clear"></div>
-                        <input class="margin-bottom20" id="tenureSlider" type="range" min="12" max="48" step="1" value="30" on="change:AMP.setState({Popup: {tenure:event.value, totalAmount:(+Popup.loanAmount)+Popup.fees+(event.value * Popup.loanAmount * Popup.interest / 1200)}}); input-debounced:AMP.setState({Popup:{  emi:round(Popup.totalAmount/Popup.tenure)+ '.' , formatedTotalAmount:round(Popup.totalAmount) + '.'} }),totalAmount.hide, totalemi.hide" />
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="emi-slider-box">
-                    <div class="emi-slider-box-left-section">
-                        <p class="grid-8 alpha text-slate-grey font14">Interest</p>
-                        <div class="emi-slider-box-right-section grid-4 omega text-bold ">
-                            <span id="rateOfInterestPercentage" [text]="Popup.interest"> 12.5 </ span > &nbsp;%
-                        </div>
-                        <div class="clear"></div>
-                        <input class="margin-bottom20" id="rateOfInterestSlider" type="range" min="10" max="15" step="0.25" value="12.5" on="change:AMP.setState({Popup: {interest:event.value, ta:(+Popup.loanAmount)+Popup.fees+(Popup.tenure * Popup.loanAmount * event.value / 1200)}}); input-debounced:AMP.setState({Popup:{  emi:round(Popup.ta/Popup.tenure)+ '.', formatedTotalAmount:round(Popup.ta) + '.' } }),totalAmount.hide, totalemi.hide" />
-                    </div>
-                    <div class="clear"></div>
-                </div>
+    </div>
 
 
 
 
+    <div id="emiContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
+        <h2 class="card-h2-heading margin-bottom10">Classic 350 EMI Calculator</h2>
+        <div class="finance-emi-container font14">
 
 
-                <div class="border-solid-top padding-top20 padding-bottom15">
-                    <p class="grid-9 alpha text-slate-grey omega">Total amount(Principal + Interest)</p>
-                    <div class="emi-slider-box-right-section grid-3 omega alpha">
-                        <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="totalAmount" class="margin-right5 text-bold">2,01,169</span>
-                        <span class="hide" [class]="((Popup.formatedTotalAmount.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="Popup.formatedTotalAmount.lastIndexOf('.')-5 <=1? Popup.formatedTotalAmount.substr(Popup.formatedTotalAmount.lastIndexOf('.')-6, 1)+',' : Popup.formatedTotalAmount.substr(Popup.formatedTotalAmount.lastIndexOf('.')-7, 2)+','">0,</span>
-                        <span class="hide" [class]="((Popup.formatedTotalAmount.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="Popup.formatedTotalAmount.lastIndexOf('.')-3 <=1? Popup.formatedTotalAmount.substr(Popup.formatedTotalAmount.lastIndexOf('.')-4, 1) : Popup.formatedTotalAmount.substr(Popup.formatedTotalAmount.lastIndexOf('.')-5, 2)">0</span>
-                        <span id="1" class="hide" [class]="((Popup.formatedTotalAmount.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="Popup.formatedTotalAmount.lastIndexOf('.')>3? ',' + Popup.formatedTotalAmount.substr(Popup.formatedTotalAmount.lastIndexOf('.')-3,3) : Popup.formatedTotalAmount.substr(Popup.formatedTotalAmount.lastIndexOf('.')-3,3)">0</span>
+
+            <div class="emi-slider-box">
+                <div class="emi-slider-box-left-section">
+                    <p class="grid-8 alpha text-slate-grey font14">Down payment</p>
+                    <div class="emi-slider-box-right-section grid-4 omega">
+                        <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="downPayment" class="font14 text-bold">50,122</span>
+                        <span class="hide" [class]="((Popup.formatedDownPayment.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="Popup.formatedDownPayment.lastIndexOf('.')-5 <=1? Popup.formatedDownPayment.substr(Popup.formatedDownPayment.lastIndexOf('.')-6, 1)+',' : Popup.formatedDownPayment.substr(Popup.formatedDownPayment.lastIndexOf('.')-7, 2)+','">0,</span>
+                        <span class="hide" [class]="((Popup.formatedDownPayment.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="Popup.formatedDownPayment.lastIndexOf('.')-3 <=1? Popup.formatedDownPayment.substr(Popup.formatedDownPayment.lastIndexOf('.')-4, 1) : Popup.formatedDownPayment.substr(Popup.formatedDownPayment.lastIndexOf('.')-5, 2)">0</span>
+                        <span class="hide" [class]="((Popup.formatedDownPayment.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="Popup.formatedDownPayment.lastIndexOf('.')>3? ',' + Popup.formatedDownPayment.substr(Popup.formatedDownPayment.lastIndexOf('.')-3,3) : Popup.formatedDownPayment.substr(Popup.formatedDownPayment.lastIndexOf('.')-3,3)">0</span>
 
                     </div>
                     <div class="clear"></div>
-                </div>
-                <p class="grid-5 text-default alpha position-rel pos-top2">Indicative EMI</p>
-                <div class="text-right grid-7 omega font16 text-bold">
-                    <span> &#x20b9;</span>&nbsp;<span id="totalemi" class="margin-right5">5,055</span>
-                    <span class="hide" [class]="((Popup.emi.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="Popup.emi.lastIndexOf('.')-5 <=1? Popup.emi.substr(Popup.emi.lastIndexOf('.')-6, 1)+',' : Popup.emi.substr(Popup.emi.lastIndexOf('.')-7, 2)+','">0,</span>
-                    <span class="hide" [class]="((Popup.emi.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="Popup.emi.lastIndexOf('.')-3 <=1? Popup.emi.substr(Popup.emi.lastIndexOf('.')-4, 1) : Popup.emi.substr(Popup.emi.lastIndexOf('.')-5, 2)">0</span>
-                    <span id="1" class="hide" [class]="((Popup.emi.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="Popup.emi.lastIndexOf('.')>3? ',' + Popup.emi.substr(Popup.emi.lastIndexOf('.')-3,3) : Popup.emi.substr(Popup.emi.lastIndexOf('.')-3,3)">0</span>
-                    /month
+
+                    <input id="downPaymentSlider" class="margin-bottom20" type="range" min="16707" max="66829" step="1" value="50122" [value]="Popup.downPayment" on="change:downPayment.hide, AMP.setState({Popup:{downPayment:(event.value),formatedDownPayment:event.value+'.', totalAmount:(Popup.bikePrice-event.value)+Popup.fees+((Popup.bikePrice-event.value) * Popup.tenure * Popup.interest / 1200)}}); input-debounced:AMP.setState({Popup:{emi:round(Popup.totalAmount/Popup.tenure)+ '.', loanAmount:Popup.bikePrice-event.value, formatedTotalAmount:round(Popup.totalAmount) + '.', formatedLoanAmount:Popup.bikePrice-event.value+'.'} }), totalemi.hide, totalAmount.hide, loanAmount.hide" />
                 </div>
                 <div class="clear"></div>
             </div>
+
+            <div class="emi-slider-box font14">
+                <div class="emi-slider-box-left-section">
+                    <p class="grid-8 alpha text-slate-grey font14">Loan amount</p>
+                    <div class="emi-slider-box-right-section grid-4 omega">
+                        <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="loanAmount" class="text-bold font14">1,16,952</span>
+                        <span class="hide" [class]="((Popup.formatedLoanAmount.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="Popup.formatedLoanAmount.lastIndexOf('.')-5 <=1? Popup.formatedLoanAmount.substr(Popup.formatedLoanAmount.lastIndexOf('.')-6, 1)+',' : Popup.formatedLoanAmount.substr(Popup.formatedLoanAmount.lastIndexOf('.')-7, 2)+','">0,</span>
+                        <span class="hide" [class]="((Popup.formatedLoanAmount.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="Popup.formatedLoanAmount.lastIndexOf('.')-3 <=1? Popup.formatedLoanAmount.substr(Popup.formatedLoanAmount.lastIndexOf('.')-4, 1) : Popup.formatedLoanAmount.substr(Popup.formatedLoanAmount.lastIndexOf('.')-5, 2)">0</span>
+                        <span class="hide" [class]="((Popup.formatedLoanAmount.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="Popup.formatedLoanAmount.lastIndexOf('.')>3? ',' + Popup.formatedLoanAmount.substr(Popup.formatedLoanAmount.lastIndexOf('.')-3,3) : Popup.formatedLoanAmount.substr(Popup.formatedLoanAmount.lastIndexOf('.')-3,3)">0</span>
+                    </div>
+                    <div class="clear"></div>
+                    <input id="loanAmountSlider" class="margin-bottom20" type="range" min="100693" max="150366" step="1" value="116952" [value]="Popup.loanAmount" on="change:AMP.setState({Popup:{loanAmount:event.value, downPayment:Popup.bikePrice-event.value, totalAmount:event.value+Popup.fees+(event.value * Popup.tenure * Popup.interest / 1200)}});input-debounced:AMP.setState({Popup:{ emi:round(Popup.totalAmount/Popup.tenure)+ '.' , formatedTotalAmount:round(Popup.totalAmount) + '.', formatedDownPayment:Popup.downPayment+'.', formatedLoanAmount:event.value+'.'}}),totalAmount.hide, totalemi.hide, downPayment.hide, loanAmount.hide" />
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="emi-slider-box">
+                <div class="emi-slider-box-left-section">
+                    <p class="grid-8 alpha text-slate-grey font14">Tenure</p>
+                    <div class="emi-slider-box-right-section grid-4 omega text-bold">
+                        <span id="tenurePeriod" [text]="Popup.tenure"> 30 </ span > &nbsp; Months
+                    </div>
+                    <div class="clear"></div>
+                    <input class="margin-bottom20" id="tenureSlider" type="range" min="12" max="48" step="1" value="30" on="change:AMP.setState({Popup: {tenure:event.value, totalAmount:(+Popup.loanAmount)+Popup.fees+(event.value * Popup.loanAmount * Popup.interest / 1200)}}); input-debounced:AMP.setState({Popup:{  emi:round(Popup.totalAmount/Popup.tenure)+ '.' , formatedTotalAmount:round(Popup.totalAmount) + '.'} }),totalAmount.hide, totalemi.hide" />
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="emi-slider-box">
+                <div class="emi-slider-box-left-section">
+                    <p class="grid-8 alpha text-slate-grey font14">Interest</p>
+                    <div class="emi-slider-box-right-section grid-4 omega text-bold ">
+                        <span id="rateOfInterestPercentage" [text]="Popup.interest"> 12.5 </ span > &nbsp;%
+                    </div>
+                    <div class="clear"></div>
+                    <input class="margin-bottom20" id="rateOfInterestSlider" type="range" min="10" max="15" step="0.25" value="12.5" on="change:AMP.setState({Popup: {interest:event.value, ta:(+Popup.loanAmount)+Popup.fees+(Popup.tenure * Popup.loanAmount * event.value / 1200)}}); input-debounced:AMP.setState({Popup:{  emi:round(Popup.ta/Popup.tenure)+ '.', formatedTotalAmount:round(Popup.ta) + '.' } }),totalAmount.hide, totalemi.hide" />
+                </div>
+                <div class="clear"></div>
+            </div>
+
+
+
+
+
+
+            <div class="border-solid-top padding-top20 padding-bottom15">
+                <p class="grid-9 alpha text-slate-grey omega">Total amount(Principal + Interest)</p>
+                <div class="emi-slider-box-right-section grid-3 omega alpha">
+                    <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="totalAmount" class="margin-right5 text-bold">2,01,169</span>
+                    <span class="hide" [class]="((Popup.formatedTotalAmount.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="Popup.formatedTotalAmount.lastIndexOf('.')-5 <=1? Popup.formatedTotalAmount.substr(Popup.formatedTotalAmount.lastIndexOf('.')-6, 1)+',' : Popup.formatedTotalAmount.substr(Popup.formatedTotalAmount.lastIndexOf('.')-7, 2)+','">0,</span>
+                    <span class="hide" [class]="((Popup.formatedTotalAmount.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="Popup.formatedTotalAmount.lastIndexOf('.')-3 <=1? Popup.formatedTotalAmount.substr(Popup.formatedTotalAmount.lastIndexOf('.')-4, 1) : Popup.formatedTotalAmount.substr(Popup.formatedTotalAmount.lastIndexOf('.')-5, 2)">0</span>
+                    <span id="1" class="hide" [class]="((Popup.formatedTotalAmount.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="Popup.formatedTotalAmount.lastIndexOf('.')>3? ',' + Popup.formatedTotalAmount.substr(Popup.formatedTotalAmount.lastIndexOf('.')-3,3) : Popup.formatedTotalAmount.substr(Popup.formatedTotalAmount.lastIndexOf('.')-3,3)">0</span>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+            <p class="grid-5 text-default alpha position-rel pos-top2">Indicative EMI</p>
+            <div class="text-right grid-7 omega font16 text-bold">
+                <span> &#x20b9;</span>&nbsp;<span id="totalemi" class="margin-right5">5,055</span>
+                <span class="hide" [class]="((Popup.emi.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="Popup.emi.lastIndexOf('.')-5 <=1? Popup.emi.substr(Popup.emi.lastIndexOf('.')-6, 1)+',' : Popup.emi.substr(Popup.emi.lastIndexOf('.')-7, 2)+','">0,</span>
+                <span class="hide" [class]="((Popup.emi.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="Popup.emi.lastIndexOf('.')-3 <=1? Popup.emi.substr(Popup.emi.lastIndexOf('.')-4, 1) : Popup.emi.substr(Popup.emi.lastIndexOf('.')-5, 2)">0</span>
+                <span id="1" class="hide" [class]="((Popup.emi.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="Popup.emi.lastIndexOf('.')>3? ',' + Popup.emi.substr(Popup.emi.lastIndexOf('.')-3,3) : Popup.emi.substr(Popup.emi.lastIndexOf('.')-3,3)">0</span>
+                /month
+            </div>
+            <div class="clear"></div>
         </div>
+        }
+
 
 
 
@@ -535,7 +550,7 @@
 
 
     </div>
-    }
+
     </div>
 </section>
 

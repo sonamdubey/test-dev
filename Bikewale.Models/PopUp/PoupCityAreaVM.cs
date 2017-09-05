@@ -23,6 +23,8 @@ namespace Bikewale.Models
 
         public bool IsReload { get; set; }
 
+        public string Url { get; set; }
+
 
     }
 }
