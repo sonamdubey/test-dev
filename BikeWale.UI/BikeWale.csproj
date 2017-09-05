@@ -3792,6 +3792,7 @@
     <Content Include="Views\BikeModels\_BikeInfoCard_Mobile_AMP.cshtml" />
     <Content Include="Views\DealerShowroom\_DealerCard_Mobile_Amp.cshtml" />
     <Content Include="Views\Price\_ManufacturerCampaign_Mobile_Amp.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad300x250_Amp.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

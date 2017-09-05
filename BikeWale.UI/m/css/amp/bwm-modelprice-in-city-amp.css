@@ -316,6 +316,16 @@ a {
 	-webkit-appearance: none;
 }
 
+.btn-teal {
+    background: #41b4c4;
+    color: #fff;
+    border: 1px solid #41b4c4;
+}
+.btn-orange {
+    background: #ef3030;
+    color: #fff;
+}
+
 .btn-white {
 	background: #fff;
 	color: #e42029;
@@ -729,6 +739,7 @@ color: #EF3F30;
 }
 
 .swiper-card {
+    vertical-align: top;
 	width: 253px;
 	margin: 2px 3px 2px 5px;
 	padding: 15px 15px 10px;
@@ -754,11 +765,13 @@ color: #EF3F30;
 
 
 .dealership-address {
-	color: #82888b;
-	width: 92%;
-	font-size: 14px;
-	display: inline-block;
-	vertical-align: top;
+    color: #82888b;
+    width: 92%;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: top;
+	white-space: normal;
+	text-align: left;
 }
 
 .tel-sm-grey-icon {
