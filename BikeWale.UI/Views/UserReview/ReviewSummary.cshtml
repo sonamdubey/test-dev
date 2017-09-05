@@ -82,13 +82,16 @@
                                 <ul>
                                     @foreach (var q in Model.RatingQuestions)
                                     {
-                                        <li class="margin-bottom10">
-                                            <span class="bwsprite questionId-@q.Id"></span>
-                                            <div class="inline-block">
-                                                <p class="font10 text-xt-light">@q.MinHeading</p>
-                                                <p class="font14 text-slate-grey">@q.SelectedRatingText</p>
-                                            </div>
-                                        </li>
+                                        if (!string.IsNullOrEmpty(q.SelectedRatingText))
+                                        {
+                                            <li class="margin-bottom10">
+                                                <span class="bwsprite questionId-@q.Id"></span>
+                                                <div class="inline-block">
+                                                    <p class="font10 text-xt-light">@q.MinHeading</p>
+                                                    <p class="font14 text-slate-grey">@q.SelectedRatingText</p>
+                                                </div>
+                                            </li>
+                                        }
                                     }
                                 </ul>
                             </div>
@@ -150,7 +153,7 @@
                     </div>
                 </div>
                 <div class="clear"></div>
-            </div>            
+            </div>
         </section>
     }
     <input id="pageSource" type="hidden" value="@Model.Summary.ReturnUrl" />
