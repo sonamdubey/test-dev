@@ -40,7 +40,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         private readonly IBikeModelsCacheRepository<int> _objModelCache;
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _cityCacheRepository;
-
+        static ILog _logger = LogManager.GetLogger("PwaCMSController");
         private readonly bool _logNewsUrl = BWConfiguration.Instance.LogNewsUrl;
         /// <summary>
         /// 
@@ -94,6 +94,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         {
                             ThreadContext.Properties["NewsUrl"] = objPwaArticle.ArticleUrl;
                             ThreadContext.Properties["ShareUrl"] = objPwaArticle.ShareUrl;
+                            _logger.Error(String.Format("api/pwa/cms/id/{0}/page/", basicId));
                         }
                     }
                     return Ok(objPwaArticle);

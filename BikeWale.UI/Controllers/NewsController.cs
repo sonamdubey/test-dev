@@ -223,6 +223,7 @@ namespace Bikewale.Controllers
                 if (_logNewsUrl)
                 {
                     ThreadContext.Properties["NewsUrl"] = objData.ArticleDetails.ArticleUrl;
+                    _logger.Error(String.Format("m/news/detail/{0}/", basicid));
                 }
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pagenotfound.aspx");

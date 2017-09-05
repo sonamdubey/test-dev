@@ -64,6 +64,8 @@ namespace Bikewale.Models
         #region Public properties
         public bool IsMobile { get; set; }
 
+        static ILog _logger = LogManager.GetLogger("NewsDetailPage");
+
         public string CityName
         {
             get
@@ -132,6 +134,7 @@ namespace Bikewale.Models
                 {
                     ThreadContext.Properties["NewsRedirectUrl"] = redirectUrl;
                     ThreadContext.Properties["request(t)"] = request["t"];
+                    _logger.Error("NewsDetailPage.ProcessQueryString");
                 }
             }
         }
