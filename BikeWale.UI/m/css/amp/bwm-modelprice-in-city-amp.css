@@ -316,6 +316,16 @@ a {
 	-webkit-appearance: none;
 }
 
+.btn-teal {
+    background: #41b4c4;
+    color: #fff;
+    border: 1px solid #41b4c4;
+}
+.btn-orange {
+    background: #ef3030;
+    color: #fff;
+}
+
 .btn-white {
 	background: #fff;
 	color: #e42029;
@@ -729,6 +739,7 @@ color: #EF3F30;
 }
 
 .swiper-card {
+    vertical-align: top;
 	width: 253px;
 	margin: 2px 3px 2px 5px;
 	padding: 15px 15px 10px;
@@ -754,11 +765,13 @@ color: #EF3F30;
 
 
 .dealership-address {
-	color: #82888b;
-	width: 92%;
-	font-size: 14px;
-	display: inline-block;
-	vertical-align: top;
+    color: #82888b;
+    width: 92%;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: top;
+	white-space: normal;
+	text-align: left;
 }
 
 .tel-sm-grey-icon {
@@ -925,45 +938,47 @@ color: #EF3F30;
 	text-align: center;
 }
 
+.c-mumbai-icon,
+.c-pune-icon,
 .c-bangalore-icon,
+.c-newdelhi-icon,
 .c-chennai-icon,
 .c-hyderabad-icon,
 .c-kolkata-icon,
-.c-lucknow-icon,
-.c-mumbai-icon,
-.c-newdelhi-icon,
-.c-pune-icon {
-	height: 48px;
+.c-lucknow-icon {
+    height: 48px;
 }
-
 .c-mumbai-icon {
-	width: 78px;
-	background-position: 0 0;
+    width: 78px;
+    background-position: 0 0;
 }
-
 .c-pune-icon {
-	width: 112px;
-	background-position: -84px 0;
+    width: 112px;
+    background-position: -84px 0;
 }
-
+.c-bangalore-icon {
+    width: 82px;
+    background-position: -202px 0;
+}
 .c-newdelhi-icon {
-	width: 38px;
-	background-position: -290px 0;
+    width: 38px;
+    background-position: -290px 0;
 }
-
 .c-chennai-icon {
-	width: 33px;
-	background-position: -334px 0;
+    width: 33px;
+    background-position: -334px 0;
 }
-
-.c-kolkata-icon {
-	width: 110px;
-	background-position: -413px 0;
-}
-
 .c-hyderabad-icon {
-	width: 34px;
-	background-position: -373px 0;
+    width: 34px;
+    background-position: -373px 0;
+}
+.c-kolkata-icon {
+    width: 110px;
+    background-position: -413px 0;
+}
+.c-lucknow-icon {
+    width: 106px;
+    background-position: -529px 0;
 }
 
 #swiper-city .swiper-details-block {
@@ -1221,29 +1236,29 @@ input[type="range"]::-moz-range-track {
 	margin-top: 20px;
 	text-align: center;
 }
-#btnPriceInCityPopup {
-	font-size: 18px;
-	display: block;
-	width: 100%;
-	background: #ef3030;
-	color: #fff;
-	padding: 8px 42px;
-	line-height: 1.42857143;
-	white-space: nowrap;
-	border: 1px solid transparent;
-	border-radius: 2px;
-	outline: none;
-	text-decoration: none;
-	vertical-align: middle;
-	-ms-touch-action: manipulation;
-	touch-action: manipulation;
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	background-image: none;
-	-webkit-appearance: none;
+.btnPriceInCityPopup {
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    background: #ef3030;
+    color: #fff;
+    padding: 8px 42px;
+    line-height: 1.42857143;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    outline: none;
+    text-decoration: none;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    -webkit-appearance: none;
 }
 #priceInCityPopUpContent {
 	background: #f5f5f5;
@@ -1302,6 +1317,7 @@ input[type="range"]::-moz-range-track {
 	height: 16px;
 }
 #popupPriceInCityInput {
+    background:#f5f5f5;
 	display:block;
 	padding: 10px 50px;
 	border: 1px solid #ccc;

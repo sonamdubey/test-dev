@@ -3791,6 +3791,15 @@
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\Index_Mobile_Amp.cshtml" />
     <Content Include="Views\PopUp\PopUpCityArea_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\_Index_Tabs_Mobile_Amp.cshtml" />
+    <Content Include="Views\Price\_PriceInCityPopUp_Mobile.cshtml" />
+    <Content Include="Views\BikeModels\_BikeInfoCard_Mobile_AMP.cshtml" />
+    <Content Include="Views\DealerShowroom\_DealerCard_Mobile_Amp.cshtml" />
+    <Content Include="Views\Price\_ManufacturerCampaign_Mobile_Amp.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad300x250_Amp.cshtml" />
+    <Content Include="Views\BikeModels\_SimilarBikes_Mobile_AMP.cshtml" />
+    <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile_AMP.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile_AMP.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
