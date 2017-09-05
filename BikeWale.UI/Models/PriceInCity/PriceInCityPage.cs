@@ -242,9 +242,10 @@ namespace Bikewale.Models
                     {
                         firstVersion = objVM.BikeVersionPrices.OrderByDescending(m => m.IsVersionNew).OrderBy(v => v.ExShowroomPrice).First();
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
-                        if (objVM.IsNew)
+                        var newVersions = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
+                        if (objVM.IsNew && newVersions != null && newVersions.Count() > 0)
                         {
-                            objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
+                            objVM.BikeVersionPrices = newVersions;
                         }
                         versionCount = (uint)objVM.BikeVersionPrices.Count();
                         objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
@@ -289,7 +290,7 @@ namespace Bikewale.Models
                         {
                             BindPriceInNearestCities(objVM);
                             BindPriceInTopCities(objVM);
-                            if (objVM.CookieCityEntity!=null)
+                            if (objVM.CookieCityEntity != null)
                             {
                                 if ((objVM.CookieCityEntity.HasAreas && areaId > 0) || !objVM.CookieCityEntity.HasAreas)
                                 {
@@ -313,7 +314,7 @@ namespace Bikewale.Models
                                     City = city,
                                     Location = String.Format("{0} {1}", area, city),
                                     BikeName = objVM.BikeName
-                                }; 
+                                };
                             }
                         }
 
@@ -439,7 +440,7 @@ namespace Bikewale.Models
                 {
                     similarBikesVM.Make = objVM.Make;
                     similarBikesVM.Model = objVM.BikeModel;
-                    similarBikesVM.VersionId = objVM.FirstVersion.VersionId;
+                    similarBikesVM.VersionId = firstVersion.VersionId;
                     objVM.AlternateBikes = similarBikesVM;
                     objVM.AlternateBikes.Page = Entities.Pages.GAPages.PriceInCity_Page;
                 }

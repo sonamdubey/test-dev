@@ -72,6 +72,11 @@ namespace Bikewale.Service.Controllers.UserReviews
         #endregion
         
 
+        /// <summary>
+        /// To get user reviews
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <returns></returns>
         [Route("api/user-reviews/search/")]
         public IHttpActionResult GetUserReviewList([FromUri]Bikewale.Entities.UserReviews.Search.InputFilters filters)
         {
