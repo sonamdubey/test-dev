@@ -4,6 +4,7 @@ using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.SEO;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
@@ -266,7 +267,7 @@ namespace Bikewale.DAL.BikeData
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_28062017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_23082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -290,6 +291,7 @@ namespace Bikewale.DAL.BikeData
                                     AlloyWheels = !Convert.IsDBNull(dr["AlloyWheels"]) ? Convert.ToBoolean(dr["AlloyWheels"]) : false,
                                     ElectricStart = !Convert.IsDBNull(dr["ElectricStart"]) ? Convert.ToBoolean(dr["ElectricStart"]) : false,
                                     AntilockBrakingSystem = !Convert.IsDBNull(dr["AntilockBrakingSystem"]) ? Convert.ToBoolean(dr["AntilockBrakingSystem"]) : false,
+                                    BodyStyle = (EnumBikeBodyStyles) Convert.ToUInt16(dr["BodyStyleId"])
                                 });
                             }
                             dr.Close();
@@ -331,7 +333,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_28062017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_14082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -371,6 +373,25 @@ namespace Bikewale.DAL.BikeData
                                 t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
                                 t.IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]);
                             }
+
+                            if (dr.NextResult())
+                            {
+                                var metas = new List<CustomPageMetas>();
+                                while (dr.Read())
+                                {
+                                    var meta = new CustomPageMetas();
+                                    meta.PageId = SqlReaderConvertor.ToUInt32(dr["pageid"]);
+                                    meta.Title = Convert.ToString(dr["title"]);
+                                    meta.Description = Convert.ToString(dr["description"]);
+                                    meta.Keywords = Convert.ToString(dr["keywords"]);
+                                    meta.Heading = Convert.ToString(dr["heading"]);
+                                    meta.Summary = Convert.ToString(dr["summary"]);
+                                    meta.ModelId = (uint)t.ModelId;
+                                    metas.Add(meta);
+                                }
+                                t.Metas = metas;
+                            }
+
                             dr.Close();
                         }
                     }

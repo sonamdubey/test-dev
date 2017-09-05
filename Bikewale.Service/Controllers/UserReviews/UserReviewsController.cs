@@ -259,7 +259,7 @@ namespace Bikewale.Service.Controllers.UserReviews
                     objDTOUserReview = new UserReviewSummaryDto();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
 
-                    return Ok(objUserReview);
+                    return Ok(objDTOUserReview);
                 }
             }
             catch (Exception ex)

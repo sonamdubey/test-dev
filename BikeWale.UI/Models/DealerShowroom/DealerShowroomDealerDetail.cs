@@ -143,6 +143,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By:- Subodh Jain 23 March 2017
         /// Summary:- Fetching data about dealers of other brands
+        /// Modified by : Ashutosh Sharma on 23 Aug 2017
+        /// Description : Page title and description changed.
         /// </summary>
         /// <returns></returns>
         private void BindPageMetas(DealerShowroomDealerDetailsVM objDealerDetails)
@@ -151,13 +153,36 @@ namespace Bikewale.Models
             try
             {
                 objPage.Keywords = string.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", objDealerDetails.DealerDetails.DealerDetails.Name, CityDetails.CityName);
-                objPage.Title = string.Format("{0} showroom in {1} - BikeWale", objDealerDetails.DealerDetails.DealerDetails.Name, CityDetails.CityName);
-                objPage.Description = string.Format("{2} is an authorized {0} showroom in {1}. Get address, contact details direction, EMI quotes etc. of {2} {0} showroom.", objMake.MakeName, CityDetails.CityName, objDealerDetails.DealerDetails.DealerDetails.Name);
+
                 objPage.CanonicalUrl = String.Format("{0}/{1}-dealer-showrooms-in-{2}/{3}-{4}/", BWConfiguration.Instance.BwHostUrl, objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName, objDealerDetails.DealerDetails.DealerDetails.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(objDealerDetails.DealerDetails.DealerDetails.Name));
                 objPage.AlternateUrl = String.Format("{0}/m/{1}-dealer-showrooms-in-{2}/{3}-{4}/", BWConfiguration.Instance.BwHostUrl, objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName, objDealerDetails.DealerDetails.DealerDetails.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(objDealerDetails.DealerDetails.DealerDetails.Name));
-
-                SetPageJSONLDSchema(objDealerDetails);
-
+                
+                if (objDealerDetails.DealerDetails.DealerDetails.Area != null && !string.IsNullOrEmpty(objDealerDetails.DealerDetails.DealerDetails.Area.AreaName))
+                {
+                    objPage.Title = string.Format("{0}, {1} - {2} | {3} showroom in {2} - BikeWale",
+                                objDealerDetails.DealerDetails.DealerDetails.Name,
+                                objDealerDetails.DealerDetails.DealerDetails.Area.AreaName,
+                                CityDetails.CityName,
+                                objDealerDetails.Make.MakeName);
+                    objPage.Description = string.Format("{0}, {1} - {2} is an authorized {3} showroom in {2}. Get address, contact details direction, EMI quotes etc. of {0} {3} showroom.",
+                               objDealerDetails.DealerDetails.DealerDetails.Name,
+                               objDealerDetails.DealerDetails.DealerDetails.Area.AreaName,
+                               CityDetails.CityName,
+                               objMake.MakeName);
+                }
+                else
+                {
+                    objPage.Title = string.Format("{0} - {1} | {2} showroom in {1} - BikeWale",
+                                objDealerDetails.DealerDetails.DealerDetails.Name,
+                                CityDetails.CityName,
+                                objDealerDetails.Make.MakeName);
+                    objPage.Description = string.Format("{0} - {1} is an authorized {2} showroom in {1}. Get address, contact details direction, EMI quotes etc. of {0} {2} showroom.",
+                               objDealerDetails.DealerDetails.DealerDetails.Name,
+                               CityDetails.CityName,
+                               objMake.MakeName);
+                }
+              
+              SetPageJSONLDSchema(objDealerDetails);
             }
             catch (System.Exception ex)
             {

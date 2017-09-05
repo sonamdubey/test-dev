@@ -2,6 +2,7 @@
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
 using Bikewale.Entities.PWA.Articles;
+using System.Collections.Generic;
 using System.Web;
 
 namespace Bikewale.Models
@@ -9,6 +10,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by : Aditi Srivastava on 27 Mar 2017
     /// Summary    : View model for news listing page
+    /// Modified by: Snehal Dange on 24 August 2017
+    /// Summary    : Added PopularScooterMakesWidget to show popular brands
     /// </summary>
     public class NewsIndexPageVM : ModelBase
     {
@@ -26,5 +29,6 @@ namespace Bikewale.Models
         public PwaReduxStore ReduxStore { get; set; }
         public IHtmlString ServerRouterWrapper { get; set; }
         public string WindowState { get; set; }
+        public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
     }
 }

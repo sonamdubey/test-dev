@@ -14,13 +14,13 @@
                                     <ItemTemplate>--%>
                                         <li>
                                             <div class="pic-place">
-                                                <a href="#" target="_blank">
+                                                <a href="#" target="_blank" rel="noopener">
                                 	                <div class="video-sprite play-btn"></div>
                                 	                <img src="https://img.youtube.com/vi/jcEaopeBfUU/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
                                                 </a>
                                             </div>
                                             <div class="content-place">
-                            	                <p><a href="#" target="_blank"><strong>Video Title</strong></a></p>
+                            	                <p><a href="#" target="_blank" rel="noopener"><strong>Video Title</strong></a></p>
                                                 <div>
                                 	                <span class="video-sprite review-icon-light margin-right5 float-left"></span><span>34,789 Views</span>
                                                 </div>
@@ -28,13 +28,13 @@
                                         </li>
                                         <li>
                                             <div class="pic-place">
-                                                <a href="#" target="_blank">
+                                                <a href="#" target="_blank" rel="noopener">
                                 	                <div class="video-sprite play-btn"></div>
                                 	                <img src="https://img.youtube.com/vi/cCS7WWY5hlk/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
                                                 </a>
                                             </div>
                                             <div class="content-place">
-                            	                <p><a href="#" target="_blank"><strong>Video Title</strong></a></p>
+                            	                <p><a href="#" target="_blank" rel="noopener"><strong>Video Title</strong></a></p>
                                                 <div>
                                 	                <span class="video-sprite review-icon-light margin-right5"></span> <span>34,789 Views</span>
                                                 </div>
@@ -42,13 +42,13 @@
                                         </li>
                                         <li>
                                             <div class="pic-place">
-                                                <a href="#" target="_blank">
+                                                <a href="#" target="_blank" rel="noopener">
                                 	                <div class="video-sprite play-btn"></div>
                                 	                <img src="https://img.youtube.com/vi/cCS7WWY5hlk/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
                                                 </a>
                                             </div>
                                             <div class="content-place">
-                            	                <p><a href="#" target="_blank"><strong>Video Title</strong></a></p>
+                            	                <p><a href="#" target="_blank" rel="noopener"><strong>Video Title</strong></a></p>
                                                 <div>
                                 	                <span class="video-sprite review-icon-light margin-right5"></span><span>34,789 Views</span>
                                                 </div>
@@ -56,13 +56,13 @@
                                         </li>
                                         <li>
                                             <div class="pic-place">
-                                                <a href="#" target="_blank">
+                                                <a href="#" target="_blank" rel="noopener">
                                 	                <div class="video-sprite play-btn"></div>
                                 	                <img src="https://img.youtube.com/vi/cCS7WWY5hlk/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
                                                 </a>
                                             </div>
                                             <div class="content-place">
-                            	                <p><a href="#" target="_blank"><strong>Video Title</strong></a></p>
+                            	                <p><a href="#" target="_blank" rel="noopener"><strong>Video Title</strong></a></p>
                                                 <div>
                                 	                <span class="video-sprite review-icon-light margin-right5"></span> <span>34,789 Views</span>
                                                 </div>
@@ -70,13 +70,13 @@
                                         </li>
                                         <li>
                                             <div class="pic-place">
-                                                <a href="#" target="_blank">
+                                                <a href="#" target="_blank" rel="noopener">
                                 	                <div class="video-sprite play-btn"></div>
                                 	                <img src="https://img.youtube.com/vi/jcEaopeBfUU/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
                                                 </a>
                                             </div>
                                             <div class="content-place">
-                            	                <p><a href="#" target="_blank"><strong>Video Title</strong></a></p>
+                            	                <p><a href="#" target="_blank" rel="noopener"><strong>Video Title</strong></a></p>
                                                 <div>
                                 	                <span class="video-sprite review-icon-light margin-right5"></span><span>34,789 Views</span>
                                                 </div>
@@ -84,13 +84,13 @@
                                         </li>
                                         <li>
                                             <div class="pic-place">
-                                                <a href="#" target="_blank">
+                                                <a href="#" target="_blank" rel="noopener">
                                 	                <div class="video-sprite play-btn"></div>
                                 	                <img src="https://img.youtube.com/vi/jcEaopeBfUU/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
                                                 </a>
                                             </div>
                                             <div class="content-place">
-                            	                <p><a href="#" target="_blank"><strong>Video Title</strong></a></p>
+                            	                <p><a href="#" target="_blank" rel="noopener"><strong>Video Title</strong></a></p>
                                                 <div>
                                 	                <span class="video-sprite review-icon-light margin-right5"></span><span>34,789 Views</span>
                                                 </div>

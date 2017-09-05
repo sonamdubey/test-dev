@@ -26,6 +26,12 @@
                         }
                     </div>
                 </a>
+                @if (Model.ShowCheckOnRoadCTA && bike.VersionPrice> 0)
+                    {
+                    <div class="margin-left20 margin-bottom20">
+                        <a href="javascript:void(0);" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm font14 getquotation" rel="nofollow">Check on-road price</a>
+                    </div>
+                }
             </li>
             } 
         </ul>

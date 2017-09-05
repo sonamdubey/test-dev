@@ -1,9 +1,9 @@
 var version = '9Aug2017v1';
-var baseUrl = 'https://stb.aeplcdn.com/staging/bikewale/pwa/build/';
+var baseUrl = 'https://stb.aeplcdn.com/bikewale/pwa/build/';
 var APPSHELL = baseUrl + 'appshell.html?' + version;
 var VENDOR_JS = baseUrl + 'vendor.bundle.js?' + version;
 var APP_JS = baseUrl + 'app.bundle.js?' + version;
-var APP_BTF_CSS = baseUrl + 'app-btf.css?' + version; 
+var APP_BTF_CSS = baseUrl + 'app-btf.css?' + version;
 var SW_TOOLBOX_JS = baseUrl + 'sw-toolbox.js?' + version;
 var IMAGE_EXPIRATION_TIME = 864000;
 var IMAGE_CDN_REGEX_PATTERN = /^https:\/\/imgd(\d)?.aeplcdn.com/;
@@ -21,12 +21,16 @@ if(response) {
 return response;
 }
 else {
-return fetch(request).then(function(response) {
+return fetch(request).then(function (response) {
 if(response.status==200) {
-cache.add(request);
+cache.add(request); 
 }
 return response;
-})}})})};
+})
+}   
+})
+})
+};
 function isPrecachedFile(fileName) {
 return precachedFiles.some(function(precachedFile) {
 return precachedFile == fileName;
@@ -40,12 +44,11 @@ maxAgeSeconds : 300,
 maxEntries : 100
 }
 });
-toolbox.router.get('/m/news/*',function(request,values,options) {
-var regex = /\.*.bikewale.com\/m\/news\/(.*)-([\d]+)\/amp\/?/;
-var matches = regex.exec(request.url);
-if(matches)
-	return toolbox.networkOnly(request,values,options);
-if('GET' === request.method && request.headers.get('accept').includes('text/html')) {
+
+toolbox.router.get('/m/news/*-(\\d+)/amp/', toolbox.networkOnly , null);
+
+toolbox.router.get('/m/news/*', function (request, values, options) {
+if ('GET' === request.method && request.headers.get('accept').includes('text/html')) {
 return fetchFileFromCache(APPSHELL,precacheName).then(function(response) {
 if(response)
 return response;
@@ -62,6 +65,9 @@ maxEntries : 25 ,
 maxAgeSeconds : 86400
 }
 });
+
+
+
 toolbox.router.get('/*',toolbox.cacheFirst,		
 {
 cache : {
@@ -73,7 +79,7 @@ origin : IMAGE_CDN_REGEX_PATTERN
 });
 toolbox.router.get('/*',function(request,values,options) { 
 if(isPrecachedFile(request.url)) {
-return fetchFileFromCache(request,precacheName).then(function(response) {
+return fetchFileFromCache(request.url,precacheName).then(function(response) {
 if(response)
 return response;
 return toolbox.networkFirst(request,values,options);
@@ -84,7 +90,8 @@ return toolbox.networkFirst(request,values,options);
 else{
 return toolbox.networkFirst(request,values,options);
 }
-}, {
+},
+{
 mode: "cors",
 cache : {
 name : 'cdn-JS',
@@ -109,4 +116,5 @@ self.skipWaiting()
 self.addEventListener('activate',function(event) {
 event.waitUntil(
 self.clients.claim()
-);});
+);
+});
