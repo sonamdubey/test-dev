@@ -925,45 +925,47 @@ color: #EF3F30;
 	text-align: center;
 }
 
+.c-mumbai-icon,
+.c-pune-icon,
 .c-bangalore-icon,
+.c-newdelhi-icon,
 .c-chennai-icon,
 .c-hyderabad-icon,
 .c-kolkata-icon,
-.c-lucknow-icon,
-.c-mumbai-icon,
-.c-newdelhi-icon,
-.c-pune-icon {
-	height: 48px;
+.c-lucknow-icon {
+    height: 48px;
 }
-
 .c-mumbai-icon {
-	width: 78px;
-	background-position: 0 0;
+    width: 78px;
+    background-position: 0 0;
 }
-
 .c-pune-icon {
-	width: 112px;
-	background-position: -84px 0;
+    width: 112px;
+    background-position: -84px 0;
 }
-
+.c-bangalore-icon {
+    width: 82px;
+    background-position: -202px 0;
+}
 .c-newdelhi-icon {
-	width: 38px;
-	background-position: -290px 0;
+    width: 38px;
+    background-position: -290px 0;
 }
-
 .c-chennai-icon {
-	width: 33px;
-	background-position: -334px 0;
+    width: 33px;
+    background-position: -334px 0;
 }
-
-.c-kolkata-icon {
-	width: 110px;
-	background-position: -413px 0;
-}
-
 .c-hyderabad-icon {
-	width: 34px;
-	background-position: -373px 0;
+    width: 34px;
+    background-position: -373px 0;
+}
+.c-kolkata-icon {
+    width: 110px;
+    background-position: -413px 0;
+}
+.c-lucknow-icon {
+    width: 106px;
+    background-position: -529px 0;
 }
 
 #swiper-city .swiper-details-block {
