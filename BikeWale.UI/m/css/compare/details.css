@@ -353,6 +353,52 @@
     display: none;
 }
 
+/* rating badge */
+.rating-badge[data-rate-bg="5"] {
+    background-color: #198D55;
+}
+
+.rating-badge[data-rate-bg="4"] {
+    background-color: #13B65D;
+}
+
+.rating-badge[data-rate-bg="3"] {
+    background-color: #EFD700;
+}
+
+.rating-badge[data-rate-bg="2"] {
+    background-color: #FD971C;
+}
+
+.rating-badge[data-rate-bg="1"] {
+    background-color: #EF3F30;
+}
+
+.rating-badge {
+    min-width: 40px;
+    height: 20px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.star-white {
+    width: 12px;
+    height: 12px;
+    background-position: -172px -447px;
+    position: relative;
+    top: 1px;
+    margin-right: 4px;
+}
 /* table sponsored-column-active */
 .sponsored-bike-details-block {
     display: none;
@@ -620,20 +666,20 @@
 .border-bottom-grey {
     border-bottom: 1px solid #e2e2e2;
 }
-.review-title {
-    font-size: 13px;
+.review-decription {
+    font-weight:normal;
     padding-bottom: 15px;
-    padding-right: 15px;
-    font-weight: 500;
+    color: #787878;
 }
 .review-link {
     position: relative;
     text-align: center;
+    font-weight:normal;
 }
 .review-link::after {
     position: absolute;
-    right: 2px;
-    top: 11px;
+    right: -11px;
+    top: 13px;
     content: '';
     height: 7px;
     width: 7px;

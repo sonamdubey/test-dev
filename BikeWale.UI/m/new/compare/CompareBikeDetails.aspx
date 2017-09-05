@@ -441,42 +441,42 @@
                                     <td colspan="2">Reviews</td>
                                     <td></td>
                                 </tr>
-                                <tr class="row-type-data">
+                                <tr class="row-type-data font14">
                                     <td>
-                                        <p class="review-title">
+                                        <span class="rating-badge margin-bottom10" data-rate-bg="5">
+                                            <span class="bwmsprite star-white"></span>5
+                                        </span>
+                                        <p class="font14 text-default margin-bottom10">
                                             Royal enfield-royalty bikes
                                         </p>
-                                        <p class="review-title">
-                                            Beast royal enfield classic 350
+                                        <p class="review-decription">
+                                            Get in touch with your nearest Bajaj center…
                                         </p>
-                                        <p class="review-title margin-bottom5">
-                                            Not affordable
-                                        </p>
-                                        <a href="#" class="review-title review-link font12">All reviews</a>
+                                        <a href="#" class="review-title review-link">All reviews</a>
                                     </td>
                                     <td>
-                                        <p class="review-title">
+                                        <span class="rating-badge margin-bottom10" data-rate-bg="5">
+                                            <span class="bwmsprite star-white"></span>5
+                                        </span>
+                                        <p class="font14 text-default margin-bottom10">
                                             Royal enfield-royalty bikes
                                         </p>
-                                        <p class="review-title">
-                                            Beast royal enfield classic 350
+                                        <p class="review-decription">
+                                            Get in touch with your nearest Bajaj center…
                                         </p>
-                                        <p class="review-title margin-bottom5">
-                                            Not affordable
-                                        </p>
-                                        <a href="#" class="review-title review-link font12">All reviews</a>
+                                        <a href="#" class="review-title review-link">All reviews</a>
                                     </td>
                                     <td>
-                                        <p class="review-title">
+                                        <span class="rating-badge margin-bottom10" data-rate-bg="5">
+                                            <span class="bwmsprite star-white"></span>5
+                                        </span>
+                                        <p class="font14 text-default margin-bottom10">
                                             Royal enfield-royalty bikes
                                         </p>
-                                        <p class="review-title">
-                                            Beast royal enfield classic 350
+                                        <p class="review-decription">
+                                            Get in touch with your nearest Bajaj center…
                                         </p>
-                                        <p class="review-title margin-bottom5">
-                                            Not affordable
-                                        </p>
-                                        <a href="#" class="review-title review-link font12">All reviews</a>
+                                        <a href="#" class="review-title review-link">All reviews</a>
                                     </td>
                                 </tr>
                             </tbody>
