@@ -340,6 +340,10 @@ namespace Bikewale.Models
                         }
                         else { isBikewalePQ = true; }
                     }
+                    else
+                    {
+                        isBikewalePQ = true;
+                    }
 
                     if (isBikewalePQ)
                     {
