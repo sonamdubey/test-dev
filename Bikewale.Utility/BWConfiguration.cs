@@ -98,14 +98,14 @@ namespace Bikewale.Utility
             _PinCodesIndexName = string.Empty,
             _DebugMobileSite = string.Empty,
             _CoverFoxLink = string.Empty,
-            _UserReviewIndexName=string.Empty;
+            _UserReviewIndexName = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
         private string _AWSS3Region = String.Empty;
         private uint _GrpcMaxTimeLimit = 100;
         private uint _GrpcPoolSize = 1;
-        private bool _EnablePWALogging=false;
+        private bool _EnablePWALogging = false;
         private string _StaticUrlPWA;
         private string _StaticAppFileVersion;
         private string _StaticVendorFileVersion;
@@ -113,6 +113,8 @@ namespace Bikewale.Utility
         private string _StaticCSSBTFPWAVersion;
         private bool _DisablePWA;
         private string _AMPDomainForSW;
+        private bool _logNewsUrl;
+
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
         {
@@ -208,6 +210,7 @@ namespace Bikewale.Utility
             _StaticCSSBTFPWAVersion = ConfigurationManager.AppSettings["StaticCSSBTFPWAVersion"];
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
             _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];
+            _logNewsUrl = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogNewsUrl"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["LogNewsUrl"]);
         }
 
         // Static method to provide access to instance
@@ -356,5 +359,7 @@ namespace Bikewale.Utility
         public string AMPDomainForSW { get { return _AMPDomainForSW; } }
 
         public string UserReviewIndexName { get { return _UserReviewIndexName; } }
+
+        public bool LogNewsUrl { get { return _logNewsUrl; } }
     }   // class
 }   // namespace
