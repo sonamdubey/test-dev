@@ -290,7 +290,7 @@ namespace Bikewale.DAL.BikeData
                                     AlloyWheels = !Convert.IsDBNull(dr["AlloyWheels"]) ? Convert.ToBoolean(dr["AlloyWheels"]) : false,
                                     ElectricStart = !Convert.IsDBNull(dr["ElectricStart"]) ? Convert.ToBoolean(dr["ElectricStart"]) : false,
                                     AntilockBrakingSystem = !Convert.IsDBNull(dr["AntilockBrakingSystem"]) ? Convert.ToBoolean(dr["AntilockBrakingSystem"]) : false,
-                                    BodyStyle = (EnumBikeBodyStyles) Convert.ToUInt16(dr["BodyStyleId"])
+                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToUInt16(dr["BodyStyleId"])
                                 });
                             }
                             dr.Close();
@@ -2185,11 +2185,13 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by :- Sajal Gupta on 08-05-2017
         /// Summary :- Bind User review count for similar bikes
+        /// Modified By :   Vishnu Teja Yalakuntla on 09 Sep 2017
+        /// Description :   Getting the ex-showroom price in mumbai in addition. Changed the method name. 
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="totalRecords"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviews(uint modelId, uint totalRecords)
+        public IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviewsWithPrice(uint modelId, uint totalRecords)
         {
             IList<SimilarBikeUserReview> SimilarBikeInfoList = null;
             try
@@ -2198,7 +2200,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getalternativebikeswithreviewcount_17062017";
+                    cmd.CommandText = "getalternativebikeswithreviewcountandprice";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -2221,8 +2223,66 @@ namespace Bikewale.DAL.BikeData
                                 bikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
                                 bikeInfo.NumberOfRating = SqlReaderConvertor.ToUInt32(dr["numberOfRatings"]);
                                 bikeInfo.NumberOfReviews = SqlReaderConvertor.ToUInt32(dr["numberOfReviews"]);
+                                bikeInfo.ExShowroomPriceMumbai = SqlReaderConvertor.ToUInt32(dr["ExShowroomPriceMumbai"]);
                                 SimilarBikeInfoList.Add(bikeInfo);
+                            }
+                            dr.Close();
+                        }
 
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetSimilarBikesUserReviews_Model: {0}", modelId));
+            }
+            return SimilarBikeInfoList;
+        }
+
+        /// <summary>
+        /// Modified By :   Vishnu Teja Yalakuntla on 09 Sep 2017
+        /// Description :   Getting Similar Bikes UserReviews with on-road price in city.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
+        public IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviewsWithPriceInCity(uint modelId, uint cityId, uint totalRecords)
+        {
+            IList<SimilarBikeUserReview> SimilarBikeInfoList = null;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getalternativebikeswithreviewcountandpriceincity";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            SimilarBikeInfoList = new List<SimilarBikeUserReview>();
+
+                            while (dr.Read())
+                            {
+                                var bikeInfo = new SimilarBikeUserReview();
+                                bikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
+                                bikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
+                                bikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
+                                bikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
+                                bikeInfo.OverAllRating = SqlReaderConvertor.ParseToDouble(dr["overallrating"]);
+                                bikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
+                                bikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
+                                bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
+                                bikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
+                                bikeInfo.NumberOfRating = SqlReaderConvertor.ToUInt32(dr["numberOfRatings"]);
+                                bikeInfo.NumberOfReviews = SqlReaderConvertor.ToUInt32(dr["numberOfReviews"]);
+                                bikeInfo.ExShowroomPriceMumbai = SqlReaderConvertor.ToUInt32(dr["ExShowroomPriceMumbai"]);
+                                bikeInfo.OnRoadPriceInCity = SqlReaderConvertor.ToUInt32(dr["OnRoadPriceInCity"]);
+                                SimilarBikeInfoList.Add(bikeInfo);
                             }
                             dr.Close();
                         }

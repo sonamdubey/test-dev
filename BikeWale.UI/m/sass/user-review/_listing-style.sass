@@ -26,6 +26,19 @@ h1,
 .text-link
     color: #0288d1
 
+.border-divider
+    border-bottom: 1px solid #e2e2e2
+
+.grid-8-inline
+    width: 63%
+    display: inline-block
+    vertical-align: middle
+
+.grid-4-inline
+    width: 30%
+    display: inline-block
+    vertical-align: middle
+
 // top card
 .left-grid-image
     width: 102px
@@ -132,6 +145,9 @@ $graph-bg: #eee
     vertical-align: middle
     @include transform(scale(0.8))
 
+    &.star-size-14
+        @include transform(scale(0.5))
+
 .rate-count-1
     .star-icon
         background-position: 0 -667px
@@ -155,7 +171,7 @@ $graph-bg: #eee
 // horizontal-rating-graph
 .margin-neg5
     margin-left: -5px
-    
+
 .horizontal-rating-graph
     span
         display: inline-block
@@ -293,7 +309,7 @@ $graph-bg: #eee
 	min-width: 60px
 	background: white
 	margin: 0 4px
-	padding: 6px 
+	padding: 6px
 	color: #82888B
 	border: 1px solid #E2E2E2
 	border-radius: 2px
@@ -301,10 +317,10 @@ $graph-bg: #eee
 	font-family: 'Open Sans', sans-serif, Arial
 
 .about-reviewer-list
-	li	
+	li
 		border-top: none
-	
-.feedback-button.active 
+
+.feedback-button.active
     border-color: #41B4C4
     background: #41B4C4
     color: white
@@ -315,7 +331,7 @@ $graph-bg: #eee
 	.dislike-sm
 		opacity: 0.6
 
-	&.active 
+	&.active
 		.like-sm
 			opacity: 1
 			background-position: -94px -624px
@@ -374,7 +390,7 @@ $graph-bg: #eee
 
         img
             height: 46px
-        
+
     .right-grid-details
         width: 70%
 
@@ -384,7 +400,7 @@ $graph-bg: #eee
 .model-overall-rating
 	position: relative
 	left: -5px
-	
+
 	span
 		display: inline-block
 		vertical-align: middle
@@ -395,7 +411,6 @@ $graph-bg: #eee
 
 .review-left-divider
 	position: relative
-	margin-left: 10px
 	padding-left: 10px
 
 	&:before
@@ -555,6 +570,30 @@ $graph-bg: #eee
 .star-0
 	background-position: -144px -667px
 
+// rating-number
+.rating-container
+    position: relative
+    left: -6px
+
+.rating-text-pos
+    position: relative
+    left: -5px
+    top: 1px
+
+.next-grey-icon-listing
+    width: 8px
+    height: 12px
+    background-position: -182px -394px
+    position: absolute
+    right: 0px
+    top: 7px
+    @include transform(scale(0.8))
+
+.star-position-offset
+    position: relative
+    left: -7px
+
+
 // article type carousel
 .article-type-carousel
     .swiper-slide,
@@ -581,7 +620,10 @@ $graph-bg: #eee
 
     .swiper-details-block
         padding-top: 7px
-        padding-bottom: 15px
+
+.swiper-review-target
+	display: block
+	padding: 0 15px 5px
 
 // report abuse
 #report-abuse-popup
@@ -596,14 +638,14 @@ $graph-bg: #eee
     z-index: 11
     margin: 0 auto
     padding: 20px
-    
+
     textarea
         width: 100%
         height: 100px
         margin-bottom: 10px
         border: 1px solid #e2e2e2
         resize: none
-        
+
         &:focus
             box-shadow: none
 
@@ -627,7 +669,7 @@ $graph-bg: #eee
 	.horizontal-rating-graph
 		.graph-bar-bg
 			width: 55%
-			
+
 	.answer-star-list
 		> input
 			+ label
@@ -666,7 +708,7 @@ $graph-bg: #eee
 			padding-left: 20px
 
 		&.active
-		~ .review-block 
+		~ .review-block
 				display: inline
 
 		&.main-content-off.active
@@ -677,4 +719,3 @@ $graph-bg: #eee
 	.review__question
 		display: block
 		padding-bottom: 5px
-	

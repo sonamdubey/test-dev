@@ -57,6 +57,8 @@ namespace Bikewale.Models.UserReviews
             UserReviewDetailsVM objPage = null;
             try
             {
+                objPage.SimilarBikesWidget = new UserReviewSimilarBikesWidgetVM();
+
                 UpdateViewCount();
 
                 objPage = new UserReviewDetailsVM();
@@ -80,7 +82,8 @@ namespace Bikewale.Models.UserReviews
                     objPage.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objPage.UserReviewDetailsObj.Make.MakeId, _modelId, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objPage.UserReviewDetailsObj.Model.ModelName)).GetData();
                 }
 
-                objPage.SimilarBikeReviewWidget = _bikeModelsCache.GetSimilarBikesUserReviews(_modelId, SimilarBikeReviewWidgetCount);
+                objPage.SimilarBikesWidget.SimilarBikes = _bikeModelsCache.GetSimilarBikesUserReviews(_modelId, currentCityArea.CityId, SimilarBikeReviewWidgetCount);
+                objPage.SimilarBikesWidget.GlobalCityName = currentCityArea.City;
 
                 BindQuestions(objPage);
 
@@ -207,25 +210,25 @@ namespace Bikewale.Models.UserReviews
 
                 if (objUserReviews != null)
                 {
-                    objUserReviews.ActiveReviewCateory = activeReviewCateory;                   
-                   
-                    objPage.UserReviews = objUserReviews.GetData();                   
+                    objUserReviews.ActiveReviewCateory = activeReviewCateory;
 
-                    if(objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
+                    objPage.UserReviews = objUserReviews.GetData();
+
+                    if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
                         objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0}", objPage.UserReviewDetailsObj.Model.ModelName);
 
                     objPage.UserReviews.IsPagerNeeded = false;
 
-                    if(objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.OverallRating != null && objPage.UserReviews != null && objPage.UserReviews.ReviewsInfo != null && objPage.UserReviews.ReviewsInfo.MostRecentReviews > 1)
+                    if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.OverallRating != null && objPage.UserReviews != null && objPage.UserReviews.ReviewsInfo != null && objPage.UserReviews.ReviewsInfo.MostRecentReviews > 1)
                     {
                         objPage.UserReviews.ReviewsInfo.MostRecentReviews = objPage.UserReviews.ReviewsInfo.MostRecentReviews - 1;
                         objPage.UserReviews.ReviewsInfo.MostHelpfulReviews = objPage.UserReviews.ReviewsInfo.MostHelpfulReviews - 1;
 
-                        if(objPage.UserReviewDetailsObj.OverallRating.Value == 3)
+                        if (objPage.UserReviewDetailsObj.OverallRating.Value == 3)
                         {
                             objPage.UserReviews.ReviewsInfo.NeutralReviews = objPage.UserReviews.ReviewsInfo.NeutralReviews - 1;
                         }
-                        else if(objPage.UserReviewDetailsObj.OverallRating.Value > 3)
+                        else if (objPage.UserReviewDetailsObj.OverallRating.Value > 3)
                         {
                             objPage.UserReviews.ReviewsInfo.PostiveReviews = objPage.UserReviews.ReviewsInfo.PostiveReviews - 1;
                         }
