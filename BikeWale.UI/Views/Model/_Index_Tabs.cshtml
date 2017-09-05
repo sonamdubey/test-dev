@@ -19,7 +19,7 @@
 }
 else if (Model.IsPopularBodyStyleAvailable)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Popular Bikes"  data-href="#modelPopularContent">Popular @Model.BodyStyleText</span>
+    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Popular @Model.BodyStyleName"  data-href="#modelPopularContent">Popular @Model.BodyStyleName</span>
 }
 @if (Model.IsVersionSpecsAvailable)
 {
