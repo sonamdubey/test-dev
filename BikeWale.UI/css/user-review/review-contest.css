@@ -448,3 +448,10 @@
 #divModelsPopup .chosen-drop ul {
     height: 177px;
 }
+
+.userreviewpopup-icon {
+    background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/bike-48x29.png") no-repeat 0px 0px;
+    width: 48px;
+    height: 29px;
+    margin: 30px auto;
+}
