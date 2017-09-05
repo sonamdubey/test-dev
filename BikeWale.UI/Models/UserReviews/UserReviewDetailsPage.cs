@@ -56,12 +56,12 @@ namespace Bikewale.Models.UserReviews
         {
             UserReviewDetailsVM objPage = null;
             try
-            {
-                objPage.SimilarBikesWidget = new UserReviewSimilarBikesWidgetVM();
+            {               
 
                 UpdateViewCount();
 
                 objPage = new UserReviewDetailsVM();
+                objPage.SimilarBikesWidget = new UserReviewSimilarBikesWidgetVM();
                 objPage.UserReviewDetailsObj = _userReviewsCache.GetUserReviewSummaryWithRating(_reviewId);
 
                 if (objPage.UserReviewDetailsObj != null)
