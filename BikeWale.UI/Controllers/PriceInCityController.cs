@@ -8,7 +8,9 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models;
+using Bikewale.Models.PriceInCity;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Bikewale.Controllers
 {
@@ -166,7 +168,7 @@ namespace Bikewale.Controllers
         [Route("m/model/{modelName}/pricein/{cityName}/amp/")]
         public ActionResult Index_Mobile_Amp(string modelName, string cityName)
         {
-            PriceInCityPageVM objVM = new PriceInCityPageVM();
+            PriceInCityPageAMPVM objVM = new PriceInCityPageAMPVM();
             PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _cityCache, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
@@ -177,7 +179,7 @@ namespace Bikewale.Controllers
                 model.Platform = DTO.PriceQuote.PQSources.Mobile;
                 model.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
                 model.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_PriceInCity;
-                objVM = model.GetData();
+                objVM = model.GetDataAMP();
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {
                     return Redirect("/pagenotfound.aspx");

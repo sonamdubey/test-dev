@@ -5,19 +5,27 @@
 <ul class="overall-specs-tabs-wrapper">
     @if (Model.FirstVersion != null)
     {
-        <li data-tabs="#orpContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_On-road price", gaBikeName)">On-road price</li>
+        <li data-tabs="#orpContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_On-road price", gaBikeName)">
+            <a href="@string.Format("{0}/m{1}price-in-{2}#orpContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">On-road price</a>
+        </li>
     }
     @if (Model.HasDealers || Model.HasServiceCenters)
     {
-        <li data-tabs="#dealerContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Dealers", gaBikeName)">Dealers</li>
+        <li data-tabs="#dealerContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Dealers", gaBikeName)">
+            <a href="@string.Format("{0}/m{1}price-in-{2}#orpContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Dealers</a>
+    </li>
     }
     @if (Model.IsNew)
     {
-        <li data-tabs="#emiContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_EMI calculator", gaBikeName)">EMI calculator</li>
+        <li data-tabs="#emiContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_EMI calculator", gaBikeName)">
+            <a href="@string.Format("{0}/m{1}price-in-{2}#orpContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">EMI calculator</a>
+    </li>
     }
     @if (Model.IsNew && (Model.BikeVersionPrices != null || Model.HasNearestPriceCities))
     {
-        <li data-tabs="#versionContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Price list", gaBikeName)">Price list</li>
+        <li data-tabs="#versionContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Price list", gaBikeName)">
+            <a href="@string.Format("{0}/m{1}price-in-{2}#orpContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Price list</a>
+    </li>
     }
     @if (Model.HasAlternateBikes)
     {

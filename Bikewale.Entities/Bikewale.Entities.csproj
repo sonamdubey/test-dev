@@ -338,6 +338,7 @@
     <Compile Include="CMS\Photos\ModelImage.cs" />
     <Compile Include="PhotoGallery\ModelPhotoGalleryEntity.cs" />
     <Compile Include="PriceQuote\BikeDealerPriceDetail.cs" />
+    <Compile Include="PriceQuote\BikeQuotationAMPEntity.cs" />
     <Compile Include="PriceQuote\BikeQuotationEntity.cs" />
     <Compile Include="PriceQuote\BookingPageDetailsEntity.cs" />
     <Compile Include="PriceQuote\DealerDetails.cs" />

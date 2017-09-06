@@ -1,5 +1,4 @@
 ﻿@model Bikewale.Models.SimilarBikesWidgetVM
-@using Bikewale.Entities.BikeData;
 @using Bikewale.Utility;
 @if (Model != null && Model.Bikes != null && Model.Bikes.Count() > 0)
 {
@@ -7,12 +6,12 @@
         @foreach (var bike in Model.Bikes)
         {
             string make = bike.MakeBase.MakeName, modelName = bike.ModelBase.ModelName;
-            var bikeUrl = String.Format("/m{0}", UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName));
+            var bikeUrl = String.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName));
             var bikeName = String.Format("{0} {1}", make, modelName);
             <div class="swiper-card">
                 <a class="block" href="@bikeUrl" title="@bikeName">
                     <div class="swiper-image-preview">
-                        <amp-img title="@bikeName" alt="@bikeName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._210x118,Bikewale.Utility.QualityFactor._70)" width="160" height="90"></amp-img>
+                        <amp-img title="@bikeName" alt="@bikeName" src="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._210x118,Bikewale.Utility.QualityFactor._70)" width="160" height="90"></amp-img>
                     </div>
                     @if (bike.VersionPrice > 0)
                     {
@@ -41,16 +40,40 @@
                 @if (Model.ShowPriceInCityCTA)
                     {
                     <div class="swiper-btn-block">
-                        <a href="@String.Format("/m{0}", UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName))" class="btn btn-card btn-full-width btn-white text-truncate getquotation font12" rel="nofollow" title="@String.Format("{0} {1} On-road price in {2}",make,modelName,bike.CityName)">On-road price in @bike.CityName</a>
+                        <a href="@String.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName))" class="btn btn-card btn-full-width btn-white text-truncate getquotation font12" rel="nofollow" title="@String.Format("{0} {1} On-road price in {2}",make,modelName,bike.CityName)">On-road price in @bike.CityName</a>
                     </div>
                 }
                 @if (Model.Make != null && Model.Model != null && Model.IsNew)
                     {
-                    <a class="compare-with-target text-truncate" href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)">
-                        <span class="bwmsprite compare-sm"></span>Compare with @Model.Model.ModelName<span class="bwmsprite right-arrow"></span>
+                    <a class="compare-with-target text-truncate" href="@string.Format("{0}/m/{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget))" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)">
+                        <span class="bwmsprite compare-sm"></span>@string.Format("Compare with {0}", Model.Model.ModelName)<span class="bwmsprite right-arrow"></span>
                     </a>
                 }
             </div>
         }
+       
+            <div class="swiper-card">
+                <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, (Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "/scooters/" : "/new-bikes-in-india/")" title="@(string.Format("Explore more {0}", (Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "scooters" : "bikes"))" class="bw-ga" c="@Model.Page" a="Clicked_ExploreMore_Card" l="@Model.Model.ModelName">
+                    <div class="swiper-image-preview">
+                        <div class="exploremore__imagebackground">
+                            <div class="exploremore__icon-background">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-details-block">
+                        <div class="exploremore-detailblock">
+                            <p class="detailblock__title">Couldn’t find what you were looking for?</p>
+                            <p class="detailblock__description">@(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "View 60+ scooters from over 10 brands" : " View 200+ bikes from over 30 brands")</p>
+                        </div>
+                    </div>
+                    @if (Model.IsNew)
+                    {
+                        <div class="compare-with-target text-truncate">
+                            @(string.Format("Explore more {0}", (Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter)) ? "scooters" : "bikes"))<span class="bwmsprite right-arrow"></span>
+                        </div>
+                    }
+                </a>
+            </div>
+        
     </amp-carousel>
 }
