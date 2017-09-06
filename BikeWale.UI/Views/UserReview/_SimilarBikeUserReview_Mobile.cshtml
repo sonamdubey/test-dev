@@ -6,7 +6,7 @@
             var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
             <li class="swiper-slide">
                 <div class="swiper-card">
-                    <a href=@string.Format("/m/{0}-bikes/{1}/", @bike.Make.MaskingName, @bike.Model.MaskingName) title="@bikeName user review" class="block">
+                    <a href=@string.Format("/m/{0}-bikes/{1}/", @bike.Make.MaskingName, @bike.Model.MaskingName) title="@bikeName" class="block">
                         <div class="swiper-image-preview">
                             <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="@bikeName" src="" />
                             <span class="swiper-lazy-preloader"></span>
