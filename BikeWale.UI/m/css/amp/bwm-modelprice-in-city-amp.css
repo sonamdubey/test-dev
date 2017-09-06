@@ -366,6 +366,12 @@ a {
 	padding: 5px;
 }
 
+.btn-160-32 {
+    min-width: 160px;
+    padding: 5px;
+    font-size: 14px;
+}
+
 .btn-full-width {
 	display: block;
 	width: 100%;
@@ -373,6 +379,16 @@ a {
 
 ul, ol {
 	list-style: none;
+}
+
+.campaign__powered-key {
+    font-size: 12px;
+    color: #a2a2a2;
+}
+
+.campaign__powered-value {
+    font-size: 13px;
+    color: #82888b;
 }
 
 .item-more-details-list li {

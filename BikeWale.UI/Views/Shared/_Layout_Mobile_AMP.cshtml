@@ -470,12 +470,24 @@ amp-accordion > section[expanded] .fa-angle-down {
                 "vars": {
                     "account": "UA-34771801-1"
                 },
+                "extraUrlParams": {
+                    "pageSourceType": "AMP"
+                },
                 "triggers": {
                     "trackPageview": {
                         "on": "visible",
                         "request": "pageview",
                         "vars": {
                             "title": "@Model.PageMetaTags.Title"
+                        }
+                    },
+                    "trackEvent": {
+                        "selector": ".bw-price-in-city-ga",
+                        "on": "click",
+                        "request": "event",
+                        "vars": {
+                            "eventCategory": "Price_in_City_Page",
+                            "eventAction": "Floating_Navigation_Clicked"
                         }
                     }
                 }
