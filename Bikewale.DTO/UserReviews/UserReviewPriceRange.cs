@@ -16,6 +16,6 @@ namespace Bikewale.DTO.UserReviews
         public uint RangeId { get; set; }
         public uint MinPrice { get; set; }
         public uint MaxPrice { get; set; }
-        public uint QuestionId { get; set; }
+        public ushort QuestionId { get; set; }
     }
 }

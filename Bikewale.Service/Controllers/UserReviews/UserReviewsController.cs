@@ -360,7 +360,7 @@ namespace Bikewale.Service.Controllers.UserReviews
                 if (objRateBike != null)
                 {
                     
-                    objReviewRatingData = _userReviews.GetRateBikeData(objRateBike.ModelId, objRateBike.ReviewId, objRateBike.CustomerId, objRateBike.SourceId, objRateBike.SelectedRating, objRateBike.IsFake, objRateBike.ReturnUrl, objRateBike.Contestsrc);
+                    objReviewRatingData = _userReviews.GetRateBikeData(objRateBike);
                     if (objReviewRatingData != null)
                     {
                         objRateBikeDetails = UserReviewsMapper.Convert(objReviewRatingData);

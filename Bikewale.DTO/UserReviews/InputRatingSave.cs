@@ -18,12 +18,12 @@ namespace Bikewale.DTO.UserReviews
         public string EmailId { get; set; }
         public uint MakeId { get; set; }
         public uint ModelId { get; set; }
-        public uint PriceRangeId { get; set; }
+        public ushort PriceRangeId { get; set; }
         public uint ReviewId { get; set; }
         public string ReturnUrl { get; set; }
         public ushort PlatformId { get; set; }
-        public ushort SourceId { get; set; }
-        public int ContestSrc { get; set; }
+        public ushort? SourceId { get; set; }
+        public ushort? ContestSrc { get; set; }
         public string utmzCookieValue { get; set; }
 
     }

@@ -34,16 +34,16 @@ namespace Bikewale.DTO.UserReviews
         public string EmailId { get; set; }
 
         [JsonProperty("priceRangeId")]
-        public uint PriceRangeId { get; set; }
+        public ushort PriceRangeId { get; set; }
 
         [JsonProperty("returnUrl")]
         public string ReturnUrl { get; set; }
 
         [JsonProperty("sourceId")]
-        public ushort SourceId { get; set; }
+        public ushort? SourceId { get; set; }
 
         [JsonProperty("contestSrc")]
-        public int ContestSrc { get; set; }
+        public ushort? ContestSrc { get; set; }
        
 
     }

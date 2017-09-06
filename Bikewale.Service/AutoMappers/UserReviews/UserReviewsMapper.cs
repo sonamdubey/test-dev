@@ -111,11 +111,15 @@ namespace Bikewale.Service.AutoMappers.UserReviews
         /// </summary>
         public static Bikewale.DTO.UserReviews.RateBikeDetails Convert(Bikewale.Entities.UserReviews.UserReviewRatingData reviewRatingDataEntity)
         {
-
+            
             Mapper.CreateMap<BikeModelEntity, ModelDetails>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
+            Mapper.CreateMap<UserReviewQuestion, UserReviewQuestionDto>();
+            Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
+            Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();
+          
             Mapper.CreateMap<Bikewale.Entities.UserReviews.UserReviewRatingData, Bikewale.DTO.UserReviews.RateBikeDetails>();
             return Mapper.Map<Bikewale.Entities.UserReviews.UserReviewRatingData, Bikewale.DTO.UserReviews.RateBikeDetails>(reviewRatingDataEntity);
         }

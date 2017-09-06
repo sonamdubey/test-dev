@@ -15,19 +15,22 @@ namespace Bikewale.Entities.UserReviews
     public class UserReviewRatingData 
     {
         public BikeModelEntity ObjModelEntity { get; set; }
-        public string OverAllRatingText { get; set; }
-        public string RatingQuestion { get; set; }
+
+        public IEnumerable<UserReviewQuestion> Questions { get; set; }
+
+        public IEnumerable<UserReviewOverallRating> OverallRating { get; set; }
+       
         public string ErrorMessage { get; set; }
-        public uint PriceRangeId { get; set; }
-        public string ReviewsOverAllrating { get; set; }
+        public ushort PriceRangeId { get; set; }
+    
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public uint ReviewId { get; set; }
         public bool IsFake { get; set; }
-        public uint SelectedRating { get; set; }
+        public ushort SelectedRating { get; set; }
         public string ReturnUrl { get; set; }
-        public ushort SourceId { get; set; }
-        public int ContestSrc { get; set; }
+        public ushort? SourceId { get; set; }
+        public ushort? ContestSrc { get; set; }
         public ushort PlatFormId { get; set; }
 
         public string UtmzCookieValue { get; set; }

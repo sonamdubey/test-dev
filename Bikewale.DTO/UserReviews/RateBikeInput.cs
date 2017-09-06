@@ -17,10 +17,10 @@ namespace Bikewale.DTO.UserReviews
          public uint ReviewId { get; set; }
          public ulong CustomerId { get; set; }
          public ushort SourceId { get; set; }
-         public uint SelectedRating { get; set; }
+         public ushort SelectedRating { get; set; }
          public bool IsFake { get; set; }
          //  public StatusCodes status;
          public string ReturnUrl { get; set; }
-         public int Contestsrc { get; set; }
+         public ushort Contestsrc { get; set; }
     }
 }
