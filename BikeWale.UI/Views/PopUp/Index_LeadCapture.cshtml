@@ -1,0 +1,51 @@
+﻿@model Bikewale.Models.PopupLeadCaptureVM
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-modelprice-in-city.css' />";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+@if (Model.LeadCapture != null)
+{
+    @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
+}
+<script type="text/javascript">
+    docReady(function () {
+        try {
+            var obj = $.parseJSON('@Html.Raw(Model.PopupJson)');
+            var leadOptions = {
+                "dealerid": obj.dealerid,
+                "dealername": obj.dealername,
+                "dealerarea": obj.dealerarea,
+                "versionid": obj.versionid,
+                "leadsourceid": obj.leadsourceid,
+                "pqsourceid": @((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_Popup_LeadCapture_ForAMP),
+                "isleadpopup": obj.isleadpopup,
+                "mfgCampid": obj.mfgcampid,
+                "pqid": obj.pqid,
+                "pageurl": window.location.href,
+                "clientip": obj.clientip,
+                "dealerHeading": obj.dealerheading,
+                "dealerMessage": obj.dealermessage,
+                "dealerDescription": obj.dealerdescription,
+                "pinCodeRequired": obj.pincoderequired,
+                "emailRequired": obj.emailrequired,
+                "dealersRequired": obj.dealersrequired,
+                "gaobject": {
+                    cat: "",
+                    act: "",
+                    lab: ""
+                }
+            };
+            dleadvm.setOptions(leadOptions);
+        } catch (e) {
+            console.warn("Unable to get submit details : " + e.message);
+        }
+
+        $(".leadCapture-close-btn").on("click", function () {
+            window.history.back();
+        });
+
+    });
+
+
+</script>
+<!-- widget script ends here-->

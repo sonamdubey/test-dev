@@ -250,7 +250,6 @@ namespace Bikewale.Controllers
                 NewsDetailPage obj = new NewsDetailPage(_articles, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache);
                 obj.IsMobile = true;
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
-                    ViewBag.SanitizedNewsContent = objNews.Content.StripHtml();
                 {
                     return Redirect("/m/pagenotfound.aspx");
                 }

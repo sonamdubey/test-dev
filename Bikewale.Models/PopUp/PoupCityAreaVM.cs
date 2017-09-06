@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.Models
+﻿namespace Bikewale.Models
 {
-    public class PoupCityAreaVM:ModelBase
+    public class PoupCityAreaVM : ModelBase
     {
         public uint ModelId { get; set; }
 
@@ -15,6 +9,7 @@ namespace Bikewale.Models
         public string ModelName { get; set; }
 
         public bool IsPersistent { get; set; }
+
         public uint PQSourceId { get; set; }
 
         public uint PageCategoryId { get; set; }
