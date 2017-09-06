@@ -44,6 +44,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<ModelImage> GetBikeModelPhotoGallery(U modelId);
         IEnumerable<ModelImage> GetModelPhotoGalleryWithMainImage(U modelId);
         BikeModelContent GetRecentModelArticles(U modelId);
+        Bikewale.Entities.BikeData.v2.BikeModelContent GetRecentModelArticlesv2(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
         ModelPhotoGalleryEntity GetPhotoGalleryData(U modelId);

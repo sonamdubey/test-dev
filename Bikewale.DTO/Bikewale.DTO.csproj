@@ -252,6 +252,7 @@
     <Compile Include="Model\Specifications.cs" />
     <Compile Include="Model\Specs.cs" />
     <Compile Include="Model\SpecsCategory.cs" />
+    <Compile Include="Model\v2\BikeModelContentDTO.cs" />
     <Compile Include="Model\v2\ModelPage.cs" />
     <Compile Include="Model\v3\CMSModelImageBase.cs" />
     <Compile Include="Model\v3\modelPage.cs" />

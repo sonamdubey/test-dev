@@ -21,22 +21,18 @@ namespace Bikewale.Service.Controllers.Model
     /// </summary>
     public class ModelController : CompressionApiController//ApiController
     {
-        private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModels<BikeModelEntity, int> _modelsContent = null;
-        private readonly IBikeModels<BikeModelEntity, int> _bikeModelEntity = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="modelRepository"></param>
         /// <param name="modelContent"></param>
-        public ModelController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModels<BikeModelEntity, int> modelContent, IBikeModels<BikeModelEntity, int> bikeModelEntity)
+        public ModelController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModels<BikeModelEntity, int> modelContent)
         {
             _modelRepository = modelRepository;
             _modelsContent = modelContent;
-            _bikeModelEntity = bikeModelEntity;
         }
 
         #region Model Details
@@ -163,6 +159,58 @@ namespace Bikewale.Service.Controllers.Model
             }
         }
         #endregion  Model Content Data
+
+
+        #region Model Content Data
+        /// <summary>
+        /// Created By : Sushil Kumar on 6th September 2017
+        /// Desc : Bring data in a single api for - User Reviews - News- Expert Reviews- Videos as per new model screen
+        /// </summary>
+        /// <param name="modelId"></param>        
+        /// <returns>List of User Reviews - News- Expert Reviews- Videos of the model</returns>
+        [ResponseType(typeof(Bikewale.DTO.Model.v2.BikeModelContentDTO)), Route("api/v2/model/articles/")]
+        public IHttpActionResult GetModelContentV2(int modelId)
+        {
+            Bikewale.Entities.BikeData.v2.BikeModelContent bkModelContent = null;
+            Bikewale.DTO.Model.v2.BikeModelContentDTO bkContent = null;
+
+            try
+            {
+                if (modelId > 0)
+                {
+                    bkModelContent = _modelsContent.GetRecentModelArticlesv2(modelId);
+                }
+
+                else
+                {
+                    return BadRequest();
+                }
+
+                if (bkModelContent != null)
+                {
+                    bkContent = new Bikewale.DTO.Model.v2.BikeModelContentDTO();
+                    bkContent = ModelMapper.ConvertV2(bkModelContent);
+                    bkModelContent = null;
+                    bkContent.News = new CMSShareUrl().GetShareUrl(bkContent.News);
+                    bkContent.ExpertReviews = new CMSShareUrl().GetShareUrl(bkContent.ExpertReviews);
+
+                    bkModelContent = null;
+
+                    return Ok(bkContent);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController.GetModelContent");
+                return InternalServerError();
+            }
+        }
+        #endregion  Model Content Data
+
         /// <summary>
         /// Created By: Sangram Nandkhile on 31 Jan 2017
         /// Summary: To return Model Images, Other model Images and color wise images
@@ -180,7 +228,7 @@ namespace Bikewale.Service.Controllers.Model
             {
                 if (modelId > 0)
                 {
-                    imageList = _bikeModelEntity.CreateAllPhotoList(modelId);
+                    imageList = _modelsContent.CreateAllPhotoList(modelId);
                     allPhotos = ModelMapper.Convert(imageList);
                 }
                 else

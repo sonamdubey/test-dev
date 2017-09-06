@@ -9,6 +9,7 @@ using Bikewale.DTO.PriceQuote.v2;
 using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.DTO.PriceQuote.Version.v2;
 using Bikewale.DTO.Series;
+using Bikewale.DTO.UserReviews;
 using Bikewale.DTO.Version;
 using Bikewale.DTO.Videos;
 using Bikewale.DTO.Widgets;
@@ -453,6 +454,26 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<BikeVideoEntity, VideoBase>();
             Mapper.CreateMap<BikeModelContent, BikeModelContentDTO>();
             return Mapper.Map<BikeModelContent, BikeModelContentDTO>(objContent);
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 6th September 2017
+        /// Desc : Map BikeModelContent entity to dto BikeModelContentDTO
+        /// </summary>
+        /// <param name="objContent"></param>
+        /// <returns></returns>
+        internal static Bikewale.DTO.Model.v2.BikeModelContentDTO ConvertV2(Bikewale.Entities.BikeData.v2.BikeModelContent objContent)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
+            Mapper.CreateMap<BikeVideoEntity, VideoBase>();
+            Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
+            Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>();
+            Mapper.CreateMap<UserReviewQuestion, UserReviewQuestionDto>();
+            Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();
+            Mapper.CreateMap<Bikewale.Entities.BikeData.v2.BikeModelContent, Bikewale.DTO.Model.v2.BikeModelContentDTO>();
+            return Mapper.Map<Bikewale.Entities.BikeData.v2.BikeModelContent, Bikewale.DTO.Model.v2.BikeModelContentDTO>(objContent);
         }
 
         /// <summary>
