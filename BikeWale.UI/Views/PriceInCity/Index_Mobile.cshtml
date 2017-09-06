@@ -47,9 +47,9 @@
                                 <div class="dropdown-select-wrapper">
                                     <select class="dropdown-select" data-title="Version" c="Price_in_City_Page" a="Version_Changed" l="@gaBikeName">
                                         @foreach (var version in Model.BikeVersionPrices)
-                                            {
+                                        {
                                             <option value="@version.VersionId">@version.VersionName</option>
-                                            }
+                                        }
                                     </select>
                                 </div>
                                 }
@@ -87,10 +87,10 @@
                                     <td align="left" valign="top" class="padding-bottom15 text-slate-grey">
                                         Insurance (Comprehensive)<br><p class='position-rel'>
                                             @if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
-                                                {
+                                            {
                                             <a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
 
-                                                }
+                                            }
                                         </p>
                                     </td>
                                     <td align="right" valign="top" class="padding-bottom10">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold" data-bind="text: insurancePrice()"></span></td>
@@ -155,7 +155,7 @@
                         {
                         <div class="content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
                             @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
-                                {
+                            {
                                 <div class="padding-right20 padding-bottom20 padding-left20">
                                     <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Showrooms in @Model.CityEntity.CityName</h2>
                                     <div class="font14 text-slate-grey">
@@ -168,11 +168,11 @@
                                         <a href="javascript:void(0)" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea)" data-preselcity="@Model.CityEntity.CityId" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="Select_Area_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.BikeVersionPrices.FirstOrDefault().VersionName)" class="btn btn-orange btn-auto-32 getquotation changeCity" rel="nofollow">Select your location</a>
                                     </div>
                                 </div>
-                                }
-                                else
+                            }
+                            else
+                            {
+                                if (Model.HasCampaignDealer && Model.IsNew && !Model.IsManufacturerLeadAdShown)
                                 {
-                                    if (Model.HasCampaignDealer && Model.IsNew && !Model.IsManufacturerLeadAdShown)
-                                    {
                                 <div class="padding-right20 padding-bottom20 padding-left20">
                                     <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealer near you</h2>
                                     <div class="margin-bottom10">
@@ -192,31 +192,31 @@
                                         <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="View_dealer_details_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.FirstVersion.VersionName)" class="btn btn-orange btn-180-32" rel="nofollow">View dealer details</a>
                                     </div>
                                 </div>
-                                    }
                                 }
+                            }
                             @if (Model.HasDealers)
+                            {
+                                if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
                                 {
-                                    if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
-                                    {
                                 <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
-                                    }
+                                }
                                 <div class="carousel-heading-content">
                                     <div class="swiper-heading-left-grid inline-block">
                                         @if (Model.IsNew && (Model.HasCampaignDealer))
-                                            {
+                                        {
                                             <h3>@Model.Dealers.TotalCount Authorised dealer@(Model.Dealers.TotalCount > 1 ? "s" : "")</h3>
-                                            }
-                                            else
-                                            {
+                                        }
+                                        else
+                                        {
                                             <h2>@Model.DealersWidget_H2</h2>
-                                            }
+                                        }
                                     </div>
                                     <div class="swiper-heading-right-grid inline-block text-right">
                                         <a href="@String.Format("/m{0}", Model.DealersWidget_ViewAll_Href)" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
                                     </div>
                                 </div>
                                 @Html.Partial("~/views/dealershowroom/_DealerCard_Mobile.cshtml", Model.Dealers)
-                                }
+                            }
                         </div>
                         }
                         @if (Model.HasServiceCenters)
@@ -366,13 +366,13 @@
                                     </thead>
                                     <tbody>
                                         @foreach (var version in Model.VersionSpecs)
-                                            {
+                                        {
                                             <tr>
                                                 <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@version.VersionName</td>
                                                 <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(version.Price))</span></td>
                                                 <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
                                             </tr>
-                                            }
+                                        }
                                     </tbody>
                                 </table>
                                 <div class="padding-top10 font12 text-light-grey">Above mentioned prices are On-road, @Model.CityEntity.CityName</div>
@@ -393,8 +393,8 @@
                                     </tbody>
                                 </table>
                                 @if (priceQuotesCities.Count() > 4)
-                                    {
-                                        Model.NearestPriceCities.PriceQuoteList = priceQuotesCities.Skip(4);
+                                {
+                                    Model.NearestPriceCities.PriceQuoteList = priceQuotesCities.Skip(4);
                                     <table id="more-cities-list" width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14 hide">
                                         <tbody>
                                             @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.NearestPriceCities)
@@ -403,7 +403,7 @@
                                     <div class="padding-right20 padding-left20 padding-bottom5">
                                         <a href="javascript:void(0)" class="view-cities-link position-rel block font14" title="" rel="nofollow">View more cities</a>
                                     </div>
-                                    }
+                                }
                             </div>
                             }
                             <!-- model prices in nearby cities end -->
