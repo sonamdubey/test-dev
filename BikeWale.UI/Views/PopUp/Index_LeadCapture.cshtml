@@ -36,12 +36,13 @@
                 }
             };
             dleadvm.setOptions(leadOptions);
+            $('#leadCapturePopup').show();
         } catch (e) {
             console.warn("Unable to get submit details : " + e.message);
         }
 
         $(".leadCapture-close-btn").on("click", function () {
-            window.history.back();
+            window.location.href = '@Model.Url';
         });
 
     });

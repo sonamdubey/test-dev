@@ -373,6 +373,16 @@
                                 /month
                             </div>
                             <div class="clear"></div>
+                        @if (Model.IsManufacturerEMIAdShown)
+                        {
+                            <div class="powered-by-campaign-wrapper margin-top15">
+                                <a href="/m/popup/leadcapture/?modelid=@Model.BikeModel.ModelId&cityid=@Model.CityEntity.CityId&areaid=&bikename=@string.Format(Model.BikeName)&location=&city=&area=&ismanufacturer=@Model.IsManufacturerEMIAdShown&dealerid=@Model.EMICampaign.DealerId&dealername=@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)&dealerarea=@Model.EMICampaign.Area&versionid=@Model.VersionId&leadsourceid=@Model.EMICampaign.LeadSourceId&pqsourceid=@Model.EMICampaign.PqSourceId&isleadpopup=True&mfgcampid=@Model.EMICampaign.CampaignId&pqid=@Model.PQId&pageurl=&clientip=@Bikewale.Common.CommonOpn.GetClientIP()&dealerheading=@Model.EMICampaign.PopupHeading&dealermessage=@String.Format(Model.EMICampaign.PopupSuccessMessage,Model.EMICampaign.Organization)&dealerdescription=@Model.EMICampaign.PopupDescription&pincoderequired=@Model.EMICampaign.PincodeRequired&emailrequired=@Model.EMICampaign.EmailRequired&dealersrequired=@Model.EMICampaign.DealerRequired&url=@Model.PageMetaTags.AlternateUrl" class="btn btn-teal btn-160-32 font14 margin-right10">@Model.EMICampaign.EMIButtonTextMobile</a>
+                                <div class="inline-block">
+                                    <p class="campaign__powered-key">Powered by</p>
+                                    <p class="campaign__powered-value" title="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)">@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)</p>
+                                </div>
+                            </div>
+                        }
                         </div>
                     </div>
         <!-- model version prices start -->

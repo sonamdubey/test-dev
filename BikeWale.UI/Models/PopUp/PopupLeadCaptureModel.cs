@@ -61,7 +61,7 @@ namespace Bikewale.Models.PopUp
                 _area = queryCollection["area"];
 
                 bool.TryParse(queryCollection["isManufacturer"], out _isManufacturerCampaign);
-
+                viewModel.Url = queryCollection["url"];
                 viewModel.LeadCapture = new LeadCaptureEntity()
                 {
                     ModelId = _modelId,

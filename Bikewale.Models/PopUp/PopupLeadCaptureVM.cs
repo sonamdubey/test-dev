@@ -9,5 +9,7 @@ namespace Bikewale.Models
     {
         public LeadCaptureEntity LeadCapture { get; set; }
         public string PopupJson { get; set; }
+
+        public string Url { get; set; }
     }
 }
