@@ -8,6 +8,7 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models;
+using Bikewale.Utility;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -178,6 +179,8 @@ namespace Bikewale.Controllers
                 model.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
                 model.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_PriceInCity;
                 objVM = model.GetData();
+                objVM.LeadCampaign.IsAmp = true;
+                
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {
                     return Redirect("/pagenotfound.aspx");

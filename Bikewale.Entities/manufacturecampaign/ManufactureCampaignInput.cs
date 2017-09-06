@@ -16,6 +16,12 @@ namespace Bikewale.Entities.manufacturecampaign
         public string GAAction { get; set; }
         public string GACategory { get; set; }
         public string GALabel { get; set; }
+
+        public string PageUrl { get; set; }
+
+        public bool IsAmp { get; set; }
+
+
     }
 
     /// <summary>
@@ -31,5 +37,7 @@ namespace Bikewale.Entities.manufacturecampaign
         public string GAAction { get; set; }
         public string GACategory { get; set; }
         public string GALabel { get; set; }
+        public string PageUrl { get; set; }
+
     }
 }
