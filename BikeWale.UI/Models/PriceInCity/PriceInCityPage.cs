@@ -650,6 +650,8 @@ namespace Bikewale.Models
                 string bikeName = String.Format("{0} {1}", firstVersion.MakeName, firstVersion.ModelName);
                 objVM.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
                 objVM.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
+                objVM.ReturnUrl = string.Format("/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
+                objVM.PageMetaTags.AmpUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/amp/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
                 objVM.PageMetaTags.Title = string.Format("{0} price in {1} - Check GST On Road Price &amp; Dealer Info - BikeWale", bikeName, firstVersion.City);
 
                 if (firstVersion != null && !isNew)

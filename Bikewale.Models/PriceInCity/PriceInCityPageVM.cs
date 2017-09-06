@@ -86,6 +86,7 @@ namespace Bikewale.Models
         public IEnumerable<CityEntityBase> Cities { get; set; }
         public bool IsPopularBodyStyleAvailable { get { return (PopularBodyStyle != null && PopularBodyStyle.PopularBikes != null && PopularBodyStyle.PopularBikes.Count() > 0); } }
        
+        public string ReturnUrl { get; set; }
     }
 
 }
