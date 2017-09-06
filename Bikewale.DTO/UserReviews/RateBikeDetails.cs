@@ -24,6 +24,9 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("customerName")]
         public string CustomerName { get; set; }
 
+        [JsonProperty("reviewsOverAllrating")]
+        public string ReviewsOverAllrating { get; set; }
+
         [JsonProperty("customerEmail")]
         public string CustomerEmail { get; set; }
 

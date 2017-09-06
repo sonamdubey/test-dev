@@ -19,7 +19,7 @@ namespace Bikewale.DTO.UserReviews
          public ushort SourceId { get; set; }
          public ushort SelectedRating { get; set; }
          public bool IsFake { get; set; }
-         //  public StatusCodes status;
+         
          public string ReturnUrl { get; set; }
          public ushort Contestsrc { get; set; }
     }

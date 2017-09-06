@@ -19,7 +19,9 @@ namespace Bikewale.Entities.UserReviews
         public IEnumerable<UserReviewQuestion> Questions { get; set; }
 
         public IEnumerable<UserReviewOverallRating> OverallRating { get; set; }
-       
+
+        public string ReviewsOverAllrating { get; set; }
+
         public string ErrorMessage { get; set; }
         public ushort PriceRangeId { get; set; }
     

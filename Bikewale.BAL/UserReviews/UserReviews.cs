@@ -509,7 +509,7 @@ namespace Bikewale.BAL.UserReviews
         /// </summary>
         private void GetUserRatings(UserReviewRatingData objUserReviewRatingData, uint reviewId, bool isFake)
         {
-          //  objUserReviewRatingData.UserReviewInfo
+          
             try
             {
                Entities.UserReviews.UserReviewsData objReviewData = new Entities.UserReviews.UserReviewsData();
@@ -547,10 +547,15 @@ namespace Bikewale.BAL.UserReviews
                 {
                     UserReviewSummary objUserReviewDataReview = GetUserReviewSummary(reviewId);
 
+                    if (objReviewData.OverallRating != null)
+                    {
+                        objUserReviewRatingData.OverallRating = objReviewData.OverallRating;
+                    }
+
                     if (objUserReviewDataReview != null)
                     {
-                      //  objUserReviewRatingData.ReviewsOverAllrating = objUserReviewDataReview.OverallRatingId.ToString();
-                    //    objUserReviewRatingData.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewDataReview.Questions);
+                        objUserReviewRatingData.ReviewsOverAllrating = objUserReviewDataReview.OverallRatingId.ToString();
+                        objUserReviewRatingData.Questions = objUserReviewDataReview.Questions;
                         objUserReviewRatingData.CustomerEmail = objUserReviewDataReview.CustomerEmail;
                         objUserReviewRatingData.CustomerName = objUserReviewDataReview.CustomerName;
                     }
