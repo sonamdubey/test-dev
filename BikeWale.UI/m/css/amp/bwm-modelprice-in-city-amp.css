@@ -377,6 +377,41 @@ a {
 	width: 100%;
 }
 
+.campaign__floating-btn {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 8;
+    padding: 10px;
+    background: #fff;
+    -moz-box-shadow: 0 0 7px #ccc;
+    -webkit-box-shadow: 0 0 7px #ccc;
+    -o-box-shadow: 0 0 7px #ccc;
+    box-shadow: 0 0 7px #ccc;
+}
+
+.clearfix {
+    clear: both;
+}
+.btn__left-label {
+    color: #82888b;
+    position: relative;
+    top: 6px;
+}
+
+.btn.btn-full-32 {
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 2px;
+}
+.btn-orange {
+    background: #ef3030;
+    color: #fff;
+}
+
+
 ul, ol {
 	list-style: none;
 }
