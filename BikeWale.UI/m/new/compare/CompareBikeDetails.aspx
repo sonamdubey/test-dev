@@ -31,7 +31,7 @@
         <section>
             <% if (vmCompare.BasicInfo != null)
                 { %>
-            <div id='sponsored-column-active' <%= !isSponsoredBike ? "" : "id='sponsored-column-active'"  %>>
+            <div <%= !isSponsoredBike ? "" : "id='sponsored-column-active'"  %>>
                 <%-- add sponsored-column-active for sponsored bike--%>
                 <div class="container box-shadow bg-white card-bottom-margin bw-tabs-panel">
                     <h1 class="box-shadow padding-15-20 margin-bottom3 text-bold"><%= comparisionText %></h1>
@@ -39,7 +39,7 @@
                         <% foreach (var bike in vmCompare.BasicInfo)
                             {
                                 string bikeName = string.Format("{0} {1}", bike.Make, bike.Model); %>
-                        <div class="bike-details-block sponsored-bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>" data-masking="<%= string.Format("{0}-{1}",bike.MakeMaskingName,bike.ModelMaskingName)%>" data-changed="" data-modelid="<%= bike.ModelId %>" data-versionid="<%= bike.VersionId %>" data-bikename="<%= String.Format("{0}_{1}_{2}",bike.Make,bike.Model,bike.Version) %>">
+                        <div class="bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>" data-masking="<%= string.Format("{0}-{1}",bike.MakeMaskingName,bike.ModelMaskingName)%>" data-changed="" data-modelid="<%= bike.ModelId %>" data-versionid="<%= bike.VersionId %>" data-bikename="<%= String.Format("{0}_{1}_{2}",bike.Make,bike.Model,bike.Version) %>">
                             <% if (bike.VersionId == sponsoredVersionId)
                                 {%>
                             <span class="position-abt pos-top5 label-text">Sponsored</span>
@@ -95,7 +95,7 @@
                     <div id="comparison-floating-card" class="box-shadow slideIn-transition">
                         <% foreach (var bike in vmCompare.BasicInfo)
                             {   %>
-                        <div class="bike-details-block sponsored-bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>">
+                        <div class="bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>">
                             <% if (bike.VersionId == sponsoredVersionId)
                                 {%>
                             <span class="position-abt pos-top5 label-text">Sponsored</span>
@@ -261,7 +261,7 @@
                                             <span class="font18 text-bold">4.4</span>
                                         </div>
                                         <div class="rating-count">(7 ratings)</div>
-                                        <a href="#" class="font12">55 reviews</a>
+                                        <a href="" class="font12">55 reviews</a>
                                     </td>
                                     <td>
                                         <div class="rate-count-3 rating">
@@ -269,16 +269,9 @@
                                             <span class="font18 text-bold">3.4</span>
                                         </div>
                                         <div class="rating-count">(17 ratings)</div>
-                                        <a href="#" class="font12">55 reviews</a>
+                                        <a href="" class="font12">55 reviews</a>
                                     </td>
-                                    <td>
-                                        <div class="rate-count-3 rating">
-                                            <span class="bwmsprite star-icon"></span>
-                                            <span class="font18 text-bold">3.4</span>
-                                        </div>
-                                        <div class="rating-count">(17 ratings)</div>
-                                        <a href="#" class="font12">55 reviews</a>
-                                    </td>
+                                    <td></td>
                                 </tr>
 
                                 <tr class="row-type-heading">
@@ -292,9 +285,7 @@
                                     <td>35.55&nbsp
                                         <span class="font12 text-xt-light">kmpl</span>
                                     </td>
-                                    <td>55.55&nbsp
-                                        <span class="font12 text-xt-light">kmpl</span>
-                                    </td>
+                                    <td></td>
                                 </tr>
 
                                 <tr class="row-type-heading">
@@ -320,13 +311,7 @@
                                         &nbsp
                                         2   
                                     </td>
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-2'></span>
-                                        </div>
-                                        &nbsp
-                                        2   
-                                    </td>
+                                    <td></td>
                                 </tr>
                                 <tr class="data-head">
                                     <td colspan="2">Handling</td>
@@ -347,13 +332,7 @@
                                         &nbsp
                                         2   
                                     </td>
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-2'></span>
-                                        </div>
-                                        &nbsp
-                                        2   
-                                    </td>
+                                    <td></td>
                                 </tr>
                                 <tr class="data-head">
                                     <td colspan="2">Ride quality</td>
@@ -374,13 +353,7 @@
                                         &nbsp
                                        2   
                                     </td>
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-2'></span>
-                                        </div>
-                                        &nbsp
-                                        2   
-                                    </td>
+                                    <td></td>
                                 </tr>
                                 <tr class="data-head">
                                     <td colspan="2">Value of money</td>
@@ -401,13 +374,7 @@
                                         &nbsp
                                         5   
                                     </td>
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-2'></span>
-                                        </div>
-                                        &nbsp
-                                        2   
-                                    </td>
+                                    <td></td>
                                 </tr>
                                 <tr class="data-head">
                                     <td colspan="2">Service cost</td>
@@ -428,13 +395,7 @@
                                         &nbsp
                                         5   
                                     </td>
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-2'></span>
-                                        </div>
-                                        &nbsp
-                                        2   
-                                    </td>
+                                    <td></td>
                                 </tr>
 
                                 <tr class="row-type-heading">
@@ -466,18 +427,7 @@
                                         </p>
                                         <a href="#" class="review-title review-link">All reviews</a>
                                     </td>
-                                    <td>
-                                        <span class="rating-badge margin-bottom10" data-rate-bg="5">
-                                            <span class="bwmsprite star-white"></span>5
-                                        </span>
-                                        <p class="font14 text-default margin-bottom10">
-                                            Royal enfield-royalty bikes
-                                        </p>
-                                        <p class="review-decription">
-                                            Get in touch with your nearest Bajaj center…
-                                        </p>
-                                        <a href="#" class="review-title review-link">All reviews</a>
-                                    </td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
