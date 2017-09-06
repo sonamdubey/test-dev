@@ -13,7 +13,7 @@
                         </div>
                         <div class="swiper-details-block">
                             <h3 class="font12 text-black margin-bottom5 text-truncate">@bikeName</h3>
-                            <p class="font12 text-slate-grey margin-bottom5">@string.Format("{0}",  bike.OnRoadPriceInCity == 0 ? "Ex-showroom, Mumbai" : "On-Road Price, " + Model.GlobalCityName)</p>
+                            <p class="font12 text-slate-grey margin-bottom5">@(bike.OnRoadPriceInCity == 0 ? "Ex-showroom, Mumbai" : "On-Road Price, " + Model.GlobalCityName)</p>
                             <p class="font16 text-default margin-bottom5 padding-bottom10 border-divider">
                                 &#x20b9;
                                 <span class="text-bold">
