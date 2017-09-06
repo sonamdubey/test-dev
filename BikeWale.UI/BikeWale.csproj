@@ -48,6 +48,16 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Staging|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
   <Choose>
     <When Condition=" '$(GO_SCM_BIKEWALEWEB_PR_BRANCH)'=='' ">
       <PropertyGroup>
@@ -3980,12 +3990,12 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|x64'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -4043,18 +4053,28 @@
   <!--<Target Name="AfterBuild">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(DestFolder)%(RelativeDir)%(Filename)%(Extension)')" />
   </Target>-->
-  <Target Name="CreateReleaseFolder" AfterTargets="BeforeBuild" DependsOnTargets="ExecuteGulpEvent" Condition="'$(Configuration)' == 'Release'">
+  <Target Name="AfterBuild" DependsOnTargets="ExecuteGulpEvent" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Creating Release folder $(Configuration)" Importance="high" />
     <Exec Command="$(ProjectDir)..\Bikewale.ReleaseManagement\copyfiles\bin\$(Configuration)\copyfiles.exe $(DaysOld) $(ProjectDir)" WorkingDirectory="$(ProjectDir)" />
   </Target>
+
+
   <PropertyGroup>
     <PreBuildEvent>
+
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent Condition="'$(Configuration)' == 'Release'">
-      xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
-      xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\runtimes\win7-x64\native\*" "$(ProjectDir)bin\x64\"</PostBuildEvent>
+<PostBuildEvent Condition="'$(Configuration)' != 'Debug'">
+	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
+	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\runtimes\win7-x64\native\*" "$(ProjectDir)bin\x64\"
+	xcopy /Y "$(ProjectDir)..\Libs\System.Web.Http.Cors.dll" "$(ProjectDir)bin\"
+	xcopy /Y "$(ProjectDir)..\Libs\System.Web.Cors.dll" "$(ProjectDir)bin\"
+	<!--xcopy /Y "$(ProjectDir)..\Libs\System.Runtime.dll" "$(ProjectDir)bin\"-->
+	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x64.dll" "$(ProjectDir)bin\"
+	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x86.dll" "$(ProjectDir)bin\"
+	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"-->			
+</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
