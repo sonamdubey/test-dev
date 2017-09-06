@@ -12,7 +12,7 @@
                         </div>
                         <div class="card-desc-block">
                             <h3 class="font15 text-black margin-bottom10">@bikeName</h3>
-                            <p class="font12 text-slate-grey margin-bottom5">@string.Format("{0}", (bike.OnRoadPriceInCity < bike.ExShowroomPriceMumbai) ? "Ex-showroom, Mumbai" : "On-Road Price, " + Model.GlobalCityName) </p>
+                            <p class="font12 text-slate-grey margin-bottom5"> @(bike.OnRoadPriceInCity == 0 ? "Ex-showroom, Mumbai" : "On-Road Price, " + Model.GlobalCityName) </p>
                             <p class="font18 text-black margin-bottom5 padding-bottom10 border-divider">
                                 &#x20b9;
 
@@ -21,10 +21,10 @@
                                     var formatedPrice = Bikewale.Utility.Format.FormatPrice(Convert.ToString(priceToShow));
                                 }
                                 <span class="text-bold">
-                                    @string.Format("{0}", formatedPrice)
+                                    @formatedPrice
                                 </span>
                                 <span class="font14">
-                                    @string.Format("{0}", (priceToShow == bike.ExShowroomPriceMumbai ? "onwards" : ""))
+                                    @(priceToShow == bike.ExShowroomPriceMumbai ? "onwards" : "")
                                 </span>
                             </p>
                         </div>
