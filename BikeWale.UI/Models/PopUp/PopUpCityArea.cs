@@ -16,15 +16,10 @@ namespace Bikewale.Models
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedQueryString);
 
-
                 objPopupCityAreaVM.ModelId = SqlReaderConvertor.ToUInt16(queryCollection["modelid"]);
                 objPopupCityAreaVM.PQSourceId = SqlReaderConvertor.ToUInt16(queryCollection["pqsourceid"]);
                 objPopupCityAreaVM.PreSelectedCity = SqlReaderConvertor.ToUInt16(queryCollection["preselcity"]);
                 objPopupCityAreaVM.Url = Convert.ToString(queryCollection["Url"]);
-             
-                
-                
-
             }
             catch (Exception ex)
             {

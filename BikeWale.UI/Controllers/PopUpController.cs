@@ -12,7 +12,7 @@ namespace Bikewale.Controllers
         {
             PoupCityAreaVM objPopupCityAreaVM = new PoupCityAreaVM();
             PopUpCityArea obj = new PopUpCityArea();
-            objPopupCityAreaVM= obj.GetData(queryString);
+            objPopupCityAreaVM = obj.GetData(queryString);
 
             return View("~/Views/PopUp/PopUpCityArea_Mobile.cshtml", objPopupCityAreaVM);
         }
@@ -24,9 +24,8 @@ namespace Bikewale.Controllers
         /// Summary: Indexes the lead capture.
         /// </summary>
         [Route("m/popup/leadcapture/")]
-        public ActionResult Index_LeadCapture()
+        public ActionResult Index_LeadCapture(string q)
         {
-            string q = Request.QueryString.ToString();
             PopupLeadCaptureModel objLead = new PopupLeadCaptureModel(q);
             PopupLeadCaptureVM viewModel = objLead.GetData();
             return View(viewModel);

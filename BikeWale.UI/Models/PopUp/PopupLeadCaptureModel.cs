@@ -31,11 +31,10 @@ namespace Bikewale.Models.PopUp
         /// <summary>
         /// Parses the query string.
         /// </summary>
-        /// <param name="queryString">The query string.</param>
+        /// <param name="qs">The query string.</param>
         public void ParseQueryString(string queryString)
         {
-            string encrypted = Utils.Utils.EncryptTripleDES("modelid=411&cityid=40&areaid=&bikename=Bajaj%20Rs%20200&location=&city=&area=&ismanufacturer=False&dealerid=24434&dealername=Bajaj+Finance&dealerarea=Agashi&versionid=526&leadsourceid=1111&pqsourceid=2222&isleadpopup=True&mfgcampid=3&pqid=65446544&pageurl=&clientip=124.10.101.55&dealerheading=Get Offers from Bajaj Finance Ltd.&dealermessage=Thank you for providing your details. Bajaj Finance will reach out to you soon.&dealerdescription=Get lowest EMI options on your bike purchase!&pincoderequired=True&emailrequired=True&dealersrequired=False");
-            queryString = Utils.Utils.DecryptTripleDES(encrypted);
+            string qs = Utils.Utils.DecryptTripleDES(queryString);
             try
             {
                 //string decodedQueryString = Utils.Utils.DecryptTripleDES(encodedQueryString);
@@ -43,8 +42,8 @@ namespace Bikewale.Models.PopUp
                 string _bikeName, _location, _city, _area;
                 bool _isManufacturerCampaign;
 
-                NameValueCollection queryCollection = HttpUtility.ParseQueryString(queryString);
-                var dict = HttpUtility.ParseQueryString(queryString);
+                NameValueCollection queryCollection = HttpUtility.ParseQueryString(qs);
+                var dict = HttpUtility.ParseQueryString(qs);
                 viewModel.PopupJson = new JavaScriptSerializer().Serialize(
                     dict.AllKeys.ToDictionary(k => k, k => dict[k])
                 );
