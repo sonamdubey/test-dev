@@ -350,7 +350,7 @@
 
 .row-type-heading td:nth-child(2),
 .row-type-data td:nth-child(3),
-.data-head td:nth-child(2), {
+.data-head td:nth-child(2) {
     display: none;
 }
 
