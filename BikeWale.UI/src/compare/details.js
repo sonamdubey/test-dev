@@ -78,8 +78,8 @@ docReady(function() {
     });
     var getUrl = function ()
     {
-        var queryStringSponser = window.location.search;
-        if (queryStringSponser != "")
+        var queryStringSponser = "";
+        if (/sponseredBike/g.test(window.location.search))
         {
             var index = -1;
             var obj = queryStringSponser.split("&");
@@ -367,11 +367,7 @@ docReady(function() {
                         listItem.first().find('.error-text').hide();
                     compareBox.getVersionData(elementValue, listItem);
 
-                    }
-                   
-                 
-
-                   
+                    } 
                 }
             }
         },

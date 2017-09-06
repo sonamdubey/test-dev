@@ -24,4 +24,8 @@
     {
         <li data-tabs="#similarContent" class="bw-price-in-city-ga">Compare @Model.BodyStyleText</li>
     }
+    else if (Model.IsPopularBodyStyleAvailable)
+    {
+        <li data-tabs="#popularContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Similar bikes", gaBikeName)">Popular @Model.BodyStyleText</li>
+    }
 </ul>

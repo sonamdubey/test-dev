@@ -7,12 +7,7 @@
         <span class="font14 text-bold inline-block">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span> 
     </span>
     <div class="review-box font14 inline-block">
-        <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-            <meta itemprop="ratingCount" content="@Model.ModelPageEntity.ModelDetails.RatingCount">
-            <meta itemprop="ratingValue" content="@Model.ModelPageEntity.ModelDetails.ReviewRate">
-            <meta itemprop="worstRating" content="1">
-            <meta itemprop="bestRating" content="5">
-            <meta itemprop="itemreviewed" content="@Model.BikeName" />
+        <span>
             @if (@Model.ModelPageEntity.ModelDetails.ReviewCount > 0)
             {
                 <a href="@Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="review-count-target left-divider">

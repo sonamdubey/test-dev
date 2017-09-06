@@ -10,7 +10,6 @@
 
 <section>
     <div class="contaniner clearfix">
-        <span itemprop="name" class="hide">@Model.BikeName</span>
         <div class="padding-top10 padding-left20 padding-right20 bg-white">
             <h1 class="padding-bottom5">@Model.Page_H1</h1>
             @Html.Partial("~/Views/Model/_Index_Reviews_Mobile.cshtml", Model)
@@ -32,18 +31,18 @@
                         <div class="bike-price-container padding-left20 padding-top10">
                             <span class="font14 text-grey">@Model.BikeName is now discontinued in India.</span>
                         </div>
-                        <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <div class="padding-10-20">
                             <p class="font12 text-light-grey">Last known Ex-showroom price</p>
                             <div>
-                                <span itemprop="priceCurrency" content="INR">
+                                <span>
                                     @if (Model.BikePrice != 0)
                                     {
                                         @Html.Raw("<span class='font24'>&#x20B9;</span>")
-                                        <span class="font24 text-bold padding-right5" itemprop="price" content="@Model.BikePrice">&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
+                                        <span class="font24 text-bold padding-right5" >&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
                                     }
                                     else
                                     {
-                                        <span class="font18 text-bold" itemprop="price" content="0">Price not available</span>
+                                        <span class="font18 text-bold" >Price not available</span>
                                     }
                                 </span>
                             </div>
@@ -54,7 +53,7 @@
                 @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
                 || (Model.ModelPageEntity.ModelVersionSpecs != null)))
                 {
-                    <div id="pricesContent" class="bw-model-tabs-data">
+                    <div class="bw-model-tabs-data">
                         @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
                         {
                             @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)

@@ -65,7 +65,7 @@
 		&lt;img src="media/logo.jpg" alt=" " hspace="5" vspace="5" width="250" height="48" align="right" /&gt;	TinyMCE is a platform independent web based Javascript HTML &lt;strong&gt;WYSIWYG&lt;/strong&gt; editor control released as Open Source under LGPL by Moxiecode Systems AB. It has the ability to convert HTML TEXTAREA fields or other HTML elements to editor instances. TinyMCE is very easy to integrate into other Content Management Systems.
 		&lt;/p&gt;
 		&lt;p&gt;
-		We recommend &lt;a href="http://www.getfirefox.com" target="_blank"&gt;Firefox&lt;/a&gt; and &lt;a href="http://www.google.com" target="_blank"&gt;Google&lt;/a&gt; &lt;br /&gt;
+		We recommend &lt;a href="http://www.getfirefox.com" target="_blank" rel="noopener"&gt;Firefox&lt;/a&gt; and &lt;a href="http://www.google.com" target="_blank" rel="noopener"&gt;Google&lt;/a&gt; &lt;br /&gt;
 		&lt;/p&gt;
 	</textarea>
 

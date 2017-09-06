@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Schema
 {
@@ -44,7 +40,19 @@ namespace Bikewale.Entities.Schema
         public IEnumerable<Review> Review { get; set; }
 
         [JsonProperty("offers", NullValueHandling = NullValueHandling.Ignore)]
-        public Offer Offers { get; set; }
+        public AggregateOffer AggregateOffer { get; set; }
+
+        [JsonProperty("manufacturer", NullValueHandling = NullValueHandling.Ignore)]
+        public Manufacturer Manufacturer { get; set; }
+
+        [JsonProperty("brand", NullValueHandling = NullValueHandling.Ignore)]
+        public Brand Brand { get; set; }
+
+        [JsonProperty("model", NullValueHandling = NullValueHandling.Ignore)]
+        public string Model { get; set; }
+
+        [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
+        public IEnumerable<string> Color { get; set; }
 
     }
 }

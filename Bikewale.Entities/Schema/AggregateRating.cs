@@ -24,5 +24,15 @@ namespace Bikewale.Entities.Schema
 
         [JsonProperty("reviewCount", NullValueHandling = NullValueHandling.Ignore)]
         public uint? ReviewCount { get; set; }
+
+        [JsonProperty("worstRating", NullValueHandling = NullValueHandling.Ignore)]
+        public uint? WorstRating { get; set; }
+
+        [JsonProperty("bestRating", NullValueHandling = NullValueHandling.Ignore)]
+        public uint? BestRating { get; set; }
+
+        [JsonProperty("itemreviewed", NullValueHandling = NullValueHandling.Ignore)]
+        public string ItemReviewed { get; set; }
+
     }
 }

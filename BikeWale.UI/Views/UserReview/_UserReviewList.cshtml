@@ -1,6 +1,7 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewsSearchVM
 @using Bikewale.Entities.UserReviews;
 @using Bikewale.Utility;
+
 @if (Model != null && Model.ObjQuestionValue != null && Model.ObjQuestionValue.QuestionsList != null)
 {<ul class="rating-circle-list overall-circle-list">
         @foreach (var obj in Model.ObjQuestionValue.QuestionsList)
@@ -14,98 +15,96 @@
                 <p class="list-item-label">@obj.QuestionHeading</p>
             </li>
         }
-    </ul> }
+    </ul> 
+}
+
 
 <ul class="user-review-list">
     @{ uint i = 0;}
-    @foreach (UserReviewSummary review in Model.UserReviews.Result)
-    {
-        <li class="list-item">
-            <div class="item-grid alpha padding-right20  @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">
-                <div class="margin-bottom10">
-                    <span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
-                        <span class="bwsprite star-white"></span>&nbsp;<span data-bind="text: value">@review.OverallRating.Value</span>
-                    </span>
-                    <a onclick=logBhrighu(event) href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-id="@i" class="list-item-title inline-block margin-right5">@review.Title.Truncate(65) </a>
-                    <span class="font12 inline-block text-light-grey">@review.ReviewAge ago by @review.CustomerName.Truncate(25) </span>
-                </div>
-                <div class="collapsible-content toggle-off main-content-off font14 text-slate-grey">
-                    <div class="main-content">
+	@foreach (UserReviewSummary review in Model.UserReviews.Result)
+	{
+		<li class="list-item">
+			<div class="item-grid alpha padding-right20  @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">
+				<div class="margin-bottom10">
+					<span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
+						<span class="bwsprite star-white"></span>&nbsp;<span data-bind="text: value">@review.OverallRating.Value</span>
+					</span>
+                    <a onclick="logBhrighu(@i,'TitleClick')" href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-id="@i" class="list-item-title inline-block margin-right5">@review.Title.Truncate(65) </a>
+					<span class="font12 inline-block text-light-grey">@review.ReviewAge ago by @review.CustomerName.Truncate(25) </span>
+				</div>
+				<div class="collapsible-content toggle-off main-content-off font14 text-slate-grey">
+					<div class="main-content">
                         <p>@Html.Raw(StrinHtmlHelpers.StripHtml(review.Description).TruncateHtml(270))</p>
-                    </div>
-                    <div class="more-content">
-                        <div>
-                            <p>@Html.Raw(review.Description)</p>
-                        </div>
-                        @if (review.Questions != null)
-                        {
-                            <ul class="rating-circle-list">
-                                @foreach (UserReviewQuestion ques in review.Questions)
-                                {
-                                    if (ques.Type == UserReviewQuestionType.Review)
-                                    {
-                                        <li>
-                                            <div class="rating-circle circle-rate-@ques.SelectedRatingId">
-                                                <p class="circle-label">@ques.SelectedRatingId</p>
-                                                <span class="rating-progress">
-                                                </span>
-                                            </div>
-                                            <p class="list-item-label">@ques.Heading</p>
-                                        </li>
-                                    }
-                                }
-                            </ul>
-                        }
-                        <div class="review-block">
+					</div>
+					<div class="more-content">
+						<div class="more-description" data-description="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(review.Description)"></div>
+						@if (review.Questions != null)
+						{
+							<ul class="rating-circle-list">
+								@foreach (UserReviewQuestion ques in review.Questions)
+								{
+									if (ques.Type == UserReviewQuestionType.Review)
+									{
+										<li>
+											<div class="rating-circle circle-rate-@ques.SelectedRatingId">
+												<p class="circle-label">@ques.SelectedRatingId</p>
+												<span class="rating-progress">
+												</span>
+											</div>
+											<p class="list-item-label">@ques.Heading</p>
+										</li>
+									}
+								}
+							</ul>
+						}
+						<div class="review-block">
 
-                            <span class="review__question">Was this review helpful?</span>
+							<span class="review__question">Was this review helpful?</span>
 
-                            <button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)">
-                                <span class="bwsprite like-sm"></span>
-                                Yes
-                                (<span id="upvoteCount-@review.ReviewId" class="btn-count">@Format.FormatNumbers(@review.UpVotes)</span>)
-                            </button>
+							<button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)">
+								<span class="bwsprite like-sm"></span>
+								Yes
+								(<span id="upvoteCount-@review.ReviewId" class="btn-count">@Format.FormatNumbers(@review.UpVotes)</span>)
+							</button>
 
-
-                            <button class="feedback-button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="downVoteListReview(event)">
-                                <span class="bwsprite dislike-sm"></span>
-                                No
-                                (<span id="downvoteCount-@review.ReviewId" class="btn-count">
-                                    @Format.FormatNumbers(@review.DownVotes)
-                                </span>)
-                            </button>
-                            <p class="report-abuse-label rightfloat line-height26" id="pReport-@review.ReviewId">Inappropriate review? <a href="javascript:void(0)" data-reviewId="@review.ReviewId" onclick="reportReview(event)" rel="nofollow">Report Abuse</a></p>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <a href="javascript:void(0)" class="read-more-target bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-id="@i" onclick="updateView(event)" data-reviewId="@review.ReviewId">Read more</a>
-                </div>
-              
-            </div>
-            <div class="grid-3 omega padding-left20">
-                @if (review.Questions != null)
-                {
-                    <ul>
-                        @foreach (UserReviewQuestion ques in review.Questions)
-                        {
-                            if (ques.Type == UserReviewQuestionType.Rating)
-                            {
-                                <li class="margin-bottom10">
-                                    <span class="bwsprite questionId-@ques.Id"></span>
-                                    <div class="inline-block">
-                                        <p class="font10 text-xt-light">@ques.MinHeading</p>
-                                        <p class="font14 text-slate-grey">@ques.SelectedRatingText</p>
-                                    </div>
-                                </li>
-                            }
-                        }
-                    </ul>
-                }
-            </div>
-            <div class="clear"></div>
+							<button class="feedback-button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="downVoteListReview(event)">
+								<span class="bwsprite dislike-sm"></span>
+								No
+								(<span id="downvoteCount-@review.ReviewId" class="btn-count">@Format.FormatNumbers(@review.DownVotes)</span>)
+																	
+							</button>
+							<p class="report-abuse-label rightfloat line-height26" id="pReport-@review.ReviewId">Inappropriate review? <a href="javascript:void(0)" data-reviewId="@review.ReviewId" onclick="reportReview(event)" rel="nofollow">Report Abuse</a></p>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<span class="read-more-target bw-ga text-link" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" data-id="@i"  onclick="readMore(event)" data-reviewId="@review.ReviewId">Read more</span>
+				</div>
+			
+			</div>
+			<div id="rating-questions" class="grid-3 omega padding-left20">
+				@if (review.Questions != null)
+				{
+					<ul>
+						@foreach (UserReviewQuestion ques in review.Questions)
+						{
+							if (ques.Type == UserReviewQuestionType.Rating)
+							{
+								<li class="margin-bottom10">
+									<span class="bwsprite questionId-@ques.Id"></span>
+									<div class="inline-block">
+										<p class="font10 text-xt-light">@ques.MinHeading</p>
+										<p class="font14 text-slate-grey">@ques.SelectedRatingText</p>
+									</div>
+								</li>
+							}
+						}
+					</ul>
+				}
+			</div>
+			<div class="clear"></div>
             @{i++;}
-        </li>
-    }
+		</li>
+	}
 
 </ul>
 

@@ -18,7 +18,7 @@
 			Privacy of your personal information is very important to us. We do not  disclose your personal information to third 
 			parties for their marketing purposes without your explicit consent. Please read this  Privacy  Policy to learn more 
 			about the ways in which we use and protect your personal information. The privacy practices of this statement apply 
-			to our services available under the domain and sub-domains of <a href="https://www.bikewale.com" target="_blank" onclick="return top.js.OpenExtLink(window,event,this)"> www.bikewale.com </a> ( <a href="https://bikewale.com" target="_blank" onclick="return top.js.OpenExtLink(window,event,this)"> <q>bikewale.com</q></a> or "Site") and apply generally 
+			to our services available under the domain and sub-domains of <a href="https://www.bikewale.com" target="_blank" rel="noopener" onclick="return top.js.OpenExtLink(window,event,this)"> www.bikewale.com </a> ( <a href="https://bikewale.com" target="_blank" rel="noopener" onclick="return top.js.OpenExtLink(window,event,this)"> <q>bikewale.com</q></a> or "Site") and apply generally 
 			to our parent, affiliates, subsidiaries or joint venture websites whose specific privacy policies are available from our 
 			Privacy Central pages. By visiting this Site you agree to be bound by the terms and conditions of this Privacy Policy. 
 			If you do not agree please do not use or access our Site.

@@ -288,29 +288,34 @@ namespace Bikewale.Models
                         {
                             BindPriceInNearestCities(objVM);
                             BindPriceInTopCities(objVM);
-                            if ((objVM.CookieCityEntity.HasAreas && areaId > 0) || !objVM.CookieCityEntity.HasAreas)
+                            if (objVM.CookieCityEntity!=null)
                             {
-                                GetDealerPriceQuote(objVM);
-                            }
-                            else
-                            {
-                                if (objVM.CookieCityEntity.HasAreas && areaId == 0)
+                                if ((objVM.CookieCityEntity.HasAreas && areaId > 0) || !objVM.CookieCityEntity.HasAreas)
                                 {
-                                    objVM.IsAreaAvailable = true;
+                                    GetDealerPriceQuote(objVM);
                                 }
+                                else
+                                {
+                                    if (objVM.CookieCityEntity.HasAreas && areaId == 0)
+                                    {
+                                        objVM.IsAreaAvailable = true;
+                                    }
+                                }
+
+                                GetManufacturerCampaign(objVM);
+                                objVM.LeadCapture = new LeadCaptureEntity()
+                                {
+                                    ModelId = modelId,
+                                    CityId = cityId,
+                                    AreaId = areaId,
+                                    Area = area,
+                                    City = city,
+                                    Location = String.Format("{0} {1}", area, city),
+                                    BikeName = objVM.BikeName
+                                }; 
                             }
-                            GetManufacturerCampaign(objVM);
-                            objVM.LeadCapture = new LeadCaptureEntity()
-                            {
-                                ModelId = modelId,
-                                CityId = cityId,
-                                AreaId = areaId,
-                                Area = area,
-                                City = city,
-                                Location = String.Format("{0} {1}", area, city),
-                                BikeName = objVM.BikeName
-                            };
                         }
+
                         BindDealersWidget(objVM);
 
                         var objModelColours = _modelCache.GetModelColor(Convert.ToInt16(modelId));
@@ -344,7 +349,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("FetchVersionPrices({0},{1})", modelMaskingName, cityMaskingName));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("PriceInCityPage.GetData({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
         }
@@ -645,6 +650,8 @@ namespace Bikewale.Models
                 string bikeName = String.Format("{0} {1}", firstVersion.MakeName, firstVersion.ModelName);
                 objVM.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
                 objVM.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
+                objVM.ReturnUrl = string.Format("/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
+                objVM.PageMetaTags.AmpUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/amp/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
                 objVM.PageMetaTags.Title = string.Format("{0} price in {1} - Check GST On Road Price &amp; Dealer Info - BikeWale", bikeName, firstVersion.City);
 
                 if (firstVersion != null && !isNew)
@@ -689,7 +696,7 @@ namespace Bikewale.Models
                 if (objPQOutput != null)
                 {
                     objVM.PQId = objPQOutput.PQId;
-                    var bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSource);
+                    //var bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSource);
                     if (objPQOutput.IsDealerAvailable)
                     {
                         try
