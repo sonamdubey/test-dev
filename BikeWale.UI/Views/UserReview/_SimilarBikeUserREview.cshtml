@@ -6,13 +6,13 @@
             {
                 var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
                 <li class="jcarousel-card">
-                    <a href="@string.Format("/{0}-bikes/{1}/", @bike.Make.MaskingName, @bike.Model.MaskingName)" title="@bikeName user review" class="hover-no-underline">
+                    <a href="@string.Format("/{0}-bikes/{1}/", @bike.Make.MaskingName, @bike.Model.MaskingName)" title="@bikeName" class="hover-no-underline">
                         <div class="model-jcarousel-image-preview">
                             <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" alt="@bikeName" />
                         </div>
                         <div class="card-desc-block">
                             <h3 class="font15 text-black margin-bottom10">@bikeName</h3>
-                            <p class="font12 text-slate-grey margin-bottom5">@string.Format("{0}", Model.GlobalCityName == null ? "Ex-showroom, Mumbai" : "On-Road Price, " + Model.GlobalCityName) </p>
+                            <p class="font12 text-slate-grey margin-bottom5"> @(bike.OnRoadPriceInCity == 0 ? "Ex-showroom, Mumbai" : "On-Road Price, " + Model.GlobalCityName) </p>
                             <p class="font18 text-black margin-bottom5 padding-bottom10 border-divider">
                                 &#x20b9;
 
@@ -21,10 +21,10 @@
                                     var formatedPrice = Bikewale.Utility.Format.FormatPrice(Convert.ToString(priceToShow));
                                 }
                                 <span class="text-bold">
-                                    @string.Format("{0}", formatedPrice)
+                                    @formatedPrice
                                 </span>
                                 <span class="font14">
-                                    @string.Format("{0}", (priceToShow == bike.ExShowroomPriceMumbai ? "onwards" : ""))
+                                    @(priceToShow == bike.ExShowroomPriceMumbai ? "onwards" : "")
                                 </span>
                             </p>
                         </div>
