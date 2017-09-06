@@ -38,6 +38,9 @@ namespace Bikewale.Entities.Schema
 
         [JsonProperty("publisher")]
         public Organization Publisher { get { return new Organization(); } }
+
+        [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
+        public string Url { get; set; }
     }
 
 }

@@ -345,29 +345,29 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="reviewDescription"></param>
         /// <param name="reviewTitle"></param>
         /// <returns></returns>
-        public WriteReviewPageSubmitResponse SaveUserReviews(uint reviewId, ulong customerId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName, string mileage)
+        public WriteReviewPageSubmitResponse SaveUserReviews(ReviewSubmitData objReviewData)
         {
             WriteReviewPageSubmitResponse objResponse = null;
             try
             {
-                if (reviewId > 0 && customerId > 0 && _userReviewsRepo.IsUserVerified(reviewId, customerId))
+                    if (objReviewData != null && objReviewData.ReviewId > 0 && objReviewData.CustomerId > 0 && _userReviewsRepo.IsUserVerified(objReviewData.ReviewId, objReviewData.CustomerId))
                 {
                     bool isValid = true;
 
                     objResponse = new WriteReviewPageSubmitResponse();
 
-                    if (!string.IsNullOrEmpty(comment) && comment.Length < 300 && string.IsNullOrEmpty(commentTitle))
+                    if (!string.IsNullOrEmpty(objReviewData.ReviewDescription) && objReviewData.ReviewDescription.Length < 300 && string.IsNullOrEmpty(objReviewData.ReviewTitle))
                     {
                         objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
                         objResponse.TitleErrorText = "Please provide a title for your review.";
                         isValid = false;
                     }
-                    else if (string.IsNullOrEmpty(comment) && !string.IsNullOrEmpty(commentTitle))
+                    else if (string.IsNullOrEmpty(objReviewData.ReviewDescription) && !string.IsNullOrEmpty(objReviewData.ReviewTitle))
                     {
                         objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
                         isValid = false;
                     }
-                    else if (!string.IsNullOrEmpty(comment) && comment.Length > 300 && string.IsNullOrEmpty(commentTitle))
+                    else if (!string.IsNullOrEmpty(objReviewData.ReviewDescription) && objReviewData.ReviewDescription.Length > 300 && string.IsNullOrEmpty(objReviewData.ReviewTitle))
                     {
                         objResponse.TitleErrorText = "Please provide a title for your review.";
                         isValid = false;
@@ -375,13 +375,13 @@ namespace Bikewale.BAL.UserReviews
 
                     if (isValid)
                     {
-                        objResponse.IsSuccess = SaveUserReviews(reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
+                        objResponse.IsSuccess = SaveUserReviews(objReviewData.ReviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion);
 
-                        if (!string.IsNullOrEmpty(comment))
-                            UserReviewsEmails.SendReviewSubmissionEmail(userName, emailId, makeName, modelName);
+                        if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
+                            UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);
 
-                        if (mileage != null && mileage.Length > 0)
-                            _userReviewsRepo.SaveUserReviewMileage(reviewId, mileage);
+                        if (objReviewData.Mileage != null && objReviewData.Mileage.Length > 0)
+                            _userReviewsRepo.SaveUserReviewMileage(objReviewData.ReviewId, objReviewData.Mileage);
                     }
                 }
                 else

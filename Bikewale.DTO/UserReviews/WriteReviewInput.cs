@@ -26,5 +26,7 @@ namespace Bikewale.DTO.UserReviews
         public string Mileage { get; set; }
         [JsonProperty("customerId")]
         public ulong CustomerId { get; set; }
+        [JsonProperty("isDesktop")]
+        bool? IsDesktop { get; set; }
     }
 }

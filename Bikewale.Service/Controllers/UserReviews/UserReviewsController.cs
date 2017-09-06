@@ -283,46 +283,44 @@ namespace Bikewale.Service.Controllers.UserReviews
         [HttpPost, ResponseType(typeof(UserReviewSummaryDto)), Route("api/write-review/save/")]
         public IHttpActionResult SaveUserReviewDetails(WriteReviewInput writeReviewInput)
         {
+            ReviewSubmitData objReviewData = null;
             UserReviewSummary objUserReview = null;
             UserReviewSummaryDto objDTOUserReview = null;
             WriteReviewPageSubmitResponse objResponse = null;
 
             try
             {
-                objResponse = _userReviews.SaveUserReviews(
-                    writeReviewInput.ReviewId,
-                    writeReviewInput.CustomerId,
-                    writeReviewInput.ReviewTips.Trim(),
-                    writeReviewInput.ReviewDescription,
-                    writeReviewInput.ReviewTitle,
-                    writeReviewInput.ReviewQuestion,
-                    writeReviewInput.EmailId,
-                    writeReviewInput.UserName,
-                    writeReviewInput.MakeName,
-                    writeReviewInput.ModelName,
-                    writeReviewInput.Mileage
-                );
-
-                if (objResponse.IsSuccess)
-                {
-                    objUserReview = _userReviews.GetUserReviewSummary(writeReviewInput.ReviewId);
-                }
-
-                if (objUserReview != null)
+                if (writeReviewInput != null)
                 {
                     // Auto map the properties
-                    objDTOUserReview = new UserReviewSummaryDto();
-                    objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
+                    objReviewData = new ReviewSubmitData();
+                    objReviewData = UserReviewsMapper.Convert(writeReviewInput);
 
-                    return Ok(objDTOUserReview);
+                    objResponse = _userReviews.SaveUserReviews(objReviewData);
+
+                    if (objResponse.IsSuccess)
+                    {
+                        objUserReview = _userReviews.GetUserReviewSummary(writeReviewInput.ReviewId);
+
+                        if (objUserReview != null)
+                        {
+                            // Auto map the properties
+                            objDTOUserReview = new UserReviewSummaryDto();
+                            objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
+                        }
+
+                        return Ok(objDTOUserReview);
+                    }
+                    else return NotFound();
                 }
+                else return BadRequest();
+
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
                 return InternalServerError();
             }
-            return NotFound();
         }   // Get review details
         #endregion
 

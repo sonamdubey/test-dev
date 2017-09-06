@@ -14,6 +14,8 @@ namespace Bikewale.Entities.UserReviews
     /// Modified by : Aditi Srivastava on 14 June 2017
     /// Summary     : Added OverallModelRating
     /// Modified by : Sajal Gupta on 12-07-2017. Added Mileage
+    /// Modified By :   Vishnu Teja Yalakuntla on 06 Sep 2017
+    /// Summary     :   Added CustomerId property
     /// </summary>
     {
         public uint ReviewId { get; set; }
@@ -25,6 +27,7 @@ namespace Bikewale.Entities.UserReviews
         public string Tips { get; set; }
         public ushort OverallRatingId { get; set; }
         public IEnumerable<UserReviewQuestion> Questions { get; set; }
+        public ulong CustomerId { get; set; }
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public string ReturnUrl { get; set; }
@@ -47,6 +50,6 @@ namespace Bikewale.Entities.UserReviews
         public uint TotalReviews { get; set; }
         public float OverAllModelRating { get; set; }
         public string Mileage { get; set; }
-        public ushort RatingQuestionsCount { get; set; }        
+        public ushort RatingQuestionsCount { get; set; }
     }
 }

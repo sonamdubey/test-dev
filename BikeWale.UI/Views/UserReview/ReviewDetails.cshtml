@@ -215,7 +215,7 @@
         </section>
     }
 
-    if (Model.SimilarBikeReviewWidget != null && Model.SimilarBikeReviewWidget.Count() > 0)
+    if (Model.SimilarBikesWidget.SimilarBikes != null && Model.SimilarBikesWidget.SimilarBikes.Count() > 0)
     {
         <section>
             <div class="container card-bottom-margin">
@@ -229,7 +229,7 @@
                                 <a href="/user-reviews/" title="@string.Format("{0} {1} User Reviews", Model.UserReviewDetailsObj.Make.MakeName, Model.UserReviewDetailsObj.Model.ModelName)" class="btn view-all-target-btn">View all</a>
                             </div>
                         </div>
-                        @Html.Partial("~/views/UserReview/_SimilarBikeUserReview.cshtml", Model.SimilarBikeReviewWidget)
+                        @Html.Partial("~/views/UserReview/_SimilarBikeUserReview.cshtml", Model.SimilarBikesWidget)
                         <div class="clear"></div>
                     </div>
                 </div>

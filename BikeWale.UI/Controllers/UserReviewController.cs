@@ -10,6 +10,7 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility.StringExtention;
+using System;
 using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
@@ -157,7 +158,6 @@ namespace Bikewale.Controllers
             else
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
         }
-
 
         /// <summary>
         /// Created by Subodh Jain on 10-04-2017
@@ -307,34 +307,79 @@ namespace Bikewale.Controllers
         /// 
         [ValidateInput(false)]
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, uint reviewId, string encodedString, bool? isDesktop, string mileage)
+        public ActionResult SaveReview(ReviewSubmitData objReviewData, bool? fromParametersRatingScreen)
         {
-            WriteReviewPageSubmitResponse objResponse = null;
-
-            uint encodedreviewId;
-            ulong encodedCustomerId;
-
-            string decodedString = Utils.Utils.DecryptTripleDES(encodedId);
-            NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
-
-            uint.TryParse(queryCollection["reviewid"], out encodedreviewId);
-            ulong.TryParse(queryCollection["customerid"], out encodedCustomerId);
-
-            objResponse = _userReviews.SaveUserReviews(encodedreviewId, encodedCustomerId, reviewTips.Trim(), reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName, mileage);
-
-            if (objResponse.IsSuccess)
+            try
             {
-                if (isDesktop.HasValue && isDesktop.Value)
-                    return Redirect(string.Format("/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
-                else
-                    return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
+                WriteReviewPageSubmitResponse objResponse = null;
+
+                uint decodedReviewId;
+                ulong decodedCustomerId;
+
+                string decodedString = Utils.Utils.DecryptTripleDES(objReviewData.EncodedId);
+                NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
+
+                uint.TryParse(queryCollection["reviewid"], out decodedReviewId);
+                ulong.TryParse(queryCollection["customerid"], out decodedCustomerId);
+
+                objReviewData.ReviewId = decodedReviewId;
+                objReviewData.CustomerId = decodedCustomerId;
+
+                objResponse = _userReviews.SaveUserReviews(objReviewData);
+
+                if (objReviewData != null)
+                {
+                    if (objResponse.IsSuccess)
+                    {
+                        if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value && fromParametersRatingScreen.HasValue && !fromParametersRatingScreen.Value)
+                            return Redirect(string.Format("/parameter-ratings/?q={0}", objReviewData.EncodedString));
+                        else if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value)
+                            return Redirect(string.Format("/user-reviews/review-summary/{0}/?q={1}", objReviewData.ReviewId, objReviewData.EncodedString));
+                        else
+                            return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", objReviewData.ReviewId, objReviewData.EncodedString));
+                    }
+                    else
+                    {
+                        WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, objReviewData.EncodedString);
+                        var objData = objPage.GetData();
+                        objData.SubmitResponse = objResponse;
+                        return View("WriteReview_Mobile", objData);
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, encodedString);
-                var objData = objPage.GetData();
-                objData.SubmitResponse = objResponse;
-                return View("WriteReview_Mobile", objData);
+                ErrorClass objErr = new ErrorClass(ex, "RateOtherDetails()");
+            }
+            return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+        }
+
+
+        /// <summary>
+        /// Created by sajal gupta on 31-08-2017
+        /// description : Controller for rate other details p[age
+        /// </summary>
+        /// <param name="encodedString"></param>
+        /// <returns></returns>
+        [Route("parameter-ratings/")]
+        public ActionResult RateOtherDetails(string q)
+        {
+            try
+            {
+                UserReviewOtherDetailsPage objRateOtherDetails = new UserReviewOtherDetailsPage(_userReviews, q);
+                UserReviewsOtherDetailsPageVM objPageData = null;
+                if (objRateOtherDetails != null && (objRateOtherDetails.Status == StatusCodes.ContentFound))
+                {
+                    objPageData = objRateOtherDetails.GetData();
+                    return View(objPageData);
+                }
+                else
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "RateOtherDetails()");
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
         }
 
