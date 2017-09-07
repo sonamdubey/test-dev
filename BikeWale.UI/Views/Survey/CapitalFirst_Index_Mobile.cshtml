@@ -1,0 +1,227 @@
+﻿
+@{
+    ViewBag.Title = "CapitalFirst_Index";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/survey/capital-first.css' />";
+    Model.Page_JS_Path = "/src/survey/capital-first.js";
+}
+<div class="header-container">
+    <p class="font18 text-xt-light-grey text-bold">Get Instant Loan Approval</p>
+</div>
+
+<div class="container content-box-shadow margin-bottom20">
+    <p class="font14 text-slate-grey">BikeWale is conducting a survey on two wheeler popularity. There are a few simple questions that you need to answer and it will take maximum 2 minutes of your time.</p>
+    <div class="page-tabs">
+        <ul>
+            <li class="page-tabs__li active" data-id="personal-detail-tab">Personal Details</li>
+            <li class="page-tabs__li" data-id="employment-detail-tab">Employment Details</li>
+        </ul>
+    </div>
+    <div class="page-tabs-data">
+        <div id="personal-detail-tab" class="">
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfFName" type="text" min="1" maxlength="255">
+                    <label for="cfFName">First Name<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfLName" type="text" min="1">
+                    <label for="cfLName">Last Name<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfNum" type="tel" maxlength="10" id="cfNum">
+                    <label for="cfNum">Mobile Number<sup>*</sup></label>
+                    <span class="input-number-prefix">+91</span>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="form-control-box gender-box">
+                    <ul>
+                        <li>
+                            <input id="cfGenderM" type="radio" name="gender" value="Male" checked>
+                            <label for="cfGenderM">Male</label>
+                        </li>
+                        <li>
+                            <input id="cfGenderF" type="radio" name="gender" value="Female">
+                            <label for="cfGenderF">Female</label>.
+                        </li>
+                    </ul>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="form-control-box marital-box">
+                    <ul>
+                        <li>
+                            <input id="cfMaritalS" type="radio" name="marital" value="Single" checked>
+                            <label for="cfMaritalS">Single</label>
+                        </li>
+                        <li>
+                            <input id="cfMaritalM" type="radio" name="marital" value="Married">
+                            <label for="cfMaritalM">Married</label>.
+                        </li>
+                    </ul>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfEmail" type="text" min="1">
+                    <label for="cfEmail">Email Id<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfDOB" type="text">
+                    <label for="cfDOB">DOB<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfAddress1" type="text" min="1">
+                    <label for="cfAddress1">Address Line1<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfAddress2" type="text" min="1">
+                    <label for="cfAddress2">Address Line2<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfPincode" type="number" min="1">
+                    <label for="cfPincode">Pincode<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfPan" type="text" min="1">
+                    <label for="cfPan">Pan Number<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <input type="button" id="personal-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Go to Employment Details">
+        </div>
+        <div id="employment-detail-tab" class="hide">
+            <div class="margin-bottom20">
+                <div class="form-control-box status-box">
+                    <ul>
+                        <li>
+                            <input id="cfStatusS" type="radio" name="status" value="Salaried" checked>
+                            <label for="cfStatusS">Salaried</label>
+                        </li>
+                        <li>
+                            <input id="cfStatusE" type="radio" name="status" value="Self-employed">
+                            <label for="cfStatusE">Self-employed</label>
+                        </li>
+                    </ul>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfCompName" type="text" min="1" maxlength="255">
+                    <label for="cfCompName">Company Name<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfCompAddress1" type="text" min="1">
+                    <label for="cfCompAddress1">Official Address Line1<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfCompAddress2" type="text" min="1">
+                    <label for="cfCompAddress2">Official Address Line2<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfCompPincode" type="number" min="1">
+                    <label for="cfCompPincode">Pincode<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="margin-bottom20">
+                <div class="input-box form-control-box">
+                    <input id="cfCompIncome" type="number" maxlength="10">
+                    <label for="cfCompIncome">Mobile Number<sup>*</sup></label>
+                    <span class="input-number-prefix">Rs</span>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+            </div>
+            <input type="button" id="employment-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Submit Application">
+        </div>
+    </div>
+</div>
+
+<div class="container content-box-shadow how-works-container">
+    <p class="text-xt-light-grey font18 text-bold">How It Works</p>
+    <ul>
+        <li class="how-works-container__li">
+            <div class="how-works__sprite fill-form"></div>
+            <div class="how-works__content">
+                <p class="font14 text-bold margin-bottom10">Fill form online</p>
+                <p>BikeWale is conducting a survey on two wheeler popularity.</p>
+            </div>
+        </li>
+        <li class="how-works-container__li">
+            <div class="how-works__sprite fill-form"></div>
+            <div class="how-works__content">
+                <p class="font14 text-bold margin-bottom10">Fill form online</p>
+                <p>BikeWale is conducting a survey on two wheeler popularity.</p>
+            </div>
+        </li>
+        <li class="how-works-container__li">
+            <div class="how-works__sprite fill-form"></div>
+            <div class="how-works__content">
+                <p class="font14 text-bold margin-bottom10">Fill form online</p>
+                <p>BikeWale is conducting a survey on two wheeler popularity.</p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="container content-box-shadow terms-condition-container">
+    <p class="text-xt-light-grey font18 text-bold">Terms & Conditions</p>
+    <ul class="text-slate-grey font14"> 
+        <li>1. Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+        <li>2. Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+        <li>3. Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+        <li>4. Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+        <li>5. Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+    </ul>    
+</div>
+
+<script defer src="/src/zebra-datepicker.js"></script>
