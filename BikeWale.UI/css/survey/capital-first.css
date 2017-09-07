@@ -3,6 +3,28 @@
 .text-xt-light-grey {
     color: #2a2a2a;
 }
+.collapsible-content .main-content {
+  display: inline; }
+
+.collapsible-content .more-content {
+  display: none; }
+
+.collapsible-content.active .more-content {
+  display: inline; }
+
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none; }
+.collapsible-content a.read-more-target{
+    text-decoration: none;
+}
+.page-tabs-data .input-box label {
+    font-size: 14px;
+    top: 10px;
+}
+.page-tabs-data .input-box input,
+.page-tabs-data .input-number-prefix {
+    font-size: 14px;
+}
 
 .header-container {
     margin-bottom: 3px;
@@ -31,6 +53,23 @@ input[type=radio] {
   position: absolute;
   visibility: hidden;
 }
+
+.status-box,
+.marital-box,
+.gender-box {
+    height: 60px;
+    text-align: left;
+    font: 14px;
+}
+
+.status-box ul,
+.marital-box ul,
+.gender-box ul {
+    position: relative;
+    top: 5px;
+    margin-bottom: 10px;
+}
+
 .status-box ul li,
 .marital-box ul li,
 .gender-box ul li {

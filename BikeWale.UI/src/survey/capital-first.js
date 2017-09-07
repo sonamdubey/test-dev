@@ -46,16 +46,13 @@ docReady(function () {
             $(this).addClass('active');
         }
     });
-    //var newScript = $(document.createElement('script'));
-    //newScript.src = "/src/zebra-datepicker.js";
-
     
     $("#cfDOB").Zebra_DatePicker();
 
-    $("#cfFName, #cfLName, #cfNum, #cfEmail, #cfAddress1, #cfAddress2, #cfPincode, #cfPan").on('blur', function () {
+    $(".form-control-box input").on('blur', function () {
         validate.onBlur($(this));
     });
-    $("#cfFName, #cfLName, #cfNum, #cfEmail, #cfAddress1, #cfAddress2, #cfPincode, #cfPan").on('focus', function () {
+    $(".form-control-box input").on('focus', function () {
         validate.onFocus($(this));
     });
 
@@ -72,15 +69,23 @@ function validatePersonalInfo() {
     isValid = validateUserName($("#cfLName"));
     isvalid = validatePhoneNumber($("#cfNum"));
     isvalid = validateEmailId($("#cfEmail"));
+    isValid = validateAddress($("#cfAddress1"));
+    isValid = validateAddress($("#cfAddress2"));
+    isValid = validatePinCode($("#cfPincode"));
+    isValid = validatePanNumber($("#cfPan"));
+    isValid = validateRadioButtons("gender");
+    isValid = validateRadioButtons("marital");
 }
 
 function validateUserName(elem) {
-    var value = $(elem)[0].value.trim();
+    var nameRegex = /^[a-zA-Z ]{2,255}$/,
+        value = $(elem)[0].value.trim();
 
-    if (value.length > 1) {
+    if (nameRegex.test(value) && value.length > 1) {
         validate.hideError(elem);
         isValid = true;
-    } else {
+    }
+    else {
         validate.setError(elem, "Error");
         isValid = false;
     }
@@ -116,6 +121,50 @@ function validateEmailId(inputEmail) {
     }
     else if (!reEmail.test(emailVal)) {
         validate.setError($(inputEmail), 'Invalid Email');
+        isValid = false;
+    }
+    return isValid;
+}
+
+function validateAddress(inputAddress) {
+    var value = $(inputAddress)[0].value.trim();
+
+    if (value.length > 1) {
+        validate.hideError(inputAddress);
+        isValid = true;
+    }
+    else {
+        validate.setError(inputAddress, "Error");
+        isValid = false;
+    }
+    return isValid;
+}
+
+function validatePinCode(inputPincode) {
+    var isValid = true,
+        pc = inputPincode.val().trim();
+
+    if (!(/^[1-9][0-9]{5}$/.test(pc))) {
+        validate.setError(inputPincode, 'Invalid pincode');
+        isValid = false;
+    }
+    return isValid;
+}
+
+function validatePanNumber(inputPanNum) {
+    var isValid = true,
+        panNum = inputPanNum.val().trim();
+
+    if (!(/([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}/.test(panNum)) && panNum.length < 6) {
+        validate.setError(inputPanNum, 'Invalid Pan Number');
+        isValid = false;
+    }
+    return isValid;
+}
+
+function validateRadioButtons(groupName) {
+    if ($('input[name=' + groupName + ']:checked').length <= 0) {
+        validate.setError($('input[name=' + groupName + ']').closest('ul'), 'Please select');
         isValid = false;
     }
     return isValid;
