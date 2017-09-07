@@ -4,23 +4,30 @@
     color: #2a2a2a;
 }
 .collapsible-content .main-content {
-  display: inline; }
+  display: inline; 
+}
 
 .collapsible-content .more-content {
-  display: none; }
+  display: none; 
+}
 
 .collapsible-content.active .more-content {
-  display: inline; }
+  display: inline; 
+}
 
 .collapsible-content.toggle-off.active .read-more-target {
-  display: none; }
+  display: none; 
+}
+
 .collapsible-content a.read-more-target{
     text-decoration: none;
 }
+
 .page-tabs-data .input-box label {
     font-size: 14px;
     top: 10px;
 }
+
 .page-tabs-data .input-box input,
 .page-tabs-data .input-number-prefix {
     font-size: 14px;
@@ -44,6 +51,7 @@
     font-weight: 600;
     padding-top: 14px;
 }
+
 .page-tabs__li.active {
     background-color: #FFF;
     color: #4D5057;
@@ -59,7 +67,7 @@ input[type=radio] {
 .gender-box {
     height: 60px;
     text-align: left;
-    font: 14px;
+    font-size: 14px;
 }
 
 .status-box ul,
@@ -68,6 +76,9 @@ input[type=radio] {
     position: relative;
     top: 5px;
     margin-bottom: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 30px;
 }
 
 .status-box ul li,
@@ -105,6 +116,7 @@ input[type=radio] {
     display: none;
 }
 
+
 .how-works__sprite {
     width: 60px;
     height: 60px;
@@ -116,7 +128,4 @@ input[type=radio] {
     display: inline-block;
     width : calc(100% - 70px);
     padding-left: 20px;
-}
-.fill-form {
-
 }
