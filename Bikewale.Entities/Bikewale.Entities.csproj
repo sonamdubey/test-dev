@@ -442,6 +442,7 @@
     <Compile Include="UserReviews\BikeUserReviewRating.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\InputFilters.cs" />
+    <Compile Include="UserReviews\InputRatingSaveEntity.cs" />
     <Compile Include="UserReviews\ProcessedInputFilters.cs" />
     <Compile Include="UserReviews\QuestionRatingsValueEntity.cs" />
     <Compile Include="UserReviews\QuestionsRatingValueByModel.cs" />

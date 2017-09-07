@@ -108,13 +108,44 @@ namespace Bikewale.Service.AutoMappers.UserReviews
         /// Created by : Snehal Dange on 1st Sep 2017
         /// Summary     : Mapper for Rate Bike api 
         /// </summary>
-        public static RateBikeDetails Convert(UserReviewRatingData reviewRatingDataEntity)
+        public static Bikewale.DTO.UserReviews.RateBikeDetails Convert(Bikewale.Entities.UserReviews.UserReviewRatingData reviewRatingDataEntity)
         {
+            
             Mapper.CreateMap<BikeModelEntity, ModelDetails>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-            return Mapper.Map<UserReviewRatingData, RateBikeDetails>(reviewRatingDataEntity);
+            Mapper.CreateMap<UserReviewQuestion, UserReviewQuestionDto>();
+            Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
+            Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();
+          
+            Mapper.CreateMap<Bikewale.Entities.UserReviews.UserReviewRatingData, Bikewale.DTO.UserReviews.RateBikeDetails>();
+            return Mapper.Map<Bikewale.Entities.UserReviews.UserReviewRatingData, Bikewale.DTO.UserReviews.RateBikeDetails>(reviewRatingDataEntity);
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 7st Sep 2017
+        /// Summary     : Map input rating DTO to Entity
+        /// </summary>
+        public static InputRatingSaveEntity  Convert(InputRatingSave objSaveInputRating)
+        {
+
+            Mapper.CreateMap<InputRatingSave, InputRatingSaveEntity>();
+            return Mapper.Map<InputRatingSave, InputRatingSaveEntity>(objSaveInputRating);
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 7st Sep 2017
+        /// Summary     : Map a entity and dto to DTO (middle method to save all data)
+        /// </summary>
+        public static RatingReviewInput Convert(UserReviewRatingObject objRating, InputRatingSave objSaveInputRating)
+        {
+
+            Mapper.CreateMap<UserReviewRatingObject, RatingReviewInput>();
+            Mapper.CreateMap<InputRatingSave, RatingReviewInput>();
+
+            var objRatingDTO = Mapper.Map<InputRatingSave, RatingReviewInput>(objSaveInputRating);
+            return Mapper.Map<UserReviewRatingObject, RatingReviewInput>(objRating, objRatingDTO);
         }
 
         /// <summary>

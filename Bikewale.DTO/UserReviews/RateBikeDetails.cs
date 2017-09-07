@@ -10,31 +10,28 @@ using System.Threading.Tasks;
 namespace Bikewale.DTO.UserReviews
 {
     /// <summary>
-    /// Created by Snehal Dange on 01-09-2017
+    /// Created by: Snehal Dange on 01-09-2017
     /// Description: DTO created as output for rate-bike page 
     /// </summary>
     public class RateBikeDetails
     {
-        public ModelDetails BikeDetails { get; set; }
+        public ModelDetails ObjModelEntity { get; set; }
 
-        //   public UserReviewsData UserReviewInfo { get; set; }
+        public IEnumerable<UserReviewQuestionDto> Questions { get; set; }
+
+        public IEnumerable<UserReviewOverallRatingDto> OverallRating { get; set; }
+
         [JsonProperty("customerName")]
         public string CustomerName { get; set; }
-
-        [JsonProperty("customerEmail")]
-        public string CustomerEmail { get; set; }
-
-        [JsonProperty("overAllRatingText")]
-        public string OverAllRatingText { get; set; }
-
-        [JsonProperty("ratingQuestion")]
-        public string RatingQuestion { get; set; }
 
         [JsonProperty("reviewsOverAllrating")]
         public string ReviewsOverAllrating { get; set; }
 
+        [JsonProperty("customerEmail")]
+        public string CustomerEmail { get; set; }
+
         [JsonProperty("priceRangeId")]
-        public uint PriceRangeId { get; set; }
+        public ushort PriceRangeId { get; set; }
 
         [JsonProperty("reviewId")]
         public uint ReviewId { get; set; }
@@ -43,16 +40,20 @@ namespace Bikewale.DTO.UserReviews
         public bool IsFake { get; set; }
 
         [JsonProperty("selectedRating")]
-        public uint SelectedRating { get; set; }
+        public ushort SelectedRating { get; set; }
 
         [JsonProperty("returnUrl")]
         public string ReturnUrl { get; set; }
 
         [JsonProperty("sourceId")]
-        public ushort SourceId { get; set; }
+        public ushort? SourceId { get; set; }
 
         [JsonProperty("contestSrc")]
-        public int ContestSrc { get; set; }
+        public ushort? ContestSrc { get; set; }
+
+        [JsonProperty("utmzCookieValue")]
+        public string UtmzCookieValue { get; set; }
+
 
     }
 }

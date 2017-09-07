@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.UserReviews;
+﻿using Bikewale.DTO.UserReviews;
+using Bikewale.Entities.UserReviews;
 using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 
@@ -12,15 +13,17 @@ namespace Bikewale.Interfaces.UserReviews
     /// </summary>
     public interface IUserReviews
     {
-        UserReviewsData GetUserReviewsData();
+        Entities.UserReviews.UserReviewsData GetUserReviewsData();
         UserReviewSummary GetUserReviewSummary(uint reviewId);
         IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams);
-        IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams, UserReviewsData objUserReviewQuestions);
-        UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint reviewId,string returnUrl,ushort platformId, string utmzCookieValue, ushort? sourceId);       
+        IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams, Entities.UserReviews.UserReviewsData objUserReviewQuestions);
+        UserReviewRatingObject SaveUserRatings(InputRatingSaveEntity objInputRating);
         WriteReviewPageSubmitResponse SaveUserReviews(ReviewSubmitData objReviewData);
         ReviewListBase GetUserReviews(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter);
 
-        UserReviewRatingData GetRateBikeData(uint modelId, uint reviewId, ulong customerId, ushort sourceId, uint selectedRating, bool isFake, string returnUrl, int contestsrc);
+        UserReviewRatingData GetRateBikeData(RateBikeInput objRateBike);
+
+    
 
     }
 }

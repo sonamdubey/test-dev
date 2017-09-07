@@ -194,36 +194,34 @@ namespace Bikewale.Controllers
         /// Description : This action will submit rating
         /// Modified by : Aditi Srivastava on 29 May 2017
         /// Summary     : Added sourceId parameter
+        /// Modified by :Snehal Dange on 7th September 2017
+        /// Summary : Added InputRatingSaveEntity
         /// </summary>
         /// <param name="q"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop, string returnUrl, ushort platformId, ushort? sourceId, string utmzCookieValue, int? contestSrc)
+        public ActionResult SubmitRating(InputRatingSaveEntity objInputRating)
         {
-
-
             UserReviewRatingObject objRating = null;
-            userName = StringHelper.ToProperCase(userName);
-            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId, returnUrl, platformId, utmzCookieValue, sourceId);
+            objInputRating.UserName = StringHelper.ToProperCase(objInputRating.UserName);
+            objRating = _userReviews.SaveUserRatings(objInputRating);
 
 
             string strQueryString = string.Empty;
-
-
             if (objRating != null)
-                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}&returnUrl={9}&sourceid={10}&contestsrc={11}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, objRating.IsFake, returnUrl, sourceId, contestSrc);
+                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}&returnUrl={9}&sourceid={10}&contestsrc={11}", objRating.ReviewId, objInputRating.MakeId , objInputRating.ModelId , objInputRating.OverAllrating , objRating.CustomerId, objInputRating.PriceRangeId , objInputRating.UserName , objInputRating.EmailId , objRating.IsFake, objInputRating.ReturnUrl , objInputRating.SourceId, objInputRating.ContestSrc );
 
             string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
             if (objRating != null && !objRating.IsFake)
             {
-                if (isDesktop.HasValue && isDesktop.Value)
+                if (objInputRating.IsDesktop.HasValue && objInputRating.IsDesktop.Value)
                     return Redirect("/write-a-review/?q=" + strEncoded);
                 else
                     return Redirect("/m/write-a-review/?q=" + strEncoded);
             }
             else
             {
-                return Redirect(string.Format("/rate-your-bike/{0}/?q={1}", modelId, strEncoded));
+                return Redirect(string.Format("/rate-your-bike/{0}/?q={1}", objInputRating.ModelId, strEncoded));
             }
 
 

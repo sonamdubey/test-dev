@@ -1,4 +1,6 @@
-﻿using Bikewale.Entities.BikeData;
+﻿
+using Bikewale.DTO.UserReviews;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
@@ -29,12 +31,13 @@ namespace Bikewale.BAL.UserReviews
         // container.RegisterType<IUserReviewsCache, Bikewale.Cache.UserReviews.UserReviewsCacheRepository>();
 
         public UserReviews(IUserReviewsCache userReviewsCache, IUserReviewsRepository userReviewsRepo, ICustomer<CustomerEntity, UInt32> objCustomer,
-            ICustomerRepository<CustomerEntity, UInt32> objCustomerRepo)
+            ICustomerRepository<CustomerEntity, UInt32> objCustomerRepo, IBikeMaskingCacheRepository<BikeModelEntity, int> objBikeModel)
         {
             _userReviewsCache = userReviewsCache;
             _userReviewsRepo = userReviewsRepo;
             _objCustomer = objCustomer;
             _objCustomerRepo = objCustomerRepo;
+            _objBikeModel = objBikeModel;
 
         }
 
@@ -43,7 +46,7 @@ namespace Bikewale.BAL.UserReviews
         /// Description : To get all user reviews questions,ratings,overall ratings and price range data
         /// </summary>
         /// <returns></returns>
-        public UserReviewsData GetUserReviewsData()
+        public Entities.UserReviews.UserReviewsData GetUserReviewsData()
         {
             return _userReviewsCache.GetUserReviewsData();
         }
@@ -59,7 +62,7 @@ namespace Bikewale.BAL.UserReviews
             IEnumerable<UserReviewQuestion> objQuestions = null;
             try
             {
-                UserReviewsData objUserReviewData = _userReviewsCache.GetUserReviewsData();
+                Entities.UserReviews.UserReviewsData objUserReviewData = _userReviewsCache.GetUserReviewsData();
                 objQuestions = GetUserReviewQuestions(inputParams, objUserReviewData);
             }
             catch (Exception ex)
@@ -77,7 +80,7 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="inputParams"></param>
         /// <param name="objUserReviewQuestions"></param>
         /// <returns></returns>
-        public IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams, UserReviewsData objUserReviewQuestions)
+        public IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams, Entities.UserReviews.UserReviewsData objUserReviewQuestions)
         {
             IEnumerable<UserReviewQuestion> objQuestions = null;
             try
@@ -132,30 +135,31 @@ namespace Bikewale.BAL.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 16th April 2017
         /// Description : Create function to be executed for user reviews linq filters
+        /// Modified by :Snehal Dange on 7th September 2017
+        /// Description :  Added InputRatingSaveEntity
         /// </summary>
         /// <param name="overAllrating"></param>
         /// <param name="ratingQuestionAns"></param>
         /// <param name="userName"></param>
         /// <param name="emailId"></param>
         /// <returns></returns>        
-        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId, string utmzCookieValue, ushort? sourceId)
+        public UserReviewRatingObject SaveUserRatings(InputRatingSaveEntity objInputRating)
         {
-
             UserReviewRatingObject objRating = null;
             try
             {
                 objRating = new UserReviewRatingObject();
-
                 CustomerEntityBase objCust = null;
+                var reviewId = objInputRating.ReviewId;
                 //check for user registration
-                objCust = new CustomerEntityBase() { CustomerName = userName, CustomerEmail = emailId };
+                objCust = new CustomerEntityBase() { CustomerName = objInputRating.UserName, CustomerEmail = objInputRating.EmailId };
                 objCust = ProcessUserCookie(objCust, ref reviewId);
 
                 objRating.IsFake = _objCustomerRepo.IsFakeCustomer(objCust.CustomerId);
 
                 if (!objRating.IsFake)
                 {
-                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, reviewId, returnUrl, platformId, utmzCookieValue, sourceId);
+                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(objInputRating, (uint)objCust.CustomerId, reviewId);
                     objRating.CustomerId = objCust.CustomerId;
                 }
                 else
@@ -164,15 +168,12 @@ namespace Bikewale.BAL.UserReviews
                     objRating.CustomerId = objCust.CustomerId;
                 }
 
-
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.UserReviews.SaveUserRatings({0},{1})", modelId, emailId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.UserReviews.SaveUserRatings({0},{1})", objInputRating.ModelId, objInputRating.EmailId));
             }
-
             return objRating;
-
         }
 
         /// <summary>
@@ -210,7 +211,7 @@ namespace Bikewale.BAL.UserReviews
         public UserReviewSummary GetUserReviewSummary(uint reviewId)
         {
             UserReviewSummary objSummary = null;
-            UserReviewsData objUserReviewData = null;
+            Entities.UserReviews.UserReviewsData objUserReviewData = null;
 
             try
             {
@@ -376,13 +377,12 @@ namespace Bikewale.BAL.UserReviews
                     }
 
 
-                        if (isValid)
-                        {
-                            objResponse.IsSuccess = SaveUserReviews(_reviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion, Convert.ToUInt32(objReviewData.Mileage));
+                    if (isValid)
+                    {
+                        objResponse.IsSuccess = SaveUserReviews(objReviewData.ReviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion, Convert.ToUInt32(objReviewData.Mileage));
 
-                            if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
-                                UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);                            
-                        }
+                        if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
+                            UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);
                     }
                 }
                 else
@@ -484,75 +484,79 @@ namespace Bikewale.BAL.UserReviews
         /// Created By  :   Snehal Dange on 1st Sep 2017
         /// Summary     :   Get User Rating
         /// </summary>
-        private void GetUserRatings(UserReviewRatingData objUserReviewRatingData, uint reviewId, bool isFake)
+        private void GetUserRatings(UserReviewRatingData objUserReviewRatingData)
         {
+
             try
             {
-                Entities.UserReviews.UserReviewsData objReviewData = new Entities.UserReviews.UserReviewsData();
+                Entities.UserReviews.UserReviewsData objReviewData = null;
                 objReviewData = GetUserReviewsData();
-                if (reviewId == 0)
+                if (objUserReviewRatingData.ReviewId == 0)
                 {
-                    if (objReviewData != null)
+
+                    if (objReviewData != null && objReviewData.Questions != null)
                     {
-                        if (objReviewData.OverallRating != null)
+
+                        UserReviewsInputEntity filter = new UserReviewsInputEntity()
                         {
-                            objUserReviewRatingData.OverAllRatingText = Newtonsoft.Json.JsonConvert.SerializeObject(objReviewData.OverallRating);
-                        }
-
-
-                        if (objReviewData.Questions != null)
+                            Type = Entities.UserReviews.UserReviewQuestionType.Rating
+                        };
+                        var objQuestions = GetUserReviewQuestions(filter, objReviewData);
+                        if (objQuestions != null)
                         {
-
-                            UserReviewsInputEntity filter = new UserReviewsInputEntity()
-                            {
-                                Type = UserReviewQuestionType.Rating
-                            };
-                            var objQuestions = GetUserReviewQuestions(filter, objReviewData);
-                            if (objQuestions != null)
-                            {
-                                objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
-                                objQuestions.FirstOrDefault(x => x.Id == 3).Visibility = false;
-                                objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
-                                objUserReviewRatingData.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objQuestions);
-                            }
-
+                            objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
+                            objQuestions.FirstOrDefault(x => x.Id == 3).Visibility = false;
+                            objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
+                            objUserReviewRatingData.Questions = objQuestions;
                         }
 
                     }
+                    if (objReviewData != null && objReviewData.OverallRating != null)
+                    {
+                        objUserReviewRatingData.OverallRating = objReviewData.OverallRating;
+                    }
+
+
                 }
                 else
                 {
-                    UserReviewSummary objUserReviewDataReview = GetUserReviewSummary(reviewId);
+                    UserReviewSummary objUserReviewDataReview = GetUserReviewSummary(objUserReviewRatingData.ReviewId);
 
                     if (objReviewData.OverallRating != null)
                     {
-                        objUserReviewRatingData.OverAllRatingText = Newtonsoft.Json.JsonConvert.SerializeObject(objReviewData.OverallRating);
+                        objUserReviewRatingData.OverallRating = objReviewData.OverallRating;
                     }
+
                     if (objUserReviewDataReview != null)
                     {
-                        objUserReviewRatingData.ReviewsOverAllrating = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewDataReview.OverallRatingId);
-                        objUserReviewRatingData.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewDataReview.Questions);
+                        objUserReviewRatingData.ReviewsOverAllrating = objUserReviewDataReview.OverallRatingId.ToString();
+                        objUserReviewRatingData.Questions = objUserReviewDataReview.Questions;
                         objUserReviewRatingData.CustomerEmail = objUserReviewDataReview.CustomerEmail;
                         objUserReviewRatingData.CustomerName = objUserReviewDataReview.CustomerName;
                     }
                 }
 
                 var objLastPrice = objReviewData.PriceRange.Last();
-                if (objUserReviewRatingData.objModelEntity != null && objUserReviewRatingData.objModelEntity.MinPrice >= objLastPrice.MaxPrice)
+                if (objUserReviewRatingData.ObjModelEntity != null && objUserReviewRatingData.ObjModelEntity.MinPrice >= objLastPrice.MaxPrice)
                 {
-                    objUserReviewRatingData.PriceRangeId = objLastPrice.RangeId;
+                    objUserReviewRatingData.PriceRangeId = (ushort)objLastPrice.RangeId;
                 }
                 else
                 {
-                    objUserReviewRatingData.PriceRangeId = objReviewData.PriceRange.First(x => x.MinPrice <= objUserReviewRatingData.objModelEntity.MinPrice && x.MaxPrice >= objUserReviewRatingData.objModelEntity.MinPrice).RangeId;
+                    var objFirstPriceRange = objReviewData.PriceRange.First(x => x.MinPrice <= objUserReviewRatingData.ObjModelEntity.MinPrice && x.MaxPrice >= objUserReviewRatingData.ObjModelEntity.MinPrice);
+                    if (objFirstPriceRange != null)
+                    {
+                        objUserReviewRatingData.PriceRangeId = (ushort)objFirstPriceRange.RangeId;
+                    }
+
                 }
-                objUserReviewRatingData.IsFake = isFake;
-                objUserReviewRatingData.ReviewId = reviewId;
+                objUserReviewRatingData.IsFake = objUserReviewRatingData.IsFake;
+                objUserReviewRatingData.ReviewId = objUserReviewRatingData.ReviewId;
             }
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.GetUserRatings({0})", reviewId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.GetUserRatings({0})", objUserReviewRatingData.ReviewId));
             }
 
         }
@@ -561,30 +565,29 @@ namespace Bikewale.BAL.UserReviews
         /// Created By  :   Snehal Dange on 1st Sep 2017
         /// Summary     :   Get Rate Bike data for aoi services
         /// </summary>
-        public UserReviewRatingData GetRateBikeData(uint modelId, uint reviewId, ulong customerId, ushort sourceId, uint selectedRating, bool isFake, string returnUrl, int contestsrc)
+        public UserReviewRatingData GetRateBikeData(RateBikeInput objRateBike)
         {
             UserReviewRatingData objUserReviewRatingData = new UserReviewRatingData();
             try
             {
+                objUserReviewRatingData.ObjModelEntity = _objBikeModel.GetById((int)objRateBike.ModelId);
+                objUserReviewRatingData.ReviewId = objRateBike.ReviewId;
+                objUserReviewRatingData.IsFake = objRateBike.IsFake;
+                GetUserRatings(objUserReviewRatingData);
 
-                BikeModelEntity objBikeModelEntity = null;
-
-                objBikeModelEntity = _objBikeModel.GetById((int)modelId);
-                GetUserRatings(objUserReviewRatingData, reviewId, isFake);
-
-                objUserReviewRatingData.SelectedRating = selectedRating;
-                if (objUserReviewRatingData != null && objUserReviewRatingData.objModelEntity != null)
+                objUserReviewRatingData.SelectedRating = objRateBike.SelectedRating;
+                if (objUserReviewRatingData != null && objUserReviewRatingData.ObjModelEntity != null)
                 {
-                    objUserReviewRatingData.SourceId = sourceId;
-                    objUserReviewRatingData.ReturnUrl = returnUrl;
-                    objUserReviewRatingData.ContestSrc = contestsrc;
+                    objUserReviewRatingData.SourceId = objRateBike.SourceId;
+                    objUserReviewRatingData.ReturnUrl = objRateBike.ReturnUrl;
+                    objUserReviewRatingData.ContestSrc = objRateBike.Contestsrc;
 
                 }
 
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetRateBikeData({0},{1},{2},{3},{4},{5},{6})", modelId, reviewId, customerId, sourceId, selectedRating, returnUrl, contestsrc));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.GetRateBikeData({0},{1},{2},{3},{4},{5},{6})", objRateBike.ModelId, objRateBike.ReviewId, objRateBike.CustomerId, objRateBike.SourceId, objRateBike.SelectedRating, objRateBike.ReturnUrl, objRateBike.Contestsrc));
             }
             return objUserReviewRatingData;
         }

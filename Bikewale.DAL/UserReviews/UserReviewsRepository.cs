@@ -880,7 +880,7 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId, string utmzCookieValue, ushort? sourceId)
+        public uint SaveUserReviewRatings(InputRatingSaveEntity inputSaveEntity, uint customerId, uint reviewId)
         {
             uint reviewIdNew = 0;
 
@@ -891,18 +891,18 @@ namespace Bikewale.DAL.UserReviews
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallrating", DbType.String, overAllrating));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, ratingQuestionAns));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_username", DbType.String, userName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, emailId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_returnurl", DbType.String, returnUrl));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, inputSaveEntity.ModelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, inputSaveEntity.MakeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallrating", DbType.String, inputSaveEntity.OverAllrating));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, inputSaveEntity.RatingQuestionAns));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_username", DbType.String, inputSaveEntity.UserName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, inputSaveEntity.EmailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_returnurl", DbType.String, inputSaveEntity.ReturnUrl));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientIP", DbType.String, CurrentUser.GetClientIP()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_platformid", DbType.Int16, platformId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_platformid", DbType.Int16, inputSaveEntity.PlatformId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.Int16, reviewId > 0 ? reviewId : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Int16, (sourceId.HasValue && sourceId.Value > 0) ? sourceId : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, utmzCookieValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Int16, (inputSaveEntity.SourceId.HasValue && inputSaveEntity.SourceId.Value > 0) ? inputSaveEntity.SourceId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, inputSaveEntity.UtmzCookieValue));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
@@ -919,7 +919,7 @@ namespace Bikewale.DAL.UserReviews
             {
 
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsRepository.SaveUserReviewRatings() reviewId-{0} makeId-{1} modelId-{2}", reviewId, makeId, modelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsRepository.SaveUserReviewRatings() reviewId-{0} makeId-{1} modelId-{2}", reviewId, inputSaveEntity.MakeId, inputSaveEntity.ModelId));
             }
 
             return reviewIdNew;
