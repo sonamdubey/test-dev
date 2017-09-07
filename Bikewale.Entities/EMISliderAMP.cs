@@ -13,19 +13,19 @@ namespace Bikewale.Entities
         public string TotalAmount { get; set; }
 
         [JsonProperty("formatedTotalAmount")]
-        public int FormatedTotalAmount { get; set; }
+        public string FormatedTotalAmount { get; set; }
 
         [JsonProperty("downPayment")]
-        public int DownPayment { get; set; }
+        public string DownPayment { get; set; }
 
         [JsonProperty("formatedDownPayment")]
-        public int FormatedDownPayment { get; set; }
+        public string FormatedDownPayment { get; set; }
 
         [JsonProperty("loanAmount")]
-        public double LoanAmount { get; set; }
+        public string LoanAmount { get; set; }
 
         [JsonProperty("formatedLoanAmount")]
-        public int FormatedLoanAmount { get; set; }
+        public string FormatedLoanAmount { get; set; }
 
         [JsonProperty("tenure")]
         public int Tenure { get; set; }
@@ -40,6 +40,6 @@ namespace Bikewale.Entities
         public ulong BikePrice { get; set; }
 
         [JsonProperty("emi")]
-        public int EMI { get; set; }
+        public string EMI { get; set; }
     }
 }

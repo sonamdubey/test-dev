@@ -549,11 +549,11 @@ namespace Bikewale.Models
 
                 objVM.EMISliderAMP = new EMISliderAMP();
                 objVM.EMISliderAMP.TotalAmount = Format.FormatPrice(Convert.ToString(totalAmount));
-                objVM.EMISliderAMP.FormatedTotalAmount = 0;
-                objVM.EMISliderAMP.DownPayment = downPayment;
-                objVM.EMISliderAMP.FormatedDownPayment = 0;
-                objVM.EMISliderAMP.LoanAmount = loanAmount;
-                objVM.EMISliderAMP.FormatedLoanAmount = 0;
+                objVM.EMISliderAMP.FormatedTotalAmount = "0";
+                objVM.EMISliderAMP.DownPayment = Convert.ToString(downPayment);
+                objVM.EMISliderAMP.FormatedDownPayment = "0";
+                objVM.EMISliderAMP.LoanAmount = Convert.ToString((int)loanAmount);
+                objVM.EMISliderAMP.FormatedLoanAmount = "0";
                 objVM.EMISliderAMP.Tenure = tenure;
                 objVM.EMISliderAMP.RateOfInterest = rateOfInterest;
                 objVM.EMISliderAMP.Fees = procFees;
