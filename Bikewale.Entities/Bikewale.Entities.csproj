@@ -321,6 +321,8 @@
     <Compile Include="MobileAppAlert\MobileAppNotifications.cs" />
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
     <Compile Include="Models\AdTags.cs" />
+    <Compile Include="Models\BreadCrumb.cs" />
+    <Compile Include="Models\BreadCrumbsList.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\PageMetaTags.cs" />
     <Compile Include="NewBikeSearch\FilterEnum.cs" />
