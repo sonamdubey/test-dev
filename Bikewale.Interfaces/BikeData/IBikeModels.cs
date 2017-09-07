@@ -34,12 +34,10 @@ namespace Bikewale.Interfaces.BikeData
 
         UpcomingBikeEntity GetUpcomingBikeDetails(U modelId);
         List<UpcomingBikeEntity> GetUpcomingBikesList(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy, out int recordCount);
-        List<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null);
+        IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null);
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeid = null);
-        //List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int pageSize, out int recordCount, int? currentPageNo = null);
         BikeModelPageEntity GetModelPageDetails(U modelId);
         BikeModelPageEntity GetModelPageDetailsNew(U modelId);
-        //IEnumerable<BikeSpecificationEntity> GetModelSpecifications(U modelId, int versionId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
         IEnumerable<ModelImage> GetBikeModelPhotoGallery(U modelId);
         IEnumerable<ModelImage> GetModelPhotoGalleryWithMainImage(U modelId);

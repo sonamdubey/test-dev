@@ -84,6 +84,17 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             return Mapper.Map<UserReviewSummary, UserReviewSummaryDto>(objUserReview);
         }
 
+        internal static IEnumerable<DTO.UserReviews.UserReviewSummaryDto> Convert(IEnumerable<UserReviewSummary> objUserReview)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
+            Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>();
+            Mapper.CreateMap<UserReviewQuestion, UserReviewQuestionDto>();
+            Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();
+            return Mapper.Map< IEnumerable<UserReviewSummary>, IEnumerable<UserReviewSummaryDto>>(objUserReview);
+        }
+
         internal static Bikewale.DTO.UserReviews.Search.SearchResult Convert(Entities.UserReviews.Search.SearchResult objUserReviews)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
@@ -101,6 +112,17 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();           
             Mapper.CreateMap<Entities.UserReviews.Search.SearchResult, Bikewale.DTO.UserReviews.Search.SearchResult>();
             return Mapper.Map<Entities.UserReviews.Search.SearchResult, Bikewale.DTO.UserReviews.Search.SearchResult>(objUserReviews);
+        }
+
+        internal static DTO.UserReviews.BikeModelUserReviews Convert(BikeRatingsReviewsInfo objUserReview)
+        {
+            //Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            //Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            //Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
+            Mapper.CreateMap<BikeReviewsInfo, BikeReviewsData>();
+            Mapper.CreateMap<BikeRatingsInfo, BikeRatingData>();
+            Mapper.CreateMap<BikeRatingsReviewsInfo, BikeModelUserReviews>();
+            return Mapper.Map<BikeRatingsReviewsInfo, BikeModelUserReviews>(objUserReview);
         }
     }
 }

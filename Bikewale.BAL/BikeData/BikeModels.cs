@@ -456,7 +456,7 @@ namespace Bikewale.BAL.BikeData
         /// <param name="modelId">Optional.</param>
         /// <param name="curPageNo">Optional. Current page number.</param>
         /// <returns></returns>
-        public List<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
+        public IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
         {
             IEnumerable<UpcomingBikeEntity> objUpcoming = null;
             try
@@ -466,13 +466,10 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetUpcomingBikesList");
+                var objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetUpcomingBikesList");
             }
 
-            if (objUpcoming != null)
-                return objUpcoming.ToList();
-            else
-                return null;
+            return objUpcoming;
         }
 
         /// <summary>

@@ -325,6 +325,9 @@
     <Compile Include="Used\SellBikeImageUploadResultDTO.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
+    <Compile Include="UserReviews\BikeModelUserReviews.cs" />
+    <Compile Include="UserReviews\BikeRatingData.cs" />
+    <Compile Include="UserReviews\BikeReviewsData.cs" />
     <Compile Include="UserReviews\ReviewQuestionsDto.cs" />
     <Compile Include="UserReviews\SearchResult.cs" />
     <Compile Include="UserReviews\UserReviewOverallRatingDto.cs" />
