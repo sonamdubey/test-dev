@@ -91,9 +91,9 @@ namespace BikewaleAutoSuggest
                     ObjTemp.name = bikeName;
 
                     ObjTemp.mm_suggest = new BikeSuggestion();
-                    ObjTemp.mm_suggest.output = bikeName;
+                    ObjTemp.output = bikeName;
 
-                    ObjTemp.mm_suggest.payload = new PayLoad()
+                    ObjTemp.payload = new PayLoad()
                     {
                         MakeId = Convert.ToString(bikeItem.MakeId),
                         ModelId = Convert.ToString(bikeItem.ModelId),
@@ -110,8 +110,9 @@ namespace BikewaleAutoSuggest
                     ObjTemp.mm_suggest.input = new List<string>();
                     string[] tokens = bikeName.Split(' ');
 
-                    int length = tokens.Length;
+                    int length = Math.Min(tokens.Length,5);
                     // For creating input in mm_suggest
+                    //example :- bajaj pulsar rs200 than combination will be bajaj,pulsar,rs200,bajaj pulsar and so on
                     for (int index = 1; index < 1 << length; index++)
                     {
                         int temp_value = index, jindex = 0;
@@ -131,7 +132,17 @@ namespace BikewaleAutoSuggest
                     //For Royal Enfield Bikes add Bullet in Suggestion
                     if (bikeName.Contains("Royal Enfield"))
                             ObjTemp.mm_suggest.input.Add("Bullet");
-                    
+
+                    ObjTemp.mm_suggest.contexts = new Context();
+                    ObjTemp.mm_suggest.contexts.types = new List<string>();
+
+                    ObjTemp.mm_suggest.contexts.types.Add("AllMakeModel");
+
+                    if (bikeItem.ModelId > 0 && bikeItem.New && !bikeItem.Futuristic)
+                        ObjTemp.mm_suggest.contexts.types.Add("PriceQuoteMakeModel");
+
+                    if (bikeItem.UserRatingsCount > 0)
+                        ObjTemp.mm_suggest.contexts.types.Add("UserReviews");
 
                     objSuggestList.Add(ObjTemp);
                     count--;

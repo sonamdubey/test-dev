@@ -51,7 +51,7 @@
                                     <!-- /ko -->
                                     <div class="grid-10-inline font15 text-black text-bold text-truncate">
 
-                                        <a onclick="logBhrighu(event)" data-id="@i" data-reviewId="@review.ReviewId" href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'data-reviewId': $data.reviewId, 'title' : $data.title,'href' : '/m/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}"> <span class="review-title position-rel" data-bind="text:$data.title">@review.Title</span></a>
+                                        <a onclick="logBhrighu(event)" data-id="@i" data-reviewId="@review.ReviewId" href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'data-reviewId': $data.reviewId, 'title' : $data.title,'href' : (($data.reviewId) ? ('/m/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/') : '')}"> <span class="review-title position-rel" data-bind="text:$data.title">@review.Title</span></a>
                                     </div>
                                 </div>
 
@@ -174,7 +174,7 @@
             <!-- /ko -->
             <div id="listingFooter"></div>
             <div id="sort-filters-loader" style="display: none;" data-bind="visible : IsLoading()">
-                <div id="popup-loader"></div>
+                <div class="cover-popup-loader"></div>
             </div>
 
         </div>

@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -113,11 +114,45 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Keywords = "Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care";
                 objData.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objData.ArticleDetails.Title);
                 objData.Page_H1 = string.Format("{0} | Maintenance Tips from Bike Experts - BikeWale", objData.ArticleDetails.Title);
+
+                //SetPageJSONSchema(objData);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.SetPageMetas");
             }
+        }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 25th Aug 2017
+        /// Description : To load json schema for the bikecare articles
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetPageJSONSchema(BikeCareDetailPageVM objData)
+        {
+            var objSchema = new NewsArticle();
+            objSchema.HeadLine = objData.ArticleDetails.Title;
+            objSchema.DateModified = objData.ArticleDetails.DisplayDate.ToString();
+            objSchema.DatePublished = objSchema.DateModified;
+            objSchema.Description = FormatDescription.SanitizeHtml(objData.ArticleDetails.Description);
+            if (objData.ArticleDetails.PageList != null && objData.ArticleDetails.PageList.Count() > 0)
+            {
+                objSchema.ArticleBody = Bikewale.Utility.FormatDescription.SanitizeHtml(Convert.ToString(objData.ArticleDetails.PageList.First().Content));
+            }
+
+            objSchema.ArticleImage = new ImageObject()
+            {
+                ImageUrl = objData.PageMetaTags.ShareImage,
+                Height = "348",
+                Width = "640"
+            };
+            objSchema.Author = new Author()
+            {
+                Name = objData.ArticleDetails.AuthorName
+            };
+            objSchema.MainEntityOfPage = new MainEntityOfPage() { PageUrlId = objData.PageMetaTags.CanonicalUrl };
+
+            objData.PageMetaTags.SchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
         }
 
         /// <summary>

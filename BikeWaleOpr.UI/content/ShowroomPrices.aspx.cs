@@ -243,6 +243,7 @@ namespace BikeWaleOpr.Content
             }
             //To clear new launched bikes cache
             MemCachedUtil.Remove("BW_NewLaunchedBikes");
+            BwMemCache.ClearPopularBikesByMakes(!String.IsNullOrEmpty(ddlMakes.SelectedValue) ? Convert.ToUInt32(ddlMakes.SelectedValue) : 0);
         }
 
         /// <summary>

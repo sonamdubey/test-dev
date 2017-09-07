@@ -131,6 +131,33 @@ namespace Bikewale.Cache.CMS
             }
             return _objArticlesList;
         }
+
+        /// <summary>
+        /// Created by: Vivek Singh Tomar on 16th Aug 2017
+        /// Summary: Get articles for given category and body style
+        /// </summary>
+        /// <param name="categoryIdList"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="bodyStyleId"></param>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId)
+        {
+            CMSContent _objArticlesList = null;
+            try
+            {
+                if (_objArticles != null)
+                    _objArticlesList = _objArticles.GetArticlesByCategoryList(categoryIdList, startIndex, endIndex, bodyStyleId, makeId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.CMS.CMSCacheRepository.GetArticlesByCategoryList");
+                objErr.SendMail();
+            }
+            return _objArticlesList;
+        }
+
         #endregion
 
         #region Article Photos

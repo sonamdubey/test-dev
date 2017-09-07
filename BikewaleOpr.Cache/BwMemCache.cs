@@ -143,12 +143,12 @@ namespace BikewaleOpr.Cache
         /// Created by : Vivek Singh Tomar on 3rd Aug 2017
         /// Summary : Function to clear popular bikes by makes
         /// </summary>
-        /// <param name="modelId"></param>
-        public static void ClearPopularBikesByMakes(uint modelId)
+        /// <param name="makeId"></param>
+        public static void ClearPopularBikesByMakes(uint makeId)
         {
             try
             {
-                MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{ 0}", modelId));
+                MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", makeId));
             }
             catch (Exception ex)
             {
@@ -191,5 +191,23 @@ namespace BikewaleOpr.Cache
                 ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearVersionByType");
             }
         }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 19-Aug-2017
+        /// Description : Method to clear Popular bikes by body style cache.
+        /// </summary>
+        /// <param name="modelId"></param>
+        public static void ClearPopularBikesByBodyStyle(ushort bodyStyleId)
+        {
+            try
+            {
+                MemCachedUtil.Remove(string.Format("BW_PopularBikesListByBodyType_Bodystyle_{0}", bodyStyleId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearPopularBikesByBodyStyle");
+            }
+        }
+
     }
 }

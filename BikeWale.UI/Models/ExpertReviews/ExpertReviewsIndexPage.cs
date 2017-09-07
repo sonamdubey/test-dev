@@ -13,6 +13,10 @@ using Bikewale.Utility;
 using Bikewale.Models.BestBikes;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Pager;
+using Bikewale.Entities.GenericBikes;
+using Bikewale.Models.Scooters;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Models
 {
@@ -28,6 +32,8 @@ namespace Bikewale.Models
         private readonly IBikeModelsCacheRepository<int> _models = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
+        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
         #endregion
 
         #region Page level variables
@@ -52,13 +58,15 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming)
+        public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository<int> objMakeCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
         {
             _cmsCache = cmsCache;
             _pager = pager;
             _models = models;
             _bikeModels = bikeModels;
             _upcoming = upcoming;
+            _objMakeCache = objMakeCache;
+            _objBikeVersionsCache = objBikeVersionsCache;
              ProcessQueryString();
         }
         #endregion
@@ -240,6 +248,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 30 Mar 2017
         /// Summary    : Get view model for page widgets
+        /// Modified by Sajal Gupta on 24-08-2017
+        /// description : Added Popular Scooter Brands widget
         /// </summary>
         private void GetWidgetData(ExpertReviewsIndexPageVM objData,int topCount)
         {
@@ -249,35 +259,35 @@ namespace Bikewale.Models
                 if (currentCityArea != null)
                     CityId = currentCityArea.CityId;
 
-                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
-                objPopularBikes.TopCount = topCount;
-                objPopularBikes.CityId = CityId;
-                objData.MostPopularBikes = objPopularBikes.GetData();
-                if (MakeId > 0 && objMake != null)
-                {
-                    objData.MostPopularBikes.WidgetHeading = string.Format("Popular {0} bikes", objMake.MakeName);
-                    objData.MostPopularBikes.WidgetHref = string.Format("/{0}-bikes/", objMake.MaskingName);
-                    objData.MostPopularBikes.WidgetLinkTitle = string.Format("{0} Bikes", objMake.MakeName);
-                }
-                else
-                {
-                    objData.MostPopularBikes.WidgetHeading = "Popular bikes";
-                    objData.MostPopularBikes.WidgetHref = "/best-bikes-in-india/";
-                    objData.MostPopularBikes.WidgetLinkTitle = "Best Bikes in India";
-                }
+                EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
 
                 if (ModelId > 0)
                 {
-                    PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
-                    objPopularStyle.ModelId = ModelId;
-                    objPopularStyle.CityId = CityId;
-                    objPopularStyle.TopCount = topCount;
-                    objData.PopularBodyStyle = objPopularStyle.GetData();
-                    if (objData.PopularBodyStyle != null)
+                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+
+                    if (objVersionsList != null && objVersionsList.Count > 0)
+                        bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+
+                    if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                     {
-                        objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
-                        objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
-                        objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
+                        PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_objMakeCache);
+                        objPopularScooterBrands.TopCount = 4;
+                        objData.PopularScooterMakesWidget = objPopularScooterBrands.GetData();
+                        bikeType = EnumBikeType.Scooters;
+                    }
+                    else
+                    {
+                        PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
+                        objPopularStyle.ModelId = ModelId;
+                        objPopularStyle.CityId = CityId;
+                        objPopularStyle.TopCount = topCount;
+                        objData.PopularBodyStyle = objPopularStyle.GetData();
+                        if (objData.PopularBodyStyle != null)
+                        {
+                            objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
+                            objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
+                            objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
+                        }
                     }
                 }
                 else
@@ -304,6 +314,33 @@ namespace Bikewale.Models
                         objData.UpcomingBikes.WidgetHref = "/upcoming-bikes/";
                     }
                     objData.UpcomingBikes.WidgetLinkTitle = "Upcoming Bikes in India";
+                }
+                
+                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);            
+                objPopularBikes.TopCount = topCount;
+                objPopularBikes.CityId = CityId;
+                objData.MostPopularBikes = objPopularBikes.GetData();
+
+                if(bikeType.Equals(EnumBikeType.Scooters))
+                {
+                    objData.MostPopularBikes.WidgetHeading = string.Format("Popular {0} scooters", objMake.MakeName);
+                    objData.MostPopularBikes.WidgetHref = string.Format("/{0}-{1}/", objMake.MaskingName, objMake.IsScooterOnly ? "bikes" : "scooters");
+                    objData.MostPopularBikes.WidgetLinkTitle = "View all scooters";
+                    objData.MostPopularBikes.CtaText = "View all scooters";
+                }
+                else if (MakeId > 0 && objMake != null)
+                {
+                    objData.MostPopularBikes.WidgetHeading = string.Format("Popular {0} bikes", objMake.MakeName);
+                    objData.MostPopularBikes.WidgetHref = string.Format("/{0}-bikes/", objMake.MaskingName);
+                    objData.MostPopularBikes.WidgetLinkTitle = string.Format("{0} Bikes", objMake.MakeName);
+                    objData.MostPopularBikes.CtaText = "View all bikes";
+                }
+                else
+                {
+                    objData.MostPopularBikes.WidgetHeading = "Popular bikes";
+                    objData.MostPopularBikes.WidgetHref = "/best-bikes-in-india/";
+                    objData.MostPopularBikes.WidgetLinkTitle = "Best Bikes in India";
+                    objData.MostPopularBikes.CtaText = "View all bikes";
                 }
             }
             catch (Exception ex)

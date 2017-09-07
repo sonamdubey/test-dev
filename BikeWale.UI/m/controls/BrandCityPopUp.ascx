@@ -93,8 +93,8 @@
 
     </div>
     <div id="popup-loader-container">
-        <div id="popup-loader"></div>
-        <div id="popup-loader-text">
+        <div class="cover-popup-loader"></div>
+        <div class="cover-popup-loader-text">
             <p data-bind="text: LoadingText()" class="font14"></p>
         </div>
     </div>

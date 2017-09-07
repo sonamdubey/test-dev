@@ -2,6 +2,7 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -186,12 +187,48 @@ namespace Bikewale.Models.Features
                 objPage.PageMetaTags.Title = string.Format("{0} - Bikewale ", objPage.objFeature.Title);
                 objPage.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objPage.objFeature.Title);
                 objPage.PageMetaTags.Keywords = string.Format("features, stories, travelogues, specials, drives.");
+                objPage.PageMetaTags.ShareImage = Bikewale.Utility.Image.GetPathToShowImages(objPage.objFeature.OriginalImgUrl, objPage.objFeature.HostUrl, ImageSize._640x348);
+
+                SetPageJSONSchema(objPage);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.BindPageMetas");
             }
         }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 25th Aug 2017
+        /// Description : To load json schema for the featured articles
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetPageJSONSchema(DetailFeatureVM objData)
+        {
+            var objSchema = new NewsArticle();
+            objSchema.HeadLine = objData.objFeature.Title;
+            objSchema.DateModified = objData.objFeature.DisplayDate.ToString();
+            objSchema.DatePublished = objSchema.DateModified;
+            objSchema.Description = FormatDescription.SanitizeHtml(objData.objFeature.Description);
+            if (objData.objFeature.PageList!=null && objData.objFeature.PageList.Count() > 0)
+            {
+                objSchema.ArticleBody = Bikewale.Utility.FormatDescription.SanitizeHtml(Convert.ToString(objData.objFeature.PageList.First().Content));
+            }
+
+            objSchema.ArticleImage = new ImageObject()
+            {
+                ImageUrl = objData.PageMetaTags.ShareImage,
+                Height = "348",
+                Width = "640"
+            };
+            objSchema.Author = new Author()
+            {
+                Name = objData.objFeature.AuthorName
+            };
+            objSchema.MainEntityOfPage = new MainEntityOfPage() { PageUrlId = objData.PageMetaTags.CanonicalUrl };
+            objSchema.Url = objData.PageMetaTags.CanonicalUrl;
+            objData.PageMetaTags.SchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
+        }
+
         /// <summary>
         /// Created by : SubodhJain  on 30 March 2017
         /// Summary    : Get tagged make in feature

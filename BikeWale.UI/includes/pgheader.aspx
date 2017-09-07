@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
     <meta name="keywords" content="<%= keywords %>" />
     <meta name="description" content="<%= description %>" />
-    <%if(!string.IsNullOrEmpty(alternate)) {%><meta name="alternate" content="<%= alternate %>" /><%} %>
+    <%if(!string.IsNullOrEmpty(alternate)) {%><link rel="alternate" type="text/html" media="handheld" href="<%= alternate %>" title="Mobile/PDA" /><%} %>
  
     <title><%= title %></title>
     <% if(!string.IsNullOrEmpty(canonical)){ %><link rel="canonical" href="<%= canonical %>" /> <% } %>
