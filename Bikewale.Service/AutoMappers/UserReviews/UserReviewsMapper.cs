@@ -8,7 +8,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DTO;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Entities.UserReviews.Search;
 using System.Collections.Generic;
 
 namespace Bikewale.Service.AutoMappers.UserReviews
@@ -122,6 +121,31 @@ namespace Bikewale.Service.AutoMappers.UserReviews
           
             Mapper.CreateMap<Bikewale.Entities.UserReviews.UserReviewRatingData, Bikewale.DTO.UserReviews.RateBikeDetails>();
             return Mapper.Map<Bikewale.Entities.UserReviews.UserReviewRatingData, Bikewale.DTO.UserReviews.RateBikeDetails>(reviewRatingDataEntity);
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 7st Sep 2017
+        /// Summary     : Map input rating DTO to Entity
+        /// </summary>
+        public static InputRatingSaveEntity  Convert(InputRatingSave objSaveInputRating)
+        {
+
+            Mapper.CreateMap<InputRatingSave, InputRatingSaveEntity>();
+            return Mapper.Map<InputRatingSave, InputRatingSaveEntity>(objSaveInputRating);
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 7st Sep 2017
+        /// Summary     : Map a entity and dto to DTO (middle method to save all data)
+        /// </summary>
+        public static RatingReviewInput Convert(UserReviewRatingObject objRating, InputRatingSave objSaveInputRating)
+        {
+
+            Mapper.CreateMap<UserReviewRatingObject, RatingReviewInput>();
+            Mapper.CreateMap<InputRatingSave, RatingReviewInput>();
+
+            var objRatingDTO = Mapper.Map<InputRatingSave, RatingReviewInput>(objSaveInputRating);
+            return Mapper.Map<UserReviewRatingObject, RatingReviewInput>(objRating, objRatingDTO);
         }
     }
 }

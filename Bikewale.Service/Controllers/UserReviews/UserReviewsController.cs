@@ -1,8 +1,6 @@
 ﻿using Bikewale.DTO.UserReviews;
-using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UserReviews;
@@ -15,8 +13,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.BAL.UserReviews;
-using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Utility.StringExtention;
 
 namespace Bikewale.Service.Controllers.UserReviews
@@ -362,10 +358,14 @@ namespace Bikewale.Service.Controllers.UserReviews
                     
                     objReviewRatingData = _userReviews.GetRateBikeData(objRateBike);
                     if (objReviewRatingData != null)
-                    {
+                        {
                         objRateBikeDetails = UserReviewsMapper.Convert(objReviewRatingData);
                         return Ok(objRateBikeDetails);
                     }
+                }
+                else
+                {
+                    return BadRequest();
                 }
             }
             catch (Exception ex)
@@ -376,27 +376,6 @@ namespace Bikewale.Service.Controllers.UserReviews
             return NotFound();
         }
 
-
-        public RatingReviewInput SaveSubmitRatingObject(UserReviewRatingObject objRating, InputRatingSave objSaveInputRating)
-        {
-            RatingReviewInput objRatingReviewInput = new RatingReviewInput();
-
-            objRatingReviewInput.CustomerId = objRating.CustomerId;
-            objRatingReviewInput.ReviewId = objRating.ReviewId;
-            objRatingReviewInput.IsFake = objRating.IsFake;
-
-            objRatingReviewInput.ModelId = objSaveInputRating.ModelId;
-            objRatingReviewInput.MakeId = objSaveInputRating.MakeId;
-            objRatingReviewInput.PriceRangeId = objSaveInputRating.PriceRangeId;
-            objRatingReviewInput.ReturnUrl = objSaveInputRating.ReturnUrl;
-            objRatingReviewInput.SourceId = objSaveInputRating.SourceId;
-            objRatingReviewInput.ContestSrc = objSaveInputRating.ContestSrc;
-            objRatingReviewInput.EmailId = objSaveInputRating.EmailId;
-            objRatingReviewInput.UserName = objSaveInputRating.UserName;
-            objRatingReviewInput.OverAllrating = objSaveInputRating.OverAllrating;
-
-            return objRatingReviewInput;
-        }
 
         /// <summary>
         /// Created by Snehal Dange on 01-09-2017
@@ -412,12 +391,22 @@ namespace Bikewale.Service.Controllers.UserReviews
                 {
                     RatingReviewInput objRatingReviewInput = null;
                     UserReviewRatingObject objRating = null;
+                    InputRatingSaveEntity objSaveRatingEntity = null;
                     objSaveInputRating.UserName = StringHelper.ToProperCase(objSaveInputRating.UserName);
 
-                    objRating = _userReviews.SaveUserRatings(objSaveInputRating.OverAllrating, objSaveInputRating.RatingQuestionAns , objSaveInputRating.UserName , objSaveInputRating.EmailId , objSaveInputRating.MakeId , objSaveInputRating.ModelId , objSaveInputRating.ReviewId , objSaveInputRating.ReturnUrl , objSaveInputRating.PlatformId , objSaveInputRating.utmzCookieValue, objSaveInputRating.SourceId );
+                    objSaveRatingEntity = UserReviewsMapper.Convert(objSaveInputRating);
 
-                    objRatingReviewInput = SaveSubmitRatingObject(objRating, objSaveInputRating);
+                    if(objSaveRatingEntity !=null)
+                    {
+                        objRating = _userReviews.SaveUserRatings(objSaveRatingEntity);
+                    }
+
+                    objRatingReviewInput = UserReviewsMapper.Convert(objRating, objSaveInputRating);
                     return Ok(objRatingReviewInput);
+                }
+                else
+                {
+                    return BadRequest();
                 }
 
             }
@@ -426,7 +415,7 @@ namespace Bikewale.Service.Controllers.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.SubmitRating");
                 return InternalServerError();
             }
-            return NotFound();
+           
         }
         #endregion
 

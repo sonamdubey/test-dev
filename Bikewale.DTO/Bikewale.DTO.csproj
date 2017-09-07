@@ -333,7 +333,6 @@
     <Compile Include="UserReviews\UserReviewOverallRatingDto.cs" />
     <Compile Include="UserReviews\UserReviewPriceRange.cs" />
     <Compile Include="UserReviews\UserReviewQuestionDto.cs" />
-    <Compile Include="UserReviews\UserReviewsData.cs" />
     <Compile Include="UserReviews\UserReviewsInputEntity.cs" />
     <Compile Include="UserReviews\UserReviewSummaryDto.cs" />
     <Compile Include="UserReviews\v2\Review.cs" />

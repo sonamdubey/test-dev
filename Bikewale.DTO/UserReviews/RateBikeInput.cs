@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace Bikewale.DTO.UserReviews
 {
@@ -13,14 +9,28 @@ namespace Bikewale.DTO.UserReviews
     /// <returns></returns>
     public class RateBikeInput
     {
-         public uint ModelId { get; set; }
-         public uint ReviewId { get; set; }
-         public ulong CustomerId { get; set; }
-         public ushort SourceId { get; set; }
-         public ushort SelectedRating { get; set; }
-         public bool IsFake { get; set; }
-         
-         public string ReturnUrl { get; set; }
-         public ushort Contestsrc { get; set; }
+        [JsonProperty("modelId")]
+        public uint ModelId { get; set; }
+
+        [JsonProperty("reviewId")]
+        public uint ReviewId { get; set; }
+
+        [JsonProperty("customerId")]
+        public ulong CustomerId { get; set; }
+
+        [JsonProperty("sourceId")]
+        public ushort SourceId { get; set; }
+
+        [JsonProperty("selectedRating")]
+        public ushort SelectedRating { get; set; }
+
+        [JsonProperty("isFake")]
+        public bool IsFake { get; set; }
+
+        [JsonProperty("returnUrl")]
+        public string ReturnUrl { get; set; }
+
+        [JsonProperty("contestsrc")]
+        public ushort Contestsrc { get; set; }
     }
 }

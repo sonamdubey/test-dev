@@ -1,12 +1,18 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Bikewale.DTO.UserReviews
+namespace Bikewale.Entities.UserReviews
 {
+   
     /// <summary>
-    /// Created by Snehal Dange on 02-09-2017
-    /// Description: DTO created to save input rating 
+    /// Created By :Snehal Dange
+    /// Description :  Entity to save submitted rating on rating-review page
     /// </summary>
-    public class InputRatingSave
+    public class InputRatingSaveEntity
     {
         [JsonProperty("overAllrating")]
         public string OverAllrating { get; set; }
@@ -32,6 +38,9 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("reviewId")]
         public uint ReviewId { get; set; }
 
+        [JsonProperty("isDesktop")]
+        public bool? IsDesktop { get; set; }
+
         [JsonProperty("returnUrl")]
         public string ReturnUrl { get; set; }
 
@@ -46,6 +55,5 @@ namespace Bikewale.DTO.UserReviews
 
         [JsonProperty("utmzCookieValue")]
         public string UtmzCookieValue { get; set; }
-
     }
 }

@@ -1,12 +1,11 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.UserReviews
 {
+    /// <summary>
+    /// Created by: Snehal Dange on 01-09-2017
+    /// Description: DTO created as input for Review screen input
+    /// </summary>
     public class RatingReviewInput
     {
         [JsonProperty("overAllrating")]
