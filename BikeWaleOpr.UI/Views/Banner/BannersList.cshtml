@@ -32,7 +32,7 @@
                     <td>@(m.IsActive == 1 ? "Active" : "InActive")</td>   
                     <td>@m.UpdatedBy</td>         
                     <td>@(m.LastUpdated != null && m.LastUpdated != DateTime.MinValue ? m.LastUpdated.ToString("dd MMM yyyy, hh:mm tt") : "")</td>                             
-                    <td><a target="_blank" href="/banner/index/?id=@m.BannerId" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a>
+                    <td><a target="_blank" rel="noopener" href="/banner/index/?id=@m.BannerId" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a>
                         @if (m.IsActive == 1)
                         {
                             <a class="tooltipped" href="" id="btnAbort_@m.BannerId" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign" data-bannerId="@m.BannerId" onclick="changeBannerStatus(event, 0)"><i class="material-icons icon-red">cancel</i></a>
@@ -74,7 +74,7 @@
                 <div class="collapsible-header"><strong>Add Banner</strong></div>
                 <div class="collapsible-body">
                     <div class="input-field row s12" style="margin-left:20px">
-                        <a target="_blank" class="btn waves-effect waves-light" href="/banner/index">Add new Banner</a>
+                        <a target="_blank" rel="noopener" class="btn waves-effect waves-light" href="/banner/index">Add new Banner</a>
                     </div>
                 </div>
             </li>        

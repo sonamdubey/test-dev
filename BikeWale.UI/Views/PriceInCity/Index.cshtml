@@ -21,23 +21,26 @@
             <div class="grid-12">
                 <div class="breadcrumb margin-bottom15">
                     <!-- breadcrumb code starts here -->
-                    <ul>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <a href="/" itemprop="url">
-                                <span itemprop="title">Home</span>
+                    <ul  itemscope itemtype="http://schema.org/BreadcrumbList">
+                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                            <a href="/" itemprop="item">
+                                <span itemprop="name">Home</span>
                             </a>
+                            <meta itemprop="position" content="1" />
                         </li>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                             <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <a href="/@Model.Make.MaskingName-bikes/" itemprop="url">
-                                <span itemprop="title">@Model.Make.MakeName Bikes</span>
+                            <a href="/@Model.Make.MaskingName-bikes/" itemprop="item">
+                                <span itemprop="name">@Model.Make.MakeName Bikes</span>
                             </a>
+                            <meta itemprop="position" content="2" />
                         </li>
-                        <li>
+                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                             <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <a href="@UrlFormatter.BikePageUrl(Model.Make.MaskingName,Model.BikeModel.MaskingName)" itemprop="url">
-                                <span>@Model.BikeName</span>
+                            <a href="@UrlFormatter.BikePageUrl(Model.Make.MaskingName,Model.BikeModel.MaskingName)" itemprop="item">
+                                <span itemprop="name">@Model.BikeName</span>
                             </a>
+                            <meta itemprop="position" content="3" />
                         </li>
                         <li>
                             <span class="bwsprite fa-angle-right margin-right10"></span>
@@ -139,7 +142,7 @@
                                                         Insurance (Comprehensive)<br>
                                                         @if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
                                                         {
-                                                            <a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold position-rel" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey text-unbold font10">&nbsp;Ad</span></a>
+                                                            <a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold position-rel" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey text-unbold font10">&nbsp;Ad</span></a>
                                                         }
                                                     </td>
                                                     <td align="right" valign="top" width="30%" class="padding-bottom10">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class='text-bold' data-bind="text: insurancePrice()"></span></td>
@@ -221,7 +224,7 @@
                                         {
                                             @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                                             <div id="adBlocker" class="adBlocker-grid grid-4 text-left alpha omega  hide">
-                                                <a href="https://www.bikewale.com/user-reviews/#selectBike" target="_blank" title="Write a review" style="font-family: 'Open Sans', sans-serif, Arial; font-size: 14px; width: 300px; height: 250px; display: block; padding: 20px; margin: 0 auto; border: 1px solid #e2e2e2; background: #fff; box-sizing: border-box; color: #4d5057; text-decoration: none;">
+                                                <a href="https://www.bikewale.com/user-reviews/#selectBike" target="_blank" rel="noopener" title="Write a review" style="font-family: 'Open Sans', sans-serif, Arial; font-size: 14px; width: 300px; height: 250px; display: block; padding: 20px; margin: 0 auto; border: 1px solid #e2e2e2; background: #fff; box-sizing: border-box; color: #4d5057; text-decoration: none;">
                                                     <img src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/write-icon.png" alt="write a review" width="30" height="32" class="inline-block" style="margin-right: 10px" />
                                                     <span class="inline-block" style="font-weight: bold; text-transform: uppercase;">Do you own a bike?</span>
                                                     <div style="margin-top: 10px; margin-bottom: 15px; border-top: 1px solid #e2e2e2;"></div>
@@ -589,7 +592,7 @@
             <div class="grid-12">
                 <div class="padding-right20 padding-left20 font12 text-slate-grey">
                     <p class="text-bold">Disclaimer:</p>
-                    <p>BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName.  However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a target="_blank" href="/TermsConditions.aspx">Terms & Condition</a> ,<a target="_blank" href="/visitoragreement.aspx">Visitor Agreement</a> and  <a target="_blank" href="/privacypolicy.aspx">Privacy Policy</a>. </p>
+                    <p>BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName.  However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a target="_blank" rel="noopener" href="/TermsConditions.aspx">Terms & Condition</a> ,<a target="_blank" rel="noopener" href="/visitoragreement.aspx">Visitor Agreement</a> and  <a target="_blank" rel="noopener" href="/privacypolicy.aspx">Privacy Policy</a>. </p>
                 </div>
             </div>
             <div class="clear"></div>

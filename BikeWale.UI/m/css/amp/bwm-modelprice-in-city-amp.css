@@ -275,7 +275,7 @@ a {
 }
 
 .city-sprite {
-	background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v4.png?v29Jun20171498739734721) no-repeat;
 	display: inline-block;
 }
 
@@ -366,13 +366,64 @@ a {
 	padding: 5px;
 }
 
+.btn-160-32 {
+    min-width: 160px;
+    padding: 5px;
+    font-size: 14px;
+}
+
 .btn-full-width {
 	display: block;
 	width: 100%;
 }
 
+.campaign__floating-btn {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 8;
+    padding: 10px;
+    background: #fff;
+    -moz-box-shadow: 0 0 7px #ccc;
+    -webkit-box-shadow: 0 0 7px #ccc;
+    -o-box-shadow: 0 0 7px #ccc;
+    box-shadow: 0 0 7px #ccc;
+}
+
+.clearfix {
+    clear: both;
+}
+.btn__left-label {
+    color: #82888b;
+    position: relative;
+    top: 6px;
+}
+
+.btn.btn-full-32 {
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 2px;
+}
+.btn-orange {
+    background: #ef3030;
+    color: #fff;
+}
+
+
 ul, ol {
 	list-style: none;
+}
+
+.campaign__powered-key {
+    font-size: 12px;
+    color: #a2a2a2;
+}
+
+.campaign__powered-value {
+    font-size: 13px;
+    color: #82888b;
 }
 
 .item-more-details-list li {
@@ -422,10 +473,16 @@ ul, ol {
 	color: #82888b;
 	cursor: pointer;
 }
+.overall-specs-tabs-wrapper li a {
+    color: #82888b
+}
 .overall-specs-tabs-wrapper li.active {
 	border-bottom: 3px solid #ef3f30;
 	color: #4d5057;
 	font-weight: 600;
+}
+.overall-specs-tabs-wrapper li.active a {
+        color: #4d5057;
 }
 #overallSpecsTab::-webkit-scrollbar {
 	width: 0;
@@ -854,6 +911,12 @@ color: #EF3F30;
 	padding:5px;
 	width: 200px;
 	min-height: 210px;
+}
+#popularContent .swiper-card {
+    margin-left: 8px;
+    padding: 5px;
+    width: 200px;
+    min-height: 210px;
 }
 .swiper-card:first-child {
 	margin-left: 8px;
@@ -1363,4 +1426,92 @@ input[type="range"]::-moz-range-track {
 	top: 4px;
 	left: 0;
 	color: #d9534f;
+}
+.single-version-content {
+    min-width: 125px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    display: inline-block;
+    position: relative;
+}
+.exploremore__imagebackground {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    background: rgba(65, 180, 196, 0.3);
+}
+.exploremore__icon-background {
+    height: 64px;
+    width: 64px;
+    background: white url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/bike-36x22.png) no-repeat center;
+    margin: 0 auto;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.exploremore-detailblock {
+    margin: 0 auto;
+    padding-top: 20px;
+    min-height: 115px;
+    text-align: center;
+}
+.detailblock__title {
+    white-space: normal;
+    font-size: 14px;
+    color: #4D5057;
+    font-weight: 600;
+    line-height: 25px;
+    margin-bottom: 10px;
+}
+.detailblock__description {
+    white-space: normal;
+    font-size: 12px;
+    color: #A2A2A2;
+}
+.single-version-content {
+    min-width: 125px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    display: inline-block;
+    position: relative;
+}
+.dropdown-effect-light:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 25px;
+    height: 100%;
+    background: #fff;
+    opacity: 0.7;
+    background: transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+}
+.model-image .model-ribbon-tag {
+    position: absolute;
+    top: -25px;
+    display: inline-block
+}
+.discontinued-ribbon {
+    color: #4d5957;
+    background: #b5b5b5
+}
+.model-ribbon-tag {
+    position: relative;
+    top: -5px;
+    left: -20px;
+    font-size: 12px;
+    padding: 2px 20px 2px 10px;
+    display: inline-block
+}
+.model-ribbon-tag:after {
+    content: '';
+    position: absolute;
+    border-top: 10px solid transparent;
+    border-right: 10px solid #fff;
+    border-bottom: 10px solid transparent;
+    right: 0;
+    top: 0
 }

@@ -514,6 +514,7 @@
     <Compile Include="Controllers\NewPageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NewLaunchesController.cs" />
+    <Compile Include="Controllers\PopUpController.cs" />
     <Compile Include="Controllers\ScootersController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\UpcomingController.cs" />
@@ -999,6 +1000,8 @@
     <Compile Include="Models\Location\ChangeLocationPopup.cs" />
     <Compile Include="Models\News\ScooterNewsPage.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
+    <Compile Include="Models\PopUp\PopUpCityArea.cs" />
+    <Compile Include="Models\PopUp\PopupLeadCaptureModel.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
@@ -2276,6 +2279,7 @@
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
+    <Content Include="css\PopUp\PopUpCityArea.css" />
     <Content Include="css\user-review\listing.css" />
     <Content Include="css\survey\bajaj-survey.css" />
     <Content Include="css\user-review\write-review.css" />
@@ -3784,9 +3788,11 @@
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInTopCitiesWidget.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
-    <Content Include="Views\PriceInCity\_PriceInTopCities.cshtml.orig" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
+    <Content Include="Views\Model\_BestBikes.cshtml" />
     <Content Include="Views\PriceInCity\Index_Mobile_Amp.cshtml" />
+    <Content Include="Views\PopUp\PopUpCityArea_Mobile.cshtml" />
+    <Content Include="Views\PopUp\Index_LeadCapture.cshtml" />
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile_Amp.cshtml" />
     <Content Include="Views\Price\_PriceInCityPopUp_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_BikeInfoCard_Mobile_AMP.cshtml" />

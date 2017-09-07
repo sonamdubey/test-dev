@@ -93,7 +93,7 @@
                                    {%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite mail-grey-icon vertical-top"></span>
-                                    <a href="mailto:<%=eMail %>" target="_blank" class="vertical-top text-light-grey" rel="nofollow">
+                                    <a href="mailto:<%=eMail %>" target="_blank" rel="noopener" class="vertical-top text-light-grey" rel="nofollow">
                                         <span class="dealership-card-details"><%=eMail %></span>
                                     </a>
                                 </div>
@@ -128,7 +128,7 @@
                                    { %>
                                 <div id="dealer-map" style="width: 378px; height: 254px; border: 1px solid #eee;"></div>
                                 <div id="get-direction-button" title="Get directions">
-                                    <a href="https://maps.google.com/?saddr=&amp;daddr=<%=dealerObj.Area.Latitude %>,<%=dealerObj.Area.Longitude %>" target="_blank">
+                                    <a href="https://maps.google.com/?saddr=&amp;daddr=<%=dealerObj.Area.Latitude %>,<%=dealerObj.Area.Longitude %>" target="_blank" rel="noopener">
                                         <span class="bwsprite get-direction-icon"></span>
                                     </a>
                                 </div>
@@ -186,7 +186,7 @@
                             <input type="button" id="dealer-assist-btn" data-isregisterpq="true" data-item-name="<%=dealerObj.Name %>" data-item-area="<%=dealerObj.Area%>" data-leadsourceid="14" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers %>"
                                 data-item-id="<%= dealerId %>" data-bind="click: function (d, e) { validateBikeData(); validateUserLeadDetails(); HiddenSubmitLead(d, e) }" value="<%= ctaSmallText %>" />
                         </div>
-                        <p>By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+                        <p>By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank" rel="noopener">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.</p>
                     </div>
                     <div id="dealer-assist-msg" class="hide">
                         <p class="leftfloat font14">Thank you for your interest. <span data-bind="text: dealerName()"></span>&nbsp;will get in touch shortly</p>

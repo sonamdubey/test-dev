@@ -1,5 +1,5 @@
 ﻿<%@ Register Src="/m/controls/BookBikeSlug.ascx" TagPrefix="BikeBooking" TagName="BookBikeSlug" %>
-<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:fb="http://www.facebook.com/2008/fbml">
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:fb="http://www.facebook.com/2008/fbml" lang="en">
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMakes="",TargetedModels="", AdModel_300x250=""
         ,AdSeries_300x250="", canonical = "",relPrevPageUrl = "",relNextPageUrl = "",fbTitle = "",fbImage = "", menu = "",OGImage = "";
