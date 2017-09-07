@@ -8,6 +8,11 @@
 	color: #4d5057;
 	line-height: 1.42857143;
 }
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 h1 {
 	margin: 0;
 	padding: 0;
@@ -1514,4 +1519,20 @@ input[type="range"]::-moz-range-track {
     border-bottom: 10px solid transparent;
     right: 0;
     top: 0
+}
+.content-box-shadow { background: #fff; -moz-box-shadow: 2px 2px 2px #dcdcdc; -webkit-box-shadow: 2px 2px 2px #dcdcdc; -o-box-shadow: 2px 2px 2px #dcdcdc; -ms-box-shadow: 2px 2px 2px #dcdcdc; box-shadow: 2px 2px 2px #dcdcdc; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.city-sprite {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;
+    display: inline-block;
+}
+
+.ShowroomInCity{
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-bottom:20px;
+}
+
+.btn-auto-32 {
+    padding: 5px 10px;
+    font-size: 14px;
 }
