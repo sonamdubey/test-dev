@@ -2,6 +2,10 @@
 
 namespace Bikewale.DTO.UserReviews
 {
+    /// <summary>
+    /// Created By  :   Vishnu Teja Yalakuntla on 07 Sep 2017
+    /// Description :   Input for SaveWriteReviewDetails App API,
+    /// </summary>
     public class WriteReviewInput
     {
         [JsonProperty("reviewDescription")]

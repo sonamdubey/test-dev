@@ -297,6 +297,8 @@ namespace Bikewale.Controllers
         /// Description : Action method to save user reviews
         /// Modified by Sajal Gupta on 13-07-2017
         /// Descrfiption : Added mileage field.
+        /// Modified By :   Vishnu Teja Yalakuntla on 09 Sep 2017
+        /// Description :   Decoded encodedId
         /// </summary>
         /// <param name="reviewDescription"></param>
         /// <param name="reviewTitle"></param>
@@ -349,7 +351,7 @@ namespace Bikewale.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "RateOtherDetails()");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.UserReviewController.SaveReview()");
             }
             return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
         }

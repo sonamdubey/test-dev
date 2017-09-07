@@ -332,6 +332,8 @@ namespace Bikewale.BAL.UserReviews
         /// Description : Function to save user reviews with server side validations
         /// Modified by Sajal Gupta on 13-07*-2017
         /// Descriptiopn : Added milaeage field.
+        /// Modified By :   Vishnu Teja Yalakuntla on 07 Sep 2017
+        /// Description :   Removed EncodedId
         /// </summary>
         /// <param name="encodedId"></param>
         /// <param name="tipsnAdvices"></param>
@@ -350,7 +352,7 @@ namespace Bikewale.BAL.UserReviews
             WriteReviewPageSubmitResponse objResponse = null;
             try
             {
-                    if (objReviewData != null && objReviewData.ReviewId > 0 && objReviewData.CustomerId > 0 && _userReviewsRepo.IsUserVerified(objReviewData.ReviewId, objReviewData.CustomerId))
+                if (objReviewData != null && objReviewData.ReviewId > 0 && objReviewData.CustomerId > 0 && _userReviewsRepo.IsUserVerified(objReviewData.ReviewId, objReviewData.CustomerId))
                 {
                     bool isValid = true;
 
