@@ -7,7 +7,7 @@ namespace Bikewale.Interfaces.UserReviews
 {
     /// <summary>
     /// Modified by sajal gupta on 13-07-2017
-    /// Description : Added SaveUserReviewMileage, GetReviewQuestionValuesByModel, GetRecentReviews
+    /// Description : Added SaveUserReviewMileage, GetReviewQuestionValuesByModel, GetRecentReviews, SaveUserReviews
     /// </summary>
     public interface IUserReviewsRepository
     {
@@ -30,7 +30,7 @@ namespace Bikewale.Interfaces.UserReviews
 
         UserReviewsData GetUserReviewsData();
         uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId, string utmzCookieValue, ushort? sourceId);
-        bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns);
+        bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, uint mileage);
         UserReviewSummary GetUserReviewSummary(uint reviewId);
         bool IsUserVerified(uint reviewId, ulong customerId);
         ReviewListBase GetUserReviews();       
@@ -41,9 +41,7 @@ namespace Bikewale.Interfaces.UserReviews
 
         IEnumerable<UserReviewSummary> GetUserReviewSummaryList(string reviewIdList);
 
-        BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);
-
-        bool SaveUserReviewMileage(uint reviewId, string mileage);
+        BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);        
         QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
 
         IEnumerable<RecentReviewsWidget> GetRecentReviews();

@@ -934,6 +934,8 @@ namespace Bikewale.DAL.UserReviews
         /// Summary     : Changed SP
         ///  Modified by : Sajal Gupta on 31-08-2017
         /// Summary     : Changed SP
+        /// Modified by : Sajal Gupta on 06-09-2017
+        /// Summary     : Changed SP to add milaege
         /// </summary>
         /// <param name="reviewId"></param>
         /// <param name="tipsnAdvices"></param>
@@ -941,14 +943,14 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="commentTitle"></param>
         /// <param name="reviewsQuestionAns"></param>
         /// <returns></returns>
-        public bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
+        public bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, uint mileage)
         {
             bool IsSaved = false;
 
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserreviews_31082017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserreviews_06092017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.UInt32, reviewId));
@@ -956,6 +958,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewDescription", DbType.String, comment));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewTitle", DbType.String, commentTitle));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, reviewsQuestionAns));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbType.UInt32, mileage));
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
@@ -966,39 +969,6 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            }
-
-            return IsSaved;
-        }
-
-        /// <summary>
-        /// Created by Sajal Gupta on 12-07-2017
-        /// Description : save user review mileage
-        /// </summary>
-        /// <param name="reviewId"></param>
-        /// <param name="mileage"></param>
-        /// <returns></returns>
-        public bool SaveUserReviewMileage(uint reviewId, string mileage)
-        {
-            bool IsSaved = false;
-
-            try
-            {
-
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserreviewmileage"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.UInt32, reviewId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbType.String, mileage));
-
-                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
-
-                    IsSaved = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass errObj = new ErrorClass(ex, string.Format("DAL function SaveUserReviewMileage ReviewId - {0}, Mileage = {1}", reviewId, mileage));
             }
 
             return IsSaved;

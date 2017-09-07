@@ -28,11 +28,11 @@ namespace CopyFiles
         static void Main(string[] args)
         {
             bool isMinify = false;
-            string path = string.Empty, copyPath=string.Empty, sourcePath=string.Empty;
+            string path = string.Empty, copyPath = string.Empty, sourcePath = string.Empty;
 
             DateTime fromDateTime = DateTime.Now.AddDays(-7); //default value for release note is one week
 
-            if(args != null && args.Length > 0)
+            if (args != null && args.Length > 0)
             {
                 fromDateTime = DateTime.Now.AddDays(-Convert.ToSByte(args[0]));
 
@@ -41,19 +41,19 @@ namespace CopyFiles
                     path = args[1];
                     path = path.Trim();
 
-                    if(!String.IsNullOrEmpty(path))
+                    if (!String.IsNullOrEmpty(path))
                     {
                         isMinify = !path.ToUpper().Contains("OPR");
-                        copyPath = String.Format(@"{0}..\..\Bikewale{1}-Releases\Content\website\",path,isMinify ? string.Empty : "OPR");
-                    }                   
+                        copyPath = String.Format(@"{0}..\..\Bikewale{1}-Releases\Content\website\", path, isMinify ? string.Empty : "OPR");
+                    }
                 }
             }
 
             //calling function to copy files
-            CopyAllFiles(path, copyPath,fromDateTime,isMinify);
+            CopyAllFiles(path, copyPath, fromDateTime, isMinify);
 
             sourcePath = String.Format(@"{0}build\", copyPath);
-            MoveBuildFolderContents(copyPath,sourcePath);
+            MoveBuildFolderContents(copyPath, sourcePath);
 
             sourcePath = String.Format(@"{0}build\", copyPath.Replace(@"\website\", @"\cdn\"));
             MoveBuildFolderContents(string.Format(@"{0}..\cdn\", copyPath), sourcePath);
@@ -64,7 +64,7 @@ namespace CopyFiles
         /// Description : MOve build contents to actual folder structure
         /// </summary>
         /// <param name="targetPath"></param>
-        private static void MoveBuildFolderContents(string targetPath,string sourcePath)
+        private static void MoveBuildFolderContents(string targetPath, string sourcePath)
         {
 
             if (!Directory.Exists(targetPath))
@@ -129,7 +129,7 @@ namespace CopyFiles
         /// </summary>
         /// <param name="path"></param>
         /// <param name="copyPath"></param>
-        public static void CopyAllFiles(string path, string targetPath,DateTime fromDateTime,bool isMinify)
+        public static void CopyAllFiles(string path, string targetPath, DateTime fromDateTime, bool isMinify)
         {
             var features = new Features(null);
 
@@ -155,7 +155,8 @@ namespace CopyFiles
                     }
 
                     //copy files to the respective folders, it will even overwrite files if already exists
-                    if(!fileExtension.Equals(".config") || (Path.GetFileName(fileName).Equals("Web.config"))){
+                    if ( (!fileExtension.Equals(".config") && !fileExtension.Equals(".xml")) || ( Path.GetFileName(fileName).Equals("Web.config") || Path.GetFileName(fileName).Equals("rewriterules.config") || Path.GetFileName(fileName).Equals("web_browsers_patch.xml") || Path.GetFileName(fileName).Equals("wurfl.xml") ))
+                    {
                         File.Copy(fileName, targetPath + Path.GetFileName(fileName), true);
                     }
 
@@ -192,7 +193,7 @@ namespace CopyFiles
 
                 if (Convert.ToInt32(Array.IndexOf(ignoreFolders, folderName)) < 0)
                 {
-                    newCopyPath = newCopyPath + @"\";                 
+                    newCopyPath = newCopyPath + @"\";
                     CopyAllFiles(directories, newCopyPath, fromDateTime, isMinify);//calling itself
                 }
             }
