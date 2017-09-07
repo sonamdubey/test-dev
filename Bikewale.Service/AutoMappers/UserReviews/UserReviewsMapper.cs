@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Bikewale.Service.AutoMappers.UserReviews
 {
+
     public class UserReviewsMapper
     {
         public static ReviewDetails Convert(ReviewDetailsEntity entity)
@@ -114,11 +115,14 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             return Mapper.Map<Entities.UserReviews.Search.SearchResult, Bikewale.DTO.UserReviews.Search.SearchResult>(objUserReviews);
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 7th Sep 2017
+        /// Description : Mapper to resolve bikeratingsreview entity to its relevant dto
+        /// </summary>
+        /// <param name="objUserReview"></param>
+        /// <returns></returns>
         internal static DTO.UserReviews.BikeModelUserReviews Convert(BikeRatingsReviewsInfo objUserReview)
         {
-            //Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            //Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            //Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
             Mapper.CreateMap<BikeReviewsInfo, BikeReviewsData>();
             Mapper.CreateMap<BikeRatingsInfo, BikeRatingData>();
             Mapper.CreateMap<BikeRatingsReviewsInfo, BikeModelUserReviews>();

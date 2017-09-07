@@ -62,7 +62,6 @@ namespace Bikewale.Service.Controllers.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
-                objErr.SendMail();
                 return InternalServerError();
             }
 
@@ -100,7 +99,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.GetUserReviewList");
                 return InternalServerError();
             }
 
@@ -108,7 +107,8 @@ namespace Bikewale.Service.Controllers.UserReviews
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 7th Sep 2017
+        /// Description : To get user reviews by modelid
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -146,6 +146,8 @@ namespace Bikewale.Service.Controllers.UserReviews
                                 objUserReviews.Model = ModelMapper.Convert(objBikeRatingReview.RatingDetails.Model);
                                 objUserReviews.OriginalImagePath = objBikeRatingReview.RatingDetails.OriginalImagePath;
                                 objUserReviews.HostUrl = objBikeRatingReview.RatingDetails.HostUrl;
+                                objUserReviews.IsDiscontinued = objBikeRatingReview.RatingDetails.IsDiscontinued;
+                                objUserReviews.IsUpcoming = objBikeRatingReview.RatingDetails.IsUpcoming;
                             }                           
                         }
 
@@ -162,7 +164,6 @@ namespace Bikewale.Service.Controllers.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.GetModelUserReviews");
-                objErr.SendMail();
                 return InternalServerError();
             }
 
@@ -186,12 +187,7 @@ namespace Bikewale.Service.Controllers.UserReviews
 
                 if (objUserReview != null)
                 {
-                    // Auto map the properties
-                    objDTOUserReview = new List<ReviewTaggedBike>();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
-
-                    objUserReview.Clear();
-                    objUserReview = null;
 
                     return Ok(objDTOUserReview);
                 }
@@ -199,7 +195,6 @@ namespace Bikewale.Service.Controllers.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
-                objErr.SendMail();
                 return InternalServerError();
             }
 
@@ -230,19 +225,13 @@ namespace Bikewale.Service.Controllers.UserReviews
                 objUserReview = _userReviews.GetUserReviews(startIndex, endIndex, modelId, versionId, filter).ReviewList;
                 if (objUserReview != null)
                 {
-                    // Auto map the properties
-                    objDTOUserReview = new List<Review>();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
-
-                    objUserReview = null;
-
                     return Ok(objDTOUserReview);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
-                objErr.SendMail();
                 return InternalServerError();
             }
 
