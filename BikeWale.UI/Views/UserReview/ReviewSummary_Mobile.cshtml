@@ -4,6 +4,7 @@
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/write-review.css' />";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_JS_Path = "/m/src/user-review/write-review.js";
 }
 @if (Model != null && Model.Summary != null)
 {
@@ -179,19 +180,9 @@
                     <div id="review-summary-page"></div>
                     }
 <script type="text/javascript">
-    docReady(function () {
-        var handleBrowserBack = function (prevPage, curPage) {
-            setTimeout(function () { appendHash(curPage); }, 1000);
-            $(window).on('hashchange', function (e) {
-                oldUrl = e.originalEvent.oldURL;
-                if (oldUrl && (oldUrl.indexOf('#') > 0)) {
-                    if (prevPage && prevPage.length)
-                        window.location.href = prevPage.val();
-                }
-            });
-        };
-        handleBrowserBack(($("#pageSource")), "reviewSummary");
-
+    var page = "reviewSummary";
+    var vmWriteReview;
+    docReady(function () {        
         if (navigator.userAgent.indexOf('UCBrowser/') >= 0) {
             $('#review-summary-card').addClass('browser-type-uc');
         }
