@@ -6,7 +6,6 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
-using Bikewale.Models;
 using Bikewale.Utility;
 using System;
 using System.Linq;
@@ -25,6 +24,7 @@ namespace Bikewale.Models
         private InputFilter _filter;
         private readonly PQSourceEnum _pqSource;
         private readonly ushort? _pageNumber;
+        private uint _totalPagesCount;
         private readonly string _makeMaskingName;
 
         public int PageSize { get; set; }
@@ -74,6 +74,11 @@ namespace Bikewale.Models
                     PageSize = PageSize
                 };
                 objVM.NewLaunched = (new NewLaunchesBikesModel(_newLaunches, _filter, _pqSource)).GetData();
+
+                _totalPagesCount = (uint)(objVM.NewLaunched.Bikes.TotalCount / PageSize);
+
+                if ((objVM.NewLaunched.Bikes.TotalCount % PageSize) > 0)
+                    _totalPagesCount += 1;
 
                 if (objVM.NewLaunched != null && objVM.NewLaunched.HasBikes)
                 {
@@ -137,10 +142,8 @@ namespace Bikewale.Models
                     PageUrlType = "page/",
                     TotalResults = (int)(newLaunchesBikesVM.Bikes != null ? newLaunchesBikesVM.Bikes.TotalCount : 0)
                 };
-                int pages = (int)(newLaunchesBikesVM.Bikes.TotalCount / PageSize);
+                int pages = (int)_totalPagesCount;
 
-                if ((newLaunchesBikesVM.Bikes.TotalCount % PageSize) > 0)
-                    pages += 1;
                 string prevUrl = string.Empty, nextUrl = string.Empty;
                 Paging.CreatePrevNextUrl(pages, BaseUrl, (int)newLaunchesBikesVM.Pager.PageNo, ref nextUrl, ref prevUrl);
                 objMeta.NextPageUrl = nextUrl;
@@ -163,6 +166,13 @@ namespace Bikewale.Models
             {
                 objVM.PageMetaTags.Description = string.Format("Check out the latest {0} bikes in India. Know more about prices, mileage, colors, specifications, and dealers of recently launched {0} bikes.", objVM.Make.MakeName.ToLower());
                 objVM.PageMetaTags.Title = string.Format("{0} Bike Launches | Latest {0} Bikes in India- BikeWale", objVM.Make.MakeName);
+
+                if (_pageNumber > 1)
+                {
+                    objVM.PageMetaTags.Description = string.Format("{0} {1}", _pageNumber + " of " + _totalPagesCount + " -", objVM.PageMetaTags.Description);
+                    objVM.PageMetaTags.Title = string.Format("{0} {1}", _pageNumber + " of " + _totalPagesCount + " -", objVM.PageMetaTags.Title);
+                }
+
                 objVM.PageMetaTags.Keywords = string.Format("new {2} bikes {0}, new {2} bike launches in {1}, just launched {2} bikes, new {2} bike arrivals, {2} bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year, objVM.Make.MakeName.ToLower());
                 objVM.PageMetaTags.CanonicalUrl = string.Format("{0}/new-{1}-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, objVM.Make.MaskingName);
                 objVM.PageMetaTags.AlternateUrl = string.Format("{0}/m/new-{1}-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, objVM.Make.MaskingName);
