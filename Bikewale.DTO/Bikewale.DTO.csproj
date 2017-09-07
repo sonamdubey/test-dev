@@ -252,6 +252,7 @@
     <Compile Include="Model\Specifications.cs" />
     <Compile Include="Model\Specs.cs" />
     <Compile Include="Model\SpecsCategory.cs" />
+    <Compile Include="Model\v2\BikeModelContentDTO.cs" />
     <Compile Include="Model\v2\ModelPage.cs" />
     <Compile Include="Model\v3\CMSModelImageBase.cs" />
     <Compile Include="Model\v3\modelPage.cs" />
@@ -327,6 +328,9 @@
     <Compile Include="UserReviews\InputRatingSave.cs" />
     <Compile Include="UserReviews\RateBikeDetails.cs" />
     <Compile Include="UserReviews\RateBikeInput.cs" />
+    <Compile Include="UserReviews\BikeModelUserReviews.cs" />
+    <Compile Include="UserReviews\BikeRatingData.cs" />
+    <Compile Include="UserReviews\BikeReviewsData.cs" />
     <Compile Include="UserReviews\RatingReviewInput.cs" />
     <Compile Include="UserReviews\ReviewQuestionsDto.cs" />
     <Compile Include="UserReviews\SearchResult.cs" />

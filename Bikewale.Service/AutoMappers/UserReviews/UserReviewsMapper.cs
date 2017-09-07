@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Bikewale.Service.AutoMappers.UserReviews
 {
+
     public class UserReviewsMapper
     {
         public static ReviewDetails Convert(ReviewDetailsEntity entity)
@@ -84,6 +85,17 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             return Mapper.Map<UserReviewSummary, UserReviewSummaryDto>(objUserReview);
         }
 
+        internal static IEnumerable<DTO.UserReviews.UserReviewSummaryDto> Convert(IEnumerable<UserReviewSummary> objUserReview)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
+            Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>();
+            Mapper.CreateMap<UserReviewQuestion, UserReviewQuestionDto>();
+            Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();
+            return Mapper.Map< IEnumerable<UserReviewSummary>, IEnumerable<UserReviewSummaryDto>>(objUserReview);
+        }
+
         internal static Bikewale.DTO.UserReviews.Search.SearchResult Convert(Entities.UserReviews.Search.SearchResult objUserReviews)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
@@ -103,7 +115,20 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             return Mapper.Map<Entities.UserReviews.Search.SearchResult, Bikewale.DTO.UserReviews.Search.SearchResult>(objUserReviews);
         }
 
-
+        /// <summary>
+        /// Created By : Sushil Kumar on 7th Sep 2017
+        /// Description : Mapper to resolve bikeratingsreview entity to its relevant dto
+        /// </summary>
+        /// <param name="objUserReview"></param>
+        /// <returns></returns>
+        internal static DTO.UserReviews.BikeModelUserReviews Convert(BikeRatingsReviewsInfo objUserReview)
+        {
+            Mapper.CreateMap<BikeReviewsInfo, BikeReviewsData>();
+            Mapper.CreateMap<BikeRatingsInfo, BikeRatingData>();
+            Mapper.CreateMap<BikeRatingsReviewsInfo, BikeModelUserReviews>();
+            return Mapper.Map<BikeRatingsReviewsInfo, BikeModelUserReviews>(objUserReview);
+	}
+	
         /// <summary>
         /// Created by : Snehal Dange on 1st Sep 2017
         /// Summary     : Mapper for Rate Bike api 

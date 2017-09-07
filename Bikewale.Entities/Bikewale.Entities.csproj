@@ -215,6 +215,7 @@
     <Compile Include="BikeData\UpcomingBikeResult.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
     <Compile Include="BikeData\UsedBikeMakeEntity.cs" />
+    <Compile Include="BikeData\v2\BikeModelContent.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
     <Compile Include="BikeBooking\FeedBackEntity.cs" />
     <Compile Include="BikewalePages.cs" />
