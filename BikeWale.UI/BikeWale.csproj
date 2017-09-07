@@ -3756,6 +3756,10 @@
     <Content Include="Views\Make\_BrandsModelCount_Mobile.cshtml" />
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel.cshtml" />
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel_Mobile.cshtml" />
+    <Content Include="sass\components\_rating-count.sass" />
+    <Content Include="sass\components\_rating-bar.sass" />
+    <Content Include="sass\components\_rating-badge.sass" />
+    <Content Include="sass\components\_rating-color.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

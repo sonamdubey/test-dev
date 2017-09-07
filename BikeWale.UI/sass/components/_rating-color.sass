@@ -1,0 +1,15 @@
+﻿$numbers: ("1": "#ef3f30", "2": "#fd971c", "3": "#efd700", "4": "#13b65d","5": "#198d55");
+
+@mixin backgroundColorCode($colorNumber)
+    @if map-has-key($numbers, $colorNumber)
+      background-color: #{map-get($numbers, $colorNumber)}
+      
+    @else
+      @error "not found"
+
+@mixin colorCode($colorNumber)
+    @if map-has-key($numbers, $colorNumber)
+      color: #{map-get($numbers, $colorNumber)}
+      
+    @else
+      @error "not found"
