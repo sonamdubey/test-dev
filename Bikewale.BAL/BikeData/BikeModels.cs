@@ -505,7 +505,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetRecentModelArticles({0})", modelId));
             }
 
             return objModelArticles;
@@ -556,7 +556,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetRecentModelArticles({0})", modelId));
             }
 
             return objModelArticles;

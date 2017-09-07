@@ -163,7 +163,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.GetModelUserReviews");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : Bikewale.Service.UserReviews.GetModelUserReviews({0})", modelId));
                 return InternalServerError();
             }
 

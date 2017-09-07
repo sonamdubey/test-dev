@@ -137,13 +137,7 @@ namespace Bikewale.Service.Controllers.Model
 
                 if (bkModelContent != null)
                 {
-                    bkContent = new BikeModelContentDTO();
                     bkContent = ModelMapper.Convert(bkModelContent);
-                    bkModelContent = null;
-                    bkContent.News = new CMSShareUrl().GetShareUrl(bkContent.News);
-                    bkContent.ExpertReviews = new CMSShareUrl().GetShareUrl(bkContent.ExpertReviews);
-
-                    bkModelContent = null;
 
                     return Ok(bkContent);
                 }
@@ -168,44 +162,37 @@ namespace Bikewale.Service.Controllers.Model
         /// </summary>
         /// <param name="modelId"></param>        
         /// <returns>List of User Reviews - News- Expert Reviews- Videos of the model</returns>
-        [ResponseType(typeof(Bikewale.DTO.Model.v2.BikeModelContentDTO)), Route("api/v2/model/articles/")]
+        [ResponseType(typeof(Bikewale.DTO.Model.v2.BikeModelContentDTO)), Route("api/v2/model/{modelId}/articles/")]
         public IHttpActionResult GetModelContentV2(int modelId)
         {
-            Bikewale.Entities.BikeData.v2.BikeModelContent bkModelContent = null;
-            Bikewale.DTO.Model.v2.BikeModelContentDTO bkContent = null;
+           
 
             try
             {
                 if (modelId > 0)
                 {
-                    bkModelContent = _modelsContent.GetRecentModelArticlesv2(modelId);
-                }
+                    Bikewale.DTO.Model.v2.BikeModelContentDTO bkContent = null;
+                    Bikewale.Entities.BikeData.v2.BikeModelContent bkModelContent = _modelsContent.GetRecentModelArticlesv2(modelId);
 
+                    if (bkModelContent != null)
+                    {
+                        bkContent = ModelMapper.ConvertV2(bkModelContent);
+
+                        return Ok(bkContent);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
                 else
                 {
                     return BadRequest();
                 }
-
-                if (bkModelContent != null)
-                {
-                    bkContent = new Bikewale.DTO.Model.v2.BikeModelContentDTO();
-                    bkContent = ModelMapper.ConvertV2(bkModelContent);
-                    bkModelContent = null;
-                    bkContent.News = new CMSShareUrl().GetShareUrl(bkContent.News);
-                    bkContent.ExpertReviews = new CMSShareUrl().GetShareUrl(bkContent.ExpertReviews);
-
-                    bkModelContent = null;
-
-                    return Ok(bkContent);
-                }
-                else
-                {
-                    return NotFound();
-                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController.GetModelContent");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : Bikewale.Service.Model.ModelController.GetModelContent({0})",modelId));
                 return InternalServerError();
             }
         }

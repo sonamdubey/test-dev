@@ -26,6 +26,6 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("fiveStarRatings")]
         public uint FiveStarRatings { get; set; }
         [JsonProperty("maximumRatings")]
-        public uint MaximumRatings { get { return Math.Max(Math.Max(Math.Max(OneStarRatings, TwoStarRatings), Math.Max(ThreeStarRatings, FourStarRatings)), FiveStarRatings); } }
+        public uint MaximumRatings { get; set; }
     }
 }
