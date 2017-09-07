@@ -1,7 +1,6 @@
 ﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -973,7 +972,7 @@ namespace Bikewale.DAL.UserReviews
             }
 
             return IsSaved;
-        }        
+        }
 
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
@@ -992,7 +991,7 @@ namespace Bikewale.DAL.UserReviews
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummary_24082017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummary_06092017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.UInt32, reviewId));
@@ -1025,7 +1024,10 @@ namespace Bikewale.DAL.UserReviews
                                 },
                                 OriginalImagePath = Convert.ToString(dr["OriginalImgPath"]),
                                 HostUrl = Convert.ToString(dr["hostUrl"]),
-                                Mileage = Convert.ToString(dr["mileage"])
+                                Mileage = Convert.ToString(dr["mileage"]),
+                                ReviewAge = FormatDate.GetTimeSpan(SqlReaderConvertor.ToDateTime(dr["EntryDate"])),
+                                ReviewId = SqlReaderConvertor.ToUInt32(dr["ReviewId"]),
+                                CustomerId = SqlReaderConvertor.ToUInt64(dr["CustomerId"])
                             };
                         }
 
@@ -1244,14 +1246,14 @@ namespace Bikewale.DAL.UserReviews
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.UInt32, modelId));
-                   
+
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
                             objQuestionsList = new QuestionsRatingValueByModel();
                             objQuestionsList.ModelId = modelId;
-                            IList<QuestionRatingsValueEntity> objList = new List<QuestionRatingsValueEntity>();                            
+                            IList<QuestionRatingsValueEntity> objList = new List<QuestionRatingsValueEntity>();
 
                             while (dr.Read())
                             {
@@ -1365,7 +1367,7 @@ namespace Bikewale.DAL.UserReviews
         public UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId)
         {
             UserReviewSummary objUserReviewSummary = null;
-            
+
             try
             {
                 var reviews = GetUserReviewSummaryList(reviewId.ToString());
@@ -1440,7 +1442,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.UInt32, modelId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {                       
+                    {
 
                         if (dr != null)
                         {
@@ -1449,7 +1451,7 @@ namespace Bikewale.DAL.UserReviews
                             {
                                 objIdList.RecentReviews.Add(SqlReaderConvertor.ToUInt32(dr["reviewid"]));
                             }
-                        }                        
+                        }
 
                         if (dr.NextResult())
                         {
@@ -1459,7 +1461,7 @@ namespace Bikewale.DAL.UserReviews
                                 objIdList.HelpfulReviews.Add(SqlReaderConvertor.ToUInt32(dr["reviewid"]));
                             }
                         }
-                        
+
                         if (dr.NextResult())
                         {
                             objIdList.PositiveReviews = new List<uint>();
@@ -1467,7 +1469,7 @@ namespace Bikewale.DAL.UserReviews
                             {
                                 objIdList.PositiveReviews.Add(SqlReaderConvertor.ToUInt32(dr["reviewid"]));
                             }
-                        }                        
+                        }
 
                         if (dr.NextResult())
                         {
@@ -1476,7 +1478,7 @@ namespace Bikewale.DAL.UserReviews
                             {
                                 objIdList.NegativeReviews.Add(SqlReaderConvertor.ToUInt32(dr["reviewid"]));
                             }
-                        }                        
+                        }
 
                         if (dr.NextResult())
                         {
@@ -1485,7 +1487,7 @@ namespace Bikewale.DAL.UserReviews
                             {
                                 objIdList.NeutralReviews.Add(SqlReaderConvertor.ToUInt32(dr["reviewid"]));
                             }
-                        }                                           
+                        }
 
                         dr.Close();
                     }
@@ -1588,7 +1590,7 @@ namespace Bikewale.DAL.UserReviews
                                     MinHeading = Convert.ToString(dr["minHeading"]),
                                     SelectedRatingText = Convert.ToString(dr["ratingtext"])
                                 });
-                            }                           
+                            }
                         }
 
                         dr.Close();
@@ -1600,18 +1602,18 @@ namespace Bikewale.DAL.UserReviews
                     var groups = objQuestionList.GroupBy(x => x.ReviewId);
 
                     foreach (var group in groups)
-                    {                       
+                    {
                         objSummaryList.Where(s => s.ReviewId == group.Key).FirstOrDefault().Questions = group.ToList();
 
-                        foreach(var ele in group)
+                        foreach (var ele in group)
                         {
-                            if(ele.Type == UserReviewQuestionType.Rating)
+                            if (ele.Type == UserReviewQuestionType.Rating)
                             {
                                 objSummaryList.Where(s => s.ReviewId == group.Key).FirstOrDefault().IsRatingQuestion = true;
                                 break;
                             }
                         }
-                    }                    
+                    }
                 }
             }
 
@@ -1663,7 +1665,7 @@ namespace Bikewale.DAL.UserReviews
                 {
                     connection.Open();
                     objReviewsWinnersList = connection.Query<RecentReviewsWidget>("getuserreviewswinners", commandType: CommandType.StoredProcedure);
-                    if(connection != null && connection.State == ConnectionState.Open)
+                    if (connection != null && connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }

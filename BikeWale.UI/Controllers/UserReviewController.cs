@@ -11,6 +11,8 @@ using Bikewale.Models;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility.StringExtention;
 using System;
+using System.Collections.Specialized;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -155,7 +157,7 @@ namespace Bikewale.Controllers
             }
             else
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-        }                     
+        }
 
         /// <summary>
         /// Created by Subodh Jain on 10-04-2017
@@ -295,6 +297,8 @@ namespace Bikewale.Controllers
         /// Description : Action method to save user reviews
         /// Modified by Sajal Gupta on 13-07-2017
         /// Descrfiption : Added mileage field.
+        /// Modified By :   Vishnu Teja Yalakuntla on 09 Sep 2017
+        /// Description :   Decoded encodedId
         /// </summary>
         /// <param name="reviewDescription"></param>
         /// <param name="reviewTitle"></param>
@@ -310,6 +314,18 @@ namespace Bikewale.Controllers
             try
             {
                 WriteReviewPageSubmitResponse objResponse = null;
+
+                uint decodedReviewId;
+                ulong decodedCustomerId;
+
+                string decodedString = Utils.Utils.DecryptTripleDES(objReviewData.EncodedId);
+                NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
+
+                uint.TryParse(queryCollection["reviewid"], out decodedReviewId);
+                ulong.TryParse(queryCollection["customerid"], out decodedCustomerId);
+
+                objReviewData.ReviewId = decodedReviewId;
+                objReviewData.CustomerId = decodedCustomerId;
 
                 objResponse = _userReviews.SaveUserReviews(objReviewData);
 
@@ -335,7 +351,7 @@ namespace Bikewale.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "RateOtherDetails()");                 
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controllers.UserReviewController.SaveReview()");
             }
             return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
         }

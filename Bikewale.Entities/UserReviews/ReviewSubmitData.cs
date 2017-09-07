@@ -4,6 +4,8 @@ namespace Bikewale.Entities.UserReviews
     /// <summary>
     /// Creayed by Sajal Gupta on 04-09-2017
     /// Description : This entity holds submit data of form rating reviews form
+    /// Modified By :   Vishnu Teja Yalakuntla on 07 Sep 2017
+    /// Description :   Added CustomerId
     /// </summary>
     public class ReviewSubmitData
     {
@@ -17,8 +19,9 @@ namespace Bikewale.Entities.UserReviews
         public string MakeName { get; set; }
         public string ModelName { get; set; }
         public uint ReviewId { get; set; }
+        public ulong CustomerId { get; set; }
         public string EncodedString { get; set; }
         public bool? IsDesktop { get; set; }
-        public string Mileage { get; set; }        
+        public string Mileage { get; set; }
     }
 }
