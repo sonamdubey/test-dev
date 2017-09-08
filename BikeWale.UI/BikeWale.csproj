@@ -2268,7 +2268,6 @@
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
-    <Content Include="css\survey\capital-first.css" />
     <Content Include="css\user-review\listing.css" />
     <Content Include="css\survey\bajaj-survey.css" />
     <Content Include="m\css\content\app.css" />
@@ -2850,6 +2849,7 @@
     <Content Include="m\css\service\landing.css" />
     <Content Include="m\css\service\listing.css" />
     <Content Include="m\css\service\location.css" />
+    <Content Include="m\css\survey\capital-first.css" />
     <Content Include="m\css\used\landing.css" />
     <Content Include="m\css\mobile-rsa.css" />
     <Content Include="m\css\model-gallery.css" />

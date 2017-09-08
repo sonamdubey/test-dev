@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "CapitalFirst_Index";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/survey/capital-first.css' /> <link rel='stylesheet' type='text/css' href='/css/zebra-datepicker.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/survey/capital-first.css' /> <link rel='stylesheet' type='text/css' href='/css/zebra-datepicker.css' />";
     Model.Page_JS_Path = "/src/survey/capital-first.js";
 }
 <div class="header-container padding-15-20 ">
@@ -22,7 +22,7 @@
         </ul>
     </div>
     <div class="page-tabs-data padding-15-20">
-        <div id="personal-detail-tab" class="hide">
+        <div id="personal-detail-tab" class="">
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfFName" type="text" min="1" maxlength="255">
@@ -130,7 +130,7 @@
             </div>
             <input type="button" id="personal-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Go to Employment Details">
         </div>
-        <div id="employment-detail-tab" class="">
+        <div id="employment-detail-tab" class="hide">
             <p class="font11 padding-bottom20"><sup>*</sup>All fields are mandatory</p>
             <div class="margin-top20">
                 <div class="form-control-box status-box">
