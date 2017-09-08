@@ -6,7 +6,7 @@
         @foreach (var serviceCenter in @Model.ServiceCentersList)
         {
             <li class="card">
-                <a href="@Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(@Model.MakeMaskingName, @Model.CityMaskingName, @serviceCenter.Name, @serviceCenter.ServiceCenterId)" title="@serviceCenter.Name" class="card-target">
+                <a href="javascript:void(0)" rel="nofollow" title="@serviceCenter.Name" class="card-target">
                     <h3 class="text-black text-bold text-truncate margin-bottom5">@serviceCenter.Name</h3>
                     @if (!string.IsNullOrEmpty(@serviceCenter.Address))
                     {
