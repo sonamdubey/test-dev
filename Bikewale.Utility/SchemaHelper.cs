@@ -22,5 +22,20 @@ namespace Bikewale.Utility
                 return string.Empty;
             }
         }
+
+        public static string JsonSerialize(dynamic objSchema,dynamic pageSchema)
+        {
+            try
+            {
+                JObject jsonObj = JObject.FromObject(objSchema);
+                jsonObj.Add("@context", "http://schema.org");
+                jsonObj.Add("mainPageEntity", pageSchema);
+                return jsonObj.ToString(Newtonsoft.Json.Formatting.None);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
     }
 }
