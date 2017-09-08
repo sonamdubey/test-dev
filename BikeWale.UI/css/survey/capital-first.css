@@ -1,0 +1,157 @@
+﻿@charset "utf-8";
+
+.text-xt-light-grey {
+    color: #2a2a2a;
+}
+.collapsible-content .main-content {
+  display: inline; 
+}
+
+.collapsible-content .more-content {
+  display: none; 
+}
+
+.collapsible-content.active .more-content {
+  display: inline; 
+}
+
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none; 
+}
+
+.collapsible-content a.read-more-target{
+    text-decoration: none;
+}
+
+.terms-condition-container__ol{
+    list-style-type: decimal;   
+}
+.terms-condition-container__ol li{
+    margin: 10px;   
+}
+.page-tabs-data .input-box label {
+    font-size: 14px;
+    top: 10px;
+}
+
+.page-tabs-data .input-box input,
+.page-tabs-data .input-number-prefix {
+    font-size: 14px;
+}
+
+.header-container {
+    margin-bottom: 3px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(221,221,221,0.50);
+}
+.page-tabs {
+    background: #F5F5F5;
+}
+
+.page-tabs__li {
+    display: inline-block;
+    vertical-align: middle;
+    width: 49%;
+    text-align: center;
+    height: 46px;
+    background-color: #F5F5F5;
+    color: #787878;
+    font-size: 14px;
+    font-weight: 600;
+    padding-top: 14px;
+    border: 1px solid #F5F5F5;
+}
+
+.page-tabs__li.active {
+    background-color: #FFF;
+    color: #4D5057;
+}
+
+input[type=radio] {
+  position: absolute;
+  visibility: hidden;
+}
+
+input:focus ~ .input-number-prefix{
+    display: block;
+}
+
+.input-box input#cfNum {
+    padding-left: 30px;
+}
+.input-box input#cfCompIncome {
+    padding-left: 15px;
+}
+.status-box,
+.marital-box,
+.gender-box {
+    height: 60px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.status-box ul,
+.marital-box ul,
+.gender-box ul {
+    position: relative;
+    top: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 30px;
+}
+
+.status-box ul li,
+.marital-box ul li,
+.gender-box ul li {
+    display: inline-block;
+}
+.status-box label,
+.gender-box label,
+.marital-box label {
+    padding: 5px 16px;
+    border: 1px solid #eee;
+}
+.status-box input[type=radio]:checked ~ label,
+.marital-box input[type=radio]:checked ~ label,
+.gender-box input[type=radio]:checked ~ label {
+    padding-left: 25px;
+    border-color: #41B4C4;
+    background: url("../../images/checked.png") 5px 50% no-repeat;
+}
+.how-works-container__li {
+    position: relative;
+    margin: 50px 0;
+}
+.how-works-container__li:before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 30px;
+    background-color: #E2E2E2;
+    top: 75px;
+    left: 26px;
+}
+.how-works-container__li:last-child:before{
+    display: none;
+}
+
+
+.how-works__sprite {
+    width: 60px;
+    height: 60px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?05July20171499235738247");
+    display: inline-block;
+    background-color : red;
+}
+.how-works__content {
+    display: inline-block;
+    width : calc(100% - 70px);
+    padding-left: 20px;
+}
+
+#personal-detail-submit,
+#employment-detail-submit {
+    display: block;
+    margin: 0 auto;
+}
