@@ -33,6 +33,7 @@ namespace Bikewale.Models
         private const int pageSize = 10, pagerSlotSize = 5;
         private uint CityId, pageCatId = 0;
         private int curPageNo = 1;
+        private uint _totalPagesCount;
         public string redirectUrl;
         public StatusCodes status;
         private GlobalCityAreaEntity currentCityArea;
@@ -102,6 +103,9 @@ namespace Bikewale.Models
 
 
                 objData.Articles = _cmsCache.GetArticlesByCategoryList(_contentType, _startIndex, _endIndex, 0, 0);
+
+                _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
+
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
                     status = StatusCodes.ContentFound;
@@ -110,7 +114,7 @@ namespace Bikewale.Models
                     BindLinkPager(objData);
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData);
-                    GetWidgetData(objData,widgetTopCount);
+                    GetWidgetData(objData, widgetTopCount);
                 }
                 else
                     status = StatusCodes.ContentNotFound;
@@ -157,10 +161,16 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Keywords = string.Format("Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care");
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}/bike-care/{1}", BWConfiguration.Instance.BwHostUrl, (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/bike-care/{1}", BWConfiguration.Instance.BwHostUrl, (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+
+                if (curPageNo > 1)
+                {
+                    objData.PageMetaTags.Description = string.Format("{0} {1}", curPageNo + " of " + _totalPagesCount + " -", objData.PageMetaTags.Description);
+                    objData.PageMetaTags.Title = string.Format("{0} {1}", curPageNo + " of " + _totalPagesCount + " -", objData.PageMetaTags.Title);
+                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareIndexPage.SetPageMetas"); 
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareIndexPage.SetPageMetas");
             }
         }
 
@@ -206,7 +216,7 @@ namespace Bikewale.Models
         /// Created by : Aditi Srivastava on 1 Apr 2017
         /// Summary    : Get data to populate widget view model
         /// </summary>
-        private void GetWidgetData(BikeCareIndexPageVM objData,int topCount)
+        private void GetWidgetData(BikeCareIndexPageVM objData, int topCount)
         {
             try
             {
