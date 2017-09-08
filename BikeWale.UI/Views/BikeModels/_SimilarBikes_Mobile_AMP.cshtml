@@ -53,7 +53,7 @@
         }
        
             <div class="swiper-card">
-                <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, (Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "/scooters/" : "/new-bikes-in-india/")" title="@(string.Format("Explore more {0}", (Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "scooters" : "bikes"))" class="bw-ga" c="@Model.Page" a="Clicked_ExploreMore_Card" l="@Model.Model.ModelName">
+                <a id="exploreMoreCard" href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, (Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "/scooters/" : "/new-bikes-in-india/")" title="@(string.Format("Explore more {0}", (Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "scooters" : "bikes"))" class="bw-ga">
                     <div class="swiper-image-preview">
                         <div class="exploremore__imagebackground">
                             <div class="exploremore__icon-background">

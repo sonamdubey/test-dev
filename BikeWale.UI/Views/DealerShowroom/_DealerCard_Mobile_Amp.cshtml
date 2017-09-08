@@ -4,15 +4,15 @@
     {
         foreach (var dealers in Model.Dealers)
         {
-            <div class="swiper-card">
-                <a href="@string.Format("{0}/m{1}",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl,Bikewale.Utility.UrlFormatter.GetDealerUrl(Model.MakeMaskingName, Model.CityMaskingName, dealers.Name, Convert.ToInt32(dealers.DealerId)))" title="@dealers.Name" class="block">
+            <div class="swiper-card" title="@dealers.Name">
+                <div class="block">
                     <div class="dealer-name">@dealers.Name</div>
                     <p class="@string.Format("margin-bottom10 text-light-grey {0}",String.IsNullOrEmpty(dealers.Address)? "hide":"")">
                         <span class="bwmsprite dealership-loc-icon vertical-top"></span>
                         <span class="dealership-address">@Bikewale.Utility.FormatDescription.TruncateDescription((dealers.Address), 95)</span>
                     </p>
-                </a>
-                <a href="tel:@dealers.MaskingNumber" class="@string.Format("dealer-contact {0}", String.IsNullOrEmpty(dealers.MaskingNumber) ? "hide" : "block")"><span class="bwmsprite tel-sm-grey-icon"></span>@dealers.MaskingNumber</a>
+                </div>
+                <span class="@string.Format("dealer-contact {0}", String.IsNullOrEmpty(dealers.MaskingNumber) ? "hide" : "block")"><span class="bwmsprite tel-sm-grey-icon"></span>@dealers.MaskingNumber</span>
             </div>
         }
     }

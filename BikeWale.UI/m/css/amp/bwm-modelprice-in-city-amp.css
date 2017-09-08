@@ -745,7 +745,9 @@ color: #EF3F30;
 	vertical-align: middle;
 	line-height: 13px;
 }
-
+.dealers-sm{
+    background-position:-31px -476px;
+}
 .specs-sm {
 	background-position: -141px -555px;
 }

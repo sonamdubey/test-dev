@@ -385,6 +385,7 @@ namespace Bikewale.Models
                         objBikePQAMPList.Add(objPq);
                     }
                     objVM.FormatedBikeVersionPrices = objBikePQAMPList;
+
                     if (objVM.FormatedBikeVersionPrices != null && objVM.FormatedBikeVersionPrices.Count() > 0)
                     {
                         firstVersion = objVM.FormatedBikeVersionPrices.OrderByDescending(m => m.BikeQuotationEntity.IsVersionNew).OrderBy(v => v.BikeQuotationEntity.ExShowroomPrice).First().BikeQuotationEntity;
@@ -392,6 +393,7 @@ namespace Bikewale.Models
                         if (objVM.IsNew)
                         {
                             objVM.FormatedBikeVersionPrices = objVM.FormatedBikeVersionPrices.Where(x => x.BikeQuotationEntity.IsVersionNew);
+                            objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
                         }
                         versionCount = (uint)objVM.FormatedBikeVersionPrices.Count();
                         objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
@@ -414,8 +416,8 @@ namespace Bikewale.Models
                             }
                             else
                             {
-                                var firstVersion = objVM.VersionSpecs.FirstOrDefault();
-                                if (firstVersion != null)
+                                var firstVersionTemp = objVM.VersionSpecs.FirstOrDefault();
+                                if (firstVersionTemp != null)
                                 {
                                     objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
 
@@ -424,7 +426,7 @@ namespace Bikewale.Models
 
                             foreach (var version in objVM.VersionSpecs)
                             {
-                                var versionPrice = objVM.FormatedBikeVersionPrices.Where(m => m.BikeQuotationEntity.VersionId.Equals(version.VersionId)).FirstOrDefault();
+                                var versionPrice = objVM.FormatedBikeVersionPrices.FirstOrDefault(m => m.BikeQuotationEntity.VersionId.Equals(version.VersionId));
                                 if (versionPrice != null)
                                 {
                                     version.Price = Convert.ToUInt64(versionPrice.BikeQuotationEntity.OnRoadPrice);
@@ -499,11 +501,16 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("FetchVersionPrices({0},{1})", modelMaskingName, cityMaskingName));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetDataAMP({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 08-Sep-2017
+        /// Description : Method to bind required parameters for PriceInCity AMP page EMI Calculator slider
+        /// </summary>
+        /// <param name="objVM"></param>
         private void BindEMISlider(PriceInCityPageAMPVM objVM)
         {
             try
@@ -528,8 +535,11 @@ namespace Bikewale.Models
                 double interest = (loanAmount * tenure * rateOfInterest) / 1200;
 
                 int procFees = 0;
-
-                int monthlyEMI = Convert.ToInt32(Math.Round((loanAmount + interest + procFees) / tenure));
+                int monthlyEMI = 0;
+                if (tenure != 0 )
+                {
+                    monthlyEMI = Convert.ToInt32(Math.Round((loanAmount + interest + procFees) / tenure));
+                }
 
                 int totalAmount = downPayment + monthlyEMI * tenure;
 
@@ -555,10 +565,15 @@ namespace Bikewale.Models
                 objVM.EMISliderAMP.LoanAmount = Convert.ToString((int)loanAmount);
                 objVM.EMISliderAMP.FormatedLoanAmount = "0";
                 objVM.EMISliderAMP.Tenure = tenure;
+                objVM.EMISliderAMP.FormatedTenure = "0";
                 objVM.EMISliderAMP.RateOfInterest = rateOfInterest;
                 objVM.EMISliderAMP.Fees = procFees;
                 objVM.EMISliderAMP.BikePrice = bikePrice;
+                objVM.EMISliderAMP.EMI = "0";
+
                 objVM.JSONEMISlider = JsonConvert.SerializeObject(objVM.EMISliderAMP);
+                objVM.EMISliderAMP.EMI = Convert.ToString(monthlyEMI);
+
             }
             catch (Exception ex)
             {
