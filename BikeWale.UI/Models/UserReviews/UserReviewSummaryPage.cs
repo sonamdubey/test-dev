@@ -3,6 +3,7 @@ using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Bikewale.Models.UserReviews
@@ -47,6 +48,8 @@ namespace Bikewale.Models.UserReviews
         /// <summary>
         /// Created by : Aditi Srivastava on 18 Apr 2017
         /// Summary    : Get data for user review summary
+        /// Modified by : Ashutosh Sharma on 28-Aug-2017
+        /// Description : Calling BindQuestions method
         /// </summary>
         public UserReviewSummaryVM GetData()
         {
@@ -58,7 +61,10 @@ namespace Bikewale.Models.UserReviews
                 {
                     status = StatusCodes.ContentFound;
                     objData.WriteReviewLink = string.Format("/write-a-review/?q={0}", _strEncoded);
-                    objData.Summary.Questions = objData.Summary.Questions.Where(x => x.Type == UserReviewQuestionType.Review);
+
+                    objData.RatingQuestions = objData.Summary.Questions.Where(c => c.Type == UserReviewQuestionType.Rating);
+                    objData.ReviewQuestions = objData.Summary.Questions.Where(c => c.Type == UserReviewQuestionType.Review);
+
                     BindPageMetas(objData);
                 }
                 else
@@ -84,6 +90,7 @@ namespace Bikewale.Models.UserReviews
             objData.PageMetaTags.Description = string.Format("See summary of {0}'s {1} {2} review.", objData.Summary.CustomerName, objData.Summary.Make.MakeName, objData.Summary.Model.ModelName);
             objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/rate-your-bike/{0}/", objData.Summary.Model.ModelId);
         }
+        
         #endregion
 
     }

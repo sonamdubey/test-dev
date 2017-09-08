@@ -80,7 +80,7 @@
                         Time: <span id="commuteDuration"></span>
                     </div>
                     <div id="commuteResults"></div>
-                    <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:=@Model.DealerDetails.DealerDetails.Area.Latitude ,@Model.DealerDetails.DealerDetails.Area.Longitude " target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                    <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:=@Model.DealerDetails.DealerDetails.Area.Latitude ,@Model.DealerDetails.DealerDetails.Area.Longitude " target="_blank" rel="noopener"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
                 }
             </div>
 
@@ -116,11 +116,19 @@
         </div>
     </section>
 }
-@if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null && Model.DealerDetails.DealerDetails.CampaignId > 0 && Model.DealerDetails.DealerDetails.IsFeatured)
+@if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null && Model.DealerDetails.DealerDetails.CampaignId > 0 && Model.DealerDetails.DealerDetails.IsFeatured && Model.DealerDetails.Models!=null && Model.DealerDetails.Models.Count()>0)
 {
     <section class="container bg-white margin-bottom10">
         <div class="box-shadow padding-top15 padding-right20 padding-bottom5 padding-left20">
-            <h2 class="font18 margin-bottom15">Bikes available at @Model.DealerDetails.DealerDetails.Name</h2>
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2 class="font18 margin-bottom15">Bikes available at @Model.DealerDetails.DealerDetails.Name</h2>
+                </div><div class="swiper-heading-right-grid inline-block text-right">
+                          <a href="/m/@Model.Make.MaskingName-bikes/" title="@Model.Make.MakeName Bikes" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+
             <ul id="model-available-list">
                 @foreach (var bike in Model.DealerDetails.Models)
                 {
@@ -180,7 +188,7 @@
 
     </section>
 }
-@if (Model.PopularBikes != null && Model.PopularBikes.Bikes != null && Model.PopularBikes.Bikes.Count() > 0)
+@if (Model.PopularBikes != null && Model.PopularBikes.Bikes != null && Model.PopularBikes.Bikes.Count() > 0 && !((Model.DealerDetails != null || Model.DealerDetails.DealerDetails != null || Model.DealerDetails.DealerDetails.CampaignId > 0 || Model.DealerDetails.DealerDetails.IsFeatured) && (Model.DealerDetails.Models != null && Model.DealerDetails.Models.Count() > 0)))
 {
     <div class="container bg-white box-shadow margin-bottom15">
         <div class="carousel-heading-content padding-top15">
@@ -225,4 +233,5 @@
         <div class="clear"></div>
     </div>
 </section>
+
 <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>

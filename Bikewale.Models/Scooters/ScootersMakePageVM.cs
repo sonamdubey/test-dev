@@ -13,6 +13,8 @@ namespace Bikewale.Models
     /// Summary  : Added new viewModel for similar comparisons
     /// Modified by : Aditi Srivastava on 15 June 2017
     /// Summary     : Added editorial widgets (news, expert reviews, videos)
+    /// Modified by : Snehal Dange on 21 August 2017
+    /// Summary     : Added ScooterNewsUrl
     /// </author>
     public class ScootersMakePageVM : ModelBase
     {
@@ -43,5 +45,9 @@ namespace Bikewale.Models
         public bool IsDealerAvailable { get; set; }
         public bool IsServiceDataAvailable { get; set; }
         public bool IsMakeTabsDataAvailable { get; set; }
+
+        public string ScooterNewsUrl { get; set; }
+
+
     }
 }

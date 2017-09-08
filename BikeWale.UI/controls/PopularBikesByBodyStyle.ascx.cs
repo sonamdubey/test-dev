@@ -20,6 +20,8 @@ namespace Bikewale.Controls
         public string BodyStyleText { get; set; }
         public string BodyStyleLinkTitle { get; set; }
         public EnumBikeBodyStyles BodyStyle { get; set; }
+        public int TopCount { get; internal set; }
+
         public ICollection<MostPopularBikesBase> popularBikes = null;
 
         protected override void OnInit(EventArgs e)

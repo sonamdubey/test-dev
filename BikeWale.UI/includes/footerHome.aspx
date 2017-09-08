@@ -17,7 +17,7 @@
                             <li><a href="/visitoragreement.aspx">Visitor Agreement</a></li>
                             <li><a href="/privacypolicy.aspx">Privacy Policy</a></li>
                             <li><a href="/sitemap.aspx">Sitemap</a></li>
-                            <li><a href="https://www.carwale.com" target="_blank">CarWale.com</a></li>
+                            <li><a href="https://www.carwale.com" target="_blank" rel="noopener">CarWale.com</a></li>
                         </ul>
                     </div>
                     <div class="grid_2 padding-top10">
@@ -30,7 +30,7 @@
                     <div class="grid-3 footer-company-section-three">
                         <p class="font18 text-white margin-bottom30">Download Mobile App</p>
                         <div class="margin-bottom15">
-                            <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Desktopsite%2520Footer" target="_blank" class="bwsprite gplay-icon margin-right5"></a>
+                            <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Desktopsite%2520Footer" target="_blank" rel="noopener" class="bwsprite gplay-icon margin-right5"></a>
                         </div>
                     </div>
                 </div>

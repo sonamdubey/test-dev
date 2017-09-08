@@ -549,7 +549,7 @@
                             <p class="question-title font16 text-bold text-black">Questions?</p>
                             <p class="question-subtitle text-light-grey font14">
                                 We’re here to help.<br />
-                                Read our <a href="/m/faq.aspx" target="_blank">FAQs</a> or <a href="mailto:contact@bikewale.com">Email Us</a><%-- or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a>--%>
+                                Read our <a href="/m/faq.aspx" target="_blank" rel="noopener">FAQs</a> or <a href="mailto:contact@bikewale.com">Email Us</a><%-- or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a>--%>
                             </p>
                         </div>
                         <div class="clear"></div>

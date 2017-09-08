@@ -40,6 +40,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary :- BikeInfo Slug details GetBikeInfo
     ///    Modified  By :- subodh Jain 10 march 2017
     /// Summary :- Added GetMostPopularScooters
+    /// Modified by : Ashutosh Sharma on 18-Aug-2017
+    /// Description : Added GetPopularBikesByBodyStyle
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -86,7 +88,9 @@ namespace Bikewale.Interfaces.BikeData
         ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed);
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
         EnumBikeBodyStyles GetBikeBodyType(uint modelId);
-        ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int modelId, int topCount, uint cityId);
+
+        IEnumerable<MostPopularBikesBase> GetPopularBikesByBodyStyle(ushort bodyStyleId, uint topCount, uint cityId);
+        ICollection<MostPopularBikesBase> GetPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId);
         GenericBikeInfo GetBikeInfo(uint modelId, uint cityId);
         GenericBikeInfo GetBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);

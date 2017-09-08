@@ -53,7 +53,7 @@
 
                                 </p>
                             </td>
-                            <td><a class="tooltipped" href="/comparison/sponsored/@(comp.Id)/rules/" target="_blank" data-tooltip="Edit Rules"><i class="material-icons icon-blue" srtle="line-height: 32px;">mode_edit</i></a></td>
+                            <td><a class="tooltipped" href="/comparison/sponsored/@(comp.Id)/rules/" target="_blank" rel="noopener" data-tooltip="Edit Rules"><i class="material-icons icon-blue" srtle="line-height: 32px;">mode_edit</i></a></td>
                             <td>@(comp.LastUpdated != null && comp.LastUpdated != DateTime.MinValue ? comp.LastUpdated.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
                             <td>@comp.UpdatedBy</td>
                             <td><a class="tooltipped" href="javascript:void(0)" data-bind="click : editSponsoredCamparison" data-tooltip="Edit Comparison"><i class="material-icons icon-blue" srtle="line-height: 32px;">mode_edit</i></a></td>

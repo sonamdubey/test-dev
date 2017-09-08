@@ -292,13 +292,16 @@ namespace Bikewale.PWA.Utils
                 {//bodystyle
                     PwaBikeNews bodyStyleBikes = new PwaBikeNews();
                     var orgBodyStyleBikes = objData.PopularBodyStyle;
-                    bodyStyleBikes.BikesList = MapMostPopularBikesBaseToPwaBikeDetails(orgBodyStyleBikes.PopularBikes, city);
-                    bodyStyleBikes.CompleteListUrl = orgBodyStyleBikes.WidgetHref;
-                    bodyStyleBikes.CompleteListUrlAlternateLabel = orgBodyStyleBikes.WidgetLinkTitle;
-                    bodyStyleBikes.CompleteListUrlLabel = "View all";
-                    bodyStyleBikes.Heading = orgBodyStyleBikes.WidgetHeading;
-                    if (bodyStyleBikes.BikesList.Count > 0)
-                        outData.Add(bodyStyleBikes);
+                    if (orgBodyStyleBikes != null)
+                    {
+                        bodyStyleBikes.BikesList = MapMostPopularBikesBaseToPwaBikeDetails(orgBodyStyleBikes.PopularBikes, city);
+                        bodyStyleBikes.CompleteListUrl = orgBodyStyleBikes.WidgetHref;
+                        bodyStyleBikes.CompleteListUrlAlternateLabel = orgBodyStyleBikes.WidgetLinkTitle;
+                        bodyStyleBikes.CompleteListUrlLabel = "View all";
+                        bodyStyleBikes.Heading = orgBodyStyleBikes.WidgetHeading;
+                        if (bodyStyleBikes.BikesList.Count > 0)
+                            outData.Add(bodyStyleBikes);
+                    }
                 }
                 else
                 {///upcoming
