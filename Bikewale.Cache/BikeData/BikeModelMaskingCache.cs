@@ -115,16 +115,28 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created By : Sushil Kumar on 5th Jan 2016
         /// Description : To get similar bikes with photos count
+        /// Modified By :Snehal Dange on 6th September 2017
+        /// Description : Added CityId to get Exshowroom price or OnRoad Price
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarBikesWithPhotos> GetSimilarBikeWithPhotos(U modelId, ushort totalRecords)
+        public IEnumerable<SimilarBikesWithPhotos> GetSimilarBikeWithPhotos(U modelId, ushort totalRecords,uint cityId)
         {
             IEnumerable<SimilarBikesWithPhotos> similarBikes = null;
-            string key = "BW_SimilarBikes_PhotosCnt_" + modelId;
             try
             {
-                similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikesWithPhotos>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetAlternativeBikesWithPhotos(modelId, totalRecords));
+                if(cityId >0)
+                {
+                  
+                    string key = string.Format("BW_SimilarBikes_Photos_{0}_City_{1}", modelId, cityId) ;
+                    similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikesWithPhotos>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetAlternativeBikesWithPhotosInCity(modelId, totalRecords, cityId));
+                }
+                else
+                {
+                    string key = "BW_SimilarBikes_PhotosCnt_" + modelId;
+                    similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikesWithPhotos>>(key, new TimeSpan(6, 0, 0), () => _modelsRepository.GetAlternativeBikesWithPhotos(modelId, totalRecords));
+                }
+               
             }
             catch (Exception ex)
             {
@@ -263,5 +275,7 @@ namespace Bikewale.Cache.BikeData
             return similarBikes;
         }
 
+
+        
     }
 }

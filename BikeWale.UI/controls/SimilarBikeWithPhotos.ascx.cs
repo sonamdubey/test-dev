@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,21 @@ namespace Bikewale.Controls
     /// <summary>
     /// Created By : Sajal Gupta on 09-02-2017
     /// Description : Control to bind similar bikes with photos count 
+    /// Created By : Snehal Dange on 07-07-2017
+    /// Description : Added CityId City , SimilarMakeName, SimilarModelName
     /// </summary>
     public class SimilarBikeWithPhotos : System.Web.UI.UserControl
     {
         public ushort TotalRecords { get; set; }
         public int ModelId { get; set; }
+
+        public string SimilarMakeName { get; set; }
+        public string SimilarModelName { get; set; }
         public int FetchedRecordsCount { get; set; }
         public string WidgetHeading { get; set; }
+        public uint CityId { get; set; }
+        public string City { get; set; }
+
         protected IEnumerable<SimilarBikesWithPhotos> objSimilarBikes = null;
 
         protected override void OnInit(EventArgs e)
@@ -38,9 +47,25 @@ namespace Bikewale.Controls
                     BindSimilarBikesWithPhotos vmSimilarBikes = new BindSimilarBikesWithPhotos();
                     vmSimilarBikes.TotalRecords = TotalRecords;
                     vmSimilarBikes.ModelId = ModelId;
+                    vmSimilarBikes.CityId = CityId;
+                    vmSimilarBikes.City = City;
+
                     objSimilarBikes = vmSimilarBikes.SimilarBikesWithPhotosCount();
+
                     if (objSimilarBikes != null)
+                    {
                         FetchedRecordsCount = objSimilarBikes.Count();
+                        var firstModel = objSimilarBikes.First();
+                        if (firstModel.BodyStyle.Equals((sbyte)EnumBikeBodyStyles.Scooter))
+                        {
+                            WidgetHeading = string.Format("Scooters similar to {0} {1}", SimilarMakeName, SimilarModelName);
+                        }
+                        else
+                        {
+                            WidgetHeading = string.Format("Bikes similar to {0} {1}", SimilarMakeName, SimilarModelName);
+                        }
+                    }
+                       
                 }
             }
             catch (Exception ex)
