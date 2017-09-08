@@ -1,6 +1,6 @@
-
+var validate,
+    isDesktop ;
 docReady(function () {
-
     validate = {
         setError: function (element, message) {
             var elementLength = element.val().length,
@@ -36,18 +36,22 @@ docReady(function () {
             }
         }
     };
+
+    isDesktop = $(".capital-first-desktop").is(":visible");
     
-    $("#cfDOB").Zebra_DatePicker();
+    $("#cfDOB").Zebra_DatePicker({
+        container : $("#cfDOB").closest(".input-box")
+    });
 
     $(".page-tabs-data input").on('blur', function () {
         validate.onBlur($(this));
     });
     $(".page-tabs-data input[type!=button]").on('focus', function () {
         validate.onFocus($(this));
-        var offsetTop = $(this).offset().top;
-        $("html, body").animate({
-            scrollTop: offsetTop - 40
-        });
+        if (!isDesktop) {
+            var offsetTop = $(this).offset();
+            scrollTop(offsetTop);
+        }
     });
 
     $("#personal-detail-submit").on('click', function () {
@@ -61,9 +65,8 @@ docReady(function () {
 });
 
 function scrollTopError() {
-    $("html, body").animate({
-        scrollTop: $(".invalid").offset().top - 40
-    });
+    var elem = $(".invalid").offset();
+    scrollTop(elem);
 }
 
 function validatePersonalInfo() {
@@ -83,6 +86,10 @@ function validatePersonalInfo() {
     if (isValid) {
         $("#personal-detail-tab").addClass("hide");
         $("#employment-detail-tab").removeClass("hide");
+        if (isDesktop) {
+            $(".employment__title ").removeClass("inactive");
+            scrollTop($("#employment-detail-tab").offset());
+        }
     } else {
         scrollTopError();
     }
@@ -202,4 +209,10 @@ function validateRadioButtons(groupName) {
 
 function validateDOB(inputDOB) {
 
+}
+
+function scrollTop(offsetElem) {
+    $("html, body").animate({
+        scrollTop: offsetElem.top - 40
+    });
 }
