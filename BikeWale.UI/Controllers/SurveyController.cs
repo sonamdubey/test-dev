@@ -17,6 +17,14 @@ namespace Bikewale.Controllers
             _survey = Survey;
         }
 
+        [Route("survey/capitalfirst/")]
+        [Bikewale.Filters.DeviceDetection]
+        public ActionResult CapitalFirst_Index()
+        {
+            BajajSurveyVM model = new BajajSurveyVM();
+            return View(model);
+        }
+
         [Route("m/survey/capitalfirst/")]
         public ActionResult CapitalFirst_Index_Mobile()
         {
