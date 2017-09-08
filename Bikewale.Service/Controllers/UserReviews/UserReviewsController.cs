@@ -397,16 +397,23 @@ namespace Bikewale.Service.Controllers.UserReviews
         {
             try
             {
-                RateBikeDetails objRateBikeDetails = null;
-                UserReviewRatingData objReviewRatingData = null;
-                if (objRateBike != null)
+                if(ModelState.IsValid)
                 {
-                    
-                    objReviewRatingData = _userReviews.GetRateBikeData(objRateBike);
-                    if (objReviewRatingData != null)
+                    RateBikeDetails objRateBikeDetails = null;
+                    UserReviewRatingData objReviewRatingData = null;
+                    if (objRateBike != null)
+                    {
+
+                        objReviewRatingData = _userReviews.GetRateBikeData(objRateBike);
+                        if (objReviewRatingData != null)
                         {
-                        objRateBikeDetails = UserReviewsMapper.Convert(objReviewRatingData);
-                        return Ok(objRateBikeDetails);
+                            objRateBikeDetails = UserReviewsMapper.Convert(objReviewRatingData);
+                            return Ok(objRateBikeDetails);
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest();
                     }
                 }
                 else
@@ -433,23 +440,31 @@ namespace Bikewale.Service.Controllers.UserReviews
         {
             try
             {
-                if(objSaveInputRating !=null)
+                if (ModelState.IsValid)
                 {
-                    RatingReviewInput objRatingReviewInput = null;
-                    UserReviewRatingObject objRating = null;
-                    InputRatingSaveEntity objSaveRatingEntity = null;
-                    objSaveInputRating.UserName = StringHelper.ToProperCase(objSaveInputRating.UserName);
-
-                    objSaveRatingEntity = UserReviewsMapper.Convert(objSaveInputRating);
-
-                    if(objSaveRatingEntity !=null)
+                    if (objSaveInputRating != null)
                     {
-                        objRating = _userReviews.SaveUserRatings(objSaveRatingEntity);
-                    }
+                        RatingReviewInput objRatingReviewInput = null;
+                        UserReviewRatingObject objRating = null;
+                        InputRatingSaveEntity objSaveRatingEntity = null;
+                        objSaveInputRating.UserName = StringHelper.ToProperCase(objSaveInputRating.UserName);
 
-                    objRatingReviewInput = UserReviewsMapper.Convert(objRating, objSaveInputRating);
-                    return Ok(objRatingReviewInput);
+                        objSaveRatingEntity = UserReviewsMapper.Convert(objSaveInputRating);
+
+                        if (objSaveRatingEntity != null)
+                        {
+                            objRating = _userReviews.SaveUserRatings(objSaveRatingEntity);
+                        }
+
+                        objRatingReviewInput = UserReviewsMapper.Convert(objRating, objSaveInputRating);
+                        return Ok(objRatingReviewInput);
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
                 }
+                   
                 else
                 {
                     return BadRequest();
