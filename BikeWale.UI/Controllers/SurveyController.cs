@@ -18,7 +18,6 @@ namespace Bikewale.Controllers
         }
 
         [Route("m/survey/capitalfirst/")]
-        [Bikewale.Filters.DeviceDetection]
         public ActionResult CapitalFirst_Index_Mobile()
         {
             BajajSurveyVM model = new BajajSurveyVM();

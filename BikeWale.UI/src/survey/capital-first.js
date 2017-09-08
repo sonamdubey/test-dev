@@ -42,8 +42,12 @@ docReady(function () {
     $(".page-tabs-data input").on('blur', function () {
         validate.onBlur($(this));
     });
-    $(".page-tabs-data input").on('focus', function () {
+    $(".page-tabs-data input[type!=button]").on('focus', function () {
         validate.onFocus($(this));
+        var offsetTop = $(this).offset().top;
+        $("html, body").animate({
+            scrollTop: offsetTop - 40
+        });
     });
 
     $("#personal-detail-submit").on('click', function () {
@@ -55,6 +59,12 @@ docReady(function () {
     });
    
 });
+
+function scrollTopError() {
+    $("html, body").animate({
+        scrollTop: $(".invalid").offset().top - 40
+    });
+}
 
 function validatePersonalInfo() {
     var isValid = false;
@@ -73,6 +83,8 @@ function validatePersonalInfo() {
     if (isValid) {
         $("#personal-detail-tab").addClass("hide");
         $("#employment-detail-tab").removeClass("hide");
+    } else {
+        scrollTopError();
     }
 }
 
@@ -186,4 +198,8 @@ function validateRadioButtons(groupName) {
         isValid = true;
     }
     return isValid;
+}
+
+function validateDOB(inputDOB) {
+
 }

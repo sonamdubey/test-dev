@@ -23,6 +23,12 @@
     text-decoration: none;
 }
 
+.terms-condition-container__ol{
+    list-style-type: decimal;   
+}
+.terms-condition-container__ol li{
+    margin: 10px;   
+}
 .page-tabs-data .input-box label {
     font-size: 14px;
     top: 10px;
@@ -38,6 +44,9 @@
     background: #FFFFFF;
     box-shadow: 0 2px 4px 0 rgba(221,221,221,0.50);
 }
+.page-tabs {
+    background: #F5F5F5;
+}
 
 .page-tabs__li {
     display: inline-block;
@@ -50,6 +59,7 @@
     font-size: 14px;
     font-weight: 600;
     padding-top: 14px;
+    border: 1px solid #F5F5F5;
 }
 
 .page-tabs__li.active {
@@ -62,6 +72,16 @@ input[type=radio] {
   visibility: hidden;
 }
 
+input:focus ~ .input-number-prefix{
+    display: block;
+}
+
+.input-box input#cfNum {
+    padding-left: 30px;
+}
+.input-box input#cfCompIncome {
+    padding-left: 15px;
+}
 .status-box,
 .marital-box,
 .gender-box {
@@ -128,4 +148,10 @@ input[type=radio] {
     display: inline-block;
     width : calc(100% - 70px);
     padding-left: 20px;
+}
+
+#personal-detail-submit,
+#employment-detail-submit {
+    display: block;
+    margin: 0 auto;
 }
