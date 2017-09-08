@@ -505,6 +505,7 @@
     <Compile Include="Controllers\CompareBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
+    <Compile Include="Controllers\FinanceController.cs" />
     <Compile Include="Controllers\GenericBestBikesController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\MakeController.cs" />
@@ -3773,7 +3774,6 @@
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel.cshtml" />
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\Scooters_Mobile.cshtml" />
-    <Content Include="Views\Survey\CapitalFirst_Index_Mobile.cshtml" />
     <Content Include="Views\Make\_MakeModelPopup.cshtml" />
     <Content Include="Views\News\Scooters.cshtml" />
     <Content Include="Views\News\Scooters_Mobile.cshtml" />
@@ -3787,6 +3787,8 @@
     <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\Model\_BestBikes.cshtml" />
+    <Content Include="Views\Finance\CapitalFirst_Index_Mobile.cshtml" />
+    <Content Include="Views\Finance\CapitalFirst_Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
