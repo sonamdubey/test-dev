@@ -6,14 +6,14 @@
             var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
             <li class="swiper-slide">
                 <div class="swiper-card">
-                    <a href=@string.Format("/m/{0}-bikes/{1}/", @bike.Make.MaskingName, @bike.Model.MaskingName) title="@bikeName user review" class="block">
+                    <a href=@string.Format("/m/{0}-bikes/{1}/", @bike.Make.MaskingName, @bike.Model.MaskingName) title="@bikeName" class="block">
                         <div class="swiper-image-preview">
                             <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="@bikeName" src="" />
                             <span class="swiper-lazy-preloader"></span>
                         </div>
                         <div class="swiper-details-block">
                             <h3 class="font12 text-black margin-bottom5 text-truncate">@bikeName</h3>
-                            <p class="font12 text-slate-grey margin-bottom5">@string.Format("{0}", Model.GlobalCityName == null ? "Ex-showroom, Mumbai" : "On-Road Price, " + Model.GlobalCityName)</p>
+                            <p class="font12 text-slate-grey margin-bottom5">@(bike.OnRoadPriceInCity == 0 ? "Ex-showroom, Mumbai" : "On-Road Price, " + Model.GlobalCityName)</p>
                             <p class="font16 text-default margin-bottom5 padding-bottom10 border-divider">
                                 &#x20b9;
                                 <span class="text-bold">
