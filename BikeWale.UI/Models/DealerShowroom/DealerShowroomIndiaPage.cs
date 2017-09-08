@@ -4,6 +4,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Models;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
@@ -120,6 +121,23 @@ namespace Bikewale.Models
                 objPage.Title = string.Format("{0} Bike Showrooms in India | {0} Bike Dealers in India - BikeWale", objMake.MakeName);
                 objPage.Keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMake.MakeName);
                 objPage.Description = string.Format("Find the nearest {0} showroom in your city. There are {1} {0} showrooms in {2} cities in India. Get contact details, address, and direction of {0} dealers.", objMake.MakeName, objDealerVM.DealerCount, objDealerVM.CitiesCount);
+
+                List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+
+                BreadCrumbs.Add(new BreadCrumb
+                {
+                    ListUrl = "/",
+                    Name = "Home"
+                });
+
+                BreadCrumbs.Add(new BreadCrumb
+                {
+                    ListUrl = "/dealer-showroom-locator/",
+                    Name = "Showroom Locator"
+                });
+
+                objDealerVM.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
+                objDealerVM.BreadCrumbsList.PageName = objDealerVM.Make.MakeName + " Showrooms in India";
 
             }
             catch (Exception ex)

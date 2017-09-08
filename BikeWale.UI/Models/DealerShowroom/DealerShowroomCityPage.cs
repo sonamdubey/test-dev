@@ -5,6 +5,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Models;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
@@ -14,6 +15,7 @@ using Bikewale.Memcache;
 using Bikewale.Models.Make;
 using Bikewale.Models.ServiceCenters;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 namespace Bikewale.Models.DealerShowroom
 {
@@ -28,6 +30,7 @@ namespace Bikewale.Models.DealerShowroom
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
         private readonly IServiceCenter _objSC = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
+        private DealerShowroomCityPageVM objDealerVM;
         public MakeMaskingResponse objResponse;
         public uint cityId, makeId, TopCount;
         public StatusCodes status;
@@ -53,12 +56,12 @@ namespace Bikewale.Models.DealerShowroom
         /// <returns></returns>
         public DealerShowroomCityPageVM GetData()
         {
-            DealerShowroomCityPageVM objDealerVM = new DealerShowroomCityPageVM();
+            objDealerVM = new DealerShowroomCityPageVM();
 
             try
             {
-                
-                
+
+
                 objMake = _bikeMakesCache.GetMakeDetails(makeId);
                 if (objMake != null)
                     objDealerVM.Make = objMake;
@@ -79,7 +82,7 @@ namespace Bikewale.Models.DealerShowroom
                 objDealerVM.PopularBikes = BindMostPopularBikes();
                 BindPageMetas(objDealerVM);
                 BindLeadCapture(objDealerVM);
-              }
+            }
             catch (Exception ex)
             {
 
@@ -162,6 +165,33 @@ namespace Bikewale.Models.DealerShowroom
                 objPage.PageMetaTags.Keywords = String.Format("{0} showroom {1}, {0} dealers {1}, {1} bike showroom, {1} bike dealers,{1} dealers, {1} bike showroom, bike dealers, bike showroom, dealerships", objMake.MakeName, CityDetails.CityName);
                 objPage.PageMetaTags.Description = String.Format("Find address, contact details and direction for {2} {0} showrooms in {1}. Contact {0} showroom near you for prices, EMI options, and availability of {0} bike", objMake.MakeName, CityDetails.CityName, objPage.TotalDealers);
 
+                List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+
+                BreadCrumbs.Add(new BreadCrumb
+                {
+                    ListUrl = "/",
+                    Name = "Home"
+                });
+
+                BreadCrumbs.Add(new BreadCrumb
+                {
+                    ListUrl = "/dealer-showroom-locator/",
+                    Name = "Showroom Locator"
+                });
+
+                if (objDealerVM.Make != null)
+                {
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl = "/" +  objDealerVM.Make.MaskingName + "-dealer-showrooms-in-india/",
+                        Name = objDealerVM.Make.MakeName + " Showrooms"
+                    });
+                }
+
+                objDealerVM.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
+
+                if(objDealerVM.Make != null && objDealerVM.CityDetails != null)
+                    objDealerVM.BreadCrumbsList.PageName = objDealerVM.Make.MakeName + " Showrooms in " + objDealerVM.CityDetails.CityName;
             }
             catch (Exception ex)
             {
@@ -181,11 +211,11 @@ namespace Bikewale.Models.DealerShowroom
             try
             {
                 objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
-                if(objDealerList!=null && objDealerList.Dealers!=null && objDealerList.Dealers.Count()>0)
-                foreach (var dealer in objDealerList.Dealers)
-                {
-                    dealer.GetOffersGALabel = string.Format("{0}_{1}_{2}", objMake.MakeName, dealer.City, dealer.objArea.AreaName);
-                }
+                if (objDealerList != null && objDealerList.Dealers != null && objDealerList.Dealers.Count() > 0)
+                    foreach (var dealer in objDealerList.Dealers)
+                    {
+                        dealer.GetOffersGALabel = string.Format("{0}_{1}_{2}", objMake.MakeName, dealer.City, dealer.objArea.AreaName);
+                    }
             }
             catch (Exception ex)
             {

@@ -356,6 +356,47 @@
             </div>
         </div>
 
+        <section>
+            <div class="breadcrumb">
+                <span class="breadcrumb-title">You are here:</span>
+                <ul itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                    
+                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">                            
+                            <a itemprop="item" class="breadcrumb-link" href="/m/" title="Home">
+                            <span class="breadcrumb-link__label" itemprop="name">Home</span>
+                            </a>
+                            <meta itemprop="position" content="1">
+                        </li>
+                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">                            
+                            <a itemprop="item" class="breadcrumb-link" href="/m/new-bikes-in-india/" title="New Bikes">
+                            <span class="breadcrumb-link__label" itemprop="name">New Bikes</span>
+                            </a>
+                            <meta itemprop="position" content="1">
+                        </li>
+                    <%if (vmModelPhotos != null && vmModelPhotos.objMake != null && vmModelPhotos.objModel != null)
+                        { %>
+                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">                            
+                            <a itemprop="item" class="breadcrumb-link" href="/m/<%=vmModelPhotos.objMake.MaskingName%>-bikes/" title="<%=vmModelPhotos.objMake.MakeName%> Bikes">
+                            <span class="breadcrumb-link__label" itemprop="name"><%=vmModelPhotos.objMake.MakeName%> Bikes</span>
+                            </a>
+                            <meta itemprop="position" content="2">
+                        </li>
+                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">                            
+                            <a itemprop="item" class="breadcrumb-link" href="/m/<%=vmModelPhotos.objMake.MaskingName%>-bikes/<%=vmModelPhotos.objModel.MaskingName%>/" title="<%=bikeName%>">
+                            <span class="breadcrumb-link__label" itemprop="name"><%=bikeName%></span>
+                            </a>
+                            <meta itemprop="position" content="2">
+                        </li>
+                    <%} %>
+                        <li>
+                            <span class="breadcrumb-link__label">Images</span>
+                        </li>                   
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </section>
+
         <script type="text/javascript" src="<%= staticUrl %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />

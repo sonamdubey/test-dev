@@ -15,6 +15,7 @@ using Bikewale.Utility;
 using Bikewale.Entities.Schema;
 using System.Collections.Generic;
 using System.Linq;
+using Bikewale.Entities.Models;
 
 namespace Bikewale.Models
 {
@@ -181,8 +182,45 @@ namespace Bikewale.Models
                                CityDetails.CityName,
                                objMake.MakeName);
                 }
-              
-              SetPageJSONLDSchema(objDealerDetails);
+
+                List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+
+                BreadCrumbs.Add(new BreadCrumb
+                {
+                    ListUrl = "/",
+                    Name = "Home"
+                });
+
+                BreadCrumbs.Add(new BreadCrumb
+                {
+                    ListUrl = "/dealer-showroom-locator/",
+                    Name = "Showroom Locator"
+                });
+
+                if (objDealerDetails.Make != null)
+                {
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl = "/" + objDealerDetails.Make.MaskingName + "-dealer-showrooms-in-india/",
+                        Name = objDealerDetails.Make.MakeName + " Showroom"
+                    });
+                }
+
+                if (objDealerDetails.Make != null && objDealerDetails.CityDetails != null)
+                {
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl = "/" + objDealerDetails.Make.MaskingName + "-dealer-showrooms-in-india/",
+                        Name = objDealerDetails.Make.MakeName + " Showroom in " + objDealerDetails.CityDetails.CityName
+                    });
+                }
+
+                objDealerDetails.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
+
+                if (objDealerDetails.DealerDetails != null && objDealerDetails.DealerDetails.DealerDetails != null)
+                    objDealerDetails.BreadCrumbsList.PageName = objDealerDetails.DealerDetails.DealerDetails.Name;
+
+                SetPageJSONLDSchema(objDealerDetails);
             }
             catch (System.Exception ex)
             {
