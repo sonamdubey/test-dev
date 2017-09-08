@@ -2,24 +2,28 @@
 @{
     ViewBag.Title = "CapitalFirst_Index";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/survey/capital-first.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/survey/capital-first.css' /> <link rel='stylesheet' type='text/css' href='/css/zebra-datepicker.css' />";
     Model.Page_JS_Path = "/src/survey/capital-first.js";
 }
-<div class="header-container">
+<div class="header-container padding-15-20 ">
     <p class="font18 text-xt-light-grey text-bold">Get Instant Loan Approval</p>
 </div>
 
 <div class="container content-box-shadow margin-bottom20">
-    <p class="font14 text-slate-grey">BikeWale is conducting a survey on two wheeler popularity. There are a few simple questions that you need to answer and it will take maximum 2 minutes of your time.</p>
-    <div class="page-tabs">
+    <div class="card-inner-padding font14 text-light-grey collapsible-content padding-15-20">
+        <p class="main-content"> Is your Honda bike due for a service or are you looking to repair your Honda bike? BikeWale brings you the list of all authorised Honda service centers in Ahmedabad.  Honda has 6 authorised service centers in Ahmedabad. </p>
+        <p class="more-content">We recommend availing services only from authorised service centers. </p>
+        <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+    </div>
+    <div class="page-tabs margin-top10">
         <ul>
             <li class="page-tabs__li active" data-id="personal-detail-tab">Personal Details</li>
             <li class="page-tabs__li" data-id="employment-detail-tab">Employment Details</li>
         </ul>
     </div>
-    <div class="page-tabs-data">
-        <div id="personal-detail-tab" class="">
-            <div class="margin-bottom20">
+    <div class="page-tabs-data padding-15-20">
+        <div id="personal-detail-tab" class="hide">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfFName" type="text" min="1" maxlength="255">
                     <label for="cfFName">First Name<sup>*</sup></label>
@@ -27,7 +31,7 @@
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfLName" type="text" min="1">
                     <label for="cfLName">Last Name<sup>*</sup></label>
@@ -35,7 +39,7 @@
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfNum" type="tel" maxlength="10" id="cfNum">
                     <label for="cfNum">Mobile Number<sup>*</sup></label>
@@ -44,37 +48,7 @@
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom20">
-                <div class="form-control-box gender-box">
-                    <ul>
-                        <li>
-                            <input id="cfGenderM" type="radio" name="gender" value="Male" checked>
-                            <label for="cfGenderM">Male</label>
-                        </li>
-                        <li>
-                            <input id="cfGenderF" type="radio" name="gender" value="Female">
-                            <label for="cfGenderF">Female</label>.
-                        </li>
-                    </ul>
-                    <span class="error-text" style="display: none;"></span>
-                </div>
-            </div>
-            <div class="margin-bottom20">
-                <div class="form-control-box marital-box">
-                    <ul>
-                        <li>
-                            <input id="cfMaritalS" type="radio" name="marital" value="Single" checked>
-                            <label for="cfMaritalS">Single</label>
-                        </li>
-                        <li>
-                            <input id="cfMaritalM" type="radio" name="marital" value="Married">
-                            <label for="cfMaritalM">Married</label>.
-                        </li>
-                    </ul>
-                    <span class="error-text" style="display: none;"></span>
-                </div>
-            </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfEmail" type="text" min="1">
                     <label for="cfEmail">Email Id<sup>*</sup></label>
@@ -82,7 +56,7 @@
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfDOB" type="text">
                     <label for="cfDOB">DOB<sup>*</sup></label>
@@ -90,7 +64,39 @@
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
+                <div class="form-control-box gender-box">
+                    <p class="inline-block">Gender</p>
+                    <ul>
+                        <li>
+                            <input id="cfGenderM" type="radio" name="gender" value="Male">
+                            <label for="cfGenderM">Male</label>
+                        </li>
+                        <li>
+                            <input id="cfGenderF" type="radio" name="gender" value="Female">
+                            <label for="cfGenderF">Female</label>
+                        </li>
+                    </ul>
+                    <p class="error-text" style="display: none;"></p>
+                </div>
+            </div>
+            <div class="margin-bottom5">
+                <div class="form-control-box marital-box">
+                    <p class="inline-block">Marital Status</p>
+                    <ul>
+                        <li>
+                            <input id="cfMaritalS" type="radio" name="marital" value="Single">
+                            <label for="cfMaritalS">Single</label>
+                        </li>
+                        <li>
+                            <input id="cfMaritalM" type="radio" name="marital" value="Married">
+                            <label for="cfMaritalM">Married</label>
+                        </li>
+                    </ul>
+                    <p class="error-text" style="display: none;"></p>
+                </div>
+            </div>
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfAddress1" type="text" min="1">
                     <label for="cfAddress1">Address Line1<sup>*</sup></label>
@@ -98,7 +104,7 @@
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfAddress2" type="text" min="1">
                     <label for="cfAddress2">Address Line2<sup>*</sup></label>
@@ -106,17 +112,17 @@
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfPincode" type="number" min="1">
+                    <input id="cfPincode" type="tel" min="1" maxlength="6">
                     <label for="cfPincode">Pincode<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfPan" type="text" min="1">
+                    <input id="cfPan" type="text" min="1" maxlength="10">
                     <label for="cfPan">Pan Number<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
@@ -124,12 +130,14 @@
             </div>
             <input type="button" id="personal-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Go to Employment Details">
         </div>
-        <div id="employment-detail-tab" class="hide">
-            <div class="margin-bottom20">
+        <div id="employment-detail-tab" class="">
+            <p class="font11 padding-bottom20"><sup>*</sup>All fields are mandatory</p>
+            <div class="margin-top20">
                 <div class="form-control-box status-box">
+                    <p class="inline-block">Status</p>
                     <ul>
                         <li>
-                            <input id="cfStatusS" type="radio" name="status" value="Salaried" checked>
+                            <input id="cfStatusS" type="radio" name="status" value="Salaried">
                             <label for="cfStatusS">Salaried</label>
                         </li>
                         <li>
@@ -137,10 +145,10 @@
                             <label for="cfStatusE">Self-employed</label>
                         </li>
                     </ul>
-                    <span class="error-text" style="display: none;"></span>
+                    <p class="error-text" style="display: none;"></p>
                 </div>
             </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfCompName" type="text" min="1" maxlength="255">
                     <label for="cfCompName">Company Name<sup>*</sup></label>
@@ -148,7 +156,7 @@
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfCompAddress1" type="text" min="1">
                     <label for="cfCompAddress1">Official Address Line1<sup>*</sup></label>
@@ -156,7 +164,7 @@
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfCompAddress2" type="text" min="1">
                     <label for="cfCompAddress2">Official Address Line2<sup>*</sup></label>
@@ -164,7 +172,7 @@
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfCompPincode" type="number" min="1">
                     <label for="cfCompPincode">Pincode<sup>*</sup></label>
@@ -172,11 +180,11 @@
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom20">
+            <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfCompIncome" type="number" maxlength="10">
-                    <label for="cfCompIncome">Mobile Number<sup>*</sup></label>
-                    <span class="input-number-prefix">Rs</span>
+                    <label for="cfCompIncome">Annual Income<sup>*</sup></label>
+                    <span class="input-number-prefix">&#x20B9;</span>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
                 </div>
@@ -186,7 +194,7 @@
     </div>
 </div>
 
-<div class="container content-box-shadow how-works-container">
+<div class="container content-box-shadow how-works-container padding-15-20 margin-bottom20">
     <p class="text-xt-light-grey font18 text-bold">How It Works</p>
     <ul>
         <li class="how-works-container__li">
@@ -213,15 +221,22 @@
     </ul>
 </div>
 
-<div class="container content-box-shadow terms-condition-container">
+<div class="container content-box-shadow terms-condition-container padding-15-20 margin-bottom20 collapsible-content">
     <p class="text-xt-light-grey font18 text-bold">Terms & Conditions</p>
-    <ul class="text-slate-grey font14"> 
-        <li>1. Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
-        <li>2. Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
-        <li>3. Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
-        <li>4. Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
-        <li>5. Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
-    </ul>    
+    <ol class="terms-condition-container__ol text-slate-grey font14 main-content" type="1"> 
+        <li>Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+        <li>Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+        <li>Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+        <li>Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+        <li>Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+    </ol>
+    <ol class="text-slate-grey font14 more-content terms-condition-container__ol" start="6">
+        <li>Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+        <li>Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+        <li>Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+        <li>Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+        <li>Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+    </ol> 
+    <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>   
 </div>
-
 <script defer src="/src/zebra-datepicker.js"></script>

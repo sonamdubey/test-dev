@@ -3200,6 +3200,7 @@
     <Content Include="src\pq\MetroCities.js" />
     <Content Include="src\pq\price_quote.js" />
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\survey\capital-first.js" />
     <Content Include="src\survey\bajaj-survey.js" />
     <Content Include="src\survey\capital-first.js" />
     <Content Include="src\swiper-3.1.7.js" />

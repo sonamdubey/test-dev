@@ -4,7 +4,7 @@ docReady(function () {
     validate = {
         setError: function (element, message) {
             var elementLength = element.val().length,
-                errorTag = element.siblings('span.error-text');
+                errorTag = element.siblings('.error-text');
 
             errorTag.text(message).show();
             if (!elementLength) {
@@ -17,7 +17,7 @@ docReady(function () {
 
         hideError: function (element) {
             element.closest('.input-box').removeClass('invalid').addClass('not-empty');
-            element.siblings('span.error-text').text('');
+            element.siblings('.error-text').text('');
         },
 
         onFocus: function (inputField) {
@@ -36,51 +36,82 @@ docReady(function () {
             }
         }
     };
-
-
-    var pageTabElem = $(".page-tabs__li");
-
-    $(pageTabElem).on('click', function () {
-        if (!$(this).hasClass('active')) {
-            $(pageTabElem).removeClass('active');
-            $(this).addClass('active');
-        }
-    });
-    //var newScript = $(document.createElement('script'));
-    //newScript.src = "/src/zebra-datepicker.js";
-
     
     $("#cfDOB").Zebra_DatePicker();
 
-    $("#cfFName, #cfLName, #cfNum, #cfEmail, #cfAddress1, #cfAddress2, #cfPincode, #cfPan").on('blur', function () {
+    $(".page-tabs-data input").on('blur', function () {
         validate.onBlur($(this));
     });
-    $("#cfFName, #cfLName, #cfNum, #cfEmail, #cfAddress1, #cfAddress2, #cfPincode, #cfPan").on('focus', function () {
+    $(".page-tabs-data input[type!=button]").on('focus', function () {
         validate.onFocus($(this));
+        var offsetTop = $(this).offset().top;
+        $("html, body").animate({
+            scrollTop: offsetTop - 40
+        });
     });
 
     $("#personal-detail-submit").on('click', function () {
         validatePersonalInfo();
     });
+
+    $("#employment-detail-submit").on('click', function () {
+        validateEmploymentInfo();
+    });
    
 });
+
+function scrollTopError() {
+    $("html, body").animate({
+        scrollTop: $(".invalid").offset().top - 40
+    });
+}
 
 function validatePersonalInfo() {
     var isValid = false;
 
     isValid = validateUserName($("#cfFName"));
-    isValid = validateUserName($("#cfLName"));
-    isvalid = validatePhoneNumber($("#cfNum"));
-    isvalid = validateEmailId($("#cfEmail"));
+    isValid &= validateUserName($("#cfLName"));
+    isValid &= validatePhoneNumber($("#cfNum"));
+    isValid &= validateEmailId($("#cfEmail"));
+    isValid &= validateAddress($("#cfAddress1"));
+    isValid &= validateAddress($("#cfAddress2"));
+    isValid &= validatePinCode($("#cfPincode"));
+    isValid &= validatePanNumber($("#cfPan"));
+    isValid &= validateRadioButtons("gender");
+    isValid &= validateRadioButtons("marital");
+
+    if (isValid) {
+        $("#personal-detail-tab").addClass("hide");
+        $("#employment-detail-tab").removeClass("hide");
+    } else {
+        scrollTopError();
+    }
+}
+
+function validateEmploymentInfo() {
+    var isValid = false;
+
+    isValid = validateUserName($("#cfCompName"));
+    isValid &= validatePhoneNumber($("#cfCompIncome"));
+    isValid &= validateAddress($("#cfCompAddress1"));
+    isValid &= validateAddress($("#cfCompAddress2"));
+    isValid &= validatePinCode($("#cfCompPincode"));
+    isValid &= validateRadioButtons("status");
+
+    if (isValid) {
+        //submit
+    }
 }
 
 function validateUserName(elem) {
-    var value = $(elem)[0].value.trim();
+    var nameRegex = /^[a-zA-Z ]{2,255}$/,
+        value = $(elem)[0].value.trim();
 
-    if (value.length > 1) {
+    if (nameRegex.test(value) && value.length > 1) {
         validate.hideError(elem);
         isValid = true;
-    } else {
+    }
+    else {
         validate.setError(elem, "Error");
         isValid = false;
     }
@@ -119,4 +150,56 @@ function validateEmailId(inputEmail) {
         isValid = false;
     }
     return isValid;
+}
+
+function validateAddress(inputAddress) {
+    var value = $(inputAddress)[0].value.trim();
+
+    if (value.length > 1) {
+        validate.hideError(inputAddress);
+        isValid = true;
+    }
+    else {
+        validate.setError(inputAddress, "Error");
+        isValid = false;
+    }
+    return isValid;
+}
+
+function validatePinCode(inputPincode) {
+    var isValid = true,
+        pc = inputPincode.val().trim();
+
+    if (!(/^[1-9][0-9]{5}$/.test(pc))) {
+        validate.setError(inputPincode, 'Invalid pincode');
+        isValid = false;
+    }
+    return isValid;
+}
+
+function validatePanNumber(inputPanNum) {
+    var isValid = true,
+        panNum = inputPanNum.val().trim();
+
+    if (!(/([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}/.test(panNum)) && panNum.length < 6) {
+        validate.setError(inputPanNum, 'Invalid Pan Number');
+        isValid = false;
+    }
+    return isValid;
+}
+
+function validateRadioButtons(groupName) {
+    var isValid = true;
+    if ($('input[name=' + groupName + ']:checked').length <= 0) {
+        validate.setError($('input[name=' + groupName + ']').closest('ul'), 'Please select');
+        isValid = false;
+    } else {
+        validate.hideError($('input[name=' + groupName + ']').closest('ul'));
+        isValid = true;
+    }
+    return isValid;
+}
+
+function validateDOB(inputDOB) {
+
 }
