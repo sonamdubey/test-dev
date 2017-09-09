@@ -95,6 +95,9 @@
                 color: #0288d1;
                 text-decoration: none;
             }
+            .margin-center {
+                margin: 0 auto;
+            }
             .block {
                 display:block;
             }
@@ -115,7 +118,7 @@
                 height: 50px;
             }
             .bwmsprite {
-                background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?26Dec2016) no-repeat;
+                background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v4.png?v29Jun20171498739734721) no-repeat;
                 display: inline-block;
             }
             .nav-icon {
@@ -146,12 +149,12 @@
 
             .cw-footer-icon {
                 width: 69px;
-                background-position: -78px -517px;
+                background-position: -78px -515px;
             }
 
             .ct-footer-icon {
                 width: 93px;
-                background-position: -78px -536px;
+                background-position: -78px -533px;
             }
 
             .footer-top, footer {
@@ -320,6 +323,7 @@ amp-accordion > section[expanded] .fa-angle-down {
         {
             <script type="application/ld+json">
                 @Html.Raw(Model.PageMetaTags.SchemaJSON)
+            "articleBody" : "@ViewBag.SanitizedNewsContent",
             </script>
         }     
         <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
@@ -470,12 +474,24 @@ amp-accordion > section[expanded] .fa-angle-down {
                 "vars": {
                     "account": "UA-34771801-1"
                 },
+                "extraUrlParams": {
+                    "pageSourceType": "AMP"
+                },
                 "triggers": {
                     "trackPageview": {
                         "on": "visible",
                         "request": "pageview",
                         "vars": {
                             "title": "@Model.PageMetaTags.Title"
+                        }
+                    },
+                    "trackEvent": {
+                        "selector": ".bw-price-in-city-ga",
+                        "on": "click",
+                        "request": "event",
+                        "vars": {
+                            "eventCategory": "Price_in_City_Page",
+                            "eventAction": "Floating_Navigation_Clicked"
                         }
                     }
                 }

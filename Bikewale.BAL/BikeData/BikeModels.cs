@@ -75,7 +75,7 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<ICacheManager, MemcacheManager>();
                 container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
                 container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
-                container.RegisterType<IUserReviewsSearch, UserReviewsSearch>();                
+                container.RegisterType<IUserReviewsSearch, UserReviewsSearch>();
                 container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
                 container.RegisterType<IBikeModelsCacheRepository<U>, BikeModelsCacheRepository<T, U>>();
                 container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
@@ -439,6 +439,10 @@ namespace Bikewale.BAL.BikeData
             return null;
         }
 
+        //// The delegate must have the same signature as the method
+        //// it will call asynchronously.
+        //public delegate IEnumerable<ModelImage> AsyncMethodCaller(U modelId);
+
         /// <summary>
         /// Written by : Ashish G. Kamble on 15 dec 2015
         /// Summary : Function to get the upcoming bikes list.
@@ -605,15 +609,15 @@ namespace Bikewale.BAL.BikeData
                     IEnumerable<ModelColorImage> colorPhotos = colorPics != null ? colorPics.Where(m => !String.IsNullOrEmpty(m.OriginalImagePath)) : null;
 
                     var colorImages = (colorPhotos != null && colorPhotos.Count() > 0) ? colorPhotos.Select(x => new ColorImageBaseEntity()
-                        {
-                            HostUrl = x.Host,
-                            OriginalImgPath = x.OriginalImagePath,
-                            ColorId = x.BikeModelColorId,
-                            ImageTitle = x.Name,
-                            ImageType = ImageBaseType.ModelColorImage,
-                            ImageCategory = x.ImageCategory,
-                            Colors = x.ColorCodes.Select(y => y.HexCode)
-                        }) : null;
+                    {
+                        HostUrl = x.Host,
+                        OriginalImgPath = x.OriginalImagePath,
+                        ColorId = x.BikeModelColorId,
+                        ImageTitle = x.Name,
+                        ImageType = ImageBaseType.ModelColorImage,
+                        ImageCategory = x.ImageCategory,
+                        Colors = x.ColorCodes.Select(y => y.HexCode)
+                    }) : null;
 
                     //Add Model Image
                     allPhotos.Add(new ColorImageBaseEntity()
@@ -662,7 +666,13 @@ namespace Bikewale.BAL.BikeData
                 if (objModelPage != null && objModelPage.ModelDetails != null && !String.IsNullOrEmpty(objModelPage.ModelDetails.HostUrl) && !String.IsNullOrEmpty(objModelPage.ModelDetails.OriginalImagePath))
                 {
                     allPhotos = new List<ColorImageBaseEntity>();
-                    var galleryImages = GetBikeModelPhotoGallery(modelId);
+                    IEnumerable<ModelImage> galleryImages = null;
+                    galleryImages = GetBikeModelPhotoGallery(modelId);
+                    // Create the delegate.
+                    //AsyncMethodCaller caller = new AsyncMethodCaller(GetBikeModelPhotoGallery);
+
+                    //// Initiate the asychronous call.
+                    //IAsyncResult result = caller.BeginInvoke(modelId, null, null);
 
                     var imageDesc = String.Format("{0} Model Image", objModelPage.ModelDetails.ModelName);
                     //Add Model Image
@@ -691,6 +701,16 @@ namespace Bikewale.BAL.BikeData
                     {
                         allPhotos.AddRange(colorImages);
                     }
+
+                    //// Wait for the WaitHandle to become signaled.
+                    //result.AsyncWaitHandle.WaitOne();
+
+                    //// Perform additional processing here.
+                    //// Call EndInvoke to retrieve the results.
+                    //galleryImages = caller.EndInvoke(result);
+
+                    //// Close the wait handle.
+                    //result.AsyncWaitHandle.Close();
 
                     //Add Model Gallery Photos
                     if (galleryImages != null && galleryImages.Count() > 0)

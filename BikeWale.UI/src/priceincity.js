@@ -333,7 +333,7 @@ docReady(function () {
                 "isleadpopup": ele.attr('data-isleadpopup'),
                 "mfgCampid": ele.attr('data-mfgcampid'),
                 "pqid": $("#priceincity").data("pqid") || 0,
-                "pageurl": window.location.href,
+                "pageurl": document.referrer,
                 "clientip": '',
                 "dealerHeading": ele.attr('data-item-heading'),
                 "dealerMessage": ele.attr('data-item-message'),

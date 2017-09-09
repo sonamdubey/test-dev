@@ -18,7 +18,9 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Utility;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 namespace Bikewale.Models
@@ -288,6 +290,159 @@ namespace Bikewale.Models
                         {
                             BindPriceInNearestCities(objVM);
                             BindPriceInTopCities(objVM);
+                            if (objVM.CookieCityEntity!=null)
+                            {
+                                if ((objVM.CookieCityEntity.HasAreas && areaId > 0) || !objVM.CookieCityEntity.HasAreas)
+                                {
+                                    GetDealerPriceQuote(objVM);
+                                }
+                                else
+                                {
+                                    if (objVM.CookieCityEntity.HasAreas && areaId == 0)
+                                    {
+                                        objVM.IsAreaAvailable = true;
+                                    }
+                                }
+
+                                GetManufacturerCampaign(objVM);
+                                objVM.LeadCapture = new LeadCaptureEntity()
+                                {
+                                    ModelId = modelId,
+                                    CityId = cityId,
+                                    AreaId = areaId,
+                                    Area = area,
+                                    City = city,
+                                    Location = String.Format("{0} {1}", area, city),
+                                    BikeName = objVM.BikeName
+                                }; 
+                            }
+                        }
+
+                        BindDealersWidget(objVM);
+
+                        var objModelColours = _modelCache.GetModelColor(Convert.ToInt16(modelId));
+                        colorCount = (uint)(objModelColours != null ? objModelColours.Count() : 0);
+
+                        objVM.PageDescription = PageDescription();
+                        objVM.IsAreaSelected = isAreaSelected;
+                        objVM.IsAreaAvailable = hasAreaAvailable;
+                        objVM.Page_H1 = String.Format("{0} price in {1}", objVM.BikeName, objVM.CityEntity.CityName);
+
+                        var locationCookie = GlobalCityArea.GetGlobalCityArea();
+
+                        objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
+                        BuildPageMetas(objVM);
+
+                    }
+                    else
+                    {
+                        Status = StatusCodes.ContentNotFound;
+                    }
+                    if (objVM.AlternateBikes != null)
+                    {
+                        var objVersionSpec = objVM.VersionSpecs.FirstOrDefault();
+                        if (objVersionSpec != null)
+                        {
+                            objVM.AlternateBikes.BodyStyle = objVersionSpec.BodyStyle;
+                        }
+                    }
+                    objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("PriceInCityPage.GetData({0},{1})", modelMaskingName, cityMaskingName));
+            }
+            return objVM;
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 06-Sep-2017
+        /// Description : Get data for PriceInCity AMP page
+        /// </summary>
+        /// <returns></returns>
+        public PriceInCityPageAMPVM GetDataAMP()
+        {
+            PriceInCityPageAMPVM objVM = null;
+            try
+            {
+                if (Status == StatusCodes.ContentFound)
+                {
+                    objVM = new PriceInCityPageAMPVM();
+                    CheckCityCookie(objVM);
+                    //Get Bike version Prices
+                    IEnumerable<BikeQuotationEntity> objBikePQList = objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
+                    ICollection<BikeQuotationAMPEntity> objBikePQAMPList = new List<BikeQuotationAMPEntity>();
+                    BikeQuotationAMPEntity objPq = null;
+                    foreach (var item in objBikePQList)
+                    {
+                        objPq = new BikeQuotationAMPEntity();
+                        objPq.BikeQuotationEntity = item;
+                        objPq.FormatedExShowroomPrice = Format.FormatPrice(Convert.ToString(item.ExShowroomPrice));
+                        objPq.FormatedInsurance = Format.FormatPrice(Convert.ToString(item.Insurance));
+                        objPq.FormatedOnRoadPrice = Format.FormatPrice(Convert.ToString(item.OnRoadPrice));
+                        objPq.FormatedRTO = Format.FormatPrice(Convert.ToString(item.RTO));
+                        objBikePQAMPList.Add(objPq);
+                    }
+                    objVM.FormatedBikeVersionPrices = objBikePQAMPList;
+                    if (objVM.FormatedBikeVersionPrices != null && objVM.FormatedBikeVersionPrices.Count() > 0)
+                    {
+                        firstVersion = objVM.FormatedBikeVersionPrices.OrderByDescending(m => m.BikeQuotationEntity.IsVersionNew).OrderBy(v => v.BikeQuotationEntity.ExShowroomPrice).First().BikeQuotationEntity;
+                        objVM.IsNew = isNew = firstVersion.IsModelNew;
+                        if (objVM.IsNew)
+                        {
+                            objVM.FormatedBikeVersionPrices = objVM.FormatedBikeVersionPrices.Where(x => x.BikeQuotationEntity.IsVersionNew);
+                        }
+                        versionCount = (uint)objVM.FormatedBikeVersionPrices.Count();
+                        objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
+
+                        ICollection<KeyValuePair<uint, BikeQuotationAMPEntity>> values = new Dictionary<uint, BikeQuotationAMPEntity>();
+                        foreach (var item in objVM.FormatedBikeVersionPrices)
+                        {
+                            values.Add(new KeyValuePair<uint, BikeQuotationAMPEntity>(item.BikeQuotationEntity.VersionId, item));
+                        }
+                        objVM.JSONBikeVersions =  JsonConvert.SerializeObject(values);
+                        if (objVM.VersionSpecs != null)
+                        {
+                            var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
+                            if (objMin != null)
+                            {
+                                objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
+
+                                // Set body style
+                                objVM.BodyStyle = objMin.BodyStyle;
+                            }
+                            else
+                            {
+                                var firstVersion = objVM.VersionSpecs.FirstOrDefault();
+                                if (firstVersion != null)
+                                {
+                                    objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
+
+                                }
+                            }
+
+                            foreach (var version in objVM.VersionSpecs)
+                            {
+                                var versionPrice = objVM.FormatedBikeVersionPrices.Where(m => m.BikeQuotationEntity.VersionId.Equals(version.VersionId)).FirstOrDefault();
+                                if (versionPrice != null)
+                                {
+                                    version.Price = Convert.ToUInt64(versionPrice.BikeQuotationEntity.OnRoadPrice);
+                                }
+                            }
+
+                            objVM.BodyStyleText = objVM.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
+                        }
+                        BindEMISlider(objVM);
+                        BindBikeBasicDetails(objVM);
+                        BindServiceCenters(objVM);
+                        BindSimilarBikes(objVM);
+                        BindBikeInfoRank(objVM);
+
+                        if (objVM.IsNew)
+                        {
+                            BindPriceInNearestCities(objVM);
+                            BindPriceInTopCities(objVM);
                             if ((objVM.CookieCityEntity.HasAreas && areaId > 0) || !objVM.CookieCityEntity.HasAreas)
                             {
                                 GetDealerPriceQuote(objVM);
@@ -349,6 +504,68 @@ namespace Bikewale.Models
             return objVM;
         }
 
+        private void BindEMISlider(PriceInCityPageAMPVM objVM)
+        {
+            try
+            {
+                ulong bikePrice = objVM.FirstVersion.OnRoadPrice;
+                double loanAmount = Math.Round(objVM.FirstVersion.OnRoadPrice * .7);
+                int downPayment = Convert.ToInt32(bikePrice - loanAmount);
+
+                float minDnPay = (10 * bikePrice) / 100;
+                float maxDnPay = (40 * bikePrice) / 100;
+
+                ushort minTenure = 12;
+                ushort maxTenure = 48;
+
+                int minROI = 10;
+                int maxROI = 15;
+
+                float rateOfInterest = Convert.ToSingle((maxROI - minROI) / 2.0 + minROI);
+
+                ushort tenure = (ushort)((maxTenure - minTenure) / 2 + minTenure);
+
+                double interest = (loanAmount * tenure * rateOfInterest) / 1200;
+
+                int procFees = 0;
+
+                int monthlyEMI = Convert.ToInt32(Math.Round((loanAmount + interest + procFees) / tenure));
+
+                int totalAmount = downPayment + monthlyEMI * tenure;
+
+                objVM.EMI = new EMI();
+                objVM.EMI.MinDownPayment = minDnPay;
+                objVM.EMI.MaxDownPayment = maxDnPay;
+
+                objVM.EMI.MinTenure = minTenure;
+                objVM.EMI.MaxTenure = maxTenure;
+
+                objVM.EMI.MinRateOfInterest = minROI;
+                objVM.EMI.MaxRateOfInterest = maxROI;
+
+                objVM.EMI.RateOfInterest = rateOfInterest;
+                objVM.EMI.Tenure = tenure;
+
+
+                objVM.EMISliderAMP = new EMISliderAMP();
+                objVM.EMISliderAMP.TotalAmount = Format.FormatPrice(Convert.ToString(totalAmount));
+                objVM.EMISliderAMP.FormatedTotalAmount = "0";
+                objVM.EMISliderAMP.DownPayment = Convert.ToString(downPayment);
+                objVM.EMISliderAMP.FormatedDownPayment = "0";
+                objVM.EMISliderAMP.LoanAmount = Convert.ToString((int)loanAmount);
+                objVM.EMISliderAMP.FormatedLoanAmount = "0";
+                objVM.EMISliderAMP.Tenure = tenure;
+                objVM.EMISliderAMP.RateOfInterest = rateOfInterest;
+                objVM.EMISliderAMP.Fees = procFees;
+                objVM.EMISliderAMP.BikePrice = bikePrice;
+                objVM.JSONEMISlider = JsonConvert.SerializeObject(objVM.EMISliderAMP);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BindEMISlider({0})", objVM));
+            }
+        }
+
         /// <summary>
         /// Created by  :   Sumit Kate on 11 Apr 2017
         /// Description :   Bind Price in Top Cities
@@ -371,6 +588,7 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindPriceInTopCities({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
+
 
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
@@ -691,7 +909,7 @@ namespace Bikewale.Models
                 if (objPQOutput != null)
                 {
                     objVM.PQId = objPQOutput.PQId;
-                    var bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSource);
+                    //var bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSource);
                     if (objPQOutput.IsDealerAvailable)
                     {
                         try

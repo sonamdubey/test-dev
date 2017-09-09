@@ -88,7 +88,7 @@
                                         Insurance (Comprehensive)<br><p class='position-rel'>
                                             @if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
                                             {
-                                            <a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
+                                                    <a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
 
                                             }
                                         </p>
@@ -484,7 +484,7 @@
                             <div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
                                 <p class="text-default text-bold">Disclaimer:</p>
                                 <p>
-                                    BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank">&nbsp;visitor agreement</a>&nbsp;and&nbsp;<a href="/privacypolicy.aspx" target="_blank">privacy policy</a>.
+                                    BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank" rel="noopener">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank" rel="noopener">&nbsp;visitor agreement</a>&nbsp;and&nbsp;<a href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.
                                 </p>
                             </div>
                             <div class="hide" id="dvPgVar" data-cityarea="@Model.CookieCityArea" data-bikename="@Model.BikeName" data-modelid="@Model.BikeModel.ModelId"></div>

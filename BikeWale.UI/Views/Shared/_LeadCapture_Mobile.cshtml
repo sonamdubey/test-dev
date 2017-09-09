@@ -94,7 +94,7 @@
 
                     <div class="clear"></div>
                     <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                    <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+                    <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank" rel="noopener">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.</p>
                 </div>
             </div>
 
@@ -148,7 +148,7 @@
         </div>
     </div>
     <div id="ub-ajax-loader">
-        <div id="popup-loader"></div>
+        <div class="cover-popup-loader"></div>
     </div>
 
    <!-- Lead Capture pop up end  -->
@@ -1012,7 +1012,6 @@
         };
 
         docReady(function () {
-
             leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
             fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile"), detailsSubmitBtn = $("#user-details-submit-btn");
 

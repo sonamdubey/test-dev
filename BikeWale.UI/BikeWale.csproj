@@ -1001,6 +1001,7 @@
     <Compile Include="Models\News\ScooterNewsPage.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
     <Compile Include="Models\PopUp\PopUpCityArea.cs" />
+    <Compile Include="Models\PopUp\PopupLeadCaptureModel.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
@@ -3787,10 +3788,11 @@
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInTopCitiesWidget.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
-    <Content Include="Views\PriceInCity\_PriceInTopCities.cshtml.orig" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
+    <Content Include="Views\Model\_BestBikes.cshtml" />
     <Content Include="Views\PriceInCity\Index_Mobile_Amp.cshtml" />
     <Content Include="Views\PopUp\PopUpCityArea_Mobile.cshtml" />
+    <Content Include="Views\PopUp\Index_LeadCapture.cshtml" />
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile_Amp.cshtml" />
     <Content Include="Views\Price\_PriceInCityPopUp_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_BikeInfoCard_Mobile_AMP.cshtml" />
@@ -3800,6 +3802,7 @@
     <Content Include="Views\BikeModels\_SimilarBikes_Mobile_AMP.cshtml" />
     <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile_AMP.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile_AMP.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInTopCities_Mobile_AMP.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
