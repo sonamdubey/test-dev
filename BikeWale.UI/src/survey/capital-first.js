@@ -1,5 +1,6 @@
 var validate,
-    isDesktop ;
+    isDesktop;
+
 docReady(function () {
     validate = {
         setError: function (element, message) {
@@ -37,7 +38,7 @@ docReady(function () {
         }
     };
 
-    isDesktop = $(".capital-first-desktop").is(":visible");
+    isDesktop = $(".capital-first-desktop");
     
     $("#cfDOB").Zebra_DatePicker({
         container : $("#cfDOB").closest(".input-box")
@@ -48,7 +49,7 @@ docReady(function () {
     });
     $(".page-tabs-data input[type!=button]").on('focus', function () {
         validate.onFocus($(this));
-        if (!isDesktop) {
+        if (!isDesktop.length) {
             var offsetTop = $(this).offset();
             scrollTop(offsetTop);
         }
@@ -86,8 +87,11 @@ function validatePersonalInfo() {
     if (isValid) {
         $("#personal-detail-tab").addClass("hide");
         $("#employment-detail-tab").removeClass("hide");
+        $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
+        $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
         if (isDesktop) {
             $(".employment__title ").removeClass("inactive");
+            $(".employment-details-container").addClass("visible");
             scrollTop($("#employment-detail-tab").offset());
         }
     } else {
@@ -99,7 +103,7 @@ function validateEmploymentInfo() {
     var isValid = false;
 
     isValid = validateUserName($("#cfCompName"));
-    isValid &= validatePhoneNumber($("#cfCompIncome"));
+    isValid &= validateIncome($("#cfCompIncome"));
     isValid &= validateAddress($("#cfCompAddress1"));
     isValid &= validateAddress($("#cfCompAddress2"));
     isValid &= validatePinCode($("#cfCompPincode"));
@@ -111,6 +115,7 @@ function validateEmploymentInfo() {
 }
 
 function validateUserName(elem) {
+
     var nameRegex = /^[a-zA-Z ]{2,255}$/,
         value = $(elem)[0].value.trim();
 
@@ -126,7 +131,7 @@ function validateUserName(elem) {
 }
 
 function validatePhoneNumber(inputMobile) {
-    var regMob = new RegExp('^((7)|(8))[0-9]{9}$', 'i'),
+    var regMob = new RegExp('^((7)|(8)|(9))[0-9]{9}$', 'i'),
         value = $(inputMobile).val();
 
     if(value.length < 10){
@@ -207,12 +212,23 @@ function validateRadioButtons(groupName) {
     return isValid;
 }
 
-function validateDOB(inputDOB) {
+function validateIncome(inputIncome) {
+    var isValid = true;
 
+    if ($(inputIncome).val().length <= 0) {
+        validate.setError(inputIncome, 'Invalid Income');
+        isValid = false;
+    }
+    return isValid;
 }
 
 function scrollTop(offsetElem) {
+    var offsetTop = 40;
+    if (isDesktop.length) {
+        offsetTop = 170;
+
+    }
     $("html, body").animate({
-        scrollTop: offsetElem.top - 40
+        scrollTop: offsetElem.top - offsetTop
     });
 }
