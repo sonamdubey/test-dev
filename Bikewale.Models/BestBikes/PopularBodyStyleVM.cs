@@ -1,10 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
-using System;
+using Bikewale.Entities.PriceQuote;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Models
 {
@@ -21,5 +18,7 @@ namespace Bikewale.Models
         public string BodyStyleText { get; set; }
         public string BodyStyleLinkTitle { get; set; }
         public EnumBikeBodyStyles BodyStyle { get; set; }
+        public bool ShowCheckOnRoadCTA { get; set; }
+        public PQSourceEnum PQSourceId { get; set; }
     }
 }

@@ -86,7 +86,7 @@
                         Time: <span id="commuteDuration"></span>
                     </div>
                     <div id="commuteResults"></div>
-                    <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= dealerLat %>,<%= dealerLong %>" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                    <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= dealerLat %>,<%= dealerLong %>" target="_blank" rel="noopener"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
                     <% } %>
                 </div>
 

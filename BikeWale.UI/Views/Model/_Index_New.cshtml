@@ -35,11 +35,11 @@
                                 
                                 @if (Model.BikePrice > 0)
                                 {
-                                    <div class="model-price-content padding-top5" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                        <span itemprop="priceCurrency" content="INR">
+                                    <div class="model-price-content padding-top5">
+                                        <span>
                                             @Html.Raw("<span class='font22'>&#x20B9;</span>")
                                         </span>
-                                        <span id="new-bike-price" class="font22 font-bold" itemprop="price" content="@Model.BikePrice">@Format.FormatPrice(Model.BikePrice.ToString())</span>
+                                        <span id="new-bike-price" class="font22 font-bold" >@Format.FormatPrice(Model.BikePrice.ToString())</span>
                                         @if ((Model.City != null && Model.IsLocationSelected && !Model.ShowOnRoadButton) && Model.BikePrice > 0 && Model.IsNewBike)
                                         {
                                             <a id="viewBreakupText" href="/pricequote/dealer/?MPQ=@Model.MPQString" rel="nofollow" class="font14 text-bold viewBreakupText">View detailed price</a>
@@ -80,10 +80,7 @@
                             }
                         </div>
                         <div class="grid-5 alpha margin-bottom20">
-                            @if (Model.AreModelPhotosAvailable)
-                            {
-                                @Html.Partial("~/Views/Model/_Index_ModelGallery.cshtml", Model)
-                            }
+                            @Html.Partial("~/Views/Model/_Index_ModelGallery.cshtml", Model)
                         </div>
                         <div class="clear"></div>
                         @if (Model.IsDealerDetailsExists && Model.IsPremiumDealer)
@@ -117,7 +114,7 @@
         @if ((Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
                 || (Model.IsModelDescriptionAvailable))
         {
-            <div id="modelPricesContent" class="bw-model-tabs-data">
+            <div class="bw-model-tabs-data">
                 @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
                 {
                     <div class="grid-12">

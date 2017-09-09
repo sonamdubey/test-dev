@@ -192,7 +192,8 @@
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ElasticSearch\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NReco.PdfGenerator">
       <HintPath>..\Libs\NReco.PdfGenerator.dll</HintPath>
@@ -1001,6 +1002,7 @@
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\Scooters\PopularScooterBrandsWidget.cs" />
     <Compile Include="Models\Scooters\ScootersMakePageModel.cs" />
     <Compile Include="Models\ServiceCenters\ShowroomsWidgetModel.Cs" />
     <Compile Include="Models\Scooters\ScootersIndexPageModel.cs" />
@@ -1016,6 +1018,7 @@
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewListingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewDetailsPage.cs" />
+    <Compile Include="Models\UserReviews\UserReviewPopupModel.cs" />
     <Compile Include="Models\UserReviews\UserReviewRatingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewSearchWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
@@ -2275,6 +2278,7 @@
     <Content Include="css\components\select-box.css" />
     <Content Include="css\user-review\listing.css" />
     <Content Include="css\survey\bajaj-survey.css" />
+    <Content Include="css\user-review\write-review.css" />
     <Content Include="m\css\content\app.css" />
     <Content Include="css\content\details.css" />
     <Content Include="css\components\sidebar-bike-list.css" />
@@ -2850,6 +2854,8 @@
     <Content Include="m\css\leadcapture.css" />
     <Content Include="m\css\new-launch\new-launch.css" />
     <Content Include="m\css\photos.css" />
+    <Content Include="m\css\scooters\landing.css" />
+    <Content Include="m\css\scooters\listing.css" />
     <Content Include="m\css\service\details.css" />
     <Content Include="m\css\service\landing.css" />
     <Content Include="m\css\service\listing.css" />
@@ -2868,6 +2874,7 @@
     <Content Include="m\css\user-review\landing.css" />
     <Content Include="m\css\user-review\listing-old.css" />
     <Content Include="m\css\user-review\listing.css" />
+    <Content Include="m\css\user-review\write-review.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
     <Content Include="m\css\videos\video-detail.css" />
     <Content Include="m\css\videos\videos-by-make.css" />
@@ -3764,10 +3771,19 @@
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel.cshtml" />
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\Scooters_Mobile.cshtml" />
+    <Content Include="Views\Make\_MakeModelPopup.cshtml" />
     <Content Include="Views\News\Scooters.cshtml" />
     <Content Include="Views\News\Scooters_Mobile.cshtml" />
     <Content Include="Views\Videos\ScooterVideos.cshtml" />
     <Content Include="Views\Videos\ScooterVideos_Mobile.cshtml" />
+    <Content Include="Views\Scooters\_PopularScooterBrandsVerticalWidget.cshtml" />
+    <Content Include="Views\ExpertReviews\Scooters.cshtml" />
+    <Content Include="Views\PriceInCity\_Index_Tabs.cshtml" />
+    <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\_ModelPriceInTopCitiesWidget.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
+    <Content Include="Views\Model\_BestBikes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3988,7 +4004,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
