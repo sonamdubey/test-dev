@@ -287,7 +287,6 @@
     <Compile Include="common\ManageModelColor.cs" />
     <Compile Include="common\ReviewDetail.cs" />
     <Compile Include="common\Security.cs" />
-    <Compile Include="common\UpdateLiveContentCommon.cs" />
     <Compile Include="content\AddDealers.aspx.cs">
       <DependentUpon>AddDealers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

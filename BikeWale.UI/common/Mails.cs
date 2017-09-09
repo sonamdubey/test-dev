@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Bikewale.Common
 {
-    public class Mails
+    public static class Mails
     {
         public static void DealerStockBikePurchaseInquiry(string dealerEmail, string dealer, string customerId, string customerComments, int bikeId)
         {
@@ -230,7 +230,7 @@ namespace Bikewale.Common
             } // catch Exception
         }
 
-      
+
         public static void EmailVerification(string code)
         {
             try
@@ -291,8 +291,6 @@ namespace Bikewale.Common
                 message.Append("Name: " + cd.Name + "<br>");
                 message.Append("Email: " + cd.Email + "<br>");
                 message.Append("Contact Number: " + cd.Mobile + "<br>");
-                //message.Append( "Address: " + cd.Address + "<br>" );
-                //message.Append( "City: " + cd.City + "</p>" );
 
                 message.Append("<p>If you would like to make any changes in your listing, ");
                 message.Append("<a href='https://www.bikewale.com/MyBikewale/'>click here to update.</a></p>");
@@ -757,7 +755,7 @@ namespace Bikewale.Common
             ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "Mails.SendNewsLetter");
             objErr.SendMail();
 
-     
+
         }
 
         /// <summary>
@@ -973,7 +971,6 @@ namespace Bikewale.Common
                 message.Append("<br><br>" + ma.GetAdScript(CustomerDetails.GetCustomerIdFromEmail(reviewerEmail)));
 
                 CommonOpn op = new CommonOpn();
-                //Trace.Warn( "Email : " + email );
                 op.SendMail(reviewerEmail, subject, message.ToString(), true);
             }
             catch (Exception err)

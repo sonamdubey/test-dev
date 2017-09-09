@@ -27,11 +27,10 @@ namespace Bikewale.BindViewModels.Webforms.Used
     /// </summary>
     public class UsedBikeLandingPage
     {
-        private IUnityContainer container;
-        public IEnumerable<UsedBikeMakeEntity> TopMakeList;
-        public IEnumerable<UsedBikeMakeEntity> OtherMakeList;
-        public IEnumerable<CityEntityBase> Cities = null;
-        public IEnumerable<UsedBikeCities> objCitiesWithCount = null;
+        public IEnumerable<UsedBikeMakeEntity> TopMakeList { get; set; }
+        public IEnumerable<UsedBikeMakeEntity> OtherMakeList { get; set; }
+        public IEnumerable<CityEntityBase> Cities { get; set; }
+        public IEnumerable<UsedBikeCities> objCitiesWithCount { get; set; }
 
         /// <summary>
         /// Created by: Sangram Nandkhile on 06 Oct 2016
@@ -43,7 +42,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         {
             try
             {
-                using (container = new UnityContainer())
+                using (IUnityContainer container = new UnityContainer())
                 {
                     ICity objCitiesCache = null;
                     IUsedBikesCache objUsedBikes = null;
@@ -65,7 +64,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Used.UsedBikeLandingPage.constructor");
-                objErr.SendMail();
             }
         }
 
@@ -81,7 +79,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             {
                 var totalList = objUsedBikes.GetUsedBikeMakesWithCount();
                 ChangeCityLinks(totalList);
-                if (totalList != null && totalList.Count() > 0)
+                if (totalList != null && totalList.Any())
                 {
                     TopMakeList = totalList.Take(topcount);
                     OtherMakeList = totalList.Skip(topcount);
@@ -90,7 +88,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : UsedBikeLandingPage.GetAllMakes");
-                objErr.SendMail();
             }
         }
         /// <summary>
@@ -142,7 +139,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : UsedBikeLandingPage.GetAllCities - used-Default");
-                objErr.SendMail();
             }
         }
 
