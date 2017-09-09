@@ -83,9 +83,41 @@ function validatePersonalInfo() {
     if (isValid) {
         $("#personal-detail-tab").addClass("hide");
         $("#employment-detail-tab").removeClass("hide");
+
+        savePersonalDetails();
     } else {
         scrollTopError();
     }
+}
+function savePersonalDetails()
+{
+    var personDetails = {
+        "firstName":$('#cfFName').val(),
+        "lastName":$('#cfLName').val(),
+        "mobileNumber":$('#cfNum').val(),
+        "emailId":$('#cfEmail').val(),
+        "dateOfBirth": $('#cfDOB').val(),
+        "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
+        "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
+        "addressLine1": $("#cfAddress1").val(),
+        "addressLine2": $('#cfAddress2').val(),
+        "pincode": $("#cfPincode").val(),
+        "pancard": $("#cfPan").val()
+
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/api/finance/savepersonaldetails/",
+        contentType: "application/json",
+        data: ko.toJSON(personDetails),
+        success: function (response) {
+            Materialize.toast('Desktop banner configured', 4000);
+            $('.stepper').nextStep();
+        }
+    });
+
+
 }
 
 function validateEmploymentInfo() {
@@ -99,10 +131,34 @@ function validateEmploymentInfo() {
     isValid &= validateRadioButtons("status");
 
     if (isValid) {
-        //submit
+        saveEmployeDetails();
     }
 }
+function saveEmployeDetails() {
 
+    var employeDetails = {
+        "status": $('#cfStatusS').is(':checked') ? 1 : 2,
+        "companyName": $('#cfCompName').val(),
+        "officalAddressLine1": $('#cfCompAddress1').val(),
+        "officalAddressLine2": $('#cfCompAddress2').val(),
+        "pincode": $('#cfCompPincode').val(),
+        "annualIncome": $('#cfCompIncome').val()
+
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/api/finance/saveemployedetails/",
+        contentType: "application/json",
+        data: ko.toJSON(employeDetails),
+        success: function (response) {
+            Materialize.toast('Desktop banner configured', 4000);
+            $('.stepper').nextStep();
+        }
+    });
+
+
+}
 function validateUserName(elem) {
     var nameRegex = /^[a-zA-Z ]{2,255}$/,
         value = $(elem)[0].value.trim();
@@ -119,7 +175,7 @@ function validateUserName(elem) {
 }
 
 function validatePhoneNumber(inputMobile) {
-    var regMob = new RegExp('^((7)|(8))[0-9]{9}$', 'i'),
+    var regMob = new RegExp('^((7)|(8)|(9))[0-9]{9}$', 'i'),
         value = $(inputMobile).val();
 
     if(value.length < 10){
