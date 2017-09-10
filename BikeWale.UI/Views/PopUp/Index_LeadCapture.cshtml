@@ -5,11 +5,13 @@
 }
 @if (Model.LeadCapture != null)
 {
+    Model.LeadCapture.IsAmp = true;
     @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 }
 <script type="text/javascript">
     docReady(function () {
         try {
+            
             var obj = $.parseJSON('@Html.Raw(Model.PopupJson)');
             var leadOptions = {
                 "dealerid": obj.dealerid,
@@ -37,14 +39,18 @@
             };
             dleadvm.setOptions(leadOptions);
             $('#leadCapturePopup').show();
+
         } catch (e) {
             console.warn("Unable to get submit details : " + e.message);
         }
 
-        $(".leadCapture-close-btn").on("click", function () {
+        $(".onlyPopup-leadCapture-close-btn").on("click", function () {
             window.location.href = '@Model.Url';
         });
+        $("#notifyOkayBtn").on("click", function () {
+            $(".onlyPopup-leadCapture-close-btn").trigger("click");
 
+        });
     });
 
 

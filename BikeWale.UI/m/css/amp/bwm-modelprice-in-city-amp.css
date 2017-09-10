@@ -307,7 +307,7 @@ a {
 	white-space: nowrap;
 	border: 1px solid transparent;
 	border-radius: 2px;
-	outline: none;
+	outline: 0;
 	text-decoration: none;
 	vertical-align: middle;
 	-ms-touch-action: manipulation;
@@ -353,7 +353,7 @@ a {
 }
 
 .btn-inv-teal, .view-all-target-btn {
-	background: transparent;
+	background: 0 0;
 	color: #3799a7;
 	border: 1px solid #3799a7;
 }
@@ -1522,7 +1522,7 @@ input[type="range"]::-moz-range-track {
     right: 0;
     top: 0
 }
-.content-box-shadow { background: #fff; -moz-box-shadow: 2px 2px 2px #dcdcdc; -webkit-box-shadow: 2px 2px 2px #dcdcdc; -o-box-shadow: 2px 2px 2px #dcdcdc; -ms-box-shadow: 2px 2px 2px #dcdcdc; box-shadow: 2px 2px 2px #dcdcdc; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+
 .city-sprite {
     background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;
     display: inline-block;
@@ -1537,4 +1537,96 @@ input[type="range"]::-moz-range-track {
 .btn-auto-32 {
     padding: 5px 10px;
     font-size: 14px;
+}
+
+/*Manufacturer camp dealers css*/
+.dealer-campaign-wrapper {
+  padding: 20px;
+}
+
+.campaign__icon {
+  width: 18px;
+  height: 17px;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/dealer-4d5057-18.png) no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.campaign__name {
+  width: 80%;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.campaign__list li {
+  color: #787878;
+}
+
+.campaign__list li:before {
+  content: '\2022';
+  margin-right: 5px;
+}
+
+.item--50-percent li {
+  width: 49%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.btn-180-32 {
+  min-width: 180px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.campaign__floating-btn {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 8;
+  padding: 10px;
+  background: #fff;
+  -moz-box-shadow: 0 0 7px #ccc;
+  -webkit-box-shadow: 0 0 7px #ccc;
+  -o-box-shadow: 0 0 7px #ccc;
+  box-shadow: 0 0 7px #ccc;
+}
+
+.campaign__floating-btn .btn.btn-full-32 {
+  width: 100%;
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 2px;
+}
+
+.campaign__floating-btn .btn__left-label {
+  color: #82888b;
+  position: relative;
+  top: 6px;
+}
+
+.campaign__contact {
+  font-size: 14px;
+  color: #4d5057;
+  font-weight: 600;
+}
+
+.campaign__contact:hover {
+  text-decoration: none;
+}
+
+.tel-sm-icon {
+  width: 15px;
+  height: 12px;
+  background-position: -88px -324px;
+  position: relative;
+  top: 2px;
+}
+@media only screen and (max-width:320px) {
+    .dealer-campaign-wrapper .btn-180-32 {
+        min-width: 160px;
+        margin-right: 5px;
+    }
 }

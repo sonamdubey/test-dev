@@ -118,7 +118,7 @@
             footer, footer a {
                 color: #fff;
             }
-            
+
             .footer-middle li, .footer-top li {
                 display: inline-block;
             }
@@ -393,6 +393,7 @@ amp-accordion > section[expanded] .fa-angle-down {
         
         @RenderBody()
 
+
         @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
         {
             <div class="margin-bottom10 margin-top15">
@@ -470,26 +471,74 @@ amp-accordion > section[expanded] .fa-angle-down {
         <amp-analytics type="googleanalytics">
             <script type="application/json">
                 {
-                "vars": {
-                "account": "UA-34771801-1"
-                },
-                "extraUrlParams": {
-                "pageSourceType": "AMP"
-                },
-                "triggers": {
-                "trackEvent": {
-                "selector": "#exploreMoreCard",
-                "on": "click",
-                "request": "event",
-                "vars": {
-                "eventCategory": "Price_in_City_Page",
-                "eventAction": "aaaa"
-                }
-                }
-                }
+                    "vars": {
+                    "account": "UA-34771801-1"
+                    },
+                    "extraUrlParams": {
+                    "pageSourceType": "AMP"
+                    },
+                    "triggers": {
+                        "trackEvent": {
+                            "selector": "#exploreMoreCard",
+                            "on": "click",
+                            "request": "event",
+                            "vars": {
+                                "eventCategory": "Price_in_City_Page",
+                                "eventAction": "Clicked_ExploreMore_Card"
+                            }
+                        }
+                    }
                 }
             </script>
         </amp-analytics>
 
+        <amp-analytics type="googleanalytics">
+            <script type="application/json">
+                {
+                    "vars": {
+                    "account": "UA-34771801-1"
+                    },
+                    "extraUrlParams": {
+                    "pageSourceType": "AMP"
+                    },
+                    "triggers": {
+                        "trackEvent": {
+                            "selector": ".coverfox-link-clicked",
+                            "on": "click",
+                            "request": "event",
+                            "vars": {
+                                "eventCategory": "Price_in_City_Page",
+                                "eventAction": "CoverFox_Link_Clicked"
+                            }
+                        }
+                    }
+                }
+            </script>
+        </amp-analytics>
+
+        <amp-analytics type="googleanalytics">
+            <script type="application/json">
+                {
+                    "vars": {
+                    "account": "UA-34771801-1"
+                    },
+                    "extraUrlParams": {
+                    "pageSourceType": "AMP"
+                    },
+                    "triggers": {
+                        "trackEvent": {
+                            "selector": ".view-dealer-details-clicked",
+                            "on": "click",
+                            "request": "event",
+                            "vars": {
+                                "eventCategory": "Price_in_City_Page",
+                                "eventAction": "View_dealer_details_Clicked"
+                            }
+                        }
+                    }
+                }
+            </script>
+        </amp-analytics>
+        
     </body>
 </html>

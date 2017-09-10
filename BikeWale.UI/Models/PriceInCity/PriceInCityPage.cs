@@ -979,8 +979,11 @@ namespace Bikewale.Models
                             PopupDescription = campaigns.LeadCampaign.PopupDescription,
                             PopupHeading = campaigns.LeadCampaign.PopupHeading,
                             PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage,
-                            ShowOnExshowroom = campaigns.LeadCampaign.ShowOnExshowroom
+                            ShowOnExshowroom = campaigns.LeadCampaign.ShowOnExshowroom,
+                            
+
                         };
+                        objData.LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", objData.BikeModel.ModelId, objData.CityEntity.CityId, string.Empty, string.Format(objData.BikeName), string.Empty, string.Empty, string.Empty, objData.IsManufacturerLeadAdShown, objData.LeadCampaign.DealerId, String.Format(objData.LeadCampaign.LeadsPropertyTextMobile, objData.LeadCampaign.Organization), objData.LeadCampaign.Area, objData.VersionId, objData.LeadCampaign.LeadSourceId, objData.LeadCampaign.PqSourceId, objData.LeadCampaign.CampaignId, objData.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), objData.LeadCampaign.PopupHeading, String.Format(objData.LeadCampaign.PopupSuccessMessage, objData.LeadCampaign.Organization), objData.LeadCampaign.PopupDescription, objData.LeadCampaign.PincodeRequired, objData.LeadCampaign.EmailRequired, objData.LeadCampaign.DealerRequired)));
                         objData.IsManufacturerLeadAdShown = true;
                     }
                     if (campaigns.EMICampaign != null)
@@ -1006,6 +1009,7 @@ namespace Bikewale.Models
                             PopupHeading = campaigns.EMICampaign.PopupHeading,
                             PopupSuccessMessage = campaigns.EMICampaign.PopupSuccessMessage
                         };
+                        objData.EMICampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", objData.BikeModel.ModelId, objData.CityEntity.CityId, string.Empty, string.Format(objData.BikeName), string.Empty, string.Empty, string.Empty, objData.IsManufacturerLeadAdShown, objData.EMICampaign.DealerId, String.Format(objData.EMICampaign.EMIPropertyTextDesktop, objData.EMICampaign.Organization), objData.EMICampaign.Area, objData.VersionId, objData.EMICampaign.LeadSourceId, objData.EMICampaign.PqSourceId, objData.EMICampaign.CampaignId, objData.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), objData.EMICampaign.PopupHeading, String.Format(objData.EMICampaign.PopupSuccessMessage, objData.EMICampaign.Organization), objData.EMICampaign.PopupDescription, objData.EMICampaign.PincodeRequired, objData.EMICampaign.EmailRequired, objData.EMICampaign.DealerRequired)));
                         objData.IsManufacturerEMIAdShown = true;
                     }
 
