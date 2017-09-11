@@ -830,11 +830,47 @@ function readMore(e) {
 			
             updateView(reviewId);
             logBhrighu(itemNo, "ReadMoreClick");
+
+            if ($('#user-review-div') && $('#user-review-div').attr('data-readMore')) {                
+                $('#user-review-div').attr('data-readMore', parseInt($('#user-review-div').attr('data-readMore')) + 1);
+            }
+
+            if ($('#user-review-div') && $('#user-review-div').attr('data-readMore') == "3") {
+                bindMoreReviews();
+            }
+
         }
     } catch (e) {
         console.log(e);
     }
 };
+
+function bindMoreReviews() {
+    try {
+        var apiUrl = "/api/user-reviews/list/3/?reviews=true&pn=1&ps=5&so=1&model=" + bikeModelId;
+        $.getJSON(apiUrl)
+        .done(function (response) {
+            if (response && response.result) {
+                createList(response.result);
+            }
+
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function createList(list) {
+
+    list.forEach(function (review) {
+        var el = $("<li class='list-item'></li>");
+
+        var div = 
+
+    });
+
+}
+
 $(".navtab").click(function () {
 
     try {

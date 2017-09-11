@@ -106,6 +106,45 @@ namespace Bikewale.Service.Controllers.UserReviews
             return NotFound();
         }
 
+
+        /// <summary>
+        /// Created by Sajal Gupta on 11-09-2017
+        /// Description : Api to skip top count reviews
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <param name="skipTopCount"></param>
+        /// <returns></returns>
+        [Route("api/user-reviews/list/{skipTopCount}")]
+        public IHttpActionResult GetUserReviewList([FromUri]Bikewale.Entities.UserReviews.Search.InputFilters filters, uint skipTopCount)
+        {
+            Bikewale.Entities.UserReviews.Search.SearchResult objUserReviews = null;
+            Bikewale.DTO.UserReviews.Search.SearchResult objDTOUserReview = null;
+            try
+            {
+                if (filters != null && (!String.IsNullOrEmpty(filters.Model) || !String.IsNullOrEmpty(filters.Make)))
+                {
+                    objUserReviews = _userReviewsSearch.GetUserReviewsList(filters, skipTopCount);
+                    if (objUserReviews != null)
+                    {
+                        objDTOUserReview = UserReviewsMapper.Convert(objUserReviews);
+                        return Ok(objDTOUserReview);
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.GetUserReviewList");
+                return InternalServerError();
+            }
+
+            return NotFound();
+        }
+
         /// <summary>
         /// Created By : Sushil Kumar on 7th Sep 2017
         /// Description : To get user reviews by modelid

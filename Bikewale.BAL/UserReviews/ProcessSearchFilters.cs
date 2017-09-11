@@ -35,6 +35,33 @@ namespace Bikewale.BAL.UserReviews.Search
             _pager = pager;
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 11-09-2017
+        /// Description : Function to skip top reviews from result set.
+        /// </summary>
+        /// <param name="inputFilters"></param>
+        /// <param name="skipTopCount"></param>
+        /// <returns></returns>
+        public SearchResult GetUserReviewsList(InputFilters inputFilters, uint skipTopCount)
+        {
+            SearchResult objResult = null;
+            try
+            {
+                objResult = GetUserReviewsList(inputFilters);
+
+                if(objResult != null && objResult.Result != null && objResult.Result.Count() > skipTopCount)
+                {
+                    objResult.Result = objResult.Result.Skip((int)skipTopCount);
+                    objResult.TotalCount = objResult.TotalCount - (int)skipTopCount;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GetUserReviewsList");
+            }
+            return objResult;
+        }
+
         public SearchResult GetUserReviewsList(InputFilters inputFilters)
         {
             SearchResult objResult = null;
