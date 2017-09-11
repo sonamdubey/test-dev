@@ -13,6 +13,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Desc : Added NewsCount property
     /// Modified by : Sajal Gupta on 02-02-2017
     /// Description : Added UsedBikesCount, PriceInCity and city property
+    /// Modified By :   Vishnu Teja Yalakuntla on 12 Sep 2017
+    /// Description :   Added OnRoadPriceInCity property
     /// </summary>
     [Serializable]
     public class BestBikeEntityBase //: BasicBikeEntityBase
@@ -41,5 +43,6 @@ namespace Bikewale.Entities.GenericBikes
         public string HostUrl { get; set; }
         public bool IsDiscontinued { get; set; }
         public bool IsUpcoming { get; set; }
+        public uint OnRoadPriceInCity { get; set; }
     }
 }

@@ -275,7 +275,7 @@
 
                     <div class="clear"></div>
 
-                    @if (Model.objBestBikesList != null && Model.objBestBikesList.Count() > 0)
+                    @if (Model.OtherBestBikes.BestBikes != null && Model.OtherBestBikes.BestBikes.Count() > 0)
                     {
                         <section>
                             <div class="container">
@@ -283,13 +283,13 @@
                                     <div class="content-box-shadow card-bottom-margin">
                                         <div class="carousel-heading-content padding-top20">
                                             <div class="swiper-heading-left-grid inline-block">
-                                                <h2 class="h2-heading">Here's a list of best @Model.BestBikeHeading</h2>
+                                                <h2 class="h2-heading">@Model.OtherBestBikes.OtherBestBikesHeading</h2>
                                             </div>
                                             <div class="swiper-heading-right-grid inline-block text-right">
                                                 <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName Bikes in India" class="btn view-all-target-btn">View all</a>
                                             </div>
                                         </div>
-                                        @Html.Partial("~/Views/Model/_BestBikes.cshtml", Model.objBestBikesList)
+                                        @Html.Partial("~/Views/Model/_BestBikes.cshtml", Model.OtherBestBikes)
                                         <div class="clear"></div>
                                     </div>
                                 </div>

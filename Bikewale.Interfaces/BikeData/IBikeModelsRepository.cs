@@ -99,6 +99,8 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
         IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords);
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
+        ICollection<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId);
+        ICollection<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint cityId);
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);

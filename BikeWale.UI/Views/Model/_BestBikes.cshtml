@@ -1,8 +1,8 @@
-﻿@model IEnumerable<Bikewale.Entities.GenericBikes.BestBikeEntityBase>
+﻿@model Bikewale.Models.BikeModels.OtherBestBikesVM
 
 <ul class="image-details-grid-list">
 @{int i = 0;}
-@foreach (var Bike in Model)
+@foreach (var Bike in Model.BestBikes)
 {
     i = i + 1;
     <li class="card">
@@ -13,8 +13,27 @@
             </div>
             <div class="item-details-block vertical-top">
                 <p class="font14 text-bold text-black margin-bottom5">@Bike.Make.MakeName @Bike.Model.ModelName</p>
-                <p class="font11 text-light-grey">Ex-showroom, @Bike.PriceInCity</p>
-                @Html.Raw("<span class='font16 text-default'>&#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
+                @if (!Model.IsMakePresentInConfig)
+                {
+                    <p class="font11 text-light-grey">Ex-showroom, @Bike.PriceInCity</p>
+                    @Html.Raw("<span class='font16 text-default'>&#x20B9;</span>")
+                    <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
+                }
+                else
+                {
+                    if (Bike.OnRoadPriceInCity == 0 && Bike.Price > Bike.OnRoadPriceInCity)
+                    {
+                        <p class="font11 text-light-grey">Ex-showroom, Mumbai</p>
+                        @Html.Raw("<span class='font16 text-default'>&#x20B9;</span>")
+                        <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
+                    }
+                    else
+                    {
+                        <p class="font11 text-light-grey">On Road, @Bike.UsedCity.CityName</p>
+                        @Html.Raw("<span class='font16 text-default'>&#x20B9;</span>")
+                        <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.OnRoadPriceInCity))</span>
+                    }
+                }
             </div>
         </a>
     </li>

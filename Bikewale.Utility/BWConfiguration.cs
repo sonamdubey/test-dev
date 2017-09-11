@@ -98,7 +98,8 @@ namespace Bikewale.Utility
             _PinCodesIndexName = string.Empty,
             _DebugMobileSite = string.Empty,
             _CoverFoxLink = string.Empty,
-            _UserReviewIndexName = string.Empty;
+            _UserReviewIndexName = string.Empty,
+            _BestBikesMakes = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -211,6 +212,7 @@ namespace Bikewale.Utility
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
             _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];
             _logNewsUrl = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogNewsUrl"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["LogNewsUrl"]);
+            _BestBikesMakes = ConfigurationManager.AppSettings["BestBikesMakes"];
         }
 
         // Static method to provide access to instance
@@ -361,5 +363,7 @@ namespace Bikewale.Utility
         public string UserReviewIndexName { get { return _UserReviewIndexName; } }
 
         public bool LogNewsUrl { get { return _logNewsUrl; } }
+
+        public string BestBikesMakes { get { return _BestBikesMakes; } }
     }   // class
 }   // namespace
