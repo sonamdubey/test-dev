@@ -44,10 +44,10 @@ docReady(function () {
         container : $("#cfDOB").closest(".input-box")
     });
 
-    $(".page-tabs-data input").on('blur', function () {
+    $(".page-tabs-data input, #otpNumber").on('blur', function () {
         validate.onBlur($(this));
     });
-    $(".page-tabs-data input[type!=button]").on('focus', function () {
+    $(".page-tabs-data input[type!=button], #otpNumber").on('focus', function () {
         validate.onFocus($(this));
         if (!isDesktop.length) {
             var offsetTop = $(this).offset();
@@ -61,6 +61,26 @@ docReady(function () {
 
     $("#employment-detail-submit").on('click', function () {
         validateEmploymentInfo();
+    });
+
+    $(".otp-container__edit-icon").on('click', function () {
+        $(".otp-container__verification").hide();
+        $(".otp-container__edit").show();
+    });
+
+    $("#saveNewNumber").on('click', function () {
+        var otpNewNum = $("#otpNewNumber");
+        if (validatePhoneNumber(otpNewNum)) {
+            $(".otp-container__verification").show();
+            $(".otp-container__edit").hide();
+            var newNum = $(otpNewNum).val();
+            $(".otp-container__phone-number").text(newNum);
+            $(otpNewNum).val('');
+        }
+    });
+
+    $(".otp-container__close").on('click', function () {
+        $(".otp-container").hide();
     });
    
 });

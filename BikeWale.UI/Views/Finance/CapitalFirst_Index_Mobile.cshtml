@@ -1,7 +1,8 @@
 ﻿@model Bikewale.Models.Finance.CapitalFirstVM
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/survey/capital-first.css' /> <link rel='stylesheet' type='text/css' href='/css/zebra-datepicker.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/finance/capital-first.css' />";
+    Model.Page_BTF_CSS_Path = "/css/zebra-datepicker.css";
     Model.Page_JS_Path = "/src/survey/capital-first.js";
 }
 <div class="header-container padding-15-20 ">
@@ -237,5 +238,47 @@
         <li>Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
     </ol>
     <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+</div>
+<div class="otp-container">
+    <div class="otp-container__close otp-icons"></div>
+    <div class="otp-container__info hide">
+        <div class="otp-container__icon"></div>
+        <p class="otp-container__title">Verify your mobile number</p>
+        <p class="font14">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below: </p>
+        <div class="otp-container__verification">
+            <span class="otp-container__span otp-container__phone-icon otp-icons"></span>
+            <span class="otp-container__span otp-container__phone-number">9999999999</span>
+            <span class="otp-container__span otp-container__edit-icon"></span>
+            <div class="input-box form-control-box">
+                <input id="otpNumber" type="tel" min="1" maxlength="6">
+                <label for="otpNumber">Enter your OTP<sup>*</sup></label>
+                <span class="boundary"></span>
+                <span class="error-text" style="display: none;"></span>
+            </div>
+            <input type="button" id="process-order" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Process Order">
+            <p class="otp-container__resend font15">Resend OTP</p>
+        </div>
+        <div class="otp-container__edit">
+            <div class="input-box form-control-box">
+                <input id="otpNewNumber" type="tel" min="1" maxlength="10">
+                <label for="otpNewNumber">Mobile Number<sup>*</sup></label>
+                <span class="input-number-prefix">+91</span>
+                <span class="boundary"></span>
+                <span class="error-text" style="display: none;"></span>
+            </div>
+            <input type="button" id="saveNewNumber" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Done">
+        </div>
+    </div>
+    <div class="thankyou-container">
+        <div class="icon-outer-container rounded-corner50">
+            <div class="icon-inner-container rounded-corner50">
+                <span class="otp-icons thumbsup-icon"></span>
+            </div>
+        </div>
+        <p class="font18 text-bold margin-top20">Thank you, Sumanth!</p>
+        <p class="text-black font14 margin-top20">Your loan application is being verfied. </p>
+        <p class="text-black font14">Loan approval will be generated shortly</p>
+        <input type="button" id="sendEmail" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Get it on Email">
+    </div>
 </div>
 <script defer src="/src/zebra-datepicker.js"></script>

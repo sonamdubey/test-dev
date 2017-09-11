@@ -76,7 +76,7 @@ input:focus ~ .input-number-prefix{
     display: block;
 }
 
-.input-box input#cfNum {
+.input-box input#cfNum,  .input-box input#otpNewNumber{
     padding-left: 30px;
 }
 .input-box input#cfCompIncome {
@@ -154,4 +154,99 @@ input:focus ~ .input-number-prefix{
 #employment-detail-submit {
     display: block;
     margin: 0 auto;
+}
+
+.otp-container {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #fff;
+    width: 100%;
+    z-index: 5;
+    padding: 0 40px;
+    text-align: center;
+}
+
+.otp-container__icon {
+    width: 101px;
+    height: 101px;
+    background-image: url("../../images/otp-icon.png");
+    margin: 40px auto;
+}
+
+.otp-container__title{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.otp-icons {
+    background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v4.png?v29Jun20171498739734721');
+}
+
+.otp-container__close {
+  position: absolute;
+  display: block;
+  right: 15px;
+  top: 15px;
+  width: 16px;
+  height: 16px;
+  background-position: -36px -226px;
+}
+.otp-container__span {
+    display: inline-block;
+    vertical-align: middle;
+}
+.otp-container__phone-icon {
+    width: 16px;
+    height: 16px;
+    background-position: -41px -111px;
+}
+.otp-container__edit-icon {
+    width: 16px;
+    height: 16px;
+    background-image: url("../../images/mobile-edit.png");
+}
+.otp-container__phone-number {
+    font-size: 24px;
+    margin: 10px;
+}
+.otp-container__resend {
+    color: #0288d1;
+}
+
+.otp-container__edit {
+    display: none;
+    margin-top: 20px;
+}
+.not-empty .input-number-prefix {
+    display: block;
+}
+.thankyou-container {
+    padding : 20px 10px;
+}
+.thankyou-container .icon-outer-container {
+    width: 70px;
+    height: 70px;
+}
+.thankyou-container .icon-inner-container {
+    width: 60px;
+    height: 60px;
+}
+.thumbsup-icon {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-position: -135px -392px;
+    left: 13px;
+    top: 13px;
+    position: relative;
+}
+.rounded-corner50 {
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
 }
