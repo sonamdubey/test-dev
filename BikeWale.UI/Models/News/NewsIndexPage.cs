@@ -48,6 +48,7 @@ namespace Bikewale.Models
         private uint MakeId, ModelId, pageCatId = 0, CityId;
         private const int pageSize = 10, pagerSlotSize = 5;
         private int curPageNo = 1;
+        private uint _totalPagesCount;
         private string make = string.Empty, model = string.Empty;
         private MakeHelper makeHelper = null;
         private ModelHelper modelHelper = null;
@@ -135,6 +136,8 @@ namespace Bikewale.Models
 
                 objData.Articles = _articles.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
 
+                _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
+
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
                     status = StatusCodes.ContentFound;
@@ -193,6 +196,8 @@ namespace Bikewale.Models
 
 
                 objData.Articles = _articles.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
+
+                _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
 
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
@@ -423,8 +428,14 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Title = "Bike News - Latest Indian Bike News & Views | BikeWale";
                 objData.PageMetaTags.Description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
                 objData.PageMetaTags.Keywords = "news, bike news, auto news, latest bike news, indian bike news, bike news of india";
-                objData.PageH1 = string.Format("Bike News");
-                objData.PageH2 = string.Format("Latest Indian Bikes News and Views");
+                objData.PageH1 = "Bike News";
+                objData.PageH2 = "Latest Indian Bikes News and Views";
+            }
+
+            if (curPageNo > 1)
+            {
+                objData.PageMetaTags.Description = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Description);
+                objData.PageMetaTags.Title = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Title);
             }
         }
 
