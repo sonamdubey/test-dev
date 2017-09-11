@@ -27,8 +27,12 @@ namespace Bikewale.BAL.Finance
         private readonly ICustomerAuthentication<CustomerEntity, UInt32> _objAuthCustomer = null;
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
 
+        private const string CF_MESSAGE_SUCCESS = "Capital First Voucher and Agent details are saved successfully";
+        private const string CF_MESSAGE_SAVE_FAILURE = "Error occured while saving voucher details";
+        private const string CF_MESSAGE_INVALID = "Invalid lead id or request body is empty";
+        private const string CF_MESSAGE_ERROR = "An error occured while saving voucher details";
 
-
+        
         /// <summary>
         /// Created by  :   Sumit Kate on 11 Sep 2017
         /// Description :   Type Initializer
@@ -52,30 +56,42 @@ namespace Bikewale.BAL.Finance
         /// <param name="ctLeadId"></param>
         /// <param name="jsonData"></param>
         /// <returns></returns>
-        public string SaveVoucherDetails(string ctLeadId, string jsonData)
+        public string SaveVoucherDetails(string ctLeadId, CapitalFirstVoucherEntityBase entity)
         {
             string message = "";
             try
             {
-                bool isValidLead = _objIFinanceRepository.IsValidLead(ctLeadId);
-                if (isValidLead)
+                bool isSuccess = _objIFinanceRepository.IsValidLead(ctLeadId);
+                if (isSuccess && entity != null)
                 {
-                    NameValueCollection objNVC = new NameValueCollection();
-                    objNVC.Add("ctLeadId", ctLeadId);
-                    objNVC.Add("jsonData", jsonData);
-                    RabbitMqPublish objRMQPublish = new RabbitMqPublish();
-                    objRMQPublish.PublishToQueue(Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
-                    message = "Success";
+                    isSuccess = _objIFinanceRepository.SaveVoucherDetails(ctLeadId, entity);
+
+                    if (isSuccess)
+                    {
+                        NameValueCollection objNVC = new NameValueCollection();
+                        objNVC.Add("ctLeadId", ctLeadId);
+                        objNVC.Add("agentContactNumber", entity.AgentContactNumber);
+                        objNVC.Add("agentName", entity.AgentName);
+                        objNVC.Add("expiryDate", entity.ExpiryDate.ToShortDateString());
+                        objNVC.Add("voucherCode", entity.VoucherCode);
+                        RabbitMqPublish objRMQPublish = new RabbitMqPublish();
+                        objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.CapitalFirstConsumerQueue, objNVC);
+                        message = CF_MESSAGE_SUCCESS;
+                    }
+                    else
+                    {
+                        message = CF_MESSAGE_SAVE_FAILURE;
+                    }
                 }
                 else
                 {
-                    message = "Invalid lead id or request body is empty";
+                    message = CF_MESSAGE_INVALID;
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SaveVoucherDetails({0},{1})", ctLeadId, jsonData));
-                message = "An error occured while saving voucher details";
+                ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SaveVoucherDetails({0},{1})", ctLeadId, Newtonsoft.Json.JsonConvert.SerializeObject(entity)));
+                message = CF_MESSAGE_ERROR;
             }
             return message;
         }
