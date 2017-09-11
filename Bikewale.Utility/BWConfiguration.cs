@@ -114,6 +114,8 @@ namespace Bikewale.Utility
         private bool _DisablePWA;
         private string _AMPDomainForSW;
         private bool _logNewsUrl;
+        private string _capitalFirstConsumerQueue;
+        private string _apiKeyCarTrade;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -211,6 +213,8 @@ namespace Bikewale.Utility
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
             _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];
             _logNewsUrl = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogNewsUrl"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["LogNewsUrl"]);
+            _capitalFirstConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["CapitalFirstConsumerQueue"]);
+            _apiKeyCarTrade = String.Format(Convert.ToString(ConfigurationManager.AppSettings["ApiKeyCarTrade"]));
         }
 
         // Static method to provide access to instance

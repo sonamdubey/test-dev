@@ -2,13 +2,14 @@
 using Bikewale.Entities.Finance.CapitalFirst;
 using Bikewale.Interfaces.Finance.CapitalFirst;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Dapper;
 using System;
 using System.Data;
 
 namespace Bikewale.DAL.Finance.CapitalFirst
 {
-   public class FinanceRepository : IFinanceRepository
+    public class FinanceRepository : IFinanceRepository
     {
 
 
@@ -65,6 +66,34 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                 ErrorClass objErr = new ErrorClass(ex, "FinanceRepository.SavePersonalDetails");
             }
             return success;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 11 Sep 2017
+        /// Description :   Checks if it is valid Lead Id
+        /// </summary>
+        /// <param name="leadId">CarTrade Lead Id</param>
+        /// <returns></returns>
+        public bool IsValidLead(string leadId)
+        {
+            Boolean isValid = false;
+            try
+            {
+                using (IDbConnection conn = DatabaseHelper.GetReadonlyConnection())
+                {
+                    conn.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_leadId", leadId, dbType: DbType.Int32);
+                    param.Add("par_isvalid", dbType: DbType.Boolean, direction: ParameterDirection.Output);
+                    conn.Execute("isvalidcapitalfirstlead", param: param, commandType: CommandType.StoredProcedure);
+                    isValid = SqlReaderConvertor.ToBoolean(param.Get<Boolean>("par_isvalid"));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("FinanceRepository.IsValidLead({0})", leadId));
+            }
+            return isValid;
         }
     }
 }
