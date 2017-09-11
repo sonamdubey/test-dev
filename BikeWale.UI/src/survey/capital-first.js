@@ -1,6 +1,7 @@
+var validate,
+    isDesktop;
 
 docReady(function () {
-
     validate = {
         setError: function (element, message) {
             var elementLength = element.val().length,
@@ -36,18 +37,22 @@ docReady(function () {
             }
         }
     };
+
+    isDesktop = $(".capital-first-desktop");
     
-    $("#cfDOB").Zebra_DatePicker();
+    $("#cfDOB").Zebra_DatePicker({
+        container : $("#cfDOB").closest(".input-box")
+    });
 
     $(".page-tabs-data input").on('blur', function () {
         validate.onBlur($(this));
     });
     $(".page-tabs-data input[type!=button]").on('focus', function () {
         validate.onFocus($(this));
-        var offsetTop = $(this).offset().top;
-        $("html, body").animate({
-            scrollTop: offsetTop - 40
-        });
+        if (!isDesktop.length) {
+            var offsetTop = $(this).offset();
+            scrollTop(offsetTop);
+        }
     });
 
     $("#personal-detail-submit").on('click', function () {
@@ -61,9 +66,8 @@ docReady(function () {
 });
 
 function scrollTopError() {
-    $("html, body").animate({
-        scrollTop: $(".invalid").offset().top - 40
-    });
+    var elem = $(".invalid").offset();
+    scrollTop(elem);
 }
 
 function validatePersonalInfo() {
@@ -85,6 +89,13 @@ function validatePersonalInfo() {
         $("#employment-detail-tab").removeClass("hide");
 
         savePersonalDetails();
+        $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
+        $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
+        if (isDesktop) {
+            $(".employment__title ").removeClass("inactive");
+            $(".employment-details-container").addClass("visible");
+            scrollTop($("#employment-detail-tab").offset());
+        }
     } else {
         scrollTopError();
     }
@@ -124,7 +135,7 @@ function validateEmploymentInfo() {
     var isValid = false;
 
     isValid = validateUserName($("#cfCompName"));
-    isValid &= validatePhoneNumber($("#cfCompIncome"));
+    isValid &= validateIncome($("#cfCompIncome"));
     isValid &= validateAddress($("#cfCompAddress1"));
     isValid &= validateAddress($("#cfCompAddress2"));
     isValid &= validatePinCode($("#cfCompPincode"));
@@ -160,6 +171,7 @@ function saveEmployeDetails() {
 
 }
 function validateUserName(elem) {
+
     var nameRegex = /^[a-zA-Z ]{2,255}$/,
         value = $(elem)[0].value.trim();
 
@@ -256,6 +268,23 @@ function validateRadioButtons(groupName) {
     return isValid;
 }
 
-function validateDOB(inputDOB) {
+function validateIncome(inputIncome) {
+    var isValid = true;
 
+    if ($(inputIncome).val().length <= 0) {
+        validate.setError(inputIncome, 'Invalid Income');
+        isValid = false;
+    }
+    return isValid;
+}
+
+function scrollTop(offsetElem) {
+    var offsetTop = 40;
+    if (isDesktop.length) {
+        offsetTop = 170;
+
+    }
+    $("html, body").animate({
+        scrollTop: offsetElem.top - offsetTop
+    });
 }

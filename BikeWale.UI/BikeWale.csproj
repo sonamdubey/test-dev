@@ -2277,6 +2277,7 @@
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
+    <Content Include="css\survey\capital-first_d.css" />
     <Content Include="css\survey\capital-first.css" />
     <Content Include="css\user-review\listing.css" />
     <Content Include="css\survey\bajaj-survey.css" />
@@ -3217,6 +3218,7 @@
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\survey\capital-first.js" />
     <Content Include="src\survey\bajaj-survey.js" />
+    <Content Include="src\survey\capital-first.js" />
     <Content Include="src\swiper-3.1.7.js" />
     <Content Include="src\used-landing.js" />
     <Content Include="src\sell-bike.js" />
@@ -3775,6 +3777,7 @@
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\Scooters_Mobile.cshtml" />
     <Content Include="Views\Make\_MakeModelPopup.cshtml" />
+    <Content Include="Views\Finance\CapitalFirst_Index.cshtml" />
     <Content Include="Views\News\Scooters.cshtml" />
     <Content Include="Views\News\Scooters_Mobile.cshtml" />
     <Content Include="Views\Videos\ScooterVideos.cshtml" />
@@ -3788,7 +3791,6 @@
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\Model\_BestBikes.cshtml" />
     <Content Include="Views\Finance\CapitalFirst_Index_Mobile.cshtml" />
-    <Content Include="Views\Finance\CapitalFirst_Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
