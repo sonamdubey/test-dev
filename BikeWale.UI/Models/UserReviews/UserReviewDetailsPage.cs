@@ -179,7 +179,7 @@ namespace Bikewale.Models.UserReviews
                     {
                         BreadCrumbs.Add(new BreadCrumb
                         {
-                            ListUrl = "/" + objPage.UserReviewDetailsObj.Make.MaskingName + "-bikes/",
+                            ListUrl = string.Format("/{0}-bikes/", objPage.UserReviewDetailsObj.Make.MaskingName),
                             Name = objPage.UserReviewDetailsObj.Make.MakeName + " Bikes"
                         });
                     }

@@ -828,7 +828,7 @@ namespace Bikewale.Models.BikeModels
                     {
                         BreadCrumbs.Add(new BreadCrumb
                         {
-                            ListUrl = "/" + _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName + "-bikes/",
+                            ListUrl = string.Format("/{0}-bikes/", _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName),
                             Name = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName + " Bikes"
                         });
                     }

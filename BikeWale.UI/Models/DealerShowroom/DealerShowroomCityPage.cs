@@ -183,7 +183,7 @@ namespace Bikewale.Models.DealerShowroom
                 {
                     BreadCrumbs.Add(new BreadCrumb
                     {
-                        ListUrl = "/" +  objDealerVM.Make.MaskingName + "-dealer-showrooms-in-india/",
+                        ListUrl = string.Format("/{0}-dealer-showrooms-in-india/", objDealerVM.Make.MaskingName),
                         Name = objDealerVM.Make.MakeName + " Showrooms"
                     });
                 }
@@ -191,7 +191,7 @@ namespace Bikewale.Models.DealerShowroom
                 objDealerVM.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
 
                 if(objDealerVM.Make != null && objDealerVM.CityDetails != null)
-                    objDealerVM.BreadCrumbsList.PageName = objDealerVM.Make.MakeName + " Showrooms in " + objDealerVM.CityDetails.CityName;
+                    objDealerVM.BreadCrumbsList.PageName = string.Format("{0} Showrooms in {1}", objDealerVM.Make.MakeName, objDealerVM.CityDetails.CityName);
             }
             catch (Exception ex)
             {
