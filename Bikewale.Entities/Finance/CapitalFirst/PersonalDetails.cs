@@ -19,7 +19,7 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         public string LastName { get; set; }
 
         [JsonProperty("mobileNumber")]
-        public uint MobileNumber { get; set; }
+        public string MobileNumber { get; set; }
 
         [JsonProperty("emailId")]
         public string EmailId { get; set; }
@@ -64,7 +64,7 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         [JsonProperty("annualIncome")]
         public uint AnnualIncome { get; set; }
 
-
+        public string objLeadJson { get; set; }
         public ManufacturerLeadEntity objLead { get; set; }
     }
 }

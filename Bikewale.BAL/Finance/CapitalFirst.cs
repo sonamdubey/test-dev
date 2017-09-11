@@ -84,7 +84,7 @@ namespace Bikewale.BAL.Finance
         {
 
             string message = "";
-            _objIFinanceRepository.SaveEmployeDetails(objDetails);
+            _objIFinanceRepository.SavePersonalDetails(objDetails);
 
 
             if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber), objDetails.EmailId))
@@ -124,34 +124,17 @@ namespace Bikewale.BAL.Finance
         }
         public bool SavePersonalDetails(PersonalDetails objDetails, string Utmz, string Utma)
         {
-            CustomerEntity objCust = null;
-            string MobileNumber = Convert.ToString(objDetails.MobileNumber);
-            if (!_objAuthCustomer.IsRegisteredUser(objDetails.EmailId, MobileNumber))
-            {
-                objCust = new CustomerEntity() { CustomerName = objDetails.objLead.Name, CustomerEmail = objDetails.EmailId, CustomerMobile = MobileNumber, ClientIP = "" };
-                objCust.CustomerId = _objCustomer.Add(objCust);
+           
 
-            }
-            else
-            {
-                var objCustomer = _objCustomer.GetByEmailMobile(objDetails.EmailId, MobileNumber);
-                objCust = new CustomerEntity()
-                {
-                    CustomerId = objCustomer.CustomerId,
-                    CustomerName = objDetails.objLead.Name,
-                    CustomerEmail = objDetails.EmailId = !String.IsNullOrEmpty(objDetails.EmailId) ? objDetails.EmailId : objCustomer.CustomerEmail,
-                    CustomerMobile = MobileNumber
-                };
-                _objCustomer.Update(objCust);
-            }
-
+            CustomerEntity objCust= GetCustomerId(objDetails, objDetails.MobileNumber);
+            
             objDetails.objLead.LeadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(
                  objDetails.objLead.DealerId,
                  objDetails.objLead.PQId,
                  objCust.CustomerId,
                  objDetails.objLead.Name,
                  objDetails.EmailId,
-                 MobileNumber,
+                 objDetails.MobileNumber,
                  objDetails.objLead.LeadSourceId,
                  Utma,
                  Utmz,
@@ -164,6 +147,39 @@ namespace Bikewale.BAL.Finance
 
             return true;
 
+        }
+        private CustomerEntity GetCustomerId(PersonalDetails objDetails,string MobileNumber)
+        {
+
+            CustomerEntity objCust = null;
+            try
+            {
+
+                if (!_objAuthCustomer.IsRegisteredUser(objDetails.EmailId, MobileNumber))
+                {
+                    objCust = new CustomerEntity() { CustomerName = objDetails.objLead.Name, CustomerEmail = objDetails.EmailId, CustomerMobile = MobileNumber, ClientIP = "" };
+                    objCust.CustomerId = _objCustomer.Add(objCust);
+
+                }
+                else
+                {
+                    var objCustomer = _objCustomer.GetByEmailMobile(objDetails.EmailId, MobileNumber);
+                    objCust = new CustomerEntity()
+                    {
+                        CustomerId = objCustomer.CustomerId,
+                        CustomerName = objDetails.objLead.Name,
+                        CustomerEmail = objDetails.EmailId = !String.IsNullOrEmpty(objDetails.EmailId) ? objDetails.EmailId : objCustomer.CustomerEmail,
+                        CustomerMobile = MobileNumber
+                    };
+                    _objCustomer.Update(objCust);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Service.Controllers.SavePersonalDetails");
+            }
+            return objCust;
         }
     }
 }

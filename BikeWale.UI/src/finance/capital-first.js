@@ -105,7 +105,7 @@ function validatePersonalInfo() {
 function savePersonalDetails()
 {
     var personDetails = {
-        "objLead": $("#objLead").val(),
+        "objLeadJson": $("#objLead").val(),
         "firstName":$('#cfFName').val(),
         "lastName":$('#cfLName').val(),
         "mobileNumber":$('#cfNum').val(),

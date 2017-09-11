@@ -1,4 +1,5 @@
-﻿using Bikewale.Models.Finance;
+﻿using Bikewale.Entities.Dealer;
+using Bikewale.Models.Finance;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -23,6 +24,7 @@ namespace Bikewale.Controllers
         public ActionResult CapitalFirst_Index_Mobile()
         {
             CapitalFirstVM viewModel = new CapitalFirstVM();
+            
             return View(viewModel);
         }
 
@@ -37,6 +39,8 @@ namespace Bikewale.Controllers
         public ActionResult CapitalFirst_Index()
         {
             CapitalFirstVM viewModel = new CapitalFirstVM();
+            viewModel.ObjLead = new ManufacturerLeadEntity();
+            viewModel.objLeadJson = Newtonsoft.Json.JsonConvert.SerializeObject(viewModel.ObjLead);
             return View(viewModel);
         }
 

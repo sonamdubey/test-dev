@@ -13,7 +13,7 @@ namespace Bikewale.Models.Finance
 
         public ManufacturerLeadEntity ObjLead { get; set; }
 
-
+        public string objLeadJson { get; set; }
     }
 
 }

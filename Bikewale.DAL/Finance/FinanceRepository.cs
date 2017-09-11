@@ -54,30 +54,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
             }
             return id;
         }
-        public bool SaveEmployeDetails(PersonalDetails objDetails)
-        {
-            bool success = false;
-            try
-            {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
-                {
-                    connection.Open();
-                    var param = new DynamicParameters();
-                    param.Add("par_status", objDetails.Status);
-                    param.Add("par_companyName", objDetails.CompanyName);
-                    param.Add("par_OfficialAddressLine1", objDetails.OfficialAddressLine1);
-                    param.Add("par_OfficialAddressLine2", objDetails.OfficialAddressLine2);
-                    param.Add("par_pincode", objDetails.PincodeOffice);
-                    param.Add("par_annualIncome", objDetails.AnnualIncome);
-                    success = Convert.ToBoolean(connection.Execute("saveemployedetailsfinance", param: param, commandType: CommandType.StoredProcedure));
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "FinanceRepository.SavePersonalDetails");
-            }
-            return success;
-        }
+ 
 
         /// <summary>
         /// Created by  :   Sumit Kate on 11 Sep 2017

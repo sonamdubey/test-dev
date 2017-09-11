@@ -4,6 +4,7 @@ using System.Linq;
 using Bikewale.Notifications;
 using System;
 using System.Web.Http;
+using Bikewale.Entities.Dealer;
 
 namespace Bikewale.Service.Controllers
 {
@@ -28,7 +29,7 @@ namespace Bikewale.Service.Controllers
             {
                 string Utmz = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
               string Utma = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
-                
+                objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
                 _objICapitalFirst.SavePersonalDetails(objDetails, Utmz, Utma);
 
                 return Ok();
@@ -53,9 +54,9 @@ namespace Bikewale.Service.Controllers
         {
             try
             {
-                _objICapitalFirst.SaveEmployeDetails(objDetails);
+             string message=   _objICapitalFirst.SaveEmployeDetails(objDetails);
 
-                return Ok();
+                return Ok(message);
             }
             catch (Exception ex)
             {
