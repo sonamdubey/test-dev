@@ -52,8 +52,8 @@
                                             <span class="rating-badge" data-rate-bg="@review.OverallRating.Value" data-bind="attr: {'data-rate-bg': id }">
                                                 <span class="bwsprite star-white"></span>&nbsp;<span data-bind="text: value">@review.OverallRating.Value</span>
                                             </span>
-                                            <!-- /ko -->
-                                            <a onclick="logBhrighu(event)" href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'data-reviewId': $data.reviewId ,'title' : $data.title,'href' : (($data.reviewId) ? ('/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/') : '')}, truncatedText: $data.title" class="list-item-title inline-block margin-right5" data-id="@i" data-reviewId="@review.ReviewId">@review.Title.Truncate(65)</a>
+                                            <!-- /ko -->                                          
+                                            <a onclick="logBhrighu(event)" href="@review.ReviewUrl" data-bind="attr : {'data-reviewId': $data.reviewId ,'title' : $data.title,'href' : $data.reviewUrl}, truncatedText: $data.title" class="list-item-title inline-block margin-right5" data-id="@i" data-reviewId="@review.ReviewId">@review.Title.Truncate(65)</a>
                                             <span class="font12 inline-block text-light-grey" data-bind="text: $data.reviewAge + ' ago by '"></span>&nbsp;<span class="font12 inline-block text-light-grey" data-bind="trimText : $data.customerName">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
                                         </div>
                                         <div class="collapsible-content toggle-off main-content-off font14 text-slate-grey">
