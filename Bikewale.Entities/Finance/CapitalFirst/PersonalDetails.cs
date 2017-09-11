@@ -6,17 +6,27 @@ namespace Bikewale.Entities.Finance.CapitalFirst
 {
     public class PersonalDetails
     {
+        [JsonProperty("leadId")]
+        public uint LeadId { get; set; }
+
+        [JsonProperty("ctLeadId")]
+        public uint CTLeadId { get; set; }
+
         [JsonProperty("firstName")]
         public string FirstName { get; set; }
+
         [JsonProperty("lastName")]
         public string LastName { get; set; }
+
         [JsonProperty("mobileNumber")]
         public uint MobileNumber { get; set; }
+
         [JsonProperty("emailId")]
         public string EmailId { get; set; }
+
         [JsonProperty("dateOfBirth")]
         public DateTime DateOfBirth { get; set; }
-  
+
         [JsonProperty("gender")]
         public ushort Gender { get; set; }
 
@@ -42,11 +52,11 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         [JsonProperty("companyName")]
         public string CompanyName { get; set; }
 
-        [JsonProperty("officalAddressLine1")]
-        public string OfficalAddressLine1 { get; set; }
+        [JsonProperty("officialAddressLine1")]
+        public string OfficialAddressLine1 { get; set; }
 
-        [JsonProperty("officalAddressLine2")]
-        public string OfficalAddressLine2 { get; set; }
+        [JsonProperty("officialAddressLine2")]
+        public string OfficialAddressLine2 { get; set; }
 
         [JsonProperty("pincodeOffice")]
         public uint PincodeOffice { get; set; }

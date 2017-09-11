@@ -7,7 +7,7 @@ namespace Bikewale.Interfaces.Finance.CapitalFirst
     public interface IFinanceRepository
     {
         bool IsValidLead(string leadId);
-        bool SavePersonalDetails(PersonalDetails objDetails);
+        uint SavePersonalDetails(PersonalDetails objDetails);
         bool SaveEmployeDetails(PersonalDetails objDetails);
     }
 }

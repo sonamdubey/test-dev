@@ -62,6 +62,8 @@ docReady(function () {
     $("#employment-detail-submit").on('click', function () {
         validateEmploymentInfo();
     });
+
+    FillDummyDetails();
    
 });
 
@@ -124,7 +126,6 @@ function savePersonalDetails()
         contentType: "application/json",
         data: ko.toJSON(personDetails),
         success: function (response) {
-            Materialize.toast('Desktop banner configured', 4000);
             $('.stepper').nextStep();
         }
     });
@@ -151,8 +152,8 @@ function saveEmployeDetails() {
     var employeDetails = {
         "status": $('#cfStatusS').is(':checked') ? 1 : 2,
         "companyName": $('#cfCompName').val(),
-        "officalAddressLine1": $('#cfCompAddress1').val(),
-        "officalAddressLine2": $('#cfCompAddress2').val(),
+        "OfficialAddressLine1": $('#cfCompAddress1').val(),
+        "OfficialAddressLine2": $('#cfCompAddress2').val(),
         "pincode": $('#cfCompPincode').val(),
         "annualIncome": $('#cfCompIncome').val(),
         "mobileNumber": $('#cfNum').val(),
@@ -166,7 +167,6 @@ function saveEmployeDetails() {
         contentType: "application/json",
         data: ko.toJSON(employeDetails),
         success: function (response) {
-            Materialize.toast('Desktop banner configured', 4000);
             $('.stepper').nextStep();
         }
     });
@@ -290,4 +290,18 @@ function scrollTop(offsetElem) {
     $("html, body").animate({
         scrollTop: offsetElem.top - offsetTop
     });
+}
+
+function FillDummyDetails() {
+    $('#cfFName').val('John');
+    $('#cfLName').val('doe');
+    $('#cfNum').val('9892112233');
+    $('#cfEmail').val('ss@ss.com');
+    $('#cfDOB').val('2017-02-02');
+    $('#cfGenderM').prop("checked", true);
+    $('#cfMaritalS').prop("checked", true);
+    $("#cfAddress1").val('Mannat, Shop No 3, Juhu Tara Road');
+    $('#cfAddress2').val('Santacruz West, Mumbai - 400054');
+    $("#cfPincode").val('400605');
+    $("#cfPan").val('AIJPN5455N');
 }
