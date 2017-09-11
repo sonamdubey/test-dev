@@ -185,14 +185,14 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="commentTitle"></param>
         /// <param name="reviewsQuestionAns"></param>
         /// <returns></returns>
-        public bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
+        private bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, uint mileage)
         {
             bool isSuccess = false;
             if (reviewId > 0)
             {
                 //checked for Customer login and cookie details
                 //if unauthorized request return false
-                isSuccess = _userReviewsRepo.SaveUserReviews(reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
+                isSuccess = _userReviewsRepo.SaveUserReviews(reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns, mileage);
             }
 
             return isSuccess;
@@ -375,15 +375,14 @@ namespace Bikewale.BAL.UserReviews
                         isValid = false;
                     }
 
-                    if (isValid)
-                    {
-                        objResponse.IsSuccess = SaveUserReviews(objReviewData.ReviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion);
 
-                        if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
-                            UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);
+                        if (isValid)
+                        {
+                            objResponse.IsSuccess = SaveUserReviews(_reviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion, Convert.ToUInt32(objReviewData.Mileage));
 
-                        if (objReviewData.Mileage != null && objReviewData.Mileage.Length > 0)
-                            _userReviewsRepo.SaveUserReviewMileage(objReviewData.ReviewId, objReviewData.Mileage);
+                            if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
+                                UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);                            
+                        }
                     }
                 }
                 else
