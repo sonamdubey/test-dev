@@ -40,7 +40,7 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         public string AddressLine2 { get; set; }
 
         [JsonProperty("pincode")]
-        public uint? Pincode { get; set; }
+        public string Pincode { get; set; }
 
         [JsonProperty("pancard")]
         public string Pancard { get; set; }
@@ -59,7 +59,7 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         public string OfficialAddressLine2 { get; set; }
 
         [JsonProperty("pincodeOffice")]
-        public uint PincodeOffice { get; set; }
+        public string PincodeOffice { get; set; }
 
         [JsonProperty("annualIncome")]
         public uint AnnualIncome { get; set; }

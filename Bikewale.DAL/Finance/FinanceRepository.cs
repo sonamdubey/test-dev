@@ -4,8 +4,10 @@ using Bikewale.Interfaces.Finance.CapitalFirst;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Dapper;
+using MySql.CoreDAL;
 using System;
 using System.Data;
+using System.Data.Common;
 
 namespace Bikewale.DAL.Finance.CapitalFirst
 {
@@ -54,7 +56,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
             }
             return id;
         }
- 
+
 
         /// <summary>
         /// Created by  :   Sumit Kate on 11 Sep 2017
@@ -107,6 +109,38 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                 ErrorClass objErr = new ErrorClass(ex, String.Format("FinanceRepository.SaveVaoucherDetails({0},{1})", leadIdCarTrade, Newtonsoft.Json.JsonConvert.SerializeObject(voucherDetails)));
             }
             return isSaved;
+        }
+
+        public CapitalFirstBikeEntity GetCapitalFirstBikeMapping(uint versionId)
+        {
+            CapitalFirstBikeEntity bike = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getcapitalfirstbikemapping";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            bike = new CapitalFirstBikeEntity();
+                            bike.MakeBase = new CapitalFirstMakeEntityBase() { Make = Convert.ToString(dr["Make"]), MakeId = Convert.ToString(dr["MakeId"]) };
+                            bike.ModelBase = new CapitalFirstModelEntityBase()
+                            {
+                                ModelId = Convert.ToString(dr["ModelId"]),
+                                ModelNo = Convert.ToString(dr["ModelNo"])
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("FinanceRepository.GetCapitalFirstBikeMapping({0})", versionId));
+            }
+            return bike;
         }
     }
 }

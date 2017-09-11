@@ -8,7 +8,8 @@ namespace Bikewale.Interfaces.Finance.CapitalFirst
     {
         bool IsValidLead(string leadId);
         uint SavePersonalDetails(PersonalDetails objDetails);
-      
+
         bool SaveVoucherDetails(string leadIdCarTrade, CapitalFirstVoucherEntityBase voucherDetails);
+        CapitalFirstBikeEntity GetCapitalFirstBikeMapping(uint versionId);
     }
 }
