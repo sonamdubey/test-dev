@@ -1,7 +1,9 @@
-﻿using Bikewale.Entities.Customer;
-using Bikewale.Entities.NewBikeSearch;
+﻿
+using Bikewale.DTO.UserReviews;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Customer;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Entities.UserReviews.Search;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models.UserReviews;
@@ -10,10 +12,8 @@ using Bikewale.Utility;
 using Bikewale.Utility.LinqHelpers;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
 
 namespace Bikewale.BAL.UserReviews
 {
@@ -27,16 +27,17 @@ namespace Bikewale.BAL.UserReviews
         private readonly IUserReviewsRepository _userReviewsRepo = null;
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
         private readonly ICustomerRepository<CustomerEntity, UInt32> _objCustomerRepo = null;
-
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objBikeModel = null;
         // container.RegisterType<IUserReviewsCache, Bikewale.Cache.UserReviews.UserReviewsCacheRepository>();
 
         public UserReviews(IUserReviewsCache userReviewsCache, IUserReviewsRepository userReviewsRepo, ICustomer<CustomerEntity, UInt32> objCustomer,
-            ICustomerRepository<CustomerEntity, UInt32> objCustomerRepo)
+            ICustomerRepository<CustomerEntity, UInt32> objCustomerRepo, IBikeMaskingCacheRepository<BikeModelEntity, int> objBikeModel)
         {
             _userReviewsCache = userReviewsCache;
             _userReviewsRepo = userReviewsRepo;
             _objCustomer = objCustomer;
             _objCustomerRepo = objCustomerRepo;
+            _objBikeModel = objBikeModel;
 
         }
 
@@ -45,7 +46,7 @@ namespace Bikewale.BAL.UserReviews
         /// Description : To get all user reviews questions,ratings,overall ratings and price range data
         /// </summary>
         /// <returns></returns>
-        public UserReviewsData GetUserReviewsData()
+        public Entities.UserReviews.UserReviewsData GetUserReviewsData()
         {
             return _userReviewsCache.GetUserReviewsData();
         }
@@ -61,7 +62,7 @@ namespace Bikewale.BAL.UserReviews
             IEnumerable<UserReviewQuestion> objQuestions = null;
             try
             {
-                UserReviewsData objUserReviewData = _userReviewsCache.GetUserReviewsData();
+                Entities.UserReviews.UserReviewsData objUserReviewData = _userReviewsCache.GetUserReviewsData();
                 objQuestions = GetUserReviewQuestions(inputParams, objUserReviewData);
             }
             catch (Exception ex)
@@ -79,7 +80,7 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="inputParams"></param>
         /// <param name="objUserReviewQuestions"></param>
         /// <returns></returns>
-        public IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams, UserReviewsData objUserReviewQuestions)
+        public IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams, Entities.UserReviews.UserReviewsData objUserReviewQuestions)
         {
             IEnumerable<UserReviewQuestion> objQuestions = null;
             try
@@ -134,30 +135,31 @@ namespace Bikewale.BAL.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 16th April 2017
         /// Description : Create function to be executed for user reviews linq filters
+        /// Modified by :Snehal Dange on 7th September 2017
+        /// Description :  Added InputRatingSaveEntity
         /// </summary>
         /// <param name="overAllrating"></param>
         /// <param name="ratingQuestionAns"></param>
         /// <param name="userName"></param>
         /// <param name="emailId"></param>
         /// <returns></returns>        
-        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId, string utmzCookieValue, ushort? sourceId)
+        public UserReviewRatingObject SaveUserRatings(InputRatingSaveEntity objInputRating)
         {
-
             UserReviewRatingObject objRating = null;
             try
             {
                 objRating = new UserReviewRatingObject();
-
                 CustomerEntityBase objCust = null;
+                var reviewId = objInputRating.ReviewId;
                 //check for user registration
-                objCust = new CustomerEntityBase() { CustomerName = userName, CustomerEmail = emailId };
+                objCust = new CustomerEntityBase() { CustomerName = objInputRating.UserName, CustomerEmail = objInputRating.EmailId };
                 objCust = ProcessUserCookie(objCust, ref reviewId);
 
                 objRating.IsFake = _objCustomerRepo.IsFakeCustomer(objCust.CustomerId);
 
                 if (!objRating.IsFake)
                 {
-                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, reviewId, returnUrl, platformId, utmzCookieValue, sourceId);
+                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(objInputRating, (uint)objCust.CustomerId, reviewId);
                     objRating.CustomerId = objCust.CustomerId;
                 }
                 else
@@ -166,15 +168,12 @@ namespace Bikewale.BAL.UserReviews
                     objRating.CustomerId = objCust.CustomerId;
                 }
 
-
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.UserReviews.SaveUserRatings({0},{1})", modelId, emailId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.UserReviews.SaveUserRatings({0},{1})", objInputRating.ModelId, objInputRating.EmailId));
             }
-
             return objRating;
-
         }
 
         /// <summary>
@@ -187,14 +186,14 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="commentTitle"></param>
         /// <param name="reviewsQuestionAns"></param>
         /// <returns></returns>
-        public bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
+        private bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, uint mileage)
         {
             bool isSuccess = false;
             if (reviewId > 0)
             {
                 //checked for Customer login and cookie details
                 //if unauthorized request return false
-                isSuccess = _userReviewsRepo.SaveUserReviews(reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
+                isSuccess = _userReviewsRepo.SaveUserReviews(reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns, mileage);
             }
 
             return isSuccess;
@@ -212,7 +211,7 @@ namespace Bikewale.BAL.UserReviews
         public UserReviewSummary GetUserReviewSummary(uint reviewId)
         {
             UserReviewSummary objSummary = null;
-            UserReviewsData objUserReviewData = null;
+            Entities.UserReviews.UserReviewsData objUserReviewData = null;
 
             try
             {
@@ -334,6 +333,8 @@ namespace Bikewale.BAL.UserReviews
         /// Description : Function to save user reviews with server side validations
         /// Modified by Sajal Gupta on 13-07*-2017
         /// Descriptiopn : Added milaeage field.
+        /// Modified By :   Vishnu Teja Yalakuntla on 07 Sep 2017
+        /// Description :   Removed EncodedId
         /// </summary>
         /// <param name="encodedId"></param>
         /// <param name="tipsnAdvices"></param>
@@ -348,60 +349,41 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="reviewTitle"></param>
         /// <returns></returns>
         public WriteReviewPageSubmitResponse SaveUserReviews(ReviewSubmitData objReviewData)
-        {            
+        {
             WriteReviewPageSubmitResponse objResponse = null;
             try
             {
-
-
-                if (objReviewData != null && !string.IsNullOrEmpty(objReviewData.EncodedId))
+                if (objReviewData != null && objReviewData.ReviewId > 0 && objReviewData.CustomerId > 0 && _userReviewsRepo.IsUserVerified(objReviewData.ReviewId, objReviewData.CustomerId))
                 {
-                    uint _reviewId;
-                    ulong _customerId;
+                    bool isValid = true;
 
-                    string decodedString = Utils.Utils.DecryptTripleDES(objReviewData.EncodedId);
-                    NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
+                    objResponse = new WriteReviewPageSubmitResponse();
 
-                    uint.TryParse(queryCollection["reviewid"], out _reviewId);
-                    ulong.TryParse(queryCollection["customerid"], out _customerId);
-
-
-                    if (_reviewId > 0 && _customerId > 0 && _userReviewsRepo.IsUserVerified(_reviewId, _customerId))
+                    if (!string.IsNullOrEmpty(objReviewData.ReviewDescription) && objReviewData.ReviewDescription.Length < 300 && string.IsNullOrEmpty(objReviewData.ReviewTitle))
                     {
-                        bool isValid = true;
-
-                        objResponse = new WriteReviewPageSubmitResponse();
-
-                        if (!string.IsNullOrEmpty(objReviewData.ReviewDescription) && objReviewData.ReviewDescription.Length < 300 && string.IsNullOrEmpty(objReviewData.ReviewTitle))
-                        {
-                            objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
-                            objResponse.TitleErrorText = "Please provide a title for your review.";
-                            isValid = false;
-                        }
-                        else if (string.IsNullOrEmpty(objReviewData.ReviewDescription) && !string.IsNullOrEmpty(objReviewData.ReviewTitle))
-                        {
-                            objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
-                            isValid = false;
-                        }
-                        else if (!string.IsNullOrEmpty(objReviewData.ReviewDescription) && objReviewData.ReviewDescription.Length > 300 && string.IsNullOrEmpty(objReviewData.ReviewTitle))
-                        {
-                            objResponse.TitleErrorText = "Please provide a title for your review.";
-                            isValid = false;
-                        }
-
-                        if (isValid)
-                        {
-                            objResponse.IsSuccess = SaveUserReviews(_reviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion);
-
-                            if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
-                                UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);
-
-                            if (objReviewData.Mileage != null && objReviewData.Mileage.Length > 0)
-                                _userReviewsRepo.SaveUserReviewMileage(_reviewId, objReviewData.Mileage);
-                        }
+                        objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
+                        objResponse.TitleErrorText = "Please provide a title for your review.";
+                        isValid = false;
                     }
-                    else
-                        objResponse.IsSuccess = false;
+                    else if (string.IsNullOrEmpty(objReviewData.ReviewDescription) && !string.IsNullOrEmpty(objReviewData.ReviewTitle))
+                    {
+                        objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
+                        isValid = false;
+                    }
+                    else if (!string.IsNullOrEmpty(objReviewData.ReviewDescription) && objReviewData.ReviewDescription.Length > 300 && string.IsNullOrEmpty(objReviewData.ReviewTitle))
+                    {
+                        objResponse.TitleErrorText = "Please provide a title for your review.";
+                        isValid = false;
+                    }
+
+
+                    if (isValid)
+                    {
+                        objResponse.IsSuccess = SaveUserReviews(objReviewData.ReviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion, Convert.ToUInt32(objReviewData.Mileage));
+
+                        if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
+                            UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);
+                    }
                 }
                 else
                     objResponse.IsSuccess = false;
@@ -496,6 +478,119 @@ namespace Bikewale.BAL.UserReviews
                     return m => (m.Liked);
             }
         }
-        
+
+
+        /// <summary>
+        /// Created By  :   Snehal Dange on 1st Sep 2017
+        /// Summary     :   Get User Rating
+        /// </summary>
+        private void GetUserRatings(UserReviewRatingData objUserReviewRatingData)
+        {
+
+            try
+            {
+                Entities.UserReviews.UserReviewsData objReviewData = null;
+                objReviewData = GetUserReviewsData();
+                if (objUserReviewRatingData.ReviewId == 0)
+                {
+
+                    if (objReviewData != null && objReviewData.Questions != null)
+                    {
+
+                        UserReviewsInputEntity filter = new UserReviewsInputEntity()
+                        {
+                            Type = Entities.UserReviews.UserReviewQuestionType.Rating
+                        };
+                        var objQuestions = GetUserReviewQuestions(filter, objReviewData);
+                        if (objQuestions != null)
+                        {
+                            objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
+                            objQuestions.FirstOrDefault(x => x.Id == 3).Visibility = false;
+                            objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
+                            objUserReviewRatingData.Questions = objQuestions;
+                        }
+
+                    }
+                    if (objReviewData != null && objReviewData.OverallRating != null)
+                    {
+                        objUserReviewRatingData.OverallRating = objReviewData.OverallRating;
+                    }
+
+
+                }
+                else
+                {
+                    UserReviewSummary objUserReviewDataReview = GetUserReviewSummary(objUserReviewRatingData.ReviewId);
+
+                    if (objReviewData.OverallRating != null)
+                    {
+                        objUserReviewRatingData.OverallRating = objReviewData.OverallRating;
+                    }
+
+                    if (objUserReviewDataReview != null)
+                    {
+                        objUserReviewRatingData.ReviewsOverAllrating = objUserReviewDataReview.OverallRatingId.ToString();
+                        objUserReviewRatingData.Questions = objUserReviewDataReview.Questions;
+                        objUserReviewRatingData.CustomerEmail = objUserReviewDataReview.CustomerEmail;
+                        objUserReviewRatingData.CustomerName = objUserReviewDataReview.CustomerName;
+                    }
+                }
+
+                var objLastPrice = objReviewData.PriceRange.Last();
+                if (objUserReviewRatingData.ObjModelEntity != null && objUserReviewRatingData.ObjModelEntity.MinPrice >= objLastPrice.MaxPrice)
+                {
+                    objUserReviewRatingData.PriceRangeId = (ushort)objLastPrice.RangeId;
+                }
+                else
+                {
+                    var objFirstPriceRange = objReviewData.PriceRange.First(x => x.MinPrice <= objUserReviewRatingData.ObjModelEntity.MinPrice && x.MaxPrice >= objUserReviewRatingData.ObjModelEntity.MinPrice);
+                    if (objFirstPriceRange != null)
+                    {
+                        objUserReviewRatingData.PriceRangeId = (ushort)objFirstPriceRange.RangeId;
+                    }
+
+                }
+                objUserReviewRatingData.IsFake = objUserReviewRatingData.IsFake;
+                objUserReviewRatingData.ReviewId = objUserReviewRatingData.ReviewId;
+            }
+
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.GetUserRatings({0})", objUserReviewRatingData.ReviewId));
+            }
+
+        }
+
+        /// <summary>
+        /// Created By  :   Snehal Dange on 1st Sep 2017
+        /// Summary     :   Get Rate Bike data for aoi services
+        /// </summary>
+        public UserReviewRatingData GetRateBikeData(RateBikeInput objRateBike)
+        {
+            UserReviewRatingData objUserReviewRatingData = new UserReviewRatingData();
+            try
+            {
+                objUserReviewRatingData.ObjModelEntity = _objBikeModel.GetById((int)objRateBike.ModelId);
+                objUserReviewRatingData.ReviewId = objRateBike.ReviewId;
+                objUserReviewRatingData.IsFake = objRateBike.IsFake;
+                GetUserRatings(objUserReviewRatingData);
+
+                objUserReviewRatingData.SelectedRating = objRateBike.SelectedRating;
+                if (objUserReviewRatingData != null && objUserReviewRatingData.ObjModelEntity != null)
+                {
+                    objUserReviewRatingData.SourceId = objRateBike.SourceId;
+                    objUserReviewRatingData.ReturnUrl = objRateBike.ReturnUrl;
+                    objUserReviewRatingData.ContestSrc = objRateBike.Contestsrc;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.GetRateBikeData({0},{1},{2},{3},{4},{5},{6})", objRateBike.ModelId, objRateBike.ReviewId, objRateBike.CustomerId, objRateBike.SourceId, objRateBike.SelectedRating, objRateBike.ReturnUrl, objRateBike.Contestsrc));
+            }
+            return objUserReviewRatingData;
+        }
+
     }   // Class
 }   // Namespace

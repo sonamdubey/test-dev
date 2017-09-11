@@ -215,6 +215,7 @@
     <Compile Include="BikeData\UpcomingBikeResult.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
     <Compile Include="BikeData\UsedBikeMakeEntity.cs" />
+    <Compile Include="BikeData\v2\BikeModelContent.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
     <Compile Include="BikeBooking\FeedBackEntity.cs" />
     <Compile Include="BikewalePages.cs" />
@@ -442,6 +443,7 @@
     <Compile Include="UserReviews\BikeUserReviewRating.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\InputFilters.cs" />
+    <Compile Include="UserReviews\InputRatingSaveEntity.cs" />
     <Compile Include="UserReviews\ProcessedInputFilters.cs" />
     <Compile Include="UserReviews\QuestionRatingsValueEntity.cs" />
     <Compile Include="UserReviews\QuestionsRatingValueByModel.cs" />
@@ -460,6 +462,7 @@
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
     <Compile Include="UserReviews\UserReviewPageSourceEnum.cs" />
     <Compile Include="UserReviews\UserReviewPriceRange.cs" />
+    <Compile Include="UserReviews\UserReviewRatingData.cs" />
     <Compile Include="UserReviews\UserReviewRatingObject.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
     <Compile Include="UserReviews\UserReviewsData.cs" />
