@@ -13,15 +13,18 @@ namespace Bikewale.DAL.Finance.CapitalFirst
     {
 
 
-        public bool SavePersonalDetails(PersonalDetails objDetails)
+        public uint SavePersonalDetails(PersonalDetails objDetails)
         {
-            bool success = false;
+            uint id = 0;
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     connection.Open();
                     var param = new DynamicParameters();
+                    param.Add("par_id", id, DbType.Int32, ParameterDirection.InputOutput);
+                    param.Add("par_leadid", objDetails.LeadId);
+                    param.Add("par_ctleadid", objDetails.CTLeadId);
                     param.Add("par_firstname", objDetails.FirstName);
                     param.Add("par_lastname", objDetails.LastName);
                     param.Add("par_mobilenumber", objDetails.MobileNumber);
@@ -34,14 +37,22 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                     param.Add("par_pincode", objDetails.Pincode);
                     param.Add("par_pancard", objDetails.Pancard);
 
-                    success = Convert.ToBoolean(connection.Execute("savepersonaldetailsfinance", param: param, commandType: CommandType.StoredProcedure));
+                    param.Add("par_status", objDetails.Status);
+                    param.Add("par_companyname", objDetails.CompanyName);
+                    param.Add("par_officialaddressline1", objDetails.OfficialAddressLine1);
+                    param.Add("par_officialaddressline2", objDetails.OfficialAddressLine2);
+                    param.Add("par_pincodeoffice", objDetails.PincodeOffice);
+                    param.Add("par_annualincome", objDetails.AnnualIncome);
+
+                    connection.Execute("savecapitalfirstleaddetails", param: param, commandType: CommandType.StoredProcedure);
+                    id = SqlReaderConvertor.ToUInt32(param.Get<UInt32>("par_id"));
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "FinanceRepository.SavePersonalDetails");
             }
-            return success;
+            return id;
         }
         public bool SaveEmployeDetails(PersonalDetails objDetails)
         {
@@ -54,8 +65,8 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                     var param = new DynamicParameters();
                     param.Add("par_status", objDetails.Status);
                     param.Add("par_companyName", objDetails.CompanyName);
-                    param.Add("par_officalAddressLine1", objDetails.OfficalAddressLine1);
-                    param.Add("par_officalAddressLine2", objDetails.OfficalAddressLine2);
+                    param.Add("par_OfficialAddressLine1", objDetails.OfficialAddressLine1);
+                    param.Add("par_OfficialAddressLine2", objDetails.OfficialAddressLine2);
                     param.Add("par_pincode", objDetails.PincodeOffice);
                     param.Add("par_annualIncome", objDetails.AnnualIncome);
                     success = Convert.ToBoolean(connection.Execute("saveemployedetailsfinance", param: param, commandType: CommandType.StoredProcedure));
