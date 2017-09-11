@@ -36,9 +36,10 @@ namespace Bikewale.Models.News
         #endregion
 
         #region Page level variables
-        private uint MakeId, ModelId=0, pageCatId = 0, CityId;
+        private uint MakeId, ModelId = 0, pageCatId = 0, CityId;
         private const int _pageSize = 10, _pagerSlotSize = 5;
         private int _curPageNo = 1;
+        private uint _totalPagesCount;
         private string _make = string.Empty, _model = string.Empty;
         private GlobalCityAreaEntity _currentCityArea = null;
         public string RedirectUrl;
@@ -48,7 +49,7 @@ namespace Bikewale.Models.News
         private EnumBikeType bikeType = EnumBikeType.Scooters;
         private bool _showCheckOnRoadCTA = false;
         private PQSourceEnum _pqSource = 0;
-                   
+
         #endregion
 
         #region Public properties
@@ -92,15 +93,15 @@ namespace Bikewale.Models.News
                     }
                 }
                 _make = queryString["make"];
-            
+
 
                 ProcessMakeMaskingName(request, _make);
-              
+
             }
         }
 
 
-     
+
 
         /// <summary>
         /// Created by  : Snehal Dange on 17th Aug 2017
@@ -114,7 +115,7 @@ namespace Bikewale.Models.News
                 if (!string.IsNullOrEmpty(make))
                 {
                     makeResponse = new MakeMaskingResponse();
-               
+
                     makeResponse = _bikeMakesCacheRepository.GetMakeMaskingResponse(make);
                 }
                 if (makeResponse != null)
@@ -137,7 +138,7 @@ namespace Bikewale.Models.News
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err,string.Format("Bikewale.Models.News.ProcessMakeMaskingName Request:{0} Make:{1}", request, make));
+                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.Models.News.ProcessMakeMaskingName Request:{0} Make:{1}", request, make));
             }
         }
 
@@ -159,7 +160,7 @@ namespace Bikewale.Models.News
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex,string.Format("Exception : Bikewale.Models.News.NewsScootersPage.BindLinkPager Make:{0} ", objData.Make));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Exception : Bikewale.Models.News.NewsScootersPage.BindLinkPager Make:{0} ", objData.Make));
             }
         }
 
@@ -170,11 +171,11 @@ namespace Bikewale.Models.News
         /// </summary>
         private void SetPageMetas(NewsScootersPageVM objData)
         {
-             try
+            try
             {
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatScootersNewsUrl(_make, _model), (_curPageNo > 1 ? string.Format("page/{0}/", _curPageNo) : ""));
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m{1}{2}", BWConfiguration.Instance.BwHostUrlForJs, UrlFormatter.FormatScootersNewsUrl(_make, _model), (_curPageNo > 1 ? string.Format("page/{0}/", _curPageNo) : ""));
-               if (MakeId > 0)
+                if (MakeId > 0)
                 {
                     objData.PageMetaTags.Title = string.Format("{0} Scooter News | Latest news about {0} scooters - BikeWale", _objMake.MakeName);
                     objData.PageMetaTags.Description = String.Format("Read the latest news about scooters. Know more about {0} scooter new launch updates, and much more from two wheeler industry.", _objMake.MakeName);
@@ -190,6 +191,12 @@ namespace Bikewale.Models.News
                     objData.PageMetaTags.Keywords = "scooter news, scooty news, auto news, scooter launch, Indian scooter news";
                     objData.PageH1 = string.Format("Scooter News");
                     objData.PageH2 = string.Format(" Latest News and Views about Scooters");
+                }
+
+                if (_curPageNo > 1)
+                {
+                    objData.PageMetaTags.Description = string.Format("{0} of {1} - {2}", _curPageNo, _totalPagesCount, objData.PageMetaTags.Description);
+                    objData.PageMetaTags.Title = string.Format("{0} of {1} - {2}", _curPageNo, _totalPagesCount, objData.PageMetaTags.Title);
                 }
             }
             catch (Exception ex)
@@ -277,7 +284,7 @@ namespace Bikewale.Models.News
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex,string.Format("Exception : Bikewale.Models.News.NewsScootersPage.GetWidgetData Make:{0}", objData.Make));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Exception : Bikewale.Models.News.NewsScootersPage.GetWidgetData Make:{0}", objData.Make));
             }
         }
 
@@ -318,6 +325,8 @@ namespace Bikewale.Models.News
 
 
                 objData.Articles = _articles.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, Convert.ToString((int)EnumBikeBodyStyles.Scooter), (int)MakeId);
+
+                _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, _pageSize);
 
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
