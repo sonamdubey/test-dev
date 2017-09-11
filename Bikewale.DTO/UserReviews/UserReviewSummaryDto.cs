@@ -69,5 +69,8 @@ namespace Bikewale.DTO.UserReviews
 
         [JsonProperty("ratingQuestionsCount"), DataMember]
         public ushort RatingQuestionsCount { get; set; }
+
+        [JsonProperty("reviewUrl"), DataMember]
+        public string ReviewUrl { get; set; }
     }
 }

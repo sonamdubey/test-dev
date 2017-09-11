@@ -13,7 +13,8 @@ namespace Bikewale.Entities.UserReviews
     /// Summary     : Added totalreviews and totalratings
     /// Modified by : Aditi Srivastava on 14 June 2017
     /// Summary     : Added OverallModelRating
-    /// Modified by : Sajal Gupta on 12-07-2017. Added Mileage
+    /// Modified by : Sajal Gupta on 12-07-2017. Added Mileage    
+    /// Modified by : Sajal Gupta on 11-09-2017. Added ReviewUrl
     /// </summary>
     {
         public uint ReviewId { get; set; }
@@ -47,6 +48,7 @@ namespace Bikewale.Entities.UserReviews
         public uint TotalReviews { get; set; }
         public float OverAllModelRating { get; set; }
         public string Mileage { get; set; }
-        public ushort RatingQuestionsCount { get; set; }        
+        public ushort RatingQuestionsCount { get; set; }
+        public string ReviewUrl { get { return ((Make != null && Model != null) ? "/" + Make.MaskingName + "-bikes/" + Model.MaskingName + "/reviews/" + ReviewId + "/" : ""); } }
     }
 }
