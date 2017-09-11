@@ -1,35 +1,32 @@
-// Security Class
-//
-
+using MySql.CoreDAL;
 using System;
-using System.Web;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.IO;
 using System.Security.Cryptography;
-using System.Data.Common;
-using MySql.CoreDAL;
+using System.Web;
 
-namespace Bikewale.Common 
+namespace Bikewale.Common
 {
-	public class BikewaleSecurity
-	{
-		// Encrypt a string into a string using a password
+    public static class BikewaleSecurity
+    {
+        // Encrypt a string into a string using a password
+        private static readonly string _BWpwd = "BikewAlEmUmBaI";
 
-      //    Uses Encrypt(byte[], byte[], byte[])
+        //    Uses Encrypt(byte[], byte[], byte[])
 
-      public static string Encrypt(string clearText )
-      {
-	  		string Password = "BikewAlEmUmBaI";
+        public static string Encrypt(string clearText)
+        {
             // First we need to turn the input string into a byte array.
             byte[] clearBytes = System.Text.Encoding.Unicode.GetBytes(clearText);
 
             // Then, we need to turn the password into Key and IV
             // We are using salt to make it harder to guess our key using a dictionary attack -
             // trying to guess a password by enumerating all possible words.
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password,
+            PasswordDeriveBytes pdb = new PasswordDeriveBytes(_BWpwd,
 
-                        new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d,  0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
+                        new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
 
             // Now get the key/IV and do the encryption using the function that accepts byte arrays.
             // Using PasswordDeriveBytes object we are first getting 32 bytes for the Key
@@ -44,19 +41,18 @@ namespace Bikewale.Common
             // because not all byte values can be represented by characters.
             // We are going to be using Base64 encoding that is designed exactly for what we are
             // trying to do.
-			
-			return Convert.ToBase64String(encryptedData).Replace("+","%2b").Replace("&","%26").Replace("#","%23");
-		
-      }
-	  
-	  
-	  // Decrypt a string into a string using a password
 
-      //    Uses Decrypt(byte[], byte[], byte[])
+            return Convert.ToBase64String(encryptedData).Replace("+", "%2b").Replace("&", "%26").Replace("#", "%23");
 
-      public static string Decrypt(string cipherText)
-      {
-	  		string Password = "BikewAlEmUmBaI";
+        }
+
+
+        // Decrypt a string into a string using a password
+
+        //    Uses Decrypt(byte[], byte[], byte[])
+
+        public static string Decrypt(string cipherText)
+        {
             // First we need to turn the input string into a byte array.
             // We presume that Base64 encoding was used
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
@@ -64,9 +60,9 @@ namespace Bikewale.Common
             // Then, we need to turn the password into Key and IV
             // We are using salt to make it harder to guess our key using a dictionary attack -
             // trying to guess a password by enumerating all possible words.
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password,
+            PasswordDeriveBytes pdb = new PasswordDeriveBytes(_BWpwd,
 
-                        new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d,  0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
+                        new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
 
             // Now get the key/IV and do the decryption using the function that accepts byte arrays.
             // Using PasswordDeriveBytes object we are first getting 32 bytes for the Key
@@ -84,12 +80,12 @@ namespace Bikewale.Common
 
             return System.Text.Encoding.Unicode.GetString(decryptedData);
 
-      }
-	  
-	  // Encrypt a byte array into a byte array using a key and an IV
-      public static byte[] Encrypt(byte[] clearData, byte[] Key, byte[] IV)
+        }
 
-      {
+        // Encrypt a byte array into a byte array using a key and an IV
+        public static byte[] Encrypt(byte[] clearData, byte[] Key, byte[] IV)
+
+        {
             // Create a MemoryStream that is going to accept the encrypted bytes
             MemoryStream ms = new MemoryStream();
 
@@ -128,11 +124,11 @@ namespace Bikewale.Common
 
             return encryptedData;
 
-      }
-	  
-	  // Decrypt a byte array into a byte array using a key and an IV
-      public static byte[] Decrypt(byte[] cipherData, byte[] Key, byte[] IV)
-      {
+        }
+
+        // Decrypt a byte array into a byte array using a key and an IV
+        public static byte[] Decrypt(byte[] cipherData, byte[] Key, byte[] IV)
+        {
             // Create a MemoryStream that is going to accept the decrypted bytes
             MemoryStream ms = new MemoryStream();
 
@@ -171,54 +167,54 @@ namespace Bikewale.Common
 
             return decryptedData;
 
-      }
-	  
-	  //this will return the 20 character long string generated randomly
-		public static string GetRandomKey()
-		{
-			//generate a random password for the user
-			RandomNumberGenerator rm; 
-			rm = RandomNumberGenerator.Create();
-			
-			string sRand = "";
-			string sTmp = "";
-			
-			byte[] data = new byte[35]; 
-			rm.GetNonZeroBytes(data);
-			
-			for(int nCnt=0; nCnt <= data.Length-1; nCnt++)
-			{ 
-				//First convert it into a integer
-				int nVal = Convert.ToInt32(data.GetValue(nCnt)); 
-				// Check whether the converted int falls in between alphabets, and numbers
-				if((nVal >= 48 && nVal <= 57) || (nVal >= 97 && nVal <= 122))
-				{
-					sTmp = Convert.ToChar(nVal).ToString(); //Convert to character
-				}
-				else
-				{
-					sTmp = nVal.ToString(); //Remain as integer
-				}
-				sRand += sTmp.ToString(); //Append it to a string
-				
-				//HttpContext.Current.Trace.Warn("nVal : " + nVal.ToString() + " : sRand : " + sRand);
-			}	
-			
-			//get the first 20 characters from the random string and use it as the password
-			string key = sRand.Substring(0,20);
-			
-			return key;		
-		}
-		
-		
-		public static string GetCustomerIdFromKey(string key)
-		{
+        }
 
-			CommonOpn op = new CommonOpn();
-			string customerId = "";
-			
-			try
-			{
+        //this will return the 20 character long string generated randomly
+        public static string GetRandomKey()
+        {
+            //generate a random password for the user
+            RandomNumberGenerator rm;
+            rm = RandomNumberGenerator.Create();
+
+            string sRand = "";
+            string sTmp = "";
+
+            byte[] data = new byte[35];
+            rm.GetNonZeroBytes(data);
+
+            for (int nCnt = 0; nCnt <= data.Length - 1; nCnt++)
+            {
+                //First convert it into a integer
+                int nVal = Convert.ToInt32(data.GetValue(nCnt));
+                // Check whether the converted int falls in between alphabets, and numbers
+                if ((nVal >= 48 && nVal <= 57) || (nVal >= 97 && nVal <= 122))
+                {
+                    sTmp = Convert.ToChar(nVal).ToString(); //Convert to character
+                }
+                else
+                {
+                    sTmp = nVal.ToString(); //Remain as integer
+                }
+                sRand += sTmp.ToString(); //Append it to a string
+
+                //HttpContext.Current.Trace.Warn("nVal : " + nVal.ToString() + " : sRand : " + sRand);
+            }
+
+            //get the first 20 characters from the random string and use it as the password
+            string key = sRand.Substring(0, 20);
+
+            return key;
+        }
+
+
+        public static string GetCustomerIdFromKey(string key)
+        {
+
+            CommonOpn op = new CommonOpn();
+            string customerId = "";
+
+            try
+            {
                 using (DbCommand cmd = DbFactory.GetDBCommand("fetchcustomersecuritykey"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -229,7 +225,7 @@ namespace Bikewale.Common
                     //prm = cmd.Parameters.Add("@customerid", SqlDbType.BigInt);
                     //prm.Direction = ParameterDirection.Output;
 
-                			
+
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.String, 100, key));
@@ -237,31 +233,31 @@ namespace Bikewale.Common
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
-                    customerId = cmd.Parameters["@CustomerId"].Value.ToString(); 
+                    customerId = cmd.Parameters["@CustomerId"].Value.ToString();
                 }
-			}
-			catch(SqlException err)
-			{
-				HttpContext.Current.Trace.Warn("BikewaleSecurity.GetCustomerIdFromKey : " + err.Message);
-				ErrorClass objErr = new ErrorClass(err,"BikewaleSecurity.GetCustomerIdFromKey");
-				objErr.SendMail();
-			} // catch SqlException
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn("BikewaleSecurity.GetCustomerIdFromKey : " + err.Message);
-				ErrorClass objErr = new ErrorClass(err,"BikewaleSecurity.GetCustomerIdFromKey");
-				objErr.SendMail();
-			} // catch Exception
-			
-			return customerId;
-		}
-		
-		public static string GetCustomerKeyFromId(string id)
-		{
-			string key = "";
-			string sql = "";			
-			try
-			{
+            }
+            catch (SqlException err)
+            {
+                HttpContext.Current.Trace.Warn("BikewaleSecurity.GetCustomerIdFromKey : " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, "BikewaleSecurity.GetCustomerIdFromKey");
+                objErr.SendMail();
+            } // catch SqlException
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn("BikewaleSecurity.GetCustomerIdFromKey : " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, "BikewaleSecurity.GetCustomerIdFromKey");
+                objErr.SendMail();
+            } // catch Exception
+
+            return customerId;
+        }
+
+        public static string GetCustomerKeyFromId(string id)
+        {
+            string key = "";
+            string sql = "";
+            try
+            {
                 sql = " select customerkey from customersecuritykey  where customerid = @v_id";
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
@@ -269,33 +265,33 @@ namespace Bikewale.Common
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (dr!=null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
                             key = dr["CustomerKey"].ToString();
                             dr.Close();
                         }
-                    } 
+                    }
                 }
-				
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn("BikewaleSecurity.GetCustomerKeyFromId : " + err.Message);
-				ErrorClass objErr = new ErrorClass(err,"BikewaleSecurity.GetCustomerKeyFromId");
-				objErr.SendMail();
-			} // catch Exception
-			
-			return key;
-		}
-		
-		//simple symmetric algorithm
-		public static string EncryptUsingSymmetric(string password, string valueToEncrypt)
-		{
-			byte[] clearBytes = System.Text.Encoding.Unicode.GetBytes(valueToEncrypt);
+
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn("BikewaleSecurity.GetCustomerKeyFromId : " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, "BikewaleSecurity.GetCustomerKeyFromId");
+                objErr.SendMail();
+            } // catch Exception
+
+            return key;
+        }
+
+        //simple symmetric algorithm
+        public static string EncryptUsingSymmetric(string password, string valueToEncrypt)
+        {
+            byte[] clearBytes = System.Text.Encoding.Unicode.GetBytes(valueToEncrypt);
 
             // Then, we need to turn the password into Key and IV
             PasswordDeriveBytes pdb = new PasswordDeriveBytes(password,
-                        new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d,  0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
+                        new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
 
             // Now get the key/IV and do the encryption using the function that accepts byte arrays.
             // Using PasswordDeriveBytes object we are first getting 32 bytes for the Key
@@ -307,63 +303,63 @@ namespace Bikewale.Common
             // because not all byte values can be represented by characters.
             // We are going to be using Base64 encoding that is designed exactly for what we are
             // trying to do.
-			
-			return Convert.ToBase64String(encryptedData);
-		}
-		
-		
-		public static string DecryptUsingSymmetric(string password, string cipherText)
-		{
-	  		string decodedData = "";
-		
-	  		try
-			{
-	  			
-        	    // First we need to turn the input string into a byte array.
-        	    byte[] cipherBytes = Convert.FromBase64String(cipherText);
-			
-       	    	// Then, we need to turn the password into Key and IV
-            	PasswordDeriveBytes pdb = new PasswordDeriveBytes(password,
-                        new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d,  0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
 
-				// Now get the key/IV and do the decryption using the function that accepts byte arrays.
-				// Using PasswordDeriveBytes object we are first getting 32 bytes for the Key
-				// (the default Rijndael key length is 256bit = 32bytes) and then 16 bytes for the IV.
-				byte[] decryptedData = Decrypt(cipherBytes, pdb.GetBytes(32), pdb.GetBytes(16));
-	
-				// Now we need to turn the resulting byte array into a string.
-				// A common mistake would be to use an Encoding class for that. It does not work
-				// because not all byte values can be represented by characters.
-				// We are going to be using Base64 encoding that is designed exactly for what we are
-				// trying to do.
-				
-				decodedData = 	System.Text.Encoding.Unicode.GetString(decryptedData);
-			}
-			catch( ArgumentNullException ex )
-			{
-				HttpContext.Current.Trace.Warn( ex.Message );
-			}
-			catch( FormatException ex )
-			{
-				HttpContext.Current.Trace.Warn( ex.Message );
-			}
-			catch( Exception ex )
-			{
-				HttpContext.Current.Trace.Warn( ex.Message );
-			}
-			
-			return decodedData;
-      	}
-		
-		//Encrypt the given mobile number for the call center
-		public static string EncryptMobileNumberCL(string mobileNumber)
-		{
-			string encNumber = "";
-			string conStr = "6044484880393882617";
-			encNumber = EncryptUsingSymmetric(conStr, mobileNumber);
-			
-			return encNumber;
-		}
+            return Convert.ToBase64String(encryptedData);
+        }
+
+
+        public static string DecryptUsingSymmetric(string password, string cipherText)
+        {
+            string decodedData = "";
+
+            try
+            {
+
+                // First we need to turn the input string into a byte array.
+                byte[] cipherBytes = Convert.FromBase64String(cipherText);
+
+                // Then, we need to turn the password into Key and IV
+                PasswordDeriveBytes pdb = new PasswordDeriveBytes(password,
+                        new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+
+                // Now get the key/IV and do the decryption using the function that accepts byte arrays.
+                // Using PasswordDeriveBytes object we are first getting 32 bytes for the Key
+                // (the default Rijndael key length is 256bit = 32bytes) and then 16 bytes for the IV.
+                byte[] decryptedData = Decrypt(cipherBytes, pdb.GetBytes(32), pdb.GetBytes(16));
+
+                // Now we need to turn the resulting byte array into a string.
+                // A common mistake would be to use an Encoding class for that. It does not work
+                // because not all byte values can be represented by characters.
+                // We are going to be using Base64 encoding that is designed exactly for what we are
+                // trying to do.
+
+                decodedData = System.Text.Encoding.Unicode.GetString(decryptedData);
+            }
+            catch (ArgumentNullException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message);
+            }
+            catch (FormatException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message);
+            }
+
+            return decodedData;
+        }
+
+        //Encrypt the given mobile number for the call center
+        public static string EncryptMobileNumberCL(string mobileNumber)
+        {
+            string encNumber = "";
+            string conStr = "6044484880393882617";
+            encNumber = EncryptUsingSymmetric(conStr, mobileNumber);
+
+            return encNumber;
+        }
 
         //Encrypt the given User id 
         public static string EncryptUserId(long userId)
@@ -394,7 +390,7 @@ namespace Bikewale.Common
         public static string EncodeEncryptedData(string input)
         {
             return HttpServerUtility.UrlTokenEncode(System.Text.Encoding.Unicode.GetBytes(input));
-        } 
+        }
         #endregion
 
         #region DecodeEncryptedData method
@@ -407,8 +403,8 @@ namespace Bikewale.Common
         public static string DecodeEncryptedData(string encodedData)
         {
             return System.Text.Encoding.Unicode.GetString(HttpServerUtility.UrlTokenDecode(encodedData));
-        } 
+        }
         #endregion
 
-	}//class
+    }//class
 }//namespace

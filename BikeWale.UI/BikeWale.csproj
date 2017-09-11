@@ -486,10 +486,6 @@
       <DependentUpon>ReviewDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="content\UserReviews\WriteReviews.aspx.cs">
-      <DependentUpon>WriteReviews.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Controllers\ComparisonTestsController.cs" />
     <Compile Include="Controllers\DealerShowroomController.cs" />
     <Compile Include="Controllers\BikeCareController.cs" />
@@ -2090,7 +2086,6 @@
     <Content Include="content\UserReviews\DefaultUR.aspx" />
     <Content Include="content\UserReviews\ReviewDetails.aspx" />
     <Content Include="content\UserReviews\ReviewMessage.aspx" />
-    <Content Include="content\UserReviews\WriteReviews.aspx" />
     <Content Include="controls\BestBikes.ascx" />
     <Content Include="controls\BrandCityPopUp.ascx" />
     <Content Include="controls\BikeCare.ascx" />

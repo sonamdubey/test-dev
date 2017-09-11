@@ -260,19 +260,26 @@ namespace Bikewale.DAL.BikeBooking
                 if (totalPageCount > 0)
                 {
                     string controllerurl = "/api/BikeBookingListing/?";
-
                     currentPageNo = (filterInputs.PageNo == 0) ? 1 : filterInputs.PageNo;
+
                     if (currentPageNo == totalPageCount)
+                    {
                         objPager.NextPageUrl = string.Empty;
+                    }
                     else
                     {
                         objPager.NextPageUrl = controllerurl + "pageNo=" + (Convert.ToInt32(filterInputs.PageNo) + 1) + apiUrlStr;
                     }
 
                     if (filterInputs.PageNo == 1 || filterInputs.PageNo == 0)
+                    {
                         objPager.PrevPageUrl = string.Empty;
+                    }
                     else
+                    {
                         objPager.PrevPageUrl = controllerurl + "pageNo=" + (Convert.ToInt32(filterInputs.PageNo) - 1) + apiUrlStr;
+                    }
+
                 }
             }
             catch (Exception ex)
