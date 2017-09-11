@@ -13,55 +13,7 @@
     Model.AdTags.Ad_Model_BTF_300x250 = Model.ModelPageEntity!=null && Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription);
     Model.AdTags.Ad_976x400_Middle = true;
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@if (Model.AdTags.Ad_Model_ATF_970x90)
-{
-    <div class="bg-white ">
-        <div class="container">
-            <div class="grid-12">
-                <div>
-                    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-}
-
-    <section class="bg-light-grey padding-top10" id="breadcrumb">
-        <div class="container">
-            <div class="grid-12">
-                <div class="breadcrumb margin-bottom15">
-                    <ul itemscope itemtype="http://schema.org/BreadcrumbList">
-                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                            <a href="/" itemprop="item">
-                                <span itemprop="name">Home</span>
-                            </a>
-                            <meta itemprop="position" content="1" />
-                        </li>
-                        @if (Model.IsModelDetails && Model.ModelPageEntity.ModelDetails.MakeBase != null)
-                        {
-                            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                                <span class="bwsprite fa-angle-right margin-right10"></span>
-                                <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/" itemprop="item">
-                                    <span itemprop="name">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Bikes</span>
-                                </a>
-                                <meta itemprop="position" content="2" />
-                            </li>
-                        }
-                        <li>
-                            <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <span>@Model.Page_H1</span>
-                        </li>
-                    </ul>
-                    <div class="clear"></div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
-
+}    
 
     @if (Model.IsNewBike)
     {

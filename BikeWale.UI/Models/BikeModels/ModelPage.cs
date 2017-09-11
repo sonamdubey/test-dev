@@ -8,6 +8,7 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.manufacturecampaign;
+using Bikewale.Entities.Models;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
@@ -116,7 +117,7 @@ namespace Bikewale.Models.BikeModels
             _objManufacturerCampaign = objManufacturerCampaign;
             _userReviewsSearch = userReviewsSearch;
             _userReviewsCache = userReviewsCache;
-            ParseQueryString(makeMasking, modelMasking);
+            ParseQueryString(modelMasking);
         }
 
         #endregion Global Variables
@@ -171,7 +172,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetData({0})", ""));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetData({0})", _modelId));
             }
 
             return _objData;
@@ -206,7 +207,7 @@ namespace Bikewale.Models.BikeModels
                     {
                         RatingCount = (uint)_objData.ModelPageEntity.ModelDetails.RatingCount,
                         RatingValue = Convert.ToDouble(_objData.ModelPageEntity.ModelDetails.ReviewUIRating),
-                        ReviewCount = (uint) _objData.ModelPageEntity.ModelDetails.ReviewCount,
+                        ReviewCount = (uint)_objData.ModelPageEntity.ModelDetails.ReviewCount,
                         WorstRating = 1,
                         BestRating = 5,
                         ItemReviewed = product.Name
@@ -318,7 +319,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> SetAdditionalProperties(), Model: {0}", _objData.BikeName));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> SetAdditionalProperties(), Model: {0}",_modelId));
             }
 
         }
@@ -329,28 +330,27 @@ namespace Bikewale.Models.BikeModels
             {
                 if (_objData.IsModelDetails)
                 {
-                    string specsDescirption = string.Empty;
                     string cityList = string.Empty;
                     string priceDescription = string.Empty;
                     string versionDescirption = _objData.ModelPageEntity.ModelVersions.Count > 1 ? string.Format(" It is available in {0} versions", _objData.ModelPageEntity.ModelVersions.Count) : string.Format(" It is available in {0} version", _objData.ModelPageEntity.ModelVersions.Count);
                     ushort index = 0;
                     if (_objData.ModelPageEntity.ModelVersions != null)
                     {
-                        if (_objData.ModelPageEntity.ModelVersions.Count() > 1)
+                        if (_objData.ModelPageEntity.ModelVersions.Count > 1)
                         {
                             versionDescirption += " - ";
                             foreach (var version in _objData.ModelPageEntity.ModelVersions)
                             {
                                 index++;
-                                if (_objData.ModelPageEntity.ModelVersions.Count() <= index)
+                                if (_objData.ModelPageEntity.ModelVersions.Count <= index)
                                     break;
                                 else if (index > 1)
-                                    versionDescirption += ",";
+                                    versionDescirption = string.Format("{0},", versionDescirption);
                                 versionDescirption = string.Format("{0} {1}", versionDescirption, version.VersionName);
                             }
                             versionDescirption = string.Format("{0} and {1}", versionDescirption, _objData.ModelPageEntity.ModelVersions.Last().VersionName);
                         }
-                        else if (_objData.ModelPageEntity.ModelVersions.Count() == 1)
+                        else if (_objData.ModelPageEntity.ModelVersions.Count == 1)
                             versionDescirption += string.Format(" - {0}", _objData.ModelPageEntity.ModelVersions.First().VersionName);
                     }
 
@@ -362,7 +362,7 @@ namespace Bikewale.Models.BikeModels
                     index = 0;
                     if (_objData.PriceInTopCities != null && _objData.PriceInTopCities.PriceQuoteList != null && _objData.PriceInTopCities.PriceQuoteList.Count() > 1)
                     {
-                        cityList = _objData.PriceInTopCities.PriceQuoteList != null && _objData.PriceInTopCities.PriceQuoteList.Count() > 0 ? string.Format(". See price of {0} in top {1}:", _objData.ModelPageEntity.ModelDetails.ModelName, _objData.PriceInTopCities.PriceQuoteList.Count() > 1 ? "cities" : "city") : string.Empty;
+                        cityList = _objData.PriceInTopCities.PriceQuoteList != null && _objData.PriceInTopCities.PriceQuoteList.Any() ? string.Format(". See price of {0} in top {1}:", _objData.ModelPageEntity.ModelDetails.ModelName, _objData.PriceInTopCities.PriceQuoteList.Count() > 1 ? "cities" : "city") : string.Empty;
                         foreach (var city in _objData.PriceInTopCities.PriceQuoteList)
                         {
                             index++;
@@ -370,7 +370,7 @@ namespace Bikewale.Models.BikeModels
                             if (index >= 3 || _objData.PriceInTopCities.PriceQuoteList.Count() <= index)
                                 break;
                             else if (index >= 1)
-                                cityList += ",";
+                                cityList = string.Format("{0},", cityList);
                         }
                         cityList = string.Format("{0} and {1}", cityList, _objData.PriceInTopCities.PriceQuoteList.Last().CityName);
                     }
@@ -476,7 +476,7 @@ namespace Bikewale.Models.BikeModels
                         _objData.UsedModels = BindUsedBikeByModel((uint)objMake.MakeId, _cityId);
 
                         _objData.PriceInTopCities = new PriceInTopCities(_objPQCache, _modelId, 8).GetData();
-                        if ((_objData.PriceInTopCities != null && _objData.PriceInTopCities.PriceQuoteList != null && _objData.PriceInTopCities.PriceQuoteList.Count() > 0) || (_objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Count > 0))
+                        if ((_objData.PriceInTopCities != null && _objData.PriceInTopCities.PriceQuoteList != null && _objData.PriceInTopCities.PriceQuoteList.Any()) || (_objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Count > 0))
                         {
                             _objData.IsShowPriceTab = true;
                         }
@@ -516,7 +516,7 @@ namespace Bikewale.Models.BikeModels
                     // Set body style
                     if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Count > 0)
                     {
-                        var selected = _objData.ModelPageEntity.ModelVersions.Where(x => x.VersionId == _objData.VersionId).FirstOrDefault();
+                        var selected = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(x => x.VersionId == _objData.VersionId);
                         if (selected != null)
                         {
                             _objData.BodyStyle = selected.BodyStyle;
@@ -540,26 +540,24 @@ namespace Bikewale.Models.BikeModels
                 if (_modelId > 0)
                 {
                     var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, _objData.VersionId, PQSourceEnum.Desktop_DPQ_Alternative);
-                    if (objSimilarBikes != null)
+
+                    objSimilarBikes.TopCount = 9;
+                    objSimilarBikes.CityId = _cityId;
+                    objSimilarBikes.IsNew = _objData.IsNewBike;
+                    objSimilarBikes.IsUpcoming = _objData.IsUpcomingBike;
+                    objSimilarBikes.IsDiscontinued = _objData.IsDiscontinuedBike;
+                    _objData.SimilarBikes = objSimilarBikes.GetData();
+                    if (_objData.IsSimilarBikesAvailable)
                     {
-                        objSimilarBikes.TopCount = 9;
-                        objSimilarBikes.CityId = _cityId;
-                        objSimilarBikes.IsNew = _objData.IsNewBike;
-                        objSimilarBikes.IsUpcoming = _objData.IsUpcomingBike;
-                        objSimilarBikes.IsDiscontinued = _objData.IsDiscontinuedBike;
-                        _objData.SimilarBikes = objSimilarBikes.GetData();
-                        if (_objData.IsSimilarBikesAvailable)
-                        {
-                            _objData.SimilarBikes.Make = objData.ModelPageEntity.ModelDetails.MakeBase;
-                            _objData.SimilarBikes.Model = _objData.ModelPageEntity.ModelDetails;
-                            _objData.SimilarBikes.VersionId = _objData.VersionId;
-                            _objData.SimilarBikes.Page = GAPages.Model_Page;
-                        }
-                        else
-                        {
-                            if (_objData.IsNewBike || _objData.IsUpcomingBike)
-                                BindPopularBodyStyle(_objData);
-                        }
+                        _objData.SimilarBikes.Make = objData.ModelPageEntity.ModelDetails.MakeBase;
+                        _objData.SimilarBikes.Model = _objData.ModelPageEntity.ModelDetails;
+                        _objData.SimilarBikes.VersionId = _objData.VersionId;
+                        _objData.SimilarBikes.Page = GAPages.Model_Page;
+                    }
+                    else
+                    {
+                        if (_objData.IsNewBike || _objData.IsUpcomingBike)
+                            BindPopularBodyStyle(_objData);
                     }
                 }
             }
@@ -622,15 +620,12 @@ namespace Bikewale.Models.BikeModels
                     Reviews = true
                 };
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
-                if (objUserReviews != null)
-                {
-                    objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;
-                    objPage.UserReviews = objUserReviews.GetData();
-                }
+                objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;
+                objPage.UserReviews = objUserReviews.GetData();
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Model.BindUserReviewSWidget()"));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Model.BindUserReviewSWidget({0})", _modelId));
             }
         }
 
@@ -675,8 +670,8 @@ namespace Bikewale.Models.BikeModels
             try
             {
                 _objEMI = new EMI();
-                _objEMI.MaxDownPayment = 40 * bikePrice / 100;
-                _objEMI.MinDownPayment = 10 * bikePrice / 100;
+                _objEMI.MaxDownPayment = Convert.ToSingle(40 * bikePrice / 100);
+                _objEMI.MinDownPayment = Convert.ToSingle(10 * bikePrice / 100);
                 _objEMI.MaxTenure = 48;
                 _objEMI.MinTenure = 12;
                 _objEMI.MaxRateOfInterest = 15;
@@ -716,7 +711,7 @@ namespace Bikewale.Models.BikeModels
             UsedBikeByModelCityVM UsedBikeModel = new UsedBikeByModelCityVM();
             try
             {
-                UsedBikesByModelCityWidget objUsedBike = new UsedBikesByModelCityWidget(_usedBikesCache, 6, makeId, _modelId, _cityId);
+                UsedBikesByModelCityWidget objUsedBike = new UsedBikesByModelCityWidget(_usedBikesCache, 6, makeId, _modelId, cityId);
                 UsedBikeModel = objUsedBike.GetData();
             }
             catch (Exception ex)
@@ -725,30 +720,6 @@ namespace Bikewale.Models.BikeModels
             }
 
             return UsedBikeModel;
-        }
-
-        /// <summary>
-        /// Created by  :   Sumit Kate on 03 Apr 2017
-        /// Description :   Binds UserReviews for model
-        /// </summary>
-        private ReviewListBase BindUserReviews()
-        {
-            ReviewListBase objReviews = new ReviewListBase();
-            try
-            {
-                UserReviewsListWidget userReviews = new UserReviewsListWidget(_userReviewCache);
-                userReviews.TopCount = 3;
-                userReviews.ModelId = _modelId;
-                userReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
-
-                objReviews = userReviews.GetData();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindUserReviews");
-            }
-
-            return objReviews;
         }
 
         /// <summary>
@@ -814,6 +785,27 @@ namespace Bikewale.Models.BikeModels
                     _objData.Page_H1 = _objData.BikeName;
 
                     BindDescription();
+
+                    List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl = "/",
+                        Name = "Home"
+                    });
+
+                    if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
+                    {
+                        BreadCrumbs.Add(new BreadCrumb
+                        {
+                            ListUrl = string.Format("/{0}-bikes/", _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName),
+                            Name = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName + " Bikes"
+                        });
+                    }
+                    
+                    _objData.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
+                    _objData.BreadCrumbsList.PageName = _objData.Page_H1;
+
 
                     CheckCustomPageMetas();
                 }
@@ -882,125 +874,120 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-                if (modelPg != null && modelPg.ModelDetails != null)
+                if (modelPg != null && modelPg.ModelDetails != null && modelPg.ModelVersions != null && !modelPg.ModelDetails.Futuristic)
                 {
-                    if (modelPg.ModelVersions != null && !modelPg.ModelDetails.Futuristic)
+                    if (_pqOnRoad != null)
                     {
-                        if (_pqOnRoad != null)
+                        ///Dealer Pricing
+                        if (_pqOnRoad.IsDealerPriceAvailable && _pqOnRoad.DPQOutput != null && _pqOnRoad.DPQOutput.Varients != null && modelPg.ModelVersions.Count > 0)
                         {
-                            ///Dealer Pricing
-                            if (_pqOnRoad.IsDealerPriceAvailable && _pqOnRoad.DPQOutput != null && _pqOnRoad.DPQOutput.Varients != null && _pqOnRoad.DPQOutput.Varients.Count() > 0)
+                            foreach (var version in modelPg.ModelVersions)
                             {
-                                foreach (var version in modelPg.ModelVersions)
+                                var selectVersion = _pqOnRoad.DPQOutput.Varients.FirstOrDefault(m => m.objVersion.VersionId == version.VersionId);
+                                if (selectVersion != null)
                                 {
-                                    var selectVersion = _pqOnRoad.DPQOutput.Varients.FirstOrDefault(m => m.objVersion.VersionId == version.VersionId);
-                                    if (selectVersion != null)
-                                    {
-                                        version.Price = selectVersion.OnRoadPrice; break;
-                                    }
-
-                                }
-
-                                ///Choose the min price version of dealer
-                                if (_objData.VersionId == 0)
-                                {
-                                    _objData.VersionId = (uint)_pqOnRoad.DPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().objVersion.VersionId;
-                                }
-                            }//Bikewale Pricing
-                            else if (_pqOnRoad.BPQOutput != null && _pqOnRoad.BPQOutput.Varients != null)
-                            {
-                                foreach (var version in modelPg.ModelVersions)
-                                {
-                                    var selected = _pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == version.VersionId);
-                                    if (selected != null)
-                                    {
-                                        version.Price = !_objData.ShowOnRoadButton ? selected.OnRoadPrice : selected.Price;
-                                        break;
-                                    }
-                                }
-                                ///Choose the min price version of city level pricing
-                                if (_objData.VersionId == 0)
-                                {
-                                    if (_pqOnRoad.BPQOutput.Varients.Count() > 0)
-                                        _objData.VersionId = (uint)_pqOnRoad.BPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().VersionId;
-                                }
-                            }//Version Pricing
-                            else
-                            {
-                                ///Choose the min price version
-                                if (_objData.VersionId == 0)
-                                {
-                                    var nonZeroVersion = modelPg.ModelVersions.Where(m => m.Price > 0);
-                                    if (nonZeroVersion != null && nonZeroVersion.Count() > 0)
-                                    {
-                                        _objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
-                                        _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
-                                        _objData.BikePrice = _objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0;
-                                        _objData.IsGstPrice = _objData.SelectedVersion.IsGstPrice;
-                                    }
-                                    else
-                                    {
-                                        _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
-                                        _objData.BikePrice = _objData.CityId == 0 ? (uint)modelPg.ModelVersions.FirstOrDefault().Price : 0;
-                                        _objData.IsGstPrice = modelPg.ModelVersions.FirstOrDefault().IsGstPrice;
-                                    }
+                                    version.Price = selectVersion.OnRoadPrice; break;
                                 }
                             }
-                        }
+
+                            ///Choose the min price version of dealer
+                            if (_objData.VersionId == 0)
+                            {
+                                _objData.VersionId = (uint)_pqOnRoad.DPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().objVersion.VersionId;
+                            }
+                        }//Bikewale Pricing
+                        else if (_pqOnRoad.BPQOutput != null && _pqOnRoad.BPQOutput.Varients != null)
+                        {
+                            foreach (var version in modelPg.ModelVersions)
+                            {
+                                var selected = _pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == version.VersionId);
+                                if (selected != null)
+                                {
+                                    version.Price = !_objData.ShowOnRoadButton ? selected.OnRoadPrice : selected.Price;
+                                    break;
+                                }
+                            }
+                            ///Choose the min price version of city level pricing
+                            if (_objData.VersionId == 0 && _pqOnRoad.BPQOutput.Varients.Any())
+                            {
+                                _objData.VersionId = (uint)_pqOnRoad.BPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().VersionId;
+                            }
+                        }//Version Pricing
                         else
                         {
                             ///Choose the min price version
                             if (_objData.VersionId == 0)
                             {
-                                if (_objData.IsDiscontinuedBike)
+                                var nonZeroVersion = modelPg.ModelVersions.Where(m => m.Price > 0);
+                                if (nonZeroVersion != null && nonZeroVersion.Any())
                                 {
-                                    var nonZeroVersion = modelPg.ModelVersions.Where(m => m.Price > 0);
-                                    if (nonZeroVersion != null && nonZeroVersion.Count() > 0)
-                                    {
-                                        _objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
-                                        _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
-                                        _objData.BikePrice = (uint)_objData.SelectedVersion.Price;
-                                    }
-                                    else
-                                    {
-                                        _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
-                                        _objData.BikePrice = Convert.ToUInt32(_objData.SelectedVersion != null ? _objData.SelectedVersion.Price : modelPg.ModelVersions.FirstOrDefault().Price);
-                                    }
+                                    _objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
+                                    _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
+                                    _objData.BikePrice = _objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0;
+                                    _objData.IsGstPrice = _objData.SelectedVersion.IsGstPrice;
                                 }
                                 else
                                 {
-                                    var nonZeroVersion = modelPg.ModelVersions.Where(m => m.Price > 0);
-                                    if (nonZeroVersion != null && nonZeroVersion.Count() > 0)
-                                    {
-                                        _objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
-                                        _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
-                                        _objData.BikePrice = _objData.ShowOnRoadButton ? (uint)_objData.SelectedVersion.Price : (_objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0);
-                                        _objData.IsGstPrice = _objData.SelectedVersion.IsGstPrice;
-                                    }
-                                    else
-                                    {
-                                        _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
-                                        _objData.BikePrice = _objData.ShowOnRoadButton ? (uint)_objData.SelectedVersion.Price : (_objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0);
-                                        _objData.IsGstPrice = modelPg.ModelVersions.FirstOrDefault().IsGstPrice;
-                                    }
-                                }
-                            }
-
-                            if (_objData.CityId != 0 && !_objData.IsDiscontinuedBike && !_objData.HasCityPricing)
-                            {
-                                foreach (var version in modelPg.ModelVersions)
-                                {
-                                    version.Price = 0;
+                                    _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
+                                    _objData.BikePrice = _objData.CityId == 0 ? (uint)modelPg.ModelVersions.FirstOrDefault().Price : 0;
+                                    _objData.IsGstPrice = modelPg.ModelVersions.FirstOrDefault().IsGstPrice;
                                 }
                             }
                         }
-
-                        if (modelPg.ModelVersions.Count > 0)
+                    }
+                    else
+                    {
+                        ///Choose the min price version
+                        if (_objData.VersionId == 0)
                         {
-                            var firstVer = modelPg.ModelVersions.FirstOrDefault();
-                            if (firstVer != null)
-                                _objData.VersionName = firstVer.VersionName;
+                            if (_objData.IsDiscontinuedBike)
+                            {
+                                var nonZeroVersion = modelPg.ModelVersions.Where(m => m.Price > 0);
+                                if (nonZeroVersion != null && nonZeroVersion.Any())
+                                {
+                                    _objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
+                                    _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
+                                    _objData.BikePrice = (uint)_objData.SelectedVersion.Price;
+                                }
+                                else
+                                {
+                                    _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
+                                    _objData.BikePrice = Convert.ToUInt32(_objData.SelectedVersion != null ? _objData.SelectedVersion.Price : modelPg.ModelVersions.FirstOrDefault().Price);
+                                }
+                            }
+                            else
+                            {
+                                var nonZeroVersion = modelPg.ModelVersions.Where(m => m.Price > 0);
+                                if (nonZeroVersion != null && nonZeroVersion.Any())
+                                {
+                                    _objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
+                                    _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
+                                    _objData.BikePrice = _objData.ShowOnRoadButton ? (uint)_objData.SelectedVersion.Price : (_objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0);
+                                    _objData.IsGstPrice = _objData.SelectedVersion.IsGstPrice;
+                                }
+                                else
+                                {
+                                    _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
+                                    _objData.BikePrice = _objData.ShowOnRoadButton ? (uint)_objData.SelectedVersion.Price : (_objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0);
+                                    _objData.IsGstPrice = modelPg.ModelVersions.FirstOrDefault().IsGstPrice;
+                                }
+                            }
                         }
+
+                        if (_objData.CityId != 0 && !_objData.IsDiscontinuedBike && !_objData.HasCityPricing)
+                        {
+                            foreach (var version in modelPg.ModelVersions)
+                            {
+                                version.Price = 0;
+                            }
+                        }
+                    }
+
+                    if (modelPg.ModelVersions.Count > 0)
+                    {
+                        var firstVer = modelPg.ModelVersions.FirstOrDefault();
+                        if (firstVer != null)
+                            _objData.VersionName = firstVer.VersionName;
                     }
                 }
             }
@@ -1010,7 +997,7 @@ namespace Bikewale.Models.BikeModels
             }
         }
 
-        private void ParseQueryString(string makeMasking, string modelMasking)
+        private void ParseQueryString(string modelMasking)
         {
             ModelMaskingResponse objResponse = null;
             try
@@ -1112,7 +1099,7 @@ namespace Bikewale.Models.BikeModels
                         if (modelPg.ModelDetails != null && modelPg.ModelDetails.PhotosCount > 0 && modelPg.ModelColors != null && modelPg.ModelColors.Count() > 0)
                         {
                             var colorImages = modelPg.ModelColors.Where(x => x.ColorImageId > 0);
-                            if (colorImages != null && colorImages.Count() > 0)
+                            if (colorImages != null && colorImages.Any())
                             {
                                 string returnUrl;
 
@@ -1161,15 +1148,14 @@ namespace Bikewale.Models.BikeModels
                         if (_pqOnRoad.PriceQuote != null)
                         {
                             _objData.DealerId = _pqOnRoad.PriceQuote.DealerId;
-                            //objData.VersionId = pqOnRoad.PriceQuote.DefaultVersionId > 0 ? pqOnRoad.PriceQuote.DefaultVersionId : pqOnRoad.PriceQuote.VersionId;
                         }
                         _objData.MPQString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(_cityId.ToString(), _pqOnRoad.PriceQuote.PQId.ToString(), _areaId.ToString(), _objData.VersionId.ToString(), _objData.DealerId.ToString()));
 
-                        if (_pqOnRoad.IsDealerPriceAvailable && _pqOnRoad.DPQOutput != null && _pqOnRoad.DPQOutput.Varients != null && _pqOnRoad.DPQOutput.Varients.Count() > 0)
+                        if (_pqOnRoad.IsDealerPriceAvailable && _pqOnRoad.DPQOutput != null && _pqOnRoad.DPQOutput.Varients != null && _pqOnRoad.DPQOutput.Varients.Any())
                         {
                             #region when dealer Price is Available
 
-                            var selectedVariant = _pqOnRoad.DPQOutput.Varients.Where(p => p.objVersion.VersionId == _objData.VersionId).FirstOrDefault();
+                            var selectedVariant = _pqOnRoad.DPQOutput.Varients.FirstOrDefault(p => p.objVersion.VersionId == _objData.VersionId);
                             if (selectedVariant != null)
                             {
                                 _objData.BikePrice = selectedVariant.OnRoadPrice;
@@ -1278,17 +1264,20 @@ namespace Bikewale.Models.BikeModels
             if (pqOnRoad != null && pqOnRoad.BPQOutput != null)
             {
                 _objData.CampaignId = pqOnRoad.BPQOutput.CampaignId;
+
+                if (pqOnRoad.BPQOutput.Varients != null && _objData.VersionId > 0)
+                {
+                    var objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == _objData.VersionId);
+                    if (objSelectedVariant != null)
+                        _objData.BikePrice = _objData.IsLocationSelected && !_objData.ShowOnRoadButton ? Convert.ToUInt32(objSelectedVariant.OnRoadPrice) : Convert.ToUInt32(objSelectedVariant.Price);
+
+                    _objData.IsBPQAvailable = true;
+                    _objData.IsGstPrice = pqOnRoad.BPQOutput.IsGstPrice;
+                }
+
             }
 
-            if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null && _objData.VersionId > 0)
-            {
-                var objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == _objData.VersionId).FirstOrDefault();
-                if (objSelectedVariant != null)
-                    _objData.BikePrice = _objData.IsLocationSelected && !_objData.ShowOnRoadButton ? Convert.ToUInt32(objSelectedVariant.OnRoadPrice) : Convert.ToUInt32(objSelectedVariant.Price);
-
-                _objData.IsBPQAvailable = true;
-                _objData.IsGstPrice = pqOnRoad.BPQOutput.IsGstPrice;
-            }
+            
         }
 
         /// <summary>
@@ -1327,7 +1316,6 @@ namespace Bikewale.Models.BikeModels
                     if (objPQOutput != null && objPQOutput.PQId > 0)
                     {
                         _objData.PQId = (uint)objPQOutput.PQId;
-                        //bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSource);
                         bpqOutput = new BikeQuotationEntity();
                         bpqOutput.Varients = _objPQCache.GetOtherVersionsPrices(_modelId, _cityId);
                         if (bpqOutput != null)
@@ -1419,7 +1407,7 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-                if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelColors != null && _objData.ModelPageEntity.ModelColors.Count() > 0)
+                if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelColors != null && _objData.ModelPageEntity.ModelColors.Any())
                 {
                     int colorCount = _objData.ModelPageEntity.ModelColors.Count();
                     string lastColor = _objData.ModelPageEntity.ModelColors.Last().ColorName;

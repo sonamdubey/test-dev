@@ -2,13 +2,17 @@
 using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.Models;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
+using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Web;
 namespace Bikewale.Models.UserReviews
 {
@@ -21,6 +25,7 @@ namespace Bikewale.Models.UserReviews
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
         public uint? PageNumber { get; set; }
+        public uint _totalPagesCount;
         public bool IsDesktop { get; set; }
 
         private readonly IUserReviewsSearch _objUserReviewSearch;
@@ -75,7 +80,7 @@ namespace Bikewale.Models.UserReviews
                         objData.BikeName = string.Format("{0} {1}", objData.RatingsInfo.Make.MakeName, objData.RatingsInfo.Model.ModelName);
                         objData.PageUrl = string.Format("/{0}-bikes/{1}/reviews/", objData.RatingsInfo.Make.MaskingName, objData.RatingsInfo.Model.MaskingName);
                         objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/", objData.RatingsInfo.Make.MaskingName, objData.RatingsInfo.Model.MaskingName);
-                        objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/reviews/", objData.RatingsInfo.Make.MaskingName, objData.RatingsInfo.Model.MaskingName);                      
+                        objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/reviews/", objData.RatingsInfo.Make.MaskingName, objData.RatingsInfo.Model.MaskingName);
                     }
 
                     BindWidgets(objData);
@@ -98,7 +103,8 @@ namespace Bikewale.Models.UserReviews
         private void BindWidgets(UserReviewListingVM objData)
         {
             try
-            {                
+            {
+                objData.SimilarBikesWidget = new UserReviewSimilarBikesWidgetVM();
 
                 InputFilters filters = null;
 
@@ -142,8 +148,8 @@ namespace Bikewale.Models.UserReviews
                             objData.ReviewsInfo.Model = objData.RatingsInfo.Model;
                             objData.ReviewsInfo.IsDiscontinued = objData.RatingsInfo.IsDiscontinued;
                             objUserReviews.ReviewsInfo = objData.ReviewsInfo;
-                        }                        
-                            objData.UserReviews = objUserReviews.GetData();                        
+                        }
+                        objData.UserReviews = objUserReviews.GetData();
 
                         objData.UserReviews.WidgetHeading = string.Format("Reviews on {0}", objData.RatingsInfo.Model.ModelName);
 
@@ -152,8 +158,10 @@ namespace Bikewale.Models.UserReviews
                     }
                     objData.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objData.ReviewsInfo.Model.ModelName)).GetData();
 
-                    objData.SimilarBikeReviewWidget = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, SimilarBikeReviewWidgetCount);
+                    GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
 
+                    objData.SimilarBikesWidget.SimilarBikes = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, currentCityArea.CityId, SimilarBikeReviewWidgetCount);
+                    objData.SimilarBikesWidget.GlobalCityName = currentCityArea.City;
                 }
             }
             catch (Exception ex)
@@ -207,19 +215,60 @@ namespace Bikewale.Models.UserReviews
                     objPage.AdTags.TargetedModel = objPage.ReviewsInfo.Model.ModelName;
                     objPage.PageMetaTags.Title = string.Format("{0} {1} Reviews | {1} User Reviews – BikeWale", objPage.ReviewsInfo.Make.MakeName, objPage.ReviewsInfo.Model.ModelName);
                     objPage.PageMetaTags.Description = string.Format("Read {0} {1} reviews from genuine buyers and know the pros and cons of {1}. Also, find reviews on {1} from BikeWale experts.", objPage.ReviewsInfo.Make.MakeName, objPage.ReviewsInfo.Model.ModelName);
+
+                    _totalPagesCount = (uint)(_totalResults / _pageSize);
+
+                    if ((_totalResults % _pageSize) > 0)
+                        _totalPagesCount += 1;
+
+                    if (PageNumber > 1)
+                    {
+                        objPage.PageMetaTags.Description = string.Format("{0} of {1} - {2}", PageNumber, _totalPagesCount, objPage.PageMetaTags.Description);
+                        objPage.PageMetaTags.Title = string.Format("{0} of {1} - {2}", PageNumber, _totalPagesCount, objPage.PageMetaTags.Title);
+                    }
+
                     objPage.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName);
 
                     uint curPageNo = PageNumber.HasValue ? PageNumber.Value : 1;
-                    
 
-                    if(curPageNo > 1)
+
+                    if (curPageNo > 1)
                     {
                         objPage.PageMetaTags.PreviousPageUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/page/{2}/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName, curPageNo - 1);
                     }
-                    if((curPageNo * _pageSize) < _totalResults)
+                    if ((curPageNo * _pageSize) < _totalResults)
                     {
                         objPage.PageMetaTags.NextPageUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/page/{2}/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName, curPageNo + 1);
-                    }                     
+                    }
+
+                    List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl = "/",
+                        Name = "Home"
+                    });
+
+                    if (objPage.RatingsInfo != null && objPage.RatingsInfo.Make != null)
+                    {
+                        BreadCrumbs.Add(new BreadCrumb
+                        {
+                            ListUrl = string.Format("/{0}-bikes/", objPage.RatingsInfo.Make.MaskingName) ,
+                            Name = objPage.RatingsInfo.Make.MakeName + " Bikes"
+                        });
+                    }
+
+                    if (objPage.RatingsInfo != null && objPage.RatingsInfo.Make != null && objPage.RatingsInfo.Model != null)
+                    {
+                        BreadCrumbs.Add(new BreadCrumb
+                        {
+                            ListUrl = UrlFormatter.BikePageUrl(objPage.RatingsInfo.Make.MaskingName, objPage.RatingsInfo.Model.MaskingName),
+                            Name = objPage.BikeName
+                        });
+                    }
+
+                    objPage.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
+                    objPage.BreadCrumbsList.PageName = "User Reviews";
                 }
             }
             catch (Exception ex)

@@ -3,6 +3,7 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Models;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeData;
@@ -12,6 +13,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 namespace Bikewale.Models.UserReviews
@@ -57,9 +59,11 @@ namespace Bikewale.Models.UserReviews
             UserReviewDetailsVM objPage = null;
             try
             {
+
                 UpdateViewCount();
 
                 objPage = new UserReviewDetailsVM();
+                objPage.SimilarBikesWidget = new UserReviewSimilarBikesWidgetVM();
                 objPage.UserReviewDetailsObj = _userReviewsCache.GetUserReviewSummaryWithRating(_reviewId);
 
                 if (objPage.UserReviewDetailsObj != null)
@@ -80,7 +84,8 @@ namespace Bikewale.Models.UserReviews
                     objPage.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objPage.UserReviewDetailsObj.Make.MakeId, _modelId, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objPage.UserReviewDetailsObj.Model.ModelName)).GetData();
                 }
 
-                objPage.SimilarBikeReviewWidget = _bikeModelsCache.GetSimilarBikesUserReviews(_modelId, SimilarBikeReviewWidgetCount);
+                objPage.SimilarBikesWidget.SimilarBikes = _bikeModelsCache.GetSimilarBikesUserReviews(_modelId, currentCityArea.CityId, SimilarBikeReviewWidgetCount);
+                objPage.SimilarBikesWidget.GlobalCityName = currentCityArea.City;
 
                 BindQuestions(objPage);
 
@@ -161,6 +166,44 @@ namespace Bikewale.Models.UserReviews
                     objPage.PageMetaTags.Description = string.Format("Read review by {0} on {1} {2}. {0} says {3}. View detailed review on BikeWale.", objPage.UserReviewDetailsObj.CustomerName, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Title);
                     objPage.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/{2}/", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, _reviewId);
                     objPage.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/reviews/{2}/", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, _reviewId);
+
+                    List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl = "/",
+                        Name = "Home"
+                    });
+
+                    if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null)
+                    {
+                        BreadCrumbs.Add(new BreadCrumb
+                        {
+                            ListUrl = string.Format("/{0}-bikes/", objPage.UserReviewDetailsObj.Make.MaskingName),
+                            Name = objPage.UserReviewDetailsObj.Make.MakeName + " Bikes"
+                        });
+                    }
+
+                    if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null && objPage.UserReviewDetailsObj.Model != null)
+                    {
+                        BreadCrumbs.Add(new BreadCrumb
+                        {
+                            ListUrl = UrlFormatter.BikePageUrl(objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName),
+                            Name = string.Format("{0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName)
+                        });
+                    }
+
+                    if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null && objPage.UserReviewDetailsObj.Model != null)
+                    {
+                        BreadCrumbs.Add(new BreadCrumb
+                        {
+                            ListUrl = UrlFormatter.FormatUserReviewUrl(objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName),
+                            Name = "User Reviews"
+                        });
+                    }
+
+                    objPage.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
+                    objPage.BreadCrumbsList.PageName = objPage.UserReviewDetailsObj.Title.Truncate(45);
                 }
             }
             catch (Exception ex)
@@ -207,25 +250,25 @@ namespace Bikewale.Models.UserReviews
 
                 if (objUserReviews != null)
                 {
-                    objUserReviews.ActiveReviewCateory = activeReviewCateory;                   
-                   
-                    objPage.UserReviews = objUserReviews.GetData();                   
+                    objUserReviews.ActiveReviewCateory = activeReviewCateory;
 
-                    if(objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
+                    objPage.UserReviews = objUserReviews.GetData();
+
+                    if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
                         objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0}", objPage.UserReviewDetailsObj.Model.ModelName);
 
                     objPage.UserReviews.IsPagerNeeded = false;
 
-                    if(objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.OverallRating != null && objPage.UserReviews != null && objPage.UserReviews.ReviewsInfo != null && objPage.UserReviews.ReviewsInfo.MostRecentReviews > 1)
+                    if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.OverallRating != null && objPage.UserReviews != null && objPage.UserReviews.ReviewsInfo != null && objPage.UserReviews.ReviewsInfo.MostRecentReviews > 1)
                     {
                         objPage.UserReviews.ReviewsInfo.MostRecentReviews = objPage.UserReviews.ReviewsInfo.MostRecentReviews - 1;
                         objPage.UserReviews.ReviewsInfo.MostHelpfulReviews = objPage.UserReviews.ReviewsInfo.MostHelpfulReviews - 1;
 
-                        if(objPage.UserReviewDetailsObj.OverallRating.Value == 3)
+                        if (objPage.UserReviewDetailsObj.OverallRating.Value == 3)
                         {
                             objPage.UserReviews.ReviewsInfo.NeutralReviews = objPage.UserReviews.ReviewsInfo.NeutralReviews - 1;
                         }
-                        else if(objPage.UserReviewDetailsObj.OverallRating.Value > 3)
+                        else if (objPage.UserReviewDetailsObj.OverallRating.Value > 3)
                         {
                             objPage.UserReviews.ReviewsInfo.PostiveReviews = objPage.UserReviews.ReviewsInfo.PostiveReviews - 1;
                         }

@@ -215,6 +215,7 @@
     <Compile Include="BikeData\UpcomingBikeResult.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
     <Compile Include="BikeData\UsedBikeMakeEntity.cs" />
+    <Compile Include="BikeData\v2\BikeModelContent.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
     <Compile Include="BikeBooking\FeedBackEntity.cs" />
     <Compile Include="BikewalePages.cs" />
@@ -320,6 +321,8 @@
     <Compile Include="MobileAppAlert\MobileAppNotifications.cs" />
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
     <Compile Include="Models\AdTags.cs" />
+    <Compile Include="Models\BreadCrumb.cs" />
+    <Compile Include="Models\BreadCrumbsList.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\PageMetaTags.cs" />
     <Compile Include="NewBikeSearch\FilterEnum.cs" />
@@ -442,6 +445,7 @@
     <Compile Include="UserReviews\BikeUserReviewRating.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\InputFilters.cs" />
+    <Compile Include="UserReviews\InputRatingSaveEntity.cs" />
     <Compile Include="UserReviews\ProcessedInputFilters.cs" />
     <Compile Include="UserReviews\QuestionRatingsValueEntity.cs" />
     <Compile Include="UserReviews\QuestionsRatingValueByModel.cs" />
@@ -452,6 +456,7 @@
     <Compile Include="UserReviews\ReviewListBase.cs" />
     <Compile Include="UserReviews\ReviewRatingEntity.cs" />
     <Compile Include="UserReviews\ReviewRatingEntityBase.cs" />
+    <Compile Include="UserReviews\ReviewSubmitData.cs" />
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
     <Compile Include="UserReviews\SearchResult.cs" />
@@ -459,6 +464,7 @@
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
     <Compile Include="UserReviews\UserReviewPageSourceEnum.cs" />
     <Compile Include="UserReviews\UserReviewPriceRange.cs" />
+    <Compile Include="UserReviews\UserReviewRatingData.cs" />
     <Compile Include="UserReviews\UserReviewRatingObject.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
     <Compile Include="UserReviews\UserReviewsData.cs" />

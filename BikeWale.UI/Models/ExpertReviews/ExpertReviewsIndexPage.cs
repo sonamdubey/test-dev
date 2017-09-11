@@ -1,22 +1,22 @@
-﻿using System;
-using System.Web;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.Pager;
-using Bikewale.Entities.CMS;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
-using Bikewale.Common;
-using Bikewale.Entities.Location;
-using Bikewale.Interfaces.BikeData.UpComing;
-using Bikewale.Utility;
-using Bikewale.Models.BestBikes;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.Pager;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.Pager;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.UpComing;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Pager;
+using Bikewale.Models.BestBikes;
 using Bikewale.Models.Scooters;
+using Bikewale.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -39,6 +39,7 @@ namespace Bikewale.Models
         #region Page level variables
         private const int pageSize = 10, pagerSlotSize = 5;
         private int curPageNo = 1;
+        private uint _totalPagesCount;
         string make = string.Empty, model = string.Empty;
         private uint MakeId, ModelId, CityId, pageCatId = 0;
         public string redirectUrl;
@@ -67,7 +68,7 @@ namespace Bikewale.Models
             _upcoming = upcoming;
             _objMakeCache = objMakeCache;
             _objBikeVersionsCache = objBikeVersionsCache;
-             ProcessQueryString();
+            ProcessQueryString();
         }
         #endregion
 
@@ -78,7 +79,7 @@ namespace Bikewale.Models
         /// </summary>
         public ExpertReviewsIndexPageVM GetData(int widgetTopCount)
         {
-            ExpertReviewsIndexPageVM objData =  new ExpertReviewsIndexPageVM();
+            ExpertReviewsIndexPageVM objData = new ExpertReviewsIndexPageVM();
 
             try
             {
@@ -94,6 +95,8 @@ namespace Bikewale.Models
                 objData.EndIndex = _endIndex;
 
                 objData.Articles = _cmsCache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, (int)MakeId, (int)ModelId);
+
+                _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
 
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
@@ -241,7 +244,13 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Title = "Expert Bike Reviews India - Bike Comparison & Road Tests - BikeWale";
                 objData.PageMetaTags.Description = "Latest expert reviews on upcoming and new bikes in India. Read bike comparison tests and road tests exclusively on BikeWale";
                 objData.PageMetaTags.Keywords = "Expert bike reviews, bike road tests, bike comparison tests, bike reviews, road tests, expert reviews, bike comparison, comparison tests";
-                objData.PageH1 = string.Format("Expert Reviews");
+                objData.PageH1 = "Expert Reviews";
+            }
+
+            if (curPageNo > 1)
+            {
+                objData.PageMetaTags.Description = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Description);
+                objData.PageMetaTags.Title = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Title);
             }
         }
 
@@ -251,7 +260,7 @@ namespace Bikewale.Models
         /// Modified by Sajal Gupta on 24-08-2017
         /// description : Added Popular Scooter Brands widget
         /// </summary>
-        private void GetWidgetData(ExpertReviewsIndexPageVM objData,int topCount)
+        private void GetWidgetData(ExpertReviewsIndexPageVM objData, int topCount)
         {
             try
             {
@@ -315,13 +324,13 @@ namespace Bikewale.Models
                     }
                     objData.UpcomingBikes.WidgetLinkTitle = "Upcoming Bikes in India";
                 }
-                
-                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);            
+
+                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
                 objPopularBikes.TopCount = topCount;
                 objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
 
-                if(bikeType.Equals(EnumBikeType.Scooters))
+                if (bikeType.Equals(EnumBikeType.Scooters))
                 {
                     objData.MostPopularBikes.WidgetHeading = string.Format("Popular {0} scooters", objMake.MakeName);
                     objData.MostPopularBikes.WidgetHref = string.Format("/{0}-{1}/", objMake.MaskingName, objMake.IsScooterOnly ? "bikes" : "scooters");
