@@ -244,13 +244,13 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Title = "Expert Bike Reviews India - Bike Comparison & Road Tests - BikeWale";
                 objData.PageMetaTags.Description = "Latest expert reviews on upcoming and new bikes in India. Read bike comparison tests and road tests exclusively on BikeWale";
                 objData.PageMetaTags.Keywords = "Expert bike reviews, bike road tests, bike comparison tests, bike reviews, road tests, expert reviews, bike comparison, comparison tests";
-                objData.PageH1 = string.Format("Expert Reviews");
+                objData.PageH1 = "Expert Reviews";
             }
 
             if (curPageNo > 1)
             {
-                objData.PageMetaTags.Description = string.Format("{0} {1}", curPageNo + " of " + _totalPagesCount + " -", objData.PageMetaTags.Description);
-                objData.PageMetaTags.Title = string.Format("{0} {1}", curPageNo + " of " + _totalPagesCount + " -", objData.PageMetaTags.Title);
+                objData.PageMetaTags.Description = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Description);
+                objData.PageMetaTags.Title = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Title);
             }
         }
 

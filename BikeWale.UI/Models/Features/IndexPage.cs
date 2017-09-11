@@ -164,16 +164,16 @@ namespace Bikewale.Models
 
             try
             {
-                objPage.PageMetaTags.Title = string.Format("Features - Stories, Specials & Travelogues | BikeWale");
-                objPage.PageMetaTags.Description = string.Format("Features section of BikeWale brings specials, stories, travelogues and much more.");
-                objPage.PageMetaTags.Keywords = string.Format("features, stories, travelogues, specials, drives.");
+                objPage.PageMetaTags.Title = "Features - Stories, Specials & Travelogues | BikeWale";
+                objPage.PageMetaTags.Description = "Features section of BikeWale brings specials, stories, travelogues and much more.";
+                objPage.PageMetaTags.Keywords = "features, stories, travelogues, specials, drives.";
                 objPage.PageMetaTags.CanonicalUrl = string.Format("{0}/features/{1}", BWConfiguration.Instance.BwHostUrl, (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
                 objPage.PageMetaTags.AlternateUrl = string.Format("{0}/m/features/{1}", BWConfiguration.Instance.BwHostUrl, (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
 
                 if (curPageNo > 1)
                 {
-                    objPage.PageMetaTags.Description = string.Format("{0} {1}", curPageNo + " of " + _totalPagesCount + " -", objPage.PageMetaTags.Description);
-                    objPage.PageMetaTags.Title = string.Format("{0} {1}", curPageNo + " of " + _totalPagesCount + " -", objPage.PageMetaTags.Title);
+                    objPage.PageMetaTags.Description = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objPage.PageMetaTags.Description);
+                    objPage.PageMetaTags.Title = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objPage.PageMetaTags.Title);
                 }
             }
             catch (Exception ex)

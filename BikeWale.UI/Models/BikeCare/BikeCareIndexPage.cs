@@ -156,16 +156,16 @@ namespace Bikewale.Models
         {
             try
             {
-                objData.PageMetaTags.Title = string.Format("Bike Care | Maintenance Tips from Bike Experts - BikeWale");
-                objData.PageMetaTags.Description = string.Format("BikeWale brings you maintenance tips from the bike experts to help you keep your bike in good shape. Read through these maintenance tips to learn more about your bike maintenance");
-                objData.PageMetaTags.Keywords = string.Format("Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care");
+                objData.PageMetaTags.Title = "Bike Care | Maintenance Tips from Bike Experts - BikeWale";
+                objData.PageMetaTags.Description = "BikeWale brings you maintenance tips from the bike experts to help you keep your bike in good shape. Read through these maintenance tips to learn more about your bike maintenance";
+                objData.PageMetaTags.Keywords = "Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care";
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}/bike-care/{1}", BWConfiguration.Instance.BwHostUrl, (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/bike-care/{1}", BWConfiguration.Instance.BwHostUrl, (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
 
                 if (curPageNo > 1)
                 {
-                    objData.PageMetaTags.Description = string.Format("{0} {1}", curPageNo + " of " + _totalPagesCount + " -", objData.PageMetaTags.Description);
-                    objData.PageMetaTags.Title = string.Format("{0} {1}", curPageNo + " of " + _totalPagesCount + " -", objData.PageMetaTags.Title);
+                    objData.PageMetaTags.Description = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Description);
+                    objData.PageMetaTags.Title = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Title);
                 }
             }
             catch (Exception ex)
