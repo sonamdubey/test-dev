@@ -61,7 +61,7 @@ namespace Bikewale.Models
                 {
                     CreatePager(objVM.NewLaunched, objVM.PageMetaTags);
                 }
-                CreateMeta(objVM);
+                CreateMeta(objVM.PageMetaTags);
             }
             catch (Exception ex)
             {
@@ -127,20 +127,22 @@ namespace Bikewale.Models
         /// Description :   Creates meta for new launches landing page
         /// </summary>
         /// <param name="objVM"></param>
-        private void CreateMeta(NewLaunchedIndexVM objVM)
+        private void CreateMeta(PageMetaTags objMeta)
         {
             try
             {
-                objVM.PageMetaTags.Description = string.Format("Check out the latest bikes in India. Explore the bikes launched in {0}. Know more about prices, mileage,colors, specifications, and dealers of new bikes launches in {0}.", DateTime.Today.Year);
-                objVM.PageMetaTags.Title = string.Format("New Bike Launches in {0} | Latest Bikes in India - BikeWale", DateTime.Today.Year);
+                objMeta.Description = string.Format("Check out the latest bikes in India. Explore the bikes launched in {0}. Know more about prices, mileage,colors, specifications, and dealers of new bikes launches in {0}.", DateTime.Today.Year);
+                objMeta.Title = string.Format("New Bike Launches in {0} | Latest Bikes in India - BikeWale", DateTime.Today.Year);
+
                 if (_pageNumber > 1)
                 {
-                    objVM.PageMetaTags.Description = string.Format("{0} {1}", _pageNumber + " of " + _totalPagesCount + " -", objVM.PageMetaTags.Description);
-                    objVM.PageMetaTags.Title = string.Format("{0} {1}", _pageNumber + " of " + _totalPagesCount + " -", objVM.PageMetaTags.Title);
+                    objMeta.Description = string.Format("{0} of {1} - {2}", _pageNumber, _totalPagesCount, objMeta.Description);
+                    objMeta.Title = string.Format("{0} of {1} - {2}", _pageNumber, _totalPagesCount, objMeta.Title);
                 }
-                objVM.PageMetaTags.Keywords = string.Format("new bikes {0}, new bike launches in {1}, just launched bikes, new bike arrivals, bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year);
-                objVM.PageMetaTags.CanonicalUrl = string.Format("{0}/new-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs);
-                objVM.PageMetaTags.AlternateUrl = string.Format("{0}/m/new-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs);
+
+                objMeta.Keywords = string.Format("new bikes {0}, new bike launches in {1}, just launched bikes, new bike arrivals, bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year);
+                objMeta.CanonicalUrl = string.Format("{0}/new-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs);
+                objMeta.AlternateUrl = string.Format("{0}/m/new-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs);
             }
             catch (Exception ex)
             {

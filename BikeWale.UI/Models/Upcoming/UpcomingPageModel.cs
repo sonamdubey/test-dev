@@ -116,10 +116,11 @@ namespace Bikewale.Models
                 pageMetaTags.Keywords = "Upcoming bikes, expected launch, new bikes, upcoming scooter, upcoming, to be released bikes, bikes to be launched";
                 pageMetaTags.Description = string.Format("Find a list of upcoming bikes in India in {0}. Get details on expected launch date, prices for bikes expected to launch in {1}.", year, currentYear);
                 pageMetaTags.Title = string.Format("Upcoming Bikes in India | Expected Launches in {0} - BikeWale", currentYear);
+
                 if (_pageNumber > 1)
                 {
-                    pageMetaTags.Description = string.Format("{0} {1}", _pageNumber + " of " + _totalPagesCount + " -", pageMetaTags.Description);
-                    pageMetaTags.Title = string.Format("{0} {1}", _pageNumber + " of " + _totalPagesCount + " -", pageMetaTags.Title);
+                    pageMetaTags.Description = string.Format("{0} of {1} - {2}", _pageNumber, _totalPagesCount, pageMetaTags.Description);
+                    pageMetaTags.Title = string.Format("{0} of {1} - {2}", _pageNumber, _totalPagesCount, pageMetaTags.Title);
                 }
             }
             catch (Exception ex)
