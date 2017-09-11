@@ -8,6 +8,7 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.manufacturecampaign;
+using Bikewale.Entities.Models;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
@@ -784,6 +785,27 @@ namespace Bikewale.Models.BikeModels
                     _objData.Page_H1 = _objData.BikeName;
 
                     BindDescription();
+
+                    List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl = "/",
+                        Name = "Home"
+                    });
+
+                    if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
+                    {
+                        BreadCrumbs.Add(new BreadCrumb
+                        {
+                            ListUrl = string.Format("/{0}-bikes/", _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName),
+                            Name = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName + " Bikes"
+                        });
+                    }
+                    
+                    _objData.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
+                    _objData.BreadCrumbsList.PageName = _objData.Page_H1;
+
 
                     CheckCustomPageMetas();
                 }

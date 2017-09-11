@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.ModelBase
 <!doctype html>
-<html  itemscope itemtype="http://schema.org/WebPage" lang="en">
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,7 +26,7 @@
             <meta property="og:title" content="@Model.PageMetaTags.Title" />
             <meta property="og:type" content="website" />
             <meta property="og:description" content="@Model.PageMetaTags.Description" />
-            <meta itemprop="image"  property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+            <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
             if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
             {
                 <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
@@ -226,6 +226,38 @@
         </div>
     }
     @RenderBody()
+
+
+    @if (Model.BreadCrumbsList != null && Model.BreadCrumbsList.Breadcrumbs != null && Model.BreadCrumbsList.Breadcrumbs.Count() > 0)
+    {
+        <section>
+            <div class="breadcrumb">
+                <span class="breadcrumb-title">You are here:</span>
+                <ul itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                    @{ int i = 1;}
+                    @foreach (Bikewale.Entities.Models.BreadCrumb breadCrumb in Model.BreadCrumbsList.Breadcrumbs)
+                    {
+                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">                            
+                            <a itemprop="item" class="breadcrumb-link" href="@string.Format("/m{0}", breadCrumb.ListUrl)" title="@breadCrumb.Name">
+                            <span class="breadcrumb-link__label" itemprop="name">@breadCrumb.Name</span>
+                            </a>
+                            <meta itemprop="position" content="@i">
+                        </li>
+                        i++;
+                    }
+                    @if (!string.IsNullOrEmpty(Model.BreadCrumbsList.PageName))
+                    {
+                        <li>
+                            <span class="breadcrumb-link__label">@Model.BreadCrumbsList.PageName</span>
+                        </li>
+                    }
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </section>
+                        }
+
     @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
     {
         <section>
@@ -308,11 +340,11 @@
             </li>
             @** Render login control here *@
             @Html.Partial("~/Views/m/Shared/_LoginControl.cshtml")
-            
+
         </ul>
 
         <div id="nav-app-content">
-            <p class="font12 text-bold inline-block">India’s #1 Bike Research Destination</p><a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank" rel="noopener nofollow" class="btn btn-orange nav-app-install-btn font12 text-bold inline-block" >Install</a>
+            <p class="font12 text-bold inline-block">India’s #1 Bike Research Destination</p><a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank" rel="noopener nofollow" class="btn btn-orange nav-app-install-btn font12 text-bold inline-block">Install</a>
         </div>
     </nav>
     <!-- nav code ends here -->
@@ -384,7 +416,8 @@
                     <p class="font13 text-white margin-bottom10">Download Mobile App</p>
 
                     <div>
-                        <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5" >Install
+                        <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5">
+                            Install
                         </a>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Models;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeData;
@@ -11,6 +12,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Web;
 namespace Bikewale.Models.UserReviews
 {
@@ -238,6 +240,35 @@ namespace Bikewale.Models.UserReviews
                     {
                         objPage.PageMetaTags.NextPageUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/page/{2}/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName, curPageNo + 1);
                     }
+
+                    List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl = "/",
+                        Name = "Home"
+                    });
+
+                    if (objPage.RatingsInfo != null && objPage.RatingsInfo.Make != null)
+                    {
+                        BreadCrumbs.Add(new BreadCrumb
+                        {
+                            ListUrl = string.Format("/{0}-bikes/", objPage.RatingsInfo.Make.MaskingName) ,
+                            Name = objPage.RatingsInfo.Make.MakeName + " Bikes"
+                        });
+                    }
+
+                    if (objPage.RatingsInfo != null && objPage.RatingsInfo.Make != null && objPage.RatingsInfo.Model != null)
+                    {
+                        BreadCrumbs.Add(new BreadCrumb
+                        {
+                            ListUrl = UrlFormatter.BikePageUrl(objPage.RatingsInfo.Make.MaskingName, objPage.RatingsInfo.Model.MaskingName),
+                            Name = objPage.BikeName
+                        });
+                    }
+
+                    objPage.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
+                    objPage.BreadCrumbsList.PageName = "User Reviews";
                 }
             }
             catch (Exception ex)

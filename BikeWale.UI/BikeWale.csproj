@@ -3798,6 +3798,8 @@
     <Content Include="Views\UserReview\RateBike_old.cshtml" />
     <Content Include="Views\UserReview\WriteReview_old.cshtml" />
     <Content Include="Views\UserReview\RateOtherDetails.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Model_ATF_970x90.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Model_BTF_970x90.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4057,16 +4059,13 @@
     <Message Text="Creating Release folder $(Configuration)" Importance="high" />
     <Exec Command="$(ProjectDir)..\Bikewale.ReleaseManagement\copyfiles\bin\$(Configuration)\copyfiles.exe $(DaysOld) $(ProjectDir)" WorkingDirectory="$(ProjectDir)" />
   </Target>
-
-
   <PropertyGroup>
     <PreBuildEvent>
-
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
 
-<PostBuildEvent Condition="'$(Configuration)' != 'Debug'">
+    <PostBuildEvent Condition="'$(Configuration)' != 'Debug'">
 
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\runtimes\win7-x64\native\*" "$(ProjectDir)bin\x64\"

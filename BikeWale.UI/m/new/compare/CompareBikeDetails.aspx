@@ -370,6 +370,34 @@
             <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />
         </section>
         <% } %>
+
+        <section>
+            <div class="breadcrumb">
+                <span class="breadcrumb-title">You are here:</span>
+                <ul itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                    
+                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">                            
+                            <a itemprop="item" class="breadcrumb-link" href="/m/" title="Home">
+                            <span class="breadcrumb-link__label" itemprop="name">Home</span>
+                            </a>
+                            <meta itemprop="position" content="1">
+                        </li>
+                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">                            
+                            <a itemprop="item" class="breadcrumb-link" href="/m/comparebikes/" title="Compare bikes">
+                            <span class="breadcrumb-link__label" itemprop="name">Compare bikes</span>
+                            </a>
+                            <meta itemprop="position" content="2">
+                        </li>
+                        
+                        <li>
+                            <span class="breadcrumb-link__label"><%=comparisionText%></span>
+                        </li>                   
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </section>
+
         <script type="text/javascript">
             var compareSource = <%=  (int)Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_Page %>;
         </script>
@@ -380,6 +408,10 @@
         <script type="text/javascript" src="<%= staticUrl %>/m/src/compare/details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     </form>
+
+
+    
+
 </body>
 </html>
 
