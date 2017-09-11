@@ -1,6 +1,5 @@
 var validate,
     isDesktop;
-
 docReady(function () {
     validate = {
         setError: function (element, message) {
@@ -38,7 +37,7 @@ docReady(function () {
         }
     };
 
-    isDesktop = $(".capital-first-desktop");
+    isDesktop = $(".capital-first-desktop").is(":visible");
     
     $("#cfDOB").Zebra_DatePicker({
         container : $("#cfDOB").closest(".input-box")
@@ -49,7 +48,7 @@ docReady(function () {
     });
     $(".page-tabs-data input[type!=button]").on('focus', function () {
         validate.onFocus($(this));
-        if (!isDesktop.length) {
+        if (!isDesktop) {
             var offsetTop = $(this).offset();
             scrollTop(offsetTop);
         }

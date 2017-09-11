@@ -1,0 +1,232 @@
+﻿
+@{
+    ViewBag.Title = "CapitalFirst_Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/survey/capital-first.css' />";
+    Model.Page_JS_Path = "/src/survey/capital-first.js";
+}
+
+<section class="margin-top20 margin-bottom20">
+    <div class="container">
+        <div class="grid-12">
+            <h2 class="header">Get Instant Loan Approval</h2>
+            <div class="content-box-shadow padding-bottom5">
+                <p class="font14 padding-15-20 text-slate-grey padding-bottom5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit…</p>
+                <span class="read-more-tab padding-left20">Read more</span>
+                <div class="page-tabs-data">
+                    <div class="personal-details-container">
+                        <div>
+                            <span class="personal__icon"></span>
+                            <h3 class="personal__title">Personal details</h3>
+                        </div>
+                        <div id="personal-detail-tab" class="personal-details__form">
+                            <div class="input-box form-control-box ">
+                                <input id="cfFName" type="text" min="1" maxlength="255">
+                                <label for="cfFName">First Name<sup>*</sup></label>
+                                <span class="boundary"></span>
+                                <span class="error-text" style="display: none;"></span>
+                            </div>
+                            <div class="input-box form-control-box margin-left60 vertical-align-bottom">
+                                <input id="cfLName" type="text" min="1">
+                                <label for="cfLName">Last Name<sup>*</sup></label>
+                                <span class="boundary"></span>
+                                <span class="error-text" style="display: none;"></span>
+                            </div>
+                            <div class="input-box form-control-box">
+                                <input id="cfNum" type="tel" maxlength="10">
+                                <label for="cfNum">Mobile Number<sup>*</sup></label>
+                                <span class="boundary"></span>
+                                <span class="error-text" style="display: none;"></span>
+                            </div>
+                            <div class="input-box form-control-box margin-left60 vertical-align-bottom">
+                                <input id="cfEmail" type="text" min="1">
+                                <label for="cfEmail">Email Id<sup>*</sup></label>
+                                <span class="boundary"></span>
+                                <span class="error-text" style="display: none;"></span>
+                            </div>
+                            <div class="input-box form-control-box">
+                                <input id="cfDOB" type="text">
+                                <label for="cfDOB">DOB<sup>*</sup></label>
+                                <span class="boundary"></span>
+                                <span class="error-text" style="display: none;"></span>
+                            </div>
+                            <div class="form-control-box gender-box margin-left60">
+                                <ul class="position-rel pos-top10">
+                                    <li class="gender-label">Gender</li>
+                                    <li>
+                                        <input id="cfGenderM" type="radio" name="gender" value="Male" checked>
+                                        <label for="cfGenderM">Male</label>
+                                    </li>
+                                    <li>
+                                        <input id="cfGenderF" type="radio" name="gender" value="Female">
+                                        <label for="cfGenderF">Female</label>
+                                    </li>
+                                </ul>
+                                <span class="error-text" style="display: none;"></span>
+                            </div>
+                            <div class="form-control-box marital-box block">
+                                <ul class="position-rel pos-top10">
+                                    <li class="marital-label">Marital Status</li>
+                                    <li>
+                                        <input id="cfMaritalS" type="radio" name="marital" value="Single" checked>
+                                        <label for="cfMaritalS">Single</label>
+                                    </li>
+                                    <li>
+                                        <input id="cfMaritalM" type="radio" name="marital" value="Married">
+                                        <label for="cfMaritalM">Married</label>
+                                    </li>
+                                </ul>
+                                <span class="error-text" style="display: none;"></span>
+                            </div>
+                            <div class="input-box form-control-box width-82-percent">
+                                <input id="cfAddress1" type="text" min="1">
+                                <label for="cfAddress1">Address Line1<sup>*</sup></label>
+                                <span class="boundary"></span>
+                                <span class="error-text" style="display: none;"></span>
+                            </div>
+                            <div class="input-box form-control-box width-82-percent">
+                                <input id="cfAddress2" type="text" min="1">
+                                <label for="cfAddress2">Address Line2<sup>*</sup></label>
+                                <span class="boundary"></span>
+                                <span class="error-text" style="display: none;"></span>
+                            </div>
+                            <div class="input-box form-control-box block">
+                                <input id="cfPincode" type="number" min="1">
+                                <label for="cfPincode">Pincode<sup>*</sup></label>
+                                <span class="boundary"></span>
+                                <span class="error-text" style="display: none;"></span>
+                            </div>
+                            <div class="input-box form-control-box block">
+                                <input id="cfPan" type="text" min="1">
+                                <label for="cfPan">Pan Number<sup>*</sup></label>
+                                <span class="boundary"></span>
+                                <span class="error-text" style="display: none;"></span>
+                            </div>
+                            <input type="button" id="personal-detail-submit" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Save & continue">
+                        </div>
+                        <div>
+                            <span class="employment__icon"></span>
+                            <h3 class="employment__title inactive">Employment details</h3>
+                        </div>
+                    </div>
+                    <div class="employment-details-container">
+                        <div>
+                            <span class="employment__icon"></span>
+                            <h3 class="employment__title">Employment details</h3>
+                        </div>
+                        <div class="employment-details-form">
+                            <div class="margin-bottom20">
+                                <div class="form-control-box status-box">
+                                    <ul>
+                                        <li class="employment-label">Employment Status</li>
+                                        <li class="margin-right5"> 
+                                            <input id="cfStatusS" type="radio" name="status" value="Salaried" checked>
+                                            <label for="cfStatusS">Salaried</label>
+                                        </li>
+                                        <li>
+                                            <input id="cfStatusE" type="radio" name="status" value="2">
+                                            <label for="cfStatusE">Self-employed</label>
+                                        </li>
+                                    </ul>
+                                    <span class="error-text" style="display: none;"></span>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="input-box form-control-box">
+                                    <input id="cfCompName" type="text" min="1" maxlength="255">
+                                    <label for="cfCompName">Company Name<sup>*</sup></label>
+                                    <span class="boundary"></span>
+                                    <span class="error-text" style="display: none;"></span>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="input-box form-control-box width-82-percent">
+                                    <input id="cfCompAddress1" type="text" min="1">
+                                    <label for="cfCompAddress1">Official Address Line1<sup>*</sup></label>
+                                    <span class="boundary"></span>
+                                    <span class="error-text" style="display: none;"></span>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="input-box form-control-box width-82-percent">
+                                    <input id="cfCompAddress2" type="text" min="1">
+                                    <label for="cfCompAddress2">Official Address Line2<sup>*</sup></label>
+                                    <span class="boundary"></span>
+                                    <span class="error-text" style="display: none;"></span>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="input-box form-control-box">
+                                    <input id="cfCompPincode" type="number" min="1">
+                                    <label for="cfCompPincode">Pincode<sup>*</sup></label>
+                                    <span class="boundary"></span>
+                                    <span class="error-text" style="display: none;"></span>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="input-box form-control-box">
+                                    <input id="cfCompIncome" type="number" maxlength="10">
+                                    <label for="cfCompIncome">Mobile Number<sup>*</sup></label>
+                                    <span class="boundary"></span>
+                                    <span class="error-text" style="display: none;"></span>
+                                </div>
+                            </div>
+                            <input type="button" id="employment-detail-submit" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Submit Application">
+                        </div>
+                    </div>                  
+                </div>
+            </div>           
+        </div> 
+        <div class="clear"></div>            
+    </div> 
+    <div class="container margin-top15">
+        <div class="grid-12 how-works-container">
+            <div class="content-box-shadow">
+                <h2 class="content-inner-block-20 font18">How It Works</h2>
+                <ul>
+                    <li class="how-works-container__li">
+                        <span class="how-works__sprite fill-form"></span>
+                        <div class="how-works__content">
+                            <h3 class="margin-bottom10 margin-top20">Fill form online</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+                        </div>
+                    </li>
+                    <li class="how-works-container__li">
+                        <span class="how-works__sprite fill-form"></span>
+                        <div class="how-works__content">
+                            <h3 class="margin-bottom10 margin-top20">Get Instant Approval</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+                        </div>
+                    </li>
+                    <li class="how-works-container__li">
+                        <span class="how-works__sprite fill-form"></span>
+                        <div class="how-works__content">
+                            <h3 class="margin-bottom10 margin-top20">Contact for Loan </h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div> 
+    </div>
+    <div class="container margin-top15">
+        <div class="grid-12">
+            <div class="content-box-shadow terms-condition-container padding-bottom15">
+                <h2 class="content-inner-block-20 font18">Terms & Conditions</h2>
+                <ol class="text-slate-grey font14 padding-left20 padding-right20 terms-condition__content">
+                    <li> Sanction for a higher loan amount shall be subject to documents furnished by you and the same meetingCapital First Norms</li>
+                    <li> Funding amount and tenure will vary from vehicle to vehicle</li>
+                    <li> The information/particulars provided/to be provided by the Customer/Borrower to Capital First are information pertaining to the Customer/ Borrower only and not of any third party</li>
+                    <li> That all the particulars filled in the application form by the Customer/Borrower are true, correct, completeand up to date in all respects and the Customer/Borrower has not withheld any information which is material.</li>
+                    <li> Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+                </ol>
+                <span class="terms__read-more-tab padding-left20 margin-top10">Read more</span> 
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>     
+</section>
+
+
+<script defer src="/src/zebra-datepicker.js"></script>
