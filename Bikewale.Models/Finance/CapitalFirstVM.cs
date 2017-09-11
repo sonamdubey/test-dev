@@ -1,4 +1,6 @@
-﻿namespace Bikewale.Models.Finance
+﻿using Bikewale.Entities.Finance.CapitalFirst;
+
+namespace Bikewale.Models.Finance
 {
     /// <summary>
     /// Created by: Sangram Nandkhile on 08-Sep-2017
@@ -6,7 +8,10 @@
     /// </summary>
     public class CapitalFirstVM : ModelBase
     {
-     
+        public PersonalDetails PersonalDetails { get; set; }
+
+        public EmployeDetails EmployeDetails { get; set; }
+
 
     }
 

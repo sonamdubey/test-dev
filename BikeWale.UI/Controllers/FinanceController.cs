@@ -26,6 +26,8 @@ namespace Bikewale.Controllers
             return View(viewModel);
         }
 
+    
+
         /// <summary>
         /// index desktop for capital first
         /// Sangram Nandkhile on 08-Sep-2017

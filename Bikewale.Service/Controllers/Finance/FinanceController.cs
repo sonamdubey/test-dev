@@ -22,7 +22,7 @@ namespace Bikewale.Service.Controllers
         /// Summary :- Banner SaveBannerBasicDetails
         /// </summary>
         [HttpPost, Route("api/finance/savepersonaldetails/")]
-        public IHttpActionResult SavePersonalDetails(PersonalDetails objDetails)
+        public IHttpActionResult SavePersonalDetails([FromBody] PersonalDetails objDetails)
         {
             try
             {
@@ -42,11 +42,11 @@ namespace Bikewale.Service.Controllers
 
 
         /// <summary>
-        /// Created By :- Subodh Jain on 24 july 2017
+        /// Created By :- Subodh Jain on 11 september 2017
         /// Summary :- Banner SaveBannerBasicDetails
         /// </summary>
         [HttpPost, Route("api/finance/saveemployedetails/")]
-        public IHttpActionResult SaveEmployeDetails(EmployeDetails objDetails)
+        public IHttpActionResult SaveEmployeDetails([FromBody] EmployeDetails objDetails)
         {
             try
             {
