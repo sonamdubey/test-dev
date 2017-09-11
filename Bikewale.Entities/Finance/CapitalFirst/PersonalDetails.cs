@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Bikewale.Entities.Dealer;
+using Newtonsoft.Json;
 using System;
 
 namespace Bikewale.Entities.Finance.CapitalFirst
@@ -53,5 +54,7 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         [JsonProperty("annualIncome")]
         public uint AnnualIncome { get; set; }
 
+
+        public ManufacturerLeadEntity objLead { get; set; }
     }
 }

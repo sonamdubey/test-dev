@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.Finance.CapitalFirst;
+﻿using Bikewale.Entities.Dealer;
+using Bikewale.Entities.Finance.CapitalFirst;
 
 namespace Bikewale.Models.Finance
 {
@@ -10,7 +11,7 @@ namespace Bikewale.Models.Finance
     {
         public PersonalDetails PersonalDetails { get; set; }
 
-        public EmployeDetails EmployeDetails { get; set; }
+        public ManufacturerLeadEntity ObjLead { get; set; }
 
 
     }

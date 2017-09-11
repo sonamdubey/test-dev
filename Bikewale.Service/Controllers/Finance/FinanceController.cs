@@ -1,6 +1,6 @@
 ﻿using Bikewale.Entities.Finance.CapitalFirst;
 using Bikewale.Interfaces.Finance;
-using Bikewale.Interfaces.Finance.CapitalFirst;
+using System.Linq;
 using Bikewale.Notifications;
 using System;
 using System.Web.Http;
@@ -9,11 +9,11 @@ namespace Bikewale.Service.Controllers
 {
     public class FinanceController : ApiController
     {
-        private readonly IFinanceRepository _objRepository = null;
+      
         private readonly ICapitalFirst _objICapitalFirst = null;
-        public FinanceController(IFinanceRepository objRepository, ICapitalFirst objICapitalFirst)
+        public FinanceController( ICapitalFirst objICapitalFirst)
         {
-            _objRepository = objRepository;
+           
             _objICapitalFirst = objICapitalFirst;
 
         }
@@ -26,7 +26,10 @@ namespace Bikewale.Service.Controllers
         {
             try
             {
-                _objRepository.SavePersonalDetails(objDetails);
+                string Utmz = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
+              string Utma = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
+                
+                _objICapitalFirst.SavePersonalDetails(objDetails, Utmz, Utma);
 
                 return Ok();
             }
