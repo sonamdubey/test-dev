@@ -290,7 +290,7 @@ namespace Bikewale.Service.Controllers.UserReviews
 
             try
             {
-                if (writeReviewInput != null)
+                if (ModelState.IsValid && writeReviewInput != null)
                 {
                     // Auto map the properties
                     objReviewData = new ReviewSubmitData();
