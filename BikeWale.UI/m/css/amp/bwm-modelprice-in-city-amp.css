@@ -84,6 +84,9 @@ h3 {
 .padding-top20 {
 	padding-top: 20px;
 }
+.orpContent-block.padding-top40{
+    padding-top:40px;
+}
 .padding-left5 {
 	padding-left: 5px;
 }
@@ -1221,7 +1224,6 @@ input[type="range"]::-moz-range-track {
 	white-space: nowrap;
 	overflow: hidden;
 	font-weight: 600;
-	display: block;
 	font-size: 14px;
 	color: #4d5057;
 }
@@ -1629,4 +1631,10 @@ input[type="range"]::-moz-range-track {
         min-width: 160px;
         margin-right: 5px;
     }
+}
+/*Manufacturer camp dealers css ends*/
+
+.list-type-disc {
+    list-style: disc;
+    margin-left: 19px;
 }

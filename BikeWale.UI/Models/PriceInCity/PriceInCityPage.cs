@@ -18,6 +18,7 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Utility;
+using HtmlAgilityPack;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -481,6 +482,8 @@ namespace Bikewale.Models
                         var locationCookie = GlobalCityArea.GetGlobalCityArea();
 
                         objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
+
+                        BindManufacturerLeadAd(objVM);
                         BuildPageMetas(objVM);
 
                     }
@@ -504,6 +507,73 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetDataAMP({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
+        }
+
+        private void BindManufacturerLeadAd(PriceInCityPageAMPVM priceInCityAMPVM)
+        {
+            string str = string.Empty;
+            if (priceInCityAMPVM.LeadCampaign != null)
+            {
+
+                try
+                {
+                    str = Format.GetRenderedContent(String.Format("LeadCampaign_Mobile_AMP_{0}", priceInCityAMPVM.LeadCampaign.CampaignId), priceInCityAMPVM.LeadCampaign.LeadsHtmlMobile, priceInCityAMPVM.LeadCampaign);
+
+                    // Code to remove name attribute form span tags, remove style css tag and replace javascript:void(0) in href with url (not supported in AMP)
+
+                    if (!string.IsNullOrEmpty(str))
+                    {
+                        str = str.ConvertToAmpContent();
+
+                        HtmlNode oldNode, newNode;
+                        var htmlDoc = new HtmlDocument();
+                        htmlDoc.LoadHtml(str);
+                        var spanNodes = htmlDoc.DocumentNode.SelectNodes("//span").Where(d => d.Attributes.Contains("name"));
+
+                        foreach (var item in spanNodes)
+                        {
+                            oldNode = item;
+                            item.Attributes.Remove("name");
+                            newNode = HtmlNode.CreateNode(item.OuterHtml);
+                            item.ParentNode.ReplaceChild(newNode, oldNode);
+                        }
+                        var aNodes = htmlDoc.DocumentNode.SelectNodes("//a").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("leadcapturebtn"));
+                        foreach (var item in aNodes)
+                        {
+                            oldNode = item;
+                            if (item.Attributes.Contains("href"))
+                            {
+                                string tmp = "/m/popup/leadcapture/?q=" + @Utils.Utils.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}",
+                                               priceInCityAMPVM.BikeModel.ModelId, priceInCityAMPVM.CityEntity.CityId, string.Empty, string.Format(priceInCityAMPVM.BikeName), string.Empty, string.Empty, string.Empty,
+                                               priceInCityAMPVM.IsManufacturerLeadAdShown, priceInCityAMPVM.LeadCampaign.DealerId, String.Format(priceInCityAMPVM.LeadCampaign.LeadsPropertyTextMobile,
+                                               priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.Area, priceInCityAMPVM.VersionId, priceInCityAMPVM.LeadCampaign.LeadSourceId, priceInCityAMPVM.LeadCampaign.PqSourceId,
+                                               priceInCityAMPVM.LeadCampaign.CampaignId, priceInCityAMPVM.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), priceInCityAMPVM.LeadCampaign.PopupHeading,
+                                               String.Format(priceInCityAMPVM.LeadCampaign.PopupSuccessMessage, priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.PopupDescription,
+                                               priceInCityAMPVM.LeadCampaign.PincodeRequired, priceInCityAMPVM.LeadCampaign.EmailRequired, priceInCityAMPVM.LeadCampaign.DealerRequired,
+                                               priceInCityAMPVM.PageMetaTags.AlternateUrl));
+                                item.SetAttributeValue("href", tmp);
+
+                            }
+                            newNode = HtmlNode.CreateNode(item.OuterHtml);
+                            item.ParentNode.ReplaceChild(newNode, oldNode);
+                        }
+                        var styleTagNode = htmlDoc.DocumentNode.SelectNodes("//style");
+
+
+                        foreach (var item in styleTagNode)
+                        {
+                            item.Remove();
+                        }
+
+                        priceInCityAMPVM.LeadCapture.ManufacturerLeadAdAMPConvertedContent = htmlDoc.DocumentNode.OuterHtml;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Bikewale.Notifications.ErrorClass err = new Bikewale.Notifications.ErrorClass(ex, String.Format("ManufacturerCampaign.Mobile.AMP(CampaignId : {0})", priceInCityAMPVM.LeadCampaign.CampaignId));
+                }
+
+            }
         }
 
         /// <summary>

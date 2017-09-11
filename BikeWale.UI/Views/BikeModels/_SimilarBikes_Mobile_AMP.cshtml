@@ -2,7 +2,7 @@
 @using Bikewale.Utility;
 @if (Model != null && Model.Bikes != null && Model.Bikes.Count() > 0)
 {
-    <amp-carousel height="270" layout="fixed-height" type="carousel">
+    <amp-carousel height="@(Model.IsDiscontinued ? "227":"255")" layout="fixed-height" type="carousel">
         @foreach (var bike in Model.Bikes)
         {
             string make = bike.MakeBase.MakeName, modelName = bike.ModelBase.ModelName;

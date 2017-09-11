@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         @if (Model != null && Model.PageMetaTags != null)
         {
-            
+            Model.PageMetaTags.EnableOG = true;
 
             if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
             {
@@ -23,6 +23,17 @@
             {
                 <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
             
+        }
+        @if (Model.PageMetaTags.EnableOG)
+        {
+            <meta property="og:title" content="@Model.PageMetaTags.Title" />
+            <meta property="og:type" content="website" />
+            <meta property="og:description" content="@Model.PageMetaTags.Description" />
+            <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+            {
+                <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
+            }
         }
         <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
         <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
