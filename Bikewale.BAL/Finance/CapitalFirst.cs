@@ -1,5 +1,7 @@
-﻿using Bikewale.Interfaces.Finance;
+﻿using Bikewale.Entities.Finance.CapitalFirst;
+using Bikewale.Interfaces.Finance;
 using Bikewale.Interfaces.Finance.CapitalFirst;
+using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Notifications;
 using RabbitMqPublishing;
 using System;
@@ -14,15 +16,16 @@ namespace Bikewale.BAL.Finance
     public class CapitalFirst : ICapitalFirst
     {
         private readonly IFinanceRepository _objIFinanceRepository = null;
-
+        private readonly IMobileVerificationRepository _mobileVerRespo = null;
         /// <summary>
         /// Created by  :   Sumit Kate on 11 Sep 2017
         /// Description :   Type Initializer
         /// </summary>
         /// <param name="objIFinanceRepository"></param>
-        public CapitalFirst(IFinanceRepository objIFinanceRepository)
+        public CapitalFirst(IFinanceRepository objIFinanceRepository, IMobileVerificationRepository mobileVerRespo)
         {
             _objIFinanceRepository = objIFinanceRepository;
+            _mobileVerRespo = mobileVerRespo;
         }
 
         /// <summary>
@@ -44,7 +47,7 @@ namespace Bikewale.BAL.Finance
                     objNVC.Add("ctLeadId", ctLeadId);
                     objNVC.Add("jsonData", jsonData);
                     RabbitMqPublish objRMQPublish = new RabbitMqPublish();
-                    objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
+                    objRMQPublish.PublishToQueue(Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
                     message = "Success";
                 }
                 else
@@ -59,5 +62,23 @@ namespace Bikewale.BAL.Finance
             }
             return message;
         }
+
+        public bool SaveEmployeDetails(PersonalDetails objDetails) {
+
+            bool success = false;
+            _objIFinanceRepository.SaveEmployeDetails(objDetails);
+            if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber),objDetails.EmailId))
+            {
+                success = true;
+                // code for autobiz push()
+            }
+
+
+                return success;
+
+
+
+        }
+
     }
 }

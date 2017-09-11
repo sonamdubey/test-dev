@@ -1,5 +1,6 @@
 var validate,
     isDesktop;
+
 docReady(function () {
     validate = {
         setError: function (element, message) {
@@ -37,7 +38,7 @@ docReady(function () {
         }
     };
 
-    isDesktop = $(".capital-first-desktop").is(":visible");
+    isDesktop = $(".capital-first-desktop");
     
     $("#cfDOB").Zebra_DatePicker({
         container : $("#cfDOB").closest(".input-box")
@@ -48,7 +49,7 @@ docReady(function () {
     });
     $(".page-tabs-data input[type!=button]").on('focus', function () {
         validate.onFocus($(this));
-        if (!isDesktop) {
+        if (!isDesktop.length) {
             var offsetTop = $(this).offset();
             scrollTop(offsetTop);
         }
@@ -152,7 +153,9 @@ function saveEmployeDetails() {
         "officalAddressLine1": $('#cfCompAddress1').val(),
         "officalAddressLine2": $('#cfCompAddress2').val(),
         "pincode": $('#cfCompPincode').val(),
-        "annualIncome": $('#cfCompIncome').val()
+        "annualIncome": $('#cfCompIncome').val(),
+        "mobileNumber": $('#cfNum').val(),
+        "emailId": $('#cfEmail').val(),
 
     }
 

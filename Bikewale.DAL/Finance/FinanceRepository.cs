@@ -43,7 +43,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
             }
             return success;
         }
-        public bool SaveEmployeDetails(EmployeDetails objDetails)
+        public bool SaveEmployeDetails(PersonalDetails objDetails)
         {
             bool success = false;
             try
@@ -56,7 +56,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                     param.Add("par_companyName", objDetails.CompanyName);
                     param.Add("par_officalAddressLine1", objDetails.OfficalAddressLine1);
                     param.Add("par_officalAddressLine2", objDetails.OfficalAddressLine2);
-                    param.Add("par_pincode", objDetails.Pincode);
+                    param.Add("par_pincode", objDetails.PincodeOffice);
                     param.Add("par_annualIncome", objDetails.AnnualIncome);
                     success = Convert.ToBoolean(connection.Execute("saveemployedetailsfinance", param: param, commandType: CommandType.StoredProcedure));
                 }

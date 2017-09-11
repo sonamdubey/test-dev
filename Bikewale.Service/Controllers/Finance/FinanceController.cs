@@ -46,11 +46,11 @@ namespace Bikewale.Service.Controllers
         /// Summary :- Banner SaveBannerBasicDetails
         /// </summary>
         [HttpPost, Route("api/finance/saveemployedetails/")]
-        public IHttpActionResult SaveEmployeDetails([FromBody] EmployeDetails objDetails)
+        public IHttpActionResult SaveEmployeDetails([FromBody] PersonalDetails objDetails)
         {
             try
             {
-                _objRepository.SaveEmployeDetails(objDetails);
+                _objICapitalFirst.SaveEmployeDetails(objDetails);
 
                 return Ok();
             }
