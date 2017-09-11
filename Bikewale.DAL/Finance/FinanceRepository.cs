@@ -81,12 +81,12 @@ namespace Bikewale.DAL.Finance.CapitalFirst
             {
                 using (IDbConnection conn = DatabaseHelper.GetReadonlyConnection())
                 {
-                    conn.Open();
                     var param = new DynamicParameters();
                     param.Add("par_leadId", leadId, dbType: DbType.Int32);
-                    param.Add("par_isvalid", dbType: DbType.Boolean, direction: ParameterDirection.Output);
+                    param.Add("par_isvalid", dbType: DbType.Int16, direction: ParameterDirection.Output);
+                    conn.Open();
                     conn.Execute("isvalidcapitalfirstlead", param: param, commandType: CommandType.StoredProcedure);
-                    isValid = SqlReaderConvertor.ToBoolean(param.Get<Boolean>("par_isvalid"));
+                    isValid = SqlReaderConvertor.ToBoolean(param.Get<Int16>("par_isvalid"));
                 }
             }
             catch (Exception ex)
@@ -94,6 +94,31 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                 ErrorClass objErr = new ErrorClass(ex, String.Format("FinanceRepository.IsValidLead({0})", leadId));
             }
             return isValid;
+        }
+
+        public bool SaveVoucherDetails(string leadIdCarTrade, CapitalFirstVoucherEntityBase voucherDetails)
+        {
+            Boolean isSaved = false;
+            try
+            {
+                using (IDbConnection conn = DatabaseHelper.GetMasterConnection())
+                {
+                    var param = new DynamicParameters();
+                    param.Add("par_CTLeadId", leadIdCarTrade, dbType: DbType.Int32);
+                    param.Add("par_voucherCode", voucherDetails.VoucherCode);
+                    param.Add("par_voucherExpiryDate", voucherDetails.ExpiryDate, dbType: DbType.Date);
+                    param.Add("par_agentName", voucherDetails.AgentName, dbType: DbType.String);
+                    param.Add("par_agentNumber", voucherDetails.AgentContactNumber, dbType: DbType.String);
+                    conn.Open();
+                    conn.Execute("savecapitalfirstvoucherdetails", param: param, commandType: CommandType.StoredProcedure);
+                    isSaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("FinanceRepository.SaveVaoucherDetails({0},{1})", leadIdCarTrade, Newtonsoft.Json.JsonConvert.SerializeObject(voucherDetails)));
+            }
+            return isSaved;
         }
     }
 }

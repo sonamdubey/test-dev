@@ -116,6 +116,7 @@ namespace Bikewale.Utility
         private bool _logNewsUrl;
         private string _capitalFirstConsumerQueue;
         private string _apiKeyCarTrade;
+        private readonly bool _IsIPSecurityEnabled;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -215,6 +216,8 @@ namespace Bikewale.Utility
             _logNewsUrl = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogNewsUrl"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["LogNewsUrl"]);
             _capitalFirstConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["CapitalFirstConsumerQueue"]);
             _apiKeyCarTrade = String.Format(Convert.ToString(ConfigurationManager.AppSettings["ApiKeyCarTrade"]));
+
+            _IsIPSecurityEnabled = string.IsNullOrEmpty(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]);
         }
 
         // Static method to provide access to instance
@@ -365,5 +368,8 @@ namespace Bikewale.Utility
         public string UserReviewIndexName { get { return _UserReviewIndexName; } }
 
         public bool LogNewsUrl { get { return _logNewsUrl; } }
+        public string CapitalFirstConsumerQueue { get { return _capitalFirstConsumerQueue; } }
+        public string ApiKeyCarTrade { get { return _apiKeyCarTrade; } }
+        public bool IsIPSecurityEnabled { get { return _IsIPSecurityEnabled; } }
     }   // class
 }   // namespace

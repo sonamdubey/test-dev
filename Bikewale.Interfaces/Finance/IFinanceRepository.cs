@@ -9,5 +9,6 @@ namespace Bikewale.Interfaces.Finance.CapitalFirst
         bool IsValidLead(string leadId);
         bool SavePersonalDetails(PersonalDetails objDetails);
         bool SaveEmployeDetails(EmployeDetails objDetails);
+        bool SaveVoucherDetails(string leadIdCarTrade, CapitalFirstVoucherEntityBase voucherDetails);
     }
 }
