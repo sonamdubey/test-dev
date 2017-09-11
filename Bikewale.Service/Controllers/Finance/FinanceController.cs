@@ -1,7 +1,9 @@
-﻿using Bikewale.Entities.Finance.CapitalFirst;
+﻿using Bikewale.DTO.Finance;
+using Bikewale.Entities.Finance.CapitalFirst;
 using Bikewale.Interfaces.Finance;
 using Bikewale.Interfaces.Finance.CapitalFirst;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Finance;
 using System;
 using System.Web.Http;
 
@@ -70,21 +72,22 @@ namespace Bikewale.Service.Controllers
         /// This API will be called by CarTrade to push Capital First Loan Voucher details and Capital First Agent Details
         /// </summary>
         /// <param name="ctLeadId"></param>
-        /// <param name="requestBody">Any valid JSON format</param>
+        /// <param name="voucher">Capital First Voucher details</param>
         /// <returns></returns>
         [HttpPost, Route("api/finance/capitalfirst/{ctLeadId}/")]
-        public IHttpActionResult SaveCapitalFirstVoucherDetails(string ctLeadId, [FromBody]string requestBody)
+        public IHttpActionResult SaveCapitalFirstVoucherDetails(string ctLeadId, [FromBody]CapitalFirstVoucherDTO voucher)
         {
-            if (!String.IsNullOrEmpty(ctLeadId) && !String.IsNullOrEmpty(requestBody))
+            if (!String.IsNullOrEmpty(ctLeadId) && voucher != null)
             {
                 try
                 {
-                    string message = _objICapitalFirst.SaveVoucherDetails(ctLeadId, requestBody);
+                    CapitalFirstVoucherEntityBase entity = FinanceMapper.Convert(voucher);
+                    string message = _objICapitalFirst.SaveVoucherDetails(ctLeadId, entity);
                     return Ok(message);
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.Service.Controllers.FinanceController.SaveCapitalFirstVoucherDetails({0},{1})", ctLeadId, requestBody));
+                    ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.Service.Controllers.FinanceController.SaveCapitalFirstVoucherDetails({0},{1})", ctLeadId, Newtonsoft.Json.JsonConvert.SerializeObject(voucher)));
                     return InternalServerError(new Exception("Server error has occured."));
                 }
             }

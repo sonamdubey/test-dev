@@ -365,5 +365,7 @@ namespace Bikewale.Utility
         public string UserReviewIndexName { get { return _UserReviewIndexName; } }
 
         public bool LogNewsUrl { get { return _logNewsUrl; } }
+        public string CapitalFirstConsumerQueue { get { return _capitalFirstConsumerQueue; } }
+        public string ApiKeyCarTrade { get { return _apiKeyCarTrade; } }
     }   // class
 }   // namespace

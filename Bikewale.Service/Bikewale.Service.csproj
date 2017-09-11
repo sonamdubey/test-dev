@@ -242,6 +242,7 @@
     <Compile Include="AutoMappers\Compare\TopBikeCompareBaseMapper.cs" />
     <Compile Include="AutoMappers\DealerLocator\DealerBikesEntityMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
+    <Compile Include="AutoMappers\Finance\FinanceMapper.cs" />
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="AutoMappers\Make\MakePageEntityMapper.cs" />
     <Compile Include="AutoMappers\MobileAppAlert\FCMNotificationMapper.cs" />
