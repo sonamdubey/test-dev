@@ -3,7 +3,7 @@
 {
 
     <!-- Lead Capture pop up start  -->
-        <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide ">
+        <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details @(Model.IsAmp ? "":"hide") ">
             <div class="popup-inner-container text-center">
                 <div class="bwmsprite close-btn @(Model.IsAmp ? "onlyPopup-leadCapture-close-btn": "leadCapture-close-btn") rightfloat"></div>
                 <div id="contactDetailsPopup">
@@ -155,7 +155,8 @@
         var leadBikeName = '@Model.BikeName', leadLocation = '@Model.Location', CityArea = leadLocation;
         var objPinCodes = new Object(), validate, validateInputSelection;
         var brandSearchBar, dealerSearchBrand, dealerSearchBrandForm, windowScreen;
-
+        var dropdown;
+        
 
         function leadModel() {
             var arr = setuserDetails();
@@ -632,6 +633,7 @@
                     isValid &= self.validatePinCode();
 
                 }
+
                 if (self.dealersRequired()) {
                     isValid &= self.validateDealer();
                 }
@@ -1202,8 +1204,12 @@
 
             brandSearchBar = $("#brandSearchBar"), dealerSearchBrand = $(".dealer-search-brand"), dealerSearchBrandForm = $(".dealer-search-brand-form");
 
-        });
+            
 
+
+        });
+        
+        
         </script>
 
         if (Model.CityId <= 0)

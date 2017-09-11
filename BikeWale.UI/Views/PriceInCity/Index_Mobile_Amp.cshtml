@@ -1,4 +1,4 @@
-﻿@model Bikewale.Models.PriceInCity.PriceInCityPageAMPVM
+﻿@model Bikewale.Models.PriceInCity.PriceInCityPageAMPVM 
 @using Bikewale.Utility;
 @{
     Layout = "~/Views/Shared/_Layout_Mobile_AMP.cshtml";
@@ -438,7 +438,7 @@
                                         <span id="tenurePeriod" [text]="EmiSlider.tenure ">@Format.FormatPrice(Convert.ToString(Model.EMI.Tenure))</span>&nbsp;Months
                                     </div>
                                     <div class="clear"></div>
-                                <input class="margin-bottom20" id="tenureSlider" type="range" min="@Model.EMI.MinTenure" max="@Model.EMI.MaxTenure" step="1" value="@Model.EMI.Tenure" on="change:AMP.setState({EmiSlider: {tenure :event.value, totalAmount:EmiSlider.downPayment+(EmiSlider.loanAmount)+EmiSlider.fees+(event.value * EmiSlider.loanAmount * EmiSlider.interest / 1200)}}); input-debounced:AMP.setState({EmiSlider:{  emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure )+ '.' , formatedTotalAmount:round(EmiSlider.totalAmount) + '.'} }),totalAmount.hide, totalemi.hide" />
+                                <input class="margin-bottom20" id="tenureSlider" type="range" min="@Model.EMI.MinTenure" max="@Model.EMI.MaxTenure" step="1" value="@Model.EMI.Tenure" on="change:AMP.setState({EmiSlider: {tenure :event.value, totalAmount:EmiSlider.bikePrice + EmiSlider.fees+((event.value * EmiSlider.loanAmount * EmiSlider.interest) / 1200)}}); input-debounced:AMP.setState({EmiSlider:{  emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure )+ '.' , formatedTotalAmount:round(EmiSlider.totalAmount) + '.'} }),totalAmount.hide, totalemi.hide" />
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -449,7 +449,7 @@
                                     <span id="rateOfInterestPercentage" [text]="EmiSlider.interest">@Model.EMI.RateOfInterest</span>&nbsp;%
                                     </div>
                                     <div class="clear"></div>
-                                <input class="margin-bottom20" id="rateOfInterestSlider" type="range" min="@Model.EMI.MinRateOfInterest" max="@Model.EMI.MaxRateOfInterest" step="0.25" value="@Model.EMI.RateOfInterest" on="change:AMP.setState({EmiSlider: {interest:event.value, totalAmount:EmiSlider.downPayment+(EmiSlider.loanAmount)+EmiSlider.fees+(EmiSlider.tenure  * EmiSlider.loanAmount * event.value / 1200)}}); input-debounced:AMP.setState({EmiSlider:{  emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure )+ '.', formatedTotalAmount:round(EmiSlider.totalAmount) + '.' } }),totalAmount.hide, totalemi.hide" />
+                                <input class="margin-bottom20" id="rateOfInterestSlider" type="range" min="@Model.EMI.MinRateOfInterest" max="@Model.EMI.MaxRateOfInterest" step="0.25" value="@Model.EMI.RateOfInterest" on="change:AMP.setState({EmiSlider: {interest:event.value, totalAmount:EmiSlider.bikePrice + EmiSlider.fees+((EmiSlider.tenure  * EmiSlider.loanAmount * event.value) / 1200)}}); input-debounced:AMP.setState({EmiSlider:{  emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure )+ '.', formatedTotalAmount:round(EmiSlider.totalAmount) + '.' } }),totalAmount.hide, totalemi.hide" />
                                 </div>
                                 <div class="clear"></div>
                             </div>
