@@ -1,5 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Compare;
+using Bikewale.Entities.Compare.V2;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -21,8 +21,10 @@ namespace Bikewale.DAL.Compare
     /// </summary>
     public class BikeCompareRepository : IBikeCompare
     {
-        ///  Modified by : Aditi Srivastava on 18 May 2017
+        /// Modified by : Aditi Srivastava on 18 May 2017
         /// Summary      : Used nullable bool for specs and features
+        /// Modified by  :  Snehal Dange on 11 Sep 2017
+        /// Description  : Added UserReviews for Compare Bike. Changed SP name
         public BikeCompareEntity DoCompare(string versions)
         {
             BikeCompareEntity compare = null;
@@ -37,7 +39,7 @@ namespace Bikewale.DAL.Compare
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getcomparisondetails_20012016";
+                    cmd.CommandText = "getcomparisondetails_11092017";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbType.String, versions));
 
