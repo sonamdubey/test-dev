@@ -44,6 +44,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added GetPopularBikesByBodyStyle
     /// Modified By :   Vishnu Teja Yalakuntla on 09 Sep 2017
     /// Description :   Added GetSimilarBikesUserReviewsWithPrice and GetSimilarBikesUserReviewsWithPriceInCity methods.
+    /// Modified By: Snehal Dange on 12 Sep 2017
+    /// Description : Added GetAlternativeBikesWithPhotosInCity method
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -84,7 +86,7 @@ namespace Bikewale.Interfaces.BikeData
         List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew);
         BikeModelContent GetRecentModelArticles(U modelId);
         ModelHostImagePath GetModelPhotoInfo(U modelId);
-        IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotos(U modelId, ushort totalRecords);
+      
         ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId);
         ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId);
         ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed);
@@ -106,5 +108,8 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
         IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviewsWithPrice(uint modelId, uint totalRecords);
         IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviewsWithPriceInCity(uint modelId, uint cityId, uint totalRecords);
+
+        IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotos(U modelId, ushort totalRecords);
+        IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotosInCity(U modelId, ushort totalRecords, uint cityId);
     }
 }

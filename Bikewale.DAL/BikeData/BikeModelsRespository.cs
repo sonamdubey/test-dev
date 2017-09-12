@@ -1369,21 +1369,29 @@ namespace Bikewale.DAL.BikeData
         }
 
         /// <summary>
-        /// Modified By : Sushil Kumar on 5th Jan 2016
-        /// Description : To get similar bikes with photos count
+        /// Created By:Snehal Dange on 8th Sep 2017
+        /// Description :Method which calls proper Sp based on availibility of City
         /// </summary>
         /// <param name="modelId"></param>
+        /// <param name="totalRecords"></param>
+        /// <param name="cityId"></param>
+        /// <param name="sP"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotos(U modelId, ushort totalRecords)
+        
+        private IEnumerable<SimilarBikesWithPhotos> GetSimilarBikesWithPhotosCount(U modelId, ushort totalRecords, uint cityId,string sP)
         {
             IList<SimilarBikesWithPhotos> SimilarBikeInfoList = null;
             try
             {
-
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getalternativebikeswithphotoscount";
+                    cmd.CommandText = sP;
+                    if (cityId > 0)
+                    {
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    }
+                   
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -1404,6 +1412,12 @@ namespace Bikewale.DAL.BikeData
                                 bikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
                                 bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
                                 bikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
+                                bikeInfo.ExShowroomPriceMumbai = SqlReaderConvertor.ToUInt32(dr["exshowroompricemumbai"]);
+                                bikeInfo.BodyStyle = (sbyte)SqlReaderConvertor.ToUInt16(dr["bodystyleid"]);
+                                if (cityId > 0)
+                                {
+                                    bikeInfo.OnRoadPriceInCity = SqlReaderConvertor.ToUInt32(dr["onroadpriceincity"]);
+                                }
                                 SimilarBikeInfoList.Add(bikeInfo);
 
                             }
@@ -1415,11 +1429,57 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
+                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetSimilarBikesWithPhotosCount_model" + modelId);
+            }
+            return SimilarBikeInfoList;
+
+        }
+
+        /// <summary>
+        /// Modified By : Sushil Kumar on 5th Jan 2016
+        /// Description : To get similar bikes with photos count
+        /// Modified By : Snehal Dange on 6th Sep 2017
+        /// Description : Added ExShowroomPrice
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotos(U modelId, ushort totalRecords)
+        {
+            IEnumerable<SimilarBikesWithPhotos> SimilarBikeInfoList = null;
+            try
+            {
+                SimilarBikeInfoList = GetSimilarBikesWithPhotosCount(modelId, totalRecords,0, "getsimilarbikeswithphotoscount_06092017");
+                
+            }
+            catch (Exception ex)
+            {
                 ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetAlternativeBikesWithPhotos_Model" + modelId);
             }
             return SimilarBikeInfoList;
         }
 
+
+        /// <summary>
+        /// Created By : Snehal Dange on 6th September 2017
+        /// Description : To get similar bikes with photos count in city
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotosInCity(U modelId, ushort totalRecords , uint cityId)
+        {
+            {
+                IEnumerable<SimilarBikesWithPhotos> SimilarBikeInfoList = null;
+                try
+                {
+                    SimilarBikeInfoList = GetSimilarBikesWithPhotosCount(modelId, totalRecords, cityId, "getsimilarbikeswithphotoscountbycity");
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass err = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetAlternativeBikesWithPhotosInCity_Model_{0}_City_{1}", modelId, cityId));
+                }
+                return SimilarBikeInfoList;
+            }
+        }
 
         /// <summary>
         /// Modified By : Suresh Prajapati on 22 Aug 2014
@@ -2272,7 +2332,7 @@ namespace Bikewale.DAL.BikeData
             IList<SimilarBikeUserReview> SimilarBikeInfoList = null;
             try
             {
-
+                    
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
