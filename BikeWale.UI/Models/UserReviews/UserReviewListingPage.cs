@@ -223,8 +223,8 @@ namespace Bikewale.Models.UserReviews
 
                     if (PageNumber > 1)
                     {
-                        objPage.PageMetaTags.Description = string.Format("{0} of {1} - {2}", PageNumber, _totalPagesCount, objPage.PageMetaTags.Description);
-                        objPage.PageMetaTags.Title = string.Format("{0} of {1} - {2}", PageNumber, _totalPagesCount, objPage.PageMetaTags.Title);
+                        objPage.PageMetaTags.Description = string.Format("Page {0} of {1} - {2}", PageNumber, _totalPagesCount, objPage.PageMetaTags.Description);
+                        objPage.PageMetaTags.Title = string.Format("Page {0} of {1} - {2}", PageNumber, _totalPagesCount, objPage.PageMetaTags.Title);
                     }
 
                     objPage.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName);

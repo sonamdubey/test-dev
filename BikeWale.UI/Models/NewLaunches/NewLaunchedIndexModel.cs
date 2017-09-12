@@ -136,8 +136,8 @@ namespace Bikewale.Models
 
                 if (_pageNumber > 1)
                 {
-                    objMeta.Description = string.Format("{0} of {1} - {2}", _pageNumber, _totalPagesCount, objMeta.Description);
-                    objMeta.Title = string.Format("{0} of {1} - {2}", _pageNumber, _totalPagesCount, objMeta.Title);
+                    objMeta.Description = string.Format("Page {0} of {1} - {2}", _pageNumber, _totalPagesCount, objMeta.Description);
+                    objMeta.Title = string.Format("Page {0} of {1} - {2}", _pageNumber, _totalPagesCount, objMeta.Title);
                 }
 
                 objMeta.Keywords = string.Format("new bikes {0}, new bike launches in {1}, just launched bikes, new bike arrivals, bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year);

@@ -153,8 +153,8 @@ namespace Bikewale.Models.Upcoming
 
                 if (_pageNumber > 1)
                 {
-                    pageMetaTags.Description = string.Format("{0} of {1} - {2}", _pageNumber, _totalPagesCount, pageMetaTags.Description);
-                    pageMetaTags.Title = string.Format("{0} of {1} - {2}", _pageNumber, _totalPagesCount, pageMetaTags.Title);
+                    pageMetaTags.Description = string.Format("Page {0} of {1} - {2}", _pageNumber, _totalPagesCount, pageMetaTags.Description);
+                    pageMetaTags.Title = string.Format("Page {0} of {1} - {2}", _pageNumber, _totalPagesCount, pageMetaTags.Title);
                 }
             }
             catch (Exception ex)

@@ -164,8 +164,8 @@ namespace Bikewale.Models
 
                 if (curPageNo > 1)
                 {
-                    objData.PageMetaTags.Description = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Description);
-                    objData.PageMetaTags.Title = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Title);
+                    objData.PageMetaTags.Description = string.Format("Page {0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Description);
+                    objData.PageMetaTags.Title = string.Format("Page {0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Title);
                 }
             }
             catch (Exception ex)
