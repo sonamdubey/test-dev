@@ -261,7 +261,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 if (_pageNo > 1)
                 {
                     pageDescription = string.Format("{0} of {1} - {2}", _pageNo, totalPagesCount, pageDescription);
-                    pageTitle = string.Format("{0} of {1} - {2}", _pageNo, totalPagesCount, pageDescription);
+                    pageTitle = string.Format("{0} of {1} - {2}", _pageNo, totalPagesCount, pageTitle);
                 }
             }
             catch (Exception ex)
