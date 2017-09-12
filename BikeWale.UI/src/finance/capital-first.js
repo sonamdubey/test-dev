@@ -44,10 +44,10 @@ docReady(function () {
         container : $("#cfDOB").closest(".input-box")
     });
 
-    $(".page-tabs-data input").on('blur', function () {
+    $(".page-tabs-data input, #otpNumber").on('blur', function () {
         validate.onBlur($(this));
     });
-    $(".page-tabs-data input[type!=button]").on('focus', function () {
+    $(".page-tabs-data input[type!=button], #otpNumber").on('focus', function () {
         validate.onFocus($(this));
         if (!isDesktop.length) {
             var offsetTop = $(this).offset();
@@ -64,6 +64,26 @@ docReady(function () {
     });
 
     FillDummyDetails();
+   
+    $(".otp-container__edit-icon").on('click', function () {
+        $(".otp-container__verification").hide();
+        $(".otp-container__edit").show();
+    });
+
+    $("#saveNewNumber").on('click', function () {
+        var otpNewNum = $("#otpNewNumber");
+        if (validatePhoneNumber(otpNewNum)) {
+            $(".otp-container__verification").show();
+            $(".otp-container__edit").hide();
+            var newNum = $(otpNewNum).val();
+            $(".otp-container__phone-number").text(newNum);
+            $(otpNewNum).val('');
+        }
+    });
+
+    $(".otp-container__close").on('click', function () {
+        $(".otp-container").hide();
+    });
    
 });
 
@@ -85,12 +105,13 @@ function validatePersonalInfo() {
     isValid &= validatePanNumber($("#cfPan"));
     isValid &= validateRadioButtons("gender");
     isValid &= validateRadioButtons("marital");
+    isValid &= validateDOB($("#cfDOB"));
 
     if (isValid) {
-        $("#personal-detail-tab").addClass("hide");
-        $("#employment-detail-tab").removeClass("hide");
+       
 
         savePersonalDetails();
+
         $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
         $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
         if (isDesktop) {
@@ -126,7 +147,9 @@ function savePersonalDetails()
         contentType: "application/json",
         data: ko.toJSON(personDetails),
         success: function (response) {
-            $('.stepper').nextStep();
+            $("#personal-detail-tab").addClass("hide");
+            $("#employment-detail-tab").removeClass("hide");
+          
         }
     });
 
@@ -145,6 +168,7 @@ function validateEmploymentInfo() {
 
     if (isValid) {
         saveEmployeDetails();
+       
     }
 }
 function saveEmployeDetails() {
@@ -167,7 +191,9 @@ function saveEmployeDetails() {
         contentType: "application/json",
         data: ko.toJSON(employeDetails),
         success: function (response) {
-            $('.stepper').nextStep();
+            
+            if (response == "Not Registered Mobile Number")
+            $(".otp-container").show();
         }
     });
 
@@ -276,6 +302,22 @@ function validateIncome(inputIncome) {
 
     if ($(inputIncome).val().length <= 0) {
         validate.setError(inputIncome, 'Invalid Income');
+        isValid = false;
+    }
+    return isValid;
+}
+
+function validateDOB(inputAge) {
+    var isValid = true,
+        setDate = $(inputAge).val(),
+        date1 = new Date(setDate),
+        date2 = new Date(),
+        timeDiff = Math.abs(date2.getTime() - date1.getTime()),
+        diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)),
+        diffYears = diffDays / 365;
+
+    if (diffYears < 21) {
+        validate.setError(inputAge, 'Age should be greater than 21');
         isValid = false;
     }
     return isValid;
