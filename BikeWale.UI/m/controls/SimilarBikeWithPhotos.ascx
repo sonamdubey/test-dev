@@ -7,7 +7,8 @@
         </div>
         <div class="swiper-container card-container alternate-bikes-photo-swiper">
             <div class="swiper-wrapper">
-                <% foreach(var bike in objSimilarBikes) { string bikeName = string.Format("{0} {1}",bike.Make.MakeName,bike.Model.ModelName); %>
+                <% string city = null; string showText = null;uint price = 0;
+                    foreach (var bike in objSimilarBikes) { string bikeName = string.Format("{0} {1}",bike.Make.MakeName,bike.Model.ModelName); %>
                 <div class="swiper-slide">
 
                     <div class="swiper-card">
@@ -19,8 +20,7 @@
                                     <h3 class="target-link font12 text-truncate margin-bottom5"><%= bikeName %></h3>
 
 
-                                        <% string city = null; string showText = null;uint price = 0;
-                                                    if (CityId > 0 && bike.OnRoadPriceInCity > 0) {  city = City;  showText = "On-Road Price,";  price = bike.OnRoadPriceInCity; }
+                                        <%  if (CityId > 0 && bike.OnRoadPriceInCity > 0) {  city = City;  showText = "On-Road Price,";  price = bike.OnRoadPriceInCity; }
                                                     else { city = "Mumbai";  showText = "Ex-showroom,";  price =  bike.ExShowroomPriceMumbai;  }
                                                   %>   
                                                 <p class="text-truncate text-light-grey font11"><%= showText %>&nbsp;<%= city %></p>

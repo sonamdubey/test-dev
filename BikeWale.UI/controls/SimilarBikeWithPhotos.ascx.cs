@@ -56,16 +56,9 @@ namespace Bikewale.Controls
                     {
                         FetchedRecordsCount = objSimilarBikes.Count();
                         var firstModel = objSimilarBikes.First();
-                        if (firstModel.BodyStyle.Equals((sbyte)EnumBikeBodyStyles.Scooter))
-                        {
-                            WidgetHeading = string.Format("Scooters similar to {0} {1}", SimilarMakeName, SimilarModelName);
-                        }
-                        else
-                        {
-                            WidgetHeading = string.Format("Bikes similar to {0} {1}", SimilarMakeName, SimilarModelName);
-                        }
+                        var bodyStyle = (firstModel.BodyStyle.Equals((sbyte)EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes");
+                        WidgetHeading = string.Format("{0} similar to {1} {2}", bodyStyle, SimilarMakeName, SimilarModelName);
                     }
-                       
                 }
             }
             catch (Exception ex)

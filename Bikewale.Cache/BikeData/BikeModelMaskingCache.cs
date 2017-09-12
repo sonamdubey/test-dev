@@ -133,7 +133,7 @@ namespace Bikewale.Cache.BikeData
                 }
                 else
                 {
-                    string key = "BW_SimilarBikes_PhotosCnt_" + modelId;
+                    string key = "BW_SimilarBikes_Photos_" + modelId;
                     similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikesWithPhotos>>(key, new TimeSpan(6, 0, 0), () => _modelsRepository.GetAlternativeBikesWithPhotos(modelId, totalRecords));
                 }
                

@@ -1378,7 +1378,7 @@ namespace Bikewale.DAL.BikeData
         /// <param name="sP"></param>
         /// <returns></returns>
         
-        private IEnumerable<SimilarBikesWithPhotos> SaveData(U modelId, ushort totalRecords, uint cityId,string sP)
+        private IEnumerable<SimilarBikesWithPhotos> GetSimilarBikesWithPhotosCount(U modelId, ushort totalRecords, uint cityId,string sP)
         {
             IList<SimilarBikesWithPhotos> SimilarBikeInfoList = null;
             try
@@ -1429,7 +1429,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.SaveData_model" + modelId);
+                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetSimilarBikesWithPhotosCount_model" + modelId);
             }
             return SimilarBikeInfoList;
 
@@ -1448,7 +1448,7 @@ namespace Bikewale.DAL.BikeData
             IEnumerable<SimilarBikesWithPhotos> SimilarBikeInfoList = null;
             try
             {
-                SimilarBikeInfoList = SaveData(modelId, totalRecords,0, "getalternativebikeswithphotoscount_06092017");
+                SimilarBikeInfoList = GetSimilarBikesWithPhotosCount(modelId, totalRecords,0, "getsimilarbikeswithphotoscount_06092017");
                 
             }
             catch (Exception ex)
@@ -1471,7 +1471,7 @@ namespace Bikewale.DAL.BikeData
                 IEnumerable<SimilarBikesWithPhotos> SimilarBikeInfoList = null;
                 try
                 {
-                    SimilarBikeInfoList = SaveData(modelId, totalRecords, cityId, "getalternativebikeswithphotoscountbycity");
+                    SimilarBikeInfoList = GetSimilarBikesWithPhotosCount(modelId, totalRecords, cityId, "getsimilarbikeswithphotoscountbycity");
                 }
                 catch (Exception ex)
                 {
