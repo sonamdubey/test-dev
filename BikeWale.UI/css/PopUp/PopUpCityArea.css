@@ -1,4 +1,7 @@
-﻿#popupWrapper.bwm-fullscreen-popup { padding:0; background:#f5f5f5; }
+﻿#bw-header, .bg-footer, #nav {
+    display: none;
+}
+#popupWrapper.bwm-fullscreen-popup { padding:0; background:#f5f5f5; }
 .bw-city-popup.bwm-fullscreen-popup { overflow-x:hidden; }
 .bwm-fullscreen-popup { background: #fff; padding:10px 20px 30px; margin: auto; width:100%; position: fixed; left:0; top:0; height:100%; z-index: 10; overflow-y:scroll; }
 .text-center { text-align: center; }
