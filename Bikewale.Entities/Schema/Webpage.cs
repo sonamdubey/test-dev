@@ -1,0 +1,22 @@
+﻿using Newtonsoft.Json;
+
+namespace Bikewale.Entities.Schema
+{
+    public class WebPage
+    {
+        [JsonProperty("@type")]
+        public string Type { get { return "WebPage"; } }
+
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Title { get; set; }
+
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; set; }
+
+        [JsonProperty("keywords", NullValueHandling = NullValueHandling.Ignore)]
+        public string Keywords { get; set; }
+
+        [JsonProperty("breadcrumb", NullValueHandling = NullValueHandling.Ignore)]
+        public BreadcrumbList Breadcrum { get; set; }
+    }
+}

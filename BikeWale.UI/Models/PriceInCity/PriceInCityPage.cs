@@ -6,6 +6,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.manufacturecampaign;
+using Bikewale.Entities.Models;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
@@ -21,6 +22,9 @@ using Bikewale.Utility;
 using System;
 using System.Linq;
 using System.Web;
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Bikewale.Models
 {
     /// <summary>
@@ -662,6 +666,37 @@ namespace Bikewale.Models
 
                 objVM.AdTags.TargetedCity = firstVersion.City;
                 objVM.AdTags.TargetedModel = firstVersion.ModelName;
+
+                List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+
+                BreadCrumbs.Add(new BreadCrumb
+                {
+                    ListUrl = "/",
+                    Name = "Home"
+                });
+
+                if (objVM.Make != null)
+                {
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl =  string.Format("/{0}-bikes/", objVM.Make.MaskingName),
+                        Name = objVM.Make.MakeName + " Bikes"
+                    });
+                }
+
+                if (objVM.Make != null && objVM.BikeModel != null)
+                {
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl = UrlFormatter.BikePageUrl(objVM.Make.MaskingName, objVM.BikeModel.MaskingName),
+                        Name = objVM.BikeName
+                    });
+                }
+
+                objVM.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
+
+                if(objVM.CityEntity != null)
+                    objVM.BreadCrumbsList.PageName = String.Format("Price in {0}", objVM.CityEntity.CityName);
 
             }
             catch (Exception ex)

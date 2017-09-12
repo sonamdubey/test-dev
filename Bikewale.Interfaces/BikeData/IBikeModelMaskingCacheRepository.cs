@@ -27,7 +27,7 @@ namespace Bikewale.Interfaces.BikeData
     {
         ModelMaskingResponse GetModelMaskingResponse(string maskingName);
         BikeSpecificationEntity MVSpecsFeatures(int versionId);
-        IEnumerable<SimilarBikesWithPhotos> GetSimilarBikeWithPhotos(U modelId, ushort totalRecords);
+        IEnumerable<SimilarBikesWithPhotos> GetSimilarBikeWithPhotos(U modelId, ushort totalRecords, uint cityId);
         ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId);
         ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId);
         ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed);

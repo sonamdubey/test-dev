@@ -4,6 +4,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Models;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
@@ -189,6 +190,23 @@ namespace Bikewale.Models
                     CreateCompareSummary(obj.Compare.BasicInfo, obj.Compare.CompareColors, obj);
                     obj.PageMetaTags.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, compareUrl);
                     obj.PageMetaTags.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, compareUrl);
+
+                    List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl = "/",
+                        Name = "Home"
+                    });
+
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl = "/comparebikes/",
+                        Name = "Compare bikes"
+                    });
+
+                    obj.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
+                    obj.BreadCrumbsList.PageName = obj.comparisionText;
 
                 }
 

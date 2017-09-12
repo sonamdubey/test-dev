@@ -172,6 +172,45 @@
     vertical-align: middle;
 }
 
+.compare-with-target {
+    display: block;
+    padding: 10px 35px 10px 20px;
+    position: relative;
+    font-size: 14px;
+    color: #4d5057;
+}
+
+.compare-with-target:before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 85%;
+    height: 1px;
+    border-top: 1px solid #e2e2e2;
+}
+
+.compare-sm {
+    width: 17px;
+    height: 12px;
+    background-position: -210px -580px;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+}
+
+.compare-with-target .next-grey-icon {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
+.compare-with-target:hover {
+    text-decoration: none;
+}
+.text-bold {
+    font-weight: 600;
+}
+
 /* icons */
 .photos-lg-white {
     width: 31px;

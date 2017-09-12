@@ -1,18 +1,17 @@
-﻿using System;
-using System.Web;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.Pager;
 using Bikewale.Entities.CMS;
-using Bikewale.Entities;
-using Bikewale.Entities.Location;
-using Bikewale.Interfaces.BikeData.UpComing;
-using Bikewale.Utility;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.Pager;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.Pager;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Models.Scooters;
+using Bikewale.Utility;
+using System;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -24,7 +23,7 @@ namespace Bikewale.Models
     {
         #region Variables for dependency injection
         private readonly ICMSCacheContent _cmsCache = null;
-        private readonly IPager _pager;        
+        private readonly IPager _pager;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCacheRepository = null;
         #endregion
@@ -32,6 +31,7 @@ namespace Bikewale.Models
         #region Page level variables
         private const int pageSize = 10, pagerSlotSize = 5;
         private int curPageNo = 1;
+        private uint _totalPagesCount;
         string make = string.Empty;
         private uint MakeId, CityId, pageCatId = 0;
         public string redirectUrl { get; set; }
@@ -53,7 +53,7 @@ namespace Bikewale.Models
         {
             _cmsCache = cmsCache;
             _pager = pager;
-            _bikeModels = bikeModels;            
+            _bikeModels = bikeModels;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             ProcessQueryString();
         }
@@ -80,6 +80,8 @@ namespace Bikewale.Models
                 objData.EndIndex = _endIndex;
 
                 objData.Articles = _cmsCache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, Convert.ToString((int)EnumBikeBodyStyles.Scooter), (int)MakeId);
+
+                _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
 
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
@@ -187,6 +189,12 @@ namespace Bikewale.Models
             {
                 objData.PageMetaTags.FBTitle = objData.PageMetaTags.Title;
                 objData.PageMetaTags.FBImage = BWConfiguration.Instance.BikeWaleLogo;
+            }
+
+            if (curPageNo > 1)
+            {
+                objData.PageMetaTags.Description = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Description);
+                objData.PageMetaTags.Title = string.Format("{0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Title);
             }
         }
 

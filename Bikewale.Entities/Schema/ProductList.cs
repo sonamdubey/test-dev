@@ -31,7 +31,7 @@ namespace Bikewale.Entities.Schema
         public IEnumerable<ProductListItem> ItemListElement { get; set; }
     }
 
-    public class ItemListOrder
+    public static class ItemListOrder
     {
         public const string _Ascending = "http://schema.org/ItemListOrderAscending";
         public const string _Descending = "http://schema.org/ItemListOrderDescending";

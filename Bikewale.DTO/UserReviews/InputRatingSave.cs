@@ -49,7 +49,7 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("platformId")]
         public ushort PlatformId { get; set; }
 
-        
+
         [JsonProperty("sourceId")]
         public ushort? SourceId { get; set; }
 
