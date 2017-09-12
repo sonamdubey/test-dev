@@ -2277,7 +2277,7 @@
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
-    <Content Include="css\survey\capital-first_d.css" />
+    <Content Include="css\finance\capital-first_d.css" />
     <Content Include="css\user-review\listing.css" />
     <Content Include="css\survey\bajaj-survey.css" />
     <Content Include="css\user-review\write-review.css" />
@@ -3812,7 +3812,6 @@
     <Folder Include="Controllers\m\Content\" />
     <Folder Include="Controllers\m\new\Scooters\" />
     <Folder Include="Controllers\new\" />
-    <Folder Include="css\finance\" />
     <Folder Include="msmq\" />
     <Folder Include="m\css\survey\" />
     <Folder Include="m\dealerlocator\" />
