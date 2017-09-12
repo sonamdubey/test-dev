@@ -918,6 +918,8 @@ namespace Bikewale.Models
         /// Description :   Binds the page metas
         /// Modified By :- Subodh Jain 2 june 2017
         /// Added target city and model
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Removed GST from Title and Description 
         /// </summary>
         /// <param name="metas"></param>
         private void BuildPageMetas(PriceInCityPageVM objVM)
@@ -927,14 +929,14 @@ namespace Bikewale.Models
                 string bikeName = String.Format("{0} {1}", firstVersion.MakeName, firstVersion.ModelName);
                 objVM.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
                 objVM.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
+                objVM.PageMetaTags.Title = string.Format("{0} price in {1} - Check On Road Price &amp; Dealer Info. | BikeWale", bikeName, firstVersion.City);
                 objVM.ReturnUrl = string.Format("/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
-                objVM.PageMetaTags.AmpUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/amp/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
-                objVM.PageMetaTags.Title = string.Format("{0} price in {1} - Check GST On Road Price &amp; Dealer Info - BikeWale", bikeName, firstVersion.City);
+                objVM.PageMetaTags.AmpUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/amp/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);                
 
                 if (firstVersion != null && !isNew)
                     objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));
                 else if (firstVersion != null)
-                    objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get GST prices for all the versions of and check out the nearest {0} Dealer in {1}", bikeName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));
+                    objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom price). Get prices for all the versions of and check out the nearest {0} Dealer in {1}", bikeName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()));
                 objVM.PageMetaTags.Keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, firstVersion.City, firstVersion.ModelName);
 
                 objVM.AdTags.TargetedCity = firstVersion.City;

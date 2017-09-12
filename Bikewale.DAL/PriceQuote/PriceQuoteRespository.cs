@@ -144,6 +144,8 @@ namespace Bikewale.DAL.PriceQuote
         /// Description :   Created new SP to return manufacturere Ad value and created overload of the function
         /// Modifide By :- Subodh jain on 02 March 2017
         /// Summary:- added manufacturer campaign leadpopup changes
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Changed SP from 'getpricequote_new_28062017' to 'getpricequote_new_30082017', removed IsGstPrice flag
         /// <param name="pqId">price quote id. Only positive numbers are allowed</param>
         /// <returns>Returns price quote object.</returns>
         public BikeQuotationEntity GetPriceQuoteById(ulong pqId, LeadSourceEnum page)
@@ -154,7 +156,7 @@ namespace Bikewale.DAL.PriceQuote
                 objQuotation = new BikeQuotationEntity();
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getpricequote_new_28062017";
+                    cmd.CommandText = "getpricequote_new_30082017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
@@ -188,7 +190,6 @@ namespace Bikewale.DAL.PriceQuote
                             objQuotation.EmailRequired = SqlReaderConvertor.ToBoolean(dr["EmailIDRequired"]);
                             objQuotation.DealersRequired = SqlReaderConvertor.ToBoolean(dr["DealersRequired"]);
                             objQuotation.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
-                            objQuotation.IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]);
                         }
                     }
                 }
@@ -518,6 +519,8 @@ namespace Bikewale.DAL.PriceQuote
         /// Description : Added ismodelnew and isversion new data 
         /// Modified By :   Sumit Kate on 15 May 2017
         /// Description :   New sp version getversionpricesbymodelid
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Changed SP from 'getversionpricesbymodelid_28062017' to 'getversionpricesbymodelid_30082017', removed IsGstPrice flag
         /// </summary>
         /// <param name="modelId">Model Id</param>
         /// <param name="cityId">City Id </param>
@@ -533,7 +536,7 @@ namespace Bikewale.DAL.PriceQuote
 
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getversionpricesbymodelid_28062017";
+                    cmd.CommandText = "getversionpricesbymodelid_30082017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -564,7 +567,6 @@ namespace Bikewale.DAL.PriceQuote
                                 MakeId = SqlReaderConvertor.ToUInt32(Convert.ToString(dr["MakeId"])),
                                 IsModelNew = SqlReaderConvertor.ToBoolean(dr["IsModelNew"]),
                                 IsVersionNew = SqlReaderConvertor.ToBoolean(dr["IsVersionNew"]),
-                                IsGstPrice=SqlReaderConvertor.ToBoolean(dr["isgstprice"])
 
                             });
 

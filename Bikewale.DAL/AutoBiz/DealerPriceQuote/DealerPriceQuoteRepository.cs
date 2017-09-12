@@ -22,6 +22,8 @@ namespace Bikewale.DAL.AutoBiz
         /// <summary>
         /// Created By : Sadhana Upadhyay on 27th Oct 2014
         /// Summary : function to get dealer price quote
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Changed SP from 'bw_getdealerpricequote_28062016' to 'bw_getdealerpricequote_30082017', removed IsGstPrice flag
         /// </summary>
         /// <param name="objParams"></param>
         /// <returns></returns>
@@ -32,7 +34,7 @@ namespace Bikewale.DAL.AutoBiz
             IList<PQ_VersionPrice> priceSplits = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerpricequote_28062016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerpricequote_30082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -59,7 +61,7 @@ namespace Bikewale.DAL.AutoBiz
                         objPriceQuote.PriceList = new List<PQ_Price>();
                         while (dr.Read())
                         {
-                            objPriceQuote.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt32(dr["Price"]), DealerId = Convert.ToUInt32(dr["DealerId"]), IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]) });
+                            objPriceQuote.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt32(dr["Price"]), DealerId = Convert.ToUInt32(dr["DealerId"]) });
                         }
 
                         dr.NextResult();
@@ -566,6 +568,8 @@ namespace Bikewale.DAL.AutoBiz
         /// Description : Added DisplayTextLarge, DisplayTextSmall
         /// Modified by :   Sumit Kate on 30 Jan 2017
         /// Description :   Replaced Convert methods with SqlReaderConvertor and Set IsDSA flag
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Changed SP from 'bw_getdealerdetails_10082017' to 'bw_getdealerdetails_30082017', removed IsGstPrice flag
         /// </summary>
         /// <param name="objParams"></param>
         /// <returns></returns>
@@ -584,7 +588,7 @@ namespace Bikewale.DAL.AutoBiz
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_10082017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_30082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -634,7 +638,6 @@ namespace Bikewale.DAL.AutoBiz
                                         CategoryName = Convert.ToString(dr["ItemName"]),
                                         Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
                                         DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]),
-                                        IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"])
 
                                     });
                                 }
