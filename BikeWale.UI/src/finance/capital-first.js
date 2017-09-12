@@ -193,7 +193,19 @@ function saveEmployeDetails() {
         success: function (response) {
             
             if (response == "Not Registered Mobile Number")
-            $(".otp-container").show();
+            {
+                $(".otp-container").show();
+                var objData={
+                    "userName": $('#cfFName').val() + +$('#cfLName').val(),
+                    "mobileNumber": $('#cfNum').val()
+                }
+                dotpvm.setParameters(objData);
+            }
+            else if (response == "Not Registered Mobile Number")
+            {
+                $(".otp-container").hide();
+
+            }
         }
     });
 

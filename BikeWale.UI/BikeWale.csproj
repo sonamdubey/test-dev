@@ -3792,6 +3792,7 @@
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\Model\_BestBikes.cshtml" />
     <Content Include="Views\Finance\CapitalFirst_Index_Mobile.cshtml" />
+    <Content Include="Views\Shared\_OtpScreen_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3813,7 +3814,6 @@
     <Folder Include="Controllers\m\Content\" />
     <Folder Include="Controllers\m\new\Scooters\" />
     <Folder Include="Controllers\new\" />
-    <Folder Include="css\finance\" />
     <Folder Include="msmq\" />
     <Folder Include="m\css\survey\" />
     <Folder Include="m\dealerlocator\" />
