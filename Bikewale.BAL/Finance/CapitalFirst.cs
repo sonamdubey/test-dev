@@ -94,6 +94,7 @@ namespace Bikewale.BAL.Finance
 
                 if (numberList != null && !numberList.Contains(Convert.ToString(objDetails.MobileNumber)))
                 {
+                    // push in autobiz
                     NameValueCollection objNVC = new NameValueCollection();
                     objNVC.Add("pqId", objDetails.objLead.PQId.ToString());
                     objNVC.Add("dealerId", objDetails.objLead.DealerId.ToString());
