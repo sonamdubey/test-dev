@@ -33,7 +33,7 @@
                                     <td class="@(series.IsDeleted? "lime lighten-4" : "teal lighten-4")">@series.SeriesName</td>
                                     <td>@series.SeriesMaskingName</td>
                                     <td>@series.BikeMake.MakeName</td>
-                                    <td><a class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-bind="event: {click: function(d, e) { editSeries(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                                    <td><a href="#modal-make-update" class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-bind="event: {click: function(d, e) { editSeries(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
                                     <td><a class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Delete Series" rel="nofollow" data-bind="event: {click: function(d, e) { deleteSeries(e) }}"><i class="material-icons icon-red">delete</i></a></td>
                                     <td>@series.CreatedOn.ToString("dd/MM/yyyy")</td>
                                     <td>@series.UpdatedOn.ToString("dd/MM/yyyy")</td>
@@ -58,34 +58,30 @@
                             </div>
                             <div class="collapsible-body">
                                 <div class="container">
-                                    <div class="row">
-                                        <div class="input-field col m12">
-                                            <select id="selectMake" name="MakeId" data-bind="value: selectedMakeId">
-                                                <option value="" disabled selected>Select Make</option>
-                                                @if(Model.BikeMakesList != null)
+                                    <div class="input-field row m12">
+                                        <select id="selectMake" name="MakeId" data-bind="value: selectedMakeId">
+                                            <option value="" disabled selected>Select Make</option>
+                                            @if(Model.BikeMakesList != null)
+                                            {
+                                                foreach(var make in Model.BikeMakesList)
                                                 {
-                                                    foreach(var make in Model.BikeMakesList)
-                                                    {
-                                                        <option value="@make.MakeId">@make.MakeName</option>
-                                                    }
+                                                    <option value="@make.MakeId">@make.MakeName</option>
                                                 }
-                                            </select>
-                                        </div>
+                                            }
+                                        </select>
                                     </div>
-                                    <div class="row">
-                                        <div class="input-field col m12">
-                                            <input id="txtSeriesName" type="text" class="validate" name="SeriesName" data-bind="textInput: seriesName, css:seriesMsg()!=''?'invalid':'' " length="30" maxlength="30">
-                                            <label for="txtSeriesName" data-error="" data-bind="attr:{'data-error':seriesMsg}, css:seriesMsg()!=''?'active':''">Series Name</label>
-                                        </div>
+                                    <div class="input-field row m12">
+                                        <input id="txtSeriesName" type="text" class="validate" name="SeriesName" data-bind="textInput: seriesName, css:seriesMsg()!=''?'invalid':'' " length="30" maxlength="30">
+                                        <label for="txtSeriesName" data-error="" data-bind="attr:{'data-error':seriesMsg}, css:seriesMsg()!=''?'active':''">Series Name</label>
                                     </div>
-                                    <div class="row">
-                                        <div class="input-field col m12">
-                                            <input id="txtSeriesMaskingName" type="text" class="validate" name="SeriesMaskingName" data-bind="textInput: seriesMaskingName, css:seriesMaskingMsg()!=''?'invalid':'' " length="50" maxlength="50">
-                                            <label for="txtSeriesMaskingName" data-error="" data-bind="attr:{'data-error':seriesMaskingMsg}, css:seriesMaskingMsg()!=''?'active':''">Series Masking Name</label>
-                                        </div>
+                                    <div class="input-field row m12">
+                                        <input id="txtSeriesMaskingName" type="text" class="validate" name="SeriesMaskingName" data-bind="textInput: seriesMaskingName, css:seriesMaskingMsg()!=''?'invalid':'' " length="50" maxlength="50">
+                                        <label for="txtSeriesMaskingName" data-error="" data-bind="attr:{'data-error':seriesMaskingMsg}, css:seriesMaskingMsg()!=''?'active':''">Series Masking Name</label>
                                     </div>
-                                    <div>
-
+                                    <div class="input-field row m12">
+                                        <button id="btnAddMake" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { return validateSubmit();}}">
+                                            Add Make
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -93,6 +89,17 @@
                     </ul>
                 </div>
             }
+        </div>
+        <div id="modal-make-update" class="modal">
+            <div class="modal-content">
+                @using (Html.BeginForm("update", "",FormMethod.Post))
+                {
+
+                }
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
         </div>
     </div>
 }

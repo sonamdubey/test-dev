@@ -14,10 +14,10 @@ namespace BikewaleOpr.Controllers
     public class BikeSeriesController : Controller
     {
         private readonly IBikeMakes _makes = null;
-        private readonly IBikeSeriesRepository _seriesRepo = null;
-        public BikeSeriesController(IBikeMakes makes, IBikeSeriesRepository seriesRepo)
+        private readonly IBikeSeries _series = null;
+        public BikeSeriesController(IBikeMakes makes, IBikeSeries series)
         {
-            _seriesRepo = seriesRepo;
+            _series = series;
             _makes = makes;
         }
 
@@ -29,7 +29,7 @@ namespace BikewaleOpr.Controllers
         [HttpGet, Route("bikeseries/")]
         public ActionResult Index()
         {
-            BikeSeriesPageModel objBikeSeriesModel = new BikeSeriesPageModel(_makes, _seriesRepo);
+            BikeSeriesPageModel objBikeSeriesModel = new BikeSeriesPageModel(_makes, _series);
             BikeSeriesPageVM objBikeSeriesVM = null;
             try
             {

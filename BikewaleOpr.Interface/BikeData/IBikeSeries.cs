@@ -4,10 +4,10 @@ using System.Collections.Generic;
 namespace BikewaleOpr.Interface.BikeData
 {
     /// <summary>
-    /// Created by: Vivek Singh Tomar on 11th Sep 2017
-    /// Summary: Interface for Bike series repository
+    /// Created by: Vivek Singh Tomar on 12 Sep 2017
+    /// Summary: Interface for Bike Series BAL
     /// </summary>
-    public interface IBikeSeriesRepository
+    public interface IBikeSeries
     {
         IEnumerable<BikeSeriesEntity> GetSeries();
         uint AddSeries(BikeSeriesEntity bikeSeries, uint UpdatedBy);

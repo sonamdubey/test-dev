@@ -1944,6 +1944,7 @@
     <Content Include="src\AjaxFunctions.js" />
     <Content Include="src\Banner.js" />
     <Content Include="src\BannerList.js" />
+    <Content Include="src\BikeSeries\BikeSeries.js" />
     <Content Include="src\bt.js" />
     <Content Include="src\calender.js" />
     <Content Include="src\chains.js" />

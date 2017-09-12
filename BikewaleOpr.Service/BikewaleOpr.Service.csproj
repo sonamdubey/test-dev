@@ -149,6 +149,7 @@
     <Compile Include="Controllers\Comparison\SponsoredComparisonController.cs" />
     <Compile Include="Controllers\Content\MakesController.cs" />
     <Compile Include="Controllers\Content\ModelsController.cs" />
+    <Compile Include="Controllers\Content\SeriesController.cs" />
     <Compile Include="Controllers\DealerCampaignController.cs" />
     <Compile Include="Controllers\DealerFacility\DealerFacilityController.cs" />
     <Compile Include="Controllers\DealerPriceQuoteController.cs" />

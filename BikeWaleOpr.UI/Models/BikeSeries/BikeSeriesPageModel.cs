@@ -8,11 +8,11 @@ namespace BikewaleOpr.Models.BikeSeries
     public class BikeSeriesPageModel
     {
         private readonly IBikeMakes _makes;
-        private readonly IBikeSeriesRepository _seriesRepo;
-        public BikeSeriesPageModel(IBikeMakes makes, IBikeSeriesRepository seriesRepo)
+        private readonly IBikeSeries _series;
+        public BikeSeriesPageModel(IBikeMakes makes, IBikeSeries series)
         { 
             _makes = makes;
-            _seriesRepo = seriesRepo;
+            _series = series;
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BikewaleOpr.Models.BikeSeries
             try
             {
                 objBikeSeriesVM.BikeMakesList = _makes.GetMakes((ushort)EnumBikeType.All);
-                objBikeSeriesVM.BikeSeriesList = _seriesRepo.GetSeries();
+                objBikeSeriesVM.BikeSeriesList = _series.GetSeries();
                 objBikeSeriesVM.PageTitle = "Manage Bike Series";
             }
             catch (Exception ex)
