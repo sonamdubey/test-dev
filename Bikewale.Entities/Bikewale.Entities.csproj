@@ -291,6 +291,7 @@
     <Compile Include="EditCMS\Photos\BikeModelEntityBase.cs" />
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
+    <Compile Include="EMISliderAMP.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
     <Compile Include="GenericBikes\BestBikesList.cs" />
     <Compile Include="GenericBikes\BikeRankingEntity.cs" />
@@ -338,6 +339,7 @@
     <Compile Include="CMS\Photos\ModelImage.cs" />
     <Compile Include="PhotoGallery\ModelPhotoGalleryEntity.cs" />
     <Compile Include="PriceQuote\BikeDealerPriceDetail.cs" />
+    <Compile Include="PriceQuote\BikeQuotationAMPEntity.cs" />
     <Compile Include="PriceQuote\BikeQuotationEntity.cs" />
     <Compile Include="PriceQuote\BookingPageDetailsEntity.cs" />
     <Compile Include="PriceQuote\DealerDetails.cs" />
