@@ -27,12 +27,11 @@ namespace Bikewale.BAL.Finance
         private readonly ICustomerAuthentication<CustomerEntity, UInt32> _objAuthCustomer = null;
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
 
-        private const string CF_MESSAGE_SUCCESS = "Capital First Voucher and Agent details are saved successfully";
-        private const string CF_MESSAGE_SAVE_FAILURE = "Error occured while saving voucher details";
+        private const string CF_MESSAGE_SUCCESS = "Data saved successfully";
+        private const string CF_MESSAGE_SAVE_FAILURE = "Error occured while saving data";
         private const string CF_MESSAGE_INVALID = "Invalid lead id or request body is empty";
-        private const string CF_MESSAGE_ERROR = "An error occured while saving voucher details";
 
-        
+
         /// <summary>
         /// Created by  :   Sumit Kate on 11 Sep 2017
         /// Description :   Type Initializer
@@ -91,7 +90,7 @@ namespace Bikewale.BAL.Finance
             catch (Exception ex)
             {
                 ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SaveVoucherDetails({0},{1})", ctLeadId, Newtonsoft.Json.JsonConvert.SerializeObject(entity)));
-                message = CF_MESSAGE_ERROR;
+                message = CF_MESSAGE_SAVE_FAILURE;
             }
             return message;
         }
@@ -141,10 +140,10 @@ namespace Bikewale.BAL.Finance
         }
         public bool SavePersonalDetails(PersonalDetails objDetails, string Utmz, string Utma)
         {
-           
 
-            CustomerEntity objCust= GetCustomerId(objDetails, objDetails.MobileNumber);
-            
+
+            CustomerEntity objCust = GetCustomerId(objDetails, objDetails.MobileNumber);
+
             objDetails.objLead.LeadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(
                  objDetails.objLead.DealerId,
                  objDetails.objLead.PQId,
@@ -165,7 +164,7 @@ namespace Bikewale.BAL.Finance
             return true;
 
         }
-        private CustomerEntity GetCustomerId(PersonalDetails objDetails,string MobileNumber)
+        private CustomerEntity GetCustomerId(PersonalDetails objDetails, string MobileNumber)
         {
 
             CustomerEntity objCust = null;
