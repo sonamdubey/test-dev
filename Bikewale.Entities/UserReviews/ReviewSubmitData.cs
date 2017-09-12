@@ -22,6 +22,6 @@ namespace Bikewale.Entities.UserReviews
         public ulong CustomerId { get; set; }
         public string EncodedString { get; set; }
         public bool? IsDesktop { get; set; }
-        public string Mileage { get; set; }
+        public uint Mileage { get; set; }
     }
 }
