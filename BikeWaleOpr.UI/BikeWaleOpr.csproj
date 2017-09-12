@@ -95,7 +95,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
@@ -603,7 +603,6 @@
     <Folder Include="Entities\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
-    <Folder Include="Views\BikeSeries\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="aspnet_client\FreeTextBox\FTB-FreeTextBox.js" />
@@ -2042,6 +2041,7 @@
     <Content Include="Views\PageMetas\Search_Index.cshtml" />
     <Content Include="Views\PageMetas\Index.cshtml" />
     <Content Include="Views\ServiceCenter\AddServiceCenter.cshtml" />
+    <Content Include="Views\BikeSeries\Index.cshtml" />
     <Content Include="packages.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>

@@ -1,0 +1,99 @@
+﻿@model BikewaleOpr.Models.BikeSeries.BikeSeriesPageVM
+@{
+    ViewBag.Title = Model.PageTitle;
+    ViewBag.PageTitle = Model.PageTitle;
+}
+@if (Model != null)
+{
+    <div id="manageBikeSeries" class="row">
+        <div class="col m10 margin-top10">
+            @if (Model.BikeSeriesList != null)
+            {
+                <table id="bikeSeriesList" class="bordered highlight z-depth-3 centered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Masking Name</th>
+                            <th>Make Name</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            <th>Created On</th>
+                            <th>Last Updated On</th>
+                            <th>Updated By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var series in Model.BikeSeriesList)
+                        {
+                            if (series.BikeMake != null)
+                            {
+                                <tr>
+                                    <td>@series.SeriesId</td>
+                                    <td class="@(series.IsDeleted? "lime lighten-4" : "teal lighten-4")">@series.SeriesName</td>
+                                    <td>@series.SeriesMaskingName</td>
+                                    <td>@series.BikeMake.MakeName</td>
+                                    <td><a class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-bind="event: {click: function(d, e) { editSeries(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                                    <td><a class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Delete Series" rel="nofollow" data-bind="event: {click: function(d, e) { deleteSeries(e) }}"><i class="material-icons icon-red">delete</i></a></td>
+                                    <td>@series.CreatedOn.ToString("dd/MM/yyyy")</td>
+                                    <td>@series.UpdatedOn.ToString("dd/MM/yyyy")</td>
+                                    <td>@series.UpdatedBy</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+              }
+        </div>
+        <div class="col m2">
+            @using (Html.BeginForm("Add", "BikeSeries", FormMethod.Post))
+            {
+                <div>
+                    <ul class="collapsible margin-top10" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header">
+                                <strong>
+                                    Add New Bike Series
+                                </strong>
+                            </div>
+                            <div class="collapsible-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="input-field col m12">
+                                            <select id="selectMake" name="MakeId" data-bind="value: selectedMakeId">
+                                                <option value="" disabled selected>Select Make</option>
+                                                @if(Model.BikeMakesList != null)
+                                                {
+                                                    foreach(var make in Model.BikeMakesList)
+                                                    {
+                                                        <option value="@make.MakeId">@make.MakeName</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col m12">
+                                            <input id="txtSeriesName" type="text" class="validate" name="SeriesName" data-bind="textInput: seriesName, css:seriesMsg()!=''?'invalid':'' " length="30" maxlength="30">
+                                            <label for="txtSeriesName" data-error="" data-bind="attr:{'data-error':seriesMsg}, css:seriesMsg()!=''?'active':''">Series Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col m12">
+                                            <input id="txtSeriesMaskingName" type="text" class="validate" name="SeriesMaskingName" data-bind="textInput: seriesMaskingName, css:seriesMaskingMsg()!=''?'invalid':'' " length="50" maxlength="50">
+                                            <label for="txtSeriesMaskingName" data-error="" data-bind="attr:{'data-error':seriesMaskingMsg}, css:seriesMaskingMsg()!=''?'active':''">Series Masking Name</label>
+                                        </div>
+                                    </div>
+                                    <div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+}
+

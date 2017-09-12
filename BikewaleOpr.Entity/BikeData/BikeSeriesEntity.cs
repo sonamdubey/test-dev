@@ -1,5 +1,6 @@
 ﻿
 using BikewaleOpr.Entities.BikeData;
+using System;
 
 namespace BikewaleOpr.Entity.BikeData
 {
@@ -8,8 +9,8 @@ namespace BikewaleOpr.Entity.BikeData
     /// </summary>
     public class BikeSeriesEntity: BikeSeriesEntityBase
     {
-        public string CreatedOn { get; set; }
-        public string UpdatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public bool IsDeleted { get; set; }
         public BikeMakeEntityBase BikeMake { get; set; }
