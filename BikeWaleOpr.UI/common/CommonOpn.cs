@@ -1521,6 +1521,8 @@ namespace BikeWaleOpr.Common
         // for given city and bike version-id.
         /// <summary>
         ///     Written By : Ashish G. Kamble on 4/9/2012
+        ///     Modified by : Ashutosh Sharma on 12-Sep-2017
+        ///     Description : Added 500 in roadTax for Rajasthan(Green tax)
         /// </summary>
         /// <param name="bikeVersionId"></param>
         /// <param name="cityId"></param>
@@ -1815,6 +1817,7 @@ namespace BikeWaleOpr.Common
                     {
                         roadTax = price * 0.06;
                     }
+                    roadTax += 500; //Green Tax for Rajasthan
                     break;
                 // Uttaranchal. 2%!
                 case 25:
