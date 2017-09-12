@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Schema
 {
@@ -12,7 +7,16 @@ namespace Bikewale.Entities.Schema
         [JsonProperty("@type")]
         public string Type { get { return "WebPage"; } }
 
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Title { get; set; }
+
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; set; }
+
+        [JsonProperty("keywords", NullValueHandling = NullValueHandling.Ignore)]
+        public string Keywords { get; set; }
+
         [JsonProperty("breadcrumb", NullValueHandling = NullValueHandling.Ignore)]
-        public BreadcrumList Breadcrum { get; set; }
+        public BreadcrumbList Breadcrum { get; set; }
     }
 }

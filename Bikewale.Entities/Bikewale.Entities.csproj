@@ -375,9 +375,9 @@
     <Compile Include="Schema\AggregateRating.cs" />
     <Compile Include="Schema\Author.cs" />
     <Compile Include="Schema\Brand.cs" />
-    <Compile Include="Schema\BreadcrumItem.cs" />
-    <Compile Include="Schema\BreadcrumList.cs" />
-    <Compile Include="Schema\BreadcrumListItem.cs" />
+    <Compile Include="Schema\BreadcrumbItem.cs" />
+    <Compile Include="Schema\BreadcrumbList.cs" />
+    <Compile Include="Schema\BreadcrumbListItem.cs" />
     <Compile Include="Schema\ContactPoint.cs" />
     <Compile Include="Schema\GeoCoordinates.cs" />
     <Compile Include="Schema\ImageObject.cs" />

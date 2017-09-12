@@ -2,12 +2,12 @@
 
 namespace Bikewale.Entities.Schema
 {
-    public class BreadcrumItem
+    public class BreadcrumbItem
     {
         [JsonProperty("@type")]
         public string Type { get { return "Thing"; } }
 
-        [JsonProperty("@id")]
+        [JsonProperty("@id", NullValueHandling = NullValueHandling.Ignore)]
         public string Url { get; set; }
 
         [JsonProperty("name")]

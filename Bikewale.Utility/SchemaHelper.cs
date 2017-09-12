@@ -23,13 +23,13 @@ namespace Bikewale.Utility
             }
         }
 
-        public static string JsonSerialize(dynamic objSchema,dynamic pageSchema)
+        public static string JsonSerialize(dynamic objSchema, dynamic pageSchema)
         {
             try
             {
                 JObject jsonObj = JObject.FromObject(objSchema);
                 jsonObj.Add("@context", "http://schema.org");
-                jsonObj.Add("mainPageEntity", pageSchema);
+                jsonObj.Add("mainEntity", JObject.FromObject(pageSchema));
                 return jsonObj.ToString(Newtonsoft.Json.Formatting.None);
             }
             catch
