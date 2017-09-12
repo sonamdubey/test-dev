@@ -237,9 +237,9 @@
                     @{ int i = 1;}
                     @foreach (Bikewale.Entities.Models.BreadCrumb breadCrumb in Model.BreadCrumbsList.Breadcrumbs)
                     {
-                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">                            
+                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                             <a itemprop="item" class="breadcrumb-link" href="@string.Format("/m{0}", breadCrumb.ListUrl)" title="@breadCrumb.Name">
-                            <span class="breadcrumb-link__label" itemprop="name">@breadCrumb.Name</span>
+                                <span class="breadcrumb-link__label" itemprop="name">@breadCrumb.Name</span>
                             </a>
                             <meta itemprop="position" content="@i">
                         </li>
@@ -250,6 +250,38 @@
                         <li>
                             <span class="breadcrumb-link__label">@Model.BreadCrumbsList.PageName</span>
                         </li>
+                    }
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </section>
+                        }
+
+    @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
+    {
+        <section>
+            <div class="breadcrumb">
+                <span class="breadcrumb-title">You are here:</span>
+                <ul>
+                    @{ int i = 1;}
+                    @foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
+                    {
+                        if (!string.IsNullOrEmpty(item.Item.Url))
+                        {
+                            <li>
+                                <a class="breadcrumb-link" href="@string.Format("/m{0}", item.Item.Url)" title="@item.Item.Name">
+                                    <span class="breadcrumb-link__label" itemprop="name">@item.Item.Name</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <span class="breadcrumb-link__label">@item.Item.Name</span>
+                            </li>
+                        }
+                        i++;
                     }
                 </ul>
                 <div class="clear"></div>

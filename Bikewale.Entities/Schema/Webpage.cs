@@ -18,5 +18,8 @@ namespace Bikewale.Entities.Schema
 
         [JsonProperty("breadcrumb", NullValueHandling = NullValueHandling.Ignore)]
         public BreadcrumbList Breadcrum { get; set; }
+
+        [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
+        public string Url { get; set; }
     }
 }

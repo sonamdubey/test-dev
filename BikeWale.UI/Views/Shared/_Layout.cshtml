@@ -315,27 +315,22 @@
             <div class="grid-12">
                 <div class="breadcrumb margin-bottom15">
                     <ul>
-                        @{ int i = 1; }
                         @foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
                         {
                             if (!string.IsNullOrEmpty(item.Item.Url))
                             {
                                 <li>
-                                       @if (i > 1)
-                                       {
-                                        <span class="bwsprite fa-angle-right margin-right10"></span>
-                                       }
-
-                                    <a itemprop="url" href="@item.Item.Url" title="@item.Item.Name"><span itemprop="title">@item.Item.Name</span></a>
+                                    <a class="breadcrumb-link" href="@item.Item.Url" title="@item.Item.Name">
+                                        <span class="breadcrumb-link__label">@item.Item.Name</span>
+                                    </a>
                                 </li>
                             }
                             else
                             {
                                 <li class="current">
-                                    <span class="bwsprite fa-angle-right margin-right10"></span><span>@item.Item.Name</span>
+                                    <span class="breadcrumb-link__label">@item.Item.Name</span>
                                 </li>
                             }
-                            i++;
                         }
                     </ul>
                     <div class="clear"></div>

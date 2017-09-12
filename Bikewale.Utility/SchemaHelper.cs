@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Bikewale.Entities.Schema;
+using Bikewale.Models;
+using Newtonsoft.Json.Linq;
 
 namespace Bikewale.Utility
 {
@@ -23,6 +25,13 @@ namespace Bikewale.Utility
             }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Overload method to page level schema into webpage schema
+        /// </summary>
+        /// <param name="objSchema"></param>
+        /// <param name="pageSchema"></param>
+        /// <returns></returns>
         public static string JsonSerialize(dynamic objSchema, dynamic pageSchema)
         {
             try
@@ -37,5 +46,39 @@ namespace Bikewale.Utility
                 return string.Empty;
             }
         }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to return webpage schema json 
+        /// </summary>
+        /// <param name="objSchema"></param>
+        /// <param name="pageSchema"></param>
+        /// <returns></returns>
+        public static WebPage GetWebpageSchema(PageMetaTags objPageMeta, BreadcrumbList breadcrumb)
+        {
+            WebPage webpage = null;
+            if (objPageMeta != null && breadcrumb != null)
+            {
+
+                try
+                {
+                    //set webpage schema for the model page
+                    webpage = new WebPage();
+                    webpage.Description = objPageMeta.Description;
+                    webpage.Keywords = objPageMeta.Keywords;
+                    webpage.Title = objPageMeta.Title;
+                    webpage.Url = objPageMeta.CanonicalUrl;
+                    webpage.Breadcrum = breadcrumb;
+
+                }
+                catch
+                {
+                    webpage = null;
+                }
+            }
+
+            return webpage;
+        }
+
     }
 }
