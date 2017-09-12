@@ -3218,7 +3218,7 @@
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\survey\capital-first.js" />
     <Content Include="src\survey\bajaj-survey.js" />
-    <Content Include="src\survey\capital-first.js" />
+    <Content Include="src\finance\capital-first.js" />
     <Content Include="src\swiper-3.1.7.js" />
     <Content Include="src\used-landing.js" />
     <Content Include="src\sell-bike.js" />

@@ -1,7 +1,23 @@
 var validate,
-    isDesktop;
+    otpScreen,
+    docBody,
+    isDesktop,
+    blackWindowElem,
+    otpPhoneInput,
+    otpEditElem,
+    otpVerificationElem,
+    otpContainerElem,
+    otpNewNum;
 
 docReady(function () {
+
+    otpPhoneInput = $(".otp-container__phone-number");
+    otpNewNum = $("#otpNewNumber");
+    otpEditElem = $(".otp-container__edit");
+    otpVerificationElem = $(".otp-container__verification");
+    otpContainerElem = $(".otp-container")
+    blackWindowElem = $(".otp-black-window");
+
     validate = {
         setError: function (element, message) {
             var elementLength = element.val().length,
@@ -15,18 +31,15 @@ docReady(function () {
                 element.closest('.input-box').addClass('not-empty invalid');
             }
         },
-
         hideError: function (element) {
             element.closest('.input-box').removeClass('invalid').addClass('not-empty');
             element.siblings('.error-text').text('');
         },
-
         onFocus: function (inputField) {
             if (inputField.closest('.input-box').hasClass('invalid')) {
                 validate.hideError(inputField);
             }
         },
-
         onBlur: function (inputField) {
             var inputLength = inputField.val().length;
             if (!inputLength) {
@@ -38,16 +51,46 @@ docReady(function () {
         }
     };
 
+    docBody = {
+        lockScroll: function () {
+            var html_el = $('html'), body_el = $('body'), doc = $(document);
+            showBlackWindow();
+            if (doc.height() > $(window).height()) {
+                var scrollTop = (html_el.scrollTop()) ? html_el.scrollTop() : body_el.scrollTop(); // Works for Chrome, Firefox, IE...
+                if (scrollTop < 0) { scrollTop = 0; }
+                html_el.addClass('lock-browser-scroll').css('top', -scrollTop);
+            }
+        },
+        unlockScroll: function () {
+            var scrollTop = parseInt($('html').css('top'));
+            hideBlackWindow();
+            $('html').removeClass('lock-browser-scroll');
+            $('html,body').scrollTop(-scrollTop);
+        }
+    };
+
+    otpScreen = {
+        openOtp: function() {
+            $(otpContainerElem).show();
+            docBody.lockScroll();
+        },
+        closeOtp: function() {
+            $(otpContainerElem).hide();
+            docBody.unlockScroll();
+        }
+    };
+
     isDesktop = $(".capital-first-desktop");
     
     $("#cfDOB").Zebra_DatePicker({
         container : $("#cfDOB").closest(".input-box")
     });
 
-    $(".page-tabs-data input, #otpNumber").on('blur', function () {
+    $(".page-tabs-data input, .otp-container input[type!=button]").on('blur', function () {
         validate.onBlur($(this));
     });
-    $(".page-tabs-data input[type!=button], #otpNumber").on('focus', function () {
+
+    $(".page-tabs-data input[type!=button], .otp-container input[type!=button]").on('focus', function () {
         validate.onFocus($(this));
         if (!isDesktop.length) {
             var offsetTop = $(this).offset();
@@ -64,25 +107,29 @@ docReady(function () {
     });
 
     $(".otp-container__edit-icon").on('click', function () {
-        $(".otp-container__verification").hide();
-        $(".otp-container__edit").show();
+        var editPhone = $(otpPhoneInput).text();
+        $(otpVerificationElem).hide();
+        $(otpEditElem).show();
+        $(otpNewNum).val(editPhone).trigger('focus');
     });
 
     $("#saveNewNumber").on('click', function () {
-        var otpNewNum = $("#otpNewNumber");
         if (validatePhoneNumber(otpNewNum)) {
-            $(".otp-container__verification").show();
-            $(".otp-container__edit").hide();
+            $(otpVerificationElem).show();
+            $(otpEditElem).hide();
             var newNum = $(otpNewNum).val();
-            $(".otp-container__phone-number").text(newNum);
+            $(otpPhoneInput).text(newNum);
             $(otpNewNum).val('');
         }
     });
 
     $(".otp-container__close").on('click', function () {
-        $(".otp-container").hide();
+        otpScreen.closeOtp();
     });
-   
+
+    $(blackWindowElem).on('click', function () {
+        otpScreen.closeOtp();
+    });
 });
 
 function scrollTopError() {
@@ -121,6 +168,7 @@ function validatePersonalInfo() {
         scrollTopError();
     }
 }
+
 function savePersonalDetails()
 {
     var personDetails = {
@@ -164,9 +212,10 @@ function validateEmploymentInfo() {
 
     if (isValid) {
         saveEmployeDetails();
-        $(".otp-container").show();
+        otpScreen.openOtp();
     }
 }
+
 function saveEmployeDetails() {
 
     var employeDetails = {
@@ -192,6 +241,7 @@ function saveEmployeDetails() {
 
 
 }
+
 function validateUserName(elem) {
 
     var nameRegex = /^[a-zA-Z ]{2,255}$/,
@@ -325,4 +375,12 @@ function scrollTop(offsetElem) {
     $("html, body").animate({
         scrollTop: offsetElem.top - offsetTop
     });
+}
+
+function showBlackWindow() {
+    $(blackWindowElem).show()
+}
+
+function hideBlackWindow() {
+    $(blackWindowElem).hide()
 }
