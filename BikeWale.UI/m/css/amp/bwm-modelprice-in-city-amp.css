@@ -841,6 +841,12 @@ color: #EF3F30;
 	text-align: left;
 }
 
+.dealer-grey {
+    width: 24px;
+    height: 22px;
+    background-position: -33px -639px;
+    vertical-align: middle;
+}
 .tel-sm-grey-icon {
 	width: 15px;
 	height: 15px;
