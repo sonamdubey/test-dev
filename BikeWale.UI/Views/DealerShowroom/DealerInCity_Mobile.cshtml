@@ -30,7 +30,7 @@
             @foreach (var Details in Model.DealersList.Dealers)
             {
                 <li>
-                    <a href=@(Details.IsFeatured ? string.Format("/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Details.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)) : "javascript:void(0) rel=nofollow") rel="nofollow" title="@Details.Name">
+                    <a href=@(Details.IsFeatured ? string.Format("/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Details.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)) : "javascript:void(0)") rel="nofollow" title="@Details.Name">
                         @if (Details.IsFeatured)
                         {
                         <div class="featured-tag">

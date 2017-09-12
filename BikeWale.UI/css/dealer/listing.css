@@ -205,3 +205,10 @@
         width: 280px;
     }
 }
+
+.default-pointer{
+    cursor: default;
+}
+#dealersList a:hover {
+    text-decoration: none;
+}
