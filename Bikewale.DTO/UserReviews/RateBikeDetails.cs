@@ -1,5 +1,4 @@
-﻿using Bikewale.DTO.Model;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Bikewale.DTO.UserReviews
@@ -11,7 +10,7 @@ namespace Bikewale.DTO.UserReviews
     public class RateBikeDetails
     {
         [JsonProperty("modelDetails")]
-        public ModelDetails ModelDetails { get; set; }
+        public Bikewale.DTO.Model.v2.ModelDetails ObjModelEntity { get; set; }
 
         [JsonProperty("questions")]
         public IEnumerable<UserReviewQuestionDto> Questions { get; set; }
