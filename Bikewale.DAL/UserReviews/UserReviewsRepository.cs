@@ -958,7 +958,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewDescription", DbType.String, comment));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewTitle", DbType.String, commentTitle));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, reviewsQuestionAns));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbType.UInt32, mileage));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbType.UInt32, mileage > 0 ? mileage : Convert.DBNull));
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
