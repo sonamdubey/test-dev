@@ -291,6 +291,7 @@
     <Compile Include="EditCMS\Photos\BikeModelEntityBase.cs" />
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
+    <Compile Include="EMISliderAMP.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
     <Compile Include="GenericBikes\BestBikesList.cs" />
     <Compile Include="GenericBikes\BikeRankingEntity.cs" />
@@ -338,6 +339,7 @@
     <Compile Include="CMS\Photos\ModelImage.cs" />
     <Compile Include="PhotoGallery\ModelPhotoGalleryEntity.cs" />
     <Compile Include="PriceQuote\BikeDealerPriceDetail.cs" />
+    <Compile Include="PriceQuote\BikeQuotationAMPEntity.cs" />
     <Compile Include="PriceQuote\BikeQuotationEntity.cs" />
     <Compile Include="PriceQuote\BookingPageDetailsEntity.cs" />
     <Compile Include="PriceQuote\DealerDetails.cs" />
@@ -368,13 +370,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schema\AdditionalProperty.cs" />
     <Compile Include="Schema\Address.cs" />
+    <Compile Include="Schema\AggregateOffer.cs" />
     <Compile Include="Schema\AggregateRating.cs" />
     <Compile Include="Schema\Author.cs" />
+    <Compile Include="Schema\Brand.cs" />
     <Compile Include="Schema\ContactPoint.cs" />
     <Compile Include="Schema\GeoCoordinates.cs" />
     <Compile Include="Schema\ImageObject.cs" />
     <Compile Include="Schema\ListItem.cs" />
     <Compile Include="Schema\MainEntityOfPage.cs" />
+    <Compile Include="Schema\Manufacturer.cs" />
     <Compile Include="Schema\MotorcycleDealer.cs" />
     <Compile Include="Schema\NewsArticle.cs" />
     <Compile Include="Schema\PotentialAction.cs" />

@@ -28,37 +28,26 @@
         </div>
     </div>
 }
-<div itemscope itemtype="http://schema.org/Product">
-    @if (Model.IsModelDetails)
-    {
-        if (Model.ModelPageEntity.ModelDesc != null)
-        {
-            <meta itemprop="description" itemtype="https://schema.org/description" content="@Model.ModelPageEntity.ModelDesc.SmallDescription" />
-        }
-        <meta itemprop="name" content="@Model.BikeName " />
-        <meta itemprop="image" content="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._210x118)" />
-        <meta itemprop="manufacturer" name="manufacturer" content="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName">
-        <meta itemprop="model" content="@Model.ModelPageEntity.ModelDetails.ModelName" />
-        <meta itemprop="brand" content="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName" />
-    }
 
     <section class="bg-light-grey padding-top10" id="breadcrumb">
         <div class="container">
             <div class="grid-12">
                 <div class="breadcrumb margin-bottom15">
-                    <ul>
-                        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <a href="/" itemprop="url">
-                                <span itemprop="title">Home</span>
+                    <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                            <a href="/" itemprop="item">
+                                <span itemprop="name">Home</span>
                             </a>
+                            <meta itemprop="position" content="1" />
                         </li>
                         @if (Model.IsModelDetails && Model.ModelPageEntity.ModelDetails.MakeBase != null)
                         {
-                            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
-                                <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/" itemprop="url">
-                                    <span itemprop="title">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Bikes</span>
+                                <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/" itemprop="item">
+                                    <span itemprop="name">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Bikes</span>
                                 </a>
+                                <meta itemprop="position" content="2" />
                             </li>
                         }
                         <li>
@@ -106,6 +95,3 @@
 
     </script>
     <script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
-
-
-</div>

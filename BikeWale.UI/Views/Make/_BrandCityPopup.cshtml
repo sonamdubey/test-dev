@@ -21,7 +21,7 @@
         }
         <div class="padding-top10" id="brandCityPopUpContent">
             <div id="divBrandLoader" class="margin-top10 form-control-box">
-                <div class="placeholder-loading-text form-control">Loading Brands..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
+                <div class="placeholder-loading-text form-control" data-bind="visible: bookingBrands().length == 0">Loading Brands..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
                 <div data-bind="visible: bookingBrands().length > 0">
                     <select data-placeholder="--Select Brands--" class="chosen-select" id="ddlBrandPopup" data-bind="options: bookingBrands(), value: selectedBrand, optionsText: 'makeName', optionsValue: 'makeId', optionsCaption: '--Select Brand--', event: { change: makeChangedPopup }"></select>
                     <span class="bwsprite error-icon error-tooltip-siblings"></span>
@@ -32,7 +32,7 @@
 
 
             <div id="divCitiesLoader" class="margin-top10 form-control-box">
-                <div class="placeholder-loading-text form-control">Loading Cities..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
+                <div class="placeholder-loading-text form-control" data-bind="visible: listCities().length == 0">Loading Cities..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
                 <div data-bind="visible: listCities().length > 0">
                     <select data-placeholder="--Select City--" class="chosen-select" id="ddlCityPopup" tabindex="2" data-bind="options: listCities(), value: selectCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: '--Select City--', event: { change: isValidInfoPopup }"></select>
                     <span class="bwsprite error-icon error-tooltip-siblings"></span>

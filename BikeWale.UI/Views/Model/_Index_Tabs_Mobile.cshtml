@@ -11,13 +11,20 @@
     }
     @if (Model.IsSimilarBikesAvailable)
     {
-        <li data-tabs="#similarContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SimilarBikes">Compare @Model.BodyStyleText</li>
+        <li data-tabs="#similarContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SimilarBikes">Similar @Model.BodyStyleText</li>
+    }
+    else if (Model.IsPopularBodyStyleAvailable)
+    {
+        <li data-tabs="#popularContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;@Model.BodyStyleName">Popular @Model.BodyStyleName</li>
     }
     @if (Model.IsVersionSpecsAvailable)
     {
         <li data-tabs="#specsFeaturesAndAboutContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SpecsFeatures">Specs & Features</li>
     }
-   
+    else if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+    {
+        <li data-tabs="#specsFeaturesAndAboutContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;About">About</li>
+    }
     @if (Model.IsUserReviewsAvailable)
     {
         <li data-tabs="#reviewsContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;UserReviews">User Reviews</li>
@@ -32,7 +39,11 @@
     }
     @if (Model.IsVideosAvailable)
     {
-        <li data-tabs="#videosAndServicecCenterContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Videos">Videos</li>
+        <li data-tabs="#videosAndServiceCenterContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Videos">Videos</li>
+    }
+    else if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable || Model.IsDealersServiceCenterAvailable))
+    {
+        <li data-tabs="#videosAndServiceCenterContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;ServiceCenter"> Dealers & Service Centers</li>
     }
     @if (Model.IsUsedBikesAvailable)
     {

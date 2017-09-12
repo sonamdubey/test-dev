@@ -733,6 +733,39 @@ a.btn:hover {
     overflow-y: scroll;
 }
 
+/* Discontinued bike image */
+.no-image-icon {
+    width: 40px;
+    height: 30px;
+    background-position: 0 -510px;
+}
+
+.model-thumbnail-image {
+    width: 360px;
+    height: 202px;
+    display: table;
+    text-align: center;
+    background: #f5f5f5;
+    margin: 10px auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.model-thumbnail-image a {
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 0;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
+}
+
+.model-thumbnail-image a:hover {
+   text-decoration: none;
+}
+
+.bg-light-grey {
+    background: #f5f5f5;
+}
+
 /* tooltip */
 .bw-tooltip {
     padding: 10px 20px 10px 10px;

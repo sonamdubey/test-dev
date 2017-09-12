@@ -47,7 +47,6 @@ namespace Bikewale.Models.Videos
         {
             VideosLandingPageVM objVM = null;
             bool isAPIData = Bikewale.Utility.BWConfiguration.Instance.UseAPIGateway;
-            System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
             try
             {
 
@@ -58,19 +57,12 @@ namespace Bikewale.Models.Videos
 
                 if (isAPIData)
                 {
-                    System.Diagnostics.Stopwatch w1 = System.Diagnostics.Stopwatch.StartNew();
-
                     isAPIData = GetDataFromApiGateWay(objVM, objSubCat);
-
-                    w1.Stop();
-                    long elapsedMs = w1.ElapsedMilliseconds;
-                    log4net.ThreadContext.Properties["GatewayTimeTaken_Page"] = elapsedMs;
                 }
 
 
                 if (!isAPIData)
                 {
-                    System.Diagnostics.Stopwatch w2 = System.Diagnostics.Stopwatch.StartNew();
                     objVM.MotorSportsWidgetData = objSubCat.GetData("", "51", _pageNo, MotorSportsWidgetTopCount);
                     objVM.ExpertReviewsWidgetData = objSubCat.GetData("", "55", _pageNo, ExpertReviewsTopCount);
                     objVM.FirstRideWidgetData = objSubCat.GetData("", "57", _pageNo, FirstRideWidgetTopCount);
@@ -80,9 +72,6 @@ namespace Bikewale.Models.Videos
                     objVM.FirstLookWidgetData = objSubCat.GetData("", "61", _pageNo, FirstLookWidgetTopCount);
                     objVM.PowerDriftBlockbusterWidgetData = objSubCat.GetData("", "62", _pageNo, PowerDriftBlockbusterWidgetTopCount);
                     objVM.PowerDriftSpecialsWidgetData = objSubCat.GetData("", "63", _pageNo, PowerDriftSpecialsWidgetTopCount);
-                    w2.Stop();
-                    long elapsedMs = w2.ElapsedMilliseconds;
-                    log4net.ThreadContext.Properties["GRPCTimeTaken_Page"] = elapsedMs;
                 }
                 objVM.Brands = new BrandWidgetModel(BrandWidgetTopCount, _bikeMakes, _objModelCache).GetData(Entities.BikeData.EnumBikeType.Videos);
                 BindPageMetas(objVM);
@@ -90,13 +79,6 @@ namespace Bikewale.Models.Videos
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "VideosLandingPage.GetData");
-            }
-            finally
-            {
-                watch.Stop();
-                long elapsedMs = watch.ElapsedMilliseconds;
-                log4net.ThreadContext.Properties["TimeTaken_Page"] = elapsedMs;
-                ErrorClass objPageLog = new ErrorClass(new Exception("Videos Page Performance"), "VideosLandingPage.GetData-Page");
             }
             return objVM;
         }

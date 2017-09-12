@@ -63,10 +63,10 @@
                         <!-- search code end here -->
                         <!-- Social media icon code start here -->
                         <div class="left-float margin-left10">
-                        	<a href="https://www.carwale.com" target="_blank"  class="icon-sprite fb-icon"></a>
+                        	<a href="https://www.carwale.com" target="_blank" rel="noopener"  class="icon-sprite fb-icon"></a>
                         </div>
                         <div class="left-float margin-left10">
-                        	<a href="https://www.carwale.com" target="_blank"  class="icon-sprite tw-icon"></a>
+                        	<a href="https://www.carwale.com" target="_blank" rel="noopener"  class="icon-sprite tw-icon"></a>
                         </div>
                         <!-- Social media icon code start here -->
                     </div>

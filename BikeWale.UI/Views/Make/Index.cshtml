@@ -58,8 +58,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="clear"></div>
                 }
+                <div class="clear"></div>
             </div>
             @if (Model.Bikes != null && Model.Bikes.Count() > 0)
             {
@@ -98,10 +98,10 @@
                                     </div>
                                 </div>
                             </li>
-                        }
+                                                }
                     </ul>
                 </div>
-             }
+                                                }
 
         </div>
     </div>
@@ -162,27 +162,27 @@
                         <div class="overall-specs-tabs-wrapper">
                             @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription.Length > 0)
                             {
-                                <a href="#makeAboutContent" rel="nofollow">About</a>
+                                <span class="navtab" data-href="#makeAboutContent" rel="nofollow">About</span>
                             }
                             @if (Model.IsNewsAvailable)
                             {
-                                <a href="#modelNewsContent" rel="nofollow">News</a>
+                                <span class="navtab" data-href="#modelNewsContent" rel="nofollow">News</span>
                             }
                             @if (Model.IsExpertReviewsAvailable)
                             {
-                                <a href="#makeReviewsContent" rel="nofollow">Reviews</a>
+                                <span class="navtab" data-href="#makeReviewsContent" rel="nofollow">Reviews</span>
                             }
                             @if (Model.IsVideosAvailable)
                             {
-                                <a href="#makeVideosContent" rel="nofollow">Videos</a>
+                                <span class="navtab" data-href="#makeVideosContent" rel="nofollow">Videos</span>
                             }
                             @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
                             {
-                                <a href="#dealerAndServiceContent" rel="nofollow">@Model.DealerServiceTitle</a>
+                                <span class="navtab" data-href="#dealerAndServiceContent" rel="nofollow">@Model.DealerServiceTitle</span>
                             }
                             @if (Model.IsUsedModelsBikeAvailable)
                             {
-                                <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
+                                <span class="navtab" data-href="#makeUsedBikeContent" rel="nofollow">Used</span>
                             }
                         </div>
                     </div>
@@ -317,7 +317,7 @@
         </div>
         <div class="clear"></div>
     </section>
-}
+                                }
 @if (Model.OtherMakes != null && Model.OtherMakes.Count() > 0)
 {
     <section>

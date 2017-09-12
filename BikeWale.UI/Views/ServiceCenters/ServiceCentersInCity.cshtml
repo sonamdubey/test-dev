@@ -85,8 +85,7 @@
 
                                     <li data-item-id="@serviceCenter.ServiceCenterId" data-item-inquired="false" data-lat="@serviceCenter.Lattitude" data-log="@serviceCenter.Longitude" data-item-number="@serviceCenter.Phone" data-address="@serviceCenter.Address"
                                         data-item-url="@UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, serviceCenter.Name, serviceCenter.ServiceCenterId)">
-
-                                        <a href="@UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, serviceCenter.Name, serviceCenter.ServiceCenterId)" title="@serviceCenter.Name" class="dealer-card-target font14">
+                                        <a href="javascript:void(0)" rel="nofollow" title="@serviceCenter.Name" class="dealer-card-target font14">
                                             <div class="dealer-card-content">
                                                 <h3 class="dealer-name text-black text-bold margin-bottom5">@serviceCenter.Name</h3>
                                                 @if (!(String.IsNullOrEmpty(serviceCenter.Address)))
@@ -156,14 +155,14 @@
                     <h2 class="section-h2-title padding-15-20">Tips from BikeWale experts to keep your bike in good shape!</h2>
                     <ul id="bw-tips-list">
                         <li class="grid-6">
-                            <a href="/bike-care/" target="_blank" title="Bike Care - Maintenance tips">
+                            <a href="/bike-care/" target="_blank" rel="noopener" title="Bike Care - Maintenance tips">
                                 <span class="service-sprite care-icon"></span>
                                 <h3 class="bike-tips-label margin-left10 inline-block">Bike Care - Maintenance tips</h3>
                                 <span class="bwsprite right-arrow"></span>
                             </a>
                         </li>
                         <li class="grid-6">
-                            <a href="/bike-troubleshooting/" target="_blank" title="Bike troubleshooting - FAQs">
+                            <a href="/bike-troubleshooting/" target="_blank" rel="noopener" title="Bike troubleshooting - FAQs">
                                 <span class="service-sprite faq-icon"></span>
                                 <h3 class="bike-tips-label margin-left10 inline-block">Bike troubleshooting - FAQs</h3>
                                 <span class="bwsprite right-arrow"></span>

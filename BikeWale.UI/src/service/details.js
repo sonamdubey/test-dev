@@ -1,6 +1,6 @@
 ﻿var redMarkerImage = 'https://imgd.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
 var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
-var customerViewModel, dealerDetailsViewModel, chosenSelectBox, vmService, bikeschedule;
+var customerViewModel, dealerDetailsViewModel, chosenSelectBox, vmService, bikeschedule, currentCityName, currentAddress;
 
 function initializeMap() {
     var mapCanvas = document.getElementById("dealer-map");
@@ -52,14 +52,6 @@ function initializeMap() {
         route(origin_place_id, travel_mode, directionsService, directionsDisplay);
         if (userAddress != "")
             $('.location-details').show();
-    });
-
-    var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ 'address': currentCityName }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            map.setCenter(results[0].geometry.location);
-            map.fitBounds(results[0].geometry.viewport);
-        }
     });
 }
 
@@ -229,39 +221,40 @@ function setUserLocation(position) {
 }
 
 
-    docReady(function () {
+docReady(function () {
 
-        chosenSelectBox = {    
-            setPlaceholder: function() {
-                $('.chosen-select').each(function () {
-                    var text = $(this).attr('data-placeholder');
-                    $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
-                });
-            }
-        };
-
-        $('.chosen-select').chosen();
-
-        if ($("#service-schedule-data").html()) {
-            bikeschedule = JSON.parse($("#service-schedule-data").html().replace(/\s/g, ' '));
-            vmService = new SchedulesViewModel();
-            ko.applyBindings(vmService, $("#service-scheduler")[0]);
-            vmService.selectedModelId(vmService.bikes()[0].ModelId);
+    chosenSelectBox = {    
+        setPlaceholder: function() {
+            $('.chosen-select').each(function () {
+                var text = $(this).attr('data-placeholder');
+                $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
+            });
         }
+    };
+
+    $('.chosen-select').chosen();
+
+    if ($("#service-schedule-data").html()) {
+        bikeschedule = JSON.parse($("#service-schedule-data").html().replace(/\s/g, ' '));
+        vmService = new SchedulesViewModel();
+        ko.applyBindings(vmService, $("#service-scheduler")[0]);
+        vmService.selectedModelId(vmService.bikes()[0].ModelId);
+    }
 
 
 
 
-        chosenSelectBox.setPlaceholder();
+    chosenSelectBox.setPlaceholder();
 
-        serviceLat = $('#dealer-map').data("servicelat");
-        serviceLong = $('#dealer-map').data("servicelong");
-        currentCityName = $('#dealer-map').data("cityname");
-        googleMapAPIKey = document.getElementById("locationSearch").getAttribute("data-Map");
-        clientIP = document.getElementById("locationSearch").getAttribute("data-clietIp");
+    serviceLat = $('#dealer-map').data("servicelat");
+    serviceLong = $('#dealer-map').data("servicelong");
+    currentCityName = $('#dealer-map').data("cityname");
+    currentAddress = document.getElementById("locationSearch").getAttribute("data-currentaddress");
+    googleMapAPIKey = document.getElementById("locationSearch").getAttribute("data-Map");
+    clientIP = document.getElementById("locationSearch").getAttribute("data-clietIp");
 
-        initializeMap();
+    initializeMap();
 
-        $(document).on("click", "#getUserLocation", function () { getLocation(); })
+    $(document).on("click", "#getUserLocation", function () { getLocation(); })
 
-    });
+});
