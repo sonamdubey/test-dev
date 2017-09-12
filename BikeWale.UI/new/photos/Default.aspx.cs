@@ -188,7 +188,7 @@ namespace Bikewale.New.Photos
 
                         ctrlSimilarBikesWithPhotos.CityId = currentCityArea.CityId;
                         ctrlSimilarBikesWithPhotos.City = currentCityArea.City;
-                        ctrlSimilarBikesWithPhotos.TotalRecords = 6;
+                        ctrlSimilarBikesWithPhotos.TotalRecords = 9;
                         ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
                         ctrlSimilarBikesWithPhotos.SimilarMakeName = vmModelPhotos.objMake.MakeName;
                         ctrlSimilarBikesWithPhotos.SimilarModelName = vmModelPhotos.objModel.ModelName;

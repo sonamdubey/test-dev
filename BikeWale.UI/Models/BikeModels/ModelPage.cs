@@ -272,7 +272,7 @@ namespace Bikewale.Models.BikeModels
                 Position = 1,
                 Item = new BreadcrumbItem()
                 {
-                    Url = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl),
+                    Url = string.Format("/", BWConfiguration.Instance.BwHostUrl),
                     Name = "Home"
                 }
             });
@@ -285,7 +285,7 @@ namespace Bikewale.Models.BikeModels
                     Position = 2,
                     Item = new BreadcrumbItem()
                     {
-                        Url = string.Format("{0}/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName),
+                        Url = string.Format("/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName),
                         Name = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName + " Bikes"
                     }
                 });

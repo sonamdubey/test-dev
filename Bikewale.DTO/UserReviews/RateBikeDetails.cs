@@ -1,11 +1,6 @@
-﻿using Bikewale.DTO.Customer;
-using Bikewale.DTO.Model;
+﻿using Bikewale.DTO.Model;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.UserReviews
 {
@@ -15,10 +10,13 @@ namespace Bikewale.DTO.UserReviews
     /// </summary>
     public class RateBikeDetails
     {
-        public ModelDetails ObjModelEntity { get; set; }
+        [JsonProperty("modelDetails")]
+        public ModelDetails ModelDetails { get; set; }
 
+        [JsonProperty("questions")]
         public IEnumerable<UserReviewQuestionDto> Questions { get; set; }
 
+        [JsonProperty("overallRating")]
         public IEnumerable<UserReviewOverallRatingDto> OverallRating { get; set; }
 
         [JsonProperty("customerName")]
