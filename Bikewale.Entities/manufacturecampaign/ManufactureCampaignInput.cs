@@ -17,6 +17,7 @@ namespace Bikewale.Entities.manufacturecampaign
         public string GACategory { get; set; }
         public string GALabel { get; set; }
         public uint PQId { get; set; }
+        public uint VersionId { get; set; }
     }
 
     /// <summary>

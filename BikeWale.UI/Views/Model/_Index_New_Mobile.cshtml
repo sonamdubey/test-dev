@@ -81,7 +81,14 @@
                     <div class="campaign__floating-btn floating-btn clearfix">
                         <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
                         <div class="grid-5 alpha omega">
-                            <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@(String.Format(Model.LeadCampaign.PopupSuccessMessage,Model.LeadCampaign.Organization))" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization)</a>
+                            @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                            {
+                                <a class="btn btn-orange btn-full-32" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId">@String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization)</a>
+                            }
+                            else
+                            {
+                                <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@(String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization))" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization)</a>
+                            }
                         </div>
                         <div class="clear"></div>
                     </div>

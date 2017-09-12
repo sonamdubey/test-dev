@@ -1280,7 +1280,8 @@ namespace Bikewale.Models.BikeModels
                             PopupHeading = campaigns.LeadCampaign.PopupHeading,
                             PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage,
                             ShowOnExshowroom = campaigns.LeadCampaign.ShowOnExshowroom,
-                            PQId = _objData.PQId
+                            PQId = _objData.PQId,
+                            VersionId = _objData.VersionId
                         };
 
                         _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;

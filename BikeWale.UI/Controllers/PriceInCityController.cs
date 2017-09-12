@@ -77,7 +77,7 @@ namespace Bikewale.Controllers
         [Route("model/{modelName}/pricein/{cityName}/")]
         public ActionResult Index(string modelName, string cityName)
         {
-            PriceInCityPageVM objVM = new PriceInCityPageVM();
+            PriceInCityPageVM objVM;
             PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _cityCache, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Desktop_PriceInCity_Alternative, modelName, cityName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
@@ -123,7 +123,7 @@ namespace Bikewale.Controllers
         [Route("m/model/{modelName}/pricein/{cityName}/")]
         public ActionResult Index_Mobile(string modelName, string cityName)
         {
-            PriceInCityPageVM objVM = new PriceInCityPageVM();
+            PriceInCityPageVM objVM;
             PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _cityCache, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
