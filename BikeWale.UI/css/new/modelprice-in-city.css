@@ -403,7 +403,37 @@
 }
 
 /* prices in nearby cities */
-#prices-top-cities tr {
+
+.version-price-table {
+    width: 100%;
+}
+.version-price-table th {
+    width: 33.33%;
+    font-size: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    color: #82888b;
+    font-weight: normal;
+    text-align: left;
+}
+#prices-top-cities li {
+    display: inline-block;
+    width: 24%;
+}
+.city-name {
+    display: inline-block;
+    width: 49%;
+}
+.city-name.right {
+    text-align: center;
+}
+#prices-top-cities li:nth-of-type(4n) {
+    width: 26%;
+}
+#prices-top-cities li:nth-of-type(4n) .city-name.right{
+  text-align: right;
+}
+/*#prices-top-cities tr {
     display: inline-block;
     width: 49%
 }
@@ -429,7 +459,7 @@
 
 #prices-top-cities tr:nth-child(even) .city-name {
     padding-left: 20px
-}
+}*/
 
 /* similar bikes */
 .compare-with-target {
@@ -755,3 +785,7 @@ width: 100%;
 }
 
 /*explore more card ends here*/
+
+
+
+
