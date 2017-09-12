@@ -189,6 +189,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APISecurity\IPAuthorizationAttribute.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="AutoMappers\Compare\TopBikeCompareBaseMapper.cs" />
     <Compile Include="AutoMappers\DealerLocator\DealerBikesEntityMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
+    <Compile Include="AutoMappers\Finance\FinanceMapper.cs" />
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="AutoMappers\Make\MakePageEntityMapper.cs" />
     <Compile Include="AutoMappers\MobileAppAlert\FCMNotificationMapper.cs" />
@@ -412,7 +414,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="APISecurity\" />
     <Folder Include="Views\InsuranceLead\" />
     <Folder Include="Views\ManufacturerCampaign\" />
     <Folder Include="Views\SplashScreen\" />
