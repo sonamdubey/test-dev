@@ -103,6 +103,7 @@ function validatePersonalInfo() {
     isValid &= validatePanNumber($("#cfPan"));
     isValid &= validateRadioButtons("gender");
     isValid &= validateRadioButtons("marital");
+    isValid &= validateDOB($("#cfDOB"));
 
     if (isValid) {
         $("#personal-detail-tab").addClass("hide");
@@ -163,6 +164,7 @@ function validateEmploymentInfo() {
 
     if (isValid) {
         saveEmployeDetails();
+        $(".otp-container").show();
     }
 }
 function saveEmployeDetails() {
@@ -293,6 +295,22 @@ function validateIncome(inputIncome) {
 
     if ($(inputIncome).val().length <= 0) {
         validate.setError(inputIncome, 'Invalid Income');
+        isValid = false;
+    }
+    return isValid;
+}
+
+function validateDOB(inputAge) {
+    var isValid = true,
+        setDate = $(inputAge).val(),
+        date1 = new Date(setDate),
+        date2 = new Date(),
+        timeDiff = Math.abs(date2.getTime() - date1.getTime()),
+        diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)),
+        diffYears = diffDays / 365;
+
+    if (diffYears < 21) {
+        validate.setError(inputAge, 'Age should be greater than 21');
         isValid = false;
     }
     return isValid;

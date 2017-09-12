@@ -198,21 +198,21 @@
     <p class="text-xt-light-grey font18 text-bold">How It Works</p>
     <ul>
         <li class="how-works-container__li">
-            <div class="how-works__sprite fill-form"></div>
+            <div class="how-works__sprite fill-form rounded-corner50"></div>
             <div class="how-works__content">
                 <p class="font14 text-bold margin-bottom10">Fill form online</p>
                 <p>BikeWale is conducting a survey on two wheeler popularity.</p>
             </div>
         </li>
         <li class="how-works-container__li">
-            <div class="how-works__sprite fill-form"></div>
+            <div class="how-works__sprite approval rounded-corner50"></div>
             <div class="how-works__content">
                 <p class="font14 text-bold margin-bottom10">Fill form online</p>
                 <p>BikeWale is conducting a survey on two wheeler popularity.</p>
             </div>
         </li>
         <li class="how-works-container__li">
-            <div class="how-works__sprite fill-form"></div>
+            <div class="how-works__sprite contact rounded-corner50"></div>
             <div class="how-works__content">
                 <p class="font14 text-bold margin-bottom10">Fill form online</p>
                 <p>BikeWale is conducting a survey on two wheeler popularity.</p>
@@ -239,10 +239,15 @@
     </ol>
     <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
 </div>
-<div class="otp-container">
+
+<div class="otp-container hide">
     <div class="otp-container__close otp-icons"></div>
-    <div class="otp-container__info hide">
-        <div class="otp-container__icon"></div>
+    <div class="otp-container__info">
+        <div class="icon-outer-container rounded-corner50">
+            <div class="icon-inner-container rounded-corner50">
+                <div class="otp-container__icon"></div>
+            </div>
+        </div>
         <p class="otp-container__title">Verify your mobile number</p>
         <p class="font14">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below: </p>
         <div class="otp-container__verification">
@@ -269,7 +274,7 @@
             <input type="button" id="saveNewNumber" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Done">
         </div>
     </div>
-    <div class="thankyou-container">
+    <div class="thankyou-container hide">
         <div class="icon-outer-container rounded-corner50">
             <div class="icon-inner-container rounded-corner50">
                 <span class="otp-icons thumbsup-icon"></span>
@@ -281,4 +286,5 @@
         <input type="button" id="sendEmail" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Get it on Email">
     </div>
 </div>
+
 <script defer src="/src/zebra-datepicker.js"></script>
