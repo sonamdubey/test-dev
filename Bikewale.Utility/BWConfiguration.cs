@@ -117,6 +117,7 @@ namespace Bikewale.Utility
         private string _capitalFirstConsumerQueue;
         private readonly bool _IsIPSecurityEnabled;
         private readonly uint _CapitalFirstDealerId;
+        private readonly string _CarTradeLeadUrl, _CarTradeLeadApiAction, _CarTradeLeadApiCode;
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
         {
@@ -216,6 +217,9 @@ namespace Bikewale.Utility
             _capitalFirstConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["CapitalFirstConsumerQueue"]);
             _IsIPSecurityEnabled = string.IsNullOrEmpty(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]);
             _CapitalFirstDealerId = Convert.ToUInt32(ConfigurationManager.AppSettings["CapitalFirstDealerId"]);
+            _CarTradeLeadUrl = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadUrl"]);
+            _CarTradeLeadApiAction = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadApiAction"]);
+            _CarTradeLeadApiCode = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadApiCode"]);
         }
 
         // Static method to provide access to instance
@@ -369,5 +373,8 @@ namespace Bikewale.Utility
         public string CapitalFirstConsumerQueue { get { return _capitalFirstConsumerQueue; } }
         public bool IsIPSecurityEnabled { get { return _IsIPSecurityEnabled; } }
         public uint CapitalFirstDealerId { get { return _CapitalFirstDealerId; } }
+        public string CarTradeLeadUrl { get { return _CarTradeLeadUrl; } }
+        public string CarTradeLeadApiAction { get { return _CarTradeLeadApiAction; } }
+        public string CarTradeLeadApiCode { get { return _CarTradeLeadApiCode; } }
     }   // class
 }   // namespace

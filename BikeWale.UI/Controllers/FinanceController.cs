@@ -24,7 +24,8 @@ namespace Bikewale.Controllers
         public ActionResult CapitalFirst_Index_Mobile()
         {
             CapitalFirstVM viewModel = new CapitalFirstVM();
-            
+            viewModel.ObjLead = new ManufacturerLeadEntity();
+            viewModel.objLeadJson = Newtonsoft.Json.JsonConvert.SerializeObject(viewModel.ObjLead);
             return View(viewModel);
         }
 
