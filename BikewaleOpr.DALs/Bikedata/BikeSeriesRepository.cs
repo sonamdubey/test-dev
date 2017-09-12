@@ -16,6 +16,7 @@ namespace BikewaleOpr.DALs.Bikedata
     /// </summary>
     public class BikeSeriesRepository: IBikeSeriesRepository
     {
+
         public IEnumerable<BikeSeriesEntity> GetSeries()
         {
             IEnumerable<BikeSeriesEntity> objBikeSeries = null;
@@ -52,7 +53,7 @@ namespace BikewaleOpr.DALs.Bikedata
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <returns></returns>
-        public uint AddSeries(BikeSeriesEntity bikeSeries, uint UpdatedBy)
+        public uint AddSeries(BikeSeriesEntity bikeSeries, long UpdatedBy)
         {
             uint seriesId = 0;
             try
@@ -78,6 +79,65 @@ namespace BikewaleOpr.DALs.Bikedata
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DAL.BikeSeriesRepository: AddSeries");
             }
             return seriesId;
+        }
+
+        public bool EditSeries(BikeSeriesEntity bikeSeries, long updatedBy)
+        {
+            int rowsAffected = 0;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    DynamicParameters param = new DynamicParameters();
+                    param.Add("par_name", bikeSeries.SeriesName);
+                    param.Add("par_maskingname", bikeSeries.SeriesMaskingName);
+                    param.Add("par_makeid", bikeSeries.BikeMake.MakeId);
+                    param.Add("par_updatedby", updatedBy);
+                    param.Add("par_seriesid", bikeSeries.SeriesId);
+
+                    connection.Open();
+
+                    rowsAffected = connection.Execute("bw_editbikeseries", param: param, commandType: CommandType.StoredProcedure);
+
+                    
+
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: EditSeries_{0}_{1}", bikeSeries, updatedBy));
+            }
+            return rowsAffected > 0;
+        }
+        public bool DeleteSeries(uint bikeSeriesId)
+        {
+            int rowsAffected = 0;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    DynamicParameters param = new DynamicParameters();
+                    param.Add("par_seriesid", bikeSeriesId);
+
+                    connection.Open();
+
+                    rowsAffected =  connection.Execute("bw_deletebikeseries", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteSeries_{0}", bikeSeriesId));
+            }
+            return rowsAffected > 0;
         }
     }
 }

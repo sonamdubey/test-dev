@@ -45,7 +45,7 @@ namespace BikewaleOpr.BAL
         /// <param name="UpdatedBy"></param>
         /// <param name="seriesId"></param>
         /// <param name="isSeriesExist"></param>
-        public uint AddSeries(BikeSeriesEntity bikeSeries, uint UpdatedBy)
+        public uint AddSeries(BikeSeriesEntity bikeSeries, long UpdatedBy)
         {
             uint seriesId = 0;
             try
@@ -61,5 +61,41 @@ namespace BikewaleOpr.BAL
             }
             return seriesId;
         }
+
+        public bool EditSeries(BikeSeriesEntity bikeSeries, long updatedBy)
+        {
+            bool IsEdited = false;
+            try
+            {
+                if (bikeSeries != null && bikeSeries.BikeMake != null && updatedBy > 0)
+                {
+                    IsEdited = _series.EditSeries(bikeSeries, updatedBy);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: EditSeries_{0}_{1}", bikeSeries, updatedBy));
+            }
+            return IsEdited;
+        }
+
+        public bool DeleteSeries(uint bikeSeriesId)
+        {
+            bool IsDeleted = false;
+            try
+            {
+                if (bikeSeriesId > 0)
+                {
+                    IsDeleted = _series.DeleteSeries(bikeSeriesId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteSeries_{0}", bikeSeriesId));
+            }
+            return IsDeleted;
+        }
+
+
     }
 }
