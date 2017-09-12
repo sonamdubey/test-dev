@@ -439,29 +439,22 @@ namespace Bikewale.Service.Controllers.UserReviews
         {
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && objSaveInputRating != null && !String.IsNullOrEmpty(objSaveInputRating.RatingQuestionAns))
                 {
-                    if (objSaveInputRating != null)
+                    RatingReviewInput objRatingReviewInput = null;
+                    UserReviewRatingObject objRating = null;
+                    InputRatingSaveEntity objSaveRatingEntity = null;
+                    objSaveInputRating.UserName = StringHelper.ToProperCase(objSaveInputRating.UserName);
+
+                    objSaveRatingEntity = UserReviewsMapper.Convert(objSaveInputRating);
+
+                    if (objSaveRatingEntity != null)
                     {
-                        RatingReviewInput objRatingReviewInput = null;
-                        UserReviewRatingObject objRating = null;
-                        InputRatingSaveEntity objSaveRatingEntity = null;
-                        objSaveInputRating.UserName = StringHelper.ToProperCase(objSaveInputRating.UserName);
-
-                        objSaveRatingEntity = UserReviewsMapper.Convert(objSaveInputRating);
-
-                        if (objSaveRatingEntity != null)
-                        {
-                            objRating = _userReviews.SaveUserRatings(objSaveRatingEntity);
-                        }
-
-                        objRatingReviewInput = UserReviewsMapper.Convert(objRating, objSaveInputRating);
-                        return Ok(objRatingReviewInput);
+                        objRating = _userReviews.SaveUserRatings(objSaveRatingEntity);
                     }
-                    else
-                    {
-                        return BadRequest();
-                    }
+
+                    objRatingReviewInput = UserReviewsMapper.Convert(objRating, objSaveInputRating);
+                    return Ok(objRatingReviewInput);
                 }
 
                 else
