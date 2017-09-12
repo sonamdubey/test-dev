@@ -54,6 +54,10 @@ namespace Bikewale.BAL.UserReviews.Search
                     objResult.Result = objResult.Result.Skip((int)skipTopCount);
                     objResult.TotalCount = objResult.TotalCount - (int)skipTopCount;
                 }
+                else
+                {
+                    objResult = null;
+                }
             }
             catch (Exception ex)
             {

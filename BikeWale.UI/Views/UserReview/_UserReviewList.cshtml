@@ -27,7 +27,7 @@
 			<div class="item-grid alpha padding-right20  @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">
 				<div class="margin-bottom10">
 					<span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
-						<span class="bwsprite star-white"></span>&nbsp;<span data-bind="text: value">@review.OverallRating.Value</span>
+						<span class="bwsprite star-white"></span>&nbsp;<span >@review.OverallRating.Value</span>
 					</span>
                     <a onclick="logBhrighu(@i,'TitleClick')" href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-id="@i" class="list-item-title inline-block margin-right5">@review.Title.Truncate(65) </a>
 					<span class="font12 inline-block text-light-grey">@review.ReviewAge ago by @review.CustomerName.Truncate(25) </span>
@@ -105,6 +105,91 @@
             @{i++;}
 		</li>
 	}
+
+    <!-- ko if : reviewList() && reviewList().length > 0 -->
+        <!-- ko foreach: reviewList() -->
+        <li class="list-item" data-bind="css: $data.isRatingQuestion ? 'rating-question-present': 'rating-question-absent'">
+
+            <div class="item-grid alpha padding-right20 grid-9 border-light-right">
+                <div class="margin-bottom10">
+                    <!-- ko with: $data.overallRating -->
+                    <span class="rating-badge" data-bind="attr: {'data-rate-bg': id }">
+                        <span class="bwsprite star-white"></span>&nbsp;<span data-bind="text: value"></span>
+                    </span>
+                    <!-- /ko -->
+                    <a onclick="logBhrighuData(event, 'TitleClick')"  data-index="" data-bind="attr : {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId ,'title' : $data.title,'href' : $data.reviewUrl}, truncatedText: $data.title" data-trimLength="65" class="list-item-title inline-block margin-right5"></a>
+                    <span class="font12 inline-block text-light-grey" data-bind="text: $data.reviewAge + ' ago by '"></span>&nbsp;<span class="font12 inline-block text-light-grey" data-trimLength="25" data-bind="truncatedText : $data.customerName"></span>
+                </div>
+                <div class="collapsible-content toggle-off main-content-off font14 text-slate-grey">
+                    <div class="main-content" data-bind="html: $data.shortDescription">                  
+                    </div>
+                    <div class="more-content">
+                        <span data-bind="html: $data.description">                      
+                        </span>                   
+                        <!-- ko if : $data && $data.questions && $data.questions.length > 0  -->
+                        <ul class="rating-circle-list ko-list hide" data-bind="css: $data ? 'show' : 'hide'">
+                            <!-- ko foreach: $data.questions -->
+                            <!-- ko if : $data.qtype == 2 -->
+                            <li>
+                                <div data-bind="css: 'rating-circle circle-rate-' +  $data.selectedRatingId">
+                                    <p class="circle-label" data-bind="text: $data.selectedRatingId"></p>
+                                    <span class="rating-progress">
+                                    </span>
+                                </div>
+                                <p class="list-item-label" data-bind="text: $data.heading"></p>
+                            </li>
+                            <!-- /ko -->
+                            <!-- /ko -->
+                        </ul>
+                        <!-- /ko -->
+                        <div class="review-block">
+
+                            <span class="review__question">Was this review helpful?</span>
+
+                            <button class="feedback-button" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="upVoteListReview(event)">
+
+                                <span class="bwsprite like-sm"></span>
+                                Yes
+                                (<span class="btn-count" data-bind="attr: { id: 'upvoteCount-' + $data.reviewId}, formattedVotes : $data.upVotes">0</span>)
+                            </button>
+
+
+                            <button class="feedback-button" data-bind="attr: { id: 'downvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="downVoteListReview(event)">
+                                <span class="bwsprite dislike-sm"></span>
+                                No
+                                (<span class="btn-count" data-bind="attr: { id: 'downvoteCount-' + $data.reviewId}, formattedVotes : $data.downVotes">0</span>)
+                            </button>
+                            <p class="report-abuse-label rightfloat line-height26" >Inappropriate review? <a href="javascript:void(0)" onclick="reportReview(event)" rel="nofollow">Report Abuse</a></p>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+                    <a href="javascript:void(0)" class="read-more-target bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" data-index="@i" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId }" rel="nofollow" onclick="readMoreNew(event)">Read more</a>
+                </div>
+
+            </div>
+            <div class="grid-3 omega padding-left20">            
+                <!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
+                <ul class="hide" data-bind="css: $data ? 'show' : 'hide'">
+                    <!-- ko foreach: $data.questions -->
+                    <!-- ko if : $data.qtype == 1 -->
+                    <li class="margin-bottom10">
+                        <span data-bind="css: 'bwsprite questionId-' +  $data.qId "></span>
+                        <div class="inline-block">
+                            <p class="font10 text-xt-light" data-bind="text: $data.minHeading"></p>
+                            <p class="font14 text-slate-grey" data-bind="text: $data.selectedRatingText"></p>
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                </ul>
+                <!-- /ko -->
+
+            </div>
+            <div class="clear"></div>
+        </li>
+        <!-- /ko -->
+    <!-- /ko -->
 
 </ul>
 

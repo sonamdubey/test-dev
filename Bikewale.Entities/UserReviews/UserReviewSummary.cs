@@ -51,5 +51,7 @@ namespace Bikewale.Entities.UserReviews
         public float OverAllModelRating { get; set; }
         public string Mileage { get; set; }
         public ushort RatingQuestionsCount { get; set; }
+        public string ReviewUrl { get { return ((Make != null && Model != null) ? string.Format("/{0}-bikes/{1}/reviews/{2}/", Make.MaskingName, Model.MaskingName, ReviewId) : ""); } }
+
     }
 }
