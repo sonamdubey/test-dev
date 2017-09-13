@@ -25,7 +25,7 @@ namespace BikewaleOpr.Models.BikeSeries
             BikeSeriesPageVM objBikeSeriesVM = new BikeSeriesPageVM();
             try
             {
-                objBikeSeriesVM.BikeMakesList = _makes.GetMakes((ushort)EnumBikeType.All);
+                objBikeSeriesVM.BikeMakesList = _makes.GetMakes((ushort)EnumBikeType.New);
                 objBikeSeriesVM.BikeSeriesList = _series.GetSeries();
                 objBikeSeriesVM.PageTitle = "Manage Bike Series";
                 objBikeSeriesVM.UpdatedBy = Convert.ToUInt32(BikeWaleOpr.Common.CurrentUser.Id);
