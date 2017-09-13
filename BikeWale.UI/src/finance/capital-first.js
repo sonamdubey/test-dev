@@ -243,18 +243,16 @@ function saveEmployeDetails() {
         data: ko.toJSON(employeDetails),
         success: function (response) {
             
-            if (response == "Not Registered Mobile Number")
-            {
-                otpScreen.openOtp();
-                var objData={
-                    "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
-                    "mobileNumber": $('#cfNum').val()
-                }
-                otpvm.setParameters(objData);
+            otpScreen.openOtp();
+            var objData = {
+                "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                "mobileNumber": $('#cfNum').val()
             }
-            else if (response == "Registered Mobile Number")
+            otpvm.setParameters(objData);
+            if (response == "Registered Mobile Number")
             {
-                otpScreen.closeOtp();
+                $('.otp-container__info').hide();
+                $('#thankyouScreen').removeClass("hide");
 
             }
         }
