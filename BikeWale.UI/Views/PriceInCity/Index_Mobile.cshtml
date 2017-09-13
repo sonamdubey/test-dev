@@ -387,19 +387,15 @@
 
                                 <div class="padding-top20 padding-bottom10 content-box-shadow card-bottom-margin">
                                     <h2 class="card-h2-heading margin-bottom10 padding-left20 padding-right20">@Model.BikeModel.ModelName price in cities near @Model.CityEntity.CityName<span class="font14 text-slate-grey text-unbold">&nbsp;(On-road price)</span></h2>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14">
-                                        <tbody>
+                                    <ul width="100%" border="0" cellspacing="0" cellpadding="0" class="PriceInTopCity">
                                             @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.NearestPriceCities)
-                                        </tbody>
-                                    </table>
+                                    </ul>
                                     @if (priceQuotesCities.Count() > 4)
                                     {
                                         Model.NearestPriceCities.PriceQuoteList = priceQuotesCities.Skip(4);
-                                        <table id="more-cities-list" width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14 hide">
-                                            <tbody>
-                                                @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.NearestPriceCities)
-                                            </tbody>
-                                        </table>
+                                        <ul id="more-cities-list" class="PriceInTopCity hide">
+                                            @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.NearestPriceCities)
+                                        </ul>
                                         <div class="padding-right20 padding-left20 padding-bottom5">
                                             <a href="javascript:void(0)" class="view-cities-link position-rel block font14" title="" rel="nofollow">View more cities</a>
                                         </div>

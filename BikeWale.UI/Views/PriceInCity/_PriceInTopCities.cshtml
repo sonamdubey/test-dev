@@ -5,20 +5,12 @@
     foreach (var priceQuote in Model.PriceQuoteList)
     {
         <li>
-            <span class="city-name left padding-bottom20">
-                <a title="@string.Format("{0} price in {1}", @Model.BikeName, @priceQuote.CityName)" href="@Bikewale.Utility.UrlFormatter.PriceInCityUrl(@priceQuote.MakeMaskingName, @priceQuote.ModelMaskingName, @priceQuote.CityMaskingName)" class="text-truncate">@priceQuote.CityName</a>
+            <span class="city-name left">
+                <a title="@string.Format("{0} price in {1}", @Model.BikeName, @priceQuote.CityName)" href="@Bikewale.Utility.UrlFormatter.PriceInCityUrl(@priceQuote.MakeMaskingName, @priceQuote.ModelMaskingName, @priceQuote.CityMaskingName)" class="text-truncate inline-block">@priceQuote.CityName</a>
             </span>
-            <span class="city-name right padding-bottom20 text-black">
+            <span class="city-name right text-black">
                 @Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(priceQuote.OnRoadPrice))
             </span>
         </li>
-        @*<tr>
-            <td class="city-name padding-bottom20">
-                <a title="@string.Format("{0} price in {1}", @Model.BikeName, @priceQuote.CityName)" href="@Bikewale.Utility.UrlFormatter.PriceInCityUrl(@priceQuote.MakeMaskingName, @priceQuote.ModelMaskingName, @priceQuote.CityMaskingName)" class="text-truncate">@priceQuote.CityName</a>
-            </td>
-            <td align="right" class="city-price padding-bottom20 text-black">
-              @Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(priceQuote.OnRoadPrice))
-            </td>
-        </tr>*@
     }
 }

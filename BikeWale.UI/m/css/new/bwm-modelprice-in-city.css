@@ -634,7 +634,7 @@
 
 .detailblock__title {
     font-size: 14px;
-    color: #4D5057;
+    color: #4d5057;
     font-weight: 600;
     line-height:25px;
     margin-bottom: 10px;
@@ -642,8 +642,26 @@
 
 .detailblock__description {
     font-size: 12px;
-    color: #A2A2A2;
+    color: #a2a2a2;
 }
 /*explore more card ends here*/
 
+/* price in top city */
+.PriceInTopCity {
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: 0;
+}
+.PriceInTopCity .city-name {
+    font-size: 14px;
+    width: 60%;
+    display: inline-block;
+    padding-bottom: 20px;
+}
+.PriceInTopCity .city-price {
+    font-size: 14px;
+    width: 40%;
+    display: inline-block;
+    padding-bottom: 20px;
+}
   

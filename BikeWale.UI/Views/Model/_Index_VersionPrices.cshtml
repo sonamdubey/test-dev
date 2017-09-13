@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 
 <div id="modelPricesContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20 card-bottom-margin">
-    <h2 class="h2-heading margin-bottom10">@Model.BikeName Price</h2>
+    <h2 class="h2-heading margin-bottom20">@Model.BikeName Price</h2>
     <div id="version-prices-grid" class="grid-12 alpha">
         @*<h3 class="margin-bottom20">@Model.BikeName Price (variants)</h3>*@
         <h3 class="padding-bottom10">Price by versions</h3>
@@ -17,12 +17,12 @@
                 @foreach (var version in Model.ModelPageEntity.ModelVersions)
                 {
                     <tr>
-                        <td class="padding-top10 padding-bottom10 divider-bottom font14"><span class="font12 padding-right5 text-light-grey">@Model.BikeName</span> @version.VersionName</td>
-                        <td class="padding-top10 padding-bottom10 divider-bottom font14">
+                        <td class="font14">@Model.BikeName&nbsp;@version.VersionName</td>
+                        <td class="font13">
                             @Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
-                            <span class="padding-top10 font12 text-light-grey">(@(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</span>
+                            &nbsp;<span class="font12">(@(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</span>
                         </td>
-                        <td class="padding-bottom10 divider-bottom font14">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
+                        <td class="font12">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
                     </tr>
                 }
             </tbody>
@@ -39,7 +39,7 @@
         </div>
     }
     <div class="clear"></div>
-    <div class="font14 text-slate-grey line-height17 margin-top10">
+    <div class="font12 text-slate-grey line-height17 margin-top10">
         @Html.Raw(Model.VersionPriceListSummary)
     </div>
 </div>

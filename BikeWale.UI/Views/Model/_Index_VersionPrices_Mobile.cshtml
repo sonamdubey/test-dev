@@ -38,17 +38,15 @@
             Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Take(4);
             <div id="prices-top-cities">
                 <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">Price by cities<span class="text-light-grey text-unbold"> (@(Model.IsLocationSelected && !Model.ShowOnRoadButton && Model.IsNewBike ? "On-road price" : "Ex-showroom price"))</span></h3>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14">
-                    <tbody>@Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)</tbody>
-                </table>
+                <ul class="PriceInTopCity">
+                    @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
+                </ul>
             </div>
 
-            <table id="more-cities-list" width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14 hide">
-                <tbody>
+            <ul id="more-cities-list" class="PriceInTopCity hide">
                     @{Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Skip(4);}
                     @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
-                </tbody>
-            </table>
+            </ul>
             if (priceQuotesCities != null && priceQuotesCities.Count() > 4)
             {
                 <div class="padding-top10 padding-right20 padding-left20 padding-bottom5">

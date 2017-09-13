@@ -927,6 +927,7 @@
 .version-price-table {
     width: 100%;
 }
+
 .version-price-table th {
     width: 33.33%;
     font-size: 12px;
@@ -936,49 +937,36 @@
     font-weight: normal;
     text-align: left;
 }
+
+#prices-top-cities {
+    font-size: 0;
+}
+
 #prices-top-cities li {
     display: inline-block;
-    width: 24%;
+    width: 25%;
+    padding-bottom: 20px;
 }
+
 .city-name {
     display: inline-block;
-    width: 49%;
+    font-size: 14px;
+    width: 50%;
 }
+
 .city-name.right {
     text-align: center;
+    font-size: 13px;
 }
-#prices-top-cities li:nth-of-type(4n) {
-    width: 26%;
-}
+
 #prices-top-cities li:nth-of-type(4n) .city-name.right{
   text-align: right;
 }
 
-/*#prices-top-cities tr {
-    display: inline-block;
-    width: 49%
-}
-
-#prices-top-cities td {
+.version-price-table td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
     font-size: 14px;
-    width: 49%;
-    display: inline-block;
-    padding-bottom: 20px;
 }
-
-#prices-top-cities .city-price {
-    width: 45%;
-}
-
-#prices-top-cities td a {
-    display: block;
-}
-
-#prices-top-cities tr:nth-child(odd) .city-name {
-    width: 110px
-}
-
-#prices-top-cities tr:nth-child(even) .city-name {
-    padding-left: 20px
-}*/
 .select-box .chosen-container .chosen-results {overflow-y: scroll; max-height: 160px; padding-bottom: 20px; }

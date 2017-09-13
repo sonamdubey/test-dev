@@ -1,7 +1,25 @@
 ﻿/* prices */
-#prices-top-cities .padding-top15.padding-right20 {
+/*#prices-top-cities .padding-top15.padding-right20 {
     padding-top: 0;
+}*/
+.PriceInTopCity {
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: 0;
 }
+.PriceInTopCity .city-name {
+    font-size: 14px;
+    width: 60%;
+    display: inline-block;
+    padding-bottom: 20px;
+}
+.PriceInTopCity .city-price {
+    font-size: 14px;
+    width: 40%;
+    display: inline-block;
+    padding-bottom: 20px;
+}
+  
 
 .view-cities-link {
     top: -13px;
