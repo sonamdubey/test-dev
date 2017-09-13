@@ -471,6 +471,7 @@
     <Compile Include="UserReviews\UserReviewsData.cs" />
     <Compile Include="UserReviews\UserReviewsInputEntity.cs" />
     <Compile Include="UserReviews\UserReviewSummary.cs" />
+    <Compile Include="UserReviews\V2\ModelWiseUserReview.cs" />
     <Compile Include="UserReviews\V2\UserReviewSummary.cs" />
     <Compile Include="UsersTestimonial\UsersTestimonial.cs" />
     <Compile Include="Videos\BikeVideoEntity.cs" />
