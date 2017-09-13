@@ -232,6 +232,7 @@ function saveEmployeDetails() {
         "annualIncome": $('#cfCompIncome').val(),
         "mobileNumber": $('#cfNum').val(),
         "emailId": $('#cfEmail').val(),
+        "objLeadJson": $("#objLead").val()
 
     }
 

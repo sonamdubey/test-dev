@@ -59,7 +59,8 @@ namespace Bikewale.Service.Controllers
         {
             try
             {
-             string message=_objICapitalFirst.SaveEmployeDetails(objDetails);
+                objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
+                string message=_objICapitalFirst.SaveEmployeDetails(objDetails);
 
                 return Ok(message);
             }

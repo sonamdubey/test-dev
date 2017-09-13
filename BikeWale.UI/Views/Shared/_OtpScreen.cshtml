@@ -44,7 +44,7 @@
                 <p class="font18 text-bold margin-top20">Thank you, <span data-bind="text: userName()"></span>!</p>
                 <p class="text-black font14 margin-top20">Your loan application is being verfied. </p>
                 <p class="text-black font14">Loan approval will be generated shortly</p>
-                <input type="button" id="sendEmail" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Get it on Email">
+                <input type="button" id="sendEmail" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Done">
             </div>
         </div>
     </div>
@@ -91,7 +91,8 @@
                     "addressLine1": $("#cfAddress1").val(),
                     "addressLine2": $('#cfAddress2').val(),
                     "pincode": $("#cfPincode").val(),
-                    "pancard": $("#cfPan").val()
+                    "pancard": $("#cfPan").val(),
+                    "objLeadJson": $("#objLead").val()
 
 
                 }
@@ -108,6 +109,7 @@
                                 "mobileNumber": mobileNumber
                             }
                             otpvm.setParameters(objData);
+                            $('#otpNumber').val("");
                         }
                         else if (response == "Registered Mobile Number") {
                             otpScreen.openOtp();
@@ -138,7 +140,8 @@
                         $('#thankyouScreen').removeClass("hide");
                     }
                     else {
-
+        
+                        validate.setError($('#otpNumber'), "Wrong Otp");
 
                     }
 

@@ -42,7 +42,7 @@
         <p class="font18 text-bold margin-top20">Thank you, <span data-bind="text: userName()"></span>!</p>
         <p class="text-black font14 margin-top20">Your loan application is being verfied. </p>
         <p class="text-black font14">Loan approval will be generated shortly</p>
-        <input type="button" id="sendEmail" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Get it on Email">
+        <input type="button" id="sendEmail" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Done">
     </div>
 </div>
 
@@ -66,7 +66,7 @@
             }
         }
         self.changeMobileNumber = function () {
-
+            var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {
                 var employeDetails = {
 
@@ -76,7 +76,7 @@
                     "OfficialAddressLine2": $('#cfCompAddress2').val(),
                     "pincode": $('#cfCompPincode').val(),
                     "annualIncome": $('#cfCompIncome').val(),
-                    "mobileNumber": $('#otpNewNumber').val(),
+                    "mobileNumber": mobileNumber,
                     "emailId": $('#cfEmail').val(),
                     "objLeadJson": $("#objLead").val(),
                     "firstName": $('#cfFName').val(),
@@ -87,7 +87,8 @@
                     "addressLine1": $("#cfAddress1").val(),
                     "addressLine2": $('#cfAddress2').val(),
                     "pincode": $("#cfPincode").val(),
-                    "pancard": $("#cfPan").val()
+                    "pancard": $("#cfPan").val(),
+                    "objLeadJson": $("#objLead").val()
 
 
                 }
@@ -100,13 +101,15 @@
                         if (response == "Not Registered Mobile Number") {
                             otpScreen.openOtp();
                             var objData = {
-                                "userName": $('#cfFName').val() + +$('#cfLName').val(),
-                                "mobileNumber": $('#otpNewNumber').val()
+                                "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                                "mobileNumber": mobileNumber
                             }
                             otpvm.setParameters(objData);
+                            $('#otpNumber').val("");
                         }
                         else if (response == "Registered Mobile Number") {
-                            otpScreen.closeOtp();
+                            otpScreen.openOtp();
+                            $('.otp-container__info').hide();
                             $('#thankyouScreen').removeClass("hide")
 
                         }
@@ -120,9 +123,28 @@
         };
 
         self.Done = function () {
+            var otp = $('#otpNumber').val();
 
-            $('.otp-container__info').hide();
-            $('#thankyouScreen').removeClass("hide")
+            $.ajax({
+                type: "POST",
+                url: "/api/finance/verifymobile/otp/" + otp + "/mobilenumber/" + otpvm.mobileNumber()+"/",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response==true) {
+                        $('.otp-container__info').hide();
+                        $('#thankyouScreen').removeClass("hide");
+                    }
+                    else {
+
+                        validate.setError($('#otpNumber'), "Wrong Otp");
+
+                    }
+
+                }
+            });
+
+
         };
 
     }
