@@ -256,6 +256,8 @@ namespace Bikewale.DAL.BikeData
 
         /// <summary>
         /// Versions list with Min specs
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Changed SP from 'getversions_23082017' to 'getversions_30082017', removed IsGstPrice flag
         /// </summary>
         /// <param name="modelId">model id</param>
         /// <param name="isNew">is new</param>
@@ -267,7 +269,7 @@ namespace Bikewale.DAL.BikeData
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_23082017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_30082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -285,13 +287,12 @@ namespace Bikewale.DAL.BikeData
                                     VersionId = Convert.ToInt32(dr["ID"]),
                                     VersionName = Convert.ToString(dr["Version"]),
                                     ModelName = Convert.ToString(dr["Model"]),
-                                    IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]),
                                     Price = Convert.ToUInt64(dr["VersionPrice"]),
                                     BrakeType = !Convert.IsDBNull(dr["BrakeType"]) ? Convert.ToString(dr["BrakeType"]) : String.Empty,
                                     AlloyWheels = !Convert.IsDBNull(dr["AlloyWheels"]) ? Convert.ToBoolean(dr["AlloyWheels"]) : false,
                                     ElectricStart = !Convert.IsDBNull(dr["ElectricStart"]) ? Convert.ToBoolean(dr["ElectricStart"]) : false,
                                     AntilockBrakingSystem = !Convert.IsDBNull(dr["AntilockBrakingSystem"]) ? Convert.ToBoolean(dr["AntilockBrakingSystem"]) : false,
-                                    BodyStyle = (EnumBikeBodyStyles) Convert.ToUInt16(dr["BodyStyleId"])
+                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToUInt16(dr["BodyStyleId"])
                                 });
                             }
                             dr.Close();
@@ -325,6 +326,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary: Used a different sp(earlier getmodeldetails_new) to retrieve model details using data reader'
         /// Modified by sajal gupta on 19/05/2017
         /// Description : Added ratings count
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Changed SP from 'getmodeldetails_new_28062017' to 'getmodeldetails_new_30082017', removed IsGstPrice flag
         /// </summary>
         /// <param name="id">Model Id should be a positive number.</param>
         /// <returns>Returns object containing the particular model's all details.</returns>
@@ -333,7 +336,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_14082017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_30082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -371,7 +374,6 @@ namespace Bikewale.DAL.BikeData
                                 t.PhotosCount = Convert.ToInt32(dr["PhotosCount"]);
                                 t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
                                 t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
-                                t.IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]);
                             }
 
                             if (dr.NextResult())
@@ -655,22 +657,22 @@ namespace Bikewale.DAL.BikeData
                             {
                                 NewLaunchedBikeEntity objModels = new NewLaunchedBikeEntity();
                                 objModels.Specs = new MinSpecsEntity();
-                                objModels.BikeLaunchId = Convert.ToUInt16(dr["BikeLaunchId"]);
-                                objModels.MakeBase.MakeId = Convert.ToInt32(dr["BikeMakeId"]);
-                                objModels.MakeBase.MakeName = dr["Make"].ToString();
-                                objModels.MakeBase.MaskingName = dr["MakeMaskingName"].ToString();
-                                objModels.ModelId = Convert.ToInt32(dr["ModelId"]);
-                                objModels.ModelName = dr["Model"].ToString();
-                                objModels.MaskingName = dr["ModelMaskingName"].ToString();
-                                objModels.HostUrl = dr["HostURL"].ToString();
-                                objModels.LargePicUrl = dr["LargePic"].ToString();
-                                objModels.SmallPicUrl = dr["SmallPic"].ToString();
-                                objModels.ReviewCount = Convert.ToInt16(dr["ReviewCount"]);
-                                objModels.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
+                                objModels.BikeLaunchId = SqlReaderConvertor.ToUInt16(dr["BikeLaunchId"]);
+                                objModels.MakeBase.MakeId = SqlReaderConvertor.ToInt32(dr["BikeMakeId"]);
+                                objModels.MakeBase.MakeName = Convert.ToString(dr["Make"]);
+                                objModels.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objModels.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                objModels.ModelName = Convert.ToString(dr["Model"]);
+                                objModels.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                objModels.HostUrl = Convert.ToString(dr["HostURL"]);
+                                objModels.LargePicUrl = Convert.ToString(dr["LargePic"]);
+                                objModels.SmallPicUrl = Convert.ToString(dr["SmallPic"]);
+                                objModels.ReviewCount = SqlReaderConvertor.ToInt16(dr["ReviewCount"]);
+                                objModels.ReviewRate = SqlReaderConvertor.ParseToDouble(dr["ReviewRate"]);
                                 objModels.ReviewUIRating = string.Format("{0:0.0}", objModels.ReviewRate);
-                                objModels.MinPrice = Convert.ToInt64(dr["MinPrice"]);
-                                objModels.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
-                                objModels.LaunchDate = Convert.ToDateTime(dr["LaunchDate"]);
+                                objModels.MinPrice = SqlReaderConvertor.ToInt64(dr["MinPrice"]);
+                                objModels.MaxPrice = SqlReaderConvertor.ToInt64(dr["MaxPrice"]);
+                                objModels.LaunchDate = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]);
                                 objModels.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objModels.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objModels.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
@@ -727,22 +729,22 @@ namespace Bikewale.DAL.BikeData
                             {
                                 NewLaunchedBikeEntity objModels = new NewLaunchedBikeEntity();
                                 objModels.Specs = new MinSpecsEntity();
-                                objModels.BikeLaunchId = Convert.ToUInt16(dr["BikeLaunchId"]);
-                                objModels.MakeBase.MakeId = Convert.ToInt32(dr["BikeMakeId"]);
-                                objModels.MakeBase.MakeName = dr["Make"].ToString();
-                                objModels.MakeBase.MaskingName = dr["MakeMaskingName"].ToString();
-                                objModels.ModelId = Convert.ToInt32(dr["ModelId"]);
-                                objModels.ModelName = dr["Model"].ToString();
-                                objModels.MaskingName = dr["ModelMaskingName"].ToString();
-                                objModels.HostUrl = dr["HostURL"].ToString();
-                                objModels.LargePicUrl = dr["LargePic"].ToString();
-                                objModels.SmallPicUrl = dr["SmallPic"].ToString();
-                                objModels.ReviewCount = Convert.ToInt16(dr["ReviewCount"]);
-                                objModels.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
+                                objModels.BikeLaunchId = SqlReaderConvertor.ToUInt16(dr["BikeLaunchId"]);
+                                objModels.MakeBase.MakeId = SqlReaderConvertor.ToInt32(dr["BikeMakeId"]);
+                                objModels.MakeBase.MakeName = Convert.ToString(dr["Make"]);
+                                objModels.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objModels.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                objModels.ModelName = Convert.ToString(dr["Model"]);
+                                objModels.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                objModels.HostUrl = Convert.ToString(dr["HostURL"]);
+                                objModels.LargePicUrl = Convert.ToString(dr["LargePic"]);
+                                objModels.SmallPicUrl = Convert.ToString(dr["SmallPic"]);
+                                objModels.ReviewCount = SqlReaderConvertor.ToInt16(dr["ReviewCount"]);
+                                objModels.ReviewRate = SqlReaderConvertor.ParseToDouble(dr["ReviewRate"]);
                                 objModels.ReviewUIRating = string.Format("{0:0.0}", objModels.ReviewRate);
-                                objModels.MinPrice = Convert.ToInt64(dr["MinPrice"]);
-                                objModels.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
-                                objModels.LaunchDate = Convert.ToDateTime(dr["LaunchDate"]);
+                                objModels.MinPrice = SqlReaderConvertor.ToInt64(dr["MinPrice"]);
+                                objModels.MaxPrice = SqlReaderConvertor.ToInt64(dr["MaxPrice"]);
+                                objModels.LaunchDate = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]);
                                 objModels.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objModels.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objModels.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
