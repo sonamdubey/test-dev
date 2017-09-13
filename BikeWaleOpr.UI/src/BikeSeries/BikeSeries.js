@@ -4,15 +4,17 @@
     self.seriesMsg = ko.observable("");
     self.seriesMaskingMsg = ko.observable("");
     self.selectedMakeId = ko.observable("");
-    self.seriesMaskingName = ko.computed(function () {
+    self.seriesMaskingName = ko.observable("");
+    self.seriesName.subscribe(function () {
         var series = "";
         if (self.seriesName() && self.seriesName() != "") {
             series = self.seriesName().trim().replace(/\s+/g, "").replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
             self.seriesMaskingMsg("");
+            $('#txtSeriesMaskingLabel').addClass('active');
         }
-        return series;
+        self.seriesMaskingName(series);
     });
-
+   
     self.validateSubmit = function () {
         try{
             var isValid = true;
@@ -33,14 +35,33 @@
                 self.seriesMaskingMsg("Invalid make masking name");
             }
             if (isValid) {
-                console.log(self.selectedMakeId(), self.seriesName());
                 $.ajax({
                     type: "POST",
-                    url: "/api/bikeseries/add/?makeid=" + self.selectedMakeId() + "&makename=" + $("#selectMake option[value='" + self.selectedMakeId() + "']").text() + "&seriesname=" + self.seriesName() + "&seriesmaskingname=" + self.seriesMaskingName() + "&updatedby=" + $('#userId').val(),
+                    url: "/api/bikeseries/add/?makeid=" + self.selectedMakeId() + "&seriesname=" + self.seriesName() + "&seriesmaskingname=" + self.seriesMaskingName() + "&updatedby=" + $('#userId').val(),
                     success: function (response) {
-                        console.log(response);
+                        $(
+                            "<tr>"
+                                + "<td>"+response.seriesId+"</td>"
+                                + "<td class='teal lighten-4'>"+response.seriesName+"</td>"
+                                + "<td>"+response.seriesMaskingName+"</td>"
+                                + "<td>"+$("#selectMake option[value="+response.make.makeId+"]").text()+"</td>"
+                                + "<td><a href='#modal-make-update' class='tooltipped' href='javascript:void(0)' data-delay='100' data-tooltip='Edit Series' rel='nofollow' data-bind='event: {click: function(d, e) { editSeries(e) }}'><i class='material-icons icon-blue'>mode_edit</i></a></td>"
+                                + "<td><a class='tooltipped' href='javascript:void(0)' data-delay='100' data-tooltip='Delete Series' rel='nofollow' data-bind='event: {click: function(d, e) { deleteSeries(e) }}'><i class='material-icons icon-red'>delete</i></a></td>"
+                                + "<td>"+response.createdOn+"</td>"
+                                + "<td>"+response.updatedOn+"</td>"
+                                + "<td>"+response.updatedBy+"</td>"
+                             + "</tr>"
+                            ).insertBefore('#bikeSeriesList > tbody > tr:first');
+                        Materialize.toast("New bike series added", 3000);
+                        self.seriesName("");
+                        $("#texSeriesLabel").removeClass("active");
+                        $("#txtSeriesMaskingLabel").removeClass("active");
+                        $("#txtSeriesName").removeClass("valid");
+                        $("#txtSeriesMaskingName").removeClass("valid");
+                        $("#selectMake").val("");
+                        $('#selectMake').material_select();
                     }, error: function (respose) {
-                        console.log(respose);
+                        Materialize.toast(respose.responseJSON.Message, 3000);
                     }
                 });
             }
@@ -50,10 +71,10 @@
         }
     }
 }
-
+var bikeSeriesVM = new bindBikeSeriesData;
 $(document).ready(function () {
     try{
-        ko.applyBindings(new bindBikeSeriesData);
+        ko.applyBindings(bikeSeriesVM);
     } catch (e) {
         console.warn(e.message);
     }

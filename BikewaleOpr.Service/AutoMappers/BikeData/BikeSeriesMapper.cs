@@ -3,7 +3,6 @@ using BikewaleOpr.DTO.BikeData;
 using BikewaleOpr.DTO.Make;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
-using System.Collections.Generic;
 
 namespace BikewaleOpr.Service.AutoMappers.BikeData
 {

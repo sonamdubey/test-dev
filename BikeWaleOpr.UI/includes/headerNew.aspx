@@ -30,6 +30,7 @@
                                     <ul>
                                         <li class="collapsible-body-title">Bike Data</li>
                                         <li><a href="/makes/">Makes</a></li>
+                                        <li><a href="/bikeseries/">Series</a></li>
                                         <li><a href="/content/bikemodels.aspx">Models</a></li>
                                         <li><a href="/content/bikeversions.aspx">Versions</a></li>
                                         <li><a href="/pageMetas/">Configure Page Metas</a></li>

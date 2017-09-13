@@ -68,7 +68,10 @@ namespace BikewaleOpr.DALs.Bikedata
                     connection.Open();
                     connection.Execute("bw_addbikeseries", param: param, commandType: CommandType.StoredProcedure);
                     bikeSeries.SeriesId = param.Get<uint>("par_seriesid");
-                    bikeSeries.UpdatedBy = param.Get<string>("par_updatedby");
+                    if(bikeSeries.SeriesId != 0)
+                    {
+                        bikeSeries.UpdatedBy = param.Get<string>("par_updatedby");
+                    }
                     if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();

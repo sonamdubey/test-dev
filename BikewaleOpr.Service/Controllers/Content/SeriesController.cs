@@ -27,10 +27,10 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("api/bikeseries/add/")]
-        public IHttpActionResult Add(uint MakeId, string MakeName, string SeriesName, string SeriesMaskingName, uint UpdatedBy)
+        public IHttpActionResult Add(uint MakeId, string SeriesName, string SeriesMaskingName, uint UpdatedBy)
         {
             BikeSeriesDTO objBikeSeriesDTO = null;
-            if (MakeId > 0 && !string.IsNullOrEmpty(SeriesName) && !string.IsNullOrEmpty(SeriesMaskingName) && !string.IsNullOrEmpty(MakeName))
+            if (MakeId > 0 && !string.IsNullOrEmpty(SeriesName) && !string.IsNullOrEmpty(SeriesMaskingName))
             {
                 try
                 { 
@@ -39,10 +39,10 @@ namespace BikewaleOpr.Service.Controllers.Content
                         SeriesName = SeriesName,
                         SeriesMaskingName = SeriesMaskingName,
                         CreatedOn = DateTime.Now,
+                        UpdatedOn = DateTime.Now,
                         BikeMake = new BikeMakeEntityBase()
                         {
-                            MakeId = Convert.ToInt32(MakeId),
-                            MakeName = MakeName
+                            MakeId = Convert.ToInt32(MakeId)
                         }
                     };
                     _series.AddSeries(objBikeSeries, UpdatedBy);

@@ -7,10 +7,10 @@ namespace BikewaleOpr.BAL
 {
     public class BikeSeries: IBikeSeries
     {
-        private IBikeSeriesRepository _series;
-        public BikeSeries(IBikeSeriesRepository series)
+        private readonly IBikeSeriesRepository _seriesRepo;
+        public BikeSeries(IBikeSeriesRepository seriesRepo)
         {
-            _series = series;
+            _seriesRepo = seriesRepo;
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace BikewaleOpr.BAL
             IEnumerable<BikeSeriesEntity> objBikeSeriesList = null;
             try
             {
-                objBikeSeriesList = _series.GetSeries();
+                objBikeSeriesList = _seriesRepo.GetSeries();
             }
             catch (Exception ex)
             {
@@ -46,7 +46,7 @@ namespace BikewaleOpr.BAL
             {
                 if (bikeSeries != null && bikeSeries.BikeMake != null && UpdatedBy > 0)
                 {
-                    _series.AddSeries(bikeSeries, UpdatedBy);
+                    _seriesRepo.AddSeries(bikeSeries, UpdatedBy);
                 }
             }
             catch (Exception ex)
