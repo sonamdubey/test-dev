@@ -289,8 +289,15 @@
 												<a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName Bikes in India" class="btn view-all-target-btn">View all</a>
 											</div>
 										</div>
-                                        @Html.Partial("~/Views/Model/_BestBikes.cshtml", Model.OtherBestBikes)
-										<div class="clear"></div>
+                                        @if (!Model.OtherBestBikes.IsMakePresentInConfig)
+                                        {
+                                            @Html.Partial("~/Views/Model/_BestBikes.cshtml", Model.OtherBestBikes);
+                                        }
+                                        else
+                                        {
+                                            @Html.Partial("~/Views/Model/_MoreBikesFromMake.cshtml", Model.OtherBestBikes);
+                                        }
+                                        <div class="clear"></div>
 									</div>
 								</div>
 								<div class="clear"></div>

@@ -3801,6 +3801,8 @@
     <Content Include="Views\UserReview\RateOtherDetails.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_ATF_970x90.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_BTF_970x90.cshtml" />
+    <Content Include="Views\Model\_MoreBikesFromMake_Mobile.cshtml" />
+    <Content Include="Views\Model\_MoreBikesFromMake.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4065,7 +4067,6 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-
     <PostBuildEvent Condition="'$(Configuration)' != 'Debug'">
 
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
@@ -4075,8 +4076,7 @@
 	<!--xcopy /Y "$(ProjectDir)..\Libs\System.Runtime.dll" "$(ProjectDir)bin\"-->
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x64.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x86.dll" "$(ProjectDir)bin\"
-<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"-->
-    </PostBuildEvent>
+<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
