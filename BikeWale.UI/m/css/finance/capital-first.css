@@ -261,3 +261,9 @@ input:focus ~ .input-number-prefix{
     -ms-border-radius: 50%;
     border-radius: 50%;
 }
+
+.lock-browser-scroll {
+  position: fixed;
+  overflow-y: hidden;
+  width: 100%;
+}

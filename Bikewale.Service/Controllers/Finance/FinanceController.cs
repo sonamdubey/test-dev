@@ -7,6 +7,7 @@ using Bikewale.Service.AutoMappers.Finance;
 using System;
 using System.Web.Http;
 using Bikewale.Entities.Dealer;
+using Bikewale.Interfaces.MobileVerification;
 
 namespace Bikewale.Service.Controllers
 {
@@ -14,10 +15,12 @@ namespace Bikewale.Service.Controllers
     {
       
         private readonly ICapitalFirst _objICapitalFirst = null;
-        public FinanceController( ICapitalFirst objICapitalFirst)
+        private readonly IMobileVerificationRepository _mobileVerRespo = null;
+        public FinanceController( ICapitalFirst objICapitalFirst, IMobileVerificationRepository mobileVerRespo)
         {
            
             _objICapitalFirst = objICapitalFirst;
+            _mobileVerRespo = mobileVerRespo;
 
         }
         /// <summary>
@@ -56,7 +59,8 @@ namespace Bikewale.Service.Controllers
         {
             try
             {
-             string message=_objICapitalFirst.SaveEmployeDetails(objDetails);
+                objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
+                string message=_objICapitalFirst.SaveEmployeDetails(objDetails);
 
                 return Ok(message);
             }
@@ -100,6 +104,29 @@ namespace Bikewale.Service.Controllers
             {
                 return BadRequest("Invalid Request");
             }
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain on 24 july 2017
+        /// Summary :- Banner SaveBannerBasicDetails
+        /// </summary>
+        [HttpPost, Route("api/finance/verifymobile/otp/{otp}/mobilenumber/{mobileNumber}")]
+        public IHttpActionResult VerifyMobile(string otp,string mobileNumber)
+        {
+            try
+            {
+                bool mobileVerified = _mobileVerRespo.VerifyMobileVerificationCode(mobileNumber, otp, string.Empty);
+
+                return Ok(mobileVerified);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Service.Controllers.SavePersonalDetails");
+
+                return InternalServerError();
+            }
+
+
         }
     }
 }
