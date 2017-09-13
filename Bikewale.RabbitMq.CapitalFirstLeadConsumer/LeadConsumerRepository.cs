@@ -1,4 +1,5 @@
-﻿using Bikewale.Utility;
+﻿using Bikewale.Entities.Finance.CapitalFirst;
+using Bikewale.Utility;
 using Consumer;
 using MySql.CoreDAL;
 using System;

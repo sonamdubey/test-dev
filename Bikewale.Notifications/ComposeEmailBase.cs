@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-
-namespace Bikewale.Notifications
+﻿namespace Bikewale.Notifications
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 26 apr 2013
@@ -30,6 +27,12 @@ namespace Bikewale.Notifications
             mail.SendMail(sendTo, subject, ComposeBody());
         }
 
+
+        public void Send(string sendTo, string subject, byte[] attachment, string attachmentName)
+        {
+            SendMails mail = new SendMails();
+            mail.SendMail(sendTo, subject, ComposeBody(), attachment, attachmentName);
+        }
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 31 May 2013
