@@ -39,7 +39,6 @@ namespace Bikewale.Models
         public string Page_ATF_CSS { get; set; }
         public string Page_BTF_CSS_Path { get; set; }
         public string Page_JS_Path { get; set; }
-
         public string Page_H1 { get; set; }
 
         public ModelBase()

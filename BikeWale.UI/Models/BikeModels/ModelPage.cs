@@ -267,38 +267,16 @@ namespace Bikewale.Models.BikeModels
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
 
-            BreadCrumbs.Add(new BreadcrumbListItem
-            {
-                Position = 1,
-                Item = new BreadcrumbItem()
-                {
-                    Url = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl),
-                    Name = "Home"
-                }
-            });
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, "/", "Home"));
+
 
             if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
             {
 
-                BreadCrumbs.Add(new BreadcrumbListItem
-                {
-                    Position = 2,
-                    Item = new BreadcrumbItem()
-                    {
-                        Url = string.Format("{0}/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName),
-                        Name = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName + " Bikes"
-                    }
-                });
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(2, UrlFormatter.BikeMakeUrl(_objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName), string.Format("{0} Bikes", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
             }
 
-            BreadCrumbs.Add(new BreadcrumbListItem
-            {
-                Position = 3,
-                Item = new BreadcrumbItem()
-                {
-                    Name = _objData.Page_H1
-                }
-            });
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(3, null, _objData.Page_H1));
 
 
             _objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
@@ -314,7 +292,7 @@ namespace Bikewale.Models.BikeModels
             try
             {
                 List<AdditionalProperty> listSpecs = new List<AdditionalProperty>();
-                AdditionalProperty property = default(AdditionalProperty);
+                AdditionalProperty property = null;
 
                 if (_objData != null && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionSpecs != null)
                 {

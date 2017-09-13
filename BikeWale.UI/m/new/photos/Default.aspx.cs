@@ -187,7 +187,7 @@ namespace Bikewale.Mobile.New.Photos
                     {
                         GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
 
-                        ctrlSimilarBikesWithPhotos.TotalRecords = 6;
+                        ctrlSimilarBikesWithPhotos.TotalRecords = 9;
                         ctrlSimilarBikesWithPhotos.City = currentCityArea.City;
                         ctrlSimilarBikesWithPhotos.CityId = currentCityArea.CityId;
                         ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;

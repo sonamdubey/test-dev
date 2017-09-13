@@ -122,7 +122,6 @@ namespace Bikewale.Controllers
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
-                obj.IsMobile = true;
                 obj.Source = DTO.PriceQuote.PQSources.Mobile;
                 obj.PQSource = Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage;
                 obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.Model_Mobile;

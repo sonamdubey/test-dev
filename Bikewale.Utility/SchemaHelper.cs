@@ -80,5 +80,41 @@ namespace Bikewale.Utility
             return webpage;
         }
 
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to set breadcrumb item
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="url"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static BreadcrumbListItem SetBreadcrumbItem(ushort position, string url, string name)
+        {
+            if (position > 0 && !string.IsNullOrEmpty(name))
+            {
+
+                try
+                {
+                    return new BreadcrumbListItem
+                    {
+                        Position = position,
+                        Item = new BreadcrumbItem()
+                        {
+                            Url = url,
+                            Name = name
+                        }
+                    };
+
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+
+            return null;
+        }
+
     }
 }

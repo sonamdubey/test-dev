@@ -3,8 +3,8 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.Models;
 using Bikewale.Entities.Pages;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -289,7 +289,7 @@ namespace Bikewale.Models
             long MaxPrice = 0;
             try
             {
-                if (objModelList != null && objModelList.Count() > 0)
+                if (objModelList != null && objModelList.Any())
                 {
                     minPrice = objModelList.Min(bike => bike.VersionPrice);
                     MaxPrice = objModelList.Max(bike => bike.VersionPrice);
@@ -303,16 +303,7 @@ namespace Bikewale.Models
                 objData.AdTags.TargetedMakes = objData.MakeName;
                 objData.Page_H1 = string.Format("{0} Bikes", objData.MakeName);
 
-                List <BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
-
-                BreadCrumbs.Add(new BreadCrumb
-                {
-                    ListUrl = "/",
-                    Name = "Home"
-                });
-
-                objData.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
-                objData.BreadCrumbsList.PageName = objData.Page_H1;
+                SetBreadcrumList(ref objData);
 
                 CheckCustomPageMetas(objData, objMakeBase);
             }
@@ -322,6 +313,23 @@ namespace Bikewale.Models
             }
 
         }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(ref MakePageVM objData)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, "/", "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(2, null, objData.Page_H1));
+
+
+            objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
+        }
+
 
         /// <summary>
         /// Created By : Sushil Kumar on 13th Aug 2017
