@@ -13,6 +13,8 @@ namespace Bikewale.Entities.UserReviews
     /// Summary     : Added totalreviews and totalratings
     /// Modified by : Aditi Srivastava on 14 June 2017
     /// Summary     : Added OverallModelRating
+    /// Modified by : Sajal Gupta on 12-07-2017. Added Mileage    
+    /// Modified by : Sajal Gupta on 11-09-2017. Added ReviewUrl
     /// Modified by : Sajal Gupta on 12-07-2017. Added Mileage
     /// Modified By :   Vishnu Teja Yalakuntla on 06 Sep 2017
     /// Summary     :   Added CustomerId property

@@ -4,7 +4,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Utility;
 using System;
@@ -22,6 +21,7 @@ namespace Bikewale.Models.Upcoming
         public uint topbrandCount { get; set; }
         private UpcomingBikesListInputEntity _filters;
         private readonly ushort _pageNumber;
+        private uint _totalPagesCount;
         private readonly string _makeMaskingName;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
 
@@ -81,11 +81,18 @@ namespace Bikewale.Models.Upcoming
             {
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
                 objUpcoming.Make = _bikeMakesCache.GetMakeDetails(MakeId);
-                BindPageMetaTags(objUpcoming.PageMetaTags, _makeMaskingName, objUpcoming.Make.MakeName);
                 var upcomingBikes = _upcoming.GetModels(_filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(topbrandCount);
                 objUpcoming.PopularBikes = BindMostPopularBikes();
                 UpcomingBikeResult bikeResult = _upcoming.GetBikes(_filters, SortBy);
+
+                _totalPagesCount = (uint)(bikeResult.TotalCount / _filters.PageSize);
+
+                if ((bikeResult.TotalCount % _filters.PageSize) > 0)
+                    _totalPagesCount += 1;
+
+                BindPageMetaTags(objUpcoming.PageMetaTags, _makeMaskingName, objUpcoming.Make.MakeName);
+
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
 
@@ -143,6 +150,12 @@ namespace Bikewale.Models.Upcoming
                 pageMetaTags.Keywords = string.Format("{0} upcoming, Expected {0} Launch, upcoming {0}, Latest {0} bikes", makeName);
                 pageMetaTags.Description = string.Format("Find {0} upcoming bikes in India. Get details on expected launch date, prices for {0} bikes expected to launch in {1}.", makeName, currentYear);
                 pageMetaTags.Title = string.Format("Upcoming {0} Bikes| Expected {0} Launches in {1} - BikeWale", makeName, currentYear);
+
+                if (_pageNumber > 1)
+                {
+                    pageMetaTags.Description = string.Format("Page {0} of {1} - {2}", _pageNumber, _totalPagesCount, pageMetaTags.Description);
+                    pageMetaTags.Title = string.Format("Page {0} of {1} - {2}", _pageNumber, _totalPagesCount, pageMetaTags.Title);
+                }
             }
             catch (Exception ex)
             {
@@ -169,10 +182,7 @@ namespace Bikewale.Models.Upcoming
                     TotalResults = (int)(objUpcoming.TotalBikes)
                 };
 
-                int pages = (int)(objUpcoming.TotalBikes / PageSize);
-
-                if ((objUpcoming.TotalBikes % PageSize) > 0)
-                    pages += 1;
+                int pages = (int)_totalPagesCount;
 
                 string prevUrl = string.Empty, nextUrl = string.Empty;
                 Paging.CreatePrevNextUrl(pages, BaseUrl, (int)objUpcoming.Pager.PageNo, ref nextUrl, ref prevUrl);

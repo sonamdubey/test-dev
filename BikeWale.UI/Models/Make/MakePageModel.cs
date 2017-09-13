@@ -3,6 +3,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Models;
 using Bikewale.Entities.Pages;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -301,6 +302,17 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, {0} Images, new {0} Bikes", objData.MakeName);
                 objData.AdTags.TargetedMakes = objData.MakeName;
                 objData.Page_H1 = string.Format("{0} Bikes", objData.MakeName);
+
+                List <BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+
+                BreadCrumbs.Add(new BreadCrumb
+                {
+                    ListUrl = "/",
+                    Name = "Home"
+                });
+
+                objData.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
+                objData.BreadCrumbsList.PageName = objData.Page_H1;
 
                 CheckCustomPageMetas(objData, objMakeBase);
             }

@@ -1,19 +1,17 @@
 ﻿using Bikewale.DTO.Make;
-using Bikewale.DTO.Series;
 using Newtonsoft.Json;
 using System;
 
-namespace Bikewale.DTO.Model
+namespace Bikewale.DTO.Model.v2
 {
-    public class ModelDetails : ModelBase
+    /// <summary>
+    /// Created By : Sushil Kumar on 12th Sep 2017
+    /// Description : Removed unused properties from previous version
+    /// </summary>
+    public class ModelDetails
     {
         [JsonProperty("makeDetails")]
-        private MakeBase objmakeBase = new MakeBase();
-        public MakeBase MakeBase { get { return objmakeBase; } set { objmakeBase = value; } }
-
-        [JsonProperty("seriesDetails")]
-        private SeriesBase objEntityBase = new SeriesBase();
-        public SeriesBase ModelSeries { get { return objEntityBase; } set { objEntityBase = value; } }
+        public MakeBase MakeBase { get; set; }
 
         [JsonProperty("new")]
         public bool New { get; set; }
@@ -24,15 +22,8 @@ namespace Bikewale.DTO.Model
         [JsonProperty("futuristic")]
         public bool Futuristic { get; set; }
 
-
         [JsonProperty("hostUrl")]
         public string HostUrl { get; set; }
-
-        [JsonProperty("smallPic")]
-        public string SmallPicUrl { get; set; }
-
-        [JsonProperty("largePic")]
-        public string LargePicUrl { get; set; }
 
         [JsonProperty("minPrice")]
         public Int64 MinPrice { get; set; }
@@ -48,6 +39,5 @@ namespace Bikewale.DTO.Model
 
         [JsonProperty("reviewCount")]
         public int ReviewCount { get; set; }
-
     }
 }

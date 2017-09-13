@@ -7,6 +7,7 @@ using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UserReviews;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
+using Bikewale.Utility.StringExtention;
 using System;
 using System.Collections;
 using System.Collections.Specialized;
@@ -14,7 +15,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.Utility.StringExtention;
 
 namespace Bikewale.Service.Controllers.UserReviews
 {
@@ -40,7 +40,6 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="userReviewsRepo"></param>
         /// <param name="userReviews"></param>
         /// <param name="userReviewsCache"></param>
-        /// <param name="objBikeModel"></param>
         public UserReviewsController(IUserReviewsRepository userReviewsRepo, IUserReviews userReviews, IUserReviewsCache userReviewsCache)
         {
             _userReviewsRepo = userReviewsRepo;
@@ -279,7 +278,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         #endregion
 
         #region SaveUserReviewDetails
-        [HttpPost, ResponseType(typeof(UserReviewSummaryDto)), Route("api/write-review/save/")]
+        [HttpPost, ResponseType(typeof(UserReviewSummaryDto)), Route("api/user-reviews/review/save/")]
         public IHttpActionResult SaveUserReviewDetails(WriteReviewInput writeReviewInput)
         {
             ReviewSubmitData objReviewData = null;
@@ -289,7 +288,7 @@ namespace Bikewale.Service.Controllers.UserReviews
 
             try
             {
-                if (writeReviewInput != null)
+                if (ModelState.IsValid && writeReviewInput != null)
                 {
                     // Auto map the properties
                     objReviewData = new ReviewSubmitData();
@@ -397,16 +396,23 @@ namespace Bikewale.Service.Controllers.UserReviews
         {
             try
             {
-                RateBikeDetails objRateBikeDetails = null;
-                UserReviewRatingData objReviewRatingData = null;
-                if (objRateBike != null)
+                if (ModelState.IsValid)
                 {
-                    
-                    objReviewRatingData = _userReviews.GetRateBikeData(objRateBike);
-                    if (objReviewRatingData != null)
+                    RateBikeDetails objRateBikeDetails = null;
+                    UserReviewRatingData objReviewRatingData = null;
+                    if (objRateBike != null)
+                    {
+
+                        objReviewRatingData = _userReviews.GetRateBikeData(objRateBike);
+                        if (objReviewRatingData != null)
                         {
-                        objRateBikeDetails = UserReviewsMapper.Convert(objReviewRatingData);
-                        return Ok(objRateBikeDetails);
+                            objRateBikeDetails = UserReviewsMapper.Convert(objReviewRatingData);
+                            return Ok(objRateBikeDetails);
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest();
                     }
                 }
                 else
@@ -433,7 +439,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         {
             try
             {
-                if(objSaveInputRating !=null)
+                if (ModelState.IsValid && objSaveInputRating != null && !String.IsNullOrEmpty(objSaveInputRating.RatingQuestionAns))
                 {
                     RatingReviewInput objRatingReviewInput = null;
                     UserReviewRatingObject objRating = null;
@@ -442,7 +448,7 @@ namespace Bikewale.Service.Controllers.UserReviews
 
                     objSaveRatingEntity = UserReviewsMapper.Convert(objSaveInputRating);
 
-                    if(objSaveRatingEntity !=null)
+                    if (objSaveRatingEntity != null)
                     {
                         objRating = _userReviews.SaveUserRatings(objSaveRatingEntity);
                     }
@@ -450,6 +456,7 @@ namespace Bikewale.Service.Controllers.UserReviews
                     objRatingReviewInput = UserReviewsMapper.Convert(objRating, objSaveInputRating);
                     return Ok(objRatingReviewInput);
                 }
+
                 else
                 {
                     return BadRequest();
@@ -461,7 +468,7 @@ namespace Bikewale.Service.Controllers.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.SubmitRating");
                 return InternalServerError();
             }
-           
+
         }
         #endregion
 

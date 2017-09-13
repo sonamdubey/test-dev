@@ -164,6 +164,7 @@ namespace Bikewale.Models.BikeModels
                     }
                     _objData.Page = GAPages.Model_Page;
 
+                    SetBreadcrumList();
                     SetPageJSONLDSchema();
 
                     #endregion Do Not change the sequence
@@ -180,64 +181,128 @@ namespace Bikewale.Models.BikeModels
         /// <summary>
         /// Created By  : Sangram Nandkhile on 31st Aug 2017
         /// Description : To load json schema for the list items
+        /// Modified By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema along with product
         /// </summary>
         private void SetPageJSONLDSchema()
         {
             try
             {
-                var product = new Product();
-                product.Description = _objData.ModelPageEntity.ModelDesc.SmallDescription;
-                product.Name = _objData.BikeName;
-                product.Image = Bikewale.Utility.Image.GetPathToShowImages(_objData.ModelPageEntity.ModelDetails.OriginalImagePath, _objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._210x118);
-                product.Model = _objData.ModelPageEntity.ModelDetails.ModelName;
-                product.Manufacturer = new Manufacturer()
-                {
-                    Name = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName
-                };
 
-                product.Brand = new Brand()
-                {
-                    Name = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName
-                };
+                //set webpage schema for the model page
+                WebPage webpage = SchemaHelper.GetWebpageSchema(_objData.PageMetaTags, _objData.BreadcrumbList);
 
-                if (!_objData.IsUpcomingBike && _objData.ModelPageEntity.ModelDetails.RatingCount > 0)
+                if (webpage != null)
                 {
-                    product.AggregateRating = new AggregateRating()
+                    Product product = new Product();
+                    product.Description = _objData.ModelPageEntity.ModelDesc.SmallDescription;
+                    product.Name = _objData.BikeName;
+                    product.Image = Bikewale.Utility.Image.GetPathToShowImages(_objData.ModelPageEntity.ModelDetails.OriginalImagePath, _objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._210x118);
+                    product.Model = _objData.ModelPageEntity.ModelDetails.ModelName;
+
+                    product.Brand = new Brand()
                     {
-                        RatingCount = (uint)_objData.ModelPageEntity.ModelDetails.RatingCount,
-                        RatingValue = Convert.ToDouble(_objData.ModelPageEntity.ModelDetails.ReviewUIRating),
-                        ReviewCount = (uint)_objData.ModelPageEntity.ModelDetails.ReviewCount,
-                        WorstRating = 1,
-                        BestRating = 5,
-                        ItemReviewed = product.Name
+                        Name = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
+                        Url = string.Format("{0}/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName)
                     };
-                }
-                if (_objData.IsUpcomingBike)
-                {
-                    product.AggregateOffer = new AggregateOffer()
-                    {
-                        LowPrice = (uint)_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMin,
-                        HighPrice = (uint)_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMax
-                    };
-                }
-                else
-                {
-                    product.AggregateOffer = new AggregateOffer()
-                    {
-                        LowPrice = (uint)_objData.ModelPageEntity.ModelDetails.MinPrice,
-                        HighPrice = (uint)_objData.ModelPageEntity.ModelDetails.MaxPrice
-                    };
-                }
-                product.Color = _objData.ModelPageEntity.ModelColors.Select(x => x.ColorName);
 
-                SetAdditionalProperties(product);
+                    if (!_objData.IsUpcomingBike && _objData.ModelPageEntity.ModelDetails.RatingCount > 0)
+                    {
+                        product.AggregateRating = new AggregateRating()
+                        {
+                            RatingCount = (uint)_objData.ModelPageEntity.ModelDetails.RatingCount,
+                            RatingValue = Convert.ToDouble(_objData.ModelPageEntity.ModelDetails.ReviewUIRating),
+                            ReviewCount = (uint)_objData.ModelPageEntity.ModelDetails.ReviewCount,
+                            WorstRating = 1,
+                            BestRating = 5,
+                            ItemReviewed = product.Name
+                        };
+                    }
+                    if (_objData.IsUpcomingBike)
+                    {
+                        product.AggregateOffer = new AggregateOffer()
+                        {
+                            LowPrice = (uint)_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMin,
+                            HighPrice = (uint)_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMax
+                        };
+                    }
+                    else
+                    {
+                        product.AggregateOffer = new AggregateOffer()
+                        {
+                            LowPrice = (uint)_objData.ModelPageEntity.ModelDetails.MinPrice,
+                            HighPrice = (uint)_objData.ModelPageEntity.ModelDetails.MaxPrice
+                        };
 
-                _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(product);
+                        if (_objData.IsDiscontinuedBike)
+                        {
+                            product.AggregateOffer.Availability = OfferAvailability._Discontinued;
+                        }
+                        else
+                        {
+                            product.AggregateOffer.Availability = OfferAvailability._InStock;
+                        }
+                    }
+                    if (_objData.ModelPageEntity.ModelColors.Any())
+                    {
+                        product.Color = _objData.ModelPageEntity.ModelColors.Select(x => x.ColorName);
+                    }
+
+                    SetAdditionalProperties(product);
+
+                    _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage, product);
+                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ModelPage.SetPageJSONLDSchema => BikeName: {0}", _objData.BikeName));
             }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList()
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+
+            BreadCrumbs.Add(new BreadcrumbListItem
+            {
+                Position = 1,
+                Item = new BreadcrumbItem()
+                {
+                    Url = string.Format("{0}/", BWConfiguration.Instance.BwHostUrl),
+                    Name = "Home"
+                }
+            });
+
+            if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
+            {
+
+                BreadCrumbs.Add(new BreadcrumbListItem
+                {
+                    Position = 2,
+                    Item = new BreadcrumbItem()
+                    {
+                        Url = string.Format("{0}/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName),
+                        Name = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName + " Bikes"
+                    }
+                });
+            }
+
+            BreadCrumbs.Add(new BreadcrumbListItem
+            {
+                Position = 3,
+                Item = new BreadcrumbItem()
+                {
+                    Name = _objData.Page_H1
+                }
+            });
+
+
+            _objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
         }
 
         /// <summary>
@@ -318,7 +383,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> SetAdditionalProperties(), Model: {0}",_modelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> SetAdditionalProperties(), Model: {0}", _modelId));
             }
 
         }
@@ -1255,7 +1320,7 @@ namespace Bikewale.Models.BikeModels
 
             }
 
-            
+
         }
 
         /// <summary>

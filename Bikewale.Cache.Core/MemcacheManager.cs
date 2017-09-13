@@ -1,11 +1,11 @@
 ﻿using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Notifications;
 using Enyim.Caching;
 using Enyim.Caching.Memcached;
 using System;
-using System.Linq;
-using System.Configuration;
 using System.Collections.Generic;
-using Bikewale.Notifications;
+using System.Configuration;
+using System.Linq;
 
 namespace Bikewale.Cache.Core
 {
@@ -22,7 +22,7 @@ namespace Bikewale.Cache.Core
             {
                 mc = new MemcachedClient("memcached");
             }
-        }        
+        }
 
         private IList<T> GetFromDb<T>(IDictionary<string, string> keyValuePair, TimeSpan cacheDuration, Func<string, IEnumerable<T>> doCallback)
         {
@@ -56,7 +56,7 @@ namespace Bikewale.Cache.Core
 
             return list;
         }
-        
+
         public T GetFromCache<T>(string key, TimeSpan cacheDuration, Func<T> dbCallback)
         {
             T t = default(T);
@@ -209,7 +209,7 @@ namespace Bikewale.Cache.Core
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MemcacheManager.GetFromCache");                
+                ErrorClass objErr = new ErrorClass(ex, "MemcacheManager.GetFromCache");
             }
             finally
             {

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bikewale.DTO.UserReviews
 {
@@ -9,24 +10,31 @@ namespace Bikewale.DTO.UserReviews
     /// <returns></returns>
     public class RateBikeInput
     {
-        [JsonProperty("modelId")]
+        [Required]
+        [JsonProperty("modelId")] 
         public uint ModelId { get; set; }
 
+        [Required]
         [JsonProperty("reviewId")]
         public uint ReviewId { get; set; }
 
+        [Required]
         [JsonProperty("customerId")]
         public ulong CustomerId { get; set; }
 
+       
         [JsonProperty("sourceId")]
         public ushort SourceId { get; set; }
 
+        [Required]
         [JsonProperty("selectedRating")]
         public ushort SelectedRating { get; set; }
 
+        [Required]
         [JsonProperty("isFake")]
         public bool IsFake { get; set; }
 
+        [Required]
         [JsonProperty("returnUrl")]
         public string ReturnUrl { get; set; }
 

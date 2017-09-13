@@ -15,6 +15,7 @@ using Bikewale.Utility;
 using Bikewale.Entities.Schema;
 using System.Collections.Generic;
 using System.Linq;
+using Bikewale.Entities.Models;
 
 namespace Bikewale.Models
 {
@@ -181,8 +182,45 @@ namespace Bikewale.Models
                                CityDetails.CityName,
                                objMake.MakeName);
                 }
-              
-              SetPageJSONLDSchema(objDealerDetails);
+
+                List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+
+                BreadCrumbs.Add(new BreadCrumb
+                {
+                    ListUrl = "/",
+                    Name = "Home"
+                });
+
+                BreadCrumbs.Add(new BreadCrumb
+                {
+                    ListUrl = "/dealer-showroom-locator/",
+                    Name = "Showroom Locator"
+                });
+
+                if (objDealerDetails.Make != null)
+                {
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl = string.Format("/{0}-dealer-showrooms-in-india/", objDealerDetails.Make.MaskingName),
+                        Name = objDealerDetails.Make.MakeName + " Showroom"
+                    });
+                }
+
+                if (objDealerDetails.Make != null && objDealerDetails.CityDetails != null)
+                {
+                    BreadCrumbs.Add(new BreadCrumb
+                    {
+                        ListUrl =  string.Format("/{0}-dealer-showrooms-in-{1}", objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName),
+                        Name = string.Format("{0} Showroom in {1}", objDealerDetails.Make.MakeName, objDealerDetails.CityDetails.CityName)
+                    });
+                }
+
+                objDealerDetails.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
+
+                if (objDealerDetails.DealerDetails != null && objDealerDetails.DealerDetails.DealerDetails != null)
+                    objDealerDetails.BreadCrumbsList.PageName = objDealerDetails.DealerDetails.DealerDetails.Name;
+
+                SetPageJSONLDSchema(objDealerDetails);
             }
             catch (System.Exception ex)
             {
