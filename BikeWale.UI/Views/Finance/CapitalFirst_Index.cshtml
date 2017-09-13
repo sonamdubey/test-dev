@@ -61,9 +61,10 @@
                                 <span class="boundary"></span>
                                 <span class="error-text"></span>
                             </div>
-                            <div class="input-box form-control-box">
+                            <div class="input-box input-number-box form-control-box">
                                 <input id="cfNum" type="tel" maxlength="10">
                                 <label for="cfNum">Mobile Number<sup>*</sup></label>
+                                <span class="input-number-prefix">+91</span>
                                 <span class="boundary"></span>
                                 <span class="error-text"></span>
                             </div>
@@ -255,4 +256,6 @@
 </section>
 <input type="hidden" id="objLead" value="@(Model.objLeadJson)"/>
 
+@Html.Partial("~/Views/Shared/_otpScreen.cshtml")
+<div class="otp-black-window"></div>
 <script defer src="/src/zebra-datepicker.js"></script>

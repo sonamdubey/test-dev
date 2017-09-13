@@ -3135,7 +3135,6 @@
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
     <Content Include="src\dealer\landing.js" />
-    <Content Include="src\finance\capital-first.js" />
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos.js" />
@@ -3219,6 +3218,7 @@
     <Content Include="src\pq\price_quote.js" />
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\survey\bajaj-survey.js" />
+    <Content Include="src\finance\capital-first.js" />
     <Content Include="src\swiper-3.1.7.js" />
     <Content Include="src\used-landing.js" />
     <Content Include="src\sell-bike.js" />
@@ -3793,6 +3793,7 @@
     <Content Include="Views\Model\_BestBikes.cshtml" />
     <Content Include="Views\Finance\CapitalFirst_Index_Mobile.cshtml" />
     <Content Include="Views\Shared\_OtpScreen_Mobile.cshtml" />
+    <Content Include="Views\Shared\_OtpScreen.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

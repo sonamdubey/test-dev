@@ -33,7 +33,7 @@
             <input type="button" id="saveNewNumber" data-bind="event: { click: changeMobileNumber }" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Done">
         </div>
     </div>
-    <div class="thankyou-container hide">
+    <div id="thankyouScreen" class="thankyou-container hide">
         <div class="icon-outer-container rounded-corner50">
             <div class="icon-inner-container rounded-corner50">
                 <span class="otp-icons thumbsup-icon"></span>
@@ -47,18 +47,15 @@
 </div>
 
 <script type="text/javascript">
-    var dotpvm;
-    function otpModel()
-    {
+    var otpvm;
+    function otpModel() {
         var self = this;
         self.userName = ko.observable();
         self.mobileNumber = ko.observable();
 
         // set parameter for otp popup
-        self.setParameters = function (objData)
-        {
-            if (objData != null)
-            {
+        self.setParameters = function (objData) {
+            if (objData != null) {
                 if (objData.userName != null)
                     self.userName(objData.userName);
 
@@ -69,11 +66,10 @@
             }
         }
         self.changeMobileNumber = function () {
-          
-            if (validatePhoneNumber('#otpNewNumber'))
-            {
-                var employeDetails={
-                
+
+            if (validatePhoneNumber('#otpNewNumber')) {
+                var employeDetails = {
+
                     "status": $('#cfStatusS').is(':checked') ? 1 : 2,
                     "companyName": $('#cfCompName').val(),
                     "OfficialAddressLine1": $('#cfCompAddress1').val(),
@@ -83,8 +79,8 @@
                     "mobileNumber": $('#otpNewNumber').val(),
                     "emailId": $('#cfEmail').val(),
                     "objLeadJson": $("#objLead").val(),
-                    "firstName":$('#cfFName').val(),
-                    "lastName":$('#cfLName').val(),                   
+                    "firstName": $('#cfFName').val(),
+                    "lastName": $('#cfLName').val(),
                     "dateOfBirth": $('#cfDOB').val(),
                     "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
                     "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
@@ -93,22 +89,28 @@
                     "pincode": $("#cfPincode").val(),
                     "pancard": $("#cfPan").val()
 
-                
+
                 }
                 $.ajax({
                     type: "POST",
-                    url: "api/finance/saveemployedetails/",
+                    url: "/api/finance/saveemployedetails/",
                     contentType: "application/json",
                     data: ko.toJSON(employeDetails),
                     success: function (response) {
-
-                        
-                        var objData = {
-                            "userName": $('#cfFName').val() + +$('#cfLName').val(),
-                            "mobileNumber": mobileNumber
+                        if (response == "Not Registered Mobile Number") {
+                            otpScreen.openOtp();
+                            var objData = {
+                                "userName": $('#cfFName').val() + +$('#cfLName').val(),
+                                "mobileNumber": $('#otpNewNumber').val()
+                            }
+                            otpvm.setParameters(objData);
                         }
-                        dotpvm.setParameters(objData);
-                        
+                        else if (response == "Registered Mobile Number") {
+                            otpScreen.closeOtp();
+                            $('#thankyouScreen').removeClass("hide")
+
+                        }
+
                     }
                 });
 
@@ -117,11 +119,17 @@
 
         };
 
+        self.Done = function () {
+
+            $('.otp-container__info').hide();
+            $('#thankyouScreen').removeClass("hide")
+        };
+
     }
 
     docReady(function () {
-        dotpvm = new otpModel();
-        ko.applyBindings(dotpvm, document.getElementById("otpCapturePopup"));
+        otpvm = new otpModel();
+        ko.applyBindings(otpvm, document.getElementById("otpCapturePopup"));
     });
 
 </script>
