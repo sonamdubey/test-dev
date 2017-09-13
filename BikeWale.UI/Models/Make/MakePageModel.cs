@@ -19,6 +19,7 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -30,9 +31,8 @@ namespace Bikewale.Models
     /// </summary>
     public class MakePageModel
     {
-        private string _makeMaskingName;
-        private uint _topCount, _makeId;
-        private IDealerCacheRepository _dealerServiceCenters;
+        private readonly string _makeMaskingName;
+        private uint _makeId;
         private readonly IBikeModelsCacheRepository<int> _bikeModelsCache;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache;
         private readonly ICMSCacheContent _articles = null;
@@ -43,17 +43,15 @@ namespace Bikewale.Models
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompare _compareBikes = null;
         private readonly IServiceCenter _objSC;
-        public StatusCodes status;
-        public MakeMaskingResponse objResponse;
-        public string redirectUrl;
+        public StatusCodes Status { get; set; }
+        public MakeMaskingResponse objResponse { get; set; }
+        public string RedirectUrl { get; set; }
         public CompareSources CompareSource { get; set; }
         public bool IsMobile { get; set; }
 
-        public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC)
+        public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC)
         {
             this._makeMaskingName = makeMaskingName;
-            this._dealerServiceCenters = dealerServiceCenters;
-            this._topCount = topCount > 0 ? topCount : 9;
             this._bikeModelsCache = bikeModelsCache;
             this._bikeMakesCache = bikeMakesCache;
             this._articles = articles;
@@ -306,6 +304,8 @@ namespace Bikewale.Models
                 SetBreadcrumList(ref objData);
 
                 CheckCustomPageMetas(objData, objMakeBase);
+
+                SetPageJSONLDSchema(objData);
             }
             catch (Exception ex)
             {
@@ -315,14 +315,35 @@ namespace Bikewale.Models
         }
 
         /// <summary>
+        /// Created By  : Sangram Nandkhile on 31st Aug 2017
+        /// Description : To load json schema for the list items
+        /// Modified By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema along with product
+        /// </summary>
+        private void SetPageJSONLDSchema(MakePageVM objPageMeta)
+        {
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
         /// </summary>
         private void SetBreadcrumList(ref MakePageVM objData)
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, "/", "Home"));
+            string url = Utility.BWConfiguration.Instance.BwHostUrl;
+            if (IsMobile)
+            {
+                url = string.Format("{0}/m/", url);
+            }
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, url, "Home"));
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(2, null, objData.Page_H1));
 
 
@@ -392,23 +413,24 @@ namespace Bikewale.Models
                 objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
                 if (objResponse != null)
                 {
-                    status = (StatusCodes)objResponse.StatusCode;
+                    Status = (StatusCodes)objResponse.StatusCode;
                     if (objResponse.StatusCode == 200)
                     {
                         _makeId = objResponse.MakeId;
                     }
                     else if (objResponse.StatusCode == 301)
                     {
-                        status = StatusCodes.RedirectPermanent;
+                        RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(_makeMaskingName, objResponse.MaskingName);
+                        Status = StatusCodes.RedirectPermanent;
                     }
                     else
                     {
-                        status = StatusCodes.ContentNotFound;
+                        Status = StatusCodes.ContentNotFound;
                     }
                 }
                 else
                 {
-                    status = StatusCodes.ContentNotFound;
+                    Status = StatusCodes.ContentNotFound;
                 }
             }
             catch (Exception ex)

@@ -81,7 +81,7 @@ namespace Bikewale.Models.BikeModels
 
         private ModelPageVM _objData = null;
         private PQOnRoadPrice _pqOnRoad;
-        private StringBuilder _colorStr = new StringBuilder();
+        private readonly StringBuilder _colorStr = new StringBuilder();
 
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
@@ -92,7 +92,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsMobile { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -111,7 +111,6 @@ namespace Bikewale.Models.BikeModels
             _objServiceCenter = objServiceCenter;
             _objPQCache = objPQCache;
             _objCompare = objCompare;
-            _userReviewCache = userReviewCache;
             _usedBikesCache = usedBikesCache;
             _objManufacturerCampaign = objManufacturerCampaign;
             _userReviewsSearch = userReviewsSearch;
@@ -266,14 +265,19 @@ namespace Bikewale.Models.BikeModels
         private void SetBreadcrumList()
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, "/", "Home"));
+            string url = Utility.BWConfiguration.Instance.BwHostUrl;
+            if (IsMobile)
+            {
+                url = string.Format("{0}/m/", url);
+            }
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, url, "Home"));
 
 
             if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
             {
+                url = string.Format("{0}{1}", url, UrlFormatter.BikeMakeUrl(_objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName));
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(2, UrlFormatter.BikeMakeUrl(_objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName), string.Format("{0} Bikes", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(2, url, string.Format("{0} Bikes", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(3, null, _objData.Page_H1));
@@ -1018,6 +1022,11 @@ namespace Bikewale.Models.BikeModels
             }
         }
 
+        /// <summary>
+        /// Created By:- Sushil Kumar on 29-Mar-2017 
+        /// Summary:- Process the input query
+        /// </summary>
+        /// <param name="modelMasking"></param>
         private void ParseQueryString(string modelMasking)
         {
             ModelMaskingResponse objResponse = null;
@@ -1036,8 +1045,8 @@ namespace Bikewale.Models.BikeModels
                         }
                         else if (objResponse.StatusCode == 301)
                         {
-                            Status = StatusCodes.RedirectPermanent;
                             RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(modelMasking, objResponse.MaskingName);
+                            Status = StatusCodes.RedirectPermanent;
                         }
                         else
                         {

@@ -6,8 +6,8 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.manufacturecampaign;
-using Bikewale.Entities.Models;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
@@ -20,10 +20,9 @@ using Bikewale.Models.BestBikes;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
@@ -42,7 +41,6 @@ namespace Bikewale.Models
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCache = null;
         private readonly PQSourceEnum pqSource;
         private readonly IBikeInfo _bikeInfo = null;
-        private readonly ICityCacheRepository _cityCache = null;
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
         private readonly IDealerPriceQuoteDetail _objDealerDetails = null;
         private readonly IDealerPriceQuote _objDealerPQ = null;
@@ -50,7 +48,8 @@ namespace Bikewale.Models
         private readonly IAreaCacheRepository _objAreaCache = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         private uint cityId, modelId, versionCount, colorCount, dealerCount, areaId;
-        private string modelMaskingName, cityMaskingName, pageDescription, area, city;
+        private readonly string modelMaskingName, cityMaskingName;
+        private string pageDescription, area, city;
         private BikeQuotationEntity firstVersion;
         private uint primaryDealerId;
         private bool isNew, isAreaSelected, hasAreaAvailable;
@@ -63,6 +62,7 @@ namespace Bikewale.Models
         public PQSources Platform { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
+        public bool IsMobile { get; internal set; }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
@@ -81,7 +81,7 @@ namespace Bikewale.Models
         /// <param name="pqSource"></param>
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -91,7 +91,6 @@ namespace Bikewale.Models
             _objServiceCenter = objServiceCenter;
             _versionCache = versionCache;
             _bikeInfo = bikeInfo;
-            _cityCache = cityCache;
             _modelCache = modelCache;
             _objDealerDetails = objDealerDetails;
             _objDealerPQ = objDealerPQ;
@@ -195,33 +194,30 @@ namespace Bikewale.Models
         {
             try
             {
-                if (modelId > 0)
+                if (modelId > 0 && cityId > 0)
                 {
-                    if (cityId > 0)
+                    var cities = _objCityCache.GetPriceQuoteCities(modelId);
+
+                    if (cities != null)
                     {
-                        var cities = _objCityCache.GetPriceQuoteCities(modelId);
-
-                        if (cities != null)
+                        var selectedCity = cities.FirstOrDefault(m => m.CityId == cityId);
+                        objVM.CookieCityEntity = selectedCity;
+                        if (selectedCity != null && selectedCity.HasAreas && areaId > 0)
                         {
-                            var selectedCity = cities.FirstOrDefault(m => m.CityId == cityId);
-                            objVM.CookieCityEntity = selectedCity;
-                            if (selectedCity != null && selectedCity.HasAreas && areaId > 0)
+                            var areas = _objAreaCache.GetAreaList(modelId, cityId);
+                            city = selectedCity.CityName;
+                            if (areas != null && areas.Any())
                             {
-                                var areas = _objAreaCache.GetAreaList(modelId, cityId);
-                                city = selectedCity.CityName;
-                                if (areas != null && areas.Count() > 0)
+                                var selectedArea = areas.FirstOrDefault(m => m.AreaId == areaId);
+                                if (selectedArea != null)
                                 {
-                                    var selectedArea = areas.FirstOrDefault(m => m.AreaId == areaId);
-                                    if (selectedArea != null)
-                                    {
-                                        area = selectedArea.AreaName;
-                                        isAreaSelected = true;
-                                    }
+                                    area = selectedArea.AreaName;
+                                    isAreaSelected = true;
                                 }
-
                             }
 
                         }
+
                     }
                 }
             }
@@ -414,7 +410,7 @@ namespace Bikewale.Models
             try
             {
 
-                objVM.BikeInfo = (new BikeInfoWidget(_bikeInfo, _cityCache, modelId, cityId, BikeInfoTabCount, Entities.GenericBikes.BikeInfoTabType.PriceInCity)).GetData();
+                objVM.BikeInfo = (new BikeInfoWidget(_bikeInfo, _objCityCache, modelId, cityId, BikeInfoTabCount, Entities.GenericBikes.BikeInfoTabType.PriceInCity)).GetData();
                 objVM.BikeRank = (new BikeModelRank(_modelCache, modelId)).GetData();
             }
             catch (Exception ex)
@@ -667,42 +663,69 @@ namespace Bikewale.Models
                 objVM.AdTags.TargetedCity = firstVersion.City;
                 objVM.AdTags.TargetedModel = firstVersion.ModelName;
 
-                List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+                SetBreadcrumList(objVM);
 
-                BreadCrumbs.Add(new BreadCrumb
-                {
-                    ListUrl = "/",
-                    Name = "Home"
-                });
+                SetPageJSONLDSchema(objVM);
 
-                if (objVM.Make != null)
-                {
-                    BreadCrumbs.Add(new BreadCrumb
-                    {
-                        ListUrl =  string.Format("/{0}-bikes/", objVM.Make.MaskingName),
-                        Name = objVM.Make.MakeName + " Bikes"
-                    });
-                }
-
-                if (objVM.Make != null && objVM.BikeModel != null)
-                {
-                    BreadCrumbs.Add(new BreadCrumb
-                    {
-                        ListUrl = UrlFormatter.BikePageUrl(objVM.Make.MaskingName, objVM.BikeModel.MaskingName),
-                        Name = objVM.BikeName
-                    });
-                }
-
-                objVM.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
-
-                if(objVM.CityEntity != null)
-                    objVM.BreadCrumbsList.PageName = String.Format("Price in {0}", objVM.CityEntity.CityName);
 
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("BuildPageMetas({0},{1})", modelMaskingName, cityMaskingName));
             }
+        }
+
+        /// <summary>
+        /// Created By  : Sangram Nandkhile on 31st Aug 2017
+        /// Description : To load json schema for the list items
+        /// Modified By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema along with product
+        /// </summary>
+        private void SetPageJSONLDSchema(PriceInCityPageVM objPageMeta)
+        {
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(PriceInCityPageVM objPage)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = Utility.BWConfiguration.Instance.BwHostUrl;
+            if (IsMobile)
+            {
+                url = string.Format("{0}/m", url);
+            }
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, url, "Home"));
+
+
+            if (objPage.Make != null)
+            {
+                url = string.Format("{0}{1}", url, UrlFormatter.BikeMakeUrl(objPage.Make.MaskingName));
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(2, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
+            }
+
+            if (objPage.Make != null && objPage.BikeModel != null)
+            {
+                url = string.Format("{0}{1}", url, UrlFormatter.BikePageUrl(objPage.Make.MaskingName, objPage.BikeModel.MaskingName));
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(3, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(4, null, objPage.Page_H1));
+
+
+            objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
         }
 
         private void GetDealerPriceQuote(PriceInCityPageVM objVM)

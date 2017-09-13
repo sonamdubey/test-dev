@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.ModelBase
 <!doctype html>
-<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,11 +11,11 @@
 
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
         {
-            <title itemprop="name">@Model.PageMetaTags.Title</title>
+            <title>@Model.PageMetaTags.Title</title>
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
         {
-            <meta itemprop="description" name="description" content="@Model.PageMetaTags.Description" />
+            <meta name="description" content="@Model.PageMetaTags.Description" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
         {
@@ -56,7 +56,7 @@
     <link href="//www.googleadservices.com" rel="dns-prefetch" />
     <link href="//www.bikewale.com" rel="dns-prefetch" />
     <link href="//imgd.aeplcdn.com" rel="dns-prefetch" />
-    <link href="//@Bikewale.Utility.BWConfiguration.Instance.StaticUrl" rel="dns-prefetch" />
+    <link href="//stb.aeplcdn.com" rel="dns-prefetch" />
     <link href="//fonts.googleapis.com" rel="dns-prefetch" />
     <link href="//www.google-analytics.com" rel="dns-prefetch" />
     <link href="//bhrigu.bikewale.com" rel="dns-prefetch" />
@@ -264,13 +264,12 @@
             <div class="breadcrumb">
                 <span class="breadcrumb-title">You are here:</span>
                 <ul>
-                    @{ int i = 1;}
                     @foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
                     {
                         if (!string.IsNullOrEmpty(item.Item.Url))
                         {
                             <li>
-                                <a class="breadcrumb-link" href="@string.Format("/m{0}", item.Item.Url)" title="@item.Item.Name">
+                                <a class="breadcrumb-link" href="@item.Item.Url" title="@item.Item.Name">
                                     <span class="breadcrumb-link__label" itemprop="name">@item.Item.Name</span>
                                 </a>
                             </li>
@@ -281,7 +280,6 @@
                                 <span class="breadcrumb-link__label">@item.Item.Name</span>
                             </li>
                         }
-                        i++;
                     }
                 </ul>
                 <div class="clear"></div>

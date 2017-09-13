@@ -40,7 +40,6 @@ namespace Bikewale.Controllers
         private readonly IPriceQuoteCache _objPQCache;
         private readonly IBikeCompareCacheRepository _objCompare;
         private readonly IUpcoming _upcoming = null;
-        private readonly IUserReviewsCache _userReviewCache;
         private readonly IUsedBikesCache _usedBikesCache;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
@@ -62,7 +61,6 @@ namespace Bikewale.Controllers
             _objServiceCenter = objServiceCenter;
             _objPQCache = objPQCache;
             _objCompare = objCompare;
-            _userReviewCache = userReviewCache;
             _usedBikesCache = usedBikesCache;
             _objBestBikes = objBestBikes;
             _userReviewsSearch = userReviewsSearch;
@@ -81,7 +79,7 @@ namespace Bikewale.Controllers
         [Route("model/{makeMasking}-bikes/{modelMasking}/"), Filters.DeviceDetection]
         public ActionResult Index(string makeMasking, string modelMasking, uint? versionId)
         {
-            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersionCache, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _objCompare, _userReviewCache, _usedBikesCache, _objBestBikes, _upcoming, _objManufacturerCampaign);
+            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersionCache, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _objCompare, _usedBikesCache, _objBestBikes, _upcoming, _objManufacturerCampaign);
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
@@ -118,10 +116,11 @@ namespace Bikewale.Controllers
         [Route("m/model/{makeMasking}-bikes/{modelMasking}/")]
         public ActionResult Index_Mobile(string makeMasking, string modelMasking, uint? versionId)
         {
-            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersionCache, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _objCompare, _userReviewCache, _usedBikesCache, _objBestBikes, _upcoming, _objManufacturerCampaign);
+            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersionCache, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _objCompare, _usedBikesCache, _objBestBikes, _upcoming, _objManufacturerCampaign);
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
+                obj.IsMobile = true;
                 obj.Source = DTO.PriceQuote.PQSources.Mobile;
                 obj.PQSource = Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage;
                 obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.Model_Mobile;

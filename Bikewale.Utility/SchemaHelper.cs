@@ -1,5 +1,4 @@
 ﻿using Bikewale.Entities.Schema;
-using Bikewale.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Bikewale.Utility
@@ -47,6 +46,7 @@ namespace Bikewale.Utility
             }
         }
 
+
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to return webpage schema json 
@@ -54,7 +54,7 @@ namespace Bikewale.Utility
         /// <param name="objSchema"></param>
         /// <param name="pageSchema"></param>
         /// <returns></returns>
-        public static WebPage GetWebpageSchema(PageMetaTags objPageMeta, BreadcrumbList breadcrumb)
+        public static WebPage GetWebpageSchema(Models.PageMetaTags objPageMeta, BreadcrumbList breadcrumb)
         {
             WebPage webpage = null;
             if (objPageMeta != null && breadcrumb != null)
