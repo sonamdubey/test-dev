@@ -10,8 +10,8 @@ namespace BikewaleOpr.Interface.BikeData
     public interface IBikeSeries
     {
         IEnumerable<BikeSeriesEntity> GetSeries();
-        uint AddSeries(BikeSeriesEntity bikeSeries, long UpdatedBy);
-        bool EditSeries(BikeSeriesEntity bikeSeries, long UpdatedBy);
+        void AddSeries(BikeSeriesEntity bikeSeries, uint UpdatedBy);
+        bool EditSeries(BikeSeriesEntity bikeSeries, int UpdatedBy);
         bool DeleteSeries(uint bikeSeriesId);
     }
 }

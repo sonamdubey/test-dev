@@ -5,7 +5,7 @@
     /// </summary>
     public class BikeSeriesEntityBase
     {
-        public int SeriesId { get; set; }
+        public uint SeriesId { get; set; }
         public string SeriesName { get; set; }
         public string SeriesMaskingName { get; set; }
     }

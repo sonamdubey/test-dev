@@ -1,7 +1,9 @@
 ﻿using Bikewale.Notifications;
+using BikewaleOpr.DTO.BikeData;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Service.AutoMappers.BikeData;
 using System;
 using System.Web.Http;
 
@@ -25,23 +27,41 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("api/bikeseries/add/")]
-        public IHttpActionResult Add(uint MakeId, string SeriesName, string SeriesMaskingName)
+        public IHttpActionResult Add(uint MakeId, string MakeName, string SeriesName, string SeriesMaskingName, uint UpdatedBy)
         {
-            if (MakeId > 0 && !string.IsNullOrEmpty(SeriesName) && !string.IsNullOrEmpty(SeriesMaskingName))
+            BikeSeriesDTO objBikeSeriesDTO = null;
+            if (MakeId > 0 && !string.IsNullOrEmpty(SeriesName) && !string.IsNullOrEmpty(SeriesMaskingName) && !string.IsNullOrEmpty(MakeName))
             {
-                BikeSeriesEntity objBikeSeries = new BikeSeriesEntity()
-                {
-                    SeriesName = SeriesName,
-                    SeriesMaskingName = SeriesMaskingName,
-                    BikeMake = new BikeMakeEntityBase()
+                try
+                { 
+                    BikeSeriesEntity objBikeSeries = new BikeSeriesEntity()
                     {
-                        MakeId = Convert.ToInt32(MakeId)
+                        SeriesName = SeriesName,
+                        SeriesMaskingName = SeriesMaskingName,
+                        CreatedOn = DateTime.Now,
+                        BikeMake = new BikeMakeEntityBase()
+                        {
+                            MakeId = Convert.ToInt32(MakeId),
+                            MakeName = MakeName
+                        }
+                    };
+                    _series.AddSeries(objBikeSeries, UpdatedBy);
+                    if(objBikeSeries.SeriesId == 0)
+                    {
+                        return BadRequest("Input bike series is redundant");
                     }
-                };
-                //_series.AddSeries(objBikeSeries, );
-
+                    objBikeSeriesDTO = BikeSeriesMapper.Convert(objBikeSeries);
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Service.Controllers.SeriesController: Add");
+                }
+                return Ok(objBikeSeriesDTO);
             }
-            return Ok();
+            else
+            {
+                return BadRequest("Input data is not correct");
+            }
         }
 
         /// <summary>
@@ -53,21 +73,19 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="seriesMaskingName"></param>
         /// <returns></returns>
         [HttpPost, Route("api/bikeseries/edit/")]
-        public IHttpActionResult Edit(uint makeId, string seriesName, string seriesMaskingName, long updatedBy)
+        public IHttpActionResult Edit(uint seriesId, string seriesName, string seriesMaskingName, int updatedBy)
         {
             bool IsEdited = false;
             try
             {
-                if (makeId > 0 && !string.IsNullOrEmpty(seriesName) && !string.IsNullOrEmpty(seriesMaskingName))
+                if (seriesId > 0 && !string.IsNullOrEmpty(seriesName) && !string.IsNullOrEmpty(seriesMaskingName) && updatedBy > 0)
                 {
                     BikeSeriesEntity objBikeSeries = new BikeSeriesEntity()
                     {
+                        SeriesId = seriesId,
                         SeriesName = seriesName,
                         SeriesMaskingName = seriesMaskingName,
-                        BikeMake = new BikeMakeEntityBase()
-                        {
-                            MakeId = Convert.ToInt32(makeId)
-                        }
+                        UpdatedBy = Convert.ToString(updatedBy)
                     };
                     IsEdited = _series.EditSeries(objBikeSeries, updatedBy);
                     if (IsEdited)
@@ -81,12 +99,12 @@ namespace BikewaleOpr.Service.Controllers.Content
                 }
                 else
                 {
-                    return InternalServerError();
+                    return BadRequest("Input data is not correct");
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("SeriesController.Edit_{0}_{1}_{2}", makeId, seriesName, seriesMaskingName, updatedBy));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("SeriesController.Edit_{0}_{1}_{2}", seriesId, seriesName, seriesMaskingName, updatedBy));
                 return InternalServerError();
             }
         }
@@ -103,15 +121,22 @@ namespace BikewaleOpr.Service.Controllers.Content
             bool isDeleted = false;
             try
             {
+                if (bikeSeriesId > 0)
+                {
                     isDeleted = _series.DeleteSeries(bikeSeriesId);
 
-                if (isDeleted)
-                {
-                    return Ok();
+                    if (isDeleted)
+                    {
+                        return Ok();
+                    }
+                    else
+                    {
+                        return InternalServerError();
+                    } 
                 }
                 else
                 {
-                    return InternalServerError();
+                    return BadRequest("Input data is not correct");
                 }
             }
             catch (Exception ex)

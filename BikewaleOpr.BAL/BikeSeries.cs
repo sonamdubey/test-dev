@@ -1,18 +1,13 @@
-﻿using Bikewale.Interfaces.BikeData;
-using Bikewale.Notifications;
+﻿using Bikewale.Notifications;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BikewaleOpr.BAL
 {
     public class BikeSeries: IBikeSeries
     {
-        private IBikeSeriesRepository _series;
+        private readonly IBikeSeriesRepository _series;
         public BikeSeries(IBikeSeriesRepository series)
         {
             _series = series;
@@ -45,29 +40,27 @@ namespace BikewaleOpr.BAL
         /// <param name="UpdatedBy"></param>
         /// <param name="seriesId"></param>
         /// <param name="isSeriesExist"></param>
-        public uint AddSeries(BikeSeriesEntity bikeSeries, long UpdatedBy)
+        public void AddSeries(BikeSeriesEntity bikeSeries, uint UpdatedBy)
         {
-            uint seriesId = 0;
             try
             {
-                if(bikeSeries != null && bikeSeries.BikeMake != null && UpdatedBy > 0)
+                if (bikeSeries != null && bikeSeries.BikeMake != null && UpdatedBy > 0)
                 {
-                    seriesId = _series.AddSeries(bikeSeries, UpdatedBy);
+                    _series.AddSeries(bikeSeries, UpdatedBy);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: AddSeries");
             }
-            return seriesId;
         }
 
-        public bool EditSeries(BikeSeriesEntity bikeSeries, long updatedBy)
+        public bool EditSeries(BikeSeriesEntity bikeSeries, int updatedBy)
         {
             bool IsEdited = false;
             try
             {
-                if (bikeSeries != null && bikeSeries.BikeMake != null && updatedBy > 0)
+                if (bikeSeries != null && bikeSeries.SeriesId > 0 && updatedBy > 0)
                 {
                     IsEdited = _series.EditSeries(bikeSeries, updatedBy);
                 }

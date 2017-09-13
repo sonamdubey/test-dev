@@ -53,9 +53,8 @@ namespace BikewaleOpr.DALs.Bikedata
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <returns></returns>
-        public uint AddSeries(BikeSeriesEntity bikeSeries, long UpdatedBy)
+        public void AddSeries(BikeSeriesEntity bikeSeries, uint userid)
         {
-            uint seriesId = 0;
             try
             { 
                 using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -64,10 +63,13 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_name", bikeSeries.SeriesName);
                     param.Add("par_maskingname", bikeSeries.SeriesMaskingName);
                     param.Add("par_makeid", bikeSeries.BikeMake.MakeId);
-                    param.Add("par_updatedby", UpdatedBy);
+                    param.Add("par_userid", userid);
+                    param.Add("par_updatedby", dbType: DbType.String, direction: ParameterDirection.Output);
+                    param.Add("par_seriesid", dbType: DbType.UInt32, direction: ParameterDirection.Output);
                     connection.Open();
                     connection.Execute("bw_addbikeseries", param: param, commandType: CommandType.StoredProcedure);
-                    seriesId = param.Get<uint>("par_seriesid");
+                    bikeSeries.SeriesId = param.Get<uint>("par_seriesid");
+                    bikeSeries.UpdatedBy = param.Get<string>("par_updatedby");
                     if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
@@ -78,10 +80,9 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DAL.BikeSeriesRepository: AddSeries");
             }
-            return seriesId;
         }
 
-        public bool EditSeries(BikeSeriesEntity bikeSeries, long updatedBy)
+        public bool EditSeries(BikeSeriesEntity bikeSeries, int updatedBy)
         {
             int rowsAffected = 0;
             try
@@ -91,7 +92,6 @@ namespace BikewaleOpr.DALs.Bikedata
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_name", bikeSeries.SeriesName);
                     param.Add("par_maskingname", bikeSeries.SeriesMaskingName);
-                    param.Add("par_makeid", bikeSeries.BikeMake.MakeId);
                     param.Add("par_updatedby", updatedBy);
                     param.Add("par_seriesid", bikeSeries.SeriesId);
 
