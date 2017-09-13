@@ -70,7 +70,7 @@
             }
         }
         self.changeMobileNumber = function () {
-
+            var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {
                 var employeDetails = {
 
@@ -80,7 +80,7 @@
                     "OfficialAddressLine2": $('#cfCompAddress2').val(),
                     "pincode": $('#cfCompPincode').val(),
                     "annualIncome": $('#cfCompIncome').val(),
-                    "mobileNumber": $('#otpNewNumber').val(),
+                    "mobileNumber": mobileNumber,
                     "emailId": $('#cfEmail').val(),
                     "objLeadJson": $("#objLead").val(),
                     "firstName": $('#cfFName').val(),
@@ -104,13 +104,14 @@
                         if (response == "Not Registered Mobile Number") {
                             otpScreen.openOtp();
                             var objData = {
-                                "userName": $('#cfFName').val() + +$('#cfLName').val(),
-                                "mobileNumber": $('#otpNewNumber').val()
+                                "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                                "mobileNumber": mobileNumber
                             }
                             otpvm.setParameters(objData);
                         }
                         else if (response == "Registered Mobile Number") {
-                            otpScreen.closeOtp();
+                            otpScreen.openOtp();
+                            $('.otp-container__info').hide();
                             $('#thankyouScreen').removeClass("hide")
 
                         }
@@ -128,12 +129,11 @@
 
             $.ajax({
                 type: "POST",
-                url: "/api/finance/verifymobile/"+otp+"/"+$('#otpNewNumber').val(),
+                url: "/api/finance/verifymobile/otp/" + otp + "/mobilenumber/" + otpvm.mobileNumber()+"/",
                 contentType: "application/json",
-                data: ko.toJSON(personDetails),
+                dataType: 'json',
                 success: function (response) {
-                    if (response) {
-
+                    if (response==true) {
                         $('.otp-container__info').hide();
                         $('#thankyouScreen').removeClass("hide");
                     }

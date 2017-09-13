@@ -246,7 +246,7 @@ function saveEmployeDetails() {
             {
                 otpScreen.openOtp();
                 var objData={
-                    "userName": $('#cfFName').val() + +$('#cfLName').val(),
+                    "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
                     "mobileNumber": $('#cfNum').val()
                 }
                 otpvm.setParameters(objData);
@@ -398,17 +398,17 @@ function scrollTop(offsetElem) {
 }
 
 function showBlackWindow() {
-    $(blackWindowElem).show()
+    $(blackWindowElem).show();
 }
 
 function hideBlackWindow() {
-    $(blackWindowElem).hide()
+    $(blackWindowElem).hide();
     }
     
 function FillDummyDetails() {
     $('#cfFName').val('John');
     $('#cfLName').val('doe');
-    $('#cfNum').val('9892112233');
+    $('#cfNum').val('9892112234');
     $('#cfEmail').val('ss@ss.com');
     $('#cfDOB').val('1993-02-02');
     $('#cfGenderM').prop("checked", true);

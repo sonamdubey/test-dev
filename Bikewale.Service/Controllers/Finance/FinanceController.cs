@@ -109,7 +109,7 @@ namespace Bikewale.Service.Controllers
         /// Created By :- Subodh Jain on 24 july 2017
         /// Summary :- Banner SaveBannerBasicDetails
         /// </summary>
-        [HttpPost, Route("api/finance/verifymobile/{otp}/{mobileNumber}")]
+        [HttpPost, Route("api/finance/verifymobile/otp/{otp}/mobilenumber/{mobileNumber}")]
         public IHttpActionResult VerifyMobile(string otp,string mobileNumber)
         {
             try
