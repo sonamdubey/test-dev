@@ -1,6 +1,9 @@
-﻿using BikewaleOpr.Entities.BikeData;
+﻿using Bikewale.Notifications;
+using BikewaleOpr.DTO.BikeData;
+using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Service.AutoMappers.BikeData;
 using System;
 using System.Web.Http;
 
@@ -24,23 +27,41 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("api/bikeseries/add/")]
-        public IHttpActionResult Add(uint MakeId, string SeriesName, string SeriesMaskingName)
+        public IHttpActionResult Add(uint MakeId, string MakeName, string SeriesName, string SeriesMaskingName, uint UpdatedBy)
         {
-            if (MakeId > 0 && !string.IsNullOrEmpty(SeriesName) && !string.IsNullOrEmpty(SeriesMaskingName))
+            BikeSeriesDTO objBikeSeriesDTO = null;
+            if (MakeId > 0 && !string.IsNullOrEmpty(SeriesName) && !string.IsNullOrEmpty(SeriesMaskingName) && !string.IsNullOrEmpty(MakeName))
             {
-                BikeSeriesEntity objBikeSeries = new BikeSeriesEntity()
-                {
-                    SeriesName = SeriesName,
-                    SeriesMaskingName = SeriesMaskingName,
-                    BikeMake = new BikeMakeEntityBase()
+                try
+                { 
+                    BikeSeriesEntity objBikeSeries = new BikeSeriesEntity()
                     {
-                        MakeId = Convert.ToInt32(MakeId)
+                        SeriesName = SeriesName,
+                        SeriesMaskingName = SeriesMaskingName,
+                        CreatedOn = DateTime.Now,
+                        BikeMake = new BikeMakeEntityBase()
+                        {
+                            MakeId = Convert.ToInt32(MakeId),
+                            MakeName = MakeName
+                        }
+                    };
+                    _series.AddSeries(objBikeSeries, UpdatedBy);
+                    if(objBikeSeries.SeriesId == 0)
+                    {
+                        return BadRequest("Input bike series is redundant");
                     }
-                };
-                //_series.AddSeries(objBikeSeries, );
-
+                    objBikeSeriesDTO = BikeSeriesMapper.Convert(objBikeSeries);
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Service.Controllers.SeriesController: Add");
+                }
+                return Ok(objBikeSeriesDTO);
             }
-            return Ok();
+            else
+            {
+                return BadRequest("Input data is not correct");
+            }
         }
 
     }

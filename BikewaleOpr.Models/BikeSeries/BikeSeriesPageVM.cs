@@ -13,5 +13,6 @@ namespace BikewaleOpr.Models.BikeSeries
         public IEnumerable<BikeSeriesEntity> BikeSeriesList { get; set; }
         public IEnumerable<BikeMakeEntityBase> BikeMakesList { get; set; }
         public string PageTitle { get; set; }
+        public uint UpdatedBy { get; set; }
     }
 }

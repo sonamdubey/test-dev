@@ -1,13 +1,8 @@
-﻿using Bikewale.Interfaces.BikeData;
-using Bikewale.Notifications;
+﻿using Bikewale.Notifications;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BikewaleOpr.BAL
 {
     public class BikeSeries: IBikeSeries
@@ -45,21 +40,19 @@ namespace BikewaleOpr.BAL
         /// <param name="UpdatedBy"></param>
         /// <param name="seriesId"></param>
         /// <param name="isSeriesExist"></param>
-        public uint AddSeries(BikeSeriesEntity bikeSeries, uint UpdatedBy)
+        public void AddSeries(BikeSeriesEntity bikeSeries, uint UpdatedBy)
         {
-            uint seriesId = 0;
             try
             {
-                if(bikeSeries != null && bikeSeries.BikeMake != null && UpdatedBy > 0)
+                if (bikeSeries != null && bikeSeries.BikeMake != null && UpdatedBy > 0)
                 {
-                    seriesId = _series.AddSeries(bikeSeries, UpdatedBy);
+                    _series.AddSeries(bikeSeries, UpdatedBy);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: AddSeries");
             }
-            return seriesId;
         }
     }
 }

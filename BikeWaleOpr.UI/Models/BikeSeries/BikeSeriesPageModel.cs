@@ -28,6 +28,7 @@ namespace BikewaleOpr.Models.BikeSeries
                 objBikeSeriesVM.BikeMakesList = _makes.GetMakes((ushort)EnumBikeType.All);
                 objBikeSeriesVM.BikeSeriesList = _series.GetSeries();
                 objBikeSeriesVM.PageTitle = "Manage Bike Series";
+                objBikeSeriesVM.UpdatedBy = Convert.ToUInt32(BikeWaleOpr.Common.CurrentUser.Id);
             }
             catch (Exception ex)
             {

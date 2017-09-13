@@ -10,6 +10,6 @@ namespace BikewaleOpr.Interface.BikeData
     public interface IBikeSeries
     {
         IEnumerable<BikeSeriesEntity> GetSeries();
-        uint AddSeries(BikeSeriesEntity bikeSeries, uint UpdatedBy);
+        void AddSeries(BikeSeriesEntity bikeSeries, uint UpdatedBy);
     }
 }
