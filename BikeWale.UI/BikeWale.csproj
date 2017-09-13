@@ -2277,6 +2277,7 @@
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
+    <Content Include="css\finance\capital-first_d.css" />
     <Content Include="css\finance\capital-first.css" />
     <Content Include="m\css\finance\capital-first.css" />
     <Content Include="css\user-review\listing.css" />

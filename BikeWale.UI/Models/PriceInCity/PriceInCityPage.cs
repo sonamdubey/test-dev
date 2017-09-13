@@ -751,7 +751,9 @@ namespace Bikewale.Models
                             PopupDescription = campaigns.LeadCampaign.PopupDescription,
                             PopupHeading = campaigns.LeadCampaign.PopupHeading,
                             PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage,
-                            ShowOnExshowroom = campaigns.LeadCampaign.ShowOnExshowroom
+                            ShowOnExshowroom = campaigns.LeadCampaign.ShowOnExshowroom,
+                            PQId = (uint) objData.PQId,
+                            VersionId = objData.VersionId
                         };
                         objData.IsManufacturerLeadAdShown = true;
                     }
