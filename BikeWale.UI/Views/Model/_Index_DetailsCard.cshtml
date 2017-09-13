@@ -104,7 +104,7 @@
 				</div>
 			</div>
 
-			<div class="content-box-shadow card-bottom-margin content-inner-block-20">
+            <div id="user-review-div" class="content-box-shadow card-bottom-margin content-inner-block-20" data-readMore="0">
 				<h2 class="h2-heading inline-block margin-right10">@Model.BikeName User Reviews</h2>
 				<div class="model-overall-rating inline-block">
 					<span class="rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
@@ -117,8 +117,8 @@
 					}
 
 					<span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}", Model.UserReviews.UserReviews.TotalCount > 1 ? "reviews" : "review")</span>
-				</div>
-				@Html.Partial("~/Views/UserReview/_UserReviewList.cshtml", Model.UserReviews)
+                </div>                
+                    @Html.Partial("~/Views/UserReview/_UserReviewList.cshtml", Model.UserReviews)                
 				<div class="more-article-target view-all-btn-container">
 					<a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="btn view-all-target-btn">Read all user reviews<span class="bwsprite teal-right"></span></a>
 				</div>
