@@ -19,7 +19,7 @@ namespace Bikewale.Entities.Compare
       
       
         [DataMember]
-        public UserReviewSummary MostHelpfullReview { get; set; }
+        public ModelWiseUserReview ModelReview { get; set; }
 
 
     }

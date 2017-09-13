@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Entities.Compare.V2;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
@@ -23,11 +24,9 @@ namespace Bikewale.DAL.Compare
     {
         /// Modified by : Aditi Srivastava on 18 May 2017
         /// Summary      : Used nullable bool for specs and features
-        /// Modified by  :  Snehal Dange on 11 Sep 2017
-        /// Description  : Added UserReviews for Compare Bike. Changed SP name
-        public BikeCompareEntity DoCompare(string versions)
+        public Entities.Compare.BikeCompareEntity DoCompare(string versions)
         {
-            BikeCompareEntity compare = null;
+            Entities.Compare.BikeCompareEntity compare = null;
             IList<BikeEntityBase> basicInfos = null;
             IList<BikeSpecification> specs = null;
             IList<BikeFeature> features = null;
@@ -39,7 +38,7 @@ namespace Bikewale.DAL.Compare
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getcomparisondetails_11092017";
+                    cmd.CommandText = "getcomparisondetails_20012016";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbType.String, versions));
 
@@ -202,7 +201,7 @@ namespace Bikewale.DAL.Compare
                                 }
                             }
                             #endregion
-                            compare = new BikeCompareEntity();
+                            compare = new Entities.Compare.BikeCompareEntity();
                             compare.BasicInfo = basicInfos;
                             compare.Specifications = specs;
                             compare.Features = features;
@@ -241,14 +240,16 @@ namespace Bikewale.DAL.Compare
         /// Description :   To fetch bike comparisiosn data along with its versions and colors
         ///  Modified by : Aditi Srivastava on 18 May 2017
         /// Summary     : used nullable bool for specs and features
+        /// Modified By :Snehal Dange on 11 Sep 2017
+        /// Summary : Changed sp name and used other version for BikeCompareEntity with 3 additional paramters
         /// </summary>
         /// <param name="versions"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public BikeCompareEntity DoCompare(string versions, uint cityId)
+        public Entities.Compare.V2.BikeCompareEntity DoCompare(string versions, uint cityId)
         {
 
-            BikeCompareEntity compare = null;
+            Entities.Compare.V2.BikeCompareEntity compare = null;
             IList<BikeEntityBase> basicInfos = null;
             IList<BikeSpecification> specs = null;
             IList<BikeFeature> features = null;
@@ -440,7 +441,7 @@ namespace Bikewale.DAL.Compare
                                 }
                             }
 
-                            compare = new BikeCompareEntity();
+                            compare = new Entities.Compare.V2.BikeCompareEntity();
                             compare.BasicInfo = basicInfos;
                             compare.Specifications = specs;
                             compare.Features = features;
