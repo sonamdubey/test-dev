@@ -1179,3 +1179,44 @@ li.offertxt:hover span {display:inline}
 }
 
 /*explore more card ends here*/
+
+
+/* carousel for image detail grid list */
+/*.image-details-grid-list .card {
+
+}*/
+/*.more-make-bike .swiper-card {
+    min-height: 120px;
+    width: 292px;
+    border: 1px solid #f6f6f6;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    -ms-box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    -o-box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    margin-bottom: 20px;
+}*/
+.image-details-grid-list .card-target {
+    min-height: 120px;
+    display: block;
+    padding: 15px;
+}
+
+.more-make-bike .item-image-block {
+    width: 102px;
+    height: 57px;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) center no-repeat;
+    position: relative;
+}
+.more-make-bike .item-image-block img {
+    height: 57px;
+}
+.more-make-bike .item-details-block {
+    width: 57%;
+    padding-left: 5px;
+}
+
+.image-details-grid .jcarousel-control-left,
+.image-details-grid .jcarousel-control-right {
+    top: 15%;
+}
