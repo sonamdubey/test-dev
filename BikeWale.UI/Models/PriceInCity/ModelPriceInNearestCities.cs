@@ -3,6 +3,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Models.PriceInCity
 {
@@ -31,18 +32,28 @@ namespace Bikewale.Models.PriceInCity
             }
         }
 
-        public IEnumerable<PriceQuoteOfTopCities> GetData()
+        public PriceInTopCitiesWidgetVM GetData()
         {
-            IEnumerable<PriceQuoteOfTopCities> objList = null;
+            PriceInTopCitiesWidgetVM priceInTopCitiesWidgetVM = null;
+            IEnumerable<PriceQuoteOfTopCities> cityPrices = null;
+
             try
             {
-                objList = _objCache.GetModelPriceInNearestCities(_modelId, _cityId, _topCount);
+                cityPrices = _objCache.GetModelPriceInNearestCities(_modelId, _cityId, _topCount);
+
+                if (cityPrices != null && cityPrices.Count() > 0)
+                {
+                    priceInTopCitiesWidgetVM = new PriceInTopCitiesWidgetVM();
+
+                    priceInTopCitiesWidgetVM.PriceQuoteList = cityPrices;
+                    priceInTopCitiesWidgetVM.BikeName = string.Format("{0} {1}", cityPrices.First().Make, cityPrices.First().Model);
+                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.PriceInCity.ModelPriceInNearestCities.GetData()");
             }
-            return objList;
+            return priceInTopCitiesWidgetVM;
         }
     }
 }

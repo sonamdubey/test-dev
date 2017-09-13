@@ -20,10 +20,9 @@ using Bikewale.Models.BestBikes;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
@@ -541,13 +540,7 @@ namespace Bikewale.Models
         {
             try
             {
-                var nearestCityModel = new ModelPriceInNearestCities(_objPQCache, modelId, cityId, (ushort)NearestCityCount);
-                var cityPriceList = nearestCityModel.GetData();
-                if (cityPriceList != null && cityPriceList.Count() > 0)
-                {
-                    objVM.NearestPriceCities = new PriceInTopCitiesWidgetVM();
-                    objVM.NearestPriceCities.PriceQuoteList = cityPriceList;
-                }
+                objVM.NearestPriceCities = new ModelPriceInNearestCities(_objPQCache, modelId, cityId, (ushort)NearestCityCount).GetData();
             }
             catch (Exception ex)
             {
@@ -679,7 +672,7 @@ namespace Bikewale.Models
                 {
                     BreadCrumbs.Add(new BreadCrumb
                     {
-                        ListUrl =  string.Format("/{0}-bikes/", objVM.Make.MaskingName),
+                        ListUrl = string.Format("/{0}-bikes/", objVM.Make.MaskingName),
                         Name = objVM.Make.MakeName + " Bikes"
                     });
                 }
@@ -695,7 +688,7 @@ namespace Bikewale.Models
 
                 objVM.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
 
-                if(objVM.CityEntity != null)
+                if (objVM.CityEntity != null)
                     objVM.BreadCrumbsList.PageName = String.Format("Price in {0}", objVM.CityEntity.CityName);
 
             }
