@@ -166,7 +166,7 @@
                 </div>
             </fieldset>
         </div>
-        <div class="floatLeft" style="width: 450px;">
+        <div class="floatLeft margin-top20" style="width: 450px;">
             <fieldset>
                 <legend>Update Existing Series</legend>
                 <div>
@@ -580,6 +580,42 @@
             {
                 alert("Select Models to Update Segement");
                 $("input[name=chkSegment]:first-of-type").removeAttr("disabled");
+                isError=true;
+            }
+            return !isError;
+        });
+
+        //oerations  added for updating existing series
+        $("#btnSelModelSeries").click(function(){
+            $("#spnUpdateSeries").text("");
+            if ($("#ddlUpdateSeries").val() <= 0) 
+            {
+                $("#spnUpdateSeries").text("Select Series");
+                return false;
+            }
+            else
+            {
+                $("input[name=chkSeries]").removeAttr("disabled");
+                $("input[name=chkSeries]:first").focus();
+            }
+        });
+
+
+        $("#btnUpdateSeries").click(function(){
+            var ModelIdList = "";
+            var isError = false;
+            if($("input[name=chkSeries]:checked").length != 0)
+            {
+                $("input[name=chkSeries]:checked").each(function(){
+				
+                    ModelIdList += $(this).attr("modelId") + ",";
+                    $("#hdnModelIdsListSeries").val(ModelIdList);
+                });
+            }
+            else
+            {
+                alert("Select Models to Update Series");
+                $("input[name=chkSeries]:first-of-type").removeAttr("disabled");
                 isError=true;
             }
             return !isError;

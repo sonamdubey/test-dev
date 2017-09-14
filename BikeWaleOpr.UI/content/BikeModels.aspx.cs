@@ -26,13 +26,13 @@ namespace BikeWaleOpr.Content
     public class BikeModels : System.Web.UI.Page
     {
         protected HtmlGenericControl spnError;
-        protected DropDownList cmbMakes, ddlSegment, ddlUpdateSegment, ddlSeries;
+        protected DropDownList cmbMakes, ddlSegment, ddlUpdateSegment, ddlSeries, ddlUpdateSeries;
         protected TextBox txtModel, txtMaskingName;
         protected Button btnSave;
-        protected HtmlInputButton btnUpdateSegment;
+        protected HtmlInputButton btnUpdateSegment, btnUpdateSeries;
         protected DataGrid dtgrdMembers;
         protected Label lblStatus;
-        protected HiddenField hdnModelIdList, hdnModelIdsList;
+        protected HiddenField hdnModelIdList, hdnModelIdsList, hdnModelIdsListSeries;
         private readonly IBikeSeries _series = null;
 
         private string SortCriteria
@@ -64,6 +64,7 @@ namespace BikeWaleOpr.Content
             dtgrdMembers.DeleteCommand += new DataGridCommandEventHandler(dtgrdMembers_Delete);
             cmbMakes.SelectedIndexChanged += new EventHandler(cmbMakes_SelectedIndexChanged);
             btnUpdateSegment.ServerClick += new EventHandler(UpdateModelSegments);
+            btnUpdateSeries.ServerClick += new EventHandler(UpdateModelSeries);
         }
 
         bool _isMemcachedUsed;
@@ -721,11 +722,18 @@ namespace BikeWaleOpr.Content
                     SeriesList = _series.GetSeriesByMake(makeId);
                     if(SeriesList != null)
                     {
+                        ListItem li = new ListItem("---Select Series---", "-1");
                         ddlSeries.DataSource = SeriesList;
                         ddlSeries.DataTextField = "SeriesName";
                         ddlSeries.DataValueField = "SeriesId";
                         ddlSeries.DataBind();
-                        ddlSeries.Items.Insert(0, "--Select Series--");
+                        ddlSeries.Items.Insert(0, li);
+
+                        ddlUpdateSeries.DataSource = SeriesList;
+                        ddlUpdateSeries.DataTextField = "SeriesName";
+                        ddlUpdateSeries.DataValueField = "SeriesId";
+                        ddlUpdateSeries.DataBind();
+                        ddlUpdateSeries.Items.Insert(0, li);
                     }
                 }
             }
@@ -733,6 +741,17 @@ namespace BikeWaleOpr.Content
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.Content.BikeModel: FillSeries");
             }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 14th Sep 2017
+        /// Summary : Update series of selected model and log model and series mapping
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateModelSeries(object sender, EventArgs e)
+        {
+
         }
     }
 }
