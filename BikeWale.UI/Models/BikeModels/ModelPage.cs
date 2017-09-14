@@ -73,7 +73,6 @@ namespace Bikewale.Models.BikeModels
         private readonly IUserReviewsCache _userReviewCache;
         private readonly IUsedBikesCache _usedBikesCache;
         private readonly IUpcoming _upcoming = null;
-        private readonly string _pageUrl;
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
 
@@ -93,8 +92,9 @@ namespace Bikewale.Models.BikeModels
         public LeadSourceEnum LeadSource { get; set; }
         public bool IsMobile { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
+        public string CurrentPageUrl { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, string pageUrl, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -106,7 +106,6 @@ namespace Bikewale.Models.BikeModels
             _objVersionCache = objVersionCache;
             _objBestBikes = objBestBikes;
             _upcoming = upcoming;
-            _pageUrl = pageUrl;
             _objArticles = objArticles;
             _objVideos = objVideos;
             _objUsedBikescache = objUsedBikescache;
@@ -1284,7 +1283,7 @@ namespace Bikewale.Models.BikeModels
                             ShowOnExshowroom = campaigns.LeadCampaign.ShowOnExshowroom,
                             PQId = _objData.PQId,
                             VersionId = _objData.VersionId,
-                            PageUrl = _pageUrl,
+                            CurrentPageUrl = CurrentPageUrl,
                             PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1)
                         };
 

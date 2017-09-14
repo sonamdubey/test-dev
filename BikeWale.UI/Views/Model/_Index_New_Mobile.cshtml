@@ -80,7 +80,7 @@
                         <div class="grid-5 alpha omega">
                             @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                             {
-                                <a class="btn btn-orange btn-full-32" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId">@String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization)</a>
+                                <a rel="nofollow" class="btn btn-orange btn-full-32" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId">@String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization)</a>
                             }
                             else
                             {

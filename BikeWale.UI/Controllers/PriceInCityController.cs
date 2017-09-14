@@ -91,6 +91,7 @@ namespace Bikewale.Controllers
                 model.Platform = DTO.PriceQuote.PQSources.Desktop;
                 model.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Desktop;
                 model.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Desktop_PriceInCity;
+                model.CurrentPageUrl = Request.RawUrl;
                 objVM = model.GetData();
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {
@@ -137,6 +138,7 @@ namespace Bikewale.Controllers
                 model.Platform = DTO.PriceQuote.PQSources.Mobile;
                 model.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
                 model.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_PriceInCity;
+                model.CurrentPageUrl = Request.RawUrl;
                 objVM = model.GetData();
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {

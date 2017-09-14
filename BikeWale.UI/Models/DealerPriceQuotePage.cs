@@ -1,4 +1,5 @@
 ﻿using Bikewale.Common;
+using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
@@ -38,7 +39,9 @@ namespace Bikewale.Models
         public string RedirectUrl { get; set; }
         public uint OtherTopCount { get; set; }
         public StatusCodes Status { get; set; }
+        public string CurrentPageUrl { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
+        public PQSources Platform { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         private uint _modelId, _versionId, _cityId, _areaId, _pqId, _dealerId, _makeId;
         private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty;
@@ -546,7 +549,9 @@ namespace Bikewale.Models
                             PopupHeading = campaigns.LeadCampaign.PopupHeading,
                             PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage,
                             PQId = objData.PQId,
-                            VersionId = objData.VersionId
+                            VersionId = objData.VersionId,
+                            CurrentPageUrl = CurrentPageUrl,
+                            PlatformId = (ushort)Platform
                         };
                         objData.IsManufacturerLeadAdShown = true;
                     }
