@@ -235,9 +235,12 @@ namespace BikeWaleOpr.Content
                 if(mo.imported,1,0) as imported, if(mo.classic,1,0) as  classic, if(mo.modified,1,0) as  modified, if(mo.futuristic,1,0) as futuristic, mo.bikemakeid,cast( mo.mocreatedon as char(24)) as createdon,cast( mo.moupdatedon  as char(24)) as updatedon,ou.username as updatedby 
                 ,bcs.classsegmentname 
                 ,mo.makemaskingname as makemasking
+                ,bs.id as seriesId
+                ,bs.Name as seriesName
                 from bikemodels mo left join oprusers ou 
                 on mo.moupdatedby = ou.id 
-                left join bikeclasssegments bcs on mo.bikeclasssegmentsid = bcs.bikeclasssegmentsid 
+                left join bikeclasssegments bcs on mo.bikeclasssegmentsid = bcs.bikeclasssegmentsid
+                left join bikeseries bs on mo.BikeSeriesID = bs.Id
                 where mo.isdeleted=0 
                 and mo.bikemakeid=" + _makeid;
 

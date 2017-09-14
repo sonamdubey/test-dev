@@ -109,7 +109,8 @@ namespace BikewaleOpr.Service.Controllers.Content
             }
         }
         /// <summary>
-        /// 
+        /// Created by : Ashutosh Sharma on 12-Sep-2017
+        /// Description : API to delete Bike Series
         /// </summary>
         /// <param name="MakeId"></param>
         /// <param name="SeriesName"></param>

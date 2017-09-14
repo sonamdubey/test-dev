@@ -237,6 +237,11 @@
 				</itemtemplate>            
 			    </asp:TemplateColumn>
 			<asp:BoundColumn DataField="BikeMakeId" ReadOnly="true" ItemStyle-CssClass="doNotDisplay" HeaderStyle-CssClass="doNotDisplay" />
+            <asp:TemplateColumn HeaderText="Series" ItemStyle-Width="350">
+				<itemtemplate>
+					<input    type="checkbox" name="chkSeries" seriesId='<%# DataBinder.Eval(Container.DataItem,"seriesId") %>' disabled="disabled"/><span><%#DataBinder.Eval(Container.DataItem,"seriesName") %></span>
+				</itemtemplate>
+			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="CC Segment" ItemStyle-Width="1100">
 				<itemtemplate>
 					<input    type="checkbox" name="chkSegment" modelId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' disabled="disabled"/><span><%#DataBinder.Eval(Container.DataItem,"ClassSegmentName") %></span>

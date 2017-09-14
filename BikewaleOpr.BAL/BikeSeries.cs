@@ -73,7 +73,8 @@ namespace BikewaleOpr.BAL
         }
 
         /// <summary>
-        /// 
+        /// Created by : Ashutosh Sharma on 12-Sep-2017
+        /// Description : BAL Method to edit bike series
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <param name="updatedBy"></param>
@@ -95,6 +96,12 @@ namespace BikewaleOpr.BAL
             return IsEdited;
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 12-Sep-2017
+        /// Description : BAL Method to delete bike series
+        /// </summary>
+        /// <param name="bikeSeriesId"></param>
+        /// <returns></returns>
         public bool DeleteSeries(uint bikeSeriesId)
         {
             bool IsDeleted = false;

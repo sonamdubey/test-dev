@@ -115,9 +115,10 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             return objBikeSeriesList;
         }
-        
+
         /// <summary>
-        /// 
+        /// Created by : Ashutosh Sharma on 12-Sep-2017
+        /// Description : DAL Method to edit bike series
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <param name="updatedBy"></param>
@@ -155,7 +156,8 @@ namespace BikewaleOpr.DALs.Bikedata
         }
 
         /// <summary>
-        /// 
+        /// Created by : Ashutosh Sharma on 12-Sep-2017
+        /// Description : DAL Method to delete bike series
         /// </summary>
         /// <param name="bikeSeriesId"></param>
         /// <returns></returns>
