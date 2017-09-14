@@ -8,7 +8,7 @@
     self.seriesName.subscribe(function () {
         var series = "";
         if (self.seriesName() && self.seriesName() != "") {
-            series = self.seriesName().trim().replace(" ", "-").replace(/\s+/g, "").replace(/[^a-zA-Z0-9\-]+/g, '').toLowerCase();
+            series = self.seriesName().trim().replace(/\s+/g, "-").replace(/[^a-zA-Z0-9\-]+/g, '').toLowerCase();
             self.seriesMaskingMsg("");
         }
         self.seriesMaskingName(series);
@@ -23,7 +23,7 @@
     self.seriesNameUpdate.subscribe(function () {
         var series = "";
         if (self.seriesNameUpdate() && self.seriesNameUpdate() != "") {
-            series = self.seriesNameUpdate().trim().replace(/\s+/g, "").replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
+            series = self.seriesNameUpdate().trim().replace(/\s+/g, "-").replace(/[^a-zA-Z0-9\-]+/g, '').toLowerCase();
             self.seriesMaskingMsg("");
             self.seriesMaskingNameUpdate(series);
         }
@@ -56,7 +56,7 @@
                     url: "/api/bikeseries/add/?makeid=" + self.selectedMakeId() + "&seriesname=" + self.seriesName() + "&seriesmaskingname=" + self.seriesMaskingName() + "&updatedby=" + $('#userId').val(),
                     success: function (response) {
                         $(
-                            "<tr>"
+                            "<tr data-seriesid='" + response.seriesId + "'>"
                                 + "<td>" + response.seriesId + "</td>"
                                 + "<td class='teal lighten-4'>" + response.seriesName + "</td>"
                                 + "<td>" + response.seriesMaskingName + "</td>"
@@ -68,8 +68,8 @@
                                 + "<td>" + response.updatedBy + "</td>"
                              + "</tr>"
                             ).insertBefore('#bikeSeriesList > tbody > tr:first');
-                        ko.cleanNode($("#manageBikeSeries")[0]);
-                        ko.applyBindings(bikeSeriesVM, $("#manageBikeSeries")[0]);
+                        var row = $("tr[data-seriesid=" + response.seriesId + "]")[0];
+                        ko.applyBindings(bikeSeriesVM, row);
                         Materialize.toast("New bike series added", 3000);
                         self.seriesName("");
                         
