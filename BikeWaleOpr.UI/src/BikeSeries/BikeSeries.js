@@ -8,7 +8,7 @@
     self.seriesName.subscribe(function () {
         var series = "";
         if (self.seriesName() && self.seriesName() != "") {
-            series = self.seriesName().trim().replace(/\s+/g, "").replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
+            series = self.seriesName().trim().replace(" ", "-").replace(/\s+/g, "").replace(/[^a-zA-Z0-9\-]+/g, '').toLowerCase();
             self.seriesMaskingMsg("");
         }
         self.seriesMaskingName(series);

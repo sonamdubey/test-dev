@@ -48,7 +48,7 @@ namespace BikewaleOpr.Service.Controllers.Content
                     _series.AddSeries(objBikeSeries, UpdatedBy);
                     if(objBikeSeries.SeriesId == 0)
                     {
-                        return BadRequest("Input bike series is redundant");
+                        return BadRequest("Bike series already exist");
                     }
                     objBikeSeriesDTO = BikeSeriesMapper.Convert(objBikeSeries);
                 }
