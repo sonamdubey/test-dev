@@ -44,7 +44,7 @@ namespace Bikewale.Models.BikeModels
                 }
                 else
                 {
-                    otherBestBikes.BestBikes = _objBestBikes.GetBestBikesByModelInMake(_modelId, _cityId).Take(3);
+                    otherBestBikes.BestBikes = _objBestBikes.GetBestBikesByModelInMake(_modelId, _cityId);
                     otherBestBikes.OtherBestBikesHeading = string.Format("More bikes from {0}", _makeName);
                 }
             }

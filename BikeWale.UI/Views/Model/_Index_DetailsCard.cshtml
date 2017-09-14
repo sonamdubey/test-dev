@@ -286,7 +286,15 @@
                                                 <h2 class="h2-heading">@Model.OtherBestBikes.OtherBestBikesHeading</h2>
 											</div>
 											<div class="swiper-heading-right-grid inline-block text-right">
-												<a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName Bikes in India" class="btn view-all-target-btn">View all</a>
+                                                @if (!Model.OtherBestBikes.IsMakePresentInConfig)
+                                                {
+                                                    <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName Bikes in India" class="btn view-all-target-btn">View all</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@string.Format("/{0}-bikes/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName)" title="More @Model.BikeRanking.StyleName Bikes in India" class="btn view-all-target-btn">View all</a>
+                                                }
+												
 											</div>
 										</div>
                                         @if (!Model.OtherBestBikes.IsMakePresentInConfig)

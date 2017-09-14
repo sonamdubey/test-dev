@@ -3,9 +3,9 @@
 <ul class="best-bike-list margin-bottom5">
 
     @{int i = 0;}
-     @foreach(var Bike in Model.BestBikes)
-            {
-                i = i + 1;
+    @foreach (var Bike in Model.BestBikes)
+    {
+        i = i + 1;
         <li class="list-item">
             <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName))" class="list-item-target" title="@Bike.Make.MakeName @Bike.Model.ModelName">
                 <div class="item-image-block inline-block">
@@ -15,32 +15,16 @@
                 <div class="item-details-block inline-block">
                     <p class="font14 text-bold text-default text-truncate">@Bike.Make.MakeName @Bike.Model.ModelName</p>
                     <div class="key-specs-list font12 text-xx-light margin-bottom5">
-                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(Bike.MinSpecs.Displacement),Convert.ToString( Bike.MinSpecs.FuelEfficiencyOverall), Convert.ToString(Bike.MinSpecs.MaxPower),Convert.ToString(Bike.MinSpecs.KerbWeight)))
+                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(Bike.MinSpecs.Displacement), Convert.ToString(Bike.MinSpecs.FuelEfficiencyOverall), Convert.ToString(Bike.MinSpecs.MaxPower), Convert.ToString(Bike.MinSpecs.KerbWeight)))
                     </div>
-                    @if (!Model.IsMakePresentInConfig)
-                    {
-                        <p class="font11 text-grey text-truncate">Ex-showroom, @Bike.PriceInCity</p>
-                        @Html.Raw("<span class='font16 text-default'> &#x20B9;</span>")
-                        <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
-                    }
-                    else
-                    {
-                        if (Bike.OnRoadPriceInCity == 0 && Bike.Price > Bike.OnRoadPriceInCity)
-                        {
-                            <p class="font11 text-grey text-truncate">Ex-showroom, Mumbai</p>
-                            @Html.Raw("<span class='font16 text-default'> &#x20B9;</span>")
-                            <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
-                        }
-                        else
-                        {
-                            <p class="font11 text-grey text-truncate">On Road, @Bike.UsedCity.CityName</p>
-                            @Html.Raw("<span class='font16 text-default'> &#x20B9;</span>")
-                            <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.OnRoadPriceInCity))</span>
-                        }
-                    }
+
+                    <p class="font11 text-grey text-truncate">Ex-showroom, @Bike.PriceInCity</p>
+                    @Html.Raw("<span class='font16 text-default'> &#x20B9;</span>")
+                    <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
+
                 </div>
             </a>
         </li>
 
-            }
+    }
 </ul>

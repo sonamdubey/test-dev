@@ -1042,3 +1042,14 @@ h2.text-bold { font-weight: bold; }
     width: 57%;
     padding-left: 5px;
 }
+
+
+.more-make-bikes .swiper-card {
+    min-height: 170px;
+}
+.more-make-bikes .swiper-details-block {
+    padding-bottom: 15px;
+}
+.more-make-bikes .swiper-slide:first-child {
+    margin-left: 0px;
+}
