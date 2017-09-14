@@ -537,13 +537,7 @@ namespace Bikewale.Models
         {
             try
             {
-                var nearestCityModel = new ModelPriceInNearestCities(_objPQCache, modelId, cityId, (ushort)NearestCityCount);
-                var cityPriceList = nearestCityModel.GetData();
-                if (cityPriceList != null && cityPriceList.Count() > 0)
-                {
-                    objVM.NearestPriceCities = new PriceInTopCitiesWidgetVM();
-                    objVM.NearestPriceCities.PriceQuoteList = cityPriceList;
-                }
+                objVM.NearestPriceCities = new ModelPriceInNearestCities(_objPQCache, modelId, cityId, (ushort)NearestCityCount).GetData();
             }
             catch (Exception ex)
             {
