@@ -23,7 +23,7 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
                 using (_repo)
                 {
                     //Get Lead details from DB 
-                    var lead = _repo.GetLeadDetails(voucher.LeadId);
+                    var lead = GetLeadDetails(voucher.LeadId);
                     if (lead != null)
                     {
                         //Format Email and SMS code here
@@ -41,6 +41,75 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
             }
             return isProcessed;
         }
+
+        private CapitalFirstLeadEntity GetLeadDetails(string leadId)
+        {
+            CapitalFirstLeadEntity lead = default(CapitalFirstLeadEntity);
+
+            try
+            {
+                lead = _repo.GetLeadDetails(leadId);
+                lead.FullName = string.Format("{0} {1}", lead.FirstName, lead.LastName);
+
+                #region calculate loan variables
+
+                lead.OnRoadPrice = lead.Exshowroom + lead.Insurance + lead.RTO;
+                // Loan amount should be 80% of Bike On Road Price
+                lead.LoanAmount = Convert.ToUInt32(Math.Round(lead.OnRoadPrice * 0.8));
+                lead.LoanAmountStr = Bikewale.Utility.Format.FormatPrice(lead.LoanAmount.ToString());
+                lead.Downpayment = Bikewale.Utility.Format.FormatPrice((lead.OnRoadPrice - lead.LoanAmount).ToString());
+                double interestRate = 23;
+                int months = 36;
+                int emiValue = CalculateEMI(interestRate, months, lead.LoanAmount);
+                lead.Emi = Bikewale.Utility.Format.FormatPrice(emiValue.ToString());
+
+                #endregion
+            }
+            catch (Exception)
+            {
+                Logs.WriteErrorLog(string.Format("Error occured while processing Lead: GetLeadDetails() Lead Id:{0}", leadId));
+            }
+
+            return lead;
+
+        }
+
+        /// <summary>
+        /// Calculates the emi.
+        /// </summary>
+        /// <param name="interestRate">The interest rate. ex, 23 or 10</param>
+        /// <param name="months">The months. Ex. 12</param>
+        /// <param name="loanAmount">The loan amount. Ex. 120000</param>
+        /*
+           Default EMI Calculation
+           [P x R x (1+R)^N]/[(1+R)^N-1]
+           R = 23% / 12
+           N = 36 Months
+           P = 80% of Bike On Road Price
+        
+        */
+        private int CalculateEMI(double interestRate, int months, double loanAmount)
+        {
+            double payment = 0;
+            int perMonth = 0;
+            try
+            {
+                if (interestRate > 1)
+                {
+                    interestRate = interestRate / 100;
+                }
+                payment = (loanAmount * Math.Pow((interestRate / 12) + 1,
+                          (months)) * interestRate / 12) / (Math.Pow
+                          (interestRate / 12 + 1, (months)) - 1);
+                perMonth = Convert.ToInt32(Math.Round(payment));
+            }
+            catch
+            {
+                Logs.WriteErrorLog(string.Format("Error occured while processing Lead: CalculateEMI() interest:{0}, months: {1}, amount: {2}", interestRate, months, loanAmount));
+            }
+            return perMonth;
+        }
+
 
         /// <summary>
         /// Created by  :   Sumit Kate on 12 Sep 2017
@@ -102,7 +171,8 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
             {
                 ComposeEmailBase objEmail = new CapitalFirstSuccessEmailTemplate(lead);
                 byte[] pdfFile = CreatePdf.ConvertToBytes(new PdfAttachment(lead).ComposeBody());
-                objEmail.Send(lead.EmailId, "Congratulations! Your loan has been approved !", pdfFile, "voucher.pdf");
+                string attachmentName = string.Format("{0}.pdf", string.Format("{0}_{1}_{2}", lead.FirstName, lead.LastName, lead.VoucherNumber).Replace(".", string.Empty));
+                objEmail.Send(lead.EmailId, "Bike Loan Application Pre-Approved", pdfFile, attachmentName);
             }
             catch
             {
