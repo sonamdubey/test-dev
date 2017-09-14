@@ -84,7 +84,7 @@ namespace Bikewale.BAL.Finance
                         objNVC.Add("agentName", entity.AgentName);
                         objNVC.Add("expiryDate", entity.ExpiryDate.ToShortDateString());
                         objNVC.Add("voucherCode", entity.VoucherCode);
-                        objNVC.Add("status", entity.Status.ToString());
+                        objNVC.Add("status", ((int)entity.Status).ToString());
                         RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                         objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.CapitalFirstConsumerQueue, objNVC);
                         message = CF_MESSAGE_SUCCESS;
