@@ -26,7 +26,7 @@
         }
         @if (Model.PageMetaTags.EnableOG)
         {
-            <meta property="og:title" content="@Model.PageMetaTags.Title" />
+            <meta property="og:title" content="@Html.Raw(Model.PageMetaTags.Title)" />
             <meta property="og:type" content="website" />
             <meta property="og:description" content="@Model.PageMetaTags.Description" />
             <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
