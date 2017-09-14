@@ -51,8 +51,9 @@ namespace BikewaleOpr.DALs.Bikedata
         /// Summary : Add new bike series
         /// </summary>
         /// <param name="bikeSeries"></param>
+        /// <param name="UpdatedBy"></param>
         /// <returns></returns>
-        public void AddSeries(BikeSeriesEntity bikeSeries, uint userid)
+        public void AddSeries(BikeSeriesEntity bikeSeries, uint updatedBy)
         {
             try
             { 
@@ -62,7 +63,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_name", bikeSeries.SeriesName);
                     param.Add("par_maskingname", bikeSeries.SeriesMaskingName);
                     param.Add("par_makeid", bikeSeries.BikeMake.MakeId);
-                    param.Add("par_userid", userid);
+                    param.Add("par_userid", updatedBy);
                     param.Add("par_updatedby", dbType: DbType.String, direction: ParameterDirection.Output);
                     param.Add("par_seriesid", dbType: DbType.UInt32, direction: ParameterDirection.Output);
                     connection.Open();
@@ -82,6 +83,36 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DAL.BikeSeriesRepository: AddSeries");
             }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 13th Sep 2017
+        /// Summary : Get Series by make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeSeriesEntityBase> GetSeriesByMake(int makeId)
+        {
+            IEnumerable<BikeSeriesEntityBase> objBikeSeriesList = null;
+            try
+            {
+                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    DynamicParameters param = new DynamicParameters();
+                    param.Add("par_makeid", makeId);
+                    connection.Open();
+                    objBikeSeriesList = connection.Query<BikeSeriesEntityBase>("bw_getseriesbymake", param: param, commandType: CommandType.StoredProcedure);
+                    if(connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DAL.BikeSeriesRepository: GetSeriesByMake");
+            }
+            return objBikeSeriesList;
         }
     }
 }

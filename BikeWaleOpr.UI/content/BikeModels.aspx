@@ -61,6 +61,17 @@
                     <div class="clear"></div>
                     <div class="margin10">
                         <div class="floatLeft">
+                            Select Series :
+                        </div>
+                        <div class="floatLeft margin-left10">
+                            <asp:dropdownlist id="ddlSeries" runat="server" width="100%">
+									<asp:ListItem Text="--Select Series--" Value="-1" />
+							</asp:dropdownlist>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="margin10">
+                        <div class="floatLeft">
                             Select Segment :
                         </div>
                         <div class="floatLeft margin-left10">
@@ -154,8 +165,38 @@
                     <div class="clear"></div>
                 </div>
             </fieldset>
-        </div>       
-
+        </div>
+        <div class="floatLeft" style="width: 450px;">
+            <fieldset>
+                <legend>Update Existing Series</legend>
+                <div>
+                    <div class="margin10">
+                        <div class="floatLeft">
+                            Select Series :
+                        </div>
+                        <div class="floatLeft margin-left10">
+                            <asp:dropdownlist id="ddlUpdateSeries" runat="server">
+								<asp:ListItem Text="--Select Series--" Value="-1" />
+							</asp:dropdownlist>
+                        </div>
+                        <div class="floatLeft margin-left10">
+                            <span id="spnUpdateSeries" class="errorMessage"></span>
+                        </div>
+                        <div class="floatLeft margin-left10">
+                            <input type="button" id="btnSelModel" value="Select Bike Model(s)" />
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="margin-top10">
+                        <div style="text-align: center; margin-top: 20px;">
+                            <input type="submit" id="Submit1" value="Update Model Segment" runat="server" /><span id="spnSeg" class="errorMessage"></span>
+                            <asp:hiddenfield id="Hiddenfield1" runat="server"></asp:hiddenfield>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </fieldset>
+        </div>          
     </div>
     <div class="clear"></div>
     <br />

@@ -40,19 +40,36 @@ namespace BikewaleOpr.BAL
         /// <param name="UpdatedBy"></param>
         /// <param name="seriesId"></param>
         /// <param name="isSeriesExist"></param>
-        public void AddSeries(BikeSeriesEntity bikeSeries, uint UpdatedBy)
+        public void AddSeries(BikeSeriesEntity bikeSeries, uint updatedBy)
         {
             try
             {
-                if (bikeSeries != null && bikeSeries.BikeMake != null && UpdatedBy > 0)
+                if (bikeSeries != null && bikeSeries.BikeMake != null && updatedBy > 0)
                 {
-                    _seriesRepo.AddSeries(bikeSeries, UpdatedBy);
+                    _seriesRepo.AddSeries(bikeSeries, updatedBy);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: AddSeries");
             }
+        }
+
+        public IEnumerable<BikeSeriesEntityBase> GetSeriesByMake(int makeId)
+        {
+            IEnumerable<BikeSeriesEntityBase> objBikeSeriesList = null;
+            try
+            {
+                if(makeId > 0)
+                {
+                    objBikeSeriesList = _seriesRepo.GetSeriesByMake(makeId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: GetSeriesByMake");
+            }
+            return objBikeSeriesList;
         }
     }
 }

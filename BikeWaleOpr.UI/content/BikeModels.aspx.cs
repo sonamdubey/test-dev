@@ -1,8 +1,12 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.common;
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.Entity.BikeData;
+using BikewaleOpr.Interface.BikeData;
 using BikeWaleOpr.Common;
 using Enyim.Caching;
+using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -22,13 +26,14 @@ namespace BikeWaleOpr.Content
     public class BikeModels : System.Web.UI.Page
     {
         protected HtmlGenericControl spnError;
-        protected DropDownList cmbMakes, ddlSegment, ddlUpdateSegment;
+        protected DropDownList cmbMakes, ddlSegment, ddlUpdateSegment, ddlSeries;
         protected TextBox txtModel, txtMaskingName;
         protected Button btnSave;
         protected HtmlInputButton btnUpdateSegment;
         protected DataGrid dtgrdMembers;
         protected Label lblStatus;
         protected HiddenField hdnModelIdList, hdnModelIdsList;
+        private readonly IBikeSeries _series = null;
 
         private string SortCriteria
         {
@@ -64,8 +69,18 @@ namespace BikeWaleOpr.Content
         bool _isMemcachedUsed;
         protected static MemcachedClient _mc = null;
 
+        /// <summary>
+        /// Modified by : Vivek Singh Tomar on 13th Sep 2017
+        /// Summary : Added initialization of BikeSeries
+        /// </summary>
         public BikeModels()
         {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
+                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>();
+                _series = container.Resolve<IBikeSeries>();
+            }
             _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
             if (_isMemcachedUsed && _mc == null)
             {
@@ -199,6 +214,7 @@ namespace BikeWaleOpr.Content
         void cmbMakes_SelectedIndexChanged(object Sender, EventArgs e)
         {
             FillSegments();
+            FillSeries(Convert.ToInt32(cmbMakes.SelectedValue));
             BindGrid();
 
         }
@@ -687,5 +703,33 @@ namespace BikeWaleOpr.Content
                 objErr.SendMail();
             }
         }   //End of UpdateModelSegments
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 13th Sep 2017
+        /// Summary : bind the series drop down list
+        /// </summary>
+        private void FillSeries(int makeId)
+        {
+            IEnumerable<BikeSeriesEntityBase> SeriesList = null;
+            try
+            {
+                if(makeId > 0)
+                {
+                    SeriesList = _series.GetSeriesByMake(makeId);
+                    if(SeriesList != null)
+                    {
+                        ddlSeries.DataSource = SeriesList;
+                        ddlSeries.DataTextField = "SeriesName";
+                        ddlSeries.DataValueField = "SeriesId";
+                        ddlSeries.DataBind();
+                        ddlSeries.Items.Insert(0, "--Select Series--");
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.Content.BikeModel: FillSeries");
+            }
+        }
     }
 }
