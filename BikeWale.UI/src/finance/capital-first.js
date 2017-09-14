@@ -193,10 +193,12 @@ function savePersonalDetails() {
         data: ko.toJSON(personDetails),
         success: function (response) {
 
-            if (response > 0) {
+            if (response!=null) {
                 $("#personal-detail-tab").addClass("hide");
                 $("#employment-detail-tab").removeClass("hide");
-                $("#cpId").val();
+                $("#cpId").val(response.CpId);
+                $("#ctLeadId").val(response.CTleadId);
+                $("#leadId").val(response.LeadId);
             }
 
         }
@@ -243,7 +245,9 @@ function saveEmployeDetails() {
         "addressLine1": $("#cfAddress1").val(),
         "addressLine2": $('#cfAddress2').val(),
         "pincode": $("#cfPincode").val(),
-        "pancard": $("#cfPan").val()
+        "pancard": $("#cfPan").val(),
+        "ctLeadId": $("#ctLeadId").val(),
+        "leadId": $("#leadId").val()
 
     }
 
