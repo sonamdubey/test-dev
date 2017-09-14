@@ -182,14 +182,15 @@ namespace Bikewale.BAL.Finance
                     );
                 //CT api
 
-            var ctResponse = SendCustomerDetailsToCarTrade(objDetails);
+                var ctResponse = SendCustomerDetailsToCarTrade(objDetails);
 
-            
 
-            if (ctResponse != null)
-            {
-                objDetails.CTLeadId = ctResponse.LeadId;
-                _objIFinanceRepository.SaveCTApiResponse(ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
+
+                if (ctResponse != null)
+                {
+                    objDetails.CTLeadId = ctResponse.LeadId;
+                    _objIFinanceRepository.SaveCTApiResponse(ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
+                }
             }
             catch (Exception ex)
             {

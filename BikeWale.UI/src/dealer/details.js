@@ -3,7 +3,7 @@ var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress
 var customerViewModel, dealerDetailsViewModel;
 var dealerLat;
 var googleMapAPIKey;
-var dealerLong, dropdown, assistGetModel, currentCityName, pqId, pageUrl, clientIP, cityArea,dealerbikesListEle;
+var dealerLong, dropdown, assistGetModel, currentAddress, pqId, pageUrl, clientIP, cityArea,dealerbikesListEle;
 
 docReady(function () {
     pageUrl = window.location.href;
@@ -163,7 +163,7 @@ dropdown = {
 };
 function initializeMap() {
     var mapCanvas = document.getElementById("dealer-map");
-    currentCityName = document.getElementById("locationSearch").getAttribute("data-currentcityname");
+    currentAddress = document.getElementById("locationSearch").getAttribute("data-currentaddress");
     var mapProp = {
         scrollwheel: false,
         streetViewControl: false,
@@ -215,7 +215,7 @@ function initializeMap() {
     });
 
     var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ 'address': currentCityName }, function (results, status) {
+    geocoder.geocode({ 'address': currentAddress }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
             map.fitBounds(results[0].geometry.viewport);

@@ -12,6 +12,8 @@ namespace Bikewale.Models
     /// Summary :- Dealer details view model
     /// Modified by : Aditi Srivastava on 25 May 2017
     /// Summary     : Added GALabel for GA triggers
+    /// Modified by : Vivek Singh Tomar on 8th Sep 2017
+    /// Summary     : Added RedirectUrl
     /// </summary>
     public class DealerShowroomDealerDetailsVM : ModelBase
     {
@@ -27,5 +29,6 @@ namespace Bikewale.Models
         public string PQAreaName { get; set; }
         public string CustomerAreaName { get; set; }
         public string GALabel { get; set; }
+        public string RedirectUrl { get; set; }
     }
 }
