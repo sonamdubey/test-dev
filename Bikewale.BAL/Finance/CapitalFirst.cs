@@ -123,6 +123,7 @@ namespace Bikewale.BAL.Finance
                     _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
                 }
 
+
                 if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber), objDetails.EmailId))
                 {
                     message = "Registered Mobile Number";
@@ -165,9 +166,9 @@ namespace Bikewale.BAL.Finance
             return message;
 
         }
-        public uint SavePersonalDetails(PersonalDetails objDetails, string Utmz, string Utma)
+        public Iddetails SavePersonalDetails(PersonalDetails objDetails, string Utmz, string Utma)
         {
-
+            Iddetails objId = null;
 
             try
             {
@@ -197,13 +198,21 @@ namespace Bikewale.BAL.Finance
                     objDetails.CTLeadId = ctResponse.LeadId;
                     _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
                 }
+                objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
+
+                objId = new Iddetails();
+                objId.CpId = objDetails.Id;
+                objId.CTleadId = objDetails.CTLeadId;
+                objId.LeadId = objDetails.LeadId;
+
+
             }
             catch (Exception ex)
             {
 
                 ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SavePersonalDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
-            return objDetails.Id;
+            return objId;
 
         }
 
@@ -222,7 +231,7 @@ namespace Bikewale.BAL.Finance
                         ICollection<KeyValuePair<string, string>> formData = new Dictionary<string, string>();
                         formData.Add(new KeyValuePair<string, string>("action", CTApiAction));
                         formData.Add(new KeyValuePair<string, string>("api_code", CTApiCode));
-                        formData.Add(new KeyValuePair<string, string>("bw_lead_id", objDetails.objLead.LeadId.ToString()));
+                        formData.Add(new KeyValuePair<string, string>("bw_lead_id", objDetails.LeadId.ToString()));
                         formData.Add(new KeyValuePair<string, string>("company", objDetails.CompanyName));
                         formData.Add(new KeyValuePair<string, string>("date_of_birth", objDetails.DateOfBirth.ToString("dd/MM/yyyy")));
                         formData.Add(new KeyValuePair<string, string>("email", objDetails.EmailId));
@@ -284,7 +293,7 @@ namespace Bikewale.BAL.Finance
 
                 if (!_objAuthCustomer.IsRegisteredUser(objDetails.EmailId, MobileNumber))
                 {
-                    objCust = new CustomerEntity() { CustomerName = objDetails.objLead.Name, CustomerEmail = objDetails.EmailId, CustomerMobile = MobileNumber, ClientIP = "" };
+                    objCust = new CustomerEntity() { CustomerName = string.Format("{0} {1}", objDetails.FirstName, objDetails.LastName), CustomerEmail = objDetails.EmailId, CustomerMobile = MobileNumber, ClientIP = "" };
                     objCust.CustomerId = _objCustomer.Add(objCust);
 
                 }

@@ -14,8 +14,6 @@
             <div class="content-box-shadow padding-bottom5">
                 <div class="font14 padding-15-20 text-slate-grey padding-bottom5 collapsible-content">
                     <p class="main-content">Get upto 95% of vehicle’s value as loan! Fill in your personal and employment details and get an instant loan approval from one of our finance partners.</p>
-                    @*<p class="more-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt moll</p>
-                    <span class="read-more-tab read-more-target margin-top5">Read more</span>*@
                 </div>               
                 <div class="page-tabs-data">
                     <div class="personal-details-container">
@@ -231,6 +229,8 @@
 </section>
 <input type="hidden" id="objLead" value="@(Model.objLeadJson)"/>
 
+<input type="hidden" id="leadId" value="" />
+<input type="hidden" id="ctLeadId" value="" />
 <input type="hidden" id="cpId" value="" />
 
 @Html.Partial("~/Views/Shared/_otpScreen.cshtml")
