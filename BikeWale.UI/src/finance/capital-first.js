@@ -70,20 +70,20 @@ docReady(function () {
     };
 
     otpScreen = {
-        openOtp: function() {
+        openOtp: function () {
             $(otpContainerElem).show();
             docBody.lockScroll();
         },
-        closeOtp: function() {
+        closeOtp: function () {
             $(otpContainerElem).hide();
             docBody.unlockScroll();
         }
     };
 
     isDesktop = $(".capital-first-desktop");
-    
+
     $("#cfDOB").Zebra_DatePicker({
-        container : $("#cfDOB").closest(".input-box")
+        container: $("#cfDOB").closest(".input-box")
     });
 
     $(".page-tabs-data input, .otp-container input[type!=button]").on('blur', function () {
@@ -107,7 +107,7 @@ docReady(function () {
     });
 
     FillDummyDetails();
-   
+
     $(".otp-container__edit-icon").on('click', function () {
         var editPhone = $(otpPhoneInput).text();
         $(otpVerificationElem).hide();
@@ -155,7 +155,7 @@ function validatePersonalInfo() {
     isValid &= validateDOB($("#cfDOB"));
 
     if (isValid) {
-       
+
 
         savePersonalDetails();
 
@@ -171,14 +171,13 @@ function validatePersonalInfo() {
     }
 }
 
-function savePersonalDetails()
-{
+function savePersonalDetails() {
     var personDetails = {
         "objLeadJson": $("#objLead").val(),
-        "firstName":$('#cfFName').val(),
-        "lastName":$('#cfLName').val(),
-        "mobileNumber":$('#cfNum').val(),
-        "emailId":$('#cfEmail').val(),
+        "firstName": $('#cfFName').val(),
+        "lastName": $('#cfLName').val(),
+        "mobileNumber": $('#cfNum').val(),
+        "emailId": $('#cfEmail').val(),
         "dateOfBirth": $('#cfDOB').val(),
         "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
         "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
@@ -195,9 +194,13 @@ function savePersonalDetails()
         contentType: "application/json",
         data: ko.toJSON(personDetails),
         success: function (response) {
-            $("#personal-detail-tab").addClass("hide");
-            $("#employment-detail-tab").removeClass("hide");
-          
+
+            if (response > 0) {
+                $("#personal-detail-tab").addClass("hide");
+                $("#employment-detail-tab").removeClass("hide");
+                $("#cpId").val();
+            }
+
         }
     });
 
@@ -216,8 +219,8 @@ function validateEmploymentInfo() {
 
     if (isValid) {
         saveEmployeDetails();
-       
-      
+
+
     }
 }
 
@@ -228,11 +231,21 @@ function saveEmployeDetails() {
         "companyName": $('#cfCompName').val(),
         "OfficialAddressLine1": $('#cfCompAddress1').val(),
         "OfficialAddressLine2": $('#cfCompAddress2').val(),
-        "pincode": $('#cfCompPincode').val(),
+        "pincodeOffice": $('#cfCompPincode').val(),
         "annualIncome": $('#cfCompIncome').val(),
         "mobileNumber": $('#cfNum').val(),
         "emailId": $('#cfEmail').val(),
-        "objLeadJson": $("#objLead").val()
+        "objLeadJson": $("#objLead").val(),
+        "id": $("#cpId").val(),
+        "firstName": $('#cfFName').val(),
+        "lastName": $('#cfLName').val(),
+        "dateOfBirth": $('#cfDOB').val(),
+        "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
+        "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
+        "addressLine1": $("#cfAddress1").val(),
+        "addressLine2": $('#cfAddress2').val(),
+        "pincode": $("#cfPincode").val(),
+        "pancard": $("#cfPan").val()
 
     }
 
@@ -242,15 +255,14 @@ function saveEmployeDetails() {
         contentType: "application/json",
         data: ko.toJSON(employeDetails),
         success: function (response) {
-            
+
             otpScreen.openOtp();
             var objData = {
                 "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
                 "mobileNumber": $('#cfNum').val()
             }
             otpvm.setParameters(objData);
-            if (response == "Registered Mobile Number")
-            {
+            if (response == "Registered Mobile Number") {
                 $('.otp-container__info').hide();
                 $('#thankyouScreen').removeClass("hide");
 
@@ -281,7 +293,7 @@ function validatePhoneNumber(inputMobile) {
     var regMob = new RegExp('^((7)|(8)|(9))[0-9]{9}$', 'i'),
         value = $(inputMobile).val();
 
-    if(value.length < 10){
+    if (value.length < 10) {
         validate.setError($(inputMobile), "Enter 10 digits");
         isValid = false;
     }
@@ -402,8 +414,8 @@ function showBlackWindow() {
 
 function hideBlackWindow() {
     $(blackWindowElem).hide();
-    }
-    
+}
+
 function FillDummyDetails() {
     $('#cfFName').val('John');
     $('#cfLName').val('doe');

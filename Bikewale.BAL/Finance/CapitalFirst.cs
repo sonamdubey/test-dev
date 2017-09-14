@@ -108,72 +108,91 @@ namespace Bikewale.BAL.Finance
         {
 
             string message = "";
-            _objIFinanceRepository.SavePersonalDetails(objDetails);
-
-
-            if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber), objDetails.EmailId))
+            try
             {
-                message = "Registered Mobile Number";
-                var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
+                _objIFinanceRepository.SavePersonalDetails(objDetails);
+                SendCustomerDetailsToCarTrade(objDetails);
 
-                if (numberList != null && !numberList.Contains(Convert.ToString(objDetails.MobileNumber)))
+                if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber), objDetails.EmailId))
                 {
-                    // push in autobiz
-                    NameValueCollection objNVC = new NameValueCollection();
-                    objNVC.Add("pqId", objDetails.objLead.PQId.ToString());
-                    objNVC.Add("dealerId", objDetails.objLead.DealerId.ToString());
-                    objNVC.Add("customerName", objDetails.objLead.Name);
-                    objNVC.Add("customerEmail", objDetails.EmailId);
-                    objNVC.Add("customerMobile", Convert.ToString(objDetails.MobileNumber));
-                    objNVC.Add("versionId", objDetails.objLead.VersionId.ToString());
-                    objNVC.Add("pincodeId", Convert.ToString(objDetails.Pincode));
-                    objNVC.Add("cityId", objDetails.objLead.CityId.ToString());
-                    objNVC.Add("leadType", "2");
-                    objNVC.Add("manufacturerDealerId", Convert.ToString(objDetails.objLead.ManufacturerDealerId));
-                    objNVC.Add("manufacturerLeadId", Convert.ToString(objDetails.objLead.LeadId));
-                    RabbitMqPublish objRMQPublish = new RabbitMqPublish();
-                    objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
+                    message = "Registered Mobile Number";
+                    var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
+
+                    if (numberList != null && !numberList.Contains(Convert.ToString(objDetails.MobileNumber)))
+                    {
+                        // push in autobiz
+                        NameValueCollection objNVC = new NameValueCollection();
+                        objNVC.Add("pqId", objDetails.objLead.PQId.ToString());
+                        objNVC.Add("dealerId", objDetails.objLead.DealerId.ToString());
+                        objNVC.Add("customerName", objDetails.objLead.Name);
+                        objNVC.Add("customerEmail", objDetails.EmailId);
+                        objNVC.Add("customerMobile", Convert.ToString(objDetails.MobileNumber));
+                        objNVC.Add("versionId", objDetails.objLead.VersionId.ToString());
+                        objNVC.Add("pincodeId", Convert.ToString(objDetails.Pincode));
+                        objNVC.Add("cityId", objDetails.objLead.CityId.ToString());
+                        objNVC.Add("leadType", "2");
+                        objNVC.Add("manufacturerDealerId", Convert.ToString(objDetails.objLead.ManufacturerDealerId));
+                        objNVC.Add("manufacturerLeadId", Convert.ToString(objDetails.objLead.LeadId));
+                        RabbitMqPublish objRMQPublish = new RabbitMqPublish();
+                        objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
+                    }
+                }
+                else
+                {
+                    message = "Not Registered Mobile Number";
+                    MobileVerificationEntity mobileVer = null;
+                    mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
+                    SMSTypes st = new SMSTypes();
+                    st.SMSMobileVerification(Convert.ToString(objDetails.MobileNumber), string.Empty, mobileVer.CWICode, "PageUrl");
+
                 }
             }
-            else
+            catch (Exception ex)
             {
-                message = "Not Registered Mobile Number";
-                MobileVerificationEntity mobileVer = null;
-                mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
-                SMSTypes st = new SMSTypes();
-                st.SMSMobileVerification(Convert.ToString(objDetails.MobileNumber), string.Empty, mobileVer.CWICode, "PageUrl");
 
+                ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SaveEmployeDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
             return message;
 
         }
-        public bool SavePersonalDetails(PersonalDetails objDetails, string Utmz, string Utma)
+        public uint SavePersonalDetails(PersonalDetails objDetails, string Utmz, string Utma)
         {
 
 
-            CustomerEntity objCust = GetCustomerId(objDetails, objDetails.MobileNumber);
+            try
+            {
+                CustomerEntity objCust = GetCustomerId(objDetails, objDetails.MobileNumber);
 
-            objDetails.objLead.LeadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(
-                 objDetails.objLead.DealerId,
-                 objDetails.objLead.PQId,
-                 objCust.CustomerId,
-                 objDetails.objLead.Name,
-                 objDetails.EmailId,
-                 objDetails.MobileNumber,
-                 objDetails.objLead.LeadSourceId,
-                 Utma,
-                 Utmz,
-                 objDetails.objLead.DeviceId,
-                 objDetails.objLead.CampaignId,
-                 objDetails.objLead.LeadId
-                );
-            //CT api
+                objDetails.LeadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(
+                     objDetails.objLead.DealerId,
+                     objDetails.objLead.PQId,
+                     objCust.CustomerId,
+                     objDetails.objLead.Name,
+                     objDetails.EmailId,
+                     objDetails.MobileNumber,
+                     objDetails.objLead.LeadSourceId,
+                     Utma,
+                     Utmz,
+                     objDetails.objLead.DeviceId,
+                     objDetails.objLead.CampaignId,
+                     objDetails.objLead.LeadId
+                    );
+                //CT api
 
-            var ctLeadId = SendCustomerDetailsToCarTrade(objDetails);
-            objDetails.CTLeadId = ctLeadId;
-            _objIFinanceRepository.SavePersonalDetails(objDetails);
+                var ctLeadId = SendCustomerDetailsToCarTrade(objDetails);
 
-            return true;
+                objDetails.CTLeadId = ctLeadId;
+
+                objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
+
+                
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SavePersonalDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
+            }
+            return objDetails.Id;
 
         }
 
@@ -190,17 +209,17 @@ namespace Bikewale.BAL.Finance
                         CTFormData formData = new CTFormData();
                         formData.action = CTApiAction;
                         formData.api_code = CTApiCode;
-                        formData.bw_lead_id = objDetails.objLead.LeadId.ToString();
+                        formData.bw_lead_id = objDetails.LeadId.ToString();
                         formData.company = objDetails.CompanyName;
                         formData.date_of_birth = objDetails.DateOfBirth.ToString("dd/MM/yyyy");
                         formData.email = objDetails.EmailId;
                         formData.emp_address1 = objDetails.OfficialAddressLine1;
                         formData.emp_address2 = objDetails.OfficialAddressLine2;
-                        formData.emp_pincode = objDetails.Pincode;
+                        formData.emp_pincode = objDetails.PincodeOffice;
                         formData.emp_type = objDetails.Status == 1 ? "Salaried" : "Self-Employed";
                         formData.fname = objDetails.FirstName;
                         formData.from_source = "1"; // 1 - Desktop, 2 - Mobile
-                        formData.gender = objDetails.Gender == 1 ? "Make" : "Female";
+                        formData.gender = objDetails.Gender == 1 ? "Male" : "Female";
                         formData.gross_income = objDetails.AnnualIncome.ToString();
                         formData.lead_id = objDetails.CTLeadId.ToString();
                         formData.lname = objDetails.LastName;
@@ -213,7 +232,7 @@ namespace Bikewale.BAL.Finance
                         formData.pan_number = objDetails.Pancard;
                         formData.res_address1 = objDetails.AddressLine1;
                         formData.res_address2 = objDetails.AddressLine2;
-                        formData.res_pincode = objDetails.PincodeOffice;
+                        formData.res_pincode = objDetails.Pincode;
 
 
                         string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(formData);
@@ -264,7 +283,7 @@ namespace Bikewale.BAL.Finance
                     objCust = new CustomerEntity()
                     {
                         CustomerId = objCustomer.CustomerId,
-                        CustomerName = objDetails.objLead.Name,
+                        CustomerName = string.Format("{0} {1}",objDetails.FirstName,objDetails.LastName),
                         CustomerEmail = objDetails.EmailId = !String.IsNullOrEmpty(objDetails.EmailId) ? objDetails.EmailId : objCustomer.CustomerEmail,
                         CustomerMobile = MobileNumber
                     };

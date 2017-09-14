@@ -64,6 +64,12 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         [JsonProperty("annualIncome")]
         public uint AnnualIncome { get; set; }
 
+        /// <summary>
+        /// capital first table id
+        /// </summary>
+        [JsonProperty("id")]
+        public uint Id { get; set; }
+
         public string objLeadJson { get; set; }
         public ManufacturerLeadEntity objLead { get; set; }
     }
