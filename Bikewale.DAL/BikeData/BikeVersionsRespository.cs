@@ -104,6 +104,13 @@ namespace Bikewale.DAL.BikeData
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Changed SP from 'getversions_23082017' to 'getversions_30082017'
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="isNew"></param>
+        /// <returns></returns>
         public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
             List<BikeVersionMinSpecs> objMinSpecs = new List<BikeVersionMinSpecs>();
@@ -112,7 +119,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getversions_23082017";
+                    cmd.CommandText = "getversions_30082017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
 

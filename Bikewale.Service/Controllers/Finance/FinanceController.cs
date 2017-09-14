@@ -13,12 +13,12 @@ namespace Bikewale.Service.Controllers
 {
     public class FinanceController : ApiController
     {
-      
+
         private readonly ICapitalFirst _objICapitalFirst = null;
         private readonly IMobileVerificationRepository _mobileVerRespo = null;
-        public FinanceController( ICapitalFirst objICapitalFirst, IMobileVerificationRepository mobileVerRespo)
+        public FinanceController(ICapitalFirst objICapitalFirst, IMobileVerificationRepository mobileVerRespo)
         {
-           
+
             _objICapitalFirst = objICapitalFirst;
             _mobileVerRespo = mobileVerRespo;
 
@@ -33,9 +33,10 @@ namespace Bikewale.Service.Controllers
             try
             {
                 string Utmz = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
-              string Utma = Request.Headers.Contains("_bwutmz") ? Request.Headers.GetValues("_bwutmz").FirstOrDefault() : String.Empty;
+                string Utma = Request.Headers.Contains("_bwutmz") ? Request.Headers.GetValues("_bwutmz").FirstOrDefault() : String.Empty;
                 objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
-                var value=_objICapitalFirst.SavePersonalDetails(objDetails, Utmz, Utma);
+
+                var value = _objICapitalFirst.SavePersonalDetails(objDetails, Utmz, Utma);
 
                 return Ok(value);
             }
@@ -60,7 +61,7 @@ namespace Bikewale.Service.Controllers
             try
             {
                 objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
-                string message=_objICapitalFirst.SaveEmployeDetails(objDetails);
+                string message = _objICapitalFirst.SaveEmployeDetails(objDetails);
 
                 return Ok(message);
             }
@@ -111,7 +112,7 @@ namespace Bikewale.Service.Controllers
         /// Summary :- Banner SaveBannerBasicDetails
         /// </summary>
         [HttpPost, Route("api/finance/verifymobile/otp/{otp}/mobilenumber/{mobileNumber}")]
-        public IHttpActionResult VerifyMobile(string otp,string mobileNumber)
+        public IHttpActionResult VerifyMobile(string otp, string mobileNumber)
         {
             try
             {

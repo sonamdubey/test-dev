@@ -12,5 +12,14 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         public DateTime ExpiryDate { get; set; }
         public string AgentName { get; set; }
         public string AgentContactNumber { get; set; }
+        public CapitalFirstVoucherStatus Status { get; set; }
+    }
+
+
+    public enum CapitalFirstVoucherStatus
+    {
+        Pre_Approved = 3,
+        Rejected = 4,
+        Credit_Refer = 5
     }
 }

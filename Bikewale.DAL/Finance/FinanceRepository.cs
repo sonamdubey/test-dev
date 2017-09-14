@@ -24,7 +24,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_id", id, DbType.Int32, ParameterDirection.InputOutput);
+                    param.Add("par_id", objDetails.Id, DbType.Int32, ParameterDirection.InputOutput);
                     param.Add("par_leadid", objDetails.LeadId);
                     param.Add("par_ctleadid", objDetails.CTLeadId);
                     param.Add("par_firstname", objDetails.FirstName);
@@ -141,6 +141,37 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                 ErrorClass objErr = new ErrorClass(ex, String.Format("FinanceRepository.GetCapitalFirstBikeMapping({0})", versionId));
             }
             return bike;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 14 Sep 2017
+        /// Description :   Save CTApi Response and lead status
+        /// </summary>
+        /// <param name="leadId"></param>
+        /// <param name="status"></param>
+        /// <param name="responseText"></param>
+        /// <returns></returns>
+        public bool SaveCTApiResponse(uint leadId, ushort status, string responseText)
+        {
+            Boolean isSaved = false;
+            try
+            {
+                using (IDbConnection conn = DatabaseHelper.GetMasterConnection())
+                {
+                    var param = new DynamicParameters();
+                    param.Add("par_leadid", leadId, dbType: DbType.Int32);
+                    param.Add("par_status", status);
+                    param.Add("par_apiresponse", responseText, dbType: DbType.String);
+                    conn.Open();
+                    conn.Execute("updatecapitalfirstleadresponse", param: param, commandType: CommandType.StoredProcedure);
+                    isSaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("FinanceRepository.SaveVaoucherDetails({0},{1})", leadId, responseText));
+            }
+            return isSaved;
         }
     }
 }

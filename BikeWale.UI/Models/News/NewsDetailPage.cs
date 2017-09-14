@@ -97,6 +97,7 @@ namespace Bikewale.Models
             _renderedArticles = renderedArticles;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _objBikeVersionsCache = objBikeVersionsCache;
+            LogNewsUrl = BWConfiguration.Instance.LogNewsUrl;
             ProcessQueryString();
         }
         #endregion
@@ -113,11 +114,11 @@ namespace Bikewale.Models
             try
             {
                 qsBasicId = BasicIdMapping.GetCWBasicId(qsBasicId);
-                if (!qsBasicId.Equals(_basicId))
+                if (!qsBasicId.Equals(_basicId) && !String.IsNullOrEmpty(request["t"]))
                 {
                     status = StatusCodes.RedirectPermanent;
                     mappedCWId = qsBasicId;
-                    redirectUrl = string.Format("/news/{0}-{1}.html", mappedCWId, request["t"]);
+                    redirectUrl = request["t"].StartsWith(@"/news/", StringComparison.InvariantCultureIgnoreCase) ? request["t"] : string.Format("/news/{0}-{1}.html", mappedCWId, request["t"]);
                 }
                 else if (uint.TryParse(qsBasicId, out basicId) && basicId > 0)
                     status = StatusCodes.ContentFound;
@@ -130,11 +131,9 @@ namespace Bikewale.Models
             }
             finally
             {
-                if (LogNewsUrl)
+                if (LogNewsUrl && (!String.IsNullOrEmpty(request["t"]) && request["t"].StartsWith(@"/news/", StringComparison.InvariantCultureIgnoreCase)))
                 {
-                    ThreadContext.Properties["NewsRedirectUrl"] = redirectUrl;
-                    ThreadContext.Properties["request(t)"] = request["t"];
-                    _logger.Error("NewsDetailPage.ProcessQueryString");
+                    _logger.Error(String.Format("NewsDetailPage.ProcessQueryString({0},{1})", redirectUrl, request["t"]));
                 }
             }
         }
@@ -307,7 +306,7 @@ namespace Bikewale.Models
                     {
                         objData.Make = objData.ArticleDetails.VehiclTagsList.FirstOrDefault().MakeBase;
                         if (objData.Make != null)
-                            objData.Make = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)objData.Make.MakeId);
+                            objData.Make = new Common.MakeHelper().GetMakeNameByMakeId((uint)objData.Make.MakeId);
                     }
                     MakeId = (uint)objData.Make.MakeId;
                 }

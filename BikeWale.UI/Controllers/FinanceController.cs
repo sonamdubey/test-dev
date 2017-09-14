@@ -26,22 +26,21 @@ namespace Bikewale.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("m/finance/capitalfirst/")]
-        public ActionResult CapitalFirst_Index_Mobile(string q)
+        public ActionResult CapitalFirst_Index_Mobile()
         {
+
+            string q = Request.Url.Query;
             CapitalFirstVM viewModel = new CapitalFirstVM();
             viewModel.ObjLead = new ManufacturerLeadEntity();
             NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
-            viewModel.ObjLead.CampaignId=Convert.ToUInt16(queryCollection["campaingid"]);
-            
-           
-
+            viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
             viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
             viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
             viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
+            viewModel.ObjLead.PQId = Convert.ToUInt16(queryCollection["pqid"]);
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
                 viewModel.ObjLead.CityId = location.CityId;
-
             viewModel.objLeadJson = Newtonsoft.Json.JsonConvert.SerializeObject(viewModel.ObjLead);
             return View(viewModel);
         }
@@ -61,10 +60,11 @@ namespace Bikewale.Controllers
             CapitalFirstVM viewModel = new CapitalFirstVM();
             viewModel.ObjLead = new ManufacturerLeadEntity();
             NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
-            viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
-            viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
+            viewModel.ObjLead.CampaignId = Convert.ToUInt32(queryCollection["campaingid"]);
+            viewModel.ObjLead.DealerId = Convert.ToUInt32(queryCollection["dealerid"]);
             viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
             viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
+            viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
                 viewModel.ObjLead.CityId = location.CityId;

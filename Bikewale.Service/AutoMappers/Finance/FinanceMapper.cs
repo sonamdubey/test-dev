@@ -9,6 +9,7 @@ namespace Bikewale.Service.AutoMappers.Finance
         internal static CapitalFirstVoucherEntityBase Convert(CapitalFirstVoucherDTO voucher)
         {
             Mapper.CreateMap<CapitalFirstVoucherDTO, CapitalFirstVoucherEntityBase>();
+            Mapper.CreateMap<CapitalFirstVoucherStatusDTO, CapitalFirstVoucherStatus>();
             return Mapper.Map<CapitalFirstVoucherDTO, CapitalFirstVoucherEntityBase>(voucher);
         }
     }
