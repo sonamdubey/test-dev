@@ -54,10 +54,20 @@ namespace Bikewale.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("finance/capitalfirst/")]
-        public ActionResult CapitalFirst_Index(string q)
+        public ActionResult CapitalFirst_Index()
         {
+
+            string q =  Request.Url.Query;
             CapitalFirstVM viewModel = new CapitalFirstVM();
             viewModel.ObjLead = new ManufacturerLeadEntity();
+            NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
+            viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
+            viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
+            viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
+            viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
+            GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
+            if (location != null)
+                viewModel.ObjLead.CityId = location.CityId;
             viewModel.objLeadJson = Newtonsoft.Json.JsonConvert.SerializeObject(viewModel.ObjLead);
             return View(viewModel);
         }
