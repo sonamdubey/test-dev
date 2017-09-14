@@ -131,6 +131,8 @@ namespace BikewaleOpr.DALs
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
         /// Method to get all versions and dealer prices in a city
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017
+        /// Description : Changed SP from 'bw_savedealerprices_28062017' to 'bw_savedealerprices_30082017'
         /// </summary>
         /// <param name="dt">DataTable</param>
         /// <returns></returns>
@@ -140,7 +142,7 @@ namespace BikewaleOpr.DALs
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealerprices_28062017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealerprices_30082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.UpdatedRowSource = UpdateRowSource.None;
