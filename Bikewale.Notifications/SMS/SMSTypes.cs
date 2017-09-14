@@ -688,5 +688,24 @@ namespace Bikewale.Notifications
                 objErr.SendMail();
             }
         }
+
+
+        /// <summary>
+        /// Created By  : Sajal Gupta on 23-11-2016
+        /// Description : Send SMS to seller for notifying expiry of listing.
+        /// </summary>
+        public void CapitalFirstLoanSMS(string number, string pageUrl, EnumSMSServiceType esms, string message)
+        {
+            try
+            {
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessSMS(number, message, esms, pageUrl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ExpiringListingReminderSMS({0},{1},{2},{3})", number, pageUrl, esms, message));
+                objErr.SendMail();
+            }
+        }
     }   //End of class
 }   //End of namespace

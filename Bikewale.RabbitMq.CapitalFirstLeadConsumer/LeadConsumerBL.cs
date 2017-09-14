@@ -1,4 +1,8 @@
-﻿using Consumer;
+﻿using Bikewale.Entities.Finance.CapitalFirst;
+using Bikewale.Notifications;
+using Bikewale.Notifications.MailTemplates;
+using Bikewale.RabbitMq.CapitalFirstLeadConsumer.htmltemplates;
+using Consumer;
 using System;
 
 namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
@@ -31,7 +35,7 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
                     }
                 }
             }
-            catch (System.Exception ex)
+            catch
             {
                 Logs.WriteErrorLog(string.Format("Error occured while processing Lead: {0}", Newtonsoft.Json.JsonConvert.SerializeObject(voucher)));
             }
@@ -46,10 +50,13 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
         /// <returns></returns>
         private bool NotifyCustomer(CapitalFirstLeadEntity lead)
         {
+            SendEmail(lead);
+            SendSMS(lead);
             return lead != null;
         }
 
         #region IDisposable Support
+
         private bool disposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
@@ -85,6 +92,50 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
+        /// <summary>
+        /// Description : Send email.
+        /// </summary>
+        private void SendEmail(CapitalFirstLeadEntity lead)
+        {
+            try
+            {
+                ComposeEmailBase objEmail = new CapitalFirstSuccessEmailTemplate(lead);
+                byte[] pdfFile = CreatePdf.ConvertToBytes(new PdfAttachment(lead).ComposeBody());
+                objEmail.Send(lead.EmailId, "Congratulations! Your loan has been approved !", pdfFile, "voucher.pdf");
+            }
+            catch
+            {
+                Logs.WriteErrorLog(string.Format("Error occured while processing Lead:SendEmail() LeadId: {0}", lead.CTLeadId));
+            }
+        }
+
+        /// <summary>
+        /// Desc : Send SMS.
+        /// </summary>
+        private void SendSMS(CapitalFirstLeadEntity lead)
+        {
+            try
+            {
+                SMSTypes newSms = new SMSTypes();
+                string smsTemplate;
+                if (lead.Status)
+                {
+                    smsTemplate = string.Format("Congratulations! Your bike loan has been pre-approved by Capital First. Your loan voucher code is {0}. For further steps, please get in touch with {1} and {2}.", lead.VoucherNumber, lead.AgentName, lead.AgentNumber);
+                    newSms.CapitalFirstLoanSMS(lead.MobileNo, "", EnumSMSServiceType.SMSforCapitalFirstSuccess, smsTemplate);
+                }
+                else
+                {
+                    smsTemplate = "Your bike loan application did not get approved based on your credit profile. Thank you for visiting BikeWale.";
+                    newSms.CapitalFirstLoanSMS(lead.MobileNo, "", EnumSMSServiceType.SMSforCapitalFirstFailure, smsTemplate);
+                }
+            }
+            catch
+            {
+                Logs.WriteErrorLog(string.Format("Error occured while processing Lead:SendSMS() LeadId: {0}", lead.CTLeadId));
+            }
+        }
+
         #endregion
     }
 }

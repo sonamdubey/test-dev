@@ -136,6 +136,7 @@
     <Compile Include="JSExceptionTemplate.cs" />
     <Compile Include="MailTemplates\BookingCancellationTemplate.cs" />
     <Compile Include="MailTemplates\CancellationFeedbackTemplate.cs" />
+    <Compile Include="MailTemplates\CapitalFirstSuccessEmailTemplate.cs" />
     <Compile Include="MailTemplates\CustomerRegistrationMailTemplate.cs" />
     <Compile Include="MailTemplates\ErrorMailTemplate.cs" />
     <Compile Include="MailTemplates\FeedbackMailer.cs" />
