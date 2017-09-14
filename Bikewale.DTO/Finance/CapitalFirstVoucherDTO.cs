@@ -17,5 +17,7 @@ namespace Bikewale.DTO.Finance
         public string AgentName { get; set; }
         [JsonProperty("agentContactNumber")]
         public string AgentContactNumber { get; set; }
+        [JsonProperty("status")]
+        public ushort Status { get; set; }
     }
 }

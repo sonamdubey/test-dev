@@ -7,8 +7,10 @@ using Bikewale.Interfaces.Finance.CapitalFirst;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
+using Newtonsoft.Json;
 using RabbitMqPublishing;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
@@ -82,6 +84,7 @@ namespace Bikewale.BAL.Finance
                         objNVC.Add("agentName", entity.AgentName);
                         objNVC.Add("expiryDate", entity.ExpiryDate.ToShortDateString());
                         objNVC.Add("voucherCode", entity.VoucherCode);
+                        objNVC.Add("status", entity.Status.ToString());
                         RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                         objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.CapitalFirstConsumerQueue, objNVC);
                         message = CF_MESSAGE_SUCCESS;
@@ -169,17 +172,22 @@ namespace Bikewale.BAL.Finance
                 );
             //CT api
 
-            var ctLeadId = SendCustomerDetailsToCarTrade(objDetails);
-            objDetails.CTLeadId = ctLeadId;
+            var ctResponse = SendCustomerDetailsToCarTrade(objDetails);
+
             _objIFinanceRepository.SavePersonalDetails(objDetails);
 
+            if (ctResponse != null)
+            {
+                objDetails.CTLeadId = ctResponse.LeadId;
+                _objIFinanceRepository.SaveCTApiResponse(ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
+            }
             return true;
 
         }
 
-        private uint SendCustomerDetailsToCarTrade(PersonalDetails objDetails)
+        private CTFormResponse SendCustomerDetailsToCarTrade(PersonalDetails objDetails)
         {
-            uint ctLeadId = 0;
+            CTFormResponse ctResp = null;
             try
             {
                 if (objDetails != null)
@@ -187,39 +195,35 @@ namespace Bikewale.BAL.Finance
                     var bikemapping = _objIFinanceRepository.GetCapitalFirstBikeMapping(objDetails.objLead.VersionId);
                     if (bikemapping != null)
                     {
-                        CTFormData formData = new CTFormData();
-                        formData.action = CTApiAction;
-                        formData.api_code = CTApiCode;
-                        formData.bw_lead_id = objDetails.objLead.LeadId.ToString();
-                        formData.company = objDetails.CompanyName;
-                        formData.date_of_birth = objDetails.DateOfBirth.ToString("dd/MM/yyyy");
-                        formData.email = objDetails.EmailId;
-                        formData.emp_address1 = objDetails.OfficialAddressLine1;
-                        formData.emp_address2 = objDetails.OfficialAddressLine2;
-                        formData.emp_pincode = objDetails.Pincode;
-                        formData.emp_type = objDetails.Status == 1 ? "Salaried" : "Self-Employed";
-                        formData.fname = objDetails.FirstName;
-                        formData.from_source = "1"; // 1 - Desktop, 2 - Mobile
-                        formData.gender = objDetails.Gender == 1 ? "Make" : "Female";
-                        formData.gross_income = objDetails.AnnualIncome.ToString();
-                        formData.lead_id = objDetails.CTLeadId.ToString();
-                        formData.lname = objDetails.LastName;
 
-                        formData.make = bikemapping.MakeBase.Make;
-                        formData.model = bikemapping.ModelBase.ModelNo;
-
-                        formData.mobile = objDetails.MobileNumber;
-                        formData.m_status = objDetails.MaritalStatus == 1 ? "Married" : "Single";
-                        formData.pan_number = objDetails.Pancard;
-                        formData.res_address1 = objDetails.AddressLine1;
-                        formData.res_address2 = objDetails.AddressLine2;
-                        formData.res_pincode = objDetails.PincodeOffice;
-
-
-                        string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(formData);
+                        ICollection<KeyValuePair<string, string>> formData = new Dictionary<string, string>();
+                        formData.Add(new KeyValuePair<string, string>("action", CTApiAction));
+                        formData.Add(new KeyValuePair<string, string>("api_code", CTApiCode));
+                        formData.Add(new KeyValuePair<string, string>("bw_lead_id", objDetails.objLead.LeadId.ToString()));
+                        formData.Add(new KeyValuePair<string, string>("company", objDetails.CompanyName));
+                        formData.Add(new KeyValuePair<string, string>("date_of_birth", objDetails.DateOfBirth.ToString("dd/MM/yyyy")));
+                        formData.Add(new KeyValuePair<string, string>("email", objDetails.EmailId));
+                        formData.Add(new KeyValuePair<string, string>("emp_address1", objDetails.OfficialAddressLine1));
+                        formData.Add(new KeyValuePair<string, string>("emp_address2", objDetails.OfficialAddressLine2));
+                        formData.Add(new KeyValuePair<string, string>("emp_pincode", objDetails.PincodeOffice));
+                        formData.Add(new KeyValuePair<string, string>("emp_type", objDetails.Status == 1 ? "Salaried" : "Self-Employed"));
+                        formData.Add(new KeyValuePair<string, string>("fname", objDetails.FirstName));
+                        formData.Add(new KeyValuePair<string, string>("from_source", "1")); // 1 - Desktop, 2 - Mobile
+                        formData.Add(new KeyValuePair<string, string>("gender", objDetails.Gender == 1 ? "Male" : "Female"));
+                        formData.Add(new KeyValuePair<string, string>("gross_income", objDetails.AnnualIncome.ToString()));
+                        formData.Add(new KeyValuePair<string, string>("lead_id", objDetails.CTLeadId.ToString()));
+                        formData.Add(new KeyValuePair<string, string>("lname", objDetails.LastName));
+                        formData.Add(new KeyValuePair<string, string>("make", bikemapping.MakeBase.Make));
+                        formData.Add(new KeyValuePair<string, string>("model", bikemapping.ModelBase.ModelNo));
+                        formData.Add(new KeyValuePair<string, string>("mobile", objDetails.MobileNumber));
+                        formData.Add(new KeyValuePair<string, string>("m_status", objDetails.MaritalStatus == 1 ? "Married" : "Single"));
+                        formData.Add(new KeyValuePair<string, string>("pan_number", objDetails.Pancard));
+                        formData.Add(new KeyValuePair<string, string>("res_address1", objDetails.AddressLine1));
+                        formData.Add(new KeyValuePair<string, string>("res_address2", objDetails.AddressLine2));
+                        formData.Add(new KeyValuePair<string, string>("res_pincode", objDetails.Pincode));
 
 
-                        HttpContent httpContent = new StringContent(jsonString);
+                        HttpContent httpContent = new FormUrlEncodedContent(formData);
                         httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
 
@@ -234,7 +238,10 @@ namespace Bikewale.BAL.Finance
                                 _response.Content = null;
                             }
                         }
-
+                        if (!String.IsNullOrEmpty(response))
+                        {
+                            ctResp = Newtonsoft.Json.JsonConvert.DeserializeObject<CTFormResponse>(response);
+                        }
                     }
                 }
             }
@@ -242,7 +249,7 @@ namespace Bikewale.BAL.Finance
             {
                 ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SendCustomerDetailsToCarTrade({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
-            return ctLeadId;
+            return ctResp;
         }
 
         private CustomerEntity GetCustomerId(PersonalDetails objDetails, string MobileNumber)
@@ -280,33 +287,17 @@ namespace Bikewale.BAL.Finance
         }
     }
 
-    internal class CTFormData
+    internal class CTFormResponse
     {
-        public string lead_id { get; set; }
-        public string bw_lead_id { get; set; }
-        public string fname { get; set; }
-        public string lname { get; set; }
-        public string mobile { get; set; }
-        public string email { get; set; }
-        public string date_of_birth { get; set; }
-        public string gender { get; set; }
-        public string m_status { get; set; }
-        public string res_address1 { get; set; }
-        public string res_address2 { get; set; }
-        public string res_pincode { get; set; }
-        public string pan_number { get; set; }
-        public string education { get; set; }
-        public string emp_type { get; set; }
-        public string company { get; set; }
-        public string emp_address1 { get; set; }
-        public string emp_address2 { get; set; }
-        public string emp_pincode { get; set; }
-        public String gross_income { get; set; }
-        public string make { get; set; }
-        public string model { get; set; }
-        public string from_source { get; set; }
-        public string action { get; set; }
-        public string api_code { get; set; }
-        public string button { get { return "Submit"; } }
+        [JsonProperty("status")]
+        public ushort Status { get; set; }
+        [JsonProperty("details")]
+        public String Details { get; set; }
+        [JsonProperty("message")]
+        public String Message { get; set; }
+        [JsonProperty("lead_id")]
+        public uint LeadId { get; set; }
+        [JsonProperty("lead_status")]
+        public ushort LeadStatus { get; set; }
     }
 }
