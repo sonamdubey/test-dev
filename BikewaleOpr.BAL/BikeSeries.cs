@@ -71,5 +71,47 @@ namespace BikewaleOpr.BAL
             }
             return objBikeSeriesList;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bikeSeries"></param>
+        /// <param name="updatedBy"></param>
+        /// <returns></returns>
+        public bool EditSeries(BikeSeriesEntity bikeSeries, int updatedBy)
+        {
+            bool IsEdited = false;
+            try
+            {
+                if (bikeSeries != null && bikeSeries.SeriesId > 0 && updatedBy > 0)
+                {
+                    IsEdited = _seriesRepo.EditSeries(bikeSeries, updatedBy);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: EditSeries_{0}_{1}", bikeSeries, updatedBy));
+            }
+            return IsEdited;
+        }
+
+        public bool DeleteSeries(uint bikeSeriesId)
+        {
+            bool IsDeleted = false;
+            try
+            {
+                if (bikeSeriesId > 0)
+                {
+                    IsDeleted = _seriesRepo.DeleteSeries(bikeSeriesId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteSeries_{0}", bikeSeriesId));
+            }
+            return IsDeleted;
+        }
+
+
     }
 }

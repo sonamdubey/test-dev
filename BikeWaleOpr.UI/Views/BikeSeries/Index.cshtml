@@ -33,8 +33,8 @@
                                     <td class="teal lighten-4">@series.SeriesName</td>
                                     <td>@series.SeriesMaskingName</td>
                                     <td>@series.BikeMake.MakeName</td>
-                                    <td><a href="#modal-make-update" class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-bind="event: {click: function(d, e) { editSeries(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
-                                    <td><a class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Delete Series" rel="nofollow" data-bind="event: {click: function(d, e) { deleteSeries(e) }}"><i class="material-icons icon-red">delete</i></a></td>
+                                    <td><a href="#modal-make-update" class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-bind="event: {click: function(d, e) { editSeriesClick(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                                    <td><a class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Delete Series" rel="nofollow" data-target="delete-confirm-modal" data-bind="event:{click: function(d, e){ deleteEvent(e)}}" ><i class="material-icons icon-red">delete</i></a></td>
                                     <td>@series.CreatedOn.ToString("dd/MM/yyyy")</td>
                                     <td>@series.UpdatedOn.ToString("dd/MM/yyyy")</td>
                                     <td>@series.UpdatedBy</td>
@@ -88,15 +88,37 @@
                 </ul>
             </div>
         </div>
+
         <div id="modal-make-update" class="modal">
             <div class="modal-content">
-                @using (Html.BeginForm("update", "",FormMethod.Post))
-                {
+                <h4>Update <span data-bind="text: selectedSeriesName"></span> Data</h4>
+                <div>
+                    <div class="input-field row m12">
+                        <input id="txtSeriesNameUpdate" type="text" class="validate" name="makeName" data-bind="textInput: seriesNameUpdate ">
+                        <label for="txtSeriesNameUpdate">Series Name</label>
+                    </div>
+                    <div class="input-field row m12">
+                        <input id="txtSeriesMaskingNameUpdate" type="text" class="validate" name="maskingName" data-bind="textInput: seriesMaskingNameUpdate">
+                        <label for="txtSeriesMaskingNameUpdate">Series Masking Name</label>
+                    </div>
+                    @*<input type="hidden" id="hdnUpdateMakeId" name="MakeId" data-bind="textInput: selectedMake() ? selectedMake().makeId : 0" />
+                    <input type="hidden" id="hdnOldMakeMasking" name="OldMakeMasking" data-bind="textInput: selectedMake() ? selectedMake().oldMakeMasking :''" />*@
+                </div>
+            </div>
 
-                }
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green teal white-text btn-flat" data-bind="event : {click : function() { validateUpdate() }}"  style="margin-left:5px;">Update</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
+        <div id="delete-confirm-modal" class="modal">
+            <div class="modal-content">
+                <h4>Delete <span data-bind="text: selectedSeriesName"></span> Series</h4>
+                <p>Are you sure you want to delete this series?</p>
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                <a href="#!" id="anchor-delete" class="modal-action modal-close waves-effect waves-green btn-flat" data-bind="event: {click: function(d, e) { deleteSeries(e) }}">Yes</a>
+                <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
             </div>
         </div>
     </div>
