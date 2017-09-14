@@ -237,7 +237,7 @@ namespace BikeWaleOpr.Content
                 ,bcs.classsegmentname 
                 ,mo.makemaskingname as makemasking
                 ,bs.id as seriesId
-                ,bs.Name as seriesName
+                ,IFNULL(bs.Name, 'N/A') as seriesName
                 from bikemodels mo left join oprusers ou 
                 on mo.moupdatedby = ou.id 
                 left join bikeclasssegments bcs on mo.bikeclasssegmentsid = bcs.bikeclasssegmentsid
@@ -744,14 +744,63 @@ namespace BikeWaleOpr.Content
         }
 
         /// <summary>
-        /// Created by : Vivek Singh Tomar on 14th Sep 2017
+        /// Created by : Ashutosh Sharma on 14th Sep 2017
         /// Summary : Update series of selected model and log model and series mapping
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void UpdateModelSeries(object sender, EventArgs e)
         {
+            string ModelIdsList = hdnModelIdsListSeries.Value;
 
+            if (ModelIdsList.Length > 0)
+                ModelIdsList = ModelIdsList.Substring(0, ModelIdsList.Length - 1);
+
+            Trace.Warn("++ model ids ", ModelIdsList);
+
+            try
+            {
+                UpdateModelSeries(ddlUpdateSeries.SelectedValue, ModelIdsList);
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message + ex.Source);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            BindGrid();
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Series Updated Successfully.');", true);
+        }
+        
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 14-Sep-2017
+        /// Description : Method to call DataBase update model series
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <param name="modelIdsList"></param>
+        private void UpdateModelSeries(string seriesId, string modelIdsList)
+        {
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "bw_updatemodelseries";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, seriesId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelidslist", DbType.String, 500, modelIdsList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, BikeWaleOpr.Common.CurrentUser.Id));
+
+
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                }
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn(err.Message + err.Source);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
         }
     }
 }
