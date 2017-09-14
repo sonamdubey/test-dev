@@ -28,7 +28,7 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         public uint LoanAmount { get; set; }
         public string LoanAmountStr { get; set; }
         public string VersionName { get; set; }
-        public bool Status { get; set; }
+        public CapitalFirstVoucherStatus Status { get; set; }
         public string Emi { get; set; }
         public string Downpayment { get; set; }
     }

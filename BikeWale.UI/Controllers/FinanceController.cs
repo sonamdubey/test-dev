@@ -37,7 +37,7 @@ namespace Bikewale.Controllers
             viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
             viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
             viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
-            viewModel.ObjLead.PQId = Convert.ToUInt16(queryCollection["pqid"]);
+            viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
                 viewModel.ObjLead.CityId = location.CityId;
@@ -45,7 +45,7 @@ namespace Bikewale.Controllers
             return View(viewModel);
         }
 
-    
+
 
         /// <summary>
         /// index desktop for capital first
@@ -56,7 +56,7 @@ namespace Bikewale.Controllers
         public ActionResult CapitalFirst_Index()
         {
 
-            string q =  Request.Url.Query;
+            string q = Request.Url.Query;
             CapitalFirstVM viewModel = new CapitalFirstVM();
             viewModel.ObjLead = new ManufacturerLeadEntity();
             NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);

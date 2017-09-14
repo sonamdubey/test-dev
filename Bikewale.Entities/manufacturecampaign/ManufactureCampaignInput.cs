@@ -18,9 +18,8 @@ namespace Bikewale.Entities.manufacturecampaign
         public string GALabel { get; set; }
         public uint PQId { get; set; }
         public uint VersionId { get; set; }
-
         public string PageUrl { get; set; }
-
+        public ushort PlatformId { get; set; }
         public bool IsAmp { get; set; }
 
 
