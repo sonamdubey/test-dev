@@ -151,7 +151,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
         /// <param name="status"></param>
         /// <param name="responseText"></param>
         /// <returns></returns>
-        public bool SaveCTApiResponse(uint leadId, ushort status, string responseText)
+        public bool SaveCTApiResponse(uint leadId, uint ctleadid, ushort status, string responseText)
         {
             Boolean isSaved = false;
             try
@@ -160,6 +160,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                 {
                     var param = new DynamicParameters();
                     param.Add("par_leadid", leadId, dbType: DbType.Int32);
+                    param.Add("par_ctleadid", ctleadid, dbType: DbType.Int32);
                     param.Add("par_status", status);
                     param.Add("par_apiresponse", responseText, dbType: DbType.String);
                     conn.Open();

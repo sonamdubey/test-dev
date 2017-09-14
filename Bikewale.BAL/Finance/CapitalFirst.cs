@@ -114,7 +114,14 @@ namespace Bikewale.BAL.Finance
             try
             {
                 _objIFinanceRepository.SavePersonalDetails(objDetails);
-                SendCustomerDetailsToCarTrade(objDetails);
+
+                var ctResponse = SendCustomerDetailsToCarTrade(objDetails);
+
+                if (ctResponse != null)
+                {
+                    objDetails.CTLeadId = ctResponse.LeadId;
+                    _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
+                }
 
                 if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber), objDetails.EmailId))
                 {
@@ -127,7 +134,7 @@ namespace Bikewale.BAL.Finance
                         NameValueCollection objNVC = new NameValueCollection();
                         objNVC.Add("pqId", objDetails.objLead.PQId.ToString());
                         objNVC.Add("dealerId", objDetails.objLead.DealerId.ToString());
-                        objNVC.Add("customerName", objDetails.objLead.Name);
+                        objNVC.Add("customerName", String.Format("{0} {1}", objDetails.FirstName, objDetails.LastName));
                         objNVC.Add("customerEmail", objDetails.EmailId);
                         objNVC.Add("customerMobile", Convert.ToString(objDetails.MobileNumber));
                         objNVC.Add("versionId", objDetails.objLead.VersionId.ToString());
@@ -178,18 +185,17 @@ namespace Bikewale.BAL.Finance
                      Utmz,
                      objDetails.objLead.DeviceId,
                      objDetails.objLead.CampaignId,
-                     objDetails.objLead.LeadId
+                     objDetails.LeadId
                     );
                 //CT api
+                objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
 
                 var ctResponse = SendCustomerDetailsToCarTrade(objDetails);
-
-
 
                 if (ctResponse != null)
                 {
                     objDetails.CTLeadId = ctResponse.LeadId;
-                    _objIFinanceRepository.SaveCTApiResponse(ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
+                    _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
                 }
             }
             catch (Exception ex)
@@ -288,7 +294,7 @@ namespace Bikewale.BAL.Finance
                     objCust = new CustomerEntity()
                     {
                         CustomerId = objCustomer.CustomerId,
-                        CustomerName = string.Format("{0} {1}",objDetails.FirstName,objDetails.LastName),
+                        CustomerName = string.Format("{0} {1}", objDetails.FirstName, objDetails.LastName),
                         CustomerEmail = objDetails.EmailId = !String.IsNullOrEmpty(objDetails.EmailId) ? objDetails.EmailId : objCustomer.CustomerEmail,
                         CustomerMobile = MobileNumber
                     };
