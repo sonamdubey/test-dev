@@ -106,8 +106,6 @@ docReady(function () {
         validateEmploymentInfo();
     });
 
-    FillDummyDetails();
-
     $(".otp-container__edit-icon").on('click', function () {
         var editPhone = $(otpPhoneInput).text();
         $(otpVerificationElem).hide();
@@ -416,16 +414,3 @@ function hideBlackWindow() {
     $(blackWindowElem).hide();
 }
 
-function FillDummyDetails() {
-    $('#cfFName').val('John');
-    $('#cfLName').val('doe');
-    $('#cfNum').val('9892112234');
-    $('#cfEmail').val('ss@ss.com');
-    $('#cfDOB').val('1993-02-02');
-    $('#cfGenderM').prop("checked", true);
-    $('#cfMaritalS').prop("checked", true);
-    $("#cfAddress1").val('Mannat, Shop No 3, Juhu Tara Road');
-    $('#cfAddress2').val('Santacruz West, Mumbai - 400054');
-    $("#cfPincode").val('400605');
-    $("#cfPan").val('AIJPN5455N');
-}
