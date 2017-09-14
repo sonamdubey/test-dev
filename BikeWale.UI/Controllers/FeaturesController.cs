@@ -1,16 +1,10 @@
-﻿using Bikewale.Common;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS.Articles;
-using Bikewale.Entities.CMS.Photos;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models;
 using Bikewale.Models.Features;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -138,58 +132,31 @@ namespace Bikewale.Controllers
 
         /// <summary>
         /// Action to get the map features details page
+        /// Modifid by: Vivek Singh Tomar on 31st Aug 2017
+        /// Summary: Removed use of viewbags by VM
         /// </summary>
         /// <param name="basicid"></param>
         /// <returns></returns>
         [Route("m/features/details/{basicid}/amp/")]
-        public ActionResult DetailsAMP(uint basicid)
+        public ActionResult DetailsAMP(string basicid)
         {
-            ArticlePageDetails objFeatures = null;
-
-            try
+            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicid);
+            if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
-                objFeatures = _Cache.GetArticlesDetails(basicid);
-
-                if (objFeatures != null)
-                {
-                    // set all metatags in the variables
-                    ViewBag.Description = objFeatures.Description.StripHtml();
-                    ViewBag.Canonical = String.Format("{0}/features/{1}-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objFeatures.ArticleUrl, basicid);
-                    ViewBag.MobilePageUrl = String.Format("{0}/m/features/{1}-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objFeatures.ArticleUrl, basicid);
-                    ViewBag.ArticleSectionTitle = " - BikeWale Features";
-                    ViewBag.ArticleType = "Article";
-                    ViewBag.Title = objFeatures.Title;
-                    ViewBag.MainImageUrl = Bikewale.Utility.Image.GetPathToShowImages(objFeatures.OriginalImgUrl, objFeatures.HostUrl, Bikewale.Utility.ImageSize._640x348);
-                    ViewBag.PublishedDate = objFeatures.DisplayDate.ToString();
-                    ViewBag.LastModified = objFeatures.DisplayDate.ToString();
-                    ViewBag.PageViews = objFeatures.Views;
-                    ViewBag.Author = objFeatures.AuthorName;
-                    ViewBag.VehicleTagsCnt = 0;
-
-                    // code to get the bikes tagged in the article
-                    if (objFeatures.VehiclTagsList != null)
-                    {
-                        ViewBag.VehicleTagsList = objFeatures.VehiclTagsList.GroupBy(s => s.ModelBase.ModelId).Select(grp => grp.First());
-                        ViewBag.VehicleTagsCnt = objFeatures.VehiclTagsList.Count();
-                    }
-
-                    // code to get article photos
-                    IEnumerable<ModelImage> objImg = _Cache.GetArticlePhotos(Convert.ToInt32(basicid));
-                    ViewBag.PhotosCnt = 0;
-
-                    if (objImg != null)
-                    {
-                        ViewBag.Photos = objImg;
-                        ViewBag.PhotosCnt = objImg.Count();
-                    }
-                }
+                return Redirect("/pagenotfound.aspx");
             }
-            catch (Exception ex)
+            else if (objDetail.status == Entities.StatusCodes.RedirectPermanent)
             {
-                ErrorClass objErr = new ErrorClass(ex, "m/features/details/{basicid}/amp/" + basicid);
+                return Redirect(string.Format("/m{0}", objDetail.redirectUrl));
             }
-
-            return View("~/views/m/content/features/details_amp.cshtml", objFeatures);
+            else
+            {
+                DetailFeatureVM objData = objDetail.GetData(9);
+                if (objDetail.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pageNotFound.aspx");
+                else
+                    return View("~/views/m/content/features/details_amp.cshtml", objData);
+            }
         }
     }
 }

@@ -8,91 +8,93 @@
     var browserDetection = Request.Browser;
     if (browserDetection != null)
     {
-        string browserType = browserDetection.Type,browser = browserDetection.Browser,browserVersion = browserDetection.Version;
+        string browserType = browserDetection.Type, browser = browserDetection.Browser, browserVersion = browserDetection.Version;
         isOperaBrowser = !string.IsNullOrEmpty(browserType) && browserType.ToLower().Contains("mini");
 
     }
+
 }
 
 <!-- pricequote widget starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="popupWrapper">
-	<div class="city-area-banner"></div>
-	<div class="popup-inner-container">
-		<div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
-		<div id="popupHeading" class="content-inner-block-20">
-			<p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
-			<div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
-			@{ if(isOperaBrowser)      
-			{
+    <div class="city-area-banner"></div>
+    <div class="popup-inner-container">
+        <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
+        <div id="popupHeading" class="content-inner-block-20">
+            <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
+            <div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
+            @{ if (isOperaBrowser)
+                {
 
-			<div class="form-control-box margin-bottom10 ">
-				<select id="opCityList" class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: function(d,e){selectCity(d,e);} }"></select>
-				<span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
-			</div>
-			<div class="form-control-box" data-bind="visible: BookingAreas().length > 0">
-				<select id="opAreaList" class="form-control" data-bind="options: BookingAreas, value: SelectedAreaId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: function (d,e) { selectArea(d,e); } }"></select>
-				<span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
-			</div>
+                    <div class="form-control-box margin-bottom10 ">
+                        <select id="opCityList" class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: function(d,e){selectCity(d,e);} }"></select>
+                        <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
+                    </div>
+                    <div class="form-control-box" data-bind="visible: BookingAreas().length > 0">
+                        <select id="opAreaList" class="form-control" data-bind="options: BookingAreas, value: SelectedAreaId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: function (d,e) { selectArea(d,e); } }"></select>
+                        <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
+                    </div>
 
+                }
+                else
+                {
+
+                    <div id="citySelection" class="form-control text-left input-sm position-rel margin-bottom10">
+                        <div class="selected-city" data-bind="text: (SelectedCity() != null && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
+                        <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
+                    </div>
+                    <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="visible: BookingAreas().length > 0">
+                        <div class="selected-area" data-bind="text: (SelectedArea() != null && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
+                        <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
+
+                    </div>
+
+                    <div id="btnPriceLoader" class="center-align margin-top20 text-center position-rel">
+                        <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind="visible: SelectedCityId() > 0 && IsPersistance() && (!hasAreas() || SelectedAreaId() > 0),click: function(){ IsPersistance(false); InitializePQ();} ">Show on-road price</a>
+                    </div>
+
+                    <div id="popupContent" class="bwm-city-area-popup-wrapper">
+                        <div class="bw-city-popup-box bwm-city-area-box city-list-container form-control-box text-left">
+                            <div class="user-input-box">
+                                <span class="back-arrow-box">
+                                    <span class="bwmsprite back-long-arrow-left"></span>
+                                </span>
+                                <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off" data-bind="textInput: cityFilter,attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }">
+                            </div>
+                            <ul id="popupCityList" data-bind="template: { name: 'bindCityList-template', foreach: visibleCities }"></ul>
+                            <script type="text/html" id="bindCityList-template">
+                                <li data-bind="text: name, attr: { 'cityId': id }, click: function (d, e) { $parent.selectCity(d, e); }"></li>
+                            </script>
+                            <div class="margin-top30 font24 text-center margin-top60 "></div>
+                        </div>
+
+                        <div class="bw-area-popup-box bwm-city-area-box area-list-container form-control-box text-left" data-bind="visible: BookingAreas().length > 0">
+                            <div class="user-input-box">
+                                <span class="back-arrow-box">
+                                    <span class="bwmsprite back-long-arrow-left"></span>
+                                </span>
+                                <input type="text" class="form-control padding-right40" placeholder="Type to select area" id="popupAreaInput" autocomplete="off" data-bind="textInput: areaFilter,attr: { value: (SelectedArea() != undefined) ? SelectedArea().name : '' }">
+                            </div>
+                            <ul id="popupAreaList" data-bind="template: { name: 'bindAreaList-template', foreach: visibleAreas }"></ul>
+                            <script type="text/html" id="bindAreaList-template">
+                                <li data-bind="text: name, attr: { 'areaId': id }, click: function (d, e) { $parent.selectArea(d, e); }"></li>
+                            </script>
+                            <div class="margin-top30 font24 text-center margin-top60 "></div>
+                        </div>
+                    </div>
+
+                }
             }
-               else { 
 
-			<div id="citySelection" class="form-control text-left input-sm position-rel margin-bottom10">
-				<div class="selected-city" data-bind="text: (SelectedCity() != null && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
-				<span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
-			</div>
-			<div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="visible: BookingAreas().length > 0">
-				<div class="selected-area" data-bind="text: (SelectedArea() != null && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
-				<span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
+        </div>
 
-			</div>
-
-			<div id="btnPriceLoader" class="center-align margin-top20 text-center position-rel">
-				<a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind="visible: SelectedCityId() > 0 && IsPersistance() && (!hasAreas() || SelectedAreaId() > 0),click: function(){ IsPersistance(false); InitializePQ();} ">Show on-road price</a>
-			</div>
-
-			<div id="popupContent" class="bwm-city-area-popup-wrapper">
-				<div class="bw-city-popup-box bwm-city-area-box city-list-container form-control-box text-left">
-					<div class="user-input-box">
-						<span class="back-arrow-box">
-							<span class="bwmsprite back-long-arrow-left"></span>
-						</span>
-						<input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off" data-bind="textInput: cityFilter,attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }">
-					</div>
-					<ul id="popupCityList" data-bind="template: { name: 'bindCityList-template', foreach: visibleCities }"></ul>
-					<script type="text/html" id="bindCityList-template">
-						<li data-bind="text: name, attr: { 'cityId': id }, click: function (d, e) { $parent.selectCity(d, e); }"></li>
-					</script>
-					<div class="margin-top30 font24 text-center margin-top60 "></div>
-				</div>
-
-				<div class="bw-area-popup-box bwm-city-area-box area-list-container form-control-box text-left" data-bind="visible: BookingAreas().length > 0">
-					<div class="user-input-box">
-						<span class="back-arrow-box">
-							<span class="bwmsprite back-long-arrow-left"></span>
-						</span>
-						<input type="text" class="form-control padding-right40" placeholder="Type to select area" id="popupAreaInput" autocomplete="off" data-bind="textInput: areaFilter,attr: { value: (SelectedArea() != undefined) ? SelectedArea().name : '' }">
-					</div>
-					<ul id="popupAreaList" data-bind="template: { name: 'bindAreaList-template', foreach: visibleAreas }"></ul>
-					<script type="text/html" id="bindAreaList-template">
-						<li data-bind="text: name, attr: { 'areaId': id }, click: function (d, e) { $parent.selectArea(d, e); }"></li>
-					</script>
-					<div class="margin-top30 font24 text-center margin-top60 "></div>
-				</div>
-			</div>
-
-			    }
-            }
-
-		</div>
-
-	</div>
-	<div id="popup-loader-container">
+    </div>
+    <div id="popup-loader-container">
 		<div class="cover-popup-loader"></div>
 		<div class="cover-popup-loader-text">
-			<p data-bind="text : LoadingText()" class="font14"></p>
-		</div>
-	</div>
+            <p data-bind="text : LoadingText()" class="font14"></p>
+        </div>
+    </div>
 </div>
 <!-- pricequote widget ends here-->
 <!-- widget script starts here-->
@@ -145,7 +147,14 @@
         });
 
         self.setOptions = function (options,event) {
+
             if (options != null) {
+
+                $('#popupWrapper').addClass('loader-active');
+                $('#popupWrapper').show();
+                $("#popupContent").show();
+                appendHash("onRoadPrice");
+
 
                 self.SelectedModelId(options.modelId || 0);
                 self.SelectedCityId(options.cityId || 0);
@@ -218,7 +227,7 @@
                                 self.BookingCities(cities);
                                 if(self.SelectedCityId() > 0)
                                 {
-                                    self.SelectedCity(findCityById(self.SelectedCityId()));
+                                    self.SelectedCity(self.findItemById(self.BookingCities(), "id", self.SelectedCityId()));
 
                                     self.hasAreas((self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false);
 
@@ -227,7 +236,7 @@
 
                                         self.BookingAreas(areas);
                                         if (self.SelectedAreaId() > 0) {
-                                            self.SelectedArea(findAreaById(self.SelectedAreaId()));
+                                            self.SelectedArea(self.findItemById(self.BookingAreas(), "id", self.SelectedAreaId()));
                                         }
                                         else self.SelectedArea(null);
                                     }
@@ -375,20 +384,51 @@
 
 
         };
+
+        self.CheckCookies = function () {
+            try {
+                c = document.cookie.split('; ');
+                for (i = c.length - 1; i >= 0; i--) {
+                    C = c[i].split('=');
+                    if (C[0] == "location") {
+                        var cData = (String(C[1])).split('_');
+                        onCookieObj.PQCitySelectedId = parseInt(cData[0]) || 0;
+                        onCookieObj.PQCitySelectedName = cData[1] || "";
+                        onCookieObj.PQAreaSelectedId = parseInt(cData[2]) || 0;
+                        onCookieObj.PQAreaSelectedName = cData[3] || "";
+                        break;
+                    }
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+        };
+
+        self.findItemById = function (items, attr, item) {
+            return ko.utils.arrayFirst(items, function (child) {
+                return (child[attr] == item);
+            });
+        };
     };
 
     docReady(function(){
 
         $('#popupWrapper .close-btn').click(function () {
-            $('.getquotation').removeClass('ui-btn-active');
-            $("#popupContent").hide();
-            $('#popupWrapper').removeClass('loader-active').hide();
+            var rUrl=$(this).data("returnurl");
+            if(rUrl&&rUrl!="")
+               window.location=rUrl;
+            else{
+                $('.getquotation').removeClass('ui-btn-active');
+                $("#popupContent").hide();
+                $('#popupWrapper').removeClass('loader-active').hide();
+            }
+
         });
 
         $(document).on("click", ".getquotation", function (e) {
             var ele = $(this); e.stopPropagation();
 
-            checkCookies();
+            vmquotation.CheckCookies();
             var options = {
                 "modelId": ele.attr('data-modelid') ,
                 "cityId": onCookieObj.PQCitySelectedId,
@@ -406,10 +446,6 @@
 
             options.cityId = ele.attr('data-preselcity') || options.cityId;
 
-            $('#popupWrapper').addClass('loader-active');
-            $('#popupWrapper').show();
-            $("#popupContent").show();
-            appendHash("onRoadPrice");
             vmquotation.setOptions(options);
 
         });
@@ -417,18 +453,6 @@
         vmquotation = new mPopup;
         ko.applyBindings(vmquotation, $("#popupWrapper")[0]);
     });
-
-    function findAreaById(id) {
-        return ko.utils.arrayFirst(vmquotation.BookingAreas(), function (child) {
-            return (child.id == id || child.areaId == id);
-        });
-    }
-
-    function findCityById(id) {
-        return ko.utils.arrayFirst(vmquotation.BookingCities(), function (child) {
-            return (child.id == id || child.cityId == id);
-        });
-    }
 
     function gtmCodeAppender(pageId, action, label) {
         var category = '';
@@ -465,19 +489,6 @@
 
     }
 
-    function checkCookies() {
-        c = document.cookie.split('; ');
-        for (i = c.length - 1; i >= 0; i--) {
-            C = c[i].split('=');
-            if (C[0] == "location") {
-                var cData = (String(C[1])).split('_');
-                onCookieObj.PQCitySelectedId = parseInt(cData[0]) || 0;
-                onCookieObj.PQCitySelectedName = cData[1] ? cData[1].replace(/-/g, ' ') : "";
-                onCookieObj.PQAreaSelectedId = parseInt(cData[2]) || 0;
-                onCookieObj.PQAreaSelectedName = cData[3] ? cData[3].replace(/-/g, ' ') : "";
-            }
-        }
-    }
 
 </script>
 <!-- widget script ends here-->
