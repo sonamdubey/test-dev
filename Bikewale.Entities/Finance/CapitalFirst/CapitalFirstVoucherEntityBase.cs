@@ -12,5 +12,6 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         public DateTime ExpiryDate { get; set; }
         public string AgentName { get; set; }
         public string AgentContactNumber { get; set; }
+        public ushort Status { get; set; }
     }
 }
