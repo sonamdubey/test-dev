@@ -12,6 +12,6 @@ namespace Bikewale.Interfaces.Finance.CapitalFirst
         bool SaveVoucherDetails(string leadIdCarTrade, CapitalFirstVoucherEntityBase voucherDetails);
         CapitalFirstBikeEntity GetCapitalFirstBikeMapping(uint versionId);
 
-        bool SaveCTApiResponse(uint leadId, ushort status, string responseText);
+        bool SaveCTApiResponse(uint leadId, uint ctleadid, ushort status, string responseText);
     }
 }
