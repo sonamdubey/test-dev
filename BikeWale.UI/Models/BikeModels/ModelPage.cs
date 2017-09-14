@@ -265,22 +265,24 @@ namespace Bikewale.Models.BikeModels
         private void SetBreadcrumList()
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = Utility.BWConfiguration.Instance.BwHostUrl;
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
             if (IsMobile)
             {
-                url = string.Format("{0}/m/", url);
+                url += "m/";
             }
+
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, url, "Home"));
 
 
             if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
             {
-                url = string.Format("{0}{1}", url, UrlFormatter.BikeMakeUrl(_objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName));
+                url = string.Format("{0}{1}-bikes/", url, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(2, url, string.Format("{0} Bikes", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
             }
 
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(3, null, _objData.Page_H1));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, _objData.Page_H1));
 
 
             _objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;

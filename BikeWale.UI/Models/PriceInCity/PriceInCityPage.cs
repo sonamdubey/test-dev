@@ -676,10 +676,8 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created By  : Sangram Nandkhile on 31st Aug 2017
-        /// Description : To load json schema for the list items
-        /// Modified By  : Sushil Kumar on 14th Sep 2017
-        /// Description : Added breadcrum and webpage schema along with product
+        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema
         /// </summary>
         private void SetPageJSONLDSchema(PriceInCityPageVM objPageMeta)
         {
@@ -699,29 +697,31 @@ namespace Bikewale.Models
         private void SetBreadcrumList(PriceInCityPageVM objPage)
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = Utility.BWConfiguration.Instance.BwHostUrl;
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
             if (IsMobile)
             {
-                url = string.Format("{0}/m", url);
+                url += "m/";
             }
+
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, url, "Home"));
 
 
             if (objPage.Make != null)
             {
-                url = string.Format("{0}{1}", url, UrlFormatter.BikeMakeUrl(objPage.Make.MaskingName));
+                url = string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(2, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
             }
 
             if (objPage.Make != null && objPage.BikeModel != null)
             {
-                url = string.Format("{0}{1}", url, UrlFormatter.BikePageUrl(objPage.Make.MaskingName, objPage.BikeModel.MaskingName));
+                url = string.Format("{0}{1}/", url, objPage.BikeModel.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(3, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objPage.BikeModel.ModelName));
             }
 
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(4, null, objPage.Page_H1));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
 
 
             objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;

@@ -315,10 +315,8 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created By  : Sangram Nandkhile on 31st Aug 2017
-        /// Description : To load json schema for the list items
-        /// Modified By  : Sushil Kumar on 14th Sep 2017
-        /// Description : Added breadcrum and webpage schema along with product
+        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema and added brand schema
         /// </summary>
         private void SetPageJSONLDSchema(MakePageVM objPageMeta)
         {
@@ -338,11 +336,12 @@ namespace Bikewale.Models
         private void SetBreadcrumList(ref MakePageVM objData)
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = Utility.BWConfiguration.Instance.BwHostUrl;
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
             if (IsMobile)
             {
-                url = string.Format("{0}/m/", url);
+                url += "m/";
             }
+
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, url, "Home"));
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(2, null, objData.Page_H1));
 

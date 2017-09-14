@@ -27,6 +27,7 @@ namespace Bikewale.Models.UserReviews
         public BikeModelEntityBase Model { get; set; }
         public ushort Rating { get; set; }
         public bool IsDesktop { get; set; }
+        public bool IsMobile { get; internal set; }
 
         public StatusCodes Status;
 

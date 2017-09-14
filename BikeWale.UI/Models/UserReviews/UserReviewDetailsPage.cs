@@ -3,7 +3,7 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.Models;
+using Bikewale.Entities.Schema;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeData;
@@ -31,15 +31,13 @@ namespace Bikewale.Models.UserReviews
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeModelsCache = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
 
-        private uint _reviewId;
+        private readonly uint _reviewId;
         private uint _modelId;
-        private string _makeMaskingName;
-        private string _modelMaskingName;
 
         public uint TabsCount { get; set; }
         public uint ExpertReviewsWidgetCount { get; set; }
         public uint SimilarBikeReviewWidgetCount { get; set; }
-        public bool IsDesktop { get; set; }
+        public bool IsMobile { get; internal set; }
 
         public UserReviewDetailsPage(uint reviewId, IUserReviewsCache userReviewsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, ICMSCacheContent objArticles, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, string makeMaskingName, string modelMaskingName, IUserReviewsSearch userReviewsSearch)
         {
@@ -49,8 +47,6 @@ namespace Bikewale.Models.UserReviews
             _cityCache = cityCache;
             _objArticles = objArticles;
             _bikeModelsCache = bikeModelsCache;
-            _makeMaskingName = makeMaskingName;
-            _modelMaskingName = modelMaskingName;
             _userReviewsSearch = userReviewsSearch;
         }
 
@@ -166,49 +162,75 @@ namespace Bikewale.Models.UserReviews
                     objPage.PageMetaTags.Description = string.Format("Read review by {0} on {1} {2}. {0} says {3}. View detailed review on BikeWale.", objPage.UserReviewDetailsObj.CustomerName, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Title);
                     objPage.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/{2}/", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, _reviewId);
                     objPage.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/reviews/{2}/", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, _reviewId);
+                    objPage.Page_H1 = objPage.UserReviewDetailsObj.Title.Truncate(45);
 
-                    List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+                    SetBreadcrumList(objPage);
+                    SetPageJSONLDSchema(objPage);
 
-                    BreadCrumbs.Add(new BreadCrumb
-                    {
-                        ListUrl = "/",
-                        Name = "Home"
-                    });
-
-                    if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null)
-                    {
-                        BreadCrumbs.Add(new BreadCrumb
-                        {
-                            ListUrl = string.Format("/{0}-bikes/", objPage.UserReviewDetailsObj.Make.MaskingName),
-                            Name = objPage.UserReviewDetailsObj.Make.MakeName + " Bikes"
-                        });
-                    }
-
-                    if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null && objPage.UserReviewDetailsObj.Model != null)
-                    {
-                        BreadCrumbs.Add(new BreadCrumb
-                        {
-                            ListUrl = UrlFormatter.BikePageUrl(objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName),
-                            Name = string.Format("{0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName)
-                        });
-                    }
-
-                    if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null && objPage.UserReviewDetailsObj.Model != null)
-                    {
-                        BreadCrumbs.Add(new BreadCrumb
-                        {
-                            ListUrl = UrlFormatter.FormatUserReviewUrl(objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName),
-                            Name = "User Reviews"
-                        });
-                    }
-
-                    objPage.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
-                    objPage.BreadCrumbsList.PageName = objPage.UserReviewDetailsObj.Title.Truncate(45);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewDetailsPage.BindPageMetas() - ReviewId :{0}", _reviewId));
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(UserReviewDetailsVM objPage)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, url, "Home"));
+
+
+            if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null)
+            {
+                url = string.Format("{0}{1}-bikes/", url, objPage.UserReviewDetailsObj.Make.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objPage.UserReviewDetailsObj.Make.MakeName)));
+            }
+
+            if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
+            {
+                url = string.Format("{0}{1}/", url, objPage.UserReviewDetailsObj.Model.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objPage.UserReviewDetailsObj.Model.ModelName));
+            }
+
+            if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null && objPage.UserReviewDetailsObj.Model != null)
+            {
+                url += "user-reviews/";
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "User Reviews"));
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
+
+
+            objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
+        }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema
+        /// </summary>
+        private void SetPageJSONLDSchema(UserReviewDetailsVM objPageMeta)
+        {
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
             }
         }
 
@@ -219,41 +241,28 @@ namespace Bikewale.Models.UserReviews
                 InputFilters filters = null;
                 // Set default category to be loaded here
                 FilterBy activeReviewCateory = FilterBy.MostHelpful;
-                if (!IsDesktop)
+
+                filters = new InputFilters()
                 {
-                    filters = new InputFilters()
-                    {
-                        Model = _modelId.ToString(),
-                        SO = (ushort)activeReviewCateory,
-                        PN = 1,
-                        PS = 8,
-                        Reviews = true,
-                        SkipReviewId = _reviewId
-                    };
-                }
-                else
-                {
-                    filters = new InputFilters()
-                    {
-                        Model = _modelId.ToString(),
-                        SO = (ushort)activeReviewCateory,
-                        PN = 1,
-                        PS = 10,
-                        Reviews = true,
-                        SkipReviewId = _reviewId
-                    };
-                }
+                    Model = _modelId.ToString(),
+                    SO = (ushort)activeReviewCateory,
+                    PN = 1,
+                    PS = IsMobile ? 8 : 10,
+                    Reviews = true,
+                    SkipReviewId = _reviewId
+                };
 
 
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
-                objUserReviews.IsDesktop = IsDesktop;
+                objUserReviews.IsDesktop = !IsMobile;
 
-                if (objUserReviews != null)
+
+                objUserReviews.ActiveReviewCateory = activeReviewCateory;
+
+                objPage.UserReviews = objUserReviews.GetData();
+
+                if (objPage.UserReviews != null)
                 {
-                    objUserReviews.ActiveReviewCateory = activeReviewCateory;
-
-                    objPage.UserReviews = objUserReviews.GetData();
-
                     if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
                         objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0}", objPage.UserReviewDetailsObj.Model.ModelName);
 
@@ -277,9 +286,7 @@ namespace Bikewale.Models.UserReviews
                             objPage.UserReviews.ReviewsInfo.NegativeReviews = objPage.UserReviews.ReviewsInfo.NegativeReviews - 1;
                         }
                     }
-
                 }
-
 
             }
             catch (Exception ex)
