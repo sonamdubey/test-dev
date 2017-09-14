@@ -183,14 +183,14 @@
                             <span id="spnUpdateSeries" class="errorMessage"></span>
                         </div>
                         <div class="floatLeft margin-left10">
-                            <input type="button" id="btnSelModel" value="Select Bike Model(s)" />
+                            <input type="button" id="btnSelModelSeries" value="Select Bike Model(s)" />
                         </div>
                     </div>
                     <div class="clear"></div>
                     <div class="margin-top10">
                         <div style="text-align: center; margin-top: 20px;">
-                            <input type="submit" id="Submit1" value="Update Model Segment" runat="server" /><span id="spnSeg" class="errorMessage"></span>
-                            <asp:hiddenfield id="Hiddenfield1" runat="server"></asp:hiddenfield>
+                            <input type="submit" id="btnUpdateSeries" value="Update Model Series" runat="server" /><span id="spnSeries" class="errorMessage"></span>
+                            <asp:hiddenfield id="hdnModelIdsListSeries" runat="server"></asp:hiddenfield>
                         </div>
                     </div>
                     <div class="clear"></div>
