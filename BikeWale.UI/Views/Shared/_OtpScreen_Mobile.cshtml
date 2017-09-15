@@ -20,7 +20,7 @@
                 <span class="error-text" style="display: none;"></span>
             </div>
             <input type="button" id="process-order" data-bind="event: { click: Done }" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Process Order">
-            <p class="otp-container__resend font15">Resend OTP</p>
+            <p id="resend_Otp" class="otp-container__resend font15" data-bind="event: { click: resendOtp }">Resend OTP</p>
         </div>
         <div class="otp-container__edit">
             <div class="input-box form-control-box">
@@ -64,7 +64,36 @@
                     self.mobileNumber(objData.mobileNumber);
 
             }
-        }
+        };
+
+        self.resendOtp = function () {
+            var objInput = {
+
+                "customerName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                "customerMobile": otpvm.mobileNumber,
+                "customerEmail": $('#cfEmail').val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/ResendVerificationCode/",
+                contentType: "application/json",
+                data: ko.toJSON(objInput),
+                success: function (response) {
+                    if (response != null)
+                    {
+                        if (response.NoOfAttempts >= 3)
+                        {
+                            $('#resend_Otp').hide();
+                        }
+                    }
+
+                }
+            });
+
+
+        };
+
         self.changeMobileNumber = function () {
             var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {
@@ -121,7 +150,6 @@
 
 
         };
-
         self.redirect = function () {
 
             window.location.href = $("#pageUrl").val();
@@ -129,14 +157,24 @@
 
         self.Done = function () {
             var otp = $('#otpNumber').val();
+            var employeDetails = {
 
+                "mobileNumber": otpvm.mobileNumber,
+                "emailId": $('#cfEmail').val(),
+                "objLeadJson": $("#objLead").val(),
+                "firstName": $('#cfFName').val(),
+                "lastName": $('#cfLName').val(),
+                "pincode": $("#cfPincode").val(),
+                "objLeadJson": $("#objLead").val(),
+            }
             $.ajax({
                 type: "POST",
-                url: "/api/finance/verifymobile/otp/" + otp + "/mobilenumber/" + otpvm.mobileNumber()+"/",
+                url: "/api/finance/verifymobile/otp/" + otp + "/",
                 contentType: "application/json",
                 dataType: 'json',
+                data: ko.toJSON(employeDetails),
                 success: function (response) {
-                    if (response==true) {
+                    if (response == true) {
                         $('.otp-container__info').hide();
                         $('#thankyouScreen').removeClass("hide");
                     }

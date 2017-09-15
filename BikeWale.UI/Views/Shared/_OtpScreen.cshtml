@@ -22,7 +22,7 @@
                         <span class="error-text" style="display: none;"></span>
                     </div>
                     <input type="button" id="process-order" data-bind="event: { click: Done }" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Process Order">
-                    <p class="otp-container__resend font15">Resend OTP</p>
+                    <p id="resend_Otp" class="otp-container__resend font15" data-bind="event: { click: resendOtp }">Resend OTP</p>
                 </div>
                 <div class="otp-container__edit">
                     <div class="input-box input-number-box form-control-box">
@@ -69,6 +69,35 @@
 
             }
         };
+
+        self.resendOtp = function () {
+            var objInput = {
+
+                "customerName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                "customerMobile": otpvm.mobileNumber,
+                "customerEmail": $('#cfEmail').val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/ResendVerificationCode/",
+                contentType: "application/json",
+                data: ko.toJSON(objInput),
+                success: function (response) {
+                    if (response != null)
+                    {
+                        if (response.NoOfAttempts >= 3)
+                        {
+                            $('#resend_Otp').hide();
+                        }
+                    }
+
+                }
+            });
+
+
+        };
+
         self.changeMobileNumber = function () {
             var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {
