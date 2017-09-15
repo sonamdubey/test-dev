@@ -18,6 +18,13 @@ namespace Bikewale.DTO.Finance
         [JsonProperty("agentContactNumber")]
         public string AgentContactNumber { get; set; }
         [JsonProperty("status")]
-        public ushort Status { get; set; }
+        public CapitalFirstVoucherStatusDTO Status { get; set; }
+    }
+
+    public enum CapitalFirstVoucherStatusDTO
+    {
+        Pre_Approved = 3,
+        Rejected = 4,
+        Credit_Refer = 5
     }
 }
