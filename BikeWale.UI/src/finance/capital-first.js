@@ -86,6 +86,16 @@ docReady(function () {
         }
     };
 
+    $('input:radio[name="gender"]').change(
+    function () {
+            validateRadioButtons("gender");
+    });
+
+    $('input:radio[name="marital"]').change(
+    function () {
+            validateRadioButtons("marital");
+    });
+
 	isDesktop = $(".capital-first-desktop");
 	
 	var startDate = new Date();
@@ -262,7 +272,6 @@ function saveEmployeDetails() {
         "mobileNumber": $('#cfNum').val(),
         "emailId": $('#cfEmail').val(),
         "objLeadJson": $("#objLead").val(),
-        "id": $("#cpId").val(),
         "firstName": $('#cfFName').val(),
         "lastName": $('#cfLName').val(),
         "dateOfBirth": $('#cfDOB').val(),
@@ -272,6 +281,7 @@ function saveEmployeDetails() {
         "addressLine2": $('#cfAddress2').val(),
         "pincode": $("#cfPincode").val(),
         "pancard": $("#cfPan").val(),
+        "id": $("#cpId").val(),
         "ctLeadId": $("#ctLeadId").val(),
         "leadId": $("#leadId").val()
 
@@ -413,13 +423,13 @@ function validateRadioButtons(groupName) {
 
 function validateIncome(inputIncome) {
     var isValid = true;
-    var numRegex = /^[0-9]*$/;
+    var numRegex = /^[0-9]{0,9}$/;
     var value = $(inputIncome).val().trim();
     if ($(inputIncome).val().length <= 0) {
         validate.setError(inputIncome, 'Please enter Income');
         isValid = false;
     }
-    else if (!numRegex.test(value)) {
+    else if (!numRegex.test(value) || value.length > 9) {
         validate.setError(inputIncome, 'Please enter valid Income');
         isValid = false;
     }

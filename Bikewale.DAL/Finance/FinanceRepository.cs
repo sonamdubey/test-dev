@@ -45,6 +45,8 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                     param.Add("par_officialaddressline2", objDetails.OfficialAddressLine2);
                     param.Add("par_pincodeoffice", objDetails.PincodeOffice);
                     param.Add("par_annualincome", objDetails.AnnualIncome);
+                    param.Add("par_cityId", objDetails.objLead.CityId);
+                    param.Add("par_versionid", objDetails.objLead.VersionId);
 
                     connection.Execute("savecapitalfirstleaddetails", param: param, commandType: CommandType.StoredProcedure);
                     id = SqlReaderConvertor.ToUInt32(param.Get<Int32>("par_id"));

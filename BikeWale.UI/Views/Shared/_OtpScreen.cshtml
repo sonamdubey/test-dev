@@ -44,7 +44,7 @@
                 <p class="font18 text-bold margin-top20">Thank you, <span data-bind="text: userName()"></span>!</p>
                 <p class="text-black font14 margin-top20">Your loan application is being verfied. </p>
                 <p class="text-black font14">Loan approval will be generated shortly</p>
-                <input type="button" id="sendEmail" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Done">
+                <input type="button" id="sendEmail"  data-bind="event: { click: redirect }" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Done">
             </div>
             <div id="failureScreen" class="failure-container hide">
                 <div class="icon-outer-container rounded-corner50">
@@ -78,7 +78,7 @@
                     self.mobileNumber(objData.mobileNumber);
 
             }
-        }
+        };
         self.changeMobileNumber = function () {
             var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {
@@ -135,17 +135,31 @@
 
 
         };
+        self.redirect = function () {
+
+            window.location.href = $("#pageUrl").val();
+        };
 
         self.Done = function () {
             var otp = $('#otpNumber').val();
+            var employeDetails = {
 
+                "mobileNumber": otpvm.mobileNumber,
+                "emailId": $('#cfEmail').val(),
+                "objLeadJson": $("#objLead").val(),
+                "firstName": $('#cfFName').val(),
+                "lastName": $('#cfLName').val(),
+                "pincode": $("#cfPincode").val(),
+                "objLeadJson": $("#objLead").val(),
+            }
             $.ajax({
                 type: "POST",
-                url: "/api/finance/verifymobile/otp/" + otp + "/mobilenumber/" + otpvm.mobileNumber()+"/",
+                url: "/api/finance/verifymobile/otp/" + otp + "/",
                 contentType: "application/json",
                 dataType: 'json',
+                data: ko.toJSON(employeDetails),
                 success: function (response) {
-                    if (response==true) {
+                    if (response == true) {
                         $('.otp-container__info').hide();
                         $('#thankyouScreen').removeClass("hide");
                     }
