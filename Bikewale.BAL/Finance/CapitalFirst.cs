@@ -143,7 +143,7 @@ namespace Bikewale.BAL.Finance
                         objNVC.Add("cityId", objDetails.objLead.CityId.ToString());
                         objNVC.Add("leadType", "2");
                         objNVC.Add("manufacturerDealerId", Convert.ToString(objDetails.objLead.ManufacturerDealerId));
-                        objNVC.Add("manufacturerLeadId", Convert.ToString(objDetails.objLead.LeadId));
+                        objNVC.Add("manufacturerLeadId", Convert.ToString(objDetails.LeadId));
                         RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                         objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
                     }
@@ -188,8 +188,6 @@ namespace Bikewale.BAL.Finance
                      objDetails.objLead.CampaignId,
                      objDetails.LeadId
                     );
-                //CT api
-                objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
 
                 var ctResponse = SendCustomerDetailsToCarTrade(objDetails);
 

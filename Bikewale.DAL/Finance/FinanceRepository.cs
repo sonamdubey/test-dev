@@ -99,6 +99,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                     param.Add("par_voucherExpiryDate", voucherDetails.ExpiryDate, dbType: DbType.Date);
                     param.Add("par_agentName", voucherDetails.AgentName, dbType: DbType.String);
                     param.Add("par_agentNumber", voucherDetails.AgentContactNumber, dbType: DbType.String);
+                    param.Add("par_leadStatus", (int)voucherDetails.Status, dbType: DbType.Int32);
                     conn.Open();
                     conn.Execute("savecapitalfirstvoucherdetails", param: param, commandType: CommandType.StoredProcedure);
                     isSaved = true;

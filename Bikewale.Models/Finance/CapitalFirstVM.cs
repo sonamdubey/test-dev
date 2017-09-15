@@ -14,6 +14,8 @@ namespace Bikewale.Models.Finance
         public ManufacturerLeadEntity ObjLead { get; set; }
 
         public string objLeadJson { get; set; }
+
+        public ushort PlatformId { get; set; }
     }
 
 }
