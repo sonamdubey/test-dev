@@ -242,10 +242,10 @@
 				</itemtemplate>            
 			    </asp:TemplateColumn>
 			<asp:BoundColumn DataField="BikeMakeId" ReadOnly="true" ItemStyle-CssClass="doNotDisplay" HeaderStyle-CssClass="doNotDisplay" />
-            <asp:TemplateColumn HeaderText="Series" ItemStyle-Width="450">
+            <asp:TemplateColumn HeaderText="Series" ItemStyle-Width="800">
 				<itemtemplate>
-					<input type="checkbox" name="chkSeries" modelId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' disabled="disabled"/><span><%#DataBinder.Eval(Container.DataItem,"seriesName") %></span>
-                    <input type="image" class="deleteMapModelSeries"  data-modelid='<%# DataBinder.Eval(Container.DataItem,"ID") %>' src="https://opr.carwale.com/images/icons/delete.ico">
+					<input type="checkbox" name="chkSeries" modelId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' disabled="disabled" style="vertical-align:middle"/><span style="vertical-align:middle"><%#DataBinder.Eval(Container.DataItem,"seriesName") %></span>
+                    <input type="image" class="deleteMapModelSeries"  data-modelid='<%# DataBinder.Eval(Container.DataItem,"ID") %>' src="https://opr.carwale.com/images/icons/delete.ico" style="vertical-align:middle">
 				</itemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="CC Segment" ItemStyle-Width="1100">
