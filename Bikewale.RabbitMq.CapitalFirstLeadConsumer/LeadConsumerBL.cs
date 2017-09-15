@@ -204,12 +204,12 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
                 switch (status)
                 {
                     case CarTradeVoucherStatus.Pre_Approved:
-                        smsTemplate = string.Format("Congratulations! Your bike loan has been pre-approved by Capital First. Your loan voucher code is {0}. For further steps, please get in touch with {1} and {2}.", lead.VoucherNumber, lead.AgentName, lead.AgentNumber);
+                        smsTemplate = string.Format("Congratulations! Your bike loan has been pre-approved by Capital First. Your loan voucher code is {0}. For further steps, please get in touch with Capital First Executive {1} - {2}.", lead.VoucherNumber, lead.AgentName, lead.AgentNumber);
                         newSms.CapitalFirstLoanSMS(lead.MobileNo, "", EnumSMSServiceType.SMSforCapitalFirstSuccess, smsTemplate);
                         break;
                     case CarTradeVoucherStatus.Rejected:
                     case CarTradeVoucherStatus.Credit_Refer:
-                        smsTemplate = "Your bike loan application did not get approved based on your credit profile. Thank you for visiting BikeWale.";
+                        smsTemplate = "Your bike loan application could not be approved online based on your credit profile. Thank you for visiting BikeWale.";
                         newSms.CapitalFirstLoanSMS(lead.MobileNo, "", EnumSMSServiceType.SMSforCapitalFirstFailure, smsTemplate);
                         break;
                     default:
