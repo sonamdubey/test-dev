@@ -20,6 +20,8 @@ namespace Bikewale.Models
                 objPopupCityAreaVM.PQSourceId = SqlReaderConvertor.ToUInt16(queryCollection["pqsourceid"]);
                 objPopupCityAreaVM.PreSelectedCity = SqlReaderConvertor.ToUInt16(queryCollection["preselcity"]);
                 objPopupCityAreaVM.Url = Convert.ToString(queryCollection["Url"]);
+
+                BindPageMetaTags(objPopupCityAreaVM.PageMetaTags);
             }
             catch (Exception ex)
             {
@@ -27,6 +29,22 @@ namespace Bikewale.Models
             }
             return objPopupCityAreaVM;
         }
-
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 14-Sep-2017
+        /// Description :  Bind page meta tags.
+        /// </summary>
+        /// <param name="pageMetaTags"></param>
+        private void BindPageMetaTags(PageMetaTags pageMetaTags)
+        {
+            try
+            {
+                pageMetaTags.Title = "Please provide more details | BikeWale";
+                pageMetaTags.Description = "Please provide more details to proceed further.";
+            }
+            catch (Exception ex)
+            {
+                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "PopUpCityArea.BindPageMetaTags()");
+            }
+        }
     }
 }
