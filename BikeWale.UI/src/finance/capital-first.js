@@ -16,7 +16,7 @@ docReady(function () {
     otpEditElem = $(".otp-container__edit");
     otpVerificationElem = $(".otp-container__verification");
     otpContainerElem = $(".otp-container")
-    blackWindowElem = $(".otp-black-window");
+	blackWindowElem = $(".otp-black-window");
 
     validate = {
         setError: function (element, message) {
@@ -84,7 +84,10 @@ docReady(function () {
 
     $("#cfDOB").Zebra_DatePicker({
         container: $("#cfDOB").closest(".input-box")
-    });
+	});
+	
+	var dateOfBirthPicker = $('#cfDOB').data('Zebra_DatePicker');
+	dateOfBirthPicker.datepicker.find('.dp_heading').text('Date of Birth');
 
     $(".page-tabs-data input, .otp-container input[type!=button]").on('blur', function () {
         validate.onBlur($(this));

@@ -1,8 +1,4 @@
-﻿@charset "utf-8";
-
-/*capital first css code starts here*/
-   
-.text-slate-grey {
+﻿.text-slate-grey {
     color: #787878;
 }
 
@@ -241,7 +237,7 @@ input[type=radio] {
 }
 
 .white-tick-icon {
-    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/checked-circle-14x14.png') center no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/tick-18x14.png') center no-repeat;
 }
 
 .gray-bag-icon {
@@ -391,4 +387,17 @@ input[type=radio] {
     bottom: 0;
     z-index: 9;
     opacity: 0.7;
+}
+
+/* datepicker */
+.personal-details__form .Zebra_DatePicker {
+	top: -20px !important;
+}
+
+.personal-details__form .dp_visible .dp_footer {
+	display: none !important;
+}
+
+.personal-details__form .dp_header {
+	width: 100% !important;
 }
