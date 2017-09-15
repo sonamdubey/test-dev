@@ -425,15 +425,20 @@ function validateIncome(inputIncome) {
 }
 
 function validateDOB(inputAge) {
-    var isValid = true,
-        setDate = $(inputAge).val(),
-        date1 = new Date(setDate),
-        date2 = new Date(),
-        timeDiff = Math.abs(date2.getTime() - date1.getTime()),
-        diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)),
-        diffYears = diffDays / 365;
+    var dob = $(inputAge).val().trim();
 
-    if (diffYears < 21) {
+        var isValid = true,
+            setDate = $(inputAge).val(),
+            date1 = new Date(setDate),
+            date2 = new Date(),
+            timeDiff = Math.abs(date2.getTime() - date1.getTime()),
+            diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)),
+            diffYears = diffDays / 365;
+      if (dob.length == 0) {
+          validate.setError(inputAge, 'Please enter Age');
+          isValid = false;
+        }
+    else if (diffYears < 21) {
         validate.setError(inputAge, 'Age should be greater than 21');
         isValid = false;
     }
