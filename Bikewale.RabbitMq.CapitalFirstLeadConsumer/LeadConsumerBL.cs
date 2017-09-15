@@ -173,7 +173,7 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
                 {
                     case CarTradeVoucherStatus.Pre_Approved:
                         ComposeEmailBase objEmail = new CapitalFirstSuccessEmailTemplate(lead);
-                        byte[] pdfFile = CreatePdf.ConvertToBytes(new PdfAttachment(lead).ComposeBody());
+                        byte[] pdfFile = CreatePdf.ConvertToBytes(new CapitalFirstPdfAttachment(lead).ComposeBody());
                         string attachmentName = string.Format("{0}.pdf", string.Format("{0}_{1}_{2}", lead.FirstName, lead.LastName, lead.VoucherNumber).Replace(".", string.Empty));
                         objEmail.Send(lead.EmailId, "Bike Loan Application Pre-Approved", pdfFile, attachmentName);
                         break;

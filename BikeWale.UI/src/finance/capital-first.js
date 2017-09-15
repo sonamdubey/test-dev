@@ -7,7 +7,10 @@ var validate,
     otpEditElem,
     otpVerificationElem,
     otpContainerElem,
-    otpNewNum;
+    otpNewNum,
+    otpContainerContent,
+    otpContainerContentHeight,
+    employmentDeatilTab;
 
 docReady(function () {
 
@@ -16,7 +19,9 @@ docReady(function () {
     otpEditElem = $(".otp-container__edit");
     otpVerificationElem = $(".otp-container__verification");
     otpContainerElem = $(".otp-container")
-	blackWindowElem = $(".otp-black-window");
+    blackWindowElem = $(".otp-black-window"),
+    otpContainerContent = $(".otp-container__content"),
+    employmentDeatilTab = $("#employment-detail-tab");
 
     validate = {
         setError: function (element, message) {
@@ -72,6 +77,7 @@ docReady(function () {
     otpScreen = {
         openOtp: function () {
             $(otpContainerElem).show();
+            otpContainerContentHeight = $(otpContainerContent).innerHeight();
             docBody.lockScroll();
         },
         closeOtp: function () {
@@ -79,6 +85,16 @@ docReady(function () {
             docBody.unlockScroll();
         }
     };
+
+    $('input:radio[name="gender"]').change(
+    function () {
+            validateRadioButtons("gender");
+    });
+
+    $('input:radio[name="marital"]').change(
+    function () {
+            validateRadioButtons("marital");
+    });
 
 	isDesktop = $(".capital-first-desktop");
 	
@@ -143,6 +159,13 @@ docReady(function () {
     $(blackWindowElem).on('click', function () {
         otpScreen.closeOtp();
     });
+
+    
+    $("#otpNumber, #otpNewNumber").on('focus', function () {
+        $(otpContainerElem).animate({
+            scrollTop: otpContainerContentHeight + 30
+        });
+    });
 });
 
 function scrollTopError() {
@@ -169,13 +192,12 @@ function validatePersonalInfo() {
 
 
         savePersonalDetails();
-
-        $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
-        $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
         if (isDesktop) {
+            $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
+            $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
             $(".employment__title ").removeClass("inactive");
             $(".employment-details-container").addClass("visible");
-            scrollTop($("#employment-detail-tab").offset());
+            scrollTop($(employmentDeatilTab).offset());
         }
     } else {
         scrollTopError();
@@ -208,10 +230,11 @@ function savePersonalDetails() {
 
             if (response!=null) {
                 $("#personal-detail-tab").addClass("hide");
-                $("#employment-detail-tab").removeClass("hide");
+                $(employmentDeatilTab).removeClass("hide");
                 $("#cpId").val(response.CpId);
                 $("#ctLeadId").val(response.CTleadId);
                 $("#leadId").val(response.LeadId);
+                scrollTop($(employmentDeatilTab).offset());
             }
 
         }
@@ -400,13 +423,13 @@ function validateRadioButtons(groupName) {
 
 function validateIncome(inputIncome) {
     var isValid = true;
-    var numRegex = /^[0-9]*$/;
+    var numRegex = /^[0-9]{0,9}$/;
     var value = $(inputIncome).val().trim();
     if ($(inputIncome).val().length <= 0) {
         validate.setError(inputIncome, 'Please enter Income');
         isValid = false;
     }
-    else if (!numRegex.test(value)) {
+    else if (!numRegex.test(value) || value.length > 9) {
         validate.setError(inputIncome, 'Please enter valid Income');
         isValid = false;
     }

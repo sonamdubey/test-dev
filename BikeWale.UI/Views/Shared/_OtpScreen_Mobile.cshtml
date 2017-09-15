@@ -7,8 +7,10 @@
                 <div class="otp-container__icon"></div>
             </div>
         </div>
-        <p class="otp-container__title">Verify your mobile number</p>
-        <p class="font14">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below: </p>
+        <div class="otp-container__content">
+            <p class="otp-container__title">Verify your mobile number</p>
+            <p class="font14">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below: </p>
+        </div>
         <div class="otp-container__verification">
             <span class="otp-container__span otp-container__phone-icon otp-icons"></span>
             <span class="otp-container__span otp-container__phone-number"><span data-bind="text: mobileNumber()"></span></span>
@@ -43,6 +45,16 @@
         <p class="text-black font14 margin-top20">Your loan application is being verfied. </p>
         <p class="text-black font14">Loan approval will be generated shortly</p>
         <input type="button" id="sendEmail" data-bind="event: { click: redirect }" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Done">
+    </div>
+    <div id="failureScreen" class="failure-container hide">
+        <div class="icon-outer-container rounded-corner50">
+            <div class="icon-inner-container rounded-corner50">
+                <span class="otp-icons fail-icon"></span>
+            </div>
+        </div>
+        <p class="font18 text-bold margin-top20">We are sorry</p>
+        <p class="text-black font14 margin-top20">Your loan application is being verfied. </p>
+        <p class="text-black font14">Loan approval will be generated shortly</p>
     </div>
 </div>
 

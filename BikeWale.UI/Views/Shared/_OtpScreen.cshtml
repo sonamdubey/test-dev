@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div id="thankyouScreen" class="thankyou-container hide">
-                <div class="icon-outer-container rounded-corner50 hide">
+                <div class="icon-outer-container rounded-corner50">
                     <div class="icon-inner-container rounded-corner50">
                         <span class="otp-icons thumbsup-icon"></span>
                     </div>
@@ -45,6 +45,16 @@
                 <p class="text-black font14 margin-top20">Your loan application is being verfied. </p>
                 <p class="text-black font14">Loan approval will be generated shortly</p>
                 <input type="button" id="sendEmail"  data-bind="event: { click: redirect }" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Done">
+            </div>
+            <div id="failureScreen" class="failure-container hide">
+                <div class="icon-outer-container rounded-corner50">
+                    <div class="icon-inner-container rounded-corner50 fail-icon">
+                        <span class="otp-icons "></span>
+                    </div>
+                </div>
+                <p class="font18 text-bold margin-top20">We are sorry</p>
+                <p class="text-black font14 margin-top20">Your loan application is being verfied. </p>
+                <p class="text-black font14">Loan approval will be generated shortly</p>
             </div>
         </div>
     </div>
