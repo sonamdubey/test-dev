@@ -91,16 +91,19 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
                             && nvc.HasKeys()
                             && !String.IsNullOrEmpty(nvc["ctLeadId"])
                             && !String.IsNullOrEmpty(nvc["voucherCode"])
-                            && !String.IsNullOrEmpty(nvc["expiryDate"])
-                            && !String.IsNullOrEmpty(nvc["agentName"])
-                            && !String.IsNullOrEmpty(nvc["agentContactNumber"]))
+                            && !String.IsNullOrEmpty(nvc["status"]))
                         {
                             CarTradeVoucher voucher = new CarTradeVoucher();
                             voucher.LeadId = nvc["ctLeadId"];
                             voucher.VoucherCode = nvc["voucherCode"];
-                            voucher.ExpiryDate = Convert.ToDateTime(nvc["expiryDate"]);
-                            voucher.AgentName = nvc["agentName"];
-                            voucher.AgentContactNumber = nvc["agentContactNumber"];
+                            CarTradeVoucherStatus status = Enum.TryParse(nvc["status"], out status) ? status : CarTradeVoucherStatus.Rejected;
+                            voucher.Status = status;
+                            if (voucher.Status == CarTradeVoucherStatus.Pre_Approved)
+                            {
+                                voucher.ExpiryDate = Convert.ToDateTime(nvc["expiryDate"]);
+                                voucher.AgentName = nvc["agentName"];
+                                voucher.AgentContactNumber = nvc["agentContactNumber"];
+                            }
 
                             string jsonVoucher = Newtonsoft.Json.JsonConvert.SerializeObject(voucher);
 

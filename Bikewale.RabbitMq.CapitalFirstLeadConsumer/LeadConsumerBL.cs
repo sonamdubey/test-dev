@@ -27,7 +27,7 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
                     if (lead != null)
                     {
                         //Format Email and SMS code here
-                        isProcessed = NotifyCustomer(lead);
+                        isProcessed = NotifyCustomer(lead, voucher.Status);
 
                         //Update lead table with notification date set to current
                         if (isProcessed)
@@ -117,10 +117,10 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
         /// </summary>
         /// <param name="lead"></param>
         /// <returns></returns>
-        private bool NotifyCustomer(CapitalFirstLeadEntity lead)
+        private bool NotifyCustomer(CapitalFirstLeadEntity lead, CarTradeVoucherStatus status)
         {
-            SendEmail(lead);
-            SendSMS(lead);
+            SendEmail(lead, status);
+            SendSMS(lead, status);
             return lead != null;
         }
 
@@ -165,20 +165,20 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
         /// <summary>
         /// Description : Send email.
         /// </summary>
-        private void SendEmail(CapitalFirstLeadEntity lead)
+        private void SendEmail(CapitalFirstLeadEntity lead, CarTradeVoucherStatus status)
         {
             try
             {
-                switch (lead.Status)
+                switch (status)
                 {
-                    case CapitalFirstVoucherStatus.Pre_Approved:
+                    case CarTradeVoucherStatus.Pre_Approved:
                         ComposeEmailBase objEmail = new CapitalFirstSuccessEmailTemplate(lead);
                         byte[] pdfFile = CreatePdf.ConvertToBytes(new PdfAttachment(lead).ComposeBody());
                         string attachmentName = string.Format("{0}.pdf", string.Format("{0}_{1}_{2}", lead.FirstName, lead.LastName, lead.VoucherNumber).Replace(".", string.Empty));
                         objEmail.Send(lead.EmailId, "Bike Loan Application Pre-Approved", pdfFile, attachmentName);
                         break;
-                    case CapitalFirstVoucherStatus.Rejected:
-                    case CapitalFirstVoucherStatus.Credit_Refer:
+                    case CarTradeVoucherStatus.Rejected:
+                    case CarTradeVoucherStatus.Credit_Refer:
                         break;
                     default:
                         break;
@@ -194,22 +194,22 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
         /// <summary>
         /// Desc : Send SMS.
         /// </summary>
-        private void SendSMS(CapitalFirstLeadEntity lead)
+        private void SendSMS(CapitalFirstLeadEntity lead, CarTradeVoucherStatus status)
         {
             try
             {
                 SMSTypes newSms = new SMSTypes();
                 string smsTemplate;
 
-                switch (lead.Status)
+                switch (status)
                 {
-                    case CapitalFirstVoucherStatus.Pre_Approved:
-                        smsTemplate = string.Format("Congratulations! Your bike loan has been pre-approved by Capital First. Your loan voucher code is {0}. For further steps, please get in touch with {1} and {2}.", lead.VoucherNumber, lead.AgentName, lead.AgentNumber);
+                    case CarTradeVoucherStatus.Pre_Approved:
+                        smsTemplate = string.Format("Congratulations! Your bike loan has been pre-approved by Capital First. Your loan voucher code is {0}. For further steps, please get in touch with Capital First Executive {1} - {2}.", lead.VoucherNumber, lead.AgentName, lead.AgentNumber);
                         newSms.CapitalFirstLoanSMS(lead.MobileNo, "", EnumSMSServiceType.SMSforCapitalFirstSuccess, smsTemplate);
                         break;
-                    case CapitalFirstVoucherStatus.Rejected:
-                    case CapitalFirstVoucherStatus.Credit_Refer:
-                        smsTemplate = "Your bike loan application did not get approved based on your credit profile. Thank you for visiting BikeWale.";
+                    case CarTradeVoucherStatus.Rejected:
+                    case CarTradeVoucherStatus.Credit_Refer:
+                        smsTemplate = "Your bike loan application could not be approved online based on your credit profile. Thank you for visiting BikeWale.";
                         newSms.CapitalFirstLoanSMS(lead.MobileNo, "", EnumSMSServiceType.SMSforCapitalFirstFailure, smsTemplate);
                         break;
                     default:

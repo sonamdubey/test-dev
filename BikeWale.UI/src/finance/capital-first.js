@@ -292,13 +292,16 @@ function validateUserName(elem) {
 
     var nameRegex = /^[a-zA-Z ]{2,255}$/,
         value = $(elem)[0].value.trim();
-
-    if (nameRegex.test(value) && value.length > 1) {
+    if (value.length == 0) {
+        validate.setError(elem, "Please enter required field");
+        isValid = false;
+    }
+    else if (nameRegex.test(value) && value.length > 1) {
         validate.hideError(elem);
         isValid = true;
     }
     else {
-        validate.setError(elem, "Error");
+        validate.setError(elem, "Please enter valid name");
         isValid = false;
     }
     return isValid;
@@ -307,9 +310,12 @@ function validateUserName(elem) {
 function validatePhoneNumber(inputMobile) {
     var regMob = new RegExp('^((7)|(8)|(9))[0-9]{9}$', 'i'),
         value = $(inputMobile).val();
-
+    if (value.length == 0) {
+        validate.setError($(inputMobile), "Please enter Mobile number");
+        isValid = false;
+    }
     if (value.length < 10) {
-        validate.setError($(inputMobile), "Enter 10 digits");
+        validate.setError($(inputMobile), "Please enter 10 digits");
         isValid = false;
     }
     else if (!regMob.test(value)) {
@@ -328,11 +334,11 @@ function validateEmailId(inputEmail) {
         reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
 
     if (emailVal == "") {
-        validate.setError($(inputEmail), 'Please enter email id');
+        validate.setError($(inputEmail), 'Please enter Email Id');
         isValid = false;
     }
     else if (!reEmail.test(emailVal)) {
-        validate.setError($(inputEmail), 'Invalid Email');
+        validate.setError($(inputEmail), 'Please enter valid Email Id');
         isValid = false;
     }
     return isValid;
@@ -346,7 +352,7 @@ function validateAddress(inputAddress) {
         isValid = true;
     }
     else {
-        validate.setError(inputAddress, "Error");
+        validate.setError(inputAddress, "Please enter Address");
         isValid = false;
     }
     return isValid;
@@ -355,9 +361,12 @@ function validateAddress(inputAddress) {
 function validatePinCode(inputPincode) {
     var isValid = true,
         pc = inputPincode.val().trim();
-
-    if (!(/^[1-9][0-9]{5}$/.test(pc))) {
-        validate.setError(inputPincode, 'Invalid pincode');
+    if (pc.length == 0) {
+        validate.setError(inputPincode, 'Please enter Pincode');
+        isValid = false;
+    }
+    else if (!(/^[1-9][0-9]{5}$/.test(pc))) {
+        validate.setError(inputPincode, 'Please enter valid Pincode');
         isValid = false;
     }
     return isValid;
@@ -366,9 +375,12 @@ function validatePinCode(inputPincode) {
 function validatePanNumber(inputPanNum) {
     var isValid = true,
         panNum = inputPanNum.val().trim();
-
-    if (!(/([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}/.test(panNum)) && panNum.length < 6) {
-        validate.setError(inputPanNum, 'Invalid Pan Number');
+    if (panNum.length == 0) {
+        validate.setError(inputPanNum, 'Please enter Pan Number');
+        isValid = false;
+    }
+    else if (!(/[a-zA-Z]{3}[P|p][a-zA-Z]{1}[0-9]{4}[a-zA-Z]{1}$/.test(panNum))) {
+        validate.setError(inputPanNum, 'Please enter valid Pan Number');
         isValid = false;
     }
     return isValid;
@@ -377,7 +389,7 @@ function validatePanNumber(inputPanNum) {
 function validateRadioButtons(groupName) {
     var isValid = true;
     if ($('input[name=' + groupName + ']:checked').length <= 0) {
-        validate.setError($('input[name=' + groupName + ']').closest('ul'), 'Please select');
+        validate.setError($('input[name=' + groupName + ']').closest('ul'), 'Please select required field');
         isValid = false;
     } else {
         validate.hideError($('input[name=' + groupName + ']').closest('ul'));
@@ -388,9 +400,14 @@ function validateRadioButtons(groupName) {
 
 function validateIncome(inputIncome) {
     var isValid = true;
-
+    var numRegex = /^[0-9]*$/;
+    var value = $(inputIncome).val().trim();
     if ($(inputIncome).val().length <= 0) {
-        validate.setError(inputIncome, 'Invalid Income');
+        validate.setError(inputIncome, 'Please enter Income');
+        isValid = false;
+    }
+    else if (!numRegex.test(value)) {
+        validate.setError(inputIncome, 'Please enter valid Income');
         isValid = false;
     }
     return isValid;
