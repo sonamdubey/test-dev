@@ -113,15 +113,17 @@ namespace Bikewale.BAL.Finance
             string message = "";
             try
             {
-                _objIFinanceRepository.SavePersonalDetails(objDetails);
 
+
+                #region Do not change sequence
                 var ctResponse = SendCustomerDetailsToCarTrade(objDetails);
-
+                _objIFinanceRepository.SavePersonalDetails(objDetails);
                 if (ctResponse != null)
                 {
                     objDetails.CTLeadId = ctResponse.LeadId;
                     _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
                 }
+                #endregion
 
 
                 if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber), objDetails.EmailId))
@@ -143,7 +145,7 @@ namespace Bikewale.BAL.Finance
                         objNVC.Add("cityId", objDetails.objLead.CityId.ToString());
                         objNVC.Add("leadType", "2");
                         objNVC.Add("manufacturerDealerId", Convert.ToString(objDetails.objLead.ManufacturerDealerId));
-                        objNVC.Add("manufacturerLeadId", Convert.ToString(objDetails.LeadId));
+                        objNVC.Add("manufacturerLeadId", objDetails.LeadId.ToString());
                         RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                         objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
                     }
@@ -189,14 +191,17 @@ namespace Bikewale.BAL.Finance
                      objDetails.LeadId
                     );
 
+                #region Do not change the sequence
                 var ctResponse = SendCustomerDetailsToCarTrade(objDetails);
+
+                objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
 
                 if (ctResponse != null)
                 {
                     objDetails.CTLeadId = ctResponse.LeadId;
                     _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
                 }
-                objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
+                #endregion
 
                 objId = new Iddetails();
                 objId.CpId = objDetails.Id;
