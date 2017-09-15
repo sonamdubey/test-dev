@@ -249,7 +249,6 @@ function saveEmployeDetails() {
         "mobileNumber": $('#cfNum').val(),
         "emailId": $('#cfEmail').val(),
         "objLeadJson": $("#objLead").val(),
-        "id": $("#cpId").val(),
         "firstName": $('#cfFName').val(),
         "lastName": $('#cfLName').val(),
         "dateOfBirth": $('#cfDOB').val(),
@@ -259,6 +258,7 @@ function saveEmployeDetails() {
         "addressLine2": $('#cfAddress2').val(),
         "pincode": $("#cfPincode").val(),
         "pancard": $("#cfPan").val(),
+        "id": $("#cpId").val(),
         "ctLeadId": $("#ctLeadId").val(),
         "leadId": $("#leadId").val()
 

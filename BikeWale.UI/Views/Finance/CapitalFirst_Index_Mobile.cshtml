@@ -238,9 +238,11 @@
     </ol>
     <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
 </div>
-<input type="hidden" id="objLead" value="@Model.objLeadJson" />
+<input type="hidden" id="objLead" value="@(Model.objLeadJson)" />
 
-
+<input type="hidden" id="leadId" value="" />
+<input type="hidden" id="ctLeadId" value="" />
 <input type="hidden" id="cpId" value="" />
+<input type="hidden" id="pageUrl" value="@Model.PageUrl" />
 @Html.Partial("~/Views/Shared/_otpScreen_Mobile.cshtml")
 <script defer src="/src/zebra-datepicker.js"></script>
