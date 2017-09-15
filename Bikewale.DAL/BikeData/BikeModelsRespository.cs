@@ -2162,11 +2162,136 @@ namespace Bikewale.DAL.BikeData
             }
             return bestBikesList;
         }
+
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 11 Sep 2017
+        /// Description :   Fetches best bikes for particular model in its make
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public ICollection<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId)
+        {
+            ICollection<BestBikeEntityBase> bestBikesList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getsimilarbikemodelswithinmake";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            bestBikesList = new Collection<BestBikeEntityBase>();
+                            while (dr.Read())
+                            {
+                                BestBikeEntityBase bestBikeObj = new BestBikeEntityBase();
+                                bestBikeObj.BikeName = Convert.ToString(dr["BikeName"]);
+                                bestBikeObj.MinSpecs = new MinSpecsEntity();
+                                bestBikeObj.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                bestBikeObj.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
+                                bestBikeObj.MinSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["Weight"]);
+                                bestBikeObj.MinSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["Power"]);
+                                bestBikeObj.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                bestBikeObj.HostUrl = Convert.ToString(dr["HostURL"]);
+                                bestBikeObj.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                bestBikeObj.Make = new BikeMakeEntityBase();
+                                bestBikeObj.Model = new BikeModelEntityBase();
+                                bestBikeObj.Model.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                bestBikeObj.Model.ModelName = Convert.ToString(dr["ModelName"]);
+                                bestBikeObj.Model.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                bestBikeObj.Make.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                bestBikeObj.Make.MakeName = Convert.ToString(dr["MakeName"]);
+                                bestBikeObj.Make.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                bestBikeObj.Price = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]);
+                                bestBikeObj.UsedCity = new CityEntityBase();
+                                bestBikesList.Add(bestBikeObj);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBestBikesByCategory: ModelId:{0}", modelId));
+            }
+            return bestBikesList;
+        }
+
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 11 Sep 2017
+        /// Description :   Fetches best bikes for particular model in its make with on road price in given city
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public ICollection<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint cityId)
+        {
+            ICollection<BestBikeEntityBase> bestBikesList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getsimilarbikemodelswithinmakebycity";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            bestBikesList = new Collection<BestBikeEntityBase>();
+                            while (dr.Read())
+                            {
+                                BestBikeEntityBase bestBikeObj = new BestBikeEntityBase();
+                                bestBikeObj.BikeName = Convert.ToString(dr["BikeName"]);
+                                bestBikeObj.MinSpecs = new MinSpecsEntity();
+                                bestBikeObj.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                bestBikeObj.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
+                                bestBikeObj.MinSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["Weight"]);
+                                bestBikeObj.MinSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["Power"]);
+                                bestBikeObj.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                bestBikeObj.HostUrl = Convert.ToString(dr["HostURL"]);
+                                bestBikeObj.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                bestBikeObj.Make = new BikeMakeEntityBase();
+                                bestBikeObj.Model = new BikeModelEntityBase();
+                                bestBikeObj.Model.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                bestBikeObj.Model.ModelName = Convert.ToString(dr["ModelName"]);
+                                bestBikeObj.Model.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                bestBikeObj.Make.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                bestBikeObj.Make.MakeName = Convert.ToString(dr["MakeName"]);
+                                bestBikeObj.Make.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                bestBikeObj.Price = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]);
+                                bestBikeObj.UsedCity = new CityEntityBase();
+                                bestBikeObj.OnRoadPriceInCity = Convert.ToUInt32(dr["OnRoadPriceInCity"]);
+                                bestBikeObj.UsedCity.CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
+                                bestBikeObj.UsedCity.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
+                                bestBikeObj.UsedCity.CityName = Convert.ToString(dr["CityName"]);
+                                bestBikesList.Add(bestBikeObj);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBestBikesByCategory: ModelId:{0} Cityid:{1}", modelId, cityId));
+            }
+            return bestBikesList;
+        }
+
         /// <summary>
         /// Modified By :- Subodh Jain on 17 Jan 2017
         /// Summary :- get makedetails if videos is present
         /// </summary>
-
         public IEnumerable<BikeMakeEntityBase> GetMakeIfVideo()
         {
             IList<BikeMakeEntityBase> objVideoMake = null;

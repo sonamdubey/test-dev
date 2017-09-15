@@ -25,7 +25,7 @@ namespace Bikewale.Models.BikeModels
         public BikeVersionMinSpecs SelectedVersion { get; set; }
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }
-        public IEnumerable<BestBikeEntityBase> objBestBikesList { get; set; }
+        public OtherBestBikesVM OtherBestBikes { get; set; }
         public UpcomingBikesWidgetVM objUpcomingBikes { get; set; }
         public EMI EMIDetails { get; set; }
         public uint VersionId { get; set; }

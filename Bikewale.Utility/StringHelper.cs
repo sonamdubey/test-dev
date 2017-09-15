@@ -48,5 +48,33 @@ namespace Bikewale.Utility.StringExtention
         // Added by Sangram Nandkhile on 24 May 2016
         // Desc: To be used instead of  " " in entire code eg. StringHelper.Space
         public static string Space = " ";
+
+        public static string ToTitleCase(string text, char afterCharacter, char? replacedCharacter = null)
+        {
+            bool capitalize = true;
+            string formattedString = "";
+
+            foreach (char character in text)
+            {
+
+                if (character != afterCharacter)
+                {
+                    if (capitalize && char.IsLetter(character))
+                        formattedString += char.ToUpper(character);
+                    else
+                        formattedString += character;
+                }
+
+                capitalize = false;
+
+                if (character == afterCharacter)
+                {
+                    formattedString += replacedCharacter != null && replacedCharacter.HasValue ? replacedCharacter.Value : character;
+                    capitalize = true;
+                }
+            }
+
+            return formattedString;
+        }
     }
 }

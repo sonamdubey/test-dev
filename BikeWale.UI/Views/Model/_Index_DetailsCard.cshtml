@@ -275,7 +275,7 @@
 
 					<div class="clear"></div>
 
-					@if (Model.objBestBikesList != null && Model.objBestBikesList.Count() > 0)
+                    @if (Model.OtherBestBikes.BestBikes != null && Model.OtherBestBikes.BestBikes.Any())
 					{
 						<section>
 							<div class="container">
@@ -283,14 +283,29 @@
 									<div class="content-box-shadow card-bottom-margin">
 										<div class="carousel-heading-content padding-top20">
 											<div class="swiper-heading-left-grid inline-block">
-												<h2 class="h2-heading">Here's a list of best @Model.BestBikeHeading</h2>
+                                                <h2 class="h2-heading">@Model.OtherBestBikes.OtherBestBikesHeading</h2>
 											</div>
 											<div class="swiper-heading-right-grid inline-block text-right">
-												<a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName Bikes in India" class="btn view-all-target-btn">View all</a>
+                                                @if (!Model.OtherBestBikes.IsMakePresentInConfig)
+                                                {
+                                                    <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View all</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@string.Format("/{0}-bikes/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName)" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Bikes" class="btn view-all-target-btn">View all</a>
+                                                }
+												
 											</div>
 										</div>
-										@Html.Partial("~/Views/Model/_BestBikes.cshtml", Model.objBestBikesList)
-										<div class="clear"></div>
+                                        @if (!Model.OtherBestBikes.IsMakePresentInConfig)
+                                        {
+                                            @Html.Partial("~/Views/Model/_BestBikes.cshtml", Model.OtherBestBikes);
+                                        }
+                                        else
+                                        {
+                                            @Html.Partial("~/Views/Model/_MoreBikesFromMake.cshtml", Model.OtherBestBikes);
+                                        }
+                                        <div class="clear"></div>
 									</div>
 								</div>
 								<div class="clear"></div>
