@@ -289,7 +289,7 @@ namespace Bikewale.Models.UserReviews
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objPage.RatingsInfo.Model.ModelName));
             }
 
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, "User Reviews"));
 
 
             objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
