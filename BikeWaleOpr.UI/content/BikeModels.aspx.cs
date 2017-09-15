@@ -147,13 +147,14 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertbikemodel"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_insertbikemodel14092017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txtModel.Text.Trim().Replace("'", "''")));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelmaskingname", DbType.String, 50, txtMaskingName.Text.Trim()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, cmbMakes.SelectedValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbType.Int32, ddlSegment.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, (Convert.ToInt32(ddlSeries.SelectedValue) > 0)?ddlSeries.SelectedValue:Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbType.Boolean, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ParameterDirection.Output));

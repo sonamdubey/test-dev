@@ -1,10 +1,9 @@
 ﻿@model BikewaleOpr.Models.BikeSeries.BikeSeriesPageVM
-@{
-    ViewBag.Title = Model.PageTitle;
-    ViewBag.PageTitle = Model.PageTitle;
-}
+
 @if (Model != null)
 {
+    ViewBag.Title = Model.PageTitle;
+    ViewBag.PageTitle = Model.PageTitle;
     <div id="manageBikeSeries" class="row">
         <div class="col m10 margin-top10">
             @if (Model.BikeSeriesList != null)
@@ -28,7 +27,7 @@
                         {
                             if (series.BikeMake != null)
                             {
-                                <tr>
+                                <tr data-seriesid="@series.SeriesId">
                                     <td>@series.SeriesId</td>
                                     <td class="teal lighten-4">@series.SeriesName</td>
                                     <td>@series.SeriesMaskingName</td>

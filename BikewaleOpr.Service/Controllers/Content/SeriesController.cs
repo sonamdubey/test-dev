@@ -26,27 +26,17 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// Summary: Add Bike Series
         /// </summary>
         /// <returns></returns>
-        [HttpPost, Route("api/bikeseries/add/")]
-        public IHttpActionResult Add(uint MakeId, string SeriesName, string SeriesMaskingName, uint UpdatedBy)
+        [HttpPost, Route("api/make/{makeId}/series/add/")]
+        public IHttpActionResult Add(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy)
         {
             BikeSeriesDTO objBikeSeriesDTO = null;
-            if (MakeId > 0 && !string.IsNullOrEmpty(SeriesName) && !string.IsNullOrEmpty(SeriesMaskingName))
+            BikeSeriesEntity objBikeSeries = null;
+            objBikeSeries = _series.AddSeries(makeId, seriesName, seriesMaskingName, updatedBy);
+            if(objBikeSeries != null)
             {
                 try
-                { 
-                    BikeSeriesEntity objBikeSeries = new BikeSeriesEntity()
-                    {
-                        SeriesName = SeriesName,
-                        SeriesMaskingName = SeriesMaskingName,
-                        CreatedOn = DateTime.Now,
-                        UpdatedOn = DateTime.Now,
-                        BikeMake = new BikeMakeEntityBase()
-                        {
-                            MakeId = Convert.ToInt32(MakeId)
-                        }
-                    };
-                    _series.AddSeries(objBikeSeries, UpdatedBy);
-                    if(objBikeSeries.SeriesId == 0)
+                {
+                    if (objBikeSeries.SeriesId == 0)
                     {
                         return BadRequest("Bike series already exist");
                     }
@@ -72,34 +62,21 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="SeriesName"></param>
         /// <param name="seriesMaskingName"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/bikeseries/edit/")]
+        [HttpPost, Route("api/series/{seriesId}/edit/")]
         public IHttpActionResult Edit(uint seriesId, string seriesName, string seriesMaskingName, int updatedBy)
         {
             bool IsEdited = false;
             try
             {
-                if (seriesId > 0 && !string.IsNullOrEmpty(seriesName) && !string.IsNullOrEmpty(seriesMaskingName) && updatedBy > 0)
+                    
+                IsEdited = _series.EditSeries(seriesId, seriesName, seriesMaskingName, updatedBy);
+                if (IsEdited)
                 {
-                    BikeSeriesEntity objBikeSeries = new BikeSeriesEntity()
-                    {
-                        SeriesId = seriesId,
-                        SeriesName = seriesName,
-                        SeriesMaskingName = seriesMaskingName,
-                        UpdatedBy = Convert.ToString(updatedBy)
-                    };
-                    IsEdited = _series.EditSeries(objBikeSeries, updatedBy);
-                    if (IsEdited)
-                    {
-                        return Ok(IsEdited);
-                    }
-                    else
-                    {
-                        return InternalServerError();
-                    }
+                    return Ok(IsEdited);
                 }
                 else
                 {
-                    return BadRequest("Input data is not correct");
+                    return InternalServerError();
                 }
             }
             catch (Exception ex)
@@ -116,7 +93,7 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="SeriesName"></param>
         /// <param name="SeriesMaskingName"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/bikeseries/delete/")]
+        [HttpPost, Route("api/make/series/{seriesId}/delete/")]
         public IHttpActionResult Delete(uint bikeSeriesId)
         {
             bool isDeleted = false;
@@ -155,7 +132,7 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="SeriesName"></param>
         /// <param name="SeriesMaskingName"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/bikeseries/deletemapping/")]
+        [HttpPost, Route("api/model/{modelId}/deletemapping/")]
         public IHttpActionResult DeleteMappingOfModelSeries(uint modelId)
         {
             bool isDeleted = false;

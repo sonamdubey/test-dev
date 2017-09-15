@@ -26,7 +26,7 @@ namespace BikewaleOpr.Controllers
         /// Summary: UI bindings for index page
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Route("bikeseries/")]
+        [HttpGet, Route("series/")]
         public ActionResult Index()
         {
             BikeSeriesPageModel objBikeSeriesModel = new BikeSeriesPageModel(_makes, _series);
