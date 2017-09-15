@@ -135,12 +135,15 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_maskingname", bikeSeries.SeriesMaskingName);
                     param.Add("par_updatedby", updatedBy);
                     param.Add("par_seriesid", bikeSeries.SeriesId);
+                    param.Add("par_rowsAffected", dbType:DbType.Int32, direction: ParameterDirection.Output);
 
                     connection.Open();
 
-                    rowsAffected = connection.Execute("bw_editbikeseries", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("bw_editbikeseries", param: param, commandType: CommandType.StoredProcedure);
+                    rowsAffected = param.Get<int>("par_rowsAffected");
 
-                    
+
+
 
                     if (connection.State == ConnectionState.Open)
                     {
@@ -170,10 +173,12 @@ namespace BikewaleOpr.DALs.Bikedata
                 {
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_seriesid", bikeSeriesId);
+                    param.Add("par_rowsAffected", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
                     connection.Open();
 
-                    rowsAffected =  connection.Execute("bw_deletebikeseries", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("bw_deletebikeseries", param: param, commandType: CommandType.StoredProcedure);
+                    rowsAffected = param.Get<int>("par_rowsAffected");
 
                     if (connection.State == ConnectionState.Open)
                     {
@@ -203,10 +208,12 @@ namespace BikewaleOpr.DALs.Bikedata
                 {
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_modelid", modelId);
+                    param.Add("par_rowsAffected", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
                     connection.Open();
 
-                    rowsAffected = connection.Execute("bw_deletemappingofmodelseries", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("bw_deletemappingofmodelseries", param: param, commandType: CommandType.StoredProcedure);
+                    rowsAffected = param.Get<int>("par_rowsAffected");
 
                     if (connection.State == ConnectionState.Open)
                     {
