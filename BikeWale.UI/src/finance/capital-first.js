@@ -391,6 +391,7 @@ function validateRadioButtons(groupName) {
 function validateIncome(inputIncome) {
     var isValid = true;
     var numRegex = /^[0-9]*$/;
+    var value = $(inputIncome).val().trim();
     if ($(inputIncome).val().length <= 0) {
         validate.setError(inputIncome, 'Please enter valid Income');
         isValid = false;
