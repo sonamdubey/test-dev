@@ -67,12 +67,15 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_userid", updatedBy);
                     param.Add("par_updatedby", dbType: DbType.String, direction: ParameterDirection.Output);
                     param.Add("par_seriesid", dbType: DbType.UInt32, direction: ParameterDirection.Output);
+                    param.Add("par_createdon", dbType: DbType.Date, direction: ParameterDirection.Output);
                     connection.Open();
                     connection.Execute("bw_addbikeseries", param: param, commandType: CommandType.StoredProcedure);
                     bikeSeries.SeriesId = param.Get<uint>("par_seriesid");
                     if(bikeSeries.SeriesId != 0)
                     {
                         bikeSeries.UpdatedBy = param.Get<string>("par_updatedby");
+                        bikeSeries.CreatedOn = param.Get<DateTime>("par_createdon");
+                        bikeSeries.UpdatedOn = param.Get<DateTime>("par_createdon");
                     }
                     if (connection.State == ConnectionState.Open)
                     {

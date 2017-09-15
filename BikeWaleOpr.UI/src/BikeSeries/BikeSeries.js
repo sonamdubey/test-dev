@@ -53,7 +53,7 @@
             if (isValid) {
                 $.ajax({
                     type: "POST",
-                    url: "/api/bikeseries/add/?makeid=" + self.selectedMakeId() + "&seriesname=" + self.seriesName() + "&seriesmaskingname=" + self.seriesMaskingName() + "&updatedby=" + $('#userId').val(),
+                    url: "api/make/"+self.selectedMakeId()+"/series/add/?seriesname=" + self.seriesName() + "&seriesmaskingname=" + self.seriesMaskingName() + "&updatedby=" + $('#userId').val(),
                     success: function (response) {
                         $(
                             "<tr data-seriesid='" + response.seriesId + "'>"
@@ -119,7 +119,7 @@
             if (isValid) {
                 $.ajax({
                     type: "POST",
-                    url: "/api/bikeseries/edit/?seriesId=" + self.selectedSeriesId() + "&seriesname=" + self.seriesNameUpdate() + "&seriesmaskingname=" + self.seriesMaskingNameUpdate() + "&updatedby=" + $('#userId').val(),
+                    url: "api/series/"+self.selectedSeriesId()+"/edit/?seriesname=" + self.seriesNameUpdate() + "&seriesmaskingname=" + self.seriesMaskingNameUpdate() + "&updatedby=" + $('#userId').val(),
                     success: function (response) {
                         if (response != null) {
                             rowToEdit.children[1].innerText = self.seriesNameUpdate();
@@ -150,7 +150,7 @@
             var selectedSeriesId = self.deleteSeriesId().children[0].innerText; //seriesId
             $.ajax({
                 type: "POST",
-                url: "/api/bikeseries/delete/?bikeSeriesId=" + selectedSeriesId,
+                url: "api/make/series/"+selectedSeriesId+"/delete/",
                 success: function (response) {
                     if (response != null) {
                         self.deleteSeriesId().remove();

@@ -384,7 +384,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/api/bikeseries/deletemapping/?modelId=" + modelId,
+                    url: "api/model/"+modelId+"/deletemapping/",
                     success: function (response) {
                         if (response != null) {
                             rowToEdit.children[1].innerText = self.seriesNameUpdate();

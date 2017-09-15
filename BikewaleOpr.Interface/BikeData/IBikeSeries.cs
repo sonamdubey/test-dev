@@ -12,9 +12,9 @@ namespace BikewaleOpr.Interface.BikeData
     public interface IBikeSeries
     {
         IEnumerable<BikeSeriesEntity> GetSeries();
-        void AddSeries(BikeSeriesEntity bikeSeries, uint updatedBy);
+        BikeSeriesEntity AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy);
         IEnumerable<BikeSeriesEntityBase> GetSeriesByMake(int makeId);
-        bool EditSeries(BikeSeriesEntity bikeSeries, int UpdatedBy);
+        bool EditSeries(uint seriesId, string seriesName, string seriesMaskingName, int updatedBy);
         bool DeleteSeries(uint bikeSeriesId);
         bool DeleteMappingOfModelSeries(uint modelId);
     }
