@@ -113,7 +113,7 @@ namespace Bikewale.BAL.Finance
             string message = "";
             try
             {
-                if (objDetails.LeadId==0)
+                if (objDetails.LeadId == 0)
                 {
 
                     objDetails.LeadId = SubmitLead(objDetails, Utmz, Utma);
@@ -151,7 +151,7 @@ namespace Bikewale.BAL.Finance
 
             try
             {
-                objDetails.LeadId=SubmitLead(objDetails, Utmz, Utma);
+                objDetails.LeadId = SubmitLead(objDetails, Utmz, Utma);
 
                 #region Do not change the sequence
                 var ctResponse = SendCustomerDetailsToCarTrade(objDetails);
@@ -198,7 +198,7 @@ namespace Bikewale.BAL.Finance
                         formData.Add(new KeyValuePair<string, string>("api_code", CTApiCode));
                         formData.Add(new KeyValuePair<string, string>("bw_lead_id", objDetails.LeadId.ToString()));
                         formData.Add(new KeyValuePair<string, string>("company", objDetails.CompanyName));
-                        formData.Add(new KeyValuePair<string, string>("date_of_birth", objDetails.DateOfBirth.ToString("dd/MM/yyyy")));
+                        formData.Add(new KeyValuePair<string, string>("date_of_birth", objDetails.DateOfBirth.ToString("yyyy/MM/dd")));
                         formData.Add(new KeyValuePair<string, string>("email", objDetails.EmailId));
                         formData.Add(new KeyValuePair<string, string>("emp_address1", objDetails.OfficialAddressLine1));
                         formData.Add(new KeyValuePair<string, string>("emp_address2", objDetails.OfficialAddressLine2));
@@ -285,7 +285,7 @@ namespace Bikewale.BAL.Finance
 
         private uint SubmitLead(PersonalDetails objDetails, string Utmz, string Utma)
         {
-            uint id=0;
+            uint id = 0;
             try
             {
                 CustomerEntity objCust = GetCustomerId(objDetails, objDetails.MobileNumber);
