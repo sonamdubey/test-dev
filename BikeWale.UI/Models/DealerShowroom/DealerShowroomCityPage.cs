@@ -5,8 +5,8 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.Models;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
@@ -14,6 +14,7 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Memcache;
 using Bikewale.Models.Make;
 using Bikewale.Models.ServiceCenters;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,9 @@ namespace Bikewale.Models.DealerShowroom
         public StatusCodes status;
         public BikeMakeEntityBase objMake;
         public CityEntityBase CityDetails;
+
+        public bool IsMobile { get; internal set; }
+
         //Constructor
         public DealerShowroomCityPage(IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository<int> bikeMakesCache, string makeMaskingName, string cityMaskingName, uint topCount)
         {
@@ -164,40 +168,65 @@ namespace Bikewale.Models.DealerShowroom
                 objPage.PageMetaTags.Title = String.Format("{0} showroom in {1} | {2} {0} bike dealers - BikeWale", objMake.MakeName, CityDetails.CityName, objPage.TotalDealers);
                 objPage.PageMetaTags.Keywords = String.Format("{0} showroom {1}, {0} dealers {1}, {1} bike showroom, {1} bike dealers,{1} dealers, {1} bike showroom, bike dealers, bike showroom, dealerships", objMake.MakeName, CityDetails.CityName);
                 objPage.PageMetaTags.Description = String.Format("Find address, contact details and direction for {2} {0} showrooms in {1}. Contact {0} showroom near you for prices, EMI options, and availability of {0} bike", objMake.MakeName, CityDetails.CityName, objPage.TotalDealers);
+                objPage.Page_H1 = string.Format("{0} Showrooms in {1}", objDealerVM.Make.MakeName, objDealerVM.CityDetails.CityName);
 
-                List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
+                SetBreadcrumList(objPage);
+                SetPageJSONLDSchema(objPage);
 
-                BreadCrumbs.Add(new BreadCrumb
-                {
-                    ListUrl = "/",
-                    Name = "Home"
-                });
 
-                BreadCrumbs.Add(new BreadCrumb
-                {
-                    ListUrl = "/dealer-showroom-locator/",
-                    Name = "Showroom Locator"
-                });
-
-                if (objDealerVM.Make != null)
-                {
-                    BreadCrumbs.Add(new BreadCrumb
-                    {
-                        ListUrl = string.Format("/{0}-dealer-showrooms-in-india/", objDealerVM.Make.MaskingName),
-                        Name = objDealerVM.Make.MakeName + " Showrooms"
-                    });
-                }
-
-                objDealerVM.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
-
-                if(objDealerVM.Make != null && objDealerVM.CityDetails != null)
-                    objDealerVM.BreadCrumbsList.PageName = string.Format("{0} Showrooms in {1}", objDealerVM.Make.MakeName, objDealerVM.CityDetails.CityName);
             }
             catch (Exception ex)
             {
 
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindPageMetas()");
             }
+        }
+
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema
+        /// </summary>
+        private void SetPageJSONLDSchema(DealerShowroomCityPageVM objPageMeta)
+        {
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(DealerShowroomCityPageVM objPage)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+            url += "dealer-showroom-locator/";
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Showroom Locator"));
+
+            if (objDealerVM != null && objDealerVM.Make != null)
+            {
+                url = string.Format("{0}-dealer-showrooms-in-india/", objDealerVM.Make.MaskingName);
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objDealerVM.Make.MakeName + " Showrooms"));
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
+
+            objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
         }
 
         /// <summary>

@@ -74,7 +74,7 @@ namespace Bikewale.New
                 }
                 if (count < 2)
                 {
-                    Response.Redirect("/comparebikes/", false);//return;	
+                    Response.Redirect("/comparebikes/", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }

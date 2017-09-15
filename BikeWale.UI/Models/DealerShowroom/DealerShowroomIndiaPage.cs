@@ -4,8 +4,8 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.Models;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -31,13 +31,16 @@ namespace Bikewale.Models
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
 
-        public uint makeId, cityId, topCount;
-        public CityEntityBase cityDetails;
-        public StatusCodes status;
-        public MakeMaskingResponse objResponse;
-        public BikeMakeEntityBase objMake;
+        private uint makeId, cityId;
+        public CityEntityBase cityDetails { get; set; }
+        public StatusCodes status { get; set; }
+        public MakeMaskingResponse objResponse { get; set; }
+        public BikeMakeEntityBase objMake { get; set; }
         private DealerShowroomIndiaPageVM objDealerVM;
-        public string redirectUrl;
+        public string RedirectUrl { get; set; }
+        public bool IsMobile { get; set; }
+        public ushort TopCount { get; internal set; }
+
         //Constructor
         public DealerShowroomIndiaPage(INewBikeLaunchesBL newLaunches, IDealerCacheRepository objDealerCache, IUpcoming upcoming, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache, IBikeMakesCacheRepository<int> bikeMakesCache, string makeMaskingName)
         {
@@ -72,7 +75,7 @@ namespace Bikewale.Models
                 objDealerVM.objUpcomingBikes = BindUpCompingBikesWidget();
                 objDealerVM.UsedBikeModel = BindUsedBikeByModel();
                 objDealerVM.NewLaunchedBikes = BindNewLaunchesBikes();
-                BindPageMetas(objDealerVM.PageMetaTags);
+                BindPageMetas(objDealerVM);
 
 
             }
@@ -113,31 +116,18 @@ namespace Bikewale.Models
         /// Summary:- Fetching data about dealers of other brands
         /// </summary>
         /// <returns></returns>
-        private void BindPageMetas(PageMetaTags objPage)
+        private void BindPageMetas(DealerShowroomIndiaPageVM objPage)
         {
 
             try
             {
-                objPage.Title = string.Format("{0} Bike Showrooms in India | {0} Bike Dealers in India - BikeWale", objMake.MakeName);
-                objPage.Keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMake.MakeName);
-                objPage.Description = string.Format("Find the nearest {0} showroom in your city. There are {1} {0} showrooms in {2} cities in India. Get contact details, address, and direction of {0} dealers.", objMake.MakeName, objDealerVM.DealerCount, objDealerVM.CitiesCount);
+                objPage.PageMetaTags.Title = string.Format("{0} Bike Showrooms in India | {0} Bike Dealers in India - BikeWale", objMake.MakeName);
+                objPage.PageMetaTags.Keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMake.MakeName);
+                objPage.PageMetaTags.Description = string.Format("Find the nearest {0} showroom in your city. There are {1} {0} showrooms in {2} cities in India. Get contact details, address, and direction of {0} dealers.", objMake.MakeName, objDealerVM.DealerCount, objDealerVM.CitiesCount);
+                objPage.Page_H1 = objDealerVM.Make.MakeName + " Showrooms in India";
 
-                List<BreadCrumb> BreadCrumbs = new List<BreadCrumb>();
-
-                BreadCrumbs.Add(new BreadCrumb
-                {
-                    ListUrl = "/",
-                    Name = "Home"
-                });
-
-                BreadCrumbs.Add(new BreadCrumb
-                {
-                    ListUrl = "/dealer-showroom-locator/",
-                    Name = "Showroom Locator"
-                });
-
-                objDealerVM.BreadCrumbsList.Breadcrumbs = BreadCrumbs;
-                objDealerVM.BreadCrumbsList.PageName = objDealerVM.Make.MakeName + " Showrooms in India";
+                SetBreadcrumList(objPage);
+                SetPageJSONLDSchema(objPage);
 
             }
             catch (Exception ex)
@@ -146,6 +136,48 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindPageMetas()");
             }
         }
+
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema
+        /// </summary>
+        private void SetPageJSONLDSchema(DealerShowroomIndiaPageVM objPageMeta)
+        {
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(DealerShowroomIndiaPageVM objPage)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url + "dealer-showroom-locator/", "Showroom Locator"));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
+
+
+            objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
+        }
+
 
         /// <summary>
         /// Created By :- Subodh Jain 25 March 2017
@@ -179,7 +211,7 @@ namespace Bikewale.Models
             try
             {
 
-                UsedBikeModelsWidgetModel objUsedBike = new UsedBikeModelsWidgetModel(topCount, _objUsedCache);
+                UsedBikeModelsWidgetModel objUsedBike = new UsedBikeModelsWidgetModel(TopCount, _objUsedCache);
                 if (makeId > 0)
                     objUsedBike.makeId = makeId;
 
@@ -235,7 +267,7 @@ namespace Bikewale.Models
             try
             {
                 AllDealerList = _objDealerCache.GetDealerByBrandList();
-                if (AllDealerList != null && AllDealerList.Count() > 0)
+                if (AllDealerList != null && AllDealerList.Any())
                 {
                     AllDealerList = AllDealerList.Where(v => v.MakeId != makeId);
                 }
@@ -268,13 +300,13 @@ namespace Bikewale.Models
                     {
                         makeId = objResponse.MakeId;
                         var _cities = _objDealerCache.FetchDealerCitiesByMake(makeId);
-                        if (_cities != null && _cities.Count() > 0)
+                        if (_cities != null && _cities.Any())
                         {
 
                             var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                             if (_city != null)
                             {
-                                redirectUrl = String.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, _city.CityMaskingName);
+                                RedirectUrl = String.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, _city.CityMaskingName);
                                 status = StatusCodes.RedirectTemporary;
                             }
                         }

@@ -7,11 +7,13 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.PhotoGallery;
-using Bikewale.Entities.SEO;
+using Bikewale.Entities.Schema;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Models;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -48,6 +50,8 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         public bool isDesktop;
         private IBikeModels<BikeModelEntity, int> _objModelEntity = null;
         public ModelPhotoGalleryEntity photoGalleryEntity = null;
+        public BreadcrumbList Breadcrumb { get; set; }
+        public string SchemaJSON { get; set; }
 
         /// <summary>
         /// Created By : Sushil Kumar on 5th Jan 2016
@@ -149,12 +153,69 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                     pageMetas.Description = String.Format("View images of {0} in different colours and angles. Check out {2} photos of {1} on BikeWale", objModel.ModelName, bikeName, totalPhotosCount);
                     pageMetas.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/images/", objMake.MaskingName, objModel.MaskingName);
                     pageMetas.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/images/", objMake.MaskingName, objModel.MaskingName);
+
+                    SetBreadcrumList();
+                    SetPageJSONLDSchema(pageMetas);
+
                 }
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : SetPageMetas");
             }
+
+        }
+
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema
+        /// </summary>
+        private void SetPageJSONLDSchema(PageMetaTags objPageMeta)
+        {
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta, Breadcrumb);
+
+            if (webpage != null)
+            {
+                SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList()
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (!isDesktop)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+
+            if (objMake != null)
+            {
+                url = string.Format("{0}{1}-bikes/", url, objMake.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objMake.MakeName)));
+            }
+
+            if (objModel != null)
+            {
+                url = string.Format("{0}{1}/", url, objModel.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objModel.ModelName));
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, "Images"));
+
+            Breadcrumb = new BreadcrumbList() { BreadcrumListItem = BreadCrumbs };
 
         }
 

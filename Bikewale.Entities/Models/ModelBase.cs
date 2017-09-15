@@ -22,7 +22,6 @@ namespace Bikewale.Models
         public PageMetaTags PageMetaTags { get; private set; }
         public AdTags AdTags { get; private set; }
         public BreadcrumbList BreadcrumbList { get; private set; }
-        public BreadCrumbsList BreadCrumbsList { get; private set; }
         public bool IsTransparentHeader { get; set; }
         public bool IsHomePage { get; set; }
         public bool IsHeaderFix { get; set; }
@@ -46,7 +45,6 @@ namespace Bikewale.Models
             this.PageMetaTags = new PageMetaTags();
             this.AdTags = new AdTags();
             this.BreadcrumbList = new BreadcrumbList();
-            this.BreadCrumbsList = new BreadCrumbsList();
         }
 
         public bool ExcludeContestSlug { get; set; }
