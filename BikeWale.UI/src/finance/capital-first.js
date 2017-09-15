@@ -393,10 +393,10 @@ function validateIncome(inputIncome) {
     var numRegex = /^[0-9]*$/;
     var value = $(inputIncome).val().trim();
     if ($(inputIncome).val().length <= 0) {
-        validate.setError(inputIncome, 'Please enter valid Income');
+        validate.setError(inputIncome, 'Please enter Income');
         isValid = false;
     }
-    else if (numRegex.test(value) && value.length > 1) {
+    else if (!numRegex.test(value)) {
         validate.setError(inputIncome, 'Please enter valid Income');
         isValid = false;
     }
