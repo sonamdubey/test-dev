@@ -150,7 +150,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: EditSeries_{0}_{1}", bikeSeries, updatedBy));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: EditSeries_{0}_{1}", bikeSeries, updatedBy));
             }
             return rowsAffected > 0;
         }
@@ -183,7 +183,40 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteSeries_{0}", bikeSeriesId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: DeleteSeries_{0}", bikeSeriesId));
+            }
+            return rowsAffected > 0;
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 12-Sep-2017
+        /// Description : DAL Method to delete bike series mapping with model
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public bool DeleteMappingOfModelSeries(uint modelId)
+        {
+            int rowsAffected = 0;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    DynamicParameters param = new DynamicParameters();
+                    param.Add("par_modelid", modelId);
+
+                    connection.Open();
+
+                    rowsAffected = connection.Execute("bw_deletemappingofmodelseries", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: DeleteMappingOfModelSeries{0}", modelId));
             }
             return rowsAffected > 0;
         }

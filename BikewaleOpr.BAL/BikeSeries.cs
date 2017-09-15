@@ -119,6 +119,29 @@ namespace BikewaleOpr.BAL
             return IsDeleted;
         }
 
+        
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 12-Sep-2017
+        /// Description : BAL Method to delete bike series mapping with model
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public bool DeleteMappingOfModelSeries(uint modelId)
+        {
+            bool IsDeleted = false;
+            try
+            {
+                if (modelId > 0)
+                {
+                    IsDeleted = _seriesRepo.DeleteMappingOfModelSeries(modelId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteMappingOfModelSeries_{0}", modelId));
+            }
+            return IsDeleted;
+        }
     }
 }
