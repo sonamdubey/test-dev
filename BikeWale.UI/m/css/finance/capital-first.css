@@ -1,6 +1,4 @@
-﻿@charset "utf-8";
-
-.text-xt-light-grey {
+﻿.text-xt-light-grey {
     color: #2a2a2a;
 }
 .collapsible-content .main-content {
@@ -266,4 +264,17 @@ input:focus ~ .input-number-prefix{
   position: fixed;
   overflow-y: hidden;
   width: 100%;
+}
+
+/* datepicker */
+.personal-details__form .Zebra_DatePicker {
+	top: -20px !important;
+}
+
+.personal-details__form .dp_visible .dp_footer {
+	display: none !important;
+}
+
+.personal-details__form .dp_header {
+	width: 100% !important;
 }

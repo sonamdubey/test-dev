@@ -56,10 +56,9 @@
 
 /* = DATEPICKER
 ----------------------------------------------------------------------------------------------------------------------*/
-.dp_daypicker th            { background: #82888b; color: #fff; }
+.dp_daypicker th            { color: #4d5057; }
 .dp_not_in_month            { background: #F3F3F3; color: #CDCDCD; cursor: default }
 .dp_not_in_month_selectable { background: #F3F3F3; color: #CDCDCD; cursor: pointer }
-.dp_weekend                 { background: #D8D8D8 }
 .dp_weekend_disabled        { color: #CCC; cursor: default }
 .dp_selected                { color: #4d5057; font-weight: bold; }
 .dp_week_number             { background: #FFCC33; color: #555; cursor: text; font-style: italic }
