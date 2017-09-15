@@ -21,8 +21,8 @@
                 <span class="boundary"></span>
                 <span class="error-text" style="display: none;"></span>
             </div>
-            <input type="button" id="process-order" data-bind="event: { click: Done }" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Process Order">
-            <p id="resend_Otp" class="otp-container__resend font15" data-bind="event: { click: resendOtp }">Resend OTP</p>
+            <input type="button" id="process-order" data-bind="event: { click: Done }" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Submit Otp">
+           <p><a href="javascript:void(0)" rel="nofollow" id="resend_Otp" class="otp-container__resend font15" data-bind="event: { click: resendOtp }">Resend OTP</a></p>
         </div>
         <div class="otp-container__edit">
             <div class="input-box form-control-box">
@@ -151,7 +151,7 @@
                         else if (response == "Registered Mobile Number") {
                             otpScreen.openOtp();
                             $('.otp-container__info').hide();
-                            $('#thankyouScreen').removeClass("hide")
+                            $('#thankyouScreen').removeClass("hide");
 
                         }
 
