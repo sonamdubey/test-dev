@@ -22,7 +22,7 @@
                         <span class="error-text" style="display: none;"></span>
                     </div>
                     <input type="button" id="process-order" data-bind="event: { click: Done }" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Process Order">
-                    <p class="otp-container__resend font15">Resend OTP</p>
+                    <p id="resend_Otp" class="otp-container__resend font15" data-bind="event: { click: resendOtp }">Resend OTP</p>
                 </div>
                 <div class="otp-container__edit">
                     <div class="input-box input-number-box form-control-box">
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div id="thankyouScreen" class="thankyou-container hide">
-                <div class="icon-outer-container rounded-corner50 hide">
+                <div class="icon-outer-container rounded-corner50">
                     <div class="icon-inner-container rounded-corner50">
                         <span class="otp-icons thumbsup-icon"></span>
                     </div>
@@ -45,6 +45,16 @@
                 <p class="text-black font14 margin-top20">Your loan application is being verfied. </p>
                 <p class="text-black font14">Loan approval will be generated shortly</p>
                 <input type="button" id="sendEmail"  data-bind="event: { click: redirect }" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Done">
+            </div>
+            <div id="failureScreen" class="failure-container hide">
+                <div class="icon-outer-container rounded-corner50">
+                    <div class="icon-inner-container rounded-corner50 fail-icon">
+                        <span class="otp-icons "></span>
+                    </div>
+                </div>
+                <p class="font18 text-bold margin-top20">We are sorry</p>
+                <p class="text-black font14 margin-top20">Your loan application is being verfied. </p>
+                <p class="text-black font14">Loan approval will be generated shortly</p>
             </div>
         </div>
     </div>
@@ -69,6 +79,35 @@
 
             }
         };
+
+        self.resendOtp = function () {
+            var objInput = {
+
+                "customerName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                "customerMobile": otpvm.mobileNumber,
+                "customerEmail": $('#cfEmail').val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/ResendVerificationCode/",
+                contentType: "application/json",
+                data: ko.toJSON(objInput),
+                success: function (response) {
+                    if (response != null)
+                    {
+                        if (response.NoOfAttempts >= 3)
+                        {
+                            $('#resend_Otp').hide();
+                        }
+                    }
+
+                }
+            });
+
+
+        };
+
         self.changeMobileNumber = function () {
             var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {

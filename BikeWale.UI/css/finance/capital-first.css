@@ -83,6 +83,10 @@
     font-size: 14px;
 }
 
+.employment-details-form .status-box {
+    height: 60px;
+}
+
 .gender-label, 
 .marital-label,
 .employment-label {
@@ -279,7 +283,7 @@ input[type=radio] {
     position: fixed;
     top: 0px;
     width: 500px;
-    height: 500px;
+    min-height: 250px;
     top: calc(50% - 250px);
     left: calc(50% - 250px);
     background-color: #fff;
@@ -313,6 +317,7 @@ input[type=radio] {
   width: 16px;
   height: 16px;
   background-position: -36px -226px;
+  cursor: pointer;
 }
 .otp-container__span {
     display: inline-block;
@@ -342,17 +347,23 @@ input[type=radio] {
 .not-empty .input-number-prefix {
     display: block;
 }
-.thankyou-container {
+.thankyou-container,
+.failure-container {
     padding : 20px 10px;
+}
+.otp-container__info {
+    margin: 40px 0;
 }
 .otp-container__info .icon-outer-container {
     margin: 40px auto;
 }
-.thankyou-container .icon-outer-container {
+.thankyou-container .icon-outer-container,
+.failure-container .icon-outer-container {
     width: 70px;
     height: 70px;
 }
-.thankyou-container .icon-inner-container {
+.thankyou-container .icon-inner-container,
+.failure-container .icon-inner-container {
     width: 60px;
     height: 60px;
 }
@@ -364,6 +375,9 @@ input[type=radio] {
     left: 13px;
     top: 13px;
     position: relative;
+}
+.failure-container .icon-inner-container.fail-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/sorry-30x23.png) no-repeat 50%;
 }
 .rounded-corner50 {
     -moz-border-radius: 50%;
