@@ -3,7 +3,6 @@
 {
     <div id="pricesContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin padding-top15 content-details-wrapper">
         <h2 class="padding-right20 padding-left20">@Model.BikeName Price</h2>
-        @*<h3 class="padding-right20 padding-left20">@Model.BikeName Price (variants)</h3>*@
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20">
             <thead>
                 <tr>
@@ -19,7 +18,7 @@
                     <tr>
                         <td width="30%" class="padding-bottom10 padding-top10 padding-right10 font14 divider-bottom" valign="top">@version.VersionName</td>
                         <td width="35%" class="padding-bottom10 padding-top10 divider-bottom padding-right10" valign="top">
-                            @Html.Raw("<span class='font14' >&#x20B9;</span>")
+                            <span class='font14' >&#x20B9;</span>
                             <span id="priced_@version.VersionId" class="font14 text-bold">
                                 <span>@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
                             </span>
@@ -37,7 +36,7 @@
             var priceQuotesCities = Model.PriceInTopCities.PriceQuoteList;
             Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Take(4);
             <div id="prices-top-cities">
-                @if (Model.City != null && Model.City.CityName.Length > 0)
+                @if (Model.City != null && Model.CityId > 0)
                 {
                     <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">On-road prices in cities near @Model.City.CityName</h3>
                 }
