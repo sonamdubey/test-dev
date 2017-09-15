@@ -28,7 +28,7 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer.htmltemplates
             }
             catch (System.Exception ex)
             {
-                new Bikewale.Notifications.ErrorClass(ex, "Bikewale.RabbitMq.CapitalFirstLeadConsumer.ComposeBody()");
+                new Bikewale.Notifications.ErrorClass(ex, "Bikewale.RabbitMq.CapitalFirstLeadConsumer.CapitalFirstPdfAttachment.ComposeBody()");
             }
             return pdfHtml;
         }

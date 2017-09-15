@@ -80,6 +80,16 @@ docReady(function () {
         }
     };
 
+    $('input:radio[name="gender"]').change(
+    function () {
+            validateRadioButtons("gender");
+    });
+
+    $('input:radio[name="marital"]').change(
+    function () {
+            validateRadioButtons("marital");
+    });
+
     isDesktop = $(".capital-first-desktop");
 
     $("#cfDOB").Zebra_DatePicker({
@@ -133,6 +143,7 @@ docReady(function () {
     $(blackWindowElem).on('click', function () {
         otpScreen.closeOtp();
     });
+
 });
 
 function scrollTopError() {
@@ -390,13 +401,13 @@ function validateRadioButtons(groupName) {
 
 function validateIncome(inputIncome) {
     var isValid = true;
-    var numRegex = /^[0-9]*$/;
+    var numRegex = /^[0-9]{0,9}$/;
     var value = $(inputIncome).val().trim();
     if ($(inputIncome).val().length <= 0) {
         validate.setError(inputIncome, 'Please enter Income');
         isValid = false;
     }
-    else if (!numRegex.test(value)) {
+    else if (!numRegex.test(value) || value.length > 9) {
         validate.setError(inputIncome, 'Please enter valid Income');
         isValid = false;
     }
