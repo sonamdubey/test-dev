@@ -38,6 +38,7 @@ namespace Bikewale.Controllers
             viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
             viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
             viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
+            viewModel.PageUrl = queryCollection["url"];
             viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Mobile;
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
@@ -61,12 +62,13 @@ namespace Bikewale.Controllers
             CapitalFirstVM viewModel = new CapitalFirstVM();
             viewModel.ObjLead = new ManufacturerLeadEntity();
             NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
-            viewModel.ObjLead.CampaignId = Convert.ToUInt32(queryCollection["campaingid"]);
-            viewModel.ObjLead.DealerId = Convert.ToUInt32(queryCollection["dealerid"]);
+            viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
+            viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
             viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
             viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
             viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
-            viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Desktop;
+            viewModel.PageUrl = queryCollection["url"];
+            viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Mobile;
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
                 viewModel.ObjLead.CityId = location.CityId;

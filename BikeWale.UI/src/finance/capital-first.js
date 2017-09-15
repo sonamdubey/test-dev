@@ -90,10 +90,20 @@ docReady(function () {
             validateRadioButtons("marital");
     });
 
-    isDesktop = $(".capital-first-desktop");
+	isDesktop = $(".capital-first-desktop");
+	
+	var startDate = new Date();
+	startDate.setFullYear(startDate.getFullYear() - 21);
+	
+	var startMonth = (startDate.getMonth() + 1) < 10 ? '0' + (startDate.getMonth() + 1) : (startDate.getMonth() + 1);
 
+	var pickerEndDate = startDate.getFullYear() + '-' + startMonth + '-' + startDate.getDate();
+	
     $("#cfDOB").Zebra_DatePicker({
-        container: $("#cfDOB").closest(".input-box")
+		container: $("#cfDOB").closest(".input-box"),
+		view: 'years',
+		start_date: pickerEndDate,
+		direction: ['1900-01-01', pickerEndDate]
 	});
 	
 	var dateOfBirthPicker = $('#cfDOB').data('Zebra_DatePicker');
@@ -250,7 +260,6 @@ function saveEmployeDetails() {
         "mobileNumber": $('#cfNum').val(),
         "emailId": $('#cfEmail').val(),
         "objLeadJson": $("#objLead").val(),
-        "id": $("#cpId").val(),
         "firstName": $('#cfFName').val(),
         "lastName": $('#cfLName').val(),
         "dateOfBirth": $('#cfDOB').val(),
@@ -260,6 +269,7 @@ function saveEmployeDetails() {
         "addressLine2": $('#cfAddress2').val(),
         "pincode": $("#cfPincode").val(),
         "pancard": $("#cfPan").val(),
+        "id": $("#cpId").val(),
         "ctLeadId": $("#ctLeadId").val(),
         "leadId": $("#leadId").val()
 

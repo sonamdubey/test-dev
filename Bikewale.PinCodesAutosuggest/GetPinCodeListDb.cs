@@ -22,7 +22,7 @@ namespace Bikewale.PinCodesAutosuggest
         /// Description : To fetch pincodes from database 
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<PayLoad> GetPinCodeList()
+        public static IEnumerable<PayLoad> GetPinCodeList(uint parameter)
         {
             IList<PayLoad> lstPinCodes = null;
           
@@ -31,7 +31,7 @@ namespace Bikewale.PinCodesAutosuggest
                 using (DbCommand cmd = DbFactory.GetDBCommand("getallpincodes"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isbajajfinance", DbType.Int32, 1));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_value", DbType.Int32, parameter));
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)

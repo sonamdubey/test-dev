@@ -8,6 +8,8 @@ using System;
 using System.Web.Http;
 using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.MobileVerification;
+using System.Collections.Specialized;
+using RabbitMqPublishing;
 
 namespace Bikewale.Service.Controllers
 {
@@ -16,11 +18,13 @@ namespace Bikewale.Service.Controllers
 
         private readonly ICapitalFirst _objICapitalFirst = null;
         private readonly IMobileVerificationRepository _mobileVerRespo = null;
-        public FinanceController(ICapitalFirst objICapitalFirst, IMobileVerificationRepository mobileVerRespo)
+        private readonly IMobileVerificationCache _mobileVerCacheRepo = null;
+        public FinanceController(ICapitalFirst objICapitalFirst, IMobileVerificationRepository mobileVerRespo, IMobileVerificationCache mobileVerCacheRepo)
         {
 
             _objICapitalFirst = objICapitalFirst;
             _mobileVerRespo = mobileVerRespo;
+            _mobileVerCacheRepo = mobileVerCacheRepo;
 
         }
         /// <summary>
@@ -61,7 +65,10 @@ namespace Bikewale.Service.Controllers
             try
             {
                 objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
-                string message = _objICapitalFirst.SaveEmployeDetails(objDetails);
+                string Utmz = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
+                string Utma = Request.Headers.Contains("_bwutmz") ? Request.Headers.GetValues("_bwutmz").FirstOrDefault() : String.Empty;
+
+                string message = _objICapitalFirst.SaveEmployeDetails(objDetails,Utmz,Utma);
 
                 return Ok(message);
             }
@@ -111,12 +118,20 @@ namespace Bikewale.Service.Controllers
         /// Created By :- Subodh Jain on 24 july 2017
         /// Summary :- Banner SaveBannerBasicDetails
         /// </summary>
-        [HttpPost, Route("api/finance/verifymobile/otp/{otp}/mobilenumber/{mobileNumber}")]
-        public IHttpActionResult VerifyMobile(string otp, string mobileNumber)
+        [HttpPost, Route("api/finance/verifymobile/otp/{otp}/")]
+        public IHttpActionResult VerifyMobile(string otp, [FromBody] PersonalDetails objDetails)
         {
             try
             {
-                bool mobileVerified = _mobileVerRespo.VerifyMobileVerificationCode(mobileNumber, otp, string.Empty);
+                bool mobileVerified = _mobileVerRespo.VerifyMobileVerificationCode(objDetails.MobileNumber, otp, string.Empty);
+
+                if (mobileVerified)
+                {
+                    objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
+                    _objICapitalFirst.PushLeadinCTandAutoBiz(objDetails);
+
+
+                }
 
                 return Ok(mobileVerified);
             }

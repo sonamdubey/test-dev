@@ -19,7 +19,7 @@
                 <span class="boundary"></span>
                 <span class="error-text" style="display: none;"></span>
             </div>
-            <input type="button" id="process-order" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Process Order">
+            <input type="button" id="process-order" data-bind="event: { click: Done }" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Process Order">
             <p class="otp-container__resend font15">Resend OTP</p>
         </div>
         <div class="otp-container__edit">
@@ -42,7 +42,7 @@
         <p class="font18 text-bold margin-top20">Thank you, <span data-bind="text: userName()"></span>!</p>
         <p class="text-black font14 margin-top20">Your loan application is being verfied. </p>
         <p class="text-black font14">Loan approval will be generated shortly</p>
-        <input type="button" id="sendEmail" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Done">
+        <input type="button" id="sendEmail" data-bind="event: { click: redirect }" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Done">
     </div>
 </div>
 
@@ -110,7 +110,7 @@
                         else if (response == "Registered Mobile Number") {
                             otpScreen.openOtp();
                             $('.otp-container__info').hide();
-                            $('#thankyouScreen').removeClass("hide");
+                            $('#thankyouScreen').removeClass("hide")
 
                         }
 
@@ -120,6 +120,11 @@
             }
 
 
+        };
+
+        self.redirect = function () {
+
+            window.location.href = $("#pageUrl").val();
         };
 
         self.Done = function () {
@@ -136,15 +141,10 @@
                         $('#thankyouScreen').removeClass("hide");
                     }
                     else {
-
                         validate.setError($('#otpNumber'), "Wrong Otp");
-
                     }
-
                 }
             });
-
-
         };
 
     }
