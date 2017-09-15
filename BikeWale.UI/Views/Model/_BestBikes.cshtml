@@ -1,22 +1,24 @@
-﻿@model IEnumerable<Bikewale.Entities.GenericBikes.BestBikeEntityBase>
+﻿@model Bikewale.Models.BikeModels.OtherBestBikesVM
 
 <ul class="image-details-grid-list">
-@{int i = 0;}
-@foreach (var Bike in Model)
-{
-    i = i + 1;
-    <li class="card">
-        <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName)" title="@Bike.Make.MakeName @Bike.Model.ModelName" class="card-target">
-            <div class="item-image-block vertical-top">
-                <span class="item-rank-label">#@i</span>
-                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" src="" alt="@Bike.Make.MakeName @Bike.Model.ModelName" />
-            </div>
-            <div class="item-details-block vertical-top">
-                <p class="font14 text-bold text-black margin-bottom5">@Bike.Make.MakeName @Bike.Model.ModelName</p>
-                <p class="font11 text-light-grey">Ex-showroom, @Bike.PriceInCity</p>
-                @Html.Raw("<span class='font16 text-default'>&#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
-            </div>
-        </a>
-    </li>
-}
+    @{int i = 0;}
+    @foreach (var Bike in Model.BestBikes)
+    {
+        i = i + 1;
+        <li class="card">
+            <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName)" title="@Bike.Make.MakeName @Bike.Model.ModelName" class="card-target">
+                <div class="item-image-block vertical-top">
+                    <span class="item-rank-label">#@i</span>
+                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" src="" alt="@Bike.Make.MakeName @Bike.Model.ModelName" />
+                </div>
+                <div class="item-details-block vertical-top">
+                    <p class="font14 text-bold text-black margin-bottom5">@Bike.Make.MakeName @Bike.Model.ModelName</p>
+
+                    <p class="font11 text-light-grey">Ex-showroom, @Bike.PriceInCity</p>
+                    <span class='font16 text-default'>&#x20B9;</span>
+                    <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
+                </div>
+            </a>
+        </li>
+    }
 </ul>

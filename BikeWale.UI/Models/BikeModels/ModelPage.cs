@@ -35,10 +35,8 @@ using Bikewale.Models.ServiceCenters;
 using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
-using Bikewale.Utility.GenericBikes;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -745,12 +743,13 @@ namespace Bikewale.Models.BikeModels
         }
 
         private void BindBestBikeWidget(EnumBikeBodyStyles BodyStyleType, uint? cityId = null)
+
         {
             try
             {
-                _objData.objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType, cityId).Reverse().Take(3);
-                var PageMaskingName = GenericBikesCategoriesMapping.BodyStyleByType(BodyStyleType);
-                _objData.BestBikeHeading = new CultureInfo("en-US", false).TextInfo.ToTitleCase(PageMaskingName).Replace("-", " "); ;
+                OtherBestBikesModel otherBestBikesModel = new OtherBestBikesModel((uint)_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId, _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, (uint)_objData.ModelId, BodyStyleType, _objBestBikes, cityId);
+
+                _objData.OtherBestBikes = otherBestBikesModel.GetData();
             }
             catch (Exception ex)
             {
