@@ -294,7 +294,7 @@ namespace Bikewale.BAL.Finance
                       objDetails.objLead.DealerId,
                       objDetails.objLead.PQId,
                       objCust.CustomerId,
-                      objDetails.objLead.Name,
+                      String.Format("{0} {1}", objDetails.FirstName, objDetails.LastName),
                       objDetails.EmailId,
                       objDetails.MobileNumber,
                       objDetails.objLead.LeadSourceId,
