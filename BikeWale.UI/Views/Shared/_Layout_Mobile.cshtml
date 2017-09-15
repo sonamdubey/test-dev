@@ -227,37 +227,6 @@
     }
     @RenderBody()
 
-
-    @if (Model.BreadCrumbsList != null && Model.BreadCrumbsList.Breadcrumbs != null && Model.BreadCrumbsList.Breadcrumbs.Count() > 0)
-    {
-        <section>
-            <div class="breadcrumb">
-                <span class="breadcrumb-title">You are here:</span>
-                <ul itemscope="" itemtype="http://schema.org/BreadcrumbList">
-                    @{ int i = 1;}
-                    @foreach (Bikewale.Entities.Models.BreadCrumb breadCrumb in Model.BreadCrumbsList.Breadcrumbs)
-                    {
-                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                            <a itemprop="item" class="breadcrumb-link" href="@string.Format("/m{0}", breadCrumb.ListUrl)" title="@breadCrumb.Name">
-                                <span class="breadcrumb-link__label" itemprop="name">@breadCrumb.Name</span>
-                            </a>
-                            <meta itemprop="position" content="@i">
-                        </li>
-                        i++;
-                    }
-                    @if (!string.IsNullOrEmpty(Model.BreadCrumbsList.PageName))
-                    {
-                        <li>
-                            <span class="breadcrumb-link__label">@Model.BreadCrumbsList.PageName</span>
-                        </li>
-                    }
-                </ul>
-                <div class="clear"></div>
-            </div>
-            <div class="clear"></div>
-        </section>
-                        }
-
     @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
     {
         <section>

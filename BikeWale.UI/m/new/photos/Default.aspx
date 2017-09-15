@@ -22,6 +22,12 @@
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
+     <% if (vmModelPhotos != null && !String.IsNullOrEmpty(vmModelPhotos.SchemaJSON))
+        { %>
+    <script type="application/ld+json">
+        <%= vmModelPhotos.SchemaJSON %>
+    </script>
+    <% }%>
 </head>
 <body>
     <form id="form1" runat="server">
