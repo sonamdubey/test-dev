@@ -14,5 +14,6 @@ namespace BikewaleOpr.Entity.BikeData
         public string UpdatedBy { get; set; }
         public bool IsDeleted { get; set; }
         public BikeMakeEntityBase BikeMake { get; set; }
+        public bool IsSeriesPageUrl { get; set; }
     }
 }

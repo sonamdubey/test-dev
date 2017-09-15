@@ -133,6 +133,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_name", bikeSeries.SeriesName);
                     param.Add("par_maskingname", bikeSeries.SeriesMaskingName);
+                    param.Add("par_isseriespageurl", bikeSeries.IsSeriesPageUrl);
                     param.Add("par_updatedby", updatedBy);
                     param.Add("par_seriesid", bikeSeries.SeriesId);
                     param.Add("par_rowsAffected", dbType:DbType.Int32, direction: ParameterDirection.Output);

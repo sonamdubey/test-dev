@@ -231,19 +231,19 @@
 					<asp:Label Visible="false" ID="lblMakeId" Text='<%# DataBinder.Eval( Container.DataItem, "BikeMakeId" ) %>' runat="server"></asp:Label>
 				</edititemtemplate>
 			</asp:TemplateColumn>
-			<asp:TemplateColumn HeaderText="Masking Name" ItemStyle-Width="350">
+			<asp:TemplateColumn HeaderText="Masking Name" ItemStyle-Width="300">
 				<itemtemplate>
 				  <span><%# DataBinder.Eval( Container.DataItem, "MaskingName" ) %></span>&nbsp;&nbsp;<a ID="editId_<%# DataBinder.Eval( Container.DataItem, "ID" ) %>"  data-modelname='<%# DataBinder.Eval( Container.DataItem, "Name" ) %>' class='pointer <%# string.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "MaskingName" ).ToString()) ? "hide" : "" %>' title="Update Masking Name">Edit</a> 
 				</itemtemplate>            
 			    </asp:TemplateColumn>
 			<asp:BoundColumn DataField="BikeMakeId" ReadOnly="true" ItemStyle-CssClass="doNotDisplay" HeaderStyle-CssClass="doNotDisplay" />
-            <asp:TemplateColumn HeaderText="Series" ItemStyle-Width="800">
+            <asp:TemplateColumn HeaderText="Series" ItemStyle-Width="900">
 				<itemtemplate>
 					<input type="checkbox" name="chkSeries" modelId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' disabled="disabled" style="vertical-align:middle"/><span style="vertical-align:middle"><%#DataBinder.Eval(Container.DataItem,"seriesName") %></span>
-                    <input type="image" class="deleteMapModelSeries"  data-modelid='<%# DataBinder.Eval(Container.DataItem,"ID") %>' src="https://opr.carwale.com/images/icons/delete.ico" style="vertical-align:middle">
+                    <input type="image" title="Remove mapping" class="deleteMapModelSeries  <%# (Convert.ToString(DataBinder.Eval(Container.DataItem,"seriesName")) == "N/A" ? "hide":"")%>"  data-modelid='<%# DataBinder.Eval(Container.DataItem,"ID") %>' src="https://opr.carwale.com/images/icons/delete.ico" style="vertical-align:middle">
 				</itemtemplate>
 			</asp:TemplateColumn>
-			<asp:TemplateColumn HeaderText="CC Segment" ItemStyle-Width="1100">
+			<asp:TemplateColumn HeaderText="CC Segment" ItemStyle-Width="800">
 				<itemtemplate>
 					<input type="checkbox" name="chkSegment" modelId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' disabled="disabled"/><span><%#DataBinder.Eval(Container.DataItem,"ClassSegmentName") %></span>
 				</itemtemplate>
@@ -375,6 +375,7 @@
         $(".deleteMapModelSeries").click(function () {
             if (confirm("Do you really want to delete this mapping."))
             {
+                var deletebtn = this;
                 var modelId = $(this).data("modelid");
 
                 $.ajax({
@@ -382,16 +383,17 @@
                     url: "/api/bikeseries/deletemapping/?modelId=" + modelId,
                     success: function (response) {
                         if (response != null) {
-                            rowToEdit.children[1].innerText = self.seriesNameUpdate();
-                            rowToEdit.children[2].innerText = self.seriesMaskingNameUpdate();
-                            Materialize.toast("Bike series has been updated successfully.", 3000);
+                            $(deletebtn).siblings("span").html("N/A");
+                            $(deletebtn).remove();
+                            alert("Mapping successfully removed");
                         }
                     },
                     error: function (respose) {
-                        Materialize.toast("Something went wrong, could't update.", 3000);
+                        alert("Something went wrong, Could't remove mapping");
                     }
                 });
-            }        
+            }
+            return false;
         });
         function cmbMakes_Change(e) {	        
             var el = document.getElementById('cmbMakes');
