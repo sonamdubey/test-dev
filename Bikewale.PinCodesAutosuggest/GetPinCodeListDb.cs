@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
 namespace Bikewale.PinCodesAutosuggest
 {
     /// <summary>
@@ -25,13 +25,13 @@ namespace Bikewale.PinCodesAutosuggest
         public static IEnumerable<PayLoad> GetPinCodeList(uint parameter)
         {
             IList<PayLoad> lstPinCodes = null;
-          
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getallpincodes"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_value", DbType.Int32, parameter));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pincodetype", DbType.Int32, parameter));
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
@@ -98,7 +98,7 @@ namespace Bikewale.PinCodesAutosuggest
                     string tokenName = string.Format("{0} {1} {2}", pinCode.PinCode, pinCode.Area, pinCode.District);
 
                     var tokens = tokenName.Split(' ');
-                    int length = Math.Min(tokens.Length,5);
+                    int length = Math.Min(tokens.Length, 5);
 
 
                     ObjTemp.mm_suggest.input = new List<string>();
@@ -136,7 +136,7 @@ namespace Bikewale.PinCodesAutosuggest
         }
 
 
- 
+
     }   //class
 }   //namespace
 
