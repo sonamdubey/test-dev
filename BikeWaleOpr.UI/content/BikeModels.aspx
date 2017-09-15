@@ -237,14 +237,15 @@
 				</itemtemplate>            
 			    </asp:TemplateColumn>
 			<asp:BoundColumn DataField="BikeMakeId" ReadOnly="true" ItemStyle-CssClass="doNotDisplay" HeaderStyle-CssClass="doNotDisplay" />
-            <asp:TemplateColumn HeaderText="Series" ItemStyle-Width="350">
+            <asp:TemplateColumn HeaderText="Series" ItemStyle-Width="450">
 				<itemtemplate>
-					<input    type="checkbox" name="chkSeries" modelId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' disabled="disabled"/><span><%#DataBinder.Eval(Container.DataItem,"seriesName") %></span>
+					<input type="checkbox" name="chkSeries" modelId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' disabled="disabled"/><span><%#DataBinder.Eval(Container.DataItem,"seriesName") %></span>
+                    <input type="image" class="deleteMapModelSeries"  data-modelid='<%# DataBinder.Eval(Container.DataItem,"ID") %>' src="https://opr.carwale.com/images/icons/delete.ico">
 				</itemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="CC Segment" ItemStyle-Width="1100">
 				<itemtemplate>
-					<input    type="checkbox" name="chkSegment" modelId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' disabled="disabled"/><span><%#DataBinder.Eval(Container.DataItem,"ClassSegmentName") %></span>
+					<input type="checkbox" name="chkSegment" modelId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' disabled="disabled"/><span><%#DataBinder.Eval(Container.DataItem,"ClassSegmentName") %></span>
 				</itemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Used">
@@ -371,6 +372,27 @@
             }        
         });
 
+        $(".deleteMapModelSeries").click(function () {
+            if (confirm("Do you really want to delete this mapping."))
+            {
+                var modelId = $(this).data("modelid");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/bikeseries/deletemapping/?modelId=" + modelId,
+                    success: function (response) {
+                        if (response != null) {
+                            rowToEdit.children[1].innerText = self.seriesNameUpdate();
+                            rowToEdit.children[2].innerText = self.seriesMaskingNameUpdate();
+                            Materialize.toast("Bike series has been updated successfully.", 3000);
+                        }
+                    },
+                    error: function (respose) {
+                        Materialize.toast("Something went wrong, could't update.", 3000);
+                    }
+                });
+            }        
+        });
         function cmbMakes_Change(e) {	        
             var el = document.getElementById('cmbMakes');
             var alter = false;

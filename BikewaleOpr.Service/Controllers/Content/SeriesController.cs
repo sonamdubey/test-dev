@@ -147,5 +147,44 @@ namespace BikewaleOpr.Service.Controllers.Content
             }
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 12-Sep-2017
+        /// Description : API to delete Bike Series
+        /// </summary>
+        /// <param name="MakeId"></param>
+        /// <param name="SeriesName"></param>
+        /// <param name="SeriesMaskingName"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/bikeseries/deletemapping/")]
+        public IHttpActionResult DeleteMappingOfModelSeries(uint modelId)
+        {
+            bool isDeleted = false;
+            try
+            {
+                if (modelId > 0)
+                {
+                    isDeleted = _series.DeleteMappingOfModelSeries(modelId);
+
+                    if (isDeleted)
+                    {
+                        return Ok();
+                    }
+                    else
+                    {
+                        return InternalServerError();
+                    }
+                }
+                else
+                {
+                    return BadRequest("Input data is not correct");
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("SeriesController.Delete_{0}", modelId));
+                return InternalServerError();
+            }
+        }
+
     }
 }
