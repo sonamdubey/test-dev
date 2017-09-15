@@ -3,17 +3,22 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Utility;
 using Bikewale.Utility.GenericBikes;
 using System;
-using System.Globalization;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bikewale.Models.BikeModels
 {
+    /// <summary>
+    /// Created By  :   Vishnu Teja Yalakuntla on 14 Sep 2017
+    /// Summary     :   Model for more bikes from make widget
+    /// </summary>
     public class OtherBestBikesModel
     {
-        private uint _makeId;
-        private uint _modelId;
-        private uint? _cityId;
-        private string _makeName;
+        private readonly uint _makeId;
+        private readonly uint _modelId;
+        private readonly uint? _cityId;
+        private readonly string _makeName;
+        private readonly bool _isMakePresentinConfig;
         public EnumBikeBodyStyles _bodyStyleType { get; set; }
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
 
@@ -25,21 +30,33 @@ namespace Bikewale.Models.BikeModels
             _bodyStyleType = bodyStyleType;
             _objBestBikes = objBestBikes;
             _cityId = cityId;
+            _isMakePresentinConfig = IsMakePresentInConfig(makeId);
+        }
+
+        public bool IsMakePresentInConfig(uint makeId)
+        {
+            return BWConfiguration.Instance.BestBikesMakes.Split(',').Contains(_makeId.ToString());
         }
 
         public OtherBestBikesVM GetData()
         {
             OtherBestBikesVM otherBestBikes = null;
+            IEnumerable<BestBikeEntityBase> bestBikes = null;
 
             try
             {
                 otherBestBikes = new OtherBestBikesVM();
-                otherBestBikes.IsMakePresentInConfig = BWConfiguration.Instance.BestBikesMakes.Split(',').Select(makeId => Convert.ToUInt32(makeId)).Contains((uint)_makeId);
-                if (!otherBestBikes.IsMakePresentInConfig)
+                otherBestBikes.IsMakePresentInConfig = _isMakePresentinConfig;
+
+                if (!_isMakePresentinConfig)
                 {
-                    otherBestBikes.BestBikes = _objBestBikes.GetBestBikesByCategory(_bodyStyleType, _cityId).Reverse().Take(3);
+                    bestBikes = _objBestBikes.GetBestBikesByCategory(_bodyStyleType, _cityId);
+
+                    if (bestBikes != null && bestBikes.Count() > 0)
+                        otherBestBikes.BestBikes = bestBikes.Reverse().Take(3);
+
                     var pageMaskingName = GenericBikesCategoriesMapping.BodyStyleByType(_bodyStyleType);
-                    otherBestBikes.OtherBestBikesHeading = new CultureInfo("en-US", false).TextInfo.ToTitleCase(pageMaskingName).Replace("-", " ");
+                    otherBestBikes.OtherBestBikesHeading = Bikewale.Utility.StringExtention.StringHelper.ToTitleCase(pageMaskingName, '-', ' ');
                     otherBestBikes.OtherBestBikesHeading = string.Format("Here's a list of best {0}", otherBestBikes.OtherBestBikesHeading);
                 }
                 else
@@ -50,7 +67,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.BikeModels"));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.GetData()"));
             }
 
             return otherBestBikes;

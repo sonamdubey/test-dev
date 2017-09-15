@@ -1216,6 +1216,10 @@ li.offertxt:hover span {display:inline}
     padding-left: 5px;
 }
 
+.more-make-bikes-desk a:hover{
+    text-decoration: none;
+}
+
 .image-details-grid .jcarousel-control-left,
 .image-details-grid .jcarousel-control-right {
     top: 15%;

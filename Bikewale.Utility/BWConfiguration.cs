@@ -14,6 +14,8 @@ namespace Bikewale.Utility
     /// Description : Added bikeWaleLogo for bikewale logo image URL.
     /// Modified by :   Sumit Kate on 11 Nov 2016
     /// Description :   Added keys for AWSAccessKey, AWSBucketName, AWSSecretKey, AWSEnvironment, AWSImageQueueName, SecurityHashLength web config
+    /// Modified By :   Vishnu Teja Yalakuntla on 15 Sep 2017
+    /// Summary     :   Added BestBikesMakes property
     /// </summary>
     public sealed class BWConfiguration
     {
