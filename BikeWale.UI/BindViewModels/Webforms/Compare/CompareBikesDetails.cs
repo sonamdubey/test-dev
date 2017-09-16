@@ -11,11 +11,12 @@ using Bikewale.DAL.Compare;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.SEO;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Memcache;
+using Bikewale.Models;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -51,6 +52,8 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         public int CityId = 0;
         private uint _sponseredBikeVersionId;
         public Comparison.Entities.SponsoredVersionEntityBase SponsoredBike { get; set; }
+        public BreadcrumbList Breadcrumb { get; set; }
+        public string SchemaJSON { get; set; }
 
         /// <summary>
         /// Created By : Sushil kumar on 2nd Feb 2017 
@@ -175,6 +178,9 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                     CreateCompareSummary(comparedBikes.BasicInfo, comparedBikes.CompareColors);
                     PageMetas.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, compareUrl);
                     PageMetas.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, compareUrl);
+
+                    SetBreadcrumList();
+                    SetPageJSONLDSchema(PageMetas);
                 }
 
             }
@@ -183,6 +189,48 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.GetCompareBikeDetails.GetComparisionTextAndMetas");
             }
         }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema
+        /// </summary>
+        private void SetPageJSONLDSchema(PageMetaTags objPageMeta)
+        {
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta, Breadcrumb);
+
+            if (webpage != null)
+            {
+                SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList()
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+
+            url += "m/";
+
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+            url += "comparebikes/";
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Compare bikes"));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, ComparisionText));
+
+
+            Breadcrumb = new BreadcrumbList() { BreadcrumListItem = BreadCrumbs };
+
+        }
+
 
         /// <summary>
         /// Creates the compare summary.

@@ -182,13 +182,9 @@ namespace Bikewale.New
                         if (!string.IsNullOrEmpty(sponsoredModelIds))
                         {
                             string[] modelArray = sponsoredModelIds.Split(',');
-                            if (modelArray.Length > 0)
-                            {
-                                if (modelArray.Contains(featuredModelId))
-                                {
-                                    isSponsored = true;
-                                }
-                            }
+
+                            isSponsored = modelArray.Length > 0 && modelArray.Contains(featuredModelId);
+
                         }
                     }
                 }
