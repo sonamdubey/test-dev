@@ -337,13 +337,14 @@ namespace Bikewale.Models
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
             string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
             if (IsMobile)
             {
                 url += "m/";
             }
 
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, url, "Home"));
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(2, null, objData.Page_H1));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objData.Page_H1));
 
 
             objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
