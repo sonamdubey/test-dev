@@ -1,0 +1,361 @@
+﻿@model Bikewale.Models.CompareDetailsVM
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/compare/details.css' />";
+    Model.Page_JS_Path = "/m/src/compare/details.js";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
+    Model.AdTags.AdId = "1398766302464";
+    Model.AdTags.Ad320x100BTF = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
+    bool isFirstActiveTab = true;
+    int i = 0;
+}
+@if (Model != null)
+{
+    <section id="compare-detailspage" data-comparesource="@((int)Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_Page)">
+        @if (Model.Compare != null && Model.Compare.BasicInfo != null)
+        {
+            <div @(Model.sponsoredVersionId > 0 ? "id=sponsored-column-active" : "")>
+                <div class="container box-shadow bg-white card-bottom-margin bw-tabs-panel">
+                    <h1 class="box-shadow padding-15-20 margin-bottom3 text-bold">@Model.comparisionText</h1>
+                    <div class="comparison-main-card">
+                        @foreach (var bike in Model.Compare.BasicInfo)
+                        {
+                            string bikeName = string.Format("{0} {1}", bike.Make, bike.Model);
+                            <div class="bike-details-block @(bike.VersionId != Model.sponsoredVersionId ? "" : "sponsored-bike-details-block")" data-masking="@string.Format("{0}-{1}", bike.MakeMaskingName, bike.ModelMaskingName)" data-changed="" data-modelid="@bike.ModelId " data-versionid="@bike.VersionId " data-bikename="@String.Format("{0}_{1}_{2}", bike.Make, bike.Model, bike.Version)">
+                                @if (bike.VersionId == Model.sponsoredVersionId)
+                                {
+                                    <span class="position-abt pos-top5 label-text">Sponsored</span>
+                                }
+                                <span @(bike.VersionId != Model.sponsoredVersionId ? "" : "id=close-sponsored-bike") class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey"></span>
+                                <a href="@string.Format("/m/{0}-bikes/{1}/", bike.MakeMaskingName, bike.ModelMaskingName)" title="@bikeName" class="block margin-top10 @(Model.sponsoredVersionId > 0 && Model.SponsoredBike != null && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? "bw-ga" : "")" @(Model.sponsoredVersionId > 0 && Model.SponsoredBike != null && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? Model.SponsoredBike.BikeImpressionTracker : "")>
+                                <span class="font10 text-light-grey text-truncate">@bike.Make  </span>
+                                <h2 class="font12 text-truncate margin-bottom5">@bike.Model  </h2>
+                                <img class="bike-image-block" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.ImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80) " alt="@bikeName " />
+                                </a>
+                                <p class="label-text">Version:</p>
+
+
+                                @if (bike.Versions.Count() > 1)
+                                {
+                                    <div class="dropdown-select-wrapper">
+                                        <select class="dropdown-select" data-title="Version">
+                                            @foreach (var v in bike.Versions)
+                                            {
+                                                <option value="@v.VersionId" @(bike.VersionId != v.VersionId ? "" : " selected")>@v.VersionName </option>
+                                            }
+                                        </select>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p class="dropdown-selected-item option-count-one dropdown-width">@bike.Version </p>
+                                }
+                                <p class="text-truncate label-text">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName </p>
+                                <p class="margin-bottom10">
+                                    @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="font16 text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) </span>
+                                </p>
+                                @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl))
+                                {
+                                    <div>
+                                        <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" rel="nofollow">On-road price</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
+                                    {
+                                        <div class="padding-top5 padding-bottom5">
+                                            <span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@String.Format("{0}_Top Card", bikeName)" class="font14 bw-ga text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        }
+                        <div class="clear"></div>
+                    </div>
+                    <div id="comparison-floating-card" class="box-shadow slideIn-transition">
+                        @foreach (var bike in Model.Compare.BasicInfo)
+                        {
+                            string bikeName = string.Format("{0} {1}", bike.Make, bike.Model);
+                            i = 0;
+                            <div class="bike-details-block @(bike.VersionId != Model.sponsoredVersionId ? "" :"sponsored-bike-details-block")">
+                                @if (bike.VersionId == Model.sponsoredVersionId)
+                                {
+                                    <span class="position-abt pos-top5 label-text">Sponsored</span>
+                                }
+                                <span class="font10 text-light-grey text-truncate">@bike.Make  </span>
+                                <a href="@string.Format("/{0}-bikes/{1}/", bike.MakeMaskingName, bike.ModelMaskingName)" title="@bikeName" class="font12 text-truncate bike-title-target">@bike.Model</a>
+                                @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl))
+                                {
+                                    <div>
+                                        <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" rel="nofollow">On-road price</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
+                                    {
+                                        <div class="padding-top5 padding-bottom5">
+                                            <span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_Floating Card", bikeName)" class="font14 bw-ga  text-link">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                        <div class="clear"></div>
+                        <div class="overall-specs-tabs-container">
+                            <ul class="overall-specs-tabs-wrapper">
+                                <li data-tabs="specsTabContent" class="active">Specifications</li>
+                                <li data-tabs="featuresTabContent">Features</li>
+                                <li data-tabs="coloursTabContent">Colours</li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+
+                    <div id="overall-specs-tabs" class="overall-specs-tabs-container">
+                        <ul class="overall-specs-tabs-wrapper">
+                            <li data-tabs="specsTabContent" class="active">
+                                <h3>Specifications</h3>
+                            </li>
+                            <li data-tabs="featuresTabContent">
+                                <h3>Features</h3>
+                            </li>
+                            <li data-tabs="coloursTabContent">
+                                <h3>Colours</h3>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <div id="specsTabContent" class="bw-tabs-data active">
+                        @if (Model.Compare.CompareSpecifications != null)
+                        {
+                            isFirstActiveTab = true;
+                            foreach (var spec in Model.Compare.CompareSpecifications.Spec)
+                            {
+                                <div class="model-accordion-tab @(isFirstActiveTab ? "active" : "" )">
+                                    <span class="offers-sprite specs-@spec.Value-sm-icon"></span>
+                                    <span class="accordion-tab-label">@spec.Text</span>
+                                    <span class="bwmsprite fa-angle-down"></span>
+                                </div>
+                                <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                    <tbody>
+                                        @{isFirstActiveTab = false; }
+                                        @foreach (var specCat in spec.SpecCategory)
+                                        {
+                                            <tr class="row-type-heading">
+                                                <td colspan="2">@spec.Text</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr class="row-type-data">
+                                                @foreach (var compSpec in specCat.CompareSpec)
+                                                {
+                                                    <td>@compSpec.Value</td>
+                                                }
+                                                @if (Model.isSponsoredBike)
+                                                {
+                                                    <td></td>
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                                                }
+
+                                            }
+                    </div>
+                    <div id="featuresTabContent" class="bw-tabs-data">
+                        @if (Model.Compare.CompareFeatures != null)
+                        {
+                            foreach (var spec in Model.Compare.CompareFeatures.Spec)
+                            {
+                                <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                    <tbody>
+                                        @foreach (var specCat in spec.SpecCategory)
+                                        {
+                                            <tr class="row-type-heading">
+                                                <td colspan="2">@specCat.Text </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr class="row-type-data">
+                                                @foreach (var compSpec in specCat.CompareSpec)
+                                                {
+                                                    <td>@compSpec.Value </td>
+                                                }
+                                                @if (!Model.isSponsoredBike)
+                                                {
+                                                    <td></td>
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                    </div>
+                    <div id="coloursTabContent" class="bw-tabs-data">
+                        @if (Model.Compare.CompareColors != null)
+                        {
+                            <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <tbody>
+                                    <tr class="row-type-heading">
+                                        <td colspan="2"></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="row-type-data">
+                                        @foreach (var bike in Model.Compare.CompareColors.bikes)
+                                        {
+                                            <td>
+                                                @foreach (var color in bike.bikeColors)
+                                                {
+                                                    if (color.HexCodes != null)
+                                                    {
+                                                        <div class="color-box color-count-@color.HexCodes.Count()">
+                                                            @foreach (var hexCode in color.HexCodes)
+                                                            {
+                                                                <span style="background-color: #@hexCode"></span>
+                                                            }
+                                                        </div>
+                                                        <p>@color.Color</p>
+                                                    }
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+
+                    <div id="toggle-float-button" class="grid-12 float-button float-fixed clearfix slideIn-transition">
+                        <button type="button" id="toggle-features-btn" class="btn btn-teal btn-full-width">Hide common features</button>
+                    </div>
+                    <div class="clear"></div>
+                    <div id="comparison-footer"></div>
+                </div>
+                <section>
+                    <div class="container bg-white box-shadow margin-bottom15 content-inner-block-20">
+                        <p class="text-bold font16 line-height17 inline">Bike Comparison - @Model.templateSummaryTitle</p>
+                        <span class="model-preview-main-content">
+                            <p class="font14 text-light-grey line-height17 inline padding-top10">@Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 200)   ... </p>
+                        </span>
+                        <span class="model-preview-more-content hide">
+                            <p class="font14 text-light-grey line-height17 inline padding-top10">@Model.compareSummaryText</p>
+                        </span>
+                        <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
+                    </div>
+                </section>
+                @if (Model.isUsedBikePresent)
+                {
+                    <div id="used-bikes-container" class="container box-shadow bg-white card-bottom-margin">
+                        <h2 class="content-inner-block-15">Used bikes you may like</h2>
+                        <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                            <tbody>
+                                <tr class="row-type-heading">
+                                    <td colspan="2"></td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    @foreach (var bike in Model.Compare.BasicInfo)
+                                    {
+                                        <td>
+                                            @if (bike.UsedBikeCount.BikeCount > 0)
+                                            {
+                                                <a href="/m@(Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName, bike.ModelMaskingName, !string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName) ? bike.UsedBikeCount.CityMaskingName : "india"))" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a><p class="text-light-grey text-unbold">
+                                                    Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
+                                                </p>
+                                            }
+                                            else
+                                            {
+                                                <div class="font14 text-bold text-center">--</div>
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+
+                    <!-- select bike starts here -->
+                                            <div id="select-bike-cover-popup" class="cover-window-popup">
+                                                <div class="ui-corner-top">
+                                                    <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="click: closeBikePopup">
+                                                        <span class="bwmsprite fa-angle-left"></span>
+                                                    </div>
+                                                    <div class="cover-popup-header leftfloat">Select bikes</div>
+                                                    <div class="clear"></div>
+                                                </div>
+                                                <div class="bike-banner"></div>
+                                                <div id="select-make-wrapper" class="cover-popup-body">
+                                                    <div class="cover-popup-body-head">
+                                                        <p class="no-back-btn-label head-label inline-block">Select Make</p>
+                                                    </div>
+                                                    <ul class="cover-popup-list with-arrow" data-bind="foreach : makes">
+
+                                                        <li data-bind="click: $parent.makeChanged,attr:{'data-masking' : maskingName , 'data-id' : makeId }"><span data-bind="text : makeName"></span></li>
+
+                                                    </ul>
+                                                </div>
+
+                                                <div id="select-model-wrapper" class="cover-popup-body">
+                                                    <div class="cover-popup-body-head">
+                                                        <div data-bind="click: modelBackBtn" class="body-popup-back cur-pointer inline-block">
+                                                            <span class="bwmsprite back-long-arrow-left"></span>
+                                                        </div>
+                                                        <p class="head-label inline-block">Select Model</p>
+                                                    </div>
+                                                    <ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
+                                                        <li data-bind="click: $parent.modelChanged, attr: { 'data-id': modelId, 'data-masking': maskingName }">
+                                                            <span data-bind="text: modelName, attr: { 'data-id': modelId, 'data-masking': maskingName }"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div id="select-version-wrapper" class="cover-popup-body">
+                                                    <div class="cover-popup-body-head">
+                                                        <div data-bind="click: versionBackBtn" class="body-popup-back cur-pointer inline-block">
+                                                            <span id="arrow-version-back" class="bwmsprite back-long-arrow-left"></span>
+                                                        </div>
+                                                        <p class="head-label inline-block">Select Version</p>
+                                                    </div>
+                                                    <ul class="cover-popup-list" data-bind="foreach: versionArray">
+                                                        <li data-bind="click: $parent.versionChanged">
+                                                            <span data-bind="text: versionName, attr: { 'data-id': versionId }"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="cover-popup-loader-body">
+                                                    <div class="cover-popup-loader"></div>
+                                                    <div class="cover-popup-loader-text font14">Loading...</div>
+                                                </div>
+                                            </div>
+                    <!-- select bike ends here -->
+
+                                            }
+
+        <div class="same-version-toast">
+            <p>Please select different bike for comparision.</p>
+        </div>
+    </section>
+
+                                            }
+
+<section>
+    <div class="container card-bottom-margin">
+        <div class="grid-12">
+            <div class="content-box-shadow padding-top20">
+                <h2 class="h2-heading padding-left20 margin-bottom20">People who compared above bikes also compared</h2>
+                @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.topBikeCompares)
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>

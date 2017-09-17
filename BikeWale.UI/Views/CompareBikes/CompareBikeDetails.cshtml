@@ -43,7 +43,7 @@
                                     <a href="@string.Format("/{0}-bikes/{1}/",bike.MakeMaskingName,bike.ModelMaskingName)" title="@bikeName" class="item-target-link underline-none @(Model.isSponsoredBike && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? "bw-ga" : "")" @(Model.isSponsoredBike && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? Model.SponsoredBike.BikeImpressionTracker : "")>
                                         <p class="font12 text-black">@bike.Make</p>
                                         <h2 class="font15 margin-bottom10 text-truncate">@bike.Model</h2>
-                                        <img class="bike-image-block" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.ImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70)" alt="@bikeName">
+                                        <img class="bike-image-block" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.ImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._80)" alt="@bikeName">
                                     </a>
                                     @if (bike.Versions.Count() > 1)
                                     {

@@ -3725,6 +3725,7 @@
     <Content Include="Views\Shared\Ads\Desktop\Model_BTF_970x90.cshtml" />
     <Content Include="Views\Model\_MoreBikesFromMake_Mobile.cshtml" />
     <Content Include="Views\Model\_MoreBikesFromMake.cshtml" />
+    <Content Include="Views\CompareBikes\CompareBikeDetails_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

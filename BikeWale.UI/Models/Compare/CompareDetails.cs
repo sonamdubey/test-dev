@@ -250,6 +250,12 @@ namespace Bikewale.Models
         {
             try
             {
+                string[] strArray = originalUrl.Trim().Split('/');
+                if (strArray.Length > 1)
+                {
+                    _baseUrl = IsMobile ? strArray[3] : strArray[2];
+                }
+
                 status = _baseUrl == canonicalUrl ? 0 : StatusCodes.RedirectPermanent;
                 if (status == Entities.StatusCodes.RedirectPermanent)
                 {
@@ -319,24 +325,7 @@ namespace Bikewale.Models
             }
             return canon;
         }
-        /// <summary>
-        /// Created By :- Subodh Jain 09 May 2017
-        /// Summary :- Function for ParseQueryString
-        /// </summary>
-        /// <returns></returns>
-        private void ParseQueryString(string originalUrl)
-        {
-            string[] strArray = originalUrl.Trim().Split('/');
-            if (strArray.Length > 1)
-            {
-                _baseUrl = strArray[2];
-            }
-            string[] queryArr = originalUrl.Split('?');
-            if (queryArr.Length > 1)
-            {
-                _bikeQueryString = queryArr[1];
-            }
-        }
+
         /// <summary>
         /// Created By :- Subodh Jain 09 May 2017
         /// Summary :- Function for ProcessQueryString
@@ -351,7 +340,11 @@ namespace Bikewale.Models
                 var request = HttpContext.Current.Request;
                 string modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
 
-                ParseQueryString(originalUrl);
+                string[] queryArr = originalUrl.Split('?');
+                if (queryArr.Length > 1)
+                {
+                    _bikeQueryString = queryArr[1];
+                }
 
                 if (_bikeQueryString.Contains("sponseredBike"))
                 {
