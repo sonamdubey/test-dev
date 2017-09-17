@@ -2269,7 +2269,7 @@ namespace Bikewale.DAL.BikeData
                                 bestBikeObj.Make.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 bestBikeObj.Price = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]);
                                 bestBikeObj.UsedCity = new CityEntityBase();
-                                bestBikeObj.OnRoadPriceInCity = Convert.ToUInt32(dr["OnRoadPriceInCity"]);
+                                bestBikeObj.OnRoadPriceInCity = SqlReaderConvertor.ToUInt32(dr["OnRoadPriceInCity"]);
                                 bestBikeObj.UsedCity.CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
                                 bestBikeObj.UsedCity.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                                 bestBikeObj.UsedCity.CityName = Convert.ToString(dr["CityName"]);

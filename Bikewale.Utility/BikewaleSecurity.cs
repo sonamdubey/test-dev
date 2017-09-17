@@ -5,22 +5,22 @@ using System.Web;
 
 namespace Bikewale.Utility
 {
-    public class BikewaleSecurity
+    public static class BikewaleSecurity
     {
+        private static readonly string _BWpwd = "BikewAlEmUmBaI";
         // Encrypt a string into a string using a password
 
         //    Uses Encrypt(byte[], byte[], byte[])
 
         public static string Encrypt(string clearText)
         {
-            string Password = "BikewAlEmUmBaI";
             // First we need to turn the input string into a byte array.
             byte[] clearBytes = System.Text.Encoding.Unicode.GetBytes(clearText);
 
             // Then, we need to turn the password into Key and IV
             // We are using salt to make it harder to guess our key using a dictionary attack -
             // trying to guess a password by enumerating all possible words.
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password,
+            PasswordDeriveBytes pdb = new PasswordDeriveBytes(_BWpwd,
 
                         new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
 
@@ -49,15 +49,14 @@ namespace Bikewale.Utility
 
         public static string Decrypt(string cipherText)
         {
-            string Password = "BikewAlEmUmBaI";
             // First we need to turn the input string into a byte array.
-            // We presume that Base64 encoding was used
+            // We presume that Base64 encoding was used,
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
 
             // Then, we need to turn the password into Key and IV
             // We are using salt to make it harder to guess our key using a dictionary attack -
             // trying to guess a password by enumerating all possible words.
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password,
+            PasswordDeriveBytes pdb = new PasswordDeriveBytes(_BWpwd,
 
                         new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
 
@@ -131,7 +130,7 @@ namespace Bikewale.Utility
             // Create a symmetric algorithm.
             // We are going to use Rijndael because it is strong and available on all platforms.
             // You can use other algorithms, to do so substitute the next line with something like
-            //                      TripleDES alg = TripleDES.Create();
+            // TripleDES alg = TripleDES.Create();
             Rijndael alg = Rijndael.Create();
 
             // Now set the key and the IV.
@@ -193,7 +192,6 @@ namespace Bikewale.Utility
                 }
                 sRand += sTmp.ToString(); //Append it to a string
 
-                //HttpContext.Current.Trace.Warn("nVal : " + nVal.ToString() + " : sRand : " + sRand);
             }
 
             //get the first 20 characters from the random string and use it as the password
@@ -253,9 +251,9 @@ namespace Bikewale.Utility
 
                 decodedData = System.Text.Encoding.Unicode.GetString(decryptedData);
             }
-            finally
+            catch (Exception)
             {
-
+                decodedData = "";
             }
 
             return decodedData;

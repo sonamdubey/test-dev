@@ -295,28 +295,6 @@ namespace Bikewale.BAL.BikeData
 
 
 
-        /// <summary>
-        /// Created By : Sangram Nandkhile on 01 Dec 2016
-        /// Summary: New overload method to cache Model page with versions and respective lists
-        /// </summary>
-        /// <param name="modelId"></param>
-        /// <returns></returns>
-        public BikeModelPageEntity GetModelPageDetailsNew(U modelId)
-        {
-            BikeModelPageEntity objModelPage = null;
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.BAL.BikeData.GetModelPageDetailsNew => ModelId: {0}"));
-            }
-
-            return objModelPage;
-        }
-
-
 
         /// <summary>
         /// Created by Subodh Jain 12 oct 2016

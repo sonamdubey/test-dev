@@ -492,20 +492,8 @@
       <DependentUpon>DefaultUR.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="content\UserReviews\ListReviews.aspx.cs">
-      <DependentUpon>ListReviews.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\UserReviews\RepeaterPagerReviews.ascx.cs">
-      <DependentUpon>RepeaterPagerReviews.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="content\UserReviews\ReviewDetails.aspx.cs">
       <DependentUpon>ReviewDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\UserReviews\WriteReviews.aspx.cs">
-      <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controllers\ComparisonTestsController.cs" />
@@ -581,10 +569,6 @@
       <DependentUpon>MostPopularBikesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\NewsMin.ascx.cs">
-      <DependentUpon>NewsMin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\OtherUsedBikeByCity.ascx.cs">
       <DependentUpon>OtherUsedBikeByCity.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -599,10 +583,6 @@
     </Compile>
     <Compile Include="controls\AddBikeToCompare.ascx.cs">
       <DependentUpon>AddBikeToCompare.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\AlternativeBikes.ascx.cs">
-      <DependentUpon>AlternativeBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ArticlePhotoGallery.ascx.cs">
@@ -705,10 +685,6 @@
       <DependentUpon>MostPopularBikes_new.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\NewAlternativeBikes.ascx.cs">
-      <DependentUpon>NewAlternativeBikes.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\NewBikeLaunches.ascx.cs">
       <DependentUpon>NewBikeLaunches.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -781,14 +757,6 @@
       <DependentUpon>RepeaterPager.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\RepeaterPagerAdvanced.ascx.cs">
-      <DependentUpon>RepeaterPagerAdvanced.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\RepeaterPagerUsed.ascx.cs">
-      <DependentUpon>RepeaterPagerUsed.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\RichTextEditor.ascx.cs">
       <DependentUpon>RichTextEditor.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -823,10 +791,6 @@
     </Compile>
     <Compile Include="controls\SimilarCompareBikes.ascx.cs">
       <DependentUpon>SimilarCompareBikes.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\SimilarBikesHorizontal.ascx.cs">
-      <DependentUpon>SimilarBikesHorizontal.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\SimilarUsedBikes.ascx.cs">
@@ -1111,10 +1075,6 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\content\userreviews\ListReviews.aspx.cs">
-      <DependentUpon>ListReviews.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\content\userreviews\ReviewDetails.aspx.cs">
       <DependentUpon>ReviewDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1125,10 +1085,6 @@
     </Compile>
     <Compile Include="m\controls\BrandCityPopUp.ascx.cs">
       <DependentUpon>BrandCityPopUp.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\controls\AlternativeBikes.ascx.cs">
-      <DependentUpon>AlternativeBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\BikeCare.ascx.cs">
@@ -1299,10 +1255,6 @@
       <DependentUpon>MUpcomingBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\controls\NewAlternativeBikes.ascx.cs">
-      <DependentUpon>NewAlternativeBikes.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\controls\NewExpertReviewsWidget.ascx.cs">
       <DependentUpon>NewExpertReviewsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1419,10 +1371,6 @@
       <DependentUpon>dealersinindia.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\new\ModelPricesInCity.aspx.cs">
-      <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\new\ModelSpecsFeatures.aspx.cs">
       <DependentUpon>ModelSpecsFeatures.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1497,10 +1445,6 @@
     </Compile>
     <Compile Include="m\pricequote\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\pricequote\DetailedDealerQuotation.aspx.cs">
-      <DependentUpon>DetailedDealerQuotation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\pricequote\PaymentConfirmation.aspx.cs">
@@ -1670,10 +1614,6 @@
     </Compile>
     <Compile Include="pricequote\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pricequote\DetailedDealerQuotation.aspx.cs">
-      <DependentUpon>DetailedDealerQuotation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pricequote\faq.aspx.cs">
@@ -2156,11 +2096,8 @@
     <Content Include="content\RoadTest\ViewRT.aspx" />
     <Content Include="content\TipsAdvices\ViewTA.aspx" />
     <Content Include="content\UserReviews\DefaultUR.aspx" />
-    <Content Include="content\UserReviews\ListReviews.aspx" />
-    <Content Include="content\UserReviews\RepeaterPagerReviews.ascx" />
     <Content Include="content\UserReviews\ReviewDetails.aspx" />
     <Content Include="content\UserReviews\ReviewMessage.aspx" />
-    <Content Include="content\UserReviews\WriteReviews.aspx" />
     <Content Include="controls\BestBikes.ascx" />
     <Content Include="controls\BrandCityPopUp.ascx" />
     <Content Include="controls\BikeCare.ascx" />
@@ -2172,12 +2109,10 @@
     <Content Include="controls\LeadCaptureControl.ascx" />
     <Content Include="controls\MinGenericBikeInfoControl.ascx" />
     <Content Include="controls\MostPopularBikesMin.ascx" />
-    <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\OtherUsedBikeByCity.ascx" />
     <Content Include="controls\PopularBikesByBodyStyle.ascx" />
     <Content Include="controls\PopularModelCompare.ascx" />
     <Content Include="controls\AddBikeToCompare.ascx" />
-    <Content Include="controls\AlternativeBikes.ascx" />
     <Content Include="controls\ArticlePhotoGallery.ascx" />
     <Content Include="controls\BikeBookingMinWidget.ascx" />
     <Content Include="controls\BikeBookingWidget.ascx" />
@@ -2208,7 +2143,6 @@
     <Content Include="controls\ModelGallery.ascx" />
     <Content Include="controls\ModelPriceInNearestCities.ascx" />
     <Content Include="controls\MostPopularBikes_new.ascx" />
-    <Content Include="controls\NewAlternativeBikes.ascx" />
     <Content Include="controls\NewBikeLaunches.ascx" />
     <Content Include="controls\NewBikesOnRoadPrice.ascx" />
     <Content Include="controls\NewExpertReviews.ascx" />
@@ -2227,8 +2161,6 @@
     <Content Include="controls\PriceInTopCities.ascx" />
     <Content Include="controls\RecentLaunchedBikesMin.ascx" />
     <Content Include="controls\RepeaterPager.ascx" />
-    <Content Include="controls\RepeaterPagerAdvanced.ascx" />
-    <Content Include="controls\RepeaterPagerUsed.ascx" />
     <Content Include="controls\RichTextEditor.ascx" />
     <Content Include="controls\servicecentercard.ascx" />
     <Content Include="controls\ServiceCentersByBrand.ascx" />
@@ -2238,7 +2170,6 @@
     <Content Include="controls\SimilarBikeVideos.ascx" />
     <Content Include="controls\SimilarBikeWithPhotos.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
-    <Content Include="controls\SimilarBikesHorizontal.ascx" />
     <Content Include="controls\SimilarUsedBikes.ascx" />
     <Content Include="controls\SimilarVideos.ascx" />
     <Content Include="controls\TipsAdvicesMin.ascx" />
@@ -2756,11 +2687,9 @@
     <Content Include="m\content\RoadTest\Default.aspx" />
     <Content Include="m\content\RoadTest\viewRT.aspx" />
     <Content Include="m\content\userreviews\Default.aspx" />
-    <Content Include="m\content\userreviews\ListReviews.aspx" />
     <Content Include="m\content\userreviews\ReviewDetails.aspx" />
     <Content Include="m\controls\BestBikes.ascx" />
     <Content Include="m\controls\BrandCityPopUp.ascx" />
-    <Content Include="m\controls\AlternativeBikes.ascx" />
     <Content Include="m\controls\BikeCare.ascx" />
     <Content Include="m\controls\BookBikeSlug.ascx" />
     <Content Include="m\controls\ChangeLocationPopup.ascx" />
@@ -2803,7 +2732,6 @@
     <Content Include="m\controls\MOnRoadPricequote.ascx" />
     <Content Include="m\controls\MPopupWidget.ascx" />
     <Content Include="m\controls\MUpcomingBikes.ascx" />
-    <Content Include="m\controls\NewAlternativeBikes.ascx" />
     <Content Include="m\controls\NewExpertReviewsWidget.ascx" />
     <Content Include="m\controls\NewMUpcomingBikes.ascx" />
     <Content Include="m\controls\NewNewsWidget.ascx" />
@@ -2906,7 +2834,6 @@
     <Content Include="m\service\ServiceCenterInCountry.aspx" />
     <Content Include="m\new\dealersincountry.aspx" />
     <Content Include="m\new\dealersinindia.aspx" />
-    <Content Include="m\new\ModelPricesInCity.aspx" />
     <Content Include="m\new\ModelSpecsFeatures.aspx" />
     <Content Include="m\service\ServiceCenterDetails.aspx" />
     <Content Include="m\new\newbikedealers\DealerDetails.aspx" />
@@ -2949,12 +2876,10 @@
     <Content Include="m\pricequote\BikeDealerDetails.aspx" />
     <Content Include="m\pricequote\BookingSummary_New.aspx" />
     <Content Include="m\pricequote\Default.aspx" />
-    <Content Include="m\pricequote\DetailedDealerQuotation.aspx" />
     <Content Include="m\pricequote\PaymentConfirmation.aspx" />
     <Content Include="m\pricequote\PaymentFailure.aspx" />
     <Content Include="m\pricequote\rsa.aspx" />
     <Content Include="m\pricequote\RSAOfferClaim.aspx" />
-    <Content Include="m\src\BikeBooking\BikeBooking.js" />
     <Content Include="m\src\bwm-booking.js" />
     <Content Include="m\src\bwm-bookingconfig.js" />
     <Content Include="m\src\bwm-bookingflow.js" />
@@ -3176,13 +3101,11 @@
     <Content Include="PQCertificate.aspx" />
     <Content Include="pricequote\CancellationPolicy.aspx" />
     <Content Include="pricequote\default.aspx" />
-    <Content Include="pricequote\DetailedDealerQuotation.aspx" />
     <Content Include="pricequote\faq.aspx" />
     <Content Include="pricequote\PaymentFailure.aspx" />
     <Content Include="pricequote\RSAOfferClaim.aspx" />
     <Content Include="privacyPolicy.aspx" />
     <Content Include="SiteMap.aspx" />
-    <Content Include="src\BikeBooking\BikeBooking.js" />
     <Content Include="src\BikeWaleCommon.js" />
     <Content Include="src\CalculateEMI.js" />
     <Content Include="src\calender.js" />
@@ -3796,7 +3719,6 @@
     <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\Model\_BestBikes.cshtml" />
-    <Content Include="Views\UserReview\RateBike_old.cshtml" />
     <Content Include="Views\UserReview\WriteReview_old.cshtml" />
     <Content Include="Views\UserReview\RateOtherDetails.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_ATF_970x90.cshtml" />

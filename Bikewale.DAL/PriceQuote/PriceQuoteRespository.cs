@@ -467,7 +467,7 @@ namespace Bikewale.DAL.PriceQuote
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getmodelpricefornearestcities";
+                    cmd.CommandText = "getmodelpricefornearestcities_15092017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));

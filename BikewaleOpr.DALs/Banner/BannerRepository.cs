@@ -33,9 +33,9 @@ namespace BikewaleOpr.DALs.Banner
 
                     var param = new DynamicParameters();
                     param.Add("par_id", bannerId);
-                   
+
                     var obj = connection.QueryMultiple("gethomepagebanner_20072017", param: param, commandType: CommandType.StoredProcedure);
-                    if (obj!=null)
+                    if (obj != null)
                     {
                         objBannerVM = new BannerVM();
                         objBannerVM.DesktopBannerDetails = obj.Read<BannerDetails>().FirstOrDefault();
@@ -47,10 +47,10 @@ namespace BikewaleOpr.DALs.Banner
                             objBannerVM.EndDate = objvm.EndDate;
                             objBannerVM.BannerDescription = objvm.BannerDescription;
                         }
-                      
-                       
+
+
                         if (bannerId > 0)
-                            objBannerVM.CampaignId = bannerId; 
+                            objBannerVM.CampaignId = bannerId;
                     }
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -58,7 +58,7 @@ namespace BikewaleOpr.DALs.Banner
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBannerDetails bannerId: {0}", bannerId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBannerDetails bannerId:{0}", bannerId));
             }
 
             return objBannerVM;
@@ -119,7 +119,7 @@ namespace BikewaleOpr.DALs.Banner
         /// Summary :- Save Descri,start date and end date of banner
         /// </summary>
 
-        public uint SaveBannerBasicDetails(BannerVM BannerVM)
+        public uint SaveBannerBasicDetails(BannerVM objBanner)
         {
             uint campaignid = 0;
             try
@@ -129,17 +129,17 @@ namespace BikewaleOpr.DALs.Banner
                     connection.Open();
 
                     var param = new DynamicParameters();
-                    param.Add("par_id", BannerVM.CampaignId);
-                    param.Add("par_startdate", BannerVM.StartDate);
-                    param.Add("par_enddate", BannerVM.EndDate);
-                    param.Add("par_bannerdescription", BannerVM.BannerDescription);
-                    param.Add("par_userid", BannerVM.UserId);
+                    param.Add("par_id", objBanner.CampaignId);
+                    param.Add("par_startdate", objBanner.StartDate);
+                    param.Add("par_enddate", objBanner.EndDate);
+                    param.Add("par_bannerdescription", objBanner.BannerDescription);
+                    param.Add("par_userid", objBanner.UserId);
                     campaignid = connection.Query<uint>("savebannerbasicdetails", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBannerDetails bannerId: {0}"));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBannerDetails campaignid: {0}", campaignid));
             }
             return campaignid;
 
@@ -148,14 +148,14 @@ namespace BikewaleOpr.DALs.Banner
         /// Created By :- Subodh Jain on 24 july 2017
         /// Summary :- =Save all the properties of banner desktop and mobile
         /// </summary>
-        public bool SaveBannerProperties(BannerDetails objBanner, uint platformId,uint campaignId)
+        public bool SaveBannerProperties(BannerDetails objBanner, uint platformId, uint campaignId)
         {
             int success = 0;
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();                    
+                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_horizontalposition", objBanner.HorizontalPosition);
                     param.Add("par_verticalposition", objBanner.VerticalPosition);
@@ -184,7 +184,7 @@ namespace BikewaleOpr.DALs.Banner
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBannerDetails bannerId: {0}"));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBannerDetails campaignId: {0}", campaignId));
             }
             return success > 0;
         }

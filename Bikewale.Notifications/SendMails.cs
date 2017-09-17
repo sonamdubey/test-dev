@@ -1,10 +1,6 @@
-﻿using System;
-using System.Configuration;
+﻿using Bikewale.Notifications.Configuration;
+using System;
 using System.Net.Mail;
-using System.Text;
-using System.Web;
-using System.Collections;
-using Bikewale.Notifications.Configuration;
 
 namespace Bikewale.Notifications
 {
@@ -14,8 +10,6 @@ namespace Bikewale.Notifications
     /// </summary>
     public class SendMails
     {
-        //used for writing the debug messages
-        private HttpContext objTrace = HttpContext.Current;
 
         // Class level variables
         SmtpClient client = null;
@@ -32,7 +26,7 @@ namespace Bikewale.Notifications
             ConfigureCommonMailSettings();
         }
 
-               
+
         /// <summary>
         /// Written By : Ashish G. Kamble on 22 May 2013
         /// Summary : Function to send the mail. To send mail create object of the mailing template first.
@@ -46,7 +40,7 @@ namespace Bikewale.Notifications
 
         }   // End of SendMail method
 
-        
+
         /// <summary>
         /// Written By : Ashish G. Kamble on 22 May 2013
         /// Summary : Function to send the mail. To send mail create object of the mailing template first.
@@ -88,7 +82,7 @@ namespace Bikewale.Notifications
             try
             {
                 // make sure we use the local SMTP server
-                client = new SmtpClient( MailConfiguration.SMTPSERVER);//"127.0.0.1";
+                client = new SmtpClient(MailConfiguration.SMTPSERVER);//"127.0.0.1";
 
                 //get the from mail address
                 localMail = MailConfiguration.LOCALMAIL;
@@ -100,9 +94,7 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                objTrace.Trace.Warn("Notifications.SendMails ConfigureCommonMailSettings : " + err.Message);
-                //ErrorClass objErr = new ErrorClass(err, "Notifications.SendMails ConfigureCommonMailSettings");
-                //objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(err, "Notifications.SendMails ConfigureCommonMailSettings()");
             }
         }   // End of ConfigureCommonMailSettings method
 
@@ -117,7 +109,7 @@ namespace Bikewale.Notifications
         /// <param name="replyTo">Email address to which reply will be send. Optional parameter.</param>
         /// <param name="cc">Gets the address collection that contains carbony copy (CC) recepients for this email message. Optional parameter.</param>
         /// <param name="bcc">Gets the address collection that contains blank carbony copy (BCC) recepients for this email message. Optional parameter.</param>
-        private void ConfigureMailSettings(string email, string subject, string body, string replyTo, string []cc, string []bcc)
+        private void ConfigureMailSettings(string email, string subject, string body, string replyTo, string[] cc, string[] bcc)
         {
 
             try
@@ -134,20 +126,15 @@ namespace Bikewale.Notifications
                 // Check if cc is there or not
                 if (cc != null && cc.Length > 0)
                 {
-                    MailAddress addCC = null;                    
+                    MailAddress addCC = null;
 
                     for (int iTmp = 0; iTmp < cc.Length; iTmp++)
                     {
-                        //HttpContext.Current.Trace.Warn("CC " + iTmp + " : ", cc[iTmp] + " cc length : " + cc.Length.ToString());
-
                         addCC = new MailAddress(cc[iTmp]);
-
                         msg.CC.Add(addCC);
-
-                        //HttpContext.Current.Trace.Warn("CC count : ", msg.CC.Count.ToString());
                     }
                 }
-                
+
                 // Check if BCC is there or not
                 if (bcc != null && bcc.Length > 0)
                 {
@@ -155,16 +142,11 @@ namespace Bikewale.Notifications
 
                     for (int iTmp = 0; iTmp < bcc.Length; iTmp++)
                     {
-                        // HttpContext.Current.Trace.Warn("BCC " + iTmp + " : ", bcc[iTmp]);
-
                         addBCC = new MailAddress(bcc[iTmp]);
-
                         msg.Bcc.Add(addBCC);
-
-                        //HttpContext.Current.Trace.Warn("BCC count : ", msg.Bcc.Count.ToString());
                     }
                 }
-                
+
                 // set some properties
                 msg.IsBodyHtml = true;
                 msg.Priority = MailPriority.High;
@@ -174,17 +156,14 @@ namespace Bikewale.Notifications
 
                 // mail body                         
                 msg.Body = body;
-                
+
                 // Send the e-mail
                 client.Send(msg);
 
-                //objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
             }
             catch (Exception err)
             {
-                //objTrace.Trace.Warn("Notifications.SendMails ConfigureMailSettings : " + err.Message);
-                //ErrorClass objErr = new ErrorClass(err, "Notifications.SendMails ConfigureMailSettings");
-                //objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(err, string.Format("Notifications.SendMails ConfigureMailSettings({0})", email));
             }
         }   // End of ConfigureMailSettings method
 
