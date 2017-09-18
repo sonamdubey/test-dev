@@ -138,6 +138,13 @@ input[type=radio] {
     background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/checked-circle-14x14.png") 15px 50% no-repeat;
 }
 
+.status-box .error-text,
+.marital-box .error-text,
+.gender-box .error-text {
+	position: absolute;
+	top: 60%;
+}
+
 .how-works-container__li:before {
     content: "";
     position: absolute;       
@@ -281,11 +288,12 @@ input[type=radio] {
    
 .otp-container {
     position: fixed;
-    top: 0px;
     width: 500px;
     min-height: 250px;
-    top: calc(50% - 250px);
-    left: calc(50% - 250px);
+    top: 15%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
     background-color: #fff;
     z-index: 10;
     padding: 0 40px;
