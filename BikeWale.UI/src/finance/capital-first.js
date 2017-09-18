@@ -227,16 +227,20 @@ function savePersonalDetails() {
         contentType: "application/json",
         data: ko.toJSON(personDetails),
         success: function (response) {
-
-            if (response!=null) {
-                $("#personal-detail-tab").addClass("hide");
-                $(employmentDeatilTab).removeClass("hide");
-                $("#cpId").val(response.CpId);
-                $("#ctLeadId").val(response.CTleadId);
-                $("#leadId").val(response.LeadId);
-                scrollTop($(employmentDeatilTab).offset());
+            if (response) {
+                switch (response.status) {
+                    case 1:
+                    case 2:
+                        $("#personal-detail-tab").addClass("hide");
+                        $(employmentDeatilTab).removeClass("hide");
+                        $("#cpId").val(response.CpId);
+                        $("#ctLeadId").val(response.CTleadId);
+                        $("#leadId").val(response.LeadId);
+                        scrollTop($(employmentDeatilTab).offset());
+                        break;
+                    default:
+                }
             }
-
         }
     });
 
@@ -293,17 +297,18 @@ function saveEmployeDetails() {
         contentType: "application/json",
         data: ko.toJSON(employeDetails),
         success: function (response) {
+            if (response) {
+                otpScreen.openOtp();
+                var objData = {
+                    "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                    "mobileNumber": $('#cfNum').val()
+                }
+                otpvm.setParameters(objData);
+                if (response.status != 13) {
+                    $('.otp-container__info').hide();
+                    $('#thankyouScreen').removeClass("hide");
 
-            otpScreen.openOtp();
-            var objData = {
-                "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
-                "mobileNumber": $('#cfNum').val()
-            }
-            otpvm.setParameters(objData);
-            if (response == "Registered Mobile Number") {
-                $('.otp-container__info').hide();
-                $('#thankyouScreen').removeClass("hide");
-
+                }
             }
         }
     });

@@ -38,9 +38,9 @@ namespace Bikewale.Service.Controllers
                 string Utma = Request.Headers.Contains("_bwutmz") ? Request.Headers.GetValues("_bwutmz").FirstOrDefault() : String.Empty;
                 objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
 
-                var value = _objICapitalFirst.SavePersonalDetails(objDetails, Utmz, Utma, (ushort)source);
-
-                return Ok(value);
+                var leadResponse = _objICapitalFirst.SavePersonalDetails(objDetails, Utmz, Utma, (ushort)source);
+                var dto = FinanceMapper.Convert(leadResponse);
+                return Ok(dto);
             }
             catch (Exception ex)
             {
@@ -66,9 +66,9 @@ namespace Bikewale.Service.Controllers
                 string Utmz = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
                 string Utma = Request.Headers.Contains("_bwutmz") ? Request.Headers.GetValues("_bwutmz").FirstOrDefault() : String.Empty;
 
-                string message = _objICapitalFirst.SaveEmployeDetails(objDetails, Utmz, Utma, (ushort)source);
-
-                return Ok(message);
+                var leadResponse = _objICapitalFirst.SaveEmployeDetails(objDetails, Utmz, Utma, (ushort)source);
+                var dto = FinanceMapper.Convert(leadResponse);
+                return Ok(dto);
             }
             catch (Exception ex)
             {
