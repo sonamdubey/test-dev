@@ -71,6 +71,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IUserReviewsSearch _userReviewsSearch = null;
 
         private uint _modelId, _cityId, _areaId;
+        private bool pageSchemaInWebpage;
 
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
@@ -176,6 +177,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : To load json schema for the list items
         /// Modified By  : Sushil Kumar on 14th Sep 2017
         /// Description : Added breadcrum and webpage schema along with product
+        /// Modified By  : Sushil Kumar on 17th Sep 2017
+        /// Description : Added logic to show product schema in webpage schema for some of the models
         /// </summary>
         private void SetPageJSONLDSchema()
         {
@@ -243,8 +246,19 @@ namespace Bikewale.Models.BikeModels
 
                     SetAdditionalProperties(product);
 
-                    _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
-                    _objData.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(product);
+
+                    pageSchemaInWebpage = BWConfiguration.Instance.PageSchemaModels.Split(',').Contains(_modelId.ToString());
+
+                    if (!pageSchemaInWebpage)
+                    {
+                        _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+                        _objData.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(product);
+                    }
+                    else
+                    {
+                        _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage, product);
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -276,7 +290,6 @@ namespace Bikewale.Models.BikeModels
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
             }
-
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, _objData.Page_H1));
 
 
