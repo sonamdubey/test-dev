@@ -56,7 +56,7 @@ docReady(function () {
                 inputField.closest('.input-box').addClass('not-empty');
             }
         }
-    };
+	};
 
     docBody = {
         lockScroll: function () {
@@ -96,7 +96,10 @@ docReady(function () {
     $('input:radio[name="marital"]').change(
     function () {
             validateRadioButtons("marital");
-    });
+	});
+	
+	// register modal popup events
+	modalPopup.registerDomEvents();
 
 	isDesktop = $(".capital-first-desktop");
 	
@@ -130,7 +133,7 @@ docReady(function () {
     });
 
     $("#personal-detail-submit").on('click', function () {
-        validatePersonalInfo();
+		validatePersonalInfo();
     });
 
     $("#employment-detail-submit").on('click', function () {
@@ -245,9 +248,6 @@ docReady(function () {
 });
 
 var self = this;
-
-
-
 
 function scrollTopError() {
     var elem = $($(".invalid")[0]).offset();
@@ -573,3 +573,75 @@ function hideBlackWindow() {
     $(blackWindowElem).hide();
 }
 
+var templates = {
+	modalPopupTemplate: function(obj) {
+		var template = '';
+
+		template += '<span class="modal__close bwsprite bwmsprite cross-default-15x16"></span>';
+		if (obj.message.length > 0) {
+			template += '<p class="modal__description">' + obj.message + '</p>';
+		}
+		if (obj.isYesButtonActive) {
+			template += '<a href="' + obj.yesButtonLink + '" class="btn btn-orange btn-124-36 modal__close">' + obj.yesButtonText + '</a>';
+		}
+
+		return template;
+	}
+};
+
+var modalPopup = {
+	registerDomEvents: function() {
+		$(document).on('click', '.modal-box .modal__close', function () {
+			modalPopup.closeActiveModalPopup();
+		});
+	},
+
+	showModal: function(htmlString, modalBox) {
+		modalBox = modalBox || $('#modalPopUp');
+		$('#modalBg').show();
+		modalBox.html(htmlString).show();
+		modalPopup.lockScroll();
+	},
+
+	hideModal: function(modalBox) {
+		modalBox = modalBox || $('#modalPopUp');
+		$('#modalBg').hide();
+		modalBox.html('').hide();
+		modalPopup.unlockScroll();
+	},
+
+	lockScroll: function() {
+		var html_el = $('html'),
+			body_el = $('body');
+
+		if ($(document).height() > $(window).height()) {
+			var scrollTop = (html_el.scrollTop()) ? html_el.scrollTop() : body_el.scrollTop();
+
+			if (scrollTop < 0) {
+				scrollTop = 0;
+			}
+
+			html_el.addClass('lock-browser-scroll').css('top', -scrollTop);
+		}
+	},
+
+	unlockScroll: function() {
+		var scrollTop = parseInt($('html').css('top'));
+
+		$('html').removeClass('lock-browser-scroll');
+		$('html, body').scrollTop(-scrollTop);
+	},
+
+	isVisible: function(modalBox) {
+		modalBox = modalBox || $('#modalPopUp');
+		return modalBox.is(':visible');
+	},
+
+	closeActiveModalPopup: function() {
+		if (modalPopup.isVisible()) {
+			modalPopup.hideModal();
+			return true;
+		}
+		return false;
+	}
+};

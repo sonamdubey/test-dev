@@ -423,3 +423,54 @@ input[type=radio] {
 .personal-details__form .dp_header {
 	width: 100% !important;
 }
+
+/* modal popup */
+#modalBg {
+	width: 100%;
+	height: 100%;
+	display: none;
+	background: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+
+.modal-box {
+	width: 400px;
+	min-height: 200px;
+	padding: 30px 20px;
+	text-align: center;
+	display: none;
+	position: fixed;
+	top: 30%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	background: #fff;
+	border-radius: 2px;
+	z-index: 11;
+}
+
+.modal__description {
+	margin-bottom: 15px;
+}
+
+.cross-default-15x16 {
+	width: 25px;
+	height: 25px;
+	background-position: -32px -222px;
+	cursor: pointer;
+}
+
+.modal-box .cross-default-15x16 {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.btn-124-36 {
+	width: 124px;
+	padding: 7px;
+	font-size: 14px;
+}
