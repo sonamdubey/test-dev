@@ -104,7 +104,7 @@
 				</div>
 			</div>
 
-            <div id="user-review-div" class="content-box-shadow card-bottom-margin content-inner-block-20" data-readMore="0">
+            <div id="user-review-div" class="content-box-shadow card-bottom-margin content-inner-block-20" data-readmore="0">
 				<h2 class="h2-heading inline-block margin-right10">@Model.BikeName User Reviews</h2>
 				<div class="model-overall-rating inline-block">
 					<span class="rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
@@ -275,7 +275,7 @@
 
 					<div class="clear"></div>
 
-                    @if (Model.OtherBestBikes.BestBikes != null && Model.OtherBestBikes.BestBikes.Any())
+                    @if (Model.OtherBestBikes != null && Model.OtherBestBikes.BestBikes != null && Model.OtherBestBikes.BestBikes.Any())
 					{
 						<section>
 							<div class="container">

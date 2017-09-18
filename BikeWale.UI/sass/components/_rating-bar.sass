@@ -1,0 +1,48 @@
+﻿.rating-bar
+	position: relative
+	display: inline-block
+	margin: 0 auto
+	height: 10px
+	background: lightgrey
+	width: 32%
+	-moz-border-radius: 2px
+	-webkit-border-radius: 2px
+	border-radius: 2px
+
+.rate-1, 
+.rate-2, 
+.rate-3, 
+.rate-4 
+	position: absolute
+	left: 0
+	height: 100%
+	content: ""
+	display: block
+	-moz-border-radius: 2px 0 0 2px
+	-webkit-border-radius: 2px 0 0 2px
+	border-radius: 2px 0 0 2px
+
+@import rating-color
+
+.rate-1
+	width: 20%
+	@include backgroundColorCode('1')
+
+.rate-2
+	width : 40%
+	@include backgroundColorCode('2')
+
+.rate-3
+	width: 60%
+	@include backgroundColorCode('3')
+
+.rate-4
+	width: 80%
+	@include backgroundColorCode('4')
+
+.rate-5
+	width: 100%
+	@include backgroundColorCode('5')
+	-moz-border-radius: 2px
+    -webkit-border-radius: 2px
+    border-radius: 2px

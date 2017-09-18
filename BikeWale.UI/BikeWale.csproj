@@ -3705,6 +3705,10 @@
     <Content Include="Views\Make\_BrandsModelCount_Mobile.cshtml" />
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel.cshtml" />
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel_Mobile.cshtml" />
+    <Content Include="sass\components\_rating-count.sass" />
+    <Content Include="sass\components\_rating-bar.sass" />
+    <Content Include="sass\components\_rating-badge.sass" />
+    <Content Include="sass\components\_rating-color.sass" />
     <Content Include="Views\ExpertReviews\Scooters_Mobile.cshtml" />
     <Content Include="Views\Make\_MakeModelPopup.cshtml" />
     <Content Include="Views\News\Scooters.cshtml" />
