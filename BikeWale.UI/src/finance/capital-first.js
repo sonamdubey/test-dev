@@ -169,7 +169,7 @@ docReady(function () {
 });
 
 function scrollTopError() {
-    var elem = $(".invalid").offset();
+    var elem = $($(".invalid")[0]).offset();
     scrollTop(elem);
 }
 
@@ -189,18 +189,21 @@ function validatePersonalInfo() {
     isValid &= validateDOB($("#cfDOB"));
 
     if (isValid) {
-
-
         savePersonalDetails();
-        if (isDesktop) {
+        if (isDesktop.length) {
             $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
             $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
-            $(".employment__title ").removeClass("inactive");
+            $(".employment__title").removeClass("inactive");
             $(".employment-details-container").addClass("visible");
-            scrollTop($(employmentDeatilTab).offset());
-        }
+			scrollTop($(employmentDeatilTab).offset());
+
+		}
+		else {
+			$('#form-tabs-content').find('.page-tabs__li.active').removeClass('active');
+			$('#form-tabs-content').find('.page-tabs__li[data-id=employment-detail-tab]').addClass('active');
+		}
     } else {
-        scrollTopError();
+		scrollTopError();
     }
 }
 
@@ -259,9 +262,10 @@ function validateEmploymentInfo() {
 
     if (isValid) {
         saveEmployeDetails();
-
-
-    }
+	}
+	else {
+		scrollTopError();
+	}
 }
 
 function saveEmployeDetails() {
