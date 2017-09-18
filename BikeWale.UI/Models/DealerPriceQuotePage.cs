@@ -551,7 +551,8 @@ namespace Bikewale.Models
                             PQId = objData.PQId,
                             VersionId = objData.VersionId,
                             CurrentPageUrl = CurrentPageUrl,
-                            PlatformId = (ushort)Platform
+                            PlatformId = (ushort)Platform,
+                            BikeName = objData.BikeName
                         };
                         objData.IsManufacturerLeadAdShown = true;
                     }

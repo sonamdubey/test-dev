@@ -21,6 +21,7 @@ namespace Bikewale.Entities.manufacturecampaign
         public string PageUrl { get; set; }
         public string CurrentPageUrl { get; set; }
         public ushort PlatformId { get; set; }
+        public string BikeName { get; set; }
         public bool IsAmp { get; set; }
 
 

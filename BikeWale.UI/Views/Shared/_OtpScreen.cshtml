@@ -83,7 +83,7 @@
         self.resendOtp = function () {
             var objInput = {
 
-                "customerName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                "customerName": $('#cffname').val() + " " + $('#cfLName').val(),
                 "customerMobile": otpvm.mobileNumber,
                 "customerEmail": $('#cfEmail').val()
             };
@@ -191,9 +191,12 @@
                     if (response == true) {
                         $('.otp-container__info').hide();
                         $('#thankyouScreen').removeClass("hide");
+                        if (bikeName != null) {
+                            triggerGA('Loan_Application', 'OTP_Success', bikeName + '_' + $('#cfNum').val());
+                        }
                     }
                     else {
-                        validate.setError($('#otpNumber'), "Wrong Otp");
+                        validate.setError($('#otpNumber'), "Incorrect OTP, try again");
                     }
                 }
             });

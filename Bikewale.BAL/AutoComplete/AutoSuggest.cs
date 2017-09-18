@@ -129,6 +129,9 @@ namespace Bikewale.BAL.AutoComplete
                 case AutoSuggestEnum.AreaPinCodes:
                     indexName = Utility.BWConfiguration.Instance.PinCodesIndexName;
                     break;
+                case AutoSuggestEnum.PinCodeCapitalFirst:
+                    indexName = Utility.BWConfiguration.Instance.CapitalFirstPinCode;
+                    break;
                 default:
                     indexName = Utility.BWConfiguration.Instance.MMindexName;
                     break;
@@ -155,6 +158,9 @@ namespace Bikewale.BAL.AutoComplete
                     indexName.Add("AllCity");
                     break;
                 case AutoSuggestEnum.AreaPinCodes:
+                    indexName.Add("AreaPinCodes");
+                    break;
+                case AutoSuggestEnum.PinCodeCapitalFirst:
                     indexName.Add("AreaPinCodes");
                     break;
                 default:

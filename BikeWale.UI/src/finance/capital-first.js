@@ -10,9 +10,11 @@ var validate,
     otpNewNum,
     otpContainerContent,
     otpContainerContentHeight,
-    employmentDeatilTab;
-
+    employmentDeatilTab,
+        bikeName;
+var objPinCodes = new Object();
 docReady(function () {
+
 
     otpPhoneInput = $(".otp-container__phone-number");
     otpNewNum = $("#otpNewNumber");
@@ -22,7 +24,7 @@ docReady(function () {
     blackWindowElem = $(".otp-black-window"),
     otpContainerContent = $(".otp-container__content"),
     employmentDeatilTab = $("#employment-detail-tab");
-
+    bikeName = $('#hdnBikeName').val();
     validate = {
         setError: function (element, message) {
             var elementLength = element.val().length,
@@ -166,7 +168,86 @@ docReady(function () {
             scrollTop: otpContainerContentHeight + 30
         });
     });
+
+    $("#cfCompPincode,#cfPincode").on('focus', function () {
+        $.fn.hint = bwHint;
+        $.fn.bw_autocomplete = bwAutoComplete;
+        $("#cfCompPincode,#cfPincode").bw_autocomplete({
+            source: 6,
+            recordCount: 3,
+            minLength: 2,
+            onClear: function () {
+                objPinCodes = new Object();
+            },
+            click: function (event, ui, orgTxt) {                
+                if (ui && ui.item) {
+                    $('#cfCompPincode,#cfPincode').closest('.input-box').addClass('not-empty');
+                    $('#cfCompPincode,#cfPincode').val(ui.item.payload.pinCode);
+                }
+                else {
+                    $('#cfCompPincode,#cfPincode').val();
+                }
+
+            },
+            open: function (result) {
+                objPinCodes.result = result;
+            },
+            focusout: function () {
+                if ($('#cfCompPincode,#cfPincode').find('li.ui-state-focus a:visible').text() != "") {
+                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                    focusedMakeModel = new Object();
+                    focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                }
+                else {
+                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                }
+            },
+            afterfetch: function (result, searchtext) {
+                if (result != undefined && result.length > 0 && searchtext.trim() != "") {
+                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                }
+                else {
+                    focusedMakeModel = null;
+                    if (searchtext.trim() != "") {
+                        $('#errPinCodeSearch,#errPinCodeSearch_office').show();
+                       
+                    }
+                }
+            },
+            keyup: function () {
+                if ($('#cfCompPincode,#cfPincode').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+                    focusedMakeModel = new Object();
+                    focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                } else {
+                    if ($('#cfCompPincode,#cfPincode').val().trim() == '') {
+                        $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                    }
+                }
+
+                if ($('#cfCompPincode,#cfPincode').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                    if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                        if ($('#cfCompPincode,#cfPincode').val().trim() != '') {
+                            $('#errPinCodeSearch,#errPinCodeSearch_office').show();
+                            $('#cfCompPincode,#cfPincode').val();
+                        }
+                    }
+                    else {
+                        $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                    }
+
+                }
+            }
+        }).autocomplete({ appendTo: $("#cfCompPincode,#cfPincode").closest(".input-box") }).autocomplete("widget").addClass("pincode-autocomplete");
+    });
+
+
 });
+
+var self = this;
+
+
+
 
 function scrollTopError() {
     var elem = $($(".invalid")[0]).offset();
@@ -207,6 +288,8 @@ function validatePersonalInfo() {
     }
 }
 
+
+
 function savePersonalDetails() {
     var personDetails = {
         "objLeadJson": $("#objLead").val(),
@@ -231,17 +314,21 @@ function savePersonalDetails() {
         data: ko.toJSON(personDetails),
         success: function (response) {
             if (response) {
-                switch (response.status) {
-                    case 1:
-                    case 2:
-                        $("#personal-detail-tab").addClass("hide");
-                        $(employmentDeatilTab).removeClass("hide");
-                        $("#cpId").val(response.CpId);
-                        $("#ctLeadId").val(response.CTleadId);
-                        $("#leadId").val(response.LeadId);
-                        scrollTop($(employmentDeatilTab).offset());
-                        break;
-                    default:
+                if (response != null) {
+                    triggerGA('Loan_Application', 'Step_1_Filled', bikeName + '_' + $('#cfNum').val());
+                    switch (response.status) {
+
+                        case 1:
+                        case 2:
+                            $("#personal-detail-tab").addClass("hide");
+                            $(employmentDeatilTab).removeClass("hide");
+                            $("#cpId").val(response.CpId);
+                            $("#ctLeadId").val(response.CTleadId);
+                            $("#leadId").val(response.LeadId);
+                            scrollTop($(employmentDeatilTab).offset());
+                            break;
+                        default:
+                    }
                 }
             }
         }
@@ -301,6 +388,7 @@ function saveEmployeDetails() {
         contentType: "application/json",
         data: ko.toJSON(employeDetails),
         success: function (response) {
+            triggerGA('Loan_Application', 'Step_2_Filled', bikeName + '_' + $('#cfNum').val());
             if (response) {
                 otpScreen.openOtp();
                 var objData = {

@@ -1284,7 +1284,8 @@ namespace Bikewale.Models.BikeModels
                             PQId = _objData.PQId,
                             VersionId = _objData.VersionId,
                             CurrentPageUrl = CurrentPageUrl,
-                            PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1)
+                            PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
+                            BikeName = _objData.BikeName
                         };
 
                         _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
