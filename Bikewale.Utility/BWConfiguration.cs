@@ -101,22 +101,23 @@ namespace Bikewale.Utility
             _DebugMobileSite = string.Empty,
             _CoverFoxLink = string.Empty,
             _UserReviewIndexName = string.Empty,
-            _BestBikesMakes = string.Empty;
+            _OtherBikesInMakeId = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
-        private string _AWSS3Region = String.Empty;
-        private uint _GrpcMaxTimeLimit = 100;
-        private uint _GrpcPoolSize = 1;
-        private bool _EnablePWALogging = false;
-        private string _StaticUrlPWA;
-        private string _StaticAppFileVersion;
-        private string _StaticVendorFileVersion;
-        private string _ServiceWorkerPath;
-        private string _StaticCSSBTFPWAVersion;
-        private bool _DisablePWA;
-        private string _AMPDomainForSW;
-        private bool _logNewsUrl;
+        private readonly string _AWSS3Region = String.Empty;
+        private readonly uint _GrpcMaxTimeLimit = 100;
+        private readonly uint _GrpcPoolSize = 1;
+        private readonly bool _EnablePWALogging = false;
+        private readonly string _StaticUrlPWA;
+        private readonly string _StaticAppFileVersion;
+        private readonly string _StaticVendorFileVersion;
+        private readonly string _ServiceWorkerPath;
+        private readonly string _StaticCSSBTFPWAVersion;
+        private readonly bool _DisablePWA;
+        private readonly string _AMPDomainForSW;
+        private readonly bool _logNewsUrl;
+        private readonly string _PageSchemaModels;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -214,7 +215,8 @@ namespace Bikewale.Utility
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
             _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];
             _logNewsUrl = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogNewsUrl"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["LogNewsUrl"]);
-            _BestBikesMakes = ConfigurationManager.AppSettings["BestBikesMakes"];
+            _OtherBikesInMakeId = ConfigurationManager.AppSettings["OtherBikesInMakeId"];
+            _PageSchemaModels = ConfigurationManager.AppSettings["PageSchemaModels"];
         }
 
         // Static method to provide access to instance
@@ -366,6 +368,7 @@ namespace Bikewale.Utility
 
         public bool LogNewsUrl { get { return _logNewsUrl; } }
 
-        public string BestBikesMakes { get { return _BestBikesMakes; } }
+        public string OtherBikesInMakeId { get { return _OtherBikesInMakeId; } }
+        public string PageSchemaModels { get { return _PageSchemaModels; } }
     }   // class
 }   // namespace

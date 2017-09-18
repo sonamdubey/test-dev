@@ -284,8 +284,8 @@ namespace Bikewale.Models
 
                 }
 
-
-                objDealerDetails.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage,objSchema);
+                objDealerDetails.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+                objDealerDetails.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(objSchema);
             }
         }
 

@@ -35,7 +35,7 @@ namespace Bikewale.Models.BikeModels
 
         public bool IsMakePresentInConfig(uint makeId)
         {
-            return BWConfiguration.Instance.BestBikesMakes.Split(',').Contains(_makeId.ToString());
+            return BWConfiguration.Instance.OtherBikesInMakeId.Split(',').Contains(_makeId.ToString());
         }
 
         public OtherBestBikesVM GetData()
@@ -52,7 +52,7 @@ namespace Bikewale.Models.BikeModels
                 {
                     bestBikes = _objBestBikes.GetBestBikesByCategory(_bodyStyleType, _cityId);
 
-                    if (bestBikes != null && bestBikes.Count() > 0)
+                    if (bestBikes != null && bestBikes.Any())
                         otherBestBikes.BestBikes = bestBikes.Reverse().Take(3);
 
                     var pageMaskingName = GenericBikesCategoriesMapping.BodyStyleByType(_bodyStyleType);
