@@ -12,7 +12,7 @@ namespace BikewaleOpr.Entity.BikeData
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
         public string UpdatedBy { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsInActive { get; set; }
         public BikeMakeEntityBase BikeMake { get; set; }
         public bool IsSeriesPageUrl { get; set; }
     }
