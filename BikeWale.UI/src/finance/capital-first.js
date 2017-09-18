@@ -302,7 +302,7 @@ function savePersonalDetails() {
         "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
         "addressLine1": $("#cfAddress1").val(),
         "addressLine2": $('#cfAddress2').val(),
-        "pincode": $("#cfPincode").val(),
+        "pincode": $("#cfPincode").val().substring(0, 6),
         "pancard": $("#cfPan").val()
 
     }
@@ -328,6 +328,13 @@ function savePersonalDetails() {
                             scrollTop($(employmentDeatilTab).offset());
                             break;
                         default:
+                            var obj = {
+                                message: response.message,
+                                isYesButtonActive: true,
+                                yesButtonText: "Okay",
+                                yesButtonLink:"javascript:void(0)"
+                            };
+                            modalPopup.showModal(templates.modalPopupTemplate(obj));
                     }
                 }
             }
@@ -362,7 +369,7 @@ function saveEmployeDetails() {
         "companyName": $('#cfCompName').val(),
         "OfficialAddressLine1": $('#cfCompAddress1').val(),
         "OfficialAddressLine2": $('#cfCompAddress2').val(),
-        "pincodeOffice": $('#cfCompPincode').val(),
+        "pincodeOffice": $('#cfCompPincode').val().substring(0, 6),
         "annualIncome": $('#cfCompIncome').val(),
         "mobileNumber": $('#cfNum').val(),
         "emailId": $('#cfEmail').val(),
@@ -374,7 +381,7 @@ function saveEmployeDetails() {
         "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
         "addressLine1": $("#cfAddress1").val(),
         "addressLine2": $('#cfAddress2').val(),
-        "pincode": $("#cfPincode").val(),
+        "pincode": $("#cfPincode").val().substring(0, 6),
         "pancard": $("#cfPan").val(),
         "id": $("#cpId").val(),
         "ctLeadId": $("#ctLeadId").val(),
