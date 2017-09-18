@@ -479,16 +479,24 @@ function validateAddress(inputAddress) {
 }
 
 function validatePinCode(inputPincode) {
-    var isValid = true,
-        pc = inputPincode.val().trim();
-    if (pc.length == 0) {
-        validate.setError(inputPincode, 'Please enter Pincode');
+    var  isValid = true,
+               pinCodeValue = inputPincode.val().trim(),
+               rePinCode = /^[1-9][0-9]{5}$/;
+
+    if (pinCodeValue.indexOf(',') > 0)
+        pinCodeValue = pinCodeValue.substring(0, 6);
+
+    if (pinCodeValue == "") {
+        validate.setError(inputPincode, 'Please enter pincode');
         isValid = false;
     }
-    else if (!(/^[1-9][0-9]{5}$/.test(pc))) {
-        validate.setError(inputPincode, 'Please enter valid Pincode');
+    else if (!rePinCode.test(pinCodeValue)) {
+        validate.setError(inputPincode, 'Invalid pincode');
         isValid = false;
     }
+
+    if (isValid) isValid &= self.checkPinCode(pinCodeValue);
+
     return isValid;
 }
 
