@@ -1,15 +1,13 @@
 ﻿using Bikewale.DTO.Finance;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.Finance.CapitalFirst;
 using Bikewale.Interfaces.Finance;
-using System.Linq;
+using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Finance;
 using System;
+using System.Linq;
 using System.Web.Http;
-using Bikewale.Entities.Dealer;
-using Bikewale.Interfaces.MobileVerification;
-using System.Collections.Specialized;
-using RabbitMqPublishing;
 
 namespace Bikewale.Service.Controllers
 {
@@ -32,7 +30,7 @@ namespace Bikewale.Service.Controllers
         /// Summary :- Banner SaveBannerBasicDetails
         /// </summary>
         [HttpPost, Route("api/finance/savepersonaldetails/")]
-        public IHttpActionResult SavePersonalDetails([FromBody] PersonalDetails objDetails)
+        public IHttpActionResult SavePersonalDetails([FromBody] PersonalDetails objDetails, DTO.PriceQuote.PQSources source)
         {
             try
             {
@@ -40,7 +38,7 @@ namespace Bikewale.Service.Controllers
                 string Utma = Request.Headers.Contains("_bwutmz") ? Request.Headers.GetValues("_bwutmz").FirstOrDefault() : String.Empty;
                 objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
 
-                var value = _objICapitalFirst.SavePersonalDetails(objDetails, Utmz, Utma);
+                var value = _objICapitalFirst.SavePersonalDetails(objDetails, Utmz, Utma, (ushort)source);
 
                 return Ok(value);
             }
@@ -60,7 +58,7 @@ namespace Bikewale.Service.Controllers
         /// Summary :- Banner SaveBannerBasicDetails
         /// </summary>
         [HttpPost, Route("api/finance/saveemployedetails/")]
-        public IHttpActionResult SaveEmployeDetails([FromBody] PersonalDetails objDetails)
+        public IHttpActionResult SaveEmployeDetails([FromBody] PersonalDetails objDetails, DTO.PriceQuote.PQSources source)
         {
             try
             {
@@ -68,7 +66,7 @@ namespace Bikewale.Service.Controllers
                 string Utmz = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
                 string Utma = Request.Headers.Contains("_bwutmz") ? Request.Headers.GetValues("_bwutmz").FirstOrDefault() : String.Empty;
 
-                string message = _objICapitalFirst.SaveEmployeDetails(objDetails,Utmz,Utma);
+                string message = _objICapitalFirst.SaveEmployeDetails(objDetails, Utmz, Utma, (ushort)source);
 
                 return Ok(message);
             }
@@ -119,7 +117,7 @@ namespace Bikewale.Service.Controllers
         /// Summary :- Banner SaveBannerBasicDetails
         /// </summary>
         [HttpPost, Route("api/finance/verifymobile/otp/{otp}/")]
-        public IHttpActionResult VerifyMobile(string otp, [FromBody] PersonalDetails objDetails)
+        public IHttpActionResult VerifyMobile(string otp, [FromBody] PersonalDetails objDetails, DTO.PriceQuote.PQSources source)
         {
             try
             {
@@ -128,7 +126,7 @@ namespace Bikewale.Service.Controllers
                 if (mobileVerified)
                 {
                     objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
-                    _objICapitalFirst.PushLeadinCTandAutoBiz(objDetails);
+                    _objICapitalFirst.PushLeadinCTandAutoBiz(objDetails, (ushort)source);
 
 
                 }

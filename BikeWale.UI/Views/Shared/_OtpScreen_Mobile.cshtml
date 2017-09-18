@@ -135,7 +135,7 @@
                 };
                 $.ajax({
                     type: "POST",
-                    url: "/api/finance/saveemployedetails/",
+                    url: "/api/finance/saveemployedetails/?source=2",
                     contentType: "application/json",
                     data: ko.toJSON(employeDetails),
                     success: function (response) {
@@ -181,7 +181,7 @@
             }
             $.ajax({
                 type: "POST",
-                url: "/api/finance/verifymobile/otp/" + otp + "/",
+                url: "/api/finance/verifymobile/otp/" + otp + "/?source=2",
                 contentType: "application/json",
                 dataType: 'json',
                 data: ko.toJSON(employeDetails),

@@ -107,7 +107,7 @@ namespace Bikewale.BAL.Finance
             return message;
         }
 
-        public string SaveEmployeDetails(PersonalDetails objDetails, string Utmz, string Utma)
+        public string SaveEmployeDetails(PersonalDetails objDetails, string Utmz, string Utma, ushort leadSource)
         {
 
             string message = "";
@@ -125,7 +125,7 @@ namespace Bikewale.BAL.Finance
                     message = "Registered Mobile Number";
 
 
-                    PushLeadinCTandAutoBiz(objDetails);
+                    PushLeadinCTandAutoBiz(objDetails, leadSource);
                 }
                 else
                 {
@@ -145,7 +145,7 @@ namespace Bikewale.BAL.Finance
             return message;
 
         }
-        public Iddetails SavePersonalDetails(PersonalDetails objDetails, string Utmz, string Utma)
+        public Iddetails SavePersonalDetails(PersonalDetails objDetails, string Utmz, string Utma, ushort leadSource)
         {
             Iddetails objId = null;
 
@@ -154,7 +154,7 @@ namespace Bikewale.BAL.Finance
                 objDetails.LeadId = SubmitLead(objDetails, Utmz, Utma);
 
                 #region Do not change the sequence
-                var ctResponse = SendCustomerDetailsToCarTrade(objDetails);
+                var ctResponse = SendCustomerDetailsToCarTrade(objDetails, leadSource);
 
                 objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
 
@@ -181,7 +181,7 @@ namespace Bikewale.BAL.Finance
 
         }
 
-        private CTFormResponse SendCustomerDetailsToCarTrade(PersonalDetails objDetails)
+        private CTFormResponse SendCustomerDetailsToCarTrade(PersonalDetails objDetails, ushort leadSource)
         {
             CTFormResponse ctResp = null;
             try
@@ -205,7 +205,7 @@ namespace Bikewale.BAL.Finance
                         formData.Add(new KeyValuePair<string, string>("emp_pincode", objDetails.PincodeOffice));
                         formData.Add(new KeyValuePair<string, string>("emp_type", objDetails.Status == 1 ? "Salaried" : "Self-Employed"));
                         formData.Add(new KeyValuePair<string, string>("fname", objDetails.FirstName));
-                        formData.Add(new KeyValuePair<string, string>("from_source", "1")); // 1 - Desktop, 2 - Mobile
+                        formData.Add(new KeyValuePair<string, string>("from_source", leadSource.ToString())); // 1 - Desktop, 2 - Mobile
                         formData.Add(new KeyValuePair<string, string>("gender", objDetails.Gender == 1 ? "Male" : "Female"));
                         formData.Add(new KeyValuePair<string, string>("gross_income", objDetails.AnnualIncome.ToString()));
                         formData.Add(new KeyValuePair<string, string>("lead_id", objDetails.CTLeadId.ToString()));
@@ -313,7 +313,7 @@ namespace Bikewale.BAL.Finance
             return id;
         }
 
-        public void PushLeadinCTandAutoBiz(PersonalDetails objDetails)
+        public void PushLeadinCTandAutoBiz(PersonalDetails objDetails, ushort leadSource)
         {
             try
             {
@@ -339,7 +339,7 @@ namespace Bikewale.BAL.Finance
                 }
 
                 #region Do not change sequence
-                var ctResponse = SendCustomerDetailsToCarTrade(objDetails);
+                var ctResponse = SendCustomerDetailsToCarTrade(objDetails, leadSource);
 
                 objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
                 if (ctResponse != null)

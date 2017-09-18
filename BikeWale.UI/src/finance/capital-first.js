@@ -223,7 +223,7 @@ function savePersonalDetails() {
 
     $.ajax({
         type: "POST",
-        url: "/api/finance/savepersonaldetails/",
+        url: "/api/finance/savepersonaldetails/?source=" + $("#hdnPlatform").val(),
         contentType: "application/json",
         data: ko.toJSON(personDetails),
         success: function (response) {
@@ -289,7 +289,7 @@ function saveEmployeDetails() {
 
     $.ajax({
         type: "POST",
-        url: "/api/finance/saveemployedetails/",
+        url: "/api/finance/saveemployedetails/?source=" + $("#hdnPlatform").val(),
         contentType: "application/json",
         data: ko.toJSON(employeDetails),
         success: function (response) {

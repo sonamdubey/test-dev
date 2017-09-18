@@ -233,7 +233,7 @@
 <input type="hidden" id="ctLeadId" value="" />
 <input type="hidden" id="cpId" value="" />
 <input type="hidden" id="pageUrl" value="@Model.PageUrl" />
-
+<input type="hidden" id="hdnPlatform" value="@((ushort)Model.PlatformId)" />
 @Html.Partial("~/Views/Shared/_otpScreen.cshtml")
 <div class="otp-black-window"></div>
 <script defer src="/src/zebra-datepicker.js"></script>

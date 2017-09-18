@@ -68,7 +68,7 @@ namespace Bikewale.Controllers
             viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
             viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
             viewModel.PageUrl = queryCollection["url"];
-            viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Mobile;
+            viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Desktop;
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
                 viewModel.ObjLead.CityId = location.CityId;
