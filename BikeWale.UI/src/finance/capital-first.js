@@ -328,6 +328,13 @@ function savePersonalDetails() {
                             scrollTop($(employmentDeatilTab).offset());
                             break;
                         default:
+                            var obj = {
+                                message: response.message,
+                                isYesButtonActive: true,
+                                yesButtonText: "Okay",
+                                yesButtonLink:"javascript:void(0)"
+                            };
+                            modalPopup.showModal(templates.modalPopupTemplate(obj));
                     }
                 }
             }
