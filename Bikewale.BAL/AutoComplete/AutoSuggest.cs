@@ -77,7 +77,7 @@ namespace Bikewale.BAL.AutoComplete
 
                     ISearchResponse<T> _result = client.Search<T>(selectorWithContext);
 
-                    if (_result.Suggest[completion_field][0].Options.Count <= 0)
+                    if (_result.Suggest[completion_field][0].Options.Count <= 0 && source!=AutoSuggestEnum.PinCodeCapitalFirst)
                     {
                         selectorWithContext = new Func<SearchDescriptor<T>, SearchDescriptor<T>>
                             (sd => sd.Index(indexName)

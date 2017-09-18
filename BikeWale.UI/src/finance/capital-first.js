@@ -478,6 +478,30 @@ function validateAddress(inputAddress) {
     return isValid;
 }
 
+
+function checkPinCode(pinCode, inputPincode) {
+    isValid = false;
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/api/autosuggest/?source=6&inputText=" + pinCode + "&noofrecords=5",
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+            if (data && data.suggestionList.length > 0) {
+                $(inputPincode).val(data.suggestionList[0].text);
+                isValid = true;
+            }
+            else {
+                validate.setError($(inputPincode), 'We do not serve in this area');
+                isValid = false;
+            }
+        }
+    });
+    return isValid;
+};
+
+
 function validatePinCode(inputPincode) {
     var  isValid = true,
                pinCodeValue = inputPincode.val().trim(),
@@ -495,7 +519,7 @@ function validatePinCode(inputPincode) {
         isValid = false;
     }
 
-    if (isValid) isValid &= self.checkPinCode(pinCodeValue);
+    if (isValid) isValid &= checkPinCode(pinCodeValue, inputPincode);
 
     return isValid;
 }
