@@ -1,5 +1,5 @@
 ﻿var floatingCard, floatingCardHeight, comparisonFooter, overallSpecsTabs, floatingButton, $window, windowScrollTop,
-    onRoadPriceButtons, closedBikeCount, compareSource, vmBikeSelection, bikePopup;
+    onRoadPriceButtons, closedBikeCount, compareSource, vmBikeSelection, bikePopup, panel;
 
 
 var setButton = {
@@ -17,8 +17,10 @@ function setButtonText() {
     }
 };
 
-        floatingTabs = panel.find('.overall-specs-tabs-wrapper');    
-/* toggle common features */
+
+
+/* toggle features common */
+
 var bodyElement = document.getElementsByTagName("body")[0],
     toggleFeaturesBtn = document.getElementById("toggle-features-btn"),
     hideCommonFeatures = true,

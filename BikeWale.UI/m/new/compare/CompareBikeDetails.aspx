@@ -264,7 +264,7 @@
                                     <td></td>
                                 </tr>
                                 <tr class="row-type-data">
-                                    <% foreach (var compSpec in vmCompare.UserReviewData.OverallRatingObject)
+                                    <% foreach (var compSpec in vmCompare.UserReviewData.OverallRating)
                                         { %>
                                     <td>
                                         <% if (!compSpec.ReviewRate.Equals("--"))
