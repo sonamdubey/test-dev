@@ -269,7 +269,7 @@ namespace Bikewale.DAL.Compare
 
                     if (!string.IsNullOrEmpty(versions) && versions.Contains(','))
                     {
-                        GetCompareDataFromReader(compare, ref basicInfos, ref specs, ref features, ref color, ref hexCodes, ref userReviews, ref userReviewQuestionList, ref versionsList, cmd);
+                        compare = GetCompareDataFromReader(ref basicInfos, ref specs, ref features, ref color, ref hexCodes, ref userReviews, ref userReviewQuestionList, ref versionsList, cmd);
                     }
 
                 }
@@ -294,13 +294,13 @@ namespace Bikewale.DAL.Compare
         /// <param name="userReviewQuestionList"></param>
         /// <param name="versionsList"></param>
         /// <param name="cmd"></param>
-        private static void GetCompareDataFromReader(Entities.Compare.BikeCompareEntity compare, ref IList<BikeEntityBase> basicInfos, ref IList<BikeSpecification> specs, ref IList<BikeFeature> features, ref IList<BikeColor> color, ref IList<Entities.Compare.BikeModelColor> hexCodes, ref IList<BikeReview> userReviews, ref IList<QuestionRatingsValueEntity> userReviewQuestionList, ref IList<BikeVersionCompareEntity> versionsList, DbCommand cmd)
+        private static BikeCompareEntity GetCompareDataFromReader(ref IList<BikeEntityBase> basicInfos, ref IList<BikeSpecification> specs, ref IList<BikeFeature> features, ref IList<BikeColor> color, ref IList<Entities.Compare.BikeModelColor> hexCodes, ref IList<BikeReview> userReviews, ref IList<QuestionRatingsValueEntity> userReviewQuestionList, ref IList<BikeVersionCompareEntity> versionsList, DbCommand cmd)
         {
+            BikeCompareEntity compare = new Entities.Compare.BikeCompareEntity();
             using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
             {
                 if (reader != null)
-                {
-                    compare = new Entities.Compare.BikeCompareEntity();
+                {                    
                     versionsList = new List<BikeVersionCompareEntity>();
                     while (reader.Read())
                     {
@@ -531,7 +531,7 @@ namespace Bikewale.DAL.Compare
                 compare.BasicInfo = basicInfos;
                 compare.Specifications = specs;
                 compare.Features = features;
-                compare.Color = color;
+                compare.Color = color;               
 
             }
 
@@ -560,6 +560,8 @@ namespace Bikewale.DAL.Compare
                     }
                 }
             }
+
+            return compare;
         }
 
         /// <summary>
