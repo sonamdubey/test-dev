@@ -164,7 +164,7 @@
             var selectedSeriesId = self.deleteSeriesId().children[0].innerText; //seriesId
             $.ajax({
                 type: "POST",
-                url: "/api/make/series/"+selectedSeriesId+"/delete/",
+                url: "/api/make/series/" + selectedSeriesId + "/delete/?deletedBy=" + $('#userId').val(),
                 success: function (response) {
                     if (response != null) {
                         self.deleteSeriesId().remove();

@@ -169,7 +169,7 @@ namespace BikewaleOpr.DALs.Bikedata
         /// </summary>
         /// <param name="bikeSeriesId"></param>
         /// <returns></returns>
-        public bool DeleteSeries(uint bikeSeriesId)
+        public bool DeleteSeries(uint bikeSeriesId, uint deletedBy)
         {
             int rowsAffected = 0;
             try
@@ -178,6 +178,7 @@ namespace BikewaleOpr.DALs.Bikedata
                 {
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_seriesid", bikeSeriesId);
+                    param.Add("par_updatedby", deletedBy);
                     param.Add("par_rowsAffected", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
                     connection.Open();

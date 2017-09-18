@@ -93,14 +93,14 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="SeriesMaskingName"></param>
         /// <returns></returns>
         [HttpPost, Route("api/make/series/{seriesId}/delete/")]
-        public IHttpActionResult Delete(uint seriesId)
+        public IHttpActionResult Delete(uint seriesId, uint deletedBy)
         {
             bool isDeleted = false;
             try
             {
                 if (seriesId > 0)
                 {
-                    isDeleted = _series.DeleteSeries(seriesId);
+                    isDeleted = _series.DeleteSeries(seriesId, deletedBy);
 
                     if (isDeleted)
                     {

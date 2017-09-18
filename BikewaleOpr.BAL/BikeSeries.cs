@@ -129,14 +129,14 @@ namespace BikewaleOpr.BAL
         /// </summary>
         /// <param name="bikeSeriesId"></param>
         /// <returns></returns>
-        public bool DeleteSeries(uint bikeSeriesId)
+        public bool DeleteSeries(uint bikeSeriesId, uint deletedBy)
         {
             bool IsDeleted = false;
             try
             {
                 if (bikeSeriesId > 0)
                 {
-                    IsDeleted = _seriesRepo.DeleteSeries(bikeSeriesId);
+                    IsDeleted = _seriesRepo.DeleteSeries(bikeSeriesId, deletedBy);
                 }
             }
             catch (Exception ex)
