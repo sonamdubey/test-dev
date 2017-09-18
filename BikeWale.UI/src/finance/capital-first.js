@@ -178,16 +178,13 @@ docReady(function () {
             onClear: function () {
                 objPinCodes = new Object();
             },
-            click: function (event, ui, orgTxt) {
-                if (self.selectedBike() && self.selectedBike().make && self.selectedBike().model) {
-                    var keywrd = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_pinCode_' + $('#cfCompPincode,#cfPincode').val();
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Capital_First', 'act': 'PinCode_Selected', 'lab': keywrd });
-                }
+            click: function (event, ui, orgTxt) {                
                 if (ui && ui.item) {
-                    self.pincode(ui.item.payload.pinCode);
+                    $('#cfCompPincode,#cfPincode').closest('.input-box').addClass('not-empty');
+                    $('#cfCompPincode,#cfPincode').val(ui.item.payload.pinCode);
                 }
                 else {
-                    self.pincode(0);
+                    $('#cfCompPincode,#cfPincode').val();
                 }
 
             },
@@ -231,7 +228,7 @@ docReady(function () {
                     if (focusedMakeModel == null || focusedMakeModel == undefined) {
                         if ($('#cfCompPincode,#cfPincode').val().trim() != '') {
                             $('#errPinCodeSearch,#errPinCodeSearch_office').show();
-                            self.pincode(0);
+                            $('#cfCompPincode,#cfPincode').val();
                         }
                     }
                     else {
