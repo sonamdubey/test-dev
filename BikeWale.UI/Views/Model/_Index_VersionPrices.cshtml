@@ -32,9 +32,9 @@
     @if (Model.IsPriceInTopCitiesAvailable)
     {
         <div id="nearby-prices-grid" class="grid-6 omega padding-left20">
-            @if (Model.City != null && Model.City.CityName.Length > 0)
+            @if (Model.LocationCookie != null)
             {
-                <h3 class="margin-bottom20">On-road prices in cities near @Model.City.CityName</h3>
+                <h3 class="margin-bottom20">On-road prices in cities near @Model.LocationCookie.City</h3>
             }
             else
             {
