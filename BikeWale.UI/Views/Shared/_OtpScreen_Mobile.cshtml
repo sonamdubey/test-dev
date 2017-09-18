@@ -115,7 +115,7 @@
                     "companyName": $('#cfCompName').val(),
                     "OfficialAddressLine1": $('#cfCompAddress1').val(),
                     "OfficialAddressLine2": $('#cfCompAddress2').val(),
-                    "pincode": $('#cfCompPincode').val(),
+                    "pincodeOffice": $('#cfCompPincode').val(),
                     "annualIncome": $('#cfCompIncome').val(),
                     "mobileNumber": mobileNumber,
                     "emailId": $('#cfEmail').val(),
@@ -170,14 +170,28 @@
         self.Done = function () {
             var otp = $('#otpNumber').val();
             var employeDetails = {
-
+                "status": $('#cfStatusS').is(':checked') ? 1 : 2,
+                "companyName": $('#cfCompName').val(),
+                "OfficialAddressLine1": $('#cfCompAddress1').val(),
+                "OfficialAddressLine2": $('#cfCompAddress2').val(),
+                "pincodeOffice": $('#cfCompPincode').val(),
+                "annualIncome": $('#cfCompIncome').val(),
                 "mobileNumber": otpvm.mobileNumber,
                 "emailId": $('#cfEmail').val(),
                 "objLeadJson": $("#objLead").val(),
                 "firstName": $('#cfFName').val(),
                 "lastName": $('#cfLName').val(),
+                "dateOfBirth": $('#cfDOB').val(),
+                "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
+                "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
+                "addressLine1": $("#cfAddress1").val(),
+                "addressLine2": $('#cfAddress2').val(),
                 "pincode": $("#cfPincode").val(),
-                "objLeadJson": $("#objLead").val(),
+                "pancard": $("#cfPan").val(),
+                "id": $("#cpId").val(),
+                "ctLeadId": $("#ctLeadId").val(),
+                "leadId": $("#leadId").val()
+
             };
             $.ajax({
                 type: "POST",
