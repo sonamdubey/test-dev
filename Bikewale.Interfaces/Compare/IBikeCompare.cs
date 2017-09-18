@@ -1,6 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
-using Bikewale.Entities.Compare.V2;
+//using Bikewale.Entities.Compare.V2;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Compare
