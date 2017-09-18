@@ -44,8 +44,18 @@ h1,
   display: inline-block;
   vertical-align: middle; }
 
+.trophy-fff-14 {
+  width: 14px;
+  height: 16px;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/trophy-14x16.png) no-repeat;
+  display: inline-block;
+  vertical-align: middle; }
+
 .main-container {
   border: 1px solid #e2e2e2; }
+
+.content-box-head .star-one {
+  background-color: #fff; }
 
 #bike-rating-box {
   width: 100%;
@@ -60,7 +70,7 @@ h1,
     cursor: pointer; }
   .answer-star-list > input:checked + label,
   .answer-star-list > input:checked ~ label {
-    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/ffd24d/star-24x23.png) no-repeat 50% #ccc; }
+    background-color: #fed130; }
 
 .rating-placeholder .answer-star-list {
   width: 250px;
@@ -69,7 +79,7 @@ h1,
   .rating-placeholder .answer-star-list > input + label {
     width: 36px;
     height: 36px;
-    background-color: #ccc;
+    background-color: #eee;
     border-radius: 4px;
     margin-right: 14px; }
   .rating-placeholder .answer-star-list > input:first-child + label {
@@ -77,7 +87,7 @@ h1,
 
 .hover-effect > input + label:hover,
 .hover-effect > input + label:hover ~ label {
-  background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/ffd24d/star-24x23.png) no-repeat 50% #ccc; }
+  background-color: #fed130; }
 
 .circle-placeholder {
   width: 61px;
@@ -402,7 +412,7 @@ h1,
     top: 20px; }
   .review-progress li.active {
     border: 1px solid #41b4c4;
-    box-shadow: 0px 2px 5px #a2a2a2;
+    box-shadow: 0px 2px 5px #ccc;
     background-color: #fff;
     cursor: pointer;
     pointer-events: none; }

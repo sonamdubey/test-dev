@@ -25,8 +25,8 @@
                                 <div class="grid-2">
                                     <ul class="review-progress">
                                         <li class="active review-progress__rate-bike"><p class="review-progress__text">Rate this Bike</p></li>
-                                        <li class="completed review-progress__write-review"><p class="review-progress__text">Write Review</p></li>
-                                        <li class="incomplete review-progress__other-details"><p class="review-progress__text">Other details</p></li>
+                                        <li class="review-progress__write-review"><p class="review-progress__text">Write Review</p></li>
+                                        <li class="review-progress__other-details"><p class="review-progress__text">Other details</p></li>
                                     </ul>
                                 </div>
                                 <div class="grid-10 alpha">
@@ -40,7 +40,7 @@
                                                 <input type="radio" name="rate-box" data-bind="attr: {id: 'rate-' + ($root.overallRating().length - $index()), value: ($root.overallRating().length - $index())}" />
                                                 <label class="star-zero" data-bind="hoverRating: $root.clickEventRatingCount, attr: {for: 'rate-' + ($root.overallRating().length - $index()), 'data-value': ($root.overallRating().length - $index())}"></label>
                                             </div>
-                                            <h3 class="font20 font-bold margin-top5 leftfloat" data-bind="text: feedbackTitle">Rate your bike</h3>
+                                            <h3 class="font20 font-bold margin-top5 leftfloat" data-bind="text: feedbackTitle"></h3>
                                             <div class="clear"></div>
 
                                         </div>

@@ -85,7 +85,7 @@ docReady(function () {
         var self = this;
 
         self.ratingCount = ko.observable(0);
-        self.feedbackTitle = ko.observable('Rate your bike');
+        self.feedbackTitle = ko.observable('');
         self.feedbackSubtitle = ko.observable('');
 
         self.validateRatingCountFlag = ko.observable(false);
@@ -409,7 +409,7 @@ docReady(function () {
         resetFeedback: function () {
             if (!vmRateBike.clickEventRatingCount()) {
                 vmRateBike.ratingCount(0);
-                vmRateBike.feedbackTitle('Rate your bike');
+                vmRateBike.feedbackTitle('');
             }
             else {
                 vmRateBike.ratingCount(vmRateBike.clickEventRatingCount());
