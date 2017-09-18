@@ -15,6 +15,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Summary :- BikeInfo Slug details 
     /// Modified by : Sajal Gupta on 14-02-2017
     /// Description : Added PriceInCity
+    /// Modified By :   Vishnu Teja Yalakuntla on 18 Sep 2017
+    /// Summary     :   Added BodyStyleId property
     /// </summary>
     [Serializable]
     public class GenericBikeInfo //: BasicBikeEntityBase
@@ -49,6 +51,7 @@ namespace Bikewale.Entities.GenericBikes
         public float Rating { get; set; }
         public UInt16 RatingCount { get; set; }
         public UInt16 UserReviewCount { get; set; }
+        public Int16 BodyStyleId { get; set; }
     }
     /// Created  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details GetBikeInfo

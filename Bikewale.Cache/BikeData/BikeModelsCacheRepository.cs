@@ -1145,7 +1145,7 @@ namespace Bikewale.Cache.BikeData
         /// <returns></returns>
         public GenericBikeInfo GetBikeInfo(uint modelId)
         {
-            string key = string.Format("BW_GenericBikeInfo_MO_{0}", modelId);
+            string key = string.Format("BW_GenericBikeInfo_MO_{0}_V1", modelId);
             GenericBikeInfo objSearchList = null;
             try
             {

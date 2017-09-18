@@ -368,8 +368,8 @@ namespace Bikewale.Models
                 {
                     List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
-                    if (objVersionsList != null && objVersionsList.Count > 0)
-                        bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+                    GenericBikeInfo bikeInfo = _models.GetBikeInfo(ModelId);
+                    bodyStyle = (EnumBikeBodyStyles)bikeInfo.BodyStyleId;
 
                     if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !isPWA)
                     {
