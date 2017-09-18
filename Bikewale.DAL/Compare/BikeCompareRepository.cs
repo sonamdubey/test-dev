@@ -492,7 +492,7 @@ namespace Bikewale.DAL.Compare
                                 ModelId = SqlReaderConvertor.ToUInt32(reader["ModelId"]),
                                 RatingCount = SqlReaderConvertor.ToUInt32(reader["ratingscount"]),
                                 ReviewRate = SqlReaderConvertor.ToFloat(reader["reviewrate"]),
-                                Mileage = SqlReaderConvertor.ToUInt32(reader["mileage"]),
+                                Mileage = SqlReaderConvertor.ToUInt32(reader["modelmileage"]),
                                 ReviewCount = SqlReaderConvertor.ToUInt32(reader["reviewcount"]),
                                 UserReviews = new Entities.UserReviews.V2.UserReviewSummary()
                                 {

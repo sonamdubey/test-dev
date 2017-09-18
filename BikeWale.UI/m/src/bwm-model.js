@@ -368,9 +368,7 @@ docReady(function () {
         resizeWidth: function (newWidth) {
             $('.dropdown-select-wrapper').find('.dropdown-list-wrapper').css('width', newWidth / 2);
         }
-    };
-
-    applyLikeDislikes();
+    };   
 
     reg = new RegExp('^[0-9]*$');
 
@@ -745,6 +743,8 @@ docReady(function () {
             reportAbusePopup.bgContainer.hide();
         }
     };
+
+    applyLikeDislikes();
 });
 
 function upVoteListReview(e) {
