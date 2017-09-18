@@ -913,7 +913,7 @@ namespace Bikewale.BAL.Compare
                             }
                             objReviewList.Add(objReview);
                         }
-                        compareEntity.UserReviewData.OverallRatingObject = objReviewList;
+                        compareEntity.UserReviewData.OverallRating = objReviewList;
 
                         //Mileage
                         CompareSubCategory mileage = new CompareSubCategory();
@@ -1074,7 +1074,7 @@ namespace Bikewale.BAL.Compare
                             objHelpfulList.Add(objReview);
                         }
 
-                        compareEntity.UserReviewData.MostHelpfulReviewList = objHelpfulList;
+                        compareEntity.UserReviewData.MostHelpfulReviews = objHelpfulList;
 
                     }
                     #endregion

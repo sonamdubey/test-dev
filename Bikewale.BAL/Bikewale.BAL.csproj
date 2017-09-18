@@ -204,7 +204,6 @@
     </Compile>
     <Compile Include="CMS\CMSShareUrl.cs" />
     <Compile Include="Compare\BikeComparison.cs" />
-    <Compile Include="Compare\MostHelpfulReviewList.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerAuthentication.cs" />
     <Compile Include="Customer\RegisterCustomer.cs" />

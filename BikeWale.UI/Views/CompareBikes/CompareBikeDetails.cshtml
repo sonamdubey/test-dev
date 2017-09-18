@@ -315,7 +315,7 @@
 
                         <ul>
                             <li>
-                                @if (Model.Compare.UserReviewData.OverallRatingObject != null)
+                                @if (Model.Compare.UserReviewData.OverallRating != null)
                                 {
                                     <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
                                         <tbody>
@@ -332,7 +332,7 @@
                                             <tr class="row-type-data">
                                                 <td class="text-default">Overall rating</td>
 
-                                                @foreach (var compSpec in Model.Compare.UserReviewData.OverallRatingObject)
+                                                @foreach (var compSpec in Model.Compare.UserReviewData.OverallRating)
                                                 {
                                                     <td>
                                                         @if (!compSpec.ReviewRate.Equals("--"))
@@ -434,7 +434,7 @@
                                                     }
 
 
-                            @if (Model.Compare.UserReviewData.MostHelpfulReviewList != null)
+                            @if (Model.Compare.UserReviewData.MostHelpfulReviews != null)
                             {
                                 <li>
                                     <div class="model-accordion-tab">
@@ -451,7 +451,7 @@
                                             </tr>
                                             <tr class="row-type-data">
                                                 <td>Most helpful</td>
-                                                @foreach (var review in Model.Compare.UserReviewData.MostHelpfulReviewList)
+                                                @foreach (var review in Model.Compare.UserReviewData.MostHelpfulReviews)
                                                 {
                                                     <td>
                                                         @if (review.RatingValue > 0)
