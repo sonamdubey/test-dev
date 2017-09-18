@@ -478,17 +478,49 @@ function validateAddress(inputAddress) {
     return isValid;
 }
 
+
+function checkPinCode(pinCode, inputPincode) {
+    isValid = false;
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/api/autosuggest/?source=6&inputText=" + pinCode + "&noofrecords=5",
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+            if (data && data.suggestionList.length > 0) {
+                $(inputPincode).val(data.suggestionList[0].text);
+                isValid = true;
+            }
+            else {
+                validate.setError($(inputPincode), 'We do not serve in this area');
+                isValid = false;
+            }
+        }
+    });
+    return isValid;
+};
+
+
 function validatePinCode(inputPincode) {
-    var isValid = true,
-        pc = inputPincode.val().trim();
-    if (pc.length == 0) {
-        validate.setError(inputPincode, 'Please enter Pincode');
+    var  isValid = true,
+               pinCodeValue = inputPincode.val().trim(),
+               rePinCode = /^[1-9][0-9]{5}$/;
+
+    if (pinCodeValue.indexOf(',') > 0)
+        pinCodeValue = pinCodeValue.substring(0, 6);
+
+    if (pinCodeValue == "") {
+        validate.setError(inputPincode, 'Please enter pincode');
         isValid = false;
     }
-    else if (!(/^[1-9][0-9]{5}$/.test(pc))) {
-        validate.setError(inputPincode, 'Please enter valid Pincode');
+    else if (!rePinCode.test(pinCodeValue)) {
+        validate.setError(inputPincode, 'Invalid pincode');
         isValid = false;
     }
+
+    if (isValid) isValid &= checkPinCode(pinCodeValue, inputPincode);
+
     return isValid;
 }
 
