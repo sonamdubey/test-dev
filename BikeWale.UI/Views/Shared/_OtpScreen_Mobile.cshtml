@@ -115,7 +115,7 @@
                     "companyName": $('#cfCompName').val(),
                     "OfficialAddressLine1": $('#cfCompAddress1').val(),
                     "OfficialAddressLine2": $('#cfCompAddress2').val(),
-                    "pincodeOffice": $('#cfCompPincode').val(),
+                    "pincode": $('#cfCompPincode').val().substring(0, 6),
                     "annualIncome": $('#cfCompIncome').val(),
                     "mobileNumber": mobileNumber,
                     "emailId": $('#cfEmail').val(),
@@ -127,7 +127,7 @@
                     "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
                     "addressLine1": $("#cfAddress1").val(),
                     "addressLine2": $('#cfAddress2').val(),
-                    "pincode": $("#cfPincode").val(),
+                    "pincode": $("#cfPincode").val().substring(0, 6),
                     "pancard": $("#cfPan").val(),
                     "objLeadJson": $("#objLead").val()
 
@@ -174,7 +174,7 @@
                 "companyName": $('#cfCompName').val(),
                 "OfficialAddressLine1": $('#cfCompAddress1').val(),
                 "OfficialAddressLine2": $('#cfCompAddress2').val(),
-                "pincodeOffice": $('#cfCompPincode').val(),
+                "pincodeOffice": $('#cfCompPincode').val().substring(0,6),
                 "annualIncome": $('#cfCompIncome').val(),
                 "mobileNumber": otpvm.mobileNumber,
                 "emailId": $('#cfEmail').val(),
@@ -186,8 +186,8 @@
                 "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
                 "addressLine1": $("#cfAddress1").val(),
                 "addressLine2": $('#cfAddress2').val(),
-                "pincode": $("#cfPincode").val(),
                 "pancard": $("#cfPan").val(),
+                "pincode": $("#cfPincode").val().substring(0, 6),
                 "id": $("#cpId").val(),
                 "ctLeadId": $("#ctLeadId").val(),
                 "leadId": $("#leadId").val()

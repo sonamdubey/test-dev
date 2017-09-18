@@ -66,7 +66,7 @@
         var self = this;
         self.userName = ko.observable();
         self.mobileNumber = ko.observable();
-        self.message = ko.observable();
+
         // set parameter for otp popup
         self.setParameters = function (objData) {
             if (objData != null) {
@@ -83,7 +83,7 @@
         self.resendOtp = function () {
             var objInput = {
 
-                "customerName": $('#cffname').val() + " " + $('#cfLName').val(),
+                "customerName": $('#cfFName').val() + " " + $('#cfLName').val(),
                 "customerMobile": otpvm.mobileNumber,
                 "customerEmail": $('#cfEmail').val()
             };
@@ -117,11 +117,11 @@
                     "companyName": $('#cfCompName').val(),
                     "OfficialAddressLine1": $('#cfCompAddress1').val(),
                     "OfficialAddressLine2": $('#cfCompAddress2').val(),
-                    "pincodeOffice": $('#cfCompPincode').val(),
+                    "pincode": $('#cfCompPincode').val().substring(0, 6),
                     "annualIncome": $('#cfCompIncome').val(),
                     "mobileNumber": mobileNumber,
                     "emailId": $('#cfEmail').val(),
-                    
+                    "objLeadJson": $("#objLead").val(),
                     "firstName": $('#cfFName').val(),
                     "lastName": $('#cfLName').val(),
                     "dateOfBirth": $('#cfDOB').val(),
@@ -129,7 +129,7 @@
                     "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
                     "addressLine1": $("#cfAddress1").val(),
                     "addressLine2": $('#cfAddress2').val(),
-                    "pincode": $("#cfPincode").val(),
+                    "pincode": $("#cfPincode").val().substring(0, 6),
                     "pancard": $("#cfPan").val(),
                     "objLeadJson": $("#objLead").val()
 
@@ -137,7 +137,7 @@
                 };
                 $.ajax({
                     type: "POST",
-                    url: "/api/finance/saveemployedetails/?source=1",
+                    url: "/api/finance/saveemployedetails/?source=2",
                     contentType: "application/json",
                     data: ko.toJSON(employeDetails),
                     success: function (response) {
@@ -150,7 +150,7 @@
                             otpvm.setParameters(objData);
                             $('#otpNumber').val("");
                         }
-                        else {
+                        else{
                             otpScreen.openOtp();
                             $('.otp-container__info').hide();
                             $('#thankyouScreen').removeClass("hide");
@@ -172,18 +172,32 @@
         self.Done = function () {
             var otp = $('#otpNumber').val();
             var employeDetails = {
-
+                "status": $('#cfStatusS').is(':checked') ? 1 : 2,
+                "companyName": $('#cfCompName').val(),
+                "OfficialAddressLine1": $('#cfCompAddress1').val(),
+                "OfficialAddressLine2": $('#cfCompAddress2').val(),
+                "pincodeOffice": $('#cfCompPincode').val().substring(0,6),
+                "annualIncome": $('#cfCompIncome').val(),
                 "mobileNumber": otpvm.mobileNumber,
                 "emailId": $('#cfEmail').val(),
                 "objLeadJson": $("#objLead").val(),
                 "firstName": $('#cfFName').val(),
                 "lastName": $('#cfLName').val(),
-                "pincode": $("#cfPincode").val(),
-                "objLeadJson": $("#objLead").val(),
+                "dateOfBirth": $('#cfDOB').val(),
+                "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
+                "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
+                "addressLine1": $("#cfAddress1").val(),
+                "addressLine2": $('#cfAddress2').val(),
+                "pancard": $("#cfPan").val(),
+                "pincode": $("#cfPincode").val().substring(0, 6),
+                "id": $("#cpId").val(),
+                "ctLeadId": $("#ctLeadId").val(),
+                "leadId": $("#leadId").val()
+
             };
             $.ajax({
                 type: "POST",
-                url: "/api/finance/verifymobile/otp/" + otp + "/?source=1",
+                url: "/api/finance/verifymobile/otp/" + otp + "/?source=2",
                 contentType: "application/json",
                 dataType: 'json',
                 data: ko.toJSON(employeDetails),
@@ -196,7 +210,7 @@
                         }
                     }
                     else {
-                        validate.setError($('#otpNumber'), "Incorrect OTP, try again");
+                        validate.setError($('#otpNumber'), "Wrong Otp");
                     }
                 }
             });

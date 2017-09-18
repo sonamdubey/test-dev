@@ -302,7 +302,7 @@ function savePersonalDetails() {
         "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
         "addressLine1": $("#cfAddress1").val(),
         "addressLine2": $('#cfAddress2').val(),
-        "pincode": $("#cfPincode").val(),
+        "pincode": $("#cfPincode").val().substring(0, 6),
         "pancard": $("#cfPan").val()
 
     }
@@ -369,7 +369,7 @@ function saveEmployeDetails() {
         "companyName": $('#cfCompName').val(),
         "OfficialAddressLine1": $('#cfCompAddress1').val(),
         "OfficialAddressLine2": $('#cfCompAddress2').val(),
-        "pincodeOffice": $('#cfCompPincode').val(),
+        "pincodeOffice": $('#cfCompPincode').val().substring(0, 6),
         "annualIncome": $('#cfCompIncome').val(),
         "mobileNumber": $('#cfNum').val(),
         "emailId": $('#cfEmail').val(),
@@ -381,7 +381,7 @@ function saveEmployeDetails() {
         "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
         "addressLine1": $("#cfAddress1").val(),
         "addressLine2": $('#cfAddress2').val(),
-        "pincode": $("#cfPincode").val(),
+        "pincode": $("#cfPincode").val().substring(0, 6),
         "pancard": $("#cfPan").val(),
         "id": $("#cpId").val(),
         "ctLeadId": $("#ctLeadId").val(),
@@ -526,7 +526,7 @@ function validatePinCode(inputPincode) {
         isValid = false;
     }
 
-    if (isValid) isValid &= checkPinCode(pinCodeValue, inputPincode);
+    if (isValid && inputPincode == '#cfPincode') isValid &= checkPinCode(pinCodeValue, inputPincode);
 
     return isValid;
 }
