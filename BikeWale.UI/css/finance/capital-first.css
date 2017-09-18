@@ -438,8 +438,8 @@ input[type=radio] {
 
 .modal-box {
 	width: 400px;
-	min-height: 200px;
-	padding: 30px 20px;
+	min-height: 150px;
+	padding: 40px 20px;
 	text-align: center;
 	display: none;
 	position: fixed;
@@ -453,7 +453,7 @@ input[type=radio] {
 }
 
 .modal__description {
-	margin-bottom: 15px;
+	margin-bottom: 25px;
 }
 
 .cross-default-15x16 {

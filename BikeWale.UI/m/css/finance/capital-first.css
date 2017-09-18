@@ -311,7 +311,7 @@ input:focus ~ .input-number-prefix{
 .modal-box {
 	width: 320px;
 	min-height: 150px;
-	padding: 30px 20px;
+	padding: 40px 20px;
 	text-align: center;
 	display: none;
 	position: fixed;
@@ -325,7 +325,7 @@ input:focus ~ .input-number-prefix{
 }
 
 .modal__description {
-	margin-bottom: 15px;
+	margin-bottom: 25px;
 }
 
 .cross-default-15x16 {
