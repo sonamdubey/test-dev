@@ -98,7 +98,8 @@ namespace Bikewale.Utility
             _PinCodesIndexName = string.Empty,
             _DebugMobileSite = string.Empty,
             _CoverFoxLink = string.Empty,
-            _UserReviewIndexName = string.Empty;
+            _UserReviewIndexName = string.Empty,
+        _CapitalFirstPincodeIndex=string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -212,6 +213,7 @@ namespace Bikewale.Utility
             _DisablePWA = string.IsNullOrEmpty(ConfigurationManager.AppSettings["DisablePWA"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["DisablePWA"]);
             _StaticCSSBTFPWAVersion = ConfigurationManager.AppSettings["StaticCSSBTFPWAVersion"];
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
+            _CapitalFirstPincodeIndex = ConfigurationManager.AppSettings["CapitalFirstPincodeIndex"];
             _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];
             _logNewsUrl = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogNewsUrl"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["LogNewsUrl"]);
             _capitalFirstConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["CapitalFirstConsumerQueue"]);
@@ -376,5 +378,7 @@ namespace Bikewale.Utility
         public string CarTradeLeadUrl { get { return _CarTradeLeadUrl; } }
         public string CarTradeLeadApiAction { get { return _CarTradeLeadApiAction; } }
         public string CarTradeLeadApiCode { get { return _CarTradeLeadApiCode; } }
+
+        public string CapitalFirstPinCode { get { return _CapitalFirstPincodeIndex; } }
     }   // class
 }   // namespace

@@ -11,8 +11,9 @@ var validate,
     otpContainerContent,
     otpContainerContentHeight,
     employmentDeatilTab;
-
+var objPinCodes = new Object();
 docReady(function () {
+
 
     otpPhoneInput = $(".otp-container__phone-number");
     otpNewNum = $("#otpNewNumber");
@@ -166,7 +167,89 @@ docReady(function () {
             scrollTop: otpContainerContentHeight + 30
         });
     });
+
+    $("#cfCompPincode,#cfPincode").on('focus', function () {
+        $.fn.hint = bwHint;
+        $.fn.bw_autocomplete = bwAutoComplete;
+        $("#cfCompPincode,#cfPincode").bw_autocomplete({
+            source: 6,
+            recordCount: 3,
+            minLength: 2,
+            onClear: function () {
+                objPinCodes = new Object();
+            },
+            click: function (event, ui, orgTxt) {
+                if (self.selectedBike() && self.selectedBike().make && self.selectedBike().model) {
+                    var keywrd = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_pinCode_' + $('#cfCompPincode,#cfPincode').val();
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Capital_First', 'act': 'PinCode_Selected', 'lab': keywrd });
+                }
+                if (ui && ui.item) {
+                    self.pincode(ui.item.payload.pinCode);
+                }
+                else {
+                    self.pincode(0);
+                }
+
+            },
+            open: function (result) {
+                objPinCodes.result = result;
+            },
+            focusout: function () {
+                if ($('#cfCompPincode,#cfPincode').find('li.ui-state-focus a:visible').text() != "") {
+                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                    focusedMakeModel = new Object();
+                    focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                }
+                else {
+                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                }
+            },
+            afterfetch: function (result, searchtext) {
+                if (result != undefined && result.length > 0 && searchtext.trim() != "") {
+                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                }
+                else {
+                    focusedMakeModel = null;
+                    if (searchtext.trim() != "") {
+                        $('#errPinCodeSearch,#errPinCodeSearch_office').show();
+                       
+                    }
+                }
+            },
+            keyup: function () {
+                if ($('#cfCompPincode,#cfPincode').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+                    focusedMakeModel = new Object();
+                    focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                } else {
+                    if ($('#cfCompPincode,#cfPincode').val().trim() == '') {
+                        $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                    }
+                }
+
+                if ($('#cfCompPincode,#cfPincode').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                    if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                        if ($('#cfCompPincode,#cfPincode').val().trim() != '') {
+                            $('#errPinCodeSearch,#errPinCodeSearch_office').show();
+                            self.pincode(0);
+                        }
+                    }
+                    else {
+                        $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
+                    }
+
+                }
+            }
+        }).autocomplete({ appendTo: $("#cfCompPincode,#cfPincode").closest(".input-box") }).autocomplete("widget").addClass("pincode-autocomplete");
+    });
+
+
 });
+
+var self = this;
+
+
+
 
 function scrollTopError() {
     var elem = $(".invalid").offset();
@@ -203,6 +286,8 @@ function validatePersonalInfo() {
         scrollTopError();
     }
 }
+
+
 
 function savePersonalDetails() {
     var personDetails = {
