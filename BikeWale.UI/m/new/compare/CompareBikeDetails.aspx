@@ -81,13 +81,13 @@
                             <% }
                                 else
                                 { %>
-                            <% if(!String.IsNullOrEmpty(featuredBike)) { %>
+                            <% if (!String.IsNullOrEmpty(featuredBike))
+                                { %>
                             <div class="padding-top5 padding-bottom5">
                                 <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0}_Top Card",bike.Name) %>" class="font14 bw-ga text-link know-more-btn-shown"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
                             </div>
                             <% } %>
                             <% } %>
-
                         </div>
                         <% } %>
                         <div class="clear"></div>
@@ -110,7 +110,8 @@
                             <% }
                                 else
                                 { %>
-                            <% if(!String.IsNullOrEmpty(featuredBike)) { %>
+                            <% if (!String.IsNullOrEmpty(featuredBike))
+                                { %>
                             <div class="padding-top5 padding-bottom5">
                                 <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0}_Floating Card",bike.Name) %>" class="font14 bw-ga  text-link"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
                             </div>
@@ -124,6 +125,10 @@
                                 <li data-tabs="specsTabContent" class="active">Specifications</li>
                                 <li data-tabs="featuresTabContent">Features</li>
                                 <li data-tabs="coloursTabContent">Colours</li>
+                                <%if (vmCompare.UserReviewData != null)
+                                    { %>
+                                <li id="li-reviewtab" data-tabs="reviewTabContent" class="bw-ga" c="Compare_Bikes" a="Floating_UserReview_Section" l="<%=TargetedModels.Replace(",", "_")%>">Reviews</li>
+                                <%} %>
                             </ul>
                             <div class="clear"></div>
                         </div>
@@ -140,10 +145,16 @@
                             <li data-tabs="coloursTabContent">
                                 <h3>Colours</h3>
                             </li>
+                            <%if (vmCompare.UserReviewData != null)
+                                { %>
+                            <li data-tabs="reviewTabContent" class="bw-ga" c="Compare_Bikes" a="Floating_UserReview_Section" l="<%=TargetedModels.Replace(",", "_")%>">
+                                <h3>Reviews</h3>
+                                <%} %>
+                            </li>
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <div id="specsTabContent" class="bw-tabs-data active">
+                    <div id="specsTabContent" class="bw-tabs-data active hide-features">
                         <% if (vmCompare.CompareSpecifications != null)
                             { %>
                         <% bool isFirstActiveTab = true; foreach (var spec in vmCompare.CompareSpecifications.Spec)
@@ -179,7 +190,7 @@
 
                         <% } %>
                     </div>
-                    <div id="featuresTabContent" class="bw-tabs-data">
+                    <div id="featuresTabContent" class="bw-tabs-data hide-features">
                         <% if (vmCompare.CompareFeatures != null)
                             { %>
                         <% foreach (var spec in vmCompare.CompareFeatures.Spec)
@@ -208,7 +219,7 @@
                         <% } %>
                         <% } %>
                     </div>
-                    <div id="coloursTabContent" class="bw-tabs-data">
+                    <div id="coloursTabContent" class="bw-tabs-data hide-features">
                         <% if (vmCompare.CompareColors != null)
                             { %>
                         <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -226,13 +237,14 @@
                                                 if (color.HexCodes != null)
                                                 { %>
                                         <div class="color-box color-count-<%= color.HexCodes.Count()   %>">
-                                            <% foreach (var hexCode in color.HexCodes) { %>
+                                            <% foreach (var hexCode in color.HexCodes)
+                                                { %>
                                             <span style="background-color: #<%= hexCode %>"></span>
                                             <% } %>
                                         </div>
                                         <p><%= color.Color %></p>
                                         <% }
-                                        } %>
+                                            } %>
                                     </td>
                                     <% } %>
                                 </tr>
@@ -242,6 +254,127 @@
                         </table>
                         <% } %>
                     </div>
+                    <% if (vmCompare.UserReviewData != null)
+                        { %>
+                    <div id="reviewTabContent" class="review-tab bw-tabs-data">
+                        <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                            <tbody>
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Overall rating</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <% foreach (var compSpec in vmCompare.UserReviewData.OverallRatingObject)
+                                        { %>
+                                    <td>
+                                        <% if (!compSpec.ReviewRate.Equals("--"))
+                                            {
+                                        %>
+                                        <div class="rate-count-<%=Math.Floor(Convert.ToDouble(compSpec.ReviewRate))%> rating">
+                                            <span class="bwmsprite star-icon"></span>
+                                            <span class="font18 text-bold"><%=compSpec.ReviewRate%></span>
+                                        </div>
+                                        <div class="rating-count">(<%=compSpec.RatingCount%>&nbsp;ratings)</div>
+                                        <a href="/m<%=compSpec.ReviewListUrl%>" target="_blank" class="font12"><%=compSpec.ReviewCount%>&nbsp;reviews</a>
+                                        <% }
+                                            else
+                                            { %>
+                                        <span class="text-bold">--</span>
+                                        <%} %>
+                                    </td>
+                                    <% } %>
+                                    <td></td>
+                                </tr>
+                                <% var spec1 = vmCompare.UserReviewData.CompareReviews.Spec.FirstOrDefault().SpecCategory.FirstOrDefault(); %>
+                                <tr class="row-type-heading">
+                                    <td colspan="2"><%=spec1.Text%></td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <% foreach (var compSpec in spec1.CompareSpec)
+                                        { %>
+                                    <td><%=compSpec.Value%>&nbsp
+                                        <%if (!compSpec.Value.Equals("--"))
+                                            {%>
+                                        <span class="font12 text-xt-light">kmpl</span>
+                                        <%}%>
+                                    </td>
+                                    <%} %>
+                                    <td></td>
+                                </tr>
+
+                                <%if (vmCompare.UserReviewData.CompareReviews != null && vmCompare.UserReviewData.CompareReviews.Spec != null && vmCompare.UserReviewData.CompareReviews.Spec.Count() > 1)
+                                    {
+                                        foreach (var spec in vmCompare.UserReviewData.CompareReviews.Spec.Skip(1))
+                                        {
+                                %>
+
+                                <tr class="row-type-heading">
+                                    <td colspan="2"><%=spec.Text%></td>
+                                    <td></td>
+                                </tr>
+
+                                <%foreach (var specCat in spec.SpecCategory)
+                                    {%>
+
+                                <tr class="data-head">
+                                    <td colspan="2"><%=specCat.Text%></td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <%foreach (var compSpec in specCat.CompareSpec)
+                                        {%>
+                                    <td class="border-bottom-grey margin-bottom5">
+                                        <%if (!compSpec.Value.Equals("--"))
+                                            { %>
+                                        <div class='rating-bar margin-top5'>
+                                            <span class='rate-<%=Math.Floor(Convert.ToDouble(compSpec.Value))%>'></span>
+                                        </div>
+                                        &nbsp
+                                        <%=Math.Floor(Convert.ToDouble(compSpec.Value))%>
+                                        <% }
+                                            else
+                                            { %>
+                                        <%=compSpec.Value%>
+                                        <% } %>
+                                    </td>
+                                    <%} %>
+                                    <td></td>
+                                </tr>
+
+                                <%}
+                                        }
+                                    }%>
+
+                                <% if (vmCompare.UserReviewData.MostHelpfulReviewList != null)
+                                    { %>
+                                <tr class="row-type-heading ">
+                                    <td colspan="2">Reviews</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data font14">
+                                    <% foreach (var review in vmCompare.UserReviewData.MostHelpfulReviewList)
+                                        { %>
+                                    <td>
+                                        <span class="rating-badge margin-bottom10" data-rate-bg="<%=review.RatingValue%>">
+                                            <span class="bwmsprite star-white"></span><%=review.RatingValue%>
+                                        </span>
+                                        <p class="font14 text-default margin-bottom10">
+                                            <a href="/m<%=review.ReviewDetailUrl%>" target="_blank" class="text-default"><%=review.ReviewTitle%></a>
+                                        </p>
+                                        <p class="review-decription">
+                                            <%=review.ReviewDescription%>
+                                        </p>
+                                        <a href="/m<%=review.ReviewListUrl%>" class="review-title review-link bw-ga" c="Compare_Bikes" a="Read_Reviews_Clicked" l="<%=targetedModels.Replace(",", "_")%>">All reviews</a>
+                                    </td>
+                                    <%} %>
+                                    <td></td>
+                                </tr>
+                                <%} %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <%} %>
 
                     <div id="toggle-float-button" class="grid-12 float-button float-fixed clearfix slideIn-transition">
                         <button type="button" id="toggle-features-btn" class="btn btn-teal btn-full-width">Hide common features</button>
@@ -282,8 +415,8 @@
                                         <span class="bwmsprite inr-grey-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(bike.UsedBikeCount.StartingPrice.ToString()) %>
                                     </p>
                                     <% }
-                                    else
-                                    { %>
+                                        else
+                                        { %>
                                     <div class="font14 text-bold text-center">--</div>
                                     <%} %>
                                 </td>

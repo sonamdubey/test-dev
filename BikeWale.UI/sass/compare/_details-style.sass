@@ -71,6 +71,62 @@ h1,
 		font-weight: $font-semibold
 		color: $text-primary
 
+// review block
+
+.row-type-data
+	span 
+		display: inline-block
+		vertical-align: middle
+
+.review-tab
+	.row-type-data
+		td
+			border-bottom: 1px solid #e2e2e2
+			text-align: center
+
+.review-tab
+	.row-type-data
+		td:first-child
+			text-align: left
+.review-decription 
+    font-weight: normal
+    padding-bottom: 15px
+    color: #787878
+
+.review-link 
+	position: relative
+	text-align: center
+	font-weight: normal
+
+.review-link::after 
+	content: ''
+	display: block
+	position: absolute
+	right: -11px
+	top: 13px
+	height: 7px
+	width: 7px
+	border: solid #0288d1
+	border-width: 0px 2px 2px 0px
+	-webkit-transform: rotate(320deg)
+	-moz-transform: rotate(45deg)
+	-o-transform: rotate(45deg)
+	display: block
+	margin-top: -5px
+	margin-left: -2px
+
+.text-xt-light 
+    color: #82888b
+
+.rating-block::after 
+	content: ''
+	display: block
+	margin: 0 auto
+	width: 60%
+	padding-bottom: 15px
+	border-bottom: 1px solid #EEEEEE
+	margin-bottom: 10px
+
 // compare-bike-list
 .compare-bike-list
 	.list-item
