@@ -30,6 +30,7 @@
         Materialize.updateTextFields();
     });
     self.deleteSeriesId = ko.observable(null);
+    self.isSeriesURL = ko.observable(false);
 
     self.validateSubmit = function () {
         try {
@@ -53,15 +54,16 @@
             if (isValid) {
                 $.ajax({
                     type: "POST",
-                    url: "api/make/"+self.selectedMakeId()+"/series/add/?seriesname=" + self.seriesName() + "&seriesmaskingname=" + self.seriesMaskingName() + "&updatedby=" + $('#userId').val(),
+                    url: "/api/make/" + self.selectedMakeId() + "/series/add/?seriesname=" + self.seriesName() + "&seriesmaskingname=" + self.seriesMaskingName() + "&updatedby=" + $('#userId').val() + "&isseriespageurl=" + $("#chkSeriesURL").val(),
                     success: function (response) {
                         $(
                             "<tr data-seriesid='" + response.seriesId + "'>"
                                 + "<td>" + response.seriesId + "</td>"
                                 + "<td class='teal lighten-4'>" + response.seriesName + "</td>"
                                 + "<td>" + response.seriesMaskingName + "</td>"
+                                + "<td><i class='material-icons " + (response.isSeriesPageUrl ? 'icon-green' : 'icon-red') + "'>" + (response.isSeriesPageUrl? 'done' : 'close') + "</i></td>"
                                 + "<td>" + $("#selectMake option[value=" + response.make.makeId + "]").text() + "</td>"
-                                + "<td><a href='#modal-make-update' class='tooltipped' href='javascript:void(0)' data-delay='100' data-tooltip='Edit Series' rel='nofollow' data-bind='event: {click: function(d, e) { editSeriesClick(e) }}'><i class='material-icons icon-blue'>mode_edit</i></a></td>"
+                                + "<td><a href='#series-edit-update' class='tooltipped' href='javascript:void(0)' data-delay='100' data-tooltip='Edit Series' rel='nofollow' data-bind='event: {click: function(d, e) { editSeriesClick(e) }}'><i class='material-icons icon-blue'>mode_edit</i></a></td>"
                                 + "<td><a class='tooltipped' href='javascript:void(0)' data-delay='100' data-tooltip='Delete Series' rel='nofollow' data-target='delete-confirm-modal' data-bind='event:{click: function(d, e){ deleteEvent(e)}}'><i class='material-icons icon-red'>delete</i></a></td>"
                                 + "<td>" + response.createdOn + "</td>"
                                 + "<td>" + response.updatedOn + "</td>"
@@ -93,6 +95,7 @@
 
     self.editSeriesClick = function (event) {
         var seriesRow = rowToEdit = event.currentTarget.parentElement.parentElement;
+        self.isSeriesURL(rowToEdit.children[3].children[0].innerText == "done" ? true : false);
         self.selectedSeriesName(seriesRow.children[1].innerText);
         selectedSeriesMaskingName = seriesRow.children[2].innerText;
 
@@ -119,11 +122,22 @@
             if (isValid) {
                 $.ajax({
                     type: "POST",
-                    url: "api/series/"+self.selectedSeriesId()+"/edit/?seriesname=" + self.seriesNameUpdate() + "&seriesmaskingname=" + self.seriesMaskingNameUpdate() + "&updatedby=" + $('#userId').val(),
+                    url: "/api/series/" + self.selectedSeriesId() + "/edit/?seriesname=" + self.seriesNameUpdate() + "&seriesmaskingname=" + self.seriesMaskingNameUpdate() + "&updatedby=" + $('#userId').val() + "&isseriespageurl=" + self.isSeriesURL(),
                     success: function (response) {
                         if (response != null) {
                             rowToEdit.children[1].innerText = self.seriesNameUpdate();
                             rowToEdit.children[2].innerText = self.seriesMaskingNameUpdate();
+                            if (self.isSeriesURL()) {
+                                rowToEdit.children[3].children[0].classList.remove("icon-red");
+                                rowToEdit.children[3].children[0].classList.add("icon-green");
+                                rowToEdit.children[3].children[0].innerText = "done";
+                            }
+                            else {
+                                rowToEdit.children[3].children[0].classList.remove("icon-green");
+                                rowToEdit.children[3].children[0].classList.add("icon-red");
+                                rowToEdit.children[3].children[0].innerText = "close";
+                            }
+                            
                             Materialize.toast("Bike series has been updated successfully.", 3000);
                         }
                     },
@@ -150,7 +164,7 @@
             var selectedSeriesId = self.deleteSeriesId().children[0].innerText; //seriesId
             $.ajax({
                 type: "POST",
-                url: "api/make/series/"+selectedSeriesId+"/delete/",
+                url: "/api/make/series/"+selectedSeriesId+"/delete/",
                 success: function (response) {
                     if (response != null) {
                         self.deleteSeriesId().remove();

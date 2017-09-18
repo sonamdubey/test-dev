@@ -27,11 +27,11 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("api/make/{makeId}/series/add/")]
-        public IHttpActionResult Add(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy)
+        public IHttpActionResult Add(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
         {
             BikeSeriesDTO objBikeSeriesDTO = null;
             BikeSeriesEntity objBikeSeries = null;
-            objBikeSeries = _series.AddSeries(makeId, seriesName, seriesMaskingName, updatedBy);
+            objBikeSeries = _series.AddSeries(makeId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
             if(objBikeSeries != null)
             {
                 try
@@ -63,13 +63,12 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="seriesMaskingName"></param>
         /// <returns></returns>
         [HttpPost, Route("api/series/{seriesId}/edit/")]
-        public IHttpActionResult Edit(uint seriesId, string seriesName, string seriesMaskingName, int updatedBy)
+        public IHttpActionResult Edit(uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl)
         {
             bool IsEdited = false;
             try
             {
-                    
-                IsEdited = _series.EditSeries(seriesId, seriesName, seriesMaskingName, updatedBy);
+                IsEdited = _series.EditSeries(seriesId, seriesName, seriesMaskingName, updatedBy, isSeriesPageUrl);
                 if (IsEdited)
                 {
                     return Ok(IsEdited);
@@ -94,14 +93,14 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="SeriesMaskingName"></param>
         /// <returns></returns>
         [HttpPost, Route("api/make/series/{seriesId}/delete/")]
-        public IHttpActionResult Delete(uint bikeSeriesId)
+        public IHttpActionResult Delete(uint seriesId)
         {
             bool isDeleted = false;
             try
             {
-                if (bikeSeriesId > 0)
+                if (seriesId > 0)
                 {
-                    isDeleted = _series.DeleteSeries(bikeSeriesId);
+                    isDeleted = _series.DeleteSeries(seriesId);
 
                     if (isDeleted)
                     {
@@ -119,7 +118,7 @@ namespace BikewaleOpr.Service.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("SeriesController.Delete_{0}", bikeSeriesId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("SeriesController.Delete_{0}", seriesId));
                 return InternalServerError();
             }
         }
@@ -132,7 +131,7 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="SeriesName"></param>
         /// <param name="SeriesMaskingName"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/model/{modelId}/deletemapping/")]
+        [HttpPost, Route("api/model/{modelId}/series/delete/")]
         public IHttpActionResult DeleteMappingOfModelSeries(uint modelId)
         {
             bool isDeleted = false;

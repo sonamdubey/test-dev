@@ -385,7 +385,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "api/model/"+modelId+"/deletemapping/",
+                    url: "/api/model/"+modelId+"/series/delete/",
                     success: function (response) {
                         if (response != null) {
                             $(deletebtn).siblings("span").html("N/A");

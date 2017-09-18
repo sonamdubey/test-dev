@@ -14,6 +14,7 @@
                             <th>Id</th>
                             <th>Name</th>
                             <th>Masking Name</th>
+                            <th>Series URL</th>
                             <th>Make Name</th>
                             <th>Edit</th>
                             <th>Delete</th>
@@ -31,8 +32,9 @@
                                     <td>@series.SeriesId</td>
                                     <td class="teal lighten-4">@series.SeriesName</td>
                                     <td>@series.SeriesMaskingName</td>
-                                    <td>@series.BikeMake.MakeName</td>
-                                    <td><a href="#modal-make-update" class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-bind="event: {click: function(d, e) { editSeriesClick(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                                    <td><i class="material-icons @((series.IsSeriesPageUrl) ? "icon-green" : "icon-red")">@((series.IsSeriesPageUrl) ? "done" : "close")</i></td>
+                                    <td> @series.BikeMake.MakeName </td>
+                                    <td><a href = "#series-edit-update" class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Edit Series" rel="nofollow" data-bind="event: {click: function(d, e) { editSeriesClick(e) }}"><i class="material-icons icon-blue">mode_edit</i></a></td>
                                     <td><a class="tooltipped" href="javascript:void(0)" data-delay="100" data-tooltip="Delete Series" rel="nofollow" data-target="delete-confirm-modal" data-bind="event:{click: function(d, e){ deleteEvent(e)}}" ><i class="material-icons icon-red">delete</i></a></td>
                                     <td>@series.CreatedOn.ToString("dd/MM/yyyy")</td>
                                     <td>@series.UpdatedOn.ToString("dd/MM/yyyy")</td>
@@ -45,7 +47,7 @@
               }
         </div>
         <div class="col m2">
-            <input id="userId" name="UpdatedBy" value="@Model.UpdatedBy" type="hidden" />
+            <input id = "userId" name="UpdatedBy" value="@Model.UpdatedBy" type="hidden" />
             <div>
                 <ul class="collapsible margin-top10" data-collapsible="accordion">
                     <li>
@@ -57,27 +59,31 @@
                         <div class="collapsible-body">
                             <div class="container">
                                 <div class="input-field row m12">
-                                    <select id="selectMake" name="MakeId" data-bind="value: selectedMakeId">
-                                        <option value="" disabled selected>Select Make</option>
-                                        @if(Model.BikeMakesList != null)
-                                        {
-                                            foreach(var make in Model.BikeMakesList)
+                                    <select id = "selectMake" name="MakeId" data-bind="value: selectedMakeId">
+                                        <option value = "" disabled selected>Select Make</option>
+                                            @if (Model.BikeMakesList != null)
                                             {
-                                                <option value="@make.MakeId">@make.MakeName</option>
+                                                foreach (var make in Model.BikeMakesList)
+                                                {
+                                                    <option value = "@make.MakeId" > @make.MakeName </option>
+                                                }
                                             }
-                                        }
                                     </select>
                                 </div>
                                 <div class="input-field row m12">
-                                    <input id="txtSeriesName" type="text" class="validate" name="SeriesName" data-bind="textInput: seriesName, css:seriesMsg()!=''?'invalid':'' " length="30" maxlength="30">
-                                    <label id="texSeriesLabel" for="txtSeriesName" data-error="" data-bind="attr:{'data-error':seriesMsg}, css:seriesMsg()!=''?'active':''">Series Name</label>
+                                    <input id = "txtSeriesName" type="text" class="validate" name="SeriesName" data-bind="textInput: seriesName, css:seriesMsg()!=''?'invalid':'' " length="30" maxlength="30">
+                                    <label id = "texSeriesLabel" for="txtSeriesName" data-error="" data-bind="attr:{'data-error':seriesMsg}, css:seriesMsg()!=''?'active':''">Series Name</label>
+                                  </div>
+                                <div class="input-field row m12">
+                                    <input id = "txtSeriesMaskingName" type="text" class="validate" name="SeriesMaskingName" data-bind="textInput: seriesMaskingName, css:seriesMaskingMsg()!=''?'invalid':'' " length="50" maxlength="50">
+                                    <label id = "txtSeriesMaskingLabel" for="txtSeriesMaskingName" data-error="" data-bind="attr:{'data-error':seriesMaskingMsg}, css:seriesMaskingMsg()!=''?'active':''">Series Masking Name</label>
+                                </div>
+                                <div class="input-field row s12">
+                                    <input type="checkbox" id="chkSeriesURL" name="isSeriesPageUrl" class="with-gap" value="true" checked/>
+                                    <label for="chkSeriesURL">Form Series URL</label>
                                 </div>
                                 <div class="input-field row m12">
-                                    <input id="txtSeriesMaskingName" type="text" class="validate" name="SeriesMaskingName" data-bind="textInput: seriesMaskingName, css:seriesMaskingMsg()!=''?'invalid':'' " length="50" maxlength="50">
-                                    <label id="txtSeriesMaskingLabel" for="txtSeriesMaskingName" data-error="" data-bind="attr:{'data-error':seriesMaskingMsg}, css:seriesMaskingMsg()!=''?'active':''">Series Masking Name</label>
-                                </div>
-                                <div class="input-field row m12">
-                                    <button id="btnAddSeries" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { return validateSubmit();}}">
+                                    <button id = "btnAddSeries" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { return validateSubmit();}}">
                                         Add Series
                                     </button>
                                 </div>
@@ -88,20 +94,22 @@
             </div>
         </div>
 
-        <div id="modal-make-update" class="modal">
+        <div id = "series-edit-update" class="modal">
             <div class="modal-content">
-                <h4>Update <span data-bind="text: selectedSeriesName"></span> Data</h4>
+                <h4>Update<span data-bind="text: selectedSeriesName"></span> Data</h4>
                 <div>
                     <div class="input-field row m12">
-                        <input id="txtSeriesNameUpdate" type="text" class="validate" name="makeName" data-bind="textInput: seriesNameUpdate ">
+                        <input id = "txtSeriesNameUpdate" type="text" class="validate" name="makeName" data-bind="textInput: seriesNameUpdate ">
                         <label for="txtSeriesNameUpdate">Series Name</label>
                     </div>
                     <div class="input-field row m12">
-                        <input id="txtSeriesMaskingNameUpdate" type="text" class="validate" name="maskingName" data-bind="textInput: seriesMaskingNameUpdate">
+                        <input id = "txtSeriesMaskingNameUpdate" type="text" class="validate" name="maskingName" data-bind="textInput: seriesMaskingNameUpdate">
                         <label for="txtSeriesMaskingNameUpdate">Series Masking Name</label>
                     </div>
-                    @*<input type="hidden" id="hdnUpdateMakeId" name="MakeId" data-bind="textInput: selectedMake() ? selectedMake().makeId : 0" />
-                    <input type="hidden" id="hdnOldMakeMasking" name="OldMakeMasking" data-bind="textInput: selectedMake() ? selectedMake().oldMakeMasking :''" />*@
+                    <div class="input-field row s12">
+                        <input type="checkbox" id="chkEditSeriesURL" name="isSeriesPageUrl" class="with-gap" data-bind="checked: isSeriesURL"/>
+                        <label for="chkEditSeriesURL">Form Series URL</label>
+                    </div>
                 </div>
             </div>
 

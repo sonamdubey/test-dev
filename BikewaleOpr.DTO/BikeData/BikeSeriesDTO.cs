@@ -20,5 +20,7 @@ namespace BikewaleOpr.DTO.BikeData
         public bool IsDeleted { get; set; }
         [JsonProperty("make")]
         public MakeBase BikeMake { get; set; }
+        [JsonProperty("isSeriesPageUrl")]
+        public bool IsSeriesPageUrl { get; set; }
     }
 }

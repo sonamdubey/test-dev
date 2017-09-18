@@ -64,6 +64,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_name", bikeSeries.SeriesName);
                     param.Add("par_maskingname", bikeSeries.SeriesMaskingName);
                     param.Add("par_makeid", bikeSeries.BikeMake.MakeId);
+                    param.Add("par_isseriespageurl", bikeSeries.IsSeriesPageUrl);
                     param.Add("par_userid", updatedBy);
                     param.Add("par_updatedby", dbType: DbType.String, direction: ParameterDirection.Output);
                     param.Add("par_seriesid", dbType: DbType.UInt32, direction: ParameterDirection.Output);

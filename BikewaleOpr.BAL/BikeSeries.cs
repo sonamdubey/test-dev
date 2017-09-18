@@ -41,7 +41,7 @@ namespace BikewaleOpr.BAL
         /// <param name="UpdatedBy"></param>
         /// <param name="seriesId"></param>
         /// <param name="isSeriesExist"></param>
-        public BikeSeriesEntity AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy)
+        public BikeSeriesEntity AddSeries(uint makeId, string seriesName, string seriesMaskingName, uint updatedBy, bool isSeriesPageUrl)
         {
             try
             {
@@ -51,6 +51,7 @@ namespace BikewaleOpr.BAL
                     {
                         SeriesName = seriesName,
                         SeriesMaskingName = seriesMaskingName,
+                        IsSeriesPageUrl = isSeriesPageUrl,
                         BikeMake = new BikeMakeEntityBase()
                         {
                             MakeId = Convert.ToInt32(makeId)
@@ -97,7 +98,7 @@ namespace BikewaleOpr.BAL
         /// <param name="bikeSeries"></param>
         /// <param name="updatedBy"></param>
         /// <returns></returns>
-        public bool EditSeries(uint seriesId, string seriesName, string seriesMaskingName, int updatedBy)
+        public bool EditSeries(uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl)
         {
             bool IsEdited = false;
             try
@@ -109,6 +110,7 @@ namespace BikewaleOpr.BAL
                         SeriesId = seriesId,
                         SeriesName = seriesName,
                         SeriesMaskingName = seriesMaskingName,
+                        IsSeriesPageUrl = isSeriesPageUrl,
                         UpdatedBy = Convert.ToString(updatedBy)
                     };
                     IsEdited = _seriesRepo.EditSeries(bikeSeries, updatedBy);
