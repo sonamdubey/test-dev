@@ -112,5 +112,51 @@ namespace Bikewale.Controllers
             }
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/compare/details/")]
+        public ActionResult CompareBikeDetails_Mobile()
+        {
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+            CompareDetails objDetails = new CompareDetails(_compareTest, _objModelMaskingCache, _cachedCompare, _objCompare, _objMakeCache, _objSponsored, originalUrl);
+
+            if (objDetails.status == Entities.StatusCodes.ContentFound)
+            {
+                CompareDetailsVM objVM = null;
+                objDetails.IsMobile = true;
+                objVM = objDetails.GetData();
+                if (objDetails.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(objDetails.redirectionUrl);
+                }
+                if (objVM != null && objVM.Compare != null)
+                {
+                    return View(objVM);
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
+            }
+            else if (objDetails.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(objDetails.redirectionUrl);
+            }
+            else if ((objDetails.status == Entities.StatusCodes.RedirectTemporary))
+            {
+                return Redirect(CommonOpn.AppPath + "comparebikes/");
+
+            }
+            else
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+
+        }
     }
 }

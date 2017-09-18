@@ -14,6 +14,7 @@ namespace Bikewale.Entities.UserReviews
     [Serializable, DataContract]
     public class QuestionRatingsValueEntity
     {
+        public uint VersionId { get; set; }
         public uint ModelId { get; set;}
         public UInt16 QuestionId { get; set;}
         public float AverageRatingValue { get; set;}
