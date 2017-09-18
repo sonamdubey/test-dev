@@ -106,6 +106,10 @@
 		</li>
 	}
 
+    <div data-bind="visible: isLoading()">
+        <img src="//im.ezgif.com/tmp/ezgif-1-f11f3217e0.gif" class="padding-bottom10">
+    </div>
+
     <!-- ko if : reviewList() && reviewList().length > 0 -->
         <!-- ko foreach: reviewList() -->
         <li class="list-item" data-bind="css: $data.isRatingQuestion ? 'rating-question-present': 'rating-question-absent'">

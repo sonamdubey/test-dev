@@ -839,6 +839,7 @@ ko.bindingHandlers.formattedVotes = {
     var self = this;
     self.reviewList = ko.observableArray(null);
     self.trimLengthText = ko.observable();
+    self.isLoading = ko.observable(false);
     self.getMoreReviews = function () {
         try {
             if (bikeModelId) {
@@ -849,7 +850,7 @@ ko.bindingHandlers.formattedVotes = {
                         self.reviewList(response.result);
                         applyLikeDislikes();
                     }
-
+                    self.isLoading(false);
                 });
             }
         } catch (e) {
@@ -914,6 +915,7 @@ function readMore(e) {
             }
 
             if ($('#user-review-div') && $('#user-review-div').attr('data-readmore') == "3") {
+                vmUserReviews.isLoading(true);
                 vmUserReviews.getMoreReviews();
             }
 
