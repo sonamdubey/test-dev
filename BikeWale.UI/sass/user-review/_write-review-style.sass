@@ -46,7 +46,7 @@
 		&:checked
 			+ label,
 			~ label
-				background-position: 5px -752px
+				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/ffd24d/star-24x23.png) no-repeat 50% #ccc
 
 .rating-placeholder
 
@@ -59,7 +59,7 @@
 			+ label
 				width: 36px
 				height: 36px
-				background-color: steelblue
+				background-color: #ccc
 				border-radius: 4px
 				margin-right: 14px
 
@@ -71,7 +71,7 @@
 	> input
 		+ label:hover,
 		+ label:hover ~ label
-				background-position: 5px -752px
+				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/ffd24d/star-24x23.png) no-repeat 50% #ccc
 
 .circle-placeholder
 	width: 61px
@@ -289,10 +289,10 @@
 	vertical-align: middle
 
 .star-zero
-	background-position: -48px -752px
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star-24x23.png) no-repeat 50% #ccc
 
 .star-one
-	background-position: 5px -752px
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/ffd24d/star-24x23.png) no-repeat 50% #ccc
 
 .feedback-1,
 .feedback-2,
@@ -411,35 +411,77 @@
 		height: 100px
 		border-radius: 8px
 		margin-bottom: 20px
-		background-color: #eee
+		background-color: #f5f5f5
 		cursor: default
 
-	li::before
-		content: ""
-		display: block
-		width: 20px
-		height: 20px
-		background-color: #a2a2a2
-		border-radius: 50%
-		margin: auto
-		position: relative
-		top: 20px
+		&:before
+			content: ""
+			display: block
+			width: 20px
+			height: 20px
+			border-radius: 50%
+			margin: auto
+			position: relative
+			top: 20px
 
-	li.active
-		border: 1px solid #41b4c4
-		box-shadow: 0px 2px 5px #a2a2a2
-		background-color: #fff
-		cursor: pointer
-		pointer-events: none
+		&.active
+			border: 1px solid #41b4c4
+			box-shadow: 0px 2px 5px #a2a2a2
+			background-color: #fff
+			cursor: pointer
+			pointer-events: none
 
-	li.completed
-		border: 1px solid #E2E2E2
-		background-color: #fff
-		cursor: pointer
+		&.completed
+			border: 1px solid #E2E2E2
+			background-color: #fff
+			cursor: pointer
 
-	li.completed::before
-		background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/tick-filled-20x20.png)
-		background-color: transparent
+			&:before
+				background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/tick-filled-20x20.png)
+				background-color: transparent
+
+		&.incomplete
+			border: 1px solid #E2E2E2
+			background-color: #fff
+			cursor: pointer
+			pointer-events: none
+
+	.review-progress__rate-bike
+		&:before
+			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/star-10x10.png) no-repeat 50% #e2e2e2
+
+		&.active
+			&:before
+				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star-10x10.png) no-repeat 50% #41b4c4
+
+		&.incomplete
+			&:before
+				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/star-10x10.png) no-repeat 50% #e2e2e2
+
+
+	.review-progress__write-review
+		&:before
+			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/edit-9x10.png) no-repeat 50% #e2e2e2
+
+		&.active
+			&:before
+				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/edit-9x10.png) no-repeat 50% #41b4c4
+
+		&.incomplete
+			&:before
+				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/edit-9x10.png) no-repeat 50% #e2e2e2
+
+	.review-progress__other-details
+		&:before
+			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/bike-12x8.png) no-repeat 50% #e2e2e2
+
+		&.active
+			&:before
+				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bike-12x8.png) no-repeat 50% #41b4c4
+
+		&.incomplete
+			&:before
+				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bike-12x8.png) no-repeat 50% #e2e2e2
 
 .review-progress__text
 	width: 50px
