@@ -18,6 +18,8 @@ namespace Bikewale.Models.Finance
         public ushort PlatformId { get; set; }
 
         public string PageUrl { get; set; }
+
+        public string BikeName { get; set; }
     }
 
 }

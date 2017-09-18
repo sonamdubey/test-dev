@@ -39,6 +39,7 @@ namespace Bikewale.Controllers
             viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
             viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
             viewModel.PageUrl = queryCollection["url"];
+            viewModel.BikeName = queryCollection["bike"];
             viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Mobile;
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
@@ -54,6 +55,7 @@ namespace Bikewale.Controllers
         /// Sangram Nandkhile on 08-Sep-2017
         /// </summary>
         /// <returns></returns>
+        [Bikewale.Filters.DeviceDetection]
         [Route("finance/capitalfirst/")]
         public ActionResult CapitalFirst_Index()
         {
@@ -68,6 +70,7 @@ namespace Bikewale.Controllers
             viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
             viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
             viewModel.PageUrl = queryCollection["url"];
+            viewModel.BikeName = queryCollection["bike"];
             viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Desktop;
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)

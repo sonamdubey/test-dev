@@ -10,7 +10,8 @@ var validate,
     otpNewNum,
     otpContainerContent,
     otpContainerContentHeight,
-    employmentDeatilTab;
+    employmentDeatilTab,
+        bikeName;
 
 docReady(function () {
 
@@ -22,7 +23,7 @@ docReady(function () {
     blackWindowElem = $(".otp-black-window"),
     otpContainerContent = $(".otp-container__content"),
     employmentDeatilTab = $("#employment-detail-tab");
-
+    bikeName = $('#hdnBikeName').val();
     validate = {
         setError: function (element, message) {
             var elementLength = element.val().length,
@@ -228,7 +229,8 @@ function savePersonalDetails() {
         data: ko.toJSON(personDetails),
         success: function (response) {
 
-            if (response!=null) {
+            if (response != null) {
+                triggerGA('Loan_Application', 'Step 1_Filled', bikeName + '_' + $('#cfNum').val());
                 $("#personal-detail-tab").addClass("hide");
                 $(employmentDeatilTab).removeClass("hide");
                 $("#cpId").val(response.CpId);
@@ -293,7 +295,7 @@ function saveEmployeDetails() {
         contentType: "application/json",
         data: ko.toJSON(employeDetails),
         success: function (response) {
-
+            triggerGA('Loan_Application', 'OTP_Success', bikeName + '_' + $('#cfNum').val());
             otpScreen.openOtp();
             var objData = {
                 "userName": $('#cfFName').val() + " " + $('#cfLName').val(),

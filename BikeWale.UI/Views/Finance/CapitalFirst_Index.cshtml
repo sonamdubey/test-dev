@@ -3,8 +3,10 @@
     ViewBag.Title = "CapitalFirst_Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/finance/capital-first.css' />";
-    Model.Page_BTF_CSS_Path = "/css/zebra-datepicker.css";   
+    Model.Page_BTF_CSS_Path = "/css/zebra-datepicker.css";
     Model.Page_JS_Path = "/src/finance/capital-first.js";
+    Model.PageMetaTags.Title = "Get Instant Two Wheeler Loan Approval";
+    Model.PageMetaTags.Description = "Owning a bike was never this easy. Apply for a bike loan and get instant online approval for a two wheeler loan. Apply Now!";
 }
 
 <section class="margin-bottom20 capital-first-desktop margin-top20">
@@ -208,19 +210,24 @@
             <div class="content-box-shadow terms-condition-container padding-bottom15 collapsible-content">
                 <h2 class="content-inner-block-20 font18">Terms & Conditions</h2>
                 <ol class="terms-condition__content main-content">
-                    <li> Sanction for a higher loan amount shall be subject to documents furnished by you and the same meetingCapital First Norms</li>
-                    <li> Funding amount and tenure will vary from vehicle to vehicle</li>
-                    <li> The information/particulars provided/to be provided by the Customer/Borrower to Capital First are information pertaining to the Customer/ Borrower only and not of any third party</li>
-                    <li> That all the particulars filled in the application form by the Customer/Borrower are true, correct, completeand up to date in all respects and the Customer/Borrower has not withheld any information which is material.</li>
-                    <li> Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
+                    <li>Sanction for a higher loan amount shall be subject to documents furnished by you and the same meeting Capital First Norms.</li>
+                    <li>Funding amount and tenure will vary from vehicle to vehicle.</li>
+                    <li>The information/particulars provided/to be provided by the Customer/Borrower to Capital First are information pertaining to the Customer/ Borrower only and not of any third party.</li>
+                    <li>That all the particulars filled in the application form by the Customer/Borrower are true, correct, complete and up to date in all respects and the Customer/Borrower has not withheld any information which is material.</li>
+                    <li>That the Customer will promptly advise Capital First in writing of any change in the Customer's/Borrower's Residential or Employment address or any other details provided in the Loan application.</li>
                 </ol>
                 <ol class="terms-condition__content more-content" start="6">
-                    <li> Sanction for a higher loan amount shall be subject to documents furnished by you and the same meetingCapital First Norms</li>
-                    <li> Funding amount and tenure will vary from vehicle to vehicle</li>
-                    <li> The information/particulars provided/to be provided by the Customer/Borrower to Capital First are information pertaining to the Customer/ Borrower only and not of any third party</li>
-                    <li> That all the particulars filled in the application form by the Customer/Borrower are true, correct, completeand up to date in all respects and the Customer/Borrower has not withheld any information which is material.</li>
-                    <li> Sanction for a higher loan amount shall be sunject to documents furnished by you  and the same meeting  Capital First Norms</li>
-                </ol>
+                    <li>That the Customer/Borrower will use the loan amount availed from Capital First only for the stated purpose and will not use the same for any speculative or antisocial purpose.</li>
+                    <li>That the Customer/Borrower has not availed any loan from any other bank/finance company other than those specifically declared/ to be declared by the Customer.</li>
+                    <li>That the Customer/Borrower is a citizen of India.</li>
+                    <li>That the Customer/Borrower has authorized Capital First to make any enquiries regarding the Customer's/Borrower's application to any third person for Loan availed/to be availed from Capital First Limited.</li>
+                    <li>That the Customer/Borrower has understood/agreed/ consented that Capital First shall have absolute right to reject the Customer's/Borrower's application or reduce/restrict/revise/discontinue the loan without assigning any reason thereof.</li>
+                    <li>That the Customer/Borrower has authorized Capital First to make any enquiries with any other finance company/bank/registered credit information company regarding the Customer's/Borrower's credit history with them & also authorize Capital First to provide details of the Customer's/Borrower's credit history to any other bank/finance company/registered credit bureau.</li>
+                    <li>That the Customer/Borrower has received, read& understood the terms and conditions applicable to the Customer/Borrower for the loan availed from Capital First and unconditionally accepts the same. The Customer/Borrower agrees that these terms & conditions can be changed by Capital First at any time without any notice to the Customer/Borrower and the Customer/Borrower will be bound by the amended terms & conditions.</li>
+                    <li>That the Customer/Borrower has agreed/consented that Capital First reserves the right to retain the photographs and documents submitted by the Customer/Borrower with the Loan application and will not return the same to the Customer/Borrower.</li>
+                    <li>That the Customer/Borrower has agreed/consented to know through telephonic calls/SMSs on Customer's/Borrower's mobile number mentioned in the application form by the Customer/Borrower or through any other communication mode, various loan schemes, promotional offers of Capital First and the Customer/Borrower authorizes Capital First, its employees or its agents to act accordingly.</li>
+                    <li>That the Customer/Borrower agrees/consents that the laws in relations to the unsolicited communications referred in 'National Do Not Call Registry' as laid down by Telecom Regulatory Development Authority shall not be applicable to such communications/ telephonic calls/SMSs received from Capital First, its employees or its agents.</li>
+                 </ol>
                 <span class="terms__read-more-tab read-more-target padding-left25 margin-top10">Read more</span> 
             </div>
         </div>
@@ -228,7 +235,7 @@
     </div>     
 </section>
 <input type="hidden" id="objLead" value="@(Model.objLeadJson)"/>
-
+<input type="hidden" id="hdnBikeName" value="@(Model.BikeName)" />
 <input type="hidden" id="leadId" value="" />
 <input type="hidden" id="ctLeadId" value="" />
 <input type="hidden" id="cpId" value="" />
