@@ -202,6 +202,13 @@
         @(Html.Raw(Model.PageMetaTags.SchemaJSON))
     </script>
     }
+
+    @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.PageSchemaJSON))
+    {
+        <script type="application/ld+json">
+            @(Html.Raw(Model.PageMetaTags.PageSchemaJSON))
+        </script>
+    }
 </head>
 <body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" @string.Format("{0}", Model.ExcludeContestSlug ? "data-contestslug='true'" : "") data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
 

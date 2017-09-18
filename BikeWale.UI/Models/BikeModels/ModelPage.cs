@@ -17,7 +17,6 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
@@ -244,7 +243,8 @@ namespace Bikewale.Models.BikeModels
 
                     SetAdditionalProperties(product);
 
-                    _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage, product);
+                    _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+                    _objData.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(product);
                 }
             }
             catch (Exception ex)
