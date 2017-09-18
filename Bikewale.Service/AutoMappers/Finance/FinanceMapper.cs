@@ -12,5 +12,11 @@ namespace Bikewale.Service.AutoMappers.Finance
             Mapper.CreateMap<CapitalFirstVoucherStatusDTO, CapitalFirstVoucherStatus>();
             return Mapper.Map<CapitalFirstVoucherDTO, CapitalFirstVoucherEntityBase>(voucher);
         }
+
+        internal static CapitalFirstLeadResponseDTO Convert(LeadResponseMessage entity)
+        {
+            Mapper.CreateMap<LeadResponseMessage, CapitalFirstLeadResponseDTO>();
+            return Mapper.Map<LeadResponseMessage, CapitalFirstLeadResponseDTO>(entity);
+        }
     }
 }

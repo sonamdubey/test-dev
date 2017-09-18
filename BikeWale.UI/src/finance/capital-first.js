@@ -170,7 +170,7 @@ docReady(function () {
 });
 
 function scrollTopError() {
-    var elem = $(".invalid").offset();
+    var elem = $($(".invalid")[0]).offset();
     scrollTop(elem);
 }
 
@@ -190,18 +190,21 @@ function validatePersonalInfo() {
     isValid &= validateDOB($("#cfDOB"));
 
     if (isValid) {
-
-
         savePersonalDetails();
-        if (isDesktop) {
+        if (isDesktop.length) {
             $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
             $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
-            $(".employment__title ").removeClass("inactive");
+            $(".employment__title").removeClass("inactive");
             $(".employment-details-container").addClass("visible");
-            scrollTop($(employmentDeatilTab).offset());
-        }
+			scrollTop($(employmentDeatilTab).offset());
+
+		}
+		else {
+			$('#form-tabs-content').find('.page-tabs__li.active').removeClass('active');
+			$('#form-tabs-content').find('.page-tabs__li[data-id=employment-detail-tab]').addClass('active');
+		}
     } else {
-        scrollTopError();
+		scrollTopError();
     }
 }
 
@@ -228,17 +231,24 @@ function savePersonalDetails() {
         contentType: "application/json",
         data: ko.toJSON(personDetails),
         success: function (response) {
+            if (response) {
+                if (response != null) {
+                    triggerGA('Loan_Application', 'Step_1_Filled', bikeName + '_' + $('#cfNum').val());
+                    switch (response.status) {
 
-            if (response != null) {
-                triggerGA('Loan_Application', 'Step 1_Filled', bikeName + '_' + $('#cfNum').val());
-                $("#personal-detail-tab").addClass("hide");
-                $(employmentDeatilTab).removeClass("hide");
-                $("#cpId").val(response.CpId);
-                $("#ctLeadId").val(response.CTleadId);
-                $("#leadId").val(response.LeadId);
-                scrollTop($(employmentDeatilTab).offset());
+                        case 1:
+                        case 2:
+                            $("#personal-detail-tab").addClass("hide");
+                            $(employmentDeatilTab).removeClass("hide");
+                            $("#cpId").val(response.CpId);
+                            $("#ctLeadId").val(response.CTleadId);
+                            $("#leadId").val(response.LeadId);
+                            scrollTop($(employmentDeatilTab).offset());
+                            break;
+                        default:
+                    }
+                }
             }
-
         }
     });
 
@@ -257,9 +267,10 @@ function validateEmploymentInfo() {
 
     if (isValid) {
         saveEmployeDetails();
-
-
-    }
+	}
+	else {
+		scrollTopError();
+	}
 }
 
 function saveEmployeDetails() {
@@ -295,17 +306,19 @@ function saveEmployeDetails() {
         contentType: "application/json",
         data: ko.toJSON(employeDetails),
         success: function (response) {
-            triggerGA('Loan_Application', 'OTP_Success', bikeName + '_' + $('#cfNum').val());
-            otpScreen.openOtp();
-            var objData = {
-                "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
-                "mobileNumber": $('#cfNum').val()
-            }
-            otpvm.setParameters(objData);
-            if (response == "Registered Mobile Number") {
-                $('.otp-container__info').hide();
-                $('#thankyouScreen').removeClass("hide");
+            triggerGA('Loan_Application', 'Step_2_Filled', bikeName + '_' + $('#cfNum').val());
+            if (response) {
+                otpScreen.openOtp();
+                var objData = {
+                    "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                    "mobileNumber": $('#cfNum').val()
+                }
+                otpvm.setParameters(objData);
+                if (response.status != 13) {
+                    $('.otp-container__info').hide();
+                    $('#thankyouScreen').removeClass("hide");
 
+                }
             }
         }
     });

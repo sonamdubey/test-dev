@@ -42,6 +42,7 @@ namespace Bikewale.BAL.Finance
         private const string CF_MESSAGE_SAVE_FAILURE = "Error occured while saving data";
         private const string CF_MESSAGE_INVALID = "Invalid lead id or request body is empty";
 
+        private readonly IDictionary<ushort, String> _leadStatusCollection = null;
 
         /// <summary>
         /// Created by  :   Sumit Kate on 11 Sep 2017
@@ -57,6 +58,18 @@ namespace Bikewale.BAL.Finance
             _manufacturerCampaignRepo = manufacturerCampaignRepo;
             _objAuthCustomer = objAuthCustomer;
             _objCustomer = objCustomer;
+
+            _leadStatusCollection = new Dictionary<ushort, String>();
+            _leadStatusCollection.Add(0, "Some error occured.");
+            _leadStatusCollection.Add(1, "Proceed to step 2");
+            _leadStatusCollection.Add(2, "Proceed to step 2");
+            _leadStatusCollection.Add(3, "Your loan application has already got pre-approved. Please contact your Capital First executive (Details shared in email).");
+            _leadStatusCollection.Add(4, "Your loan application could not be processed online. Thanks for applying.");
+            _leadStatusCollection.Add(5, "Your loan application could not be processed online. Thanks for applying.");
+            _leadStatusCollection.Add(6, "Your loan application is in process. We will share the status of your application over email / SMS.");
+            _leadStatusCollection.Add(8, "Some error occured while processing your request. Please try after sometime.");
+            _leadStatusCollection.Add(12, "Currently, our finance partner does not provide loan in your area.");
+            _leadStatusCollection.Add(13, "Mobile not verified.");
         }
 
         /// <summary>
@@ -107,10 +120,9 @@ namespace Bikewale.BAL.Finance
             return message;
         }
 
-        public string SaveEmployeDetails(PersonalDetails objDetails, string Utmz, string Utma, ushort leadSource)
+        public LeadResponseMessage SaveEmployeDetails(PersonalDetails objDetails, string Utmz, string Utma, ushort leadSource)
         {
-
-            string message = "";
+            LeadResponseMessage response = null;
             try
             {
                 if (objDetails.LeadId == 0)
@@ -118,18 +130,16 @@ namespace Bikewale.BAL.Finance
 
                     objDetails.LeadId = SubmitLead(objDetails, Utmz, Utma);
                 }
-
-
+                response = new LeadResponseMessage();
+                response.LeadId = objDetails.LeadId;
                 if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber), objDetails.EmailId))
                 {
-                    message = "Registered Mobile Number";
-
-
-                    PushLeadinCTandAutoBiz(objDetails, leadSource);
+                    response = PushLeadinCTandAutoBiz(objDetails, leadSource);
                 }
                 else
                 {
-                    message = "Not Registered Mobile Number";
+                    response.Message = _leadStatusCollection[13];
+                    response.Status = 13;
                     MobileVerificationEntity mobileVer = null;
                     mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
                     SMSTypes st = new SMSTypes();
@@ -142,12 +152,12 @@ namespace Bikewale.BAL.Finance
 
                 ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SaveEmployeDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
-            return message;
+            return response;
 
         }
-        public Iddetails SavePersonalDetails(PersonalDetails objDetails, string Utmz, string Utma, ushort leadSource)
+        public LeadResponseMessage SavePersonalDetails(PersonalDetails objDetails, string Utmz, string Utma, ushort leadSource)
         {
-            Iddetails objId = null;
+            LeadResponseMessage objId = null;
 
             try
             {
@@ -158,17 +168,17 @@ namespace Bikewale.BAL.Finance
 
                 objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
 
+                objId = new LeadResponseMessage();
+                objId.CpId = objDetails.Id;
+                objId.LeadId = objDetails.LeadId;
                 if (ctResponse != null)
                 {
-                    objDetails.CTLeadId = ctResponse.LeadId;
+                    objId.CTleadId = objDetails.CTLeadId = ctResponse.LeadId;
+                    objId.Status = ctResponse.Status;
+                    objId.Message = _leadStatusCollection[ctResponse.Status];
                     _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
                 }
                 #endregion
-
-                objId = new Iddetails();
-                objId.CpId = objDetails.Id;
-                objId.CTleadId = objDetails.CTLeadId;
-                objId.LeadId = objDetails.LeadId;
 
 
             }
@@ -313,8 +323,9 @@ namespace Bikewale.BAL.Finance
             return id;
         }
 
-        public void PushLeadinCTandAutoBiz(PersonalDetails objDetails, ushort leadSource)
+        public LeadResponseMessage PushLeadinCTandAutoBiz(PersonalDetails objDetails, ushort leadSource)
         {
+            LeadResponseMessage response = null;
             try
             {
                 var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
@@ -342,9 +353,16 @@ namespace Bikewale.BAL.Finance
                 var ctResponse = SendCustomerDetailsToCarTrade(objDetails, leadSource);
 
                 objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
+
+                response = new LeadResponseMessage();
+                response.CpId = objDetails.Id;
+                response.LeadId = objDetails.LeadId;
+
                 if (ctResponse != null)
                 {
-                    objDetails.CTLeadId = ctResponse.LeadId;
+                    response.CTleadId = objDetails.CTLeadId = ctResponse.LeadId;
+                    response.Status = ctResponse.Status;
+                    response.Message = _leadStatusCollection[ctResponse.Status];
                     _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
                 }
                 #endregion
@@ -355,7 +373,7 @@ namespace Bikewale.BAL.Finance
 
                 ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.PushLeadinCTandAutoBiz({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
-
+            return response;
         }
 
     }

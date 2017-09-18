@@ -66,7 +66,7 @@
         var self = this;
         self.userName = ko.observable();
         self.mobileNumber = ko.observable();
-
+        self.message = ko.observable();
         // set parameter for otp popup
         self.setParameters = function (objData) {
             if (objData != null) {
@@ -141,16 +141,16 @@
                     contentType: "application/json",
                     data: ko.toJSON(employeDetails),
                     success: function (response) {
-                        if (response == "Not Registered Mobile Number") {
+                        if (response && response.status == 13) {
                             otpScreen.openOtp();
                             var objData = {
                                 "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
                                 "mobileNumber": mobileNumber
-                            }
+                            };
                             otpvm.setParameters(objData);
                             $('#otpNumber').val("");
                         }
-                        else if (response == "Registered Mobile Number") {
+                        else {
                             otpScreen.openOtp();
                             $('.otp-container__info').hide();
                             $('#thankyouScreen').removeClass("hide");
@@ -180,7 +180,7 @@
                 "lastName": $('#cfLName').val(),
                 "pincode": $("#cfPincode").val(),
                 "objLeadJson": $("#objLead").val(),
-            }
+            };
             $.ajax({
                 type: "POST",
                 url: "/api/finance/verifymobile/otp/" + otp + "/?source=1",
