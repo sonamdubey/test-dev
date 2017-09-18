@@ -1377,8 +1377,8 @@ namespace Bikewale.DAL.BikeData
         /// <param name="cityId"></param>
         /// <param name="sP"></param>
         /// <returns></returns>
-        
-        private IEnumerable<SimilarBikesWithPhotos> GetSimilarBikesWithPhotosCount(U modelId, ushort totalRecords, uint cityId,string sP)
+
+        private IEnumerable<SimilarBikesWithPhotos> GetSimilarBikesWithPhotosCount(U modelId, ushort totalRecords, uint cityId, string sP)
         {
             IList<SimilarBikesWithPhotos> SimilarBikeInfoList = null;
             try
@@ -1391,7 +1391,7 @@ namespace Bikewale.DAL.BikeData
                     {
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     }
-                   
+
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -1448,8 +1448,8 @@ namespace Bikewale.DAL.BikeData
             IEnumerable<SimilarBikesWithPhotos> SimilarBikeInfoList = null;
             try
             {
-                SimilarBikeInfoList = GetSimilarBikesWithPhotosCount(modelId, totalRecords,0, "getsimilarbikeswithphotoscount_06092017");
-                
+                SimilarBikeInfoList = GetSimilarBikesWithPhotosCount(modelId, totalRecords, 0, "getsimilarbikeswithphotoscount_06092017");
+
             }
             catch (Exception ex)
             {
@@ -1465,7 +1465,7 @@ namespace Bikewale.DAL.BikeData
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotosInCity(U modelId, ushort totalRecords , uint cityId)
+        public IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotosInCity(U modelId, ushort totalRecords, uint cityId)
         {
             {
                 IEnumerable<SimilarBikesWithPhotos> SimilarBikeInfoList = null;
@@ -1937,7 +1937,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getbikeinfo_05072017";
+                    cmd.CommandText = "getbikeinfo_18092017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);
                 }
@@ -1998,6 +1998,7 @@ namespace Bikewale.DAL.BikeData
                             genericBikeInfo.Rating = Convert.ToSingle(dr["ReviewRate"]);
                             genericBikeInfo.RatingCount = SqlReaderConvertor.ToUInt16(dr["RatingsCount"]);
                             genericBikeInfo.UserReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
+                            genericBikeInfo.BodyStyleId = SqlReaderConvertor.ToInt16(dr["BodyStyleId"]);
                         }
                         dr.Close();
                     }
@@ -2457,7 +2458,7 @@ namespace Bikewale.DAL.BikeData
             IList<SimilarBikeUserReview> SimilarBikeInfoList = null;
             try
             {
-                    
+
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
