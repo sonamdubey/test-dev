@@ -356,22 +356,24 @@
                                                 <td></td>
                                             </tr>
                                             @{var spec1 = Model.Compare.UserReviewData.CompareReviews.Spec.FirstOrDefault().SpecCategory.FirstOrDefault();}
-                                            <tr class="row-type-data">
-                                                <td class="text-default">@spec1.Text</td>
+                                            @if (spec1 != null)
+                                            {
+                                                <tr class="row-type-data">
+                                                    <td class="text-default">@spec1.Text</td>
 
-                                                @foreach (var compSpec in spec1.CompareSpec)
-                                                {
-                                                    <td>
-                                                        <span class="text-bold">@compSpec.Value</span>&nbsp
-                                                        @if (!compSpec.Value.Equals("--"))
-                                                        {
-                                                            <span class="font12 text-xt-light">kmpl</span>
-                                                        }
-                                                    </td>
-                                                }
-                                                <td></td>
-                                            </tr>
-
+                                                    @foreach (var compSpec in spec1.CompareSpec)
+                                                    {
+                                                        <td>
+                                                            <span class="text-bold">@compSpec.Value</span>&nbsp
+                                                            @if (!compSpec.Value.Equals("--"))
+                                                            {
+                                                                <span class="font12 text-xt-light">kmpl</span>
+                                                            }
+                                                        </td>
+                                                    }
+                                                    <td></td>
+                                                </tr>
+                                            }
                                         </tbody>
                                     </table>
                                                 }
@@ -506,9 +508,9 @@
                                         @if (bike.UsedBikeCount.BikeCount > 0)
                                         {
                                             <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" )" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a><br />
-                                                                                <span>
-                                                                                    Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
-                                                                                </span>}
+                                            <span>
+                                                Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
+                                            </span>}
                                         else
                                         {
                                             <span>--</span>
