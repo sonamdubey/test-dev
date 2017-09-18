@@ -29,9 +29,9 @@
                                 }
                                 <span @(bike.VersionId != Model.sponsoredVersionId ? "" : "id=close-sponsored-bike") class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey"></span>
                                 <a href="@string.Format("/m/{0}-bikes/{1}/", bike.MakeMaskingName, bike.ModelMaskingName)" title="@bikeName" class="block margin-top10 @(Model.sponsoredVersionId > 0 && Model.SponsoredBike != null && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? "bw-ga" : "")" @(Model.sponsoredVersionId > 0 && Model.SponsoredBike != null && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? Model.SponsoredBike.BikeImpressionTracker : "")>
-                                <span class="font10 text-light-grey text-truncate">@bike.Make  </span>
-                                <h2 class="font12 text-truncate margin-bottom5">@bike.Model  </h2>
-                                <img class="bike-image-block" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.ImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80) " alt="@bikeName " />
+                                    <span class="font10 text-light-grey text-truncate">@bike.Make  </span>
+                                    <h2 class="font12 text-truncate margin-bottom5">@bike.Model  </h2>
+                                    <img class="bike-image-block" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.ImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80) " alt="@bikeName " />
                                 </a>
                                 <p class="label-text">Version:</p>
 
@@ -86,21 +86,19 @@
                                     <span class="position-abt pos-top5 label-text">Sponsored</span>
                                 }
                                 <span class="font10 text-light-grey text-truncate">@bike.Make  </span>
-                                <a href="@string.Format("/{0}-bikes/{1}/", bike.MakeMaskingName, bike.ModelMaskingName)" title="@bikeName" class="font12 text-truncate bike-title-target">@bike.Model</a>
+                                <a href="@string.Format("/m/{0}-bikes/{1}/", bike.MakeMaskingName, bike.ModelMaskingName)" title="@bikeName" class="font12 text-truncate bike-title-target">@bike.Model</a>
                                 @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                 {
                                     <div>
                                         <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" rel="nofollow">On-road price</a>
                                     </div>
                                 }
-                                else
+                                else if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                 {
-                                    if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
-                                    {
-                                        <div class="padding-top5 padding-bottom5">
-                                            <span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_Floating Card", bikeName)" class="font14 bw-ga  text-link">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
-                                        </div>
-                                    }
+
+                                    <div class="padding-top5 padding-bottom5">
+                                        <span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_Floating Card", bikeName)" class="font14 bw-ga  text-link">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
+                                    </div>
                                 }
                             </div>
                         }
@@ -225,8 +223,6 @@
                                             </td>
                                         }
                                     </tr>
-
-
                                 </tbody>
                             </table>
                         }
@@ -283,79 +279,79 @@
                 }
             </div>
 
-                    <!-- select bike starts here -->
-                                            <div id="select-bike-cover-popup" class="cover-window-popup">
-                                                <div class="ui-corner-top">
-                                                    <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="click: closeBikePopup">
-                                                        <span class="bwmsprite fa-angle-left"></span>
-                                                    </div>
-                                                    <div class="cover-popup-header leftfloat">Select bikes</div>
-                                                    <div class="clear"></div>
-                                                </div>
-                                                <div class="bike-banner"></div>
-                                                <div id="select-make-wrapper" class="cover-popup-body">
-                                                    <div class="cover-popup-body-head">
-                                                        <p class="no-back-btn-label head-label inline-block">Select Make</p>
-                                                    </div>
-                                                    <ul class="cover-popup-list with-arrow" data-bind="foreach : makes">
+            <div id="select-bike-cover-popup" class="cover-window-popup">
+                <div class="ui-corner-top">
+                    <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="click: closeBikePopup">
+                        <span class="bwmsprite fa-angle-left"></span>
+                    </div>
+                    <div class="cover-popup-header leftfloat">Select bikes</div>
+                    <div class="clear"></div>
+                </div>
+                <div class="bike-banner"></div>
+                <div id="select-make-wrapper" class="cover-popup-body">
+                    <div class="cover-popup-body-head">
+                        <p class="no-back-btn-label head-label inline-block">Select Make</p>
+                    </div>
+                    <ul class="cover-popup-list with-arrow" data-bind="foreach : makes">
 
-                                                        <li data-bind="click: $parent.makeChanged,attr:{'data-masking' : maskingName , 'data-id' : makeId }"><span data-bind="text : makeName"></span></li>
+                        <li data-bind="click: $parent.makeChanged,attr:{'data-masking' : maskingName , 'data-id' : makeId }"><span data-bind="text : makeName"></span></li>
 
-                                                    </ul>
-                                                </div>
+                    </ul>
+                </div>
 
-                                                <div id="select-model-wrapper" class="cover-popup-body">
-                                                    <div class="cover-popup-body-head">
-                                                        <div data-bind="click: modelBackBtn" class="body-popup-back cur-pointer inline-block">
-                                                            <span class="bwmsprite back-long-arrow-left"></span>
-                                                        </div>
-                                                        <p class="head-label inline-block">Select Model</p>
-                                                    </div>
-                                                    <ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
-                                                        <li data-bind="click: $parent.modelChanged, attr: { 'data-id': modelId, 'data-masking': maskingName }">
-                                                            <span data-bind="text: modelName, attr: { 'data-id': modelId, 'data-masking': maskingName }"></span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                <div id="select-model-wrapper" class="cover-popup-body">
+                    <div class="cover-popup-body-head">
+                        <div data-bind="click: modelBackBtn" class="body-popup-back cur-pointer inline-block">
+                            <span class="bwmsprite back-long-arrow-left"></span>
+                        </div>
+                        <p class="head-label inline-block">Select Model</p>
+                    </div>
+                    <ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
+                        <li data-bind="click: $parent.modelChanged, attr: { 'data-id': modelId, 'data-masking': maskingName }">
+                            <span data-bind="text: modelName, attr: { 'data-id': modelId, 'data-masking': maskingName }"></span>
+                        </li>
+                    </ul>
+                </div>
 
-                                                <div id="select-version-wrapper" class="cover-popup-body">
-                                                    <div class="cover-popup-body-head">
-                                                        <div data-bind="click: versionBackBtn" class="body-popup-back cur-pointer inline-block">
-                                                            <span id="arrow-version-back" class="bwmsprite back-long-arrow-left"></span>
-                                                        </div>
-                                                        <p class="head-label inline-block">Select Version</p>
-                                                    </div>
-                                                    <ul class="cover-popup-list" data-bind="foreach: versionArray">
-                                                        <li data-bind="click: $parent.versionChanged">
-                                                            <span data-bind="text: versionName, attr: { 'data-id': versionId }"></span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                <div id="select-version-wrapper" class="cover-popup-body">
+                    <div class="cover-popup-body-head">
+                        <div data-bind="click: versionBackBtn" class="body-popup-back cur-pointer inline-block">
+                            <span id="arrow-version-back" class="bwmsprite back-long-arrow-left"></span>
+                        </div>
+                        <p class="head-label inline-block">Select Version</p>
+                    </div>
+                    <ul class="cover-popup-list" data-bind="foreach: versionArray">
+                        <li data-bind="click: $parent.versionChanged">
+                            <span data-bind="text: versionName, attr: { 'data-id': versionId }"></span>
+                        </li>
+                    </ul>
+                </div>
 
-                                                <div class="cover-popup-loader-body">
-                                                    <div class="cover-popup-loader"></div>
-                                                    <div class="cover-popup-loader-text font14">Loading...</div>
-                                                </div>
-                                            </div>
-                    <!-- select bike ends here -->
+                <div class="cover-popup-loader-body">
+                    <div class="cover-popup-loader"></div>
+                    <div class="cover-popup-loader-text font14">Loading...</div>
+                </div>
+            </div>
 
-                                            }
+            <div class="same-version-toast">
+                <p>Please select different bike for comparision.</p>
+            </div>
 
-        <div class="same-version-toast">
-            <p>Please select different bike for comparision.</p>
+        }
+    </section>
+}
+@if (Model.topBikeCompares != null)
+{
+    <section>
+        <div class="container card-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow padding-top20">
+                    <h2 class="h2-heading padding-left20 margin-bottom20">People who compared above bikes also compared</h2>
+                    @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.topBikeCompares)
+                </div>
+            </div>
+            <div class="clear"></div>
         </div>
     </section>
+}
 
-                                            }
-
-<section>
-    <div class="container card-bottom-margin">
-        <div class="grid-12">
-            <div class="content-box-shadow padding-top20">
-                <h2 class="h2-heading padding-left20 margin-bottom20">People who compared above bikes also compared</h2>
-                @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.topBikeCompares)
-            </div>
-        </div>
-        <div class="clear"></div>
-    </div>
-</section>
