@@ -375,10 +375,14 @@ docReady(function () {
     reg = new RegExp('^[0-9]*$');
 
     vmUserReviews = new modelUserReviews();
-    ko.applyBindings(vmUserReviews, $("#reviewsContent")[0]);
+
+    if($("#reviewsContent")[0])
+        ko.applyBindings(vmUserReviews, $("#reviewsContent")[0]);
 });
 
 docReady(function () {
+
+    bwcache.setOptions({ 'EnableEncryption': true });
 
     var userEventSource = true;
 
@@ -865,42 +869,52 @@ var modelUserReviews = function () {
     var self = this;
     self.reviewList = ko.observableArray(null);
     self.trimLengthText = ko.observable();
+   
     self.getMoreReviews = function () {
         try {
-            var apiUrl = "/api/user-reviews/list/3/?reviews=true&pn=1&ps=5&so=1&model=" + bikeModelId;
-            $.getJSON(apiUrl)
-            .done(function (response) {
-                if (response && response.result) {
-                    self.reviewList(response.result);
-                    applyLikeDislikes();
-                }
+            if (bikeModelId) {
+                var apiUrl = "/api/user-reviews/list/3/?reviews=true&pn=1&ps=5&so=1&model=" + bikeModelId;
+                $.getJSON(apiUrl)
+                .done(function (response) {
+                    if (response && response.result) {
+                        self.reviewList(response.result);
+                        applyLikeDislikes();
+                    }
 
-            });
+                });
+            }
         } catch (e) {
             console.log(e);
         }
     };
+
+    self.logBhrighuData = function (event, eventName) {
+        var ele = $(event.currentTarget);
+        var index = ele.data("index");
+        logBhrighu(index, eventName);
+        return true;
+    };
+
+    self.readMoreNew = function (event) {        
+        var ele = $(event.currentTarget);
+        var reviewId = ele.data("reviewid");
+
+        updateView(reviewId);
+       
+        var index = ele.data("index");
+       
+        logBhrighu(index, "ReadMoreClick");
+        return true;
+    };
 }
-
-
-function logBhrighuData(event, eventName) {
-    var ele = $(event.currentTarget);
-    var index = ele.data("index")
-    logBhrighu(index, eventName)
-}
-
 
 function logBhrighu(itemNo, eventName) {
     label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + (++itemNo) + '|pageSource=' + $('#pageSource').val();
     cwTracking.trackUserReview(eventName, label);
 }
 
-function updateView(event) {
+function updateView(reviewId) {
     try {
-
-        var ele = $(event.currentTarget);
-        var reviewId = ele.data("reviewid");
-
         if (reviewId)
         {
             $.post("/api/user-reviews/updateView/" + reviewId + "/");
@@ -909,13 +923,6 @@ function updateView(event) {
     } catch (e) {
         console.log(e);
     }
-}
-
-function readMoreNew(e) {
-    updateView(e);
-    var ele = $(e.currentTarget);
-    var index = ele.data("index");
-    logBhrighu(index, "ReadMoreClick");
 }
 
 function readMore(e) {
@@ -931,14 +938,14 @@ function readMore(e) {
 				moreContentEle.html(desc);
 			}
 			
-            updateView(e);
+            updateView(reviewId);
             logBhrighu(itemNo, "ReadMoreClick");
 
-            if ($('#reviewsContent') && $('#reviewsContent').attr('data-readMore')) {
-                $('#reviewsContent').attr('data-readMore', parseInt($('#reviewsContent').attr('data-readMore')) + 1);
+            if ($('#reviewsContent') && $('#reviewsContent').attr('data-readmore')) {
+                $('#reviewsContent').attr('data-readmore', parseInt($('#reviewsContent').attr('data-readmore')) + 1);
             }
 
-            if ($('#reviewsContent') && $('#reviewsContent').attr('data-readMore') == "3") {
+            if ($('#reviewsContent') && $('#reviewsContent').attr('data-readmore') == "3") {
                 vmUserReviews.getMoreReviews();
             }
         }

@@ -103,7 +103,7 @@
                 <!-- /ko -->
                 <div class="grid-10-inline font15 text-black text-bold text-truncate">
 
-                    <a onclick="logBhrighuData(event, 'TitleClick')"  data-index="" data-bind="attr : {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId, 'title' : $data.title,'href' : (($data.reviewId) ? ('/m' + $data.reviewUrl) : '')}" class="text-black"> <span class="review-title position-rel" data-bind="text:$data.title"></span></a>
+                    <a data-index="" data-bind="click: function (data, event) { return $parent.logBhrighuData(event, 'TitleClick'); }, attr : {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId, 'title' : $data.title,'href' : (($data.reviewId) ? ('/m' + $data.reviewUrl) : '')}" class="text-black"> <span class="review-title position-rel" data-bind="text:$data.title"></span></a>
                 </div>
             </div>
 
@@ -115,7 +115,7 @@
             <div class="main-content">
                 <div class="font14 text-slate-grey">
                     <p data-bind="truncateDesc: $data.description"></p>
-                    <a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" onclick="readMoreNew(event)" data-index="@i" data-bind="attr: {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId }">Read more</a>
+                    <a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-index="@i" data-bind="click: function (data, event) { return $parent.readMoreNew(event)}, attr: {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId }">Read more</a>
                 </div>
             </div>
             <div class="more-content">
