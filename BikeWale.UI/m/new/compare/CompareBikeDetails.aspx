@@ -81,13 +81,13 @@
                             <% }
                                 else
                                 { %>
-                            <% if(!String.IsNullOrEmpty(featuredBike)) { %>
+                            <% if (!String.IsNullOrEmpty(featuredBike))
+                                { %>
                             <div class="padding-top5 padding-bottom5">
                                 <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0}_Top Card",bike.Name) %>" class="font14 bw-ga text-link know-more-btn-shown"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
                             </div>
                             <% } %>
                             <% } %>
-
                         </div>
                         <% } %>
                         <div class="clear"></div>
@@ -110,7 +110,8 @@
                             <% }
                                 else
                                 { %>
-                            <% if(!String.IsNullOrEmpty(featuredBike)) { %>
+                            <% if (!String.IsNullOrEmpty(featuredBike))
+                                { %>
                             <div class="padding-top5 padding-bottom5">
                                 <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0}_Floating Card",bike.Name) %>" class="font14 bw-ga  text-link"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
                             </div>
@@ -124,7 +125,10 @@
                                 <li data-tabs="specsTabContent" class="active">Specifications</li>
                                 <li data-tabs="featuresTabContent">Features</li>
                                 <li data-tabs="coloursTabContent">Colours</li>
-                                <li data-tabs="reviewTabContent">Reviews</li>
+                                <%if (vmCompare.UserReviewData != null)
+                                    { %>
+                                <li id="li-reviewtab" data-tabs="reviewTabContent" class="bw-ga" c="Compare_Bikes" a="Floating_UserReview_Section" l="<%=TargetedModels.Replace(",", "_")%>">Reviews</li>
+                                <%} %>
                             </ul>
                             <div class="clear"></div>
                         </div>
@@ -141,13 +145,16 @@
                             <li data-tabs="coloursTabContent">
                                 <h3>Colours</h3>
                             </li>
-                            <li data-tabs="reviewTabContent">
+                            <%if (vmCompare.UserReviewData != null)
+                                { %>
+                            <li data-tabs="reviewTabContent" class="bw-ga" c="Compare_Bikes" a="Floating_UserReview_Section" l="<%=TargetedModels.Replace(",", "_")%>">
                                 <h3>Reviews</h3>
+                                <%} %>
                             </li>
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <div id="specsTabContent" class="bw-tabs-data active">
+                    <div id="specsTabContent" class="bw-tabs-data active hide-features">
                         <% if (vmCompare.CompareSpecifications != null)
                             { %>
                         <% bool isFirstActiveTab = true; foreach (var spec in vmCompare.CompareSpecifications.Spec)
@@ -183,7 +190,7 @@
 
                         <% } %>
                     </div>
-                    <div id="featuresTabContent" class="bw-tabs-data">
+                    <div id="featuresTabContent" class="bw-tabs-data hide-features">
                         <% if (vmCompare.CompareFeatures != null)
                             { %>
                         <% foreach (var spec in vmCompare.CompareFeatures.Spec)
@@ -212,7 +219,7 @@
                         <% } %>
                         <% } %>
                     </div>
-                    <div id="coloursTabContent" class="bw-tabs-data">
+                    <div id="coloursTabContent" class="bw-tabs-data hide-features">
                         <% if (vmCompare.CompareColors != null)
                             { %>
                         <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -230,13 +237,14 @@
                                                 if (color.HexCodes != null)
                                                 { %>
                                         <div class="color-box color-count-<%= color.HexCodes.Count()   %>">
-                                            <% foreach (var hexCode in color.HexCodes) { %>
+                                            <% foreach (var hexCode in color.HexCodes)
+                                                { %>
                                             <span style="background-color: #<%= hexCode %>"></span>
                                             <% } %>
                                         </div>
                                         <p><%= color.Color %></p>
                                         <% }
-                                        } %>
+                                            } %>
                                     </td>
                                     <% } %>
                                 </tr>
@@ -246,7 +254,8 @@
                         </table>
                         <% } %>
                     </div>
-
+                    <% if (vmCompare.UserReviewData != null)
+                        { %>
                     <div id="reviewTabContent" class="review-tab bw-tabs-data">
                         <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
@@ -255,183 +264,117 @@
                                     <td></td>
                                 </tr>
                                 <tr class="row-type-data">
+                                    <% foreach (var compSpec in vmCompare.UserReviewData.OverallRatingObject)
+                                        { %>
                                     <td>
-                                        <div class="rate-count-4 rating">
+                                        <% if (!compSpec.ReviewRate.Equals("--"))
+                                            {
+                                        %>
+                                        <div class="rate-count-<%=Math.Floor(Convert.ToDouble(compSpec.ReviewRate))%> rating">
                                             <span class="bwmsprite star-icon"></span>
-                                            <span class="font18 text-bold">4.4</span>
+                                            <span class="font18 text-bold"><%=compSpec.ReviewRate%></span>
                                         </div>
-                                        <div class="rating-count">(7 ratings)</div>
-                                        <a href="" class="font12">55 reviews</a>
+                                        <div class="rating-count">(<%=compSpec.RatingCount%>&nbsp;ratings)</div>
+                                        <a href="/m<%=compSpec.ReviewListUrl%>" target="_blank" class="font12"><%=compSpec.ReviewCount%>&nbsp;reviews</a>
+                                        <% }
+                                            else
+                                            { %>
+                                        <span class="text-bold">--</span>
+                                        <%} %>
                                     </td>
-                                    <td>
-                                        <div class="rate-count-3 rating">
-                                            <span class="bwmsprite star-icon"></span>
-                                            <span class="font18 text-bold">3.4</span>
-                                        </div>
-                                        <div class="rating-count">(17 ratings)</div>
-                                        <a href="" class="font12">55 reviews</a>
-                                    </td>
+                                    <% } %>
                                     <td></td>
                                 </tr>
-
+                                <% var spec1 = vmCompare.UserReviewData.CompareReviews.Spec.FirstOrDefault().SpecCategory.FirstOrDefault(); %>
                                 <tr class="row-type-heading">
-                                    <td colspan="2">Mileage by Users</td>
+                                    <td colspan="2"><%=spec1.Text%></td>
                                     <td></td>
                                 </tr>
                                 <tr class="row-type-data">
-                                    <td>55.55&nbsp
+                                    <% foreach (var compSpec in spec1.CompareSpec)
+                                        { %>
+                                    <td><%=compSpec.Value%>&nbsp
+                                        <%if (!compSpec.Value.Equals("--"))
+                                            {%>
                                         <span class="font12 text-xt-light">kmpl</span>
+                                        <%}%>
                                     </td>
-                                    <td>35.55&nbsp
-                                        <span class="font12 text-xt-light">kmpl</span>
-                                    </td>
+                                    <%} %>
                                     <td></td>
                                 </tr>
 
+                                <%if (vmCompare.UserReviewData.CompareReviews != null && vmCompare.UserReviewData.CompareReviews.Spec != null && vmCompare.UserReviewData.CompareReviews.Spec.Count() > 1)
+                                    {
+                                        foreach (var spec in vmCompare.UserReviewData.CompareReviews.Spec.Skip(1))
+                                        {
+                                %>
+
                                 <tr class="row-type-heading">
-                                    <td colspan="2">Performance Parameters</td>
+                                    <td colspan="2"><%=spec.Text%></td>
                                     <td></td>
                                 </tr>
+
+                                <%foreach (var specCat in spec.SpecCategory)
+                                    {%>
+
                                 <tr class="data-head">
-                                    <td colspan="2">Visual appear</td>
+                                    <td colspan="2"><%=specCat.Text%></td>
                                     <td></td>
                                 </tr>
                                 <tr class="row-type-data">
+                                    <%foreach (var compSpec in specCat.CompareSpec)
+                                        {%>
                                     <td class="border-bottom-grey margin-bottom5">
+                                        <%if (!compSpec.Value.Equals("--"))
+                                            { %>
                                         <div class='rating-bar margin-top5'>
-                                            <span class='rate-1'></span>
+                                            <span class='rate-<%=Math.Floor(Convert.ToDouble(compSpec.Value))%>'></span>
                                         </div>
                                         &nbsp
-                                        1   
+                                        <%=Math.Floor(Convert.ToDouble(compSpec.Value))%>
+                                        <% }
+                                            else
+                                            { %>
+                                        <%=compSpec.Value%>
+                                        <% } %>
                                     </td>
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-2'></span>
-                                        </div>
-                                        &nbsp
-                                        2   
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr class="data-head">
-                                    <td colspan="2">Handling</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="row-type-data">
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-1'></span>
-                                        </div>
-                                        &nbsp
-                                        1   
-                                    </td>
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-2'></span>
-                                        </div>
-                                        &nbsp
-                                        2   
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr class="data-head">
-                                    <td colspan="2">Ride quality</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="row-type-data">
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-1'></span>
-                                        </div>
-                                        &nbsp
-                                        1   
-                                    </td>
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <div class='rate-2'></div>
-                                        </div>
-                                        &nbsp
-                                       2   
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr class="data-head">
-                                    <td colspan="2">Value of money</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="row-type-data">
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-1'></span>
-                                        </div>
-                                        &nbsp
-                                        1   
-                                    </td>
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-5'></span>
-                                        </div>
-                                        &nbsp
-                                        5   
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr class="data-head">
-                                    <td colspan="2">Service cost</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="row-type-data">
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-4'></span>
-                                        </div>
-                                        &nbsp
-                                        4   
-                                    </td>
-                                    <td class="border-bottom-grey">
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-5'></span>
-                                        </div>
-                                        &nbsp
-                                        5   
-                                    </td>
+                                    <%} %>
                                     <td></td>
                                 </tr>
 
-                                <tr class="row-type-heading">
+                                <%}
+                                        }
+                                    }%>
+
+                                <% if (vmCompare.UserReviewData.MostHelpfulReviewList != null)
+                                    { %>
+                                <tr class="row-type-heading ">
                                     <td colspan="2">Reviews</td>
                                     <td></td>
                                 </tr>
                                 <tr class="row-type-data font14">
+                                    <% foreach (var review in vmCompare.UserReviewData.MostHelpfulReviewList)
+                                        { %>
                                     <td>
-                                        <span class="rating-badge margin-bottom10" data-rate-bg="5">
-                                            <span class="bwmsprite star-white"></span>5
+                                        <span class="rating-badge margin-bottom10" data-rate-bg="<%=review.RatingValue%>">
+                                            <span class="bwmsprite star-white"></span><%=review.RatingValue%>
                                         </span>
                                         <p class="font14 text-default margin-bottom10">
-                                            Royal enfield-royalty bikes
+                                            <a href="/m<%=review.ReviewDetailUrl%>" target="_blank" class="text-default"><%=review.ReviewTitle%></a>
                                         </p>
                                         <p class="review-decription">
-                                            Get in touch with your nearest Bajaj center…
+                                            <%=review.ReviewDescription%>
                                         </p>
-                                        <a href="#" class="review-title review-link">All reviews</a>
+                                        <a href="/m<%=review.ReviewListUrl%>" class="review-title review-link bw-ga" c="Compare_Bikes" a="Read_Reviews_Clicked" l="<%=targetedModels.Replace(",", "_")%>">All reviews</a>
                                     </td>
-                                    <td>
-                                        <span class="rating-badge margin-bottom10" data-rate-bg="5">
-                                            <span class="bwmsprite star-white"></span>5
-                                        </span>
-                                        <p class="font14 text-default margin-bottom10">
-                                            Royal enfield-royalty bikes
-                                        </p>
-                                        <p class="review-decription">
-                                            Get in touch with your nearest Bajaj center…
-                                        </p>
-                                        <a href="#" class="review-title review-link">All reviews</a>
-                                    </td>
+                                    <%} %>
                                     <td></td>
                                 </tr>
+                                <%} %>
                             </tbody>
                         </table>
                     </div>
+                    <%} %>
 
                     <div id="toggle-float-button" class="grid-12 float-button float-fixed clearfix slideIn-transition">
                         <button type="button" id="toggle-features-btn" class="btn btn-teal btn-full-width">Hide common features</button>
@@ -472,8 +415,8 @@
                                         <span class="bwmsprite inr-grey-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(bike.UsedBikeCount.StartingPrice.ToString()) %>
                                     </p>
                                     <% }
-                                    else
-                                    { %>
+                                        else
+                                        { %>
                                     <div class="font14 text-bold text-center">--</div>
                                     <%} %>
                                 </td>

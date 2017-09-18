@@ -9,8 +9,8 @@
     Model.AdTags.AdPath = "/1017752/BikeWale_CompareBikes_";
     Model.AdTags.Ad_970x90Bottom = true;
     Model.AdTags.Ad_970x90 = true;
-    
-    }
+
+}
 <script type="text/javascript">
     var slideCountTwo = 2;
 </script>
@@ -181,7 +181,10 @@
                             <li class="active" data-tabs="specsTabContent">Specifications</li>
                             <li data-tabs="featuresTabContent">Features</li>
                             <li data-tabs="coloursTabContent">Colours</li>
-                            <li data-tabs="reviewTabContent">Reviews</li>
+                            @if (Model.Compare.UserReviewData != null)
+                            {
+                                <li data-tabs="reviewTabContent" class="bw-ga" c="Compare_Bikes" a="Floating_UserReview_Section" l="@Model.targetModels.Replace(",", "_")">Reviews</li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -191,12 +194,15 @@
                         <li class="active" data-tabs="specsTabContent">Specifications</li>
                         <li data-tabs="featuresTabContent">Features</li>
                         <li data-tabs="coloursTabContent">Colours</li>
-                        <li data-tabs="reviewTabContent">Reviews</li>
+                        @if (Model.Compare.UserReviewData != null)
+                        {
+                            <li data-tabs="reviewTabContent" class="bw-ga" c="Compare_Bikes" a="Floating_UserReview_Section" l="@Model.targetModels.Replace(",", "_")">Reviews</li>
+                        }
                     </ul>
                 </div>
                 @if (Model.Compare.CompareSpecifications != null)
                 {
-                    <div id="specsTabContent" class="bw-tabs-data font14">
+                    <div id="specsTabContent" class="bw-tabs-data font14 hide-features">
 
                         <ul class="accordion-list">
                             @{isFirstActiveTab = true;}  @foreach (var spec in Model.Compare.CompareSpecifications.Spec)
@@ -249,7 +255,7 @@
 
                 @if (Model.Compare.CompareFeatures != null)
                 {
-                    <div id="featuresTabContent" class="bw-tabs-data font14 hide">
+                    <div id="featuresTabContent" class="bw-tabs-data font14 hide hide-features">
                         @foreach (var spec in Model.Compare.CompareFeatures.Spec)
                         {
                             <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -289,7 +295,7 @@
                                         }
                 @if (Model.Compare.CompareColors != null)
                 {
-                    <div id="coloursTabContent" class="bw-tabs-data font14 hide">
+                    <div id="coloursTabContent" class="bw-tabs-data font14 hide hide-features">
                         <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
                                 <tr class="row-width-grid">
@@ -327,247 +333,222 @@
                         </table>
                     </div>
                 }
-                <div id="reviewTabContent" class="review-tab bw-tabs-data font14 hide">
-                    <ul>
-                        <li>
-                            <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                                <tbody>
-                                    <tr class="row-width-grid">
-                                        <td width="162"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td class="text-default">Overall rating</td>
-                                        <td>
-                                            <div class="rating-block">
-                                                <span class="rate-count-4 margin-right5">
-                                                    <span class="bwsprite star-icon star-size-16"></span>
-                                                    <span class="font20 font-bold">4.6</span>
-                                                </span>
-                                                <span class="font10 text-slate-grey">(7 ratings)</span>
-                                            </div>
-                                            <a href="" class="font12">55 reviews</a>
-                                        </td>
-                                        <td>
-                                            <div class="rating-block">
-                                                <span class="rate-count-3 margin-right5">
-                                                    <span class="bwsprite star-icon star-size-16"></span>
-                                                    <span class="font20 font-bold">3.6</span>
-                                                </span>
-                                                <span class="font10 text-slate-grey">(7 ratings)</span>
-                                            </div>
-                                            <a href="" class="font12">55 reviews</a>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td class="text-default">Mileage by Users</td>
-                                        <td>
-                                            <span class="text-bold">55.55</span>&nbsp
-                                            <span class="font12 text-xt-light">kmpl</span>
-                                        </td>
-                                        <td>
-                                            <span class="text-bold">55.55</span>&nbsp
-                                            <span class="font12 text-xt-light">kmpl</span>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </li>
-                        <li>
-                            <div class="model-accordion-tab">
-                                <span class="accordion-tab-label">Performance parameters</span>
-                            </div>
-                            <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                                <tbody>
-                                    <tr class="row-width-grid">
-                                        <td width="162"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td class="text-slate-grey">Visual appeal</td>
-                                        <td class="border-bottom-grey text-bold">
-                                            <div class='rating-bar'>
-                                                <span class='rate-1'></span>
-                                            </div>
-                                            &nbsp
-                                            1
-                                        </td>
-                                        <td class="border-bottom-grey text-bold">
-                                            <div class='rating-bar'>
-                                                <span class='rate-2'></span>
-                                            </div>
-                                            &nbsp
-                                            2
-                                        </td>
-                                        <td class="border-bottom-grey text-bold"></td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td class="text-slate-grey">Handling</td>
-                                        <td class="border-bottom-grey text-bold">
-                                            <div class='rating-bar'>
-                                                <span class='rate-1'></span>
-                                            </div>
-                                            &nbsp
-                                            1
-                                        </td>
-                                        <td class="border-bottom-grey text-bold">
-                                            <div class='rating-bar'>
-                                                <span class='rate-2'></span>
-                                            </div>
-                                            &nbsp
-                                            2
-                                        </td>
-                                        <td class="border-bottom-grey text-bold"></td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td class="text-slate-grey">Ride Quality</td>
-                                        <td class="border-bottom-grey text-bold">
-                                            <div class='rating-bar'>
-                                                <span class='rate-1'></span>
-                                            </div>
-                                            &nbsp
-                                            1
-                                        </td>
-                                        <td class="border-bottom-grey text-bold">
-                                            <div class='rating-bar'>
-                                                <span class='rate-2'></span>
-                                            </div>
-                                            &nbsp
-                                            2
-                                        </td>
-                                        <td class="border-bottom-grey text-bold"></td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td class="text-slate-grey">Value for money</td>
-                                        <td class="border-bottom-grey text-bold">
-                                            <div class='rating-bar'>
-                                                <span class='rate-1'></span>
-                                            </div>
-                                            &nbsp
-                                            1
-                                        </td>
-                                        <td class="border-bottom-grey text-bold">
-                                            <div class='rating-bar '>
-                                                <span class='rate-2'></span>
-                                            </div>
-                                            &nbsp
-                                            2
-                                        </td>
-                                        <td class="border-bottom-grey text-bold"></td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td class="text-slate-grey">Service cost</td>
-                                        <td class="border-bottom-grey text-bold">
-                                            <div class='rating-bar '>
-                                                <span class='rate-1'></span>
-                                            </div>
-                                            &nbsp
-                                            1
-                                        </td>
-                                        <td class="border-bottom-grey text-bold">
-                                            <div class='rating-bar '>
-                                                <span class='rate-2'></span>
-                                            </div>
-                                            &nbsp
-                                            2
-                                        </td>
-                                        <td class="border-bottom-grey text-bold"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </li>
-                        <li>
-                            <div class="model-accordion-tab">
-                                <span class="accordion-tab-label">Reviews</span>
-                            </div>
-                            <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                                <tbody>
-                                    <tr class="row-width-grid">
-                                        <td width="162"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Most helpful</td>
-                                        <td>
-                                            <span class="rating-badge margin-bottom10" data-rate-bg="5">
-                                                <span class="bwsprite star-white"></span>5
-                                            </span>
-                                            <p class="text-bold font14 text-default margin-bottom10">
-                                                Royal enfield-royalty bikes
-                                            </p>
-                                            <p class="review-decription">
-                                                Get in touch with your nearest Bajaj service center in Pune for…
-                                            </p>
-                                            <a href="#" class="review-title review-link">All reviews</a>
-                                        </td>
-                                        <td>
-                                            <span class="rating-badge margin-bottom10" data-rate-bg="3">
-                                                <span class="bwsprite star-white"></span>3
-                                            </span>
-                                            <p class="text-bold font14 text-default margin-bottom10">
-                                                Royal enfield-royalty bikes
-                                            </p>
-                                            <p class="review-decription">
-                                                Get in touch with your nearest Bajaj service center in Pune for…
-                                            </p>
-                                            <a href="#" class="review-title review-link">All reviews</a>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </li>
-                    </ul>
-                </div>
+
+
+
+                @if (Model.Compare.UserReviewData != null)
+                {
+                    <div id="reviewTabContent" class="review-tab bw-tabs-data font14 hide">
+
+                        <ul>
+                            <li>
+                                @if (Model.Compare.UserReviewData.OverallRatingObject != null)
+                                {
+                                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                        <tbody>
+                                            <tr class="row-width-grid">
+                                                <td width="162"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                            @{isFirstActiveTab = false;}
+
+                                            <tr class="row-type-data">
+                                                <td class="text-default">Overall rating</td>
+
+                                                @foreach (var compSpec in Model.Compare.UserReviewData.OverallRatingObject)
+                                                {
+                                                    <td>
+                                                        @if (!compSpec.ReviewRate.Equals("--"))
+                                                        {
+                                                            <div class="rating-block">
+                                                                <span class="rate-count-@Math.Floor(Convert.ToDouble(compSpec.ReviewRate)) margin-right5">
+                                                                    <span class="bwsprite star-icon star-size-16"></span>
+                                                                    <span class="font20 font-bold">@compSpec.ReviewRate</span>
+                                                                </span>
+                                                                <span class="font10 text-slate-grey">(@compSpec.RatingCount ratings)</span>
+                                                            </div>
+
+                                                            <a href="@compSpec.ReviewListUrl" target="_blank" class="font12">@compSpec.ReviewCount reviews</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="text-bold">--</span>
+                                                        }
+                                                    </td>
+                                                }
+                                                <td></td>
+                                            </tr>
+                                            @{var spec1 = Model.Compare.UserReviewData.CompareReviews.Spec.FirstOrDefault().SpecCategory.FirstOrDefault();}
+                                            <tr class="row-type-data">
+                                                <td class="text-default">@spec1.Text</td>
+
+                                                @foreach (var compSpec in spec1.CompareSpec)
+                                                {
+                                                    <td>
+                                                        <span class="text-bold">@compSpec.Value</span>&nbsp
+                                                        @if (!compSpec.Value.Equals("--"))
+                                                        {
+                                                            <span class="font12 text-xt-light">kmpl</span>
+                                                        }
+                                                    </td>
+                                                }
+                                                <td></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                                }
+                            </li>
+
+                            @if (Model.Compare.UserReviewData.CompareReviews != null && Model.Compare.UserReviewData.CompareReviews.Spec != null && Model.Compare.UserReviewData.CompareReviews.Spec.Count() > 1)
+                            {
+                                foreach (var spec in Model.Compare.UserReviewData.CompareReviews.Spec.Skip(1))
+                                {
+                                    <li>
+                                        <div class="model-accordion-tab">
+                                            <span class="accordion-tab-label">@spec.Text</span>
+                                        </div>
+                                        <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                            <tbody>
+                                                <tr class="row-width-grid">
+                                                    <td width="162"></td>
+                                                    @foreach (var specCat in spec.SpecCategory)
+                                                    {
+
+                                                        foreach (var compSpec in specCat.CompareSpec)
+                                                        {
+                                                            <td></td>
+                                                        }
+                                                        <td></td>
+
+                                                    }
+                                                </tr>
+
+                                                @{isFirstActiveTab = false;} @foreach (var specCat in spec.SpecCategory)
+                                                {
+
+                                                    <tr class="row-type-data">
+                                                        <td class="text-slate-grey">@specCat.Text</td>
+                                                        @foreach (var compSpec in specCat.CompareSpec)
+                                                        {
+                                                            <td class="border-bottom-grey text-bold">
+                                                                @if (!compSpec.Value.Equals("--"))
+                                                                {
+                                                                    <div class='rating-bar'>
+                                                                        <span class='rate-@Math.Floor(Convert.ToDouble(compSpec.Value))'></span>
+                                                                    </div>
+                                                                    @Math.Floor(Convert.ToDouble(compSpec.Value))
+                                                                }
+                                                                else
+                                                                {
+                                                                    @compSpec.Value
+                                                                }
+                                                            </td>
+                                                        }
+                                                        <td></td>
+                                                    </tr>
+
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </li>
+                                                        }
+                                                    }
+
+
+                            @if (Model.Compare.UserReviewData.MostHelpfulReviewList != null)
+                            {
+                                <li>
+                                    <div class="model-accordion-tab">
+                                        <span class="accordion-tab-label">Reviews</span>
+                                    </div>
+                                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                        <tbody>
+                                            <tr class="row-width-grid">
+                                                <td width="162"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr class="row-type-data">
+                                                <td>Most helpful</td>
+                                                @foreach (var review in Model.Compare.UserReviewData.MostHelpfulReviewList)
+                                                {
+                                                    <td>
+                                                        @if (review.RatingValue > 0)
+                                                        {
+                                                            <span class="rating-badge margin-bottom10" data-rate-bg="@review.RatingValue">
+                                                                <span class="bwsprite star-white"></span>@review.RatingValue
+                                                            </span>
+                                                            <p class="text-bold font14 text-default margin-bottom10">
+                                                                <a href="@review.ReviewDetailUrl" target="_blank" class="text-bold text-default">@review.ReviewTitle</a>
+                                                            </p>
+                                                            <p class="review-decription">
+                                                                @review.ReviewDescription
+                                                            </p>
+                                                            <a href="@review.ReviewListUrl" target="_blank" class="review-title review-link bw-ga" c="Compare_Bikes" a="Read_Reviews_Clicked" l="@Model.targetModels.Replace(",", "_")">All reviews</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="text-bold">--</span>
+                                                        }
+                                                    </td>
+                                                }
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </li>
+                            }
+                        </ul>
+
+                    </div>
+                                                    }
+
                 <div id="comparison-footer"></div>
             </div>
-                @if (Model.isUsedBikePresent)
+            @if (Model.isUsedBikePresent)
             {
-                    <div id="used-bikes-container" class="content-box-shadow font14">
-                        <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                            <tbody>
-                                <tr class="row-width-grid">
-                                    <td width="162"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr class="row-type-data">
-                                    <td class="row-heading">Used bikes you may like</td>
-                                    @foreach (var bike in Model.Compare.BasicInfo)
-                                    {
-                                        <td>
-                                            @if (bike.UsedBikeCount.BikeCount > 0)
-                                            {
-                                                <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" )" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a><br />
-                                                <span>
-                                                    Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
-                                                </span>}
-                                            else
-                                            {
-                                                <span>--</span>
+                <div id="used-bikes-container" class="content-box-shadow font14">
+                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr class="row-width-grid">
+                                <td width="162"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td class="row-heading">Used bikes you may like</td>
+                                @foreach (var bike in Model.Compare.BasicInfo)
+                                {
+                                    <td>
+                                        @if (bike.UsedBikeCount.BikeCount > 0)
+                                        {
+                                            <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" )" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a><br />
+                                                                                <span>
+                                                                                    Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
+                                                                                </span>}
+                                        else
+                                        {
+                                            <span>--</span>
 
-                                            }
-                                        </td>
-                                    }
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                }
-            </div>
+                                        }
+                                    </td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
         <div class="clear"></div>
     </div>
 </section>
@@ -602,4 +583,3 @@
         <div class="clear"></div>
     </div>
 </section>
- 

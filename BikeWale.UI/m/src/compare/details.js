@@ -175,7 +175,7 @@ $('.overall-specs-tabs-wrapper').on('click', 'li', function () {
     var elementIndex = $(this).index(),
         tabId = $(this).attr('data-tabs'),
         panel = $(this).closest('.bw-tabs-panel'),
-        floatingTabs = panel.find('.overall-specs-tabs-wrapper');
+        floatingTabs = panel.find('.overall-specs-tabs-wrapper');    
 
     floatingTabs.find('li').removeClass('active');
     floatingTabs.each(function () {
@@ -198,8 +198,8 @@ var bodyElement = document.getElementsByTagName("body")[0],
 toggleFeaturesBtn.addEventListener("click", function () {
     if (hideCommonFeatures) {
         if (!equivalentDataFound) {
-            var headingRows = document.getElementsByClassName("row-type-heading"),
-                dataRows = document.getElementsByClassName("row-type-data"),
+            var headingRows = $(".hide-features").find(".row-type-heading"),
+                dataRows = $(".hide-features").find(".row-type-data"),
                 isSponsoredBikeActive = document.getElementById("sponsored-column-active");
 
             if (isSponsoredBikeActive == null) {
@@ -231,15 +231,16 @@ toggleFeaturesBtn.addEventListener("click", function () {
 
 var compareColumns = {
     countTwo: function (headingRows, dataRows) {
-        var dataRowLength = dataRows.length;
-
+        var dataRowLength = dataRows.length;       
         for (var i = 0; i < dataRowLength; i++) {
             var rowElement = dataRows[i],
                 rowColumns = rowElement.getElementsByTagName("td");
 
             if (rowColumns[0].innerHTML === rowColumns[1].innerHTML) {
                 rowElement.className += " equivalent-data";
-                headingRows[i].className += " equivalent-data";
+                if (headingRows[i]) {
+                    headingRows[i].className += " equivalent-data";
+                }
             }
 
         }
@@ -255,7 +256,9 @@ var compareColumns = {
             if (rowColumns[0].innerHTML === rowColumns[1].innerHTML) {
                 if (rowColumns[1].innerHTML === rowColumns[2].innerHTML) {
                     rowElement.className += " equivalent-data";
-                    headingRows[i].className += " equivalent-data";
+                    if (headingRows[i]) {
+                        headingRows[i].className += " equivalent-data";
+                    }
                 }
             }
 

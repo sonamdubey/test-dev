@@ -164,7 +164,7 @@ namespace Bikewale.Cache.Compare
             try
             {
                 key = string.Format("BW_Compare_Bikes_v2_{0}_City_{1}", versions.Replace(',', '_'), cityId);
-             //   compareEntity = _cache.GetFromCache<BikeCompareEntity>(key, new TimeSpan(1, 0, 0), () => _compareRepository.DoCompare(versions, cityId));
+               compareEntity = _cache.GetFromCache<BikeCompareEntity>(key, new TimeSpan(1, 0, 0), () => _compareRepository.DoCompare(versions, cityId));
             }
             catch (Exception ex)
             {
