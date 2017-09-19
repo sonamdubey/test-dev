@@ -21,7 +21,7 @@
                 <span class="boundary"></span>
                 <span class="error-text" style="display: none;"></span>
             </div>
-            <input type="button" id="process-order" data-bind="event: { click: Done }" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Submit Otp">
+            <input type="button" id="process-order" data-bind="event: { click: Done }" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Submit OTP">
            <p><a href="javascript:void(0)" rel="nofollow" id="resend_Otp" class="otp-container__resend font15" data-bind="event: { click: resendOtp }">Resend OTP</a></p>
         </div>
         <div class="otp-container__edit">
@@ -97,6 +97,9 @@
                 url: "/api/ResendVerificationCode/",
                 contentType: "application/json",
                 data: ko.toJSON(objInput),
+                beforeSend: function () {
+                    $('#otpLoader').show();
+                },
                 success: function (response) {
                     if (response != null)
                     {
@@ -106,6 +109,9 @@
                         }
                     }
 
+                },
+                complete: function () {
+                    $('#otpLoader').hide();
                 }
             });
 
@@ -144,6 +150,9 @@
                     url: "/api/finance/saveemployedetails/?source=2",
                     contentType: "application/json",
                     data: ko.toJSON(employeDetails),
+                    beforeSend: function () {
+                        $('#otpLoader').show();
+                    },
                     success: function (response) {
                         if (response && response.status == 13) {
                             otpScreen.openOtp();
@@ -161,6 +170,9 @@
 
                         }
 
+                    },
+                    complete: function () {
+                        $('#otpLoader').hide();
                     }
                 });
 
@@ -205,6 +217,9 @@
                 contentType: "application/json",
                 dataType: 'json',
                 data: ko.toJSON(employeDetails),
+                beforeSend: function () {
+                    $('#otpLoader').show();
+                },
                 success: function (response) {
                     if (response == true) {
                         $('.otp-container__info').hide();
@@ -216,6 +231,9 @@
                     else {
                         validate.setError($('#otpNumber'), "Wrong Otp");
                     }
+                },
+                complete: function () {
+                    $('#otpLoader').hide();
                 }
             });
         };

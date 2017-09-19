@@ -316,7 +316,10 @@ function savePersonalDetails() {
         type: "POST",
         url: "/api/finance/savepersonaldetails/?source=" + $("#hdnPlatform").val(),
         contentType: "application/json",
-		data: ko.toJSON(personDetails),
+        data: ko.toJSON(personDetails),
+        beforeSend: function () {
+            $('#otpLoader').show();
+        },
         success: function (response) {
             if (response) {
                 if (response != null) {
@@ -344,7 +347,10 @@ function savePersonalDetails() {
                     }
                 }
             }
-        }
+        },
+        complete: function(){
+        $('#otpLoader').hide();
+    }
     });
 
 
