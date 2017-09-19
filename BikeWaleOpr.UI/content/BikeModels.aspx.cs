@@ -147,7 +147,7 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_insertbikemodel14092017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertbikemodel14092017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txtModel.Text.Trim().Replace("'", "''")));
@@ -785,7 +785,7 @@ namespace BikeWaleOpr.Content
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "bw_updatemodelseries";
+                    cmd.CommandText = "updatemodelseries";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, seriesId));

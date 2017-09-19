@@ -128,7 +128,7 @@ namespace BikeWaleOpr.Content
             string currentId = "-1";
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_con_savebikeversion14092017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("con_savebikeversion14092017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, id));

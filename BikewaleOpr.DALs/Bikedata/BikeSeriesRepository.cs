@@ -27,7 +27,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     connection.Open();
                     objBikeSeries = connection.Query<BikeSeriesEntity, BikeMakeEntityBase, BikeSeriesEntity>
                                     (
-                                        "bw_getbikeseries",
+                                        "getbikeseries",
                                         (bikeseries, bikemakebase) =>
                                         {
                                             bikeseries.BikeMake = bikemakebase;
@@ -70,7 +70,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_seriesid", dbType: DbType.UInt32, direction: ParameterDirection.Output);
                     param.Add("par_createdon", dbType: DbType.Date, direction: ParameterDirection.Output);
                     connection.Open();
-                    connection.Execute("bw_addbikeseries", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("addbikeseries", param: param, commandType: CommandType.StoredProcedure);
                     bikeSeries.SeriesId = param.Get<uint>("par_seriesid");
                     if(bikeSeries.SeriesId != 0)
                     {
@@ -106,7 +106,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_makeid", makeId);
                     connection.Open();
-                    objBikeSeriesList = connection.Query<BikeSeriesEntityBase>("bw_getseriesbymake", param: param, commandType: CommandType.StoredProcedure);
+                    objBikeSeriesList = connection.Query<BikeSeriesEntityBase>("getseriesbymake", param: param, commandType: CommandType.StoredProcedure);
                     if(connection.State == ConnectionState.Open)
                     {
                         connection.Close();
@@ -144,7 +144,7 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     connection.Open();
 
-                    connection.Execute("bw_editbikeseries", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("editbikeseries", param: param, commandType: CommandType.StoredProcedure);
                     rowsAffected = param.Get<int>("par_rowsAffected");
 
 
@@ -183,7 +183,7 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     connection.Open();
 
-                    connection.Execute("bw_deletebikeseries", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("deletebikeseries", param: param, commandType: CommandType.StoredProcedure);
                     rowsAffected = param.Get<int>("par_rowsAffected");
 
                     if (connection.State == ConnectionState.Open)
@@ -218,7 +218,7 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     connection.Open();
 
-                    connection.Execute("bw_deletemappingofmodelseries", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("deletemappingofmodelseries", param: param, commandType: CommandType.StoredProcedure);
                     rowsAffected = param.Get<int>("par_rowsAffected");
 
                     if (connection.State == ConnectionState.Open)
