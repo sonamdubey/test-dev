@@ -331,7 +331,7 @@ function savePersonalDetails() {
                             $("#ctLeadId").val(response.ctLeadId);
                             $("#leadId").val(response.leadId);
                             scrollTop($(employmentDeatilTab).offset());
-                            $('#cfCompPincode').val();
+                            $('#cfCompPincode').val("");
                             break;
                         default:
                             var obj = {
@@ -405,7 +405,7 @@ function saveEmployeDetails() {
 		},
         success: function (response) {
 			triggerGA('Loan_Application', 'Step_2_Filled', bikeName + '_' + $('#cfNum').val());
-			$('#otpLoader').hide();
+			
             if (response) {
                 otpScreen.openOtp();
                 var objData = {
@@ -419,6 +419,9 @@ function saveEmployeDetails() {
 
                 }
             }
+        },
+        complete: function(){
+            $('#otpLoader').hide();
         }
     });
 
