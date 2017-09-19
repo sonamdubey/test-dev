@@ -322,9 +322,9 @@ function savePersonalDetails() {
                         case 2:
                             $("#personal-detail-tab").addClass("hide");
                             $(employmentDeatilTab).removeClass("hide");
-                            $("#cpId").val(response.CpId);
-                            $("#ctLeadId").val(response.CTleadId);
-                            $("#leadId").val(response.LeadId);
+                            $("#cpId").val(response.cpId);
+                            $("#ctLeadId").val(response.ctLeadId);
+                            $("#leadId").val(response.leadId);
                             scrollTop($(employmentDeatilTab).offset());
                             break;
                         default:
