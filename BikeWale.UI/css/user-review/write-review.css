@@ -70,7 +70,7 @@ h1,
     cursor: pointer; }
   .answer-star-list > input:checked + label,
   .answer-star-list > input:checked ~ label {
-    background-color: #fed130; }
+    background-color: #fed130 !important; }
 
 .rating-placeholder .answer-star-list {
   width: 250px;
@@ -419,7 +419,7 @@ h1,
   .review-progress li.completed {
     border: 1px solid #E2E2E2;
     background-color: #fff;
-    cursor: pointer; }
+     }
     .review-progress li.completed:before {
       background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/tick-filled-20x20.png);
       background-color: transparent; }
