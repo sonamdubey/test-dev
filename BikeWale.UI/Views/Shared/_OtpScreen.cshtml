@@ -2,7 +2,7 @@
 <section class="margin-top20">
     <div id="otpCapturePopup" class="container">
         <div class="otp-container hide">
-            <div class="otp-container__close otp-icons"></div>
+            <a href="javascript:void(0)" data-bind="event: { click: redirect }" class="otp-container__close otp-icons"></a>
             <div class="otp-container__info">
                 <div class="icon-outer-container rounded-corner50">
                     <div class="icon-inner-container rounded-corner50">
@@ -103,9 +103,10 @@
                     $('#otpLoader').show();
                 },
                 success: function (response) {
+                    var obj = JSON.parse(response);
                     if (response != null)
                     {
-                        if (response.NoOfAttempts >= 3)
+                        if (obj.noOfAttempts >= 3)
                         {
                             $('#resend_Otp').hide();
                         }
