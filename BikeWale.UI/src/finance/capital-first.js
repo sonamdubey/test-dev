@@ -255,6 +255,8 @@ function scrollTopError() {
 }
 
 function validatePersonalInfo() {
+	$('#screenLoader').show();
+
     var isValid = false;
 
     isValid = validateUserName($("#cfFName"));
@@ -283,9 +285,12 @@ function validatePersonalInfo() {
 			$('#form-tabs-content').find('.page-tabs__li.active').removeClass('active');
 			$('#form-tabs-content').find('.page-tabs__li[data-id=employment-detail-tab]').addClass('active');
 		}
-    } else {
+	}
+	else {
 		scrollTopError();
-    }
+	}
+	
+	$('#screenLoader').hide();
 }
 
 
@@ -311,7 +316,7 @@ function savePersonalDetails() {
         type: "POST",
         url: "/api/finance/savepersonaldetails/?source=" + $("#hdnPlatform").val(),
         contentType: "application/json",
-        data: ko.toJSON(personDetails),
+		data: ko.toJSON(personDetails),
         success: function (response) {
             if (response) {
                 if (response != null) {
@@ -393,9 +398,13 @@ function saveEmployeDetails() {
         type: "POST",
         url: "/api/finance/saveemployedetails/?source=" + $("#hdnPlatform").val(),
         contentType: "application/json",
-        data: ko.toJSON(employeDetails),
+		data: ko.toJSON(employeDetails),
+		beforeSend: function() {
+			$('#otpLoader').show();
+		},
         success: function (response) {
-            triggerGA('Loan_Application', 'Step_2_Filled', bikeName + '_' + $('#cfNum').val());
+			triggerGA('Loan_Application', 'Step_2_Filled', bikeName + '_' + $('#cfNum').val());
+			$('#otpLoader').hide();
             if (response) {
                 otpScreen.openOtp();
                 var objData = {
