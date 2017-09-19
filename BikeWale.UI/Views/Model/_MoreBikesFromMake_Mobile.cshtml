@@ -6,7 +6,7 @@
         {
             <div  class="swiper-slide">
                 <div class="swiper-card">
-                    <a class="bw-ga block" c="Model_Page" a="Clicked_SameBrandBikes_widget" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName))" title="@Bike.Make.MakeName @Bike.Model.ModelName">
+                    <a class="bw-ga block" l="@Bike.BikeName" c="Model_Page" a="Clicked_SameBrandBikes_widget" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName))" title="@Bike.Make.MakeName @Bike.Model.ModelName">
                         <div class="swiper-image-preview">
                             <img class="lazy" src="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" alt="@Bike.Make.MakeName @Bike.Model.ModelName" title="@Bike.Make.MakeName @Bike.Model.ModelName" />
                         </div>
