@@ -115,32 +115,24 @@ input[type=radio] {
     padding-left: 30px;
 }
 
-.status-box li,
-.marital-box li,
-.gender-box li {
+.radio-box li {
     display: inline-block;
 }
 
-.status-box label,
-.gender-box label,
-.marital-box label {
+.radio-box label {
     padding: 6px 19px;
     border: 1px solid #eee;
     cursor: pointer;
     margin-right: 8px;
 }
 
-.status-box input[type=radio]:checked + label,
-.marital-box input[type=radio]:checked + label,
-.gender-box input[type=radio]:checked + label {
+.radio-box input[type=radio]:checked+label {
     padding-left: 36px;
     border-color: #41B4C4;
     background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/checked-circle-14x14.png") 15px 50% no-repeat;
 }
 
-.status-box .error-text,
-.marital-box .error-text,
-.gender-box .error-text {
+.radio-box .error-text {
 	position: absolute;
 	top: 60%;
 }
@@ -519,4 +511,12 @@ input[type=radio] {
 
 #otpLoader {
 	display: none;
+}
+
+/* no suggestion */
+.no-suggestion-item {
+	width: 100%;
+	position: absolute;
+	top: 35px;
+	left: 3px;
 }

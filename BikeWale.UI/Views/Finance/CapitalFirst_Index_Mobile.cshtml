@@ -25,7 +25,7 @@
         <div id="personal-detail-tab" class="personal-details__form">
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfFName" type="text" min="1" maxlength="255">
+                    <input id="cfFName" type="text" min="1" maxlength="255" autocomplete="off">
                     <label for="cfFName">First Name<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
@@ -33,7 +33,7 @@
             </div>
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfLName" type="text" min="1">
+                    <input id="cfLName" type="text" min="1" autocomplete="off">
                     <label for="cfLName">Last Name<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
@@ -41,7 +41,7 @@
             </div>
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfNum" type="tel" maxlength="10">
+                    <input id="cfNum" type="tel" maxlength="10" autocomplete="off">
                     <label for="cfNum">Mobile Number<sup>*</sup></label>
                     <span class="input-number-prefix">+91</span>
                     <span class="boundary"></span>
@@ -50,7 +50,7 @@
             </div>
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfEmail" type="email" min="1">
+                    <input id="cfEmail" type="email" min="1" autocomplete="off">
                     <label for="cfEmail">Email Id<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
@@ -58,14 +58,14 @@
             </div>
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfDOB" type="text">
+                    <input id="cfDOB" type="text" autocomplete="off">
                     <label for="cfDOB">DOB<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
             <div class="margin-bottom5">
-                <div class="form-control-box gender-box">
+                <div class="form-control-box gender-box radio-box">
                     <p class="inline-block">Gender</p>
                     <ul>
                         <li>
@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="margin-bottom5">
-                <div class="form-control-box marital-box">
+                <div class="form-control-box marital-box radio-box">
                     <p class="inline-block">Marital Status</p>
                     <ul>
                         <li>
@@ -98,7 +98,7 @@
             </div>
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfAddress1" type="text" min="1">
+                    <input id="cfAddress1" type="text" min="1" autocomplete="off">
                     <label for="cfAddress1">Address Line1<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
@@ -106,20 +106,20 @@
             </div>
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfAddress2" type="text" min="1">
+                    <input id="cfAddress2" type="text" min="1" autocomplete="off">
                     <label for="cfAddress2">Address Line2<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom5">
+            <div class="margin-bottom5 position-rel">
                 <div class="input-box form-control-box">
-                    <input id="cfPincode" type="tel" min="1" maxlength="6">
+                    <input id="cfPincode" type="tel" min="1" maxlength="6" autocomplete="off">
                     <label for="cfPincode">Pincode<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
                 </div>
-                <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide">
+                <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide no-suggestion-item">
                     <li class="ui-menu-item" tabindex="-1">
                         <span class="text-bold">Oops! No suggestions found</span><br>
                         <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
@@ -128,7 +128,7 @@
             </div>
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfPan" type="text" min="1" maxlength="10">
+                    <input id="cfPan" type="text" min="1" maxlength="10" autocomplete="off">
                     <label for="cfPan">Pan Number<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
@@ -139,7 +139,7 @@
         <div id="employment-detail-tab" class="hide">
             <p class="font11 padding-bottom20"><sup>*</sup>All fields are mandatory</p>
             <div class="margin-top20">
-                <div class="form-control-box status-box">
+                <div class="form-control-box status-box radio-box">
                     <p class="inline-block">Status</p>
                     <ul>
                         <li>
@@ -156,7 +156,7 @@
             </div>
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfCompName" type="text" min="1" maxlength="255">
+                    <input id="cfCompName" type="text" min="1" maxlength="255" autocomplete="off">
                     <label for="cfCompName">Company Name<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
@@ -164,7 +164,7 @@
             </div>
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfCompAddress1" type="text" min="1">
+                    <input id="cfCompAddress1" type="text" min="1" autocomplete="off">
                     <label for="cfCompAddress1">Official Address Line1<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
@@ -172,22 +172,20 @@
             </div>
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfCompAddress2" type="text" min="1">
+                    <input id="cfCompAddress2" type="text" min="1" autocomplete="off">
                     <label for="cfCompAddress2">Official Address Line2<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
-            <div class="margin-bottom5">
+            <div class="margin-bottom5 position-rel">
                 <div class="input-box form-control-box">
-                    <input id="cfCompPincode" type="tel" min="1" maxlength="6">
+                    <input id="cfCompPincode" type="tel" min="1" maxlength="6" autocomplete="off">
                     <label for="cfCompPincode">Pincode<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
                 </div>
-
-
-                <ul id="errPinCodeSearch_office" class="ui-autocomplete ui-front ui-menu ui-widget hide">
+                <ul id="errPinCodeSearch_office" class="ui-autocomplete ui-front ui-menu ui-widget hide no-suggestion-item">
                     <li class="ui-menu-item" tabindex="-1">
                         <span class="text-bold">Oops! No suggestions found</span><br>
                         <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
@@ -197,7 +195,7 @@
             </div>
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
-                    <input id="cfCompIncome" type="number" maxlength="9">
+                    <input id="cfCompIncome" type="number" maxlength="9" autocomplete="off">
                     <label for="cfCompIncome">Annual Income<sup>*</sup></label>
                     <span class="input-number-prefix">&#x20B9;</span>
                     <span class="boundary"></span>
