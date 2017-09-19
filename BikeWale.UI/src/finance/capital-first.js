@@ -331,7 +331,7 @@ function savePersonalDetails() {
                             $("#ctLeadId").val(response.ctLeadId);
                             $("#leadId").val(response.leadId);
                             scrollTop($(employmentDeatilTab).offset());
-                            $('##cfCompPincode').val();
+                            $('#cfCompPincode').val();
                             break;
                         default:
                             var obj = {
