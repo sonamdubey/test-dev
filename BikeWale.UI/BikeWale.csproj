@@ -2210,6 +2210,7 @@
     <Content Include="css\bw-pq.css" />
     <Content Include="css\cancellation.css" />
     <Content Include="css\chosen.min.css" />
+    <Content Include="css\compare\details.css" />
     <Content Include="css\components\article-next-prev.css" />
     <Content Include="css\components\boundary-box.css" />
     <Content Include="css\components\card.css" />
