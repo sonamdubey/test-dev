@@ -14,7 +14,7 @@ namespace Bikewale.BAL.Authors
     public class Authors : IAuthors
     {
         static readonly ILog _logger = LogManager.GetLogger(typeof(Authors));
-        public IEnumerable<AuthorEntityBase> GetAuthorsListViaGrpc()
+        public IEnumerable<AuthorEntityBase> GetAuthorsList()
         {
             try
             {

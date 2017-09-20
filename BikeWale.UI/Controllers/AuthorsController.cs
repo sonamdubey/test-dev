@@ -1,6 +1,8 @@
 ﻿using Bikewale.BAL.GrpcFiles;
+using Bikewale.Entities;
 using Bikewale.Entities.Authors;
 using Bikewale.Interfaces.Authors;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Models.Authors;
 using Bikewale.Models.BikeModels;
 using Grpc.CMS;
@@ -10,45 +12,62 @@ namespace Bikewale.Controllers
 {
     public class AuthorController : Controller
     {
-        private readonly IAuthors _Authors;
-
-        public AuthorController(IAuthors Authors)
+        private readonly IAuthors _authors = null;
+        private readonly IArticles _articles = null;
+        private readonly IAuthorsCacheRepository _authorsCacheRepository = null;
+        public AuthorController(IAuthors authors, IArticles articles, IAuthorsCacheRepository authorsCacheRepository)
         {
-            _Authors = Authors;
+            _authors = authors;
+            _articles = articles;
+            _authorsCacheRepository = authorsCacheRepository;
         }
 
         [Route("authors/"), Filters.DeviceDetection]
         public ActionResult Index_List()
         {
 
-            AuthorsListModel objAuthorsVM = new AuthorsListModel(_Authors);
+            AuthorsListModel objAuthorsVM = new AuthorsListModel(_authors, _articles);
             return View(objAuthorsVM.GetData());
 
         }
 
-        [Route("m/authors/listing/"), Filters.DeviceDetection]
+        [Route("m/authors/"), Filters.DeviceDetection]
         public ActionResult Index_List_Mobile()
         {
-            AuthorsListModel objAuthorsVM = new AuthorsListModel(_Authors);
+            AuthorsListModel objAuthorsVM = new AuthorsListModel(_authors, _articles);
             return View(objAuthorsVM.GetData());
         }
 
         [Route("authors/{author}/details")]
-        public ActionResult Details()
+        public ActionResult Details(string author)
         {
-            ModelPageVM obj = new ModelPageVM();
-            var data = GrpcMethods.GetAuthorDetails(148);
-            AuthorEntity objAuthorDetails = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(data);
-            return View(obj);
+            AuthorDetailsPageVM objAuthorDetailsVM = null;
+            AuthorsDetailsPageModel objAuthorModel = new AuthorsDetailsPageModel(_authors, _articles, _authorsCacheRepository, author);
+            if(objAuthorModel.status.Equals(StatusCodes.ContentFound))
+            {
+                objAuthorDetailsVM = objAuthorModel.GetData();
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            return View(objAuthorDetailsVM);
         }
 
         [Route("m/authors/{author}/details/")]
-        public ActionResult Details_Mobile()
+        public ActionResult Details_Mobile(string author)
         {
-            ModelPageVM obj = new ModelPageVM();
-            var data = GrpcMethods.GetAuthorDetails(148);
-            AuthorEntity objAuthorDetails = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(data);
-            return View(obj);
+            AuthorDetailsPageVM objAuthorDetailsVM = null;
+            AuthorsDetailsPageModel objAuthorModel = new AuthorsDetailsPageModel(_authors, _articles, _authorsCacheRepository, author);
+            if (objAuthorModel.status.Equals(StatusCodes.ContentFound))
+            {
+                objAuthorDetailsVM = objAuthorModel.GetData();
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            return View(objAuthorDetailsVM);
         }
     }        
 }

@@ -36,7 +36,7 @@ namespace Bikewale.Cache.Authors
 
                 if (htNewMaskingNames != null && htNewMaskingNames.Contains(maskingName))
                 {
-                    response.AuthorId = Convert.ToUInt32(htNewMaskingNames[maskingName]);
+                    response.AuthorId = Convert.ToInt32(htNewMaskingNames[maskingName]);
                 }
 
                 if (response.AuthorId > 0)

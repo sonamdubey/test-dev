@@ -5,7 +5,7 @@
     /// </summary>
     public class AuthorsMaskingReponse
     {
-        public uint AuthorId { get; set; }
+        public int AuthorId { get; set; }
         public string MaskingName { get; set; }
         public ushort StatusCode { get; set; }
     }

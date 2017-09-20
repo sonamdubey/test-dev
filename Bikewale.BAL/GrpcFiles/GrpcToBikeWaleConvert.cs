@@ -591,6 +591,7 @@ namespace Bikewale.BAL.GrpcFiles
             catch (Exception e)
             {
                 log.Error(e);
+                throw;
             }
             return null;
         }
@@ -605,7 +606,7 @@ namespace Bikewale.BAL.GrpcFiles
         {
             try
             {
-                if(data != null)
+                if (data != null)
                 {
                     IList<ArticleSummary> result = new List<ArticleSummary>();
                     foreach (var content in data.LstGrpcAuthorContent)
