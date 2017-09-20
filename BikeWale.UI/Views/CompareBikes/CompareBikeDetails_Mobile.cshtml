@@ -205,162 +205,165 @@
                     <div id="coloursTabContent" class="bw-tabs-data hide-features">
                         @if (Model.Compare.CompareColors != null)
                         {
-                        <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                            <tbody>
-                                <tr class="row-type-heading">
-                                    <td colspan="2"></td>
-                                    <td></td>
-                                </tr>
-                                <tr class="row-type-data">
-                                    @foreach (var bike in Model.Compare.CompareColors.bikes)
-                                        {
-                                        <td>
-                                            @foreach (var color in bike.bikeColors)
-                                                {
-                                                    if (color.HexCodes != null)
-                                                    {
-                                                <div class="color-box color-count-@color.HexCodes.Count()">
-                                                    @foreach (var hexCode in color.HexCodes)
-                                                            {
-                                                            <span style="background-color: #@hexCode"></span>
-                                                            }
-                                                </div>
-                                                <p>@color.Color</p>
-                                                    }
-                                                }
-                                        </td>
-                                        }
-                                </tr>
-                            </tbody>
-                        </table>
-                        }
-                    </div>
-
-
-                    <!--  my work-->
-                    <div id="reviewTabContent" class="review-tab bw-tabs-data">
-                        <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                            <tbody>
-                                <tr class="row-type-heading">
-                                    <td colspan="2">Overall rating</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="row-type-data">
-                                    @foreach (var compSpec in Model.Compare.UserReviewData.OverallRating)
-                                    {
-                                        <td>
-                                            @if (!compSpec.ReviewRate.Equals("--"))
-                                            {
-
-                                                <div class="rate-count-@Math.Floor(Convert.ToDouble(compSpec.ReviewRate)) rating">
-                                                    <span class="bwmsprite star-icon"></span>
-                                                    <span class="font18 text-bold">@compSpec.ReviewRate</span>
-                                                </div>
-                                                <div class="rating-count">(@compSpec.RatingCount&nbsp;ratings)</div>
-                                                <a href= @string.Format("/m{0}",compSpec.ReviewListUrl) target="_blank" class="font12">@compSpec.ReviewCount&nbsp;reviews</a>
-                                            }
-                                            else
-                                            {
-                                                <span class="text-bold">--</span>
-                                            }
-                                        </td>
-                                    }
-                                    <td></td>
-                                </tr>
-                                @{ var spec1 = Model.Compare.UserReviewData.CompareReviews.Spec.FirstOrDefault().SpecCategory.FirstOrDefault();  }
-                               @if (spec1 != null)
-                               {
+                            <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <tbody>
                                     <tr class="row-type-heading">
-                                        <td colspan="2">@spec1.Text</td>
+                                        <td colspan="2"></td>
                                         <td></td>
                                     </tr>
                                     <tr class="row-type-data">
-                                        @foreach (var compSpec in spec1.CompareSpec)
+                                        @foreach (var bike in Model.Compare.CompareColors.bikes)
                                         {
                                             <td>
-                                                <span>@compSpec.Value</span>&nbsp;
-                                                @if (!compSpec.Value.Equals("--"))
+                                                @foreach (var color in bike.bikeColors)
                                                 {
-                                                    <span class="font12 text-xt-light">kmpl</span>
+                                                    if (color.HexCodes != null)
+                                                    {
+                                                        <div class="color-box color-count-@color.HexCodes.Count()">
+                                                            @foreach (var hexCode in color.HexCodes)
+                                                            {
+                                                                <span style="background-color: #@hexCode"></span>
+                                                            }
+                                                        </div>
+                                                        <p>@color.Color</p>
+                                                    }
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+
+                    @if (Model.Compare.UserReviewData != null)
+                    {
+                        <div id="reviewTabContent" class="review-tab bw-tabs-data">
+                            <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <tbody>
+                                    <tr class="row-type-heading">
+                                        <td colspan="2">Overall rating</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="row-type-data">
+                                        @foreach (var compSpec in Model.Compare.UserReviewData.OverallRating)
+                                        {
+                                            <td>
+                                                @if (!compSpec.ReviewRate.Equals("--"))
+                                                {
+
+                                                    <div class="rate-count-@Math.Floor(Convert.ToDouble(compSpec.ReviewRate)) rating">
+                                                        <span class="bwmsprite star-icon"></span>
+                                                        <span class="font18 text-bold">@compSpec.ReviewRate</span>
+                                                    </div>
+                                                    <div class="rating-count">(@compSpec.RatingCount&nbsp;ratings)</div>
+                                                    <a href=@string.Format("/m{0}",compSpec.ReviewListUrl) target="_blank" class="font12">@compSpec.ReviewCount&nbsp;reviews</a>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-bold">--</span>
                                                 }
                                             </td>
                                         }
                                         <td></td>
                                     </tr>
-                               }
-                                
-
-                                @if (Model.Compare.UserReviewData.CompareReviews != null && Model.Compare.UserReviewData.CompareReviews.Spec != null && Model.Compare.UserReviewData.CompareReviews.Spec.Count() > 1)
-                                {
-                                    foreach (var spec in Model.Compare.UserReviewData.CompareReviews.Spec.Skip(1))
+                                    @{ var spec1 = Model.Compare.UserReviewData.CompareReviews.Spec.FirstOrDefault().SpecCategory.FirstOrDefault();  }
+                                    @if (spec1 != null)
                                     {
-
                                         <tr class="row-type-heading">
-                                            <td colspan="2">@spec.Text</td>
+                                            <td colspan="2">@spec1.Text</td>
                                             <td></td>
                                         </tr>
-
-                                        foreach (var specCat in spec.SpecCategory)
-                                        {
-
-                                            <tr class="data-head">
-                                                <td colspan="2">@specCat.Text</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr class="row-type-data">
-                                                @foreach (var compSpec in specCat.CompareSpec)
+                                        <tr class="row-type-data">
+                                            @foreach (var compSpec in spec1.CompareSpec)
+                                            {
+                                                <td>
+                                                    <span>@compSpec.Value</span>&nbsp;
+                                                    @if (!compSpec.Value.Equals("--"))
+                                                    {
+                                                        <span class="font12 text-xt-light">kmpl</span>
+                                                    }
+                                                </td>
+                                            }
+                                            <td></td>
+                                        </tr>
+                                    }
+                                    @if (Model.Compare.UserReviewData.CompareReviews != null && Model.Compare.UserReviewData.CompareReviews.Spec != null && Model.Compare.UserReviewData.CompareReviews.Spec.Count() > 1)
                                     {
-                                    <td class="border-bottom-grey margin-bottom5">
-                                        @if (!compSpec.Value.Equals("--"))
+                                        foreach (var spec in Model.Compare.UserReviewData.CompareReviews.Spec.Skip(1))
                                         {
-                                        <div class='rating-bar margin-top5'>
-                                            <span class='rate-@Math.Round(Convert.ToDouble(compSpec.Value))'></span>
-                                        </div>
-                                        @Math.Round(Convert.ToDouble(compSpec.Value))
-                                        }
-                                        else
-                                        {
-                                        @compSpec.Value
-                                        }
-                                    </td>
-                                    }
+
+                                            <tr class="row-type-heading">
+                                                <td colspan="2">@spec.Text</td>
                                                 <td></td>
                                             </tr>
 
+                                            foreach (var specCat in spec.SpecCategory)
+                                            {
+
+                                                <tr class="data-head">
+                                                    <td colspan="2">@specCat.Text</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr class="row-type-data">
+                                                    @foreach (var compSpec in specCat.CompareSpec)
+                                                    {
+                                                        <td class="border-bottom-grey margin-bottom5">
+                                                            @if (!compSpec.Value.Equals("--"))
+                                                            {
+                                                                <div class='rating-bar margin-top5'>
+                                                                    <span class='rate-@Math.Round(Convert.ToDouble(compSpec.Value))'></span>
+                                                                </div>
+                                                                @Math.Round(Convert.ToDouble(compSpec.Value))
+                                                            }
+                                                            else
+                                                            {
+                                                                @compSpec.Value
+                                                            }
+                                                        </td>
+                                                    }
+                                                    <td></td>
+                                                </tr>
+
+                                            }
                                         }
                                     }
-                                }
-
-                                 @if (Model.Compare.UserReviewData.MostHelpfulReviews != null)
-                                { 
-                                <tr class="row-type-heading ">
-                                    <td colspan="2">Reviews</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="row-type-data font14">
-                               @foreach (var review in Model.Compare.UserReviewData.MostHelpfulReviews)
-                               {
-                                    <td>
-                                        <span class="rating-badge margin-bottom10" data-rate-bg="@review.RatingValue">
-                                            <span class="bwmsprite star-white"></span>@review.RatingValue
-                                        </span>
-                                        <p class="font14 text-default margin-bottom10">
-                                            <a href=@string.Format("/m{0}",@review.ReviewDetailUrl) target="_blank" class="text-default">@review.ReviewTitle</a>
-                                        </p>
-                                        <p class="review-decription">
-                                            @review.ReviewDescription
-                                        </p>
-                                        <a href=@string.Format("/m{0}",@review.ReviewListUrl) class="review-title review-link bw-ga" c="Compare_Bikes" a="Read_Reviews_Clicked" l="@Model.targetModels.Replace(",", "_")">All reviews</a>
-                                    </td>
-                                    } 
-                                    <td></td>
-                                </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!--finish-->
+                                   @if (Model.Compare.UserReviewData.MostHelpfulReviews != null)
+                                    {
+                                        <tr class="row-type-heading ">
+                                            <td colspan="2">Reviews</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="row-type-data font14">
+                                            @foreach (var review in Model.Compare.UserReviewData.MostHelpfulReviews)
+                                            {
+                                                <td>
+                                                    @if (review.RatingValue > 0)
+                                                    {
+                                                        <span class="rating-badge margin-bottom10" data-rate-bg="@review.RatingValue">
+                                                            <span class="bwmsprite star-white"></span>@review.RatingValue
+                                                        </span>
+                                                        <p class="font14 text-default margin-bottom10">
+                                                            <a href=@string.Format("/m{0}",@review.ReviewDetailUrl) target="_blank" class="text-default">@review.ReviewTitle</a>
+                                                        </p>
+                                                        <p class="review-decription">
+                                                            @review.ReviewDescription
+                                                        </p>
+                                                        <a href=@string.Format("/m{0}",@review.ReviewListUrl) class="review-title review-link bw-ga" c="Compare_Bikes" a="Read_Reviews_Clicked" l="@Model.targetModels.Replace(",", "_")">All reviews</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-bold">--</span>
+                                                    }
+                                                </td>
+                                            }
+                                            <td></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                                        }
 
                     <div id="toggle-float-button" class="grid-12 float-button float-fixed clearfix slideIn-transition">
                         <button type="button" id="toggle-features-btn" class="btn btn-teal btn-full-width">Hide common features</button>
@@ -471,9 +474,9 @@
                 <p>Please select different bike for comparision.</p>
             </div>
 
-                                    }
+                                        }
     </section>
-                                    }
+                                        }
 @if (Model.topBikeCompares != null)
 {
     <section>
