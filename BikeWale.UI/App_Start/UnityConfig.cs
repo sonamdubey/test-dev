@@ -1,3 +1,4 @@
+using Bikewale.BAL.Authors;
 using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.BikeData.NewLaunched;
@@ -46,6 +47,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.service;
 using Bikewale.Interfaces;
+using Bikewale.Interfaces.Authors;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
@@ -152,6 +154,7 @@ namespace Bikewale
             container.RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>();
             container.RegisterType<ISponsoredComparison, SponsoredComparison>();
             container.RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>();
+            container.RegisterType<IAuthors, Authors>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

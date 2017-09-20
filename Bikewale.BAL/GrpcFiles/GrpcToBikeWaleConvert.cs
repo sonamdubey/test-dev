@@ -1,4 +1,5 @@
 ﻿using Bikewale.DTO.Videos;
+using Bikewale.Entities.Authors;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
@@ -525,6 +526,48 @@ namespace Bikewale.BAL.GrpcFiles
                 return retVal;
             }
             return null;
+        }
+
+        public static List<AuthorEntityBase> ConvertFromGrpcToBikeWale(GrpcAuthorList data)
+        {
+            if (data == null) return (new List<AuthorEntityBase>());
+            try
+            {
+                var result = new List<AuthorEntityBase>();
+                foreach (var author in data.LstGrpcAuthor)
+                {
+                    result.Add(ConvertFromGrpcToBikeWale(author));
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+                throw;
+            }
+        }
+
+        public static AuthorEntityBase ConvertFromGrpcToBikeWale(GrpcAuthor data)
+        {
+            if (data == null) return (new AuthorEntityBase());
+            try
+            {
+                return new AuthorEntityBase()
+                {
+                    AuthorName = data.AuthorName,
+                    Designation = data.Designation,
+                    HostUrl = data.HostUrl,
+                    ImageName = data.ImageName,
+                    MaskingName = data.MaskingName,
+                    ProfileImage = data.ProfileImage,
+                    ShortDescription = data.ShortDescription,
+                };
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+                throw;
+            }
         }
     }
 }
