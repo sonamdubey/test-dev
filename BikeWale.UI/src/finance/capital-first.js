@@ -218,19 +218,19 @@ docReady(function () {
                 }
             },
             keyup: function () {
-                if ($('#cfCompPincode,#cfPincode').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+                if ($(event.target).val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
                     focusedMakeModel = new Object();
                     focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
                     $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
                 } else {
-                    if ($('#cfCompPincode,#cfPincode').val().trim() == '') {
+                    if ($(event.target).val().trim() == '') {
                         $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
                     }
                 }
 
-                if ($('#cfCompPincode,#cfPincode').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                if ($(event.target).val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
                     if (focusedMakeModel == null || focusedMakeModel == undefined) {
-                        if ($('#cfCompPincode,#cfPincode').val().trim() != '') {
+                        if ($(event.target).val().trim() != '') {
                             $('#errPinCodeSearch,#errPinCodeSearch_office').show();
                             $('#cfCompPincode,#cfPincode').val();
                         }
@@ -241,7 +241,7 @@ docReady(function () {
 
                 }
             }
-        }).autocomplete({ appendTo: $("#cfCompPincode,#cfPincode").closest(".input-box") }).autocomplete("widget").addClass("pincode-autocomplete");
+        }).autocomplete({ appendTo: $(event.target).closest(".input-box") }).autocomplete("widget").addClass("pincode-autocomplete");
     });
 
 
