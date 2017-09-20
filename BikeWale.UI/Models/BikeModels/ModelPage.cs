@@ -1285,7 +1285,8 @@ namespace Bikewale.Models.BikeModels
                             VersionId = _objData.VersionId,
                             CurrentPageUrl = CurrentPageUrl,
                             PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
-                            BikeName = _objData.BikeName
+                            BikeName = _objData.BikeName,
+                            LoanAmount= Convert.ToUInt32((_objData.BikePrice) * 0.8)
                         };
 
                         _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;

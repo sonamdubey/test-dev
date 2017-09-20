@@ -20,6 +20,8 @@ namespace Bikewale.Models.Finance
         public string PageUrl { get; set; }
 
         public string BikeName { get; set; }
+
+        public uint LoanAmount { get; set; }
     }
 
 }

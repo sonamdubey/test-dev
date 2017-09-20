@@ -308,7 +308,8 @@ function savePersonalDetails() {
         "addressLine1": $("#cfAddress1").val(),
         "addressLine2": $('#cfAddress2').val(),
         "pincode": $("#cfPincode").val().substring(0, 6),
-        "pancard": $("#cfPan").val()
+        "pancard": $("#cfPan").val(),
+        "loanAmount": $('#loanAmount').val()
 
     }
 
@@ -397,7 +398,8 @@ function saveEmployeDetails() {
         "pancard": $("#cfPan").val(),
         "id": $("#cpId").val(),
         "ctLeadId": $("#ctLeadId").val(),
-        "leadId": $("#leadId").val()
+        "leadId": $("#leadId").val(),
+        "loanAmount": $('#loanAmount').val()
 
     }
 
