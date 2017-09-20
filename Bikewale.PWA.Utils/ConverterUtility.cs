@@ -6,6 +6,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.Models;
 using Bikewale.Utility;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -16,6 +17,8 @@ namespace Bikewale.PWA.Utils
     public static class ConverterUtility
     {
         static string _defaultCityName = BWConfiguration.Instance.GetDefaultCityName;
+        static ILog _logger = LogManager.GetLogger("ConverterUtility");
+        static readonly bool _logNewsUrl = BWConfiguration.Instance.LogNewsUrl;
 
         public static PwaArticleSummary MapArticleSummaryToPwaArticleSummary(ArticleSummary inpSum)
         {
@@ -72,23 +75,35 @@ namespace Bikewale.PWA.Utils
             string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
             EnumCMSContentType contentType = (EnumCMSContentType)articleSummary.CategoryId;
             string shareUrl = string.Empty;
-            switch (contentType)
+            try
             {
-                case EnumCMSContentType.News:
-                case EnumCMSContentType.AutoExpo2016:
-                    shareUrl = string.Format("{0}/news/{1}-{2}.html", _bwHostUrl, articleSummary.BasicId, articleSummary.ArticleUrl);
-                    break;
-                case EnumCMSContentType.Features:
-                    shareUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
-                    break;
-                case EnumCMSContentType.RoadTest:
-                    shareUrl = string.Format("{0}/expert-reviews/{1}-{2}.html", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
-                    break;
-                case EnumCMSContentType.SpecialFeature:
-                    shareUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
-                    break;
-                default:
-                    break;
+                switch (contentType)
+                {
+                    case EnumCMSContentType.News:
+                    case EnumCMSContentType.AutoExpo2016:
+                        shareUrl = string.Format("{0}/news/{1}-{2}.html", _bwHostUrl, articleSummary.BasicId, articleSummary.ArticleUrl);
+                        break;
+                    case EnumCMSContentType.Features:
+                        shareUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
+                        break;
+                    case EnumCMSContentType.RoadTest:
+                        shareUrl = string.Format("{0}/expert-reviews/{1}-{2}.html", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
+                        break;
+                    case EnumCMSContentType.SpecialFeature:
+                        shareUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            finally
+            {
+                if (_logNewsUrl)
+                {
+                    ThreadContext.Properties["ShareUrl"] = shareUrl;
+                    _logger.Error("ConverterUtility.ReturnShareUrl");
+                }
+
             }
             return shareUrl;
         }
@@ -125,30 +140,41 @@ namespace Bikewale.PWA.Utils
         {
             string articleUrl = string.Empty;
             EnumCMSContentType _contentType = (EnumCMSContentType)contentType;
-
-            switch (_contentType)
+            try
             {
-                case EnumCMSContentType.AutoExpo2016:
-                case EnumCMSContentType.News:
-                    articleUrl = string.Format("/m/news/{0}-{1}.html", basicid, url);
-                    break;
-                case EnumCMSContentType.Features:
-                case EnumCMSContentType.SpecialFeature:
-                    articleUrl = string.Format("/m/features/{0}-{1}/", url, basicid);
-                    break;
-                case EnumCMSContentType.ComparisonTests:
-                case EnumCMSContentType.RoadTest:
-                    articleUrl = string.Format("/m/expert-reviews/{0}-{1}.html", url, basicid);
-                    break;
-                case EnumCMSContentType.TipsAndAdvices:
-                    articleUrl = string.Format("/m/bike-care/{0}-{1}.html", url, basicid);
-                    break;
-                case EnumCMSContentType.Videos:
-                    articleUrl = string.Format("/m/videos/{0}-{1}/", url, basicid);
-                    break;
-                default:
-                    string.Format("/m/{0}/{1}-{2}.html", _contentType.ToString().ToLower(), articleUrl, basicid);
-                    break;
+                switch (_contentType)
+                {
+                    case EnumCMSContentType.AutoExpo2016:
+                    case EnumCMSContentType.News:
+                        articleUrl = string.Format("/m/news/{0}-{1}.html", basicid, url);
+                        break;
+                    case EnumCMSContentType.Features:
+                    case EnumCMSContentType.SpecialFeature:
+                        articleUrl = string.Format("/m/features/{0}-{1}/", url, basicid);
+                        break;
+                    case EnumCMSContentType.ComparisonTests:
+                    case EnumCMSContentType.RoadTest:
+                        articleUrl = string.Format("/m/expert-reviews/{0}-{1}.html", url, basicid);
+                        break;
+                    case EnumCMSContentType.TipsAndAdvices:
+                        articleUrl = string.Format("/m/bike-care/{0}-{1}.html", url, basicid);
+                        break;
+                    case EnumCMSContentType.Videos:
+                        articleUrl = string.Format("/m/videos/{0}-{1}/", url, basicid);
+                        break;
+                    default:
+                        string.Format("/m/{0}/{1}-{2}.html", _contentType.ToString().ToLower(), articleUrl, basicid);
+                        break;
+                }
+            }
+            finally
+            {
+                if (_logNewsUrl)
+                {
+                    ThreadContext.Properties["ShareUrl"] = articleUrl;
+                    _logger.Error("ConverterUtility.GetArticleUrl");
+                }
+
             }
             return articleUrl;
         }
