@@ -311,6 +311,7 @@
 
                 @if (Model.Compare.UserReviewData != null)
                 {
+                    var versionCount = Model.Compare.BasicInfo != null ? Model.Compare.BasicInfo.Count() : 0; 
                     <div id="reviewTabContent" class="review-tab bw-tabs-data font14 hide">
 
                         <ul>
@@ -328,7 +329,7 @@
                                             </tr>
 
                                             @{isFirstActiveTab = false;}
-
+                                            
                                             <tr class="row-type-data">
                                                 <td class="text-default">Overall rating</td>
 
@@ -353,7 +354,9 @@
                                                         }
                                                     </td>
                                                 }
-                                                <td></td>
+                                                @if (versionCount < 4)
+                                                {
+                                                    <td></td> }
                                             </tr>
                                             @{var spec1 = Model.Compare.UserReviewData.CompareReviews.Spec.FirstOrDefault().SpecCategory.FirstOrDefault();}
                                             @if (spec1 != null)
@@ -371,7 +374,10 @@
                                                             }
                                                         </td>
                                                     }
-                                                    <td></td>
+                                                    @if (versionCount < 4)
+                                                    {
+                                                        <td></td>
+                                                    }
                                                 </tr>
                                             }
                                         </tbody>
@@ -397,8 +403,8 @@
                                                         foreach (var compSpec in specCat.CompareSpec)
                                                         {
                                                             <td></td>
-                                                        }                                                       
-                                                    }                                                    
+                                                        }
+                                                    }
                                                 </tr>
 
                                                 @{isFirstActiveTab = false;} @foreach (var specCat in spec.SpecCategory)
@@ -424,7 +430,7 @@
                                                         }
                                                         @if (specCat.CompareSpec.Count() == 3)
                                                         {
-                                                        <td></td>
+                                                            <td></td>
                                                         }
                                                     </tr>
 
@@ -476,7 +482,10 @@
                                                         }
                                                     </td>
                                                 }
+                                                @if (versionCount < 4)
+                                                {
                                                 <td></td>
+                                                }
                                             </tr>
                                         </tbody>
                                     </table>
