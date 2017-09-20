@@ -314,9 +314,9 @@
                                         @if (!compSpec.Value.Equals("--"))
                                         {
                                         <div class='rating-bar margin-top5'>
-                                            <span class='rate-@Math.Floor(Convert.ToDouble(compSpec.Value))'></span>
+                                            <span class='rate-@Math.Round(Convert.ToDouble(compSpec.Value))'></span>
                                         </div>
-                                        @Math.Floor(Convert.ToDouble(compSpec.Value))
+                                        @Math.Round(Convert.ToDouble(compSpec.Value))
                                         }
                                         else
                                         {

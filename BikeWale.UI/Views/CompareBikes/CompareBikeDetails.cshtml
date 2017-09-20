@@ -397,8 +397,8 @@
                                                         foreach (var compSpec in specCat.CompareSpec)
                                                         {
                                                             <td></td>
-                                                        }                                                        
-                                                    }
+                                                        }                                                       
+                                                    }                                                    
                                                 </tr>
 
                                                 @{isFirstActiveTab = false;} @foreach (var specCat in spec.SpecCategory)
@@ -412,17 +412,20 @@
                                                                 @if (!compSpec.Value.Equals("--"))
                                                                 {
                                                                     <div class='rating-bar'>
-                                                                        <span class='rate-@Math.Floor(Convert.ToDouble(compSpec.Value))'></span>
+                                                                        <span class='rate-@Math.Round(Convert.ToDouble(compSpec.Value))'></span>
                                                                     </div>
-                                                                    @Math.Floor(Convert.ToDouble(compSpec.Value))
+                                                                    @Math.Round(Convert.ToDouble(compSpec.Value))
                                                                 }
                                                                 else
                                                                 {
                                                                     @compSpec.Value
                                                                 }
                                                             </td>
-                                                        } 
-                                                        <td></td>                                                      
+                                                        }
+                                                        @if (specCat.CompareSpec.Count() == 3)
+                                                        {
+                                                        <td></td>
+                                                        }
                                                     </tr>
 
                                                 }

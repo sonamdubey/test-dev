@@ -720,7 +720,8 @@
 .rate-1, 
 .rate-2, 
 .rate-3, 
-.rate-4 {
+.rate-4,
+.rate-5 {
     height: 100%;
     content: "";
     display :block;
@@ -728,6 +729,7 @@
     -webkit-border-radius: 2px 0 0 2px;
     border-radius: 2px 0 0 2px;
 }
+
 .rate-1 {
     width: 20%;
     background: #ef3f30;
