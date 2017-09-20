@@ -1,0 +1,140 @@
+﻿.padding-15-20
+	padding: 15px 20px
+
+.bike-details-card
+	margin-bottom: 15px
+	padding-bottom: 15px
+	border-bottom: 1px solid #eee
+
+.left-grid-image
+    width: 102px
+    height: 57px
+
+    img
+        height: 57px
+
+.right-grid-details
+    padding-left: 5px
+    width: 62%
+
+@include tabs-type-switch("inv-teal", "small")
+
+@include grid-inline(5)
+@include grid-inline(7)
+
+// overall-rating-box
+.overall-rating-box
+    width: 100%
+    min-height: 146px
+    padding: 10px
+    display: table
+    background: rgba(245, 245, 245, 0.5)
+
+    .star-one
+        position: relative
+        top: -6px
+        left: -4px
+        @include vendor-prefix("transform", "scale(0.8)")
+
+.table-cell
+    display: table-cell
+    vertical-align: middle
+
+.font26
+    font-size: 26px
+
+.border-light-top
+	border-top: 1px solid #eee
+
+@for $i from 1 through 5
+	@include rate-count($i)
+	@include rating-badge($i)
+	@include rating-background($i)
+	@include rate-star-icon($i)
+
+.star-icon
+    width: 26px
+    height: 25px
+    vertical-align: middle
+    @include vendor-prefix("transform", scale(0.8))
+
+
+// horizontal-rating-graph
+.margin-neg5
+    margin-left: -5px
+
+@include star-0()
+    
+.horizontal-rating-graph
+    span
+        display: inline-block
+        vertical-align: middle
+
+    .star-0
+        position: relative
+        top: -1px
+        @include vendor-prefix("transform", scale(0.5))
+
+    .star-label
+        font-size: 14px
+        margin-left: -8px
+
+    .graph-bar-bg
+        width: 62%
+        height: 5px
+        margin-right: 3px
+        margin-left: 3px
+        position: relative
+        background: #eee
+        border-radius: 3px
+
+        .rating-bar
+            height: 5px
+            position: absolute
+            top: 0
+            left: 0
+            border-radius: 3px
+
+    .graph-bar-label,
+    .graph-bar-count
+        font-size: 12px
+        color: map-get($color-map, "light-grey")
+
+    .graph-bar-label
+        width: 120px
+
+    &.user-review-graph
+        .graph-bar-bg
+            width: 49%
+
+        li
+            margin-bottom: 7px
+
+// rating parameters
+.rating-parameters-content
+	padding-bottom: 20px
+
+.rating-circle-list-title
+	padding-top: 15px
+	margin-bottom: 15px
+	border-top: 1px solid #eee
+
+@include rating-circle-list("vertical-label")
+
+// rate bike
+.answer-star-list
+	> input
+		display: none
+
+		+ label
+            float: right
+            margin-right: 4px
+            @include vendor-prefix("transform", scale(0.85))
+
+		&:checked
+			+ label,
+			~ label
+				background-position: 0 -278px
+
+// review contest slug
+@include contest-card()

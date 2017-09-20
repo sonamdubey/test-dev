@@ -6,7 +6,8 @@ var gulp = require('gulp'),
     watch = require('gulp-watch'),
     gulpSequence = require('gulp-sequence'),
     fs = require('fs'),
-    replace = require('gulp-replace');
+	replace = require('gulp-replace'),
+	fsCache = require('gulp-fs-cache')
 
 var app = 'BikeWale.UI/',
     buildFolder = app + 'build/',
@@ -18,38 +19,37 @@ var paths = {
     SASS: 'sass/'
 };
 
+var pattern = {
+	CSS: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)inline(?:[^>]*)\/{0,1}>/ig
+};
+
 gulp.task('clean', function () {
     return del([buildFolder]);
 });
 
 // minify css and js
-gulp.task('minify-bw-css', function () {
-    return gulp.src(app + paths.CSS + '**', { base: app + paths.CSS })
-        .pipe(cleanCss())
-        .pipe(gulp.dest(minifiedAssetsFolder + paths.CSS));
+gulp.task('minify-css', function() {
+	var cssCache = fsCache(app + '.gulp-cache/' + paths.CSS);
+
+	return gulp.src([app + paths.CSS + '**', app + 'm/' + paths.CSS + '**'], { base: app })
+		.pipe(cssCache)
+		.pipe(cleanCss())
+		.pipe(cssCache.restore)
+		.pipe(gulp.dest(minifiedAssetsFolder));
 });
 
-gulp.task('minify-bw-js', function () {
-    return gulp.src(app + paths.JS + '**', { base: app + paths.JS })
-        .pipe(uglify().on('error', function (e) {
-            console.log(e);
-        }))
-        .pipe(gulp.dest(minifiedAssetsFolder + paths.JS));
+gulp.task('minify-js', function () {
+	var jsCache = fsCache(app + '.gulp-cache/' + paths.JS);
+
+	return gulp.src([app + paths.JS + '**', app + 'm/' + paths.JS + '**'], { base: app })
+		.pipe(jsCache)
+		.pipe(uglify().on('error', function (e) {
+			console.log(e);
+		}))
+		.pipe(jsCache.restore)
+		.pipe(gulp.dest(minifiedAssetsFolder));
 });
 
-gulp.task('minify-bwm-css', function () {
-    return gulp.src(app + 'm/' + paths.CSS + '**', { base: app + 'm/' + paths.CSS })
-        .pipe(cleanCss())
-        .pipe(gulp.dest(minifiedAssetsFolder + 'm/' + paths.CSS));
-});
-
-gulp.task('minify-bwm-js', function () {
-    return gulp.src(app + 'm/' + paths.JS + '**', { base: app + 'm/' + paths.JS })
-        .pipe(uglify().on('error', function (e) {
-            console.log(e);
-        }))
-        .pipe(gulp.dest(minifiedAssetsFolder + 'm/' + paths.JS));
-});
 var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'user-review/', 'upcoming-bikes/', 'compare/'];
 var mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/','user-review/', 'upcoming-bikes/'];
 
@@ -689,21 +689,38 @@ gulp.task('bw-framework-js', function () {
         .pipe(gulp.dest(minifiedAssetsFolder + paths.JS));
 });
 
+gulp.task('replace-css-link-reference', function() {
+	return gulp.src(app + 'Views/**/*.cshtml', { base: app })
+		.pipe(replace(pattern.CSS, function(s, fileName) {
+			var style = fs.readFileSync(minifiedAssetsFolder + fileName, 'utf-8'),
+				styleTag = "<style type='text/css'>@charset 'utf-8';" + style.replace(/\"/g, "'").replace(/\\[0-9]/g, "") + "</style>";
+
+			return styleTag;
+		}))
+		.pipe(gulp.dest(buildFolder));
+});
+
+gulp.task('sass', function() {
+	return gulp.src(app + 'sass/**/*.sass', { base: app })
+		.pipe(sass().on('error', sass.logError))
+		.pipe(gulp.dest(app));
+});
+
 //Watch task
-gulp.task('watch-sass', function () {
-    gulp.watch(app + paths.SASS + '**', ['bw-sass-to-css']);
-    gulp.watch(app + 'm/' + paths.SASS + '**', ['bwm-sass-to-css']);
+gulp.task('sass:watch', function () {
+	gulp.watch(app + 'sass/**/*.sass', ['sass']);
 });
 
 gulp.task('default', gulpSequence(
     'clean',
-    'bw-sass-to-css', 'bwm-sass-to-css',
-    'minify-bw-css', 'minify-bw-js',
-    'minify-bwm-css', 'minify-bwm-js',
+	'bw-sass-to-css', 'bwm-sass-to-css',
+	'sass',
+    'minify-css', 'minify-js',
     'bw-framework-js',
     'replace-css-reference',
     'replace-mvc-layout-css-reference',
 	'replace-mvc-pageview-css-reference',
-	'replace-mvc-pwa-pageview-css-reference'
+	'replace-mvc-pwa-pageview-css-reference',
+	'replace-css-link-reference'
     )
 );
