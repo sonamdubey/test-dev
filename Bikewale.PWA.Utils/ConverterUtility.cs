@@ -98,7 +98,7 @@ namespace Bikewale.PWA.Utils
             }
             finally
             {
-                if (_logNewsUrl)
+                if (_logNewsUrl && shareUrl.EndsWith(@".html.html"))
                 {
                     ThreadContext.Properties["ShareUrl"] = shareUrl;
                     _logger.Error("ConverterUtility.ReturnShareUrl");
@@ -169,7 +169,7 @@ namespace Bikewale.PWA.Utils
             }
             finally
             {
-                if (_logNewsUrl)
+                if (_logNewsUrl && articleUrl.EndsWith(@".html.html"))
                 {
                     ThreadContext.Properties["ShareUrl"] = articleUrl;
                     _logger.Error("ConverterUtility.GetArticleUrl");
