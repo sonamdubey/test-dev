@@ -142,7 +142,8 @@
                     "addressLine2": $('#cfAddress2').val(),
                     "pincode": $("#cfPincode").val().substring(0, 6),
                     "pancard": $("#cfPan").val(),
-                    "objLeadJson": $("#objLead").val()
+                    "objLeadJson": $("#objLead").val(),
+                    "loanAmount": $('#loanAmount').val()
 
 
                 };
@@ -209,7 +210,8 @@
                 "pincode": $("#cfPincode").val().substring(0, 6),
                 "id": $("#cpId").val(),
                 "ctLeadId": $("#ctLeadId").val(),
-                "leadId": $("#leadId").val()
+                "leadId": $("#leadId").val(),
+                "loanAmount": $('#loanAmount').val()
 
             };
             $.ajax({
@@ -230,7 +232,7 @@
                         }
                     }
                     else {
-                        validate.setError($('#otpNumber'), "Wrong Otp");
+                        validate.setError($('#otpNumber'), "Invalid otp");
                     }
                 },
                 complete: function () {

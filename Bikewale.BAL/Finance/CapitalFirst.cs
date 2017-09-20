@@ -218,6 +218,7 @@ namespace Bikewale.BAL.Finance
                         formData.Add(new KeyValuePair<string, string>("from_source", leadSource.ToString())); // 1 - Desktop, 2 - Mobile
                         formData.Add(new KeyValuePair<string, string>("gender", objDetails.Gender == 1 ? "Male" : "Female"));
                         formData.Add(new KeyValuePair<string, string>("gross_income", objDetails.AnnualIncome.ToString()));
+                        formData.Add(new KeyValuePair<string, string>("amount_needed", objDetails.LoanAmount.ToString()));
                         formData.Add(new KeyValuePair<string, string>("lead_id", objDetails.CTLeadId.ToString()));
                         formData.Add(new KeyValuePair<string, string>("lname", objDetails.LastName));
                         formData.Add(new KeyValuePair<string, string>("make", bikemapping.MakeBase.Make));

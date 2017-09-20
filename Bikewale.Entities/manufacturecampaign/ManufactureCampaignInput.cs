@@ -24,6 +24,10 @@ namespace Bikewale.Entities.manufacturecampaign
         public string BikeName { get; set; }
         public bool IsAmp { get; set; }
 
+        public uint LoanAmount { get; set; }
+
+
+
 
     }
 
