@@ -1,4 +1,5 @@
 ﻿using Bikewale.DTO.Videos;
+using Bikewale.Entities.Authors;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
@@ -525,6 +526,78 @@ namespace Bikewale.BAL.GrpcFiles
                 return retVal;
             }
             return null;
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 19th Sep 2017
+        /// Summary : Convert Author Details from grpcdata to entity 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static AuthorEntity ConvertFromGrpcToBikeWale(GrpcAuthor data)
+        { 
+            try
+            {
+                if (data != null)
+                {
+                    return new AuthorEntity()
+                    {
+                        AuthorName = data.AuthorName,
+                        Designation = data.Designation,
+                        HostUrl = data.HostUrl,
+                        ImageName = data.ImageName,
+                        MaskingName = data.MaskingName,
+                        ProfileImage = data.ProfileImage,
+                        ShortDescription = data.ShortDescription,
+                        EmailId = data.EmailId,
+                        FacebookProfile = data.FacebookProfile,
+                        FullDescription = data.FullDescription,
+                        GooglePlusProfile = data.GooglePlusProfile,
+                        LinkedInProfile = data.LinkedInProfile,
+                        TwitterProfile = data.TwitterProfile
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 19th Sep 2017
+        /// Summary : Convert Content list from grpc message to entity
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static IList<ArticleSummary> ConvertFromGrpcToCarwale(GrpcAuthorContentList data)
+        {
+            try
+            {
+                if(data != null)
+                {
+                    IList<ArticleSummary> result = new List<ArticleSummary>();
+                    foreach (var content in data.LstGrpcAuthorContent)
+                    {
+                        result.Add
+                        (
+                            new ArticleSummary()
+                            {
+                                BasicId = Convert.ToUInt64(content.BasicId),
+                                CategoryId = Convert.ToUInt16(content.CategoryId),
+                                Title = content.Title,
+                                ArticleUrl = content.Url
+                            });
+                    }
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+            }
+            return new List<ArticleSummary>();
         }
     }
 }

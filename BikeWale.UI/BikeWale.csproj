@@ -3809,9 +3809,9 @@
     <Content Include="Views\PopUp\Index_LeadCapture.cshtml" />
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile_Amp.cshtml" />
     <Content Include="Views\Author\Listing_Mobile.cshtml" />
-    <Content Include="Views\Author\Details_Mobile.cshtml" />
+    <Content Include="Views\Author\Mobile_Details.cshtml" />
     <Content Include="Views\Author\Listing_Desktop.cshtml" />
-    <Content Include="Views\Author\Details_Desktop.cshtml" />
+    <Content Include="Views\Author\Details.cshtml" />
     <Content Include="Views\Price\_PriceInCityPopUp_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_BikeInfoCard_Mobile_AMP.cshtml" />
     <Content Include="Views\DealerShowroom\_DealerCard_Mobile_Amp.cshtml" />

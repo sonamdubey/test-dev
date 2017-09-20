@@ -1,4 +1,6 @@
-﻿using Bikewale.Entities;
+﻿using Bikewale.BAL.GrpcFiles;
+using Bikewale.Entities;
+using Bikewale.Entities.Authors;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
@@ -17,44 +19,28 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BikeModels;
+using Grpc.CMS;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
     public class AuthorController : Controller
     {
-      
+        [Route("authors/{author}/details/")]
+        public ActionResult Details(string author)
+        {
+            ModelPageVM obj = new ModelPageVM();
+            var data = GrpcMethods.GetAuthorDetails(148);
+            AuthorEntity objAuthorDetails = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(data);
+            return View(obj);
+        }
 
-        // GET: Models
-        [Route("m/authors/listing/"), Filters.DeviceDetection]
-        public ActionResult Listing_Mobile()
+        [Route("m/authors/{author}/details/")]
+        public ActionResult Mobile_Details(string author)
         {
             ModelPageVM obj = new ModelPageVM();
             return View(obj);
         }
 
-        // GET: Models
-        [Route("m/authors/details/"), Filters.DeviceDetection]
-        public ActionResult Details_Mobile()
-        {
-            ModelPageVM obj = new ModelPageVM();
-            return View(obj);
-        }
-
-        // GET: Models
-        [Route("authors/listing/"), Filters.DeviceDetection]
-        public ActionResult Listing_Desktop()
-        {
-            ModelPageVM obj = new ModelPageVM();
-            return View(obj);
-        }
-        // GET: Models
-        [Route("authors/details/"), Filters.DeviceDetection]
-        public ActionResult Details_Desktop()
-        {
-            ModelPageVM obj = new ModelPageVM();
-            return View(obj);
-        }
-
-    }   // class
-}   // namespace
+    }
+}
