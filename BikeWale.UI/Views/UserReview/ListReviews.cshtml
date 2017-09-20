@@ -202,9 +202,6 @@
                         <div class="swiper-heading-left-grid inline-block">
                             <h2 class="h2-heading">Reviews of similar bikes</h2>
                         </div>
-                        <div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="/user-reviews/" title="@string.Format("{0} {1} User Reviews", Model.RatingsInfo.Make.MakeName, Model.RatingsInfo.Model.ModelName)" class="btn view-all-target-btn">View all</a>
-                        </div>
                     </div>
                     @Html.Partial("~/views/UserReview/_SimilarBikeUserReview.cshtml", Model.SimilarBikesWidget)
                     <div class="clear"></div>
