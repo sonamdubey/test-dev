@@ -125,7 +125,6 @@
             var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {
                 var employeDetails = {
-
                     "status": $('#cfStatusS').is(':checked') ? 1 : 2,
                     "companyName": $('#cfCompName').val(),
                     "OfficialAddressLine1": $('#cfCompAddress1').val(),
@@ -144,6 +143,9 @@
                     "addressLine2": $('#cfAddress2').val(),
                     "pincode": $("#cfPincode").val().substring(0, 6),
                     "pancard": $("#cfPan").val(),
+                    "id": $("#cpId").val(),
+                    "ctLeadId": $("#ctLeadId").val(),
+                    "leadId": $("#leadId").val(),
                     "objLeadJson": $("#objLead").val()
 
 
