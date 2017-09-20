@@ -44,7 +44,7 @@
                                 <div class="author__body">
                                     <div class="author__image">
                                         <a href="@string.Format("/authors/{0}/", item.MaskingName)" title="@item.AuthorName">
-                                            <img src="@string.Format("https://{0}/{1}/{2}", item.HostUrl, item.ProfileImage, item.ImageName)" alt="" title="" border="0">
+                                            <img src="@string.Format("https://{0}/{1}/{2}", item.HostUrl, item.ProfileImage, item.ImageName)" alt="" title="@item.AuthorName" border="0">
                                         </a>
                                     </div>
                                     <div class="author__detail">
@@ -64,48 +64,10 @@
                 </ul>
             </div>
             <div class="grid-4 omega">
-                <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                    <h2>Popular News</h2>
-                    <ul class="sidebar-bike-list">
-                        <li>
-                            <a href="/harleydavidson-bikes/street/" title="Harley Davidson Street 750 " class="bike-target-link">
-                                <div class="bike-target-image inline-block">
-                                    <img src="https://imgd.aeplcdn.com//110x61//bw/models/harleydavidson-street.jpg?20160911142112&amp;q=70" alt="Harley Davidson Street 750">
-                                </div>
-                                <div class="bike-target-content inline-block padding-left10">
-                                    <h3 class="text-black">First Ride: Yamaha R25: PowerDrift</h3>
-                                    <p class="font12 text-light-grey">8 days ago by Prince guru</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/harleydavidson-bikes/street/" title="Harley Davidson Street 750 " class="bike-target-link">
-                                <div class="bike-target-image inline-block">
-                                    <img src="https://imgd.aeplcdn.com//110x61//bw/models/harleydavidson-street.jpg?20160911142112&amp;q=70" alt="Harley Davidson Street 750">
-                                </div>
-                                <div class="bike-target-content inline-block padding-left10">
-                                    <h3 class="text-black">First Ride: Yamaha R25: PowerDrift</h3>
-                                    <p class="font12 text-light-grey">8 days ago by Prince guru</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/harleydavidson-bikes/street/" title="Harley Davidson Street 750 " class="bike-target-link">
-                                <div class="bike-target-image inline-block">
-                                    <img src="https://imgd.aeplcdn.com//110x61//bw/models/harleydavidson-street.jpg?20160911142112&amp;q=70" alt="Harley Davidson Street 750">
-                                </div>
-                                <div class="bike-target-content inline-block padding-left10">
-                                    <h3 class="text-black">First Ride: Yamaha R25: PowerDrift</h3>
-                                    <p class="font12 text-light-grey">8 days ago by Prince guru</p>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="view-all-btn-container padding-top10 padding-bottom10">
-                        <a href="/harleydavidson-bikes/" title="Harley Davidson Bikes" class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
-                    </div>
-                </div>
-
+                @if (Model.ArticlesList != null)
+                {
+                    @Html.Partial("~/Views/News/_PopularNewsWidget.cshtml", Model.ArticlesList)
+                }
                 <div class="margin-bottom20">
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                 </div>

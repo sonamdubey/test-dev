@@ -24,5 +24,6 @@ namespace Bikewale.Interfaces.EditCMS
         void UpdateViewCount(uint basicId);
         IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords,string bodyStyleId, uint makeId, uint modelId);
         CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId);
+        CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex);
     }
 }

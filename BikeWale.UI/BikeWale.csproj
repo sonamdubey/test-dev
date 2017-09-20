@@ -3822,6 +3822,7 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile_AMP.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile_AMP.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCities_Mobile_AMP.cshtml" />
+    <Content Include="Views\News\_PopularNewsWidget.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -367,6 +367,46 @@ namespace Bikewale.BAL.EditCMS
             return null;
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 20-Sep-2017
+        /// </summary>
+        /// <param name="categoryIdList"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <returns></returns>
+        public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex)
+        {
+            CMSContent _objArticleList = null;
+            try
+            {
+                _objArticleList = GetArticlesByCategoryViaGrpc(categoryIdList, startIndex, endIndex);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return _objArticleList;
+        }
+
+        private CMSContent GetArticlesByCategoryViaGrpc(string categoryIds, int startIndex, int endIndex)
+        {
+            try
+            {
+                var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIds, (uint)startIndex, (uint)endIndex);
+
+                if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
+                {
+                    return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message, ex);
+            }
+            return null;
+        }
         #endregion
 
 

@@ -536,7 +536,16 @@ namespace Bikewale.BAL.GrpcFiles
                 var result = new List<AuthorEntityBase>();
                 foreach (var author in data.LstGrpcAuthor)
                 {
-                    result.Add(ConvertFromGrpcToBikeWale(author));
+                    result.Add(new AuthorEntityBase()
+                {
+                    AuthorName = author.AuthorName,
+                    Designation = author.Designation,
+                    HostUrl = author.HostUrl,
+                    ImageName = author.ImageName,
+                    MaskingName = author.MaskingName,
+                    ProfileImage = author.ProfileImage,
+                    ShortDescription = author.ShortDescription,
+                });
                 }
                 return result;
             }
@@ -547,27 +556,6 @@ namespace Bikewale.BAL.GrpcFiles
             }
         }
 
-        public static AuthorEntityBase ConvertFromGrpcToBikeWale(GrpcAuthor data)
-        {
-            if (data == null) return (new AuthorEntityBase());
-            try
-            {
-                return new AuthorEntityBase()
-                {
-                    AuthorName = data.AuthorName,
-                    Designation = data.Designation,
-                    HostUrl = data.HostUrl,
-                    ImageName = data.ImageName,
-                    MaskingName = data.MaskingName,
-                    ProfileImage = data.ProfileImage,
-                    ShortDescription = data.ShortDescription,
-                };
-            }
-            catch (Exception e)
-            {
-                log.Error(e);
-                throw;
-            }
-        }
+       
     }
 }

@@ -7,6 +7,7 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
@@ -26,11 +27,13 @@ namespace Bikewale.Controllers
 {
     public class AuthorController : Controller
     {
-        private readonly IAuthors _Authors;
+        private readonly IAuthors _Authors = null;
+        private readonly IArticles _Articles = null;
 
-        public AuthorController(IAuthors Authors)
+        public AuthorController(IAuthors Authors, IArticles Articles)
         {
             _Authors = Authors;
+            _Articles = Articles;
         }
 
         // GET: Models
@@ -38,16 +41,16 @@ namespace Bikewale.Controllers
         public ActionResult Index_List()
         {
 
-            AuthorsListModel objAuthorsVM = new AuthorsListModel(_Authors);
+            AuthorsListModel objAuthorsVM = new AuthorsListModel(_Authors, _Articles);
             return View(objAuthorsVM.GetData());
 
         }
 
         // GET: Models
-        [Route("m/authors/listing/"), Filters.DeviceDetection]
+        [Route("m/authors/"), Filters.DeviceDetection]
         public ActionResult Index_List_Mobile()
         {
-            AuthorsListModel objAuthorsVM = new AuthorsListModel(_Authors);
+            AuthorsListModel objAuthorsVM = new AuthorsListModel(_Authors, _Articles);
             return View(objAuthorsVM.GetData());
         }
 

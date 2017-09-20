@@ -1,0 +1,30 @@
+﻿@model Bikewale.Entities.CMS.Articles.CMSContent
+
+@if (Model != null)
+{
+    <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+        <h2>Popular News</h2>
+        <ul class="sidebar-bike-list">
+            @if (Model.Articles.Any())
+            {
+                foreach (var item in Model.Articles)
+                {
+                    <li>
+                        <a href="@item.ArticleUrl" title="@item.Title" class="bike-target-link">
+                            <div class="bike-target-image inline-block">
+                                <img src="@string.Format("{0}/{1}", item.HostUrl, item.SmallPicUrl)" alt="Harley Davidson Street 750">
+                            </div>
+                            <div class="bike-target-content inline-block padding-left10">
+                                <h3 class="text-black">@item.Title</h3>
+                                <p class="font12 text-light-grey">@DateTime.Now.Subtract(item.DisplayDate).Days ago by @item.AuthorName</p>
+                            </div>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+        <div class="view-all-btn-container padding-top10 padding-bottom10">
+            <a href="/news/" title="Bike News" class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
+        </div>
+    </div>
+}
