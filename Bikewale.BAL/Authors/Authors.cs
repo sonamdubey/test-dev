@@ -10,9 +10,18 @@ using System.Linq;
 
 namespace Bikewale.BAL.Authors
 {
+    /// <summary>
+    /// Created by : Ashutosh Sharma on 20-Sep-2017
+    /// Description :  Provide BAL methods related to authors.
+    /// </summary>
     public class Authors : IAuthors
     {
         static readonly ILog _logger = LogManager.GetLogger(typeof(Authors));
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 20-Sep-2017
+        /// Description :  Method to get author list via GRPC.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<AuthorEntityBase> GetAuthorsList()
         {
             try

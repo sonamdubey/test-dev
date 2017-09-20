@@ -3,10 +3,14 @@ using Bikewale.Interfaces.Authors;
 using Bikewale.Notifications;
 using System;
 using System.Linq;
-using Bikewale.Entities.CMS.Articles;
+using Bikewale.Utility;
 
 namespace Bikewale.Models.Authors
 {
+    /// <summary>
+    /// Created by: Ashutosh Sharma on 20-Sep-2017
+    /// Description : Model class for authors list page.
+    /// </summary>
     public class AuthorsListModel
     {
         private readonly IAuthors _Authors = null;
@@ -16,6 +20,12 @@ namespace Bikewale.Models.Authors
             _Authors = Authors;
             _Articles = Articles;
         }
+
+        /// <summary>
+        /// Created by: Ashutosh Sharma on 20-Sep-2017
+        /// Description : Method to get data for author details page
+        /// </summary>
+        /// <returns></returns>
         public AuthorsListVM GetData()
         {
             AuthorsListVM _objAuthorsList = null;
@@ -24,6 +34,7 @@ namespace Bikewale.Models.Authors
                 _objAuthorsList = new AuthorsListVM();
                 _objAuthorsList.AuthorsList =  _Authors.GetAuthorsList();
                 BindPopularNewsWidget(_objAuthorsList);
+                BindPageMetas(_objAuthorsList.PageMetaTags);
             }
             catch (Exception ex)
             {
@@ -32,7 +43,11 @@ namespace Bikewale.Models.Authors
             return _objAuthorsList;
         }
 
-
+        /// <summary>
+        /// Created by: Ashutosh Sharma on 20-Sep-2017
+        /// Description : Method to bind popular news widget on author page.
+        /// </summary>
+        /// <param name="objAuthorsList"></param>
         private void BindPopularNewsWidget(AuthorsListVM objAuthorsList)
         {
             try
@@ -45,6 +60,27 @@ namespace Bikewale.Models.Authors
                 {
                     objAuthorsList.ArticlesList.Articles = objAuthorsList.ArticlesList.Articles.OrderBy(c => c.Views).Take(3).ToList();
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Authors.AuthorsListModel");
+            }
+        }
+
+
+        /// <summary>
+        /// Created by: Ashutosh Sharma on 20-Sep-2017
+        /// Description : Method to bind page metas
+        /// </summary>
+        /// <param name="pageMetaTags"></param>
+        private void BindPageMetas(PageMetaTags pageMetaTags)
+        {
+            try
+            {
+                pageMetaTags.Title = "Authors - BikeWale";
+                pageMetaTags.Description = "List of authors who contribute to BikeWale.";
+                pageMetaTags.CanonicalUrl = string.Format("{0}/authors", BWConfiguration.Instance.BwHostUrl);
+                pageMetaTags.AlternateUrl= string.Format("{0}/m/authors", BWConfiguration.Instance.BwHostUrl);
             }
             catch (Exception ex)
             {

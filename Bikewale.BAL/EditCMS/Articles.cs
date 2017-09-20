@@ -369,6 +369,7 @@ namespace Bikewale.BAL.EditCMS
 
         /// <summary>
         /// Created by : Ashutosh Sharma on 20-Sep-2017
+        /// Description : Method to get articles by category list with parameters 'categoryIdList, startIndex, endIndex'.
         /// </summary>
         /// <param name="categoryIdList"></param>
         /// <param name="startIndex"></param>
@@ -376,25 +377,9 @@ namespace Bikewale.BAL.EditCMS
         /// <returns></returns>
         public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex)
         {
-            CMSContent _objArticleList = null;
             try
             {
-                _objArticleList = GetArticlesByCategoryViaGrpc(categoryIdList, startIndex, endIndex);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return _objArticleList;
-        }
-
-        private CMSContent GetArticlesByCategoryViaGrpc(string categoryIds, int startIndex, int endIndex)
-        {
-            try
-            {
-                var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIds, (uint)startIndex, (uint)endIndex);
+                var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIdList, (uint)startIndex, (uint)endIndex);
 
                 if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
                 {
@@ -407,6 +392,8 @@ namespace Bikewale.BAL.EditCMS
             }
             return null;
         }
+
+       
         #endregion
 
 

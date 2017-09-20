@@ -528,6 +528,12 @@ namespace Bikewale.BAL.GrpcFiles
             return null;
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 20-Sep-2017
+        /// Description :  Method to convert grpc author list data to Bikewale author list entity.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static List<AuthorEntityBase> ConvertFromGrpcToBikeWale(GrpcAuthorList data)
         {
             if (data == null) return (new List<AuthorEntityBase>());

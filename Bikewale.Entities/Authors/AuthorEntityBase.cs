@@ -2,6 +2,10 @@
 
 namespace Bikewale.Entities.Authors
 {
+    /// <summary>
+    /// Created by : Ashutosh Sharma on 20-Sep-2017
+    /// Description : Entity Base for Author.
+    /// </summary>
     public class AuthorEntityBase
     {
         public string AuthorName { get; set; }

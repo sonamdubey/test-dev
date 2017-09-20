@@ -1165,6 +1165,12 @@ namespace Grpc.CMS
             }
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 20-Sep-2017
+        /// Description :  GRPC method to get author list.
+        /// </summary>
+        /// <param name="applicationId"></param>
+        /// <returns></returns>
         public static GrpcAuthorList GetAuthorsList(int applicationId)
         {
             Stopwatch sw = null;

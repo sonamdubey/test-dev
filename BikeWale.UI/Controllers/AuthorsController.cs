@@ -36,7 +36,11 @@ namespace Bikewale.Controllers
             _Articles = Articles;
         }
 
-        // GET: Models
+        /// <summary>
+        /// Created by: Ashutosh Sharma on 20-Sep-2017
+        /// Description : Action method for Author List desktop page.
+        /// </summary>
+        /// <returns></returns>
         [Route("authors/"), Filters.DeviceDetection]
         public ActionResult Index_List()
         {
@@ -46,8 +50,12 @@ namespace Bikewale.Controllers
 
         }
 
-        // GET: Models
-        [Route("m/authors/"), Filters.DeviceDetection]
+        /// <summary>
+        /// Created by: Ashutosh Sharma on 20-Sep-2017
+        /// Description : Action method for Author List mobile page.
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/authors/")]
         public ActionResult Index_List_Mobile()
         {
             AuthorsListModel objAuthorsVM = new AuthorsListModel(_Authors, _Articles);
@@ -64,7 +72,7 @@ namespace Bikewale.Controllers
 
         
         // GET: Models
-        [Route("authors/details/"), Filters.DeviceDetection]
+        [Route("authors/details/")]
         public ActionResult Details_Desktop()
         {
             ModelPageVM obj = new ModelPageVM();
