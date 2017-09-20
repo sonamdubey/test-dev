@@ -1165,6 +1165,64 @@ namespace Grpc.CMS
             }
         }
 
+        public static GrpcAuthorList GetAuthorsList(int applicationId)
+        {
+            Stopwatch sw = null;
+            try
+            {
+                if (_logGrpcErrors)
+                    sw = Stopwatch.StartNew();
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
+                    {
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+                            return client.GetAuthorsList(new GrpcInt()
+                            {
+                                ApplicationId = applicationId
+                            },
+                          null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
+                            {
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
+                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                            }
+                            else
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
+                    }
+                    else
+                        break;
+                }
+
+                return null;
+            }
+            finally
+            {
+                if (_logGrpcErrors && sw != null)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetAuthorsList took " + sw.ElapsedMilliseconds);
+                }
+            }
+        }
+        
+
+
         public static GrpcBool ClearMemCachedKEys(EditCMSCategoryEnum cat)
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
@@ -1305,6 +1363,77 @@ namespace Grpc.CMS
                                 AuthorId = authorId,
                                 ApplicationId = applicationId,
                                 Categoryids = categoryList
+                            }, null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+
+                            if (i > 0)
+                            {
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
+                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                            }
+                            else
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                        }
+                    }
+                    else
+                        break;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                return null;
+            }
+            finally
+            {
+                if (_logGrpcErrors)
+                {
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetContentByAuthor took " + sw.ElapsedMilliseconds);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 20th Sep 2017
+        /// Summary : Get List of other authors
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <param name="applicationId"></param>
+        /// <returns></returns>
+        public static GrpcAuthorList GetAllOtherAuthors(int authorId, int applicationId)
+        {
+            Stopwatch sw = null;
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
+                    {
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+                            return client.GetAllOtherAuthors(new GrpcContentByAuthorURI()
+                            {
+                                AuthorId = authorId,
+                                ApplicationId = applicationId
                             }, null, GetForwardTime(m_ChanelWaitTime));
                         }
                         catch (RpcException e)

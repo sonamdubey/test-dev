@@ -1,7 +1,4 @@
-﻿/// <summary>
-/// 
-/// </summary>
-namespace Bikewale.Entities.Authors
+﻿namespace Bikewale.Entities.Authors
 {
     public class AuthorEntityBase
     {

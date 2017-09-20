@@ -113,6 +113,7 @@
     <Compile Include="App\AppVersion.cs" />
     <Compile Include="Authors\AuthorEntity.cs" />
     <Compile Include="Authors\AuthorEntityBase.cs" />
+    <Compile Include="Authors\AuthorEntityBase.cs" />
     <Compile Include="AutoBiz\BikeColorAvailability.cs" />
     <Compile Include="AutoBiz\DealerAreaDetails.cs" />
     <Compile Include="AutoBiz\DealerCustDistanceMapping.cs" />
@@ -481,6 +482,7 @@
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

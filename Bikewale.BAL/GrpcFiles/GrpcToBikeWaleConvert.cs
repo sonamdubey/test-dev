@@ -528,6 +528,36 @@ namespace Bikewale.BAL.GrpcFiles
             return null;
         }
 
+        public static List<AuthorEntityBase> ConvertFromGrpcToBikeWale(GrpcAuthorList data)
+        {
+            if (data == null) return (new List<AuthorEntityBase>());
+            try
+            {
+                var result = new List<AuthorEntityBase>();
+                foreach (var author in data.LstGrpcAuthor)
+                {
+                    result.Add(
+                            new AuthorEntityBase()
+                            {
+                                AuthorName = author.AuthorName,
+                                Designation = author.Designation,
+                                HostUrl = author.HostUrl,
+                                ImageName = author.ImageName,
+                                MaskingName = author.MaskingName,
+                                ProfileImage = author.ProfileImage,
+                                ShortDescription = author.ShortDescription,
+                            }
+                        );
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+                throw;
+            }
+        }
+
         /// <summary>
         /// Created by : Vivek Singh Tomar on 19th Sep 2017
         /// Summary : Convert Author Details from grpcdata to entity 
@@ -535,7 +565,7 @@ namespace Bikewale.BAL.GrpcFiles
         /// <param name="data"></param>
         /// <returns></returns>
         public static AuthorEntity ConvertFromGrpcToBikeWale(GrpcAuthor data)
-        { 
+        {
             try
             {
                 if (data != null)
@@ -571,7 +601,7 @@ namespace Bikewale.BAL.GrpcFiles
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static IList<ArticleSummary> ConvertFromGrpcToCarwale(GrpcAuthorContentList data)
+        public static IList<ArticleSummary> ConvertFromGrpcToBikeWale(GrpcAuthorContentList data)
         {
             try
             {
