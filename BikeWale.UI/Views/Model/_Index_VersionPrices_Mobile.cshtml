@@ -36,7 +36,7 @@
             var priceQuotesCities = Model.PriceInTopCities.PriceQuoteList;
             Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Take(4);
             <div id="prices-top-cities">
-                @if (Model.LocationCookie != null)
+                @if (Model.LocationCookie != null && Model.LocationCookie.City != null)
                 {
                     <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">On-road prices in cities near @Model.LocationCookie.City</h3>
                 }
