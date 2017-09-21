@@ -38,7 +38,7 @@ namespace Bikewale.Controllers
             return View(objAuthorsVM.GetData());
         }
 
-        [Route("authors/{author}/details")]
+        [Route("authors/{author}/")]
         public ActionResult Details(string author)
         {
             AuthorDetailsPageVM objAuthorDetailsVM = null;
@@ -54,7 +54,7 @@ namespace Bikewale.Controllers
             return View(objAuthorDetailsVM);
         }
 
-        [Route("m/authors/{author}/details/")]
+        [Route("m/authors/{author}/")]
         public ActionResult Details_Mobile(string author)
         {
             AuthorDetailsPageVM objAuthorDetailsVM = null;
