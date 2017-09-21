@@ -360,7 +360,7 @@ function savePersonalDetails() {
 function validateEmploymentInfo() {
     var isValid = false;
 
-    isValid = validateUserName($("#cfCompName"));
+    isValid = validateAddress($("#cfCompName"));
     isValid &= validateIncome($("#cfCompIncome"));
     isValid &= validateAddress($("#cfCompAddress1"));
     isValid &= validateAddress($("#cfCompAddress2"));
@@ -493,16 +493,19 @@ function validateEmailId(inputEmail) {
 }
 
 function validateAddress(inputAddress) {
-    var value = $(inputAddress)[0].value.trim();
-
-    if (value.length > 1) {
-        validate.hideError(inputAddress);
-        isValid = true;
-    }
-    else {
+    var isValid = true,  addressVal =  $(inputAddress)[0].value.trim(),
+      regex = /^[A-z0-9 #\/()-.,:\[\]]*$/;
+ 
+    if (addressVal == "")
+    {
         validate.setError(inputAddress, "Please enter Address");
         isValid = false;
     }
+    else if (!regex.test(addressVal)) {
+        validate.setError(inputAddress, "Please enter valid Address");
+        isValid = false;
+    }
+  
     return isValid;
 }
 
