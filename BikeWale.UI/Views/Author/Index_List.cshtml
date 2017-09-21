@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.Authors.AuthorsListVM
+@using Bikewale.Utility;
 @{ 
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/authors.css' />";
     Model.AdTags.AdPath = "/1017752/BikeWale_News_";
@@ -38,7 +39,7 @@
                 <ul class="author__list">
                     @foreach (var item in Model.AuthorsList)
                     {
-                        if (!string.IsNullOrEmpty(item.ShortDescription))
+                        if (!string.IsNullOrEmpty(item.ShortDescription) && !string.IsNullOrEmpty(item.MaskingName))
                         {
                             <li>
                                 <div class="author__body">
@@ -49,7 +50,7 @@
                                     </div>
                                     <div class="author__detail">
                                         <h2>
-                                            <a href="/authors/@item.MaskingName" title="" class="author__name">@item.AuthorName</a>
+                                            <a href="@string.Format("/authors/{0}", item.MaskingName)" title="" class="author__name">@item.AuthorName</a>
                                         </h2>
                                         <span class="author__designation">@item.Designation</span>
                                         <div class="author__description">

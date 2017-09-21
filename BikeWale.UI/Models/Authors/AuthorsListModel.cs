@@ -77,8 +77,8 @@ namespace Bikewale.Models.Authors
         {
             try
             {
-                pageMetaTags.Title = "Authors - BikeWale";
-                pageMetaTags.Description = "List of authors who contribute to BikeWale.";
+                pageMetaTags.Title = "List of authors | BikeWale";
+                pageMetaTags.Description = "BikeWale has a credible team of authors covering the entire spectrum of two wheeler industry. Check out the list of all authors at BikeWale.";
                 pageMetaTags.CanonicalUrl = string.Format("{0}/authors", BWConfiguration.Instance.BwHostUrl);
                 pageMetaTags.AlternateUrl= string.Format("{0}/m/authors", BWConfiguration.Instance.BwHostUrl);
             }

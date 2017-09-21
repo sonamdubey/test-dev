@@ -23,6 +23,8 @@ namespace Bikewale.Entities.CMS.Articles
         [DataMember]
         public string AuthorName { get; set; }
         [DataMember]
+        public string AuthorMaskingName { get; set; }
+        [DataMember]
         public DateTime DisplayDate { get; set; }
         [DataMember]
         public uint Views { get; set; }

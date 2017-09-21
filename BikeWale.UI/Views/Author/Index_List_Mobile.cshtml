@@ -14,7 +14,7 @@
     <ul class="author__list">
         @foreach (var item in Model.AuthorsList)
         {
-            if (!string.IsNullOrEmpty(item.ShortDescription))
+            if (!string.IsNullOrEmpty(item.ShortDescription) && !string.IsNullOrEmpty(item.MaskingName))
             {
                 <li>
                     <a href="@string.Format("/authors/{0}/", item.MaskingName)" title="@item.AuthorName" class="author__block">

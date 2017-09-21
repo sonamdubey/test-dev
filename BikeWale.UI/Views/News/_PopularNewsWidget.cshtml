@@ -1,5 +1,5 @@
 ﻿@model Bikewale.Entities.CMS.Articles.CMSContent
-
+@using Bikewale.Entities.CMS
 @if (Model != null)
 {
     <div class="content-box-shadow padding-15-20-10 margin-bottom20">
@@ -10,7 +10,7 @@
                 foreach (var item in Model.Articles)
                 {
                     <li>
-                        <a href="@string.Format("/news/{0}-{1}.html", item.BasicId, item.ArticleUrl)" title="@item.Title" class="bike-target-link">
+                        <a href="@Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(item.BasicId), item.ArticleUrl, Convert.ToString(item.CategoryId))" title="@item.Title" class="bike-target-link">
                             <div class="bike-target-image inline-block">
                                 <img src="@string.Format("{0}/{1}", item.HostUrl, item.SmallPicUrl)" alt="@item.Title">
                             </div>

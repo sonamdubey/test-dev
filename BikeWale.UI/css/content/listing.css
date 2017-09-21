@@ -45,6 +45,9 @@
 .author-grey-icon { background-position:-105px -515px; }
 .article-date { min-width: 145px; padding-right: 10px; }
 .article-author { min-width: 200px; }
+.article-author a:hover {
+    text-decoration: none;
+}
 .article-date , .article-author { display: inline-block; vertical-align: middle; }
 .blue-right-arrow-icon {
     width: 6px;

@@ -37,6 +37,7 @@ namespace Bikewale.BAL.GrpcFiles
                     curArt.BasicId = item.ArticleBase.BasicId;
                     curArt.Title = item.ArticleBase.Title.Replace("&#x20B9;", "₹");
                     curArt.AuthorName = item.AuthorName;
+                    curArt.AuthorMaskingName = item.AuthorMaskingName;
                     curArt.CategoryId = (ushort)item.CategoryId;
                     curArt.Description = item.Description.Replace("&#x20B9;", "₹");
                     curArt.DisplayDate = ParseDateObject(item.DisplayDate);
