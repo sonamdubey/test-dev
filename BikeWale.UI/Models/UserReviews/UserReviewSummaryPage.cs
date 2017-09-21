@@ -23,6 +23,8 @@ namespace Bikewale.Models.UserReviews
         #region Public variables
         public StatusCodes status;
         public bool IsDesktop;
+
+        public bool IsMobile { get; internal set; }
         #endregion
 
         #region Constructor

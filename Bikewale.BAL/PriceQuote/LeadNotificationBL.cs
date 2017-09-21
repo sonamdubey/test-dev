@@ -1,5 +1,4 @@
-﻿using Bikewale.BAL.ABServiceRef;
-using Bikewale.Cache.Core;
+﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.MobileVerification;
 using Bikewale.DAL.Dealer;
 using Bikewale.DAL.MobileVerification;
@@ -16,7 +15,6 @@ using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using RabbitMqPublishing;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -35,7 +33,6 @@ namespace Bikewale.BAL.PriceQuote
     /// </summary>
     public class LeadNotificationBL : ILeadNofitication
     {
-        private readonly TCApi_Inquiry _objInquiry;
         private readonly IMobileVerificationCache _objMobileVerification;
         public LeadNotificationBL()
         {
@@ -46,7 +43,6 @@ namespace Bikewale.BAL.PriceQuote
                           .RegisterType<ICacheManager, MemcacheManager>();
                 _objMobileVerification = container.Resolve<IMobileVerificationCache>();
             }
-            _objInquiry = new TCApi_Inquiry();
         }
         /// <summary>
         /// Sends Email and SMS to Customer

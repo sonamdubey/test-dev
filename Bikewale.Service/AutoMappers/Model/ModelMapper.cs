@@ -9,6 +9,7 @@ using Bikewale.DTO.PriceQuote.v2;
 using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.DTO.PriceQuote.Version.v2;
 using Bikewale.DTO.Series;
+using Bikewale.DTO.UserReviews;
 using Bikewale.DTO.Version;
 using Bikewale.DTO.Videos;
 using Bikewale.DTO.Widgets;
@@ -20,6 +21,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
+using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -197,7 +199,6 @@ namespace Bikewale.Service.AutoMappers.Model
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.AutoMappers.Model.ModelMapper.ConvertToBikeSpecs");
-                objErr.SendMail();
                 return default(BikeSpecs);
             }
         }
@@ -422,7 +423,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// Created by: Sangram Nandkhile on 20 Apr 2016
         /// Summary: Map PQByCityArea from PQByCityAreaEntity
         /// </summary>
-        /// <param name="objModelPage"></param>
+        /// <param name="pqEntity"></param>
         /// <returns></returns>
 
         internal static PQByCityAreaDTO Convert(PQByCityAreaEntity pqEntity)
@@ -442,6 +443,8 @@ namespace Bikewale.Service.AutoMappers.Model
 
         internal static BikeModelContentDTO Convert(BikeModelContent objContent)
         {
+            CMSShareUrl cmsShareurl = new CMSShareUrl();
+
             Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
@@ -449,10 +452,35 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<ReviewTaggedBikeEntity, ReviewTaggedBike>();
             Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
             Mapper.CreateMap<ReviewEntity, Review>();
-            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
+            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>()
+               .ForMember(dest => dest.FormattedDisplayDate, opt => opt.MapFrom(src => src.DisplayDate.ToString("dd MMMM yyyy")))
+               .ForMember(dest => dest.ShareUrl, opt => opt.MapFrom(src => cmsShareurl.ReturnShareUrl(src.CategoryId, src.BasicId, src.ArticleUrl)));
             Mapper.CreateMap<BikeVideoEntity, VideoBase>();
             Mapper.CreateMap<BikeModelContent, BikeModelContentDTO>();
             return Mapper.Map<BikeModelContent, BikeModelContentDTO>(objContent);
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 6th September 2017
+        /// Desc : Map BikeModelContent entity to dto BikeModelContentDTO
+        /// </summary>
+        /// <param name="objContent"></param>
+        /// <returns></returns>
+        internal static Bikewale.DTO.Model.v2.BikeModelContentDTO ConvertV2(Bikewale.Entities.BikeData.v2.BikeModelContent objContent)
+        {
+            CMSShareUrl cmsShareurl = new CMSShareUrl();
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>()
+                .ForMember(dest => dest.FormattedDisplayDate, opt => opt.MapFrom(src => src.DisplayDate.ToString("dd MMMM yyyy")))
+                .ForMember(dest => dest.ShareUrl, opt => opt.MapFrom(src => cmsShareurl.ReturnShareUrl(src.CategoryId, src.BasicId, src.ArticleUrl)));
+            Mapper.CreateMap<BikeVideoEntity, VideoBase>();
+            Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
+            Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>();
+            Mapper.CreateMap<UserReviewQuestion, UserReviewQuestionDto>();
+            Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();
+            Mapper.CreateMap<Bikewale.Entities.BikeData.v2.BikeModelContent, Bikewale.DTO.Model.v2.BikeModelContentDTO>();
+            return Mapper.Map<Bikewale.Entities.BikeData.v2.BikeModelContent, Bikewale.DTO.Model.v2.BikeModelContentDTO>(objContent);
         }
 
         /// <summary>
@@ -470,7 +498,6 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.MaskingNumber, opt => opt.MapFrom(s => s.DealerDetails.MaskingNumber));
             Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.DealerPkgType, opt => opt.MapFrom(s => s.DealerDetails.DealerPackageType));
             Mapper.CreateMap<PQByCityAreaEntity, PQByCityAreaDTOV2>();
-            //Mapper.CreateMap<DealerQuotationEntity, DPQOffer>();
             var versionPrices = Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTOV2>(pqCityAea);
 
             if (pqCityAea.PrimaryDealer != null && pqCityAea.PrimaryDealer.OfferList != null)

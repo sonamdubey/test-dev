@@ -1,8 +1,7 @@
 ﻿
 using BikewaleOpr.Entities;
-using BikewaleOpr.Entities;
-using BikewaleOpr.Entity.Dealers;
 using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entity.Dealers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,29 +10,24 @@ namespace BikewaleOpr.Interface
 {
     /// <summary>
     /// Modified by : Aditi Srivastava on 9 Feb 2017
-    /// Summary     : Added functions to get list of makes and dealers in a city
+    /// Summary : Added functions to get list of makes and dealers in a city
     /// </summary>
     public interface IDealers
     {
-        PQ_DealerDetailEntity GetDealerDetailsPQ(PQParameterEntity objParams);
         IEnumerable<FacilityEntity> GetDealerFacilities(uint dealerId);
         IEnumerable<DealerMakeEntity> GetDealersByCity(UInt32 cityId);
         UInt16 SaveDealerFacility(FacilityEntity objData);
-        DataTable GetDealerCities();
         bool UpdateDealerFacility(FacilityEntity objData);
         DataTable GetOfferTypes();
         EMI GetDealerLoanAmounts(uint dealerId);
         List<OfferEntity> GetDealerOffers(int dealerId);
-        void SaveDealerLoanAmounts(uint dealerId, ushort tenure, float rateOfInterest, ushort ltv, string loanProvider);
-        bool SaveDealerOffer(int dealerId, uint userId, int cityId, string modelId, int offercategoryId, string offerText, int? offerValue, DateTime offervalidTill, bool isPriceImpact,string terms);
-        void UpdateDealerLoanAmounts(uint dealerId, ushort tenure, float rateOfInterest, ushort ltv, string loanProvider);
+        bool SaveDealerOffer(int dealerId, uint userId, int cityId, string modelId, int offercategoryId, string offerText, int? offerValue, DateTime offervalidTill, bool isPriceImpact, string terms);
         bool DeleteDealerOffer(string offerId);
         bool SaveBikeAvailability(uint dealerId, uint bikemodelId, uint? bikeversionId, ushort numOfDays);
         List<OfferEntity> GetBikeAvailability(uint dealerId);
         bool EditAvailabilityDays(int availabilityId, int days);
         uint GetAvailabilityDays(uint dealerId, uint versionId);
         void SaveDealerDisclaimer(uint dealerId, uint makeId, uint? modelId, uint? versionId, string disclaimer);
-        void UpdateDealerDisclaimer(uint dealerId, uint versionId, string disclaimer);
         bool DeleteDealerDisclaimer(uint disclaimerId);
         List<DealerDisclaimerEntity> GetDealerDisclaimer(uint dealerId);
         bool EditDisclaimer(uint disclaimerId, string newDisclaimerText);
@@ -41,7 +35,6 @@ namespace BikewaleOpr.Interface
         IEnumerable<BookingAmountEntity> GetBikeBookingAmount(uint dealerId);
         bool UpdateBookingAmount(BookingAmountEntityBase objbookingAmtBase);
         bool SaveBookingAmount(BookingAmountEntity objBookingAmt, UInt32 updatedById);
-        BookingAmountEntity GetDealerBookingAmount(uint versionId, uint dealerId);
         #endregion
         bool DeleteBookingAmount(uint bookingId);
         bool UpdateDealerBikeOffers(DealerOffersEntity dealerOffers);

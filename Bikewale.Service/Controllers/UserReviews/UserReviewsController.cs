@@ -2,10 +2,12 @@
 using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UserReviews;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
+using Bikewale.Utility.StringExtention;
 using System;
 using System.Collections;
 using System.Collections.Specialized;
@@ -31,15 +33,19 @@ namespace Bikewale.Service.Controllers.UserReviews
         private readonly IUserReviews _userReviews = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
 
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="userReviewsRepo"></param>
+        /// <param name="userReviews"></param>
+        /// <param name="userReviewsCache"></param>
         public UserReviewsController(IUserReviewsRepository userReviewsRepo, IUserReviews userReviews, IUserReviewsCache userReviewsCache)
         {
             _userReviewsRepo = userReviewsRepo;
             _userReviews = userReviews;
             _userReviewsCache = userReviewsCache;
+
         }
 
         #region User Reviews Details
@@ -96,20 +102,20 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <returns></returns>
         [HttpPost, Route("api/user-reviews/updateView/{reviewId}/")]
         public IHttpActionResult UpdateUserReviewViews(uint reviewId)
-        {            
+        {
             try
             {
                 NameValueCollection nvc = new NameValueCollection();
                 nvc.Add("par_reviewId", reviewId.ToString());
                 SyncBWData.PushToQueue("updateUserReviewViews", DataBaseName.BW, nvc);
 
-                return Ok();                
+                return Ok();
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.UpdateUserReviewViews");                
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.UpdateUserReviewViews");
                 return InternalServerError();
-            }           
+            }
         }
 
         #region Get User Review Ratings
@@ -271,6 +277,51 @@ namespace Bikewale.Service.Controllers.UserReviews
         }   // Get review details
         #endregion
 
+        #region SaveUserReviewDetails
+        [HttpPost, ResponseType(typeof(UserReviewSummaryDto)), Route("api/user-reviews/review/save/")]
+        public IHttpActionResult SaveUserReviewDetails(WriteReviewInput writeReviewInput)
+        {
+            ReviewSubmitData objReviewData = null;
+            UserReviewSummary objUserReview = null;
+            UserReviewSummaryDto objDTOUserReview = null;
+            WriteReviewPageSubmitResponse objResponse = null;
+
+            try
+            {
+                if (ModelState.IsValid && writeReviewInput != null)
+                {
+                    // Auto map the properties
+                    objReviewData = new ReviewSubmitData();
+                    objReviewData = UserReviewsMapper.Convert(writeReviewInput);
+
+                    objResponse = _userReviews.SaveUserReviews(objReviewData);
+
+                    if (objResponse.IsSuccess)
+                    {
+                        objUserReview = _userReviews.GetUserReviewSummary(writeReviewInput.ReviewId);
+
+                        if (objUserReview != null)
+                        {
+                            // Auto map the properties
+                            objDTOUserReview = new UserReviewSummaryDto();
+                            objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
+                        }
+
+                        return Ok(objDTOUserReview);
+                    }
+                    else return NotFound();
+                }
+                else return BadRequest();
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                return InternalServerError();
+            }
+        }   // Get review details
+        #endregion
+
         #region User Reviews voting
         /// <summary>
         /// Created by Sajal Gupta on 05-05-2017
@@ -311,7 +362,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// Description : Save abuse user review 
         /// </summary>
         /// <param name="reviewId"></param>
-        /// <param name="vote"></param>
+        /// <param name="comments"></param>
         /// <returns></returns>
         [HttpPost, Route("api/user-reviews/abuseUserReview/")]
         public IHttpActionResult SaveUserReviewAbuse(uint reviewId, string comments)
@@ -333,7 +384,94 @@ namespace Bikewale.Service.Controllers.UserReviews
                 return InternalServerError();
             }
         }
+
+
+        /// <summary>
+        /// Created by Snehal Dange on 01-09-2017
+        /// Description : This action will fetch rate bike page.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("api/user-reviews/rate-bike/")]
+        public IHttpActionResult RateBike([FromBody] RateBikeInput objRateBike)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    RateBikeDetails objRateBikeDetails = null;
+                    UserReviewRatingData objReviewRatingData = null;
+                    if (objRateBike != null)
+                    {
+
+                        objReviewRatingData = _userReviews.GetRateBikeData(objRateBike);
+                        if (objReviewRatingData != null)
+                        {
+                            objRateBikeDetails = UserReviewsMapper.Convert(objReviewRatingData);
+                            return Ok(objRateBikeDetails);
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.RateBike");
+                return InternalServerError();
+            }
+            return NotFound();
+        }
+
+
+        /// <summary>
+        /// Created by Snehal Dange on 01-09-2017
+        /// Description : This action will save the rating given by user
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("api/user-reviews/ratings/save/")]
+        public IHttpActionResult SubmitRating([FromBody] InputRatingSave objSaveInputRating)
+        {
+            try
+            {
+                if (ModelState.IsValid && objSaveInputRating != null && !String.IsNullOrEmpty(objSaveInputRating.RatingQuestionAns))
+                {
+                    RatingReviewInput objRatingReviewInput = null;
+                    UserReviewRatingObject objRating = null;
+                    InputRatingSaveEntity objSaveRatingEntity = null;
+                    objSaveInputRating.UserName = StringHelper.ToProperCase(objSaveInputRating.UserName);
+
+                    objSaveRatingEntity = UserReviewsMapper.Convert(objSaveInputRating);
+
+                    if (objSaveRatingEntity != null)
+                    {
+                        objRating = _userReviews.SaveUserRatings(objSaveRatingEntity);
+                    }
+
+                    objRatingReviewInput = UserReviewsMapper.Convert(objRating, objSaveInputRating);
+                    return Ok(objRatingReviewInput);
+                }
+
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.SubmitRating");
+                return InternalServerError();
+            }
+
+        }
         #endregion
 
     }
+
 }

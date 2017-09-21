@@ -2,9 +2,6 @@
 using BikewaleOpr.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.Interface.Banner
 {
@@ -14,7 +11,7 @@ namespace BikewaleOpr.Interface.Banner
 
         uint SaveBannerBasicDetails(BannerVM objBanner);
 
-        bool SaveBannerProperties(BannerDetails objBanner, uint paltformId,uint campaignId);
+        bool SaveBannerProperties(BannerDetails objBanner, uint platformId, uint campaignId);
 
         IEnumerable<BannerProperty> GetBanners(uint bannerStatus);
 

@@ -29,6 +29,7 @@ namespace Bikewale.Models
         private string _returnUrl;
         private int _contestsrc;
         public ushort PlatFormId { get; set; }
+        public bool IsMobile { get; internal set; }
 
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017

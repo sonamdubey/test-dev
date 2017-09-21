@@ -107,6 +107,7 @@
     <Compile Include="BikeCare\BikeCareDetailPageVM.cs" />
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
+    <Compile Include="BikeModels\OtherBestBikesVM.cs" />
     <Compile Include="CompareBikes\PopularComparisonsVM.cs" />
     <Compile Include="Compare\CompareDetailsVM.cs" />
     <Compile Include="Compare\CompareVM.cs" />
@@ -174,8 +175,10 @@
     <Compile Include="Survey\BajajSurveyVM.cs" />
     <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
     <Compile Include="Upcoming\UpcomingPageVM.cs" />
+    <Compile Include="UserReviews\UserReviewSimilarBikesWidgetVM.cs" />
     <Compile Include="UserReviews\UserReviewListingVM.cs" />
     <Compile Include="UserReviews\UserReviewDetailsVM.cs" />
+    <Compile Include="UserReviews\UserReviewsOtherDetailsPageVM.cs" />
     <Compile Include="UserReviews\UserReviewsSearchVM.cs" />
     <Compile Include="UserReviews\UserReviewSummaryVM.cs" />
     <Compile Include="UserReviews\WriteReviewContest.cs" />

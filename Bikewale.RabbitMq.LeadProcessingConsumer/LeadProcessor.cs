@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
-using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Bikewale.RabbitMq.LeadProcessingConsumer
@@ -341,12 +340,10 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     internal class LeadProcessor
     {
         private readonly LeadProcessingRepository _repository = null;
-        private readonly TCApi_Inquiry _inquiryAPI = null;
-        private HttpClient _httpClient;
-        private string _hondaGaddiAPIUrl, _bajajFinanceAPIUrl, _tataCapitalAPIUrl;
-        private uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId, _TataCapitalId;
-        private bool _isTataCapitalAPIStarted = false;
-        private IDictionary<uint, IManufacturerLeadHandler> handlers;
+        private readonly string _hondaGaddiAPIUrl, _bajajFinanceAPIUrl, _tataCapitalAPIUrl;
+        private readonly uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId, _TataCapitalId;
+        private readonly bool _isTataCapitalAPIStarted = false;
+        private readonly IDictionary<uint, IManufacturerLeadHandler> handlers;
 
         /// <summary>
         /// Created by  :   Sumit Kate on 24 Feb 2017
@@ -355,8 +352,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         public LeadProcessor()
         {
             _repository = new LeadProcessingRepository();
-            _inquiryAPI = new TCApi_Inquiry();
-            _httpClient = new HttpClient();
             _hondaGaddiAPIUrl = ConfigurationManager.AppSettings["HondaGaddiAPIUrl"];
             _bajajFinanceAPIUrl = ConfigurationManager.AppSettings["BajajFinanceAPIUrl"];
             _tataCapitalAPIUrl = ConfigurationManager.AppSettings["TataCapitalAPIUrl"];
@@ -398,7 +393,12 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             try
             {
                 Logs.WriteInfoLog(String.Format("Push To AB Iteration {0}", retryAttempt));
-                abInquiryId = _inquiryAPI.AddNewCarInquiry(dealerId.ToString(), inquiryJson);
+
+                using (TCApi_Inquiry _inquiryAPI = new TCApi_Inquiry())
+                {
+                    abInquiryId = _inquiryAPI.AddNewCarInquiry(dealerId.ToString(), inquiryJson);
+                }
+
                 Logs.WriteInfoLog(String.Format("Response ab inquiryid : {0}", abInquiryId));
                 if (UInt32.TryParse(abInquiryId, out abInqId) && abInqId > 0)
                 {

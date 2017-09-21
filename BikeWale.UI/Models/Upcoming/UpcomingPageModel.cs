@@ -22,6 +22,7 @@ namespace Bikewale.Models
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly uint _topBrandsCount;
         private readonly ushort _pageNumber;
+        private uint _totalPagesCount;
         private UpcomingBikesListInputEntity _filters;
 
         #endregion
@@ -71,11 +72,17 @@ namespace Bikewale.Models
             try
             {
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
-                BindPageMetaTags(objUpcoming.PageMetaTags);
                 var upcomingBikes = _upcoming.GetModels(_filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(_topBrandsCount);
                 objUpcoming.NewLaunches = new NewLaunchedWidgetModel(9, location.CityId, _newLaunches).GetData();
                 UpcomingBikeResult bikeResult = _upcoming.GetBikes(_filters, SortBy);
+
+                _totalPagesCount = (uint)(bikeResult.TotalCount / _filters.PageSize);
+                if ((bikeResult.TotalCount % _filters.PageSize) > 0)
+                    _totalPagesCount += 1;
+
+                BindPageMetaTags(objUpcoming.PageMetaTags);
+
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
                 //objUpcoming.NewLaunches.PageCatId = 1;
@@ -109,6 +116,12 @@ namespace Bikewale.Models
                 pageMetaTags.Keywords = "Upcoming bikes, expected launch, new bikes, upcoming scooter, upcoming, to be released bikes, bikes to be launched";
                 pageMetaTags.Description = string.Format("Find a list of upcoming bikes in India in {0}. Get details on expected launch date, prices for bikes expected to launch in {1}.", year, currentYear);
                 pageMetaTags.Title = string.Format("Upcoming Bikes in India | Expected Launches in {0} - BikeWale", currentYear);
+
+                if (_pageNumber > 1)
+                {
+                    pageMetaTags.Description = string.Format("Page {0} of {1} - {2}", _pageNumber, _totalPagesCount, pageMetaTags.Description);
+                    pageMetaTags.Title = string.Format("Page {0} of {1} - {2}", _pageNumber, _totalPagesCount, pageMetaTags.Title);
+                }
             }
             catch (Exception ex)
             {
@@ -135,10 +148,7 @@ namespace Bikewale.Models
                     TotalResults = (int)(objUpcoming.TotalBikes)
                 };
 
-                int pages = (int)(objUpcoming.TotalBikes / PageSize);
-
-                if ((objUpcoming.TotalBikes % PageSize) > 0)
-                    pages += 1;
+                int pages = (int)_totalPagesCount;
 
                 string prevUrl = string.Empty, nextUrl = string.Empty;
                 Paging.CreatePrevNextUrl(pages, BaseUrl, (int)objUpcoming.Pager.PageNo, ref nextUrl, ref prevUrl);

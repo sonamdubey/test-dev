@@ -13,8 +13,8 @@ namespace Bikewale.Controls
         public int PQSourceId { get; set; }
 
         protected string cityName = "India";
-        protected static int? cityId = null;
-        protected static string usedCityMaskingName = String.Empty;
+        protected int? cityId = null;
+        protected string usedCityMaskingName = String.Empty;
 
         public string header { get; set; }
 

@@ -1,32 +1,56 @@
-﻿@model IEnumerable<Bikewale.Entities.SimilarBikeUserReview>
- <div class="jcarousel-wrapper inner-content-carousel user-reviews-type-carousel">
-                    <div class="jcarousel">
-                        <ul>
-                            @foreach (var bike in Model) {
-                                var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
-                            <li>
-                                <a href="@string.Format("/{0}-bikes/{1}/reviews/", @bike.Make.MaskingName, @bike.Model.MaskingName)" title="@bikeName user review" class="jcarousel-card">
-                                    <div class="model-jcarousel-image-preview">
-                                        <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" alt="@bikeName" />
-                                    </div>
-                                    <div class="card-desc-block">
-                                        <h3 class="font15 text-black margin-bottom10">@bikeName</h3>
-                                        <span class="rating-badge" data-rate-bg="@Math.Round(bike.OverAllRating)"><span class="bwsprite star-white"></span>@bike.OverAllRating.ToString("0.0").TrimEnd('0', '.')</span>
-                                        <span class="font14 text-light-grey inline-block">@string.Format("{0} rating{1}", bike.NumberOfRating, (bike.NumberOfRating > 1 ? "s" : ""))</span>
-                                        @if (bike.NumberOfReviews > 0)
-                                        {
-                                        <span class="font14 text-light-grey inline-block divider-left">@string.Format("{0} review{1}", bike.NumberOfReviews, (bike.NumberOfReviews > 1 ? "s" : ""))</span>
-                                        }
-                                    </div>
-                                </a>
-                            </li>
+﻿@model Bikewale.Models.UserReviews.UserReviewSimilarBikesWidgetVM
+<div class="jcarousel-wrapper inner-content-carousel user-reviews-type-carousel">
+    <div class="jcarousel">
+        <ul>
+            @foreach (var bike in Model.SimilarBikes)
+            {
+                var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
+                <li class="jcarousel-card">
+                    <a href="@string.Format("/{0}-bikes/{1}/", @bike.Make.MaskingName, @bike.Model.MaskingName)" title="@bikeName" class="hover-no-underline">
+                        <div class="model-jcarousel-image-preview">
+                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" alt="@bikeName" />
+                        </div>
+                        <div class="card-desc-block">
+                            <h3 class="font15 text-black margin-bottom10">@bikeName</h3>
+                            <p class="font12 text-slate-grey margin-bottom5"> @(bike.OnRoadPriceInCity == 0 ? "Ex-showroom, Mumbai" : "On-Road Price, " + Model.GlobalCityName) </p>
+                            <p class="font18 text-black margin-bottom5 padding-bottom10 border-divider">
+                                &#x20b9;
+
+                                @{
+                                    var priceToShow = bike.OnRoadPriceInCity > bike.ExShowroomPriceMumbai ? bike.OnRoadPriceInCity : bike.ExShowroomPriceMumbai;
+                                    var formatedPrice = Bikewale.Utility.Format.FormatPrice(Convert.ToString(priceToShow));
+                                }
+                                <span class="text-bold">
+                                    @formatedPrice
+                                </span>
+                                <span class="font14">
+                                    @(priceToShow == bike.ExShowroomPriceMumbai ? "onwards" : "")
+                                </span>
+                            </p>
+                        </div>
+                    </a>
+                    <a href="@string.Format("/{0}-bikes/{1}/reviews/", @bike.Make.MaskingName, @bike.Model.MaskingName)" title="@bikeName user review" class="jcarousel-review-target">
+                        <div class="rating-container">
+                            <div class="grid-6-inline rate-count-@Math.Round(bike.OverAllRating)" data-rate-bg="@Math.Round(bike.OverAllRating)">
+                                <span class="bwsprite star-icon star-size-14"></span>
+                                <span class="rating-text-pos">@bike.OverAllRating.ToString("0.0").TrimEnd('0', '.')</span>
+                                <span class="font11 text-xt-light">(@string.Format("{0} rating{1}", bike.NumberOfRating, (bike.NumberOfRating > 1 ? "s" : "")))</span>
+                            </div>
+                            @if (bike.NumberOfReviews > 0)
+                            {
+                                <div class="grid-6-inline font12 text-default divider-left">Read @string.Format("{0} review{1}", bike.NumberOfReviews, (bike.NumberOfReviews > 1 ? "s" : ""))</div>
                             }
-                        </ul>
-                    </div>
-                    <span class="jcarousel-control-left">
-                        <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
-                    </span>
-                    <span class="jcarousel-control-right">
-                        <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
-                    </span>
-                </div>
+                            <span class="bwsprite next-grey-icon-listing"></span>
+                        </div>
+                    </a>
+                </li>
+                                    }
+        </ul>
+    </div>
+    <span class="jcarousel-control-left">
+        <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+    </span>
+    <span class="jcarousel-control-right">
+        <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+    </span>
+</div>

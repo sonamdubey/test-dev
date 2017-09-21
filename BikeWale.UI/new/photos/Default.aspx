@@ -16,11 +16,11 @@
             enableOG = true;
             ogImage = vmModelPhotos.modelImage;
             AdId = "1442913773076";
-            AdPath = "/1017752/Bikewale_NewBike_";    
-            isAd300x250BTFShown= false;
+            AdPath = "/1017752/Bikewale_NewBike_";
+            isAd300x250BTFShown = false;
             isAd300x250Shown = false;
-            isAd970x90BottomShown = false;                    
-        }       
+            isAd970x90BottomShown = false;
+        }
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/css/photos.css" />
@@ -32,53 +32,55 @@
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
+
+    <% if (vmModelPhotos != null && !String.IsNullOrEmpty(vmModelPhotos.SchemaJSON))
+        { %>
+    <script type="application/ld+json">
+        <%= vmModelPhotos.SchemaJSON %>
+    </script>
+    <% }%>
 </head>
 <body class="header-fixed-inner">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
 
-        <% if(!string.IsNullOrEmpty(returnUrl) && returnUrl.Length > 0) { %>
+        <% if (!string.IsNullOrEmpty(returnUrl) && returnUrl.Length > 0)
+            { %>
         <div class="gallery-loader-placeholder gallery-bg-overlay text-center">
             <span class="spin-loader fixed-loader"></span>
         </div>
         <% } %>
+
+        <% if (vmModelPhotos.Breadcrumb != null && vmModelPhotos.Breadcrumb.BreadcrumListItem != null && vmModelPhotos.Breadcrumb.BreadcrumListItem.Any())
+            {%>
         <section class="container padding-top10">
             <div class="grid-12">
                 <div class="breadcrumb margin-bottom15">
                     <ul>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <a href="/" itemprop="url" title="Home">
-                                <span itemprop="title">Home</span>
+                        <%foreach (var item in vmModelPhotos.Breadcrumb.BreadcrumListItem)
+                            {%>
+                        <%if (!string.IsNullOrEmpty(item.Item.Url))
+                            {%>
+                        <li>
+                            <a class="breadcrumb-link" href="<%= item.Item.Url %>" title="<%= item.Item.Name %>">
+                                <span class="breadcrumb-link__label"><%= item.Item.Name %></span>
                             </a>
                         </li>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <a href="/new-bikes-in-india/" itemprop="url" title="New Bikes">
-                                <span itemprop="title">New Bikes</span>
-                            </a>
+                        <%}
+                            else
+                            {%>
+                        <li class="current">
+                            <span class="breadcrumb-link__label"><%= item.Item.Name %></span>
                         </li>
-                        <% if (vmModelPhotos != null && vmModelPhotos.objMake != null && vmModelPhotos.objModel != null)
-                           { %>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <a href="/<%=vmModelPhotos.objMake.MaskingName%>-bikes/" itemprop="url" title="<%=vmModelPhotos.objMake.MakeName%> Bikes">
-                                <span itemprop="title"><%=vmModelPhotos.objMake.MakeName%> Bikes</span>
-                            </a>
-                        </li>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <a href="/<%=vmModelPhotos.objMake.MaskingName%>-bikes/<%=vmModelPhotos.objModel.MaskingName%>/" title="<%=bikeName%>">
-                                <span itemprop="title"><%=bikeName%></span>
-                            </a>
-                        </li>
-                        <%} %>
-                        <li><span class="bwsprite fa-angle-right margin-right10"></span>Images</li>
+                        <%}%>
+                        <%}%>
                     </ul>
                     <div class="clear"></div>
                 </div>
             </div>
             <div class="clear"></div>
         </section>
+        <% } %>
 
         <section>
             <div class="container margin-bottom20">
@@ -86,13 +88,13 @@
                     <div class="content-box-shadow bg-listing">
                         <h1 class="content-box-shadow padding-14-20"><%=bikeName%> Images</h1>
                         <% if (vmModelPhotos != null)
-                           {
-                               var objImages = vmModelPhotos.objImageList;                                
+                            {
+                                var objImages = vmModelPhotos.objImageList;
                         %>
                         <ul class="photos-grid-list model-main-image">
                             <li>
                                 <%if (vmModelPhotos.firstImage != null)
-                                  { %>
+                                    { %>
                                 <div class="main-image-container">
                                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(vmModelPhotos.firstImage.OriginalImgPath,vmModelPhotos.firstImage.HostUrl,Bikewale.Utility.ImageSize._640x348)%>" alt="<%= string.Format("{0} {1}",vmModelPhotos.bikeName, vmModelPhotos.firstImage.ImageCategory) %> Image" title="<%=string.Format("{0} {1}",vmModelPhotos.bikeName, vmModelPhotos.firstImage.ImageCategory) %>" />
                                 </div>
@@ -100,43 +102,43 @@
                             </li>
                         </ul>
                         <% if (string.IsNullOrEmpty(returnUrl))
-                           { %>
+                            { %>
                         <% int i = 0; if (vmModelPhotos.totalPhotosCount > 0)
-                           { %>
+                            { %>
                         <ul class="photos-grid-list model-grid-images">
                             <% while (i < vmModelPhotos.gridPhotosCount - 1 && i < 13)
-                               { %>
+                                { %>
                             <li>
                                 <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%= string.Format("{0} {1}",bikeName,objImages[i].ImageCategory) %> Image" title="<%=string.Format("{0} {1}",bikeName,objImages[i++].ImageCategory) %>" />
                             </li>
                             <% } %>
                             <% while (i < vmModelPhotos.gridPhotosCount && i < vmModelPhotos.GridSize)
-                               { %>
+                                { %>
                             <li>
-                              <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" src="" alt="<%= string.Format("{0} {1}",bikeName,objImages[i].ImageCategory)%> Image" title="<%=string.Format("{0} {1}",bikeName, objImages[i++].ImageCategory) %>" />
+                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" src="" alt="<%= string.Format("{0} {1}",bikeName,objImages[i].ImageCategory)%> Image" title="<%=string.Format("{0} {1}",bikeName, objImages[i++].ImageCategory) %>" />
                             </li>
                             <% }  %>
                         </ul>
                         <% if (vmModelPhotos.totalPhotosCount < vmModelPhotos.GridSize && vmModelPhotos.nongridPhotosCount > 1)
-                           { %>
+                            { %>
                         <ul class="photos-grid-list photos-remainder-<%= vmModelPhotos.nongridPhotosCount %> remainder-grid-list model-grid-images">
                             <% while (i < vmModelPhotos.totalPhotosCount && i < vmModelPhotos.GridSize)
-                               { %>
+                                { %>
                             <li>
                                 <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" src="" alt="<%=string.Format("{0} {1}",bikeName, objImages[i].ImageCategory) %> Image" title="<%= string.Format("{0} {1}",bikeName,objImages[i++].ImageCategory) %>" />
                             </li>
                             <% }
-                           }
-                           else if (vmModelPhotos.totalPhotosCount == 1)
-                           { %>
+                                }
+                                else if (vmModelPhotos.totalPhotosCount == 1)
+                                { %>
                             <li>
                                 <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[0].OriginalImgPath,objImages[0].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%= string.Format("{0} {1}",bikeName,objImages[0].ImageCategory)%> Image" title="<%=string.Format("{0} {1}",bikeName, objImages[0].ImageCategory) %>" />
                             </li>
                             <% } %>
                         </ul>
                         <% }
-                           }
-                           }%>
+                                }
+                            }%>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -146,7 +148,7 @@
         <BW:GenericBikeInfo runat="server" ID="ctrlGenericBikeInfo" />
 
         <% if (ctrlVideos.FetchedRecordsCount > 0)
-           { %>
+            { %>
         <div class="container margin-bottom20">
             <div class="grid-12">
                 <div id="modelVideosContent" class="content-box-shadow font14 padding-top20 padding-right10 padding-bottom20 padding-left10 margin-bottom20 border-solid-bottom">
@@ -169,7 +171,7 @@
                     <ul class="horizontal-tabs-wrapper">
                         <li data-bind="click: togglePhotoTab, css: photosTabActive() ? 'active' : ''">Images</li>
                         <%if (VideoCount > 0)
-                          { %>
+                            { %>
                         <li data-bind="click: togglePhotoTab, css: !photosTabActive() ? 'active' : ''">Videos</li>
                         <%} %>
                     </ul>
@@ -277,7 +279,7 @@
                             <div class="swiper-wrapper" data-bind="foreach: photoList">
                                 <div class="swiper-slide">
                                     <div class="thumbnail-image-placeholder">
-                                      <img class="swiper-lazy" data-bind="attr: { alt: modelName + ' ' +ImageTitle, title:  modelName + ' ' +ImageTitle, 'data-src': HostUrl + '/110x61/' + OriginalImgPath }" src="" alt="" title="" border="0" />
+                                        <img class="swiper-lazy" data-bind="attr: { alt: modelName + ' ' +ImageTitle, title:  modelName + ' ' +ImageTitle, 'data-src': HostUrl + '/110x61/' + OriginalImgPath }" src="" alt="" title="" border="0" />
                                     </div>
                                 </div>
                             </div>
@@ -312,10 +314,10 @@
                     <div id="info-tab-screen" class="footer-tab-card" style="display: none" data-bind="visible: modelInfoScreen()">
                         <div class="model-more-info-section">
                             <%if (IsUpcoming)
-                              { %><p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+                                { %><p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
                             <%} %>
                             <%if (IsDiscontinued)
-                              { %><p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+                                { %><p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                             <%} %>
                             <div class="clear"></div>
                             <div class="info-grid-9 inline-block">
@@ -323,27 +325,27 @@
                                     <img src="<%=Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61)%>" alt="<%= bikeName %>" title="<%= bikeName %>">
                                 </a>
                                 <%int count = 0; %>
-                               
-                                <div class="bike-details-block inline-block">                                    
-                                    <h3><a href="<%=bikeUrl %>" class="text-default"><%= bikeName %></a></h3>  
-                                     <% if (bikeInfo.RatingCount > 0)
-                                              {%>                                  
+
+                                <div class="bike-details-block inline-block">
+                                    <h3><a href="<%=bikeUrl %>" class="text-default"><%= bikeName %></a></h3>
+                                    <% if (bikeInfo.RatingCount > 0)
+                                        {%>
                                     <span class="rate-count-<%=Math.Round(bikeInfo.Rating) %> inline-block">
                                         <span class="bwsprite star-icon star-size-16"></span>
                                         <span class="font14 text-bold inline-block"><%= bikeInfo.Rating.ToString("0.0").TrimEnd('0', '.') %></span>
                                     </span>
                                     <span class='font11 text-xt-light-grey inline-block padding-left3'>(<%=string.Format("{0} {1}", bikeInfo.RatingCount, bikeInfo.RatingCount > 1 ? "ratings" : "rating") %>)</span>
                                     <%if (bikeInfo.UserReviewCount > 0)
-                                              {  %>
-                                        <a class='text-xt-light review-left-divider inline-block' href="<%=string.Format("{0}reviews/", bikeUrl)%>" title="<%=bikeName%> user reviews"><%=string.Format("{0} {1}", bikeInfo.UserReviewCount, bikeInfo.UserReviewCount > 1 ? "reviews" : "review") %></a>
-                                   <%  } %>  
-                                    <%} %>                                  
+                                        {  %>
+                                    <a class='text-xt-light review-left-divider inline-block' href="<%=string.Format("{0}reviews/", bikeUrl)%>" title="<%=bikeName%> user reviews"><%=string.Format("{0} {1}", bikeInfo.UserReviewCount, bikeInfo.UserReviewCount > 1 ? "reviews" : "review") %></a>
+                                    <%  } %>
+                                    <%} %>
                                     <ul class="item-more-details-list">
-                                           <%if (bikeInfo.IsSpecsAvailable && count<3)
-                                          {
-                                              count++; 
-                                                 
-                                                 %>
+                                        <%if (bikeInfo.IsSpecsAvailable && count < 3)
+                                            {
+                                                count++;
+
+                                        %>
                                         <li>
                                             <a href="<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Specification">
                                                 <span class="bwsprite specs-sm"></span>
@@ -351,10 +353,10 @@
                                             </a>
                                         </li>
                                         <%} %>
-                                              <%if (bikeInfo.UserReview > 0 && count < 3)
-                                                {
-                                                    count++; 
-                                                    %>
+                                        <%if (bikeInfo.UserReview > 0 && count < 3)
+                                            {
+                                                count++;
+                                        %>
                                         <li>
                                             <a href="<%= Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Specification">
                                                 <span class="bwsprite user-reviews-sm"></span>
@@ -362,9 +364,9 @@
                                             </a>
                                         </li>
                                         <%} %>
-                                                <%if (bikeInfo.VideosCount > 0 && count < 3)
-                                          {
-                                              count++; %>
+                                        <%if (bikeInfo.VideosCount > 0 && count < 3)
+                                            {
+                                                count++; %>
                                         <li>
                                             <a href="<%= Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Specification">
                                                 <span class="bwsprite videos-sm"></span>
@@ -372,9 +374,9 @@
                                             </a>
                                         </li>
                                         <%} %>
-                                          <%if (bikeInfo.DealersCount > 0 && count < 3)
-                                          {
-                                              count++; %>
+                                        <%if (bikeInfo.DealersCount > 0 && count < 3)
+                                            {
+                                                count++; %>
                                         <li>
                                             <a href="<%=Bikewale.Utility.UrlFormatter.DealerLocatorUrl(bikeInfo.Make.MaskingName, CityDetails != null ? CityDetails.CityMaskingName : "india") %>" title="<%= bikeName %> Specification">
                                                 <span class="bwsprite dealers-sm"></span>
@@ -383,8 +385,8 @@
                                         </li>
                                         <%} %>
                                         <%if (bikeInfo.ExpertReviewsCount > 0 && count < 3)
-                                          {
-                                              count++; %>
+                                            {
+                                                count++; %>
                                         <li>
                                             <a href="<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Expert reviews">
                                                 <span class="bwsprite reviews-sm"></span>
@@ -393,8 +395,8 @@
                                         </li>
                                         <%} %>
                                         <%if (bikeInfo.NewsCount > 0 && count < 3)
-                                          {
-                                              count++;  %>
+                                            {
+                                                count++;  %>
                                         <li>
                                             <a href="<%= Bikewale.Utility.UrlFormatter.FormatNewsUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> News">
                                                 <span class="bwsprite news-sm"></span>
@@ -402,13 +404,12 @@
                                             </a>
                                         </li>
                                         <%} %>
-                                     
                                     </ul>
-                                </div>                               
+                                </div>
                             </div>
 
                             <%if (!IsUpcoming && !IsDiscontinued)
-                              { %>
+                                { %>
                             <div class="info-grid-3 inline-block">
                                 <div class="info-exshowroom-block inline-block padding-right10">
                                     <p class="font12 text-light-grey text-truncate margin-bottom5">Ex-showroom price, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
@@ -421,8 +422,8 @@
                                 </div>
                             </div>
                             <%}
-                              else if (IsUpcoming)
-                              { %>
+                                else if (IsUpcoming)
+                                { %>
                             <div class="info-grid-3 inline-block">
                                 <p class="font12 text-light-grey text-truncate margin-bottom5">Expected price</p>
 
@@ -430,8 +431,8 @@
                                 <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) %> onwards</span>
                             </div>
                             <%}
-                              else if (IsDiscontinued)
-                              { %>
+                                else if (IsDiscontinued)
+                                { %>
                             <div class="info-grid-3 inline-block">
                                 <p class="font12 text-light-grey text-truncate margin-bottom5">Last know price</p>
 
@@ -475,7 +476,7 @@
 
             <div class="bike-gallery-popup bw-tabs-panel">
                 <% if (VideoCount > 0)
-                   { %>
+                    { %>
                 <div class="text-center photos-videos-tabs margin-bottom20">
                     <div class="bw-tabs home-tabs">
                         <ul>
@@ -527,7 +528,7 @@
                     </div>
                 </div>
                 <% if (VideoCount > 0)
-                   { %>
+                    { %>
                 <div class="bw-tabs-data hide" id="Videos">
                     <div class="connected-carousels-videos">
                         <div class="stage-videos stage-media">

@@ -80,14 +80,13 @@ namespace Bikewale.BikeBooking
                 {
                     if (objBooking.Varients != null)
                     {
-                        var _data = (objBooking.Varients).Where(v => v.MinSpec != null && v.MinSpec.VersionId == versionId);
-                        if (_data != null && _data.FirstOrDefault() != null && _data.FirstOrDefault().BookingAmount > 0)
+                        var _data = (objBooking.Varients).FirstOrDefault(v => v.MinSpec != null && v.MinSpec.VersionId == versionId);
+                        if (_data != null && _data.BookingAmount > 0)
                         {
                             BindVarientDetails();
                         }
                         else
                         {
-                            // HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/BikeDealerDetails.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                             HttpContext.Current.Response.Redirect("/", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
@@ -349,23 +348,23 @@ namespace Bikewale.BikeBooking
                 if (objCustomer != null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.CustomerId > 0)
                 {
                     transaction = new TransactionDetails()
-                   {
-                       CustomerID = objCustomer.objCustomerBase.CustomerId,
-                       PackageId = (int)Carwale.Entity.Enum.BikeBooking.BikeBooking,
-                       ConsumerType = 2,
-                       Amount = dealerDetailEntity.objBookingAmt.Amount,
-                       ClientIP = CommonOpn.GetClientIP(),
-                       UserAgent = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"],
-                       PGId = Convert.ToUInt64(PriceQuoteQueryString.VersionId),
-                       CustomerName = objCustomer.objCustomerBase.CustomerName,
-                       CustEmail = objCustomer.objCustomerBase.CustomerEmail,
-                       CustMobile = objCustomer.objCustomerBase.CustomerMobile,
-                       CustCity = objCustomer.objCustomerBase.cityDetails.CityName,
-                       PlatformId = 1,  //Desktop
-                       ApplicationId = 2, //Carwale
-                       RequestToPGUrl = string.Format("{0}/bikebooking/RedirectToBillDesk.aspx", BWConfiguration.Instance.BwHostUrlForJs),
-                       ReturnUrl = string.Format("{0}/bikebooking/billdeskresponse.aspx?sourceId=1&MPQ={1}", BWConfiguration.Instance.BwHostUrlForJs, EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
-                   };
+                    {
+                        CustomerID = objCustomer.objCustomerBase.CustomerId,
+                        PackageId = (int)Carwale.Entity.Enum.BikeBooking.BikeBooking,
+                        ConsumerType = 2,
+                        Amount = dealerDetailEntity.objBookingAmt.Amount,
+                        ClientIP = CommonOpn.GetClientIP(),
+                        UserAgent = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"],
+                        PGId = Convert.ToUInt64(PriceQuoteQueryString.VersionId),
+                        CustomerName = objCustomer.objCustomerBase.CustomerName,
+                        CustEmail = objCustomer.objCustomerBase.CustomerEmail,
+                        CustMobile = objCustomer.objCustomerBase.CustomerMobile,
+                        CustCity = objCustomer.objCustomerBase.cityDetails.CityName,
+                        PlatformId = 1,  //Desktop
+                        ApplicationId = 2, //Carwale
+                        RequestToPGUrl = string.Format("{0}/bikebooking/RedirectToBillDesk.aspx", BWConfiguration.Instance.BwHostUrlForJs),
+                        ReturnUrl = string.Format("{0}/bikebooking/billdeskresponse.aspx?sourceId=1&MPQ={1}", BWConfiguration.Instance.BwHostUrlForJs, EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
+                    };
                     //PGCookie.PGAmount = transaction.Amount.ToString();
 
                     //Modified By : Sadhana Upadhyay on 22 Jan 2016 

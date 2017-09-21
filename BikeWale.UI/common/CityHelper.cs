@@ -18,11 +18,10 @@ namespace Bikewale.Common
     /// </summary>
     public class CityHelper
     {
-        ICityCacheRepository cityCacheRepository = null;
-        IUnityContainer container = null;
+        private readonly ICityCacheRepository cityCacheRepository = null;
         public CityHelper()
         {
-            using (container = new UnityContainer())
+            using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<ICity, CityRepository>();
                 container.RegisterType<ICacheManager, MemcacheManager>();

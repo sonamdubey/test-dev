@@ -1,8 +1,11 @@
-﻿using Bikewale.Entities.DTO;
+﻿using Bikewale.DTO.UserReviews;
+using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Make;
+using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.AutoMappers.UserReviews;
 using Bikewale.Service.Utilities;
 using System;
@@ -51,11 +54,7 @@ namespace Bikewale.Service.Controllers.UserReviews
                 if (objUserReview != null)
                 {
                     // Auto map the properties
-                    objDTOUserReview = new List<ReviewTaggedBike>();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
-
-                    objUserReview.Clear();
-                    objUserReview = null;
 
                     return Ok(objDTOUserReview);
                 }
@@ -63,7 +62,6 @@ namespace Bikewale.Service.Controllers.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
-                objErr.SendMail();
                 return InternalServerError();
             }
 
@@ -101,7 +99,110 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.GetUserReviewList");
+                return InternalServerError();
+            }
+
+            return NotFound();
+        }
+
+
+        /// <summary>
+        /// Created by Sajal Gupta on 11-09-2017
+        /// Description : Api to skip top count reviews
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <param name="skipTopCount"></param>
+        /// <returns></returns>
+        [Route("api/user-reviews/list/{skipTopCount}")]
+        public IHttpActionResult GetUserReviewList([FromUri]Bikewale.Entities.UserReviews.Search.InputFilters filters, uint skipTopCount)
+        {
+            Bikewale.Entities.UserReviews.Search.SearchResult objUserReviews = null;
+            Bikewale.DTO.UserReviews.Search.SearchResult objDTOUserReview = null;
+            try
+            {
+                if (filters != null && (!String.IsNullOrEmpty(filters.Model) || !String.IsNullOrEmpty(filters.Make)))
+                {
+                    objUserReviews = _userReviewsSearch.GetUserReviewsList(filters, skipTopCount);
+                    if (objUserReviews != null)
+                    {
+                        objDTOUserReview = UserReviewsMapper.Convert(objUserReviews);
+                        return Ok(objDTOUserReview);
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.GetUserReviewList");
+                return InternalServerError();
+            }
+
+            return NotFound();
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 7th Sep 2017
+        /// Description : To get user reviews by modelid
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        [Route("api/model/{modelId}/user-reviews/")]
+        public IHttpActionResult GetModelUserReviews(uint modelId)
+        {
+            BikeModelUserReviews objUserReviews = null;
+            try
+            {
+                if (modelId > 0)
+                {
+                    BikeRatingsReviewsInfo objBikeRatingReview = _userReviewsCacheRepo.GetBikeRatingsReviewsInfo(modelId);
+                    if(objBikeRatingReview!=null)
+                    {
+                        objUserReviews = UserReviewsMapper.Convert(objBikeRatingReview);
+                        if(objUserReviews !=null)
+                        {
+                            Entities.UserReviews.Search.InputFilters filters = new Entities.UserReviews.Search.InputFilters()
+                            {
+                                Model = modelId.ToString(),
+                                SO = (ushort)FilterBy.MostRecent,
+                                PN = 1,
+                                PS = 8,
+                                Reviews = true
+                            };
+                            var result = _userReviewsSearch.GetUserReviewsList(filters);
+                            if(result!=null)
+                            {
+                                objUserReviews.UserReviews = UserReviewsMapper.Convert(result.Result);
+                            }
+
+                            if(objBikeRatingReview.RatingDetails !=null)
+                            {
+                                objUserReviews.Make = MakeListMapper.Convert(objBikeRatingReview.RatingDetails.Make);
+                                objUserReviews.Model = ModelMapper.Convert(objBikeRatingReview.RatingDetails.Model);
+                                objUserReviews.OriginalImagePath = objBikeRatingReview.RatingDetails.OriginalImagePath;
+                                objUserReviews.HostUrl = objBikeRatingReview.RatingDetails.HostUrl;
+                                objUserReviews.IsDiscontinued = objBikeRatingReview.RatingDetails.IsDiscontinued;
+                                objUserReviews.IsUpcoming = objBikeRatingReview.RatingDetails.IsUpcoming;
+                            }                           
+                        }
+
+                        return Ok(objUserReviews);
+
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else BadRequest();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : Bikewale.Service.UserReviews.GetModelUserReviews({0})", modelId));
                 return InternalServerError();
             }
 
@@ -125,12 +226,7 @@ namespace Bikewale.Service.Controllers.UserReviews
 
                 if (objUserReview != null)
                 {
-                    // Auto map the properties
-                    objDTOUserReview = new List<ReviewTaggedBike>();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
-
-                    objUserReview.Clear();
-                    objUserReview = null;
 
                     return Ok(objDTOUserReview);
                 }
@@ -138,7 +234,6 @@ namespace Bikewale.Service.Controllers.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
-                objErr.SendMail();
                 return InternalServerError();
             }
 
@@ -169,19 +264,13 @@ namespace Bikewale.Service.Controllers.UserReviews
                 objUserReview = _userReviews.GetUserReviews(startIndex, endIndex, modelId, versionId, filter).ReviewList;
                 if (objUserReview != null)
                 {
-                    // Auto map the properties
-                    objDTOUserReview = new List<Review>();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
-
-                    objUserReview = null;
-
                     return Ok(objDTOUserReview);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
-                objErr.SendMail();
                 return InternalServerError();
             }
 

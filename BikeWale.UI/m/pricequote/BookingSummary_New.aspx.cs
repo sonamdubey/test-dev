@@ -79,14 +79,14 @@ namespace Bikewale.Mobile.PriceQuote
                 {
                     if (objBooking.Varients != null)
                     {
-                        uint data = Convert.ToUInt32((objBooking.Varients).Where(v => v.MinSpec != null && v.MinSpec.VersionId == versionId).FirstOrDefault().BookingAmount);
-                        if (data > 0)
+                        var _data = (objBooking.Varients).FirstOrDefault(v => v.MinSpec != null && v.MinSpec.VersionId == versionId);
+                        if (_data != null && _data.BookingAmount > 0)
                         {
                             BindVarientDetails();
                         }
                         else
                         {
-                            HttpContext.Current.Response.Redirect("https://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/detaileddealerquotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                            HttpContext.Current.Response.Redirect("/m/", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
                             return;

@@ -4,7 +4,6 @@ using Bikewale.Interfaces.BikeData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models.Scooters
 {
@@ -25,17 +24,17 @@ namespace Bikewale.Models.Scooters
 
         public IEnumerable<BikeMakeEntityBase> GetData()
         {
-            IEnumerable<BikeMakeEntityBase> bikeList = null; 
+            IEnumerable<BikeMakeEntityBase> bikeList = null;
             try
             {
                 bikeList = _objMakeCache.GetScooterMakes();
 
-                if (bikeList != null && bikeList.Count() > 0 && SkipMakeId > 0)
+                if (bikeList != null && SkipMakeId > 0 && bikeList.Any())
                 {
                     bikeList = bikeList.Where(x => x.MakeId != SkipMakeId);
                 }
 
-                if(bikeList != null && TopCount > 0 && bikeList.Count() > TopCount)
+                if (bikeList != null && TopCount > 0 && bikeList.Count() > TopCount)
                 {
                     bikeList = bikeList.Take((int)TopCount);
                 }
