@@ -1423,27 +1423,6 @@ namespace Bikewale.Cache.BikeData
             return popularBikesList;
         }
 
-        /// <summary>
-        /// Created by:- Snehal Dange 21 Sep 2017
-        /// Summary :- Get most popular bikes when no city is selected
-        /// </summary>
-        /// <param name="makeId"></param>
-        /// <returns></returns>
-        public IEnumerable<MostPopularBikesBase> GetAllMostPopularScooters(uint topCount,uint makeId)
-        {
-            IEnumerable<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_MostPopularScooters_topCount_{0}_MK_{1}", topCount, makeId);
-            try
-            {
-                popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularScooters(makeId));
-                popularBikesList = popularBikesList.Take((int)topCount);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetAllMostPopularScooters: MakeId: {0}", makeId));
-
-            }
-            return popularBikesList;
-        }
+       
     }
 }
