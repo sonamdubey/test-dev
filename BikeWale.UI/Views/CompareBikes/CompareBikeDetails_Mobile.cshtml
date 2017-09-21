@@ -257,7 +257,7 @@
                                                         <span class="font18 text-bold">@compSpec.ReviewRate</span>
                                                     </div>
                                                     <div class="rating-count">(@compSpec.RatingCount&nbsp;ratings)</div>
-                                                    <a href=@string.Format("/m{0}",compSpec.ReviewListUrl) target="_blank" class="font12">@compSpec.ReviewCount&nbsp;reviews</a>
+                                                    <a href=@string.Format("/m{0}",compSpec.ReviewListUrl) class="font12">@compSpec.ReviewCount&nbsp;reviews</a>
                                                 }
                                                 else
                                                 {
@@ -344,7 +344,7 @@
                                                             <span class="bwmsprite star-white"></span>@review.RatingValue
                                                         </span>
                                                         <p class="font14 text-default margin-bottom10">
-                                                            <a href=@string.Format("/m{0}",@review.ReviewDetailUrl) target="_blank" class="text-default">@review.ReviewTitle</a>
+                                                            <a href=@string.Format("/m{0}",@review.ReviewDetailUrl) class="text-default">@review.ReviewTitle</a>
                                                         </p>
                                                         <p class="review-decription">
                                                             @review.ReviewDescription
