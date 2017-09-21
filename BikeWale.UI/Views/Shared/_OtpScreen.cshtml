@@ -158,6 +158,9 @@
                         $('#otpLoader').show();
                     },
                     success: function (response) {
+                        $("#cpId").val(response.cpId);
+                        $("#ctLeadId").val(response.ctLeadId);
+                        $("#leadId").val(response.leadId);
                         if (response && response.status == 13) {
                             otpScreen.openOtp();
                             var objData = {

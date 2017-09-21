@@ -414,7 +414,7 @@ function saveEmployeDetails() {
         success: function (response) {
 			triggerGA('Loan_Application', 'Step_2_Filled', bikeName + '_' + $('#cfNum').val());
 			
-            if (response) {
+			if (response) {
                 otpScreen.openOtp();
                 var objData = {
                     "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
