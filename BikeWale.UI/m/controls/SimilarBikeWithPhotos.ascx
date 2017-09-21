@@ -37,7 +37,7 @@
                         <% if (bike.PhotosCount > 1) { imageText = "images"; }
                             else { imageText = "image"; } %>
                         <a href="/m/<%= bike.Make.MaskingName %>-bikes/<%= bike.Model.MaskingName %>/images/" title="<%= bikeName %> images" class="compare-with-target text-truncate">
-                            <span class="bwmsprite photos-sm"></span><span class="margin-left5 font12 text-default">View all&nbsp;<%= bike.PhotosCount %> <%= imageText %></span><span class="bwmsprite right-arrow"></span>
+                            <span class="bwmsprite photos-sm"></span><span class="margin-left5 font12 text-default">View all&nbsp;<%= bike.PhotosCount %>&nbsp;<%= imageText %></span><span class="bwmsprite right-arrow"></span>
                         </a>
                     </div>
                 </div>
