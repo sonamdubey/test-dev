@@ -320,45 +320,6 @@ namespace Bikewale.BAL.BikeData
 
 
 
-        /// <summary>
-        /// Created by: Sangram Nandkhile on 10 Feb 2017
-        /// Desc: To Fetch model main image and other model images
-        /// </summary>
-        /// <param name="modelId"></param>
-        /// <returns></returns>
-        private IEnumerable<ModelImage> GetModelPhotoGalleryWithMainImage(BikeModelEntity objModel, U modelId)
-        {
-            //ModelHostImagePath modelInfo = modelRepository.GetModelPhotoInfo(modelId);
-            List<ModelImage> modelImages = null;
-            try
-            {
-                if (objModel != null && !String.IsNullOrEmpty(objModel.HostUrl) && !String.IsNullOrEmpty(objModel.OriginalImagePath))
-                {
-                    modelImages = new List<ModelImage>();
-                    var imageDesc = String.Format("{0} Model Image", objModel.ModelName);
-                    modelImages.Add(new ModelImage()
-                    {
-                        HostUrl = objModel.HostUrl,
-                        OriginalImgPath = objModel.OriginalImagePath,
-                        ImageCategory = "Model Image",
-                        ImageTitle = imageDesc,
-                        ImageDescription = imageDesc,
-                        AltImageName = imageDesc
-                    });
-
-                    var galleryImages = GetBikeModelPhotoGallery(modelId);
-                    if (galleryImages != null && galleryImages.Count() > 0)
-                        modelImages.AddRange(galleryImages);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPhotoGalleryWithMainImage");
-            }
-            return modelImages;
-        }
-
-
 
         /// <summary>
         /// Created by: Sangram Nandkhile on 10 Feb 2017

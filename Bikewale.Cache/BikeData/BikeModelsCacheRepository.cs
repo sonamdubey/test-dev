@@ -1374,7 +1374,7 @@ namespace Bikewale.Cache.BikeData
             try
             {
                 popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularScooters(topCount, makeId, cityId));
-               
+
             }
 
             catch (Exception ex)
@@ -1423,6 +1423,6 @@ namespace Bikewale.Cache.BikeData
             return popularBikesList;
         }
 
-       
+
     }
 }
