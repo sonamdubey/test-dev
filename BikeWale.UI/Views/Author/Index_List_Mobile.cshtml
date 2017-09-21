@@ -1,36 +1,39 @@
 ﻿@model Bikewale.Models.Authors.AuthorsListVM
 
-@{
-    ViewBag.Title = "Listing_Mobile";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/authors.css' />";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.AdTags.AdId = "1395986297721";
-    Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
-    Model.AdTags.Ad_320x50 = true;
-    Model.AdTags.Ad_Mid_320x50 = true;
-}
-<div class="author-listing box-content">
-    <h1 class="author__head">All authors</h1>
-    <ul class="author__list">
-        @foreach (var item in Model.AuthorsList)
-        {
-            if (!string.IsNullOrEmpty(item.ShortDescription) && !string.IsNullOrEmpty(item.MaskingName))
+@if (Model != null)
+{
+    {
+        
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/authors.css' />";
+        Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+        Model.AdTags.AdId = "1395986297721";
+        Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
+        Model.AdTags.Ad_320x50 = true;
+        Model.AdTags.Ad_Mid_320x50 = true;
+    }
+    <div class="author-listing box-content">
+        <h1 class="author__head">All authors</h1>
+        <ul class="author__list">
+            @foreach (var item in Model.AuthorsList)
             {
-                <li>
-                    <a href="@string.Format("/m/authors/{0}/", item.MaskingName)" title="@item.AuthorName" class="author__block">
-                        <div class="author__image">
-                            <img src="@string.Format("https://{0}/{1}/{2}", item.HostUrl, item.ProfileImage, item.ImageName)" alt="@item.AuthorName" title="@item.AuthorName" border="0">
-                        </div>
-                        <div class="author__detail">
-                            <h2 class="author__name">@item.AuthorName</h2>
-                            <span class="author__designation">@item.Designation</span>
-                        </div>
-                    </a>
-                </li>
+                if (!string.IsNullOrEmpty(item.ShortDescription) && !string.IsNullOrEmpty(item.MaskingName))
+                {
+                    <li>
+                        <a href="@string.Format("/m/authors/{0}/", item.MaskingName)" title="@item.AuthorName" class="author__block">
+                            <div class="author__image">
+                                <img src="@string.Format("https://{0}/{1}/{2}", item.HostUrl, item.ProfileImage, item.ImageName)" alt="@item.AuthorName" title="@item.AuthorName" border="0">
+                            </div>
+                            <div class="author__detail">
+                                <h2 class="author__name">@item.AuthorName</h2>
+                                <span class="author__designation">@item.Designation</span>
+                            </div>
+                        </a>
+                    </li>
+                }
             }
-        }
-    </ul>
-</div>
+        </ul>
+    </div>
+}
 
 
 

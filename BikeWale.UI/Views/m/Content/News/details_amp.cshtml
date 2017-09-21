@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.NewsDetailPageVM
+@using Bikewale.Utility
 @{
     Layout = "~/Views/Shared/_Layout_Mobile_AMP_PWA.cshtml";
 }
@@ -15,8 +16,19 @@
                         <span class="article-stats-content">@Bikewale.Utility.FormatDate.GetFormatDate(Model.ArticleDetails.DisplayDate.ToString(), "dd MMMM yyyy, hh:mm tt")</span>
                     </li>
                     <li>
-                        <span class="bwmsprite author-grey-sm-icon"></span>
-                        <span class="article-stats-content">@Model.ArticleDetails.AuthorName</span>
+                        @if (string.IsNullOrEmpty(Model.ArticleDetails.AuthorMaskingName))
+                        {
+                            <span class="bwmsprite author-grey-sm-icon"></span>
+                            <span class="article-stats-content">@Model.ArticleDetails.AuthorName</span>
+                        }
+                        else
+                        {
+                            <a href="@string.Format("{0}/m/authors/{1}", BWConfiguration.Instance.BwHostUrl, Model.ArticleDetails.AuthorMaskingName)" class="hover-no-underline">
+                                <span class="bwmsprite author-grey-sm-icon"></span>
+                                <span class="article-stats-content"><span class="text-link">@Model.ArticleDetails.AuthorName</span></span>
+                            </a>
+                        }
+
                     </li>
                 </ul>
                 <div class="clear"></div>
