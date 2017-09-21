@@ -835,7 +835,7 @@ namespace Bikewale.BAL.BikeData
                         if (makeId > 0 & cityId > 0)
                             bikes = _modelCacheRepository.GetMostPopularScooters(topCount, makeId, cityId);
                         else if (makeId > 0)
-                            bikes = _modelCacheRepository.GetMostPopularScooters(topCount, makeId);
+                            bikes = _modelCacheRepository.GetAllMostPopularScooters(topCount, makeId);
                         else
                             bikes = _modelCacheRepository.GetMostPopularScooters(topCount, cityId);
                         break;
