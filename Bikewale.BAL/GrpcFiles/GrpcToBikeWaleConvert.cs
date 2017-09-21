@@ -314,7 +314,8 @@ namespace Bikewale.BAL.GrpcFiles
                         IsMainImageSet = grpcAtricleDet.IsMainImageSet,
                         PageList = ConvertFromGrpcToBikeWale(grpcAtricleDet.PageList),
                         TagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.TagsList),
-                        VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList)
+                        VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList),
+                        AuthorMaskingName = artSummary.AuthorMaskingName
                     };
                     return bwArticleDetails;
                 }
