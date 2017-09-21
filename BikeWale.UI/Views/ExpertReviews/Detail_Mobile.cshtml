@@ -19,7 +19,7 @@
                 <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(Model.ArticleDetails.DisplayDate), "dd MMM yyyy, hh:mm tt")</span>
             </div>
             <div class="grid-6 alpha omega">
-                <a @(string.IsNullOrEmpty(Model.ArticleDetails.AuthorMaskingName) ? "href=javascript:void(0) rel=nofollow" : "href=/authors/" + Model.ArticleDetails.AuthorMaskingName + "/") class="hover-no-underline">
+                <a @(string.IsNullOrEmpty(Model.ArticleDetails.AuthorMaskingName) ? "href=javascript:void(0) rel=nofollow" : "href=/m/authors/" + Model.ArticleDetails.AuthorMaskingName + "/") class="hover-no-underline">
                     <span class="bwmsprite author-grey-sm-icon"></span>
                     <span class="article-stats-content"><span class="@(string.IsNullOrEmpty(Model.ArticleDetails.AuthorMaskingName)?"":"text-link")">@Model.ArticleDetails.AuthorName</span></span>
                 </a>

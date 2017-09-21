@@ -45,8 +45,10 @@
                         <div>
                             <span class="bwsprite calender-grey-sm-icon"></span>
                             <span class="article-stats-content margin-right20">@FormatDate.GetFormatDate(Convert.ToString(Model.ArticleDetails.DisplayDate), "dd MMMM yyyy, hh:mm tt")</span>
-                            <span class="bwsprite author-grey-sm-icon"></span>
-                            <span class="article-stats-content margin-right20">@Model.ArticleDetails.AuthorName</span>
+                            <a @(string.IsNullOrEmpty(Model.ArticleDetails.AuthorMaskingName) ? "href=javascript:void(0) rel=nofollow" : "href=/authors/" + Model.ArticleDetails.AuthorMaskingName + "/") class="hover-no-underline">
+                                <span class="bwsprite author-grey-sm-icon"></span>
+                                <span class="article-stats-content margin-right20"><span class="@(string.IsNullOrEmpty(Model.ArticleDetails.AuthorMaskingName)?"":"text-link")">@Model.ArticleDetails.AuthorName</span></span>
+                            </a>
                         </div>
                     </div>
                     @if (Model.ArticleDetails != null){
