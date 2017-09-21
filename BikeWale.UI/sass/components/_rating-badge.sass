@@ -1,0 +1,41 @@
+﻿.rating-badge 
+    min-width: 40px
+    height: 20px
+    padding-right: 5px
+    padding-left: 5px
+    font-size: 14px
+    font-weight: 600
+    color: #fff
+    display: inline-block
+    vertical-align: middle
+    margin-right: 8px
+    text-align: center
+    -webkit-border-radius: 2px
+    -moz-border-radius: 2px
+    -ms-border-radius: 2px
+    border-radius: 2px
+
+@import rating-color
+
+.rating-badge[data-rate-bg="5"] 
+	@include backgroundColorCode('5')
+
+.rating-badge[data-rate-bg="4"] 
+	@include backgroundColorCode('4')
+
+.rating-badge[data-rate-bg="3"] 
+	@include backgroundColorCode('3')
+
+.rating-badge[data-rate-bg="2"] 
+	@include backgroundColorCode('2')
+
+.rating-badge[data-rate-bg="1"] 
+	@include backgroundColorCode('1')
+
+.star-white 
+    width: 12px
+    height: 12px
+    background-position: -218px -105px
+    position: relative
+    top: 1px
+    margin-right: 4px

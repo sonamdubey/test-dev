@@ -14,22 +14,21 @@ using System.Security.Cryptography;
 
 namespace BikeWaleOpr.Common 
 {
-	public class CarwaleSecurity
+	public static class CarwaleSecurity
 	{
-		// Encrypt a string into a string using a password
+        // Encrypt a string into a string using a password
+        private static readonly string _CWpwd = "CaRwAlEmUmBaI";
+        //    Uses Encrypt(byte[], byte[], byte[])
 
-      //    Uses Encrypt(byte[], byte[], byte[])
-
-      public static string Encrypt(string clearText )
+        public static string Encrypt(string clearText )
       {
-	  		string Password = "CaRwAlEmUmBaI";
             // First we need to turn the input string into a byte array.
             byte[] clearBytes = System.Text.Encoding.Unicode.GetBytes(clearText);
 
             // Then, we need to turn the password into Key and IV
             // We are using salt to make it harder to guess our key using a dictionary attack -
             // trying to guess a password by enumerating all possible words.
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password,
+            PasswordDeriveBytes pdb = new PasswordDeriveBytes(_CWpwd,
 
                         new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d,  0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
 
@@ -58,7 +57,6 @@ namespace BikeWaleOpr.Common
 
       public static string Decrypt(string cipherText)
       {
-	  		string Password = "CaRwAlEmUmBaI";
             // First we need to turn the input string into a byte array.
             // We presume that Base64 encoding was used
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
@@ -66,7 +64,7 @@ namespace BikeWaleOpr.Common
             // Then, we need to turn the password into Key and IV
             // We are using salt to make it harder to guess our key using a dictionary attack -
             // trying to guess a password by enumerating all possible words.
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password,
+            PasswordDeriveBytes pdb = new PasswordDeriveBytes(_CWpwd,
 
                         new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d,  0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
 
@@ -212,97 +210,6 @@ namespace BikeWaleOpr.Common
 			return key;		
 		}
 		
-		
-		public static string GetCustomerIdFromKey(string key)
-		{
-            throw new Exception("Method not used/commented");
-
-            //SqlConnection con;
-            //SqlCommand cmd;
-            //SqlParameter prm;
-            //Database db = new Database();
-            //CommonOpn op = new CommonOpn();
-						
-            //string conStr = db.GetConString();
-			
-            //con = new SqlConnection( conStr );
-			
-            //string customerId = "";
-			
-            //try
-            //{
-            //    cmd = new SqlCommand("FetchCustomerSecurityKey", con);
-            //    cmd.CommandType = CommandType.StoredProcedure;
-				
-            //    prm = cmd.Parameters.Add("@Key", SqlDbType.VarChar, 100);
-            //    prm.Value = key;
-				
-            //    prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
-            //    prm.Direction = ParameterDirection.Output;
-								
-            //    con.Open();
-            //    //run the command
-            //    cmd.ExecuteNonQuery();
-				
-            //    customerId = cmd.Parameters["@CustomerId"].Value.ToString();
-            //}
-            //catch(SqlException err)
-            //{
-            //    HttpContext.Current.Trace.Warn("CarwaleSecurity.GetCustomerIdFromKey : " + err.Message);
-            //    ErrorClass objErr = new ErrorClass(err,"CarwaleSecurity.GetCustomerIdFromKey");
-            //    objErr.SendMail();
-            //} // catch SqlException
-            //catch(Exception err)
-            //{
-            //    HttpContext.Current.Trace.Warn("CarwaleSecurity.GetCustomerIdFromKey : " + err.Message);
-            //    ErrorClass objErr = new ErrorClass(err,"CarwaleSecurity.GetCustomerIdFromKey");
-            //    objErr.SendMail();
-            //} // catch Exception
-            //finally
-            //{
-            //    //close the connection	
-            //    if(con.State == ConnectionState.Open)
-            //    {
-            //        con.Close();
-            //    }
-            //}
-			
-            //return customerId;
-		}
-		
-		public static string GetCustomerKeyFromId(string id)
-		{
-            throw new Exception("Method not used/commented");
-
-            //Database db = new Database();
-            //string key = "";
-            //SqlDataReader dr;
-            //string sql = "";
-			
-            //try
-            //{
-            //    sql = " SELECT CustomerKey FROM CustomerSecurityKey WHERE CustomerId = " + id;	
-				
-            //    dr = db.SelectQry(sql);
-				
-            //    if(dr.Read())
-            //    {
-            //        key = dr["CustomerKey"].ToString();
-            //    }
-				
-            //    dr.Close();
-            //    db.CloseConnection();
-				
-            //}
-            //catch(Exception err)
-            //{
-            //    HttpContext.Current.Trace.Warn("CarwaleSecurity.GetCustomerKeyFromId : " + err.Message);
-            //    ErrorClass objErr = new ErrorClass(err,"CarwaleSecurity.GetCustomerKeyFromId");
-            //    objErr.SendMail();
-            //} // catch Exception
-			
-            //return key;
-		}
 		
 		//simple symmetric algorithm
 		public static string EncryptUsingSymmetric(string password, string valueToEncrypt)

@@ -1,7 +1,7 @@
 ﻿
 namespace Bikewale.Utility.AndroidAppAlert
 {
-    public class SubscriptionTypes
+    public static class SubscriptionTypes
     {
         public const string _Global = "/topics/{0}bwnotification";
         public const string _NewsArticles = "/topics/{0}bwnewsnotification";

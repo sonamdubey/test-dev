@@ -151,7 +151,7 @@ docReady(function() {
         
         if (!hideCommonFeatures) {
             if (!equivalentDataFound) {
-                var dataRows = document.getElementsByClassName('row-type-data');
+                var dataRows = $(".hide-features").find(".row-type-data");
 
                 compareBox.detectEquivalentData(dataRows);
                 equivalentDataFound = true;

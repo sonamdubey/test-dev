@@ -1,11 +1,12 @@
 ﻿
 using Bikewale.Entities.UserReviews;
-using System.Collections.Generic;
 namespace Bikewale.Models.UserReviews
 {
     /// <summary>
     /// Created By : Sushil Kumar on 7th May 2017
     /// Description : Viewmodel for user reviews listing page
+    /// Modifed By  :   Vishnu Teja Yalakuntla on 09 Sep 2017
+    /// Description :   Added property UserReviewSimilarBikesWidgetVM and removed IEnumerable<Bikewale.Entities.SimilarBikeUserReview>
     /// </summary>
     public class UserReviewListingVM : ModelBase
     {
@@ -18,7 +19,7 @@ namespace Bikewale.Models.UserReviews
         public bool IsReviewsAvailable { get { return ReviewsInfo != null && ReviewsInfo.TotalReviews > 0; } }
         public UserReviewsSearchVM UserReviews { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }
-        public IEnumerable<Entities.SimilarBikeUserReview> SimilarBikeReviewWidget { get; set; }
+        public UserReviewSimilarBikesWidgetVM SimilarBikesWidget { get; set; }
         public string PageUrl { get; set; }
     }
 }

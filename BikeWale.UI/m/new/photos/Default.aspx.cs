@@ -132,6 +132,7 @@ namespace Bikewale.Mobile.New.Photos
                         JSONImageList = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(vmModelPhotos.objImageList));
                         JSONVideoList = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(vmModelPhotos.objVideosList));
                     }
+                    
                 }
             }
             catch (Exception ex)
@@ -166,7 +167,9 @@ namespace Bikewale.Mobile.New.Photos
         /// Description : Fetch modlId.
         /// Modified  By :- subodh Jain 10 Feb 2017
         /// Summary :- BikeInfo Slug details
-        /// </summary>
+        /// Modified by :Snehal Dange on 8th Sep,2017
+        /// Description : Added CityId, SimilarMakeName,  SimilarModelName
+        /// </summary>                 
         private void BindModelPhotosPageWidgets()
         {
             if (vmModelPhotos.objMake != null && vmModelPhotos.objModel != null)
@@ -183,8 +186,15 @@ namespace Bikewale.Mobile.New.Photos
 
                     if (!IsDiscontinued)
                     {
-                        ctrlSimilarBikesWithPhotos.TotalRecords = 6;
+                        GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+
+                        ctrlSimilarBikesWithPhotos.TotalRecords = 9;
+                        ctrlSimilarBikesWithPhotos.City = currentCityArea.City;
+                        ctrlSimilarBikesWithPhotos.CityId = currentCityArea.CityId;
                         ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
+                        ctrlSimilarBikesWithPhotos.SimilarMakeName = vmModelPhotos.objMake.MakeName;
+                        ctrlSimilarBikesWithPhotos.SimilarModelName = vmModelPhotos.objModel.ModelName;
+
                     }
                     if (ctrlGenericBikeInfo != null)
                     {

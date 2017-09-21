@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.Models
+﻿namespace Bikewale.Models
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 20 Mar 2017
@@ -26,5 +20,6 @@ namespace Bikewale.Models
         public bool EnableOG { get; set; }
         public string OGImage { get; set; }
         public string SchemaJSON { get; set; }
+        public string PageSchemaJSON { get; set; }
     }
 }

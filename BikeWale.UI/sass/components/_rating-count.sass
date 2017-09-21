@@ -1,0 +1,46 @@
+﻿.star-icon 
+	width: 26px
+	height: 25px
+	vertical-align: middle
+	-webkit-transform: scale(0.8)
+	-moz-transform: scale(0.8)
+	-o-transform: scale(0.8)
+	transform: scale(0.8)
+
+.star-icon.star-size-16 
+	-webkit-transform: scale(0.6)
+	-moz-transform: scale(0.6)
+	-o-transform: scale(0.6)
+	transform: scale(0.6)
+
+.rate-count-1 .star-icon 
+	background-position: 0 -790px
+
+.rate-count-2 .star-icon 
+	background-position: -46px -790px
+
+.rate-count-3 .star-icon
+	background-position: 0 -757px
+
+.rate-count-4 .star-icon 
+	background-position: -92px -790px
+
+.rate-count-5 .star-icon 
+	background-position: -138px -790px
+
+@import rating-color
+
+.rate-count-5 
+	@include colorCode('5')
+
+.rate-count-4 
+	@include colorCode('4')
+
+.rate-count-3 
+	@include colorCode('3')
+
+.rate-count-2 
+	@include colorCode('2')
+
+.rate-count-1 
+	@include colorCode('1')

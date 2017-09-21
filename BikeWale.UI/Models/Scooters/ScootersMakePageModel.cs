@@ -1,21 +1,22 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
 using System;
 using System.Linq;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Videos;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -37,11 +38,12 @@ namespace Bikewale.Models
         private readonly IVideos _videos = null;
 
 
-        public StatusCodes status;
-        public MakeMaskingResponse objResponse;
+        public StatusCodes Status { get; set; }
+        private MakeMaskingResponse objResponse;
         private uint _makeId;
-        private string _makeName, _makeMaskingName;
-        public string redirectUrl;
+        private string _makeName;
+        private readonly string _makeMaskingName;
+        public string RedirectUrl { get; set; }
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Constructor to initialize the member variables
@@ -55,7 +57,7 @@ namespace Bikewale.Models
             IDealerCacheRepository objDealerCache,
             IServiceCenter objServices,
             ICMSCacheContent articles,
-            IVideos videos 
+            IVideos videos
             )
         {
             _makeMaskingName = makeMaskingName;
@@ -64,10 +66,10 @@ namespace Bikewale.Models
             _compareScooters = compareScooters;
             _objMakeCache = objMakeCache;
             _objDealerCache = objDealerCache;
-            ProcessQuery(makeMaskingName);
             _objService = objServices;
             _articles = articles;
             _videos = videos;
+            ProcessQuery(makeMaskingName);
         }
 
         public uint CityId { get { return GlobalCityArea.GetGlobalCityArea().CityId; } }
@@ -101,7 +103,7 @@ namespace Bikewale.Models
                     objViewModel.LocationMasking = "india";
                 }
                 objViewModel.PageCatId = 8;
-              
+
                 objViewModel.Make = _objMakeCache.GetMakeDetails(_makeId);
                 if (objViewModel.Make != null)
                 {
@@ -113,7 +115,7 @@ namespace Bikewale.Models
                 BindUpcomingBikes(objViewModel);
                 BindDealersServiceCenters(objViewModel, cityEntity);
                 BindOtherScooterBrands(objViewModel, _makeId, 9);
-                BindCompareScootes(objViewModel,CompareSource);
+                BindCompareScootes(objViewModel, CompareSource);
                 BindEditorialWidget(objViewModel);
                 SetFlags(objViewModel, CityId);
                 objViewModel.ScooterNewsUrl = UrlFormatter.FormatScootersNewsUrl(objViewModel.News.MakeMasking, objViewModel.News.ModelMasking);
@@ -238,23 +240,24 @@ namespace Bikewale.Models
                 objResponse = _objMakeCache.GetMakeMaskingResponse(makeMaskingName);
                 if (objResponse != null)
                 {
-                    status = (StatusCodes)objResponse.StatusCode;
+                    Status = (StatusCodes)objResponse.StatusCode;
                     if (objResponse.StatusCode == 200)
                     {
                         _makeId = objResponse.MakeId;
                     }
                     else if (objResponse.StatusCode == 301)
                     {
-                        status = StatusCodes.RedirectPermanent;
+                        RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName);
+                        Status = StatusCodes.RedirectPermanent;
                     }
                     else
                     {
-                        status = StatusCodes.ContentNotFound;
+                        Status = StatusCodes.ContentNotFound;
                     }
                 }
                 else
                 {
-                    status = StatusCodes.ContentNotFound;
+                    Status = StatusCodes.ContentNotFound;
                 }
             }
             catch (Exception ex)
@@ -288,7 +291,7 @@ namespace Bikewale.Models
             RecentNews objNews = new RecentNews(EditorialTopCount, _makeId, _makeName, _makeMaskingName, string.Format("News about {0} Scooters", _makeName), _articles);
             objNews.IsScooter = true;
             objData.News = objNews.GetData();
-           
+
             RecentExpertReviews objReviews = new RecentExpertReviews(EditorialTopCount, _makeId, _makeName, _makeMaskingName, _articles, string.Format("{0} Reviews", _makeName));
             objReviews.IsScooter = true;
             objData.ExpertReviews = objReviews.GetData();

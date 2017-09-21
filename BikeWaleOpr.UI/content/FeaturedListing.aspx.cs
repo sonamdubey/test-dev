@@ -682,23 +682,6 @@ namespace BikeWaleOpr.Content
             }
         }
 
-        //void btnUpdateFeaturedBike_OnClick(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        UpdateLiveContentCommon obj = new UpdateLiveContentCommon();
-        //        obj.UpdateFeaturedBike();
-        //        lblResult.Text = "Featured Bikes have been successfully updated";
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        lblResult.Text = "Some error occured";
-        //        ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
-        //        objErr.ConsumeError();
-        //    }
-        //}
-
-
 
     }//class
 }// namespace

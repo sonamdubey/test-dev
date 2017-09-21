@@ -57,7 +57,7 @@
                                 <div class="clear"></div>
                                 <div class="input-box input-box-margin">
                                     <div>
-                                        <asp:dropdownlist id="ddlModel" tabindex="1" width="200" data-bind="options: models, optionsText: 'ModelName', optionsValue: 'ModelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake, event: { change: bindCities }" cssclass="drpClass" runat="server"><asp:ListItem Text="--Select Model--" Value="0" /></asp:dropdownlist>
+                                        <asp:dropdownlist id="ddlModel" tabindex="1" width="200" data-bind="options: models, optionsText: 'modelName', optionsValue: 'modelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake, event: { change: bindCities }" cssclass="drpClass" runat="server"><asp:ListItem Text="--Select Model--" Value="0" /></asp:dropdownlist>
                                         <input type="hidden" id="hdn_ddlModel" runat="server" />
                                         <span id="spnModel" class="error"></span>
                                     </div>
@@ -249,17 +249,15 @@
     function ddlMake_Change() {
         var requestType = "PRICEQUOTE";
         var makeId = viewModel.selectedMake();
-        if (makeId != undefined) {
+        if (makeId) {
             $.ajax({
-                type: "POST",
-                url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
-                data: '{"requestType":"' + requestType + '", "makeId":"' + makeId + '"}',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetModelsNew"); },
+                type: "GET",
+                url: "/api/PQModelList/?makeId=" + makeId,
                 success: function (response) {
-                    var responseJSON = eval('(' + response + ')');
-                    var resObj = eval('(' + responseJSON.value + ')');
-
-                    viewModel.models(resObj);
+                    if (response) {
+                        viewModel.models(response.models);
+                      
+                    }
                 }
             });
         } else {

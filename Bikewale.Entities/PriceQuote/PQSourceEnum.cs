@@ -124,6 +124,5 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_Scooter_MakePage_PopularBikes=98,
         Mobile_Scooter_MakePage_PopularBikes = 99
 
-
     }
 }
