@@ -2,18 +2,15 @@
 using System;
 using System.IO;
 using System.Net.Mail;
-using System.Web;
 
 namespace Bikewale.Notifications
 {
-    /// <summary>
+    /// <summary>release-bwc-17.9.3-19092017
     /// Modified By : Ashish G. Kamble on 26 apr 2013
     /// Summary : Class have methods for sending the mails. Class contains actual business logic to send mails.
     /// </summary>
     public class SendMails
     {
-        //used for writing the debug messages
-        private HttpContext objTrace = HttpContext.Current;
 
         // Class level variables
         SmtpClient client = null;
@@ -112,9 +109,7 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                objTrace.Trace.Warn("Notifications.SendMails ConfigureCommonMailSettings : " + err.Message);
-                //ErrorClass objErr = new ErrorClass(err, "Notifications.SendMails ConfigureCommonMailSettings");
-                //objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(err, "Notifications.SendMails ConfigureCommonMailSettings()");
             }
         }   // End of ConfigureCommonMailSettings method
 
@@ -150,13 +145,8 @@ namespace Bikewale.Notifications
 
                     for (int iTmp = 0; iTmp < cc.Length; iTmp++)
                     {
-                        //HttpContext.Current.Trace.Warn("CC " + iTmp + " : ", cc[iTmp] + " cc length : " + cc.Length.ToString());
-
                         addCC = new MailAddress(cc[iTmp]);
-
                         msg.CC.Add(addCC);
-
-                        //HttpContext.Current.Trace.Warn("CC count : ", msg.CC.Count.ToString());
                     }
                 }
 
@@ -167,13 +157,8 @@ namespace Bikewale.Notifications
 
                     for (int iTmp = 0; iTmp < bcc.Length; iTmp++)
                     {
-                        // HttpContext.Current.Trace.Warn("BCC " + iTmp + " : ", bcc[iTmp]);
-
                         addBCC = new MailAddress(bcc[iTmp]);
-
                         msg.Bcc.Add(addBCC);
-
-                        //HttpContext.Current.Trace.Warn("BCC count : ", msg.Bcc.Count.ToString());
                     }
                 }
 
@@ -197,13 +182,10 @@ namespace Bikewale.Notifications
                 // Send the e-mail
                 client.Send(msg);
 
-                //objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
             }
             catch (Exception err)
             {
-                //objTrace.Trace.Warn("Notifications.SendMails ConfigureMailSettings : " + err.Message);
-                //ErrorClass objErr = new ErrorClass(err, "Notifications.SendMails ConfigureMailSettings");
-                //objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(err, string.Format("Notifications.SendMails ConfigureMailSettings({0})", email));
             }
         }   // End of ConfigureMailSettings method
 

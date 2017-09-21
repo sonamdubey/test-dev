@@ -3,8 +3,9 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.SEO;
+using Bikewale.Entities.Schema;
 using Bikewale.Mobile.Controls;
+using Bikewale.Models;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -19,6 +20,7 @@ namespace Bikewale.Mobile.New
     {
         protected PageMetaTags pageMetas = null;
         protected GlobalCityAreaEntity cityArea;
+        protected BreadcrumbList breadcrumb = null;
         protected BikeCompareEntity vmCompare = null;
         protected bool isSponsoredBike, isUsedBikePresent;
         protected Int64 sponsoredVersionId = 0;
@@ -76,6 +78,7 @@ namespace Bikewale.Mobile.New
                     BindPageWidgets(objCompare.versionsList, objCompare.CityId);
                     compareSummaryText = objCompare.summaryText;
                     templateSummaryTitle = objCompare.TemplateSummaryTitle;
+                    breadcrumb = objCompare.Breadcrumb;
                     if (objCompare.SponsoredBike != null)
                     {
                         sponsoredBikeImpressionTracker = objCompare.SponsoredBike.BikeImpressionTracker;

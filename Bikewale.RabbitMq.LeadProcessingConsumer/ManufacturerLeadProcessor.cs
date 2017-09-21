@@ -17,7 +17,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         private readonly LeadProcessingRepository _repository = null;
         private readonly string _APIUrl = "";
         private readonly uint _manufacturerId;
-        private readonly TCApi_Inquiry _inquiryAPI = null;
         private readonly bool _isAPIEnabled = false;
         private readonly bool _submitDuplicateLead = true;
 
@@ -29,7 +28,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         {
             _manufacturerId = manufacturerId;
             _repository = new LeadProcessingRepository();
-            _inquiryAPI = new TCApi_Inquiry();
         }
         /// <summary>
         /// Overloaded 1 Type initializer
@@ -119,7 +117,10 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
 
             try
             {
-                abInquiryId = _inquiryAPI.AddNewCarInquiry(dealerId.ToString(), inquiryJSON);
+                using (TCApi_Inquiry _inquiryAPI = new TCApi_Inquiry())
+                {
+                    abInquiryId = _inquiryAPI.AddNewCarInquiry(dealerId.ToString(), inquiryJSON);
+                }
             }
             catch (Exception ex)
             {

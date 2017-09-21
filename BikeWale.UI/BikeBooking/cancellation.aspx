@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title></title>
+    <title>Hassle-free process to cancel your booked bike | BikeWale</title>
     <%
         isAd970x90Shown = false;
         isAd300x250Shown = false;

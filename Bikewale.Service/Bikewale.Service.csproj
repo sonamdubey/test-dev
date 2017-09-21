@@ -459,6 +459,10 @@
       <Project>{fd9b192f-137e-40cf-8ac8-623ab79c6c53}</Project>
       <Name>Bikewale.ManufacturerCampaign.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Models\Bikewale.Models.csproj">
+      <Project>{EA7198A6-5347-4F8F-A25E-92B1E1CEB086}</Project>
+      <Name>Bikewale.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
       <Name>Bikewale.Notifications</Name>

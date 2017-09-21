@@ -4,6 +4,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -18,6 +19,7 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -29,9 +31,8 @@ namespace Bikewale.Models
     /// </summary>
     public class MakePageModel
     {
-        private string _makeMaskingName;
-        private uint _topCount, _makeId;
-        private IDealerCacheRepository _dealerServiceCenters;
+        private readonly string _makeMaskingName;
+        private uint _makeId;
         private readonly IBikeModelsCacheRepository<int> _bikeModelsCache;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache;
         private readonly ICMSCacheContent _articles = null;
@@ -42,17 +43,15 @@ namespace Bikewale.Models
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompare _compareBikes = null;
         private readonly IServiceCenter _objSC;
-        public StatusCodes status;
-        public MakeMaskingResponse objResponse;
-        public string redirectUrl;
+        public StatusCodes Status { get; set; }
+        public MakeMaskingResponse objResponse { get; set; }
+        public string RedirectUrl { get; set; }
         public CompareSources CompareSource { get; set; }
         public bool IsMobile { get; set; }
 
-        public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC)
+        public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC)
         {
             this._makeMaskingName = makeMaskingName;
-            this._dealerServiceCenters = dealerServiceCenters;
-            this._topCount = topCount > 0 ? topCount : 9;
             this._bikeModelsCache = bikeModelsCache;
             this._bikeMakesCache = bikeMakesCache;
             this._articles = articles;
@@ -288,7 +287,7 @@ namespace Bikewale.Models
             long MaxPrice = 0;
             try
             {
-                if (objModelList != null && objModelList.Count() > 0)
+                if (objModelList != null && objModelList.Any())
                 {
                     minPrice = objModelList.Min(bike => bike.VersionPrice);
                     MaxPrice = objModelList.Max(bike => bike.VersionPrice);
@@ -302,7 +301,11 @@ namespace Bikewale.Models
                 objData.AdTags.TargetedMakes = objData.MakeName;
                 objData.Page_H1 = string.Format("{0} Bikes", objData.MakeName);
 
+                SetBreadcrumList(ref objData);
+
                 CheckCustomPageMetas(objData, objMakeBase);
+
+                SetPageJSONLDSchema(objData);
             }
             catch (Exception ex)
             {
@@ -310,6 +313,44 @@ namespace Bikewale.Models
             }
 
         }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema and added brand schema
+        /// </summary>
+        private void SetPageJSONLDSchema(MakePageVM objPageMeta)
+        {
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(ref MakePageVM objData)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objData.Page_H1));
+
+
+            objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
+        }
+
 
         /// <summary>
         /// Created By : Sushil Kumar on 13th Aug 2017
@@ -372,23 +413,24 @@ namespace Bikewale.Models
                 objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
                 if (objResponse != null)
                 {
-                    status = (StatusCodes)objResponse.StatusCode;
+                    Status = (StatusCodes)objResponse.StatusCode;
                     if (objResponse.StatusCode == 200)
                     {
                         _makeId = objResponse.MakeId;
                     }
                     else if (objResponse.StatusCode == 301)
                     {
-                        status = StatusCodes.RedirectPermanent;
+                        RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(_makeMaskingName, objResponse.MaskingName);
+                        Status = StatusCodes.RedirectPermanent;
                     }
                     else
                     {
-                        status = StatusCodes.ContentNotFound;
+                        Status = StatusCodes.ContentNotFound;
                     }
                 }
                 else
                 {
-                    status = StatusCodes.ContentNotFound;
+                    Status = StatusCodes.ContentNotFound;
                 }
             }
             catch (Exception ex)

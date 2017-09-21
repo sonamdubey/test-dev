@@ -8,9 +8,6 @@ namespace Bikewale.Entities.DTO
 {
     public class ReviewDetails
     {
-        private ReviewTaggedBike objBikes = new ReviewTaggedBike();
-        private Review objReview = new Review();
-        private ReviewRating objRating = new ReviewRating();
 
         public ReviewTaggedBike Bike { get; set; }
         public Review Review { get; set; }

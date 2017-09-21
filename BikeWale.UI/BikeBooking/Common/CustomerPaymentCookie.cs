@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 
 namespace Bikewale.BikeBooking.Common
 {
-    public class CustomerPaymentCookie
+    public static class CustomerPaymentCookie
     {
         public static void CreateCustomerPaymentCookie(string bookingId, bool isSMSSend, bool isMailSend)
         {
@@ -31,7 +29,7 @@ namespace Bikewale.BikeBooking.Common
             }
             set
             {
-                HttpContext.Current.Request.Cookies["_CustomerPayment"]["BookingId"] = _BookingId;
+                HttpContext.Current.Request.Cookies["_CustomerPayment"]["BookingId"] = value;
             }
         }
 
@@ -47,7 +45,7 @@ namespace Bikewale.BikeBooking.Common
             }
             set
             {
-                HttpContext.Current.Request.Cookies["_CustomerPayment"]["IsSMSSend"] = _isSMSSend.ToString();
+                HttpContext.Current.Request.Cookies["_CustomerPayment"]["IsSMSSend"] = value.ToString();
             }
         }
 
@@ -63,7 +61,7 @@ namespace Bikewale.BikeBooking.Common
             }
             set
             {
-                HttpContext.Current.Request.Cookies["_CustomerPayment"]["IsMailSend"] = _isMailSend.ToString();
+                HttpContext.Current.Request.Cookies["_CustomerPayment"]["IsMailSend"] = value.ToString();
             }
         }
     }

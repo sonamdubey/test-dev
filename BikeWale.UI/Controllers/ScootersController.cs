@@ -2,23 +2,23 @@
 using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Compare;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
 using Bikewale.Models.Shared;
 using Bikewale.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Videos;
 
 namespace Bikewale.Controllers
 {
@@ -41,7 +41,7 @@ namespace Bikewale.Controllers
         private readonly IServiceCenter _serviceCenter = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
-       
+
         public ScootersController(IBikeMakes<BikeMakeEntity, int> objMakeRepo, IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompare compareScooters, IDealerCacheRepository dealerCache, IBikeMakesCacheRepository<int> objMakeCache, IBikeModels<BikeModelEntity, int> objBikeModel, IBikeMakes<BikeMakeEntity, int> objMakeRepor, IServiceCenter serviceCenter, ICMSCacheContent articles, IVideos videos)
         {
             _newLaunches = newLaunches;
@@ -57,7 +57,7 @@ namespace Bikewale.Controllers
             _videos = videos;
         }
 
-      
+
 
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Bikewale.Controllers
         public ActionResult Index()
         {
             ScootersIndexPageModel model = new ScootersIndexPageModel(
-                _objMakeRepo, _models, _newLaunches, _upcoming, _compareScooters,_articles,_videos);
+                _objMakeRepo, _models, _newLaunches, _upcoming, _compareScooters, _articles, _videos);
             model.BrandTopCount = 10;
             model.PqSource = PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price;
             model.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
@@ -126,35 +126,30 @@ namespace Bikewale.Controllers
         [Bikewale.Filters.DeviceDetection]
         public ActionResult BikesByMake(string makeMaskingName)
         {
-            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter,_articles,_videos);
+            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter, _articles, _videos);
             obj.EditorialTopCount = 2;
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
 
-            ScootersMakePageVM objData = new ScootersMakePageVM();
-            if (obj != null)
+            ScootersMakePageVM objData = null;
+
+            if (obj.Status == StatusCodes.ContentFound)
             {
-                if (obj.status == StatusCodes.ContentFound)
-                {
-                    objData = obj.GetData();
-                    return View(objData);
-                }
-                else if (obj.status == StatusCodes.RedirectPermanent)
-                {
-                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, obj.objResponse.MaskingName));
-                }
-                else if (obj.status == StatusCodes.RedirectTemporary)
-                {
-                    return Redirect(obj.redirectUrl);
-                }
-                else
-                {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
+                objData = obj.GetData();
+                return View(objData);
+            }
+            else if (obj.Status == StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.RedirectUrl);
+            }
+            else if (obj.Status == StatusCodes.RedirectTemporary)
+            {
+                return Redirect(obj.RedirectUrl);
             }
             else
             {
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
+
         }
 
         /// <summary>
@@ -169,22 +164,22 @@ namespace Bikewale.Controllers
             ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter, _articles, _videos);
             obj.EditorialTopCount = 2;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
-           
-           ScootersMakePageVM objData = new ScootersMakePageVM();
+
+            ScootersMakePageVM objData = new ScootersMakePageVM();
             if (obj != null)
             {
-                if (obj.status == StatusCodes.ContentFound)
+                if (obj.Status == StatusCodes.ContentFound)
                 {
                     objData = obj.GetData();
                     return View(objData);
                 }
-                else if (obj.status == StatusCodes.RedirectPermanent)
+                else if (obj.Status == StatusCodes.RedirectPermanent)
                 {
-                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, obj.objResponse.MaskingName));
+                    return Redirect(obj.RedirectUrl);
                 }
-                else if (obj.status == StatusCodes.RedirectTemporary)
+                else if (obj.Status == StatusCodes.RedirectTemporary)
                 {
-                    return Redirect(obj.redirectUrl);
+                    return Redirect(obj.RedirectUrl);
                 }
                 else
                 {
@@ -285,6 +280,6 @@ namespace Bikewale.Controllers
         }
 
 
-       
+
     }
 }

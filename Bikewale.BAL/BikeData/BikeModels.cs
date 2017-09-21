@@ -14,6 +14,7 @@ using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.PhotoGallery;
+using Bikewale.Entities.Used.Search;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
@@ -53,6 +54,7 @@ namespace Bikewale.BAL.BikeData
         private readonly IArticles _articles = null;
         private readonly ICMSCacheContent _cacheArticles = null;
         private readonly IBikeModelsCacheRepository<U> _modelCacheRepository = null;
+        private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IVideos _videos = null;
         private readonly IUserReviews _userReviews = null;
         static bool _useGrpc = Convert.ToBoolean(BWConfiguration.Instance.UseGrpc);
@@ -77,6 +79,7 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
                 container.RegisterType<IUserReviewsSearch, UserReviewsSearch>();
                 container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
+                container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
                 container.RegisterType<IBikeModelsCacheRepository<U>, BikeModelsCacheRepository<T, U>>();
                 container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
                 container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
@@ -91,6 +94,7 @@ namespace Bikewale.BAL.BikeData
                 _videos = container.Resolve<IVideos>();
                 _userReviewCache = container.Resolve<IUserReviewsCache>();
                 _userReviews = container.Resolve<IUserReviews>();
+                _userReviewsSearch = container.Resolve<IUserReviewsSearch>();
             }
         }
 
@@ -291,28 +295,6 @@ namespace Bikewale.BAL.BikeData
 
 
 
-        /// <summary>
-        /// Created By : Sangram Nandkhile on 01 Dec 2016
-        /// Summary: New overload method to cache Model page with versions and respective lists
-        /// </summary>
-        /// <param name="modelId"></param>
-        /// <returns></returns>
-        public BikeModelPageEntity GetModelPageDetailsNew(U modelId)
-        {
-            BikeModelPageEntity objModelPage = null;
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.BAL.BikeData.GetModelPageDetailsNew => ModelId: {0}"));
-            }
-
-            return objModelPage;
-        }
-
-
 
         /// <summary>
         /// Created by Subodh Jain 12 oct 2016
@@ -336,45 +318,6 @@ namespace Bikewale.BAL.BikeData
             return modelRepository.GetUserReviewSimilarBike(modelId, topCount);
         }
 
-
-
-        /// <summary>
-        /// Created by: Sangram Nandkhile on 10 Feb 2017
-        /// Desc: To Fetch model main image and other model images
-        /// </summary>
-        /// <param name="modelId"></param>
-        /// <returns></returns>
-        private IEnumerable<ModelImage> GetModelPhotoGalleryWithMainImage(BikeModelEntity objModel, U modelId)
-        {
-            //ModelHostImagePath modelInfo = modelRepository.GetModelPhotoInfo(modelId);
-            List<ModelImage> modelImages = null;
-            try
-            {
-                if (objModel != null && !String.IsNullOrEmpty(objModel.HostUrl) && !String.IsNullOrEmpty(objModel.OriginalImagePath))
-                {
-                    modelImages = new List<ModelImage>();
-                    var imageDesc = String.Format("{0} Model Image", objModel.ModelName);
-                    modelImages.Add(new ModelImage()
-                    {
-                        HostUrl = objModel.HostUrl,
-                        OriginalImgPath = objModel.OriginalImagePath,
-                        ImageCategory = "Model Image",
-                        ImageTitle = imageDesc,
-                        ImageDescription = imageDesc,
-                        AltImageName = imageDesc
-                    });
-
-                    var galleryImages = GetBikeModelPhotoGallery(modelId);
-                    if (galleryImages != null && galleryImages.Count() > 0)
-                        modelImages.AddRange(galleryImages);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPhotoGalleryWithMainImage");
-            }
-            return modelImages;
-        }
 
 
 
@@ -453,7 +396,7 @@ namespace Bikewale.BAL.BikeData
         /// <param name="modelId">Optional.</param>
         /// <param name="curPageNo">Optional. Current page number.</param>
         /// <returns></returns>
-        public List<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
+        public IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
         {
             IEnumerable<UpcomingBikeEntity> objUpcoming = null;
             try
@@ -463,13 +406,10 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetUpcomingBikesList");
+                var objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetUpcomingBikesList");
             }
 
-            if (objUpcoming != null)
-                return objUpcoming.ToList();
-            else
-                return null;
+            return objUpcoming;
         }
 
         /// <summary>
@@ -485,7 +425,6 @@ namespace Bikewale.BAL.BikeData
             IEnumerable<ArticleSummary> objRecentNews = null;
             IEnumerable<ArticleSummary> objExpertReview = null;
             IEnumerable<BikeVideoEntity> objVideos = null;
-
 
             try
             {
@@ -506,7 +445,58 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetRecentModelArticles({0})", modelId));
+            }
+
+            return objModelArticles;
+        }
+
+
+        /// <summary>
+        /// Created by :   Sushil Kumar on 6th Sep 2017
+        /// Description :  Added feature to get user reviews as per new approach 
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public Bikewale.Entities.BikeData.v2.BikeModelContent GetRecentModelArticlesv2(U modelId)
+        {
+            Entities.BikeData.v2.BikeModelContent objModelArticles = new Entities.BikeData.v2.BikeModelContent();
+            IEnumerable<ArticleSummary> objRecentNews = null;
+            IEnumerable<ArticleSummary> objExpertReview = null;
+            IEnumerable<BikeVideoEntity> objVideos = null;
+            Bikewale.Entities.UserReviews.Search.SearchResult userReviews = null;
+
+            try
+            {
+                Bikewale.Entities.UserReviews.Search.InputFilters filters = new Bikewale.Entities.UserReviews.Search.InputFilters()
+                {
+                    Model = modelId.ToString(),
+                    SO = 1,
+                    PN = 1,
+                    PS = 3,
+                    Reviews = true
+                };
+
+                var reviewTask = Task.Factory.StartNew(() => userReviews = _userReviewsSearch.GetUserReviewsList(filters)); 
+                var newsTask = Task.Factory.StartNew(() => objRecentNews = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), 2, 0, Convert.ToUInt32(modelId)));
+                var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.RoadTest), 2, 0, Convert.ToUInt32(modelId)));
+                var videosTask = Task.Factory.StartNew(() => objVideos = GetVideosByModelIdViaGrpc(Convert.ToInt32(modelId)));
+
+                //calling tasks asynchronously, this will wait untill all tasks are completed
+                Task.WaitAll(reviewTask, newsTask, expReviewTask, videosTask); 
+
+                if(userReviews!=null && userReviews.Result!=null)
+                {
+                    objModelArticles.ReviewDetails = userReviews.Result;
+                }               
+                objModelArticles.News = objRecentNews;
+                objModelArticles.ExpertReviews = objExpertReview;
+                objModelArticles.Videos = objVideos;
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetRecentModelArticles({0})", modelId));
             }
 
             return objModelArticles;
@@ -806,7 +796,7 @@ namespace Bikewale.BAL.BikeData
                         if (makeId > 0 & cityId > 0)
                             bikes = _modelCacheRepository.GetMostPopularScooters(topCount, makeId, cityId);
                         else if (makeId > 0)
-                            bikes = _modelCacheRepository.GetMostPopularScooters(topCount, makeId);
+                            bikes = _modelCacheRepository.GetMostPopularScooters(makeId);
                         else
                             bikes = _modelCacheRepository.GetMostPopularScooters(topCount, cityId);
                         break;

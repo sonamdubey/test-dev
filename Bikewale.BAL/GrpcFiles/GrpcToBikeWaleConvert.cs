@@ -15,9 +15,10 @@ namespace Bikewale.BAL.GrpcFiles
     /// Author: Prasad Gawde
     /// Summary: This class is responsible for converting the GRPC Object into the Format Bikewale needs it to be in for further processing
     /// </summary>
-    public class GrpcToBikeWaleConvert
+    public static class GrpcToBikeWaleConvert
     {
         static readonly ILog log = LogManager.GetLogger(typeof(GrpcToBikeWaleConvert));
+
         public static CMSContent ConvertFromGrpcToBikeWale(GrpcCMSContent data)
         {
             if (data == null)
@@ -54,7 +55,7 @@ namespace Bikewale.BAL.GrpcFiles
             catch (Exception e)
             {
                 log.Error(e);
-                throw e;
+                throw;
             }
 
         }
@@ -97,13 +98,12 @@ namespace Bikewale.BAL.GrpcFiles
             catch (Exception e)
             {
                 log.Error(e);
-                throw e;
+                throw;
             }
         }
 
         public static DateTime ParseDateObject(string strDateValue)
         {
-            //return Convert.ToDateTime(strDateValue);
             DateTime outValue;
 
             if
@@ -115,7 +115,6 @@ namespace Bikewale.BAL.GrpcFiles
                 return outValue;
             }
         }
-
 
         public static List<ModelImage> ConvertFromGrpcToBikeWale(GrpcModelImageList data)
         {
@@ -154,7 +153,7 @@ namespace Bikewale.BAL.GrpcFiles
             catch (Exception e)
             {
                 log.Error(e);
-                throw e;
+                throw;
             }
         }
 
@@ -241,7 +240,7 @@ namespace Bikewale.BAL.GrpcFiles
                 catch (Exception e)
                 {
                     log.Error(e);
-                    throw e;
+                    throw;
                 }
             }
             else
@@ -279,7 +278,7 @@ namespace Bikewale.BAL.GrpcFiles
             catch (Exception e)
             {
                 log.Error(e);
-                throw e;
+                throw;
             }
         }
 
@@ -319,7 +318,7 @@ namespace Bikewale.BAL.GrpcFiles
                 catch (Exception e)
                 {
                     log.Error(e);
-                    throw e;
+                    throw;
                 }
             }
             else
@@ -351,7 +350,7 @@ namespace Bikewale.BAL.GrpcFiles
             catch (Exception e)
             {
                 log.Error(e);
-                throw e;
+                throw;
             }
         }
 
@@ -381,7 +380,7 @@ namespace Bikewale.BAL.GrpcFiles
             catch (Exception e)
             {
                 log.Error(e);
-                throw e;
+                throw;
             }
         }
 
@@ -456,7 +455,7 @@ namespace Bikewale.BAL.GrpcFiles
             catch (Exception e)
             {
                 log.Error(e);
-                throw e;
+                throw;
             }
         }
 
@@ -506,7 +505,7 @@ namespace Bikewale.BAL.GrpcFiles
                 catch (Exception e)
                 {
                     log.Error(e);
-                    throw e;
+                    throw;
                 }
             }
             return null;

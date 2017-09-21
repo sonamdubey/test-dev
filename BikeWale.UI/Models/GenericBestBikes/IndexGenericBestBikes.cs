@@ -9,7 +9,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Bikewale.Utility.GenericBikes;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -30,7 +29,7 @@ namespace Bikewale.Models
         public ushort makeTopCount { get; set; }
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
-        public EnumBikeBodyStyles BodyStyleType = EnumBikeBodyStyles.AllBikes;
+        private EnumBikeBodyStyles BodyStyleType = EnumBikeBodyStyles.AllBikes;
         public IndexGenericBestBikes(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes)
         {
             _objBestBikes = objBestBikes;
@@ -108,8 +107,8 @@ namespace Bikewale.Models
                     objSchema.NumberOfItems = 10;
                     objSchema.Url = IsMobile ? obj.PageMetaTags.AlternateUrl : obj.PageMetaTags.CanonicalUrl;
 
-                    if(IsMobile)
-                    objSchema.CanonicalUrl = obj.PageMetaTags.CanonicalUrl;
+                    if (IsMobile)
+                        objSchema.CanonicalUrl = obj.PageMetaTags.CanonicalUrl;
 
                     objSchema.Name = obj.PageName;
                     var lstItems = new List<ProductListItem>();
@@ -134,7 +133,7 @@ namespace Bikewale.Models
                             Position = itemNo,
                             Item = product
                         });
-                        
+
                         itemNo--;
                     }
                     objSchema.ItemListElement = lstItems;
@@ -181,13 +180,9 @@ namespace Bikewale.Models
 
             switch (BodyStyleType)
             {
-                case EnumBikeBodyStyles.AllBikes:
-                    obj.Content = "When you have more than 200 different motorcycle models, it gets difficult to choose the best bike. With an enormous amount of data being generated everyday by bike buyers in India on BikeWale, this list of best bikes truly reflects the popularity of bikes in India. We bring you information about ex-showroom price, colors, variants, monthly units sold, popularity and launch date of best bikes to help you pick the best one. Explore the list of best bikes in India to find a suitable bike for your needs.";
-                    obj.pqSource = PQSourceEnum.Desktop_Generic_Bikes;
-                    obj.bannerImage = "https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/best-bikes-banner.jpg";
-                    break;
+
                 case EnumBikeBodyStyles.Cruiser:
-                    obj.Content = "The lure of the open road, with the wind in your hair and the countryside passing you by… that is what cruisers are made for. There’s a cruiser for pockets of every size – which one will truly allow you kick back and enjoy the experience, though? BikeWale brings you a list of top 10 cruiser bikes in India. The list has been curated from the enormous amount of data being generated while researching cruisers on BikeWale. We bring you information about ex-showroom price, colors, variants, monthly units sold, popularity and launch date of the best cruisers to help you pick the best one. To buy the best cruisers, BikeWale recommends you to explore the list of best cruisers in India. Just remember: it’s all in the journey, so take your time!";
+                    obj.Content = @"The lure of the open road, with the wind in your hair and the countryside passing you by… that is what cruisers are made for. There’s a cruiser for pockets of every size – which one will truly allow you kick back and enjoy the experience, though? BikeWale brings you a list of top 10 cruiser bikes in India. The list has been curated from the enormous amount of data being generated while researching cruisers on BikeWale. We bring you information about ex-showroom price, colors, variants, monthly units sold, popularity and launch date of the best cruisers to help you pick the best one. To buy the best cruisers, BikeWale recommends you to explore the list of best cruisers in India. Just remember: it’s all in the journey, so take your time!";
                     obj.pqSource = PQSourceEnum.Desktop_Generic_CruiserBikes;
                     obj.bannerImage = "https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/cruiser-style-banner.jpg";
                     break;
@@ -197,17 +192,17 @@ namespace Bikewale.Models
                     obj.bannerImage = "https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/mileage-bikes-banner.jpg";
                     break;
                 case EnumBikeBodyStyles.Scooter:
-                    obj.Content = "Whether you live in a metro or a small town, you will find lots of scooters around! Scooters in India have gained immense popularity in the last decade. With more than 10 brands and over 50 models, it gets really difficult to pick the best scooter. We have more than 50 lakh people researching scooters on BikeWale every month, so this list of best scooters in India is made out of our users’ choice and truly reflects the popularity of scooters. We bring you information about ex-showroom price, colors, variants, monthly units sold, popularity and launch date of best scooters to help you pick the best one. Have a look at the list of best scooters in India to find the most suitable scooter for you.";
+                    obj.Content = @"Whether you live in a metro or a small town, you will find lots of scooters around! Scooters in India have gained immense popularity in the last decade. With more than 10 brands and over 50 models, it gets really difficult to pick the best scooter. We have more than 50 lakh people researching scooters on BikeWale every month, so this list of best scooters in India is made out of our users’ choice and truly reflects the popularity of scooters. We bring you information about ex-showroom price, colors, variants, monthly units sold, popularity and launch date of best scooters to help you pick the best one. Have a look at the list of best scooters in India to find the most suitable scooter for you.";
                     obj.pqSource = PQSourceEnum.Desktop_Generic_Scooters;
                     obj.bannerImage = "https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/scooter-style-banner.jpg";
                     break;
                 case EnumBikeBodyStyles.Sports:
-                    obj.Content = "All of us have dreamt of buying a sports bike at some point. The difficult question to answer has always been ‘which is the best sports bike?’. BikeWale brings you a list of top 10 sports bikes in India. The list has been curated from the enormous amount of data being generated while researching sports bikes on BikeWale. We bring you information about ex-showroom price, colors, variants, monthly units sold, popularity and launch date of the best sports bikes to help you pick the best one. To buy the best sports bikes, BikeWale recommends you to explore the list of best sports bikes in India.";
+                    obj.Content = @"All of us have dreamt of buying a sports bike at some point. The difficult question to answer has always been ‘which is the best sports bike?’. BikeWale brings you a list of top 10 sports bikes in India. The list has been curated from the enormous amount of data being generated while researching sports bikes on BikeWale. We bring you information about ex-showroom price, colors, variants, monthly units sold, popularity and launch date of the best sports bikes to help you pick the best one. To buy the best sports bikes, BikeWale recommends you to explore the list of best sports bikes in India.";
                     obj.pqSource = PQSourceEnum.Desktop_Generic_SportsBikes;
                     obj.bannerImage = "https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/sports-style-banner.jpg";
                     break;
-                default:
-                    obj.Content = "When you have more than 200 different motorcycle models, it gets difficult to choose the best bike. With an enormous amount of data being generated everyday by bike buyers in India on BikeWale, this list of best bikes truly reflects the popularity of bikes in India. We bring you information about ex-showroom price, colors, variants, monthly units sold, popularity and launch date of best bikes to help you pick the best one. Explore the list of best bikes in India to find a suitable bike for your needs.";
+                default: //EnumBikeBodyStyles.AllBikes:
+                    obj.Content = @"When you have more than 200 different motorcycle models, it gets difficult to choose the best bike. With an enormous amount of data being generated everyday by bike buyers in India on BikeWale, this list of best bikes truly reflects the popularity of bikes in India. We bring you information about ex-showroom price, colors, variants, monthly units sold, popularity and launch date of best bikes to help you pick the best one. Explore the list of best bikes in India to find a suitable bike for your needs.";
                     obj.pqSource = PQSourceEnum.Desktop_Generic_Bikes;
                     obj.bannerImage = "https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/best-bikes-banner.jpg";
                     break;
@@ -235,7 +230,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("FetchBestBikesList BodyStyle:{0} cityId:{}", BodyStyleType, cityId));
+                ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("FetchBestBikesList BodyStyle:{0} cityId:{1}", BodyStyleType, cityId));
             }
         }
 
@@ -252,7 +247,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("SetPageMetas{0} ", BodyStyleType));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("SetPageMetas{0} ", BodyStyleType));
             }
 
         }

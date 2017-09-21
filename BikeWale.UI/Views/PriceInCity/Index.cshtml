@@ -15,45 +15,7 @@
     var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName);
 }
 @if (Model != null && Model.BikeModel != null && Model.CityEntity != null)
-{
-    <section class="bg-light-grey padding-top10">
-        <div class="container">
-            <div class="grid-12">
-                <div class="breadcrumb margin-bottom15">
-                    <!-- breadcrumb code starts here -->
-                    <ul  itemscope itemtype="http://schema.org/BreadcrumbList">
-                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                            <a href="/" itemprop="item">
-                                <span itemprop="name">Home</span>
-                            </a>
-                            <meta itemprop="position" content="1" />
-                        </li>
-                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                            <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <a href="/@Model.Make.MaskingName-bikes/" itemprop="item">
-                                <span itemprop="name">@Model.Make.MakeName Bikes</span>
-                            </a>
-                            <meta itemprop="position" content="2" />
-                        </li>
-                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                            <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <a href="@UrlFormatter.BikePageUrl(Model.Make.MaskingName,Model.BikeModel.MaskingName)" itemprop="item">
-                                <span itemprop="name">@Model.BikeName</span>
-                            </a>
-                            <meta itemprop="position" content="3" />
-                        </li>
-                        <li>
-                            <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <span>@String.Format("Price in {0}", Model.CityEntity.CityName)</span>
-                        </li>
-                    </ul>
-                    <div class="clear"></div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
-
+{    
     <section id="priceincity" data-pqid="@Model.PQId" data-versionid="@Model.VersionId" data-cityid="@Model.CityEntity.CityId">
         <div class="container">
             <div class="grid-12">
@@ -438,13 +400,14 @@
                                     {
                                         <h2 class="card-h2-heading margin-bottom20">@Model.BikeName price in @Model.CityEntity.CityName</h2>
                                         @*<h3 class="margin-bottom10">@Model.BikeName price in @Model.CityEntity.CityName (variants)</h3>*@
-                                        <div id="version-prices-grid" class="grid-6 alpha padding-right20">
-                                            <table width="100%" cellspacing="0" cellpadding="0">
+                                        <div id="version-prices-grid" class="grid-12 alpha">
+                                            <h3 class="padding-bottom10">Price by versions</h3>
+                                            <table class="version-price-table">
                                                 <thead>
                                                     <tr>
-                                                        <th align="left" width="35%" class="font12 text-light-grey padding-bottom10 divider-bottom text-unbold">Variant</th>
-                                                        <th align="left" width="20%" class="font12 text-light-grey padding-bottom10 divider-bottom text-unbold">Price</th>
-                                                        <th align="left" width="45%" class="font12 text-light-grey padding-bottom10 divider-bottom text-unbold">Specs</th>
+                                                        <th>Variant</th>
+                                                        <th>Price</th>
+                                                        <th>Specs</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -452,27 +415,27 @@
                                                     @foreach (var bikeversion in Model.VersionSpecs)
                                                     {
                                                         <tr>
-                                                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@bikeversion.VersionName</td>
-                                                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp; @Format.FormatPrice(Convert.ToString(bikeversion.Price))</span></td>
-                                                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@string.Format(@"{0} Brake, {1} Wheels", bikeversion.BrakeType, (bikeversion.AlloyWheels) ? "Alloy" : "Spoke")</td>
+                                                            <td class="font14">@bikeversion.VersionName</td>
+                                                            <td class="font13">@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp; @Format.FormatPrice(Convert.ToString(bikeversion.Price))</span>
+                                                                &nbsp;<span class="font12">(On-road, @Model.CityEntity.CityName)</span>
+                                                            </td>
+                                                            <td class="font12">@string.Format(@"{0} Brake, {1} Wheels", bikeversion.BrakeType, (bikeversion.AlloyWheels) ? "Alloy" : "Spoke")</td>
                                                         </tr>
                                                     }
                                                 </tbody>
                                             </table>
-                                            <div class="padding-top10 font12 text-light-grey">Above mentioned prices are On-road, @Model.CityEntity.CityName</div>
+                                            
                                         </div>
 
                                     }
                                     @if (Model.HasNearestPriceCities)
                                     {
-                                        <div id="nearby-prices-grid" class="grid-6 omega padding-left20">
+                                        <div id="nearby-prices-grid" class="grid-12 omega alpha padding-top20">
                                             <h3 class="margin-bottom20">On-road prices in cities near @Model.CityEntity.CityName</h3>
 
-                                            <table id="prices-top-cities" width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                <tbody>
+                                            <ul id="prices-top-cities">
                                                     @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.NearestPriceCities)
-                                                </tbody>
-                                            </table>
+                                            </ul>
                                         </div>
                                     }
                                     <div class="clear"></div>
