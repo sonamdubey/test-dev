@@ -217,6 +217,8 @@
     <Compile Include="Dealer\NewBikeDealerList.cs" />
     <Compile Include="Dealer\v2\NewBikeDealerBase.cs" />
     <Compile Include="Dealer\v2\NewBikeDealerList.cs" />
+    <Compile Include="Finance\CapitalFirstLeadResponseDTO.cs" />
+    <Compile Include="Finance\CapitalFirstVoucherDTO.cs" />
     <Compile Include="Images\ImageDTO.cs" />
     <Compile Include="Images\ImageTokenDTO.cs" />
     <Compile Include="Insurance\ClientResponse.cs" />

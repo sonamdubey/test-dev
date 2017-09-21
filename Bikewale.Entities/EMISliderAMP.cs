@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities
 {
@@ -27,7 +22,6 @@ namespace Bikewale.Entities
         [JsonProperty("formatedLoanAmount")]
         public string FormatedLoanAmount { get; set; }
 
-
         [JsonProperty("tenure")]
         public ushort Tenure { get; set; }
 
@@ -35,7 +29,7 @@ namespace Bikewale.Entities
         public string FormatedTenure { get; set; }
 
         [JsonProperty("interest")]
-        public double RateOfInterest{ get; set; }
+        public double RateOfInterest { get; set; }
 
         [JsonProperty("fees")]
         public int Fees { get; set; }

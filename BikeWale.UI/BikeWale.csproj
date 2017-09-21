@@ -201,7 +201,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ElasticSearch\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -515,6 +515,7 @@
     <Compile Include="Controllers\CompareBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
+    <Compile Include="Controllers\FinanceController.cs" />
     <Compile Include="Controllers\GenericBestBikesController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\MakeController.cs" />
@@ -2290,6 +2291,8 @@
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
     <Content Include="css\PopUp\PopUpCityArea.css" />
+    <Content Include="css\finance\capital-first.css" />
+    <Content Include="m\css\finance\capital-first.css" />
     <Content Include="css\user-review\listing.css" />
     <Content Include="css\survey\bajaj-survey.css" />
     <Content Include="css\user-review\write-review.css" />
@@ -2876,6 +2879,7 @@
     <Content Include="m\css\service\landing.css" />
     <Content Include="m\css\service\listing.css" />
     <Content Include="m\css\service\location.css" />
+    <Content Include="m\css\finance\capital-first.css" />
     <Content Include="m\css\used\landing.css" />
     <Content Include="m\css\mobile-rsa.css" />
     <Content Include="m\css\model-gallery.css" />
@@ -3230,6 +3234,7 @@
     <Content Include="src\pq\price_quote.js" />
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\survey\bajaj-survey.js" />
+    <Content Include="src\finance\capital-first.js" />
     <Content Include="src\swiper-3.1.7.js" />
     <Content Include="src\used-landing.js" />
     <Content Include="src\sell-bike.js" />
@@ -3788,6 +3793,8 @@
     <Content Include="Views\BestBikes\_BestBikeByBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\Scooters_Mobile.cshtml" />
     <Content Include="Views\Make\_MakeModelPopup.cshtml" />
+    <Content Include="Views\Survey\CapitalFirst_Index.cshtml" />
+    <Content Include="Views\Finance\CapitalFirst_Index.cshtml" />
     <Content Include="Views\News\Scooters.cshtml" />
     <Content Include="Views\News\Scooters_Mobile.cshtml" />
     <Content Include="Views\Videos\ScooterVideos.cshtml" />
@@ -3800,6 +3807,9 @@
     <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\Model\_BestBikes.cshtml" />
+    <Content Include="Views\Finance\CapitalFirst_Index_Mobile.cshtml" />
+    <Content Include="Views\Shared\_OtpScreen_Mobile.cshtml" />
+    <Content Include="Views\Shared\_OtpScreen.cshtml" />
     <Content Include="Views\PriceInCity\Index_Mobile_Amp.cshtml" />
     <Content Include="Views\PopUp\PopUpCityArea_Mobile.cshtml" />
     <Content Include="Views\PopUp\Index_LeadCapture.cshtml" />
@@ -3835,6 +3845,7 @@
     <Folder Include="Controllers\m\new\Scooters\" />
     <Folder Include="Controllers\new\" />
     <Folder Include="msmq\" />
+    <Folder Include="m\css\survey\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />

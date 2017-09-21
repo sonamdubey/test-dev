@@ -89,6 +89,7 @@ namespace Bikewale.Controllers
                 obj.PQSource = Entities.PriceQuote.PQSourceEnum.Desktop_ModelPage;
                 obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.Model_Desktop;
                 obj.ManufacturerCampaignPageId = ManufacturerCampaignServingPages.Desktop_Model_Page;
+                obj.CurrentPageUrl = Request.RawUrl;
                 ModelPageVM objData = obj.GetData(versionId);
                 //if data is null check for new bikes page redirection
                 if (obj.Status.Equals(StatusCodes.RedirectPermanent))
@@ -118,6 +119,7 @@ namespace Bikewale.Controllers
         [Route("m/model/{makeMasking}-bikes/{modelMasking}/")]
         public ActionResult Index_Mobile(string makeMasking, string modelMasking, uint? versionId)
         {
+
             ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersionCache, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _objCompare, _userReviewCache, _usedBikesCache, _objBestBikes, _upcoming, _objManufacturerCampaign);
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
@@ -127,6 +129,7 @@ namespace Bikewale.Controllers
                 obj.PQSource = Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage;
                 obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.Model_Mobile;
                 obj.ManufacturerCampaignPageId = ManufacturerCampaignServingPages.Mobile_Model_Page;
+                obj.CurrentPageUrl = Request.RawUrl;
                 ModelPageVM objData = obj.GetData(versionId);
                 //if data is null check for new bikes page redirection
                 if (obj.Status.Equals(StatusCodes.RedirectPermanent))

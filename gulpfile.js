@@ -595,6 +595,16 @@ var mvcPageViews = [
         folderName: 'Views/UserReview/',
         fileName: 'WriteReviewContest.cshtml',
         stylesheet: '/css/user-review/review-contest.css'
+    },
+	{
+        folderName: 'Views/Finance/',
+        fileName: 'CapitalFirst_Index.cshtml',
+        stylesheet: 'css/finance/capital-first.css'
+    },
+	{
+        folderName: 'Views/Finance/',
+        fileName: 'CapitalFirst_Index_Mobile.cshtml',
+        stylesheet: 'm/css/finance/capital-first.css'
     }
 ];
 
