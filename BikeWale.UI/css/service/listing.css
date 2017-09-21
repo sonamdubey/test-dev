@@ -52,9 +52,12 @@
 #center-list a {
   padding-right: 20px;
   padding-left: 20px;
-  display: block; }
-  #center-list a:hover {
-    text-decoration: none; }
+  display: block;
+  cursor: default;
+}
+#center-list a:hover {
+    text-decoration: none; 
+}
 
 #center-list .dealer-card-content {
   padding-top: 15px;
@@ -66,7 +69,7 @@
 
 #center-list li {
   padding-bottom: 10px;
-  cursor: pointer; }
+}
   #center-list li:first-child .dealer-card-content {
     border-top: 0;
     margin-top: 0; }

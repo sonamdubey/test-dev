@@ -16,6 +16,8 @@ namespace Bikewale.Models.BikeModels
     /// Modified by :   Sumit Kate on 26 Apr 2017
     /// Description :   Replace Count with Count()
     /// Modified By :- Subodh Jain added objUpcomingBikes
+    /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+    /// Description : Removed IsGstPrice property
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -54,7 +56,6 @@ namespace Bikewale.Models.BikeModels
         public bool IsDiscontinuedBike { get { return (IsModelDetails && !IsNewBike && !IsUpcomingBike); } }
         public bool IsDPQAvailable { get; set; }
         public bool IsBPQAvailable { get; set; }
-        public bool IsGstPrice { get; set; }
         public bool IsPrimaryDealer { get { return (this.DetailedDealer != null && this.DetailedDealer.PrimaryDealer != null); } }
         public bool IsDealerDetailsExists { get { return (this.IsPrimaryDealer && this.DetailedDealer.PrimaryDealer.DealerDetails != null); } }
         public bool IsPremiumDealer { get { return (IsPrimaryDealer && this.DetailedDealer.PrimaryDealer.IsPremiumDealer); } }
@@ -120,6 +121,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsManufacturerEMIAdShown { get; set; }
 
         public EnumBikeBodyStyles BodyStyle { get; set; }
+        public string BodyStyleName { get; set; }
         // Will add "Scooters" or "Bikes"
         public string BodyStyleText { get; set; }
         // Will add "scooter" or "bike"

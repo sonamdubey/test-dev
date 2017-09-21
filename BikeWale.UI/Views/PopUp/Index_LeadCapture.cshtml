@@ -1,0 +1,175 @@
+﻿@model Bikewale.Models.PopupLeadCaptureVM
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-modelprice-in-city.css' />";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+
+@if (Model.LeadCapture != null)
+{
+    Model.LeadCapture.IsAmp = true;
+    @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
+
+}
+<script type="text/javascript">
+    var dropdown;
+    docReady(function () {
+        try {
+
+            var obj = $.parseJSON('@Html.Raw(Model.PopupJson)');
+            var leadOptions = {
+                "dealerid": obj.dealerid,
+                "dealername": obj.dealername,
+                "dealerarea": obj.dealerarea,
+                "versionid": obj.versionid,
+                "leadsourceid": obj.leadsourceid,
+                "pqsourceid": @((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_Popup_LeadCapture_ForAMP),
+                "isleadpopup": false,
+                "mfgCampid": obj.mfgcampid,
+                "pqid": obj.pqid,
+                "pageurl": window.location.href,
+                "clientip": obj.clientip,
+                "dealerHeading": obj.dealerheading,
+                "dealerMessage": obj.dealermessage,
+                "dealerDescription": obj.dealerdescription,
+                "pinCodeRequired": obj.pincoderequired,
+                "emailRequired": obj.emailrequired,
+                "dealersRequired": obj.dealersrequired,
+                "gaobject": {
+                    cat: "",
+                    act: "",
+                    lab: ""
+                }
+            };
+            dleadvm.setOptions(leadOptions);
+            $('#leadCapturePopup').show();
+            // dropdown
+            dropdown = {
+                setDropdown: function () {
+                    var selectDropdown = $('.dropdown-select');
+
+                    selectDropdown.each(function () {
+                        dropdown.setMenu($(this));
+                    });
+                },
+
+                setMenu: function (element) {
+                    $('<div class="dropdown-menu"></div>').insertAfter(element);
+                    dropdown.setStructure(element);
+                },
+
+                setStructure: function (element) {
+                    var elementText = element.find('option:selected').text(),
+                        menu = element.next('.dropdown-menu'),
+                        menuTitle = element.attr('data-title');
+
+                    menu.append('<p class="dropdown-label">' + elementText + '</p><div class="dropdown-list-wrapper"><p class="dropdown-menu-title">' + menuTitle + '</p><ul class="dropdown-menu-list dropdown-with-select"></ul></div>');
+
+                    dropdown.setOption(element);
+                },
+
+                setOption: function (element) {
+                    var selectedIndex = element.find('option:selected').index(),
+                        menu = element.next('.dropdown-menu'),
+                        menuList = menu.find('ul'),
+                        i;
+
+                    element.find('option').each(function (index) {
+                        if (selectedIndex == index) {
+                            menuList.append('<li class="active" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+                        }
+                        else {
+                            menuList.append('<li data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+                        }
+                    });
+                },
+
+                active: function (label) {
+                    $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
+                    label.closest('.dropdown-menu').addClass('dropdown-active');
+                },
+
+                inactive: function () {
+                    $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
+                },
+
+                selectItem: function (element) {
+                    var elementText = element.text(),
+                        menu = element.closest('.dropdown-menu'),
+                        dropdownLabel = menu.find('.dropdown-label');
+
+                    element.siblings('li').removeClass('active');
+                    element.addClass('active');
+                    dropdownLabel.text(elementText);
+                },
+
+                selectOption: function (element) {
+                    var elementValue = element.attr('data-option-value'),
+                        wrapper = element.closest('.dropdown-select-wrapper'),
+                        selectDropdown = wrapper.find('.dropdown-select');
+
+                    selectDropdown.val(elementValue).trigger('change');
+
+                }
+            };
+
+            // dropdown events
+            $('.dropdown-select-wrapper').on('click', '.dropdown-label', function () {
+                dropdown.active($(this));
+            });
+
+            $('.dropdown-select-wrapper').on('click', '.dropdown-menu-list.dropdown-with-select li', function () {
+                var element = $(this);
+                if (!element.hasClass('active')) {
+                    dropdown.selectItem($(this));
+                    dropdown.selectOption($(this));
+                    dropdown.inactive();
+
+                    
+                }
+            });
+
+            $('.dropdown-select-wrapper').on('change', '.dropdown-select',function () {
+                try {
+                    var obj = $(this);
+                    if (obj.attr('l') !== undefined) {
+                        triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+                    }
+                    else if (obj.attr('v') !== undefined) {
+                        triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+                    }
+                    else if (obj.attr('f') !== undefined) {
+                        triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+                    }
+                }
+                catch (e) {
+                }
+            });
+
+            $(document).on('click', function (event) {
+                var dropdownSelect = $('.dropdown-select-wrapper');
+
+                if (dropdownSelect.find('.dropdown-menu').hasClass('dropdown-active') && dropdownSelect.find('.dropdown-list-wrapper').is(':visible')) {
+                    if (!dropdownSelect.is(event.target) && dropdownSelect.has(event.target).length === 0) {
+                        dropdown.inactive();
+                    }
+                }
+            });
+
+            dropdown.setDropdown();
+
+        } catch (e) {
+            console.warn("Unable to get submit details : " + e.message);
+        }
+
+        $(".onlyPopup-leadCapture-close-btn").on("click", function () {
+            window.location.href = '@Model.Url';
+        });
+        $("#notifyOkayBtn").on("click", function () {
+            $(".onlyPopup-leadCapture-close-btn").trigger("click");
+
+        });
+    });
+
+
+</script>
+<!-- widget script ends here-->

@@ -5,6 +5,11 @@ using Bikewale.Entities.SEO;
 
 namespace Bikewale.Entities.BikeData
 {
+
+    /// <summary>
+    /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+    /// Description : Removed IsGstPrice property
+    /// </summary>
     [Serializable, DataContract]
     public class BikeModelEntity : BikeModelEntityBase
     {
@@ -49,7 +54,6 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public uint UsedListingsCnt { get; set; }
         [DataMember]
-        public bool IsGstPrice { get; set; }
         public IEnumerable<CustomPageMetas> Metas { get; set; }
 
     }
