@@ -1,10 +1,10 @@
 ﻿@mixin rate-count($count)
-    @if map-has-key($rating-colors, $count)
-        .rate-count-#{$count}
-            color: map-get($rating-colors, $count)
+	@if map-has-key($rating-colors, $count)
+		.rate-count-#{$count}
+			color: map-get($rating-colors, $count)
 
-    @else
-        @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin."
+	@else
+		@warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin."
 
 
 @import ../../base/variables
@@ -14,22 +14,36 @@
 
 // rating badge
 @mixin rating-badge($count)
-    @if map-has-key($rating-colors, $count)
-        .rating-badge[data-rate-bg="#{$count}"]
-            background-color: map-get($rating-colors, $count)
+	@if map-has-key($rating-colors, $count)
+		.rating-badge
+			min-width: 40px
+			height: 20px
+			padding-right: 5px
+			padding-left: 5px
+			font-size: 14px
+			font-weight: 600
+			color: #fff
+			display: inline-block
+			vertical-align: middle
+			margin-right: 6px
+			text-align: center
+			@include vendor-prefix("border-radius", 2px)
 
-    @else
-        @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin."
+		.rating-badge[data-rate-bg="#{$count}"]
+			background-color: map-get($rating-colors, $count)
+
+	@else
+		@warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin."
 
 
 // rating background
 @mixin rating-background($count)
-    @if map-has-key($rating-colors, $count)
-        .bg-rate-#{$count}
-            background-color: map-get($rating-colors, $count)
+	@if map-has-key($rating-colors, $count)
+		.bg-rate-#{$count}
+			background-color: map-get($rating-colors, $count)
 
-    @else
-        @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin."
+	@else
+		@warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin."
 
 
 // rating star icon
@@ -40,7 +54,7 @@
 				background-position: map-get($star-icon-map, $count)
 
 	@else
-        @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $star-icon-map mixin."
+		@warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $star-icon-map mixin."
 
 
 // rating circle
@@ -161,6 +175,7 @@
 			display: none
 
 	.rating-circle-list-title
+		font-size: 14px
 		margin-left: 20px
 		margin-right: 20px
 
@@ -190,6 +205,10 @@
 			padding-left: 5px
 			display: $alignment
 			vertical-align: middle
+
+		.list-item-sublabel
+			font-size: 12px
+			color: map-get($color-map, "light-grey")
 
 	.rating-overflow-container
 		.rating-circle-list

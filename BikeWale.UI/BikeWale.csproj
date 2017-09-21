@@ -48,7 +48,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Staging|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Staging|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
@@ -3105,6 +3105,16 @@
     <Content Include="sass\user-review\_review-swiper-3d.sass" />
     <Content Include="sass\user-review\_swiper.sass" />
     <Content Include="m\sass\modules\_rating-circle.sass" />
+    <Content Include="sass\partials\_rating.sass" />
+    <Content Include="sass\base\_variables.sass" />
+    <Content Include="sass\m\user-review\listing.sass" />
+    <Content Include="sass\m\user-review\_listing-style.sass" />
+    <Content Include="sass\mixins\_mixins.sass" />
+    <Content Include="sass\mixins\_grid.sass" />
+    <Content Include="sass\mixins\_icons.sass" />
+    <Content Include="sass\partials\_review-contest-slug.sass" />
+    <Content Include="sass\partials\_tabs.sass" />
+    <Content Include="sass\partials\_article-list.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -4053,15 +4063,12 @@
     <Message Text="Creating Release folder $(Configuration)" Importance="high" />
     <Exec Command="$(ProjectDir)..\Bikewale.ReleaseManagement\copyfiles\bin\$(Configuration)\copyfiles.exe $(DaysOld) $(ProjectDir)" WorkingDirectory="$(ProjectDir)" />
   </Target>
-
-
   <PropertyGroup>
     <PreBuildEvent>
-
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-<PostBuildEvent Condition="'$(Configuration)' != 'Debug'">
+    <PostBuildEvent Condition="'$(Configuration)' != 'Debug'">
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\runtimes\win7-x64\native\*" "$(ProjectDir)bin\x64\"
 	xcopy /Y "$(ProjectDir)..\Libs\System.Web.Http.Cors.dll" "$(ProjectDir)bin\"
@@ -4069,8 +4076,7 @@
 	<!--xcopy /Y "$(ProjectDir)..\Libs\System.Runtime.dll" "$(ProjectDir)bin\"-->
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x64.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x86.dll" "$(ProjectDir)bin\"
-	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"-->			
-</PostBuildEvent>
+	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
