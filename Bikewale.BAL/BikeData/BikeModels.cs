@@ -14,7 +14,6 @@ using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.PhotoGallery;
-using Bikewale.Entities.Used.Search;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
@@ -36,7 +35,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -57,8 +55,6 @@ namespace Bikewale.BAL.BikeData
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IVideos _videos = null;
         private readonly IUserReviews _userReviews = null;
-        static bool _useGrpc = Convert.ToBoolean(BWConfiguration.Instance.UseGrpc);
-        static bool _logGrpcErrors = Convert.ToBoolean(BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
         static uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
 
@@ -477,18 +473,18 @@ namespace Bikewale.BAL.BikeData
                     Reviews = true
                 };
 
-                var reviewTask = Task.Factory.StartNew(() => userReviews = _userReviewsSearch.GetUserReviewsList(filters)); 
+                var reviewTask = Task.Factory.StartNew(() => userReviews = _userReviewsSearch.GetUserReviewsList(filters));
                 var newsTask = Task.Factory.StartNew(() => objRecentNews = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), 2, 0, Convert.ToUInt32(modelId)));
                 var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.RoadTest), 2, 0, Convert.ToUInt32(modelId)));
                 var videosTask = Task.Factory.StartNew(() => objVideos = GetVideosByModelIdViaGrpc(Convert.ToInt32(modelId)));
 
                 //calling tasks asynchronously, this will wait untill all tasks are completed
-                Task.WaitAll(reviewTask, newsTask, expReviewTask, videosTask); 
+                Task.WaitAll(reviewTask, newsTask, expReviewTask, videosTask);
 
-                if(userReviews!=null && userReviews.Result!=null)
+                if (userReviews != null && userReviews.Result != null)
                 {
                     objModelArticles.ReviewDetails = userReviews.Result;
-                }               
+                }
                 objModelArticles.News = objRecentNews;
                 objModelArticles.ExpertReviews = objExpertReview;
                 objModelArticles.Videos = objVideos;
