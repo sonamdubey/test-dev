@@ -573,6 +573,7 @@ namespace Bikewale.BAL.GrpcFiles
                     return new AuthorEntity()
                     {
                         AuthorName = data.AuthorName,
+                        AuthorFirstName = data.AuthorName.IndexOf(" ") > -1 ? data.AuthorName.Substring(0, data.AuthorName.IndexOf(" ")) : data.AuthorName,
                         Designation = data.Designation,
                         HostUrl = data.HostUrl,
                         ImageName = data.ImageName,

@@ -52,7 +52,7 @@
                             <p class="detail-author__description">
                                 @Model.Author.FullDescription
                             </p>
-                            <div class="padding-top15">Get in touch with @Model.Author.AuthorName <a href="mailto:@Model.Author.EmailId" title="_blank">@Model.Author.EmailId</a></div>
+                            <div class="padding-top15">Get in touch with @Model.Author.AuthorFirstName: <a href="mailto:@Model.Author.EmailId" title="_blank">@Model.Author.EmailId</a></div>
                             <div class="padding-top10 ">Follow him on</div>
                         </div>
                     </div>
@@ -60,9 +60,8 @@
                 <div class="content-box-shadow margin-bottom10 padding-bottom10">
                     @if (Model.NewsList != null && Model.NewsList.Any())
                     {
-                        string authorName = Model.Author.AuthorName;
                         <div class="border-after-bottom padding-top20 padding-left20 padding-right20 padding-bottom20">
-                            <h2 class="list-head">News by @(authorName.IndexOf(" ") > -1 ? authorName.Substring(0, authorName.IndexOf(" ")) : authorName) </h2>
+                            <h2 class="list-head">News by @Model.Author.AuthorFirstName</h2>
                             <ul class="disk-list">
                                 @foreach (var news in Model.NewsList)
                                 {
@@ -76,9 +75,8 @@
                     }
                     @if (Model.ExpertReviewsList != null && Model.ExpertReviewsList.Any())
                     {
-                        string authorName = Model.Author.AuthorName;
                         <div class="@(Model.NewsList.Any()?"": "padding-top20") padding-left20 padding-right20 padding-bottom20">
-                            <h2 class="list-head">Expert Reviews by @(authorName.IndexOf(" ") > -1 ? authorName.Substring(0, authorName.IndexOf(" ")) : authorName) </h2>
+                            <h2 class="list-head">Expert Reviews by @Model.Author.AuthorFirstName</h2>
                             <ul class="disk-list">
                                 @foreach (var reviews in Model.ExpertReviewsList)
                                 {
