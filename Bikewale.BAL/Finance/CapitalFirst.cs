@@ -125,12 +125,15 @@ namespace Bikewale.BAL.Finance
             LeadResponseMessage response = null;
             try
             {
+                response = new LeadResponseMessage();
                 if (objDetails.LeadId == 0)
                 {
 
                     objDetails.LeadId = SubmitLead(objDetails, Utmz, Utma);
+                    response.CpId = 0;
+                    response.CTleadId = 0;
                 }
-                response = new LeadResponseMessage();
+               
                 response.LeadId = objDetails.LeadId;
                 if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber), objDetails.EmailId))
                 {
@@ -140,6 +143,8 @@ namespace Bikewale.BAL.Finance
                 {
                     response.Message = _leadStatusCollection[13];
                     response.Status = 13;
+                    response.CpId = objDetails.Id;
+                    response.CTleadId = objDetails.CTLeadId;
                     MobileVerificationEntity mobileVer = null;
                     mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
                     SMSTypes st = new SMSTypes();
