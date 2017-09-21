@@ -40,6 +40,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary :- added GetMostPopularScooters
     /// Modified by : Ashutosh Sharma on 18-Aug-2017
     /// Description : Added GetPopularBikesByBodyStyle and changed old "GetPopularBikesByBodyStyle" to GetPopularBikesByBodyStyleViaModel
+   
+
     /// <typeparam name="U"></typeparam>
     /// </summary>
     public interface IBikeModelsCacheRepository<U>
@@ -70,5 +72,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
+
+    
     }
 }
