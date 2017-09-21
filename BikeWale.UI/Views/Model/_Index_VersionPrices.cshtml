@@ -31,8 +31,8 @@
 
     @if (Model.IsPriceInTopCitiesAvailable)
     {
-        <div id="nearby-prices-grid" class="grid-6 omega padding-left20">
-            @if (Model.LocationCookie != null)
+        <div id="nearby-prices-grid" class="grid-12 omega alpha padding-top20">
+            @if (Model.LocationCookie != null && Model.LocationCookie.City != null)
             {
                 <h3 class="margin-bottom20">On-road prices in cities near @Model.LocationCookie.City</h3>
             }
@@ -41,11 +41,9 @@
                 <h3 class="margin-bottom20">Price by cities&nbsp;<span class="text-light-grey text-unbold">(@(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : "Ex-showroom price"))</span></h3>
             }
 
-            <table id="prices-top-cities" width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tbody>
-                    @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.PriceInTopCities)
-                </tbody>
-            </table>
+            <ul id="prices-top-cities">
+                @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.PriceInTopCities)
+            </ul>
         </div>
     }
     <div class="clear"></div>
