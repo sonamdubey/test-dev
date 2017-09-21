@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Bikewale.Entities.Authors.AuthorEntityBase>
+@using Bikewale.Utility
+
+<div class="box-content">
+    <h2 class="list-heading padding-left20 padding-top15">Other authors</h2>
+    <div class="swiper-container card-container">
+        <div class="swiper-wrapper detail-author__swiper">
+            @foreach (var author in Model)
+            {
+                if (!string.IsNullOrEmpty(author.MaskingName))
+                {
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a class="block" href="@string.Format("{0}/m/authors/{1}/", BWConfiguration.Instance.BwHostUrl,author.MaskingName)" title="@author.AuthorName">
+                                <div class="swiper-image-preview">
+                                    <img class="swiper-lazy" data-src="@string.Format("https://{0}/{1}/{2}", author.HostUrl, author.ProfileImage, author.ImageName)" title="@author.AuthorName" alt="@author.AuthorName" src="" />
+                                    <span class="swiper-lazy-preloader"></span>
+                                </div>
+                                <div class="swiper-details-block">
+                                    <h3 class="author__swiper-label">@author.AuthorName</h3>
+                                    <p class="author__swiper-designation">@author.Designation</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+

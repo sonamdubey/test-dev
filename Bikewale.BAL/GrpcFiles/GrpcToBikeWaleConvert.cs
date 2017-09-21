@@ -543,16 +543,18 @@ namespace Bikewale.BAL.GrpcFiles
                 var result = new List<AuthorEntityBase>();
                 foreach (var author in data.LstGrpcAuthor)
                 {
-                    result.Add(new AuthorEntityBase()
-                {
-                    AuthorName = author.AuthorName,
-                    Designation = author.Designation,
-                    HostUrl = author.HostUrl,
-                    ImageName = author.ImageName,
-                    MaskingName = author.MaskingName,
-                    ProfileImage = author.ProfileImage,
-                    ShortDescription = author.ShortDescription,
-                });
+                    result.Add(
+                            new AuthorEntityBase()
+                            {
+                                AuthorName = author.AuthorName,
+                                Designation = author.Designation,
+                                HostUrl = author.HostUrl,
+                                ImageName = author.ImageName,
+                                MaskingName = author.MaskingName,
+                                ProfileImage = author.ProfileImage,
+                                ShortDescription = author.ShortDescription,
+                            }
+                        );
                 }
                 return result;
             }
@@ -563,6 +565,78 @@ namespace Bikewale.BAL.GrpcFiles
             }
         }
 
-       
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 19th Sep 2017
+        /// Summary : Convert Author Details from grpcdata to entity 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static AuthorEntity ConvertFromGrpcToBikeWale(GrpcAuthor data)
+        {
+            try
+            {
+                if (data != null)
+                {
+                    return new AuthorEntity()
+                    {
+                        AuthorName = data.AuthorName,
+                        AuthorFirstName = data.AuthorName.IndexOf(" ") > -1 ? data.AuthorName.Substring(0, data.AuthorName.IndexOf(" ")) : data.AuthorName,
+                        Designation = data.Designation,
+                        HostUrl = data.HostUrl,
+                        ImageName = data.ImageName,
+                        MaskingName = data.MaskingName,
+                        ProfileImage = data.ProfileImage,
+                        ShortDescription = data.ShortDescription,
+                        EmailId = data.EmailId,
+                        FacebookProfile = data.FacebookProfile,
+                        FullDescription = data.FullDescription,
+                        GooglePlusProfile = data.GooglePlusProfile,
+                        LinkedInProfile = data.LinkedInProfile,
+                        TwitterProfile = data.TwitterProfile
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+                throw;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 19th Sep 2017
+        /// Summary : Convert Content list from grpc message to entity
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static IList<ArticleSummary> ConvertFromGrpcToBikeWale(GrpcAuthorContentList data)
+        {
+            try
+            {
+                if (data != null)
+                {
+                    IList<ArticleSummary> result = new List<ArticleSummary>();
+                    foreach (var content in data.LstGrpcAuthorContent)
+                    {
+                        result.Add
+                        (
+                            new ArticleSummary()
+                            {
+                                BasicId = Convert.ToUInt64(content.BasicId),
+                                CategoryId = Convert.ToUInt16(content.CategoryId),
+                                Title = content.Title,
+                                ArticleUrl = content.Url
+                            });
+                    }
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+            }
+            return new List<ArticleSummary>();
+        }
     }
 }

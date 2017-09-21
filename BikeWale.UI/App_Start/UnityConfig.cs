@@ -13,6 +13,7 @@ using Bikewale.BAL.ServiceCenter;
 using Bikewale.BAL.UsedBikes;
 using Bikewale.BAL.UserReviews;
 using Bikewale.BAL.UserReviews.Search;
+using Bikewale.Cache.Authors;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
@@ -155,6 +156,7 @@ namespace Bikewale
             container.RegisterType<ISponsoredComparison, SponsoredComparison>();
             container.RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>();
             container.RegisterType<IAuthors, Authors>();
+            container.RegisterType<IAuthorsCacheRepository, AuthorsCacheRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

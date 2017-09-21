@@ -1,9 +1,6 @@
 ﻿using Bikewale.Entities.Authors;
-using System;
+using Bikewale.Entities.CMS.Articles;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Interfaces.Authors
 {
@@ -14,5 +11,8 @@ namespace Bikewale.Interfaces.Authors
     public interface IAuthors
     {
         IEnumerable<AuthorEntityBase> GetAuthorsList();
+        AuthorEntity GetAuthorDetailsViaGrpc(int authorId);
+        IEnumerable<ArticleSummary> GetArticlesByAuthorViaGrpc(int authorId, int applicationId, string categoryList);
+        IEnumerable<AuthorEntityBase> GetAllOtherAuthors(int authorId, int applicationId);
     }
 }

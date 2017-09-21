@@ -17,7 +17,7 @@
             if (!string.IsNullOrEmpty(item.ShortDescription) && !string.IsNullOrEmpty(item.MaskingName))
             {
                 <li>
-                    <a href="@string.Format("/authors/{0}/", item.MaskingName)" title="@item.AuthorName" class="author__block">
+                    <a href="@string.Format("/m/authors/{0}/", item.MaskingName)" title="@item.AuthorName" class="author__block">
                         <div class="author__image">
                             <img src="@string.Format("https://{0}/{1}/{2}", item.HostUrl, item.ProfileImage, item.ImageName)" alt="@item.AuthorName" title="@item.AuthorName" border="0">
                         </div>

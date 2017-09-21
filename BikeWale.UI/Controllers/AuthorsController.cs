@@ -1,39 +1,25 @@
-﻿using Bikewale.Entities;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.BAL.GrpcFiles;
+using Bikewale.Entities;
+using Bikewale.Entities.Authors;
 using Bikewale.Interfaces.Authors;
-using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.BikeData.UpComing;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Compare;
-using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
-using Bikewale.Interfaces.Location;
-using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Interfaces.ServiceCenter;
-using Bikewale.Interfaces.Used;
-using Bikewale.Interfaces.UsedBikes;
-using Bikewale.Interfaces.UserReviews;
-using Bikewale.Interfaces.UserReviews.Search;
-using Bikewale.Interfaces.Videos;
-using Bikewale.ManufacturerCampaign.Entities;
-using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.Authors;
 using Bikewale.Models.BikeModels;
-using System;
+using Grpc.CMS;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
     public class AuthorController : Controller
     {
-        private readonly IAuthors _Authors = null;
-        private readonly IArticles _Articles = null;
-
-        public AuthorController(IAuthors Authors, IArticles Articles)
+        private readonly IAuthors _authors = null;
+        private readonly IArticles _articles = null;
+        private readonly IAuthorsCacheRepository _authorsCacheRepository = null;
+        public AuthorController(IAuthors authors, IArticles articles, IAuthorsCacheRepository authorsCacheRepository)
         {
-            _Authors = Authors;
-            _Articles = Articles;
+            _authors = authors;
+            _articles = articles;
+            _authorsCacheRepository = authorsCacheRepository;
         }
 
         /// <summary>
@@ -45,7 +31,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_List()
         {
 
-            AuthorsListModel objAuthorsVM = new AuthorsListModel(_Authors, _Articles);
+            AuthorsListModel objAuthorsVM = new AuthorsListModel(_authors, _articles);
             return View(objAuthorsVM.GetData());
 
         }
@@ -58,26 +44,52 @@ namespace Bikewale.Controllers
         [Route("m/authors/")]
         public ActionResult Index_List_Mobile()
         {
-            AuthorsListModel objAuthorsVM = new AuthorsListModel(_Authors, _Articles);
+            AuthorsListModel objAuthorsVM = new AuthorsListModel(_authors, _articles);
             return View(objAuthorsVM.GetData());
         }
 
-        // GET: Models
-        [Route("m/authors/details/"), Filters.DeviceDetection]
-        public ActionResult Details_Mobile()
+        /// <summary>
+        /// Created by : Vivek Singh on 20-Sep-2017
+        /// Description : Action method for Author details desktop page.
+        /// </summary>
+        /// <param name="author"></param>
+        /// <returns></returns>
+        [Route("authors/{author}/")]
+        public ActionResult Details(string author)
         {
-            ModelPageVM obj = new ModelPageVM();
-            return View(obj);
+            AuthorDetailsPageVM objAuthorDetailsVM = null;
+            AuthorsDetailsPageModel objAuthorModel = new AuthorsDetailsPageModel(_authors, _articles, _authorsCacheRepository, author);
+            if(objAuthorModel.status.Equals(StatusCodes.ContentFound))
+            {
+                objAuthorDetailsVM = objAuthorModel.GetData();
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            return View(objAuthorDetailsVM);
         }
 
-        
-        // GET: Models
-        [Route("authors/details/")]
-        public ActionResult Details_Desktop()
+        /// <summary>
+        /// Created by : Vivek Singh on 20-Sep-2017
+        /// Description : Action method for Author details mobile page.
+        /// </summary>
+        /// <param name="author"></param>
+        /// <returns></returns>
+        [Route("m/authors/{author}/")]
+        public ActionResult Details_Mobile(string author)
         {
-            ModelPageVM obj = new ModelPageVM();
-            return View(obj);
+            AuthorDetailsPageVM objAuthorDetailsVM = null;
+            AuthorsDetailsPageModel objAuthorModel = new AuthorsDetailsPageModel(_authors, _articles, _authorsCacheRepository, author);
+            if (objAuthorModel.status.Equals(StatusCodes.ContentFound))
+            {
+                objAuthorDetailsVM = objAuthorModel.GetData();
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            return View(objAuthorDetailsVM);
         }
-
-    }   // class
-}   // namespace
+    }        
+}
