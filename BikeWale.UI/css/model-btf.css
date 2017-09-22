@@ -1191,29 +1191,38 @@ li.offertxt:hover span {display:inline}
     }
 }
 
-.article-type-carousel.inner-content-carousel .jcarousel li {
-    height: 245px;
-    width: 300px;
-    -webkit-box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50);
-    -moz-box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50);
-    -ms-box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50);
-    -o-box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50);
-    box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50);
+.review-list-wrapper .rating-circle-list {
+	margin-right: 20px;
+	margin-left: 20px;
 }
+
+.review-list-wrapper .list-left-grid {
+	padding-left: 20px;
+}
+
+.review-list-wrapper .list-right-grid {
+	padding-right: 20px;
+}
+
+.review-list-wrapper .view-all-btn-container {
+	margin-left: 20px;
+}
+
+.article-type-carousel.inner-content-carousel .jcarousel li {
+    height: 240px;
+}
+
 .article-type-carousel img {
-    max-height: 168px;
+    max-height: 164px;
     height: auto;
-    max-width:100%;
+    max-width: 100%;
 }
 .article-type-carousel .jcarousel-image-preview {
-    height: 168px;
+    height: 164px;
     text-align: center;
 }
 .article-type-carousel .card-desc-block h3 {
     padding-top: 10px;
     font-size: 15px;
     color: #2a2a2a;
-}
-.article-type-carousel.inner-content-carousel .jcarousel {
-    left: 0;
 }

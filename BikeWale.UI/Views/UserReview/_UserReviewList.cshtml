@@ -24,7 +24,7 @@
 	@foreach (UserReviewSummary review in Model.UserReviews.Result)
 	{
 		<li class="list-item">
-			<div class="item-grid alpha padding-right20  @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">
+			<div class="list-left-grid item-grid alpha padding-right20  @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">
 				<div class="margin-bottom10">
 					<span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
 						<span class="bwsprite star-white"></span>&nbsp;<span data-bind="text: value">@review.OverallRating.Value</span>
@@ -82,7 +82,7 @@
 				</div>
 			
 			</div>
-			<div id="rating-questions" class="grid-3 omega padding-left20">
+			<div id="rating-questions" class="list-right-grid grid-3 omega padding-left20">
 				@if (review.Questions != null)
 				{
 					<ul>
@@ -104,7 +104,7 @@
 			</div>
 			<div class="clear"></div>
             <div class="expert-review-list">
-                <h2 class="h2-heading">Reviews of similar bikes</h2>
+                <h3 class="h2-heading">You may also read from our Experts</h3>
 
                 <div class="jcarousel-wrapper inner-content-carousel article-type-carousel">
                     <div class="jcarousel">
