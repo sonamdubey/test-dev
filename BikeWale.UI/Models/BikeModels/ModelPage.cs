@@ -180,6 +180,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Added breadcrum and webpage schema along with product
         /// Modified By  : Sushil Kumar on 17th Sep 2017
         /// Description : Added logic to show product schema in webpage schema for some of the models
+        /// Modified By: Snehal Dange on 22nd Sep 2017
+        /// Descrption  :Added logic to show similar bikes schema 
         /// </summary>
         private void SetPageJSONLDSchema()
         {
@@ -246,7 +248,7 @@ namespace Bikewale.Models.BikeModels
                     }
 
                     SetAdditionalProperties(product);
-
+                    SetSimilarBikesProperties(product);
 
                     pageSchemaInWebpage = BWConfiguration.Instance.PageSchemaModels.Split(',').Contains(_modelId.ToString());
 
@@ -1506,6 +1508,38 @@ namespace Bikewale.Models.BikeModels
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeModels.ModelPage -->" + "BindColorString()");
+            }
+        }
+
+        /// <summary>
+        /// Created By :Snehal Dange on 22 Sep 2017
+        /// Description : Page schema for similar bike on model page
+        /// </summary>
+        /// <param name="product"></param>
+        private void SetSimilarBikesProperties(Product product)
+        {
+            try
+            {
+               
+                if (_objData != null && _objData.SimilarBikes != null && _objData.SimilarBikes.Bikes != null)
+                {
+                    IList<Product> listSimilarBikes = new List<Product>();
+                    foreach (var bike in _objData.SimilarBikes.Bikes)
+                    {
+                        listSimilarBikes.Add(new Product()
+                        {
+                            Name = String.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName),
+                            Url = String.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)),
+                            Image = Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._310x174)
+                        });
+                    }
+                    product.IsSimilarTo = listSimilarBikes;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage.SetSimilarBikesProperties(), Model: {0}", _modelId));
             }
         }
 
