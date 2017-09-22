@@ -1,8 +1,12 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.common;
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.Entity.BikeData;
+using BikewaleOpr.Interface.BikeData;
 using BikeWaleOpr.Common;
 using Enyim.Caching;
+using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -22,13 +26,14 @@ namespace BikeWaleOpr.Content
     public class BikeModels : System.Web.UI.Page
     {
         protected HtmlGenericControl spnError;
-        protected DropDownList cmbMakes, ddlSegment, ddlUpdateSegment;
+        protected DropDownList cmbMakes, ddlSegment, ddlUpdateSegment, ddlSeries, ddlUpdateSeries;
         protected TextBox txtModel, txtMaskingName;
         protected Button btnSave;
-        protected HtmlInputButton btnUpdateSegment;
+        protected HtmlInputButton btnUpdateSegment, btnUpdateSeries;
         protected DataGrid dtgrdMembers;
         protected Label lblStatus;
-        protected HiddenField hdnModelIdList, hdnModelIdsList;
+        protected HiddenField hdnModelIdList, hdnModelIdsList, hdnModelIdsListSeries;
+        private readonly IBikeSeries _series = null;
 
         private string SortCriteria
         {
@@ -59,13 +64,24 @@ namespace BikeWaleOpr.Content
             dtgrdMembers.DeleteCommand += new DataGridCommandEventHandler(dtgrdMembers_Delete);
             cmbMakes.SelectedIndexChanged += new EventHandler(cmbMakes_SelectedIndexChanged);
             btnUpdateSegment.ServerClick += new EventHandler(UpdateModelSegments);
+            btnUpdateSeries.ServerClick += new EventHandler(UpdateModelSeries);
         }
 
         bool _isMemcachedUsed;
         protected static MemcachedClient _mc = null;
 
+        /// <summary>
+        /// Modified by : Vivek Singh Tomar on 13th Sep 2017
+        /// Summary : Added initialization of BikeSeries
+        /// </summary>
         public BikeModels()
         {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
+                .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>();
+                _series = container.Resolve<IBikeSeries>();
+            }
             _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
             if (_isMemcachedUsed && _mc == null)
             {
@@ -131,13 +147,14 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertbikemodel"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertbikemodel14092017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txtModel.Text.Trim().Replace("'", "''")));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelmaskingname", DbType.String, 50, txtMaskingName.Text.Trim()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, cmbMakes.SelectedValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbType.Int32, ddlSegment.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, (Convert.ToInt32(ddlSeries.SelectedValue) > 0)?ddlSeries.SelectedValue:Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbType.Boolean, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ParameterDirection.Output));
@@ -199,6 +216,7 @@ namespace BikeWaleOpr.Content
         void cmbMakes_SelectedIndexChanged(object Sender, EventArgs e)
         {
             FillSegments();
+            FillSeries(Convert.ToInt32(cmbMakes.SelectedValue));
             BindGrid();
 
         }
@@ -219,9 +237,12 @@ namespace BikeWaleOpr.Content
                 if(mo.imported,1,0) as imported, if(mo.classic,1,0) as  classic, if(mo.modified,1,0) as  modified, if(mo.futuristic,1,0) as futuristic, mo.bikemakeid,cast( mo.mocreatedon as char(24)) as createdon,cast( mo.moupdatedon  as char(24)) as updatedon,ou.username as updatedby 
                 ,bcs.classsegmentname 
                 ,mo.makemaskingname as makemasking
+                ,bs.id as seriesId
+                ,IFNULL(bs.Name, 'N/A') as seriesName
                 from bikemodels mo left join oprusers ou 
                 on mo.moupdatedby = ou.id 
-                left join bikeclasssegments bcs on mo.bikeclasssegmentsid = bcs.bikeclasssegmentsid 
+                left join bikeclasssegments bcs on mo.bikeclasssegmentsid = bcs.bikeclasssegmentsid
+                left join bikeseries bs on mo.BikeSeriesID = bs.Id
                 where mo.isdeleted=0 
                 and mo.bikemakeid=" + _makeid;
 
@@ -687,5 +708,98 @@ namespace BikeWaleOpr.Content
                 objErr.SendMail();
             }
         }   //End of UpdateModelSegments
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 13th Sep 2017
+        /// Summary : bind the series drop down list
+        /// </summary>
+        private void FillSeries(int makeId)
+        {
+            IEnumerable<BikeSeriesEntityBase> SeriesList = null;
+            try
+            {
+                if(makeId > 0)
+                {
+                    SeriesList = _series.GetSeriesByMake(makeId);
+                    if(SeriesList != null)
+                    {
+                        ListItem li = new ListItem("---Select Series---", "-1");
+                        ddlSeries.DataSource = SeriesList;
+                        ddlSeries.DataTextField = "SeriesName";
+                        ddlSeries.DataValueField = "SeriesId";
+                        ddlSeries.DataBind();
+                        ddlSeries.Items.Insert(0, li);
+
+                        ddlUpdateSeries.DataSource = SeriesList;
+                        ddlUpdateSeries.DataTextField = "SeriesName";
+                        ddlUpdateSeries.DataValueField = "SeriesId";
+                        ddlUpdateSeries.DataBind();
+                        ddlUpdateSeries.Items.Insert(0, li);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.Content.BikeModel: FillSeries");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 14th Sep 2017
+        /// Summary : Update series of selected model and log model and series mapping
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateModelSeries(object sender, EventArgs e)
+        {
+            
+            try
+            {
+                string ModelIdsList = hdnModelIdsListSeries.Value;
+
+                if (ModelIdsList.Length > 0)
+                    ModelIdsList = ModelIdsList.Substring(0, ModelIdsList.Length - 1);
+
+                UpdateModelSeries(ddlUpdateSeries.SelectedValue, ModelIdsList);
+                BindGrid();
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Series Updated Successfully.');", true);
+            }
+            catch (Exception ex)
+            {
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
+            }
+          
+        }
+        
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 14-Sep-2017
+        /// Description : Method to call DataBase update model series
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <param name="modelIdsList"></param>
+        private void UpdateModelSeries(string seriesId, string modelIdsList)
+        {
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "updatemodelseries";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, seriesId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelidslist", DbType.String, 500, modelIdsList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, BikeWaleOpr.Common.CurrentUser.Id));
+
+
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                }
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn(err.Message + err.Source);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+        }
     }
 }

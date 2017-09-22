@@ -92,6 +92,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IBikeMakes, BikeMakes>();
             container.RegisterType<IServiceCenter, ServiceCenter>();
             container.RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
+            container.RegisterType<IBikeSeries, BikeSeries>();
+            container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>();
 
 
             container.RegisterType<IPageMetasRepository, PageMetasRepository>();
