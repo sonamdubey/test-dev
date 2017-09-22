@@ -57,7 +57,7 @@ namespace Bikewale.Entities.Schema
         public IEnumerable<string> Color { get; set; }
 
         [JsonProperty("isSimilarTo", NullValueHandling = NullValueHandling.Ignore)]
-        public IEnumerable<Bikes> IsSimilarTo { get; set; }
+        public IEnumerable<Product> IsSimilarTo { get; set; }
 
 
     }

@@ -1488,25 +1488,18 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-                List<Bikes> listSimilarBikes = new List<Bikes>();
-                Bikes objBike = null;
-
+               
                 if (_objData != null && _objData.SimilarBikes != null && _objData.SimilarBikes.Bikes != null)
                 {
+                    IList<Product> listSimilarBikes = new List<Product>();
                     foreach (var bike in _objData.SimilarBikes.Bikes)
                     {
-                        string make = bike.MakeBase.MakeName, modelName = bike.ModelBase.ModelName;
-
-                        var bikeName = String.Format("{0} {1}", make, modelName);
-                        var bikeUrl = UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName);
-                        var bikeImage = Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._310x174, Bikewale.Utility.QualityFactor._75);
-                        objBike = new Bikes()
+                        listSimilarBikes.Add(new Product()
                         {
-                            Name = bikeName,
-                            Url = String.Format("{0}{1}",BWConfiguration.Instance.BwHostUrl, bikeUrl),  
-                            Image = bikeImage
-                        };
-                        listSimilarBikes.Add(objBike);
+                            Name = String.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName),
+                            Url = String.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)),
+                            Image = Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._310x174)
+                        });
                     }
                     product.IsSimilarTo = listSimilarBikes;
 
@@ -1516,8 +1509,6 @@ namespace Bikewale.Models.BikeModels
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage.SetSimilarBikesProperties(), Model: {0}", _modelId));
             }
-
-
         }
 
         #endregion Methods
