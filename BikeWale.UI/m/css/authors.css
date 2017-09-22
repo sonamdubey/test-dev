@@ -20,7 +20,9 @@
     padding: 15px 20px 15px;
     display: block;
 }
-
+.author__block:hover{
+    text-decoration:none;
+}
 .author__list li:after {
     content: '';
     margin-left: 20px;
