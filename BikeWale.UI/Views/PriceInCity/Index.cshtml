@@ -415,7 +415,7 @@
                                                     @foreach (var bikeversion in Model.VersionSpecs)
                                                     {
                                                         <tr>
-                                                            <td class="font14">@bikeversion.VersionName</td>
+                                                            <td class="font14">@Model.BikeName&nbsp;@bikeversion.VersionName</td>
                                                             <td class="font13">@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp; @Format.FormatPrice(Convert.ToString(bikeversion.Price))</span>
                                                                 &nbsp;<span class="font12">(On-road, @Model.CityEntity.CityName)</span>
                                                             </td>
