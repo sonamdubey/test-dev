@@ -6,6 +6,8 @@ namespace Bikewale.Entities.Schema
     /// <summary>
     /// Created By : Sushil Kumar on 15th August 2017
     /// Description : Product type to show model details and its properties
+    /// Modified by: Snehal Dange on 22nd Sep 2017
+    /// Descrption : Added additional property "isSimilar" for isSimilarBikes 
     /// </summary>
     public class Product
     {
@@ -53,6 +55,10 @@ namespace Bikewale.Entities.Schema
 
         [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<string> Color { get; set; }
+
+        [JsonProperty("isSimilarTo", NullValueHandling = NullValueHandling.Ignore)]
+        public IEnumerable<Bikes> IsSimilarTo { get; set; }
+
 
     }
 }

@@ -378,6 +378,7 @@
     <Compile Include="Schema\AggregateOffer.cs" />
     <Compile Include="Schema\AggregateRating.cs" />
     <Compile Include="Schema\Author.cs" />
+    <Compile Include="Schema\Bikes.cs" />
     <Compile Include="Schema\Brand.cs" />
     <Compile Include="Schema\BreadcrumbItem.cs" />
     <Compile Include="Schema\BreadcrumbList.cs" />
