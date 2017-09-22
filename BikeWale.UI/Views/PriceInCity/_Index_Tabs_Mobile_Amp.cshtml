@@ -7,37 +7,37 @@
     @if (Model.FirstVersion != null)
     {
         <li data-tabs="#orpContent" class="bw-price-in-city-ga active">
-            <a href="@string.Format("{0}/m{1}price-in-{2}#orpContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">On-road price</a>
+            <a href="@string.Format("{0}/m{1}price-in-{2}/#orpContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">On-road price</a>
         </li>
     }
     @if (Model.HasDealers || Model.HasServiceCenters)
     {
         <li data-tabs="#dealerContent" class="bw-price-in-city-ga">
-            <a href="@string.Format("{0}/m{1}price-in-{2}#dealerContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Dealers</a>
+            <a href="@string.Format("{0}/m{1}price-in-{2}/#dealerContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Dealers</a>
     </li>
     }
     @if (Model.IsNew)
     {
         <li data-tabs="#emiContent" class="bw-price-in-city-ga">
-            <a href="@string.Format("{0}/m{1}price-in-{2}#emiContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">EMI calculator</a>
+            <a href="@string.Format("{0}/m{1}price-in-{2}/#emiContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">EMI calculator</a>
     </li>
     }
     @if (Model.IsNew && (Model.BikeVersionPrices != null || Model.HasNearestPriceCities))
     {
         <li data-tabs="#versionContent" class="bw-price-in-city-ga">
-            <a href="@string.Format("{0}/m{1}price-in-{2}#versionContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Price list</a>
+            <a href="@string.Format("{0}/m{1}price-in-{2}/#versionContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Price list</a>
     </li>
     }
     @if (Model.HasAlternateBikes)
     {
         <li data-tabs="#similarContent" class="bw-price-in-city-ga">
-            <a href="@string.Format("{0}/m{1}price-in-{2}#similarContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Compare @Model.BodyStyleText</a>
+            <a href="@string.Format("{0}/m{1}price-in-{2}/#similarContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Compare @Model.BodyStyleText</a>
     </li>
     }
     else if (Model.IsPopularBodyStyleAvailable)
     {
         <li data-tabs="#popularContent" class="bw-price-in-city-ga">
-            <a href="@string.Format("{0}/m{1}price-in-{2}#popularContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Popular @Model.BodyStyleText</a>
+            <a href="@string.Format("{0}/m{1}price-in-{2}/#popularContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Popular @Model.BodyStyleText</a>
     </li>
     }
 </ul>
