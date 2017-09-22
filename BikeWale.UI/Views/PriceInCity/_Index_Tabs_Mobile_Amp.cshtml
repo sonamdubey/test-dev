@@ -36,7 +36,7 @@
     }
     else if (Model.IsPopularBodyStyleAvailable)
     {
-        <li data-tabs="#popularContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Similar bikes", gaBikeName)">
+        <li data-tabs="#popularContent" class="bw-price-in-city-ga">
             <a href="@string.Format("{0}/m{1}price-in-{2}#popularContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Popular @Model.BodyStyleText</a>
     </li>
     }
