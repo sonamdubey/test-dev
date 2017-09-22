@@ -130,7 +130,14 @@
                     <div class="campaign__floating-btn floating-btn clearfix">
                         <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
                         <div class="grid-5 alpha omega">
-                            <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+                            @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                            {
+                                <a class="btn btn-orange btn-full-32" rel="nofollow" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+                            }
+                            else
+                            {
+                                <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+                            }
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -333,7 +340,14 @@
                             @if (Model.IsManufacturerEMIAdShown)
                             {
                             <div class="powered-by-campaign-wrapper margin-top15">
-                                <a href="javascript:void(0)" type="button" class="btn btn-teal btn-160-32 font14 margin-right10 leadcapturebtn" data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@String.Format(Model.EMICampaign.PopupSuccessMessage, Model.EMICampaign.Organization)" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired">@Model.EMICampaign.EMIButtonTextMobile</a>
+                                @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                                {
+                                    <a type="button" class="btn btn-teal btn-160-32 font14 margin-right10" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount" class="btn btn-orange btn-160-32 margin-right10 bw-ga" rel="nofollow">@Model.EMICampaign.EMIButtonTextMobile</a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0)" type="button" class="btn btn-teal btn-160-32 font14 margin-right10 leadcapturebtn" data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@String.Format(Model.EMICampaign.PopupSuccessMessage, Model.EMICampaign.Organization)" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired">@Model.EMICampaign.EMIButtonTextMobile</a>
+                                }
                                 <div class="inline-block">
                                     <p class="campaign__powered-key">Powered by</p>
                                     <p class="campaign__powered-value" title="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)">@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)</p>
@@ -352,21 +366,21 @@
                             {
                             <div class="content-box-shadow card-bottom-margin content-inner-block-20">
                                 <h2 class="card-h2-heading margin-bottom20">@Model.BikeName price in @Model.CityEntity.CityName</h2>
-                                <table width="100%" cellspacing="0" cellpadding="0">
+                                    <table class="version-price-table">
                                     <thead>
                                         <tr>
-                                            <th align="left" width="30%" class="font12 text-light-grey padding-bottom10 border-solid-bottom text-unbold">Variant</th>
-                                            <th align="left" width="35%" class="font12 text-light-grey padding-bottom10 border-solid-bottom text-unbold">Price</th>
-                                            <th align="left" width="35%" class="font12 text-light-grey padding-bottom10 border-solid-bottom text-unbold">Specs</th>
+                                                <th>Variant</th>
+                                                <th>Price</th>
+                                                <th>Specs</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var version in Model.VersionSpecs)
                                         {
                                             <tr>
-                                                <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@version.VersionName</td>
-                                                <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(version.Price))</span></td>
-                                                <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
+                                                    <td class="text-slate-grey">@version.VersionName</td>
+                                                    <td>@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(version.Price))</span></td>
+                                                    <td class="text-slate-grey">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
                                             </tr>
                                         }
                                     </tbody>
@@ -383,19 +397,15 @@
 
                             <div class="padding-top20 padding-bottom10 content-box-shadow card-bottom-margin">
                                 <h2 class="card-h2-heading margin-bottom10 padding-left20 padding-right20">@Model.BikeModel.ModelName price in cities near @Model.CityEntity.CityName<span class="font14 text-slate-grey text-unbold">&nbsp;(On-road price)</span></h2>
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14">
-                                    <tbody>
+                                    <ul class="PriceInTopCity">
                                         @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.NearestPriceCities)
-                                    </tbody>
-                                </table>
+                                    </ul>
                                 @if (priceQuotesCities.Count() > 4)
                                 {
                                     Model.NearestPriceCities.PriceQuoteList = priceQuotesCities.Skip(4);
-                                    <table id="more-cities-list" width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14 hide">
-                                        <tbody>
+                                        <ul id="more-cities-list" class="PriceInTopCity hide">
                                             @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.NearestPriceCities)
-                                        </tbody>
-                                    </table>
+                                        </ul>
                                     <div class="padding-right20 padding-left20 padding-bottom5">
                                         <a href="javascript:void(0)" class="view-cities-link position-rel block font14" title="" rel="nofollow">View more cities</a>
                                     </div>
@@ -409,6 +419,7 @@
 
 
                 }
+                <!-- model prices in nearby cities end -->
                 <!-- model prices similar bikes start -->
                 @if (Model.HasAlternateBikes)
                 {

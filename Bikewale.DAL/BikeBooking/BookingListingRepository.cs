@@ -55,7 +55,7 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_parammileagecategoryids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Mileage)) ? filter.Mileage.Replace(' ', ',') : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdisplacementfilterids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Displacement)) ? filter.Displacement.Replace(' ', ',') : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramridestyleid", DbType.String, 50, (!String.IsNullOrEmpty(filter.RideStyle)) ? filter.RideStyle.Replace(' ', ',') : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhasabs", DbType.Boolean, (!String.IsNullOrEmpty(filter.AntiBreakingSystem)) ? Convert.ToBoolean(Convert.ToInt16(filter.AntiBreakingSystem)) : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhasabs", DbType.Boolean, (!String.IsNullOrEmpty(filter.ABS)) ? Convert.ToBoolean(Convert.ToInt16(filter.ABS)) : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdrumdisc", DbType.Boolean, (!String.IsNullOrEmpty(filter.BrakeType)) ? Convert.ToBoolean(Convert.ToInt16(filter.BrakeType)) : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramspokealloy", DbType.Boolean, (!String.IsNullOrEmpty(filter.AlloyWheel)) ? Convert.ToBoolean(Convert.ToInt16(filter.AlloyWheel)) : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhaselectric", DbType.Boolean, (!String.IsNullOrEmpty(filter.StartType)) ? Convert.ToBoolean(Convert.ToInt16(filter.StartType)) : Convert.DBNull));
@@ -260,19 +260,26 @@ namespace Bikewale.DAL.BikeBooking
                 if (totalPageCount > 0)
                 {
                     string controllerurl = "/api/BikeBookingListing/?";
-
                     currentPageNo = (filterInputs.PageNo == 0) ? 1 : filterInputs.PageNo;
+
                     if (currentPageNo == totalPageCount)
+                    {
                         objPager.NextPageUrl = string.Empty;
+                    }
                     else
                     {
                         objPager.NextPageUrl = controllerurl + "pageNo=" + (Convert.ToInt32(filterInputs.PageNo) + 1) + apiUrlStr;
                     }
 
                     if (filterInputs.PageNo == 1 || filterInputs.PageNo == 0)
+                    {
                         objPager.PrevPageUrl = string.Empty;
+                    }
                     else
+                    {
                         objPager.PrevPageUrl = controllerurl + "pageNo=" + (Convert.ToInt32(filterInputs.PageNo) - 1) + apiUrlStr;
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -310,8 +317,8 @@ namespace Bikewale.DAL.BikeBooking
                     apiUrlstr += "&startType=" + filterInputs.StartType.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(filterInputs.AlloyWheel))
                     apiUrlstr += "&alloyWheel=" + filterInputs.AlloyWheel.Replace(" ", "+");
-                if (!String.IsNullOrEmpty(filterInputs.AntiBreakingSystem))
-                    apiUrlstr += "&antiBreakingSystem=" + filterInputs.AntiBreakingSystem.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.ABS))
+                    apiUrlstr += "&ABS=" + filterInputs.ABS.Replace(" ", "+");
             }
             catch (Exception ex)
             {

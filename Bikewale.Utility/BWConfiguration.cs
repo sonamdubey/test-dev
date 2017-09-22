@@ -14,6 +14,8 @@ namespace Bikewale.Utility
     /// Description : Added bikeWaleLogo for bikewale logo image URL.
     /// Modified by :   Sumit Kate on 11 Nov 2016
     /// Description :   Added keys for AWSAccessKey, AWSBucketName, AWSSecretKey, AWSEnvironment, AWSImageQueueName, SecurityHashLength web config
+    /// Modified By :   Vishnu Teja Yalakuntla on 15 Sep 2017
+    /// Summary     :   Added BestBikesMakes property
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -98,23 +100,29 @@ namespace Bikewale.Utility
             _PinCodesIndexName = string.Empty,
             _DebugMobileSite = string.Empty,
             _CoverFoxLink = string.Empty,
-            _UserReviewIndexName = string.Empty;
+            _UserReviewIndexName = string.Empty,
+            _OtherBikesInMakeId = string.Empty,
+        _CapitalFirstPincodeIndex=string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
-        private string _AWSS3Region = String.Empty;
-        private uint _GrpcMaxTimeLimit = 100;
-        private uint _GrpcPoolSize = 1;
-        private bool _EnablePWALogging = false;
-        private string _StaticUrlPWA;
-        private string _StaticAppFileVersion;
-        private string _StaticVendorFileVersion;
-        private string _ServiceWorkerPath;
-        private string _StaticCSSBTFPWAVersion;
-        private bool _DisablePWA;
-        private string _AMPDomainForSW;
-        private bool _logNewsUrl;
-
+        private readonly string _AWSS3Region = String.Empty;
+        private readonly uint _GrpcMaxTimeLimit = 100;
+        private readonly uint _GrpcPoolSize = 1;
+        private readonly bool _EnablePWALogging = false;
+        private readonly string _StaticUrlPWA;
+        private readonly string _StaticAppFileVersion;
+        private readonly string _StaticVendorFileVersion;
+        private readonly string _ServiceWorkerPath;
+        private readonly string _StaticCSSBTFPWAVersion;
+        private readonly bool _DisablePWA;
+        private readonly string _AMPDomainForSW;
+        private readonly bool _logNewsUrl;
+        private string _capitalFirstConsumerQueue;
+        private readonly string _PageSchemaModels;
+        private readonly bool _IsIPSecurityEnabled;
+        private readonly uint _CapitalFirstDealerId;
+        private readonly string _CarTradeLeadUrl, _CarTradeLeadApiAction, _CarTradeLeadApiCode;
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
         {
@@ -209,8 +217,17 @@ namespace Bikewale.Utility
             _DisablePWA = string.IsNullOrEmpty(ConfigurationManager.AppSettings["DisablePWA"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["DisablePWA"]);
             _StaticCSSBTFPWAVersion = ConfigurationManager.AppSettings["StaticCSSBTFPWAVersion"];
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
+            _CapitalFirstPincodeIndex = ConfigurationManager.AppSettings["CapitalFirstPincodeIndex"];
             _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];
             _logNewsUrl = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogNewsUrl"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["LogNewsUrl"]);
+            _capitalFirstConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["CapitalFirstConsumerQueue"]);
+            _IsIPSecurityEnabled = string.IsNullOrEmpty(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]);
+            _OtherBikesInMakeId = ConfigurationManager.AppSettings["OtherBikesInMakeId"];
+            _PageSchemaModels = ConfigurationManager.AppSettings["PageSchemaModels"];
+            _CapitalFirstDealerId = Convert.ToUInt32(ConfigurationManager.AppSettings["CapitalFirstDealerId"]);
+            _CarTradeLeadUrl = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadUrl"]);
+            _CarTradeLeadApiAction = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadApiAction"]);
+            _CarTradeLeadApiCode = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadApiCode"]);
         }
 
         // Static method to provide access to instance
@@ -361,5 +378,16 @@ namespace Bikewale.Utility
         public string UserReviewIndexName { get { return _UserReviewIndexName; } }
 
         public bool LogNewsUrl { get { return _logNewsUrl; } }
+
+        public string OtherBikesInMakeId { get { return _OtherBikesInMakeId; } }
+        public string PageSchemaModels { get { return _PageSchemaModels; } }
+        public string CapitalFirstConsumerQueue { get { return _capitalFirstConsumerQueue; } }
+        public bool IsIPSecurityEnabled { get { return _IsIPSecurityEnabled; } }
+        public uint CapitalFirstDealerId { get { return _CapitalFirstDealerId; } }
+        public string CarTradeLeadUrl { get { return _CarTradeLeadUrl; } }
+        public string CarTradeLeadApiAction { get { return _CarTradeLeadApiAction; } }
+        public string CarTradeLeadApiCode { get { return _CarTradeLeadApiCode; } }
+
+        public string CapitalFirstPinCode { get { return _CapitalFirstPincodeIndex; } }
     }   // class
 }   // namespace

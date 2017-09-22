@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 
 namespace Bikewale.BikeBooking
@@ -30,7 +28,7 @@ namespace Bikewale.BikeBooking
             }
             set
             {
-                HttpContext.Current.Request.Cookies["_DealerPriceQuote"]["PQId"] = _pqId;
+                HttpContext.Current.Request.Cookies["_DealerPriceQuote"]["PQId"] = value;
             }
         }
 
@@ -46,7 +44,7 @@ namespace Bikewale.BikeBooking
             }
             set
             {
-                HttpContext.Current.Request.Cookies["_DealerPriceQuote"]["IsSMSSend"] = _isSMSSend.ToString();
+                HttpContext.Current.Request.Cookies["_DealerPriceQuote"]["IsSMSSend"] = value.ToString();
             }
         }
 
@@ -62,7 +60,7 @@ namespace Bikewale.BikeBooking
             }
             set
             {
-                HttpContext.Current.Request.Cookies["_DealerPriceQuote"]["IsMailSend"] = _isMailSend.ToString();
+                HttpContext.Current.Request.Cookies["_DealerPriceQuote"]["IsMailSend"] = value.ToString();
             }
         }
     }

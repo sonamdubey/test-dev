@@ -28,6 +28,8 @@ namespace Bikewale.Models.UserReviews
         }
 
         public int csrc { get; set; }
+        public bool IsMobile { get; internal set; }
+
         /// <summary>
         /// Modified by: Vivek Singh Tomar On 12th Aug 2017
         /// Summary: To Create Write review contest GET data

@@ -62,7 +62,7 @@ namespace Bikewale.DAL.NewBikeSearch
                 }
 
 
-                if(!String.IsNullOrEmpty(_input.AntiBreakingSystem))
+                if(!String.IsNullOrEmpty(_input.ABS))
                 {
                     ProcessABS();
                 }
@@ -182,7 +182,7 @@ namespace Bikewale.DAL.NewBikeSearch
         {
             try
             {
-                string[] ABS = _input.AntiBreakingSystem.Split(' ');
+                string[] ABS = _input.ABS.Split(' ');
                 foreach(string strABS in ABS)
                 {
                     if (strABS == ((int)AntiBreakingSystem.ABSAvailable).ToString())

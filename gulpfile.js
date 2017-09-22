@@ -535,6 +535,11 @@ var mvcPageViews = [
         fileName: 'ReviewSummary_Mobile.cshtml',
         stylesheet: 'm/css/user-review/write-review.css'
     },
+	{
+        folderName: 'Views/UserReview/',
+        fileName: 'ReviewSummary.cshtml',
+        stylesheet: 'css/user-review/write-review.css'
+    },
 	  {
         folderName: 'Views/CompareBikes/',
         fileName: 'Index_Mobile.cshtml',
@@ -595,6 +600,16 @@ var mvcPageViews = [
         folderName: 'Views/UserReview/',
         fileName: 'WriteReviewContest.cshtml',
         stylesheet: '/css/user-review/review-contest.css'
+    },
+	{
+        folderName: 'Views/Finance/',
+        fileName: 'CapitalFirst_Index.cshtml',
+        stylesheet: 'css/finance/capital-first.css'
+    },
+	{
+        folderName: 'Views/Finance/',
+        fileName: 'CapitalFirst_Index_Mobile.cshtml',
+        stylesheet: 'm/css/finance/capital-first.css'
     }
 ];
 

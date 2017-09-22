@@ -1,50 +1,50 @@
 ﻿@model Bikewale.Models.ModelBase
 <!doctype html>
-<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+<html lang="en">
 <head>
     @if (Model != null && Model.PageMetaTags != null)
     {
         Model.PageMetaTags.EnableOG = true;
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
         {
-            <title itemprop="name">@Html.Raw(Model.PageMetaTags.Title)</title>
+    <title >@Html.Raw(Model.PageMetaTags.Title)</title>
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
         {
-            <meta itemprop="description" name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
+    <meta name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
         {
-            <meta name="keywords" content="@Model.PageMetaTags.Keywords" />
+    <meta name="keywords" content="@Model.PageMetaTags.Keywords" />
         }
         if (Model.PageMetaTags.EnableOG)
         {
-            <meta property="og:title" content="@Html.Raw(Model.PageMetaTags.Title)" />
-            <meta property="og:type" content="website" />
-            <meta property="og:description" content="@Model.PageMetaTags.Description" />
-            <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+    <meta property="og:title" content="@Model.PageMetaTags.Title" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="@Model.PageMetaTags.Description" />
+    <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
             if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
             {
-                <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
+    <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
             }
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.AlternateUrl))
         {
-            <link rel="alternate" type="text/html" media="handheld" href="@Model.PageMetaTags.AlternateUrl" title="Mobile/PDA" />
+    <link rel="alternate" type="text/html" media="handheld" href="@Model.PageMetaTags.AlternateUrl" title="Mobile/PDA" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
         {
-            <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
+    <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
         if (!String.IsNullOrEmpty(Model.PageMetaTags.PreviousPageUrl))
         {
-            <link rel="prev" href="@Model.PageMetaTags.PreviousPageUrl" /> }
+    <link rel="prev" href="@Model.PageMetaTags.PreviousPageUrl" /> }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
         {
-            <link rel="next" href="@Model.PageMetaTags.NextPageUrl" />
+    <link rel="next" href="@Model.PageMetaTags.NextPageUrl" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.AmpUrl))
         {
-            <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> 
+    <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" />
         }
     }
     <meta charset="utf-8" />
@@ -58,7 +58,7 @@
     <link href="//www.googleadservices.com" rel="dns-prefetch" />
     <link href="//www.bikewale.com" rel="dns-prefetch" />
     <link href="//imgd.aeplcdn.com" rel="dns-prefetch" />
-    <link href="//@Bikewale.Utility.BWConfiguration.Instance.StaticUrl" rel="dns-prefetch" />
+    <link href="//stb.aeplcdn.com" rel="dns-prefetch" />
     <link href="//fonts.googleapis.com" rel="dns-prefetch" />
     <link href="//www.google-analytics.com" rel="dns-prefetch" />
     <link href="//bhrigu.bikewale.com" rel="dns-prefetch" />
@@ -71,10 +71,10 @@
     </noscript>
     <noscript id="asynced-css">
         <link href="@String.Format("{0}/css/bw-common-btf.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
-                @if (!String.IsNullOrEmpty(Model.Page_BTF_CSS_Path))
+        @if (!String.IsNullOrEmpty(Model.Page_BTF_CSS_Path))
         {
 
-            <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_BTF_CSS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
+        <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_BTF_CSS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
         }
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     </noscript>
@@ -87,10 +87,10 @@
     <script type="text/javascript">
         var ga_pg_id = '0';
 
-                (function (w, d, s, l, i) {
-                    w[l] = w[l] || []; w[l].push({
-                        'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
             }); var f = d.getElementsByTagName(s)[0],
             j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
             '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
@@ -104,17 +104,17 @@
         }, 1);
 
         var googletag = googletag || {};
-    googletag.cmd = googletag.cmd || [];
+        googletag.cmd = googletag.cmd || [];
         (function () {
-        var gads = document.createElement('script');
-        gads.async = true;
-        gads.type = 'text/javascript';
-        var useSSL = 'https:' == document.location.protocol;
-        gads.src = (useSSL ? 'https:' : 'http:') +
-        '//www.googletagservices.com/tag/js/gpt.js?v=1.0';
-        var node = document.getElementsByTagName('script')[0];
-        node.parentNode.insertBefore(gads, node);
-    })();
+            var gads = document.createElement('script');
+            gads.async = true;
+            gads.type = 'text/javascript';
+            var useSSL = 'https:' == document.location.protocol;
+            gads.src = (useSSL ? 'https:' : 'http:') +
+            '//www.googletagservices.com/tag/js/gpt.js?v=1.0';
+            var node = document.getElementsByTagName('script')[0];
+            node.parentNode.insertBefore(gads, node);
+        })();
 
         @functions{
         string GetAdSlot(int slotId,string adPath,string adId){
@@ -171,39 +171,46 @@
 
         googletag.cmd.push(function () {
 
-        @if(Model.AdTags.Ad_300x250){ @Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_970x90){ @Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_970x90BTF){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_970x90Bottom){ @Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_976x400First){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_976x400Second) { @Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_Model_ATF_300x250){ @Html.Raw(GetAdSlot(9, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_Model_ATF_970x90){ @Html.Raw(GetAdSlot(10, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_Model_BTF_300x250){ @Html.Raw(GetAdSlot(11, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_Model_BTF_970x90){ @Html.Raw(GetAdSlot(12, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_976x204) { @Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        @if(Model.AdTags.Ad_976x400_Middle){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
-        googletag.pubads().enableSingleRequest();
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
-        @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
+            @if(Model.AdTags.Ad_300x250){ @Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_970x90){ @Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_970x90BTF){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_970x90Bottom){ @Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_976x400First){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_976x400Second) { @Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_Model_ATF_300x250){ @Html.Raw(GetAdSlot(9, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_Model_ATF_970x90){ @Html.Raw(GetAdSlot(10, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_Model_BTF_300x250){ @Html.Raw(GetAdSlot(11, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_Model_BTF_970x90){ @Html.Raw(GetAdSlot(12, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_976x204) { @Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_976x400_Middle){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            googletag.pubads().enableSingleRequest();
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
 
-        googletag.pubads().collapseEmptyDivs();
-        googletag.pubads().enableSingleRequest();
-        googletag.enableServices();
-    });
+            googletag.pubads().collapseEmptyDivs();
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
     </script>
 
-        @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
-        {
-            <script type="application/ld+json">
-                @(Html.Raw(Model.PageMetaTags.SchemaJSON))
-            </script>
-        }
+    @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
+    {
+    <script type="application/ld+json">
+        @(Html.Raw(Model.PageMetaTags.SchemaJSON))
+    </script>
+    }
+
+    @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.PageSchemaJSON))
+    {
+        <script type="application/ld+json">
+            @(Html.Raw(Model.PageMetaTags.PageSchemaJSON))
+        </script>
+    }
 </head>
-<body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")"  @string.Format("{0}",Model.ExcludeContestSlug?"data-contestslug='true'":"") data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
+<body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" @string.Format("{0}", Model.ExcludeContestSlug ? "data-contestslug='true'" : "") data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
 
     <div id="header" class='@(Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
         <!-- Fixed Header code starts here -->
@@ -256,8 +263,62 @@
             </div>
         </div>
     }
+
+    @if (Model.AdTags.Ad_Model_ATF_970x90)
+    {
+        <div class="bg-white ">
+            <div class="container">
+                <div class="grid-12">
+                    <div>
+
+                        <div id='div-gpt-ad-@string.Format("{0}-10", Model.AdTags.AdId)' class="margin-bottom15 margin-top10 text-center">
+                            <script type='text/javascript'>
+                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@string.Format("{0}-10", Model.AdTags.AdId)'); });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+   }
+
+
+    @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
+    {
+        <section class="container padding-top10">
+            <div class="grid-12">
+                <div class="breadcrumb margin-bottom15">
+                    <ul>
+                        @foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
+                        {
+                            if (!string.IsNullOrEmpty(item.Item.Url))
+                            {
+                                <li>
+                                    <a class="breadcrumb-link" href="@item.Item.Url" title="@item.Item.Name">
+                                        <span class="breadcrumb-link__label">@item.Item.Name</span>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="current">
+                                    <span class="breadcrumb-link__label">@item.Item.Name</span>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+    }
+
     @RenderBody()
+
     @Html.Partial("~/Views/Shared/_PopupWidget.cshtml")
+
     @if (Model.AdTags.Ad_970x90Bottom)
     {
         <section>
@@ -348,20 +409,20 @@
                     <span class="navbarTitle">Tools</span>
                 </a>
             </li>
-            <li>
+            @*<li>
                 <a href="/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_Hamburger)">
                     <span class="teal-trophy-circle"></span>
                     <span class="navbarTitle inline-block">Bike Review Contest</span>
-					<span class="bwsprite nav-right-arrow"></span>
+                    <span class="bwsprite nav-right-arrow"></span>
                 </a>
-            </li>
+            </li>*@
             <li>
                 <a href="/mybikewale/">
                     <span class="bwsprite myBikeWale-icon"></span>
                     <span class="navbarTitle">My BikeWale</span>
                 </a>
             </li>
-            
+
         </ul>
         <div class="margin-top40 margin-bottom40 margin-left20">
             <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DDrawer%26utm_campaign%3DBikeWale%2520Desktopsite%2520Drawer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5"></a>
@@ -473,7 +534,7 @@
         <div style="display:inline;">
             <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/998187973/?guid=ON&amp;script=0" />
         </div>
-     </noscript>
+    </noscript>
     <script type="text/javascript">
         docReady(function () {
             try {

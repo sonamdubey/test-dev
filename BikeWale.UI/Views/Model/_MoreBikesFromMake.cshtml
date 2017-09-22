@@ -1,0 +1,36 @@
+﻿@model Bikewale.Models.BikeModels.OtherBestBikesVM
+<div class="more-make-bikes-desk image-details-grid jcarousel-wrapper inner-content-carousel">
+    <div class="jcarousel">
+        <ul class="image-details-grid-list more-make-bike">
+            @foreach (var Bike in Model.BestBikes)
+            {
+                <li class="swiper-card margin-bottom15">
+                    <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName)" title="@Bike.Make.MakeName @Bike.Model.ModelName" class="bw-ga card-target" l="@Bike.BikeName" c="Model_Page" a="Clicked_SameBrandBikes_widget">
+                        <div class="item-image-block vertical-top">
+                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" src="" alt="@Bike.Make.MakeName @Bike.Model.ModelName" />
+                        </div>
+                        <div class="item-details-block vertical-top">
+                            <p class="font14 text-bold text-black margin-bottom5">@Bike.Make.MakeName @Bike.Model.ModelName</p>
+                            @if (Bike.OnRoadPriceInCity == 0 && Bike.Price > Bike.OnRoadPriceInCity)
+                            {
+                                <p class="font11 text-light-grey">Ex-showroom, Mumbai</p>
+                                <span class='font16 text-default'>&#x20B9;</span>
+                                <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
+                            }
+                            else
+                            {
+                                <p class="font11 text-light-grey">On Road, @Bike.UsedCity.CityName</p>
+                                <span class='font16 text-default'>&#x20B9;</span>
+                                <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.OnRoadPriceInCity))</span>
+                            }
+
+                        </div>
+                    </a>
+                </li>
+
+            }
+        </ul>
+    </div>
+    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow" data-jcarouselcontrol="true"></a></span>
+    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow" data-jcarouselcontrol="true"></a></span>
+</div>

@@ -16,10 +16,17 @@ namespace Bikewale.Entities.manufacturecampaign
         public string GAAction { get; set; }
         public string GACategory { get; set; }
         public string GALabel { get; set; }
-
+        public uint PQId { get; set; }
+        public uint VersionId { get; set; }
         public string PageUrl { get; set; }
-
+        public string CurrentPageUrl { get; set; }
+        public ushort PlatformId { get; set; }
+        public string BikeName { get; set; }
         public bool IsAmp { get; set; }
+
+        public uint LoanAmount { get; set; }
+
+
 
 
     }

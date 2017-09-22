@@ -16,16 +16,18 @@ var ratingError = false, questionError = false, userNameError = false, emailErro
 docReady(function () {
     
     bwcache.setScope('ReviewPage');
-    if (page == "writeReview") {
-        setTimeout(function () { appendHash("writeReview"); }, 1000);
-        $(window).on('hashchange', function (e) {
-            oldUrl = e.originalEvent.oldURL;
-            if (oldUrl && (oldUrl.indexOf('#') > 0)) {
-                if ($("#previousPageUrl") && $("#previousPageUrl").length)
-                    window.location.href = $('#previousPageUrl').text();
-            }
-        });
-    }
+    window.history.pushState('ReviewPage', '', '');
+
+    $(window).on('popstate', function (event) {
+
+        if (page == "writeReview" && $("#previousPageUrl") && $("#previousPageUrl").length) {
+            window.location.href = $('#previousPageUrl').text();
+        }
+        else if (page == "reviewSummary" && $("#pageSource") && $("#pageSource").length) {
+            window.location.href = $("#pageSource").val(); 
+        }
+                             
+    });    
 
     ratingBox = $('#bike-rating-box');
 

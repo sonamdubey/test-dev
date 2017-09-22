@@ -6,7 +6,6 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Net;
 using System.Text;
 using System.Web;
@@ -83,34 +82,8 @@ namespace Bikewale.Common
                 if (isDND == true)
                     mobile = "91" + mobile;
 
-                string retMsg = "";
-                string ctId = "-1";
-                bool status = false;
-                bool isMSMQ = false;
+                string ctId = SaveSMSSentData(mobile, message, esms, false, string.Empty, pageUrl);
 
-                if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["isMSMQ"]))
-                {
-                    isMSMQ = Convert.ToBoolean(ConfigurationManager.AppSettings["isMSMQ"].ToString());
-                }
-
-                ctId = SaveSMSSentData(mobile, message, esms, status, retMsg, pageUrl);
-
-                // Use MSMQ if enabled in Web.Config.
-                //if (!isMSMQ)
-                //{
-                //    retMsg = SendSMS(mobile, message, isDND);
-
-                //    if (retMsg.IndexOf("bikew") != -1)
-                //        status = true;
-                //    else
-                //        status = false;
-
-                //    UpdateSMSSentData(ctId, retMsg);
-                //}
-                //else
-                //{
-                //    MSMQLibrary.SendSMSMSMQ.SendSMS(ctId, message, mobile, "BW", string.Empty);
-                //}
 
 
                 NameValueCollection nvc = new NameValueCollection();
@@ -147,17 +120,7 @@ namespace Bikewale.Common
                 if (isDND == true)
                     mobile = "91" + mobile;
 
-                string retMsg = string.Empty;
-                string ctId = "-1";
-                bool status = false;
-                bool isMSMQ = false;
-
-                if (!String.IsNullOrEmpty(BWConfiguration.Instance.IsMSMQ))
-                {
-                    isMSMQ = Convert.ToBoolean(BWConfiguration.Instance.IsMSMQ);
-                }
-
-                ctId = SaveSMSSentData(mobile, message, esms, status, retMsg, pageUrl);
+                string ctId = SaveSMSSentData(mobile, message, esms, false, string.Empty, pageUrl);
 
                 NameValueCollection nvc = new NameValueCollection();
                 nvc.Add("id", ctId);
@@ -171,116 +134,6 @@ namespace Bikewale.Common
             }
         }
 
-        /// <summary>
-        /// PopulateWhere to update the database with the details of the SMS data sent.
-        /// </summary>
-        /// <param name="currentId">Id for which the sms was just sent</param>
-        /// <param name="retMsg">The return message from the provider that is received after the SMS is sent</param>
-        private void UpdateSMSSentData(string currentId, string retMsg)
-        {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SMSCommon.UpdateSMSSentData");
-            objErr.SendMail();
-
-
-            //if (currentId != "")
-            //{
-            //   SqlCommand cmd = new SqlCommand();
-            //    Database db = new Database();
-
-            //    string sql = "UPDATE SMSSent SET ReturnedMsg = @RetMsg WHERE ID = @CurrentId";
-
-            //    try
-            //    {
-            //        cmd.CommandText = sql;
-            //        cmd.CommandType = CommandType.Text;
-            //        cmd.Parameters.Add("@CurrentId", SqlDbType.Int).Value = Convert.ToInt32(currentId);
-            //        cmd.Parameters.Add("@RetMsg", SqlDbType.VarChar).Value = retMsg;
-
-            //        db.UpdateQry(cmd);
-            //    }
-            //    catch (SqlException ex)
-            //    {
-            //        HttpContext.Current.Trace.Warn("Error Message: " + ex);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        HttpContext.Current.Trace.Warn("Error: " + e);
-            //    }
-            //    finally
-            //    {
-            //        db.CloseConnection();
-            //    }
-            //}
-        }
-
-
-        //string SaveSMSSentData(string number, string message, EnumSMSServiceType esms, bool status, string retMsg, string pageUrl)
-        //{
-        //    SqlConnection con;
-        //    SqlCommand cmd;
-        //    SqlParameter prm;
-        //    Database db = new Database();
-        //    CommonOpn op = new CommonOpn();
-
-        //    string conStr = db.GetConString();
-        //    string currentId = string.Empty;
-
-        //    con = new SqlConnection(conStr);
-
-        //    try
-        //    {
-        //        cmd = new SqlCommand("InsertSMSSent", con);
-        //        cmd.CommandType = CommandType.StoredProcedure;
-
-        //        prm = cmd.Parameters.Add("@Number", SqlDbType.VarChar, 50);
-        //        prm.Value = number;
-
-        //        prm = cmd.Parameters.Add("@Message", SqlDbType.VarChar, 500);
-        //        prm.Value = message;
-
-        //        prm = cmd.Parameters.Add("@ServiceType", SqlDbType.Int);
-        //        prm.Value = esms;
-
-        //        prm = cmd.Parameters.Add("@SMSSentDateTime", SqlDbType.DateTime);
-        //        prm.Value = DateTime.Now;
-
-        //        prm = cmd.Parameters.Add("@Successfull", SqlDbType.Bit);
-        //        prm.Value = status;
-
-        //        prm = cmd.Parameters.Add("@ReturnedMsg", SqlDbType.VarChar, 500);
-        //        prm.Value = retMsg;
-
-        //        prm = cmd.Parameters.Add("@SMSPageUrl", SqlDbType.VarChar, 500);
-        //        prm.Value = pageUrl;
-        // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-        //        con.Open();
-        //        //run the command
-        //        //cmd.ExecuteNonQuery();
-        //        currentId = Convert.ToString(cmd.ExecuteScalar());
-        //    }
-        //    catch (SqlException err)
-        //    {
-        //        HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-        //        ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
-        //        objErr.SendMail();
-        //    } // catch SqlException
-        //    catch (Exception err)
-        //    {
-        //        HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-        //        ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
-        //        objErr.SendMail();
-        //    } // catch Exception
-        //    finally
-        //    {
-        //        //close the connection	
-        //        if (con.State == ConnectionState.Open)
-        //        {
-        //            con.Close();
-        //        }
-        //    }
-
-        //    return currentId;
-        //}
 
         string SaveSMSSentData(string number, string message, EnumSMSServiceType esms, bool status, string retMsg, string pageUrl)
         {
@@ -303,11 +156,6 @@ namespace Bikewale.Common
                     currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.MasterDatabase));
                 }
             }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
-                objErr.SendMail();
-            } // catch SqlException
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
@@ -349,21 +197,21 @@ namespace Bikewale.Common
                 if (isDND == true)
                 {
                     //url tp send SMS through Netcore. This will send SMS even to DND customers.
-                    url = "http://bulkpush.mytoday.com/BulkSms/SingleMsgApi?feedid=337605&username=9967335511&password=tdjgd&To=" + number + "&Text=" + message + "&time=&senderid=";
+                    url = string.Format(@"http://bulkpush.mytoday.com/BulkSms/SingleMsgApi?feedid=337605&username=9967335511&password=tdjgd&To={0}&Text={1}&time=&senderid=", number, message);
                 }
                 else
                 {
                     //url to send SMS through ACL wireless                    
-                    url = "http://push1.maccesssmspush.com/servlet/com.aclwireless.pushconnectivity.listeners.TextListener?userId=autoex&pass=autoex&appid=autoex&subappid=autoex&contenttype=1&to=" + number + "&from=BIKWAL&text=" + message + "&selfid=true&alert=1&dlrreq=true";
+                    url = string.Format(@"http://push1.maccesssmspush.com/servlet/com.aclwireless.pushconnectivity.listeners.TextListener?userId=autoex&pass=autoex&appid=autoex&subappid=autoex&contenttype=1&to={0}&from=BIKWAL&text={1}&selfid=true&alert=1&dlrreq=true", number, message);
                 }
 
-                WebClient webClient = new WebClient();
-                string strUrl = url;
-                byte[] reqHTML;
-                reqHTML = webClient.DownloadData(strUrl);
-                UTF8Encoding objUTF8 = new UTF8Encoding();
+                using (WebClient webClient = new WebClient())
+                {
+                    var reqHTML = webClient.DownloadData(url);
+                    UTF8Encoding objUTF8 = new UTF8Encoding();
+                    retVal = objUTF8.GetString(reqHTML);
+                }
 
-                retVal = objUTF8.GetString(reqHTML);
             }
             catch (Exception err)
             {
@@ -383,15 +231,15 @@ namespace Bikewale.Common
             {
                 try
                 {
-                    string url = "http://push1.maccesssmspush.com/servlet/com.aclwireless.pushconnectivity.listeners.TextListener?userId=idcarw&pass=pacarw&appid=carw&to=" + number + "&from=BikeWale&contenttype=1&selfid=true&text=" + message + "&dlrreq=true&alert=1";
+                    string url = string.Format(@"http://push1.maccesssmspush.com/servlet/com.aclwireless.pushconnectivity.listeners.TextListener?userId=idcarw&pass=pacarw&appid=carw&to={0}&from=BikeWale&contenttype=1&selfid=true&text={1}&dlrreq=true&alert=1", number, message);
 
-                    WebClient webClient = new WebClient();
-                    string strUrl = url;
-                    byte[] reqHTML;
-                    reqHTML = webClient.DownloadData(strUrl);
-                    UTF8Encoding objUTF8 = new UTF8Encoding();
 
-                    retVal = objUTF8.GetString(reqHTML);
+                    using (WebClient webClient = new WebClient())
+                    {
+                        var reqHTML = webClient.DownloadData(url);
+                        UTF8Encoding objUTF8 = new UTF8Encoding();
+                        retVal = objUTF8.GetString(reqHTML);
+                    }
                 }
                 catch (Exception err)
                 {

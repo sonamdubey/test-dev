@@ -25,6 +25,7 @@ namespace Bikewale.Models.PopUp
         {
             viewModel = new PopupLeadCaptureVM();
             ParseQueryString(_queryString);
+            BindPageMetaTags(viewModel.PageMetaTags);
             return viewModel;
         }
 
@@ -78,6 +79,24 @@ namespace Bikewale.Models.PopUp
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "PopupLeadCaptureModel.ParseQueryString()");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 14-Sep-2017
+        /// Description :  Bind page meta tags.
+        /// </summary>
+        /// <param name="pageMetaTags"></param>
+        private void BindPageMetaTags(PageMetaTags pageMetaTags)
+        {
+            try
+            {
+                pageMetaTags.Title = "Please provide more details | BikeWale";
+                pageMetaTags.Description = "Please provide more details to proceed further.";
+            }
+            catch (Exception ex)
+            {
+                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "PopupLeadCaptureModel.BindPageMetaTags()");
             }
         }
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Bikewale.Entities.NewBikeSearch
 {
@@ -13,7 +9,7 @@ namespace Bikewale.Entities.NewBikeSearch
         public string Budget { get; set; }
         public string Mileage { get; set; }
         public string RideStyle { get; set; }
-        public string AntiBreakingSystem { get; set; }
+        public string ABS { get; set; }
         public string BrakeType { get; set; }
         public string AlloyWheel { get; set; }
         public string StartType { get; set; }

@@ -215,6 +215,7 @@
     <Compile Include="BikeData\UpcomingBikeResult.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
     <Compile Include="BikeData\UsedBikeMakeEntity.cs" />
+    <Compile Include="BikeData\v2\BikeModelContent.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
     <Compile Include="BikeBooking\FeedBackEntity.cs" />
     <Compile Include="BikewalePages.cs" />
@@ -244,16 +245,20 @@
     <Compile Include="Compare\BikeDetails.cs" />
     <Compile Include="Compare\BikeEntityBase.cs" />
     <Compile Include="Compare\BikeFeature.cs" />
+    <Compile Include="Compare\BikeReview.cs" />
     <Compile Include="Compare\BikeSpecification.cs" />
     <Compile Include="Compare\BikeVersionCompareEntity.cs" />
     <Compile Include="Compare\CompareBikeColor.cs" />
     <Compile Include="Compare\CompareBikeColorCategory.cs" />
     <Compile Include="Compare\CompareBikeData.cs" />
+    <Compile Include="Compare\CompareReviewsData.cs" />
     <Compile Include="Compare\CompareSources.cs" />
     <Compile Include="Compare\CompareSubMainCategory.cs" />
     <Compile Include="Compare\CompareSubCategory.cs" />
     <Compile Include="Compare\CompareSpecificationEntity.cs" />
+    <Compile Include="Compare\MostHelpfulReviewObject.cs" />
     <Compile Include="Compare\TopBikeCompareBase.cs" />
+    <Compile Include="Compare\UserReviewComparisonObject.cs" />
     <Compile Include="Customer\CancelledBikeCustomer.cs" />
     <Compile Include="Customer\CustomerEntity.cs" />
     <Compile Include="Customer\CustomerEntityBase.cs" />
@@ -293,6 +298,11 @@
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="EMISliderAMP.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
+    <Compile Include="Finance\CapitalFirst\CapitalFirstEmailDetailsEntity.cs" />
+    <Compile Include="Finance\CapitalFirst\CapitalFirstMakeEntityBase.cs" />
+    <Compile Include="Finance\CapitalFirst\CapitalFirstVoucherEntityBase.cs" />
+    <Compile Include="Finance\CapitalFirst\EmployeDetails.cs" />
+    <Compile Include="Finance\CapitalFirst\PersonalDetails.cs" />
     <Compile Include="GenericBikes\BestBikesList.cs" />
     <Compile Include="GenericBikes\BikeRankingEntity.cs" />
     <Compile Include="GenericBikes\BikeRankingPropertiesEntity.cs" />
@@ -321,6 +331,8 @@
     <Compile Include="MobileAppAlert\MobileAppNotifications.cs" />
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
     <Compile Include="Models\AdTags.cs" />
+    <Compile Include="Models\BreadCrumb.cs" />
+    <Compile Include="Models\BreadCrumbsList.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\PageMetaTags.cs" />
     <Compile Include="NewBikeSearch\FilterEnum.cs" />
@@ -374,6 +386,9 @@
     <Compile Include="Schema\AggregateRating.cs" />
     <Compile Include="Schema\Author.cs" />
     <Compile Include="Schema\Brand.cs" />
+    <Compile Include="Schema\BreadcrumbItem.cs" />
+    <Compile Include="Schema\BreadcrumbList.cs" />
+    <Compile Include="Schema\BreadcrumbListItem.cs" />
     <Compile Include="Schema\ContactPoint.cs" />
     <Compile Include="Schema\GeoCoordinates.cs" />
     <Compile Include="Schema\ImageObject.cs" />
@@ -391,6 +406,7 @@
     <Compile Include="Schema\Review.cs" />
     <Compile Include="Schema\ReviewRating.cs" />
     <Compile Include="Schema\SchemaBase.cs" />
+    <Compile Include="Schema\WebPage.cs" />
     <Compile Include="Schema\WebSite.cs" />
     <Compile Include="SEO\CustomPageMetas.cs" />
     <Compile Include="ServiceCenters\BrandServiceCenters.cs" />
@@ -444,6 +460,7 @@
     <Compile Include="UserReviews\BikeUserReviewRating.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\InputFilters.cs" />
+    <Compile Include="UserReviews\InputRatingSaveEntity.cs" />
     <Compile Include="UserReviews\ProcessedInputFilters.cs" />
     <Compile Include="UserReviews\QuestionRatingsValueEntity.cs" />
     <Compile Include="UserReviews\QuestionsRatingValueByModel.cs" />
@@ -454,6 +471,7 @@
     <Compile Include="UserReviews\ReviewListBase.cs" />
     <Compile Include="UserReviews\ReviewRatingEntity.cs" />
     <Compile Include="UserReviews\ReviewRatingEntityBase.cs" />
+    <Compile Include="UserReviews\ReviewSubmitData.cs" />
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
     <Compile Include="UserReviews\SearchResult.cs" />
@@ -461,11 +479,14 @@
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
     <Compile Include="UserReviews\UserReviewPageSourceEnum.cs" />
     <Compile Include="UserReviews\UserReviewPriceRange.cs" />
+    <Compile Include="UserReviews\UserReviewRatingData.cs" />
     <Compile Include="UserReviews\UserReviewRatingObject.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
     <Compile Include="UserReviews\UserReviewsData.cs" />
     <Compile Include="UserReviews\UserReviewsInputEntity.cs" />
     <Compile Include="UserReviews\UserReviewSummary.cs" />
+    <Compile Include="UserReviews\V2\ModelWiseUserReview.cs" />
+    <Compile Include="UserReviews\V2\UserReviewSummary.cs" />
     <Compile Include="UsersTestimonial\UsersTestimonial.cs" />
     <Compile Include="Videos\BikeVideoEntity.cs" />
     <Compile Include="Videos\BikeVideoModelEntity.cs" />
@@ -479,6 +500,7 @@
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

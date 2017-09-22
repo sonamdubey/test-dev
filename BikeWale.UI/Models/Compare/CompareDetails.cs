@@ -5,6 +5,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
@@ -29,9 +30,10 @@ namespace Bikewale.Models
         private readonly IBikeCompare _objCompare = null;
         private readonly ICMSCacheContent _compareTest = null;
         private readonly ISponsoredComparison _objSponsored = null;
+        public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         public string redirectionUrl { get; set; }
-        private string originalUrl;
+        private readonly string originalUrl;
         private string _baseUrl = string.Empty, _bikeQueryString = string.Empty, _versionsList = string.Empty;
         uint _sponseredBikeVersionId;
 
@@ -100,21 +102,15 @@ namespace Bikewale.Models
             {
                 GlobalCityAreaEntity cityArea = GlobalCityArea.GetGlobalCityArea();
                 uint CityId = 0;
-                string cityName = string.Empty;
                 if (cityArea != null)
                 {
-                    cityName = cityArea.City;
                     CityId = cityArea.CityId;
-                }
-                else
-                {
-                    cityName = BWConfiguration.Instance.DefaultName;
                 }
                 var SponsoredBike = _objSponsored.GetSponsoredVersion(_versionsList);
 
                 if (SponsoredBike != null)
                 {
-                    obj.sponsoredVersionId =_sponseredBikeVersionId>0? _sponseredBikeVersionId: SponsoredBike.SponsoredVersionId;
+                    obj.sponsoredVersionId = _sponseredBikeVersionId > 0 ? _sponseredBikeVersionId : SponsoredBike.SponsoredVersionId;
                     obj.KnowMoreLinkUrl = SponsoredBike.LinkUrl;
                     obj.KnowMoreLinkText = !String.IsNullOrEmpty(SponsoredBike.LinkText) ? SponsoredBike.LinkText : "Know more";
                 }
@@ -148,7 +144,6 @@ namespace Bikewale.Models
         private void GetComparisionTextAndMetas(CompareDetailsVM obj)
         {
             IList<string> bikeList = null, bikeMaskingList = null, bikeModels = null;
-            string ComparisionUrls = string.Empty;
             try
             {
                 if (obj.Compare != null && obj.Compare.BasicInfo != null)
@@ -189,6 +184,11 @@ namespace Bikewale.Models
                     CreateCompareSummary(obj.Compare.BasicInfo, obj.Compare.CompareColors, obj);
                     obj.PageMetaTags.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, compareUrl);
                     obj.PageMetaTags.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, compareUrl);
+                    obj.Page_H1 = obj.comparisionText;
+
+                    SetBreadcrumList(obj);
+                    SetPageJSONLDSchema(obj);
+
 
                 }
 
@@ -200,6 +200,48 @@ namespace Bikewale.Models
         }
 
         /// <summary>
+        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema
+        /// </summary>
+        private void SetPageJSONLDSchema(CompareDetailsVM objPageMeta)
+        {
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(CompareDetailsVM objPage)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+            url += "comparebikes/";
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Compare bikes"));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
+
+
+            objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
+        }
+
+        /// <summary>
         /// Created By :- Subodh Jain 09 May 2017
         /// Summary :- Function for CheckForRedirection
         /// </summary>
@@ -208,6 +250,12 @@ namespace Bikewale.Models
         {
             try
             {
+                string[] strArray = originalUrl.Trim().Split('/');
+                if (strArray.Length > 1)
+                {
+                    _baseUrl = IsMobile ? strArray[3] : strArray[2];
+                }
+
                 status = _baseUrl == canonicalUrl ? 0 : StatusCodes.RedirectPermanent;
                 if (status == Entities.StatusCodes.RedirectPermanent)
                 {
@@ -277,24 +325,7 @@ namespace Bikewale.Models
             }
             return canon;
         }
-        /// <summary>
-        /// Created By :- Subodh Jain 09 May 2017
-        /// Summary :- Function for ParseQueryString
-        /// </summary>
-        /// <returns></returns>
-        private void ParseQueryString(string originalUrl)
-        {
-            string[] strArray = originalUrl.Trim().Split('/');
-            if (strArray.Length > 1)
-            {
-                _baseUrl = strArray[2];
-            }
-            string[] queryArr = originalUrl.Split('?');
-            if (queryArr.Length > 1)
-            {
-                _bikeQueryString = queryArr[1];
-            }
-        }
+
         /// <summary>
         /// Created By :- Subodh Jain 09 May 2017
         /// Summary :- Function for ProcessQueryString
@@ -303,13 +334,17 @@ namespace Bikewale.Models
         private void ProcessQueryString()
         {
             ushort bikeComparisions = 0;
-            ushort maxComparisions = 5;
+            ushort maxComparisions = (ushort)(IsMobile ? 2 : 5);
             try
             {
                 var request = HttpContext.Current.Request;
                 string modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
 
-                ParseQueryString(originalUrl);
+                string[] queryArr = originalUrl.Split('?');
+                if (queryArr.Length > 1)
+                {
+                    _bikeQueryString = queryArr[1];
+                }
 
                 if (_bikeQueryString.Contains("sponseredBike"))
                 {
@@ -334,7 +369,7 @@ namespace Bikewale.Models
                     status = StatusCodes.ContentFound;
 
                 }
-               
+
                 else if (!string.IsNullOrEmpty(modelList))
                 {
                     string[] models = modelList.Split(',');

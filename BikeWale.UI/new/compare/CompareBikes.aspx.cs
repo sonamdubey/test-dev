@@ -74,7 +74,7 @@ namespace Bikewale.New
                 }
                 if (count < 2)
                 {
-                    Response.Redirect("/comparebikes/", false);//return;	
+                    Response.Redirect("/comparebikes/", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -123,7 +123,7 @@ namespace Bikewale.New
                 if (isFeatured && ds.Tables[4].Rows != null && ds.Tables[4].Rows.Count > 0)
                 {
                     estimatePrice = CommonOpn.FormatPrice(Convert.ToString(ds.Tables[4].Rows[0]["EstimatedPriceMin"]));
-                    estimateLaunchDate = ds.Tables[4].Rows[0]["ExpectedLaunch"].ToString(); //TODO: Change Date fomate.
+                    estimateLaunchDate = ds.Tables[4].Rows[0]["ExpectedLaunch"].ToString();
                 }
 
                 if (count > 0)
@@ -182,13 +182,9 @@ namespace Bikewale.New
                         if (!string.IsNullOrEmpty(sponsoredModelIds))
                         {
                             string[] modelArray = sponsoredModelIds.Split(',');
-                            if (modelArray.Length > 0)
-                            {
-                                if (modelArray.Contains(featuredModelId))
-                                {
-                                    isSponsored = true;
-                                }
-                            }
+
+                            isSponsored = modelArray.Length > 0 && modelArray.Contains(featuredModelId);
+
                         }
                     }
                 }

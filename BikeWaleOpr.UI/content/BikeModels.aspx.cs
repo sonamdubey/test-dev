@@ -360,7 +360,7 @@ namespace BikeWaleOpr.Content
                         IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
                         foreach (var mailId in emails)
                         {
-                            SendEmailOnModelChange.SendModelDiscontinuedEmail(mailId,mmv.Make,mmv.Model,DateTime.Now);
+                            SendEmailOnModelChange.SendModelDiscontinuedEmail(mailId, mmv.Make, mmv.Model, DateTime.Now);
                         }
                     }
                     catch (Exception ex)
@@ -377,7 +377,7 @@ namespace BikeWaleOpr.Content
                 //Refresh memcache object for bikeModelDetails
                 MemCachedUtil.Remove(string.Format("BW_ModelDetails_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
                 MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
-                MemCachedUtil.Remove(string.Format("BW_GenericBikeInfo_MO_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
+                MemCachedUtil.Remove(string.Format("BW_GenericBikeInfo_MO_{0}_V1", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
                 //Refresh memcache object for popularBikes change
                 MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
 

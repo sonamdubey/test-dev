@@ -2,7 +2,7 @@ var assistFormSubmit, assistGetName, assistGetEmail, assistGetMobile;
 var getOnRoadPriceBtn, onroadPriceConfirmBtn;
 var getOffersClick = false, selectDropdownBox;
 var $window, modelDetailsFloatingCard, modelSpecsTabsContentWrapper;
-var abusereviewId,userreviewsListStr;
+var abusereviewId, userreviewsListStr, vmUserReviews;
 
 // colour carousel
 var colourCarousel, carouselColorList;
@@ -127,20 +127,7 @@ function LoadTerms(offerId) {
     $(".termsPopUpContainer").css('height', '500');
 }
 
-// add divider
-function addDivider(grid1, grid2) {
-    if (grid1.height() > grid2.height()) {
-        grid1.addClass('border-solid-right');
-    }
-    else {
-        grid2.addClass('border-solid-left');
-    }
-}
-
 docReady(function () {
-
-    // add divider between version prices table and prices in nearby cities
-    addDivider($('#version-prices-grid'), $('#nearby-prices-grid'));
 
     // ad blocker active than fallback method
     if (window.canRunAds === undefined) {
@@ -256,6 +243,11 @@ docReady(function () {
         bikeVersion = getBikeVersion();
     }
 
+    vmUserReviews = new modelUserReviews();
+
+    if ($("#user-review-div")[0])
+        ko.applyBindings(vmUserReviews, $("#user-review-div")[0]);
+
 });
 
 docReady(function () {
@@ -347,7 +339,7 @@ docReady(function () {
 });
 
 docReady(function () {
-
+    bwcache.setOptions({ 'EnableEncryption': true });
     applyLazyLoad();
 
     // version dropdown
@@ -799,13 +791,87 @@ var reportAbusePopup = {
     }
 };
 
+ko.bindingHandlers.truncatedText = {
+    update: function (element, valueAccessor, allBindingsAccessor) {
+        if (ko.utils.unwrapObservable(valueAccessor())) {
+            var originalText = ko.utils.unwrapObservable(valueAccessor()),
+                length = parseInt(element.getAttribute("data-trimlength")) || 20,
+                truncatedText = originalText.length > length ? originalText.substring(0, trimLengthText) + "..." : originalText;
+            ko.bindingHandlers.text.update(element, function () {
+                return truncatedText;
+            });
+        }
+    }
+};
+
+ko.bindingHandlers.formattedVotes = {
+    update: function (element, valueAccessor) {
+        try {
+            var amount = valueAccessor();
+            var formattedStringArray = (amount / 1000).toString().match(/\d+[.]+\d/);
+            if (amount % 1000 == 0 && amount > 0) {
+                var formattedVote = amount / 1000 + '.0k';
+            }
+            else {
+                var formattedVote = ko.unwrap(amount) > 999 && formattedStringArray ? formattedStringArray[0] + 'k' : amount;
+            }
+            $(element).text(formattedVote);
+        } catch (e) {
+            console.warn(e);
+        }
+    }
+};
+
+ var modelUserReviews = function () {
+    var self = this;
+    self.reviewList = ko.observableArray(null);
+    self.trimLengthText = ko.observable();
+    self.isLoading = ko.observable(false);
+    self.getMoreReviews = function () {
+        try {
+            if (bikeModelId) {
+                var apiUrl = "/api/user-reviews/list/3/?reviews=true&pn=1&ps=5&so=1&model=" + bikeModelId;
+                $.getJSON(apiUrl)
+                .done(function (response) {
+                    if (response && response.result) {
+                        self.reviewList(response.result);
+                        applyLikeDislikes();
+                    }
+                    self.isLoading(false);
+                });
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    self.logBhrighuData = function (event, eventName) {       
+        var ele = $(event.currentTarget);
+        var index = ele.data("index");
+        logBhrighu(index, eventName);
+        return true;
+    };
+    self.readMoreNew = function (event) {        
+        var ele = $(event.currentTarget);
+        var reviewId = ele.data("reviewid");
+
+        updateView(reviewId);
+       
+        var index = ele.data("index");
+       
+        logBhrighu(index, "ReadMoreClick");
+        return true;
+    };
+}
+
+
 function logBhrighu(itemNo, eventName) {
     label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + (++itemNo) + '|pageSource=' + $('#pageSource').val();
     cwTracking.trackUserReview(eventName, label);
 }
 
 function updateView(reviewId) {
-    try {
+    try {        
+
         if (reviewId) {
             $.post("/api/user-reviews/updateView/" + reviewId + "/");
         }
@@ -827,14 +893,25 @@ function readMore(e) {
             if (moreContentEle) {
 				moreContentEle.html(desc);
 			}
-			
+			           
             updateView(reviewId);
             logBhrighu(itemNo, "ReadMoreClick");
+
+            if ($('#user-review-div') && $('#user-review-div').attr('data-readmore')) {                
+                $('#user-review-div').attr('data-readmore', parseInt($('#user-review-div').attr('data-readmore')) + 1);
+            }
+
+            if ($('#user-review-div') && $('#user-review-div').attr('data-readmore') == "3") {
+                vmUserReviews.isLoading(true);
+                vmUserReviews.getMoreReviews();
+            }
+
         }
     } catch (e) {
         console.log(e);
     }
 };
+
 $(".navtab").click(function () {
 
     try {

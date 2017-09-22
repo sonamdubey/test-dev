@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
@@ -12,10 +8,13 @@ namespace Bikewale.Controls
         public uint AreaId { get; set; }
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
+        protected string cityName = string.Empty, areaName = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            var location = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
+            cityName = location.City;
+            areaName = location.Area;
         }
     }
 }

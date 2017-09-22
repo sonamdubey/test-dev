@@ -11,7 +11,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     /// </summary>
     internal class BajajFinanceLeadHandler : ManufacturerLeadHandler
     {
-        private HttpClient _httpClient;
 
         /// <summary>
         /// Type initializer
@@ -21,7 +20,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="isAPIEnabled"></param>
         public BajajFinanceLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled) : base(manufacturerId, urlAPI, isAPIEnabled)
         {
-            _httpClient = new HttpClient();
         }
 
         /// <summary>
@@ -72,7 +70,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         leadData = new List<BajajFinanceLeadEntity>() { bikeMappingInfo }
                     };
 
-                    if (_httpClient != null)
+                    using (HttpClient _httpClient = new HttpClient())
                     {
                         string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(bajajLeadInput);
                         HttpContent httpContent = new StringContent(jsonString);

@@ -23,7 +23,7 @@
                 "modelname": "@Model.ModelName",
                 "pagecatid": "@Model.PageCategoryId",
                 "pagesrcid": "@Model.PQSourceId",
-            }
+            };
             obj.cityId = @Model.PreSelectedCity || obj.cityId;
             vmquotation.setOptions(obj);
             $('#popupWrapper .close-btn').attr("data-returnurl",'@Model.Url');

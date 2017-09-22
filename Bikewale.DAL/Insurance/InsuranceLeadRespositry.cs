@@ -65,7 +65,6 @@ namespace Bikewale.DAL.Insurance
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientid", DbType.Int32, Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["insuranceclientid"])));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Int32, lead.LeadSourceId));
 
-                    // LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                     isSuccess = true;
@@ -93,7 +92,6 @@ namespace Bikewale.DAL.Insurance
         /// Creted By : Lucky Rathore
         /// Date : 20 November 2015
         /// Description : To validated data.
-        /// TODO : Validate policyType.
         /// </summary>
         /// <param name="lead"></param>
         /// <returns></returns>
