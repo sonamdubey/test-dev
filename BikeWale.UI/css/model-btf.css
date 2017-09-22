@@ -1185,6 +1185,12 @@ li.offertxt:hover span {display:inline}
 .expert-review-list .h2-heading {
     padding: 20px 20px 15px;
 }
+@media only screen and (max-width: 1024px) {
+    .article-type-carousel.inner-content-carousel .jcarousel li {
+        width: 300px !important;
+    }
+}
+
 .article-type-carousel.inner-content-carousel .jcarousel li {
     height: 245px;
     width: 300px;
@@ -1195,8 +1201,13 @@ li.offertxt:hover span {display:inline}
     box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50);
 }
 .article-type-carousel img {
+    max-height: 168px;
     height: auto;
     max-width:100%;
+}
+.article-type-carousel .jcarousel-image-preview {
+    height: 168px;
+    text-align: center;
 }
 .article-type-carousel .card-desc-block h3 {
     padding-top: 10px;

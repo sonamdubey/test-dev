@@ -1028,11 +1028,12 @@ h2.text-bold { font-weight: bold; }
 }
 .expert-review-list h2{
     margin-bottom: 0;
+    font-size: 14px;
     padding: 15px 20px 10px;
 }
 .article-type-carousel .swiper-slide,
 .article-type-carousel .swiper-card {
-    min-height: 200px; 
+    min-height: 190px; 
 }
 
 .article-type-carousel .swiper-image-preview {
@@ -1049,10 +1050,9 @@ h2.text-bold { font-weight: bold; }
     margin-left: 5px;
 }
 .article-type-carousel .swiper-details-block {
-    padding-top: 7px;
-    padding-bottom: 15px; 
+    padding-top: 15px;
+    padding-bottom: 8px; 
 }
-
 .user-reviews-type-carousel .swiper-slide,
 .user-reviews-type-carousel .swiper-card {
     width: 200px;
