@@ -55,7 +55,7 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_parammileagecategoryids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Mileage)) ? filter.Mileage.Replace(' ', ',') : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdisplacementfilterids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Displacement)) ? filter.Displacement.Replace(' ', ',') : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramridestyleid", DbType.String, 50, (!String.IsNullOrEmpty(filter.RideStyle)) ? filter.RideStyle.Replace(' ', ',') : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhasabs", DbType.Boolean, (!String.IsNullOrEmpty(filter.AntiBreakingSystem)) ? Convert.ToBoolean(Convert.ToInt16(filter.AntiBreakingSystem)) : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhasabs", DbType.Boolean, (!String.IsNullOrEmpty(filter.ABS)) ? Convert.ToBoolean(Convert.ToInt16(filter.ABS)) : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdrumdisc", DbType.Boolean, (!String.IsNullOrEmpty(filter.BrakeType)) ? Convert.ToBoolean(Convert.ToInt16(filter.BrakeType)) : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramspokealloy", DbType.Boolean, (!String.IsNullOrEmpty(filter.AlloyWheel)) ? Convert.ToBoolean(Convert.ToInt16(filter.AlloyWheel)) : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhaselectric", DbType.Boolean, (!String.IsNullOrEmpty(filter.StartType)) ? Convert.ToBoolean(Convert.ToInt16(filter.StartType)) : Convert.DBNull));
@@ -317,8 +317,8 @@ namespace Bikewale.DAL.BikeBooking
                     apiUrlstr += "&startType=" + filterInputs.StartType.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(filterInputs.AlloyWheel))
                     apiUrlstr += "&alloyWheel=" + filterInputs.AlloyWheel.Replace(" ", "+");
-                if (!String.IsNullOrEmpty(filterInputs.AntiBreakingSystem))
-                    apiUrlstr += "&antiBreakingSystem=" + filterInputs.AntiBreakingSystem.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.ABS))
+                    apiUrlstr += "&ABS=" + filterInputs.ABS.Replace(" ", "+");
             }
             catch (Exception ex)
             {

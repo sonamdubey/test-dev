@@ -281,7 +281,7 @@
                 <div class="grid-5 alpha">
                     <h3>ABS</h3>
                 </div>
-                <div name="AntiBreakingSystem" class="grid-7 omega">
+                <div name="ABS" class="grid-7 omega">
                     <span filterid="1" class="form-control grid-6 checkOption">Yes</span>
                     <span filterid="2" class="form-control grid-6 checkOption">No</span>
                 </div>
