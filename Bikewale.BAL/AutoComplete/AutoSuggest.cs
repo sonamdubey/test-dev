@@ -76,7 +76,7 @@ namespace Bikewale.BAL.AutoComplete
 
                     ISearchResponse<T> _result = client.Search<T>(selectorWithContext);
 
-                    if (_result.Suggest[completion_field][0].Options.Count <= 0)
+                    if (_result.Suggest[completion_field][0].Options.Count <= 0 && source!=AutoSuggestEnum.PinCodeCapitalFirst)
                     {
                         selectorWithContext = new Func<SearchDescriptor<T>, SearchDescriptor<T>>
                             (sd => sd.Index(indexName)
@@ -128,6 +128,9 @@ namespace Bikewale.BAL.AutoComplete
                 case AutoSuggestEnum.AreaPinCodes:
                     indexName = Utility.BWConfiguration.Instance.PinCodesIndexName;
                     break;
+                case AutoSuggestEnum.PinCodeCapitalFirst:
+                    indexName = Utility.BWConfiguration.Instance.CapitalFirstPinCode;
+                    break;
                 default:
                     indexName = Utility.BWConfiguration.Instance.MMindexName;
                     break;
@@ -154,6 +157,9 @@ namespace Bikewale.BAL.AutoComplete
                     indexName.Add("AllCity");
                     break;
                 case AutoSuggestEnum.AreaPinCodes:
+                    indexName.Add("AreaPinCodes");
+                    break;
+                case AutoSuggestEnum.PinCodeCapitalFirst:
                     indexName.Add("AreaPinCodes");
                     break;
                 default:

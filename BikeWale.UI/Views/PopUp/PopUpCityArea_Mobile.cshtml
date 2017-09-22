@@ -1,0 +1,37 @@
+﻿@model Bikewale.Models.PoupCityAreaVM
+
+@{
+
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/PopUp/PopUpCityArea.css' />";
+}
+
+<script type="text/javascript">
+
+
+    docReady(function(){
+        (function(){
+            vmquotation.CheckCookies();
+            var obj = {
+
+                "modelId": @Model.ModelId,
+                "cityId": onCookieObj.PQCitySelectedId,
+                "areaId": onCookieObj.PQAreaSelectedId,
+                "city": (onCookieObj.PQCitySelectedId > 0) ? { 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName } : null,
+                "area": (onCookieObj.PQAreaSelectedId > 0) ? { 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName } : null,
+                "makename": "@Model.MakeName",
+                "modelname": "@Model.ModelName",
+                "pagecatid": "@Model.PageCategoryId",
+                "pagesrcid": "@Model.PQSourceId",
+            };
+            obj.cityId = @Model.PreSelectedCity || obj.cityId;
+            vmquotation.setOptions(obj);
+            $('#popupWrapper .close-btn').attr("data-returnurl",'@Model.Url');
+
+        })();
+
+    });
+
+
+</script>
+<!-- widget script ends here-->

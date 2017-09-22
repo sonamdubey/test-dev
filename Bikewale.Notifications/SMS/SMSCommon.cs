@@ -53,7 +53,9 @@ namespace Bikewale.Notifications
         ServiceCenterDetailsSMSToCustomer = 35,
         BikeListingExpirySevenDaySMSToSeller = 36,
         BikeListingExpiryOneDaySMSToSeller = 37,
-        SMSForPhotoUploadTwoDays = 38
+        SMSForPhotoUploadTwoDays = 38,
+        SMSforCapitalFirstSuccess = 39,
+        SMSforCapitalFirstFailure = 40
     }
 
     public class SMSCommon

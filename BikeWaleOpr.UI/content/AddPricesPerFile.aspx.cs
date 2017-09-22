@@ -94,7 +94,13 @@ namespace BikeWaleOpr.Content
             xr.Close();
         }
 
-
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Changed SP from 'insertshowroomprices_28062017' to 'insertshowroomprices_30082017', removed catch(SqlException)
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="bikeId"></param>
+        /// <param name="price"></param>
         void SaveData(string cityId, string bikeId, string price)
         {
 
@@ -104,7 +110,7 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices_28062017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices_30082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int64, bikeId));
@@ -124,14 +130,6 @@ namespace BikeWaleOpr.Content
                 }
 
             }
-            catch (SqlException err)
-            {
-                Trace.Warn(err.Message);
-                Exception ex = new Exception(err.Message + " : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
-
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            } // catch Exception
             catch (Exception err)
             {
                 Trace.Warn(err.Message);

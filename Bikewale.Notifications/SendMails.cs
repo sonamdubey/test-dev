@@ -1,10 +1,11 @@
 ﻿using Bikewale.Notifications.Configuration;
 using System;
+using System.IO;
 using System.Net.Mail;
 
 namespace Bikewale.Notifications
 {
-    /// <summary>
+    /// <summary>release-bwc-17.9.3-19092017
     /// Modified By : Ashish G. Kamble on 26 apr 2013
     /// Summary : Class have methods for sending the mails. Class contains actual business logic to send mails.
     /// </summary>
@@ -36,9 +37,23 @@ namespace Bikewale.Notifications
         /// <param name="body">Body content of the email.</param>
         public void SendMail(string email, string subject, string body)
         {
-            ConfigureMailSettings(email, subject, body, ReplyTo, null, null);
+            ConfigureMailSettings(email, subject, body, ReplyTo, null, null, null, null);
 
         }   // End of SendMail method
+
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 22 May 2013
+        /// Summary : Function to send the mail. To send mail create object of the mailing template first.
+        /// </summary>
+        /// <param name="email">Email address on which mail will be send.</param>
+        /// <param name="subject">Subject of the email.</param>
+        /// <param name="body">Body content of the email.</param>
+        public void SendMail(string email, string subject, string body, byte[] attachment, string attachmentName)
+        {
+            ConfigureMailSettings(email, subject, body, ReplyTo, null, null, attachment, attachmentName);
+
+        }
 
 
         /// <summary>
@@ -51,7 +66,7 @@ namespace Bikewale.Notifications
         /// <param name="replyTo">Email address to which reply will be send. Optional parameter.</param>
         public void SendMail(string email, string subject, string body, string replyTo)
         {
-            ConfigureMailSettings(email, subject, body, replyTo, null, null);
+            ConfigureMailSettings(email, subject, body, replyTo, null, null, null, null);
 
         }   // End of SendMail method
 
@@ -68,7 +83,7 @@ namespace Bikewale.Notifications
         /// <param name="bcc">Gets the address collection that contains blank carbony copy (BCC) recepients for this email message. Optional parameter.</param>
         public void SendMail(string email, string subject, string body, string replyTo, string[] cc, string[] bcc)
         {
-            ConfigureMailSettings(email, subject, body, replyTo, cc, bcc);
+            ConfigureMailSettings(email, subject, body, replyTo, cc, bcc, null, null);
 
         }   // End of SendMail method
 
@@ -109,7 +124,7 @@ namespace Bikewale.Notifications
         /// <param name="replyTo">Email address to which reply will be send. Optional parameter.</param>
         /// <param name="cc">Gets the address collection that contains carbony copy (CC) recepients for this email message. Optional parameter.</param>
         /// <param name="bcc">Gets the address collection that contains blank carbony copy (BCC) recepients for this email message. Optional parameter.</param>
-        private void ConfigureMailSettings(string email, string subject, string body, string replyTo, string[] cc, string[] bcc)
+        private void ConfigureMailSettings(string email, string subject, string body, string replyTo, string[] cc, string[] bcc, byte[] attachment, string attachmentName)
         {
 
             try
@@ -157,6 +172,13 @@ namespace Bikewale.Notifications
                 // mail body                         
                 msg.Body = body;
 
+                // attachment
+                if (attachment != null && attachment.Length > 0 && attachment != null)
+                {
+     
+                    Attachment att = new Attachment(new MemoryStream(attachment), attachmentName);
+                    msg.Attachments.Add(att);
+                }
                 // Send the e-mail
                 client.Send(msg);
 
