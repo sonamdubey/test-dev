@@ -11,6 +11,8 @@ BikeWale.UI/build/
 BikeWale.UI/min/
 node_modules/
 BikeWale.UI/.gulp-cache/
+BikeWale.UI/sass/**/*.css
+BikeWale.UI/m/sass/**/*.css
 .vs
 .vscode
 Bikewale.DataSync/DataSync/bin

@@ -50,8 +50,15 @@ gulp.task('minify-js', function () {
 		.pipe(gulp.dest(minifiedAssetsFolder));
 });
 
-var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'user-review/', 'upcoming-bikes/', 'compare/'];
-var mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'user-review/', 'upcoming-bikes/'];
+gulp.task('minify-sass-css', function () {
+	return gulp.src(['BikeWale.UI/sass/**/*.sass', 'BikeWale.UI/m/sass/**/*.sass'], { base: 'BikeWale.UI/' })
+		.pipe(sass().on('error', sass.logError))
+		.pipe(cleanCss())
+		.pipe(gulp.dest('BikeWale.UI/build/min/'));
+});
+
+var desktopSASSFolder = ['sell-bike/'];
+var mobileSASSFolder = ['sell-bike/'];
 
 // convert desktop sass to css
 gulp.task('bw-sass-to-css', function () {
@@ -132,55 +139,7 @@ var pageArray = [
 		stylesheet: 'm/css/used/details.css'
 	}
 ];
-/*
-var mvcPageArray = [
-	{
-	    folderName: 'Views/m/NewLaunches/',
-	    fileName: 'Index.cshtml',
-	    stylesheet: 'm/css/new-launch/new-launch.css'
-	},
-	{
-	    folderName: 'Views/m/NewLaunches/',
-	    fileName: 'BikesByMake.cshtml',
-	    stylesheet: 'm/css/new-launch/new-launch.css'
-	},
-	{
-	    folderName: 'Views/m/NewLaunches/',
-	    fileName: 'BikesByYear.cshtml',
-	    stylesheet: 'm/css/new-launch/new-launch.css'
-	},
-	{
-	    folderName: 'Views/NewLaunches/',
-	    fileName: 'Index.cshtml',
-	    stylesheet: 'css/new-launch/new-launch.css'
-	},
-	{
-	    folderName: 'Views/NewLaunches/',
-	    fileName: 'BikesByYear.cshtml',
-	    stylesheet: 'css/new-launch/new-launch.css'
-	},
-	{
-	    folderName: 'Views/NewLaunches/',
-	    fileName: 'BikesByMake.cshtml',
-	    stylesheet: 'css/new-launch/new-launch.css'
-	},
-	{
-	    folderName: 'Views/Shared/',
-	    fileName: '_Layout_Desktop.cshtml',
-	    stylesheet: 'css/bw-common-atf.css'
-	},
-    {
-        folderName: 'Views/Shared/',
-        fileName: '_Layout_Mobile.cshtml',
-        stylesheet: 'm/css/bwm-common-atf.css'
-    },
-    {
-        folderName: 'Views/PriceInCity/',
-        fileName: 'Index_Mobile.cshtml',
-        stylesheet: 'm/css/new/bwm-modelprice-in-city.css'
-    }
-];
-*/
+
 var mvcLayoutPages = [
 	{
 		folderName: 'Views/Shared/',
@@ -281,7 +240,7 @@ gulp.task('replace-css-link-reference', function () {
 });
 
 gulp.task('sass', function () {
-	return gulp.src(app + 'sass/**/*.sass', { base: app })
+	return gulp.src([app + 'sass/**/*.sass', app + 'm/sass/**/*.sass'], { base: app })
 		.pipe(sass().on('error', sass.logError))
 		.pipe(gulp.dest(app));
 });
@@ -294,9 +253,8 @@ gulp.task('sass:watch', function () {
 gulp.task('default',
 	gulpSequence(
 		'clean',
-		'bw-sass-to-css', 'bwm-sass-to-css',
 		'sass',
-		'minify-css', 'minify-js',
+		'minify-css', 'minify-js', 'minify-sass-css',
 		'bw-framework-js',
 		'replace-css-reference',
 		'replace-mvc-layout-css-reference',

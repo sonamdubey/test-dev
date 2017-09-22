@@ -4,7 +4,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_JS_Path = "/src/service/details.js";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/service/details.css' inline />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/service/details.css' inline />";
     Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com{0}", UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, Model.ServiceCenterData.Name, Model.ServiceCenterData.Id));
     Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m{0}", UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, Model.ServiceCenterData.Name, Model.ServiceCenterData.Id));
     Model.AdTags.AdId = "1395986297721";
