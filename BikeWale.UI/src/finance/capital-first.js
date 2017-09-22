@@ -278,7 +278,6 @@ function validatePersonalInfo() {
             $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
             $(".employment__title").removeClass("inactive");
             $(".employment-details-container").addClass("visible");
-			scrollTop($(employmentDeatilTab).offset());
 
 		}
 		else {
