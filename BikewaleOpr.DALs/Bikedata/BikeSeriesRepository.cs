@@ -86,7 +86,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DAL.BikeSeriesRepository: AddSeries");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: AddSeries_{0}_{1}", bikeSeries, updatedBy));
             }
         }
 
@@ -115,7 +115,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DAL.BikeSeriesRepository: GetSeriesByMake");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: GetSeriesByMake_{0}", makeId));
             }
             return objBikeSeriesList;
         }
@@ -194,7 +194,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: DeleteSeries_{0}", bikeSeriesId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: DeleteSeries_{0}_{1}", bikeSeriesId, deletedBy));
             }
             return rowsAffected > 0;
         }

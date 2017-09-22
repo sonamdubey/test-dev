@@ -337,7 +337,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetMakes");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetMakes_{0}", requestType));
             }
 
             return objMakes;
@@ -373,7 +373,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetModelsByMake");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetModelsByMake_{0}_{1}", requestType, makeId));
             }
             return objBikeModelEntityBaseList;
         }

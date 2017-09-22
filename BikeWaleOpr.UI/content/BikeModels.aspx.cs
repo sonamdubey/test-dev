@@ -752,25 +752,23 @@ namespace BikeWaleOpr.Content
         /// <param name="e"></param>
         private void UpdateModelSeries(object sender, EventArgs e)
         {
-            string ModelIdsList = hdnModelIdsListSeries.Value;
-
-            if (ModelIdsList.Length > 0)
-                ModelIdsList = ModelIdsList.Substring(0, ModelIdsList.Length - 1);
-
-            Trace.Warn("++ model ids ", ModelIdsList);
-
+            
             try
             {
+                string ModelIdsList = hdnModelIdsListSeries.Value;
+
+                if (ModelIdsList.Length > 0)
+                    ModelIdsList = ModelIdsList.Substring(0, ModelIdsList.Length - 1);
+
                 UpdateModelSeries(ddlUpdateSeries.SelectedValue, ModelIdsList);
+                BindGrid();
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Series Updated Successfully.');", true);
             }
             catch (Exception ex)
             {
-                Trace.Warn(ex.Message + ex.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
-            BindGrid();
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Series Updated Successfully.');", true);
+          
         }
         
         /// <summary>
