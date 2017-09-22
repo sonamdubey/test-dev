@@ -146,7 +146,7 @@ namespace Bikewale.Models.BikeModels
                     if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
                     {
                         GetManufacturerCampaign();
-                        if (_objData.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                        if (_objData.LeadCampaign != null && _objData.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                         {
                             PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
                             objPQEntity.CityId = Convert.ToUInt16(_cityId);
