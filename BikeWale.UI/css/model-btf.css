@@ -1179,3 +1179,30 @@ li.offertxt:hover span {display:inline}
 }
 
 /*explore more card ends here*/
+.expert-review-list {
+    background-color: #fafafa;
+}
+.expert-review-list .h2-heading {
+    padding: 20px 20px 15px;
+}
+.article-type-carousel.inner-content-carousel .jcarousel li {
+    height: 245px;
+    width: 300px;
+    -webkit-box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50);
+    -moz-box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50);
+    -ms-box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50);
+    -o-box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50);
+    box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50);
+}
+.article-type-carousel img {
+    height: auto;
+    max-width:100%;
+}
+.article-type-carousel .card-desc-block h3 {
+    padding-top: 10px;
+    font-size: 15px;
+    color: #2a2a2a;
+}
+.article-type-carousel.inner-content-carousel .jcarousel {
+    left: 0;
+}
