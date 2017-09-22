@@ -745,6 +745,9 @@
   opacity: 0.2;
   pointer-events: none; }
 
+.pagination-review-count.grid-5 {
+  width: 40%; }
+
 @media only screen and (max-width: 350px) {
   .pagination-list-content .pagination-list a {
     font-size: 12px;

@@ -50,6 +50,13 @@ gulp.task('minify-js', function () {
 		.pipe(gulp.dest(minifiedAssetsFolder));
 });
 
+gulp.task('minify-sass-css', function () {
+	return gulp.src(['BikeWale.UI/sass/**/*.sass', 'BikeWale.UI/m/sass/**/*.sass'], { base: 'BikeWale.UI/' })
+		.pipe(sass().on('error', sass.logError))
+		.pipe(cleanCss())
+		.pipe(gulp.dest('BikeWale.UI/build/min/'));
+});
+
 var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'user-review/', 'upcoming-bikes/', 'compare/'];
 var mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/','user-review/', 'upcoming-bikes/'];
 
@@ -715,7 +722,7 @@ gulp.task('default', gulpSequence(
     'clean',
 	'bw-sass-to-css', 'bwm-sass-to-css',
 	'sass',
-    'minify-css', 'minify-js',
+	'minify-css', 'minify-js', 'minify-sass-css',
     'bw-framework-js',
     'replace-css-reference',
     'replace-mvc-layout-css-reference',
