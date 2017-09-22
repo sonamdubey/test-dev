@@ -17,52 +17,7 @@ namespace BikewaleOpr.BAL
         {
             _dealerPQRepository = dealerPQRepository;
         }
-#if unused
-        public uint IsDealerExists(uint versionId, uint areaId)
-        {
-            uint dealerId = 0;
 
-            double areaLattitude = 0, areaLongitude = 0;
-
-            _dealerPQRepository.GetAreaLatLong(areaId, out areaLattitude, out areaLongitude);
-
-            List<DealerLatLong> objDealersList = _dealerPQRepository.GetDealersLatLong(versionId, areaId);
-
-            if (objDealersList != null && objDealersList.Count > 0)
-            {
-                var dealerDistList = new List<DealerCustDistanceMapping>();
-
-                foreach (var dealer in objDealersList)
-                {
-                    dealerDistList.Add(new DealerCustDistanceMapping
-                    {
-                        dealer = dealer,
-                        distance = GetDistanceBetweenTwoLocations(areaLattitude, areaLongitude, dealer.Lattitude, dealer.Longitude)
-                    });
-                }
-
-                //list those dealers whose max serving distance = 0 (entire city) and user distance within dealers serving distance range.
-                DealerCustDistanceMapping objNearestDealer = dealerDistList.FindAll(s => (s.dealer.ServingDistance == 0 || s.dealer.ServingDistance >= s.distance)).OrderBy(s => s.distance).FirstOrDefault();
-
-                if (objNearestDealer != null)
-                    dealerId = objNearestDealer.dealer.DealerId;
-            }
-
-            return dealerId;
-        }
-
-
-        /// <summary>
-        /// Written By : Ashish G. Kamble on 8 Dec 2014
-        /// Summary : Round to the nearest 1/1000 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private double Round(double value)
-        {
-            return Math.Round(value * 1000) / 1000;
-        }
-#endif
         #region GetAllAvailableDealer Method
         /// <summary>
         /// Created By : Sadhana Upadhyay on 23 Oct 2015
@@ -245,71 +200,7 @@ namespace BikewaleOpr.BAL
             double rad = deg * Math.PI / 180; // radians = degrees * pi/180
             return rad;
         }
-#if unused
-        /// <summary>
-        /// Created by  :   Sumit Kate on 21 Mar 2016
-        /// Description :   Checks whether any Subscription Model Dealer is present.
-        /// Modified by :   Sumit Kate on 22 Mar 2016
-        /// Description :   Surrounded code with try..catch
-        /// Modified By : Vivek Gupta on 12-04-2016, new sp BW_GetDealersLatLong_12042016
-        /// Description : we are fetching nearest dealer from database itself . we have commute distance availbele in database.
-        ///               stopeed using ariel distance calcualtion
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <param name="areaId"></param>
-        /// <returns>dealer id</returns>
-        public uint IsSubscribedDealerExists(uint versionId, uint areaId)
-        {
-            uint dealerId = 0;
 
-            if (versionId > 0 && areaId > 0)
-            {
-                try
-                {
-                    DealerLatLong objDealersList = _dealerPQRepository.GetCampaignDealersLatLong(versionId, areaId);
-
-                    if (objDealersList != null)
-                    {
-                        dealerId = objDealersList.DealerId;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, "AutoBiz.BAL.BW.BikeBooking.Dealers.IsSubscribedDealerExists");
-                    objErr.SendMail();
-                }
-            }
-
-            return dealerId;
-        }
-        /// <summary>
-        /// Author : Vivek Gupta
-        /// Date : 28-04-2016
-        /// Desc : to check dealer exists for areaId and version id and isSecondaryDealers availble
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <param name="areaId"></param>
-        /// <returns></returns>
-        public DealerInfo IsSubscribedDealerExistsV3(uint versionId, uint areaId)
-        {
-            DealerInfo objDealersList = null;
-
-            if (versionId > 0 && areaId > 0)
-            {
-                try
-                {
-                    objDealersList = _dealerPQRepository.GetCampaignDealersLatLongV3(versionId, areaId);
-                }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, "AutoBiz.BAL.BW.BikeBooking.Dealers.IsSubscribedDealerExists");
-                    objErr.SendMail();
-                }
-            }
-
-            return objDealersList;
-        }
-#endif
     } // class
 }   // namespace
 

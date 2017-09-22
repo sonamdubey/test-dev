@@ -173,6 +173,8 @@ namespace Bikewale.New.Photos
         /// <summary>
         /// Created By : Sajal Gupta on 09-02-2017
         /// Description : bind photos page widgets
+        /// Modified By :Snehal Dange on 07-09-2017
+        /// Description : Added CityId and City ,SimilarMakeName,SimilarModelName
         /// </summary>
         private void BindPageWidgets()
         {
@@ -182,9 +184,14 @@ namespace Bikewale.New.Photos
                 {
                     if (ctrlSimilarBikesWithPhotos != null && !IsDiscontinued)
                     {
-                        ctrlSimilarBikesWithPhotos.TotalRecords = 6;
+                        GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+
+                        ctrlSimilarBikesWithPhotos.CityId = currentCityArea.CityId;
+                        ctrlSimilarBikesWithPhotos.City = currentCityArea.City;
+                        ctrlSimilarBikesWithPhotos.TotalRecords = 9;
                         ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
-                        ctrlSimilarBikesWithPhotos.WidgetHeading = "Images of similar bikes";
+                        ctrlSimilarBikesWithPhotos.SimilarMakeName = vmModelPhotos.objMake.MakeName;
+                        ctrlSimilarBikesWithPhotos.SimilarModelName = vmModelPhotos.objModel.ModelName;
                     }
 
                     if (ctrlVideos != null)

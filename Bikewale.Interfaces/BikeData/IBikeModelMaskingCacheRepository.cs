@@ -27,13 +27,13 @@ namespace Bikewale.Interfaces.BikeData
     {
         ModelMaskingResponse GetModelMaskingResponse(string maskingName);
         BikeSpecificationEntity MVSpecsFeatures(int versionId);
-        IEnumerable<SimilarBikesWithPhotos> GetSimilarBikeWithPhotos(U modelId, ushort totalRecords);
+        IEnumerable<SimilarBikesWithPhotos> GetSimilarBikeWithPhotos(U modelId, ushort totalRecords, uint cityId);
         ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId);
         ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId);
         ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed);
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
         IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalcount);
-        IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviews(uint modelId, uint totalRecords);
+        IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviews(uint modelId, uint cityId, uint totalRecords);
         T GetById(U id);
     }
 }

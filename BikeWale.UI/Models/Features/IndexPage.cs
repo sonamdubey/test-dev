@@ -30,6 +30,7 @@ namespace Bikewale.Models
         #region Page level variables
         private const int _pageSize = 10, _pagerSlotSize = 5;
         private int curPageNo = 1;
+        private uint _totalPagesCount;
         public StatusCodes status;
         #endregion
 
@@ -49,7 +50,7 @@ namespace Bikewale.Models
         #endregion
 
         #region Functions
-        
+
         /// <summary>
         /// Created by : Aditi Srivastava on 3 Apr 2017
         /// Summary    : Process query string
@@ -82,6 +83,9 @@ namespace Bikewale.Models
         {
             IndexFeatureVM objIndex = new IndexFeatureVM();
             GetFeaturesList(objIndex);
+
+            _totalPagesCount = (uint)_objPager.GetTotalPages((int)objIndex.TotalArticles, _pageSize);
+
             BindLinkPager(objIndex);
             BindPageMetas(objIndex);
             BindWidget(objIndex, widgetTopCount);
@@ -160,12 +164,17 @@ namespace Bikewale.Models
 
             try
             {
-                objPage.PageMetaTags.Title = string.Format("Features - Stories, Specials & Travelogues | BikeWale");
-                objPage.PageMetaTags.Description = string.Format("Features section of BikeWale brings specials, stories, travelogues and much more.");
-                objPage.PageMetaTags.Keywords = string.Format("features, stories, travelogues, specials, drives.");
+                objPage.PageMetaTags.Title = "Features - Stories, Specials & Travelogues | BikeWale";
+                objPage.PageMetaTags.Description = "Features section of BikeWale brings specials, stories, travelogues and much more.";
+                objPage.PageMetaTags.Keywords = "features, stories, travelogues, specials, drives.";
                 objPage.PageMetaTags.CanonicalUrl = string.Format("{0}/features/{1}", BWConfiguration.Instance.BwHostUrl, (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
                 objPage.PageMetaTags.AlternateUrl = string.Format("{0}/m/features/{1}", BWConfiguration.Instance.BwHostUrl, (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
-           
+
+                if (curPageNo > 1)
+                {
+                    objPage.PageMetaTags.Description = string.Format("Page {0} of {1} - {2}", curPageNo, _totalPagesCount, objPage.PageMetaTags.Description);
+                    objPage.PageMetaTags.Title = string.Format("Page {0} of {1} - {2}", curPageNo, _totalPagesCount, objPage.PageMetaTags.Title);
+                }
             }
             catch (Exception ex)
             {
@@ -176,7 +185,7 @@ namespace Bikewale.Models
         /// Created By : Subodh Jain 31 March 2017
         /// Summary    : Bind Widgets
         /// </summary>
-        private void BindWidget(IndexFeatureVM objIndex,int topCount)
+        private void BindWidget(IndexFeatureVM objIndex, int topCount)
         {
             try
             {
@@ -225,7 +234,7 @@ namespace Bikewale.Models
             int totalPages = _objPager.GetTotalPages((int)objData.TotalArticles, _pageSize);
             if (totalPages > 1)
             {
-                if (curPageNo == 1 )
+                if (curPageNo == 1)
                 {
                     nextPageNumber = "2";
                     objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/", _mainUrl, nextPageNumber);
@@ -243,7 +252,7 @@ namespace Bikewale.Models
                     objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/", _mainUrl, nextPageNumber);
                 }
             }
-        }       
+        }
         #endregion
     }
 }

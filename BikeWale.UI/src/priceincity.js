@@ -134,9 +134,6 @@ docReady(function () {
         return false;
     });
 
-    // add divider between version prices table and prices in nearby cities
-    addDivider($('#version-prices-grid'), $('#nearby-prices-grid'));
-
     // emi calculator
     ko.bindingHandlers.slider = {
         init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
@@ -333,7 +330,7 @@ docReady(function () {
                 "isleadpopup": ele.attr('data-isleadpopup'),
                 "mfgCampid": ele.attr('data-mfgcampid'),
                 "pqid": $("#priceincity").data("pqid") || 0,
-                "pageurl": window.location.href,
+                "pageurl": document.referrer,
                 "clientip": '',
                 "dealerHeading": ele.attr('data-item-heading'),
                 "dealerMessage": ele.attr('data-item-message'),
@@ -356,16 +353,6 @@ docReady(function () {
     });
    
 });
-
-// add divider
-function addDivider(grid1, grid2) {
-    if (grid1.height() > grid2.height()) {
-        grid1.addClass('border-solid-right');
-    }
-    else {
-        grid2.addClass('border-solid-left');
-    }
-}
 
 function showTab(version) {
     $('.model-versions-tabs-wrapper a').removeClass('active');

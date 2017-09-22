@@ -3,7 +3,10 @@ using ElasticClientManager;
 using Nest;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Reflection;
+
 namespace Bikewale.PinCodesAutosuggest
 {
     public class Program
@@ -18,7 +21,7 @@ namespace Bikewale.PinCodesAutosuggest
             try
             {
                 log4net.Config.XmlConfigurator.Configure();
-                IEnumerable<PayLoad> objList = GetPinCodeListDb.GetPinCodeList();
+                IEnumerable<PayLoad> objList = GetPinCodeListDb.GetPinCodeList(1);
 
                 if (objList != null)
                 {
@@ -27,13 +30,35 @@ namespace Bikewale.PinCodesAutosuggest
                     IEnumerable<PinCodeList> suggestionList = GetPinCodeListDb.GetSuggestList(objList);
 
                     CreateIndex(suggestionList);
-                    Logs.WriteInfoLog("All Make Model Index Created successfully");
+                  
+                    Logs.WriteInfoLog("All PinCode Index Created successfully");
 
                 }
                 else
                 {
                     Logs.WriteInfoLog("No pincodes returned. Failed to create pincodes Index");
                 }
+
+                #region for capital first index (code to be refactor)
+                IEnumerable<PayLoad> objListCP = GetPinCodeListDb.GetPinCodeList(2);
+
+                if (objListCP != null)
+                {
+                    Logs.WriteInfoLog("capital first PinCodes List : " + objListCP.Count());
+
+                    IEnumerable<PinCodeList> suggestionList = GetPinCodeListDb.GetSuggestList(objListCP);
+
+                    CreateIndexCapitalFirst(suggestionList);
+
+                    Logs.WriteInfoLog("capital first PinCode Index Created successfully");
+
+                }
+                else
+                {
+                    Logs.WriteInfoLog("No pincodes returned. Failed to create pincodes Index");
+                } 
+                #endregion
+
             }
             catch (Exception ex)
             {
@@ -55,8 +80,8 @@ namespace Bikewale.PinCodesAutosuggest
         {
             try
             {
-                bool isUpdateOperation = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["isUpdate"]);
-                string NewIndexName = System.Configuration.ConfigurationManager.AppSettings["NewIndexName"];
+                bool isUpdateOperation = Boolean.Parse(ConfigurationManager.AppSettings["isUpdate"]);
+                string NewIndexName = ConfigurationManager.AppSettings["NewIndexName"];
                 
 
                 if (isUpdateOperation)
@@ -65,9 +90,9 @@ namespace Bikewale.PinCodesAutosuggest
                 }
                 else
                 {
-                    var OldIndexName = System.Configuration.ConfigurationManager.AppSettings["OldIndexName"];
-                    var aliasIndexName = System.Configuration.ConfigurationManager.AppSettings["aliasName"];
-                    bool isDeleteOldIndex = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["isDeleteOldIndex"]);
+                    var OldIndexName = ConfigurationManager.AppSettings["OldIndexName"];
+                    var aliasIndexName = ConfigurationManager.AppSettings["aliasName"];
+                    bool isDeleteOldIndex = Boolean.Parse(ConfigurationManager.AppSettings["isDeleteOldIndex"]);
 
 
                     ElasticClient client = ElasticClientOperations.GetElasticClient();
@@ -116,5 +141,58 @@ namespace Bikewale.PinCodesAutosuggest
                 Console.WriteLine(ex.Message);
             }
         }
+
+        private static void CreateIndexCapitalFirst(IEnumerable<PinCodeList> suggestionList)
+        {
+            string indexName = ConfigurationManager.AppSettings["cfPincodeIndex"];
+            try
+            {
+                ElasticClient client = ElasticClientOperations.GetElasticClient();
+                if (!client.IndexExists(indexName).Exists)
+                {
+
+                    var response = client.CreateIndex(indexName,
+                      ind => ind
+                   .Settings(s => s.NumberOfShards(2)
+                       .NumberOfReplicas(2)
+                   )
+                  .Mappings(m => m
+                              .Map<PinCodeList>(type => type.AutoMap()
+                                  .Properties(prop => prop
+                                  .Nested<PinCodeSuggestion>(n =>
+                                          n.Name(c => c.mm_suggest)
+                                          .AutoMap()
+                                          .Properties(prop2 => prop2
+                                              .Nested<PayLoad>(n2 =>
+                                                  n2.Name(c2 =>
+                                                      c2.input).AutoMap())))
+                                      .Completion(c => c
+                                      .Name(pN => pN.mm_suggest)
+                                       .Contexts(cont => cont
+                                            .Category(cate => cate
+                                                .Name("types").Path(s => s.mm_suggest.contexts.types)
+                                                ))
+                                      .Analyzer("standard")
+                                      .SearchAnalyzer("standard")
+                                      .PreserveSeparators(false))))));
+
+                }
+                client.DeleteByQuery<PinCodeList>(dd => dd.Index(indexName)
+                    .Type(ConfigurationManager.AppSettings["typeName"])
+                    .Query(qq => qq.MatchAll())
+                    );
+
+                var response2 = ElasticClientOperations.AddDocument<PinCodeList>(suggestionList.ToList(), indexName, obj => obj.Id);
+
+
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name, ex);
+                Console.WriteLine(ex.Message);
+            }
+
+
+}
     }
 }

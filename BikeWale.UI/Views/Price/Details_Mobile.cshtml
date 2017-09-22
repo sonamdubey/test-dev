@@ -66,12 +66,7 @@
                     <td height="1" colspan="2" class="break-line padding-bottom15"></td>
                 </tr>
                 <tr>
-                    <td align="left" class="font16 padding-bottom5 position-rel">GST On-road price @string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "" : "(estimated)")
-						<div class="price--label-position pos-bottom-40">
-							<span class="bwmsprite info-grey-14"></span>
-							<span class="text-light-grey font12">@string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "In accordance with GST rates" : "Final dealer price unavailable.")</span>
-						</div>
-					</td>
+                    <td align="left" class="font16 padding-bottom5 position-rel">On-road price</td>
                     <td align="right" valign="top" class="font18 text-bold padding-bottom5">@Html.Raw("<span > &#x20B9;</span>")&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.TotalPrice.ToString())</td>
                 </tr>
                 <tr>
@@ -107,12 +102,7 @@
                     <td height="1" colspan="2" class="break-line padding-bottom10"></td>
                 </tr>
                 <tr>
-                    <td class="font16 position-rel" align="left">GST On-road price @string.Format("{0}", Model.Quotation.IsGstPrice ? "" : "(estimated)")
-						<div class="price--label-position pos-bottom-40">
-							<span class="bwmsprite info-grey-14"></span>
-							<span class="text-light-grey font12">@string.Format("{0}", Model.Quotation.IsGstPrice ? "In accordance with GST rates" : "Estimated GST price as dealer price is unavailable.")</span>
-						</div>
-					</td>
+                    <td class="font16 position-rel" align="left">On-road price</td>
                     <td valign="top" class="font18 text-bold" align="right">
                         @Html.Raw("<span> &#x20B9;</span>")&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())
                     </td>
@@ -129,9 +119,6 @@
 			if (Model.IsPrimaryDealerAvailable)
 			{
 				<div class="padding-bottom10"></div>
-			}
-			else {
-				<div class="padding-bottom40"></div>
 			}
         <!-- Bikewale PQ ends -->
         }
@@ -163,7 +150,14 @@
     <div class="campaign__floating-btn floating-btn clearfix">
         <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
         <div class="grid-5 alpha omega">
-            <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage,Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile,Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+            @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+            {
+                <a class="btn btn-orange btn-full-32" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount" rel="nofollow">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+            }
+            else
+            {
+                <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+            }
         </div>
         <div class="clear"></div>
     </div>
@@ -262,8 +256,15 @@
                 <div class="clear"></div>
                 @if (Model.IsManufacturerEMIAdShown)
                 {
-                    <div class="powered-by-campaign-wrapper margin-top15">
-                        <a href="javascript:void(0)" type="button" class="btn btn-teal btn-160-32 font14 margin-right10 leadcapturebtn" data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@String.Format(Model.EMICampaign.PopupSuccessMessage,Model.EMICampaign.Organization)" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.EMICampaign.Organization))" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired">@Model.EMICampaign.EMIButtonTextMobile</a>
+                    <div class="margin-top15">
+                        @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                        {
+                            <a class="btn btn-teal btn-160-32 font14 margin-right10" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount" rel="nofollow">@Model.EMICampaign.EMIButtonTextDesktop</a>
+                        }
+                        else
+                        {
+                         <a href="javascript:void(0)" class="btn btn-teal btn-160-32 font14 margin-right10" @*data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@String.Format(Model.EMICampaign.PopupSuccessMessage,Model.EMICampaign.Organization)" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.EMICampaign.Organization))" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired"*@>@Model.EMICampaign.EMIButtonTextMobile</a>
+                        }
                         <div class="inline-block">
                             <p class="campaign__powered-key">Powered by</p>
                             <p class="campaign__powered-value" title="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)">@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)</p>

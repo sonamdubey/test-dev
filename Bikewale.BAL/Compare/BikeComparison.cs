@@ -14,6 +14,9 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.Common;
+using Bikewale.Utility.StringExtention;
+using Bikewale.Utility;
+
 namespace Bikewale.BAL.Compare
 {
     /// <summary>
@@ -852,7 +855,7 @@ namespace Bikewale.BAL.Compare
                     compareEntity.CompareColors.Text = "Colours";
                     compareEntity.CompareColors.Value = "Colours";
                     compareEntity.CompareColors.bikes = new List<CompareBikeColor>();
-
+                    #region Colors
                     foreach (var version in arrVersion)
                     {
                         var objBikeColor = new List<BikeColor>();
@@ -865,6 +868,290 @@ namespace Bikewale.BAL.Compare
                         }
                         compareEntity.CompareColors.bikes.Add(new CompareBikeColor() { bikeColors = objBikeColor.GroupBy(p => p.ColorId).Select(grp => grp.First()).ToList<BikeColor>() });
                     }
+                    #endregion
+
+                    #region Reviews
+
+                    if (compareEntity.Reviews != null && compareEntity.Reviews.Count() > 0)
+                    {
+
+                        compareEntity.UserReviewData = new CompareReviewsData();
+
+                        compareEntity.UserReviewData.CompareReviews = new CompareMainCategory();
+                        compareEntity.UserReviewData.CompareReviews.Text = "Reviews";
+                        compareEntity.UserReviewData.CompareReviews.Value = "Reviews";
+                        compareEntity.UserReviewData.CompareReviews.Spec = new List<CompareSubMainCategory>();
+
+
+
+                        IList<UserReviewComparisonObject> objReviewList = new List<UserReviewComparisonObject>();
+
+                        CompareSubMainCategory ratings = new CompareSubMainCategory();
+                        ratings.Text = "Ratings";
+                        ratings.Value = "Ratings";
+                        ratings.SpecCategory = new List<CompareSubCategory>();
+
+                        foreach (var version in arrVersion)
+                        {
+                            UserReviewComparisonObject objReview = new UserReviewComparisonObject();
+                            var reviewObj = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                            var basicInfoObj = compareEntity.BasicInfo != null ? compareEntity.BasicInfo.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)) : null;
+                            if (reviewObj != null)
+                            {
+                                objReview.ReviewRate = FormatMinSpecs.ShowAvailable(reviewObj.ModelReview.ReviewRate.ToString("0.0"));
+                                objReview.RatingCount = FormatMinSpecs.ShowAvailable(reviewObj.ModelReview.RatingCount.ToString());
+                                objReview.ReviewCount = FormatMinSpecs.ShowAvailable(reviewObj.ModelReview.ReviewCount.ToString());
+
+                                if (basicInfoObj != null && reviewObj.ModelReview != null && reviewObj.ModelReview.UserReviews != null)
+                                    objReview.ReviewListUrl = string.Format("/{0}-bikes/{1}/reviews/", basicInfoObj.MakeMaskingName, basicInfoObj.ModelMaskingName);
+                            }
+                            else
+                            {
+                                objReview.ReviewRate = FormatMinSpecs.ShowAvailable("");
+                                objReview.RatingCount = FormatMinSpecs.ShowAvailable("");
+                                objReview.ReviewCount = FormatMinSpecs.ShowAvailable("");
+                            }
+                            objReviewList.Add(objReview);
+                        }
+                        compareEntity.UserReviewData.OverallRating = objReviewList;
+
+                        //Mileage
+                        CompareSubCategory mileage = new CompareSubCategory();
+                        mileage.Text = "Mileage by Users";
+                        mileage.Value = "Mileage by Users ";
+                        mileage.CompareSpec = new List<CompareBikeData>();
+                        int valuesCount = 0;
+                        foreach (var version in arrVersion)
+                        {
+                            var reviewsObj = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                            if (reviewsObj != null)
+                            {
+                                mileage.CompareSpec.Add(new CompareBikeData() { Value = FormatMinSpecs.ShowAvailable(reviewsObj.ModelReview.Mileage), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(reviewsObj.ModelReview.Mileage) });
+
+                                if(reviewsObj.ModelReview.Mileage > 0)
+                                    valuesCount++;
+                            }
+                            else
+                                mileage.CompareSpec.Add(new CompareBikeData() { Value = FormatMinSpecs.ShowAvailable(""), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable("") });
+                        }
+                        if(valuesCount > 1)
+                            ratings.SpecCategory.Add(mileage);
+                        #endregion
+                        compareEntity.UserReviewData.CompareReviews.Spec.Add(ratings);
+                        #region Performance Paramters
+                        CompareSubMainCategory performanceParameters = new CompareSubMainCategory();
+                        performanceParameters.Text = "Performance Parameters";
+                        performanceParameters.Value = "Performance Parameters";
+                        performanceParameters.SpecCategory = new List<CompareSubCategory>();
+                        //visual Appeal
+                        CompareSubCategory visualAppeal = new CompareSubCategory();
+                        visualAppeal.Text = "Visual appeal";
+                        visualAppeal.Value = "Visual appeal";
+                        visualAppeal.CompareSpec = new List<CompareBikeData>();
+                        valuesCount = 0;
+                        foreach (var version in arrVersion)
+                        {
+                            var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 4) : null;
+                            if (firstRow != null && objQuestion != null)
+                            {
+                                visualAppeal.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
+
+                                if(objQuestion.AverageRatingValue > 0)
+                                    valuesCount++;
+                            }
+                            else
+                                visualAppeal.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(""), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable("") });
+                        }
+                        if (valuesCount > 1)
+                            performanceParameters.SpecCategory.Add(visualAppeal);
+                        // Reliability
+                        CompareSubCategory reliability = new CompareSubCategory();
+                        reliability.Text = "Reliability";
+                        reliability.Value = "Reliability";
+                        reliability.CompareSpec = new List<CompareBikeData>();
+                        valuesCount = 0;
+                        foreach (var version in arrVersion)
+                        {
+                            var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 5) : null;
+                            if (firstRow != null && objQuestion != null)
+                            {
+                                reliability.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
+
+                                if(objQuestion.AverageRatingValue > 0)
+                                    valuesCount++;
+                            }
+                            else
+                                reliability.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(""), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable("") });
+                        }
+                        if (valuesCount > 1)
+                            performanceParameters.SpecCategory.Add(reliability);
+                        // Performance
+                        CompareSubCategory performance = new CompareSubCategory();
+                        performance.Text = "Performance";
+                        performance.Value = "Performance";
+                        performance.CompareSpec = new List<CompareBikeData>();
+                        valuesCount = 0;
+                        foreach (var version in arrVersion)
+                        {
+                            var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ?  firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 6) : null;
+                            if (firstRow != null && objQuestion != null)
+                            {
+                                performance.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
+
+                                if (objQuestion.AverageRatingValue > 0)
+                                    valuesCount++;
+                            }
+                            else
+                                performance.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(""), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable("") });
+                        }
+                        if (valuesCount > 1)
+                            performanceParameters.SpecCategory.Add(performance);
+                        // Comfort
+                        CompareSubCategory comfort = new CompareSubCategory();
+                        comfort.Text = "Comfort";
+                        comfort.Value = "Comfort";
+                        comfort.CompareSpec = new List<CompareBikeData>();
+                        valuesCount = 0;
+                        foreach (var version in arrVersion)
+                        {
+                            var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 7) : null;
+                            if (firstRow != null && objQuestion != null)
+                            {
+                                comfort.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
+
+                                if (objQuestion.AverageRatingValue > 0)
+                                    valuesCount++;
+                            }
+                            else
+                                comfort.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(""), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable("") });
+                        }
+                        if (valuesCount > 1)
+                            performanceParameters.SpecCategory.Add(comfort);
+                        // Service Experience
+                        CompareSubCategory serviceExperience = new CompareSubCategory();
+                        serviceExperience.Text = "Service Experience";
+                        serviceExperience.Value = "Service Experience";
+                        serviceExperience.CompareSpec = new List<CompareBikeData>();
+                        valuesCount = 0;
+                        foreach (var version in arrVersion)
+                        {
+                            var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ?  firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 8) : null;
+                            if (firstRow != null && objQuestion != null)
+                            {
+                                serviceExperience.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
+
+                                if (objQuestion.AverageRatingValue > 0)
+                                    valuesCount++;
+                            }
+                            else
+                                serviceExperience.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(""), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable("") });
+                        }
+                        if (valuesCount > 1)
+                            performanceParameters.SpecCategory.Add(serviceExperience);
+                        // Maintenance Cost
+                        CompareSubCategory maintenanceCost = new CompareSubCategory();
+                        maintenanceCost.Text = "Maintenance Cost";
+                        maintenanceCost.Value = "Maintenance Cost";
+                        maintenanceCost.CompareSpec = new List<CompareBikeData>();
+                        valuesCount = 0;
+                        foreach (var version in arrVersion)
+                        {
+                            var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 9) : null;
+                            if (firstRow != null && objQuestion != null)
+                            {
+                                maintenanceCost.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
+
+                                if (objQuestion.AverageRatingValue > 0)
+                                    valuesCount++;
+                            }
+                            else
+                                maintenanceCost.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(""), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable("") });
+                        }
+                        if (valuesCount > 1)
+                            performanceParameters.SpecCategory.Add(maintenanceCost);
+                        // Value for Money
+                        CompareSubCategory valueForMoney = new CompareSubCategory();
+                        valueForMoney.Text = "Value for money";
+                        valueForMoney.Value = "Value for money";
+                        valueForMoney.CompareSpec = new List<CompareBikeData>();
+                        valuesCount = 0;
+                        foreach (var version in arrVersion)
+                        {
+                            var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ?  firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 10) : null;                        
+                            if (firstRow != null && objQuestion != null)
+                            {
+                                valueForMoney.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
+
+                                if (objQuestion.AverageRatingValue > 0)
+                                    valuesCount++;
+                            }
+                            else
+                                valueForMoney.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(""), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable("") });
+                        }
+                        if (valuesCount > 1)
+                            performanceParameters.SpecCategory.Add(valueForMoney);
+                        // Extra Features
+                        CompareSubCategory extraFeatures = new CompareSubCategory();
+                        extraFeatures.Text = "Extra Features";
+                        extraFeatures.Value = "Extra Features";
+                        extraFeatures.CompareSpec = new List<CompareBikeData>();
+                        valuesCount = 0;
+                        foreach (var version in arrVersion)
+                        {
+                            var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ?  firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 11) : null;
+                            if (firstRow != null && objQuestion != null)
+                            {
+                                extraFeatures.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
+
+                                if (objQuestion.AverageRatingValue > 0)
+                                    valuesCount++;
+                            }
+                            else
+                                extraFeatures.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(""), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable("") });
+                        }
+                        if (valuesCount > 1)
+                            performanceParameters.SpecCategory.Add(extraFeatures);
+                        #endregion
+
+                        if (performanceParameters.SpecCategory.Count() > 0)
+                         compareEntity.UserReviewData.CompareReviews.Spec.Add(performanceParameters);
+                        #region Reviews
+                        CompareSubMainCategory reviews = new CompareSubMainCategory();
+                        reviews.Text = "Reviews";
+                        reviews.Value = "Reviews";
+                        reviews.SpecCategory = new List<CompareSubCategory>();
+                        //Most Helpful
+
+                        IList<MostHelpfulReviewObject> objHelpfulList = new List<MostHelpfulReviewObject>();
+
+                        foreach (var version in arrVersion)
+                        {
+                            MostHelpfulReviewObject objReview = new MostHelpfulReviewObject();
+                            var reviewObj = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
+                            var basicInfoObj = compareEntity.BasicInfo != null ? compareEntity.BasicInfo.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)) : null;
+                            if (reviewObj != null && basicInfoObj != null && reviewObj.ModelReview != null && reviewObj.ModelReview.UserReviews != null)
+                            {
+                                objReview.RatingValue = reviewObj.ModelReview.UserReviews.OverallRatingId;
+                                objReview.ReviewDescription = FormatDescription.TruncateDescription(FormatDescription.SanitizeHtml(reviewObj.ModelReview.UserReviews.Description), 85);
+                                objReview.ReviewTitle = FormatDescription.TruncateDescription(reviewObj.ModelReview.UserReviews.Title, 40);
+                                objReview.ReviewListUrl = string.Format("/{0}-bikes/{1}/reviews/", basicInfoObj.MakeMaskingName, basicInfoObj.ModelMaskingName);
+                                objReview.ReviewDetailUrl = string.Format("/{0}-bikes/{1}/reviews/{2}/", basicInfoObj.MakeMaskingName, basicInfoObj.ModelMaskingName, reviewObj.ModelReview.UserReviews.ReviewId);
+                            }
+                            objHelpfulList.Add(objReview);
+                        }
+
+                        compareEntity.UserReviewData.MostHelpfulReviews = objHelpfulList;
+
+                    }
+                    #endregion
                 }
             }
             catch (Exception ex)
@@ -872,6 +1159,7 @@ namespace Bikewale.BAL.Compare
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.TransposeCompareBikeData - {0}", versions));
             }
         }
+
 
         /// <summary>
         /// Created By : Sushil Kumar on 2nd Dec 2016
@@ -921,7 +1209,7 @@ namespace Bikewale.BAL.Compare
         /// <param name="versions"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public BikeCompareEntity DoCompare(string versions, uint cityId)
+        public Entities.Compare.BikeCompareEntity DoCompare(string versions, uint cityId)
         {
             Entities.Compare.BikeCompareEntity compareEntity = null;
             try

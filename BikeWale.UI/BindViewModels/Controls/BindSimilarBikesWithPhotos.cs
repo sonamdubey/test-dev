@@ -14,11 +14,17 @@ namespace Bikewale.BindViewModels.Controls
     /// <summary>
     /// Created By : Sushil Kumar on 6th Jan 2016
     /// Summary :  Viewmodel for similar bikes with photos count
+    /// Modified by: Snehal Dange on 6th September 2017
+    /// Summary : Added CityId and City
     /// </summary>
     public class BindSimilarBikesWithPhotos
     {
         public ushort TotalRecords { get; set; }
         public int ModelId { get; set; }
+
+        public uint CityId { get; set; }
+
+        public string City { get; set; }
 
         /// <summary>
         /// Created By : Sushil Kumar on 6th Jan 2016
@@ -38,7 +44,7 @@ namespace Bikewale.BindViewModels.Controls
                              .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                             ;
                     var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                    objSimilarBikes = objCache.GetSimilarBikeWithPhotos(ModelId, TotalRecords);
+                    objSimilarBikes = objCache.GetSimilarBikeWithPhotos(ModelId, TotalRecords, CityId);
                 }
 
             }

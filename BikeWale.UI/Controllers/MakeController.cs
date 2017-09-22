@@ -25,7 +25,6 @@ namespace Bikewale.Controllers
     /// </author>
     public class MakeController : Controller
     {
-        private readonly IDealerCacheRepository _dealerServiceCenters = null;
         private readonly IBikeModelsCacheRepository<int> _bikeModelsCache;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache;
         private readonly ICMSCacheContent _articles = null;
@@ -37,9 +36,8 @@ namespace Bikewale.Controllers
         private readonly IBikeCompare _compareBikes;
         private readonly IServiceCenter _objService;
 
-        public MakeController(IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objService)
+        public MakeController(IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objService)
         {
-            _dealerServiceCenters = dealerServiceCenters;
             _bikeModelsCache = bikeModelsCache;
             _bikeMakesCache = bikeMakesCache;
             _articles = articles;
@@ -56,67 +54,57 @@ namespace Bikewale.Controllers
         [Bikewale.Filters.DeviceDetection]
         public ActionResult Index(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, 9, _dealerServiceCenters, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming,_compareBikes, _objService);
+            MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService);
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
-            MakePageVM objData = new MakePageVM();
-            if (obj != null)
+            MakePageVM objData = null;
+
+            if (obj.Status == StatusCodes.ContentFound)
             {
-                if (obj.status == StatusCodes.ContentFound)
-                {
-                    objData = obj.GetData();
-                    return View(objData);
-                }
-                else if (obj.status == StatusCodes.RedirectPermanent)
-                {
-                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, obj.objResponse.MaskingName));
-                }
-                else if (obj.status == StatusCodes.RedirectTemporary)
-                {
-                    return Redirect(obj.redirectUrl);
-                }
-                else
-                {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
+                objData = obj.GetData();
+                return View(objData);
+            }
+            else if (obj.Status == StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.RedirectUrl);
+            }
+            else if (obj.Status == StatusCodes.RedirectTemporary)
+            {
+                return Redirect(obj.RedirectUrl);
             }
             else
             {
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
+
         }
 
         // GET: Makes
         [Route("m/makepage/{makeMaskingName}/")]
         public ActionResult Index_Mobile(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, 9, _dealerServiceCenters, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService);
-            obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
-            MakePageVM objData = new MakePageVM();
-            if (obj != null)
+            MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService);
+            obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
+            MakePageVM objData = null;
+
+            if (obj.Status == StatusCodes.ContentFound)
             {
-                if (obj.status == StatusCodes.ContentFound)
-                {
-                    obj.IsMobile = true;
-                    objData = obj.GetData();
-                    return View(objData);
-                }
-                else if (obj.status == StatusCodes.RedirectPermanent)
-                {
-                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, obj.objResponse.MaskingName));
-                }
-                else if (obj.status == StatusCodes.RedirectTemporary)
-                {
-                    return Redirect(obj.redirectUrl);
-                }
-                else
-                {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
+                obj.IsMobile = true;
+                objData = obj.GetData();
+                return View(objData);
+            }
+            else if (obj.Status == StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.RedirectUrl);
+            }
+            else if (obj.Status == StatusCodes.RedirectTemporary)
+            {
+                return Redirect(obj.RedirectUrl);
             }
             else
             {
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
+
         }
     }
 }

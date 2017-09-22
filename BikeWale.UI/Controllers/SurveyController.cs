@@ -17,10 +17,13 @@ namespace Bikewale.Controllers
             _survey = Survey;
         }
 
+
+      
+
         // GET: Survey
         [Route("survey/bajaj/")]
         [Bikewale.Filters.DeviceDetection]
-        public ActionResult BajajSurvey_Index(bool ? isFormSubmitted)
+        public ActionResult BajajSurvey_Index(bool? isFormSubmitted)
         {
             BajajSurveyVM model = new BajajSurveyVM();
             model.IsSubmitted = isFormSubmitted.HasValue ? isFormSubmitted.Value : false;
@@ -31,7 +34,7 @@ namespace Bikewale.Controllers
         [Route("survey/bajaj/SubmitReview/")]
         public ActionResult SubmitBajajReview(BajajSurveyVM model)
         {
-   
+
             SurveyBajajModel objModel = new SurveyBajajModel(model, _survey);
             objModel.SaveBajajResponse();
             model.IsSubmitted = true;

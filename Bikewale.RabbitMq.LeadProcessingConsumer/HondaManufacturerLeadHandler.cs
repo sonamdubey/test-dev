@@ -10,7 +10,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     /// </summary>
     internal class HondaManufacturerLeadHandler : ManufacturerLeadHandler
     {
-        private HttpClient _httpClient;
         /// <summary>
         /// Type initializer
         /// </summary>
@@ -19,7 +18,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="isAPIEnabled"></param>
         public HondaManufacturerLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled) : base(manufacturerId, urlAPI, isAPIEnabled)
         {
-            _httpClient = new HttpClient();
         }
 
         /// <summary>
@@ -59,7 +57,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     State = quotation.State
                 };
 
-                if (_httpClient != null)
+                using (HttpClient _httpClient = new HttpClient())
                 {
                     string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(gaadiLead);
                     byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(jsonString);
@@ -67,22 +65,21 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     Logs.WriteInfoLog(String.Format("Honda Request : {0}", leadURL));
                     using (HttpResponseMessage _response = _httpClient.GetAsync(leadURL).Result)
                     {
-                        if (_response.IsSuccessStatusCode)
+                        if (_response.IsSuccessStatusCode && _response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
-                            if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
-                            {
-                                response = _response.Content.ReadAsStringAsync().Result;
-                                _response.Content.Dispose();
-                                _response.Content = null;
-                            }
+                            //Check 200 OK Status      
+                            response = _response.Content.ReadAsStringAsync().Result;
+                            _response.Content.Dispose();
+                            _response.Content = null;
                         }
                     }
-                    if (string.IsNullOrEmpty(response))
-                    {
-                        response = "Null response recieved from Honda manufacturer.";
-                    }
-                    Logs.WriteInfoLog(String.Format("Honda Response : {0}", response));
                 }
+
+                if (string.IsNullOrEmpty(response))
+                {
+                    response = "Null response recieved from Honda manufacturer.";
+                }
+                Logs.WriteInfoLog(String.Format("Honda Response : {0}", response));
             }
             catch (Exception ex)
             {

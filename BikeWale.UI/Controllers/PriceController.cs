@@ -38,7 +38,7 @@ namespace Bikewale.Controllers
         /// <param name="objCityCache"></param>
         /// <param name="objPQ"></param>
         /// <param name="objDealerCache"></param>
-        public PriceController(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache,IManufacturerCampaign objManufacturerCampaign)
+        public PriceController(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
@@ -74,6 +74,8 @@ namespace Bikewale.Controllers
             DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objManufacturerCampaign);
             obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Desktop;
             obj.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Desktop_DealerPriceQuote;
+            obj.CurrentPageUrl = Request.RawUrl;
+            obj.Platform = DTO.PriceQuote.PQSources.Desktop;
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 obj.OtherTopCount = 3;
@@ -109,6 +111,8 @@ namespace Bikewale.Controllers
             DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objManufacturerCampaign);
             obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
             obj.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_DealerPriceQuote;
+            obj.CurrentPageUrl = Request.RawUrl;
+            obj.Platform = DTO.PriceQuote.PQSources.Mobile;
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 obj.OtherTopCount = 9;

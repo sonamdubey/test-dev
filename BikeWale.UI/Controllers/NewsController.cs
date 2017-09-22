@@ -220,11 +220,12 @@ namespace Bikewale.Controllers
                     _logger.Error(sw.ElapsedMilliseconds);
                 }
 
-                if (_logNewsUrl)
+                if (_logNewsUrl && !string.IsNullOrEmpty(objData.ArticleDetails.ArticleUrl) && objData.ArticleDetails.ArticleUrl.EndsWith(@".html"))
                 {
                     ThreadContext.Properties["NewsUrl"] = objData.ArticleDetails.ArticleUrl;
                     _logger.Error(String.Format("m/news/detail/{0}/", basicid));
                 }
+
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pagenotfound.aspx");
                 else
@@ -243,62 +244,41 @@ namespace Bikewale.Controllers
 
         /// <summary>
         /// Action to get the map news details page
+        /// Modified by: Vivek Singh Tomar on 31st Aug 2017
+        /// Summary: removed use of viewbag
         /// </summary>
         /// <param name="basicid"></param>
         /// <returns></returns>
         [Route("m/news/details/{basicid}/amp/")]
-        public ActionResult DetailsAMP(int basicid)
+        public ActionResult DetailsAMP(string basicid)
         {
+            NewsDetailPageVM objData = null;
             try
             {
-                ViewBag.TaggedModelId = 0;
-
-                ArticleDetails objNews = _articles.GetNewsDetails(Convert.ToUInt32(basicid));
-
-                if (objNews != null && objNews.Content != null)
+                NewsDetailPage obj = new NewsDetailPage(_articles, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache);
+                obj.IsMobile = true;
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
                 {
-                    ViewBag.Title = objNews.Title;
-                    ViewBag.ArticleSectionTitle = "- BikeWale News";
-                    ViewBag.Author = objNews.AuthorName;
-                    ViewBag.PublishedDate = objNews.DisplayDate.ToString();
-                    ViewBag.LastModified = objNews.DisplayDate.ToString();
-                    ViewBag.PageViews = objNews.Views;
-                    ViewBag.Canonical = String.Format("{0}/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, basicid, objNews.ArticleUrl);
-                    ViewBag.MobilePageUrl = String.Format("{0}/m/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, basicid, objNews.ArticleUrl);
-                    ViewBag.MainImageUrl = Bikewale.Utility.Image.GetPathToShowImages(objNews.OriginalImgUrl, objNews.HostUrl, Bikewale.Utility.ImageSize._640x348);
-                    ViewBag.Description = objNews.Description.StripHtml();
-
-                    //Convert article content to the amp content
-                    ViewBag.NewsContent = objNews.Content.ConvertToAmpContent();
-                    ViewBag.SanitizedNewsContent = objNews.Content.StripHtml();
-
-                    if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
-                    {
-                        ViewBag.NextPageTitle = objNews.NextArticle.Title;
-                        ViewBag.NextPageUrl = String.Format("{0}/m/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objNews.NextArticle.BasicId, objNews.NextArticle.ArticleUrl);
-                    }
-
-                    if (!String.IsNullOrEmpty(objNews.PrevArticle.ArticleUrl))
-                    {
-                        ViewBag.PrevPageTitle = objNews.PrevArticle.Title;
-                        ViewBag.PrevPageUrl = String.Format("{0}/m/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objNews.PrevArticle.BasicId, objNews.PrevArticle.ArticleUrl);
-                    }
-
-                    if (objNews.VehiclTagsList != null && objNews.VehiclTagsList.Count > 0)
-                    {
-
-                        VehicleTag objTag = objNews.VehiclTagsList.FirstOrDefault(m => m.ModelBase != null && m.ModelBase.ModelId > 0);
-
-                        if (objTag != null)
-                            ViewBag.TaggedModelId = objTag.ModelBase.ModelId;
-                    }
+                    return Redirect("/m/pagenotfound.aspx");
+                }
+                else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
+                }
+                else
+                {
+                    objData = obj.GetData(9);
+                    if (obj.status == Entities.StatusCodes.ContentNotFound)
+                        return Redirect("/m/pagenotfound.aspx");
+                    else
+                        return View("~/views/m/content/news/details_amp.cshtml", objData);
                 }
             }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, "m/news/details/{basicid}/amp/" + basicid);
+                return Redirect("/m/pagenotfound.aspx");
             }
-            return View("~/views/m/content/news/details_amp.cshtml");
         }
 
 

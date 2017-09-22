@@ -6,6 +6,8 @@ namespace Bikewale.Entities.BikeData
     /// <summary>
     /// Created By : Ashish G. Kamble on 24 Apr 2014
     /// Summary : Class to hold the properties for bike versions list on the models page.
+    /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+    /// Description : Removed IsGstPrice property
     /// </summary>
     [Serializable,DataContract]
     public class BikeVersionsListEntity
@@ -20,8 +22,7 @@ namespace Bikewale.Entities.BikeData
         public UInt64 Price { get; set; }
         [DataMember]
         public bool IsDealerPriceQuote { get; set; }
-        [DataMember]
-        public bool IsGstPrice { get; set; }
+        
        
         //  public string MaskingName { get; set; }
 

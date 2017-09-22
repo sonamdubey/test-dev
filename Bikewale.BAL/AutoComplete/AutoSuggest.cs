@@ -6,11 +6,10 @@ using Nest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace Bikewale.BAL.AutoComplete
 {
-    public class AutoSuggest :IAutoSuggest
+    public class AutoSuggest : IAutoSuggest
     {
         #region GetAutoSuggestResult PopulateWhere
         /// <summary>
@@ -25,11 +24,11 @@ namespace Bikewale.BAL.AutoComplete
         /// <returns></returns>
         public IEnumerable<SuggestOption<T>> GetAutoSuggestResult<T>(string inputText, int noOfRecords, AutoSuggestEnum source) where T : class
         {
-            IEnumerable<SuggestOption<T>> suggestionList = null;            
+            IEnumerable<SuggestOption<T>> suggestionList = null;
             string indexName = string.Empty;
             try
             {
-                suggestionList= GetSuggestionList<T>(inputText, noOfRecords,source);
+                suggestionList = GetSuggestionList<T>(inputText, noOfRecords, source);
 
             }
             catch (Exception ex)
@@ -39,8 +38,8 @@ namespace Bikewale.BAL.AutoComplete
             return suggestionList;
 
         }
-        
-        private IEnumerable<SuggestOption<T>> GetSuggestionList<T>(string inputText, int noOfRecords, AutoSuggestEnum source) where T:class
+
+        private IEnumerable<SuggestOption<T>> GetSuggestionList<T>(string inputText, int noOfRecords, AutoSuggestEnum source) where T : class
         {
             IEnumerable<SuggestOption<T>> suggestionList = null;
             string completion_field = "mm_suggest";
@@ -50,15 +49,15 @@ namespace Bikewale.BAL.AutoComplete
                 indexName = GetIndexName(source);
                 ElasticClient client = ElasticSearchInstance.GetInstance();
 
-                if (client!=null)
+                if (client != null)
                 {
                     var context = GetContext(source);
                     Func<SearchDescriptor<T>, SearchDescriptor<T>> selectorWithContext = null;
-                    Func<SuggestContextQueriesDescriptor<T>, IPromise<IDictionary<string, IList<ISuggestContextQuery>>>> contentDict = null;                   
-                    
+                    Func<SuggestContextQueriesDescriptor<T>, IPromise<IDictionary<string, IList<ISuggestContextQuery>>>> contentDict = null;
+
                     contentDict = new Func<SuggestContextQueriesDescriptor<T>, IPromise<IDictionary<string, IList<ISuggestContextQuery>>>>
                     (
-                        cc => cc.Context("types", 
+                        cc => cc.Context("types",
                         context.Select<string, Func<SuggestContextQueryDescriptor<T>, ISuggestContextQuery>>(
                             v => cd => cd.Context(v)
                             ).ToArray()));
@@ -67,7 +66,7 @@ namespace Bikewale.BAL.AutoComplete
                         (sd => sd.Index(indexName)
                         .Suggest(
                             s => s.Completion(
-                                completion_field, 
+                                completion_field,
                                 c => c.Field(completion_field)
                                     .Prefix(inputText)
                                     .Contexts(contentDict)
@@ -77,13 +76,13 @@ namespace Bikewale.BAL.AutoComplete
 
                     ISearchResponse<T> _result = client.Search<T>(selectorWithContext);
 
-                    if (_result.Suggest[completion_field][0].Options.Count <= 0)
+                    if (_result.Suggest[completion_field][0].Options.Count <= 0 && source!=AutoSuggestEnum.PinCodeCapitalFirst)
                     {
                         selectorWithContext = new Func<SearchDescriptor<T>, SearchDescriptor<T>>
                             (sd => sd.Index(indexName)
                             .Suggest(
                                 s => s.Completion(
-                                    completion_field, 
+                                    completion_field,
                                     c => c.Field(completion_field)
                                 .Fuzzy(
                                         ff => ff.MinLength(2)
@@ -94,12 +93,12 @@ namespace Bikewale.BAL.AutoComplete
                                         .Size(noOfRecords)
                                         .Contexts(contentDict))
                                         ));
-                        
+
                         _result = client.Search<T>(selectorWithContext);
                     }
-                    if (_result!=null && _result.Suggest!=null)
+                    if (_result != null && _result.Suggest != null)
                     {
-                        suggestionList = _result.Suggest[completion_field][0].Options;  
+                        suggestionList = _result.Suggest[completion_field][0].Options;
                     }
                 }
             }
@@ -129,6 +128,9 @@ namespace Bikewale.BAL.AutoComplete
                 case AutoSuggestEnum.AreaPinCodes:
                     indexName = Utility.BWConfiguration.Instance.PinCodesIndexName;
                     break;
+                case AutoSuggestEnum.PinCodeCapitalFirst:
+                    indexName = Utility.BWConfiguration.Instance.CapitalFirstPinCode;
+                    break;
                 default:
                     indexName = Utility.BWConfiguration.Instance.MMindexName;
                     break;
@@ -139,7 +141,7 @@ namespace Bikewale.BAL.AutoComplete
 
         private IEnumerable<string> GetContext(AutoSuggestEnum source)
         {
-            IList<string> indexName =new List<string>();
+            IList<string> indexName = new List<string>();
             switch (source)
             {
                 case AutoSuggestEnum.AllMakeModel:
@@ -155,6 +157,9 @@ namespace Bikewale.BAL.AutoComplete
                     indexName.Add("AllCity");
                     break;
                 case AutoSuggestEnum.AreaPinCodes:
+                    indexName.Add("AreaPinCodes");
+                    break;
+                case AutoSuggestEnum.PinCodeCapitalFirst:
                     indexName.Add("AreaPinCodes");
                     break;
                 default:

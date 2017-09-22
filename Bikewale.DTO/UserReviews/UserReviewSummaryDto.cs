@@ -22,6 +22,9 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("originalImgPath"), DataMember]
         public string OriginalImgPath { get; set; }
 
+        [JsonProperty("originalImagePath"), DataMember]
+        public string OriginalImagePath { get; set; }
+
         [JsonProperty("hostUrl"), DataMember]
         public string HostUrl { get; set; }
 
@@ -29,7 +32,7 @@ namespace Bikewale.DTO.UserReviews
         public string Description { get; set; }
 
         [JsonProperty("shortDescription"), DataMember]
-        public string ShortDescription { get { return  Description.TruncateHtml(270); } }
+        public string ShortDescription { get { return Description.TruncateHtml(270); } }
 
         [JsonProperty("title"), DataMember]
         public string Title { get; set; }
@@ -42,6 +45,9 @@ namespace Bikewale.DTO.UserReviews
 
         [JsonProperty("questions"), DataMember]
         public IEnumerable<UserReviewQuestionDto> Questions { get; set; }
+
+        [JsonProperty("customerId"), DataMember]
+        public string CustomerId { get; set; }
 
         [JsonProperty("customerName"), DataMember]
         public string CustomerName { get; set; }
@@ -69,5 +75,8 @@ namespace Bikewale.DTO.UserReviews
 
         [JsonProperty("ratingQuestionsCount"), DataMember]
         public ushort RatingQuestionsCount { get; set; }
+
+        [JsonProperty("reviewUrl"), DataMember]
+        public string ReviewUrl { get; set; }
     }
 }
