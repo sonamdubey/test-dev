@@ -29,7 +29,7 @@ namespace Bikewale.New.DealerLocator
         protected uint cityId, makeId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptPopularBrands, rptOtherBrands;
-        protected string clientIP = String.Empty, pageUrl = String.Empty;
+        protected string pageUrl = String.Empty;
 
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
         protected UpcomingBikes_new ctrlUpcomingBikes;

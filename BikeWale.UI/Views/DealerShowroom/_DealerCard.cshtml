@@ -6,7 +6,8 @@
         @foreach (var dealerDetails in Model.Dealers)
         {
             <li class="card">
-                <a href="@Bikewale.Utility.UrlFormatter.GetDealerUrl(Model.MakeMaskingName, Model.CityMaskingName, dealerDetails.Name, Convert.ToInt32(dealerDetails.DealerId)) " title="@dealerDetails.Name" class="card-target">
+                
+                <span title="@dealerDetails.Name" class="card-target">
                     <p class="text-black text-bold text-truncate margin-bottom10 font15">@dealerDetails.Name</p>
                     <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.Address) ? "hide" : "margin-bottom10")">
                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
@@ -16,7 +17,7 @@
                         <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
                         <span class="text-default text-bold vertical-top details-column text-truncate">@dealerDetails.MaskingNumber</span>
                     </p>
-                </a>
+                </span>
             </li>
         }
     </ul>

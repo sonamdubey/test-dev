@@ -5,6 +5,7 @@ using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.BikeData.NewLaunched;
 using Bikewale.BAL.BikeData.UpComingBike;
+using Bikewale.BAL.CMS;
 using Bikewale.BAL.Compare;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
@@ -77,7 +78,6 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Microsoft.Practices.Unity;
 using System;
-using Bikewale.BAL.CMS;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -203,6 +203,10 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ISplashScreenCacheRepository, SplashScreenCacheRepository>();
             container.RegisterType<ICMS, CMS>();
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
+            container.RegisterType<Bikewale.Interfaces.Finance.CapitalFirst.IFinanceRepository,
+                Bikewale.DAL.Finance.CapitalFirst.FinanceRepository>();
+            container.RegisterType<Bikewale.Interfaces.Finance.ICapitalFirst,
+                Bikewale.BAL.Finance.CapitalFirst>();
             return container;
         }
     }

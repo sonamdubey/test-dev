@@ -78,14 +78,21 @@ namespace BikewaleOpr.DALs.BikePricing
         }
 
 
-
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Changed SP from 'saveversionprices_28062017' to 'saveversionprices_30082017'
+        /// </summary>
+        /// <param name="versionPriceList"></param>
+        /// <param name="citiesList"></param>
+        /// <param name="updatedBy"></param>
+        /// <returns></returns>
         public bool SaveBikePrices(string versionPriceList, string citiesList, int updatedBy)
         {
             bool isUpdated = false;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveversionprices_28062017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveversionprices_30082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 

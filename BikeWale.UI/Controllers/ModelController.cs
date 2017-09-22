@@ -85,6 +85,7 @@ namespace Bikewale.Controllers
                 obj.PQSource = Entities.PriceQuote.PQSourceEnum.Desktop_ModelPage;
                 obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.Model_Desktop;
                 obj.ManufacturerCampaignPageId = ManufacturerCampaignServingPages.Desktop_Model_Page;
+                obj.CurrentPageUrl = Request.RawUrl;
                 ModelPageVM objData = obj.GetData(versionId);
                 //if data is null check for new bikes page redirection
                 if (obj.Status.Equals(StatusCodes.RedirectPermanent))
@@ -123,6 +124,7 @@ namespace Bikewale.Controllers
                 obj.PQSource = Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage;
                 obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.Model_Mobile;
                 obj.ManufacturerCampaignPageId = ManufacturerCampaignServingPages.Mobile_Model_Page;
+                obj.CurrentPageUrl = Request.RawUrl;
                 ModelPageVM objData = obj.GetData(versionId);
                 //if data is null check for new bikes page redirection
                 if (obj.Status.Equals(StatusCodes.RedirectPermanent))

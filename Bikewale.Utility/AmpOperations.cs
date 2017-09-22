@@ -191,6 +191,98 @@ namespace Bikewale.Utility
         }
 
         /// <summary>
+        /// Created By : Ashutosh Sharma on 11-Sep-2017
+        /// Description : Method to remove attribute in 'html' string 
+        /// </summary>
+        /// <param name="html"></param>
+        public static string RemoveAttribure(this string html, string attr)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(html) && !string.IsNullOrEmpty(attr))
+                {
+                    var htmlDoc = new HtmlDocument();
+                    htmlDoc.LoadHtml(html);
+                    var nodes = htmlDoc.DocumentNode.SelectNodes("//*").Where(d => d.Attributes.Contains(attr));
+                    foreach (var item in nodes)
+                    {
+                        item.Attributes.Remove(attr);
+                    }
+                    html = htmlDoc.DocumentNode.OuterHtml;
+                }
+            }
+            catch (Exception err)
+            {
+                throw err;
+            }
+            return html;
+        }
+
+        /// <summary>
+        /// Created By : Ashutosh Sharma on 11-Sep-2017
+        /// Description : Method to remove style element in 'html' string 
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        public static string RemoveStyleElement(this string html)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(html))
+                {
+                    var htmlDoc = new HtmlDocument();
+                    htmlDoc.LoadHtml(html);
+                    var spanNodes = htmlDoc.DocumentNode.SelectNodes("//style");
+                    foreach (var item in spanNodes)
+                    {
+                        item.Remove();
+                    }
+                    html = htmlDoc.DocumentNode.OuterHtml;
+                }
+            }
+            catch (Exception err)
+            {
+
+                throw err;
+            }
+            return html;
+        }
+
+        /// <summary>
+        /// Created By : Ashutosh Sharma on 11-Sep-2017
+        /// Description : Method to replace href url of anchor tag which have class="className" in 'html' string
+        /// </summary>
+        /// <param name="html"></param>
+        /// <param name="className"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string ReplaceHref(this string html, string className, string url)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(html) && !string.IsNullOrEmpty(url))
+                {
+                    var htmlDoc = new HtmlDocument();
+                    htmlDoc.LoadHtml(html);
+                    var aNodes = htmlDoc.DocumentNode.SelectNodes("//a").Where(c => c.Attributes.Contains("class") && c.Attributes["class"].Value.Contains(className));
+                    foreach (var item in aNodes)
+                    {
+                        if (item.Attributes.Contains("href"))
+                        {
+                            item.SetAttributeValue("href", url);
+                        }
+                    }
+                    html = htmlDoc.DocumentNode.OuterHtml;
+                }
+            }
+            catch (Exception err)
+            {
+
+                throw err;
+            }
+            return html;
+        }
+        /// <summary>
         /// Function to read the html document from given string
         /// </summary>
         /// <param name="htmlContent"></param>
