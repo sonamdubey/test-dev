@@ -140,11 +140,31 @@ namespace Bikewale.Models.BikeModels
                     if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
                     {
                         FetchOnRoadPrice(_objData.ModelPageEntity);
-                        GetManufacturerCampaign();
                     }
 
                     LoadVariants(_objData.ModelPageEntity);
+                    if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
+                    {
+                        GetManufacturerCampaign();
+                        if (_objData.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                        {
+                            PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
+                            objPQEntity.CityId = Convert.ToUInt16(_cityId);
+                            objPQEntity.AreaId = Convert.ToUInt32(_areaId);
+                            objPQEntity.ClientIP = "";
+                            objPQEntity.SourceId = Convert.ToUInt16(Source);
+                            objPQEntity.ModelId = _modelId;
+                            objPQEntity.VersionId = _objData.VersionId;
+                            objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
+                            objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
+                            objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
+                            objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
+                            _objData.PQId = _objData.LeadCampaign.PQId = (uint)_objPQ.RegisterPriceQuote(objPQEntity);
 
+                            var versions = _objPQCache.GetOtherVersionsPrices(_modelId, _cityId);
+                            _objData.LeadCampaign.LoanAmount = (uint)Convert.ToUInt32((versions.FirstOrDefault(m => m.VersionId == _objData.VersionId).OnRoadPrice) * 0.8);
+                        }
+                    }
                     BindControls();
 
                     BindColorString();
@@ -1317,7 +1337,7 @@ namespace Bikewale.Models.BikeModels
                             CurrentPageUrl = CurrentPageUrl,
                             PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
                             BikeName = _objData.BikeName,
-                            LoanAmount= Convert.ToUInt32((_objData.BikePrice) * 0.8)
+                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8)
                         };
 
                         _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
