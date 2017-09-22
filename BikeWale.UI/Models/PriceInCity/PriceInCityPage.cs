@@ -199,9 +199,9 @@ namespace Bikewale.Models
                 if (modelId > 0 && cityId > 0)
                 {
                     var cities = _objCityCache.GetPriceQuoteCities(modelId);
-
                     if (cities != null)
                     {
+                        objVM.Cities = cities;
                         var selectedCity = cities.FirstOrDefault(m => m.CityId == cityId);
                         objVM.CookieCityEntity = selectedCity;
                         if (selectedCity != null && selectedCity.HasAreas && areaId > 0)
