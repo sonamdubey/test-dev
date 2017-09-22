@@ -201,6 +201,7 @@ section {
 #author__carousel .jcarousel li {
     float: left;
     width: 220px;
+    min-height: 244px;
     margin-right: 20px;
     background: #fff;
     box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50);
@@ -209,6 +210,7 @@ section {
 .jcarousel-author-image {
     height: auto;
     width: 205px;
+    min-height: 162px;
     display: table;
     text-align: center;
     position: relative;
@@ -258,4 +260,67 @@ section {
     #author__carousel .jcarousel-control-right {
         top: 36%;
     }
+}
+
+/* Social icon*/
+.social-wrapper {
+    padding-top: 10px;
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: top;
+}
+.social-wrapper li {
+    width: 38px;
+    height: 24px;
+    margin-right: 10px;
+    float: left;
+}
+.social-icons-sprite {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/social-icons-sprite.png) no-repeat;
+    display: inline-block;
+}
+.whatsapp-icon, .fb-icon, .tweet-icon, .gplus-icon, .mail-icon {
+    height: 14px;
+    position: relative;
+    top: 4px;
+}
+.whatsapp-container {
+    background: -webkit-linear-gradient(to bottom, #49c633, #40ad2c);
+    background: -o-linear-gradient(to bottom, #49c633, #40ad2c);
+    background: -moz-linear-gradient(to bottom, #49c633, #40ad2c);
+    background: linear-gradient(to bottom, #49c633, #40ad2c);
+}
+.fb-container {
+    background: -webkit-linear-gradient(to bottom, #5171ba, #3b599c);
+    background: -o-linear-gradient(to bottom, #5171ba, #3b599c);
+    background: -moz-linear-gradient(to bottom, #5171ba, #3b599c);
+    background: linear-gradient(to bottom, #5171ba, #3b599c);
+}
+.tweet-container {
+    background: -webkit-linear-gradient(to bottom, #28c0ff, #1babe7);
+    background: -o-linear-gradient(to bottom, #28c0ff, #1babe7);
+    background: -moz-linear-gradient(to bottom, #28c0ff, #1babe7);
+    background: linear-gradient(to bottom, #28c0ff, #1babe7);
+}
+.gplus-container {
+    background: -webkit-linear-gradient(to bottom, #ff533f, #dd2a16);
+    background: -o-linear-gradient(to bottom, #ff533f, #dd2a16);
+    background: -moz-linear-gradient(to bottom, #ff533f, #dd2a16);
+    background: linear-gradient(to bottom, #ff533f, #dd2a16);
+}
+.whatsapp-icon {
+    width: 12px;
+    background-position: 0 0;
+}
+.fb-icon {
+    width: 8px;
+    background-position: -22px 0;
+}
+.tweet-icon {
+    width: 16px;
+    background-position: -39px 0;
+}
+.gplus-icon {
+    width: 14px;
+    background-position: -65px 0;
 }
