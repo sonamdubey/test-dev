@@ -15,6 +15,7 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -34,7 +35,7 @@ namespace Bikewale.Models
         public MakeMaskingResponse objResponse;
         public BikeMakeEntityBase objMake;
         public CityEntityBase CityDetails;
-        public DealerShowroomDealerDetailsVM objDealerDetails;
+        public DealerShowroomDealerDetailsVM objDealerDetails = null;
 
         public bool IsMobile { get; internal set; }
 
@@ -54,6 +55,7 @@ namespace Bikewale.Models
             _bikeModels = bikeModels;
             _objSC = objSC;
             TopCount = topCount;
+            objDealerDetails = new DealerShowroomDealerDetailsVM();
             ProcessQuery(makeMaskingName, cityMaskingName, dealerId);
         }
 
@@ -62,15 +64,16 @@ namespace Bikewale.Models
         /// Summary :- To fetch data for dealer detail Page
         /// Modified by : Aditi Srivastava on 24 Apr 2017
         /// Summary     : Added null check for dealer details before functiion calls
+        /// Modified by : Vivek Singh Tomar on 8th Sep 2017
+        /// Summary     : Moved BindDealerData to Parse query string section
         /// </summary>
         /// <returns></returns>
         public DealerShowroomDealerDetailsVM GetData()
         {
-            objDealerDetails = new DealerShowroomDealerDetailsVM();
             try
             {
                 objMake = _bikeMakesCache.GetMakeDetails(makeId);
-                objDealerDetails.DealerDetails = BindDealersData();
+                
                 if (objMake != null)
                     objDealerDetails.Make = objMake;
                 if (objDealerDetails.DealerDetails != null && objDealerDetails.DealerDetails.DealerDetails != null)
@@ -385,6 +388,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 27 March 2017
         /// Summary :- To Processing query
+        /// Created by : Vivek Singh Tomar 8th Sep 2017
+        /// Summary    : Added processing of dealer Id as to identify if it's featured or not
         /// </summary>
         /// <returns></returns>
         private void ProcessQuery(string makeMaskingName, string cityMaskingName, uint dealerId)
@@ -404,10 +409,21 @@ namespace Bikewale.Models
                 else if (objResponse.StatusCode == 301)
                 {
                     status = StatusCodes.RedirectPermanent;
+                    objDealerDetails.RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName);
                 }
                 else
                 {
                     status = StatusCodes.ContentNotFound;
+                }
+
+                if(status.Equals(StatusCodes.ContentFound) && dealerId > 0)
+                {
+                    objDealerDetails.DealerDetails = BindDealersData();
+                    if(objDealerDetails.DealerDetails != null && !objDealerDetails.DealerDetails.DealerDetails.IsFeatured)
+                    {
+                        status = StatusCodes.RedirectPermanent;
+                        objDealerDetails.RedirectUrl = string.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
+                    }
                 }
             }
             else
@@ -415,6 +431,6 @@ namespace Bikewale.Models
                 status = StatusCodes.ContentNotFound;
             }
         }
-
+        
     }
 }

@@ -30,7 +30,7 @@
             @foreach (var Details in Model.DealersList.Dealers)
             {
                 <li>
-                    <a href="/m/@Model.Make.MaskingName-dealer-showrooms-in-@Model.CityDetails.CityMaskingName/@Details.DealerId-@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)/" title="@Details.Name">
+                    <a href=@(Details.IsFeatured ? string.Format("/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Details.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)) : "javascript:void(0)") rel="nofollow" title="@Details.Name">
                         @if (Details.IsFeatured)
                         {
                         <div class="featured-tag">
@@ -81,7 +81,7 @@
 
     <section>
         <div class="container bg-white box-shadow padding-top15 padding-bottom10">
-            <h2 class="padding-right20 padding-bottom15 padding-left20">Explore Explore @Model.Make.MakeName showrooms in cities near @Model.CityDetails.CityName</h2>
+            <h2 class="padding-right20 padding-bottom15 padding-left20">Explore @Model.Make.MakeName showrooms in cities near @Model.CityDetails.CityName</h2>
             <div class="clear"></div>
             @Html.Partial("~/Views/DealerShowroom/_DealersInNearByCities_Mobile.cshtml", Model.DealerCountCity)
         </div>

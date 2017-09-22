@@ -93,7 +93,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                             objLead.Mobile,
                            objLead.LeadSourceId,
                            Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
-                           Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
+                           Request.Headers.Contains("_bwutmz") ? Request.Headers.GetValues("_bwutmz").FirstOrDefault() : String.Empty,
                            objLead.DeviceId,
                            objLead.CampaignId,
                            objLead.LeadId

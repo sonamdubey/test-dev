@@ -417,3 +417,28 @@ input[type=number].invalid + label.active:after {
 	padding: 25px 50px;
 }
 /* fixed table end */
+
+/* overflow table body start */
+.overflow-table-body tbody {
+    display: block;
+    width: 100%;
+    height: 475px;
+    overflow: auto;
+}
+
+.overflow-table-body thead tr,
+.overflow-table-body tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.overflow-table-body input[type="number"] {
+    margin-bottom: 0;
+}
+/* overflow table body end */
+
+.lighten-5 td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

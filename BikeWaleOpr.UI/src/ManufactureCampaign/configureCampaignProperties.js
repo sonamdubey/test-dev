@@ -17,11 +17,12 @@ function FormatHtml(strHtml) {
         }
         el.find('span[name="mfg_maskingNumber"]').text('@Model.MaskingNumber');
         el.find('span[name="mfg_organization"]').text('@Model.Organization');
-
-        var maskingNumber = el.find('#btnMaskingNumber');
-        maskingNumber.before('@if(!String.IsNullOrEmpty(Model.MaskingNumber)){')
-        maskingNumber.after('}')
-        maskingNumber.attr("href", "tel:+91@Model.MaskingNumber")
+        if (!strHtml.includes('String.IsNullOrEmpty(Model.MaskingNumber)')) {
+            var maskingNumber = el.find('#btnMaskingNumber');
+            maskingNumber.before('@if(!String.IsNullOrEmpty(Model.MaskingNumber)){')
+            maskingNumber.after('}')
+            maskingNumber.attr("href", "tel:+91@Model.MaskingNumber")
+        }
         var leadCaptureBtn = el.find('a#btnManufacturer');
         leadCaptureBtn.attr('data-mfgcampid', '@Model.CampaignId').addClass('bw-ga').
             attr('data-item-id', '@Model.DealerId').
