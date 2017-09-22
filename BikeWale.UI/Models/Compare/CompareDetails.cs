@@ -334,7 +334,7 @@ namespace Bikewale.Models
         private void ProcessQueryString()
         {
             ushort bikeComparisions = 0;
-            ushort maxComparisions = 5;
+            ushort maxComparisions = (ushort)(IsMobile ? 2 : 5);
             try
             {
                 var request = HttpContext.Current.Request;

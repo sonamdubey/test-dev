@@ -535,6 +535,11 @@ var mvcPageViews = [
         fileName: 'ReviewSummary_Mobile.cshtml',
         stylesheet: 'm/css/user-review/write-review.css'
     },
+	{
+        folderName: 'Views/UserReview/',
+        fileName: 'ReviewSummary.cshtml',
+        stylesheet: 'css/user-review/write-review.css'
+    },
 	  {
         folderName: 'Views/CompareBikes/',
         fileName: 'Index_Mobile.cshtml',
