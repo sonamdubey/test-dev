@@ -1,7 +1,7 @@
 ﻿@{
     var AdId = Model.GetType().GetProperty("AdId").GetValue(Model, null);
 }
-<div id='div-gpt-ad-@string.Format("{0}-1", AdId)'>
+<div class="sponsored-card" id='div-gpt-ad-@string.Format("{0}-1", AdId)'>
     <script>
         googletag.cmd.push(function () { googletag.display('div-gpt-ad-@string.Format("{0}-1", AdId)'); });
     </script>
