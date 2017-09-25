@@ -126,6 +126,9 @@
                         return String.Format("googletag.defineSlot('{0}_300x100',  [300, 100], 'div-gpt-ad-{1}-8').addService(googletag.pubads());;", adPath, adId);
                     case 10:
                         return "googletag.defineSlot('/1017752/Bikewale_Mobile_Model_Comparo_320x400', [[320, 300], [320, 350], [320, 400], [320, 450], [320, 425]], 'div-gpt-ad-1495092203328-1').addService(googletag.pubads());";
+                    case 11:
+                        return "googletag.defineSlot('/1017752/SimilarBikes_Mobile_200x253', [200, 253], 'div-gpt-ad-1505919734321-11').addService(googletag.pubads()); ";
+
                     default:
                         return "";
                 }
@@ -161,6 +164,7 @@
             @if(Model.AdTags.Ad320x100BTF){@Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if(Model.AdTags.Ad_300x100){@Html.Raw(GetAdSlot(9, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if (Model.AdTags.Ad_320x400_Middle) { @Html.Raw(GetAdSlot(10, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_200x253){ @Html.Raw(GetAdSlot(11, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
