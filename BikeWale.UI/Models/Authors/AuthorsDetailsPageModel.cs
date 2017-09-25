@@ -48,7 +48,7 @@ namespace Bikewale.Models.Authors
                 objAuthorDetails.NewsList = _authors.GetArticlesByAuthorViaGrpc(_authorId, Convert.ToInt32(BWConfiguration.Instance.ApplicationId), string.Format("{0}", (int)EnumCMSContentType.News));
                 objAuthorDetails.ExpertReviewsList = _authors.GetArticlesByAuthorViaGrpc(_authorId, Convert.ToInt32(BWConfiguration.Instance.ApplicationId), string.Format("{0},{1}", (int)EnumCMSContentType.ComparisonTests, (int)EnumCMSContentType.RoadTest));
                 objAuthorDetails.OtherAuthors = _authors.GetAllOtherAuthors(_authorId, Convert.ToInt32(BWConfiguration.Instance.ApplicationId));
-                BindPopularNewsWidget(objAuthorDetails);
+                BindRecentNewsWidget(objAuthorDetails);
                 BindPageMetaTags(objAuthorDetails);
             }
             catch (Exception ex)
@@ -63,7 +63,7 @@ namespace Bikewale.Models.Authors
         /// Summary : Get PopularNews for author details page
         /// </summary>
         /// <param name="objAuthorsDetails"></param>
-        private void BindPopularNewsWidget(AuthorDetailsPageVM objAuthorsDetails)
+        private void BindRecentNewsWidget(AuthorDetailsPageVM objAuthorsDetails)
         {
             try
             {
