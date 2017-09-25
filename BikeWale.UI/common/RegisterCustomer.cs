@@ -355,10 +355,6 @@ namespace Bikewale.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "updatecustomerpassword";
 
-                    //cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
-                    //cmd.Parameters.Add("@Salt", SqlDbType.VarChar, 10).Value = salt;
-                    //cmd.Parameters.Add("@Hash", SqlDbType.VarChar, 64).Value = hash;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbType.String, 10, salt));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbType.String, 64, hash));

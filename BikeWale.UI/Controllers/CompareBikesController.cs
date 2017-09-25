@@ -1,11 +1,9 @@
 ﻿using Bikewale.Comparison.Interface;
-using Bikewale.CoreDAL;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Models;
-using System;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -76,10 +74,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult CompareBikeDetails()
         {
-            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-            if (String.IsNullOrEmpty(originalUrl))
-                originalUrl = Request.ServerVariables["URL"];
-            CompareDetails objDetails = new CompareDetails(_compareTest, _objModelMaskingCache, _cachedCompare, _objCompare, _objMakeCache, _objSponsored, originalUrl);
+            CompareDetails objDetails = new CompareDetails(_compareTest, _objModelMaskingCache, _cachedCompare, _objCompare, _objMakeCache, _objSponsored, 4);
             if (objDetails.status == Entities.StatusCodes.ContentFound)
             {
                 CompareDetailsVM objVM = null;
@@ -88,13 +83,16 @@ namespace Bikewale.Controllers
                 {
                     return RedirectPermanent(objDetails.redirectionUrl);
                 }
-                if (objVM != null && objVM.Compare != null)
-                {
-                    return View(objVM);
-                }
                 else
                 {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    if (objVM != null && objVM.Compare != null)
+                    {
+                        return View(objVM);
+                    }
+                    else
+                    {
+                        return Redirect("/pageNotFound.aspx");
+                    }
                 }
             }
             else if (objDetails.status == Entities.StatusCodes.RedirectPermanent)
@@ -103,12 +101,12 @@ namespace Bikewale.Controllers
             }
             else if ((objDetails.status == Entities.StatusCodes.RedirectTemporary))
             {
-                return Redirect(CommonOpn.AppPath + "comparebikes/");
+                return Redirect("/comparebikes/");
 
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect("/pageNotFound.aspx");
             }
 
         }
@@ -120,10 +118,7 @@ namespace Bikewale.Controllers
         [Route("m/compare/details/")]
         public ActionResult CompareBikeDetails_Mobile()
         {
-            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-            if (String.IsNullOrEmpty(originalUrl))
-                originalUrl = Request.ServerVariables["URL"];
-            CompareDetails objDetails = new CompareDetails(_compareTest, _objModelMaskingCache, _cachedCompare, _objCompare, _objMakeCache, _objSponsored, originalUrl);
+            CompareDetails objDetails = new CompareDetails(_compareTest, _objModelMaskingCache, _cachedCompare, _objCompare, _objMakeCache, _objSponsored, 2);
 
             if (objDetails.status == Entities.StatusCodes.ContentFound)
             {
@@ -134,14 +129,18 @@ namespace Bikewale.Controllers
                 {
                     return RedirectPermanent(objDetails.redirectionUrl);
                 }
-                if (objVM != null && objVM.Compare != null)
-                {
-                    return View(objVM);
-                }
                 else
                 {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    if (objVM != null && objVM.Compare != null)
+                    {
+                        return View(objVM);
+                    }
+                    else
+                    {
+                        return Redirect("/m/pageNotFound.aspx");
+                    }
                 }
+
             }
             else if (objDetails.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -149,12 +148,12 @@ namespace Bikewale.Controllers
             }
             else if ((objDetails.status == Entities.StatusCodes.RedirectTemporary))
             {
-                return Redirect(CommonOpn.AppPath + "comparebikes/");
+                return Redirect("/m/comparebikes/");
 
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect("/m/pageNotFound.aspx");
             }
 
         }

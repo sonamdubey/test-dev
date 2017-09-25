@@ -33,11 +33,13 @@ namespace Bikewale.Models
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         public string redirectionUrl { get; set; }
-        private readonly string originalUrl;
-        private string _baseUrl = string.Empty, _bikeQueryString = string.Empty, _versionsList = string.Empty;
-        uint _sponseredBikeVersionId;
+        private string _originalUrl, _compareUrl;
+        private readonly uint _maxComparisons;
+        private string _bikeQueryString = string.Empty, _versionsList = string.Empty;
+        private uint _sponsoredBikeVersionId, _cityId;
+        private ushort bikeComparisions;
 
-        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository<int> objMakeCache, ISponsoredComparison objSponsored, string originalUrl)
+        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository<int> objMakeCache, ISponsoredComparison objSponsored, uint maxComparisons)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objCompareCache = objCompareCache;
@@ -45,7 +47,7 @@ namespace Bikewale.Models
             _objMakeCache = objMakeCache;
             _compareTest = compareTest;
             _objSponsored = objSponsored;
-            this.originalUrl = originalUrl;
+            _maxComparisons = maxComparisons;
 
             ProcessQueryString();
         }
@@ -58,9 +60,19 @@ namespace Bikewale.Models
             CompareDetailsVM obj = new CompareDetailsVM();
             try
             {
-                BindSimilarBikes(obj);
+                GlobalCityAreaEntity cityArea = GlobalCityArea.GetGlobalCityArea();
+
+                if (cityArea != null)
+                {
+                    _cityId = cityArea.CityId;
+                }
+
                 GetComparedBikeDetails(obj);
 
+                if (status != StatusCodes.RedirectPermanent)
+                {
+                    BindSimilarBikes(obj);
+                }
             }
             catch (Exception ex)
             {
@@ -80,9 +92,8 @@ namespace Bikewale.Models
         {
             try
             {
-                int cityId = (int)GlobalCityArea.GetGlobalCityArea().CityId;
                 ushort topCount = 8;
-                obj.topBikeCompares = _objCompareCache.GetSimilarCompareBikes(_versionsList, topCount, cityId);
+                obj.topBikeCompares = _objCompareCache.GetSimilarCompareBikes(_versionsList, topCount, (int)_cityId);
             }
             catch (Exception ex)
             {
@@ -100,30 +111,36 @@ namespace Bikewale.Models
         {
             try
             {
-                GlobalCityAreaEntity cityArea = GlobalCityArea.GetGlobalCityArea();
-                uint CityId = 0;
-                if (cityArea != null)
-                {
-                    CityId = cityArea.CityId;
-                }
-                var SponsoredBike = _objSponsored.GetSponsoredVersion(_versionsList);
+                bool fetchSponsoredComparison = IsMobile ? bikeComparisions <= _maxComparisons : bikeComparisions < _maxComparisons;
 
-                if (SponsoredBike != null)
+                if (fetchSponsoredComparison)
                 {
-                    obj.sponsoredVersionId = _sponseredBikeVersionId > 0 ? _sponseredBikeVersionId : SponsoredBike.SponsoredVersionId;
-                    obj.KnowMoreLinkUrl = SponsoredBike.LinkUrl;
-                    obj.KnowMoreLinkText = !String.IsNullOrEmpty(SponsoredBike.LinkText) ? SponsoredBike.LinkText : "Know more";
+                    var SponsoredBike = _objSponsored.GetSponsoredVersion(_versionsList);
+
+                    if (SponsoredBike != null)
+                    {
+                        obj.sponsoredVersionId = _sponsoredBikeVersionId > 0 ? _sponsoredBikeVersionId : SponsoredBike.SponsoredVersionId;
+                        obj.KnowMoreLinkUrl = SponsoredBike.LinkUrl;
+                        obj.KnowMoreLinkText = !String.IsNullOrEmpty(SponsoredBike.LinkText) ? SponsoredBike.LinkText : "Know more";
+                    }
+
+                    if (obj.sponsoredVersionId > 0)
+                    {
+                        _versionsList = string.Format("{0},{1}", _versionsList, obj.sponsoredVersionId);
+                    }
                 }
 
-                if (obj.sponsoredVersionId > 0) _versionsList = string.Format("{0},{1}", _versionsList, obj.sponsoredVersionId);
-                var arrayVersionList = _versionsList.Split(',');
-                _versionsList = string.Join(",", arrayVersionList.Take(4));
-                obj.Compare = _objCompareCache.DoCompare(_versionsList, CityId);
+                obj.Compare = _objCompareCache.DoCompare(_versionsList, _cityId);
 
                 if (obj.Compare != null && obj.Compare.BasicInfo != null)
                 {
-                    GetComparisionTextAndMetas(obj);
-                    obj.isUsedBikePresent = obj.Compare.BasicInfo.FirstOrDefault(x => x.UsedBikeCount.BikeCount > 0) != null;
+                    CreateCanonicalUrlAndCheckRedirection(obj);
+                    if (status != StatusCodes.RedirectPermanent)
+                    {
+                        GetComparisionTextAndMetas(obj);
+                        obj.isUsedBikePresent = obj.Compare.BasicInfo.FirstOrDefault(x => x.UsedBikeCount.BikeCount > 0) != null;
+                    }
+
                 }
 
                 obj.PQSourceId = PQSourceEnum.Desktop_CompareBike;
@@ -179,11 +196,9 @@ namespace Bikewale.Models
 
                     obj.PageMetaTags.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";
                     obj.PageMetaTags.Description = string.Format("Compare {0} at Bikewale. Compare Price, Mileage, Engine Power, Features, Specifications, Colours and much more.", string.Join(" and ", bikeList));
-                    string compareUrl = CreateCanonicalUrl(obj);
-                    CheckForRedirection(compareUrl);
                     CreateCompareSummary(obj.Compare.BasicInfo, obj.Compare.CompareColors, obj);
-                    obj.PageMetaTags.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, compareUrl);
-                    obj.PageMetaTags.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, compareUrl);
+                    obj.PageMetaTags.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, _compareUrl);
+                    obj.PageMetaTags.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, _compareUrl);
                     obj.Page_H1 = obj.comparisionText;
 
                     SetBreadcrumList(obj);
@@ -241,33 +256,6 @@ namespace Bikewale.Models
 
         }
 
-        /// <summary>
-        /// Created By :- Subodh Jain 09 May 2017
-        /// Summary :- Function for CheckForRedirection
-        /// </summary>
-        /// <returns></returns>
-        private void CheckForRedirection(string canonicalUrl)
-        {
-            try
-            {
-                string[] strArray = originalUrl.Trim().Split('/');
-                if (strArray.Length > 1)
-                {
-                    _baseUrl = IsMobile ? strArray[3] : strArray[2];
-                }
-
-                status = _baseUrl == canonicalUrl ? 0 : StatusCodes.RedirectPermanent;
-                if (status == Entities.StatusCodes.RedirectPermanent)
-                {
-                    redirectionUrl = string.Format("/comparebikes/{0}/?{1}", canonicalUrl, _bikeQueryString);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.CheckForRedirection");
-            }
-        }
-
 
         /// <summary>
         /// Created By :- Subodh Jain 09 May 2017
@@ -284,14 +272,14 @@ namespace Bikewale.Models
                 {
                     if (bike.VersionId != obj.sponsoredVersionId)
                     {
-                        string bikName = string.Format("{0} {1}", bike.Make, bike.Model);
+                        string bikeName = string.Format("{0} {1}", bike.Make, bike.Model);
                         int versionCount = bike.Versions.Count();
                         uint versionId = bike.VersionId;
                         string price = Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bike.Price));
                         int colorCount = colors.bikes[i].bikeColors.Count;
-                        bikeNames += bikName + (i < count - 1 ? ", " : " and ");
-                        bikePrice += string.Format(" {0} is   &#x20B9; {1} {2}", bikName, price, (i < count - 1 ? ", " : " and "));
-                        variants += string.Format(" {0} is available in {1} {4} and {2} {5}{3}", bikName, colorCount, versionCount, (i < count - 1 ? ", " : " and "), colorCount > 1 ? "colours" : "colour", versionCount > 1 ? "variants" : "variant");
+                        bikeNames += bikeName + (i < count - 1 ? ", " : " and ");
+                        bikePrice += string.Format(" {0} is   &#x20B9; {1} {2}", bikeName, price, (i < count - 1 ? ", " : " and "));
+                        variants += string.Format(" {0} is available in {1} {4} and {2} {5}{3}", bikeName, colorCount, versionCount, (i < count - 1 ? ", " : " and "), colorCount > 1 ? "colours" : "colour", versionCount > 1 ? "variants" : "variant");
                         i++;
                     }
                 }
@@ -312,18 +300,24 @@ namespace Bikewale.Models
         /// Summary :- Function for CreateCanonicalUrl
         /// </summary>
         /// <returns></returns>
-        private string CreateCanonicalUrl(CompareDetailsVM obj)
+        private void CreateCanonicalUrlAndCheckRedirection(CompareDetailsVM obj)
         {
-            string canon = string.Empty;
             try
             {
-                canon = string.Join("-vs-", obj.Compare.BasicInfo.Where(x => x.VersionId != obj.sponsoredVersionId).OrderBy(x => x.ModelId).Select(x => string.Format("{0}-{1}", x.MakeMaskingName, x.ModelMaskingName)));
+                _compareUrl = string.Join("-vs-", obj.Compare.BasicInfo.Where(x => x.VersionId != obj.sponsoredVersionId).OrderBy(x => x.ModelId).Select(x => string.Format("{0}-{1}", x.MakeMaskingName, x.ModelMaskingName)));
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.CreateCanonicalUrl()");
             }
-            return canon;
+            finally
+            {
+                if (_originalUrl.IndexOf(_compareUrl) < 0)
+                {
+                    status = StatusCodes.RedirectPermanent;
+                    redirectionUrl = string.Format("{0}comparebikes/{1}/?{2}", IsMobile ? "/m/" : "/", _compareUrl, _bikeQueryString);
+                }
+            }
         }
 
         /// <summary>
@@ -333,51 +327,52 @@ namespace Bikewale.Models
         /// <returns></returns>
         private void ProcessQueryString()
         {
-            ushort bikeComparisions = 0;
-            ushort maxComparisions = (ushort)(IsMobile ? 2 : 5);
+
             try
             {
                 var request = HttpContext.Current.Request;
+                _originalUrl = request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+                if (String.IsNullOrEmpty(_originalUrl))
+                    _originalUrl = request.ServerVariables["URL"];
+
                 string modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
 
-                string[] queryArr = originalUrl.Split('?');
+                string[] queryArr = _originalUrl.Split('?');
                 if (queryArr.Length > 1)
                 {
                     _bikeQueryString = queryArr[1];
                 }
 
-                if (_bikeQueryString.Contains("sponseredBike"))
+                if (_bikeQueryString.Contains("sponsoredbike"))
                 {
                     uint vId = 0;
-                    if (uint.TryParse(request["sponseredBike"], out vId) && vId > 0)
+                    if (uint.TryParse(request["sponsoredbike"], out vId) && vId > 0)
                     {
-                        _sponseredBikeVersionId = vId;
+                        _sponsoredBikeVersionId = vId;
                     }
                 }
 
                 if (_bikeQueryString.Contains("bike"))
                 {
-                    for (ushort i = 1; i <= maxComparisions; i++)
+                    for (ushort i = 1; i <= _maxComparisons; i++)
                     {
                         uint vId = 0;
                         if (uint.TryParse(request["bike" + i], out vId) && vId > 0)
                         {
-                            _versionsList += "," + vId;
+                            _versionsList = string.Format("{0},{1}", _versionsList, vId);
                             bikeComparisions = i;
                         }
                     }
                     status = StatusCodes.ContentFound;
 
                 }
-
                 else if (!string.IsNullOrEmpty(modelList))
                 {
                     string[] models = modelList.Split(',');
                     ModelMaskingResponse objResponse = null;
                     ModelMapping objCache = new ModelMapping();
-                    int totalModels = models.Length;
 
-                    for (ushort iTmp = 0; iTmp < totalModels; iTmp++)
+                    for (ushort iTmp = 0; iTmp < models.Length; iTmp++)
                     {
                         string modelMaskingName = models[iTmp];
                         if (!string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)
@@ -387,7 +382,7 @@ namespace Bikewale.Models
 
                         if (objResponse != null && objResponse.StatusCode == 200)
                         {
-                            _versionsList += "," + objCache.GetTopVersionId(modelMaskingName);
+                            _versionsList = string.Format("{0},{1}", _versionsList, objCache.GetTopVersionId(modelMaskingName));
                             status = StatusCodes.ContentFound;
                             bikeComparisions = (ushort)(iTmp + 1);
                         }
@@ -409,7 +404,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.GetCompareBikeDetails.ParseQueryString");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.CompareDetails.ProcessQueryString({0})", _originalUrl));
             }
             finally
             {

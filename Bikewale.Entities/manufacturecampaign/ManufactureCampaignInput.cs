@@ -45,6 +45,9 @@ namespace Bikewale.Entities.manufacturecampaign
         public string GACategory { get; set; }
         public string GALabel { get; set; }
         public string PageUrl { get; set; }
-
+        public uint VersionId { get; set; }
+        public string CurrentPageUrl { get; set; }
+        public uint LoanAmount { get; set; }
+        public ushort PlatformId { get; set; }
     }
 }
