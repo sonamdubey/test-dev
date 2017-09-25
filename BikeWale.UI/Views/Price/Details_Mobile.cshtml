@@ -1,6 +1,5 @@
 ﻿@model Bikewale.Models.Price.DealerPriceQuotePageVM
 @using Bikewale.Common;
-@using Bikewale.BikeBooking;
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/dealerpricequote.css' />";
     Model.Page_BTF_CSS_Path = "";
@@ -323,7 +322,7 @@
 {
     @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 }
-
+<script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
 <script type="text/javascript">
 
     var dealerId = '@Model.DealerId', pqId = '@Model.PQId', versionId = '@Model.VersionId', modelId = '@Model.ModelId';

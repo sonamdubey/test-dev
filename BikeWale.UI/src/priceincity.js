@@ -14,7 +14,7 @@ docReady(function () {
     }
     function callFallBackWriteReview() {
         $('#adBlocker').show();
-        $('#adslotsimilarbike').hide();
+        $('.sponsored-card').hide();
     };
 
     // version dropdown

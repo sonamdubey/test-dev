@@ -52,4 +52,5 @@
         var photosCount = @(Model.AreModelPhotosAvailable ? Model.ModelPageEntity.AllPhotos.Count() - 10 : 0);
         var leadSourceId,  versionName = "@Model.VersionName", getCityArea;
     </script>
+    <script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
 </div>
