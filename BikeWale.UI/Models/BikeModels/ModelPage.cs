@@ -146,24 +146,6 @@ namespace Bikewale.Models.BikeModels
                     if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
                     {
                         GetManufacturerCampaign();
-                        if (_objData.LeadCampaign != null && _objData.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
-                        {
-                            PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
-                            objPQEntity.CityId = Convert.ToUInt16(_cityId);
-                            objPQEntity.AreaId = Convert.ToUInt32(_areaId);
-                            objPQEntity.ClientIP = "";
-                            objPQEntity.SourceId = Convert.ToUInt16(Source);
-                            objPQEntity.ModelId = _modelId;
-                            objPQEntity.VersionId = _objData.VersionId;
-                            objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
-                            objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
-                            objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
-                            objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
-                            _objData.PQId = _objData.LeadCampaign.PQId = (uint)_objPQ.RegisterPriceQuote(objPQEntity);
-
-                            var versions = _objPQCache.GetOtherVersionsPrices(_modelId, _cityId);
-                            _objData.LeadCampaign.LoanAmount = (uint)Convert.ToUInt32((versions.FirstOrDefault(m => m.VersionId == _objData.VersionId).OnRoadPrice) * 0.8);
-                        }
                     }
                     BindControls();
 
@@ -1344,6 +1326,28 @@ namespace Bikewale.Models.BikeModels
 
                         _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
                         _objData.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
+
+                        if (_objData.PQId == 0)
+                        {
+                            PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
+                            objPQEntity.CityId = Convert.ToUInt16(_cityId);
+                            objPQEntity.AreaId = Convert.ToUInt32(_areaId);
+                            objPQEntity.ClientIP = "";
+                            objPQEntity.SourceId = Convert.ToUInt16(Source);
+                            objPQEntity.ModelId = _modelId;
+                            objPQEntity.VersionId = _objData.VersionId;
+                            objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
+                            objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
+                            objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
+                            objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
+                            _objData.PQId = _objData.LeadCampaign.PQId = (uint)_objPQ.RegisterPriceQuote(objPQEntity);
+
+                            if (_objData.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                            {
+                                var versions = _objPQCache.GetOtherVersionsPrices(_modelId, _cityId);
+                                _objData.LeadCampaign.LoanAmount = (uint)Convert.ToUInt32((versions.FirstOrDefault(m => m.VersionId == _objData.VersionId).OnRoadPrice) * 0.8);
+                            }
+                        }
 
                         _objManufacturerCampaign.SaveManufacturerIdInPricequotes(_objData.PQId, campaigns.LeadCampaign.DealerId);
                     }

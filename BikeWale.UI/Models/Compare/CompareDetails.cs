@@ -372,7 +372,7 @@ namespace Bikewale.Models
                     ModelMaskingResponse objResponse = null;
                     ModelMapping objCache = new ModelMapping();
 
-                    for (ushort iTmp = 0; iTmp < _maxComparisons; iTmp++)
+                    for (ushort iTmp = 0; iTmp < models.Length; iTmp++)
                     {
                         string modelMaskingName = models[iTmp];
                         if (!string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)
