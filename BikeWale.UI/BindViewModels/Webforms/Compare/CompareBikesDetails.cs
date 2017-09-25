@@ -321,10 +321,10 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                 var request = HttpContext.Current.Request;
                 string modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
                 ParseQueryString();
-                if (bikeQueryString.Contains("sponseredBike"))
+                if (bikeQueryString.Contains("sponsoredbike"))
                 {
                     uint vId = 0;
-                    if (uint.TryParse(request["sponseredBike"], out vId) && vId > 0)
+                    if (uint.TryParse(request["sponsoredbike"], out vId) && vId > 0)
                     {
                         _sponseredBikeVersionId = vId;
                     }
@@ -347,7 +347,6 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                     string[] models = modelList.Split(',');
                     ModelMaskingResponse objResponse = null;
                     ModelMapping objCache = new ModelMapping();
-                    int totalModels = models.Length;
 
                     for (ushort iTmp = 0; iTmp < maxComparisions; iTmp++)
                     {

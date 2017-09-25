@@ -79,18 +79,18 @@ docReady(function() {
     var getUrl = function ()
     {
         var queryStringSponser = "";
-        if (/sponseredBike/g.test(window.location.search))
+        if (/sponsoredbike/g.test(window.location.search))
         {
             var index = -1;
             var obj = queryStringSponser.split("&");
             $.each(obj, function (i, val) {
-                if (val.match(/sponseredBike/g))
+                if (val.match(/sponsoredbike/g))
                     index = i;
 
             });
             if (index > -1)
             {
-                    queryStringSponser =index > 0? "&"+obj[index]:"&sponseredBike=" + obj[index].split("=")[1];             
+                queryStringSponser = index > 0 ? "&" + obj[index] : "&sponsoredbike=" + obj[index].split("=")[1];
 
             }
 
@@ -346,21 +346,21 @@ docReady(function() {
                             var index = 0;
                             var obj = queryString.split("&");
                             $.each(obj, function (i, val) {
-                                if (val.match(/sponseredBike/g))
+                                if (val.match(/sponsoredbike/g))
                                     index = i;
                                     
                             });
                             if (index > 0)
-                                obj[index] = "sponseredBike=" + elementValue;
+                                obj[index] = "sponsoredbike=" + elementValue;
                             else
-                                obj.push("sponseredBike=" + elementValue);
+                                obj.push("sponsoredbike=" + elementValue);
 
                             currentURL = window.location.pathname + obj.join('&');
 
                         }
                            
                         else
-                            currentURL += "?sponseredBike=" + elementValue;
+                            currentURL += "?sponsoredbike=" + elementValue;
                         window.location = currentURL;
                     }
                     else {

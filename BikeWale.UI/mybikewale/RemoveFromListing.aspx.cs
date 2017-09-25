@@ -205,12 +205,6 @@ namespace Bikewale.MyBikeWale
             UpdateClassifiedInquirySoldStatus();
             UpdateSoldStatus();
 
-            //div_RemoveInquiry.Visible = false;
-
-            //lblRemoveStatus.Text = "Your inquiry has been removed from bikewale listing.";
-            //lblRemoveStatus.Visible = true;
-
-            //this line invalidate memcache to get updated used bike count from live listing
             _mc.Remove("BW_ModelWiseUsedBikesCount");
             isRemovedListing = "1";
         }
@@ -232,18 +226,10 @@ namespace Bikewale.MyBikeWale
                     MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
-            catch (SqlException err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            } // catch Exception
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            } // catch Exception
+            }
 
         }   // End of UpdateClassifiedInquirySoldStatus method
 
@@ -259,7 +245,6 @@ namespace Bikewale.MyBikeWale
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    //cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
