@@ -5,6 +5,7 @@
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
     Model.AdTags.Ad_300x250 = true;
+    Model.AdTags.Ad_200x253 = true;
     Model.AdTags.AdPath = "/1017752/Bikewale_CityPrice_Mobile";
     Model.AdTags.AdId = "1444028976556";
     Model.PageMetaTags.AlternateUrl = "";
@@ -425,28 +426,39 @@
                 {
                     <div id="similarContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
                         <h2 class="card-h2-heading margin-bottom10 padding-left20 padding-right20">Prices of similar @Model.BodyStyleText in @Model.CityEntity.CityName</h2>
-                        @Html.Partial("~/views/Bikemodels/_SimilarBikes_Mobile.cshtml", Model.AlternateBikes)
+                        <div class="swiper-container card-container swiper-type-similar">
+                            <div class="swiper-wrapper">
+                                @if (Model.AdTags.Ad_200x253)
+                                {
+                                    {Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad200x253.cshtml", new { AdId = "1505919734321" });}
+
+                                        }
+                               
+                                @Html.Partial("~/views/Bikemodels/_SimilarBikes_Mobile.cshtml", Model.AlternateBikes)
+                            </div>
+                        </div>
+
                     </div>
                 }
                 else if (Model.IsPopularBodyStyleAvailable)
                 {
-                    <div id="popularContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin">
-                        <div class="carousel-heading-content">
-                            <div class="swiper-heading-left-grid inline-block">
-                                <h2 class="card-h2-heading padding-right20">Popular @Model.BodyStyleText</h2>
+                            <div id="popularContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin">
+                                <div class="carousel-heading-content">
+                                    <div class="swiper-heading-left-grid inline-block">
+                                        <h2 class="card-h2-heading padding-right20">Popular @Model.BodyStyleText</h2>
+                                    </div>
+                                    <div class="swiper-heading-right-grid inline-block text-right">
+                                        <a href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BodyStyle))" title="Best @Model.BodyStyleText in India" class="btn view-all-target-btn">View all</a>
+                                    </div>
+                                </div>
+                                @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile.cshtml", Model.PopularBodyStyle)
                             </div>
-                            <div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BodyStyle))" title="Best @Model.BodyStyleText in India" class="btn view-all-target-btn">View all</a>
-                            </div>
-                        </div>
-                        @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile.cshtml", Model.PopularBodyStyle)
-                    </div>
-                }
-                <!-- model prices similar bikes end -->
+                            }
+                            <!-- model prices similar bikes end -->
 
-                <div id="modelSpecsFooter"></div>
-            </div>
-        </div>
+                            <div id="modelSpecsFooter"></div>
+                        </div>
+                    </div>
     </section>
 
     <section>

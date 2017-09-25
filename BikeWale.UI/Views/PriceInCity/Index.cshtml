@@ -8,6 +8,7 @@
     Model.AdTags.Ad_300x250 = true;
     Model.AdTags.Ad_970x90 = true;
     Model.AdTags.Ad_970x90Bottom = true;
+    Model.AdTags.Ad_292x399 = true;
     Model.AdTags.AdId = "1442913773076";
     Model.AdTags.AdPath = "/1017752/Bikewale_CityPrice_";
     Model.IsPageTypeLanding = false;
@@ -15,7 +16,7 @@
     var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName);
 }
 @if (Model != null && Model.BikeModel != null && Model.CityEntity != null)
-{    
+{
     <section id="priceincity" data-pqid="@Model.PQId" data-versionid="@Model.VersionId" data-cityid="@Model.CityEntity.CityId">
         <div class="container">
             <div class="grid-12">
@@ -368,7 +369,7 @@
                                                 <div class="margin-top10">
                                                     @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                                                     {
-                                                        <a href="/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount" class="btn btn-orange btn-160-32 margin-right10 bw-ga" rel="nofollow" >@Model.EMICampaign.EMIButtonTextDesktop</a>
+                                                        <a href="/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount" class="btn btn-orange btn-160-32 margin-right10 bw-ga" rel="nofollow">@Model.EMICampaign.EMIButtonTextDesktop</a>
                                                     }
                                                     else
                                                     {
@@ -416,7 +417,8 @@
                                                     {
                                                         <tr>
                                                             <td class="font14">@bikeversion.VersionName</td>
-                                                            <td class="font13">@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp; @Format.FormatPrice(Convert.ToString(bikeversion.Price))</span>
+                                                            <td class="font13">
+                                                                @Html.Raw("&#x20B9;")<span class="text-bold">&nbsp; @Format.FormatPrice(Convert.ToString(bikeversion.Price))</span>
                                                                 &nbsp;<span class="font12">(On-road, @Model.CityEntity.CityName)</span>
                                                             </td>
                                                             <td class="font12">@string.Format(@"{0} Brake, {1} Wheels", bikeversion.BrakeType, (bikeversion.AlloyWheels) ? "Alloy" : "Spoke")</td>
@@ -424,7 +426,7 @@
                                                     }
                                                 </tbody>
                                             </table>
-                                            
+
                                         </div>
 
                                     }
@@ -434,7 +436,7 @@
                                             <h3 class="margin-bottom20">On-road prices in cities near @Model.CityEntity.CityName</h3>
 
                                             <ul id="prices-top-cities">
-                                                    @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.NearestPriceCities)
+                                                @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.NearestPriceCities)
                                             </ul>
                                         </div>
                                     }
@@ -454,7 +456,21 @@
                                 <div class="content-box-shadow padding-top20 padding-bottom20">
                                     <h2 class="card-h2-heading padding-right20 padding-left20">Prices of similar @Model.BodyStyleText in @Model.CityEntity.CityName</h2>
                                     <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14 ">
-                                        @Html.Partial("~/views/Bikemodels/_SimilarBikes.cshtml", Model.AlternateBikes)
+                                        <div class="jcarousel-wrapper inner-content-carousel">
+                                            <div class="jcarousel">
+                                                <ul>
+                                                    @if (Model.AdTags.Ad_292x399)
+                                                    {
+                                                        { Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x399.cshtml", new { AdId = "1505919734321" }); }
+
+                                                    }
+                                                    @Html.Partial("~/views/Bikemodels/_SimilarBikes.cshtml", Model.AlternateBikes)
+                                                </ul>
+
+                                            </div>
+                                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -487,9 +503,9 @@
                     }
                     <div id="modelSpecsFooter"></div>
                     <!-- model similar end -->
+                </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-        </div>
     </section>
 
 
@@ -515,8 +531,8 @@
                         @if (Model.HasPriceInTopCities && Model.IsNew)
                         {
                             <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
-                            <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.BikeModel.ModelName prices in popular cities</h3>
-                            @Html.Partial("~/views/PriceInCity/_ModelPriceInTopCitiesWidget.cshtml", Model.PriceInTopCities);
+                                                                                        <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.BikeModel.ModelName prices in popular cities</h3>
+                                                                                        @Html.Partial("~/views/PriceInCity/_ModelPriceInTopCitiesWidget.cshtml", Model.PriceInTopCities);
                         }
                     </div>
                 </div>
@@ -566,11 +582,11 @@
     </section>
     <!-- disclaimer end -->
 
-    <div class="hide" id="dvPgVar" data-cityarea="@Model.CookieCityArea" data-bikename="@Model.BikeName" data-modelid="@Model.BikeModel.ModelId"></div>
+                                                                <div class="hide" id="dvPgVar" data-cityarea="@Model.CookieCityArea" data-bikename="@Model.BikeName" data-modelid="@Model.BikeModel.ModelId"></div>
     { Html.RenderAction("ChangeLocation", "Location", new { cityId = Model.CityEntity.CityId, cityName = Model.CityEntity.CityName }); }
     <div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
-    <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
-    <div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
+                                                                <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
+                                                                <div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
     if (Model.IsNew && (Model.HasCampaignDealer || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
     {
         @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
