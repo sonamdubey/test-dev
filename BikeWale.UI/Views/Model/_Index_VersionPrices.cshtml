@@ -4,7 +4,7 @@
     <h2 class="h2-heading margin-bottom20">@Model.BikeName Price</h2>
     <div id="version-prices-grid" class="grid-12 alpha omega">
         @*<h3 class="margin-bottom20">@Model.BikeName Price (variants)</h3>*@
-        <h3 class="padding-bottom10">Price by versions</h3>
+
         <table class="version-price-table">
             <thead>
                 <tr>
@@ -17,7 +17,7 @@
                 @foreach (var version in Model.ModelPageEntity.ModelVersions)
                 {
                     <tr>
-                        <td class="font14">@Model.BikeName&nbsp;@version.VersionName</td>
+                        <td class="font14">@version.ModelName&nbsp;@version.VersionName</td>
                         <td class="font13">
                             @Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
                             &nbsp;<span class="font12">(@(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</span>

@@ -16,7 +16,7 @@
                 @foreach (var version in Model.ModelPageEntity.ModelVersions)
                 {
                     <tr>
-                        <td>@version.VersionName</td>
+                        <td>@version.ModelName&nbsp;@version.VersionName</td>
                         <td>
                             <span class='font14'>&#x20B9;</span>
                             <span id="priced_@version.VersionId" class="text-bold">
