@@ -69,12 +69,8 @@ namespace Bikewale.Models.Authors
             {
                 string categoryId = Convert.ToString((int)EnumCMSContentType.News);
                 int startIndex = 1;
-                int endIndex = 50;
+                int endIndex = 3;
                 objAuthorsDetails.ArticlesList = _articles.GetArticlesByCategoryList(categoryId, startIndex, endIndex);
-                if (objAuthorsDetails.ArticlesList != null)
-                {
-                    objAuthorsDetails.ArticlesList.Articles = objAuthorsDetails.ArticlesList.Articles.OrderBy(c => c.Views).Take(3).ToList();
-                }
             }
             catch (Exception ex)
             {
@@ -113,7 +109,7 @@ namespace Bikewale.Models.Authors
                 objAuthorDetails.PageMetaTags.Title = string.Format("{0}, {1} | BikeWale", objAuthorDetails.Author.AuthorName, objAuthorDetails.Author.Designation);
                 objAuthorDetails.PageMetaTags.Description = string.Format("{0} is {1} at BikeWale. Check out his bio, latest stories and connect with him on various social platforms!", objAuthorDetails.Author.AuthorName, objAuthorDetails.Author.Designation);
                 objAuthorDetails.PageMetaTags.CanonicalUrl = string.Format("{0}/authors/{1}/",BWConfiguration.Instance.BwHostUrl, _authorMaskingName );
-                objAuthorDetails.PageMetaTags.AlternateUrl = string.Format("{0}/mauthors/{1}/", BWConfiguration.Instance.BwHostUrl, _authorMaskingName);
+                objAuthorDetails.PageMetaTags.AlternateUrl = string.Format("{0}/m/authors/{1}/", BWConfiguration.Instance.BwHostUrl, _authorMaskingName);
             }
             catch(Exception ex)
             {

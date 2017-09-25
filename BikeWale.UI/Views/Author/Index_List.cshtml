@@ -67,7 +67,7 @@
             <div class="grid-4 omega">
                 @if (Model.ArticlesList != null)
                 {
-                    @Html.Partial("~/Views/News/_PopularNewsWidget.cshtml", Model.ArticlesList)
+                    @Html.Partial("~/Views/News/_RecentNewsWidget.cshtml", Model.ArticlesList)
                 }
                 <div class="margin-bottom20">
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
