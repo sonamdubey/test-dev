@@ -51,52 +51,28 @@ gulp.task('minify-js', function () {
 });
 
 gulp.task('minify-sass-css', function () {
+	var sassCache = fsCache(app + '.gulp-cache/' + paths.SASS);
+
 	return gulp.src(['BikeWale.UI/sass/**/*.sass', 'BikeWale.UI/m/sass/**/*.sass'], { base: 'BikeWale.UI/' })
+		.pipe(sassCache)
 		.pipe(sass().on('error', sass.logError))
 		.pipe(cleanCss())
+		.pipe(sassCache.restore)
 		.pipe(gulp.dest('BikeWale.UI/build/min/'));
 });
 
-var desktopSASSFolder = ['sell-bike/'];
-var mobileSASSFolder = ['sell-bike/'];
-
-// convert desktop sass to css
-gulp.task('bw-sass-to-css', function () {
-	var fileLength = desktopSASSFolder.length;
-
-	for (var i = 0; i < fileLength; i++) {
-		gulp.src(app + 'sass/' + desktopSASSFolder[i] + '**', { base: app + 'sass/' + desktopSASSFolder[i] })
-			.pipe(sass().on('error', sass.logError))
-			.pipe(gulp.dest(app + 'css/' + desktopSASSFolder[i]))
-	}
-
-	console.log('Desktop SASS files converted to CSS files');
-});
-
-// convert mobile sass to css
-gulp.task('bwm-sass-to-css', function () {
-	var fileLength = mobileSASSFolder.length;
-
-	for (var i = 0; i < fileLength; i++) {
-		gulp.src(app + 'm/sass/' + mobileSASSFolder[i] + '**', { base: app + 'm/sass/' + mobileSASSFolder[i] })
-			.pipe(sass().on('error', sass.logError))
-			.pipe(gulp.dest(app + 'm/css/' + mobileSASSFolder[i]))
-	}
-
-	console.log('Mobile SASS files converted to CSS files');
-});
 
 // desktop and mobile pages array to replace css link reference with internal css
 var pageArray = [
 	{
 		folderName: 'generic/',
 		fileName: 'BikeListing.aspx',
-		stylesheet: 'css/generic/listing.css'
+		stylesheet: 'sass/generic/listing.css'
 	},
 	{
 		folderName: 'm/generic/',
 		fileName: 'BikeListing.aspx',
-		stylesheet: 'm/css/generic/listing.css'
+		stylesheet: 'm/sass/generic/listing.css'
 	},
 	{
 		folderName: 'includes/',
