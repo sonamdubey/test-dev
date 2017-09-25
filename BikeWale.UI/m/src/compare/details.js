@@ -64,7 +64,7 @@ toggleFeaturesBtn.addEventListener("click", function () {
 
 var compareColumns = {
     countTwo: function (headingRows, dataRows) {
-        var dataRowLength = dataRows.length;       
+        var dataRowLength = dataRows.length;
         for (var i = 0; i < dataRowLength; i++) {
             var rowElement = dataRows[i],
                 rowColumns = rowElement.getElementsByTagName("td");
@@ -278,19 +278,19 @@ var bikeSelection = function () {
         bikePopup.scrollToHead();
 
         try {
-                $.ajax({
-                    type: "GET",
-                    async: false,
-                    url: "/api/makelist/?requestType=2",
-                    contentType: "application/json",
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response) {
-                            self.makes(response.makes);
-                            areMakesLoaded = true;
-                        }
+            $.ajax({
+                type: "GET",
+                async: false,
+                url: "/api/makelist/?requestType=2",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        self.makes(response.makes);
+                        areMakesLoaded = true;
                     }
-                });
+                }
+            });
         } catch (e) {
             console.warn(e);
         }
@@ -661,29 +661,52 @@ docReady(function () {
     });
 
     $('.dropdown-select-wrapper').on('click', '.dropdown-menu-list li', function () {
-        var element = $(this);
-        if (!element.hasClass('option-active') && !bikePopup.checkSameVersion(element.data("option-value"))) {
-            preSel = element.siblings(".option-active").first();
-            dropdownInteraction.selectItem(element);
-            dropdownInteraction.selectOption(element);
-            if (window.location.search.indexOf("bike") > -1) {
-                window.location.search = window.location.search.replace(preSel.data("option-value"), element.data("option-value"));
+        var element = $(this), selValue = element.attr("data-option-value");
+        try {
+           
+            if (!element.hasClass('option-active') && !bikePopup.checkSameVersion(selValue)) {
+                var preSel = element.siblings(".option-active").first();
+                dropdownInteraction.selectItem(element);
+                dropdownInteraction.selectOption(element);
+                element.closest("div.bike-details-block").attr("data-versionId", selValue);
+                if (window.location.search.indexOf("bike") > -1) {
+                    var qrStr = window.location.search;
+                    var container = element.closest("div.bike-details-block");
+                    if (container.hasClass("sponsored-bike-details-block")) {
+                        if (qrStr.indexOf("sponsoredbike") > -1) {
+                            qrStr = qrStr.replace(preSel.attr("data-option-value"), selValue);
+                        }
+                        else if (qrStr.indexOf("?") > -1) {
+                            qrStr += "&sponsoredbike=" + selValue;
+                        }
+                        else {
+                            qrStr += "?sponsoredbike=" + selValue;
+                        }
+                    }
+                    else {
+                        qrStr = qrStr.replace(preSel.attr("data-option-value"), selValue);
+                    }
+                    window.location.search = qrStr;
+                }
+                else {
+                    var searchQuery = "?";
+                    $(".bike-details-block").each(function (i) {
+                        var curEle = $(this);
+                        if (!curEle.hasClass('sponsored-bike-details-block') && curEle.attr("data-versionid")) {
+                            searchQuery += ("&bike" + (i + 1) + "=" + curEle.attr("data-versionid"));
+                        }
+                        else if (curEle.hasClass('sponsored-bike-details-block') && i < 3) {
+                            searchQuery += ("&sponsoredbike=" + selValue);
+                        }
+                    });
+                    window.location.search = searchQuery + (searchQuery != "" ? "&source=" + compareSource : "");
+                }
             }
             else {
-                var searchQuery = "?";
-                $(".bike-details-block").each(function (i) {
-                    if (!$(this).hasClass('sponsored-bike-details-block') && $(this).data("versionid")) {
-                        searchQuery += ("&bike" + (i + 1) + "=" + $(this).data("versionid"));
-                    }
-                    else if ($(this).hasClass('sponsored-bike-details-block') && i < 3) {
-                        searchQuery += ("&sponseredBike=" + element[0].getAttribute('data-option-value'));
-                    }
-                });
-                window.location.search = searchQuery + (searchQuery != "" ? "&source=" + compareSource : "");
+                bikePopup.showSameVersionToast();
             }
-        }
-        else {
-            bikePopup.showSameVersionToast();
+        } catch (e) {
+            console.log(e.message);
         }
     });
 

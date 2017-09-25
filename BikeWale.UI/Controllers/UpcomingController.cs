@@ -1,5 +1,4 @@
-﻿using Bikewale.Common;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -86,15 +85,15 @@ namespace Bikewale.Controllers
                 if (objVM.TotalBikes > 0)
                     return View(objVM);
                 else
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return Redirect("/pageNotFound.aspx");
             }
             else if (objData.Status == Entities.StatusCodes.RedirectPermanent)
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect(objData.RedirectUrl);
             }
             else
             {
-                return Redirect("pageNotFound.aspx");
+                return Redirect("/pageNotFound.aspx");
             }
         }
 
@@ -119,11 +118,11 @@ namespace Bikewale.Controllers
                 if (objVM.TotalBikes > 0)
                     return View(objVM);
                 else
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return Redirect("/m/pageNotFound.aspx");
             }
             else if (objData.Status == Entities.StatusCodes.RedirectPermanent)
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect(objData.RedirectUrl);
             }
             else
             {
