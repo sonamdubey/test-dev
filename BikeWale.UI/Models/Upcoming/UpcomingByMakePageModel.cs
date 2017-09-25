@@ -86,21 +86,22 @@ namespace Bikewale.Models.Upcoming
                 objUpcoming.PopularBikes = BindMostPopularBikes();
                 UpcomingBikeResult bikeResult = _upcoming.GetBikes(_filters, SortBy);
 
+
                 _totalPagesCount = (uint)(bikeResult.TotalCount / _filters.PageSize);
 
                 if ((bikeResult.TotalCount % _filters.PageSize) > 0)
                     _totalPagesCount += 1;
 
-                BindPageMetaTags(objUpcoming.PageMetaTags, _makeMaskingName, objUpcoming.Make.MakeName);
-
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
 
-                objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Count() > 0);
+                objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels != null && objUpcoming.UpcomingBikeModels.Any());
                 objUpcoming.YearsList = _upcoming.GetYearList(MakeId);
                 CreatePager(objUpcoming, objUpcoming.PageMetaTags);
                 objUpcoming.OtherMakes = new OtherMakesVM();
                 objUpcoming.OtherMakes.Makes = _upcoming.OtherMakes(MakeId, 9);
+
+                BindPageMetaTags(objUpcoming.PageMetaTags, _makeMaskingName, objUpcoming.Make.MakeName);
             }
             catch (Exception ex)
             {
