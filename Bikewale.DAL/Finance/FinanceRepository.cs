@@ -47,8 +47,8 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                     param.Add("par_annualincome", objDetails.AnnualIncome);
                     param.Add("par_cityId", objDetails.objLead.CityId);
                     param.Add("par_versionid", objDetails.objLead.VersionId);
-
-                    connection.Execute("savecapitalfirstleaddetails", param: param, commandType: CommandType.StoredProcedure);
+                    param.Add("par_loanAmount", objDetails.LoanAmount);
+                    connection.Execute("savecapitalfirstleaddetails_25092017", param: param, commandType: CommandType.StoredProcedure);
                     id = SqlReaderConvertor.ToUInt32(param.Get<Int32>("par_id"));
                 }
             }
