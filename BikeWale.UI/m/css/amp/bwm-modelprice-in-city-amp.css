@@ -1644,3 +1644,6 @@ input[type="range"]::-moz-range-track {
     list-style: disc;
     margin-left: 19px;
 }
+.margin-right10{
+    margin-right:10px;
+}
