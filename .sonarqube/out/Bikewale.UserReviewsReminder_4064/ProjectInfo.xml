@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <ProjectName>Bikewale.UserReviewsReminder</ProjectName>
+  <ProjectLanguage>C#</ProjectLanguage>
+  <ProjectType>Product</ProjectType>
+  <ProjectGuid>c91db082-5666-4d10-aa1f-154b7934a63c</ProjectGuid>
+  <FullPath>D:\work\bikewaleweb\Bikewale.UserReviewsReminder\Bikewale.UserReviewsReminder.csproj</FullPath>
+  <IsExcluded>false</IsExcluded>
+  <AnalysisResults>
+    <AnalysisResult Id="FilesToAnalyze" Location="D:\work\bikewaleweb\.sonarqube\out\\Bikewale.UserReviewsReminder_4064\FilesToAnalyze.txt" />
+  </AnalysisResults>
+  <AnalysisSettings>
+    <Property Name="sonar.cs.roslyn.reportFilePath">D:\work\bikewaleweb\Bikewale.UserReviewsReminder\bin\Release\Bikewale.UserReviewsCommunication.exe.RoslynCA.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPath">D:\work\bikewaleweb\.sonarqube\out\\Bikewale.UserReviewsReminder_4064</Property>
+    <Property Name="sonar.stylecop.projectFilePath">D:\work\bikewaleweb\Bikewale.UserReviewsReminder\Bikewale.UserReviewsReminder.csproj</Property>
+  </AnalysisSettings>
+</ProjectInfo>

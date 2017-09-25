@@ -1,0 +1,10 @@
+X
+OD:\work\bikewaleweb\Bikewale.PWA.Entities\EditCms\Articles\PwaArticleDetails.csutf-8U
+LD:\work\bikewaleweb\Bikewale.PWA.Entities\EditCms\Articles\PwaArticleBase.csutf-8Y
+PD:\work\bikewaleweb\Bikewale.PWA.Entities\EditCms\Articles\PwaArticleListData.csutf-8U
+LD:\work\bikewaleweb\Bikewale.PWA.Entities\EditCms\Articles\PwaBikeDetails.csutf-8R
+ID:\work\bikewaleweb\Bikewale.PWA.Entities\EditCms\Articles\PwaBikeInfo.csutf-8R
+ID:\work\bikewaleweb\Bikewale.PWA.Entities\EditCms\Articles\PwaBikeNews.csutf-8M
+DD:\work\bikewaleweb\Bikewale.PWA.Entities\Properties\AssemblyInfo.csutf-8X
+OD:\work\bikewaleweb\Bikewale.PWA.Entities\EditCms\Articles\PwaArticleSummary.csutf-8U
+LD:\work\bikewaleweb\Bikewale.PWA.Entities\EditCms\Articles\PwaContentBase.csutf-8
