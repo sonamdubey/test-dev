@@ -164,7 +164,7 @@ namespace BikewaleOpr.Cache
         {
             try
             {
-                MemCachedUtil.Remove(string.Format("BW_UpcomingModels"));
+                MemCachedUtil.Remove("BW_UpcomingModels");
             }
             catch (Exception ex)
             {

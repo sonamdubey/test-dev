@@ -147,12 +147,6 @@ after margin
 }
 
 /* alternate-bikes-photo-swiper */
-.alternate-bikes-photo-swiper .swiper-card,
-.alternate-bikes-photo-swiper .swiper-card-target {
-    height: 160px;
-    min-height: 160px;
-}
-
 .alternate-bikes-photo-swiper.card-container {
     padding-top: 0;
     padding-bottom: 15px;
@@ -166,13 +160,45 @@ after margin
 .alternate-bikes-photo-swiper .swiper-details-block {
     padding-top: 8px;
 }
-
-.photos-white-icon {
-    width: 31px;
-    height: 25px;
-    background-position: -179px -524px;
+.text-bold {
+    font-weight: 600;
+}
+.compare-with-target {
+    display: block;
+    padding: 10px 35px 10px 15px;
+    position: relative;
+    font-size: 12px;
+    color: #4d5057;
 }
 
+.compare-with-target:before {
+    content: '';
+    position: absolute;
+    left: 8%;
+    top: 0;
+    width: 168px;
+    height: 1px;
+    border-top: 1px solid #e2e2e2;
+}
+
+.compare-sm {
+    width: 17px;
+    height: 12px;
+    background-position: -173px -596px;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+}
+
+.right-arrow {
+    width: 8px;
+    height: 12px;
+    background-position: -182px -394px;
+    position: absolute;
+    right: 18px;
+    top: 13px;
+    transform: scale(0.8);
+}
 /* popup gallery */
 .gallery-container {
     z-index: 10;

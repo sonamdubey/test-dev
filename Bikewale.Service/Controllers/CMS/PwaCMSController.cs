@@ -90,7 +90,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     {
                         objPwaArticle = ConverterUtility.MapArticleDetailsToPwaArticleDetails(objNews);
 
-                        if (_logNewsUrl)
+                        if (_logNewsUrl && !string.IsNullOrEmpty(objPwaArticle.ArticleUrl) && objPwaArticle.ArticleUrl.EndsWith(@".html.html"))
                         {
                             ThreadContext.Properties["NewsUrl"] = objPwaArticle.ArticleUrl;
                             ThreadContext.Properties["ShareUrl"] = objPwaArticle.ShareUrl;

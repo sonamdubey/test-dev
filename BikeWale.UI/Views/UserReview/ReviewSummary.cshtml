@@ -82,13 +82,16 @@
                                 <ul>
                                     @foreach (var q in Model.RatingQuestions)
                                     {
-                                        <li class="margin-bottom10">
-                                            <span class="bwsprite questionId-@q.Id"></span>
-                                            <div class="inline-block">
-                                                <p class="font10 text-xt-light">@q.MinHeading</p>
-                                                <p class="font14 text-slate-grey">@q.SelectedRatingText</p>
-                                            </div>
-                                        </li>
+                                        if (!string.IsNullOrEmpty(q.SelectedRatingText))
+                                        {
+                                            <li class="margin-bottom10">
+                                                <span class="bwsprite questionId-@q.Id"></span>
+                                                <div class="inline-block">
+                                                    <p class="font10 text-xt-light">@q.MinHeading</p>
+                                                    <p class="font14 text-slate-grey">@q.SelectedRatingText</p>
+                                                </div>
+                                            </li>
+                                        }
                                     }
                                 </ul>
                             </div>
@@ -153,20 +156,11 @@
             </div>
         </section>
     }
+    <input id="pageSource" type="hidden" value="@Model.Summary.ReturnUrl" />
+    <div id="review-summary-page"></div>
 
 }
 <script type="text/javascript">
-    docReady(function () {
-        var handleBrowserBack = function (prevPage, curPage) {
-            setTimeout(function () { window.location.hash = curPage; }, 1000);
-            $(window).on('hashchange', function (e) {
-                oldUrl = e.originalEvent.oldURL;
-                if (oldUrl && (oldUrl.indexOf('#') > 0)) {
-                    if (prevPage && prevPage.length)
-                        window.location.href = prevPage.val();
-                }
-            });
-        };
-        handleBrowserBack(($("#pageSource")), "reviewSummary");
-    });
+    var page = "reviewSummary";
+    var vmWriteReview;
 </script>

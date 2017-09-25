@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.PriceQuote.Default" Trace="false"  EnableEventValidation="false" Async="true"%>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.PriceQuote.Default" Trace="false" EnableEventValidation="false" Async="true" %>
 
 <%
     title = (modelName == "" ? "New Bike" : makeName + " " + modelName) + " On-Road Price Quote";
@@ -14,72 +14,81 @@
 <!-- #include file="/includes/headermobile_noad.aspx" -->
 <script type="text/javascript" src="<%= staticUrl%>/m/src/placeholder.js?v=1.0"></script>
 <script type="text/javascript" src="https://stb.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
-<link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" /> 
+<link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
 <style type="text/css">
     .ui-filterable div input {
-        height : 40px;
+        height: 40px;
     }
-    .chosen-container.chosen-container-single span { font-weight:normal; }
+
+    .chosen-container.chosen-container-single span {
+        font-weight: normal;
+    }
 </style>
-    <asp:TextBox id="txtMake" runat="server" style="display:none;" Text="" data-role="none"/>
-    <asp:TextBox id="txtModel" runat="server" style="display:none;" Text="" data-role="none"/>
-    <asp:TextBox id="txtCity" runat="server" style="display:none;" Text="" data-role="none" />
-    <asp:TextBox id="txtArea" runat="server" style="display:none;" Text="" data-role="none" />
-    <asp:HiddenField ID="hdnmodel" runat="Server" Value="" />
-    <div class="padding5" id="pq_car">
-        <div id="br-cr" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/m/new-bikes-in-india/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; <span class="lightgray">On-Road Price Quote</span></div>
-        <h1><%=(modelName == "" ? "New Bike" : makeName + " " + modelName) %> On-Road Price</h1>
-        <div class="box1 new-line5">  
-            <%if(modelId == ""){%>          
-            <div class="new-line5"><asp:dropdownlist id="ddlMake" class="textAlignLeft" data-bind=" value: selectedMake, optionsCaption: '--Select Make--'" runat="server"></asp:dropdownlist></div>
-            <div id="divModel" style="display:none;">
-		        <div class="new-line15">
-                    <img id="imgLoaderModel" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
-                    <asp:dropdownlist id="ddlModel" class="textAlignLeft" data-bind="options: models, optionsText: 'ModelName', optionsValue: 'ModelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake" runat="server"><asp:ListItem Text="--Select Model--" Value="" /></asp:dropdownlist>
-		        </div>
-            </div>
-            <%} %>            
-            <div class="new-line15" data-bind="visible : selectedModel() > 0">
-                <img id="imgLoaderCity" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
-	            <div class="new-line15"><asp:dropdownlist id="ddlCity" class="textAlignLeft" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, optionsCaption: '--Select City--',chosen: { width: '100%' }" runat="server"><asp:ListItem Text="--Select City--" Value="" /></asp:dropdownlist></div>
-            </div>              
-             <div class="new-line5" id="divArea" style="display:none;">
-                <img id="imgLoaderArea" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
-                <div class="ui-select ui-corner-all ui-shadow new-line15" id="divAreaPopup" style="font-size:14px;" onclick="OpenPopup(this)"><a href="#" class="ui-btn">--Select an Area--</a></div>
-                <div class="divAutoSuggest" style="min-height:100% !important;background-color:#f8f8f8;display:none">
-                    <div data-role="header" data-theme="b"  class="ui-corner-top" data-icon="delete">
-                        <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-                        <h1>Select an Area</h1>
-                    </div>
-                    <input id="inputSearch" type="text" placeholder="Search an Area.." onkeyup="autosearch(this);" class="searchBox" />
-                    <ul data-role="listview" data-inset="true" id="ddlAreaTest" data-theme="a" class="filtered-list" >
-                    </ul>
-                </div>
-            </div>
+<asp:textbox id="txtMake" runat="server" style="display: none;" text="" data-role="none" />
+<asp:textbox id="txtModel" runat="server" style="display: none;" text="" data-role="none" />
+<asp:textbox id="txtCity" runat="server" style="display: none;" text="" data-role="none" />
+<asp:textbox id="txtArea" runat="server" style="display: none;" text="" data-role="none" />
+<asp:hiddenfield id="hdnmodel" runat="Server" value="" />
+<div class="padding5" id="pq_car">
+    <div id="br-cr" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/m/new-bikes-in-india/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; <span class="lightgray">On-Road Price Quote</span></div>
+    <h1><%=(modelName == "" ? "New Bike" : makeName + " " + modelName) %> On-Road Price</h1>
+    <div class="box1 new-line5">
+        <%if (modelId == "")
+            {%>
+        <div class="new-line5">
+            <asp:dropdownlist id="ddlMake" class="textAlignLeft" data-bind=" value: selectedMake, optionsCaption: '--Select Make--'" runat="server"></asp:dropdownlist>
+        </div>
+        <div id="divModel" style="display: none;">
             <div class="new-line15">
-		        <div><input type="checkbox" style="margin-top:3px;" id="userAgreement" checked="checked" /></div>
-		        <div style="margin-left:35px; !important;"> 
-			        I agree with BikeWale <a href="/visitoragreement.aspx" target="_blank" rel="noopener">Visitor Agreement</a> and <a href="/privacypolicy.aspx" target="_blank" rel="noopener">Privacy Policy</a>.
-		        </div>
-	        </div>
-	        <p class="lightgray f-12 new-line10">
-		        We respect your privacy and will never publicly display, share or use your contact details without your authorization.  By providing your contact details to us you agree that 
+                <img id="imgLoaderModel" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position: relative; top: 3px; display: none;" />
+                <asp:dropdownlist id="ddlModel" class="textAlignLeft" data-bind="options: models, optionsText: 'modelName', optionsValue: 'modelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake" runat="server"><asp:ListItem Text="--Select Model--" Value="" /></asp:dropdownlist>
+            </div>
+        </div>
+        <%} %>
+        <div class="new-line15" data-bind="visible: selectedModel() > 0">
+            <img id="imgLoaderCity" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position: relative; top: 3px; display: none;" />
+            <div class="new-line15">
+                <asp:dropdownlist id="ddlCity" class="textAlignLeft" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, optionsCaption: '--Select City--',chosen: { width: '100%' }" runat="server"><asp:ListItem Text="--Select City--" Value="" /></asp:dropdownlist>
+            </div>
+        </div>
+        <div class="new-line5" id="divArea" style="display: none;">
+            <img id="imgLoaderArea" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position: relative; top: 3px; display: none;" />
+            <div class="ui-select ui-corner-all ui-shadow new-line15" id="divAreaPopup" style="font-size: 14px;" onclick="OpenPopup(this)"><a href="#" class="ui-btn">--Select an Area--</a></div>
+            <div class="divAutoSuggest" style="min-height: 100% !important; background-color: #f8f8f8; display: none">
+                <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete">
+                    <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                    <h1>Select an Area</h1>
+                </div>
+                <input id="inputSearch" type="text" placeholder="Search an Area.." onkeyup="autosearch(this);" class="searchBox" />
+                <ul data-role="listview" data-inset="true" id="ddlAreaTest" data-theme="a" class="filtered-list">
+                </ul>
+            </div>
+        </div>
+        <div class="new-line15">
+            <div>
+                <input type="checkbox" style="margin-top: 3px;" id="userAgreement" checked="checked" /></div>
+            <div style="margin-left: 35px; !important;">
+                I agree with BikeWale <a href="/visitoragreement.aspx" target="_blank" rel="noopener">Visitor Agreement</a> and <a href="/privacypolicy.aspx" target="_blank" rel="noopener">Privacy Policy</a>.
+            </div>
+        </div>
+        <p class="lightgray f-12 new-line10">
+            We respect your privacy and will never publicly display, share or use your contact details without your authorization.  By providing your contact details to us you agree that 
 				        we (and/or any of our partners including dealers, bike manufacturers,banks like ICICI bank etc) may call you on the phone number mentioned, in order to provide information or assist you in any transactions, 
 				        and that we may share your details with these partners.
-	        </p>
-	        <div class="new-line15">
-                <asp:LinkButton  id="btnSubmit" runat="server" data-theme="b" CssClass="getPrice" style="color : #fff !important;" Text="Check On-Road Price" data-rel="popup" data-role="button" data-transition="pop" data-position-to="window"/>
-	        </div>
-	        <div class="new-line5">&nbsp;</div>
+        </p>
+        <div class="new-line15">
+            <asp:linkbutton id="btnSubmit" runat="server" data-theme="b" cssclass="getPrice" style="color: #fff !important;" text="Check On-Road Price" data-rel="popup" data-role="button" data-transition="pop" data-position-to="window" />
         </div>
+        <div class="new-line5">&nbsp;</div>
     </div>
-        <input type="hidden" id="hdnIsAreaShown" runat="server" />
-<div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false"  class="ui-corner-all">
-    <div data-role="header" data-theme="a" class="ui-corner-top" style="background-color:#000">
-        <h1 style="color:#fff;">Error !!</h1>
+</div>
+<input type="hidden" id="hdnIsAreaShown" runat="server" />
+<div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" class="ui-corner-all">
+    <div data-role="header" data-theme="a" class="ui-corner-top" style="background-color: #000">
+        <h1 style="color: #fff;">Error !!</h1>
     </div>
-    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content" style="background-color:#fff;">
-        <span id="spnError" style="font-size:14px;line-height:20px;" class="error"><%= errMsg %></span>
+    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content" style="background-color: #fff;">
+        <span id="spnError" style="font-size: 14px; line-height: 20px;" class="error"><%= errMsg %></span>
         <a href="#" data-role="button" data-rel="back" data-theme="c" data-mini="true">OK</a>
     </div>
 </div>
@@ -160,7 +169,7 @@
         var areaName = self.attr('areaname');
         pqAreaName = areaName;
         pqAreaId = areaId;
-        var cityId = $("#ddlCity").val();        
+        var cityId = $("#ddlCity").val();
         if (isAreaShown == true) {
             $("#txtArea").val(areaId);
             var str = " <a href='#' class='ui-btn'>" + areaName + "</a>";
@@ -242,7 +251,8 @@
         ko.applyBindings(viewModelPQ, document.getElementById("pq_car"));
 
         $(".divAutoSuggest").hide();
-        <% if(!String.IsNullOrEmpty(errMsg)){%>
+        <% if (!String.IsNullOrEmpty(errMsg))
+    {%>
         $("#popupDialog").popup("open");
         return false;
         <%}%>
@@ -326,7 +336,7 @@
                         isAreaShown = false;
                         $("#imgLoaderArea").hide();
                         $("#hdnIsAreaShown").val(isAreaShown);
-                    }                    
+                    }
                 }
             });
 
@@ -337,15 +347,14 @@
             $('#divModel').slideDown('fast');
             $("#imgLoaderModel").show();
             $.ajax({
-                type: "POST",
-                url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
-                data: '{"requestType":"' + requestType + '", "makeId":"' + makeId + '"}',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetModelsNew"); },
+                type: "GET",
+                url: "/api/PQModelList/?makeId=" + makeId,
                 success: function (response) {
-                    $("#imgLoaderModel").hide();
-                    var responseJSON = eval('(' + response + ')');
-                    var resObj = eval('(' + responseJSON.value + ')');
-                    viewModelPQ.models(resObj);
+                    if (response) {
+                        viewModelPQ.models(response.models);
+                        $("#imgLoaderModel").hide();
+                    }
+
                 }
             });
             $('#divModel').removeClass("hide");
@@ -363,9 +372,9 @@
                     success: function (response) {
                         var responseJSON = eval('(' + response + ')');
                         var resObj = eval('(' + responseJSON.value + ')');
-                        if (resObj!=null && resObj.length > 0) {
-                            var initIndex = 0;                            
-                            checkCookies();                            
+                        if (resObj != null && resObj.length > 0) {
+                            var initIndex = 0;
+                            checkCookies();
                             insertCitySeparator(resObj);
                             viewModelPQ.cities(resObj);
                             if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPQ.cities() && selectElementFromArray(viewModelPQ.cities(), onCookieObj.PQCitySelectedId)) {
@@ -391,8 +400,7 @@
         }
 
         $('#btnSubmit').click(function () {
-            if(isValid())
-            { 
+            if (isValid()) {
                 pqSetLocationCookie();
             }
             else return false;
@@ -448,7 +456,7 @@
     });
 
     function UpdateArea() {
-       
+
         var cityId = $("#txtCity").val();
         var modelId = $("#txtModel").val();
         if (cityId != undefined) {
@@ -471,7 +479,7 @@
                         if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(resObj, onCookieObj.PQAreaSelectedId)) {
                             $('#ddlAreaTest li a[areaId="' + onCookieObj.PQAreaSelectedId + '"]').click();
                             onCookieObj.PQAreaSelectedId = 0;
-                        }                          
+                        }
                         $('.chosen-select').trigger("chosen:updated");
                         isAreaShown = true;
                     } else {
@@ -488,9 +496,8 @@
         }
     }
 
-    function pqSetLocationCookie()
-    {
-        var selectedCityId = parseInt($("#ddlCity").val()); 
+    function pqSetLocationCookie() {
+        var selectedCityId = parseInt($("#ddlCity").val());
         if (selectedCityId > 0) {
             cookieValue = selectedCityId + "_" + $("#ddlCity option:selected").text();
             var selectedAreaId = parseInt($("#txtArea").val());

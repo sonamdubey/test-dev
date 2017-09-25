@@ -12,7 +12,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     /// </summary>
     internal class TataCapitalLeadHandler : ManufacturerLeadHandler
     {
-        private HttpClient _httpClient;
+
 
         /// <summary>
         /// Type Initializer
@@ -22,7 +22,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="isAPIEnabled"></param>
         public TataCapitalLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled) : base(manufacturerId, urlAPI, isAPIEnabled)
         {
-            _httpClient = new HttpClient();
         }
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
 
                 #region API call
 
-                if (_httpClient != null)
+                using (HttpClient _httpClient = new HttpClient())
                 {
                     string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(tataLeadInput);
 

@@ -11,7 +11,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     internal class RoyalEnfieldLeadHandler : ManufacturerLeadHandler
     {
         private readonly string _token;
-        private readonly RoyalEnfieldWebAPI.Service service;
 
         /// <summary>
         /// Type Initializer
@@ -22,7 +21,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="submitDuplicateLead"></param>
         public RoyalEnfieldLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled, bool submitDuplicateLead) : base(manufacturerId, urlAPI, isAPIEnabled, submitDuplicateLead)
         {
-            service = new RoyalEnfieldWebAPI.Service();
             _token = ConfigurationManager.AppSettings["RoyalEnfieldToken"];
         }
 
@@ -72,9 +70,14 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 BikeQuotationEntity quotation = base.LeadRepostiory.GetPriceQuoteById(leadEntity.PQId);
                 RoyalEnfieldDealer dealer = base.LeadRepostiory.GetRoyalEnfieldDealerById(leadEntity.ManufacturerDealerId);
                 Logs.WriteInfoLog(String.Format("Royal Enfield Request : {0}", Newtonsoft.Json.JsonConvert.SerializeObject(leadEntity)));
-                response = service.Organic(leadEntity.CustomerName, leadEntity.CustomerMobile, "India", dealer.DealerState,
-                    dealer.DealerCity, leadEntity.CustomerEmail, quotation.ModelName, dealer.DealerName, "",
-                    "https://www.bikewale.com", _token, "bikewale", dealer.DealerCode);
+
+                using (RoyalEnfieldWebAPI.Service service = new RoyalEnfieldWebAPI.Service())
+                {
+                    response = service.Organic(leadEntity.CustomerName, leadEntity.CustomerMobile, "India", dealer.DealerState,
+                                dealer.DealerCity, leadEntity.CustomerEmail, quotation.ModelName, dealer.DealerName, "",
+                                "https://www.bikewale.com", _token, "bikewale", dealer.DealerCode);
+                }
+
                 if (string.IsNullOrEmpty(response))
                 {
                     response = "Null response recieved from Royal Enfield API.";

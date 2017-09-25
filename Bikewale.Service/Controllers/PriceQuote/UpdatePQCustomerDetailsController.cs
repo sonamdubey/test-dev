@@ -128,7 +128,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         CustomerMobile = input.CustomerMobile,
                         ColorId = input.ColorId,
                         UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
-                        UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
+                        UTMZ = Request.Headers.Contains("_bwutmz") ? Request.Headers.GetValues("_bwutmz").FirstOrDefault() : String.Empty,
                         DeviceId = input.DeviceId,
                         LeadSourceId = input.LeadSourceId
                     };

@@ -26,6 +26,6 @@ namespace Bikewale.Models
         public IEnumerable<ArticleSummary> ArticlesList { get; set; }
         public PQSourceEnum PQSourceId { get; set; }
         public Bikewale.Comparison.Entities.SponsoredVersionEntityBase SponsoredBike { get; set; }
-        public string KnowMoreLinkText { get; set; }
+        public string KnowMoreLinkText { get; set; }       
     }
 }

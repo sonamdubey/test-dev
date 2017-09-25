@@ -189,6 +189,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APISecurity\IPAuthorizationAttribute.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="AutoMappers\Compare\TopBikeCompareBaseMapper.cs" />
     <Compile Include="AutoMappers\DealerLocator\DealerBikesEntityMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
+    <Compile Include="AutoMappers\Finance\FinanceMapper.cs" />
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="AutoMappers\Make\MakePageEntityMapper.cs" />
     <Compile Include="AutoMappers\MobileAppAlert\FCMNotificationMapper.cs" />
@@ -297,6 +299,7 @@
     <Compile Include="Controllers\Dealer\DealersListController.cs" />
     <Compile Include="Controllers\Dealer\OffersController.cs" />
     <Compile Include="Controllers\Dealer\TermsController.cs" />
+    <Compile Include="Controllers\Finance\FinanceController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceLeadController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceModelsController.cs" />
@@ -411,7 +414,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="APISecurity\" />
     <Folder Include="Views\InsuranceLead\" />
     <Folder Include="Views\ManufacturerCampaign\" />
     <Folder Include="Views\SplashScreen\" />
@@ -456,6 +458,10 @@
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Interface\Bikewale.ManufacturerCampaign.Interface.csproj">
       <Project>{fd9b192f-137e-40cf-8ac8-623ab79c6c53}</Project>
       <Name>Bikewale.ManufacturerCampaign.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Models\Bikewale.Models.csproj">
+      <Project>{EA7198A6-5347-4F8F-A25E-92B1E1CEB086}</Project>
+      <Name>Bikewale.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>

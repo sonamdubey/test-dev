@@ -2,33 +2,32 @@
 @if (Model.IsShowPriceTab)
 {
     <div id="pricesContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin padding-top15 content-details-wrapper">
-            <h2 class="padding-right20 padding-left20">@Model.BikeName Price</h2>
-        @*<h3 class="padding-right20 padding-left20">@Model.BikeName Price (variants)</h3>*@
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20">
-                <thead>
+        <h2 class="padding-right20 padding-left20">@Model.BikeName Price</h2>
+        <table class="version-price-table padding-right20 padding-left20">
+            <thead>
+                <tr>
+                    <th>Variant</th>
+                    <th>Price</th>
+                    <th>Specs</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var version in Model.ModelPageEntity.ModelVersions)
+                {
                     <tr>
-                        <th width="30%" class="text-left font12 text-unbold text-x-light padding-bottom5 border-solid-bottom text-unbold">Variant</th>
-                        <th width="35%" class="text-left font12 text-unbold text-x-light padding-bottom5 border-solid-bottom text-unbold">Price</th>
-                        <th width="35%" class="text-left font12 text-unbold text-x-light padding-bottom5 border-solid-bottom text-unbold">Specs</th>
+                        <td>@version.VersionName</td>
+                        <td>
+                            <span class='font14'>&#x20B9;</span>
+                            <span id="priced_@version.VersionId" class="text-bold">
+                                <span>@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
+                            </span>
+                        </td>
+                        <td>@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
                     </tr>
-                </thead>
-                <tbody>
-                    
-                    @foreach (var version in Model.ModelPageEntity.ModelVersions)
-                    {
-                        <tr>
-                            <td width="30%" class="padding-bottom10 padding-top10 padding-right10 font14 divider-bottom" valign="top">@version.VersionName</td>
-                            <td width="35%" class="padding-bottom10 padding-top10 divider-bottom padding-right10" valign="top">
-                                @Html.Raw("<span class='font14' >&#x20B9;</span>")
-                                <span id="priced_@version.VersionId" class="font14 text-bold">
-                                    <span>@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
-                                </span>
-                            </td>
-                            <td width="35%" class="padding-bottom10 padding-top10 padding-right10 font14 divider-bottom" valign="top">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ?  "Alloy" :"Spoke")</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                }
+            </tbody>
+        </table>
 
         <div class="font12 text-x-light padding-right20 padding-left20 margin-bottom20 padding-top5">Above mentioned prices are @(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</div>
 
@@ -37,18 +36,25 @@
             var priceQuotesCities = Model.PriceInTopCities.PriceQuoteList;
             Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Take(4);
             <div id="prices-top-cities">
-                <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">Price by cities<span class="text-light-grey text-unbold"> (@(Model.IsLocationSelected && !Model.ShowOnRoadButton && Model.IsNewBike ? "On-road price" : "Ex-showroom price"))</span></h3>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14">
-                    <tbody>@Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)</tbody>
-                </table>
+                @if (Model.LocationCookie != null && Model.LocationCookie.City != null)
+                {
+                    <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">On-road prices in cities near @Model.LocationCookie.City</h3>
+                }
+                else
+                {
+                    <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">Price by cities<span class="text-light-grey text-unbold"> (@(Model.IsLocationSelected && !Model.ShowOnRoadButton && Model.IsNewBike ? "On-road price" : "Ex-showroom price"))</span></h3>
+                }
+
+                <ul class="PriceInTopCity">
+                    @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
+                </ul>
             </div>
 
-            <table id="more-cities-list" width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14 hide">
-                <tbody>
-                    @{Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Skip(4);}
-                    @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
-                </tbody>
-            </table>
+            <ul id="more-cities-list" class="PriceInTopCity hide">
+                @{Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Skip(4);}
+                @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
+            </ul>
+
             if (priceQuotesCities != null && priceQuotesCities.Count() > 4)
             {
                 <div class="padding-top10 padding-right20 padding-left20 padding-bottom5">
@@ -63,4 +69,3 @@
 
     </div>
 }
-

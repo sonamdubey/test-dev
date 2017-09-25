@@ -1,10 +1,16 @@
 ﻿using AjaxPro;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Feedback;
+using Bikewale.BAL.Pager;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Feedback;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
 using Bikewale.Notifications.MailTemplates;
 using Microsoft.Practices.Unity;
@@ -385,8 +391,13 @@ namespace Bikewale.Ajax
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeModels<BikeModelEntity, uint>, BikeModels<BikeModelEntity, uint>>();
-                    IBikeModels<BikeModelEntity, uint> objSeries = container.Resolve<IBikeModels<BikeModelEntity, uint>>();
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                    .RegisterType<ICacheManager, MemcacheManager>()
+                    .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                    .RegisterType<IPager, Pager>()
+                    .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+                    IBikeModels<BikeModelEntity, int> objSeries = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+
 
                     EnumBikeType bikeType = (EnumBikeType)Enum.Parse(typeof(EnumBikeType), requestType, true);
 

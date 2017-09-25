@@ -1,20 +1,21 @@
 ﻿
-using System;
 using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Memcache;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
-using Bikewale.Entities.Schema;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -29,12 +30,14 @@ namespace Bikewale.Models
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IServiceCenter _objSC = null;
-        public uint cityId, makeId, dealerId, TopCount;
+        private uint cityId, makeId, dealerId, TopCount;
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
         public BikeMakeEntityBase objMake;
         public CityEntityBase CityDetails;
-        public DealerShowroomDealerDetailsVM objDealerDetails;
+        public DealerShowroomDealerDetailsVM objDealerDetails = null;
+
+        public bool IsMobile { get; internal set; }
 
         /// <summary>
         /// Constructor 
@@ -52,6 +55,7 @@ namespace Bikewale.Models
             _bikeModels = bikeModels;
             _objSC = objSC;
             TopCount = topCount;
+            objDealerDetails = new DealerShowroomDealerDetailsVM();
             ProcessQuery(makeMaskingName, cityMaskingName, dealerId);
         }
 
@@ -60,15 +64,16 @@ namespace Bikewale.Models
         /// Summary :- To fetch data for dealer detail Page
         /// Modified by : Aditi Srivastava on 24 Apr 2017
         /// Summary     : Added null check for dealer details before functiion calls
+        /// Modified by : Vivek Singh Tomar on 8th Sep 2017
+        /// Summary     : Moved BindDealerData to Parse query string section
         /// </summary>
         /// <returns></returns>
         public DealerShowroomDealerDetailsVM GetData()
         {
-            objDealerDetails = new DealerShowroomDealerDetailsVM();
             try
             {
                 objMake = _bikeMakesCache.GetMakeDetails(makeId);
-                objDealerDetails.DealerDetails = BindDealersData();
+                
                 if (objMake != null)
                     objDealerDetails.Make = objMake;
                 if (objDealerDetails.DealerDetails != null && objDealerDetails.DealerDetails.DealerDetails != null)
@@ -156,39 +161,68 @@ namespace Bikewale.Models
 
                 objPage.CanonicalUrl = String.Format("{0}/{1}-dealer-showrooms-in-{2}/{3}-{4}/", BWConfiguration.Instance.BwHostUrl, objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName, objDealerDetails.DealerDetails.DealerDetails.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(objDealerDetails.DealerDetails.DealerDetails.Name));
                 objPage.AlternateUrl = String.Format("{0}/m/{1}-dealer-showrooms-in-{2}/{3}-{4}/", BWConfiguration.Instance.BwHostUrl, objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName, objDealerDetails.DealerDetails.DealerDetails.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(objDealerDetails.DealerDetails.DealerDetails.Name));
-                
+
+                string dealerName = objDealerDetails.DealerDetails.DealerDetails.Name;
+
                 if (objDealerDetails.DealerDetails.DealerDetails.Area != null && !string.IsNullOrEmpty(objDealerDetails.DealerDetails.DealerDetails.Area.AreaName))
                 {
-                    objPage.Title = string.Format("{0}, {1} - {2} | {3} showroom in {2} - BikeWale",
-                                objDealerDetails.DealerDetails.DealerDetails.Name,
-                                objDealerDetails.DealerDetails.DealerDetails.Area.AreaName,
-                                CityDetails.CityName,
-                                objDealerDetails.Make.MakeName);
-                    objPage.Description = string.Format("{0}, {1} - {2} is an authorized {3} showroom in {2}. Get address, contact details direction, EMI quotes etc. of {0} {3} showroom.",
-                               objDealerDetails.DealerDetails.DealerDetails.Name,
-                               objDealerDetails.DealerDetails.DealerDetails.Area.AreaName,
-                               CityDetails.CityName,
-                               objMake.MakeName);
+                    dealerName = string.Format("{0},{1}", dealerName, objDealerDetails.DealerDetails.DealerDetails.Area.AreaName);
                 }
-                else
-                {
-                    objPage.Title = string.Format("{0} - {1} | {2} showroom in {1} - BikeWale",
-                                objDealerDetails.DealerDetails.DealerDetails.Name,
-                                CityDetails.CityName,
-                                objDealerDetails.Make.MakeName);
-                    objPage.Description = string.Format("{0} - {1} is an authorized {2} showroom in {1}. Get address, contact details direction, EMI quotes etc. of {0} {2} showroom.",
-                               objDealerDetails.DealerDetails.DealerDetails.Name,
-                               CityDetails.CityName,
-                               objMake.MakeName);
-                }
-              
-              SetPageJSONLDSchema(objDealerDetails);
+
+
+                objPage.Title = string.Format("{0} - {1} | {2} showroom in {1} - BikeWale", dealerName, CityDetails.CityName, objDealerDetails.Make.MakeName);
+                objPage.Description = string.Format(@"{0} - {1} is an authorized {2} showroom in {1}. Get address, contact details direction, EMI quotes etc. of {0} {2} showroom.", objDealerDetails.DealerDetails.DealerDetails.Name, CityDetails.CityName, objMake.MakeName);
+
+                objDealerDetails.Page_H1 = objDealerDetails.DealerDetails.DealerDetails.Name;
+
+
+                SetBreadcrumList(objDealerDetails);
+                SetPageJSONLDSchema(objDealerDetails);
             }
             catch (System.Exception ex)
             {
 
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindPageMetas()");
             }
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(DealerShowroomDealerDetailsVM objPage)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+            url += "dealer-showroom-locator/";
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Showroom Locator"));
+
+            if (objDealerDetails != null && objDealerDetails.Make != null)
+            {
+                url = string.Format("{0}-dealer-showrooms-in-india/", objDealerDetails.Make.MaskingName);
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objDealerDetails.Make.MakeName + " Showrooms"));
+
+                if (objDealerDetails.CityDetails != null)
+                {
+                    url = string.Format("{0}-dealer-showrooms-in-{1}", objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName);
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Showroom in {1}", objDealerDetails.Make.MakeName, objDealerDetails.CityDetails.CityName)));
+                }
+
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
+
+            objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
         }
 
         /// <summary>
@@ -198,57 +232,64 @@ namespace Bikewale.Models
         /// <param name="objDealerDetails"></param>
         private void SetPageJSONLDSchema(DealerShowroomDealerDetailsVM objDealerDetails)
         {
-            var dealerDetails = objDealerDetails.DealerDetails.DealerDetails;
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objDealerDetails.PageMetaTags, objDealerDetails.BreadcrumbList);
 
-            var objSchema = new MotorcycleDealer();
-            objSchema.Name = dealerDetails.Name;
-            objSchema.Email = dealerDetails.EMail;
-            objSchema.Telephone = dealerDetails.MaskingNumber;
-            objSchema.Address = new Address();
-            objSchema.Address.StreetAddress = dealerDetails.Address;
-            objSchema.Address.PinCode = dealerDetails.Pincode;
-            objSchema.Address.City = dealerDetails.City;
-            objSchema.ImageUrl = Image.GetPathToShowImages(null, null, ImageSize._310x174);
-            objSchema.OpeningHours = new List<string>() { dealerDetails.WorkingHours };
-            objSchema.PageUrl = objDealerDetails.PageMetaTags.CanonicalUrl;
-            objSchema.Logo = "https://imgd.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png";
-            objSchema.Description = objDealerDetails.PageMetaTags.Description;
-
-            if (dealerDetails.Area != null)
+            if (webpage != null)
             {
-                objSchema.Address.State = dealerDetails.Area.AreaName;
-                objSchema.Address.PinCode = dealerDetails.Area.PinCode;
-                objSchema.Location = new GeoCoordinates();
-                objSchema.Location.Latitude = dealerDetails.Area.Latitude;
-                objSchema.Location.Longitude = dealerDetails.Area.Longitude;
-                objSchema.AreaServed = dealerDetails.Area.AreaName;
-                objSchema.GoogleMapUrl = string.Format("https://www.google.com/maps/place/{0},{1}", dealerDetails.Area.Latitude, dealerDetails.Area.Longitude);
-            }
 
-            if (objDealerDetails.DealerDetails.Models != null && objDealerDetails.DealerDetails.Models.Count() > 0)
-            {
-                var minPrice = objDealerDetails.DealerDetails.Models.Min(bike => bike.VersionPrice);
-                var maxPrice = objDealerDetails.DealerDetails.Models.Max(bike => bike.VersionPrice);
+                var dealerDetails = objDealerDetails.DealerDetails.DealerDetails;
 
-                objSchema.PriceRange = string.Format("{0} - {1}", Format.FormatPrice(minPrice.ToString()), Format.FormatPrice(maxPrice.ToString()));
-            }
-            else
-            {
-                objSchema.PriceRange = "Not available";
-            }
+                var objSchema = new MotorcycleDealer();
+                objSchema.Name = dealerDetails.Name;
+                objSchema.Email = dealerDetails.EMail;
+                objSchema.Telephone = dealerDetails.MaskingNumber;
+                objSchema.Address = new Address();
+                objSchema.Address.StreetAddress = dealerDetails.Address;
+                objSchema.Address.PinCode = dealerDetails.Pincode;
+                objSchema.Address.City = dealerDetails.City;
+                objSchema.ImageUrl = Image.GetPathToShowImages(null, null, ImageSize._310x174);
+                objSchema.OpeningHours = new List<string>() { dealerDetails.WorkingHours };
+                objSchema.PageUrl = objDealerDetails.PageMetaTags.CanonicalUrl;
+                objSchema.Logo = "https://imgd.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png";
+                objSchema.Description = objDealerDetails.PageMetaTags.Description;
 
-            if (objDealerDetails.DealerDetails.Models != null)
-            {
-                var firstModel = objDealerDetails.DealerDetails.Models.FirstOrDefault();
-                if (firstModel != null)
+                if (dealerDetails.Area != null)
                 {
-                    objSchema.ImageUrl = Image.GetPathToShowImages(firstModel.OriginalImagePath, firstModel.HostURL, ImageSize._310x174);
+                    objSchema.Address.State = dealerDetails.Area.AreaName;
+                    objSchema.Address.PinCode = dealerDetails.Area.PinCode;
+                    objSchema.Location = new GeoCoordinates();
+                    objSchema.Location.Latitude = dealerDetails.Area.Latitude;
+                    objSchema.Location.Longitude = dealerDetails.Area.Longitude;
+                    objSchema.AreaServed = dealerDetails.Area.AreaName;
+                    objSchema.GoogleMapUrl = string.Format("https://www.google.com/maps/place/{0},{1}", dealerDetails.Area.Latitude, dealerDetails.Area.Longitude);
                 }
 
+                if (objDealerDetails.DealerDetails.Models != null && objDealerDetails.DealerDetails.Models.Count() > 0)
+                {
+                    var minPrice = objDealerDetails.DealerDetails.Models.Min(bike => bike.VersionPrice);
+                    var maxPrice = objDealerDetails.DealerDetails.Models.Max(bike => bike.VersionPrice);
+
+                    objSchema.PriceRange = string.Format("{0} - {1}", Format.FormatPrice(minPrice.ToString()), Format.FormatPrice(maxPrice.ToString()));
+                }
+                else
+                {
+                    objSchema.PriceRange = "Not available";
+                }
+
+                if (objDealerDetails.DealerDetails.Models != null)
+                {
+                    var firstModel = objDealerDetails.DealerDetails.Models.FirstOrDefault();
+                    if (firstModel != null)
+                    {
+                        objSchema.ImageUrl = Image.GetPathToShowImages(firstModel.OriginalImagePath, firstModel.HostURL, ImageSize._310x174);
+                    }
+
+                }
+
+                objDealerDetails.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+                objDealerDetails.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(objSchema);
             }
-
-
-            objDealerDetails.PageMetaTags.SchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
         }
 
         /// <summary>
@@ -347,6 +388,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 27 March 2017
         /// Summary :- To Processing query
+        /// Created by : Vivek Singh Tomar 8th Sep 2017
+        /// Summary    : Added processing of dealer Id as to identify if it's featured or not
         /// </summary>
         /// <returns></returns>
         private void ProcessQuery(string makeMaskingName, string cityMaskingName, uint dealerId)
@@ -366,10 +409,21 @@ namespace Bikewale.Models
                 else if (objResponse.StatusCode == 301)
                 {
                     status = StatusCodes.RedirectPermanent;
+                    objDealerDetails.RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName);
                 }
                 else
                 {
                     status = StatusCodes.ContentNotFound;
+                }
+
+                if(status.Equals(StatusCodes.ContentFound) && dealerId > 0)
+                {
+                    objDealerDetails.DealerDetails = BindDealersData();
+                    if(objDealerDetails.DealerDetails != null && !objDealerDetails.DealerDetails.DealerDetails.IsFeatured)
+                    {
+                        status = StatusCodes.RedirectPermanent;
+                        objDealerDetails.RedirectUrl = string.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
+                    }
                 }
             }
             else
@@ -377,6 +431,6 @@ namespace Bikewale.Models
                 status = StatusCodes.ContentNotFound;
             }
         }
-
+        
     }
 }

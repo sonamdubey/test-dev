@@ -1,5 +1,7 @@
 ﻿
+using Bikewale.Entities.Models;
 using Bikewale.Entities.Pages;
+using Bikewale.Entities.Schema;
 
 namespace Bikewale.Models
 {
@@ -19,7 +21,7 @@ namespace Bikewale.Models
     {
         public PageMetaTags PageMetaTags { get; private set; }
         public AdTags AdTags { get; private set; }
-
+        public BreadcrumbList BreadcrumbList { get; private set; }
         public bool IsTransparentHeader { get; set; }
         public bool IsHomePage { get; set; }
         public bool IsHeaderFix { get; set; }
@@ -36,16 +38,17 @@ namespace Bikewale.Models
         public string Page_ATF_CSS { get; set; }
         public string Page_BTF_CSS_Path { get; set; }
         public string Page_JS_Path { get; set; }
-
         public string Page_H1 { get; set; }
 
         public ModelBase()
         {
             this.PageMetaTags = new PageMetaTags();
             this.AdTags = new AdTags();
+            this.BreadcrumbList = new BreadcrumbList();
         }
 
         public bool ExcludeContestSlug { get; set; }
         public GAPages Page { get; set; }
+        public string Amp_Page_CSS { get; set; }
     }
 }

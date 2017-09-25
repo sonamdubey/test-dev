@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Web;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using BikeWaleOpr.Common;
-using System.Web.Http;
+using System.Threading.Tasks;
+using System.Web;
 
 namespace BikeWaleOpr.Common
 {
@@ -29,7 +25,7 @@ namespace BikeWaleOpr.Common
             try
             {
                 using (var client = new HttpClient())
-                {        
+                {
                     // New code:       
                     //sets the base URI for HTTP requests
                     client.BaseAddress = new Uri(hostUrl);
@@ -37,7 +33,7 @@ namespace BikeWaleOpr.Common
 
                     //sets the Accept header to "application/json", which tells the server to send data in JSON format.
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(requestType));
-        
+
                     //HTTP GET
                     HttpResponseMessage _response = await client.GetAsync(apiUrl);
 
@@ -73,53 +69,27 @@ namespace BikeWaleOpr.Common
 
             using (var client = new HttpClient())
             {
-                // TODO - Send HTTP requests
                 client.BaseAddress = new Uri(hostUrl); ;
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(requestType));
                 // HTTP POST
-             
+
                 HttpResponseMessage response = await client.PostAsJsonAsync(apiUrl, postObject);
                 HttpContext.Current.Trace.Warn("post async :" + response.StatusCode.ToString());
                 if (response.IsSuccessStatusCode)
                 {
-                
+
                     return objTask;
                     //// Get the URI of the created resource.
                     //Uri gizmoUrl = response.Headers.Location;
-                  
+
                 }
             }
             return objTask;
-        
-          
+
+
         }
 
-        //public static Task<bool> PostSync<T>(string hostUrl, string requestType, string apiUrl, T postObject)
-        //{
-        //    //bool isSuccess = false;
-        //    Task<bool> t = default(Task<bool>);
-
-        //    using (var client = new HttpClient())
-        //    {
-        //        // TODO - Send HTTP requests
-        //        client.BaseAddress = new Uri(hostUrl); ;
-        //        client.DefaultRequestHeaders.Accept.Clear();
-        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(requestType));
-        //        // HTTP POST
-
-        //        HttpResponseMessage response = client.PostAsJsonAsync(apiUrl, postObject).Result;
-
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            //// Get the URI of the created resource.
-        //            //Uri gizmoUrl = response.Headers.Location;
-                    
-        //        }
-        //    }
-        //    return t;
-
-        //}
 
         /// <summary>
         /// Written By : Ashwini Todkar on 8 Nov 2014
@@ -131,7 +101,6 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public static bool DeleteSync(string hostUrl, string requestType, string apiUrl)
         {
-            //Task<bool> t = default(Task<bool>);
             bool isSuccess = false;
 
             using (var client = new HttpClient())
@@ -142,12 +111,12 @@ namespace BikeWaleOpr.Common
                 if (response.IsSuccessStatusCode)
                 {
                     isSuccess = true;
-                }                   
+                }
             }
 
             return isSuccess;
         }
-        
+
         /// <summary>
         /// Written By : Ashwini Todkar on 8 Nov 2014
         /// </summary>
@@ -185,7 +154,7 @@ namespace BikeWaleOpr.Common
             try
             {
                 using (var client = new HttpClient())
-                {        
+                {
                     // New code:       
                     //sets the base URI for HTTP requests
                     client.BaseAddress = new Uri(hostUrl);
@@ -193,7 +162,7 @@ namespace BikeWaleOpr.Common
 
                     //sets the Accept header to "application/json", which tells the server to send data in JSON format.
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(requestType));
-        
+
                     //HTTP GET
                     HttpResponseMessage _response = client.GetAsync(apiUrl).Result;
 
@@ -202,7 +171,7 @@ namespace BikeWaleOpr.Common
                     if (_response.IsSuccessStatusCode)
                     {
                         if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
-                            objTask =  JsonConvert.DeserializeObject<T>(_response.Content.ReadAsStringAsync().Result);
+                            objTask = JsonConvert.DeserializeObject<T>(_response.Content.ReadAsStringAsync().Result);
                     }
                 }
             }
@@ -221,6 +190,6 @@ namespace BikeWaleOpr.Common
 
             return objTask;
         }
-        
+
     }
 }

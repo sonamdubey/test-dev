@@ -4,6 +4,7 @@
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/user-review/write-review.css' inline />";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_JS_Path = "/m/src/user-review/write-review.js";
 }
 @if (Model != null && Model.Summary != null)
 {
@@ -48,36 +49,43 @@
                         </div>
                     </div>
                 </div>
-                @if (Model.RatingQuestions != null && Model.RatingQuestions.Count() > 0)
+                @{ int quesCount = 0;
+                    if (Model.RatingQuestions != null)
+                    { quesCount = Model.RatingQuestions.TakeWhile(q => !string.IsNullOrEmpty(q.SelectedRatingText)).Count(); }
+                }
+                @if (quesCount > 0)
                 {
                     <div class="bg-light position-rel top3">
-                        <ul class="@string.Format("about-reviewer-list item-count-{0}", Model.RatingQuestions.Count())">
+                        <ul class="@string.Format("about-reviewer-list item-count-{0}", quesCount)">
                             @foreach (var q in Model.RatingQuestions)
                             {
-                                <li>
-                                    <span class="@string.Format("bwmsprite questionId-{0}", q.Id)"></span>
-                                    <p class="item-question">@q.MinHeading</p>
-                                    <p class="item-answer">@q.SelectedRatingText</p>
-                                </li>
+                                if (!string.IsNullOrEmpty(q.SelectedRatingText))
+                                {
+                                    <li>
+                                        <span class="@string.Format("bwmsprite questionId-{0}", q.Id)"></span>
+                                        <p class="item-question">@q.MinHeading</p>
+                                        <p class="item-answer">@q.SelectedRatingText</p>
+                                    </li>
+                                }
                             }
                         </ul>
                     </div>
                 }
                 <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
                     <div id="floating-btn" class="floating-btn">
-                          <div class="grid-12 alpha omega">
-                                <a class="btn btn-orange btn-full-width" href="@string.Format("/m{0}", Model.Summary.ReturnUrl)">Done</a>
-                            </div>
+                        <div class="grid-12 alpha omega">
+                            <a class="btn btn-orange btn-full-width" href="@string.Format("/m{0}", Model.Summary.ReturnUrl)">Done</a>
+                        </div>
                         <div class="clear"></div>
                     </div>
 
 
-                      <div id="summary-review-box" class="padding-bottom10">
-                            <div class="text-light-grey">
-                                @Html.Raw(Model.Summary.Description)
-                            </div>
+                    <div id="summary-review-box" class="padding-bottom10">
+                        <div class="text-light-grey">
+                            @Html.Raw(Model.Summary.Description)
                         </div>
-                    
+                    </div>
+
                     @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Count() > 0)
                     {
                         <ul class="rating-circle-list margin-bottom10">
@@ -108,83 +116,73 @@
             </div>
         </section>
 
-    }
-
-    else
-    {
-        <section>
-            <div id="review-summary-card" class="container bg-white card-bottom-margin box-shadow font14">
-                <div class="padding-15-20 content-box-shadow">
-                    <div class="model-image-grid inline-block">
-                        <img src="@Image.GetPathToShowImages(Model.Summary.OriginalImagePath, Model.Summary.HostUrl, ImageSize._110x61, QualityFactor._70)" alt="@Model.Summary.Make.MakeName @Model.Summary.Model.ModelName" />
-                    </div>
-                    @if (Model.Summary.Make != null && Model.Summary.Model != null)
-                    {
-                        <h1 class="model-details-grid inline-block">@string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)</h1>
                     }
-                </div>
-                <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
-                    <div id="bike-rating-box" class="margin-bottom15 border-light border-radius-10">
-                        <div class="rating-box-top">
-                            <div class="table-middle">
-                                <span class="rating-feedback @string.Format("feedback-{0}", Model.Summary.OverallRating.Value)"></span>
-                                <div class="feedback-grid inline-block">
-                                    <p class="font16 font-bold">@Model.Summary.OverallRating.Heading</p>
-                                    <p class="margin-top5 font12 text-slate-grey">@Model.Summary.OverallRating.Description</p>
+
+                    else
+                    {
+                        <section>
+                            <div id="review-summary-card" class="container bg-white card-bottom-margin box-shadow font14">
+                                <div class="padding-15-20 content-box-shadow">
+                                    <div class="model-image-grid inline-block">
+                                        <img src="@Image.GetPathToShowImages(Model.Summary.OriginalImagePath, Model.Summary.HostUrl, ImageSize._110x61, QualityFactor._70)" alt="@Model.Summary.Make.MakeName @Model.Summary.Model.ModelName" />
+                                    </div>
+                                    @if (Model.Summary.Make != null && Model.Summary.Model != null)
+                    {
+                                        <h1 class="model-details-grid inline-block">@string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)</h1>
+                                    }
+                                </div>
+                                <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
+                                    <div id="bike-rating-box" class="margin-bottom15 border-light border-radius-10">
+                                        <div class="rating-box-top">
+                                            <div class="table-middle">
+                                                <span class="rating-feedback @string.Format("feedback-{0}", Model.Summary.OverallRating.Value)"></span>
+                                                <div class="feedback-grid inline-block">
+                                                    <p class="font16 font-bold">@Model.Summary.OverallRating.Heading</p>
+                                                    <p class="margin-top5 font12 text-slate-grey">@Model.Summary.OverallRating.Description</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="rating-placeholder">
+                                            <ul class="margin-top10 item-rating-list text-center rating-start">
+                                                @for (int i = 0; i < 5; i++)
+                                                {
+                                                    if (i < Model.Summary.OverallRating.Value)
+                                                    {
+                                                        <li class="bwmsprite star-one"></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="bwmsprite star-zero"></li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div id="floating-btn" class="floating-btn">
+
+                                        <div class="grid-6 alpha omega">
+                                            <a class="btn btn-white btn-full-width" href="@string.Format("/m{0}", Model.WriteReviewLink)">Write a review</a>
+                                        </div>
+                                        <div class="grid-6 alpha omega">
+                                            <a class="btn btn-orange btn-full-width" href="@string.Format("/m{0}", Model.Summary.ReturnUrl)">Done</a>
+                                        </div>
+
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="margin-bottom20 border-solid-bottom"></div>
+                                    <h3 class="font15 text-black margin-bottom15">Tell us more about your experience!</h3>
+                                    <p class="padding-bottom20 text-light-grey">Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. 1,000.</p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="rating-placeholder">
-                            <ul class="margin-top10 item-rating-list text-center rating-start">
-                                @for (int i = 0; i < 5; i++)
-                                {
-                                    if (i < Model.Summary.OverallRating.Value)
-                                    {
-                                        <li class="bwmsprite star-one"></li>
-                                    }
-                                    else
-                                    {
-                                        <li class="bwmsprite star-zero"></li>
-                                    }
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="floating-btn" class="floating-btn">
-
-                        <div class="grid-6 alpha omega">
-                            <a class="btn btn-white btn-full-width" href="@string.Format("/m{0}", Model.WriteReviewLink)">Write a review</a>
-                        </div>
-                        <div class="grid-6 alpha omega">
-                            <a class="btn btn-orange btn-full-width" href="@string.Format("/m{0}", Model.Summary.ReturnUrl)">Done</a>
-                        </div>
-
-                        <div class="clear"></div>
-                    </div>
-                    <div class="margin-bottom20 border-solid-bottom"></div>
-                    <h3 class="font15 text-black margin-bottom15">Tell us more about your experience!</h3>
-                    <p class="padding-bottom20 text-light-grey">Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. 1,000.</p>
-                </div>
-            </div>
-        </section>
-    }
-    <input id="pageSource" type="hidden" value="@string.Format("/m{0}",Model.Summary.ReturnUrl)" />
-    <div id="review-summary-page"></div>
-}
+                        </section>
+                    }
+                    <input id="pageSource" type="hidden" value="@string.Format("/m{0}",Model.Summary.ReturnUrl)" />
+                    <div id="review-summary-page"></div>
+                    }
 <script type="text/javascript">
-    docReady(function () {
-        var handleBrowserBack = function (prevPage, curPage) {
-            setTimeout(function () { appendHash(curPage); }, 1000);
-            $(window).on('hashchange', function (e) {
-                oldUrl = e.originalEvent.oldURL;
-                if (oldUrl && (oldUrl.indexOf('#') > 0)) {
-                    if (prevPage && prevPage.length)
-                        window.location.href = prevPage.val();
-                }
-            });
-        };
-        handleBrowserBack(($("#pageSource")), "reviewSummary");
-
+    var page = "reviewSummary";
+    var vmWriteReview;
+    docReady(function () {        
         if (navigator.userAgent.indexOf('UCBrowser/') >= 0) {
             $('#review-summary-card').addClass('browser-type-uc');
         }

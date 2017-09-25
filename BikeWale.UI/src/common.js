@@ -1267,9 +1267,8 @@ docReady(function () {
         }
 
     });
-
-    $('.bw-ga').click(function () {
-
+   
+        $(document).on("click", ".bw-ga", function () {
         try {
             var obj = $(this);
             if (obj.attr('l') !== undefined) {

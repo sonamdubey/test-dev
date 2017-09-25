@@ -233,6 +233,10 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 // Common title, h1 and canonical
                 BikeName = MakeId > 0 ? string.Format("{0} {1}", Make, Model).Trim() : string.Empty;
 
+                var totalPagesCount = (uint)(TotalBikes / _pageSize);
+
+                if ((TotalBikes % _pageSize) > 0)
+                    totalPagesCount += 1;
 
                 heading = string.Format("Used {0} Bikes in {1}", BikeName, City);
 
@@ -252,6 +256,12 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 {
                     pageDescription = string.Format("There are {0} used bikes in {1} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand bikes for sale in {1}", _totalBikes, City);
                     pageKeywords = string.Format("Used bikes in {0}, find used bikes in {0}, buy used bikes in {0}, search used bikes, find used bikes, used bike listing, bike used sale, bike sale in {0}, {0} bike search, Bajaj, Aprilia, BMW, Ducati, Harley Davidson, Hero, Honda, Hyosung, KTM, Mahindra, Royal Enfield, Suzuki, Yamaha, Yo, TVS, Vespa, Kawasaki", City);
+                }
+
+                if (_pageNo > 1)
+                {
+                    pageDescription = string.Format("Page {0} of {1} - {2}", _pageNo, totalPagesCount, pageDescription);
+                    pageTitle = string.Format("Page {0} of {1} - {2}", _pageNo, totalPagesCount, pageTitle);
                 }
             }
             catch (Exception ex)

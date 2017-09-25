@@ -1145,7 +1145,7 @@ namespace Bikewale.Cache.BikeData
         /// <returns></returns>
         public GenericBikeInfo GetBikeInfo(uint modelId)
         {
-            string key = string.Format("BW_GenericBikeInfo_MO_{0}", modelId);
+            string key = string.Format("BW_GenericBikeInfo_MO_{0}_V1", modelId);
             GenericBikeInfo objSearchList = null;
             try
             {
@@ -1229,6 +1229,37 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBestBikesByCategory: BodyStyle:{0}", bodyStyle));
+            }
+            return bestBikesList;
+        }
+
+        /// <summary>
+        /// Created By  :   Vishnu Teja Yalakuntla on 11 Sep 2017
+        /// Description :   Fetches best bikes for particular model in its make
+        /// </summary>
+        /// <param name="bodyStyle"></param>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public ICollection<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint? cityId = null)
+        {
+            string key = string.Format("BW_BestBikesByModelInMake_{0}", modelId);
+
+            ICollection<BestBikeEntityBase> bestBikesList = null;
+            try
+            {
+                if (cityId != null && cityId.Value > 0)
+                {
+                    key = string.Format("{0}_City_{1}", key, cityId.Value);
+                    bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByModelInMake(modelId, cityId.Value));
+                }
+                else
+                    bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByModelInMake(modelId));
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBestBikesByCategory: ModelId:{0}", modelId));
             }
             return bestBikesList;
         }
@@ -1343,7 +1374,9 @@ namespace Bikewale.Cache.BikeData
             try
             {
                 popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularScooters(topCount, makeId, cityId));
+
             }
+
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetMostPopularScooters({0},{1},{2})", makeId, cityId, topCount));
@@ -1389,5 +1422,7 @@ namespace Bikewale.Cache.BikeData
             }
             return popularBikesList;
         }
+
+
     }
 }

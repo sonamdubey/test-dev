@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.ModelBase
 <!doctype html>
-<html  itemscope itemtype="http://schema.org/WebPage" lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,11 +11,11 @@
 
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
         {
-            <title itemprop="name">@Model.PageMetaTags.Title</title>
+            <title>@Html.Raw(Model.PageMetaTags.Title)</title>
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
         {
-            <meta itemprop="description" name="description" content="@Model.PageMetaTags.Description" />
+            <meta name="description" content="@Model.PageMetaTags.Description" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
         {
@@ -23,10 +23,10 @@
         }
         if (Model.PageMetaTags.EnableOG)
         {
-            <meta property="og:title" content="@Model.PageMetaTags.Title" />
+            <meta property="og:title" content="@Html.Raw(Model.PageMetaTags.Title)" />
             <meta property="og:type" content="website" />
             <meta property="og:description" content="@Model.PageMetaTags.Description" />
-            <meta itemprop="image"  property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+            <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
             if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
             {
                 <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
@@ -44,7 +44,8 @@
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.AmpUrl))
         {
-            <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> }
+            <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> 
+        }
     }
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
@@ -56,7 +57,7 @@
     <link href="//www.googleadservices.com" rel="dns-prefetch" />
     <link href="//www.bikewale.com" rel="dns-prefetch" />
     <link href="//imgd.aeplcdn.com" rel="dns-prefetch" />
-    <link href="//@Bikewale.Utility.BWConfiguration.Instance.StaticUrl" rel="dns-prefetch" />
+    <link href="//stb.aeplcdn.com" rel="dns-prefetch" />
     <link href="//fonts.googleapis.com" rel="dns-prefetch" />
     <link href="//www.google-analytics.com" rel="dns-prefetch" />
     <link href="//bhrigu.bikewale.com" rel="dns-prefetch" />
@@ -176,6 +177,13 @@
             @(Html.Raw(Model.PageMetaTags.SchemaJSON))
         </script>
     }
+    @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.PageSchemaJSON))
+    {
+        <script type="application/ld+json">
+            @(Html.Raw(Model.PageMetaTags.PageSchemaJSON))
+        </script>
+    }
+
 </head>
 <body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
 
@@ -225,7 +233,41 @@
             </script>
         </div>
     }
+
+    @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
+
     @RenderBody()
+
+    @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
+    {
+        <section>
+            <div class="breadcrumb">
+                <span class="breadcrumb-title">You are here:</span>
+                <ul>
+                    @foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
+                    {
+                        if (!string.IsNullOrEmpty(item.Item.Url))
+                        {
+                            <li>
+                                <a class="breadcrumb-link" href="@item.Item.Url" title="@item.Item.Name">
+                                    <span class="breadcrumb-link__label" itemprop="name">@item.Item.Name</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <span class="breadcrumb-link__label">@item.Item.Name</span>
+                            </li>
+                        }
+                    }
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </section>
+                        }
+
     @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
     {
         <section>
@@ -308,11 +350,11 @@
             </li>
             @** Render login control here *@
             @Html.Partial("~/Views/m/Shared/_LoginControl.cshtml")
-            
+
         </ul>
 
         <div id="nav-app-content">
-            <p class="font12 text-bold inline-block">India’s #1 Bike Research Destination</p><a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank" rel="noopener nofollow" class="btn btn-orange nav-app-install-btn font12 text-bold inline-block" >Install</a>
+            <p class="font12 text-bold inline-block">India’s #1 Bike Research Destination</p><a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank" rel="noopener nofollow" class="btn btn-orange nav-app-install-btn font12 text-bold inline-block">Install</a>
         </div>
     </nav>
     <!-- nav code ends here -->
@@ -357,7 +399,7 @@
             <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
         </div>
     </div> <!-- global-search-popup code ends here -->
-    @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
+   
 
     <footer class="bg-footer padding-top30 padding-bottom15">
         <!-- Footer section code starts here -->
@@ -384,8 +426,7 @@
                     <p class="font13 text-white margin-bottom10">Download Mobile App</p>
 
                     <div>
-                        <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5" >Install
-                        </a>
+                        <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5"></a>
                     </div>
                 </div>
                 <div class="margin-top15 margin-bottom15">

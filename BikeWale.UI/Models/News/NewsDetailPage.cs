@@ -118,7 +118,21 @@ namespace Bikewale.Models
                 {
                     status = StatusCodes.RedirectPermanent;
                     mappedCWId = qsBasicId;
-                    redirectUrl = request["t"].StartsWith(@"/news/", StringComparison.InvariantCultureIgnoreCase) ? request["t"] : string.Format("/news/{0}-{1}.html", mappedCWId, request["t"]);
+                    string url = request["t"];
+
+                    if(url.Contains("/"+mappedCWId+"-") ||
+                        url.StartsWith(@"/news/")||
+                        url.StartsWith(@"/m/news/")||
+                        url.EndsWith(@".html"))
+                    {
+                        redirectUrl = url;
+                        ThreadContext.Properties["RedirectUrl"] = request.UrlReferrer != null ? request.UrlReferrer.ToString() : "Unknown";
+                        ThreadContext.Properties["request(t)"] = request["t"];
+                        ThreadContext.Properties["ReceivedURL"] = url;
+                        _logger.Error("NewsDetailPage.ProcessQueryString()");
+                    }
+                    else
+                        redirectUrl = string.Format("/news/{0}-{1}.html", mappedCWId, request["t"]);
                 }
                 else if (uint.TryParse(qsBasicId, out basicId) && basicId > 0)
                     status = StatusCodes.ContentFound;
@@ -129,13 +143,7 @@ namespace Bikewale.Models
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.NewsDetailPage.ProcessQueryString");
             }
-            finally
-            {
-                if (LogNewsUrl && (!String.IsNullOrEmpty(request["t"]) && request["t"].StartsWith(@"/news/", StringComparison.InvariantCultureIgnoreCase)))
-                {
-                    _logger.Error(String.Format("NewsDetailPage.ProcessQueryString({0},{1})", redirectUrl, request["t"]));
-                }
-            }
+            
         }
 
         /// <summary>
@@ -306,7 +314,7 @@ namespace Bikewale.Models
                     {
                         objData.Make = objData.ArticleDetails.VehiclTagsList.FirstOrDefault().MakeBase;
                         if (objData.Make != null)
-                            objData.Make = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)objData.Make.MakeId);
+                            objData.Make = new Common.MakeHelper().GetMakeNameByMakeId((uint)objData.Make.MakeId);
                     }
                     MakeId = (uint)objData.Make.MakeId;
                 }
@@ -368,8 +376,8 @@ namespace Bikewale.Models
                 {
                     List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
-                    if (objVersionsList != null && objVersionsList.Count > 0)
-                        bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+                    GenericBikeInfo bikeInfo = _models.GetBikeInfo(ModelId);
+                    bodyStyle = (EnumBikeBodyStyles)bikeInfo.BodyStyleId;
 
                     if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !isPWA)
                     {

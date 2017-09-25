@@ -1,30 +1,19 @@
 // C# Document
 using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Configuration;
-using System.Text.RegularExpressions;
 using System.Net;
-using System.IO;
-using System.Collections;
-using System.Collections.Specialized;
+using System.Text;
 
 namespace Bikewale.Common
 {
-	public class MailerAds
-	{
-		public string GetAdScript(string customerId)
-		{
-			string html = "";
-			
-			try
-			{
-				/*//get all the customer details
+    public class MailerAds
+    {
+        public string GetAdScript(string customerId)
+        {
+            string html = "";
+
+            try
+            {
+                /*//get all the customer details
 				CustomerDetails cd = new CustomerDetails(customerId);
 				
 				string name = cd.Name;
@@ -43,27 +32,33 @@ namespace Bikewale.Common
 							
 				html = GetData(url);
 				*/
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,"MailerAds.GetAdScript");
-				objErr.SendMail();
-			}
-			
-			return html;			
-		}
-		
-		//for the post method for aspx
-		public string GetData(string url) 
-		{
-			WebClient webClient = new WebClient(); 
-			string strUrl = url; 
-			byte[] reqHTML;
-			reqHTML = webClient.DownloadData(strUrl); 
-			UTF8Encoding objUTF8 = new UTF8Encoding(); 
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "MailerAds.GetAdScript");
+                objErr.SendMail();
+            }
 
-			return objUTF8.GetString(reqHTML);
-		}
+            return html;
+        }
 
-	}
+        //for the post method for aspx
+        public string GetData(string url)
+        {
+            string data = string.Empty;
+            if (!string.IsNullOrEmpty(url))
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    byte[] reqHTML = webClient.DownloadData(url);
+                    UTF8Encoding objUTF8 = new UTF8Encoding();
+                    data = objUTF8.GetString(reqHTML);
+                }
+            }
+
+            return data;
+
+        }
+
+    }
 }

@@ -85,8 +85,7 @@
 
                                     <li data-item-id="@serviceCenter.ServiceCenterId" data-item-inquired="false" data-lat="@serviceCenter.Lattitude" data-log="@serviceCenter.Longitude" data-item-number="@serviceCenter.Phone" data-address="@serviceCenter.Address"
                                         data-item-url="@UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, serviceCenter.Name, serviceCenter.ServiceCenterId)">
-
-                                        <a href="@UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, serviceCenter.Name, serviceCenter.ServiceCenterId)" title="@serviceCenter.Name" class="dealer-card-target font14">
+                                        <a href="javascript:void(0)" rel="nofollow" title="@serviceCenter.Name" class="dealer-card-target font14">
                                             <div class="dealer-card-content">
                                                 <h3 class="dealer-name text-black text-bold margin-bottom5">@serviceCenter.Name</h3>
                                                 @if (!(String.IsNullOrEmpty(serviceCenter.Address)))

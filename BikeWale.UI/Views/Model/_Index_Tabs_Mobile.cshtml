@@ -15,7 +15,7 @@
     }
     else if (Model.IsPopularBodyStyleAvailable)
     {
-        <li data-tabs="#popularContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SimilarBikes">Popular @Model.BodyStyleText</li>
+        <li data-tabs="#popularContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;@Model.BodyStyleName">Popular @Model.BodyStyleName</li>
     }
     @if (Model.IsVersionSpecsAvailable)
     {

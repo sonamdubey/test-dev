@@ -165,6 +165,8 @@ namespace BikewaleOpr.DALs.BikePricing
         /// <summary>
         /// Created by  :   Vishnu Teja Yalakuntla on 31-Jul-2017
         /// Description :   Updates or inserts dealer pricing.
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017
+        /// Description : Changed SP from 'bw_savedealerprices_28072017' to 'bw_savedealerprices_30082017'
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="cityId"></param>
@@ -192,7 +194,7 @@ namespace BikewaleOpr.DALs.BikePricing
                     param.Add("par_itemvalue", itemValueList);
                     param.Add("par_updatedby", enteredBy);
 
-                    connection.Execute("bw_savedealerprices_28072017", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("bw_savedealerprices_30082017", param: param, commandType: CommandType.StoredProcedure);
                     isPriceSaved = true;
 
                     if (connection.State == ConnectionState.Open)

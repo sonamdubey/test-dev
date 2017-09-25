@@ -107,6 +107,7 @@
     <Compile Include="BikeCare\BikeCareDetailPageVM.cs" />
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
+    <Compile Include="BikeModels\OtherBestBikesVM.cs" />
     <Compile Include="CompareBikes\PopularComparisonsVM.cs" />
     <Compile Include="Compare\CompareDetailsVM.cs" />
     <Compile Include="Compare\CompareVM.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Features\DetailFeatureVM.cs" />
     <Compile Include="Features\IndexFeatureVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsDetailPageVM.cs" />
+    <Compile Include="Finance\CapitalFirstVM.cs" />
     <Compile Include="GenericBestBikes\IndexBestBikesVM.cs" />
     <Compile Include="Make\BrandCityPopupVM.cs" />
     <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
@@ -151,6 +153,9 @@
     <Compile Include="News\NewsIndexPageVM.cs" />
     <Compile Include="NewLaunches\NewLaunchedWidgetVM.cs" />
     <Compile Include="News\NewsScootersPageVM.cs" />
+    <Compile Include="PriceInCity\PriceInCityPageAMPVM.cs" />
+    <Compile Include="PopUp\PopupLeadCaptureVM.cs" />
+    <Compile Include="PopUp\PoupCityAreaVM.cs" />
     <Compile Include="Price\DealerPriceQuotePageVM.cs" />
     <Compile Include="News\RecentNewsVM.cs" />
     <Compile Include="PriceInCity\PriceInCityPageVM.cs" />
@@ -174,8 +179,10 @@
     <Compile Include="Survey\BajajSurveyVM.cs" />
     <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
     <Compile Include="Upcoming\UpcomingPageVM.cs" />
+    <Compile Include="UserReviews\UserReviewSimilarBikesWidgetVM.cs" />
     <Compile Include="UserReviews\UserReviewListingVM.cs" />
     <Compile Include="UserReviews\UserReviewDetailsVM.cs" />
+    <Compile Include="UserReviews\UserReviewsOtherDetailsPageVM.cs" />
     <Compile Include="UserReviews\UserReviewsSearchVM.cs" />
     <Compile Include="UserReviews\UserReviewSummaryVM.cs" />
     <Compile Include="UserReviews\WriteReviewContest.cs" />

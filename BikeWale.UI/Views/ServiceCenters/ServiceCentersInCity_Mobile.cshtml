@@ -1,4 +1,4 @@
-﻿  @model Bikewale.Models.ServiceCenters.ServiceCenterCityPageVM
+﻿@model Bikewale.Models.ServiceCenters.ServiceCenterCityPageVM
 @using Bikewale.Utility;
 
 @{
@@ -47,7 +47,7 @@
                     @foreach (var serviceCenter in Model.ServiceCentersListObject.ServiceCenters)
                     {
                         <li>
-                            <a href="@string.Format("/m{0}", UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, serviceCenter.Name, serviceCenter.ServiceCenterId))" title="@serviceCenter.Name | @Model.Make.MakeName | @Model.City.CityName" class="center-list-item">
+                            <a href="javascript:void(0)" rel="nofollow" title="@serviceCenter.Name | @Model.Make.MakeName | @Model.City.CityName" class="center-list-item">
                                 <h3 class="text-truncate margin-bottom5 text-black">
                                     @serviceCenter.Name
                                 </h3>
