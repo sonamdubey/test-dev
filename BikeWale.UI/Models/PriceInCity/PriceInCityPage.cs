@@ -1148,7 +1148,7 @@ namespace Bikewale.Models
                         objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
                         objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
                         objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
-                        objData.PQId = objData.LeadCampaign.PQId = (uint)_objPQ.RegisterPriceQuote(objPQEntity);
+                        objData.PQId = (uint)_objPQ.RegisterPriceQuote(objPQEntity);
                     }
 
                     if (objData.IsManufacturerLeadAdShown)
