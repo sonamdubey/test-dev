@@ -18,10 +18,18 @@
                 <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(Model.objFeature.DisplayDate), "dd MMM yyyy, hh:mm tt")</span>
             </div>
             <div class="grid-6 alpha omega">
-                <a @(string.IsNullOrEmpty(Model.objFeature.AuthorMaskingName) ? "href=javascript:void(0) rel=nofollow" : "href=/m/authors/" + Model.objFeature.AuthorMaskingName + "/") class="hover-no-underline">
+                @if(string.IsNullOrEmpty(Model.objFeature.AuthorMaskingName))
+                {
                     <span class="bwmsprite author-grey-sm-icon"></span>
-                    <span class="article-stats-content"><span class="@(string.IsNullOrEmpty(Model.objFeature.AuthorMaskingName)?"":"text-link")">@Model.objFeature.AuthorName</span></span>
-                </a>
+                    <span class="article-stats-content"><span>@Model.objFeature.AuthorName</span></span>
+                }
+                else
+                {
+                    <a href="/m/authors/@Model.objFeature.AuthorMaskingName/" class="hover-no-underline">
+                        <span class="bwmsprite author-grey-sm-icon"></span>
+                        <span class="article-stats-content"><span class="text-link">@Model.objFeature.AuthorName</span></span>
+                    </a>
+                }
             </div>
             <div class="clear"></div>
         </div>
