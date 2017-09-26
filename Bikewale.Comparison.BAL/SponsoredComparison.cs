@@ -33,8 +33,11 @@ namespace Bikewale.Comparison.BAL
                 if (versions != null && !String.IsNullOrEmpty(targetVersionIds))
                 {
                     versions = versions.Where(version => (version.StartDate <= DateTime.Now && version.EndDate >= DateTime.Now));
-                    IEnumerable<uint> targets = targetVersionIds.Split(',').Select(v => uint.Parse(v));
-                    sponsoredVersion = versions.FirstOrDefault(m => targets.Contains(m.TargetVersionId) && !targets.Contains(m.SponsoredVersionId));
+                    if(versions != null)
+                    {
+                        IEnumerable<uint> targets = targetVersionIds.Split(',').Select(v => uint.Parse(v));
+                        sponsoredVersion = versions.FirstOrDefault(m => targets.Contains(m.TargetVersionId) && !targets.Contains(m.SponsoredVersionId));
+                    }
                 }
             }
             catch (Exception ex)

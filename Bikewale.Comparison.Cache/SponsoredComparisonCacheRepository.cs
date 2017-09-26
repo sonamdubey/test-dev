@@ -24,6 +24,8 @@ namespace Bikewale.Comparison.Cache
         /// <summary>
         /// Created by  :   Sumit Kate on 31 Jul 2017
         /// Description :   returns All active sponsored comparisons
+        /// Modified by :   Vivek Singh Tomar on 26th Sep 2017
+        /// Description :   Versioning of memcache key
         /// </summary>
         /// <returns></returns>
         public IEnumerable<SponsoredVersionEntityBase> GetActiveSponsoredComparisons()
@@ -45,6 +47,8 @@ namespace Bikewale.Comparison.Cache
         /// <summary>
         /// Created by  :   Sumit Kate on 07 Aug 2017
         /// Description :   Refresh Sponsored Comparison Cache
+        /// Modified by :   Vivek Singh Tomar on 26th Sep 2017
+        /// Description :   Versioning of memcache key
         /// </summary>
         public void RefreshSpsonsoredComparisonsCache()
         {
