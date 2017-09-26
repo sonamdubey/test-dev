@@ -224,7 +224,7 @@ namespace Bikewale.Controllers
         public ActionResult DealerDetail(string makeMaskingName, string cityMaskingName, uint dealerId)
         {
 
-            DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 3);
+            DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 3, false);
 
             if (dealerId > 0)
             {
@@ -265,14 +265,13 @@ namespace Bikewale.Controllers
         {
 
 
-            DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 9);
+            DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 9, true);
             if (dealerId > 0)
             {
                 DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
 
                 if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
                 {
-                    objDealerDetails.IsMobile = true;
                     objDealerDetailsVM = objDealerDetails.GetData();
                     if (objDealerDetailsVM != null && objDealerDetailsVM.DealerDetails != null && objDealerDetailsVM.DealerDetails.DealerDetails != null)
                         return View(objDealerDetailsVM);
@@ -282,7 +281,7 @@ namespace Bikewale.Controllers
 
                 else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
                 {
-                    return RedirectPermanent(string.Format("/m{0}", objDealerDetails.objDealerDetails.RedirectUrl));
+                    return RedirectPermanent(objDealerDetails.objDealerDetails.RedirectUrl);
                 }
                 else
                 {
