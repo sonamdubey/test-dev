@@ -10,7 +10,7 @@
     ViewBag.TotalPrice = Model.TotalPrice; // to pass price component on dealer campaign if dealerprice not available
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
-    Model.AdTags.Ad_200x253 = true;
+    Model.AdTags.Ad_200x216 = true;
 }
 
 <div class="bg-white padding-10-5 bottom-shadow margin-bottom10">
@@ -305,9 +305,9 @@
                 <h2 class="padding-left20 padding-right20 margin-bottom20">@Model.BodyStyleText Similar to @Model.BikeName</h2>
                 <div class="swiper-container card-container swiper-type-similar">
                     <div class="swiper-wrapper">
-                        @if (Model.AdTags.Ad_200x253)
+                        @if (Model.AdTags.Ad_200x216)
                         {
-                            { Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad200x253.cshtml", new { AdId = "1505919734321" }); }
+                            { Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad200x216.cshtml", new { AdId = "1506343636197" }); }
 
                         }
                         @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikesVM)

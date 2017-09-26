@@ -13,7 +13,7 @@
     Model.AdTags.Ad_300x250 = false;
     Model.AdTags.Ad_300x250BTF = false;
     Model.IsHeaderFix = true;
-    Model.AdTags.Ad_292x399 = true;
+    Model.AdTags.Ad_292x359 = true;
     Model.ExcludeContestSlug = true;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -423,9 +423,9 @@
                     <div class="jcarousel-wrapper inner-content-carousel">
                         <div class="jcarousel">
                             <ul>
-                                @if (Model.AdTags.Ad_292x399)
+                                @if (Model.AdTags.Ad_292x359)
                                 {
-                                    { Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x399.cshtml", new { AdId = "1505919734321" }); }
+                                    { Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x359.cshtml", new { AdId = "1506343636197" }); }
 
                                 }
                                 @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikesVM)

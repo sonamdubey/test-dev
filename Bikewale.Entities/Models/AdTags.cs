@@ -31,6 +31,7 @@ namespace Bikewale.Models
         public bool Ad_976x400_Middle { get; set; }
 
         public bool Ad_292x399 { get; set; }
+        public bool Ad_292x359 { get; set; }
         #endregion
 
         #region Ad sizes for mobile site
@@ -48,6 +49,8 @@ namespace Bikewale.Models
         public bool Ad_320x400_Middle { get; set; }
 
         public bool Ad_200x253 { get; set; }
+
+        public bool Ad_200x216 { get; set;}
         #endregion
 
     }
