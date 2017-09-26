@@ -72,7 +72,6 @@ namespace Bikewale.Models.BikeModels
         private readonly IUserReviewsSearch _userReviewsSearch = null;
 
         private uint _modelId, _cityId, _areaId;
-        private bool pageSchemaInWebpage;
 
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
@@ -211,11 +210,14 @@ namespace Bikewale.Models.BikeModels
                         {
                             RatingCount = (uint)_objData.ModelPageEntity.ModelDetails.RatingCount,
                             RatingValue = Convert.ToDouble(_objData.ModelPageEntity.ModelDetails.ReviewUIRating),
-                            ReviewCount = (uint)_objData.ModelPageEntity.ModelDetails.ReviewCount,
                             WorstRating = 1,
                             BestRating = 5,
                             ItemReviewed = product.Name
                         };
+                        if (_objData.ModelPageEntity.ModelDetails.ReviewCount > 0)
+                        {
+                            product.AggregateRating.ReviewCount = (uint)_objData.ModelPageEntity.ModelDetails.ReviewCount;
+                        }
                     }
                     if (_objData.IsUpcomingBike)
                     {
@@ -237,10 +239,7 @@ namespace Bikewale.Models.BikeModels
                         {
                             product.AggregateOffer.Availability = OfferAvailability._Discontinued;
                         }
-                        else
-                        {
-                            product.AggregateOffer.Availability = OfferAvailability._InStock;
-                        }
+
                     }
                     if (_objData.ModelPageEntity.ModelColors.Any())
                     {
@@ -249,18 +248,8 @@ namespace Bikewale.Models.BikeModels
 
                     SetAdditionalProperties(product);
 
-
-                    pageSchemaInWebpage = BWConfiguration.Instance.PageSchemaModels.Split(',').Contains(_modelId.ToString());
-
-                    if (!pageSchemaInWebpage)
-                    {
-                        _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
-                        _objData.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(product);
-                    }
-                    else
-                    {
-                        _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage, product);
-                    }
+                    _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+                    _objData.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(product);
 
                 }
             }

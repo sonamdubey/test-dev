@@ -92,7 +92,15 @@ var appendState = function (state) {
 };
 
 docReady(function () {
+    // ad blocker active than fallback method
+    if (window.canRunAds === undefined) {
+        callFallBackWriteReview();
+    }
 
+    function callFallBackWriteReview() {
+        $('#adBlocker').show();
+        $('.sponsored-card').hide();
+    };
     dealersPopupDiv = $('#more-dealers-popup'),
     dealerOffersDiv = $('#dealer-offers-popup'),
     termsConditions = $('#termsPopUpContainer');

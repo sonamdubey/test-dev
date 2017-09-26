@@ -136,6 +136,7 @@ docReady(function () {
 
     function callFallBackWriteReview() {
         $('#adBlocker').show();
+        $('.sponsored-card').hide();
     };
 
     colourCarousel = $('#colourCarousel');
