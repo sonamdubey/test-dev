@@ -10,6 +10,7 @@ using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Models.BestBikes;
@@ -34,7 +35,8 @@ namespace Bikewale.Models
     public class NewsIndexPage
     {
         #region Variables for dependency injection and constructor
-        private readonly ICMSCacheContent _articles = null;
+        private readonly ICMSCacheContent _cacheContent = null;
+        private readonly IArticles _articles = null;
         private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IPager _pager = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
@@ -82,9 +84,28 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public NewsIndexPage(ICMSCacheContent articles, IPager pager, IBikeMakesCacheRepository<int> objMakeCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
+
+        static string _newsContentType, _allContentTypes;
+        static NewsIndexPage()
+        {
+            List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>();
+            categoryList.Add(EnumCMSContentType.News);
+            _newsContentType = CommonApiOpn.GetContentTypesString(categoryList);
+
+            categoryList.Add(EnumCMSContentType.AutoExpo2016);
+            categoryList.Add(EnumCMSContentType.Features);
+            categoryList.Add(EnumCMSContentType.RoadTest);
+            categoryList.Add(EnumCMSContentType.ComparisonTests);
+            categoryList.Add(EnumCMSContentType.SpecialFeature);
+            categoryList.Add(EnumCMSContentType.TipsAndAdvices);
+
+            _allContentTypes = CommonApiOpn.GetContentTypesString(categoryList);
+        }
+
+        public NewsIndexPage(ICMSCacheContent cacheContent, IPager pager, IBikeMakesCacheRepository<int> objMakeCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles)
         {
             _articles = articles;
+            _cacheContent = cacheContent;
             _pager = pager;
             _models = models;
             _bikeModels = bikeModels;
@@ -112,36 +133,23 @@ namespace Bikewale.Models
                 int _startIndex = 0, _endIndex = 0;
                 _pager.GetStartEndIndex(pageSize, curPageNo, out _startIndex, out _endIndex);
 
-                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-                categorList.Add(EnumCMSContentType.News);
-                if (MakeId == 0 && ModelId == 0)
-                {
-                    categorList.Add(EnumCMSContentType.AutoExpo2016);
-                    categorList.Add(EnumCMSContentType.Features);
-                    categorList.Add(EnumCMSContentType.RoadTest);
-                    categorList.Add(EnumCMSContentType.ComparisonTests);
-                    categorList.Add(EnumCMSContentType.SpecialFeature);
-                    categorList.Add(EnumCMSContentType.TipsAndAdvices);
-                }
-                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+                string contentTypeList = (MakeId == 0 && ModelId == 0) ? _allContentTypes : _newsContentType;
 
-                categorList.Clear();
-                categorList = null;
                 if (objMake != null)
                     objData.Make = objMake;
                 if (objModel != null)
                     objData.Model = objModel;
 
-
-                objData.Articles = _articles.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
+                objData.Articles = _cacheContent.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
 
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
+                    int recordCount = (int)objData.Articles.RecordCount;
                     status = StatusCodes.ContentFound;
                     objData.StartIndex = _startIndex;
-                    objData.EndIndex = _endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex;
-                    BindLinkPager(objData);
-                    CreatePrevNextUrl(objData);
+                    objData.EndIndex = _endIndex > recordCount ? recordCount : _endIndex;
+                    BindLinkPager(objData, recordCount);
+                    CreatePrevNextUrl(objData, recordCount);
                     GetWidgetData(objData, widgetTopCount);
                     SetPageMetas(objData);
                 }
@@ -171,52 +179,37 @@ namespace Bikewale.Models
                 int _startIndex = 0, _endIndex = 0;
                 _pager.GetStartEndIndex(pageSize, curPageNo, out _startIndex, out _endIndex);
 
-                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-                categorList.Add(EnumCMSContentType.News);
-                if (MakeId == 0 && ModelId == 0)
-                {
-                    categorList.Add(EnumCMSContentType.AutoExpo2016);
-                    categorList.Add(EnumCMSContentType.Features);
-                    categorList.Add(EnumCMSContentType.RoadTest);
-                    categorList.Add(EnumCMSContentType.ComparisonTests);
-                    categorList.Add(EnumCMSContentType.SpecialFeature);
-                    categorList.Add(EnumCMSContentType.TipsAndAdvices);
-                }
-                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+                string contentTypeList = (MakeId == 0 && ModelId == 0) ? _allContentTypes : _newsContentType;
 
-                categorList.Clear();
-                categorList = null;
                 if (objMake != null)
                     objData.Make = objMake;
                 if (objModel != null)
                     objData.Model = objModel;
 
+                //objData.Articles
+                 var pwaCmsContent   = _articles.GetArticlesByCategoryListPwa(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
 
-                objData.Articles = _articles.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
-
-                if (objData.Articles != null && objData.Articles.RecordCount > 0)
+                if (pwaCmsContent != null && pwaCmsContent.RecordCount > 0)
                 {
                     status = StatusCodes.ContentFound;
-                    objData.StartIndex = _startIndex;
-                    objData.EndIndex = _endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex;
-                    BindLinkPager(objData);
-                    SetPageMetas(objData);
-                    CreatePrevNextUrl(objData);
-                    GetWidgetData(objData, widgetTopCount);
+                    int recordCount = (int)pwaCmsContent.RecordCount;
+
+                    pwaCmsContent.StartIndex =(uint) _startIndex;
+                    pwaCmsContent.EndIndex =(uint)( _endIndex > recordCount ? recordCount : _endIndex);
+                    BindLinkPager(objData,recordCount); //needs the record coutn
+                    SetPageMetas(objData); //needs nothing
+                    CreatePrevNextUrl(objData, recordCount); // needs record count
+                    GetWidgetData(objData, widgetTopCount); // needs nothing
 
                     try
                     {
-
                         if ((objData.Model == null || string.IsNullOrEmpty(objData.Model.ModelName)) &&
                             (objData.Make == null || string.IsNullOrEmpty(objData.Make.MakeName)))
                         {
                             //setting the store for Redux
                             objData.ReduxStore = new PwaReduxStore();
-                            var tempStoreArticleList = objData.ReduxStore.NewsReducer.NewsArticleListReducer.ArticleListData.ArticleList;
-                            tempStoreArticleList.Articles = ConverterUtility.MapArticleSummaryListToPwaArticleSummaryList(objData.Articles.Articles);
-                            tempStoreArticleList.StartIndex = (uint)objData.StartIndex;
-                            tempStoreArticleList.EndIndex = (uint)objData.EndIndex;
-                            tempStoreArticleList.RecordCount = (uint)objData.Articles.RecordCount;
+                            objData.ReduxStore.NewsReducer.NewsArticleListReducer.ArticleListData.ArticleList = pwaCmsContent;
+
                             PopulateStoreForWidgetData(objData, CityName);
 
                             var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
@@ -534,7 +527,7 @@ namespace Bikewale.Models
         /// Created By : Aditi Srivastava on 27 Mar 2017
         /// Summary    : Bind link pager
         /// </summary>
-        private void BindLinkPager(NewsIndexPageVM objData)
+        private void BindLinkPager(NewsIndexPageVM objData, int recordCount)
         {
             try
             {
@@ -543,7 +536,7 @@ namespace Bikewale.Models
                 objData.PagerEntity.PageNo = curPageNo;
                 objData.PagerEntity.PagerSlotSize = pagerSlotSize;
                 objData.PagerEntity.PageUrlType = "page/";
-                objData.PagerEntity.TotalResults = (int)objData.Articles.RecordCount;
+                objData.PagerEntity.TotalResults = recordCount;
                 objData.PagerEntity.PageSize = pageSize;
             }
             catch (Exception ex)
@@ -556,11 +549,11 @@ namespace Bikewale.Models
         /// Summary    : Create previous and next page urls
         /// </summary>
         /// <param name="objData"></param>
-        private void CreatePrevNextUrl(NewsIndexPageVM objData)
+        private void CreatePrevNextUrl(NewsIndexPageVM objData, int recordCount)
         {
             string _mainUrl = String.Format("{0}{1}page/", BWConfiguration.Instance.BwHostUrl, objData.PagerEntity.BaseUrl);
             string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
-            int totalPages = _pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
+            int totalPages = _pager.GetTotalPages(recordCount, pageSize);
             if (totalPages > 1)
             {
                 if (curPageNo == 1)

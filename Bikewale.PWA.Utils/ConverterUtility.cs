@@ -147,7 +147,6 @@ namespace Bikewale.PWA.Utils
                     articleUrl = string.Format("/m/videos/{0}-{1}/", url, basicid);
                     break;
                 default:
-                    string.Format("/m/{0}/{1}-{2}.html", _contentType.ToString().ToLower(), articleUrl, basicid);
                     break;
             }
             return articleUrl;

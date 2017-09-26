@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.PWA.Articles;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.EditCMS
@@ -24,5 +25,7 @@ namespace Bikewale.Interfaces.EditCMS
         void UpdateViewCount(uint basicId);
         IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords,string bodyStyleId, uint makeId, uint modelId);
         CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId);
+
+        PwaContentBase GetArticlesByCategoryListPwa(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId);
     }
 }
