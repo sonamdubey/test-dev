@@ -108,6 +108,7 @@
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
     <Compile Include="BikeModels\OtherBestBikesVM.cs" />
+    <Compile Include="BikeModels\SimilarBikeSeriesWidgetVM.cs" />
     <Compile Include="CompareBikes\PopularComparisonsVM.cs" />
     <Compile Include="Compare\CompareDetailsVM.cs" />
     <Compile Include="Compare\CompareVM.cs" />

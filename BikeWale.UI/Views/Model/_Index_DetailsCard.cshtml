@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 
 <div class="grid-12">
-
+    <!--similar bike series-->
     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null && Model.ModelPageEntity.ModelColors.Count() > 0)
     {
         @Html.Partial("~/Views/Model/_Index_ModelColors.cshtml", Model)
