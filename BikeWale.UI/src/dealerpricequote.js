@@ -91,6 +91,15 @@ docReady(function () {
     // version dropdown
     $('.chosen-select').chosen();
 
+      // ad blocker active than fallback method
+    if (window.canRunAds === undefined) {
+        callFallBackWriteReview();
+    }
+    function callFallBackWriteReview() {
+        $('#adBlocker').show();
+        $('.sponsored-card').hide();
+    };
+
     if ($('.pricequote-benefits-list li').length % 2 == 0) {
         $('.pricequote-benefits-list').addClass("pricequote-two-benefits");
     }

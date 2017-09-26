@@ -83,6 +83,10 @@ namespace Bikewale.Controllers
                 {
                     return RedirectPermanent(objDetails.redirectionUrl);
                 }
+                else if (objDetails.status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/pageNotFound.aspx");
+                }
                 else
                 {
                     if (objVM != null && objVM.Compare != null)
@@ -128,6 +132,10 @@ namespace Bikewale.Controllers
                 if (objDetails.status == Entities.StatusCodes.RedirectPermanent)
                 {
                     return RedirectPermanent(objDetails.redirectionUrl);
+                }
+                else if (objDetails.status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/m/pageNotFound.aspx");
                 }
                 else
                 {
