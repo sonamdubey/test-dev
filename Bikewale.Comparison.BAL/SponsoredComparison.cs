@@ -30,9 +30,9 @@ namespace Bikewale.Comparison.BAL
             try
             {
                 var versions = _cache.GetActiveSponsoredComparisons();
-                versions = versions.Where(version => (version.StartDate <= DateTime.Now && version.EndDate >= DateTime.Now));
                 if (versions != null && !String.IsNullOrEmpty(targetVersionIds))
                 {
+                    versions = versions.Where(version => (version.StartDate <= DateTime.Now && version.EndDate >= DateTime.Now));
                     IEnumerable<uint> targets = targetVersionIds.Split(',').Select(v => uint.Parse(v));
                     sponsoredVersion = versions.FirstOrDefault(m => targets.Contains(m.TargetVersionId) && !targets.Contains(m.SponsoredVersionId));
                 }

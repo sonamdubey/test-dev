@@ -28,7 +28,7 @@ namespace Bikewale.Comparison.Cache
         /// <returns></returns>
         public IEnumerable<SponsoredVersionEntityBase> GetActiveSponsoredComparisons()
         {
-            string key = "BW_SponsoredComparisons26092017";
+            string key = "BW_SponsoredComparisons_v1";
             IEnumerable<SponsoredVersionEntityBase> activeComparisons = null;
             try
             {
@@ -48,7 +48,7 @@ namespace Bikewale.Comparison.Cache
         /// </summary>
         public void RefreshSpsonsoredComparisonsCache()
         {
-            string key = "BW_SponsoredComparisons26092017";
+            string key = "BW_SponsoredComparisons_v1";
             try
             {
                 _cache.RefreshCache(key);
