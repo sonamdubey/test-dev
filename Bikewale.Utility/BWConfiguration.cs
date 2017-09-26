@@ -102,7 +102,7 @@ namespace Bikewale.Utility
             _CoverFoxLink = string.Empty,
             _UserReviewIndexName = string.Empty,
             _OtherBikesInMakeId = string.Empty,
-        _CapitalFirstPincodeIndex=string.Empty;
+        _CapitalFirstPincodeIndex = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -223,7 +223,6 @@ namespace Bikewale.Utility
             _capitalFirstConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["CapitalFirstConsumerQueue"]);
             _IsIPSecurityEnabled = string.IsNullOrEmpty(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]);
             _OtherBikesInMakeId = ConfigurationManager.AppSettings["OtherBikesInMakeId"];
-            _PageSchemaModels = ConfigurationManager.AppSettings["PageSchemaModels"];
             _CapitalFirstDealerId = Convert.ToUInt32(ConfigurationManager.AppSettings["CapitalFirstDealerId"]);
             _CarTradeLeadUrl = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadUrl"]);
             _CarTradeLeadApiAction = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadApiAction"]);
@@ -380,7 +379,6 @@ namespace Bikewale.Utility
         public bool LogNewsUrl { get { return _logNewsUrl; } }
 
         public string OtherBikesInMakeId { get { return _OtherBikesInMakeId; } }
-        public string PageSchemaModels { get { return _PageSchemaModels; } }
         public string CapitalFirstConsumerQueue { get { return _capitalFirstConsumerQueue; } }
         public bool IsIPSecurityEnabled { get { return _IsIPSecurityEnabled; } }
         public uint CapitalFirstDealerId { get { return _CapitalFirstDealerId; } }
