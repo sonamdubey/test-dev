@@ -1,0 +1,9 @@
+S
+JD:\work\bikewaleweb\Bikewale.UI.Entities\Customer\AuthenticatedCustomer.csutf-8J
+AD:\work\bikewaleweb\Bikewale.UI.Entities\Customer\CustomerBase.csutf-8P
+GD:\work\bikewaleweb\Bikewale.UI.Entities\Customer\RegisteredCustomer.csutf-8I
+@D:\work\bikewaleweb\Bikewale.UI.Entities\Insurance\CityDetail.csutf-8I
+@D:\work\bikewaleweb\Bikewale.UI.Entities\Insurance\MakeDetail.csutf-8J
+AD:\work\bikewaleweb\Bikewale.UI.Entities\Insurance\ModelDetail.csutf-8L
+CD:\work\bikewaleweb\Bikewale.UI.Entities\Insurance\VersionDetail.csutf-8L
+CD:\work\bikewaleweb\Bikewale.UI.Entities\Properties\AssemblyInfo.csutf-8
