@@ -3060,6 +3060,7 @@
     <Content Include="pricequote\BikeDealerDetails.aspx" />
     <Content Include="pricequote\BookingSummary_New.aspx" />
     <Content Include="pricequote\PaymentConfirmation.aspx" />
+    <Content Include="src\ads.js" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
     <Content Include="src\bookingconfig.js" />
@@ -3760,6 +3761,10 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile_AMP.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile_AMP.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCities_Mobile_AMP.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad292x399.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad200x253.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad292x359.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad200x216.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
