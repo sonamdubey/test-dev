@@ -28,11 +28,11 @@ namespace Bikewale.Comparison.Cache
         /// <returns></returns>
         public IEnumerable<SponsoredVersionEntityBase> GetActiveSponsoredComparisons()
         {
-            string key = "BW_SponsoredComparisons";
+            string key = "BW_SponsoredComparisons26092017";
             IEnumerable<SponsoredVersionEntityBase> activeComparisons = null;
             try
             {
-                activeComparisons = _cache.GetFromCache<IEnumerable<SponsoredVersionEntityBase>>(key, new TimeSpan(0, 30, 0), () => _repository.GetActiveSponsoredComparisons());
+                activeComparisons = _cache.GetFromCache<IEnumerable<SponsoredVersionEntityBase>>(key, new TimeSpan(24, 0, 0), () => _repository.GetActiveSponsoredComparisons());
 
             }
             catch (Exception ex)
@@ -48,7 +48,7 @@ namespace Bikewale.Comparison.Cache
         /// </summary>
         public void RefreshSpsonsoredComparisonsCache()
         {
-            string key = "BW_SponsoredComparisons";
+            string key = "BW_SponsoredComparisons26092017";
             try
             {
                 _cache.RefreshCache(key);

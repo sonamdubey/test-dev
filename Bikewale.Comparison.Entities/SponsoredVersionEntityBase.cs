@@ -17,5 +17,6 @@ namespace Bikewale.Comparison.Entities
         public string LinkUrl { get; set; }
         public uint TargetVersionId { get; set; }
         public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }
