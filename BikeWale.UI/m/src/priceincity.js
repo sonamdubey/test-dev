@@ -17,6 +17,17 @@ function formatPrice(price) {
     return price;
 }
 docReady(function () {
+    // ad blocker active than fallback method
+    if (window.canRunAds === undefined) {
+        callFallBackWriteReview();
+    }
+
+    function callFallBackWriteReview() {
+        $('#adBlocker').show();
+        $('.sponsored-card').hide();
+    };
+
+
     try {
         // activate first tab
         $('.overall-specs-tabs-wrapper li').first().addClass('active');

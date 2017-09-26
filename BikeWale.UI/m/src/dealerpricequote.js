@@ -77,7 +77,15 @@ var emiPopupClose = function (emiPopupDiv) {
 
 
 docReady(function () {
+    // ad blocker active than fallback method
+    if (window.canRunAds === undefined) {
+        callFallBackWriteReview();
+    }
 
+    function callFallBackWriteReview() {
+        $('#adBlocker').show();
+        $('.sponsored-card').hide();
+    };
     emiPopupDiv = $("#emiPopup");
     offersPopupDiv = $("#offersPopup");
     $('#bw-header').addClass('fixed');
