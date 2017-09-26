@@ -1,6 +1,4 @@
 ﻿@model Bikewale.Entities.CMS.Articles.CMSContent
-@using Bikewale.Entities.CMS
-@using Bikewale.Utility
 @if (Model != null)
 {
     <div class="content-box-shadow padding-15-20-10 margin-bottom20">
@@ -18,7 +16,8 @@
                             </div>
                             <div class="bike-target-content inline-block padding-left10">
                                 <h3 class="text-black">@item.Title</h3>
-                                <p class="font12 text-light-grey">@DateTime.Now.Subtract(item.DisplayDate).Days ago by @item.AuthorName</p>
+                                @{ int days = DateTime.Now.Subtract(item.DisplayDate).Days;}
+                                <p class="font12 text-light-grey">@string.Format("{0} ago by {1}", (days > 1 ? days + " days" : days + " day"), item.AuthorName)</p>
                             </div>
                         </a>
                     </li>
