@@ -56,9 +56,9 @@
                                             <a onclick="logBhrighu(event)" href="@review.ReviewUrl" data-bind="attr : {'data-reviewId': $data.reviewId ,'title' : $data.title,'href' : $data.reviewUrl}, truncatedText: $data.title" class="list-item-title inline-block margin-right5" data-id="@i" data-reviewId="@review.ReviewId">@review.Title.Truncate(65)</a>
                                             <span class="font12 inline-block text-light-grey" data-bind="text: $data.reviewAge + ' ago by '"></span>&nbsp;<span class="font12 inline-block text-light-grey" data-bind="trimText : $data.customerName">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
                                         </div>
-                                        <div class="collapsible-content toggle-off main-content-off font14 text-slate-grey">
-                                            <div class="main-content" data-bind="html: $data.shortDescription">
-                                                @Html.Raw((review.Description.TruncateHtml(270)))
+                                        <div class="collapsible-content toggle-off main-content-off font14 text-slate-grey" data-bind="attr: {'data-reviewId': $data.reviewId }">  
+                                            <div class="main-content" data-bind="text: $data.sanitizedDescription">
+                                                @review.SanitizedDescription
                                             </div>
                                             <div class="more-content">
                                                 <span data-bind="html: $data.description">
@@ -123,7 +123,7 @@
                                                 <div class="clear"></div>
 
                                             </div>
-                                            <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId" data-id="@i">Read more</a>
+                                            <a href="javascript:void(0)" class="read-more-target block" data-bind="click: function (data, event) { return $parent.readMore(event);}, css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" data-reviewId="@review.ReviewId" data-id="@i">Read more</a>
                                         </div>
                                         
                                     </div>

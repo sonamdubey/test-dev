@@ -458,6 +458,8 @@
     <Compile Include="UserReviews\QuestionRatingsValueEntity.cs" />
     <Compile Include="UserReviews\QuestionsRatingValueByModel.cs" />
     <Compile Include="UserReviews\RecentReviewsWidget.cs" />
+    <Compile Include="UserReviews\ReviewDataCombinedFilter.cs" />
+    <Compile Include="UserReviews\ReviewDataFilter.cs" />
     <Compile Include="UserReviews\ReviewDetailsEntity.cs" />
     <Compile Include="UserReviews\ReviewEntity.cs" />
     <Compile Include="UserReviews\ReviewEntityBase.cs" />

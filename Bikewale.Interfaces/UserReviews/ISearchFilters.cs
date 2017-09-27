@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.UserReviews.Search;
+﻿using Bikewale.Entities.UserReviews;
+using Bikewale.Entities.UserReviews.Search;
 namespace Bikewale.Interfaces.UserReviews.Search
 {
     /// <summary>
@@ -11,6 +12,7 @@ namespace Bikewale.Interfaces.UserReviews.Search
     public interface IUserReviewsSearch
     {
         SearchResult GetUserReviewsList(InputFilters inputFilters);
+        SearchResult GetUserReviewsList(ReviewDataCombinedFilter inputFilters);
         SearchResult GetUserReviewsList(InputFilters inputFilters, uint skipTopCount);
     }
 }
