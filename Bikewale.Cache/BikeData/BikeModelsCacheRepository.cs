@@ -63,11 +63,13 @@ namespace Bikewale.Cache.BikeData
         /// Summary: To Create a overload of cached model entity with version Id
         /// Modified by Sajal Gupta on 19-05-2017
         /// Description : Changed version of cache key.
+        /// Modified by : Vivek Singh Tomar on 27th Sep 2017
+        /// Summary : Changed version of cache key
         /// </summary>
         public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
         {
             BikeModelPageEntity objModelPage = null;
-            string key = string.Format("BW_ModelDetail_{0}", modelId);
+            string key = string.Format("BW_ModelDetail_{0}_v1", modelId);
             try
             {
                 objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => GetModelPageDetailsNew(modelId));

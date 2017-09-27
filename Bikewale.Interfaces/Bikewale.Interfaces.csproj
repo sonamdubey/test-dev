@@ -135,7 +135,8 @@
     <Compile Include="BikeData\IBikeModels.cs" />
     <Compile Include="BikeData\IBikeModelsCacheRepository.cs" />
     <Compile Include="BikeData\IBikeModelsRepository.cs" />
-    <Compile Include="BikeData\IBikeSeries.cs">
+    <Compile Include="BikeData\IBikeSeries.cs" />
+    <Compile Include="BikeData\IBikeSeriesRepository.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BikeData\IBikeVersionCacheRepository.cs" />

@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
-    [Serializable]
+    /// <summary>
+    /// Modified by : Vivek Singh Tomar on 27th Sep 2017
+    /// Summary : modified the type of series id from int to uint 
+    /// </summary>
+    [Serializable, DataContract]
     public class BikeSeriesEntityBase
     {
-        public int SeriesId { get; set; }
+        public uint SeriesId { get; set; }
         public string SeriesName { get; set; }
         public string MaskingName { get; set; }
     }

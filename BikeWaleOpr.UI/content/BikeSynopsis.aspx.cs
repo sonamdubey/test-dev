@@ -74,7 +74,12 @@ namespace BikeWaleOpr.Content
             }
 
         }
-
+        /// <summary>
+        /// Modified by : Vivek Singh Tomar on 27th Sep 2017
+        /// Summary : Changed version of cache key
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void btnSave_OnClick(object sender, EventArgs e)
         {
             string saveId = "";
@@ -101,7 +106,7 @@ namespace BikeWaleOpr.Content
 
             //Refresh memcache object for ModelDescription change for desktop site
             MemCachedUtil.Remove(string.Format("BW_ModelDetails_{0}", Request.QueryString["model"]));
-            MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", Request.QueryString["model"]));
+            MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}_v1", Request.QueryString["model"]));
         }
 
         void FillRatings(DropDownList drpName)

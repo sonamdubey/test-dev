@@ -1,15 +1,15 @@
-﻿@model Bikewale.Models.BikeModels.SimilarBikeSeriesWidgetVM
+﻿@model Bikewale.Models.BikeModels.BikeSeriesModelsVM
 @using Bikewale.Entities.GenericBikes
 @using Bikewale.Utility
-@if (Model != null && Model.BikeModel != null)
+@*@if (Model != null && Model.BikeModel != null)
 {
     <div class="margin-bottom15">
         <h2 class="horizontal-swiper__title">Other @Model.BikeModel.ModelName @(Model.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes") you might be interested in:</h2>
         <div class="swiper-container card-container horizontal-card-swiper">
             <ul class="swiper-wrapper">
-                @if (Model.SimilarModelSeriesBikes != null && Model.SimilarModelSeriesBikes.Any())
+                @if (Model.BikeSeriesModel != null && Model.BikeSeriesModel.Any())
                 {
-                    foreach (var bike in Model.SimilarModelSeriesBikes)
+                    foreach (var bike in Model.BikeSeriesModel)
                     {
                         <li class="swiper-slide horizontal-swiper__slide">
                             <div class="swiper-card horizontal-swiper__card">
@@ -33,6 +33,6 @@
             </ul>
         </div>
     </div>
-}
+}*@
 
 

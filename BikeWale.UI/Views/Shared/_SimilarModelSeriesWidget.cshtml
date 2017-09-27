@@ -1,16 +1,16 @@
-﻿@model Bikewale.Models.BikeModels.SimilarBikeSeriesWidgetVM
+﻿@model Bikewale.Models.BikeModels.BikeSeriesModelsVM
 @using Bikewale.Entities.GenericBikes
 @using Bikewale.Utility
-@if (Model != null && Model.BikeModel != null)
+@*@if (Model != null && Model.BikeModel != null)
 {
     <div class="card-bottom-margin">
         <h2 class="horizontal-swiper__title">Other @Model.BikeModel.ModelName @(Model.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes") you might be interested in:</h2>
         <div class="jcarousel-wrapper inner-content-carousel horizontal-card-swiper">
             <div class="jcarousel">
                 <ul>
-                    @if (Model.SimilarModelSeriesBikes != null && Model.SimilarModelSeriesBikes.Any())
+                    @if (Model.BikeSeriesModel != null && Model.BikeSeriesModel.Any())
                     {
-                        foreach (var bike in Model.SimilarModelSeriesBikes)
+                        foreach (var bike in Model.BikeSeriesModel)
                         {
                             <li>
                                 <a href=@string.Format("{0}/{1}-bikes/{2}", BWConfiguration.Instance.BwHostUrl, bike.Make.MaskingName, bike.Model.MaskingName) title=@bike.BikeName class="horizontal-swiper__target">
@@ -39,5 +39,5 @@
             </span>
         </div>
     </div>
-}
+}*@
 

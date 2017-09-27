@@ -78,6 +78,8 @@ namespace Bikewale
     /// Created by : Ashish G. Kamble on 6 Jan 2017
     /// Modified by :   Sumit Kate on 29 Jun 2017
     /// Description :   Register Manufacturer campaign interfaces
+    /// Modified by : Vivek Singh Tomar on 27th Sep 2017
+    /// Description : Added IBikeSeriesRepository
     /// </summary>
     public static class UnityConfig
     {
@@ -152,6 +154,8 @@ namespace Bikewale
             container.RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>();
             container.RegisterType<ISponsoredComparison, SponsoredComparison>();
             container.RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>();
+            container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>();
+            container.RegisterType<IBikeSeries, BikeSeries>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
