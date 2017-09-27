@@ -6,6 +6,48 @@
     margin-bottom: 20px;
 }
 
+.no-image-carousel{
+    display: block;
+    background: #D8D8D8;
+    height: 105px;
+    width: 100%;
+    position: relative;
+}
+.no-image-carousel:after{
+    content: '';
+    height: 48px;
+    width: 48px;
+    display: inline-block;
+    position: absolute;
+    top: 28px;
+    left: 46px;
+    background : #fff url("https://imgd.aeplcdn.com/0x0/bw/static/icons/a2a2a2/author-16x16.png") no-repeat center;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
+
+.no-image-block{
+    content: '';
+    display: block;
+    background: #D8D8D8;
+    height: 80px;
+    width: 80px;
+    position: relative;
+}
+.no-image-block:after {
+    content: '';
+    height: 48px;
+    width: 48px;
+    display: inline-block;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background : #fff url("https://imgd.aeplcdn.com/0x0/bw/static/icons/a2a2a2/author-16x16.png") no-repeat center;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
 /*Listing author*/
 
 .author__head {

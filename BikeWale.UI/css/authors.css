@@ -243,6 +243,7 @@ section {
     padding-left: 15px;
     padding-top: 15px;
     padding-right: 15px;
+    margin: 0 auto;
 }
 
 .jcarousel-author-image img {
@@ -250,6 +251,50 @@ section {
     height: auto;
 }
 
+.no-image-carousel{
+    display: block;
+    background: #D8D8D8;
+    height: 142px;
+    width: 100%;
+    position: relative;
+}
+.no-image-carousel:after{
+    content: '';
+    height: 48px;
+    width: 48px;
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    top: 47px;
+    left: 64px;
+    background : #fff url("https://imgd.aeplcdn.com/0x0/bw/static/icons/a2a2a2/author-16x16.png") no-repeat center;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
+
+.no-image-block{
+    content: '';
+    display: block;
+    background: #D8D8D8;
+    height: 95px;
+    width: 120px;
+    position: relative;
+}
+.no-image-block:after {
+    content: '';
+    height: 48px;
+    width: 48px;
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    top: 23px;
+    left: 36px;
+    background : #fff url("https://imgd.aeplcdn.com/0x0/bw/static/icons/a2a2a2/author-16x16.png") no-repeat center;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
 .author__carousel-label {
     text-align: left;
     text-overflow: ellipsis;
