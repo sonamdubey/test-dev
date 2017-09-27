@@ -12,6 +12,8 @@ using Bikewale.Models.UserReviews;
 using Bikewale.Utility.StringExtention;
 using System.Web.Mvc;
 
+using Bikewale.Models.BikeModels;
+
 namespace Bikewale.Controllers
 {
     public class UserReviewController : Controller
@@ -465,6 +467,14 @@ namespace Bikewale.Controllers
             objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
             return View(objVM);
+        }
+
+		// GET: Review
+        [Route("m/review/")]
+        public ActionResult Index_Mobile()
+        {
+            ModelPageVM obj = new ModelPageVM();
+            return View(obj);
         }
 
     }
