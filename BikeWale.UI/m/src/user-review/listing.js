@@ -53,7 +53,7 @@ function downVoteListReview(e) {
         console.log(e);
     }
 }
-function logBhrighu(e) {
+function logBhrighu(e, action) {
 
     var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
     $.each(vmUserReviews.activeReviewList(), function (i, val) {
@@ -64,7 +64,7 @@ function logBhrighu(e) {
 
     });
     label = 'modelId=' + modelid + '|tabName=' + reviewCategory[categoryId] + '|reviewOrder=' + (index + (pageNumber - 1) * 10) + '|pageSource=' + $('#pageSource').val();
-    cwTracking.trackUserReview("TitleClick", label);
+    cwTracking.trackUserReview(action, label);
 }
 
 function updateView(e) {    
@@ -633,7 +633,7 @@ docReady(function () {
             }
 
             updateView(event);
-            logBhrighu(event);
+            logBhrighu(event, 'ReadMoreClick');
 
             return true;
         };
