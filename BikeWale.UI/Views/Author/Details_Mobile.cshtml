@@ -4,7 +4,6 @@
 @if (Model != null && Model.Author != null)
 {
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/authors.css' />";
-    Model.Page_JS_Path = "/src/authors.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
@@ -45,17 +44,19 @@
                 </ul>
             </div>
         </div>
+@if ((Model.NewsList != null && Model.NewsList.Any()) || (Model.ExpertReviewsList != null && Model.ExpertReviewsList.Any()))
+{
         <div class="box-content">
             @if (Model.NewsList != null && Model.NewsList.Any())
             {
-                <div class="border-after-bottom padding-top20 padding-left20 padding-right20 padding-bottom20">
+                <div class="@(Model.ExpertReviewsList != null && Model.ExpertReviewsList.Any() ? "border-after-bottom" : "") padding-top20 padding-left20 padding-right20 padding-bottom20">
                     <h2 class="list-heading">News by @Model.Author.AuthorFirstName</h2>
                     <ul class="disk-list">
                         @foreach (var news in Model.NewsList)
                         {
                             string articleUrl = string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(news.CategoryId)));
                             <li>
-                                <a href="@articleUrl">@news.Title</a>
+                                <a href="@articleUrl" title="@news.Title">@news.Title</a>
                             </li>
                         }
                     </ul>
@@ -63,20 +64,21 @@
             }
             @if (Model.ExpertReviewsList != null && Model.ExpertReviewsList.Any())
             {
-                <div class="@(Model.NewsList.Any()?"": "padding-top20") padding-left20 padding-right20 padding-bottom20">
+                <div class="@(Model.NewsList.Any() ? "" : "padding-top20") padding-left20 padding-right20 padding-bottom20">
                     <h2 class="list-heading">Expert Reviews by @Model.Author.AuthorFirstName</h2>
                     <ul class="disk-list">
                         @foreach (var reviews in Model.ExpertReviewsList)
                         {
                             string articleUrl = string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(reviews.BasicId), reviews.ArticleUrl, Convert.ToString(reviews.CategoryId)));
                             <li>
-                                <a href="@articleUrl">@reviews.Title</a>
+                                <a href="@articleUrl" title="@reviews.Title">@reviews.Title</a>
                             </li>
                         }
                     </ul>
                 </div>
             }
         </div>
+}
         @if (Model.OtherAuthors != null && Model.OtherAuthors.Any())
         {
             @Html.Partial("~/Views/Author/_AuthorsListCarousel_Mobile.cshtml", Model.OtherAuthors)
