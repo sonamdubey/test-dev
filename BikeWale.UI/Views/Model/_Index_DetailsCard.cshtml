@@ -99,6 +99,23 @@
         </div>
                             }
 
+    @if (Model.IsReviewsAvailable)
+    {
+        <div id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin bw-model-tabs-data active">
+            @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+            {
+					<!-- expert review starts-->
+                <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Expert Reviews</h2>
+                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+
+                <div class="padding-left10 more-article-target view-all-btn-container">
+                    <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
+                </div>
+					<!-- expert review ends-->
+            }
+        </div>
+    }
+
     @if (Model.IsUserReviewsAvailable)
     {
 
@@ -156,28 +173,7 @@
         </div>
 
     }
-
-    @if (Model.IsReviewsAvailable)
-    {
-        <div id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin bw-model-tabs-data active">
-            @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
-            {
-					<!-- expert review starts-->
-                <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Expert Reviews</h2>
-                                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
-
-                                <div class="padding-left10 more-article-target view-all-btn-container">
-                                    <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
-                                </div>
-					<!-- expert review ends-->
-            }
-        </div>
-    }
-
-
-
-
-
+  
     @if (Model.IsNewsAvailable)
     {
 	<!-- News widget starts -->
