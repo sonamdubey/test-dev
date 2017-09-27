@@ -54,7 +54,7 @@ namespace Bikewale.Controllers
         /// </summary>
         /// <param name="author"></param>
         /// <returns></returns>
-        [Route("authors/{author}/")]
+        [Route("authors/{author}/"), Filters.DeviceDetection]
         public ActionResult Details(string author)
         {
             AuthorDetailsPageVM objAuthorDetailsVM = null;
@@ -87,7 +87,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return Redirect("/m/pagenotfound.aspx");
             }
             return View(objAuthorDetailsVM);
         }
