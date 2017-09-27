@@ -18,8 +18,9 @@
 }
 
 .author__image {
+    padding-left: 20px;
     vertical-align: middle;
-    display: inline-block;
+    display: table-cell;
     margin-left: 15px;
     height: 120px;
     width: 120px;
@@ -39,9 +40,8 @@
 }
 
 .author__detail {
-    width: 70%;
     font-size: 14px;
-    display: inline-block;
+    display: table-cell;
     vertical-align: middle;
     padding: 15px 25px 15px 20px;
 }
@@ -59,14 +59,37 @@
 
 .author__designation {
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     color: #82888b;
 }
 
 .author__description {
-    padding-bottom: 5px;
+    margin-bottom: 5px;
+    max-height: 45px;
+    overflow: hidden;
+    position: relative;
+    line-height: 22px;
+    text-align: justify;
 }
 
+.author__description:before {
+    content: '...';
+    position: absolute;
+    padding-left: 3px;
+    background: white;
+    right: 0;
+    bottom: 0;
+}
+
+.author__description:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  background: white;
+}
 section {
     display: table;
 }
@@ -94,6 +117,8 @@ section {
 
 .sidebar-bike-list .bike-target-image {
     line-height: 0;
+    width: 80px;
+    display: table-cell;
 }
 
 .sidebar-bike-list .bike-target-image img {
@@ -103,7 +128,8 @@ section {
 }
 
 .sidebar-bike-list .bike-target-content {
-    width: 68%;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .sidebar-bike-list .bike-target-link h3 {
