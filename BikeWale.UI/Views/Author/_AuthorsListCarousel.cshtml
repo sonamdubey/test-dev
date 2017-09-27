@@ -12,9 +12,15 @@
                         <li>
                             <a href="@string.Format("{0}/authors/{1}/", BWConfiguration.Instance.BwHostUrl,author.MaskingName)" title="@author.AuthorName" class="jcarousel-card">
                                 <div class="jcarousel-author-image">
-                                        <div class="no-image-carousel">
-                                        </div>
-                                        @*<img class="lazy" src="" data-original="@string.Format("https://{0}/{1}/{2}", author.HostUrl, author.ProfileImage, author.ImageName)" alt="@author.AuthorName">*@
+                                    @if (string.IsNullOrEmpty(author.HostUrl) || string.IsNullOrEmpty(author.ProfileImage) || string.IsNullOrEmpty(author.ImageName))
+                                    {
+                                        <div class="no-image-carousel"></div>
+                                    }
+                                    else
+                                    {
+
+                                        <img class="lazy" src="" data-original="@string.Format("https://{0}/{1}/{2}", author.HostUrl, author.ProfileImage, author.ImageName)" alt="@author.AuthorName">
+                                    }
                                 </div>
                                 <div class="card-desc-block">
                                     <h3 class="author__carousel-label">@author.AuthorName</h3>
