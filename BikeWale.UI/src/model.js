@@ -791,7 +791,7 @@ ko.bindingHandlers.truncatedText = {
         if (ko.utils.unwrapObservable(valueAccessor())) {
             var originalText = ko.utils.unwrapObservable(valueAccessor()),
                 length = parseInt(element.getAttribute("data-trimlength")) || 20,
-                truncatedText = originalText.length > length ? originalText.substring(0, trimLengthText) + "..." : originalText;
+                truncatedText = originalText.length > length ? originalText.substring(0, length) + "..." : originalText;
             ko.bindingHandlers.text.update(element, function () {
                 return truncatedText;
             });
@@ -840,9 +840,11 @@ var modelUserReviews = function () {
                         self.reviewList(response.result);
                         applyLikeDislikes();
                         $('.more-review-li').removeClass('hide');
-                    }
-                    self.isLoading(false);
-                });
+                    }                  
+                })
+                 .always(function () {
+                     self.isLoading(false);
+                 });
             }
         } catch (e) {
             console.log(e);
@@ -869,7 +871,7 @@ var modelUserReviews = function () {
         if ($("#user-review-div")[0])
             ko.applyBindings(vmUserReviews, $("#user-review-div")[0]);
 
-        self.readMore(e);
+        self.readMore(event);
         self.IsInitialized(true);
         $('#loader').removeClass('hide');
     };
@@ -878,7 +880,6 @@ var modelUserReviews = function () {
         var reviewId = ele.data("reviewid");
         var itemNo = ele.data("id");
         if (!self.currentReviewList().length && bikeModelId) {
-
             var apiUrl = "/api/user-reviews/search/V2/?InputFilter.review=true&InputFilter.SO=1&InputFilter.PN=1&InputFilter.PS=3&ReviewFilter.RatingQuestion=false&ReviewFilter.ReviewQuestion=true&ReviewFilter.BasicDetails=false&InputFilter.Model=" + bikeModelId;
             $.getJSON(apiUrl)
             .done(function (response) {
@@ -897,8 +898,8 @@ var modelUserReviews = function () {
         }
 
         if ($('#user-review-div') && $('#user-review-div').attr('data-readmore') == "3") {
-            vmUserReviews.isLoading(true);
-            vmUserReviews.getMoreReviews();
+            self.isLoading(true);
+            self.getMoreReviews();
         }
 
         return true;
@@ -922,37 +923,6 @@ function updateView(reviewId) {
         console.log(e);
     }
 }
-
-function readMore(e) {
-
-    try {
-        var ele = $(event.currentTarget);
-        var reviewId = ele.data("reviewid");
-        if (reviewId) {
-            var moreContentEle = ele.closest('.collapsible-content').find(".more-description"),
-				desc = Base64.decode(moreContentEle.data("description")), itemNo = ele.data("id");
-
-            if (moreContentEle) {
-                moreContentEle.html(desc);
-            }
-
-            updateView(reviewId);
-            logBhrighu(itemNo, "ReadMoreClick");
-
-            if ($('#user-review-div') && $('#user-review-div').attr('data-readmore')) {
-                $('#user-review-div').attr('data-readmore', parseInt($('#user-review-div').attr('data-readmore')) + 1);
-            }
-
-            if ($('#user-review-div') && $('#user-review-div').attr('data-readmore') == "3") {
-                vmUserReviews.isLoading(true);
-                vmUserReviews.getMoreReviews();
-            }
-
-        }
-    } catch (e) {
-        console.log(e);
-    }
-};
 
 $(".navtab").click(function () {
 

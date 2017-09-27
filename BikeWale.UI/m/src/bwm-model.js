@@ -830,7 +830,7 @@ ko.bindingHandlers.truncatedText = {
         if (ko.utils.unwrapObservable(valueAccessor())) {
             var originalText = ko.utils.unwrapObservable(valueAccessor()),
                 length = parseInt(element.getAttribute("data-trimlength")) || 20,
-                truncatedText = originalText.length > length ? originalText.substring(0, trimLengthText) + "..." : originalText;
+                truncatedText = originalText.length > length ? originalText.substring(0, length) + "..." : originalText;
             ko.bindingHandlers.text.update(element, function () {
                 return truncatedText;
             });
@@ -894,7 +894,9 @@ var modelUserReviews = function () {
                         self.reviewList(response.result);
                         applyLikeDislikes();
                         $('.more-review-li').removeClass('hide');
-                    }
+                    }                    
+                })
+                .always(function () {
                     self.isLoading(false);
                 });
             }
@@ -926,7 +928,7 @@ var modelUserReviews = function () {
         if ($("#reviewsContent")[0])
             ko.applyBindings(vmUserReviews, $("#reviewsContent")[0]);
 
-        self.readMore(e);
+        self.readMore(event);
         self.IsInitialized(true);
         $('#loader').removeClass('hide');
     };
@@ -962,7 +964,6 @@ var modelUserReviews = function () {
     };
 
 }
-
 
 function logBhrighu(itemNo, eventName) {
     label = 'modelId=' + bikeModelId + '|tabName=recent|reviewOrder=' + (++itemNo) + '|pageSource=' + $('#pageSource').val();
