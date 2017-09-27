@@ -554,6 +554,7 @@ namespace Bikewale.BAL.GrpcFiles
                                 MaskingName = author.MaskingName,
                                 ProfileImage = author.ProfileImage,
                                 ShortDescription = author.ShortDescription,
+                                AuthorId = author.AuthorId
                             }
                         );
                 }

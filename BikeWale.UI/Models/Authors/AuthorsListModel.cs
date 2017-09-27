@@ -33,7 +33,7 @@ namespace Bikewale.Models.Authors
             {
                 _objAuthorsList = new AuthorsListVM();
                 _objAuthorsList.AuthorsList =  _Authors.GetAuthorsList();
-                BindPopularNewsWidget(_objAuthorsList);
+                BindRecentNewsWidget(_objAuthorsList);
                 BindPageMetas(_objAuthorsList.PageMetaTags);
             }
             catch (Exception ex)
@@ -48,18 +48,14 @@ namespace Bikewale.Models.Authors
         /// Description : Method to bind popular news widget on author page.
         /// </summary>
         /// <param name="objAuthorsList"></param>
-        private void BindPopularNewsWidget(AuthorsListVM objAuthorsList)
+        private void BindRecentNewsWidget(AuthorsListVM objAuthorsList)
         {
             try
             {
                 string categoryId = Convert.ToString((int)Entities.CMS.EnumCMSContentType.News);
                 int startIndex = 1;
-                int endIndex = 50;
+                int endIndex = 3;
                 objAuthorsList.ArticlesList = _Articles.GetArticlesByCategoryList(categoryId, startIndex, endIndex);
-                if (objAuthorsList.ArticlesList != null)
-                {
-                    objAuthorsList.ArticlesList.Articles = objAuthorsList.ArticlesList.Articles.OrderBy(c => c.Views).Take(3).ToList();
-                }
             }
             catch (Exception ex)
             {

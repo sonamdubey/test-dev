@@ -6,6 +6,7 @@
     /// </summary>
     public class AuthorEntityBase
     {
+        public uint AuthorId { get; set; }
         public string AuthorName { get; set; }
         public string AuthorFirstName { get; set; }
         public string ProfileImage { get; set; }
