@@ -103,7 +103,14 @@
   background-color: #ef3f30; }
 
 .rate-count-1 .star-icon {
-  background-position: 0 -667px; }
+  background-position: 0 -667px;
+  width: 26px;
+  height: 25px;
+  vertical-align: middle;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8); }
 
 .rate-count-2 {
   color: #fd971c; }
@@ -132,7 +139,14 @@
   background-color: #fd971c; }
 
 .rate-count-2 .star-icon {
-  background-position: -38px -667px; }
+  background-position: -38px -667px;
+  width: 26px;
+  height: 25px;
+  vertical-align: middle;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8); }
 
 .rate-count-3 {
   color: #efd700; }
@@ -161,7 +175,14 @@
   background-color: #efd700; }
 
 .rate-count-3 .star-icon {
-  background-position: 0 -278px; }
+  background-position: 0 -278px;
+  width: 26px;
+  height: 25px;
+  vertical-align: middle;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8); }
 
 .rate-count-4 {
   color: #13b65d; }
@@ -190,7 +211,14 @@
   background-color: #13b65d; }
 
 .rate-count-4 .star-icon {
-  background-position: -74px -667px; }
+  background-position: -74px -667px;
+  width: 26px;
+  height: 25px;
+  vertical-align: middle;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8); }
 
 .rate-count-5 {
   color: #198d55; }
@@ -219,7 +247,14 @@
   background-color: #198d55; }
 
 .rate-count-5 .star-icon {
-  background-position: -110px -667px; }
+  background-position: -110px -667px;
+  width: 26px;
+  height: 25px;
+  vertical-align: middle;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8); }
 
 .star-icon {
   width: 26px;
