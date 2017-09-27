@@ -8,5 +8,6 @@ namespace Bikewale.Entities.UserReviews
         public BikeReviewsInfo ReviewDetails { get; set; }
         public BikeRatingsInfo RatingDetails { get; set; }
         public uint Price { get; set; }
+        public QuestionsRatingValueByModel ObjQuestionValue { get; set; }
     }
 }
