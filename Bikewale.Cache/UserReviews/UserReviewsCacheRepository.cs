@@ -167,7 +167,7 @@ namespace Bikewale.Cache.UserReviews
         public UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId)
         {
             UserReviewSummary objUserReviewSummary = null;
-            string key = string.Format("BW_UserReviewDetails_V2_{0}", reviewId);
+            string key = string.Format("BW_UserReviewDetails_V3_{0}", reviewId);
             try
             {
                 objUserReviewSummary = _cache.GetFromCache<UserReviewSummary>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetUserReviewSummaryWithRating(reviewId));
@@ -231,13 +231,11 @@ namespace Bikewale.Cache.UserReviews
             IEnumerable<UserReviewSummary> objSummaryList = null;
             Dictionary<string, string> dictIdKeys = null;
             try
-            {
-                string[] keys;
-                keys = new string[reviewIdList.Count()];
+            {                
                 dictIdKeys = new Dictionary<string, string>();
                 foreach(var id in reviewIdList)
                 {
-                    dictIdKeys.Add(id.ToString(), string.Format("BW_UserReviewDetails_V2_{0}", id));
+                    dictIdKeys.Add(id.ToString(), string.Format("BW_UserReviewDetails_V3_{0}", id));
                 }                
                 Func<string, IEnumerable<UserReviewSummary>> fnCallback =_objUserReviews.GetUserReviewSummaryList;
 

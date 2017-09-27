@@ -144,10 +144,10 @@ function reportAbuse() {
     }
 }
 
-function resetCollapsibleContent() {
+function resetCollapsibleContent() {    
     var activeCollapsible = $('.user-review-list').find('.collapsible-content.active');
     activeCollapsible.removeClass('active');
-    activeCollapsible.find('.read-more-target').text('...Read more');
+    activeCollapsible.find('.read-more-target').text('Read more');
 }
 
 var reportAbusePopup = {
@@ -333,12 +333,13 @@ docReady(function () {
         self.IsLoading = ko.observable(false);
         self.Pagination = ko.observable(new vmPagination());
         self.TotalReviews = ko.observable(reviewCount);
-        self.noReviews = ko.observable(self.TotalReviews() == 0);
-
+        self.noReviews = ko.observable(self.TotalReviews() == 0);        
         self.PageUrl = ko.observable();
         self.CurPageNo = ko.observable();
+        self.firstReadMoreClick = ko.observable(false);
+        self.clickedReviewId = ko.observable();
 
-        self.Filters = ko.observable({ pn: 1, ps: 10, model: modelid, so: 1, skipreviewid: reviewId });
+        self.Filters = ko.observable({ pn: 1, ps: 10, model: modelid, so: reviewId > 0 ? 2 : 1, skipreviewid: reviewId });
         self.QueryString = ko.computed(function () {
             var qs = "";
             $.each(self.Filters(), function (i, val) {
@@ -507,19 +508,30 @@ docReady(function () {
                         for (var i = listItem.length; i >= response.result.length; i--) {
                             $(listItem[i]).remove();                            
                         }
+                        
                         resetCollapsibleContent();
                         applyLikeDislikes();
+
+                        $('html, body').scrollTop(modelReviewsSection.offset().top);
+
+                        if (self.firstReadMoreClick())
+                        {
+                            var collpasibleContent = $(document).find('.read-more-target[data-reviewId=' + self.clickedReviewId() + ']').closest('.collapsible-content');
+                            $('html, body').scrollTop(collpasibleContent.closest('.list-item').offset().top - $('#overallSpecsTab').height());
+                            collpasibleContent.addClass('active');
+                            self.firstReadMoreClick(false);
+                        }
                     }
 
                 })
                 .fail(function () {
                     self.noReviews(true);
+                    $('html, body').scrollTop(modelReviewsSection.offset().top);
                 })
                 .always(function () {
                     self.ApplyPagination();
                     //window.location.hash = qs;
                     self.IsLoading(false);
-                    $('html, body').scrollTop(modelReviewsSection.offset().top);
                 });
                 self.ApplyPagination();
             }
@@ -545,8 +557,28 @@ docReady(function () {
             }
 
         };
+
+        self.readMore = function (event) {          
+            if (!self.activeReviewList().length && modelid) {
+                self.getUserReviews();
+
+            }
+
+            updateView(event);
+            logBhrighu(event);
+           
+            return true;
+        };
     };
 
+    $(document).on("click", ".read-more-target", function (e) {
+        if (!vmUserReviews.IsInitialized()) {
+            vmUserReviews.clickedReviewId($(this).attr('data-reviewId'));
+            vmUserReviews.init(e);
+            vmUserReviews.readMore(e);
+            vmUserReviews.firstReadMoreClick(true);
+        }
+    });
 
     $(document).on("click", "#pagination-list-content ul li, .pagination-control-prev a, .pagination-control-next a,#overallSpecsTab .overall-specs-tabs-wrapper a", function (e) {
         e.preventDefault();
@@ -646,18 +678,7 @@ function logBhrighu(e) {
 }
 
 
-function updateView(e) {
-    // for bhrigu updation
-    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
-    $.each(vmUserReviews.activeReviewList(), function (i, val) {
-        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
-            index = i + 1;
-
-        }
-    });
-    label = 'modelId=' + modelid + '|tabName=' + reviewCategory[categoryId] + '|reviewOrder=' + (index + (pageNumber - 1) * 10) + '|pageSource=' + $('#pageSource').val();
-    cwTracking.trackUserReview("ReadMoreClick", label);
-
+function updateView(e) {    
     try {
         var reviewId = e.currentTarget.getAttribute("data-reviewid");
         $.ajax({

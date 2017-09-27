@@ -59,11 +59,11 @@
                                     <span class="font12 text-light-grey" data-bind="text: $data.reviewAge + ' ago by ' + $data.customerName">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
                                 </div>
                             </div>
-                            <div class="collapsible-content toggle-off main-content-off">
+                            <div class="collapsible-content toggle-off main-content-off" data-bind="attr: {'data-reviewId': $data.reviewId }">
                                 <div class="main-content">
                                     <div class="font14 text-slate-grey">
-                                        <p data-bind="truncateDesc: $data.description">@FormatDescription.TruncateDescription(review.Description, 120)</p>
-                                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-reviewId="@review.ReviewId" onclick="updateView(event)" data-id="@i" data-bind="attr: {'data-reviewId': $data.reviewId }">Read more</a>
+                                        <p data-bind="text: $data.sanitizedDescription">@review.SanitizedDescription</p>
+                                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-bind="click: function (data, event) { return $parent.readMore(event);}, attr: {'data-reviewId': $data.reviewId }" data-reviewId="@review.ReviewId"  data-id="@i">Read more</a>
                                     </div>
                                 </div>
                                 <div class="more-content">

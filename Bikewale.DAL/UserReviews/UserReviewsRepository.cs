@@ -1535,6 +1535,7 @@ namespace Bikewale.DAL.UserReviews
                                     CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
                                     CustomerName = Convert.ToString(dr["CustomerName"]),
                                     Description = Convert.ToString(dr["Comments"]),
+                                    SanitizedDescription = Convert.ToString(dr["santizedreview"]),
                                     Title = Convert.ToString(dr["ReviewTitle"]),
                                     Tips = Convert.ToString(dr["ReviewTips"]),
                                     UpVotes = SqlReaderConvertor.ToUInt32(dr["UpVotes"]),
