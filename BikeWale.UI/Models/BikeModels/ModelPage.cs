@@ -689,17 +689,6 @@ namespace Bikewale.Models.BikeModels
                     }
                 };
 
-
-                //InputFilters filters = null;
-
-                //filters = new InputFilters()
-                //{
-                //    Model = _modelId.ToString(),
-                //    SO = 1,
-                //    PN = 1,
-                //    PS = 3,
-                //    Reviews = true
-                //};
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, objFilter, _userReviewsCache, _userReviewsSearch);
                 objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;
                 objPage.UserReviews = objUserReviews.GetData();
