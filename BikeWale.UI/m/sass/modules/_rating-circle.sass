@@ -137,4 +137,69 @@ $rating-progress-width: 3px
     vertical-align: middle
 
 
+// rating circle list
+@mixin rating-circle-list($label-alignment)
+	$alignment: inline-block
 
+	@if $label-alignment == "vertical-label"
+		$alignment: block
+
+	.rating-overflow-container
+		width: 100%
+		display: block
+		overflow-x: auto
+		overflow-y: hidden
+
+		&::-webkit-scrollbar
+			width: 0
+			height: 0
+			display: none
+
+	.rating-circle-list-title
+		font-size: 14px
+		margin-left: 20px
+		margin-right: 20px
+
+	.rating-circle-list
+		display: table
+		width: 100%
+
+		li
+			text-align: center
+			margin-right: 10px
+			padding-right: 10px
+			width: auto
+			display: table-cell
+			float: none
+
+			&:last-child
+				margin-right: 0
+
+		&:after 
+			content: ''
+			display: block
+			clear: both
+
+		.list-item-label 
+			font-size: 14px
+			color: $slate-grey
+			padding-left: 5px
+			display: $alignment
+			vertical-align: middle
+
+	.rating-overflow-container
+		.rating-circle-list
+			table-layout: fixed
+			
+			li
+				width: 105px
+				padding-right: 5px
+				padding-left: 5px
+
+				&:first-child
+					width: 115px
+					padding-left: 15px
+
+			.list-item-label
+				padding-left: 0
+				margin-top: 10px

@@ -232,6 +232,17 @@ $graph-bg: #eee
 			~ label
 				background-position: 0 -278px
 
+// rating parameters
+.rating-parameters-content
+	padding-bottom: 20px
+
+.rating-circle-list-title
+	padding-top: 15px
+	margin-bottom: 15px
+	border-top: 1px solid #eee
+
+@include rating-circle-list("vertical-label")
+
 // review contest slug
 @include contest-card()
 
