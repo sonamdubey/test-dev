@@ -936,6 +936,7 @@
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\BikeModels\ModelPage.cs" />
     <Compile Include="Models\BikeModels\OtherBestBikesModel.cs" />
+    <Compile Include="Models\BikeSeries\BikeModelsBySeriesPage.cs" />
     <Compile Include="Models\CompareBikes\ComparePopularBikes.cs" />
     <Compile Include="Models\Compare\CompareDetails.cs" />
     <Compile Include="Models\Compare\CompareIndex.cs" />

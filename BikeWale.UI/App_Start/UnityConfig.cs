@@ -156,6 +156,7 @@ namespace Bikewale
             container.RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>();
             container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>();
             container.RegisterType<IBikeSeries, BikeSeries>();
+            container.RegisterType<IBikeSeriesCacheRepository, BikeSeriesCacheRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

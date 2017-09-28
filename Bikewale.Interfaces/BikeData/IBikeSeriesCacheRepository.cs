@@ -3,10 +3,10 @@
 namespace Bikewale.Interfaces.BikeData
 {
     /// <summary>
-    /// Created by : Vivek Singh Tomar on 27th Sep 2017
-    /// Summary : BAL interface for bike series
+    /// Created by : Vivek Singh Tomar on 28th Sep 2017
+    /// Summary : Cache Repo interface for bike series
     /// </summary>
-    public interface IBikeSeriesRepository
+    public interface IBikeSeriesCacheRepository
     {
         BikeSeriesModels GetModelsListBySeriesId(uint seriesId);
     }

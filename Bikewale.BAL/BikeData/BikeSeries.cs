@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Practices.Unity;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using System;
 using Bikewale.Notifications;
@@ -10,21 +8,28 @@ namespace Bikewale.BAL.BikeData
 {
     public class BikeSeries : IBikeSeries
     { 
-        private readonly IBikeSeriesRepository _bikeSeriesRepository = null;
+        private readonly IBikeSeriesCacheRepository _bikeSeriesCacheRepository = null;
 
-        public BikeSeries(IBikeSeriesRepository bikeSeriesRepository)
+        public BikeSeries(IBikeSeriesCacheRepository bikeSeriesCacheRepository)
         {
-            _bikeSeriesRepository = bikeSeriesRepository;
+            _bikeSeriesCacheRepository = bikeSeriesCacheRepository;
         }
 
-        public BikeSeriesModels GetModelsListBySeriesId(int modelId, uint seriesId)
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 28th Sep 2017
+        /// Summary : Get models by series id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="seriesId"></param>
+        /// <returns></returns>
+        public BikeSeriesModels GetModelsListBySeriesId(uint modelId, uint seriesId)
         {
             BikeSeriesModels objModels = null;
             try
             {
-                if(seriesId > 0)
+                if(modelId > 0 && seriesId > 0)
                 {
-                    objModels = _bikeSeriesRepository.GetModelsListBySeriesId(seriesId);
+                    objModels = _bikeSeriesCacheRepository.GetModelsListBySeriesId(seriesId);
                     if(objModels != null)
                     {
                         if(objModels.NewBikes != null)
@@ -41,7 +46,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetModelsListBySeries SeriesId = {0}", seriesId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetModelsListBySeries ModelId = {0} and SeriesId = {1}", modelId, seriesId));
             }
             return objModels;
         }

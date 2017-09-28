@@ -1,8 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
-using Bikewale.Entities.GenericBikes;
-using System.Collections.Generic;
 
-namespace Bikewale.Models.BikeModels
+namespace Bikewale.Models.BikeSeries
 {
     /// <summary>
     /// Created by : Vivek Singh Tomar on 26th Sep 2017
