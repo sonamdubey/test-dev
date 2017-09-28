@@ -1,0 +1,54 @@
+﻿@model Bikewale.Models.BikeSeries.BikeSeriesModelsVM
+@using Bikewale.Entities.GenericBikes
+@using Bikewale.Utility
+@if (Model != null && Model.SeriesModels != null)
+{
+    <div class="jcarousel-wrapper inner-content-carousel horizontal-card-swiper">
+        <div class="jcarousel">
+            <ul>
+                @if (Model.SeriesModels.NewBikes != null && Model.SeriesModels.NewBikes.Any())
+                {
+                    foreach (var bike in Model.SeriesModels.NewBikes)
+                    {
+                        <li>
+                            <a href=@string.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.BikeMake.MaskingName, bike.BikeModel.MaskingName)) title=@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName) class="horizontal-swiper__target">
+                                <div class="horizontal-swiper__image inline-block">
+                                    <img class="lazy" data-original=@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, "/110x60/")) alt=@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName) src="">
+                                </div>
+                                <div class="horizontal-swiper__details inline-block">
+                                    <h3 class="horizontal-swiper__card-title text-truncate">@bike.BikeModel.ModelName</h3>
+                                    <p class="horizontal-swiper__card-subtitle text-truncate">@bike.MinSpecs.Displacement cc, @bike.MinSpecs.FuelEfficiencyOverall kmpl, @bike.MinSpecs.MaxPower bhp</p>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                }
+                @if (Model.SeriesModels.UpcomingBikes != null && Model.SeriesModels.UpcomingBikes.Any())
+                {
+                    foreach (var bike in Model.SeriesModels.UpcomingBikes)
+                    {
+                        <li>
+                            <a href=@string.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.BikeMake.MaskingName, bike.BikeModel.MaskingName)) title=@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName) class="horizontal-swiper__target">
+                                <span class="horizontal-swiper__tag">Upcoming</span>
+                                <div class="horizontal-swiper__image inline-block">
+                                    <img class="lazy" data-original=@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, "/110x60/")) alt=@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName) src="">
+                                </div>
+                                <div class="horizontal-swiper__details inline-block">
+                                    <h3 class="horizontal-swiper__card-title text-truncate">@bike.BikeModel.ModelName</h3>
+                                    <p class="horizontal-swiper__card-subtitle text-truncate">Expected Launch @bike.ExpectedLaunchDate.ToString("MMM-yyyy")</p>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <span class="jcarousel-control-left">
+            <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+        </span>
+        <span class="jcarousel-control-right">
+            <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+        </span>
+    </div>
+}
+

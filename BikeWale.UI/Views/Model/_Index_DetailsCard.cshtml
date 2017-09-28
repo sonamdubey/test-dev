@@ -1,7 +1,12 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-
 <div class="grid-12">
-    <!--similar bike series-->
+    @if (Model.ModelsBySeries != null)
+    {
+        <div class="card-bottom-margin">
+            <h2 class="horizontal-swiper__title">Other @Model.ModelPageEntity.ModelDetails.ModelName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter)?"Scooters":"Bikes") you might be interested in:</h2>
+            @Html.Partial("~Views/BikeSeries/_BikeModelsBySeries.cshtml", Model.ModelsBySeries)
+        </div>
+    }
     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null && Model.ModelPageEntity.ModelColors.Count() > 0)
     {
         @Html.Partial("~/Views/Model/_Index_ModelColors.cshtml", Model)

@@ -3768,6 +3768,8 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad200x216.cshtml" />
     <Content Include="Views\Shared\_SimilarModelSeriesWidget.cshtml" />
     <Content Include="Views\Shared\_SimilarBikeSeriesWidget_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\_bikemodelsbyseries.cshtml" />
+    <Content Include="Views\BikeSeries\_BikeModelsBySeries_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
