@@ -1,1 +1,0 @@
-D:\work\bikewaleweb\.sonarqube\out\\Bikewale.DAL.CoreDAL_5983

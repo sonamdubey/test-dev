@@ -1,1 +1,0 @@
-D:\work\bikewaleweb\.sonarqube\out\\BikewaleOpr.Service_8388
