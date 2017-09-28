@@ -103,6 +103,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authors\AuthorDetailsPageVM.cs" />
+    <Compile Include="Authors\AuthorsListVM.cs" />
     <Compile Include="BestBikes\BestBikeByCategoryVM.cs" />
     <Compile Include="BikeCare\BikeCareDetailPageVM.cs" />
     <Compile Include="BikeModels\ModelPageVM.cs" />

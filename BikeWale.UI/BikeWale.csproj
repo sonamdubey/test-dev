@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -507,6 +507,7 @@
     <Compile Include="Controllers\GenericBestBikesController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\MakeController.cs" />
+    <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
@@ -929,6 +930,8 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\Authors\AuthorsDetailsPageModel.cs" />
+    <Compile Include="Models\Authors\AuthorsListModel.cs" />
     <Compile Include="Models\BestBikes\BestBikeByBodyStyle.cs" />
     <Compile Include="Models\BikeCare\BikeCareDetailPage.cs" />
     <Compile Include="Models\BikeCare\BikeCareIndexPage.cs" />
@@ -2203,6 +2206,7 @@
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
+    <Content Include="css\authors.css" />
     <Content Include="css\bookingconfig.css" />
     <Content Include="css\bookinglanding.css" />
     <Content Include="css\brand.css" />
@@ -2231,6 +2235,7 @@
     <Content Include="css\survey\bajaj-survey.css" />
     <Content Include="css\user-review\write-review.css" />
     <Content Include="m\css\amp\bwm-modelprice-in-city-amp.css" />
+    <Content Include="m\css\authors.css" />
     <Content Include="m\css\amp\content-amp.css" />
     <Content Include="m\css\content\app.css" />
     <Content Include="css\content\details.css" />
@@ -3061,6 +3066,7 @@
     <Content Include="pricequote\BookingSummary_New.aspx" />
     <Content Include="pricequote\PaymentConfirmation.aspx" />
     <Content Include="src\ads.js" />
+    <Content Include="src\authors.js" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
     <Content Include="src\bookingconfig.js" />
@@ -3745,6 +3751,10 @@
     <Content Include="Views\PopUp\PopUpCityArea_Mobile.cshtml" />
     <Content Include="Views\PopUp\Index_LeadCapture.cshtml" />
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile_Amp.cshtml" />
+    <Content Include="Views\Author\Index_List_Mobile.cshtml" />
+    <Content Include="Views\Author\Details_Mobile.cshtml" />
+    <Content Include="Views\Author\Index_List.cshtml" />
+    <Content Include="Views\Author\Details.cshtml" />
     <Content Include="Views\UserReview\WriteReview_old.cshtml" />
     <Content Include="Views\UserReview\RateOtherDetails.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_ATF_970x90.cshtml" />
@@ -3761,6 +3771,9 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile_AMP.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile_AMP.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCities_Mobile_AMP.cshtml" />
+    <Content Include="Views\Author\_AuthorsListCarousel.cshtml" />
+    <Content Include="Views\News\_RecentNewsWidget.cshtml" />
+    <Content Include="Views\Author\_AuthorsListCarousel_Mobile.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad292x399.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad200x253.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad292x359.cshtml" />
@@ -4038,7 +4051,7 @@
 	<!--xcopy /Y "$(ProjectDir)..\Libs\System.Runtime.dll" "$(ProjectDir)bin\"-->
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x64.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x86.dll" "$(ProjectDir)bin\"
-<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
+	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
