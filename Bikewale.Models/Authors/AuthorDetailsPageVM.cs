@@ -15,5 +15,7 @@ namespace Bikewale.Models.Authors
         public IEnumerable<ArticleSummary> NewsList { get; set; }
         public IEnumerable<AuthorEntityBase> OtherAuthors { get; set; }
         public CMSContent ArticlesList { get; set; }
+        public bool IsExpertReviewsAvailable { get; set; }
+        public bool IsNewsAvailable { get; set; }
     }
 }

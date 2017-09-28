@@ -23,11 +23,11 @@ namespace Bikewale.BAL.Authors
         /// Description :  Method to get author list via GRPC.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<AuthorEntityBase> GetAuthorsList()
+        public IEnumerable<AuthorEntityBase> GetAuthorsList(int applicationId)
         {
             try
             {
-                var _objGrpcAuthorsList = GrpcMethods.GetAuthorsList(2);
+                var _objGrpcAuthorsList = GrpcMethods.GetAuthorsList(applicationId);
                 if (_objGrpcAuthorsList != null && _objGrpcAuthorsList.CalculateSize() > 0)
                 {
                     return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcAuthorsList);

@@ -74,10 +74,10 @@
                         </div>
                     </div>
                 </div>
-                @if ((Model.NewsList != null && Model.NewsList.Any()) || (Model.ExpertReviewsList != null && Model.ExpertReviewsList.Any()))
+                @if (Model.IsNewsAvailable || Model.IsExpertReviewsAvailable)
                 {
                     <div class="content-box-shadow margin-bottom10 padding-bottom10">
-                        @if (Model.NewsList != null && Model.NewsList.Any())
+                        @if (Model.IsNewsAvailable)
                         {
                             <div class="@(Model.ExpertReviewsList != null && Model.ExpertReviewsList.Any() ? "border-after-bottom" : "") padding-top20 padding-left20 padding-right20 padding-bottom20">
                                 <h2 class="list-head">News by @Model.Author.AuthorFirstName</h2>
@@ -92,7 +92,7 @@
                                 </ul>
                             </div>
                         }
-                        @if (Model.ExpertReviewsList != null && Model.ExpertReviewsList.Any())
+                        @if (Model.IsExpertReviewsAvailable)
                         {
                             <div class="@(Model.NewsList.Any()?"": "padding-top20") padding-left20 padding-right20 padding-bottom20">
                                 <h2 class="list-head">Expert Reviews by @Model.Author.AuthorFirstName</h2>
@@ -111,9 +111,13 @@
                 }
                 
 
-                @if(Model.OtherAuthors != null && Model.OtherAuthors.Any())
+                @if (Model.OtherAuthors != null && Model.OtherAuthors.Any())
                 {
-                    @Html.Partial("~/Views/Author/_AuthorsListCarousel.cshtml", Model.OtherAuthors)
+
+                    <div class="content-box-shadow">
+                        <h2 class="carousel-head">Other authors</h2>
+                        @Html.Partial("~/Views/Author/_AuthorsListCarousel.cshtml", Model.OtherAuthors)
+                    </div>
                 }
             </div>
 

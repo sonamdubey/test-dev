@@ -47,7 +47,9 @@ namespace Bikewale.Models.Authors
                 objAuthorDetails.Author = _authors.GetAuthorDetailsViaGrpc(_authorId);
                 objAuthorDetails.NewsList = _authors.GetArticlesByAuthorViaGrpc(_authorId, Convert.ToInt32(BWConfiguration.Instance.ApplicationId), string.Format("{0}", (int)EnumCMSContentType.News));
                 objAuthorDetails.ExpertReviewsList = _authors.GetArticlesByAuthorViaGrpc(_authorId, Convert.ToInt32(BWConfiguration.Instance.ApplicationId), string.Format("{0},{1}", (int)EnumCMSContentType.ComparisonTests, (int)EnumCMSContentType.RoadTest));
-                var allAuthors = _authors.GetAuthorsList();
+                objAuthorDetails.IsExpertReviewsAvailable = objAuthorDetails.ExpertReviewsList != null && objAuthorDetails.ExpertReviewsList.Any();
+                objAuthorDetails.IsNewsAvailable = objAuthorDetails.NewsList != null && objAuthorDetails.NewsList.Any();
+                var allAuthors = _authors.GetAuthorsList(Convert.ToInt32(BWConfiguration.Instance.ApplicationId));
                 BindRecentNewsWidget(objAuthorDetails);
                 if (allAuthors != null)
                 {

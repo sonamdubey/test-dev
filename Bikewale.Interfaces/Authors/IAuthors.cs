@@ -10,7 +10,7 @@ namespace Bikewale.Interfaces.Authors
     /// </summary>
     public interface IAuthors
     {
-        IEnumerable<AuthorEntityBase> GetAuthorsList();
+        IEnumerable<AuthorEntityBase> GetAuthorsList(int applicationId);
         AuthorEntity GetAuthorDetailsViaGrpc(int authorId);
         IEnumerable<ArticleSummary> GetArticlesByAuthorViaGrpc(int authorId, int applicationId, string categoryList);
         IEnumerable<AuthorEntityBase> GetAllOtherAuthors(int authorId, int applicationId);

@@ -44,7 +44,7 @@
                             <li>
                                 <div class="author__body">
                                     <div class="author__image">
-                                        <a href="@string.Format("/authors/{0}/", item.MaskingName)" title="@item.AuthorName" class="block">
+                                        <a href=@UrlFormatter.AuthorPageUrl(item.MaskingName) title="@item.AuthorName" class="block">
                                             @if (string.IsNullOrEmpty(item.HostUrl) || string.IsNullOrEmpty(item.ProfileImage) || string.IsNullOrEmpty(item.ImageName))
                                             {
                                                 <div class="no-image-block"></div>
@@ -57,13 +57,13 @@
                                     </div>
                                     <div class="author__detail">
                                         <h2>
-                                            <a href="@string.Format("/authors/{0}/", item.MaskingName)" title="@item.AuthorName" class="author__name">@item.AuthorName</a>
+                                            <a href=@UrlFormatter.AuthorPageUrl(item.MaskingName) title="@item.AuthorName" class="author__name">@item.AuthorName</a>
                                         </h2>
                                         <span class="author__designation">@item.Designation</span>
                                         <div class="author__description">
                                             @item.ShortDescription
                                         </div>
-                                        <a href="@string.Format("/authors/{0}/", item.MaskingName)" title="@string.Format("Read more about {0}", item.AuthorName)">Read more</a>
+                                        <a href=@UrlFormatter.AuthorPageUrl(item.MaskingName) title="@string.Format("Read more about {0}", item.AuthorName)">Read more</a>
                                     </div>
                                 </div>
                             </li>

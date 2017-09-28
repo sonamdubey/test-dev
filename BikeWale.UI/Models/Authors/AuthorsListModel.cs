@@ -32,7 +32,7 @@ namespace Bikewale.Models.Authors
             try
             {
                 _objAuthorsList = new AuthorsListVM();
-                _objAuthorsList.AuthorsList =  _Authors.GetAuthorsList();
+                _objAuthorsList.AuthorsList =  _Authors.GetAuthorsList(Convert.ToInt32(BWConfiguration.Instance.ApplicationId));
                 BindRecentNewsWidget(_objAuthorsList);
                 BindPageMetas(_objAuthorsList.PageMetaTags);
             }

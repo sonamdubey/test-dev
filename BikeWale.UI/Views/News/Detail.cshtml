@@ -60,7 +60,7 @@
                                 }
                                 else
                                 {
-                                    <a href="@string.Format("/authors/{0}/", Model.ArticleDetails.AuthorMaskingName)" class="hover-no-underline">
+                                    <a href=@UrlFormatter.AuthorPageUrl(Model.ArticleDetails.AuthorMaskingName) class="hover-no-underline">
                                         <span class="bwsprite author-grey-sm-icon"></span>
                                         <span class="article-stats-content"><span class="text-link">@Model.ArticleDetails.AuthorName</span></span>
                                     </a>

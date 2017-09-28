@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Entities.CMS.Articles.CMSContent
+@using Bikewale.Utility
 @if (Model != null)
 {
     <div class="content-box-shadow padding-15-20-10 margin-bottom20">
@@ -16,19 +17,7 @@
                             </div>
                             <div class="bike-target-content inline-block padding-left10">
                                 <h3 class="text-black">@item.Title</h3>
-                                @{ TimeSpan time = DateTime.Now.Subtract(item.DisplayDate);
-                                    string str = time.Days + " days";
-                                    if (time.Days == 1)
-                                    {
-                                        str = time.Days + " day";
-                                    }
-                                    else if(time.Days < 1)
-                                    {
-                                        str = time.Hours + " hours";
-                                    }
-                                    
-                                }
-                                <p class="font12 text-light-grey">@string.Format("{0} ago by {1}", str, item.AuthorName)</p>
+                                <p class="font12 text-light-grey">@string.Format("{0} by {1}", FormatDate.GetDaysAgo(item.DisplayDate), item.AuthorName)</p>
                             </div>
                         </a>
                     </li>

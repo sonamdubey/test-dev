@@ -1,39 +1,36 @@
 ﻿@model IEnumerable<Bikewale.Entities.Authors.AuthorEntityBase>
 @using Bikewale.Utility
-<div class="content-box-shadow">
-    <h2 class="carousel-head">Other authors</h2>
-    <div id="author__carousel" class="jcarousel-wrapper inner-content-carousel">
-        <div class="jcarousel">
-            <ul>
-                @foreach (var author in Model)
+<div id="author__carousel" class="jcarousel-wrapper inner-content-carousel">
+    <div class="jcarousel">
+        <ul>
+            @foreach (var author in Model)
+            {
+                if (!string.IsNullOrEmpty(author.MaskingName))
                 {
-                    if (!string.IsNullOrEmpty(author.MaskingName))
-                    {
-                        <li>
-                            <a href="@string.Format("{0}/authors/{1}/", BWConfiguration.Instance.BwHostUrl,author.MaskingName)" title="@author.AuthorName" class="jcarousel-card">
-                                <div class="jcarousel-author-image">
-                                    @if (string.IsNullOrEmpty(author.HostUrl) || string.IsNullOrEmpty(author.ProfileImage) || string.IsNullOrEmpty(author.ImageName))
-                                    {
-                                        <div class="no-image-carousel"></div>
-                                    }
-                                    else
-                                    {
+                    <li>
+                        <a href="@string.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.AuthorPageUrl(author.MaskingName))" title="@author.AuthorName" class="jcarousel-card">
+                            <div class="jcarousel-author-image">
+                                @if (string.IsNullOrEmpty(author.HostUrl) || string.IsNullOrEmpty(author.ProfileImage) || string.IsNullOrEmpty(author.ImageName))
+                                {
+                                    <div class="no-image-carousel"></div>
+                                }
+                                else
+                                {
 
-                                        <img class="lazy" src="" data-original="@string.Format("https://{0}/{1}/{2}", author.HostUrl, author.ProfileImage, author.ImageName)" alt="@author.AuthorName">
-                                    }
-                                </div>
-                                <div class="card-desc-block">
-                                    <h3 class="author__carousel-label">@author.AuthorName</h3>
-                                    <p class="author__carousel-designation">@author.Designation</p>
-                                </div>
-                            </a>
-                        </li>
-                    }
+                                    <img class="lazy" src="" data-original="@string.Format("https://{0}/{1}/{2}", author.HostUrl, author.ProfileImage, author.ImageName)" alt="@author.AuthorName">
+                                }
+                            </div>
+                            <div class="card-desc-block">
+                                <h3 class="author__carousel-label">@author.AuthorName</h3>
+                                <p class="author__carousel-designation">@author.Designation</p>
+                            </div>
+                        </a>
+                    </li>
                 }
-            </ul>
-        </div>
-        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+            }
+        </ul>
     </div>
+    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
 </div>
 

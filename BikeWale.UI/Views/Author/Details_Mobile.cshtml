@@ -44,44 +44,47 @@
                 </ul>
             </div>
         </div>
-@if ((Model.NewsList != null && Model.NewsList.Any()) || (Model.ExpertReviewsList != null && Model.ExpertReviewsList.Any()))
-{
-        <div class="box-content">
-            @if (Model.NewsList != null && Model.NewsList.Any())
-            {
-                <div class="@(Model.ExpertReviewsList != null && Model.ExpertReviewsList.Any() ? "border-after-bottom" : "") padding-top20 padding-left20 padding-right20 padding-bottom20">
-                    <h2 class="list-heading">News by @Model.Author.AuthorFirstName</h2>
-                    <ul class="disk-list">
-                        @foreach (var news in Model.NewsList)
-                        {
-                            string articleUrl = string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(news.CategoryId)));
-                            <li>
-                                <a href="@articleUrl" title="@news.Title">@news.Title</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            }
-            @if (Model.ExpertReviewsList != null && Model.ExpertReviewsList.Any())
-            {
-                <div class="@(Model.NewsList.Any() ? "" : "padding-top20") padding-left20 padding-right20 padding-bottom20">
-                    <h2 class="list-heading">Expert Reviews by @Model.Author.AuthorFirstName</h2>
-                    <ul class="disk-list">
-                        @foreach (var reviews in Model.ExpertReviewsList)
-                        {
-                            string articleUrl = string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(reviews.BasicId), reviews.ArticleUrl, Convert.ToString(reviews.CategoryId)));
-                            <li>
-                                <a href="@articleUrl" title="@reviews.Title">@reviews.Title</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            }
-        </div>
-}
+        @if (Model.IsNewsAvailable || Model.IsExpertReviewsAvailable)
+        {
+            <div class="box-content">
+                @if (Model.IsNewsAvailable)
+                {
+                    <div class="@(Model.ExpertReviewsList != null && Model.ExpertReviewsList.Any() ? "border-after-bottom" : "") padding-top20 padding-left20 padding-right20 padding-bottom20">
+                        <h2 class="list-heading">News by @Model.Author.AuthorFirstName</h2>
+                        <ul class="disk-list">
+                            @foreach (var news in Model.NewsList)
+                            {
+                                string articleUrl = string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(news.CategoryId)));
+                                <li>
+                                    <a href="@articleUrl" title="@news.Title">@news.Title</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                @if (Model.IsExpertReviewsAvailable)
+                {
+                    <div class="@(Model.NewsList.Any() ? "" : "padding-top20") padding-left20 padding-right20 padding-bottom20">
+                        <h2 class="list-heading">Expert Reviews by @Model.Author.AuthorFirstName</h2>
+                        <ul class="disk-list">
+                            @foreach (var reviews in Model.ExpertReviewsList)
+                            {
+                                string articleUrl = string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(reviews.BasicId), reviews.ArticleUrl, Convert.ToString(reviews.CategoryId)));
+                                <li>
+                                    <a href="@articleUrl" title="@reviews.Title">@reviews.Title</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        }
         @if (Model.OtherAuthors != null && Model.OtherAuthors.Any())
         {
-            @Html.Partial("~/Views/Author/_AuthorsListCarousel_Mobile.cshtml", Model.OtherAuthors)
+            <div class="box-content">
+                <h2 class="list-heading padding-left20 padding-top15">Other authors</h2>
+                @Html.Partial("~/Views/Author/_AuthorsListCarousel_Mobile.cshtml", Model.OtherAuthors)
+            </div>
         }
     </div>
 }
