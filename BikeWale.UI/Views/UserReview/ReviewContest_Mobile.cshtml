@@ -18,10 +18,10 @@
 </section>
 
 <section class="font-oxygen">
-	<div class="rewards-banner">
-		<p class="font13">Best review wins</p>
-		<p class="font14 font-bold">Amazon voucher worth&nbsp;<span class="text-unbold">&#x20b9;</span>&nbsp;1,000 every week</p>
-	</div>
+    <div class="rewards-banner">
+        <p class="font13">Best review wins</p>
+        <p class="font14 font-bold">Amazon voucher worth&nbsp;<span class="text-unbold">&#x20b9;</span>&nbsp;1,000 every week</p>
+    </div>
 </section>
 
 <section class="font-oxygen">
@@ -41,79 +41,79 @@
             <h2 class="h2-heading">Write a review</h2>
             <p class="font-light bottom-divider">Write a review of your bike - new or old, owned or sold - and help fellow riders make the right choice</p>
 
-			<p class="font14 text-light-black margin-bottom15">Write it right</p>
-			<ul class="guideline-list">
-				<li class="list-item">
-					<span class="guideline-sprite truth-icon"></span>
-					<p>Tell the truth</p>
-				</li>
-				<li class="list-item">
-					<span class="guideline-sprite details-icon"></span>
-					<p>Put in details</p>
-				</li>
-				<li class="list-item">
-					<span class="guideline-sprite original-icon"></span>
-					<p>Be original</p>
-				</li>
-			</ul>
-			
-			<p class="font14 margin-bottom15 text-dark">Start writing your review</p>
-			<div id="bike-selection-form">
-				<div id="form-make-field" class="form-control-box form-input-box margin-bottom20" data-bind="click: function (d, e) { openBikeSelection(); }">
-					<span data-bind="text: makeName">Select make</span>
-					<span class="bwmsprite grey-right-icon"></span>
-					<span class="bwmsprite error-icon errorIcon"></span>
-					<div class="bw-blackbg-tooltip errorText"></div>
-				</div>
-				<div id="form-model-field" class="form-control-box form-input-box margin-bottom20" data-bind="click: function (d, e) { openModelSelection(); }">
-					<span data-bind="text: modelName">Select model</span>
-					<span class="bwmsprite grey-right-icon"></span>
-					<span class="bwmsprite error-icon errorIcon"></span>
-					<div class="bw-blackbg-tooltip errorText"></div>
-				</div>
-				<input id="submit-bike-selection" type="button" class="btn btn-orange btn-full-width text-uppercase" value="Write your review">
+            <p class="font14 text-light-black margin-bottom15">Write it right</p>
+            <ul class="guideline-list">
+                <li class="list-item">
+                    <span class="guideline-sprite truth-icon"></span>
+                    <p>Tell the truth</p>
+                </li>
+                <li class="list-item">
+                    <span class="guideline-sprite details-icon"></span>
+                    <p>Put in details</p>
+                </li>
+                <li class="list-item">
+                    <span class="guideline-sprite original-icon"></span>
+                    <p>Be original</p>
+                </li>
+            </ul>
 
-				<div id="select-bike-cover-popup" data-bind="with: bikeSelection" class="cover-window-popup text-left">
-					<div class="ui-corner-top">
-						<div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="click: closeBikePopup">
-							<span class="bwmsprite fa-angle-left"></span>
-						</div>
-						<div class="cover-popup-header leftfloat">Select bikes</div>
-						<div class="clear"></div>
-					</div>
-					<div class="bike-banner"></div>
-					<div class="cover-popup-body" data-bind="visible: currentStep() == 1">
-						<div class="cover-popup-body-head">
-							<p class="no-back-btn-label head-label inline-block">Select Make</p>
-						</div>
-						<ul class="cover-popup-list with-arrow">
+            <p class="font14 margin-bottom15 text-dark">Start writing your review</p>
+            <div id="bike-selection-form">
+                <div id="form-make-field" class="form-control-box form-input-box margin-bottom20" data-bind="click: function (d, e) { openBikeSelection(); }">
+                    <span data-bind="text: makeName">Select make</span>
+                    <span class="bwmsprite grey-right-icon"></span>
+                    <span class="bwmsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText"></div>
+                </div>
+                <div id="form-model-field" class="form-control-box form-input-box margin-bottom20" data-bind="click: function (d, e) { openModelSelection(); }">
+                    <span data-bind="text: modelName">Select model</span>
+                    <span class="bwmsprite grey-right-icon"></span>
+                    <span class="bwmsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText"></div>
+                </div>
+                <input id="submit-bike-selection" type="button" class="btn btn-orange btn-full-width text-uppercase" value="Write your review">
+
+                <div id="select-bike-cover-popup" data-bind="with: bikeSelection" class="cover-window-popup text-left">
+                    <div class="ui-corner-top">
+                        <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="click: closeBikePopup">
+                            <span class="bwmsprite fa-angle-left"></span>
+                        </div>
+                        <div class="cover-popup-header leftfloat">Select bikes</div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="bike-banner"></div>
+                    <div class="cover-popup-body" data-bind="visible: currentStep() == 1">
+                        <div class="cover-popup-body-head">
+                            <p class="no-back-btn-label head-label inline-block">Select Make</p>
+                        </div>
+                        <ul class="cover-popup-list with-arrow">
                             @foreach (var make in Model.Makes)
                             {
-							<li data-bind="click: makeChanged"><span data-masking="@make.MaskingName" data-id="@make.MakeId">@make.MakeName</span></li>
+                                <li data-bind="click: makeChanged"><span data-masking="@make.MaskingName" data-id="@make.MakeId">@make.MakeName</span></li>
                             }
-						</ul>
-					</div>
+                        </ul>
+                    </div>
 
-					<div class="cover-popup-body" data-bind="visible: currentStep() == 2">
-						<div class="cover-popup-body-head">
-							<div data-bind="click: modelBackBtn" class="body-popup-back cur-pointer inline-block">
-								<span class="bwmsprite back-long-arrow-left"></span>
-							</div>
-							<p class="head-label inline-block">Select Model</p>
-						</div>
-						<ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
-							<li data-bind="click: $parent.modelChanged">
-								<span data-bind="text: modelName, attr: { 'data-id': modelId }"></span>
-							</li>
-						</ul>
-					</div>
-					<div class="cover-popup-loader-body" data-bind="visible: IsLoading()">
-						<div class="cover-popup-loader"></div>
-						<div class="cover-popup-loader-text font14" data-bind="text: LoadingText()"></div>
-					</div>
-				</div>
+                    <div class="cover-popup-body" data-bind="visible: currentStep() == 2">
+                        <div class="cover-popup-body-head">
+                            <div data-bind="click: modelBackBtn" class="body-popup-back cur-pointer inline-block">
+                                <span class="bwmsprite back-long-arrow-left"></span>
+                            </div>
+                            <p class="head-label inline-block">Select Model</p>
+                        </div>
+                        <ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
+                            <li data-bind="click: $parent.modelChanged">
+                                <span data-bind="text: modelName, attr: { 'data-id': modelId }"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cover-popup-loader-body" data-bind="visible: IsLoading()">
+                        <div class="cover-popup-loader"></div>
+                        <div class="cover-popup-loader-text font14" data-bind="text: LoadingText()"></div>
+                    </div>
+                </div>
 
-			</div>
+            </div>
         </div>
 
         <div id="cheatsheetContent" class="bw-model-tabs-data card-shadow padding-25-20 margin-bottom40">
@@ -167,9 +167,15 @@
             </div>
         </div>
 
-		<div id="specsFooter"></div>
+        <div id="specsFooter"></div>
 
     </div>
+    <input type="hidden" id="makeId" value="@Model.MakeId" />
+    <input type="hidden" id="modelId" value="@Model.ModelId" />
+    <input type="hidden" id="displayMakeName" value="@Model.MakeName" />
+    <input type="hidden" id="displayModelName" value="@Model.ModelName" />
+    <input type="hidden" id="makeMaskingName" value="@Model.MakeMaskingName" />
+    <input type="hidden" id="modelMaskingName" value="@Model.ModelMaskingName" />
 </section>
 
 <span id="querystring" data-query="@Model.QueryString" />

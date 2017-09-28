@@ -200,7 +200,7 @@
     <section>
         @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_First.cshtml", new { AdId = Model.AdTags.AdId });}
     </section>
-}
+            }
 <section>
     <div class="container section-bottom-margin">
         <div class="grid-12">
@@ -272,7 +272,10 @@
                     <p class="contest-banner__title">Bike Review Contest</p>
                     <p class="contest-banner__subtitle">Write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20b9;&nbsp;1,000.</p>
                 </div>
-                <a href="/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_NewBikePage)" class="btn btn-orange btn-180-40">Participate &amp; win<span class="bwsprite btn-white-arrow"></span></a>
+                @{
+                    string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_NewBikePage));
+                }
+                <a href="@string.Format("/bike-review-contest/?q={0}",q)" class="btn btn-orange btn-180-40">Participate &amp; win<span class="bwsprite btn-white-arrow"></span></a>
             </div>
         </div>
         <div class="clear"></div>
@@ -369,7 +372,7 @@
     <section>
         @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Second.cshtml", new { AdId = Model.AdTags.AdId });}
     </section>
-}
+            }
 
 <section class="container">
     <!--  Tools you may need section code starts here -->
@@ -571,7 +574,7 @@
         </div>
         <div class="clear"></div>
     </div>
-   
+
 </section>
 <input type="hidden" id="source" value="@Model.Source" />
-<span id="jsvalues" data-clientip='@Bikewale.Common.CommonOpn.GetClientIP()' ></span>
+<span id="jsvalues" data-clientip='@Bikewale.Common.CommonOpn.GetClientIP()'></span>

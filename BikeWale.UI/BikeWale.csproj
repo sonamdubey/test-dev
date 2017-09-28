@@ -3082,6 +3082,7 @@
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos.js" />
+    <Content Include="src\popup\makemodelpopup.js" />
     <Content Include="src\priceincity.js" />
     <Content Include="src\scooters.js" />
     <Content Include="src\service\landing.js" />
@@ -3691,7 +3692,7 @@
     <Content Include="Views\GenericBestBikes\Index_Mobile.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage_Mobile.cshtml" />
-    <Content Include="Views\UserReview\WriteReviewContest_Mobile.cshtml" />
+    <Content Include="Views\UserReview\ReviewContest_Mobile.cshtml" />
     <Content Include="Views\Survey\BajajSurvey_Index.cshtml" />
     <Content Include="Views\Survey\BajajSurvey_Index_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_SimilarComparisons.cshtml" />
@@ -3703,7 +3704,7 @@
     <Content Include="Views\UserReview\_SimilarBikeUserReview.cshtml" />
     <Content Include="Views\UserReview\_UserReviewsSearch.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x400_Middle.cshtml" />
-    <Content Include="Views\UserReview\WriteReviewContest.cshtml" />
+    <Content Include="Views\UserReview\ReviewContest.cshtml" />
     <Content Include="Views\UserReview\_UserReviewList.cshtml" />
     <Content Include="Views\UserReview\_UserReviewList_Mobile.cshtml" />
     <Content Include="Views\UserReview\_UserReviewsSearch_Schema_Mobile.cshtml" />
