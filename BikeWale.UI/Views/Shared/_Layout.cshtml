@@ -269,8 +269,7 @@
             </div>
         </div>
     }
-
-    @if (Model.AdTags.Ad_Model_ATF_970x90)
+    else if (Model.AdTags.Ad_Model_ATF_970x90)
     {
         <div class="bg-white ">
             <div class="container">
@@ -287,7 +286,20 @@
                 <div class="clear"></div>
             </div>
         </div>
-   }
+    }else if (Model.AdTags.ShowInnovationBannerDesktop)
+    {
+        @* Show innovation banner *@
+        <div class="bg-white ">
+            <div class="container">
+                <div class="grid-12">
+                    <div>
+                        This is ad
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    }
 
 
     @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
