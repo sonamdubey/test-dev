@@ -329,10 +329,9 @@ namespace Bikewale.DAL.BikeData
         public IEnumerable<BikeVersionMinSpecs> GetFuturisticVersionMinSpecs(U modelId)
         {
 
-            IEnumerable<BikeVersionMinSpecs> objMinSpecs = Enumerable.Empty<BikeVersionMinSpecs>();
+            IEnumerable<BikeVersionMinSpecs> objMinSpecs = null;
             try
             {
-
                 using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
                     DynamicParameters param = new DynamicParameters();
