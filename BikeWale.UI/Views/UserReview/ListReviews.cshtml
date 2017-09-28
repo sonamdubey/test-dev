@@ -125,7 +125,7 @@
 									{
 										<li>
 											<div class="rating-circle circle-rate-@Math.Floor(ques.AverageRatingValue)">
-												<p class="circle-label">@Math.Round(ques.AverageRatingValue, 1)</p>
+												<p class="circle-label">@ques.AverageRatingValue.ToString("0.0")</p>
 												<span class="rating-progress"></span>
 											</div>
 											<p class="list-item-label">@ques.QuestionHeading</p>
