@@ -12,3 +12,4 @@ namespace Bikewale.Models.Make
         public IEnumerable<BikeMakeEntityBase> Makes { get; set; }
     }
 }
+
