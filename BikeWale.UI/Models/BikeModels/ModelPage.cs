@@ -933,6 +933,8 @@ namespace Bikewale.Models.BikeModels
         ///     Dealer Pricing (Highest priority) -> Bikewale Pricing -> Version pricing (Lowest)
         ///  Modified by : Ashutosh Sharma on 30 Aug 2017 
         ///  Description : Removed IsGstPrice flag
+        ///  Modified by : Ashutosh Sharma on 26-Sep-2017
+        ///  Description : Added condition to get version id for futuristic bike models.
         /// </summary>
         private void LoadVariants(BikeModelPageEntity modelPg)
         {
@@ -1050,6 +1052,10 @@ namespace Bikewale.Models.BikeModels
                         if (firstVer != null)
                             _objData.VersionName = firstVer.VersionName;
                     }
+                }
+                else if(modelPg != null && modelPg.ModelVersions != null)
+                {
+                    _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
                 }
             }
             catch (Exception ex)
