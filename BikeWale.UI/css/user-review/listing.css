@@ -236,9 +236,13 @@
 .border-grey-bottom {
   border-bottom: 1px solid #eee; }
 
+.review-list-wrapper .list-left-grid {
+  padding-left: 20px; }
+
+.review-list-wrapper .list-right-grid {
+  padding-right: 20px; }
+
 .user-review-list {
-  padding-right: 20px;
-  padding-left: 20px;
   min-height: 190px; }
   .user-review-list .list-item {
     padding-top: 20px;
@@ -520,6 +524,29 @@
 .feedback-button.active .dislike-sm {
   opacity: 1;
   background-position: -122px -773px; }
+
+.expert-review-list {
+  background-color: #fafafa; }
+  .expert-review-list .h2-heading {
+    font-size: 16px;
+    padding: 20px 20px 15px; }
+
+.article-type-carousel.inner-content-carousel .jcarousel li {
+  height: 240px; }
+
+.article-type-carousel img {
+  max-width: 100%;
+  max-height: 164px;
+  height: auto; }
+
+.article-type-carousel .jcarousel-image-preview {
+  height: 164px;
+  text-align: center; }
+
+.article-type-carousel .card-desc-block h3 {
+  padding-top: 10px;
+  font-size: 15px;
+  color: #2a2a2a; }
 
 .overall-tabs {
   height: 45px; }

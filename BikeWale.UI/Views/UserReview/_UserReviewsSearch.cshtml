@@ -33,7 +33,7 @@
                     </p>
                     <!-- ko if: ((activeReviewList() && activeReviewList().length > 0) || IsLoading()) -->
                     <div></div>
-                    <div class="position-rel" style="display: @(Model.Pager != null && Model.Pager.TotalResults > 0 ? "block" : "none")" data-bind="visible: reviewsAvailable()">
+                    <div class="review-list-wrapper position-rel" style="display: @(Model.Pager != null && Model.Pager.TotalResults > 0 ? "block" : "none")" data-bind="visible: reviewsAvailable()">
                         <ul class="user-review-list" data-bind="visible : (!noReviews() && TotalReviews() !== 0), css: IsLoading() ? 'loader-active' : ''">
                             @{ushort i = 0;}
                             @foreach (UserReviewSummary review in Model.UserReviews.Result)
@@ -46,7 +46,7 @@
 
                                 <li  class="list-item" data-bind="css: $data.isRatingQuestion ? 'rating-question-present': 'rating-question-absent'">
 
-                                    <div class="item-grid alpha padding-right20 @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">
+                                    <div class="list-left-grid item-grid alpha padding-right20 @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">
                                         <div class="margin-bottom10">
                                             <!-- ko with: $data.overallRating -->
                                             <span class="rating-badge" data-rate-bg="@review.OverallRating.Value" data-bind="attr: {'data-rate-bg': id }">
@@ -127,7 +127,7 @@
                                         </div>
                                         
                                     </div>
-                                    <div class="grid-3 omega padding-left20">
+                                    <div class="list-right-grid grid-3 omega padding-left20">
                                         @if (review.Questions != null)
                                         {
                                             <ul class="page-load-list" data-bind="visible: !$root.IsInitialized()">
@@ -165,12 +165,70 @@
 
                                     </div>
                                     <div class="clear"></div>
+
+									<div class="expert-review-list">
+										<h3 class="h2-heading">You may also read from our Experts</h3>
+
+										<div class="jcarousel-wrapper inner-content-carousel article-type-carousel">
+											<div class="jcarousel">
+												<ul>
+
+
+													<li>
+														<a href=" " title="" class="jcarousel-card">
+															<div class="jcarousel-image-preview">
+																<img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&q=75" src="" alt=" " />
+															</div>
+															<div class="card-desc-block">
+																<h3 class="font15 text-black">Suzuki Gixxer SF Fi vs Yamaha FZ-S FI: Comparison Test</h3>
+															</div>
+														</a>
+													</li>
+
+													<li>
+														<a href=" " title="" class="jcarousel-card">
+															<div class="jcarousel-image-preview">
+																<img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&q=75" src="" alt=" " />
+															</div>
+															<div class="card-desc-block">
+																<h3 class="font15 text-black">Suzuki Gixxer SF Fi vs Yamaha FZ-S FI: Comparison Test</h3>
+															</div>
+														</a>
+													</li>
+
+													<li>
+														<a href=" " title="" class="jcarousel-card">
+															<div class="jcarousel-image-preview">
+																<img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&q=75" src="" alt=" " />
+															</div>
+															<div class="card-desc-block">
+																<h3 class="font15 text-black">Suzuki Gixxer SF Fi vs Yamaha FZ-S FI: Comparison Test</h3>
+															</div>
+														</a>
+													</li>
+
+													<li>
+														<a href=" " title="" class="jcarousel-card">
+															<div class="jcarousel-image-preview">
+																<img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&q=75" src="" alt=" " />
+															</div>
+															<div class="card-desc-block">
+																<h3 class="font15 text-black">Suzuki Gixxer SF Fi vs Yamaha FZ-S FI: Comparison Test</h3>
+															</div>
+														</a>
+													</li>
+												</ul>
+											</div>
+
+										</div>
+
+
+									</div>
                                 </li>
                                 if (@i == 0)
                                 {
                                 <!-- /ko -->
                                 }
-
                                 i++;
                             }
                         </ul>

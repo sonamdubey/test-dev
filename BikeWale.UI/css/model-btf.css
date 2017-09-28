@@ -1179,12 +1179,6 @@ li.offertxt:hover span {display:inline}
 }
 
 /*explore more card ends here*/
-.expert-review-list {
-    background-color: #fafafa;
-}
-.expert-review-list .h2-heading {
-    padding: 20px 20px 15px;
-}
 @media only screen and (max-width: 1024px) {
     .article-type-carousel.inner-content-carousel .jcarousel li {
         width: 300px !important;
@@ -1206,23 +1200,4 @@ li.offertxt:hover span {display:inline}
 
 .review-list-wrapper .view-all-btn-container {
 	margin-left: 20px;
-}
-
-.article-type-carousel.inner-content-carousel .jcarousel li {
-    height: 240px;
-}
-
-.article-type-carousel img {
-    max-height: 164px;
-    height: auto;
-    max-width: 100%;
-}
-.article-type-carousel .jcarousel-image-preview {
-    height: 164px;
-    text-align: center;
-}
-.article-type-carousel .card-desc-block h3 {
-    padding-top: 10px;
-    font-size: 15px;
-    color: #2a2a2a;
 }
