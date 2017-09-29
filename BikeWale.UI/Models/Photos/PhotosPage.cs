@@ -240,7 +240,7 @@ namespace Bikewale.Models.Photos
 
                     gallery.PrimaryImageOfPage = new ImageObject()
                     {
-                        ThumbnailUrl = Utility.Image.GetPathToShowImages(_objData.ModelImage.OriginalImgPath, _objData.ModelImage.HostUrl, ImageSize._370x208, QualityFactor._75),
+                        ThumbnailUrl = Utility.Image.GetPathToShowImages(_objData.ModelImage.OriginalImgPath, _objData.ModelImage.HostUrl, ImageSize._370x208),
                         ContentUrl = Utility.Image.GetPathToShowImages(_objData.ModelImage.OriginalImgPath, _objData.ModelImage.HostUrl, "0x0"),
                         Caption = _objData.ModelImage.ImageTitle
                     };
@@ -251,8 +251,8 @@ namespace Bikewale.Models.Photos
                     {
                         objImages.Add(new ImageObject()
                         {
-                            ThumbnailUrl = Utility.Image.GetPathToShowImages(_objData.ModelImage.OriginalImgPath, _objData.ModelImage.HostUrl, ImageSize._370x208, QualityFactor._75),
-                            ContentUrl = Utility.Image.GetPathToShowImages(_objData.ModelImage.OriginalImgPath, _objData.ModelImage.HostUrl, "0x0"),
+                            ThumbnailUrl = Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, ImageSize._370x208),
+                            ContentUrl = Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, "0x0"),
                             Caption = _objData.ModelImage.ImageTitle
                         });
                     }
