@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using BikewaleOpr.Cache;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
@@ -114,6 +115,11 @@ namespace BikewaleOpr.BAL
                         UpdatedBy = Convert.ToString(updatedBy)
                     };
                     IsEdited = _seriesRepo.EditSeries(bikeSeries, updatedBy);
+                    if (IsEdited)
+                    {
+                        BwMemCache.ClearModelsBySeriesId(seriesId);
+                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -137,6 +143,10 @@ namespace BikewaleOpr.BAL
                 if (bikeSeriesId > 0)
                 {
                     IsDeleted = _seriesRepo.DeleteSeries(bikeSeriesId, deletedBy);
+                    if (IsDeleted)
+                    {
+                        BwMemCache.ClearModelsBySeriesId(bikeSeriesId);
+                    }
                 }
             }
             catch (Exception ex)
@@ -156,19 +166,23 @@ namespace BikewaleOpr.BAL
         /// <returns></returns>
         public bool DeleteMappingOfModelSeries(uint modelId)
         {
-            bool IsDeleted = false;
+            int seriesId = 0;
             try
             {
                 if (modelId > 0)
                 {
-                    IsDeleted = _seriesRepo.DeleteMappingOfModelSeries(modelId);
+                    seriesId = _seriesRepo.DeleteMappingOfModelSeries(modelId);
+                    if (seriesId != 0)
+                    {
+                        BwMemCache.ClearModelsBySeriesId(Convert.ToUInt32(seriesId));
+                    }
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteMappingOfModelSeries_{0}", modelId));
             }
-            return IsDeleted;
+            return seriesId > 0;
         }
     }
 }
