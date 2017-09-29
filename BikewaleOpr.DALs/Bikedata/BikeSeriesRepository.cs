@@ -205,9 +205,10 @@ namespace BikewaleOpr.DALs.Bikedata
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public bool DeleteMappingOfModelSeries(uint modelId)
+        public int DeleteMappingOfModelSeries(uint modelId)
         {
             int rowsAffected = 0;
+            int seriesId = 0;
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -215,11 +216,15 @@ namespace BikewaleOpr.DALs.Bikedata
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_modelid", modelId);
                     param.Add("par_rowsAffected", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    param.Add("par_seriesId", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
                     connection.Open();
 
                     connection.Execute("deletemappingofmodelseries", param: param, commandType: CommandType.StoredProcedure);
                     rowsAffected = param.Get<int>("par_rowsAffected");
+
+                    if (rowsAffected > 0)
+                        seriesId = param.Get<int>("par_seriesId");
 
                     if (connection.State == ConnectionState.Open)
                     {
@@ -231,7 +236,7 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: DeleteMappingOfModelSeries{0}", modelId));
             }
-            return rowsAffected > 0;
+            return seriesId;
         }
     }
 }
