@@ -241,8 +241,7 @@
     }
     else if (Model.AdTags.ShowInnovationBannerMobile)
     {
-        @* Show innovation banner *@
-        <section>This is Ad</section>
+        Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad320x50_InnovationBanner.cshtml",Model.AdTags);
     }
 
     @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")

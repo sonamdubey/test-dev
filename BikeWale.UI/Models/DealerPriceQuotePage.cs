@@ -122,6 +122,7 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Sep 2017
         /// Description :   To Show Innovation Banner
+        /// Enable the innovation banner only for Desktop
         /// </summary>
         /// <param name="_modelId"></param>
         private void ShowInnovationBanner(DealerPriceQuotePageVM objData, uint _modelId)
@@ -131,7 +132,8 @@ namespace Bikewale.Models
                 if (!String.IsNullOrEmpty
                     (BWConfiguration.Instance.InnovationBannerModels))
                 {
-                    objData.AdTags.ShowInnovationBannerDesktop = objData.AdTags.ShowInnovationBannerMobile = BWConfiguration.Instance.InnovationBannerModels.Split(',').Contains(_modelId.ToString());
+                    objData.AdTags.ShowInnovationBannerDesktop = BWConfiguration.Instance.InnovationBannerModels.Split(',').Contains(_modelId.ToString());
+                    objData.AdTags.InnovationBannerGALabel = String.Format("{0}_{1}", objData.BikeName.Replace(" ", "_"), "PQ_Page");
                 }
             }
             catch (Exception ex)

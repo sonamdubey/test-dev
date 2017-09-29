@@ -187,6 +187,7 @@ namespace Bikewale.Models.BikeModels
                     (BWConfiguration.Instance.InnovationBannerModels))
                 {
                     _objData.AdTags.ShowInnovationBannerDesktop = _objData.AdTags.ShowInnovationBannerMobile = BWConfiguration.Instance.InnovationBannerModels.Split(',').Contains(_modelId.ToString());
+                    _objData.AdTags.InnovationBannerGALabel = _objData.BikeName.Replace(" ", "_");
                 }
             }
             catch (Exception ex)
