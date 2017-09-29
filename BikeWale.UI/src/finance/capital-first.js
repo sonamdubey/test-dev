@@ -437,7 +437,7 @@ function saveEmployeDetails() {
 
 function validateUserName(elem) {
 
-    var nameRegex = /^[a-zA-Z ]{2,255}$/,
+    var nameRegex = /^[a-zA-Z]{2,255}$/,
         value = $(elem)[0].value.trim();
     if (value.length == 0) {
         validate.setError(elem, "Please enter required field");
