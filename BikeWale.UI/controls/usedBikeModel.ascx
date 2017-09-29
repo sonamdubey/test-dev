@@ -24,8 +24,8 @@
                                             <img class="lazy" src="" data-original="<%=Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.UsedOriginalImagePath,bikeDetails.UsedHostUrl,Bikewale.Utility.ImageSize._310x174) %>" alt="<%=string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,cityDetails!=null?cityDetails.CityName:"India") %>">
                                         </div>
                                     </div>
-                                    <div class="card-desc-block">
-                                        <h3 class="bikeTitle"><%=string.Format("{0} {1}",bikeDetails.MakeName,bikeDetails.ModelName)%></h3>
+                                    <div class="card-desc-block text-truncate">
+                                        <h3 class="bikeTitle"><%=string.Format("Used {0} {1}",bikeDetails.MakeName,bikeDetails.ModelName)%></h3>
                                         <p class="text-light-grey margin-bottom5">
                                             <%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.AvailableBikes)) %> Used bikes available
                                         </p>
