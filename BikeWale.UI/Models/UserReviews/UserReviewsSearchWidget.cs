@@ -48,6 +48,8 @@ namespace Bikewale.Models.UserReviews
 
             objData.ObjQuestionValue = _userReviewsCacheRepo.GetReviewQuestionValuesByModel(_modelId);
 
+            objData.ReviewsReadPerSession = Convert.ToUInt32(Utility.BWConfiguration.Instance.UserReviewsReadInSessionCount);
+
             if (objData.UserReviews != null)
             {
                 if (objData.ReviewsInfo == null)

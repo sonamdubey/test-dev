@@ -102,7 +102,8 @@ namespace Bikewale.Utility
             _CoverFoxLink = string.Empty,
             _UserReviewIndexName = string.Empty,
             _OtherBikesInMakeId = string.Empty,
-        _CapitalFirstPincodeIndex = string.Empty;
+        _CapitalFirstPincodeIndex = string.Empty,
+            _UserReviewsReadInSessionCount = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -227,6 +228,7 @@ namespace Bikewale.Utility
             _CarTradeLeadUrl = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadUrl"]);
             _CarTradeLeadApiAction = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadApiAction"]);
             _CarTradeLeadApiCode = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadApiCode"]);
+            _UserReviewsReadInSessionCount = Convert.ToString(ConfigurationManager.AppSettings["UserReviewsReadInSessionCount"]);
         }
 
         // Static method to provide access to instance
@@ -387,5 +389,7 @@ namespace Bikewale.Utility
         public string CarTradeLeadApiCode { get { return _CarTradeLeadApiCode; } }
 
         public string CapitalFirstPinCode { get { return _CapitalFirstPincodeIndex; } }
+
+        public string UserReviewsReadInSessionCount { get { return _UserReviewsReadInSessionCount; } }       
     }   // class
 }   // namespace
