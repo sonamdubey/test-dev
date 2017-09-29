@@ -112,6 +112,7 @@ namespace Bikewale.Utility
         private readonly string _AWSS3Region = String.Empty;
         private readonly uint _GrpcMaxTimeLimit = 100;
         private readonly uint _GrpcPoolSize = 1;
+       private readonly uint _KawasakiCampaignId=19;
         private readonly bool _EnablePWALogging = false;
         private readonly string _StaticUrlPWA;
         private readonly string _StaticAppFileVersion;
@@ -391,5 +392,6 @@ namespace Bikewale.Utility
 
         public string CapitalFirstPinCode { get { return _CapitalFirstPincodeIndex; } }
         public string InnovationBannerModels { get { return _InnovationBannerModels; } }
+        public uint KawasakiCampaignId { get { return _KawasakiCampaignId; } }
     }   // class
 }   // namespace
