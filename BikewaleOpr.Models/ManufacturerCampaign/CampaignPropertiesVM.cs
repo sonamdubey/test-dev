@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace BikewaleOpr.Models.ManufacturerCampaign
 {
@@ -34,6 +29,13 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
         public string FormattedHtmlDesktop { get; set; }
         [AllowHtml]
         public string FormattedHtmlMobile { get; set; }
+
+        [AllowHtml]
+        public string PriceBreakUpLinkHtmlDesktop { get; set; }
+
+        [AllowHtml]
+        public string PriceBreakUpLinkHtmlMobile { get; set; }
+
         public string LeadPriority { get; set; }
     }
 }

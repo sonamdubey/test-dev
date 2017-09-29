@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.ManufacturerCampaign.Entities
 {
@@ -54,6 +51,8 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public string PropertyTextDesktop { get; set; }
         public string HtmlMobile { get; set; }
         public string HtmlDesktop { get; set; }
+        public string PriceBreakUpLinkHtmlMobile { get; set; }
+        public string PriceBreakUpLinkHtmlDesktop { get; set; }
         public string Priority { get; set; }
         public bool EnableProperty { get; set; }
     }

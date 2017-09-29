@@ -3765,6 +3765,9 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad200x253.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad292x359.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad200x216.cshtml" />
+    <Content Include="Views\Price\_PriceBreakupLink.cshtml" />
+    <Content Include="Views\Price\_PriceBreakupLink_Mobile.cshtml" />
+    <Content Include="Views\Price\_PriceInCityPopUp.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

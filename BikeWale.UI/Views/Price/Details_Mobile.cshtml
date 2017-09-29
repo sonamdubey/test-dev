@@ -109,6 +109,14 @@
                         @Html.Raw("<span> &#x20B9;</span>")&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())
                     </td>
                 </tr>
+                @if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakupLinkHtmlMobile))
+                {
+                    <tr class="padding-bottom10">
+                        <td colspan="2" align="right" class="padding-bottom10">
+                            @Html.Partial("~/Views/Price/_PriceBreakupLink_Mobile.cshtml", Model.LeadCampaign)
+                        </td>
+                    </tr>
+                }
                 @if (Model.IsPrimaryDealerAvailable)
                 {
                     <tr class="padding-bottom10">

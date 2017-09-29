@@ -1,0 +1,14 @@
+﻿@model Bikewale.Entities.manufacturecampaign.ManufactureCampaignLeadEntity
+@using Bikewale.Utility
+@if (Model != null)
+{
+
+    try
+    {
+        @Html.Raw(Format.GetRenderedContent(String.Format("LeadCampaign_PriceBreakUpLink_{0}", Model.CampaignId), Model.PriceBreakupLinkHtmlDesktop, Model))
+    }
+    catch (Exception ex)
+    {
+        Bikewale.Notifications.ErrorClass err = new Bikewale.Notifications.ErrorClass(ex, String.Format("PriceBreakupLink.Desktop(CampaignId : {0})", Model.CampaignId));
+    }
+}

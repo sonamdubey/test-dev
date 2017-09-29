@@ -151,7 +151,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_campaignid", campaignId);
                     campaign = new CampaignPropertyEntity();
 
-                    using (var results = connection.QueryMultiple("getmanufacturercampaignproperties", param: param, commandType: CommandType.StoredProcedure))
+                    using (var results = connection.QueryMultiple("getmanufacturercampaignproperties_28092017", param: param, commandType: CommandType.StoredProcedure))
                     {
                         campaign.EMI = results.Read<CampaignEMIPropertyEntity>().SingleOrDefault();
                         if (campaign.EMI == null) { campaign.EMI = new CampaignEMIPropertyEntity(); }
@@ -201,7 +201,9 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_leadPriority", objCampaign.LeadPriority);
                     param.Add("par_leadHtmlMobile", objCampaign.FormattedHtmlMobile);
                     param.Add("par_leadHtmlDesktop", objCampaign.FormattedHtmlDesktop);
-                    connection.Query<dynamic>("savemanufacturercampaignproperties", param: param, commandType: CommandType.StoredProcedure);
+                    param.Add("par_priceBreakupLinkMobile", objCampaign.PriceBreakUpLinkHtmlMobile);
+                    param.Add("par_priceBreakupLinkDesktop", objCampaign.PriceBreakUpLinkHtmlDesktop);
+                    connection.Query<dynamic>("savemanufacturercampaignproperties_28092017", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -477,7 +479,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_modelId", modelId);
                     param.Add("par_cityId", cityId);
                     param.Add("par_pageId", (int)pageId);
-                    using (var results = connection.QueryMultiple("getmanufacturercampaignbymodelcity", param: param, commandType: CommandType.StoredProcedure))
+                    using (var results = connection.QueryMultiple("getmanufacturercampaignbymodelcity_28092017", param: param, commandType: CommandType.StoredProcedure))
                     {
                         config = new Entities.ManufacturerCampaignEntity();
                         config.LeadCampaign = results.Read<ManufacturerCampaignLeadConfiguration>().FirstOrDefault();
