@@ -672,7 +672,7 @@ namespace BikeWaleOpr.Common
 
                     numbersList = objCC.GetAllMaskingNumbers(Convert.ToUInt32(dealerId));
 
-                    if (numbersList != null && numbersList.Count() > 0)
+                    if (numbersList != null && numbersList.Any())
                     {
                         return numbersList;
                     }

@@ -215,7 +215,7 @@ namespace Bikewale.BAL.PriceQuote
                     if (pqEntity.IsCityExists && cityList != null)
                     {
                         var areaList = GetAreaForCityAndModel(modelID, Convert.ToInt16(cityId));
-                        pqEntity.IsAreaExists = (areaList != null && areaList.Count() > 0);
+                        pqEntity.IsAreaExists = (areaList != null && areaList.Any());
                         // If area is provided, check if area exists in list
                         if (areaId > 0)
                         {
@@ -464,7 +464,7 @@ namespace Bikewale.BAL.PriceQuote
                     if (pqEntity.IsCityExists)
                     {
                         var areaList = GetAreaForCityAndModel(modelID, Convert.ToInt16(cityId));
-                        pqEntity.IsAreaExists = (areaList != null && areaList.Count() > 0);
+                        pqEntity.IsAreaExists = (areaList != null && areaList.Any());
                         // If area is provided, check if area exists in list
                         if (areaId > 0)
                         {

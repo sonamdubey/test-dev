@@ -19,7 +19,7 @@ namespace Bikewale.Entities.BikeData
         public uint Id { get; set; }
         public uint ModelId { get; set; }
         public string ColorName { get; set; }
-        public string HexCode { get { if (HexCodes != null && HexCodes.Count() > 0) { return HexCodes.FirstOrDefault(); } return ""; } }
+        public string HexCode { get { if (HexCodes != null && HexCodes.Any()) { return HexCodes.FirstOrDefault(); } return ""; } }
         public IEnumerable<string> HexCodes { get; set; }
         public UInt32 ColorImageId { get; set; }
     }

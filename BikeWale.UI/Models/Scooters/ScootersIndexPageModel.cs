@@ -121,7 +121,7 @@ namespace Bikewale.Models
                 objCompare.CityId = CityId;
                 objCompare.IsScooter = true;
                 objVM.ComparePopularScooters = objCompare.GetData();
-                objVM.HasComparison = (objVM.ComparePopularScooters != null && objVM.ComparePopularScooters.CompareBikes != null && objVM.ComparePopularScooters.CompareBikes.Count() > 0);
+                objVM.HasComparison = (objVM.ComparePopularScooters != null && objVM.ComparePopularScooters.CompareBikes != null && objVM.ComparePopularScooters.CompareBikes.Any());
                 objVM.ComparePopularScooters.CompareSource = CompareSource;
             }
             catch(Exception ex)

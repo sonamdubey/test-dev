@@ -69,7 +69,7 @@ namespace BikewaleOpr.BAL.BikePricing
             {
                 dealerPriceBase = _dealerPriceRepository.GetDealerPrices(cityId, makeId, dealerId);
 
-                if (dealerPriceBase != null && dealerPriceBase.DealerVersions != null && dealerPriceBase.VersionPrices.Count() > 0)
+                if (dealerPriceBase != null && dealerPriceBase.DealerVersions != null && dealerPriceBase.VersionPrices.Any())
                 {
                     ICollection<VersionPriceEntity> partialNullCategories = new List<VersionPriceEntity>();
 
@@ -94,7 +94,7 @@ namespace BikewaleOpr.BAL.BikePricing
                             VersionName = model.VersionName,
                             ModelName = model.ModelName,
                             VersionId = model.VersionId,
-                            Categories = categories != null && categories.Count() > 0 ? categories : partialNullCategories,
+                            Categories = categories != null && categories.Any() ? categories : partialNullCategories,
                             NumberOfDays = model.NumberOfDays,
                             BikeModelId = model.BikeModelId
                         }
@@ -202,7 +202,7 @@ namespace BikewaleOpr.BAL.BikePricing
             try
             {
 
-                if (itemIds != null && itemValues != null && itemValues.Count() > 0 && itemIds.Count() > 0)
+                if (itemIds != null && itemValues != null && itemValues.Any() && itemIds.Any())
                 {
                     itemIdsString = string.Join<uint>(",", itemIds);
                     itemValuesString = string.Join<uint>(",", itemValues);
@@ -246,7 +246,7 @@ namespace BikewaleOpr.BAL.BikePricing
 
             try
             {
-                if (itemIds != null && itemValues != null && itemValues.Count() > 0 && itemIds.Count() > 0)
+                if (itemIds != null && itemValues != null && itemValues.Any() && itemIds.Any())
                 {
                     itemIdsString = string.Join<uint>(",", itemIds);
                     itemValuesString = string.Join<uint>(",", itemValues);

@@ -87,7 +87,7 @@ namespace Bikewale.Controls
 
                     objSimilarBikes = objVersion.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), Convert.ToUInt32(cityid));
 
-                    if (objSimilarBikes.Count() > 0)
+                    if (objSimilarBikes.Any())
                     {
                         rptSimilarBikes.DataSource = objSimilarBikes;
                         rptSimilarBikes.DataBind();

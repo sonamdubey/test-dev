@@ -81,7 +81,7 @@ namespace Bikewale.Controls
 
                     prices = objCache.FetchPriceQuoteOfTopCitiesCache(ModelId, TopCount);
 
-                    if (prices != null && prices.Count() > 0)
+                    if (prices != null && prices.Any())
                     {
                         rptTopCityPrices.DataSource = prices;
                         rptTopCityPrices.DataBind();

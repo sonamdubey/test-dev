@@ -61,7 +61,7 @@ namespace Bikewale.Controls
 
                     IEnumerable<NewLaunchedBikeEntity> objList = objModel.GetNewLaunchedBikesList(startIndex, endIndex).Models;
 
-                    if (objList != null && objList.Count() > 0)
+                    if (objList != null && objList.Any())
                     {
                         rptLaunchedBikes.DataSource = objList;
                         rptLaunchedBikes.DataBind();

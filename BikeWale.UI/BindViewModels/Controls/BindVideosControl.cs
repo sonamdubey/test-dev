@@ -39,7 +39,7 @@ namespace Bikewale.BindViewModels.Controls
             {
                 objVideosList = GetVideosFromCWAPI();
 
-                if (objVideosList != null && objVideosList.Count() > 0)
+                if (objVideosList != null && objVideosList.Any())
                 {
                     FetchedRecordsCount = objVideosList.Count();
 

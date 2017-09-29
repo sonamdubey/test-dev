@@ -105,7 +105,7 @@ namespace Bikewale.Utility
                                 try
                                 {
                                     var selected = priceList.Where(p => p.CategoryName.ToLower().Contains(displayText.ToLower()));
-                                    if (selected != null && selected.Count() > 0)
+                                    if (selected != null && selected.Any())
                                     {
                                         calcOfferVal = selected.First().Price;
                                         priceItem.Price = calcOfferVal;
@@ -158,7 +158,7 @@ namespace Bikewale.Utility
                                 try
                                 {
                                     var selected = priceList.Where(p => p.CategoryName.ToLower().Contains(displayText.ToLower()));
-                                    if (selected != null && selected.Count() > 0)
+                                    if (selected != null && selected.Any())
                                     {
                                         calcOfferVal = selected.First().Price;
                                         priceItem.Price = calcOfferVal;

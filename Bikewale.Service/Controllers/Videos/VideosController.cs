@@ -173,7 +173,7 @@ namespace Bikewale.Service.Videos.Controllers
                 {
                     var objVideosList = GetVideosByModelIdViaGrpc(pageNo, pageSize, modelId);
 
-                    if (objVideosList != null && objVideosList.Videos != null && objVideosList.Videos.Count() > 0)
+                    if (objVideosList != null && objVideosList.Videos != null && objVideosList.Videos.Any())
                     {
                         return Ok(objVideosList);
                     }

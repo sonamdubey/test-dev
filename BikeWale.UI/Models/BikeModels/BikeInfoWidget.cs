@@ -6,7 +6,6 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 namespace Bikewale.Models
 {
@@ -57,7 +56,7 @@ namespace Bikewale.Models
                 {
                     var objCityList = _cityCacheRepo.GetAllCities(EnumBikeType.All);
                     objVM.CityDetails = objCityList.FirstOrDefault(c => c.CityId == _cityId);
-                   
+
                 }
                 if (objVM.BikeInfo != null)
                 {
@@ -86,10 +85,10 @@ namespace Bikewale.Models
         /// <returns></returns>
         private ICollection<BikeInfoTab> BindInfoWidgetDatas(GenericBikeInfo _genericBikeInfo, CityEntityBase cityDetails, uint totalTabCount, BikeInfoTabType pageId)
         {
-            ICollection<BikeInfoTab> tabs = null;
+            IList<BikeInfoTab> tabs = null;
             try
             {
-                tabs = new Collection<BikeInfoTab>();
+                tabs = new List<BikeInfoTab>();
                 if (_genericBikeInfo != null)
                 {
                     if (_genericBikeInfo.ExpertReviewsCount > 0)
@@ -165,7 +164,7 @@ namespace Bikewale.Models
                         });
                     }
                 }
-                if (tabs.Count() > 0)
+                if (tabs.Any())
                 {
                     tabs = tabs.Where(m => (m.Count > 0 || m.IsVisible) && pageId != m.Tab).OrderBy(m => m.Tab).Take((int)totalTabCount).ToList();
                 }

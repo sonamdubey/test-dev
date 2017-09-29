@@ -53,7 +53,7 @@ namespace Bikewale.Service.Controllers.Dealer
             {
                 objDealers = _dealer.GetNewBikeDealersList(makeId, cityId, clientId);
 
-                if (objDealers != null && objDealers.Count() > 0)
+                if (objDealers != null && objDealers.Any())
                 {
                     objDTODealerList = new NewBikeDealerList();
                     objDTODealerList.Dealers = DealerListMapper.Convert(objDealers);
@@ -94,7 +94,7 @@ namespace Bikewale.Service.Controllers.Dealer
                     DealersEntity _dealers = null;
                     _dealers = _dealer.GetDealerByMakeCity(cityId, makeId);
 
-                    if (_dealers != null && _dealers.Dealers.Count() > 0)
+                    if (_dealers != null && _dealers.Dealers.Any())
                     {
                         dealers = new DTO.Dealer.v2.NewBikeDealerList();
                         dealers.Dealers = DealerListMapper.ConvertV2(_dealers.Dealers);

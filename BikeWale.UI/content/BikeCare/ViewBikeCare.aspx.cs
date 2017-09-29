@@ -110,7 +110,7 @@ namespace Bikewale.Content
             try
             {
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                if (objImg != null && objImg.Count() > 0)
+                if (objImg != null && objImg.Any())
                 {
                     ctrPhotoGallery.BasicId = Convert.ToInt32(basicId);
                     ctrPhotoGallery.ModelImageList = objImg;

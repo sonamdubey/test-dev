@@ -210,7 +210,7 @@ namespace Bikewale.DAL.Compare
                         }
                     }
 
-                    if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Count() > 0)
+                    if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Any())
                     {
                         foreach (var mColor in compare.Color)
                         {

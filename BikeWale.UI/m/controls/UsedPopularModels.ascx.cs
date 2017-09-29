@@ -58,7 +58,7 @@ namespace Bikewale.Mobile.Controls
                     UsedBikeModelInCityList = objUsedBikeModelCity.GetPopularUsedModelsByMake(MakeId, TopCount);
                     CityName = "India";
                 }
-                if (UsedBikeModelInCityList != null && UsedBikeModelInCityList.Count() > 0)
+                if (UsedBikeModelInCityList != null && UsedBikeModelInCityList.Any())
                     FetchedRecordsCount = UsedBikeModelInCityList.Count();
             }
             catch (Exception ex)
