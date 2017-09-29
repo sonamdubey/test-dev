@@ -2914,8 +2914,8 @@
     <Content Include="m\src\dealer\landing.js" />
     <Content Include="m\src\dealer\listing.js" />
     <Content Include="m\src\new-launch.js" />
-    <Content Include="m\src\photos.js" />
-    <Content Include="m\src\photos\gallery.js" />
+    <Content Include="m\src\photos\photos.js" />
+    <Content Include="m\src\photos\modelgallery.js" />
     <Content Include="m\src\priceincity.js" />
     <Content Include="m\src\scooters-by-make.js" />
     <Content Include="m\src\sell-bike.js" />
@@ -3086,7 +3086,7 @@
     <Content Include="src\dealer\landing.js" />
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
-    <Content Include="src\photos.js" />
+    <Content Include="src\photos\photos.js" />
     <Content Include="src\photos\modelgallery.js" />
     <Content Include="src\priceincity.js" />
     <Content Include="src\scooters.js" />
