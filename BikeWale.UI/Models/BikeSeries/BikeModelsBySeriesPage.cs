@@ -1,4 +1,5 @@
-﻿using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Entities.Pages;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using System;
 

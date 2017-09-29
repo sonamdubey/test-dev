@@ -5,11 +5,12 @@ using Bikewale.Notifications;
 using System.Data;
 using Bikewale.DAL.CoreDAL;
 using Dapper;
+using Bikewale.Entities.Images;
 
 namespace Bikewale.DAL.BikeData
 {
     /// <summary>
-    /// Created by : Vivek Singh Tomar on 27th Sep 2017
+    /// Created by : Ashutosh Sharma on 28th Sep 2017
     /// Summary : DAL for bike series
     /// </summary>
     public class BikeSeriesRepository : IBikeSeriesRepository
@@ -19,12 +20,38 @@ namespace Bikewale.DAL.BikeData
             BikeSeriesModels objBikeSeriesModels = null;
             try
             {
-                using(IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
-                    var param = new DynamicParameters();
+                    DynamicParameters param = new DynamicParameters();
                     param.Add("par_seriesId", seriesId);
-                    connection.Open();
-                    if(connection.State == ConnectionState.Open)
+                    var reader = connection.QueryMultiple("getmodelsbyseriesid", param: param, commandType: CommandType.StoredProcedure);
+                    if (reader != null)
+                    {
+                        objBikeSeriesModels = new BikeSeriesModels();
+                        objBikeSeriesModels.NewBikes = reader.Read<BikeMakeBase, BikeModelEntityBase, ImageEntityBase, MinSpecsEntity,  NewBikeEntityBase>(
+                            (bikeMakeBase, bikeModelEntityBase, imageEntityBase, minSpecsEntity) => 
+                            {
+                                NewBikeEntityBase newBikeEntityBase = new NewBikeEntityBase()
+                                {
+                                    BikeMake = bikeMakeBase,
+                                    BikeModel = bikeModelEntityBase,
+                                    BikeImage = imageEntityBase,
+                                    MinSpecs =  minSpecsEntity
+                                };
+                                return newBikeEntityBase;
+                            }, splitOn: "ModelId, HostURL, Displacement"
+                            );
+                        objBikeSeriesModels.UpcomingBikes = reader.Read<UpcomingBikeEntityBase, BikeMakeBase, BikeModelEntityBase, ImageEntityBase, UpcomingBikeEntityBase>(
+                                (upcomingBikeEntityBase, bikeMakeBase, bikeModelEntityBase, imageEntityBase) => 
+                                {
+                                    upcomingBikeEntityBase.BikeMake = bikeMakeBase;
+                                    upcomingBikeEntityBase.BikeModel = bikeModelEntityBase;
+                                    upcomingBikeEntityBase.BikeImage = imageEntityBase;
+                                    return upcomingBikeEntityBase;
+                                }, splitOn: "MakeId, ModelId, HostURL"
+                            );
+                    }
+                    if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }

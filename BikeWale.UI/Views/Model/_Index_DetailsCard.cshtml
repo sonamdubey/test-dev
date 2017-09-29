@@ -1,10 +1,10 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 <div class="grid-12">
-    @if (Model.ModelsBySeries != null)
+    @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
     {
-        <div class="card-bottom-margin">
+        <div id="modelsBySeriesWidget" class="card-bottom-margin bw-ga" c="@Model.ModelsBySeries.Page" a="Series_WidgetShown" l="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
             <h2 class="horizontal-swiper__title">Other @Model.ModelPageEntity.ModelDetails.ModelName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter)?"Scooters":"Bikes") you might be interested in:</h2>
-            @Html.Partial("~Views/BikeSeries/_BikeModelsBySeries.cshtml", Model.ModelsBySeries)
+            @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries.cshtml", Model.ModelsBySeries)
         </div>
     }
     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null && Model.ModelPageEntity.ModelColors.Count() > 0)

@@ -363,5 +363,48 @@ namespace Bikewale.Utility
             }
             return showValue;
         }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 29th Sep 2017
+        /// Summary : Get min specs as text without html tags
+        /// </summary>
+        /// <param name="displacement"></param>
+        /// <param name="fuelEffecient"></param>
+        /// <param name="maxpower"></param>
+        /// <param name="weight"></param>
+        /// <returns></returns>
+        public static string GetMinSpecsAsText(string displacement, string fuelEffecient, string maxpower, string weight)
+        {
+            string str = String.Empty;
+            try
+            {
+                if (!string.IsNullOrEmpty(displacement) && displacement != "0")
+                    str = string.Format("{0}, {1} cc", str, displacement);
+
+                if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
+                    str = string.Format("{0}, {1} kmpl", str, fuelEffecient);
+
+
+                if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
+                    str = string.Format("{0}, {1} bhp", str, maxpower);
+
+                if (!string.IsNullOrEmpty(weight) && weight != "0")
+                    str = string.Format("{0}, {1} kgs", str, weight);
+
+                if (!string.IsNullOrEmpty(str))
+                {
+                    return str.Substring(1);
+                }
+                else
+                {
+                    return "Specs Unavailable";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

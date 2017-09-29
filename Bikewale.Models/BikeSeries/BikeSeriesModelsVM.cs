@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Pages;
 
 namespace Bikewale.Models.BikeSeries
 {
@@ -9,5 +10,11 @@ namespace Bikewale.Models.BikeSeries
     public class BikeSeriesModelsVM
     {
         public BikeSeriesModels SeriesModels { get; set; }
+        public GAPages Page { get; set; }
+        public bool IsNewAvailable { get; set; }
+        public bool IsUpcomingAvailable { get; set; }
+        public BikeMakeBase MakeBase { get; set; }
+        public BikeModelEntityBase ModelBase { get; set; }
+        public BikeSeriesEntityBase SeriesBase { get; set; }
     }
 }

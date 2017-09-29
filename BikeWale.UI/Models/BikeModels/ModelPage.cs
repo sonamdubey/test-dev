@@ -91,7 +91,7 @@ namespace Bikewale.Models.BikeModels
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         public string CurrentPageUrl { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -112,6 +112,7 @@ namespace Bikewale.Models.BikeModels
             _objManufacturerCampaign = objManufacturerCampaign;
             _userReviewsSearch = userReviewsSearch;
             _userReviewsCache = userReviewsCache;
+            _bikeSeries = bikeSeries;
             ParseQueryString(modelMasking);
         }
 
@@ -1573,6 +1574,13 @@ namespace Bikewale.Models.BikeModels
                 {
                     BikeModelsBySeriesPage objModelsBySeries = new BikeModelsBySeriesPage(_bikeSeries);
                     objData.ModelsBySeries = objModelsBySeries.GetData(_modelId, objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId);
+                    if(objData.ModelsBySeries != null && objData.ModelsBySeries.SeriesModels != null)
+                    {
+                        objData.ModelsBySeries.IsNewAvailable = objData.ModelsBySeries.SeriesModels.NewBikes != null && objData.ModelsBySeries.SeriesModels.NewBikes.Any();
+                        objData.ModelsBySeries.IsUpcomingAvailable = objData.ModelsBySeries.SeriesModels.UpcomingBikes != null && objData.ModelsBySeries.SeriesModels.UpcomingBikes.Any();
+                        objData.ModelsBySeries.Page = GAPages.Model_Page;
+                        objData.ModelsBySeries.SeriesBase = objData.ModelPageEntity.ModelDetails.ModelSeries;
+                    }
                 }
             }
             catch (Exception ex)
