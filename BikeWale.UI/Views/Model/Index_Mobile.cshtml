@@ -2,7 +2,7 @@
 @{
 
 
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-model-atf.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-model-atf.css' inline />";
     Model.Page_BTF_CSS_Path = "/m/css/bwm-model-btf.css";
     Model.Page_JS_Path = "/m/src/bwm-model.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Model";
@@ -11,6 +11,7 @@
     Model.AdTags.Ad320x100ATF = true;
     Model.AdTags.Ad320x100BTF = true;
     Model.AdTags.Ad_320x400_Middle = true;
+    Model.AdTags.Ad_200x253 = true;
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 
@@ -51,4 +52,6 @@
         var photosCount = @(Model.AreModelPhotosAvailable ? Model.ModelPageEntity.AllPhotos.Count() - 10 : 0);
         var leadSourceId,  versionName = "@Model.VersionName", getCityArea;
     </script>
+    
 </div>
+<script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>

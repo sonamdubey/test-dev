@@ -578,7 +578,11 @@ namespace Bikewale.Models
                             PincodeRequired = campaigns.EMICampaign.PincodeRequired,
                             PopupDescription = campaigns.EMICampaign.PopupDescription,
                             PopupHeading = campaigns.EMICampaign.PopupHeading,
-                            PopupSuccessMessage = campaigns.EMICampaign.PopupSuccessMessage
+                            PopupSuccessMessage = campaigns.EMICampaign.PopupSuccessMessage,
+                            VersionId = objData.VersionId,
+                            CurrentPageUrl = CurrentPageUrl,
+                            PlatformId = (ushort)Platform,
+                            LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8)
                         };
                         objData.IsManufacturerEMIAdShown = true;
                     }

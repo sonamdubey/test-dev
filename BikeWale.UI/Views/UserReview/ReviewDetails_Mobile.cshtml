@@ -2,7 +2,7 @@
 @using Bikewale.Entities.UserReviews;
 @using Bikewale.Utility;
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/listing.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/user-review/listing.css' inline />";
     Model.Page_JS_Path = "/m/src/user-review/listing.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_UserReviews";
@@ -100,7 +100,7 @@
                     <button type="button" class="feedback-button" id="upvoteButton" onclick="upVoteReview()">
                         <span class="bwmsprite like-sm"></span>
                         Yes
-                        (<span id="upvoteText" class="btn-count review-btn">@Format.FormatNumbers(Model.UserReviewDetailsObj.UpVotes)</span>)
+                        (<span id="upvoteCount" class="btn-count review-btn">@Format.FormatNumbers(Model.UserReviewDetailsObj.UpVotes)</span>)
                     </button>
 
 

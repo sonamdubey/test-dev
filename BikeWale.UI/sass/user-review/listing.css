@@ -241,6 +241,16 @@
 .border-grey-bottom {
   border-bottom: 1px solid #eee; }
 
+.rating-parameters-content {
+  margin-top: 20px;
+  padding-right: 10px;
+  padding-left: 10px; }
+
+.rating-circle-list-title {
+  font-size: 14px;
+  padding-top: 15px;
+  border-top: 1px solid #eee; }
+
 .user-review-list {
   padding-right: 20px;
   padding-left: 20px;

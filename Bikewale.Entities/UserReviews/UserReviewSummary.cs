@@ -23,6 +23,7 @@ namespace Bikewale.Entities.UserReviews
         public uint ReviewId { get; set; }
         public UserReviewOverallRating OverallRating { get; set; }
         public string Description { get; set; }
+        public string SanitizedDescription { get; set; }
         public string ShortDescription { get; set; }
         public string Title { get; set; }
         public string TipsDescriptionSmall { get; set; }

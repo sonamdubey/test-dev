@@ -2,7 +2,7 @@
 @using Bikewale.Utility;
 @using Bikewale.Entities.UserReviews;
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/listing.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/user-review/listing.css' inline />";
     Model.Page_JS_Path = "/m/src/user-review/listing.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_UserReviews";
     Model.AdTags.AdId = "1493795506249";
@@ -32,75 +32,97 @@
 </section>
 
 <section>
-    <div class="container content-box-shadow card-bottom-margin content-inner-block-20">
-        <div class="grid-5-inline padding-right15">
-            <div class="overall-rating-box text-center">
-                <div class="table-cell">
-                    <p class="font12 text-default margin-bottom10">Overall rating:</p>
-                    <div class="margin-bottom10 rate-count-@Math.Round(Model.RatingsInfo.OverallRating)">
-                        <span class="bwmsprite star-icon"></span>
-                        <span class="font26 text-bold inline-block">@Model.RatingsInfo.OverallRating.ToString("0.0").TrimEnd('0', '.')</span>
-                    </div>
-                    <div class="font12 text-slate-grey border-light-top padding-top10">
-                        @if (Model.IsRatingsAvailable)
-                        {
-                            <p class="margin-bottom5">@Model.RatingsInfo.TotalRatings @(Model.RatingsInfo.TotalRatings > 1 ? "ratings" : "rating")</p>
-                        }
-                        @if (Model.IsReviewsAvailable)
-                        {
-                            <p>@Model.RatingsInfo.TotalReviews @(Model.RatingsInfo.TotalReviews > 1 ? "reviews" : "review")</p>
-                        }
+    <div class="container content-box-shadow card-bottom-margin">
+		<div class="content-inner-block-20">
+			<div class="grid-5-inline padding-right15">
+				<div class="overall-rating-box text-center">
+					<div class="table-cell">
+						<p class="font12 text-default margin-bottom10">Overall rating:</p>
+						<div class="margin-bottom10 rate-count-@Math.Round(Model.RatingsInfo.OverallRating)">
+							<span class="bwmsprite star-icon"></span>
+							<span class="font26 text-bold inline-block">@Model.RatingsInfo.OverallRating.ToString("0.0").TrimEnd('0', '.')</span>
+						</div>
+						<div class="font12 text-slate-grey border-light-top padding-top10">
+							@if (Model.IsRatingsAvailable)
+							{
+								<p class="margin-bottom5">@Model.RatingsInfo.TotalRatings @(Model.RatingsInfo.TotalRatings > 1 ? "ratings" : "rating")</p>
+							}
+							@if (Model.IsReviewsAvailable)
+							{
+								<p>@Model.RatingsInfo.TotalReviews @(Model.RatingsInfo.TotalReviews > 1 ? "reviews" : "review")</p>
+							}
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="grid-7-inline">
-            <ul class="horizontal-rating-graph margin-neg5">
-                <li>
-                    <span class="bwmsprite star-0"></span>
-                    <span class="star-label">&nbsp;5&nbsp;</span>
-                    <span class="graph-bar-bg">
-                        <span style="width: @(Model.RatingsInfo.FiveStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-5"></span>
-                    </span>
-                    <span class="graph-bar-count">@Model.RatingsInfo.FiveStarRatings</span>
-                </li>
-                <li>
-                    <span class="bwmsprite star-0"></span>
-                    <span class="star-label">&nbsp;4&nbsp;</span>
-                    <span class="graph-bar-bg">
-                        <span style="width: @(Model.RatingsInfo.FourStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-4"></span>
-                    </span>
-                    <span class="graph-bar-count">@Model.RatingsInfo.FourStarRatings</span>
-                </li>
-                <li>
-                    <span class="bwmsprite star-0"></span>
-                    <span class="star-label">&nbsp;3&nbsp;</span>
-                    <span class="graph-bar-bg">
-                        <span style="width: @(Model.RatingsInfo.ThreeStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-3"></span>
-                    </span>
-                    <span class="graph-bar-count">@Model.RatingsInfo.ThreeStarRatings</span>
-                </li>
-                <li>
-                    <span class="bwmsprite star-0"></span>
-                    <span class="star-label">&nbsp;2&nbsp;</span>
-                    <span class="graph-bar-bg">
-                        <span style="width: @(Model.RatingsInfo.TwoStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-2"></span>
-                    </span>
-                    <span class="graph-bar-count">@Model.RatingsInfo.TwoStarRatings</span>
-                </li>
-                <li>
-                    <span class="bwmsprite star-0"></span>
-                    <span class="star-label">&nbsp;1&nbsp;</span>
-                    <span class="graph-bar-bg">
-                        <span style="width: @(Model.RatingsInfo.OneStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-1"></span>
-                    </span>
-                    <span class="graph-bar-count">@Model.RatingsInfo.OneStarRatings</span>
-                </li>
-            </ul>
-        </div>
-        <div class="clear"></div>
-    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="grid-7-inline">
+				<ul class="horizontal-rating-graph margin-neg5">
+					<li>
+						<span class="bwmsprite star-0"></span>
+						<span class="star-label">&nbsp;5&nbsp;</span>
+						<span class="graph-bar-bg">
+							<span style="width: @(Model.RatingsInfo.FiveStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-5"></span>
+						</span>
+						<span class="graph-bar-count">@Model.RatingsInfo.FiveStarRatings</span>
+					</li>
+					<li>
+						<span class="bwmsprite star-0"></span>
+						<span class="star-label">&nbsp;4&nbsp;</span>
+						<span class="graph-bar-bg">
+							<span style="width: @(Model.RatingsInfo.FourStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-4"></span>
+						</span>
+						<span class="graph-bar-count">@Model.RatingsInfo.FourStarRatings</span>
+					</li>
+					<li>
+						<span class="bwmsprite star-0"></span>
+						<span class="star-label">&nbsp;3&nbsp;</span>
+						<span class="graph-bar-bg">
+							<span style="width: @(Model.RatingsInfo.ThreeStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-3"></span>
+						</span>
+						<span class="graph-bar-count">@Model.RatingsInfo.ThreeStarRatings</span>
+					</li>
+					<li>
+						<span class="bwmsprite star-0"></span>
+						<span class="star-label">&nbsp;2&nbsp;</span>
+						<span class="graph-bar-bg">
+							<span style="width: @(Model.RatingsInfo.TwoStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-2"></span>
+						</span>
+						<span class="graph-bar-count">@Model.RatingsInfo.TwoStarRatings</span>
+					</li>
+					<li>
+						<span class="bwmsprite star-0"></span>
+						<span class="star-label">&nbsp;1&nbsp;</span>
+						<span class="graph-bar-bg">
+							<span style="width: @(Model.RatingsInfo.OneStarRatings * 100 / Model.RatingsInfo.MaximumRatings)%" class="rating-bar bg-rate-1"></span>
+						</span>
+						<span class="graph-bar-count">@Model.RatingsInfo.OneStarRatings</span>
+					</li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</div>
+        @if (Model.ObjQuestionValue != null && Model.ObjQuestionValue.QuestionsList.Any())
+        {
+		<div class="rating-parameters-content">
+			<p class="rating-circle-list-title">Rating Parameters:</p>
+			<div class="rating-overflow-container">
+				<ul class="rating-circle-list">
+					@foreach (QuestionRatingsValueEntity ques in Model.ObjQuestionValue.QuestionsList)
+					{
+					<li>
+						<div class="rating-circle circle-rate-@Math.Floor(ques.AverageRatingValue)">
+							<p class="circle-label">@ques.AverageRatingValue.ToString("0.0")</p>
+							<span class="rating-progress"></span>
+						</div>
+						<p class="list-item-label">@ques.QuestionHeading</p>
+					</li>    
+					}
+				</ul>
+			</div>
+		</div>
+        }
+    </div>    
 </section>
 
 <section>
@@ -109,7 +131,7 @@
         <div class="border-solid-bottom padding-bottom15 margin-bottom15">
             <div class="trophy-icon-wrapper">
                 <span class="trophy-white-26"></span>
-            </div><p class="contest-slug__label">Write a review and stand a chance to win Amazon vouchers worth &#x20B9;1000</p>
+            </div><p class="contest-slug__label">Write a review and stand a chance to win Amazon vouchers worth &#x20B9;2000</p>
         </div>
         <p class="font14 text-black inline-block line-height25">Rate this bike now</p>
         <div class="answer-star-list inline-block text-right">

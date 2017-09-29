@@ -3,9 +3,8 @@
 @using Bikewale.Utility;
 @if (Model != null && Model.Bikes != null && Model.Bikes.Count() > 0)
 {
-    <div class="swiper-container card-container swiper-type-similar">
-        <div class="swiper-wrapper">
-            @foreach (var bike in Model.Bikes)
+    
+            foreach (var bike in Model.Bikes)
             {
                 string make = bike.MakeBase.MakeName, modelName = bike.ModelBase.ModelName;
                 var bikeUrl = String.Format("/m{0}", UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName));
@@ -79,7 +78,5 @@
                     </a>
                 </div>
             </div>
-        </div>
-    </div>
-
+      
 }

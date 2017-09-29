@@ -111,39 +111,46 @@ namespace Bikewale.Models
         {
             try
             {
-                bool fetchSponsoredComparison = IsMobile ? bikeComparisions <= _maxComparisons : bikeComparisions < _maxComparisons;
-
-                if (fetchSponsoredComparison)
+                if (_versionsList.Split(',').Count() > 1)
                 {
-                    var SponsoredBike = _objSponsored.GetSponsoredVersion(_versionsList);
+                    bool fetchSponsoredComparison = IsMobile ? bikeComparisions <= _maxComparisons : bikeComparisions < _maxComparisons;
 
-                    if (SponsoredBike != null)
+                    if (fetchSponsoredComparison)
                     {
-                        obj.sponsoredVersionId = _sponsoredBikeVersionId > 0 ? _sponsoredBikeVersionId : SponsoredBike.SponsoredVersionId;
-                        obj.KnowMoreLinkUrl = SponsoredBike.LinkUrl;
-                        obj.KnowMoreLinkText = !String.IsNullOrEmpty(SponsoredBike.LinkText) ? SponsoredBike.LinkText : "Know more";
+                        var SponsoredBike = _objSponsored.GetSponsoredVersion(_versionsList);
+
+                        if (SponsoredBike != null)
+                        {
+                            obj.sponsoredVersionId = _sponsoredBikeVersionId > 0 ? _sponsoredBikeVersionId : SponsoredBike.SponsoredVersionId;
+                            obj.KnowMoreLinkUrl = SponsoredBike.LinkUrl;
+                            obj.KnowMoreLinkText = !String.IsNullOrEmpty(SponsoredBike.LinkText) ? SponsoredBike.LinkText : "Know more";
+                        }
+
+                        if (obj.sponsoredVersionId > 0)
+                        {
+                            _versionsList = string.Format("{0},{1}", _versionsList, obj.sponsoredVersionId);
+                        }
                     }
 
-                    if (obj.sponsoredVersionId > 0)
+                    obj.Compare = _objCompareCache.DoCompare(_versionsList, _cityId);
+
+                    if (obj.Compare != null && obj.Compare.BasicInfo != null)
                     {
-                        _versionsList = string.Format("{0},{1}", _versionsList, obj.sponsoredVersionId);
+                        CreateCanonicalUrlAndCheckRedirection(obj);
+                        if (status != StatusCodes.RedirectPermanent)
+                        {
+                            GetComparisionTextAndMetas(obj);
+                            obj.isUsedBikePresent = obj.Compare.BasicInfo.FirstOrDefault(x => x.UsedBikeCount.BikeCount > 0) != null;
+                        }
+
                     }
+
+                    obj.PQSourceId = PQSourceEnum.Desktop_CompareBike;
                 }
-
-                obj.Compare = _objCompareCache.DoCompare(_versionsList, _cityId);
-
-                if (obj.Compare != null && obj.Compare.BasicInfo != null)
+                else
                 {
-                    CreateCanonicalUrlAndCheckRedirection(obj);
-                    if (status != StatusCodes.RedirectPermanent)
-                    {
-                        GetComparisionTextAndMetas(obj);
-                        obj.isUsedBikePresent = obj.Compare.BasicInfo.FirstOrDefault(x => x.UsedBikeCount.BikeCount > 0) != null;
-                    }
-
+                    status = StatusCodes.ContentNotFound;
                 }
-
-                obj.PQSourceId = PQSourceEnum.Desktop_CompareBike;
             }
             catch (Exception ex)
             {
@@ -372,7 +379,7 @@ namespace Bikewale.Models
                     ModelMaskingResponse objResponse = null;
                     ModelMapping objCache = new ModelMapping();
 
-                    for (ushort iTmp = 0; iTmp < _maxComparisons; iTmp++)
+                    for (ushort iTmp = 0; iTmp < models.Length; iTmp++)
                     {
                         string modelMaskingName = models[iTmp];
                         if (!string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)

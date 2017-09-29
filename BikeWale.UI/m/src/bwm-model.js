@@ -92,7 +92,15 @@ var appendState = function (state) {
 };
 
 docReady(function () {
+    // ad blocker active than fallback method
+    if (window.canRunAds === undefined) {
+        callFallBackWriteReview();
+    }
 
+    function callFallBackWriteReview() {
+        $('#adBlocker').show();
+        $('.sponsored-card').hide();
+    };
     dealersPopupDiv = $('#more-dealers-popup'),
     dealerOffersDiv = $('#dealer-offers-popup'),
     termsConditions = $('#termsPopUpContainer');
@@ -368,14 +376,11 @@ docReady(function () {
         resizeWidth: function (newWidth) {
             $('.dropdown-select-wrapper').find('.dropdown-list-wrapper').css('width', newWidth / 2);
         }
-    };   
+    };
 
     reg = new RegExp('^[0-9]*$');
 
     vmUserReviews = new modelUserReviews();
-
-    if($("#reviewsContent")[0])
-        ko.applyBindings(vmUserReviews, $("#reviewsContent")[0]);
 });
 
 docReady(function () {
@@ -388,10 +393,10 @@ docReady(function () {
         spaceBetween: 0,
         direction: 'horizontal',
         nextButton: '.gallery-type-next',
-		prevButton: '.gallery-type-prev',
-		preloadImages: false,
-		lazyLoading: true,
-		lazyLoadingInPrevNext: true,
+        prevButton: '.gallery-type-prev',
+        preloadImages: false,
+        lazyLoading: true,
+        lazyLoadingInPrevNext: true,
         onSlideChangeEnd: function (swiper) {
             if (userEventSource) {
                 if (swiper.activeIndex < swiper.previousIndex) {
@@ -825,7 +830,7 @@ ko.bindingHandlers.truncatedText = {
         if (ko.utils.unwrapObservable(valueAccessor())) {
             var originalText = ko.utils.unwrapObservable(valueAccessor()),
                 length = parseInt(element.getAttribute("data-trimlength")) || 20,
-                truncatedText = originalText.length > length ? originalText.substring(0, trimLengthText) + "..." : originalText;
+                truncatedText = originalText.length > length ? originalText.substring(0, length) + "..." : originalText;
             ko.bindingHandlers.text.update(element, function () {
                 return truncatedText;
             });
@@ -865,11 +870,19 @@ ko.bindingHandlers.formattedVotes = {
     }
 };
 
+$(document).on("click", ".read-more-target", function (e) {
+    if (!vmUserReviews.IsInitialized()) {
+        vmUserReviews.init(e);
+    }
+});
+
 var modelUserReviews = function () {
     var self = this;
     self.reviewList = ko.observableArray(null);
     self.trimLengthText = ko.observable();
     self.isLoading = ko.observable(false);
+    self.currentReviewList = ko.observableArray(null);
+    self.IsInitialized = ko.observable(false);
 
     self.getMoreReviews = function () {
         try {
@@ -880,7 +893,10 @@ var modelUserReviews = function () {
                     if (response && response.result) {
                         self.reviewList(response.result);
                         applyLikeDislikes();
-                    }
+                        $('.more-review-li').removeClass('hide');
+                    }                    
+                })
+                .always(function () {
                     self.isLoading(false);
                 });
             }
@@ -896,17 +912,57 @@ var modelUserReviews = function () {
         return true;
     };
 
-    self.readMoreNew = function (event) {        
+    self.readMoreNew = function (event) {
         var ele = $(event.currentTarget);
         var reviewId = ele.data("reviewid");
 
         updateView(reviewId);
-       
+
         var index = ele.data("index");
-       
+
         logBhrighu(index, "ReadMoreClick");
         return true;
     };
+
+    self.init = function (event) {
+        if ($("#reviewsContent")[0])
+            ko.applyBindings(vmUserReviews, $("#reviewsContent")[0]);
+
+        self.readMore(event);
+        self.IsInitialized(true);
+        $('#loader').removeClass('hide');
+    };
+
+    self.readMore = function (event) {
+
+        var ele = $(event.currentTarget);
+        var reviewId = ele.data("reviewid");
+        var itemNo = ele.data("id");
+
+        if (!self.currentReviewList().length && bikeModelId) {
+            var apiUrl = "/api/user-reviews/search/V2/?InputFilter.review=true&InputFilter.SO=1&InputFilter.PN=1&InputFilter.PS=3&ReviewFilter.RatingQuestion=true&ReviewFilter.ReviewQuestion=false&ReviewFilter.BasicDetails=false&InputFilter.Model=" + bikeModelId;
+            $.getJSON(apiUrl)
+            .done(function (response) {
+                if (response && response.result) {
+                    self.currentReviewList(response.result);
+                }
+            });
+        }
+
+        updateView(reviewId);
+        logBhrighu(itemNo, "ReadMoreClick");
+
+        if ($('#reviewsContent') && $('#reviewsContent').attr('data-readmore')) {
+            $('#reviewsContent').attr('data-readmore', parseInt($('#reviewsContent').attr('data-readmore')) + 1);
+        }
+
+        if ($('#reviewsContent') && $('#reviewsContent').attr('data-readmore') == "3") {
+            vmUserReviews.isLoading(true);
+            vmUserReviews.getMoreReviews();
+        }
+        return true;
+    };
+
 }
 
 function logBhrighu(itemNo, eventName) {
@@ -916,41 +972,10 @@ function logBhrighu(itemNo, eventName) {
 
 function updateView(reviewId) {
     try {
-        if (reviewId)
-        {
+        if (reviewId) {
             $.post("/api/user-reviews/updateView/" + reviewId + "/");
         }
-       
-    } catch (e) {
-        console.log(e);
-    }
-}
 
-function readMore(e) {
-
-    try {
-        var ele = $(event.currentTarget);
-        var reviewId = ele.data("reviewid");
-        if (reviewId) {
-			var moreContentEle = ele.closest('.collapsible-content').find(".more-description"),
-				desc = Base64.decode(moreContentEle.data("description")), itemNo = ele.data("id");
-
-            if (moreContentEle) {
-				moreContentEle.html(desc);
-			}
-			
-            updateView(reviewId);
-            logBhrighu(itemNo, "ReadMoreClick");
-
-            if ($('#reviewsContent') && $('#reviewsContent').attr('data-readmore')) {
-                $('#reviewsContent').attr('data-readmore', parseInt($('#reviewsContent').attr('data-readmore')) + 1);
-            }
-
-            if ($('#reviewsContent') && $('#reviewsContent').attr('data-readmore') == "3") {
-                vmUserReviews.isLoading(true);
-                vmUserReviews.getMoreReviews();
-            }
-        }
     } catch (e) {
         console.log(e);
     }

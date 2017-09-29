@@ -121,6 +121,9 @@
       <HintPath>..\Libs\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -160,7 +163,7 @@
     <Compile Include="GetEmailList.cs" />
     <Compile Include="GlobalCityArea.cs" />
     <Compile Include="LinqHelpers\LinqExtensions.cs" />
-    <Compile Include="EditorialsFormatter.cs" />
+    <Compile Include="EditorialsFormatter.cs" />    
     <Compile Include="OprUser.cs" />
     <Compile Include="LinqHelpers\PredicateBuilder.cs" />
     <Compile Include="SchemaHelper.cs" />
