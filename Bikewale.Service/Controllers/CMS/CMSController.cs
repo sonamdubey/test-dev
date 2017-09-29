@@ -67,7 +67,7 @@ namespace Bikewale.Service.Controllers.CMS
             try
             {
                 objImageList = _bikeModelEntity.GetBikeModelPhotoGallery(modelId);
-                if (objImageList != null && objImageList.Count() > 0)
+                if (objImageList != null && objImageList.Any())
                 {
                     // Auto map the properties
                     List<CMSModelImageBase> objCMSModels = new List<CMSModelImageBase>();
@@ -273,7 +273,7 @@ namespace Bikewale.Service.Controllers.CMS
                 {
                     objImg = _CMSCache.GetArticlePhotos(_basicId);
 
-                    if (objImg != null && objImg.Count() > 0)
+                    if (objImg != null && objImg.Any())
                     {
                         objCMSModels = CMSMapper.Convert(objImg);
                         objImg = null;

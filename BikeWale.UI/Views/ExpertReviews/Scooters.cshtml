@@ -2,7 +2,7 @@
 @using Bikewale.Utility
 @using System.Text.RegularExpressions
 @{
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/listing.css' />";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/listing.css' inline />";
 	Model.AdTags.AdId = "1395986297721";
 	Model.AdTags.AdPath = "/1017752/Bikewale_Reviews_";
 	Model.AdTags.Ad_300x250 = true;
@@ -105,7 +105,10 @@
 												<div class="list-slug__details slug-content--top-align">
 													<p class="list-slug__heading">Bike review contest</p>
 													<p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;2,000</p>
-													<a href="/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ExpertReviews)" title="Bike Review Contest" class="btn view-all-target-btn list-slug__target">Participate now<span class="bwsprite teal-right"></span></a>
+                                                    @{
+                                                        string q = EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ExpertReviews));
+                                                    }
+                                                    <a href="@string.Format("/bike-review-contest/?q={0}",q)" title="Bike Review Contest" class="btn view-all-target-btn list-slug__target">Participate now<span class="bwsprite teal-right"></span></a>
 												</div>
 											</div>
 										</li>

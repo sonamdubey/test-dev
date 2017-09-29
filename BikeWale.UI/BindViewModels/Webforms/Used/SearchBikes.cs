@@ -207,7 +207,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
 
                 UsedBikes = objSearch.GetUsedBikesList(objFilters);
-                if (UsedBikes != null && UsedBikes.Result != null && UsedBikes.Result.Count() > 0)
+                if (UsedBikes != null && UsedBikes.Result != null && UsedBikes.Result.Any())
                 {
                     TotalBikes = Convert.ToUInt32(UsedBikes.TotalCount);
                 }

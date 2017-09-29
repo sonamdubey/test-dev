@@ -1,6 +1,0 @@
-projectKey=bikewaleweb:develop
-serverUrl=https://sq.carwale.com
-serverVersion=6.4.0.25310
-dashboardUrl=https://sq.carwale.com/dashboard/index/bikewaleweb:develop
-ceTaskId=AV6lM66oONGvPmmDD8QZ
-ceTaskUrl=https://sq.carwale.com/api/ce/task?id=AV6lM66oONGvPmmDD8QZ

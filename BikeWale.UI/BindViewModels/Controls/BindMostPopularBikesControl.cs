@@ -54,7 +54,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     popularBikes = modelCache.GetMostPopularBikes(TotalWidgetItems, makeId);
                 }
-                if (popularBikes != null && popularBikes.Count() > 0)
+                if (popularBikes != null && popularBikes.Any())
                 {
                     popularBikes = popularBikes.Take(Convert.ToInt32(totalCount));
 
@@ -99,7 +99,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     popularBikes = modelCache.GetMostPopularBikesbyMakeCity(TotalWidgetItems, Convert.ToUInt32(makeId), Convert.ToUInt32(cityId));
                 }
-                if (popularBikes != null && popularBikes.Count() > 0)
+                if (popularBikes != null && popularBikes.Any())
                 {
                     popularBikes = popularBikes.Take(Convert.ToInt32(totalCount));
 

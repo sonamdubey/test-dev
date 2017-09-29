@@ -111,7 +111,7 @@ namespace Bikewale.Controls
                     {
                         _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
 
-                        if (_dealers != null && _dealers.Dealers.Count() > 0)
+                        if (_dealers != null && _dealers.Dealers.Any())
                         {
                             makeName = _dealers.MakeName;
                             cityName = _dealers.CityName;
@@ -122,7 +122,7 @@ namespace Bikewale.Controls
                                 _dealers.Dealers = _dealers.Dealers.Where(m => m.DealerId != DealerId);
                             }
 
-                            showWidget = _dealers.Dealers.Count() > 0;
+                            showWidget = _dealers.Dealers.Any();
 
                             if (rptDealers != null)
                             {

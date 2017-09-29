@@ -65,7 +65,7 @@ namespace Bikewale.Cache.Location
             try
             {
                 key = string.Format("BW_AllCities_{0}", requestType);
-                topBikeComapareBase = _cache.GetFromCache<IEnumerable<Entities.Location.CityEntityBase>>(key, new TimeSpan(1, 0, 0), () => _objCity.GetAllCities(requestType));
+                topBikeComapareBase = _cache.GetFromCache<IEnumerable<Entities.Location.CityEntityBase>>(key, new TimeSpan(12, 0, 0), () => _objCity.GetAllCities(requestType));
             }
             catch (Exception ex)
             {

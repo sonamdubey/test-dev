@@ -2,7 +2,7 @@
 @using Bikewale.Utility
 @using System.Text.RegularExpressions
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' inline />";
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
     Model.AdTags.Ad_320x50 = true;
@@ -56,7 +56,10 @@
                                 <div class="list-slug__details slug-content--top-align">
                                     <p class="list-slug__heading">Bike review contest</p>
                                     <p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;2,000</p>
-                                    <a href="/m/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_News)" title="Bike Review Contest" class="list-slug__target">Participate now<span class="bwmsprite target-arrow"></span></a>
+                                    @{
+                                        string q = EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_News));
+                                    }
+                                    <a href="@string.Format("/m/bike-review-contest/?q={0}",q)" title="Bike Review Contest" class="list-slug__target">Participate now<span class="bwmsprite target-arrow"></span></a>
                                 </div>
                             </div>
                         </li>

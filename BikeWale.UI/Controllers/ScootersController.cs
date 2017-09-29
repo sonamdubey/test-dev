@@ -238,7 +238,7 @@ namespace Bikewale.Controllers
             if (cityId > 0)
             {
                 objShowrooms.dealers = _dealerCache.GetDealerByMakeCity(cityId, makeId, 0);
-                if (objShowrooms.dealers != null && objShowrooms.dealers.Dealers != null && objShowrooms.dealers.Dealers.Count() > 0)
+                if (objShowrooms.dealers != null && objShowrooms.dealers.Dealers != null && objShowrooms.dealers.Dealers.Any())
                 {
                     ViewBag.MakeName = objShowrooms.dealers.MakeName;
                     ViewBag.MakeMaskingName = objShowrooms.dealers.MakeMaskingName;
@@ -268,7 +268,7 @@ namespace Bikewale.Controllers
         {
             ServiceCenterData objServiceCenter = _serviceCenter.GetServiceCentersByCity(cityId, makeId);
             IEnumerable<ServiceCenterDetails> ServiceCenterList = null;
-            if (objServiceCenter != null && objServiceCenter.ServiceCenters != null && objServiceCenter.ServiceCenters.Count() > 0)
+            if (objServiceCenter != null && objServiceCenter.ServiceCenters != null && objServiceCenter.ServiceCenters.Any())
             {
                 ServiceCenterList = objServiceCenter.ServiceCenters.Take(topCount);
 

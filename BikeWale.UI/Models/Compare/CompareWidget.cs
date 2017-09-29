@@ -32,7 +32,7 @@ namespace Bikewale.Models.Compare
             {
                 IEnumerable<SimilarCompareBikeEntity> topBikeCompares = null;
                 topBikeCompares = _objCompare.GetPopularCompareList(cityId);
-                if (topBikeCompares != null && topBikeCompares.Count() > 0)
+                if (topBikeCompares != null && topBikeCompares.Any())
                 {
                     objComparison.topBikeCompares = topBikeCompares.Take(topCount);
 
@@ -42,13 +42,13 @@ namespace Bikewale.Models.Compare
 
                     objComparison.topBikeComparesScooters = topBikeCompares.Where(x => x.BodyStyle1 == (uint)EnumBikeBodyStyles.Scooter || x.BodyStyle2 == (uint)EnumBikeBodyStyles.Scooter);
 
-                    if (objComparison.topBikeComparesCruisers != null && objComparison.topBikeComparesCruisers.Count() > 0)
+                    if (objComparison.topBikeComparesCruisers != null && objComparison.topBikeComparesCruisers.Any())
                         objComparison.topBikeComparesCruisers = objComparison.topBikeComparesCruisers.Take(topCount);
 
-                    if (objComparison.topBikeComparesSports != null && objComparison.topBikeComparesSports.Count() > 0)
+                    if (objComparison.topBikeComparesSports != null && objComparison.topBikeComparesSports.Any())
                         objComparison.topBikeComparesSports = objComparison.topBikeComparesSports.Take(topCount);
 
-                    if (objComparison.topBikeComparesScooters != null && objComparison.topBikeComparesScooters.Count() > 0)
+                    if (objComparison.topBikeComparesScooters != null && objComparison.topBikeComparesScooters.Any())
                         objComparison.topBikeComparesScooters = objComparison.topBikeComparesScooters.Take(topCount);
 
 

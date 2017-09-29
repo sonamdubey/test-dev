@@ -872,7 +872,7 @@ namespace Bikewale.BAL.Compare
 
                     #region Reviews
 
-                    if (compareEntity.Reviews != null && compareEntity.Reviews.Count() > 0)
+                    if (compareEntity.Reviews != null && compareEntity.Reviews.Any())
                     {
 
                         compareEntity.UserReviewData = new CompareReviewsData();
@@ -1121,7 +1121,7 @@ namespace Bikewale.BAL.Compare
                             performanceParameters.SpecCategory.Add(extraFeatures);
                         #endregion
 
-                        if (performanceParameters.SpecCategory.Count() > 0)
+                        if (performanceParameters.SpecCategory.Any())
                          compareEntity.UserReviewData.CompareReviews.Spec.Add(performanceParameters);
                         #region Reviews
                         CompareSubMainCategory reviews = new CompareSubMainCategory();
@@ -1251,7 +1251,7 @@ namespace Bikewale.BAL.Compare
             try
             {
                 compareBikes = (List<SimilarCompareBikeEntity>)_objCache.GetPopularCompareList(cityId);
-                if (compareBikes != null && compareBikes.Count() > 0)
+                if (compareBikes != null && compareBikes.Any())
                 {
                     Random rnd = new Random();
                     compareBikes = compareBikes.Where(x => x.IsSponsored && x.SponsoredEndDate >= DateTime.Now && x.SponsoredStartDate <= DateTime.Now).OrderBy(x => rnd.Next())
@@ -1277,7 +1277,7 @@ namespace Bikewale.BAL.Compare
             try
             {
                 compareScooters = (List<SimilarCompareBikeEntity>)_objCache.GetScooterCompareList(cityId);
-                if (compareScooters != null && compareScooters.Count() > 0)
+                if (compareScooters != null && compareScooters.Any())
                 {
                     Random rnd = new Random();
                     compareScooters = compareScooters.Where(x => x.IsSponsored && x.SponsoredEndDate >= DateTime.Now && x.SponsoredStartDate <= DateTime.Now).OrderBy(x => rnd.Next())

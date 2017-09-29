@@ -33,7 +33,7 @@ namespace Bikewale.Models
             if (_cityId > 0)
             {
                 objShowrooms.dealers = _dealerCache.GetDealerByMakeCity(_cityId, _makeId, 0);
-                if (objShowrooms.dealers != null && objShowrooms.dealers.Dealers != null && objShowrooms.dealers.Dealers.Count() > 0)
+                if (objShowrooms.dealers != null && objShowrooms.dealers.Dealers != null && objShowrooms.dealers.Dealers.Any())
                 {
                     objShowrooms.dealers.Dealers = objShowrooms.dealers.Dealers.Take((int)_dealerServiceCenterCount);
                 }

@@ -46,7 +46,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                 area.Id = areaId;
                 area.Latitude = lattitude;
                 area.Longitude = longitude;
-                if (area != null && dealers != null && dealers.Count() > 0)
+                if (area != null && dealers != null && dealers.Any())
                 {
                     googleApi = new GoogleDistanceAPIHelper();
                     dealersBatch = dealers.Take(maxArea);
@@ -55,7 +55,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                     {
                         //Call the Google API
                         apiResp = googleApi.GetDistanceUsingArrayIndex(area, dealersBatch);
-                        if (apiResp != null && apiResp.Count() > 0)
+                        if (apiResp != null && apiResp.Any())
                         {
                             formatedResp = googleApi.FormatApiResp(apiResp);
                             //update the areas with Commute Distance
@@ -75,7 +75,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                         ++batchCounter;
                         dealersBatch = dealers.Skip(maxArea * batchCounter).Take(maxArea);
                         Thread.Sleep(500);
-                    } while (dealersBatch.Count() > 0);
+                    } while (dealersBatch.Any());
                     Logs.WriteInfoLog(String.Format("update for dealerID {0}", area.Id));
                 }
                 else
@@ -114,7 +114,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                 area.Id = areaId;
                 area.Latitude = lattitude;
                 area.Longitude = longitude;
-                if (area != null && dealers != null && dealers.Count() > 0)
+                if (area != null && dealers != null && dealers.Any())
                 {
                     googleApi = new GoogleDistanceAPIHelper();
                     dealersBatch = dealers.Take(maxArea);
@@ -123,7 +123,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                     {
                         //Call the Google API
                         apiResp = googleApi.GetDistanceUsingArrayIndex(area, dealersBatch);
-                        if (apiResp != null && apiResp.Count() > 0)
+                        if (apiResp != null && apiResp.Any())
                         {
                             formatedResp = googleApi.FormatApiResp(apiResp);
                             //update the areas with Commute Distance
@@ -143,7 +143,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                         ++batchCounter;
                         dealersBatch = dealers.Skip(maxArea * batchCounter).Take(maxArea);
                         Thread.Sleep(500);
-                    } while (dealersBatch.Count() > 0);
+                    } while (dealersBatch.Any());
                     Logs.WriteInfoLog(String.Format("update for dealerID {0}", area.Id));
                 }
                 else
@@ -183,7 +183,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                 dealer.Id = dealerId;
                 dealer.Latitude = lattitude;
                 dealer.Longitude = longitude;
-                if (dealer != null && areas != null && areas.Count() > 0)
+                if (dealer != null && areas != null && areas.Any())
                 {
                     googleApi = new GoogleDistanceAPIHelper();
                     areasBatch = areas.Take(maxArea);
@@ -192,7 +192,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                     {
                         //Call the Google API
                         apiResp = googleApi.GetDistanceUsingArrayIndex(dealer, areasBatch);
-                        if (apiResp != null && apiResp.Count() > 0)
+                        if (apiResp != null && apiResp.Any())
                         {
                             formatedResp = googleApi.FormatApiResp(apiResp);
                             //update the areas with Commute Distance
@@ -212,7 +212,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                         ++batchCounter;
                         areasBatch = areas.Skip(maxArea * batchCounter).Take(maxArea);
                         Thread.Sleep(500);
-                    } while (areasBatch.Count() > 0);
+                    } while (areasBatch.Any());
                 }
                 else
                 {

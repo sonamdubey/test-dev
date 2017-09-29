@@ -49,7 +49,7 @@ namespace Bikewale.Service.Controllers.Make
             {
                 objMakeList = _makesRepository.GetMakesByType(requestType);
 
-                if (objMakeList != null && objMakeList.Count() > 0)
+                if (objMakeList != null && objMakeList.Any())
                 {
                     objDTOMakeList = new MakeList();
 

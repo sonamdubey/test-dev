@@ -41,7 +41,7 @@ namespace Bikewale.Models.PriceInCity
             {
                 cityPrices = _objCache.GetModelPriceInNearestCities(_modelId, _cityId, _topCount);
 
-                if (cityPrices != null && cityPrices.Count() > 0)
+                if (cityPrices != null && cityPrices.Any())
                 {
                     priceInTopCitiesWidgetVM = new PriceInTopCitiesWidgetVM();
 

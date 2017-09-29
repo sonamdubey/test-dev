@@ -55,7 +55,7 @@ namespace Bikewale.Service.Controllers.Make
                 objModelList = _modelRepository.GetMostPopularBikesByMake(makeId);
                 description = _makesRepository.GetMakeDescription(makeId);
 
-                if (objModelList != null && objModelList.Count() > 0 && description != null)
+                if (objModelList != null && objModelList.Any() && description != null)
                 {
                     entity = new BikeMakePageEntity();
                     entity.Description = description;

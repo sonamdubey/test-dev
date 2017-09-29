@@ -115,7 +115,7 @@ namespace Bikewale.Common
                     makes = objCache.GetMakesByType(requestType);
 
 
-                    if (makes != null && makes.Count() > 0)
+                    if (makes != null && makes.Any())
                     {
                         if (drpDownList != null)
                         {

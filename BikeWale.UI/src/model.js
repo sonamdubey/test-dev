@@ -880,13 +880,19 @@ var modelUserReviews = function () {
         var reviewId = ele.data("reviewid");
         var itemNo = ele.data("id");
         if (!self.currentReviewList().length && bikeModelId) {
-            var apiUrl = "/api/user-reviews/search/V2/?InputFilter.review=true&InputFilter.SO=1&InputFilter.PN=1&InputFilter.PS=3&ReviewFilter.RatingQuestion=false&ReviewFilter.ReviewQuestion=true&ReviewFilter.BasicDetails=false&InputFilter.Model=" + bikeModelId;
+			var apiUrl = "/api/user-reviews/search/V2/?InputFilter.review=true&InputFilter.SO=1&InputFilter.PN=1&InputFilter.PS=3&ReviewFilter.RatingQuestion=false&ReviewFilter.ReviewQuestion=true&ReviewFilter.BasicDetails=false&InputFilter.Model=" + bikeModelId;
+			
+			$('#userReviewSpinner').show();
+
             $.getJSON(apiUrl)
             .done(function (response) {
                 if (response && response.result) {
                     self.currentReviewList(response.result);
                 }
-            });
+            })
+			.always(function () {
+				$('#userReviewSpinner').hide();
+			});
 
         }
 

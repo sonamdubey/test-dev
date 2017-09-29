@@ -110,7 +110,7 @@ namespace Bikewale.BikeBooking
                     IArea _areaRepo = container.Resolve<IArea>();
                     bookingAreas = _areaRepo.GetAreasByCity(Convert.ToUInt16(cityId));
 
-                    if (bookingAreas != null && bookingAreas.Count() > 0)
+                    if (bookingAreas != null && bookingAreas.Any())
                     {
                         bookingAreasList.DataSource = bookingAreas.ToList();
                         bookingAreasList.DataTextField = "AreaName";

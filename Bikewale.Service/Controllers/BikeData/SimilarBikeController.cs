@@ -42,7 +42,7 @@ namespace Bikewale.Service.Controllers.BikeData
 
                 objSimilar.SimilarBike = SimilarBikeListMapper.Convert(objSimilarBikes);
 
-                if (objSimilar != null && objSimilar.SimilarBike != null && objSimilar.SimilarBike.Count() > 0)
+                if (objSimilar != null && objSimilar.SimilarBike != null && objSimilar.SimilarBike.Any())
                     return Ok(objSimilar);
                 else
                     return NotFound();

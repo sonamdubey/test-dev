@@ -1118,15 +1118,6 @@ li.offertxt:hover span {display:inline}
 /*.feedback-button.active .like-sm {
     background-position: -94px -624px;
 }*/
-.overall-circle-list {
-	border-bottom: 1px solid #e2e2e2;
-	padding-bottom: 10px;
-	margin-top: 5px;
-}
-
-.overall-circle-list.rating-circle-list li {
-	margin-right: 30px;
-}
 
 .review__question {
     font-size: 13px;
@@ -1182,20 +1173,6 @@ li.offertxt:hover span {display:inline}
 
 
 /* carousel for image detail grid list */
-/*.image-details-grid-list .card {
-
-}*/
-/*.more-make-bike .swiper-card {
-    min-height: 120px;
-    width: 292px;
-    border: 1px solid #f6f6f6;
-    -webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
-    -moz-box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
-    -ms-box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
-    -o-box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
-    margin-bottom: 20px;
-}*/
 .image-details-grid-list .card-target {
     min-height: 120px;
     display: block;
@@ -1246,4 +1223,41 @@ li.offertxt:hover span {display:inline}
 .image-details-grid .jcarousel-control-left,
 .image-details-grid .jcarousel-control-right {
     top: 15%;
+}
+
+/* loader */
+.section-spinner {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: #fff;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	filter: alpha(opacity=80);
+	-moz-opacity: 0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
+}
+
+.spinner-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.spinner-box {
+	width: 50px;
+	height: 50px;
+	top: 45%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	z-index: 3;
+}
+
+.spinner-box--absolute {
+	position: absolute;
 }

@@ -35,7 +35,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     lstUsersTestimonial = objRepository.FetchUsersTestimonial(TopCount);
 
-                    if (lstUsersTestimonial != null && lstUsersTestimonial.Count() > 0)
+                    if (lstUsersTestimonial != null && lstUsersTestimonial.Any())
                     {
                         FetchedCount = lstUsersTestimonial.Count();
                         rpt.DataSource = lstUsersTestimonial;

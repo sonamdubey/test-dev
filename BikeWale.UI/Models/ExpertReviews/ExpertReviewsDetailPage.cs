@@ -149,13 +149,13 @@ namespace Bikewale.Models
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/expert-reviews/{0}-{1}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.Title = string.Format("{0}- BikeWale.", objData.ArticleDetails.Title);
                 objData.PageMetaTags.ShareImage = Image.GetPathToShowImages(objData.ArticleDetails.OriginalImgUrl, objData.ArticleDetails.HostUrl, ImageSize._468x263);
-                if (objData.Make!=null)
-                objData.AdTags.TargetedMakes = objData.Make.MakeName;
+                if (objData.Make != null)
+                    objData.AdTags.TargetedMakes = objData.Make.MakeName;
                 if (objData.Model != null)
                     objData.AdTags.TargetedModel = objData.Model.ModelName;
-                objData.PageMetaTags.Keywords = string.Format("{0},road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives", (objData.Model!= null) ? objData.Model.ModelName : "");
+                objData.PageMetaTags.Keywords = string.Format("{0},road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives", (objData.Model != null) ? objData.Model.ModelName : "");
                 if (IsMobile)
-                    objData.PageMetaTags.Description = string.Format("BikeWale tests {0}, Read the complete road test report to know how it performed.", (objData.Model!=null)?objData.Model.ModelName:"");
+                    objData.PageMetaTags.Description = string.Format("BikeWale tests {0}, Read the complete road test report to know how it performed.", (objData.Model != null) ? objData.Model.ModelName : "");
                 else
                     objData.PageMetaTags.Description = "Learn about the trending stories related to bike and bike products. Know more about features, do's and dont's of different bike products exclusively on BikeWale";
 
@@ -179,7 +179,7 @@ namespace Bikewale.Models
             objSchema.DateModified = objData.ArticleDetails.DisplayDate.ToString();
             objSchema.DatePublished = objSchema.DateModified;
             objSchema.Description = FormatDescription.SanitizeHtml(objData.ArticleDetails.Description);
-            if (objData.ArticleDetails.PageList != null && objData.ArticleDetails.PageList.Count() > 0)
+            if (objData.ArticleDetails.PageList != null && objData.ArticleDetails.PageList.Any())
             {
                 objSchema.ArticleBody = Bikewale.Utility.FormatDescription.SanitizeHtml(Convert.ToString(objData.ArticleDetails.PageList.First().Content));
             }
@@ -206,7 +206,7 @@ namespace Bikewale.Models
         {
             try
             {
-                if (objData.ArticleDetails.VehiclTagsList != null && objData.ArticleDetails.VehiclTagsList.Count() > 0)
+                if (objData.ArticleDetails.VehiclTagsList != null && objData.ArticleDetails.VehiclTagsList.Any())
                 {
 
                     var taggedMakeObj = objData.ArticleDetails.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
@@ -238,7 +238,7 @@ namespace Bikewale.Models
         {
             try
             {
-                if (objData.ArticleDetails.VehiclTagsList != null && objData.ArticleDetails.VehiclTagsList.Count() > 0)
+                if (objData.ArticleDetails.VehiclTagsList != null && objData.ArticleDetails.VehiclTagsList.Any())
                 {
 
                     var taggedModelObj = objData.ArticleDetails.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.ModelBase.MaskingName));
@@ -390,7 +390,7 @@ namespace Bikewale.Models
             {
                 objData.PhotoGallery = new EditCMSPhotoGalleryVM();
                 objData.PhotoGallery.Images = _cmsCache.GetArticlePhotos(Convert.ToInt32(basicId));
-                if (objData.PhotoGallery.Images != null && objData.PhotoGallery.Images.Count() > 0)
+                if (objData.PhotoGallery.Images != null && objData.PhotoGallery.Images.Any())
                 {
                     objData.PhotoGallery.ImageCount = objData.PhotoGallery.Images.Count();
                 }
