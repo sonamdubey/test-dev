@@ -707,7 +707,7 @@ docReady(function () {
         }
     });
 
-    $(document).on("click", ".expert-review-list .jcarousel ul li", function (e) {
+    $(document).on("click", ".expert-review-list .swiper-card a", function (e) {
         triggerGA("User_Reviews", "ExpertReviews_CarouselCard_Clicked", makeName + "_" + modelName);
     });
 
