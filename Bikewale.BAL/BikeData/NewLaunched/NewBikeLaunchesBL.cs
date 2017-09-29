@@ -120,12 +120,12 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                 else
                     bikes = _modelCache.GetNewLaunchedBikesList();
 
-                if (bikes != null && bikes.Count() > 0)
+                if (bikes != null && bikes.Any())
                 {
                     result = new NewLaunchedBikeResult();
 
                     var filteredBikes = bikes.Where(ProcessInputFilter(filters));
-                    if (filteredBikes != null && filteredBikes.Count() > 0)
+                    if (filteredBikes != null && filteredBikes.Any())
                     {
                         result.Bikes = filteredBikes.Page(filters.PageNo, filters.PageSize);
                         result.TotalCount = (uint)filteredBikes.Count();
@@ -153,7 +153,7 @@ namespace Bikewale.BAL.BikeData.NewLaunched
             try
             {
                 makes = GetMakeList();
-                if (makes != null && makes.Count() > 0)
+                if (makes != null && makes.Any())
                 {
                     return makes.Where(PredicateSkipMakeId(skipMakeId));
                 }

@@ -209,7 +209,7 @@ namespace Bikewale.Models.Features
             objSchema.DateModified = objData.objFeature.DisplayDate.ToString();
             objSchema.DatePublished = objSchema.DateModified;
             objSchema.Description = FormatDescription.SanitizeHtml(objData.objFeature.Description);
-            if (objData.objFeature.PageList!=null && objData.objFeature.PageList.Count() > 0)
+            if (objData.objFeature.PageList!=null && objData.objFeature.PageList.Any())
             {
                 objSchema.ArticleBody = Bikewale.Utility.FormatDescription.SanitizeHtml(Convert.ToString(objData.objFeature.PageList.First().Content));
             }
@@ -268,7 +268,7 @@ namespace Bikewale.Models.Features
             {
                 objData.PhotoGallery = new EditCMSPhotoGalleryVM();
                 objData.PhotoGallery.Images = _cache.GetArticlePhotos(Convert.ToInt32(basicId));
-                if (objData.PhotoGallery.Images != null && objData.PhotoGallery.Images.Count() > 0)
+                if (objData.PhotoGallery.Images != null && objData.PhotoGallery.Images.Any())
                 {
                     objData.PhotoGallery.ImageCount = objData.PhotoGallery.Images.Count();
                 }

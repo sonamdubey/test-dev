@@ -35,7 +35,7 @@ namespace Bikewale.Controls
             {
                 BindOtherBrandsServiceCenters servicecentViewModel = new BindOtherBrandsServiceCenters();
                 AllServiceCenters = servicecentViewModel.GetAllServiceCentersbyMake();
-                if (AllServiceCenters != null && AllServiceCenters.Count() > 0)
+                if (AllServiceCenters != null && AllServiceCenters.Any())
                 {
                     FetchedRecordsCount = AllServiceCenters.Count();
                     AllServiceCenters = AllServiceCenters.Where(v => v.MakeId != makeId);

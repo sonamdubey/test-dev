@@ -90,7 +90,7 @@ namespace Bikewale.Content
                         if (objArticle.taggedModelObj != null)
                             taggedModelId = (uint)objArticle.taggedModelObj.ModelId;
                         objImg = objArticle.objImg;
-                        if (objImg != null && objImg.Count() > 0)
+                        if (objImg != null && objImg.Any())
                             BindGallery();
                         BindPageWidgets();
                     }

@@ -321,8 +321,8 @@ namespace Bikewale.BAL.Videos
                                 BikeVideosListEntity allVideos = GetVideosBySubCategory(categoryId.ToString(), 1, (ushort)(remainingCount + 1), null);
                                 if (objVideosList == null)
                                     objVideosList = new List<BikeVideoEntity>();
-                                if (allVideos.Videos != null && allVideos.Videos.Count() > 0)
-                                    if (allVideos.Videos != null && allVideos.Videos.Count() > 0)
+                                if (allVideos.Videos != null && allVideos.Videos.Any())
+                                    if (allVideos.Videos != null && allVideos.Videos.Any())
                                     {
                                         objVideosList.AddRange(allVideos.Videos);
                                         var objVideos = objVideosList.Where(x => x.BasicId != videoId).Take(totalCount).ToList();

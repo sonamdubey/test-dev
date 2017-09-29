@@ -29,7 +29,7 @@ namespace Bikewale.Models.ServiceCenters
             {
                 AllServiceCenters = _serviceCenterObj.GetAllServiceCentersByBrand();
 
-                if (AllServiceCenters != null && AllServiceCenters.Count() > 0)
+                if (AllServiceCenters != null && AllServiceCenters.Any())
                     AllServiceCenters = AllServiceCenters.Where(v => v.MakeId != _makeId);
 
             }

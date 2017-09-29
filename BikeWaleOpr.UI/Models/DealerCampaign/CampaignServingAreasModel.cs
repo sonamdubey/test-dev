@@ -53,7 +53,7 @@ namespace BikewaleOpr.Models.DealerCampaign
             {
                 // Get actually mapped areas to dealer's location (list contains both automatically mapped and additionally mapped areas). Grouping areas according to cities
                 objVM.DealerName = objAreas.DealerName;
-                if (objAreas.Areas!=null && objAreas.Areas.Count() > 0)
+                if (objAreas.Areas!=null && objAreas.Areas.Any())
                 {
                     IEnumerable<CityArea> cityAreas = objAreas.Areas.GroupBy(
                                 p => new { p.CityId, p.CityName },
@@ -64,14 +64,14 @@ namespace BikewaleOpr.Models.DealerCampaign
                     if (cityAreas != null)
                     {
                         // Filter automatically mapped areas
-                        if (cityAreas.Any(m => m.AutoAssignedAreas != null && m.AutoAssignedAreas.Count() > 0))
-                            objVM.MappedAreas = cityAreas.Where(m => m.AutoAssignedAreas != null && m.AutoAssignedAreas.Count() > 0).Select(m => new CityArea() { City = m.City, Areas = m.AutoAssignedAreas });
+                        if (cityAreas.Any(m => m.AutoAssignedAreas != null && m.AutoAssignedAreas.Any()))
+                            objVM.MappedAreas = cityAreas.Where(m => m.AutoAssignedAreas != null && m.AutoAssignedAreas.Any()).Select(m => new CityArea() { City = m.City, Areas = m.AutoAssignedAreas });
 
                         // Filter additionally mapped areas
-                        if (cityAreas.Any(m => m.AdditionalAreas != null && m.AdditionalAreas.Count() > 0))
-                            objVM.AdditionallyMappedAreas = cityAreas.Where(m => m.AdditionalAreas != null && m.AdditionalAreas.Count() > 0).Select(m => new CityArea() { City = m.City, Areas = m.AdditionalAreas });
+                        if (cityAreas.Any(m => m.AdditionalAreas != null && m.AdditionalAreas.Any()))
+                            objVM.AdditionallyMappedAreas = cityAreas.Where(m => m.AdditionalAreas != null && m.AdditionalAreas.Any()).Select(m => new CityArea() { City = m.City, Areas = m.AdditionalAreas });
 
-                        if (objVM.AdditionallyMappedAreas != null && objVM.AdditionallyMappedAreas.Count() > 0)
+                        if (objVM.AdditionallyMappedAreas != null && objVM.AdditionallyMappedAreas.Any())
                         {
                             objVM.AdditionalAreaJson = Newtonsoft.Json.JsonConvert.SerializeObject(objVM.AdditionallyMappedAreas);
                         }

@@ -1170,7 +1170,7 @@ namespace Bikewale.Models.BikeModels
                             _objData.BikePrice = (uint)_objData.SelectedVersion.Price;
                         }
 
-                        if (modelPg.ModelDetails != null && modelPg.ModelDetails.PhotosCount > 0 && modelPg.ModelColors != null && modelPg.ModelColors.Count() > 0)
+                        if (modelPg.ModelDetails != null && modelPg.ModelDetails.PhotosCount > 0 && modelPg.ModelColors != null && modelPg.ModelColors.Any())
                         {
                             var colorImages = modelPg.ModelColors.Where(x => x.ColorImageId > 0);
                             if (colorImages != null && colorImages.Any())

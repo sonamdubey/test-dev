@@ -121,6 +121,7 @@
     <Compile Include="Features\IndexFeatureVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsDetailPageVM.cs" />
     <Compile Include="Finance\CapitalFirstVM.cs" />
+    <Compile Include="Gallery\ModelGalleryVM.cs" />
     <Compile Include="GenericBestBikes\IndexBestBikesVM.cs" />
     <Compile Include="Make\BrandCityPopupVM.cs" />
     <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
@@ -153,6 +154,8 @@
     <Compile Include="News\NewsIndexPageVM.cs" />
     <Compile Include="NewLaunches\NewLaunchedWidgetVM.cs" />
     <Compile Include="News\NewsScootersPageVM.cs" />
+    <Compile Include="Photos\PhotosPageVM.cs" />
+    <Compile Include="Photos\SimilarBikesWithPhotosVM.cs" />
     <Compile Include="PriceInCity\PriceInCityPageAMPVM.cs" />
     <Compile Include="PopUp\PopupLeadCaptureVM.cs" />
     <Compile Include="PopUp\PoupCityAreaVM.cs" />

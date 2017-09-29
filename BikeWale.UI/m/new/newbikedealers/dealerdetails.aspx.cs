@@ -185,7 +185,7 @@ namespace Bikewale.Mobile
 
                         maskingNumber = dealerDetails.MaskingNumber;
 
-                        if (dealer.Models != null && dealer.Models.Count() > 0)
+                        if (dealer.Models != null && dealer.Models.Any())
                         {
                             rptModels.DataSource = dealer.Models;
                             rptModels.DataBind();

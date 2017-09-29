@@ -144,7 +144,7 @@ namespace Bikewale.Mobile.Content
                     }
                 }
             }
-            if (objImg != null && objImg.Count() > 0)
+            if (objImg != null && objImg.Any())
             {
                 photoGallery.Photos = objImg.ToList();
                 photoGallery.isModelPage = false;

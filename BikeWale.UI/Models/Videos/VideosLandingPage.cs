@@ -166,7 +166,7 @@ namespace Bikewale.Models.Videos
 
                 if (objLandingVideosList != null)
                 {
-                    if (objLandingVideosList.Count() > 0)
+                    if (objLandingVideosList.Any())
                         objVM.LandingFirstVideoData = objLandingVideosList.FirstOrDefault();
                     if (objLandingVideosList.Count() > 1)
                         objVM.LandingOtherVideosData = (objLandingVideosList.Skip(1)).Take(LandingVideosTopCount - 1);

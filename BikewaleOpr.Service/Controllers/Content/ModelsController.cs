@@ -45,7 +45,7 @@ namespace BikewaleOpr.Service.Controllers.Content
                 {
                     IEnumerable<BikeModelEntityBase> objModels = _modelsRepo.GetModels(makeId, requestType);
 
-                    if (objModels != null && objModels.Count() > 0)
+                    if (objModels != null && objModels.Any())
                     {
                         IEnumerable<ModelBase> objModelsDTO = BikeModelsMapper.Convert(objModels);
 

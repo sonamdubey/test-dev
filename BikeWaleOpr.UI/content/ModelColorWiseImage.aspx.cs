@@ -193,7 +193,7 @@ namespace BikeWaleOpr.Content
                 EnumBikeType bikeType = EnumBikeType.All;
                 cmbMake.SelectedValue = Convert.ToString(ddlMakeId);
                 var models = _bikeMakes.GetModelsByMake(bikeType, ddlMakeId);
-                if (models != null && models.Count() > 0)
+                if (models != null && models.Any())
                 {
                     cmbModel.DataSource = models;
                     cmbModel.DataTextField = "ModelName";

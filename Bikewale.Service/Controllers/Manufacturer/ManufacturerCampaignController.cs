@@ -47,7 +47,7 @@ namespace Bikewale.Service.Controllers.Manufacturer
             try
             {
                 objDealers = _objPQCache.GetManufacturerDealers(city, dealerId);
-                if (objDealers != null && objDealers.Count() > 0)
+                if (objDealers != null && objDealers.Any())
                 {
                     dealersData = ManufacturingCampaign.Convert(objDealers);
                     return Ok(dealersData);

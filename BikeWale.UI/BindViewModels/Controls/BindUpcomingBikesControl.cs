@@ -79,7 +79,7 @@ namespace Bikewale.BindViewModels.Controls
                 }
 
 
-                if (objBikeList != null && objBikeList.Count() > 0)
+                if (objBikeList != null && objBikeList.Any())
                 {
                     objUpcomingBikes = objBikeList.Take(pageSize);
                     FetchedRecordsCount = objUpcomingBikes.Count();

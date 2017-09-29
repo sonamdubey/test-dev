@@ -265,7 +265,7 @@ namespace Bikewale.Models
                     objSchema.GoogleMapUrl = string.Format("https://www.google.com/maps/place/{0},{1}", dealerDetails.Area.Latitude, dealerDetails.Area.Longitude);
                 }
 
-                if (objDealerDetails.DealerDetails.Models != null && objDealerDetails.DealerDetails.Models.Count() > 0)
+                if (objDealerDetails.DealerDetails.Models != null && objDealerDetails.DealerDetails.Models.Any())
                 {
                     var minPrice = objDealerDetails.DealerDetails.Models.Min(bike => bike.VersionPrice);
                     var maxPrice = objDealerDetails.DealerDetails.Models.Max(bike => bike.VersionPrice);

@@ -57,13 +57,13 @@ namespace Bikewale.Models
 
         public String NearestPriceCitiesWidget_H2 { get { return (HasNearestPriceCities ? String.Format("{0} price in cities near {1}", BikeModel.ModelName, CityEntity.CityName) : ""); } }
 
-        public BikeQuotationEntity FirstVersion { get { return (BikeVersionPrices != null && BikeVersionPrices.Count() > 0 ? BikeVersionPrices.FirstOrDefault() : null); } }
+        public BikeQuotationEntity FirstVersion { get { return (BikeVersionPrices != null && BikeVersionPrices.Any() ? BikeVersionPrices.FirstOrDefault() : null); } }
         public bool IsDiscontinued { get { return !IsNew; } }
-        public bool HasNearestPriceCities { get { return (NearestPriceCities != null && NearestPriceCities.PriceQuoteList != null && NearestPriceCities.PriceQuoteList.Count() > 0); } }
-        public bool HasPriceInTopCities { get { return PriceInTopCities != null && PriceInTopCities.PriceQuoteList != null && PriceInTopCities.PriceQuoteList.Count() > 0; } }
-        public bool HasDealers { get { return (Dealers != null && Dealers.Dealers != null && Dealers.Dealers.Count() > 0); } }
-        public bool HasAlternateBikes { get { return (AlternateBikes != null && AlternateBikes.Bikes != null && AlternateBikes.Bikes.Count() > 0); } }
-        public bool HasTopCities { get { return (PriceTopCities != null && PriceTopCities.PriceQuoteList != null && PriceTopCities.PriceQuoteList.Count() > 0); } }
+        public bool HasNearestPriceCities { get { return (NearestPriceCities != null && NearestPriceCities.PriceQuoteList != null && NearestPriceCities.PriceQuoteList.Any()); } }
+        public bool HasPriceInTopCities { get { return PriceInTopCities != null && PriceInTopCities.PriceQuoteList != null && PriceInTopCities.PriceQuoteList.Any(); } }
+        public bool HasDealers { get { return (Dealers != null && Dealers.Dealers != null && Dealers.Dealers.Any()); } }
+        public bool HasAlternateBikes { get { return (AlternateBikes != null && AlternateBikes.Bikes != null && AlternateBikes.Bikes.Any()); } }
+        public bool HasTopCities { get { return (PriceTopCities != null && PriceTopCities.PriceQuoteList != null && PriceTopCities.PriceQuoteList.Any()); } }
         public string JSONBikeVersions { get; set; }
 
         public bool HasServiceCenters { get { return (ServiceCentersCount > 0); } }
@@ -84,8 +84,8 @@ namespace Bikewale.Models
         public string BodyStyleText { get; set; }
         public PopularBodyStyleVM PopularBodyStyle { get; set; }
         public IEnumerable<CityEntityBase> Cities { get; set; }
-        public bool IsPopularBodyStyleAvailable { get { return (PopularBodyStyle != null && PopularBodyStyle.PopularBikes != null && PopularBodyStyle.PopularBikes.Count() > 0); } }
-       
+        public bool IsPopularBodyStyleAvailable { get { return (PopularBodyStyle != null && PopularBodyStyle.PopularBikes != null && PopularBodyStyle.PopularBikes.Any()); } }
+
         public string ReturnUrl { get; set; }
     }
 

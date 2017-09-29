@@ -391,6 +391,7 @@
     <Compile Include="Schema\BreadcrumbListItem.cs" />
     <Compile Include="Schema\ContactPoint.cs" />
     <Compile Include="Schema\GeoCoordinates.cs" />
+    <Compile Include="Schema\ImageGallery.cs" />
     <Compile Include="Schema\ImageObject.cs" />
     <Compile Include="Schema\ListItem.cs" />
     <Compile Include="Schema\MainEntityOfPage.cs" />
