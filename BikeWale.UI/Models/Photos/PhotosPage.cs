@@ -230,7 +230,7 @@ namespace Bikewale.Models.Photos
                     _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
                 }
 
-                if (_objData.ModelImages != null && _objData.ModelImages.Any())
+                if (_objData.PhotoGallery.ImageList != null && _objData.PhotoGallery.ImageList.Any())
                 {
                     ImageGallery gallery = new ImageGallery();
 
@@ -247,7 +247,7 @@ namespace Bikewale.Models.Photos
 
                     IList<ImageObject> objImages = new List<ImageObject>();
 
-                    foreach (var image in _objData.ModelImages)
+                    foreach (var image in _objData.PhotoGallery.ImageList)
                     {
                         objImages.Add(new ImageObject()
                         {
