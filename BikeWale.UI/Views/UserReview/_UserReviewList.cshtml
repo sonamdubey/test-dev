@@ -107,14 +107,14 @@
 			</li>       
 		}   
 
-		<div class="hide" id="loader" data-bind="visible: isLoading()">
+		<div class="hide margin-left20" id="loader" data-bind="visible: isLoading()">
 			<img src="https://imgd.aeplcdn.com/0x0/bw/static/icons/loader-horizontal.gif" class="padding-bottom10">
 		</div>
 
 		<!-- ko if : reviewList() && reviewList().length > 0 -->
 		<!-- ko foreach: reviewList() -->
 		<li class="list-item more-review-li hide" data-bind="css: $data.isRatingQuestion ? 'rating-question-present': 'rating-question-absent'">       
-			<div class="item-grid alpha padding-right20 grid-9 border-light-right">
+			<div class="list-left-grid item-grid alpha padding-right20 grid-9 border-light-right">
 				<div class="margin-bottom10">
 					<!-- ko with: $data.overallRating -->
 					<span class="rating-badge" data-bind="attr: {'data-rate-bg': id }">
@@ -172,7 +172,7 @@
 				</div>
 
 			</div>
-			<div class="grid-3 omega padding-left20">
+			<div class="list-right-grid grid-3 omega padding-left20">
 				<!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
 				<ul class="hide" data-bind="css: $data ? 'show' : 'hide'">
 					<!-- ko foreach: $data.questions -->
