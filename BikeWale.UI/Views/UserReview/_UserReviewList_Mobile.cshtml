@@ -55,7 +55,7 @@
 
 						<!-- ko if: currentReviewList && currentReviewList()[@i] && currentReviewList()[@i].questions && currentReviewList()[@i].questions.length > 0 -->                
 						<div class="about-reviewer-content margin-bottom15">
-							<p class="text-grey text-bold">About the reviewer</p>
+                        <p class="font13 text-grey text-bold">About the reviewer</p>
 							<ul data-bind="css: 'about-reviewer-list item-count-' +  currentReviewList()[@i].ratingQuestionsCount ">
 								<!-- ko foreach: currentReviewList()[@i].questions -->
 								<!-- ko if : $data.qtype == 1 -->
@@ -86,11 +86,13 @@
 								(<span id="downvoteCount-@review.ReviewId" class="btn-count">@Format.FormatNumbers(review.DownVotes)</span>)
 							</button>
 						</div>
-					</div>
-				</div>
-				<div class="clear"></div>
-				@{i++;}
-			</li>
+                    
+
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    @{i++;}
+</li>
 		}
 
 		<div class="hide" id="loader" data-bind="visible: isLoading()">   

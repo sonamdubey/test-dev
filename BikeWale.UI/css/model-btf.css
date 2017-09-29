@@ -1179,6 +1179,29 @@ li.offertxt:hover span {display:inline}
     padding: 15px;
 }
 
+@media only screen and (max-width: 1024px) {
+    .article-type-carousel.inner-content-carousel .jcarousel li {
+        width: 300px !important;
+    }
+}
+
+.review-list-wrapper .rating-circle-list {
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+.review-list-wrapper .list-left-grid {
+	padding-left: 20px;
+}
+
+.review-list-wrapper .list-right-grid {
+	padding-right: 20px;
+}
+
+.review-list-wrapper .view-all-btn-container {
+	margin-left: 20px;
+}
+
 .more-make-bike .item-image-block {
     width: 102px;
     height: 57px;
