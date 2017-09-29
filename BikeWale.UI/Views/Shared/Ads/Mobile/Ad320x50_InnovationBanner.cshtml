@@ -69,7 +69,9 @@
     top: -23px;
     right: 90px;
 }
-
+.expand-popup {
+    font-weight: bold;
+}
 
 /*containers*/
 
@@ -225,29 +227,11 @@
 	position: absolute;
 	right: 20px;
 	top: 20px;
-	width: 32px;
-	height: 32px;
-	opacity: 0.3;
+	width: 18px;
+	height: 18px;
+    background-position: -36px -226px;
 	z-index: 10;	
 }
-.popup-close:hover {
-  opacity: 1;
-}
-.popup-close:before, .popup-close:after {
-  position: absolute;
-  left: 15px;
-  content: ' ';
-  height: 33px;
-  width: 2px;
-  background-color: black;
-}
-.popup-close:before {
-  transform: rotate(45deg);
-}
-.popup-close:after {
-  transform: rotate(-45deg);
-}
-
 /* swiper */
 .banner-photos-swiper.swiper-container {
     width: 100%;
@@ -356,7 +340,7 @@
         </div>
     </div>
     <div class="banner-popup">
-        <span class="popup-close bw-ga" c="Innovation_Banner" a="Popup_Close_Clicked" l="@Model.InnovationBannerGALabel"></span>
+        <span class="popup-close bwmsprite bw-ga" c="Innovation_Banner" a="Popup_Close_Clicked" l="@Model.InnovationBannerGALabel"></span>
         <div class="banner1-popup" data-flag="0">
             <div class="popup-container">
                 <span class="banner-popup__make-icon banner-element"></span>
@@ -366,7 +350,7 @@
                     <h3 class="benefit-list__head">Bring home a new Hero scooter and get</h3>
                     <ul class="benefit-list__ul">
                         <li>
-                            75 gm silver coin and cash Benefit of &#x20b9; 3000
+                            75 gm silver coin or cash Benefit of &#x20b9; 3000
                         </li>
                         <li>
                             Additional Benefit of &#x20b9; 1500 for Govt. & PSU Employees
@@ -419,11 +403,23 @@
 
         function recursiveAnimate(elem) {
 
-            animateContent($(elem), "fadeInRight", function () {
-                var nextElem = $(elem).next();
-                if (nextElem.length > 0)
+            var nextElem = $(elem).next();
+
+
+            if (navigator.userAgent.indexOf('UCBrowser') >= 0) {
+                $(elem).show()
+                if (nextElem.length > 0) {
                     recursiveAnimate($(nextElem));
-            });
+                }
+            } else {
+                animateContent($(elem), "fadeInRight", function () {
+                    var nextElem = $(elem).next();
+                    if (nextElem.length > 0) {
+                        recursiveAnimate($(nextElem));
+                    }
+                });
+            }
+            
         }
         function animateContent(element, animationName, callBack) {
             $(element).show().animateCss(animationName, callBack);
