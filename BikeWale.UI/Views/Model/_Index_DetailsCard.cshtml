@@ -134,24 +134,28 @@
                 </div>
             </div>
 
-            <div id="user-review-div" class="content-box-shadow card-bottom-margin content-inner-block-20" data-readmore="0">
-                <h2 class="h2-heading inline-block margin-right10">@Model.BikeName User Reviews</h2>
-                <div class="model-overall-rating inline-block">
-                    <span class="rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
-                        <span class="bwsprite star-icon star-size-18"></span>
-                        <span class="font18 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span>
-                    </span>
-                    @if (Model.UserReviews.UserReviews.Result != null)
-                    {
-                        <span class="font14 text-xt-light padding-left5">(@Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating"))</span>
-                    }
+            <div id="user-review-div" class="content-box-shadow card-bottom-margin padding-top20 padding-bottom20" data-readmore="0">            
+				<div class="padding-right20 padding-left20">
+					<h2 class="h2-heading inline-block margin-right10">@Model.BikeName User Reviews</h2>
+					<div class="model-overall-rating inline-block">
+						<span class="rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
+							<span class="bwsprite star-icon star-size-18"></span>
+							<span class="font18 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span>
+						</span>
+						@if (Model.UserReviews.UserReviews.Result != null)
+						{
+							<span class="font14 text-xt-light padding-left5">(@Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating"))</span>
+						}
 
-                    <span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}", Model.UserReviews.UserReviews.TotalCount > 1 ? "reviews" : "review")</span>
-                </div>
-                @Html.Partial("~/Views/UserReview/_UserReviewList.cshtml", Model.UserReviews)
-                <div class="more-article-target view-all-btn-container">
-                    <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="btn view-all-target-btn">Read all user reviews<span class="bwsprite teal-right"></span></a>
-                </div>
+						<span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}", Model.UserReviews.UserReviews.TotalCount > 1 ? "reviews" : "review")</span>
+					</div>
+				</div>
+				<div class="review-list-wrapper">
+					@Html.Partial("~/Views/UserReview/_UserReviewList.cshtml", Model.UserReviews)
+					<div class="more-article-target view-all-btn-container">
+						<a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="btn view-all-target-btn">Read all user reviews<span class="bwsprite teal-right"></span></a>
+					</div>
+				</div>
             </div>
 
             <div id="report-abuse">

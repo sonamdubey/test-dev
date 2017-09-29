@@ -884,6 +884,32 @@ h1,
     display: block;
     padding-bottom: 5px; } }
 
+.expert-review-list {
+  margin-top: 15px;
+  background: #f5f5f5; }
+  .expert-review-list h2 {
+    font-size: 14px;
+    margin-bottom: 0;
+    padding: 15px 20px 10px; }
+  .expert-review-list .card-container {
+    padding-bottom: 15px; }
+  .expert-review-list .swiper-slide:first-child {
+    margin-left: 5px; }
+
+.article-type-carousel .swiper-slide,
+.article-type-carousel .swiper-card {
+  min-height: 190px; }
+
+.article-type-carousel .swiper-image-preview {
+  padding: 0;
+  height: 113px; }
+  .article-type-carousel .swiper-image-preview img {
+    height: 113px; }
+
+.article-type-carousel .swiper-details-block {
+  padding-top: 15px;
+  padding-bottom: 8px; }
+
 .collapsible-content .main-content {
   display: inline; }
 

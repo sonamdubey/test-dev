@@ -183,6 +183,28 @@ namespace Bikewale.Controllers
             }           
         }
 
+        [Route("expertreviews/list/")]
+        public ActionResult ExpertReviewsListByModel(uint makeId, uint modelId, uint topCount)
+        {
+            RecentExpertReviewsVM objData = null;
+
+            RecentExpertReviews obj = new RecentExpertReviews(topCount, makeId, modelId, _cmsCache);
+            objData = obj.GetData();
+
+            return View("~/views/ExpertReviews/_ExpertReviewHorizontalListByModel.cshtml", objData);            
+        }
+
+        [Route("m/expertreviews/list/")]
+        public ActionResult ExpertReviewsListByModel_Mobile(uint makeId, uint modelId, uint topCount)
+        {
+            RecentExpertReviewsVM objData = null;
+
+            RecentExpertReviews obj = new RecentExpertReviews(topCount, makeId, modelId, _cmsCache);
+            objData = obj.GetData();
+
+            return View("~/views/ExpertReviews/_ExpertReviewHorizontalListByModel_Mobile.cshtml", objData);
+        }
+
         /// <summary>
         /// Created by: Vivek Singh Tomar on 17th Aug 2017
         /// Summary: Action method to render expert reviews for scooters

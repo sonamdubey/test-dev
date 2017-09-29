@@ -3675,7 +3675,6 @@
     <Content Include="Views\UserReview\ListReviews_Mobile.cshtml" />
     <Content Include="Views\UserReview\ReviewDetails_Mobile.cshtml" />
     <Content Include="Views\UserReview\_UserReviewsSearch_Mobile.cshtml" />
-    <Content Include="Views\ExpertReviews\_ExpertReviewsModelWiseCard_Mobile.cshtml" />
     <Content Include="Views\UserReview\_SimilarBikeUserReview_Mobile.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad300x100_Middle.cshtml" />
     <Content Include="Views\CompareBikes\Index.cshtml" />
@@ -3765,6 +3764,10 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad200x253.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad292x359.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad200x216.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReviewsSwiperCard.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReviewHorizontalListByModel.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReviewHorizontalListByModel_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReviewsModelWiseCard_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
