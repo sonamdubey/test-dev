@@ -66,7 +66,7 @@ namespace Bikewale.Mobile.bikebooking
                             ;
                     var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
                     makes = objCache.GetMakesByType(EnumBikeType.New);
-                    if (makes != null && makes.Count() > 0)
+                    if (makes != null && makes.Any())
                     {
                         rptPopularBrand.DataSource = makes.Where(m => m.PopularityIndex > 0);
                         rptPopularBrand.DataBind();
@@ -154,7 +154,7 @@ namespace Bikewale.Mobile.bikebooking
                     IArea _areaRepo = container.Resolve<IArea>();
                     bookingAreas = _areaRepo.GetAreasByCity(Convert.ToUInt16(cityId));
 
-                    if (bookingAreas != null && bookingAreas.Count() > 0)
+                    if (bookingAreas != null && bookingAreas.Any())
                     {
                         rptAreas.DataSource = bookingAreas;
                         rptAreas.DataBind();

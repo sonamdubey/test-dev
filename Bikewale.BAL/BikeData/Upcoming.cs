@@ -232,12 +232,12 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             {
 
                 objUpcomingList = _upcomingCacheRepo.GetUpcomingModels();
-                if (objUpcomingList != null && objUpcomingList.Count() > 0)
+                if (objUpcomingList != null && objUpcomingList.Any())
                 {
                     objUpcomingList = objUpcomingList.Sort(ProcessOrderBy(sortBy, out isAsc), isAsc);
                     objUpcomingList = objUpcomingList.Where(ProcessInputFilter(inputParams));
 
-                    if (objUpcomingList != null && objUpcomingList.Count() > 0)
+                    if (objUpcomingList != null && objUpcomingList.Any())
                     {
                         objUpcomingList = objUpcomingList.Page(inputParams.PageNo, inputParams.PageSize);
                     }
@@ -267,12 +267,12 @@ namespace Bikewale.BAL.BikeData.UpComingBike
 
                 IEnumerable<UpcomingBikeEntity> objUpcomingList = _upcomingCacheRepo.GetUpcomingModels();
 
-                if (objUpcomingList != null && objUpcomingList.Count() > 0)
+                if (objUpcomingList != null && objUpcomingList.Any())
                 {
                     objUpcomingList = objUpcomingList.Sort(ProcessOrderBy(sortBy, out isAsc), isAsc);
                     objUpcomingList = objUpcomingList.Where(ProcessInputFilter(inputParams));
 
-                    if (objUpcomingList != null && objUpcomingList.Count() > 0)
+                    if (objUpcomingList != null && objUpcomingList.Any())
                     {
                         objBikes.TotalCount = (uint)objUpcomingList.Count();
                         objBikes.Bikes = objUpcomingList.Page(inputParams.PageNo, inputParams.PageSize);

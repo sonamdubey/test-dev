@@ -42,7 +42,7 @@ namespace Bikewale.Service.Controllers.Make
             try
             {
                 objMakes = _objDealerCache.GetDealersMakesList();
-                if (objMakes != null && objMakes.Count() > 0)
+                if (objMakes != null && objMakes.Any())
                 {
                     makes = new NewBikeDealersMakeList();
                     makes.Makes = objMakes.Select(s => new NewBikeDealersMakeBase() { Text = s.MakeName, Value = s.MakeId.ToString(), MaskingName = s.MaskingName }).ToList();

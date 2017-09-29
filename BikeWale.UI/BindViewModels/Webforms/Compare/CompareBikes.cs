@@ -59,7 +59,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             {
                 makes = _objMakeCache.GetMakesByType(EnumBikeType.NewBikeSpecification);
 
-                if (makes != null && makes.Count() > 0)
+                if (makes != null && makes.Any())
                 {
                     SetPageMetas();
                 }

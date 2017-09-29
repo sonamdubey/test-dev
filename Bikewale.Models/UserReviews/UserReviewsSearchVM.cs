@@ -22,6 +22,7 @@ namespace Bikewale.Models.UserReviews
         }
         public string WidgetHeading { get; set; }
 
-        public QuestionsRatingValueByModel ObjQuestionValue { get; set; }        
+        public QuestionsRatingValueByModel ObjQuestionValue { get; set; }  
+        public uint ReviewsReadPerSession { get; set; }      
     }
 }

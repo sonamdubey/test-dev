@@ -84,7 +84,7 @@ namespace Bikewale.BindViewModels.Controls
                     topBikeCompares = _objCompareCache.CompareList(TotalRecords);
                 }
 
-                if (topBikeCompares != null && topBikeCompares.Count() > 0)
+                if (topBikeCompares != null && topBikeCompares.Any())
                 {
                     FetchedRecordCount = topBikeCompares.Count();
                     CompareList = topBikeCompares;

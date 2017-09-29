@@ -45,7 +45,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     _objArticleList = _cache.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), Convert.ToUInt32(TotalRecords), Convert.ToUInt32(MakeId), Convert.ToUInt32(ModelId));
 
-                    if (_objArticleList != null && _objArticleList.Count() > 0)
+                    if (_objArticleList != null && _objArticleList.Any())
                     {
                         FetchedRecordsCount = _objArticleList.Count();
 

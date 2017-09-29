@@ -1,8 +1,9 @@
 
-var reviewId = 0, modelid, vmUserReviews, modelReviewsSection,categoryId = 1, pageNumber = 1;
+var reviewId = 0,makeid, modelid, vmUserReviews, modelReviewsSection, categoryId = 1, pageNumber = 1, modelName, makeName;
 var reg = new RegExp('^[0-9]*$');
-
 var helpfulReviews = [];
+var expertReviewWidgetHtml;
+var reviewsReadPerSession;
 
 var reviewCategory = {
     2: 'helpful',
@@ -53,7 +54,7 @@ function downVoteListReview(e) {
         console.log(e);
     }
 }
-function logBhrighu(e) {
+function logBhrighu(e, action) {
 
     var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
     $.each(vmUserReviews.activeReviewList(), function (i, val) {
@@ -64,22 +65,10 @@ function logBhrighu(e) {
 
     });
     label = 'modelId=' + modelid + '|tabName=' + reviewCategory[categoryId] + '|reviewOrder=' + (index + (pageNumber - 1) * 10) + '|pageSource=' + $('#pageSource').val();
-    cwTracking.trackUserReview("TitleClick", label);
+    cwTracking.trackUserReview(action, label);
 }
 
-function updateView(e) {
-    // for bhrigu updation
-    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
-    $.each(vmUserReviews.activeReviewList(), function (i, val) {
-        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
-            index = i + 1;
-
-        }
-
-    });
-    label = 'modelId=' + modelid + '|tabName=' + reviewCategory[categoryId] + '|reviewOrder=' + (index + (pageNumber - 1) * 10) + '|pageSource=' + $('#pageSource').val();
-    cwTracking.trackUserReview("ReadMoreClick", label);
-
+function updateView(e) {    
     try {
         var reviewId = e.currentTarget.getAttribute("data-reviewid");
         $.ajax({
@@ -265,12 +254,18 @@ docReady(function () {
 
     modelReviewsSection = $("#modelReviewsListing");
     modelName = $('#modelName').attr('data-modelName');
+    makeName = $('#modelName').attr('data-makeName');
     reviewId = $('#divAbuse').attr('data-reviewId');
+    reviewsReadPerSession = modelReviewsSection.attr('data-userReviewsReadCount');
 
-    if ($('#section-review-details').length > 0)
+    if ($('#section-review-details').length > 0) {
+        makeid = $('#section-review-details').attr('data-makeid');
         modelid = $('#section-review-details').attr('data-modelId');
-    else
+    }
+    else {
+        makeid = $('#section-review-list').attr('data-makeid');
         modelid = $('#section-review-list').attr('data-modelId');
+    }
 
     var vote = bwcache.get("ReviewDetailPage_reviewVote_" + reviewId);
 
@@ -375,7 +370,10 @@ docReady(function () {
         self.reviewsAvailable = ko.observable(true);
         self.categoryName = ko.observable('');
         self.IsLoading = ko.observable(false);
-        self.Filters = ko.observable({ pn: 1, ps: 8, model: modelid, so: 1, skipreviewid: reviewId });
+        self.Filters = ko.observable({ pn: 1, ps: 8, model: modelid, so: reviewId > 0 ? 2 : 1, skipreviewid: reviewId });
+        self.firstReadMoreClick = ko.observable(false);
+        self.clickedReviewId = ko.observable();
+
         self.QueryString = ko.computed(function () {
             var qs = "";
             $.each(self.Filters(), function (i, val) {
@@ -578,6 +576,13 @@ docReady(function () {
                         $('html, body').scrollTop(modelReviewsSection.offset().top);
                         resetCollapsibleContent();
                         applyLikeDislikes();
+
+                        if (self.firstReadMoreClick()) {
+                            var collpasibleContent = $(document).find('.read-more-target[data-reviewId=' + self.clickedReviewId() + ']').closest('.collapsible-content');                           
+                            $('html, body').scrollTop(collpasibleContent.closest('.list-item').offset().top - $('#overallSpecsTab').height());
+                            collpasibleContent.addClass('active');
+                            self.firstReadMoreClick(false);
+                        }
                     });
                 }
                 else {
@@ -595,6 +600,13 @@ docReady(function () {
                     }
                     resetCollapsibleContent();
                     applyLikeDislikes();
+
+                    if (self.firstReadMoreClick()) {
+                        var collpasibleContent = $(document).find('.read-more-target[data-reviewId=' + self.clickedReviewId() + ']').closest('.collapsible-content');                       
+                        $('html, body').scrollTop(collpasibleContent.closest('.list-item').offset().top - $('#overallSpecsTab').height());
+                        collpasibleContent.addClass('active');
+                        self.firstReadMoreClick(false);
+                    }
                 }
             }
 
@@ -621,13 +633,83 @@ docReady(function () {
 
         };
 
-        self.checkValidCache = function () {
+        self.readMore = function (event) {
+            if (!self.activeReviewList().length && modelid) {
+                self.getUserReviews();
 
-        }
+            }
 
+            if ($('#modelReviewsListing')) {
+                $('#modelReviewsListing').attr('data-readMoreCount', parseInt($('#modelReviewsListing').attr('data-readMoreCount')) + 1);
+            }
+
+            if ($('#modelReviewsListing').attr('data-readMoreCount') == (parseInt(reviewsReadPerSession) - 1)) {
+                $.ajax({
+                    type: "GET",
+                    url: "/m/expertreviews/list/?makeId="+ makeid + "&modelId=" + modelid + "&topCount=12",
+                    success: function (response) {
+                        expertReviewWidgetHtml = response;
+                        if (parseInt($('#modelReviewsListing').attr('data-readMoreCount')) > (parseInt(reviewsReadPerSession) - 1)) {
+                            self.bindExpertReviewWidget(event);
+                        }
+                    }
+                });
+            }
+
+            if ($('#modelReviewsListing').attr('data-readMoreCount') == reviewsReadPerSession) {
+                self.bindExpertReviewWidget(event);
+                $('.expert-review-list .swiper-container:not(".noSwiper")').each(function (index, element) {
+                    $(this).addClass('sw-' + index);
+                    $('.sw-' + index).swiper({
+                        effect: 'slide',
+                        speed: 300,                        
+                        nextButton: $(this).find('.swiper-button-next'),
+                        prevButton: $(this).find('.swiper-button-prev'),
+                        pagination: $(this).find('.swiper-pagination'),
+                        slidesPerView: 'auto',
+                        paginationClickable: true,
+                        spaceBetween: 10,                        
+                        preloadImages: false,
+                        lazyLoading: true,
+                        lazyLoadingInPrevNext: true,
+                        watchSlidesProgress: true,
+                        watchSlidesVisibility: true
+
+                    });
+
+
+                })
+            }
+
+            updateView(event);
+            logBhrighu(event, 'ReadMoreClick');
+
+            return true;
+        };
+
+        self.bindExpertReviewWidget = function (event) {
+            var reviewId = event.currentTarget.getAttribute("data-reviewid");
+            var ele = $(document).find('.insertWidget[data-reviewId=' + reviewId + ']');
+            ele.after(expertReviewWidgetHtml);
+            $('.swiper-image-preview img.lazy').lazyload();
+            triggerGA("User_Reviews", "ExpertReviews_CarouselLoaded", makeName + "_" + modelName);
+        };
     }
 
     vmUserReviews = new modelUserReviews();
+
+    $(document).on("click", ".read-more-target", function (e) {
+        if (!vmUserReviews.IsInitialized()) {         
+            vmUserReviews.clickedReviewId($(this).attr('data-reviewId'));
+            vmUserReviews.firstReadMoreClick(true);
+            vmUserReviews.init(e);
+            vmUserReviews.readMore(e);           
+        }
+    });
+
+    $(document).on("click", ".expert-review-list .swiper-card a", function (e) {
+        triggerGA("User_Reviews", "ExpertReviews_CarouselCard_Clicked", makeName + "_" + modelName);
+    });
 
     $("#overallSpecsTab ul li , #pagination-list-content ul li").click(function (e) {
         if (vmUserReviews && !vmUserReviews.IsInitialized()) {

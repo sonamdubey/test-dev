@@ -1,8 +1,10 @@
 
-var reviewId = 0, vmUserReviews, modelReviewsSection, modelid, abusereviewId = 0, categoryId = 1, pageNumber = 1;
+var reviewId = 0, vmUserReviews, modelReviewsSection, modelid, abusereviewId = 0, categoryId = 1, pageNumber = 1, modelName, makeName, makeId;
 var reg = new RegExp('^[0-9]*$');
+var reviewsReadPerSession;
 
 var helpfulReviews = [];
+var expertReviewWidgetHtml;
 
 var reviewCategory = {
     2: 'helpful',
@@ -88,7 +90,7 @@ function reportReview(e) {
     reportAbusePopup.open();
 }
 
-function applyLikeDislikes() {   
+function applyLikeDislikes() {
     $(".feedback-button").each(function () {
         var locReviewId = this.getAttribute("data-reviewid");
         var listVote = bwcache.get("ReviewDetailPage_reviewVote_" + locReviewId);
@@ -107,7 +109,7 @@ function applyLikeDislikes() {
             $('#upvoteBtn' + "-" + locReviewId).removeClass('active');
             $('#upvoteBtn' + "-" + locReviewId).prop('disabled', false);
             $('#downvoteBtn' + "-" + locReviewId).removeClass('active');
-            $('#downvoteBtn' + "-" + locReviewId).prop('disabled', false);                        
+            $('#downvoteBtn' + "-" + locReviewId).prop('disabled', false);
         }
     });
 }
@@ -147,7 +149,7 @@ function reportAbuse() {
 function resetCollapsibleContent() {
     var activeCollapsible = $('.user-review-list').find('.collapsible-content.active');
     activeCollapsible.removeClass('active');
-    activeCollapsible.find('.read-more-target').text('...Read more');
+    activeCollapsible.find('.read-more-target').text('Read more');
 }
 
 var reportAbusePopup = {
@@ -222,6 +224,9 @@ docReady(function () {
 
     reviewId = $('#divReportAbuse').attr('data-reviewId');
     modelName = $('#modelName').attr('data-modelName');
+    makeName = $('#modelName').attr('data-makeName');
+    reviewsReadPerSession = modelReviewsSection.attr('data-userReviewsReadCount');
+
     var vote = bwcache.get("ReviewDetailPage_reviewVote_" + reviewId);
 
     if (vote != null && vote.vote) {
@@ -242,6 +247,8 @@ docReady(function () {
     if ($('#hdnModelId').length > 0)
         modelid = $('#hdnModelId').val();
 
+    if ($('#hdnMakeId').length > 0)
+        makeId = $('#hdnMakeId').val();
 
     $('#bike-rating-box').find('.answer-star-list input[type=radio]').change(function () {
         var button = $(this),
@@ -304,7 +311,7 @@ docReady(function () {
                 var amount = valueAccessor();
                 var formattedStringArray = (amount / 1000).toString().match(/\d+[.]+\d/);
                 if (amount % 1000 == 0 && amount > 0) {
-                    var formattedVote = amount/1000 + '.0k';
+                    var formattedVote = amount / 1000 + '.0k';
                 }
                 else {
                     var formattedVote = ko.unwrap(amount) > 999 && formattedStringArray ? formattedStringArray[0] + 'k' : amount;
@@ -334,11 +341,12 @@ docReady(function () {
         self.Pagination = ko.observable(new vmPagination());
         self.TotalReviews = ko.observable(reviewCount);
         self.noReviews = ko.observable(self.TotalReviews() == 0);
-
         self.PageUrl = ko.observable();
         self.CurPageNo = ko.observable();
+        self.firstReadMoreClick = ko.observable(false);
+        self.clickedReviewId = ko.observable();
 
-        self.Filters = ko.observable({ pn: 1, ps: 10, model: modelid, so: 1, skipreviewid: reviewId });
+        self.Filters = ko.observable({ pn: 1, ps: 10, model: modelid, so: reviewId > 0 ? 2 : 1, skipreviewid: reviewId });
         self.QueryString = ko.computed(function () {
             var qs = "";
             $.each(self.Filters(), function (i, val) {
@@ -505,21 +513,31 @@ docReady(function () {
                         self.noReviews(false);
                         var listItem = $('.user-review-list .list-item');
                         for (var i = listItem.length; i >= response.result.length; i--) {
-                            $(listItem[i]).remove();                            
+                            $(listItem[i]).remove();
                         }
+
                         resetCollapsibleContent();
                         applyLikeDislikes();
+
+                        $('html, body').scrollTop(modelReviewsSection.offset().top);
+
+                        if (self.firstReadMoreClick()) {
+                            var collpasibleContent = $(document).find('.read-more-target[data-reviewId=' + self.clickedReviewId() + ']').closest('.collapsible-content');
+                            $('html, body').scrollTop(collpasibleContent.closest('.list-item').offset().top - $('#overallSpecsTab').height());
+                            collpasibleContent.addClass('active');
+                            self.firstReadMoreClick(false);
+                        }
                     }
 
                 })
                 .fail(function () {
                     self.noReviews(true);
+                    $('html, body').scrollTop(modelReviewsSection.offset().top);
                 })
                 .always(function () {
                     self.ApplyPagination();
                     //window.location.hash = qs;
                     self.IsLoading(false);
-                    $('html, body').scrollTop(modelReviewsSection.offset().top);
                 });
                 self.ApplyPagination();
             }
@@ -545,8 +563,85 @@ docReady(function () {
             }
 
         };
+
+        self.readMore = function (event) {
+            if (!self.activeReviewList().length && modelid) {
+                self.getUserReviews();
+
+            }
+
+            if ($('#modelReviewsListing')) {
+                $('#modelReviewsListing').attr('data-readMoreCount', parseInt($('#modelReviewsListing').attr('data-readMoreCount')) + 1);
+            }
+
+            if ($('#modelReviewsListing').attr('data-readMoreCount') == (parseInt(reviewsReadPerSession) - 1) ){
+                $.ajax({
+                    type: "GET",
+                    url: "/expertreviews/list/?makeId=" + makeId + "&modelId=" + modelid + "&topCount=12",
+                    success: function (response) {
+                        expertReviewWidgetHtml = response;                        
+                        if (parseInt($('#modelReviewsListing').attr('data-readMoreCount')) > (parseInt(reviewsReadPerSession) - 1)) {
+                            self.bindExpertReviewWidget(event);
+                        }
+                    }
+                });
+            }
+
+            if ($('#modelReviewsListing').attr('data-readMoreCount') == reviewsReadPerSession) {
+                self.bindExpertReviewWidget(event);
+            }
+
+            updateView(event);
+            logBhrighu(event, 'ReadMoreClick');
+
+            return true;
+        };
+
+        self.bindExpertReviewWidget = function (event) {
+            var reviewId = event.currentTarget.getAttribute("data-reviewid");            
+            var ele = $(document).find('.insertWidget[data-reviewId=' + reviewId + ']');
+            ele.after(expertReviewWidgetHtml);
+
+            $('.expert-review-list .jcarousel').jcarousel({
+                vertical: false
+            });
+            $('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
+                $(this).removeClass('inactive');
+            }).on('jcarouselcontrol:inactive', function () {
+                $(this).addClass('inactive');
+            }).jcarouselControl({
+                target: '-=' + _target
+            });
+            $('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
+                $(this).removeClass('inactive');                
+            }).on('jcarouselcontrol:inactive', function () {
+                $(this).addClass('inactive');
+            }).jcarouselControl({
+                target: '+=' + _target
+            });
+
+            $('.jcarousel ul img.lazy').lazyload();
+            triggerGA("User_Reviews", "ExpertReviews_CarouselLoaded", makeName + "_" + modelName);
+
+            $(".expert-review-list .jcarousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
+                $(this).find("img.lazy").trigger('appear');
+            });
+
+        };
     };
 
+    $(document).on("click", ".read-more-target", function (e) {
+        if (!vmUserReviews.IsInitialized()) {
+            vmUserReviews.clickedReviewId($(this).attr('data-reviewId'));
+            vmUserReviews.init(e);
+            vmUserReviews.readMore(e);
+            vmUserReviews.firstReadMoreClick(true);
+        }
+    });
+
+    $(document).on("click", ".expert-review-list .jcarousel-card a", function (e) {
+        triggerGA("User_Reviews", "ExpertReviews_CarouselCard_Clicked", makeName + "_" + modelName);
+    });
 
     $(document).on("click", "#pagination-list-content ul li, .pagination-control-prev a, .pagination-control-next a,#overallSpecsTab .overall-specs-tabs-wrapper a", function (e) {
         e.preventDefault();
@@ -631,7 +726,8 @@ docReady(function () {
     if (chkRating2)
         document.getElementById('rate-bikestar-' + parseInt(chkRating2)).checked = false;
 });
-function logBhrighu(e) {
+
+function logBhrighu(e, action) {
 
     var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
     $.each(vmUserReviews.activeReviewList(), function (i, val) {
@@ -642,22 +738,11 @@ function logBhrighu(e) {
 
     });
     label = 'modelId=' + modelid + '|tabName=' + reviewCategory[categoryId] + '|reviewOrder=' + (index + (pageNumber - 1) * 10) + '|pageSource=' + $('#pageSource').val();
-    cwTracking.trackUserReview("TitleClick", label);
+    cwTracking.trackUserReview(action, label);
 }
 
 
 function updateView(e) {
-    // for bhrigu updation
-    var index = Number(e.currentTarget.getAttribute('data-id')) + 1;
-    $.each(vmUserReviews.activeReviewList(), function (i, val) {
-        if (e.currentTarget.getAttribute("data-reviewid") == val.reviewId) {
-            index = i + 1;
-
-        }
-    });
-    label = 'modelId=' + modelid + '|tabName=' + reviewCategory[categoryId] + '|reviewOrder=' + (index + (pageNumber - 1) * 10) + '|pageSource=' + $('#pageSource').val();
-    cwTracking.trackUserReview("ReadMoreClick", label);
-
     try {
         var reviewId = e.currentTarget.getAttribute("data-reviewid");
         $.ajax({

@@ -4,7 +4,7 @@
 @if (Model.UserReviews != null && Model.ReviewsInfo != null && Model.ReviewsInfo.TotalReviews > 0)
 {
     <section>
-        <div id="modelReviewsListing" class="container content-box-shadow card-bottom-margin">
+        <div id="modelReviewsListing" class="container content-box-shadow card-bottom-margin" data-readMoreCount="0" data-userReviewsReadCount="@Model.ReviewsReadPerSession">
             <h2 class="h2-heading padding-top15 padding-right20 padding-left20">@Model.WidgetHeading</h2>
             <div id="overallSpecsTopContent" class="bg-white position-rel user-review-tabs">
                 <div id="overallSpecsTab" class="overall-specs-tabs-container">
@@ -51,7 +51,7 @@
                                     <!-- /ko -->
                                     <div class="grid-10-inline font15 text-black text-bold text-truncate">
                                       
-                                        <a onclick="logBhrighu(event)" data-id="@i" data-reviewId="@review.ReviewId" href="/m@(review.ReviewUrl)" data-bind="attr : {'data-reviewId': $data.reviewId, 'title' : $data.title,'href' : '/m' + $data.reviewUrl}"> <span class="review-title position-rel" data-bind="text:$data.title">@review.Title</span></a>
+                                        <a onclick="logBhrighu(event, 'TitleClick')" data-id="@i" data-reviewId="@review.ReviewId" href="/m@(review.ReviewUrl)" data-bind="attr : {'data-reviewId': $data.reviewId, 'title' : $data.title,'href' : '/m' + $data.reviewUrl}"> <span class="review-title position-rel" data-bind="text:$data.title">@review.Title</span></a>
                                     </div>
                                 </div>
 
@@ -59,11 +59,11 @@
                                     <span class="font12 text-light-grey" data-bind="text: $data.reviewAge + ' ago by ' + $data.customerName">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
                                 </div>
                             </div>
-                            <div class="collapsible-content toggle-off main-content-off">
+                            <div class="collapsible-content toggle-off main-content-off" data-bind="attr: {'data-reviewId': $data.reviewId }">
                                 <div class="main-content">
                                     <div class="font14 text-slate-grey">
-                                        <p data-bind="truncateDesc: $data.description">@FormatDescription.TruncateDescription(review.Description, 120)</p>
-                                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-reviewId="@review.ReviewId" onclick="updateView(event)" data-id="@i" data-bind="attr: {'data-reviewId': $data.reviewId }">Read more</a>
+                                        <p data-bind="text: $data.sanitizedDescription">@review.SanitizedDescription</p>
+                                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-bind="click: function (data, event) { return $parent.readMore(event);}, attr: {'data-reviewId': $data.reviewId }" data-reviewId="@review.ReviewId"  data-id="@i">Read more</a>
                                     </div>
                                 </div>
                                 <div class="more-content">
@@ -123,7 +123,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="clear"></div>
+                            <div class="clear insertWidget" data-bind="attr: {'data-reviewId': $data.reviewId }"></div>							
                         </li>
                         if (@i == 0)
                         {

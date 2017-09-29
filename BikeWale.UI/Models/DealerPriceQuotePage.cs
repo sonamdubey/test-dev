@@ -360,7 +360,7 @@ namespace Bikewale.Models
 
                         #endregion
                         #endregion
-                        if (detailedDealer.PrimaryDealer.PriceList != null && detailedDealer.PrimaryDealer.PriceList.Count() > 0)
+                        if (detailedDealer.PrimaryDealer.PriceList != null && detailedDealer.PrimaryDealer.PriceList.Any())
                         {
                             #region Dealer PriceQuote
                             objData.TotalPrice = (uint)detailedDealer.PrimaryDealer.TotalPrice;

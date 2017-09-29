@@ -240,7 +240,7 @@ namespace Bikewale.Models.DealerShowroom
             try
             {
                 objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
-                if (objDealerList != null && objDealerList.Dealers != null && objDealerList.Dealers.Count() > 0)
+                if (objDealerList != null && objDealerList.Dealers != null && objDealerList.Dealers.Any())
                     foreach (var dealer in objDealerList.Dealers)
                     {
                         dealer.GetOffersGALabel = string.Format("{0}_{1}_{2}", objMake.MakeName, dealer.City, dealer.objArea.AreaName);
@@ -265,7 +265,7 @@ namespace Bikewale.Models.DealerShowroom
             try
             {
                 objDealer.objDealerInNearCityList = _objDealerCache.FetchNearByCityDealersCount(makeId, cityId);
-                if (objDealer != null && objDealer.objDealerInNearCityList != null && objDealer.objDealerInNearCityList.Count() > 0)
+                if (objDealer != null && objDealer.objDealerInNearCityList != null && objDealer.objDealerInNearCityList.Any())
                 {
                     objDealer.objDealerInNearCityList = objDealer.objDealerInNearCityList.Take((int)topCount);
                 }

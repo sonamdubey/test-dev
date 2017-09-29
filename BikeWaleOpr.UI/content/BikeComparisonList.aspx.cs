@@ -307,7 +307,7 @@ namespace BikeWaleOpr.Content
                     btnSave.Text = "Update";
                     btnCancel.Visible = true;
 
-                    if (objBikeComps != null && objBikeComps.Count() > 0)
+                    if (objBikeComps != null && objBikeComps.Any())
                     {
 
                         var _objComparision = objBikeComps.FirstOrDefault(x => x.ComparisionId == Convert.ToUInt16(comparisionId));

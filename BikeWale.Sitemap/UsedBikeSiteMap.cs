@@ -48,7 +48,7 @@ namespace BikeWale.Sitemap
                         writer.WriteStartDocument();
                         writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
 
-                        if (urlList != null && urlList.Count() > 0)
+                        if (urlList != null && urlList.Any())
                         {
                             foreach (var url in urlList)
                             {

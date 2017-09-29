@@ -42,7 +42,7 @@ namespace Bikewale.BindViewModels.Controls
                     var objCache = container.Resolve<IVideosCacheRepository>();
                     objVideosList = objCache.GetSimilarVideos(basicID, TotalRecords);
 
-                    if (objVideosList != null && objVideosList.Count() > 0)
+                    if (objVideosList != null && objVideosList.Any())
                     {
                         FetchedRecordsCount = Convert.ToUInt16(objVideosList.Count());
                         if (FetchedRecordsCount > 0)

@@ -39,7 +39,7 @@ namespace Bikewale.Models.CompareBikes
                 else
                     topBikeCompares = _objCompareCache.CompareList(_topCount);
 
-                if (topBikeCompares != null && topBikeCompares.Count() > 0)
+                if (topBikeCompares != null && topBikeCompares.Any())
                 {
                     objComparison = new ComparisonMinWidgetVM();
                     objComparison.TopComparisonRecord = topBikeCompares.First();

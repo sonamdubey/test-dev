@@ -24,7 +24,7 @@ namespace Bikewale.BindViewModels.Controls
         public BindUsedRecentBikes(ushort topCount)
         {
             RecentUsedBikes = GetRecentUsedBikes(topCount);
-            if (RecentUsedBikes.Count() > 0)
+            if (RecentUsedBikes.Any())
                 FetchedRecordsCount = RecentUsedBikes.Count();
         }
 

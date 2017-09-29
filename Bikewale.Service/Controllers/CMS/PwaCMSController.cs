@@ -180,7 +180,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                                 bikes = _objModelCache.GetMostPopularBikesByModelBodyStyle((int)modelId, 9, cityId);
 
-                                if (bikes != null && bikes.Count() > 0)
+                                if (bikes != null && bikes.Any())
                                 {
                                     popularBikes = new PwaBikeNews();
                                     var bodyStyle = bikes.FirstOrDefault().BodyStyle;
@@ -202,7 +202,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     filters.MakeId = (int)makeId;
 
                                 var tempbikes = _upcoming.GetModels(filters, EnumUpcomingBikesFilter.Default);
-                                if (tempbikes != null && tempbikes.Count() > 0)
+                                if (tempbikes != null && tempbikes.Any())
                                 {
                                     upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(tempbikes, currentCityArea.City);
                                 }
@@ -230,7 +230,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                      //get popular bikes
 
                         bikes = _bikeModelEntity.GetMostPopularBikes(EnumBikeType.All, 9, 0, cityId);
-                        if (bikes != null && bikes.Count() > 0)
+                        if (bikes != null && bikes.Any())
                         {
                             PwaBikeNews popularBikes = new PwaBikeNews();
                             popularBikes.Heading = "Popular bikes";
@@ -245,7 +245,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         filters.PageNo = 1;
                         filters.PageSize = 9;
                         var tempbikes = _upcoming.GetModels(filters, EnumUpcomingBikesFilter.Default);
-                        if (tempbikes != null && tempbikes.Count() > 0)
+                        if (tempbikes != null && tempbikes.Any())
                         {
                             PwaBikeNews upcomingBikes = new PwaBikeNews();
                             upcomingBikes.Heading = "Upcoming bikes";
@@ -500,7 +500,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         Tab = BikeInfoTabType.Dealers
                     });
                 }
-                if (tabs.Count() > 0)
+                if (tabs.Any())
                 {
                     tabs = tabs.Where(m => (m.Count > 0 || m.IsVisible) && pageId != m.Tab).OrderBy(m => m.Tab).Take((int)totalTabCount).ToList();
                 }

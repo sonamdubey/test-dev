@@ -412,7 +412,7 @@ namespace Bikewale.Models
                     }
                     objVM.FormatedBikeVersionPrices = objBikePQAMPList;
 
-                    if (objVM.FormatedBikeVersionPrices != null && objVM.FormatedBikeVersionPrices.Count() > 0)
+                    if (objVM.FormatedBikeVersionPrices != null && objVM.FormatedBikeVersionPrices.Any())
                     {
                         firstVersion = objVM.FormatedBikeVersionPrices.OrderByDescending(m => m.BikeQuotationEntity.IsVersionNew).OrderBy(v => v.BikeQuotationEntity.ExShowroomPrice).First().BikeQuotationEntity;
                         objVM.IsNew = isNew = firstVersion.IsModelNew;

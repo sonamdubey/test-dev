@@ -1291,7 +1291,7 @@ namespace Bikewale.DAL.UserReviews
             BikeRatingsReviewsInfo objBikeRatingReviewInfo = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeratingsandreviewsinfo"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeratingsandreviewsinfo_27092017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.UInt32, modelId));
@@ -1342,6 +1342,27 @@ namespace Bikewale.DAL.UserReviews
                             };
                         }
 
+                        if (dr.NextResult())
+                        {
+                            objBikeRatingReviewInfo.ObjQuestionValue = new QuestionsRatingValueByModel();
+                            objBikeRatingReviewInfo.ObjQuestionValue.ModelId = modelId;
+                            IList<QuestionRatingsValueEntity> objList = new List<QuestionRatingsValueEntity>();
+
+                            while (dr.Read())
+                            {
+                                QuestionRatingsValueEntity objQuestion = new QuestionRatingsValueEntity();
+
+                                objQuestion.ModelId = SqlReaderConvertor.ToUInt32(dr["modelId"]);
+                                objQuestion.QuestionId = SqlReaderConvertor.ToUInt16(dr["questionId"]);
+                                objQuestion.AverageRatingValue = SqlReaderConvertor.ToFloat(dr["aggregateValue"]);
+                                objQuestion.QuestionHeading = Convert.ToString(dr["heading"]);
+                                objQuestion.QuestionDescription = Convert.ToString(dr["description"]);
+
+                                objList.Add(objQuestion);
+                            }
+                            objBikeRatingReviewInfo.ObjQuestionValue.QuestionsList = objList;
+                        }
+
                         dr.Close();
                     }
                 }
@@ -1349,9 +1370,7 @@ namespace Bikewale.DAL.UserReviews
 
             catch (Exception ex)
             {
-
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-
             }
 
             return objBikeRatingReviewInfo;
@@ -1535,6 +1554,7 @@ namespace Bikewale.DAL.UserReviews
                                     CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
                                     CustomerName = Convert.ToString(dr["CustomerName"]),
                                     Description = Convert.ToString(dr["Comments"]),
+                                    SanitizedDescription = Convert.ToString(dr["santizedreview"]),
                                     Title = Convert.ToString(dr["ReviewTitle"]),
                                     Tips = Convert.ToString(dr["ReviewTips"]),
                                     UpVotes = SqlReaderConvertor.ToUInt32(dr["UpVotes"]),

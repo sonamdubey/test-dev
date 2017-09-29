@@ -53,7 +53,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Area
             try
             {
                 objAreaList = _areaCache.GetAreaList(modelId, cityId);
-                if (objAreaList != null && objAreaList.Count() > 0)
+                if (objAreaList != null && objAreaList.Any())
                 {
                     // Auto map the properties
                     objDTOAreaList = new PQAreaList();
@@ -91,7 +91,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Area
             try
             {
                 objAreaList = _areaCache.GetAreaList(modelId, cityId);
-                if (objAreaList != null && objAreaList.Count() > 0)
+                if (objAreaList != null && objAreaList.Any())
                 {
                     // Auto map the properties
                     objDTOAreaList = new DTO.PriceQuote.Area.v2.PQAreaList();

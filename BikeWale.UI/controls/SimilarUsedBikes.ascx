@@ -4,7 +4,7 @@
 <div id="similarContent" class="bw-model-tabs-data font14">
     <div class="carousel-heading-content padding-top20">
         <div class="swiper-heading-left-grid inline-block">
-            <h2>More <%= ModelName %> bikes in <%= CityName %></h2>
+            <h2>More second-hand <%= ModelName %> bikes in <%= CityName %></h2>
         </div><div class="swiper-heading-right-grid inline-block text-right">
             <a href="<%= Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(MakeMaskingName,ModelMaskingName,CityMaskingName) %>" title="Used <%= String.Format("{0} {1}",MakeName,ModelName) %> Bikes in <%= CityName %>" class="btn view-all-target-btn">View all</a>
         </div>
@@ -19,11 +19,11 @@
                     <a href="/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" title="Used <%= String.Format("{0} {1}", bike.ModelYear.Year, bike.BikeName) %>" class="jcarousel-card">
                         <div class="model-jcarousel-image-preview">
                             <span class="card-image-block">
-                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="Used <%=String.Format("{0} {1}", bike.ModelYear.Year, bike.BikeName) %>" alt="Used <%=String.Format("{0} {1}", bike.ModelYear.Year, bike.BikeName) %>" border="0">
+                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="Used <%=String.Format("{0} {1}", bike.ModelYear.Year, bike.BikeName) %>" alt="Used <%=String.Format("Used {0} {1}", bike.ModelYear.Year, bike.BikeName) %>" border="0">
                             </span>
                         </div>
                         <div class="card-desc-block">
-                            <h3 class="bikeTitle"><%= bike.BikeName %></h3>
+                            <h3 class="bikeTitle text-truncate">Used <%= bike.BikeName %></h3>
                               <% if (bike.ModelYear!=null)
                                  { %>
                             <div class="grid-6 alpha">

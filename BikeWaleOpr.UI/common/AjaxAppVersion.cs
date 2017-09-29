@@ -40,7 +40,7 @@ namespace BikewaleOpr.Common
             try
             {
                 appVersions = objManageAppVersion.GetAppVersions((AppEnum)appType);
-                if (appVersions != null && appVersions.Count() > 0)
+                if (appVersions != null && appVersions.Any())
                 {
                     json = JavaScriptSerializer.Serialize(appVersions);
                 }
@@ -92,7 +92,7 @@ namespace BikewaleOpr.Common
                     objCache.RefreshCache(string.Format("BW_AppVersion_{0}_Src_{1}", appVersionId, appType));
                 }
 
-                if (appVersions != null && appVersions.Count() > 0)
+                if (appVersions != null && appVersions.Any())
                 {
                     json = JavaScriptSerializer.Serialize(appVersions);
                 }

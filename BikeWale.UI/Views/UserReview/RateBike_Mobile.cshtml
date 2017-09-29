@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.UserReviewRatingVM
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/write-review.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/user-review/write-review.css' inline />";
     Model.Page_JS_Path = "/m/src/user-review/write-review.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     string gaLabel = string.Format("{0}_{1}_{2}", Model.objModelEntity.MakeBase.MakeName, Model.objModelEntity.ModelName, Model.SourceId);   
@@ -9,7 +9,7 @@
 <section>
 	<div class="contest-slug-sm slug-grey-info">
 		<span class="bwmsprite trophy-grey"></span>
-		<p class="contest-slug__label">Rate and write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20B9;1000</p>
+		<p class="contest-slug__label">Rate and write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20B9;2000</p>
 	</div>
 </section>
 

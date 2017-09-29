@@ -254,13 +254,13 @@ namespace BikewaleOpr.content
                 modelColors = objManageModelColor.FetchModelColors(ModelId);
                 versions = objManageModelColor.FetchBikeVersion(ModelId);
 
-                if (modelColors != null && modelColors.Count() > 0)
+                if (modelColors != null && modelColors.Any())
                 {
                     modelColorCount = modelColors.Count();
                     rptModelColor.DataSource = modelColors;
                     rptModelColor.DataBind();
                 }
-                if (versions != null && versions.Count() > 0)
+                if (versions != null && versions.Any())
                 {
                     versionCount = versions.Count();
                     rptVersionColor.DataSource = versions;

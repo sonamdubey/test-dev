@@ -11,7 +11,7 @@
     %> 
     
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link href="<%= staticUrl %>/m/css/sell-bike/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl %>/m/sass/sell-bike/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl  %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl  %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 

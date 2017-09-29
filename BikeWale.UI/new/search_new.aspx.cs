@@ -55,7 +55,7 @@ namespace Bikewale.New
                             ;
                     var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
                     makes = objCache.GetMakesByType(EnumBikeType.New);
-                    if (makes != null && makes.Count() > 0)
+                    if (makes != null && makes.Any())
                     {
                         rptPopularBrand= makes.Take(9);
 

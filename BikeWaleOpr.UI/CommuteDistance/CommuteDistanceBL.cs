@@ -111,7 +111,7 @@ namespace BikewaleOpr.CommuteDistance
                 GeoLocationEntity dealer = objDealerAreaDist.DealerLocation;
                 areas = objDealerAreaDist.Areas;
 
-                if (dealer != null && (areas != null && areas.Count() > 0))
+                if (dealer != null && (areas != null && areas.Any()))
                 {
                     GoogleDistanceAPIHelper googleApi = new GoogleDistanceAPIHelper();
 
@@ -124,7 +124,7 @@ namespace BikewaleOpr.CommuteDistance
                         //Call the Google API and get distances between areas and dealer location
                         IEnumerable<GeoLocationDestinationEntity> apiResp = googleApi.GetDistanceUsingArrayIndex(dealer, areasBatch, false);
 
-                        if (apiResp != null && apiResp.Count() > 0)
+                        if (apiResp != null && apiResp.Any())
                         {
                             string formatedResp = googleApi.FormatApiResp(apiResp);
 
@@ -136,7 +136,7 @@ namespace BikewaleOpr.CommuteDistance
                         areasBatch = areas.Skip(50 * batchCounter).Take(50);
                         Thread.Sleep(100);
 
-                    } while (areasBatch.Count() > 0);
+                    } while (areasBatch.Any());
                 }
             }
             catch (Exception ex)

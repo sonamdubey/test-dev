@@ -50,7 +50,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     objBikeList = _objModel.GetNewLaunchedBikesList(startIndex, endIndex, makeid).Models;
 
-                    if (objBikeList != null && objBikeList.Count() > 0)
+                    if (objBikeList != null && objBikeList.Any())
                     {
                         FetchedRecordsCount = objBikeList.Count();
 

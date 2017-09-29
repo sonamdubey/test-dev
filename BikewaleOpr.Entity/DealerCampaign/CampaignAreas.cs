@@ -36,8 +36,8 @@ namespace BikewaleOpr.Entity.DealerCampaign
     {
         public City City { get; set; }
         public IEnumerable<Area> Areas { get; set; }
-        public IEnumerable<Area> AutoAssignedAreas { get { return Areas!=null && Areas.Count() > 0 ? Areas.Where(area=> area.IsAutoAssigned) : null; } }
-        public IEnumerable<Area> AdditionalAreas { get { return Areas != null && Areas.Count() > 0 ? Areas.Where(area => !area.IsAutoAssigned) : null; } }
+        public IEnumerable<Area> AutoAssignedAreas { get { return Areas!=null && Areas.Any() ? Areas.Where(area=> area.IsAutoAssigned) : null; } }
+        public IEnumerable<Area> AdditionalAreas { get { return Areas != null && Areas.Any() ? Areas.Where(area => !area.IsAutoAssigned) : null; } }
     }
 
     /// <summary>

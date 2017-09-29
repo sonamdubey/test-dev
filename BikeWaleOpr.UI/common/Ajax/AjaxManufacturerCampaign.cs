@@ -37,7 +37,7 @@ namespace BikewaleOpr.Common
                 if (dealerId > 0)
                 {
                     manufacturerCampaigns = objDAL.GetManufacturerCampaigns(dealerId);
-                    if (manufacturerCampaigns != null && manufacturerCampaigns.Count() > 0)
+                    if (manufacturerCampaigns != null && manufacturerCampaigns.Any())
                     {
                         json = JavaScriptSerializer.Serialize(manufacturerCampaigns);
                     }
@@ -111,7 +111,7 @@ namespace BikewaleOpr.Common
             try
             {
                 manufacturers = objDAL.GetDealerAsManuFacturer();
-                if (manufacturers != null && manufacturers.Count() > 0)
+                if (manufacturers != null && manufacturers.Any())
                 {
                     json = JavaScriptSerializer.Serialize(manufacturers);
                 }

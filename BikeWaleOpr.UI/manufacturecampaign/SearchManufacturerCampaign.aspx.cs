@@ -41,7 +41,7 @@ namespace BikeWaleOpr.manufacturecampaign
 
                     IEnumerable<ManufacturerEntity> manufacturers = _objMfgRepo.GetManufacturersList();
 
-                    if (manufacturers != null && manufacturers.Count() > 0)
+                    if (manufacturers != null && manufacturers.Any())
                     {
                         ddlManufacturers.DataSource = manufacturers;
 

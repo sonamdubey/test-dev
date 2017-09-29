@@ -105,7 +105,8 @@ namespace Bikewale.Utility
             _UserReviewIndexName = string.Empty,
             _OtherBikesInMakeId = string.Empty,
         _CapitalFirstPincodeIndex = string.Empty,
-            _InnovationBannerModels = String.Empty;
+            _InnovationBannerModels = String.Empty,
+            _UserReviewsReadInSessionCount = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -231,6 +232,7 @@ namespace Bikewale.Utility
             _CarTradeLeadApiAction = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadApiAction"]);
             _CarTradeLeadApiCode = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadApiCode"]);
             _InnovationBannerModels = Convert.ToString(ConfigurationManager.AppSettings["InnovationBannerModels"]);
+            _UserReviewsReadInSessionCount = Convert.ToString(ConfigurationManager.AppSettings["UserReviewsReadInSessionCount"]);
         }
 
         // Static method to provide access to instance
@@ -392,6 +394,6 @@ namespace Bikewale.Utility
 
         public string CapitalFirstPinCode { get { return _CapitalFirstPincodeIndex; } }
         public string InnovationBannerModels { get { return _InnovationBannerModels; } }
-        public uint KawasakiCampaignId { get { return _KawasakiCampaignId; } }
+        public string UserReviewsReadInSessionCount { get { return _UserReviewsReadInSessionCount; } }       
     }   // class
 }   // namespace
