@@ -65,13 +65,25 @@
                                         <div class="text-xt-light-grey font14 margin-bottom15">
                                             @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
                                         </div>
-                                        <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</div>
+                                        @if (bike.ExShowroomPrice != 0 )
+                                        {
+                                            <div class="font14 text-light-grey margin-bottom5">@string.Format("Ex-showroom, {0}", Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="font14 text-light-grey margin-bottom5">
+                                                <span>Avg. Ex-showroom price</span>
+                                                <span class="bwsprite emi-info tooltip-icon-target">
+                                                    <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">Price is not available in @Model.City.City</span></span>
+                                                </span>
+                                            </div>
+                                        }
                                         <div class="text-bold">
-                                            @{ if (bike.VersionPrice == 0)
+                                            @{ if (bike.AvgPrice == 0)
                                                 { @Html.Raw("<span class='font16'>Price Unavailable</span>");
                                                 }
                                                 else
-                                                { @Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice))));
+                                                { @Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", bike.ExShowroomPrice == 0 ? Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice)) : Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice))));
                                                 }
                                             }
                                         </div>
@@ -82,7 +94,7 @@
                                     </div>
                                 </div>
                             </li>
-                        }
+                                                }
                     </ul>
                 </div>
                                                 }

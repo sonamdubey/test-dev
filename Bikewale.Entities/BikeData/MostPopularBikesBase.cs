@@ -32,6 +32,10 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public Int64 VersionPrice { get; set; }
         [DataMember]
+        public UInt64 ExShowroomPrice { get; set; }
+        [DataMember]
+        public Int64 AvgPrice { get; set; }
+        [DataMember]
         public MinSpecsEntity Specs { get; set; }
         [DataMember]
         public ushort BikePopularityIndex { get; set; }

@@ -50,6 +50,7 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
         IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null);
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeId = null);
         NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeId = null);

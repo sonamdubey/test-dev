@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Models.ServiceCenters;
 using System.Collections.Generic;
 namespace Bikewale.Models
@@ -53,6 +54,9 @@ namespace Bikewale.Models
         public DealerCardVM Dealers { get; set; }
 
         public IEnumerable<BikeMakeEntityBase> OtherMakes { get; set; }
+
+        public GlobalCityAreaEntity City{ get; set; }
+
 
     }
 }

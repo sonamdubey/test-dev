@@ -336,3 +336,46 @@
 .brand-23 {
   width: 125px;
   background-position: -3026px 0; }
+
+/* emi tooltip */
+.emi-info {
+    width: 11px;
+    height: 10px;
+    background-position: -217px -282px;
+    position: relative;
+    top: 1px;
+    cursor: pointer;
+}
+
+.tooltip-icon-target:hover .bw-tooltip {
+    display: block;
+}
+
+.emi-tooltip {
+    display: none;
+    width: 235px;
+    top: -10px;
+    right: -245px; /* width + tooltip width */
+    border-radius: 2px;
+    box-shadow: 0 1px 2px #eee;
+    cursor: default;
+}
+
+.tooltip-white {
+    background: #fff;
+    padding: 10px;
+}
+
+.tooltip-white .bw-tooltip-text:before {
+    left: -10px;
+}
+
+.tooltip-white .bw-tooltip-text:after {
+    left: -9px;
+    border-right-color: #fff;
+}
+
+.emi-tooltip .bw-tooltip-text:before,
+.emi-tooltip .bw-tooltip-text:after {
+    top: 13%;
+}

@@ -107,6 +107,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Modified by : Ashutosh Sharma on 30 Aug 2017 
         /// Description : Changed SP from 'getversions_23082017' to 'getversions_30082017'
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Changed SP from 'getversions_30082017' to 'getversions_29092017'
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="isNew"></param>
@@ -119,7 +121,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getversions_30082017";
+                    cmd.CommandText = "getversions_29092017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
 
@@ -135,6 +137,7 @@ namespace Bikewale.DAL.BikeData
                                     VersionName = dr["Version"].ToString(),
                                     ModelName = dr["Model"].ToString(),
                                     Price = Convert.ToUInt64(dr["VersionPrice"]),
+                                    AverageExShowroom = Convert.ToUInt64(dr["AverageExShowroom"]),
                                     BrakeType = dr["BrakeType"].ToString(),
                                     AlloyWheels = Convert.ToBoolean(dr["AlloyWheels"]),
                                     ElectricStart = Convert.ToBoolean(dr["ElectricStart"]),

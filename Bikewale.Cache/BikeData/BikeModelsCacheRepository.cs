@@ -948,6 +948,25 @@ namespace Bikewale.Cache.BikeData
 
             return objBikes;
         }
+
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId)
+        {
+            IEnumerable<MostPopularBikesBase> objBikes = null;
+            string key = string.Format("BW_PopularBikesByMakeWithCityPrice_{0}_{1}", makeId, cityId);
+
+            try
+            {
+                objBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularBikesByMakeWithCityPrice(makeId, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                objErr.SendMail();
+            }
+
+            return objBikes;
+        }
         /// <summary>
         /// Created by :Subodh Jain 22 sep 2013
         /// Des: method to get popular bike by make and city

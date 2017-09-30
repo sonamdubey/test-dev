@@ -267,6 +267,8 @@ namespace Bikewale.DAL.BikeData
         /// Versions list with Min specs
         /// Modified by : Ashutosh Sharma on 30 Aug 2017 
         /// Description : Changed SP from 'getversions_23082017' to 'getversions_30082017', removed IsGstPrice flag
+        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
+        /// Description : Changed SP from 'getversions_23082017' to 'getversions_30082017', removed IsGstPrice flag
         /// </summary>
         /// <param name="modelId">model id</param>
         /// <param name="isNew">is new</param>
@@ -278,7 +280,7 @@ namespace Bikewale.DAL.BikeData
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_30082017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_29092017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -297,6 +299,7 @@ namespace Bikewale.DAL.BikeData
                                     VersionName = Convert.ToString(dr["Version"]),
                                     ModelName = Convert.ToString(dr["Model"]),
                                     Price = Convert.ToUInt64(dr["VersionPrice"]),
+                                    AverageExShowroom = Convert.ToUInt64(dr["AverageExShowroom"]),
                                     BrakeType = !Convert.IsDBNull(dr["BrakeType"]) ? Convert.ToString(dr["BrakeType"]) : String.Empty,
                                     AlloyWheels = !Convert.IsDBNull(dr["AlloyWheels"]) ? Convert.ToBoolean(dr["AlloyWheels"]) : false,
                                     ElectricStart = !Convert.IsDBNull(dr["ElectricStart"]) ? Convert.ToBoolean(dr["ElectricStart"]) : false,
@@ -936,6 +939,67 @@ namespace Bikewale.DAL.BikeData
                 HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
+            }
+            return objList;
+        }
+
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId)
+        {
+            List<MostPopularBikesBase> objList = null;
+            MostPopularBikesBase objData = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymakewithcityprice"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objList = new List<MostPopularBikesBase>();
+
+                            while (dr.Read())
+                            {
+                                objData = new MostPopularBikesBase();
+                                objData.objMake = new BikeMakeEntityBase();
+                                objData.objModel = new BikeModelEntityBase();
+                                objData.objVersion = new BikeVersionsListEntity();
+                                objData.Specs = new MinSpecsEntity();
+                                objData.objMake.MakeName = Convert.ToString(dr["Make"]);
+                                objData.objModel.ModelName = Convert.ToString(dr["Model"]);
+                                objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                objData.objVersion.VersionId = Convert.ToInt32(dr["VersionId"]);
+                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.BikeName = Convert.ToString(dr["BikeName"]);
+                                objData.HostURL = Convert.ToString(dr["HostUrl"]);
+                                objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
+                                objData.AvgPrice = SqlReaderConvertor.ToInt64(dr["AvgVersionPrice"]);
+                                objData.ExShowroomPrice = SqlReaderConvertor.ToUInt64(dr["ExShowroomPrice"]);
+                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
+                                objData.BikePopularityIndex = Convert.ToUInt16(dr["PopularityIndex"]);
+                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
+                                objList.Add(objData);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.BikeData.BikeModelsRepository_{0}_{1}", makeId, cityId));
             }
             return objList;
         }

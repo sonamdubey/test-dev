@@ -83,6 +83,7 @@ namespace Bikewale.Models
                 string cityName = string.Empty, cityMaskingName = string.Empty;
                 CityEntityBase cityBase = null;
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
+                objData.City = location;
                 if (location != null && location.CityId > 0)
                 {
                     cityId = location.CityId;
@@ -106,7 +107,7 @@ namespace Bikewale.Models
 
                 #endregion
 
-                objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMake((int)_makeId);
+                objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
                 BikeMakeEntityBase makeBase = _bikeMakesCache.GetMakeDetails(_makeId);
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
                 if (makeBase != null)
