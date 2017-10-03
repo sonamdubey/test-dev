@@ -692,7 +692,10 @@ docReady(function () {
             var ele = $(document).find('.insertWidget[data-reviewId=' + reviewId + ']');
             ele.after(expertReviewWidgetHtml);
             $('.swiper-image-preview img.lazy').lazyload();
-            triggerGA("User_Reviews", "ExpertReviews_CarouselLoaded", makeName + "_" + modelName);
+
+            if (expertReviewWidgetHtml.trim()) {
+                triggerGA("User_Reviews", "ExpertReviews_CarouselLoaded", makeName + "_" + modelName);
+            }
         };
     }
 

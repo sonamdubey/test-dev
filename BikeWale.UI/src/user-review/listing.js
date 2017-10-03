@@ -619,9 +619,12 @@ docReady(function () {
             }).jcarouselControl({
                 target: '+=' + _target
             });
-
+           
             $('.jcarousel ul img.lazy').lazyload();
-            triggerGA("User_Reviews", "ExpertReviews_CarouselLoaded", makeName + "_" + modelName);
+
+            if (expertReviewWidgetHtml.trim()) {
+                triggerGA("User_Reviews", "ExpertReviews_CarouselLoaded", makeName + "_" + modelName);
+            }
 
             $(".expert-review-list .jcarousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
                 $(this).find("img.lazy").trigger('appear');
