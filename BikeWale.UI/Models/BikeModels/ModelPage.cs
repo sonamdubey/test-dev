@@ -165,7 +165,7 @@ namespace Bikewale.Models.BikeModels
 
                     SetBreadcrumList();
                     SetPageJSONLDSchema();
-
+                    ShowInnovationBanner(_modelId);
                     #endregion Do Not change the sequence
                 }
             }
@@ -175,6 +175,28 @@ namespace Bikewale.Models.BikeModels
             }
 
             return _objData;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Sep 2017
+        /// Description :   To Show Innovation Banner
+        /// </summary>
+        /// <param name="_modelId"></param>
+        private void ShowInnovationBanner(uint _modelId)
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty
+                    (BWConfiguration.Instance.InnovationBannerModels))
+                {
+                    _objData.AdTags.ShowInnovationBannerDesktop = _objData.AdTags.ShowInnovationBannerMobile = BWConfiguration.Instance.InnovationBannerModels.Split(',').Contains(_modelId.ToString());
+                    _objData.AdTags.InnovationBannerGALabel = _objData.BikeName.Replace(" ", "_");
+                }
+            }
+            catch (Exception ex)
+            {
+                var err = new Notifications.ErrorClass(ex, String.Format("ShowInnovationBanner({0})", _modelId));
+            }
         }
 
         /// <summary>
@@ -939,6 +961,8 @@ namespace Bikewale.Models.BikeModels
         ///     Dealer Pricing (Highest priority) -> Bikewale Pricing -> Version pricing (Lowest)
         ///  Modified by : Ashutosh Sharma on 30 Aug 2017 
         ///  Description : Removed IsGstPrice flag
+        ///  Modified by : Ashutosh Sharma on 26-Sep-2017
+        ///  Description : Added condition to get version id for futuristic bike models.
         /// </summary>
         private void LoadVariants(BikeModelPageEntity modelPg)
         {
@@ -1056,6 +1080,10 @@ namespace Bikewale.Models.BikeModels
                         if (firstVer != null)
                             _objData.VersionName = firstVer.VersionName;
                     }
+                }
+                else if(modelPg != null && modelPg.ModelVersions != null)
+                {
+                    _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
                 }
             }
             catch (Exception ex)

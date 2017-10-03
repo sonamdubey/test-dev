@@ -111,6 +111,9 @@
     <Compile Include="AppDeepLinking\DeepLinkingEntity.cs" />
     <Compile Include="AppDeepLinking\ScreenIdEnum.cs" />
     <Compile Include="App\AppVersion.cs" />
+    <Compile Include="Authors\AuthorEntity.cs" />
+    <Compile Include="Authors\AuthorEntityBase.cs" />
+    <Compile Include="Authors\AuthorsMaskingReponse.cs" />
     <Compile Include="AutoBiz\BikeColorAvailability.cs" />
     <Compile Include="AutoBiz\DealerAreaDetails.cs" />
     <Compile Include="AutoBiz\DealerCustDistanceMapping.cs" />

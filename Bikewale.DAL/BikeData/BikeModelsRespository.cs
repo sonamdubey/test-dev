@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities;
+﻿using Bikewale.DAL.CoreDAL;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
@@ -9,6 +10,7 @@ using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections;
@@ -131,6 +133,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : validation modelPage.ModelDetails and modelPage.ModelDesc added. 
         /// Modified by : Aditi Srivastava on 31 May 2017
         /// Summary     : Moved GetModelColors function outside ModelVersions condition
+        /// Modified by : Ashutosh Sharma on 26-Sep-2017
+        /// Description : Added condition to get futuristic version min specs for upcoming bikes.
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -149,17 +153,22 @@ namespace Bikewale.DAL.BikeData
                 }
                 if (modelPage.ModelDetails != null)
                 {
-                    // If bike is upcoming Bike get the upcoming bike data
+                    // If bike is upcoming Bike get the upcoming bike data and version min specs for futuristic bike
                     if (modelPage.ModelDetails.Futuristic)
                     {
                         modelPage.UpcomingBike = GetUpcomingBikeDetails(modelId);
+                        modelPage.ModelVersions = GetFuturisticVersionMinSpecs(modelId).ToList();
                     }
-
-                    // Get model min specs
-                    modelPage.ModelVersions = GetVersionMinSpecs(modelId, modelPage.ModelDetails.New);
+                    else
+                    {
+                        // Get model min specs
+                        modelPage.ModelVersions = GetVersionMinSpecs(modelId, modelPage.ModelDetails.New);
+                    }
+                    
+                    
 
                     // Get version all specs
-                    if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                    if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 && !modelPage.ModelDetails.Futuristic)
                     {
                         modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
                         modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
@@ -308,6 +317,33 @@ namespace Bikewale.DAL.BikeData
             }
 
 
+            return objMinSpecs;
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 26-Sep-2017
+        /// Description : DAL method to get futuristice version of bike model
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeVersionMinSpecs> GetFuturisticVersionMinSpecs(U modelId)
+        {
+
+            IEnumerable<BikeVersionMinSpecs> objMinSpecs = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+                {
+                    DynamicParameters param = new DynamicParameters();
+                    param.Add("par_modelid", modelId);
+
+                    objMinSpecs =  connection.Query<BikeVersionMinSpecs>("getfuturisticversions", param: param, commandType: CommandType.StoredProcedure);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.BikeModelsRepository.GetFuturisticVersionMinSpecs_{0}", modelId));
+            }
             return objMinSpecs;
         }
 

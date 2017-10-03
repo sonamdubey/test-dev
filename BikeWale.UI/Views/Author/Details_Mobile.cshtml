@@ -1,0 +1,95 @@
+﻿@model Bikewale.Models.Authors.AuthorDetailsPageVM
+@using Bikewale.Utility
+
+@if (Model != null && Model.Author != null)
+{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/authors.css' />";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.AdTags.AdId = "1395986297721";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
+    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_Mid_320x50 = true;
+
+    <div class="detail-author">
+        <div class="box-content">
+            <div class="detail-author__head">
+                <h1 class="detail-author__name">@Model.Author.AuthorName</h1>
+                <span class="detail-author__designation">@Model.Author.Designation</span>
+            </div>
+            <div class="detail-author__body">
+                <div class="detail-author__image">
+                    <img src="@string.Format("https://{0}/{1}/{2}", Model.Author.HostUrl, Model.Author.ProfileImage, Model.Author.ImageName)" alt="@Model.Author.AuthorName" title="@Model.Author.AuthorName" border="0">
+                </div>
+                <div class="detail-author__description">
+                   @Model.Author.FullDescription 
+                </div>
+                <span class="detail-author__mail">Get in touch with @Model.Author.AuthorFirstName: <a href="mailto:@Model.Author.EmailId" title="_blank">@Model.Author.EmailId</a></span>
+                <span class="inline-block">Follow him on:</span>
+                <ul class="social-wrapper">
+                    <li class="fb-container rounded-corner2 text-center share-btn">
+                        <a href=@Model.Author.FacebookProfile title=@Model.Author.AuthorFirstName class="block">
+                            <span class="social-icons-sprite fb-icon"></span>
+                        </a> 
+                    </li>
+                    <li class="tweet-container rounded-corner2 text-center share-btn">
+                        <a href=@Model.Author.TwitterProfile title=@Model.Author.AuthorFirstName class="block">
+                            <span class="social-icons-sprite tweet-icon"></span>
+                        </a>
+                    </li>
+                    <li class="gplus-container rounded-corner2 text-center  share-btn">
+                        <a href=@Model.Author.GooglePlusProfile title=@Model.Author.AuthorFirstName class="block">
+                            <span class="social-icons-sprite gplus-icon"></span> 
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @if (Model.IsNewsAvailable || Model.IsExpertReviewsAvailable)
+        {
+            <div class="box-content">
+                @if (Model.IsNewsAvailable)
+                {
+                    <div class="@(Model.ExpertReviewsList != null && Model.ExpertReviewsList.Any() ? "border-after-bottom" : "") padding-top20 padding-left20 padding-right20 padding-bottom20">
+                        <h2 class="list-heading">News by @Model.Author.AuthorFirstName</h2>
+                        <ul class="disk-list">
+                            @foreach (var news in Model.NewsList)
+                            {
+                                string articleUrl = string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(news.CategoryId)));
+                                <li>
+                                    <a href="@articleUrl" title="@news.Title">@news.Title</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                @if (Model.IsExpertReviewsAvailable)
+                {
+                    <div class="@(Model.NewsList.Any() ? "" : "padding-top20") padding-left20 padding-right20 padding-bottom20">
+                        <h2 class="list-heading">Expert Reviews by @Model.Author.AuthorFirstName</h2>
+                        <ul class="disk-list">
+                            @foreach (var reviews in Model.ExpertReviewsList)
+                            {
+                                string articleUrl = string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(reviews.BasicId), reviews.ArticleUrl, Convert.ToString(reviews.CategoryId)));
+                                <li>
+                                    <a href="@articleUrl" title="@reviews.Title">@reviews.Title</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        }
+        @if (Model.OtherAuthors != null && Model.OtherAuthors.Any())
+        {
+            <div class="box-content">
+                <h2 class="list-heading padding-left20 padding-top15">Other authors</h2>
+                @Html.Partial("~/Views/Author/_AuthorsListCarousel_Mobile.cshtml", Model.OtherAuthors)
+            </div>
+        }
+    </div>
+}
+
+
+
+
+

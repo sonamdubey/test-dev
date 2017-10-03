@@ -576,6 +576,33 @@ namespace Bikewale.BAL.EditCMS
             return null;
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 20-Sep-2017
+        /// Description : Method to get articles by category list with parameters 'categoryIdList, startIndex, endIndex'.
+        /// </summary>
+        /// <param name="categoryIdList"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <returns></returns>
+        public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex)
+        {
+            try
+            {
+                var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIdList, (uint)startIndex, (uint)endIndex);
+
+                if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
+                {
+                    return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message, ex);
+            }
+            return null;
+        }
+
+       
         #endregion
 
 

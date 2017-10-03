@@ -48,13 +48,14 @@ namespace Bikewale.Models
         /// <param name="bikeModels"></param>
         /// <param name="makeMaskingName"></param>
         /// <param name="dealerId"></param>
-        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount)
+        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount, bool isMobile)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
             _bikeModels = bikeModels;
             _objSC = objSC;
             TopCount = topCount;
+            IsMobile = isMobile;
             objDealerDetails = new DealerShowroomDealerDetailsVM();
             ProcessQuery(makeMaskingName, cityMaskingName, dealerId);
         }
@@ -422,7 +423,7 @@ namespace Bikewale.Models
                     if(objDealerDetails.DealerDetails != null && !objDealerDetails.DealerDetails.DealerDetails.IsFeatured)
                     {
                         status = StatusCodes.RedirectPermanent;
-                        objDealerDetails.RedirectUrl = string.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
+                        objDealerDetails.RedirectUrl = string.Format("{0}/{1}{2}-dealer-showrooms-in-{3}/", BWConfiguration.Instance.BwHostUrl, IsMobile?"m/":"", makeMaskingName, cityMaskingName);
                     }
                 }
             }
