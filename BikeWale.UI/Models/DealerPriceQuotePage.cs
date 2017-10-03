@@ -105,6 +105,8 @@ namespace Bikewale.Models
                     }
                     objData.BodyStyleText = objData.BodyStyle.Equals(Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes";
                     objData.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
+
+                    ShowInnovationBanner(objData, _modelId);
                 }
 
 
@@ -115,6 +117,29 @@ namespace Bikewale.Models
             }
 
             return objData;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Sep 2017
+        /// Description :   To Show Innovation Banner
+        /// Enable the innovation banner only for Desktop
+        /// </summary>
+        /// <param name="_modelId"></param>
+        private void ShowInnovationBanner(DealerPriceQuotePageVM objData, uint _modelId)
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty
+                    (BWConfiguration.Instance.InnovationBannerModels))
+                {
+                    objData.AdTags.ShowInnovationBannerDesktop = BWConfiguration.Instance.InnovationBannerModels.Split(',').Contains(_modelId.ToString());
+                    objData.AdTags.InnovationBannerGALabel = String.Format("{0}_{1}", objData.BikeName.Replace(" ", "_"), "PQ_Page");
+                }
+            }
+            catch (Exception ex)
+            {
+                var err = new Notifications.ErrorClass(ex, String.Format("ShowInnovationBanner({0})", _modelId));
+            }
         }
 
         /// <summary>
