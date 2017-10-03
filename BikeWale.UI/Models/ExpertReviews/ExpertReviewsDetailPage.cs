@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Bikewale.Models
 {
@@ -30,14 +31,15 @@ namespace Bikewale.Models
     {
         #region Variables for dependency injection
         private readonly ICMSCacheContent _cmsCache = null;
-        private IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private IBikeModelsCacheRepository<int> _models = null;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
+        private readonly IBikeModelsCacheRepository<int> _models = null;
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _cityCacheRepo;
-        private IUpcoming _upcoming = null;
-        private string _basicId;
+        private readonly IUpcoming _upcoming = null;
+        private readonly string _basicId;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCacheRepository = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+        private readonly ControllerContext _ctrlContext = null;
         #endregion
 
         #region Page level variables
@@ -56,10 +58,11 @@ namespace Bikewale.Models
 
         #region Public properties
         public bool IsMobile { get; set; }
+        public bool IsAMPPage { get; set; }
         #endregion
 
         #region Constructor
-        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, string basicId)
+        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, string basicId, ControllerContext ctrlContext)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -70,6 +73,7 @@ namespace Bikewale.Models
             _basicId = basicId;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _objBikeVersionsCache = objBikeVersionsCache;
+            _ctrlContext = ctrlContext;
             ProcessQueryString();
         }
         #endregion
@@ -123,6 +127,7 @@ namespace Bikewale.Models
                     GetWidgetData(objData, widgetTopCount);
                     PopulatePhotoGallery(objData);
                     SetBikeTested(objData);
+                    InsertBikeInfoWidgetIntoContent(objData);
                 }
                 else
                     status = StatusCodes.ContentNotFound;
@@ -146,8 +151,8 @@ namespace Bikewale.Models
             {
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.AmpUrl = string.Format("{0}/m/expert-reviews/{1}-{2}/amp/", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
-                objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/expert-reviews/{0}-{1}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
-                objData.PageMetaTags.Title = string.Format("{0}- BikeWale.", objData.ArticleDetails.Title);
+                objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
+                objData.PageMetaTags.Title = string.Format("{0} - BikeWale.", objData.ArticleDetails.Title);
                 objData.PageMetaTags.ShareImage = Image.GetPathToShowImages(objData.ArticleDetails.OriginalImgUrl, objData.ArticleDetails.HostUrl, ImageSize._468x263);
                 if (objData.Make != null)
                     objData.AdTags.TargetedMakes = objData.Make.MakeName;
@@ -310,7 +315,6 @@ namespace Bikewale.Models
                         BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId);
                         objData.BikeInfo = objBikeInfo.GetData();
                         objData.BikeInfo.IsSmallSlug = true;
-
                     }
                 }
                 else
@@ -424,10 +428,10 @@ namespace Bikewale.Models
                     int iTemp = 1;
                     foreach (var i in ids)
                     {
-                        VehicleTag item = objData.ArticleDetails.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
-                        if (!String.IsNullOrEmpty(item.MakeBase.MaskingName))
+                        VehicleTag item = objData.ArticleDetails.VehiclTagsList.FirstOrDefault(e => e.ModelBase.ModelId == i);
+                        if (item != null && !String.IsNullOrEmpty(item.MakeBase.MaskingName))
                         {
-                            objData.BikeTested.Append(string.Format("<a title={0} {1} Bikes href=/m/{2}-bikes/{3}/>{4}</a>", item.MakeBase.MakeName, item.ModelBase.ModelName, item.MakeBase.MaskingName, item.ModelBase.MaskingName, item.ModelBase.ModelName));
+                            objData.BikeTested.Append(string.Format("<a title={0} {1} Bikes href=/m/{2}-bikes/{3}/>{0} {1}</a>", item.MakeBase.MakeName, item.ModelBase.ModelName, item.MakeBase.MaskingName, item.ModelBase.MaskingName));
                             if (iTemp < ids.Count()) { objData.BikeTested.Append(", "); }
                             iTemp++;
                         }
@@ -439,6 +443,66 @@ namespace Bikewale.Models
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ExpertReviewsDetailPage.SetBikeTested");
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objData"></param>
+        private void InsertBikeInfoWidgetIntoContent(ExpertReviewsDetailPageVM objData)
+        {
+            try
+            {
+                if (objData.ArticleDetails != null && objData.ArticleDetails.PageList != null && objData.BikeInfo != null && !IsAMPPage)
+                {
+                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = objData.ArticleDetails.PageList.Count; string inputString = null;
+
+                    string viewName = IsMobile ? "~/views/BikeModels/_minBikeInfoCard_Mobile.cshtml" : "~/views/BikeModels/_minBikeInfoCard.cshtml";
+
+                    IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
+                    //get length of each pages with stripped html
+                    for (int i = 0; i < totalPages; i++)
+                    {
+                        var tuple = StringHtmlHelpers.StripHtmlTagsWithLength(objData.ArticleDetails.PageList[i].Content);
+                        totalStrippedHTMLLength += tuple.Item2;
+                        objPagesInfo.Add(Tuple.Create(i, tuple.Item2));
+                    }
+
+                    int matchedPage = 0;
+                    requiredLength = Convert.ToInt32(totalStrippedHTMLLength * 0.25);
+
+                    foreach (var item in objPagesInfo)
+                    {
+                        currentPageLength += item.Item2;
+                        if (currentPageLength >= requiredLength)
+                        {
+                            matchedPage = item.Item1;
+                            requiredLength = currentPageLength - requiredLength;
+                            break;
+                        }
+
+                    }
+
+                    if (_ctrlContext != null)
+                    {
+
+                        inputString = MvcHelper.RenderViewToString(_ctrlContext, viewName, objData.BikeInfo);
+                    }
+
+                    if (!string.IsNullOrEmpty(inputString))
+                    {
+                        string output = StringHtmlHelpers.InsertHTMLBetweenHTML(objData.ArticleDetails.PageList[matchedPage].Content, inputString, requiredLength);
+
+                        objData.ArticleDetails.PageList[matchedPage].Content = output;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ExpertReviewsDetailPage.InsertBikeInfoWidgetIntoContent");
+            }
+        }
+
+
         #endregion
     }
 }
