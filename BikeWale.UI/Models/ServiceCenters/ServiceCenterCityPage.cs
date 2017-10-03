@@ -80,6 +80,13 @@ namespace Bikewale.Models.ServiceCenters
                 BindServiceCenterPopularCityWidget(objVM);
                 objVM.BrandCityPopupWidget = new BrandCityPopupModel(EnumBikeType.ServiceCenter, (uint)_makeId, (uint)_cityId).GetData();
 
+                objVM.BikeCityPopup = new PopUp.BikeCityPopup()
+                {
+                    ApiUrl = "/api/servicecenter/cities/make/" + objVM.Make.MakeId + "/",
+                    PopupShowButtonMessage = "Show service centers",
+                    PopupSubHeading = "See service centers in your city!"
+                };
+
                 BindPageMetas(objVM);
             }
             catch (Exception ex)

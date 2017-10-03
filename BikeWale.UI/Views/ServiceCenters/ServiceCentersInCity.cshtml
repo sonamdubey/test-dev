@@ -285,7 +285,7 @@
                             </div>
                             <div class="grid-3 omega">
                                 <a href="javascript:void(0)" id="changeCity" c="Price_in_City_Page" a="City_Change_Initiated_Bottom_Card" l="" data-modelid="" data-makemasking="@Model.Make.MaskingName" data-modelmasking="" class="btn changepriceincitypage btn-orange btn-200-32 bw-ga" rel="nofollow">Select your city</a>
-                                @Html.Partial("~/Views/Price/_PriceInCityPopUp.cshtml")
+                                @Html.Partial("~/Views/PopUp/BikeCityPopup.cshtml", @Model.BikeCityPopup)
                             </div>
                             <div class="clear"></div>
                         </div>

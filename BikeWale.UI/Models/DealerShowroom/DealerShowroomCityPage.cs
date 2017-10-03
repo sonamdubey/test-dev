@@ -86,7 +86,7 @@ namespace Bikewale.Models.DealerShowroom
                 objDealerVM.PopularBikes = BindMostPopularBikes();
                 BindPageMetas(objDealerVM);
                 BindLeadCapture(objDealerVM);
-                BindShowroomPopularCityWidget(objDealerVM);
+                //BindShowroomPopularCityWidget(objDealerVM);
 
             }
             catch (Exception ex)
@@ -346,28 +346,28 @@ namespace Bikewale.Models.DealerShowroom
         /// Description : Method for showrooms in popular cities widget 
         /// </summary>
         /// <param name="objVM"></param>
-        private void BindShowroomPopularCityWidget(DealerShowroomCityPageVM objDealerDetails)
-        {
-            DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();
-            try
-            {
-                uint topCount = 8;
-                objData.DealerServiceCenters = _objDealerCache.GetPopularCityDealer(_makeId, topCount);
-                objData.MakeMaskingName = _makeMaskingName;
-                objData.MakeName = objVM.Make.MakeName;
-                objVM.DealersServiceCenterPopularCities = objData;
-                if (objData.DealerServiceCenters.DealerDetails.Any())
-                {
-                    objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(_cityId)).ToList();
-                }
+        //private void BindShowroomPopularCityWidget(DealerShowroomCityPageVM objDealerDetails)
+        //{
+        //    DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();
+        //    try
+        //    {
+        //        uint topCount = 8;
+        //        objData.DealerServiceCenters = _objDealerCache.GetPopularCityDealer(_makeId, topCount);
+        //        objData.MakeMaskingName = _makeMaskingName;
+        //        objData.MakeName = objVM.Make.MakeName;
+        //        objVM.DealersServiceCenterPopularCities = objData;
+        //        if (objData.DealerServiceCenters.DealerDetails.Any())
+        //        {
+        //            objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(_cityId)).ToList();
+        //        }
 
-            }
-            catch (System.Exception ex)
-            {
+        //    }
+        //    catch (System.Exception ex)
+        //    {
 
-                ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindServiceCenterPopularCityWidget");
-            }
+        //        ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindServiceCenterPopularCityWidget");
+        //    }
 
-        }
+        //}
     }
 }
