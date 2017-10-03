@@ -64,6 +64,8 @@ namespace BikeWaleOpr.Content
         /// Desc        : Refreshed upcoming bikes key on new bike launch
         /// Modified by :   Sumit Kate on 10 Feb 2017
         /// Description :   Clear BW_NewLaunchedBikes memcache object
+        /// Modified by : Vivek Singh Tomar on 27th Sep 2017
+        /// Summary : Changed version of cache key
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -89,7 +91,7 @@ namespace BikeWaleOpr.Content
                         {
                             selModelId += lblModelId.Text + ",";
                             MemCachedUtil.Remove(String.Format("BW_ModelDetails_{0}", lblModelId.Text));
-                            MemCachedUtil.Remove(String.Format("BW_ModelDetail_{0}", lblModelId.Text));
+                            MemCachedUtil.Remove(String.Format("BW_ModelDetail_{0}_v1", lblModelId.Text));
                             MemCachedUtil.Remove(String.Format("BW_GenericBikeInfo_MO_{0}_V1", lblModelId.Text));
 
                         }

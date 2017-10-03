@@ -159,6 +159,7 @@
     <Compile Include="BikeData\BikeColorsbyVersion.cs" />
     <Compile Include="BikeData\BikeEntityBase.cs" />
     <Compile Include="BikeData\BikeInfoPageSource.cs" />
+    <Compile Include="BikeData\BikeMakeBase.cs" />
     <Compile Include="BikeData\BikeMakeModelBase.cs" />
     <Compile Include="BikeData\BikeMakeModelEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="BikeData\ModelMaskingResponse.cs" />
     <Compile Include="BikeData\MostPopularBikesBase.cs" />
+    <Compile Include="BikeData\NewBikeEntityBase.cs" />
     <Compile Include="BikeData\NewBikeModelColor.cs" />
     <Compile Include="BikeData\NewLaunchedBikeEntity.cs" />
     <Compile Include="BikeData\NewLaunchedBikesBase.cs" />
@@ -205,7 +207,10 @@
     <Compile Include="BikeData\NewLaunched\NewLaunchedBikeEntityBase.cs" />
     <Compile Include="BikeData\NewLaunched\NewLaunchedBikeResult.cs" />
     <Compile Include="BikeData\Overview.cs" />
+    <Compile Include="BikeData\PriceAndCityEntityBase.cs" />
+    <Compile Include="BikeData\PriceEntityBase.cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
+    <Compile Include="BikeData\BikeSeriesModels.cs" />
     <Compile Include="BikeData\SimilarBikesWithPhotos.cs" />
     <Compile Include="BikeData\SimilarBikeUserReview.cs" />
     <Compile Include="BikeData\SimilarBikeWithVideo.cs" />
@@ -215,6 +220,7 @@
     <Compile Include="BikeData\SpecsCategory.cs" />
     <Compile Include="BikeData\TransposeModelSpecEntity.cs" />
     <Compile Include="BikeData\UpcomingBikeEntity.cs" />
+    <Compile Include="BikeData\UpcomingBikeEntityBase.cs" />
     <Compile Include="BikeData\UpcomingBikeResult.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
     <Compile Include="BikeData\UsedBikeMakeEntity.cs" />
@@ -313,6 +319,7 @@
     <Compile Include="GenericBikes\GenericBikeInfo.cs" />
     <Compile Include="HomePage\HomePageBannerEntity.cs" />
     <Compile Include="Images\Image.cs" />
+    <Compile Include="Images\ImageEntityBase.cs" />
     <Compile Include="Images\ImageToken.cs" />
     <Compile Include="Insurance\InsuranceLead.cs" />
     <Compile Include="JSErrorLog\JSExceptionEntity.cs" />

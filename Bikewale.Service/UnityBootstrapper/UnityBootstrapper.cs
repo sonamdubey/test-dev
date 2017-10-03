@@ -138,7 +138,6 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IDealer, Dealer>();
             container.RegisterType<IDealerRepository, DealersRepository>();
             container.RegisterType<IFeedback, FeedbackRepository>();
-            container.RegisterType<IBikeSeries<BikeSeriesEntity, int>>();
             container.RegisterType<IState, StateRepository>();
             container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
             container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();

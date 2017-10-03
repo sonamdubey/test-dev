@@ -29,6 +29,7 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BestBikes;
+using Bikewale.Models.BikeSeries;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Models.Used;
@@ -70,6 +71,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IUpcoming _upcoming = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
+        private readonly IBikeSeries _bikeSeries = null;
 
         private uint _modelId, _cityId, _areaId;
 
@@ -89,7 +91,7 @@ namespace Bikewale.Models.BikeModels
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         public string CurrentPageUrl { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -110,6 +112,7 @@ namespace Bikewale.Models.BikeModels
             _objManufacturerCampaign = objManufacturerCampaign;
             _userReviewsSearch = userReviewsSearch;
             _userReviewsCache = userReviewsCache;
+            _bikeSeries = bikeSeries;
             ParseQueryString(modelMasking);
         }
 
@@ -512,6 +515,8 @@ namespace Bikewale.Models.BikeModels
         /// Description :   Set makename,modelname,make and model masking name to news widget
         /// Modified by: Vivek Singh Tomar on 23 Aug 2017
         /// Summary: Added page enum to similar bike widget
+        /// Modified by : Vivek Singh Tomar on 28th Sep 2017
+        /// Summary : Added BindModelsBySeries
         /// </summary>
         private void BindControls()
         {
@@ -600,6 +605,7 @@ namespace Bikewale.Models.BikeModels
                         }
                     }
                     BindSimilarBikes(_objData);
+                    BindModelsBySeriesId(_objData);
                 }
             }
             catch (Exception ex)
@@ -1580,6 +1586,32 @@ namespace Bikewale.Models.BikeModels
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.ModelPage.SetSimilarBikesProperties(), Model: {0}", _modelId));
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 28th Sep 2017
+        /// Summary : Bind models by series id
+        /// </summary>
+        /// <param name="_objData"></param>
+        public void BindModelsBySeriesId(ModelPageVM objData)
+        {
+            try
+            {
+                if(_modelId > 0)
+                {
+                    BikeModelsBySeriesPage objModelsBySeries = new BikeModelsBySeriesPage(_bikeSeries);
+                    objData.ModelsBySeries = objModelsBySeries.GetData(_modelId, objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId);
+                    if(objData.ModelsBySeries != null && objData.ModelsBySeries.SeriesModels != null)
+                    {
+                        objData.ModelsBySeries.Page = GAPages.Model_Page;
+                        objData.ModelsBySeries.SeriesBase = objData.ModelPageEntity.ModelDetails.ModelSeries;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.BindModelsBySeriesId Model: {0}", _modelId));
             }
         }
 

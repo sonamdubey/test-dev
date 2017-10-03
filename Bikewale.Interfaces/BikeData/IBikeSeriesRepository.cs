@@ -6,8 +6,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Created by : Vivek Singh Tomar on 27th Sep 2017
     /// Summary : BAL interface for bike series
     /// </summary>
-    public interface IBikeSeries
+    public interface IBikeSeriesRepository
     {
-        BikeSeriesModels GetModelsListBySeriesId(uint modelId, uint seriesId);
+        BikeSeriesModels GetModelsListBySeriesId(uint seriesId);
     }
 }
