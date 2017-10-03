@@ -17,7 +17,7 @@ namespace Bikewale.Models.Videos
     public class VideosBySubcategory
     {
         private readonly IVideos _videos = null;
-
+        public static readonly string EditCMSModuleName = ConfigurationManager.AppSettings["EditCMSModuleName"];
         #region Constructor
         public VideosBySubcategory(IVideos videos)
         {
@@ -94,7 +94,7 @@ namespace Bikewale.Models.Videos
                     ca = new CallAggregator();
                     for (ushort i = 0; i < categoryIds.Length; i++)
                     {
-                        ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+                        ca.AddCall(EditCMSModuleName, "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
                         {
                             ApplicationId = 2,
                             SubCategoryIds = categoryIds[i],
