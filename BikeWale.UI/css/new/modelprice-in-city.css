@@ -569,9 +569,9 @@ width: 100%;
 
 .service-center-grey {
     width: 28px;
-    height: 25px;
+    height: 32px;
     background-position: -197px -705px;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .graph-rank-grey {

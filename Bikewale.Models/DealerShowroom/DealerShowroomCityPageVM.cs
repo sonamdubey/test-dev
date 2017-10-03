@@ -10,6 +10,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created By Subodh Jain 30 March 2017
     /// Summary :- Dealer in city Page View Model
+    /// Modified By :Snehal Dange on 3rd Oct 2017
+    /// Description : Added DealersServiceCentersIndiaWidgetVM
     /// </summary>
     public class DealerShowroomCityPageVM : ModelBase
     {
@@ -25,5 +27,6 @@ namespace Bikewale.Models
         public MostPopularBikeWidgetVM PopularBikes { get; set; }
         public ServiceCenterDetailsWidgetVM ServiceCenterDetails { get; set; }
         public BrandCityPopupVM BrandCityPopUp { get; set; }
+        public DealersServiceCentersIndiaWidgetVM DealersServiceCenterPopularCities { get; set; }
     }
 }

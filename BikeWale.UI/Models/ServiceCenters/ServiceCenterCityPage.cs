@@ -10,19 +10,21 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Memcache;
 using Bikewale.Models.Make;
 using System;
+using System.Linq;
 
 namespace Bikewale.Models.ServiceCenters
 {
     /// <summary>
     /// Created by Sajal Gupta on 29-03-2017
     /// Description : This Model will fetch data for service centers in city page 
+    /// Modified By:Snehal Dange on 29th Sep 2017
+    /// Descrption : Added BindServiceCenterPopularCityWidget
     /// </summary>
     public class ServiceCenterCityPage
     {
         private string _cityMaskingName;
         private string _makeMaskingName;
         private uint _makeId, _cityId;
-
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache;
         private readonly IServiceCenter _objSC;
@@ -75,7 +77,7 @@ namespace Bikewale.Models.ServiceCenters
                 objVM.UsedBikesByMakeList = BindUsedBikeByModel(objVM.City);
 
                 BindDealersWidget(objVM);
-
+                BindServiceCenterPopularCityWidget(objVM);
                 objVM.BrandCityPopupWidget = new BrandCityPopupModel(EnumBikeType.ServiceCenter, (uint)_makeId, (uint)_cityId).GetData();
 
                 BindPageMetas(objVM);
@@ -168,5 +170,36 @@ namespace Bikewale.Models.ServiceCenters
                 ErrorClass objErr = new ErrorClass(ex, "ServiceCenterDetailsPage.BindDealersWidget()");
             }
         }
+
+        /// <summary>
+        /// Created By : Snehal Dange on 29Sep 2017
+        /// Description : Method for service center in popular cities widget 
+        /// </summary>
+        /// <param name="objVM"></param>
+        private void BindServiceCenterPopularCityWidget(ServiceCenterCityPageVM objVM)
+        {
+            DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();
+            try
+            {
+                uint topCount = 8;
+                objData.DealerServiceCenters = _objDealerCache.GetPopularCityDealer(_makeId, topCount);
+                objData.MakeMaskingName = _makeMaskingName;
+                objData.MakeName = objVM.Make.MakeName;
+                objVM.DealersServiceCenterPopularCities = objData;
+                if (objData.DealerServiceCenters.DealerDetails.Any())
+                {
+                    objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails= objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(_cityId)).ToList();
+                }
+               
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindServiceCenterPopularCityWidget");
+            }
+         
+        }
+
+            
     }
 }
