@@ -156,18 +156,6 @@ $(document).ready(function () {
     });
 });
 
-
-//$('.add-default').click(function () {
-//    var currentEle = $(this);
-//    var textInp = currentEle.closest('.row').find('input[type=text]');
-//    var labelFor = currentEle.closest('.row').find('label');
-//    if (textInp != null) {
-//        textInp.val('<a class="leadcapturebtn bw-ga" id="pricebreakuplink" href="javascript:void(0)" data-leadsourceid="@Model.LeadSourceId" data-item-id="@Model.DealerId" data-item-name="@Model.Organization" data-item-area="@Model.Area" data-pqsourceid="@Model.PqSourceId" c="@Model.GACategory" a="Get_more_details_below_price_clicked" l="@Model.GALabel" rel="nofollow">Get more details</a>');
-//    }
-//    if (labelFor != null) {
-//        labelFor.addClass('active');
-//    }
-//});
 $('#btnConfigureCampaign').click(function () {
     var isValid = true;
    
