@@ -1185,7 +1185,7 @@ li.offertxt:hover span {display:inline}
     }
 }
 
-.review-list-wrapper .rating-circle-list {
+.model-rating-list.rating-circle-list {
 	margin-right: 20px;
 	margin-left: 20px;
 }
@@ -1260,4 +1260,97 @@ li.offertxt:hover span {display:inline}
 
 .spinner-box--absolute {
 	position: absolute;
+}
+
+/* content loader */
+.rating-container {
+    height: 20px;
+    width: 5.5%;
+    background: #eee;
+    display: inline-block;
+    border-radius: 2px;
+}
+
+.review-header {
+    height: 20px;
+    width: 35%;
+    background: #eee;
+    display: inline-block;
+    border-radius: 2px;
+    margin-left: 8px;
+}
+
+.review-author {
+    height: 12px;
+    width: 21%;
+    background: #eee;
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.paragraph-item {
+	background: #eee;
+	height: 12px;
+	margin-bottom: 8px;
+}
+
+.para-one {
+    margin-top: 16px;
+    width: 82.8%;    
+}
+
+.para-two {
+    width: 89%;
+}
+
+.para-three {
+    width: 80.4%;
+}
+
+.para-four {
+    width: 32.7%;
+}
+
+.para-five {
+    width: 9%;
+}
+
+.right-data-container {
+    margin-bottom: 20px;
+}
+
+.list-right-grid .right-data-container:last-child {
+	margin-bottom: 0;
+}
+
+.loader-circle {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	vertical-align: middle;
+	background: #eee;
+	border-radius: 50%;
+}
+
+.right-para-container {
+	width: 80%;
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 10px;
+}
+
+.right-para-one {
+	width: 50%;
+	background: #f5f5f5;
+}
+
+.right-para-two {
+	width: 108px;
+	margin-bottom: 0;
+}
+
+.user-review-loader-divider {
+	padding-top: 20px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #eee;
 }
