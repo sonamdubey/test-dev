@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace Bikewaleopr.ManufacturerCampaign.Entities
 {
@@ -12,7 +11,7 @@ namespace Bikewaleopr.ManufacturerCampaign.Entities
         public uint CampaignId { get; set; }
         public string PopupHeading { get; set; }
         public string PopupDescription { get; set; }
-        [AllowHtml]
+
         public string PopupSuccessMessage { get; set; }
 
         public bool EmailRequired { get; set; }

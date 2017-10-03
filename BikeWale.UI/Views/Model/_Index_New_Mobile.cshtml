@@ -94,7 +94,7 @@
                         <div class="clear"></div>
                     </div>
                 }
-                @if(!(Model.IsManufacturerLeadAdShown || Model.IsDealerDetailsExists) && !Model.AdTags.ShowInnovationBannerMobile)
+                @if(!(Model.IsManufacturerLeadAdShown || Model.IsDealerDetailsExists))
                 {
                   <div class="margin-bottom20 text-center">
                     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
