@@ -238,6 +238,7 @@ namespace Bikewale.Notifications
             SavePQNotification obj = new SavePQNotification();
             obj.SaveCustomerPQEmailTemplate(pqId, emailBody, "Your Dealer Price Certificate - " + bikeName, dealerEmail.Split(',')[0]);
 
+            //objEmail.Send(customerEmail, "Your Dealer Price Certificate - " + bikeName, dealerEmail);
         }
 
         /// <summary>
@@ -288,6 +289,7 @@ namespace Bikewale.Notifications
 
             try
             {
+                SMSTypes obj = new SMSTypes();
                 switch (DPQType)
                 {
                     case DPQTypes.NoOfferNoBooking:
@@ -308,9 +310,6 @@ namespace Bikewale.Notifications
                         break;
                     case DPQTypes.SubscriptionModel:
                         message = String.Format("Contact {0} at {1} or visit at {2}, {3}, {4} for further assistance.", objDPQSmsEntity.OrganisationName, objDPQSmsEntity.DealerMobile, objDPQSmsEntity.DealerAdd, objDPQSmsEntity.DealerArea, objDPQSmsEntity.DealerCity);
-                        break;
-                    case DPQTypes.KawasakiCampaign:
-                        message = string.Format("Thank you {0} for your interest in Ninja 300. Your coupon code is BW1038. Please visit the nearest authorized Kawasaki dealership and use the coupon to avail an exclusive offer.",objDPQSmsEntity.CustomerName);
                         break;
 
                 }

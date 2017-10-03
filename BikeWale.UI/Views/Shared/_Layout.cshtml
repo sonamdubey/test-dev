@@ -269,7 +269,8 @@
             </div>
         </div>
     }
-    else if (Model.AdTags.Ad_Model_ATF_970x90)
+
+    @if (Model.AdTags.Ad_Model_ATF_970x90)
     {
         <div class="bg-white ">
             <div class="container">
@@ -286,10 +287,7 @@
                 <div class="clear"></div>
             </div>
         </div>
-    }else if (Model.AdTags.ShowInnovationBannerDesktop)
-    {
-        Html.RenderPartial("~/Views/Shared/Ads/Desktop/Ad970x90_InnovationBanner.cshtml",Model.AdTags);
-    }
+   }
 
 
     @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())

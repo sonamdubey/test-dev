@@ -289,7 +289,8 @@ docReady(function () {
     $('.overall-specs-tabs-wrapper li').click(function () {
         var target = $(this).attr('data-tabs');
         $('html, body').animate({ scrollTop: $(target).offset().top - topNavBarHeight }, 1000);
-        centerItVariableWidth($(this), '.overall-specs-tabs-container');        
+        centerItVariableWidth($(this), '.overall-specs-tabs-container');
+        return false;
     });
 
     // dropdown

@@ -18,7 +18,6 @@ namespace Bikewale.Entities.PriceQuote
         OfferAndBooking = 4,
         AndroidAppOfferNoBooking = 5,
         AndroidAppNoOfferNoBooking = 6,
-        SubscriptionModel = 7,
-        KawasakiCampaign=8
+        SubscriptionModel = 7
     }
 }
