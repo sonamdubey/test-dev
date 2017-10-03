@@ -19,18 +19,6 @@
 
         <div class="bike-details-block vertical-top">
             <h3 class="margin-bottom5"><a href="/m@(Model.BikeUrl)" class="block text-bold text-default text-truncate" title="@Model.BikeName">@Model.BikeName</a></h3>
-            @*@if (Model.BikeInfo.RatingCount > 0)
-                {
-                <span class="rate-count-@Math.Round(Model.BikeInfo.Rating) inline-block">
-                    <span class="bwsprite star-icon star-size-16"></span>
-                    <span class="font14 text-bold inline-block">@Model.BikeInfo.Rating.ToString("0.0").TrimEnd('0', '.')</span>
-                </span>
-                <span class='font11 text-xt-light-grey inline-block padding-left3'>(@string.Format("{0} {1}", Model.BikeInfo.RatingCount, Model.BikeInfo.RatingCount > 1 ? "ratings" : "rating"))</span>
-                    if (Model.BikeInfo.UserReviewCount > 0)
-                    {
-                <a class='text-xt-light review-left-divider inline-block' href="@string.Format(" {0}reviews/", Model.BikeUrl)" title="@Model.BikeName user reviews">@string.Format("{0} {1}", Model.BikeInfo.UserReviewCount, Model.BikeInfo.UserReviewCount > 1 ? "reviews" : "review")</a>
-                    }
-                }*@
             <ul class="item-more-details-list">
                 @if (Model.BikeInfo.IsSpecsAvailable && count < 3)
                     {
