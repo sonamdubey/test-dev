@@ -115,24 +115,22 @@
                                                     <td align="left" valign="top" width="70%" class="padding-top15 border-solid-top">@Model.BikeModel.ModelName  on-road price in @Model.CityEntity.CityName</td>
                                                     <td align="right" valign="top" width="30%" class="padding-top15 border-solid-top font16">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class='text-bold' data-bind="text: onRoadPrice()"></span></td>
                                                 </tr>
-                                                @if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextDesktop))
-                                                {
-                                                    <tr>
-                                                        <td align="left"></td>
-                                                        <td align="right">
-                                                            @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkDesktop))
-                                                            {
-                                                                <a href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}",Model.LeadCampaign.PriceBreakUpLinkDesktop,Model.LeadCampaign.CampaignId,Model.LeadCampaign.DealerId,Model.LeadCampaign.PQId,Model.LeadCampaign.LeadSourceId,Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount)" rel="nofollow">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop</a>
-                                                            }
-                                                            else
-                                                            {
-                                                                <a class="leadcapturebtn bw-ga" id="pricebreakuplink" href="javascript:void(0)" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-item-id="@Model.LeadCampaign.DealerId" data-item-name="@Model.LeadCampaign.Organization" data-item-area="@Model.LeadCampaign.Area" data-pqsourceid="@Model.LeadCampaign.PqSourceId" c="@Model.LeadCampaign.GACategory" a="Get_more_details_below_price_clicked" l="@Model.LeadCampaign.GALabel" rel="nofollow">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop </a>
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                }
                                             </tbody>
                                         </table>
+                                        if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextDesktop))
+                                        {
+                                            <div class="rightfloat">
+                                                @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkDesktop))
+                                                {
+                                                    <a class="bw-ga font14" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}",Model.LeadCampaign.PriceBreakUpLinkDesktop,Model.LeadCampaign.CampaignId,Model.LeadCampaign.DealerId,Model.LeadCampaign.PQId,Model.LeadCampaign.LeadSourceId,Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount)" rel="nofollow" c="@Model.LeadCampaign.GACategory" a="Get_more_details_below_price_clicked" l="@Model.LeadCampaign.GALabel">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop</a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="leadcapturebtn bw-ga font14" id="pricebreakuplink" href="javascript:void(0)" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-item-id="@Model.LeadCampaign.DealerId" data-item-name="@Model.LeadCampaign.Organization" data-item-area="@Model.LeadCampaign.Area" data-pqsourceid="@Model.LeadCampaign.PqSourceId" c="@Model.LeadCampaign.GACategory" a="Get_more_details_below_price_clicked" l="@Model.LeadCampaign.GALabel" rel="nofollow">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop </a>
+                                                }
+                                            </div>
+                                        }
+                                    
                                     }
                                     @if (Model.IsDiscontinued)
                                     {
@@ -385,7 +383,7 @@
                                                 <div class="margin-top10">
                                                     @if (Model.EMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                                                     {
-                                                        <a href="/finance/capitalfirst/?campaingid=@Model.EMICampaign.CampaignId&amp;dealerid=@Model.EMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.EMICampaign.LeadSourceId&amp;versionid=@Model.EMICampaign.VersionId&amp;url=@Model.EMICampaign.CurrentPageUrl&amp;platformid=@Model.EMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.EMICampaign.LoanAmount" class="btn btn-orange btn-160-32 margin-right10 bw-ga" rel="nofollow" >@Model.EMICampaign.EMIButtonTextDesktop</a>
+                                                        <a href="/finance/capitalfirst/?campaingid=@Model.EMICampaign.CampaignId&amp;dealerid=@Model.EMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.EMICampaign.LeadSourceId&amp;versionid=@Model.EMICampaign.VersionId&amp;url=@Model.EMICampaign.CurrentPageUrl&amp;platformid=@Model.EMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.EMICampaign.LoanAmount" class="btn btn-orange btn-160-32 margin-right10 bw-ga" rel="nofollow">@Model.EMICampaign.EMIButtonTextDesktop</a>
                                                     }
                                                     else
                                                     {
@@ -547,7 +545,7 @@
                         @if (Model.HasPriceInTopCities && Model.IsNew)
                         {
                             <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
-                                                                                        <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.BikeModel.ModelName prices in popular cities</h3>
+                            <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.BikeModel.ModelName prices in popular cities</h3>
                                                                                         @Html.Partial("~/views/PriceInCity/_ModelPriceInTopCitiesWidget.cshtml", Model.PriceInTopCities);
                         }
                     </div>
@@ -598,10 +596,10 @@
     </section>
     <!-- disclaimer end -->
 
-                                                                <div class="hide" id="dvPgVar" data-cityarea="@Model.CookieCityArea" data-bikename="@Model.BikeName" data-modelid="@Model.BikeModel.ModelId"></div>
+    <div class="hide" id="dvPgVar" data-cityarea="@Model.CookieCityArea" data-bikename="@Model.BikeName" data-modelid="@Model.BikeModel.ModelId"></div>
     { Html.RenderAction("ChangeLocation", "Location", new { cityId = Model.CityEntity.CityId, cityName = Model.CityEntity.CityName }); }
     <div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
-                                                                <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
+    <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
                                                                 <div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
     if (Model.IsNew && (Model.HasCampaignDealer || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
     {
