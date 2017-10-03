@@ -163,7 +163,7 @@ namespace Bikewale.Models.Photos
                     similarBikes.BikeName = _objData.BikeName;
                     _objData.SimilarBikes = similarBikes.GetData();
 
-                    var modelgallery = new ModelGalleryWidget(_objData.Make, _objData.Model, _objData.ModelImages, _objData.ModelVideos, _objData.BikeInfo);
+                    var modelgallery = new ModelGalleryWidget(_objData.Make, _objData.Model, _objData.PhotoGallery.ImageList, _objData.ModelVideos, _objData.BikeInfo);
                     modelgallery.IsGalleryDataAvailable = true;
                     modelgallery.IsJSONRequired = true;
                     _objData.ModelGallery = modelgallery.GetData();
