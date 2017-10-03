@@ -1348,3 +1348,9 @@ li.offertxt:hover span {display:inline}
 	width: 108px;
 	margin-bottom: 0;
 }
+
+.user-review-loader-divider {
+	padding-top: 20px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #eee;
+}
