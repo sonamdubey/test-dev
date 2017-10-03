@@ -3763,6 +3763,8 @@
     <Content Include="Views\ExpertReviews\_ExpertReviewHorizontalListByModel.cshtml" />
     <Content Include="Views\ExpertReviews\_ExpertReviewHorizontalListByModel_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\_ExpertReviewsModelWiseCard_Mobile.cshtml" />
+    <Content Include="Views\Photos\_PhotosBikeInfoCard.cshtml" />
+    <Content Include="Views\Photos\_PhotosBikeInfoCard_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
