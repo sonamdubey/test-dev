@@ -5,7 +5,7 @@
 {
     <div class="swiper-container card-container horizontal-card-swiper">
         <ul class="swiper-wrapper">
-            @if (Model.SeriesModels.NewBikes != null && Model.SeriesModels.NewBikes.Any())
+            @if (Model.IsNewAvailable)
             {
                 foreach (var bike in Model.SeriesModels.NewBikes)
                 {
@@ -17,7 +17,7 @@
                                     @if (bike.BikeImage != null)
                                     { 
                                         <div class="horizontal-swiper__image inline-block">
-                                            <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, "110x61")) alt=@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName) src="">
+                                            <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, "110x61", "80")) alt=@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName) src="">
                                         </div> 
                                     }
                                     else
@@ -46,7 +46,7 @@
                     }
                 }
             }
-            @if (Model.SeriesModels.UpcomingBikes != null && Model.SeriesModels.UpcomingBikes.Any())
+            @if (Model.IsUpcomingAvailable)
             {
                 foreach (var bike in Model.SeriesModels.UpcomingBikes)
                 {
@@ -59,7 +59,7 @@
                                     @if (bike.BikeImage != null)
                                     {
                                         <div class="horizontal-swiper__image inline-block">
-                                            <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, "110x61")) alt=@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName) src="">
+                                            <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, "110x61", "80")) alt=@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName) src="">
                                         </div>
                                     }
                                     else

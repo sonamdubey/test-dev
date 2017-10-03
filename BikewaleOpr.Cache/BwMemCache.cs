@@ -211,7 +211,7 @@ namespace BikewaleOpr.Cache
 
         /// <summary>
         /// Created by : Ashutosh Sharma on 19-Aug-2017
-        /// Description : Method to clear Popular bikes by body style cache.
+        /// Description : Method to clear Models by series Id.
         /// </summary>
         /// <param name="modelId"></param>
         public static void ClearModelsBySeriesId(uint seriesId)

@@ -1576,8 +1576,6 @@ namespace Bikewale.Models.BikeModels
                     objData.ModelsBySeries = objModelsBySeries.GetData(_modelId, objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId);
                     if(objData.ModelsBySeries != null && objData.ModelsBySeries.SeriesModels != null)
                     {
-                        objData.ModelsBySeries.IsNewAvailable = objData.ModelsBySeries.SeriesModels.NewBikes != null && objData.ModelsBySeries.SeriesModels.NewBikes.Any();
-                        objData.ModelsBySeries.IsUpcomingAvailable = objData.ModelsBySeries.SeriesModels.UpcomingBikes != null && objData.ModelsBySeries.SeriesModels.UpcomingBikes.Any();
                         objData.ModelsBySeries.Page = GAPages.Model_Page;
                         objData.ModelsBySeries.SeriesBase = objData.ModelPageEntity.ModelDetails.ModelSeries;
                     }

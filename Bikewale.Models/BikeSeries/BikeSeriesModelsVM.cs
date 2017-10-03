@@ -11,8 +11,8 @@ namespace Bikewale.Models.BikeSeries
     {
         public BikeSeriesModels SeriesModels { get; set; }
         public GAPages Page { get; set; }
-        public bool IsNewAvailable { get; set; }
-        public bool IsUpcomingAvailable { get; set; }
+        public bool IsNewAvailable { get { return SeriesModels != null && SeriesModels.NewBikes != null; } }
+        public bool IsUpcomingAvailable { get { return SeriesModels != null && SeriesModels.UpcomingBikes != null; } }
         public BikeMakeBase MakeBase { get; set; }
         public BikeModelEntityBase ModelBase { get; set; }
         public BikeSeriesEntityBase SeriesBase { get; set; }

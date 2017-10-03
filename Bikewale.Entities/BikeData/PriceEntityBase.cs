@@ -11,10 +11,10 @@ namespace Bikewale.Entities.BikeData
     public class PriceEntityBase
     {
         [DataMember]
-        public ulong MinPrice { get; set; }
+        public UInt32 MinPrice { get; set; }
         [DataMember]
-        public ulong MaxPrice { get; set; }
+        public UInt32 MaxPrice { get; set; }
         [DataMember]
-        public ulong AvgPrice { get; set; }
+        public UInt32 AvgPrice { get; set; }
     }
 }
