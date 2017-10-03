@@ -2038,7 +2038,6 @@
     <Content Include="Views\PageMetas\Search_Index.cshtml" />
     <Content Include="Views\PageMetas\Index.cshtml" />
     <Content Include="Views\ServiceCenter\AddServiceCenter.cshtml" />
-    <Content Include="Views\ManufacturerCampaign\_PriceBreakupLink.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

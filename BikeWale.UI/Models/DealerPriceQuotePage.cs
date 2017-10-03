@@ -544,8 +544,11 @@ namespace Bikewale.Models
                             LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
                             LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
                             LeadsPropertyTextMobile = campaigns.LeadCampaign.LeadsPropertyTextMobile,
-                            PriceBreakupLinkHtmlMobile = campaigns.LeadCampaign.PriceBreakupLinkHtmlMobile,
-                            PriceBreakupLinkHtmlDesktop = campaigns.LeadCampaign.PriceBreakupLinkHtmlDesktop,
+                            PriceBreakUpLinkDesktop = campaigns.LeadCampaign.PriceBreakUpLinkDesktop,
+                            PriceBreakUpLinkMobile = campaigns.LeadCampaign.PriceBreakUpLinkMobile,
+                            PriceBreakUpLinkTextDesktop = campaigns.LeadCampaign.PriceBreakUpLinkTextDesktop,
+                            PriceBreakUpLinkTextMobile = campaigns.LeadCampaign.PriceBreakUpLinkTextMobile,
+
                             MakeName = objData.SelectedVersion.MakeBase.MakeName,
                             MaskingNumber = campaigns.LeadCampaign.MaskingNumber,
                             PincodeRequired = campaigns.LeadCampaign.PincodeRequired,

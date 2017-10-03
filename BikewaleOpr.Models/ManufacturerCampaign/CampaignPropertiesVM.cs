@@ -30,11 +30,10 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
         [AllowHtml]
         public string FormattedHtmlMobile { get; set; }
 
-        [AllowHtml]
-        public string PriceBreakUpLinkHtmlDesktop { get; set; }
-
-        [AllowHtml]
-        public string PriceBreakUpLinkHtmlMobile { get; set; }
+        public string PriceBreakUpLinkTextMobile { get; set; }
+        public string PriceBreakUpLinkTextDesktop { get; set; }
+        public string PriceBreakUpLinkMobile { get; set; }
+        public string PriceBreakUpLinkDesktop { get; set; }
 
         public string LeadPriority { get; set; }
     }

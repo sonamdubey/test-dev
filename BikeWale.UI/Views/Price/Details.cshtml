@@ -200,14 +200,21 @@
                                                 @Html.Raw("<span class='font22'>&#x20B9;</span>")&nbsp;<span class="font22 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.OnRoadPrice.ToString())</span>
                                             </td>
                                         </tr>
-                                        @if (Model.LeadCampaign!= null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakupLinkHtmlDesktop))
+                                        @if (Model.LeadCampaign!= null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextDesktop))
                                         {
-                                            <tr>
-                                                <td align="left"></td>
-                                                <td align="right">
-                                                    @Html.Partial("~/Views/Price/_PriceBreakupLink.cshtml", Model.LeadCampaign)
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td align="left"></td>
+                                            <td align="right">
+                                                @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkDesktop))
+                                                {
+                                                    <a href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}",Model.LeadCampaign.PriceBreakUpLinkDesktop,Model.LeadCampaign.CampaignId,Model.LeadCampaign.DealerId,Model.LeadCampaign.PQId,Model.LeadCampaign.LeadSourceId,Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount)" rel="nofollow">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop</a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="leadcapturebtn bw-ga" id="pricebreakuplink" href="javascript:void(0)" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-item-id="@Model.LeadCampaign.DealerId" data-item-name="@Model.LeadCampaign.Organization" data-item-area="@Model.LeadCampaign.Area" data-pqsourceid="@Model.LeadCampaign.PqSourceId" c="@Model.LeadCampaign.GACategory" a="Get_more_details_below_price_clicked" l="@Model.LeadCampaign.GALabel" rel="nofollow">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop </a>
+                                                }
+                                            </td>
+                                        </tr>
                                         }
                                         @if (Model.IsPrimaryDealerAvailable)
                                         {

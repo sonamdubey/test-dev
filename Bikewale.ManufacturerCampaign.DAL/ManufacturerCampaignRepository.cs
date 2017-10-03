@@ -201,8 +201,12 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_leadPriority", objCampaign.LeadPriority);
                     param.Add("par_leadHtmlMobile", objCampaign.FormattedHtmlMobile);
                     param.Add("par_leadHtmlDesktop", objCampaign.FormattedHtmlDesktop);
-                    param.Add("par_priceBreakupLinkMobile", objCampaign.PriceBreakUpLinkHtmlMobile);
-                    param.Add("par_priceBreakupLinkDesktop", objCampaign.PriceBreakUpLinkHtmlDesktop);
+                    param.Add("par_priceBreakUpLinkTextMobile", objCampaign.PriceBreakUpLinkTextMobile);
+                    param.Add("par_PriceBreakUpLinkMobile", objCampaign.PriceBreakUpLinkMobile);
+                    param.Add("par_priceBreakUpLinkTextDesktop", objCampaign.PriceBreakUpLinkTextDesktop);
+                    param.Add("par_priceBreakUpLinkDesktop", objCampaign.PriceBreakUpLinkDesktop);
+                    
+
                     connection.Query<dynamic>("savemanufacturercampaignproperties_28092017", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)

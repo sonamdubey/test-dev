@@ -51,8 +51,13 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public string PropertyTextDesktop { get; set; }
         public string HtmlMobile { get; set; }
         public string HtmlDesktop { get; set; }
-        public string PriceBreakUpLinkHtmlMobile { get; set; }
-        public string PriceBreakUpLinkHtmlDesktop { get; set; }
+
+        public string PriceBreakUpLinkTextMobile { get; set; }
+        public string PriceBreakUpLinkTextDesktop { get; set; }
+
+        public string PriceBreakUpLinkMobile { get; set; }
+        public string PriceBreakUpLinkDesktop { get; set; }
+
         public string Priority { get; set; }
         public bool EnableProperty { get; set; }
     }

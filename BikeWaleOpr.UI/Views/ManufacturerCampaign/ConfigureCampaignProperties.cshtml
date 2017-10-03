@@ -20,7 +20,7 @@
                         <div id="leadproperties">
                             <div class="row">
                                 <div class="input-field col m8">
-                                    <input id="LeadButtonTextMobile" name="LeadButtonTextMobile" type="text" class="validate" maxlength="100" disabled="disabled" value="@(Model.Lead.ButtonTextMobile!= null? Model.Lead.ButtonTextMobile : string.Empty)">
+                                    <input id="LeadButtonTextMobile" name="LeadButtonTextMobile" type="text" class="validate text_input" maxlength="100" disabled="disabled" value="@(Model.Lead.ButtonTextMobile!= null? Model.Lead.ButtonTextMobile : string.Empty)">
                                     <label for="LeadButtonTextMobile">Button Text Mobile Site</label>
                                 </div>
 
@@ -32,7 +32,7 @@
 
                             <div class="row">
                                 <div class="input-field col m8">
-                                    <input id="LeadPropertyTextMobile" name="LeadPropertyTextMobile" type="text" class="validate" maxlength="100" disabled="disabled" value="@(Model.Lead.PropertyTextMobile!= null? Model.Lead.PropertyTextMobile : string.Empty)">
+                                    <input id="LeadPropertyTextMobile" name="LeadPropertyTextMobile" type="text" class="validate text_input" maxlength="100" disabled="disabled" value="@(Model.Lead.PropertyTextMobile!= null? Model.Lead.PropertyTextMobile : string.Empty)">
                                     <label for="LeadPropertyTextMobile">Property Text Mobile Site</label>
                                 </div>
 
@@ -44,7 +44,7 @@
 
                             <div class="row">
                                 <div class="input-field col m8">
-                                    <input id="LeadButtonTextDesktop" name="LeadButtonTextDesktop" type="text" class="validate" maxlength="100" disabled="disabled" value="@(Model.Lead.ButtonTextDesktop!= null? Model.Lead.ButtonTextDesktop : string.Empty)">
+                                    <input id="LeadButtonTextDesktop" name="LeadButtonTextDesktop" type="text" class="validate text_input" maxlength="100" disabled="disabled" value="@(Model.Lead.ButtonTextDesktop!= null? Model.Lead.ButtonTextDesktop : string.Empty)">
                                     <label for="LeadButtonTextDesktop">Button Text Desktop Site</label>
                                 </div>
 
@@ -56,7 +56,7 @@
 
                             <div class="row">
                                 <div class="input-field col m8">
-                                    <input id="LeadPropertyTextDesktop" name="LeadPropertyTextDesktop" type="text" class="validate" maxlength="100" disabled="disabled" value="@(Model.Lead.PropertyTextDesktop!= null? Model.Lead.PropertyTextDesktop : string.Empty)">
+                                    <input id="LeadPropertyTextDesktop" name="LeadPropertyTextDesktop" type="text" class="validate text_input" maxlength="100" disabled="disabled" value="@(Model.Lead.PropertyTextDesktop!= null? Model.Lead.PropertyTextDesktop : string.Empty)">
                                     <label for="LeadPropertyTextDesktop">Property Text Desktop Site</label>
                                 </div>
 
@@ -68,7 +68,7 @@
 
                             <div class="row">
                                 <div class="input-field col m8">
-                                    <input id="LeadHtmlMobile" name="LeadHtmlMobile" type="text" class="validate" maxlength="10000" disabled="disabled" value="@(Model.Lead.HtmlMobile!= null? WebUtility.HtmlDecode(Model.Lead.HtmlMobile) : string.Empty)">
+                                    <input id="LeadHtmlMobile" name="LeadHtmlMobile" type="text" class="validate text_input" maxlength="10000" disabled="disabled" value="@(Model.Lead.HtmlMobile!= null? WebUtility.HtmlDecode(Model.Lead.HtmlMobile) : string.Empty)">
                                     <label for="LeadHtmlMobile">Mobile Site HTML Template</label>
                                 </div>
 
@@ -80,7 +80,7 @@
 
                             <div class="row">
                                 <div class="input-field col m8">
-                                    <input id="LeadHtmlDesktop" name="LeadHtmlDesktop" type="text" class="validate" maxlength="10000" disabled="disabled" value="@(Model.Lead.HtmlDesktop!= null? WebUtility.HtmlDecode(Model.Lead.HtmlDesktop) : string.Empty)">
+                                    <input id="LeadHtmlDesktop" name="LeadHtmlDesktop" type="text" class="validate text_input" maxlength="10000" disabled="disabled" value="@(Model.Lead.HtmlDesktop!= null? WebUtility.HtmlDecode(Model.Lead.HtmlDesktop) : string.Empty)">
                                     <label for="LeadHtmlDesktop">Desktop Site HTML Template</label>
                                 </div>
 
@@ -90,46 +90,49 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col m8">
-                                    <input id="PriceBreakUpLinkHtmlMobile" name="PriceBreakUpLinkHtmlMobile" type="text" class="validate" maxlength="1000" disabled="disabled" value="@(Model.Lead.PriceBreakUpLinkHtmlMobile!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkHtmlMobile) : string.Empty)">
-                                    <label for="PriceBreakUpLinkHtmlMobile">Mobile Price Breakup Link HTML</label>
-                                </div>
+                                <label class="font18" for="isPopup">Open Lead Capture as a separate page?</label>
 
-                                <div class="col m2 margin-top25">
-                                    <input type="checkbox" class="filled-in default-chk" id="chkPriceBreakUpLinkMobile" name="chkPriceBreakUpLinkMobile" checked="checked" disabled="disabled" />
-                                    <label for="chkPriceBreakUpLinkMobile">Enable</label>
+                                <div class="switch">
+                                    <label>
+                                        No<input type="checkbox" name="IsPopup" id="isPopUp" @((!string.IsNullOrEmpty(Model.Lead.PriceBreakUpLinkMobile) &&(!string.IsNullOrEmpty(Model.Lead.PriceBreakUpLinkDesktop)))? "checked='checked'" : string.Empty)>
+                                        <span class="lever"></span>Yes
+                                    </label>
                                 </div>
-                                <div class="col m2 margin-top25">
-                                    <a class="btn-floating tooltipped add-default" data-position="top" data-tooltip="Add a default html"><i class="material-icons">add_circle_outline</i></a>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col m6">
+                                    <input id="PriceBreakUpLinkTextMobile" name="PriceBreakUpLinkTextMobile" type="text" class="validate" maxlength="100" value="@(Model.Lead.PriceBreakUpLinkTextMobile!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkTextMobile) : string.Empty)">
+                                    <label for="PriceBreakUpLinkTextMobile">Mobile Price Breakup Text</label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input id="PriceBreakUpLinkMobile" name="PriceBreakUpLinkMobile" type="text" class="validate price_link" maxlength="100" disabled="disabled" value="@(Model.Lead.PriceBreakUpLinkMobile!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkMobile) : string.Empty)">
+                                    <label for="PriceBreakUpLinkMobile">Mobile Price Breakup Link</label>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col m8">
-                                    <input id="PriceBreakUpLinkHtmlDesktop" name="PriceBreakUpLinkHtmlDesktop" type="text" class="validate" maxlength="1000" disabled="disabled" value="@(Model.Lead.PriceBreakUpLinkHtmlDesktop!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkHtmlDesktop) : string.Empty)">
-                                    <label for="PriceBreakUpLinkHtmlDesktop">Desktop Price Breakup Link HTML</label>
+                                <div class="input-field col m6">
+                                    <input id="PriceBreakUpLinkTextDesktop" name="PriceBreakUpLinkTextDesktop" type="text" class="validate" maxlength="100"  value="@(Model.Lead.PriceBreakUpLinkTextDesktop!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkTextDesktop) : string.Empty)">
+                                    <label for="PriceBreakUpLinkTextDesktop">Desktop Price Breakup Text</label>
                                 </div>
-
-                                <div class="col m2 margin-top25">
-                                    <input type="checkbox" class="filled-in default-chk" id="chkPriceBreakUpLinkDesktop" name="chkPriceBreakUpLinkDesktop" checked="checked" disabled="disabled" />
-                                    <label for="chkPriceBreakUpLinkDesktop">Enable</label>
-                                </div>
-                                <div class="col m2 margin-top25">
-                                    <a class="btn-floating tooltipped add-default" data-position="top" data-tooltip="Add a default html"><i class="material-icons">add_circle_outline</i></a>
+                                <div class="input-field col m6">
+                                    <input id="PriceBreakUpLinkDesktop" name="PriceBreakUpLinkDesktop" type="text" class="validate price_link" maxlength="100" disabled="disabled" value="@(Model.Lead.PriceBreakUpLinkDesktop!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkDesktop) : string.Empty)">
+                                    <label for="PriceBreakUpLinkDesktop">Desktop Price Breakup Link</label>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="input-field col m8">
-                                    <select id="LeadPriority" name="LeadPriority" disabled>
-                                        <option value="0">Select</option>
-                                        @foreach (var leadPriority in Model.LeadPriority)
-                                        {
-                                            <option @(leadPriority.IsSelected ? "selected" : string.Empty ) value="@leadPriority.Id">@leadPriority.Status</option>
-                                        }
-                                    </select>
+                                <div class="row">
+                                    <div class="input-field col m8">
+                                        <select id="LeadPriority" name="LeadPriority" disabled>
+                                            <option value="0">Select</option>
+                                            @foreach (var leadPriority in Model.LeadPriority)
+                                            {
+                                                <option @(leadPriority.IsSelected ? "selected" : string.Empty ) value="@leadPriority.Id">@leadPriority.Status</option>
+                                            }
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
 
-                        </div>
+                            </div>
                     </div>
                 </li>
                 <li class="step">

@@ -132,7 +132,38 @@
                                             <span>&#x20b9;</span>&nbsp;<p class="text-bold inline-block" [text]="versions[currentVersion.versionId].FormatedOnRoadPrice">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.OnRoadPrice))</p>
                                         </td>
                                     </tr>
+                                    <!-- Price break up link property starts -->
+                                    @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
+                                    {
+                                        <tr>
+                                            <td align="left" valign="top"></td>
+                                            <td align="right" valign="top">
+                                                @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
+                                                {
+                                                    <a href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9} ",Model.LeadCampaign.PriceBreakUpLinkMobile,Model.LeadCampaign.CampaignId,Model.LeadCampaign.DealerId,Model.LeadCampaign.PQId,Model.LeadCampaign.LeadSourceId,Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount)" rel="nofollow">
+                                                        @Model.LeadCampaign.PriceBreakUpLinkTextMobile
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}",
+                                                   Model.BikeModel.ModelId, Model.CityEntity.CityId, string.Empty, string.Format(Model.BikeName), string.Empty, string.Empty, string.Empty,
+                                                   Model.IsManufacturerLeadAdShown, Model.LeadCampaign.DealerId, String.Format(Model.LeadCampaign.LeadsPropertyTextMobile,
+                                                   Model.LeadCampaign.Organization), Model.LeadCampaign.Area, Model.VersionId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.PqSourceId,
+                                                   Model.LeadCampaign.CampaignId, Model.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.LeadCampaign.PopupHeading,
+                                                   String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization), Model.LeadCampaign.PopupDescription,
+                                                   Model.LeadCampaign.PincodeRequired, Model.LeadCampaign.EmailRequired, Model.LeadCampaign.DealerRequired,
+                                                   Model.PageMetaTags.AlternateUrl))" rel="nofollow">
+                                                        @Model.LeadCampaign.PriceBreakUpLinkTextMobile
+                                                    </a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                    <!-- Price break up link property ends -->
+
                                 </tbody>
+
                             </table>
 
 
@@ -164,9 +195,12 @@
                         <div class="campaign__floating-btn floating-btn clearfix">
                             <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
                             <div class="grid-5 alpha omega">
-                                @if (Model.LeadCampaign.DealerId == BWConfiguration.Instance.CapitalFirstDealerId)
+                                <!-- is custom link provided for campaign -->
+                                @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
                                 {
-                                    <a class="btn btn-orange btn-full-32" rel="nofollow" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+                                    <a class="btn btn-orange btn-full-32" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}",Model.LeadCampaign.PriceBreakUpLinkMobile,Model.LeadCampaign.CampaignId,Model.LeadCampaign.DealerId,Model.LeadCampaign.PQId,Model.LeadCampaign.LeadSourceId,Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount)" rel="nofollow">
+                                        @Model.LeadCampaign.LeadsButtonTextMobile
+                                    </a>
                                 }
                                 else
                                 {
@@ -177,8 +211,12 @@
                                    Model.LeadCampaign.CampaignId, Model.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.LeadCampaign.PopupHeading,
                                    String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization), Model.LeadCampaign.PopupDescription,
                                    Model.LeadCampaign.PincodeRequired, Model.LeadCampaign.EmailRequired, Model.LeadCampaign.DealerRequired,
-                                   Model.PageMetaTags.AlternateUrl))" class="btn btn-orange btn-full-32" rel="nofollow">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+                                   Model.PageMetaTags.AlternateUrl))" class="btn btn-orange btn-full-32" rel="nofollow">
+                                        @Model.LeadCampaign.LeadsButtonTextMobile
+                                    </a>
+
                                 }
+                                <!-- is custom link provided for campaign -->
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -481,15 +519,20 @@
                             @if (Model.IsManufacturerEMIAdShown)
                             {
                                 <div class="powered-by-campaign-wrapper margin-top15">
-                                    @if (Model.EMICampaign.DealerId == BWConfiguration.Instance.CapitalFirstDealerId)
+                                    <!-- is custom link provided for campaign -->
+                                    @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
                                     {
-                                        <a class="btn btn-teal btn-160-32 font14 margin-right10" rel="nofollow" href="/m/finance/capitalfirst/?campaingid=@Model.EMICampaign.CampaignId&amp;dealerid=@Model.EMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.EMICampaign.LeadSourceId&amp;versionid=@Model.EMICampaign.VersionId&amp;url=@Model.EMICampaign.PageUrl&amp;platformid=@Model.EMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.EMICampaign.LoanAmount">@Model.EMICampaign.EMIButtonTextMobile</a>
+                                        <a class="btn btn-teal btn-160-32 font14 margin-right10" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}", Model.LeadCampaign.PriceBreakUpLinkMobile, Model.LeadCampaign.CampaignId, Model.LeadCampaign.DealerId, Model.LeadCampaign.PQId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount)" rel="nofollow">
+                                            @Model.EMICampaign.EMIButtonTextMobile
+                                        </a>
                                     }
                                     else
                                     {
-                                        <a href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}", Model.BikeModel.ModelId, Model.CityEntity.CityId, string.Empty, string.Format(Model.BikeName), string.Empty, string.Empty, string.Empty, Model.IsManufacturerLeadAdShown, Model.EMICampaign.DealerId, String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization), Model.EMICampaign.Area, Model.VersionId, Model.EMICampaign.LeadSourceId, Model.EMICampaign.PqSourceId, Model.EMICampaign.CampaignId, Model.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.EMICampaign.PopupHeading, String.Format(Model.EMICampaign.PopupSuccessMessage, Model.EMICampaign.Organization), Model.EMICampaign.PopupDescription, Model.EMICampaign.PincodeRequired, Model.EMICampaign.EmailRequired, Model.EMICampaign.DealerRequired,Model.PageMetaTags.AlternateUrl))" class="btn btn-teal btn-160-32 font14 margin-right10">@Model.EMICampaign.EMIButtonTextMobile</a>
-
+                                        <a href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}", Model.BikeModel.ModelId, Model.CityEntity.CityId, string.Empty, string.Format(Model.BikeName), string.Empty, string.Empty, string.Empty, Model.IsManufacturerLeadAdShown, Model.EMICampaign.DealerId, String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization), Model.EMICampaign.Area, Model.VersionId, Model.EMICampaign.LeadSourceId, Model.EMICampaign.PqSourceId, Model.EMICampaign.CampaignId, Model.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.EMICampaign.PopupHeading, String.Format(Model.EMICampaign.PopupSuccessMessage, Model.EMICampaign.Organization), Model.EMICampaign.PopupDescription, Model.EMICampaign.PincodeRequired, Model.EMICampaign.EmailRequired, Model.EMICampaign.DealerRequired,Model.PageMetaTags.AlternateUrl))" class="btn btn-teal btn-160-32 font14 margin-right10">
+                                            @Model.EMICampaign.EMIButtonTextMobile
+                                        </a>
                                     }
+                                    <!-- is custom link provided for campaign -->
                                     <div class="inline-block">
                                         <p class="campaign__powered-key">Powered by</p>
                                         <p class="campaign__powered-value" title="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)">@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)</p>

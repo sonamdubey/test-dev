@@ -21,9 +21,11 @@
         public string LeadsHtmlMobile { get; set; }
         public string LeadsHtmlDesktop { get; set; }
 
-        public string PriceBreakupLinkHtmlMobile { get; set; }
-        public string PriceBreakupLinkHtmlDesktop { get; set; }
-
+        public string PriceBreakUpLinkTextMobile { get; set; }
+        public string PriceBreakUpLinkMobile { get; set; }
+        public string PriceBreakUpLinkTextDesktop { get; set; }
+        public string PriceBreakUpLinkDesktop { get; set; }
+        
         public bool ShowOnExshowroom { get; set; }
         public bool PincodeRequired { get; set; }
         public bool DealerRequired { get; set; }
