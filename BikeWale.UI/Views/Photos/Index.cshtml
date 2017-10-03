@@ -6,6 +6,7 @@
     Model.AdTags.AdPath = "/1017752/Bikewale_NewBike_";
     Model.AdTags.AdId = "1442913773076";
     Model.AdTags.Ad_970x90 = true;
+    int i = 0; var objImages = Model.ModelImages.ToList();
 }
 
 
@@ -27,11 +28,11 @@
                 </ul>
                 @if (!Model.IsPopupOpen)
                 {
-                    int i = 0; var objImages = Model.ModelImages.ToList();
-                    if (Model.TotalPhotos > 0)
+                    
+                    if (Model.TotalPhotos > 1)
                     {
                         <ul class="photos-grid-list model-grid-images">
-                            @for (; i < Model.GridPhotoCount - 1 && i < 13; i++)
+                            @for (; i < Model.GridPhotoCount && i < 9; i++)
                             {
                                 <li>
                                     <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
@@ -45,8 +46,8 @@
                             }
                         </ul>
 
-                        <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images">
-                            @if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 1)
+                        <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images @Model.TotalPhotos @Model.GridSize">
+                            @if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 0)
                             {
                                 for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
                                 {
@@ -55,14 +56,7 @@
                                     </li>
                                 }
                             }
-                            else if (Model.TotalPhotos == 1)
-                            {
-                                <li>
-                                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[0].OriginalImgPath, objImages[0].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format("{0} {1} Image", Model.BikeName, objImages[0].ImageCategory)" title="@string.Format("{0} {1} Image", Model.BikeName, objImages[0].ImageCategory)" />
-                                </li>
-                            }
                         </ul>
-
                     }
                 }
             </div>

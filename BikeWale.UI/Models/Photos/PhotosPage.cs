@@ -98,6 +98,7 @@ namespace Bikewale.Models.Photos
                     {
                         _objData.ModelImages = _objData.ModelImages.Skip(1);
                     }
+
                     _objData.TotalPhotos = (uint)_objData.ModelImages.Count();
                     _objData.NonGridPhotoCount = (_objData.TotalPhotos % _objData.NoOfGrid);
                     _objData.GridPhotoCount = _objData.TotalPhotos - _objData.NonGridPhotoCount;
