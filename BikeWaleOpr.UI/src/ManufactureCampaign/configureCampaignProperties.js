@@ -172,9 +172,8 @@ $('#btnConfigureCampaign').click(function () {
     var isValid = true;
    
     $('form input[type="text"]').each(function () {
-
         var currentEle = $(this);
-        if (!currentEle.prop('disabled')) {
+        if (!currentEle.prop('disabled') && currentEle.attr('data-ignorevalidation') == null) {
             if (!(currentEle.parent().nextAll().has(":checkbox").first().find(":checkbox").prop("checked"))) {
                 if (currentEle.val().trim() == '') {
                     currentEle.parent().first().find("label").attr("data-error", "Enter " + currentEle.parent().first().find("label").text());
