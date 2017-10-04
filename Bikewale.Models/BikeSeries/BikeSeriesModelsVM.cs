@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Pages;
+using System.Linq;
 
 namespace Bikewale.Models.BikeSeries
 {
@@ -11,8 +12,8 @@ namespace Bikewale.Models.BikeSeries
     {
         public BikeSeriesModels SeriesModels { get; set; }
         public GAPages Page { get; set; }
-        public bool IsNewAvailable { get { return SeriesModels != null && SeriesModels.NewBikes != null; } }
-        public bool IsUpcomingAvailable { get { return SeriesModels != null && SeriesModels.UpcomingBikes != null; } }
+        public bool IsNewAvailable { get { return SeriesModels != null && SeriesModels.NewBikes != null && SeriesModels.NewBikes.Any(); } }
+        public bool IsUpcomingAvailable { get { return SeriesModels != null && SeriesModels.UpcomingBikes != null && SeriesModels.UpcomingBikes.Any(); } }
         public BikeMakeBase MakeBase { get; set; }
         public BikeModelEntityBase ModelBase { get; set; }
         public BikeSeriesEntityBase SeriesBase { get; set; }
