@@ -7,7 +7,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.Gallery;
-using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -17,6 +16,10 @@ using System.Web;
 
 namespace Bikewale.Models.Photos
 {
+    /// <summary>
+    /// Created by  : Sushil Kumar on 30th Sep 2017
+    /// Description :  To bind photo gallery page
+    /// </summary>
     public class PhotosPage
     {
         private readonly IBikeModelsCacheRepository<int> _objModelCache = null;
@@ -37,6 +40,19 @@ namespace Bikewale.Models.Photos
         public string RedirectUrl { get; internal set; }
         public bool IsMobile { get; set; }
 
+        /// <summary>
+        /// Created by  : Sushil Kumar on 30th Sep 2017
+        /// Description :  To resolve depedencies for photo gallery page
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <param name="modelMaskingName"></param>
+        /// <param name="objModelCache"></param>
+        /// <param name="objModelMaskingCache"></param>
+        /// <param name="objModelEntity"></param>
+        /// <param name="objCityCache"></param>
+        /// <param name="objGenericBike"></param>
+        /// <param name="objVersionCache"></param>
+        /// <param name="objVideos"></param>
         public PhotosPage(string makeMaskingName, string modelMaskingName, IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos)
         {
             _objModelCache = objModelCache;
@@ -49,68 +65,97 @@ namespace Bikewale.Models.Photos
             ParseQueryString(modelMaskingName);
         }
 
+        /// <summary>
+        /// Created by  : Sushil Kumar on 30th Sep 2017
+        /// Description :  To bind photo gallery page
+        /// </summary>
+        /// <param name="gridSize"></param>
+        /// <param name="noOfGrid"></param>
+        /// <param name="qstr"></param>
+        /// <returns></returns>
         public PhotosPageVM GetData(uint gridSize, uint noOfGrid, string qstr)
         {
             _objData = new PhotosPageVM();
-            _objData.GridSize = gridSize;
-            _objData.NoOfGrid = noOfGrid;
-            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            _cityId = currentCityArea.CityId;
-            ProcessQueryStringVariables(qstr);
 
-            BindPhotos();
-            SetPageMetas();
-            BindPageWidgets();
+            try
+            {
+
+                _objData.GridSize = gridSize;
+                _objData.NoOfGrid = noOfGrid;
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                _cityId = currentCityArea.CityId;
+                ProcessQueryStringVariables(qstr);
+
+                BindPhotos();
+                SetPageMetas();
+                BindPageWidgets();
+
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.GetData : GetData({0})", _modelId));
+            }
 
             return _objData;
         }
 
+        /// <summary>
+        /// Created by  : Sushil Kumar on 30th Sep 2017
+        /// Description : To bind photo gallery images and other details related to it
+        /// </summary>
         private void BindPhotos()
         {
-            _objData.PhotoGallery = _objModelEntity.GetPhotoGalleryData(Convert.ToInt32(_modelId));
-
-            if (_objData.PhotoGallery != null)
+            try
             {
+                _objData.PhotoGallery = _objModelEntity.GetPhotoGalleryData(Convert.ToInt32(_modelId));
 
-                if (_objData.PhotoGallery.ObjModelEntity != null)
+                if (_objData.PhotoGallery != null)
                 {
-                    _objData.objModel = _objData.PhotoGallery.ObjModelEntity;
-                    _objData.Make = _objData.objModel.MakeBase;
-                    _objData.Model = new BikeModelEntityBase()
+
+                    if (_objData.PhotoGallery.ObjModelEntity != null)
                     {
-                        ModelId = _objData.objModel.ModelId,
-                        ModelName = _objData.objModel.ModelName,
-                        MaskingName = _objData.objModel.MaskingName
-                    };
+                        _objData.objModel = _objData.PhotoGallery.ObjModelEntity;
+                        _objData.Make = _objData.objModel.MakeBase;
+                        _objData.Model = new BikeModelEntityBase()
+                        {
+                            ModelId = _objData.objModel.ModelId,
+                            ModelName = _objData.objModel.ModelName,
+                            MaskingName = _objData.objModel.MaskingName
+                        };
 
-                    _objData.BikeName = string.Format("{0} {1}", _objData.Make.MakeName, _objData.Model.ModelName);
-                }
-
-                _objData.ModelImages = _objData.PhotoGallery.ImageList;
-                _objData.ModelVideos = _objData.PhotoGallery.VideosList;
-
-                if (_objData.ModelImages != null)
-                {
-                    //modelImage = Utility.Image.GetPathToShowImages(objImageList[0].OriginalImgPath, objImageList[0].HostUrl, Bikewale.Utility.ImageSize._476x268);
-                    _objData.ModelImage = _objData.PhotoGallery.ImageList.First();
-
-                    if (!IsMobile)
-                    {
-                        _objData.ModelImages = _objData.ModelImages.Skip(1);
+                        _objData.BikeName = string.Format("{0} {1}", _objData.Make.MakeName, _objData.Model.ModelName);
                     }
 
-                    _objData.TotalPhotos = (uint)_objData.ModelImages.Count();
-                    _objData.NonGridPhotoCount = (_objData.TotalPhotos % _objData.NoOfGrid);
-                    _objData.GridPhotoCount = _objData.TotalPhotos - _objData.NonGridPhotoCount;
+                    _objData.ModelImages = _objData.PhotoGallery.ImageList;
+                    _objData.ModelVideos = _objData.PhotoGallery.VideosList;
 
+                    if (_objData.ModelImages != null)
+                    {
+                        _objData.ModelImage = _objData.PhotoGallery.ImageList.First();
+
+                        if (!IsMobile)
+                        {
+                            _objData.ModelImages = _objData.ModelImages.Skip(1);
+                        }
+
+                        _objData.TotalPhotos = (uint)_objData.ModelImages.Count();
+                        _objData.NonGridPhotoCount = (_objData.TotalPhotos % _objData.NoOfGrid);
+                        _objData.GridPhotoCount = _objData.TotalPhotos - _objData.NonGridPhotoCount;
+
+
+                    }
 
                 }
-
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindPhotos : BindPhotos({0})", _modelId));
             }
         }
 
         /// <summary>
-        /// Created by Sajal Gupta on 27-04-2017
+        /// Created by  : Sushil Kumar on 30th Sep 2017
         /// Description : Function to get query string variables
         /// </summary>
         private void ProcessQueryStringVariables(string qstr)
@@ -137,7 +182,7 @@ namespace Bikewale.Models.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.New.Photos : ProcessQueryStringVariables");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.ProcessQueryStringVariables : ProcessQueryStringVariables({0})", _modelId));
             }
         }
 
@@ -162,25 +207,28 @@ namespace Bikewale.Models.Photos
                     var similarBikes = new SimilarBikesWithPhotosWidget(_objModelMaskingCache, _modelId, _cityId);
                     similarBikes.BikeName = _objData.BikeName;
                     _objData.SimilarBikes = similarBikes.GetData();
-
-                    var modelgallery = new ModelGalleryWidget(_objData.Make, _objData.Model, _objData.PhotoGallery.ImageList, _objData.ModelVideos, _objData.BikeInfo);
-                    modelgallery.IsGalleryDataAvailable = true;
-                    modelgallery.IsJSONRequired = true;
-                    _objData.ModelGallery = modelgallery.GetData();
-                    if (_objData.ModelGallery != null)
+                  
+                    if (_objData.PhotoGallery != null && _objData.PhotoGallery.ImageList != null)
                     {
-                        _objData.ModelGallery.ReturnUrl = _returnUrl;
-                        _objData.ModelGallery.SelectedColorImageId = _selectedColorImageId;
-                        _objData.ModelGallery.SelectedImageId = _selectedImageId;
-                        _objData.ModelGallery.BikeName = _objData.BikeName;
-                        _objData.ModelGallery.IsDiscontinued = !_objData.objModel.Futuristic && !_objData.objModel.New;
-                        _objData.ModelGallery.IsUpcoming = _objData.objModel.Futuristic;
+                        var modelgallery = new ModelGalleryWidget(_objData.Make, _objData.Model, _objData.PhotoGallery.ImageList, _objData.ModelVideos, _objData.BikeInfo);
+                        modelgallery.IsGalleryDataAvailable = true;
+                        modelgallery.IsJSONRequired = true;
+                        _objData.ModelGallery = modelgallery.GetData();
+                        if (_objData.ModelGallery != null)
+                        {
+                            _objData.ModelGallery.ReturnUrl = _returnUrl;
+                            _objData.ModelGallery.SelectedColorImageId = _selectedColorImageId;
+                            _objData.ModelGallery.SelectedImageId = _selectedImageId;
+                            _objData.ModelGallery.BikeName = _objData.BikeName;
+                            _objData.ModelGallery.IsDiscontinued = !_objData.objModel.Futuristic && !_objData.objModel.New;
+                            _objData.ModelGallery.IsUpcoming = _objData.objModel.Futuristic;
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.New.Photos : BindPageWidgets for modelId {0}", _modelId));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindPageWidgets : BindPageWidgets({0})", _modelId));
             }
         }
 
@@ -209,7 +257,7 @@ namespace Bikewale.Models.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : SetPageMetas");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.SetPageMetas : SetPageMetas({0})", _modelId));
             }
 
         }
@@ -265,7 +313,7 @@ namespace Bikewale.Models.Photos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.PhotosPage.SetPageJSONLDSchema => BikeName: {0}", _objData.BikeName));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.SetPageJSONLDSchema : SetPageJSONLDSchema({0})", _modelId));
             }
         }
 
@@ -350,7 +398,7 @@ namespace Bikewale.Models.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("ParseQueryString({0} - {1})", modelMasking, _modelId));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.Models.Photos.PhotosPage.GetData : ParseQueryString({0})", _modelId));
                 Status = StatusCodes.ContentNotFound;
             }
         }
