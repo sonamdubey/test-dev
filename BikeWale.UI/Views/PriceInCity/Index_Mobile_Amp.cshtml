@@ -175,7 +175,7 @@
                                    Model.IsManufacturerLeadAdShown, Model.LeadCampaign.DealerId, String.Format(Model.LeadCampaign.LeadsPropertyTextMobile,
                                    Model.LeadCampaign.Organization), Model.LeadCampaign.Area, Model.VersionId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.PqSourceId,
                                    Model.LeadCampaign.CampaignId, Model.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.LeadCampaign.PopupHeading,
-                                   String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization), Model.LeadCampaign.PopupDescription,
+                                   (Model.LeadCampaign.PopupSuccessMessage.Contains(@"{\d+}") ? String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization) : Model.LeadCampaign.PopupSuccessMessage), Model.LeadCampaign.PopupDescription,
                                    Model.LeadCampaign.PincodeRequired, Model.LeadCampaign.EmailRequired, Model.LeadCampaign.DealerRequired,
                                    Model.PageMetaTags.AlternateUrl))" class="btn btn-orange btn-full-32" rel="nofollow">@Model.LeadCampaign.LeadsButtonTextMobile</a>
                                 }

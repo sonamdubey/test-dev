@@ -20,7 +20,7 @@ var mfgCamp = function () {
     self.redirect = function () {
         dealerId = ddlAddManufacturers.val();
         if (!isNaN(dealerId) && dealerId > 0) {
-            var url = BwOprHostUrl + '/manufacturercampaign/information/' + dealerId;
+            var url = '/manufacturercampaign/information/' + dealerId;
             window.location.href = url;
         }
         else {
@@ -37,7 +37,7 @@ var mfgCamp = function () {
             var element = document.getElementById('DealerCampaignsList');
             $.ajax({
                 type: "GET",
-                url: BwOprHostUrl + "/api/v2/campaigns/manufacturer/search/dealerId/" + dealerId + "/allActiveCampaign/" + allActiveCampaign,
+                url: "/api/v2/campaigns/manufacturer/search/dealerId/" + dealerId + "/allActiveCampaign/" + allActiveCampaign,
                 datatype: "json",
                 success: function (response) {
                     if (response.length > 0) {
@@ -68,7 +68,7 @@ var mfgCamp = function () {
         if (confirm("Are you Sure you want to " + $(event.currentTarget).data("tooltip"))) {
             $.ajax({
                 type: "POST",
-                url: BwOprHostUrl + "/api/v2/campaigns/manufacturer/updatecampaignstatus/campaignId/" + data.id + '/status/' + $(event.currentTarget).data("status"),
+                url: "/api/v2/campaigns/manufacturer/updatecampaignstatus/campaignId/" + data.id + '/status/' + $(event.currentTarget).data("status"),
                 datatype: "json",
                 success: function (response) {
                     self.searchCampaigns();                    
