@@ -548,5 +548,69 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<Entities.CMS.Photos.ColorImageBaseEntity, Bikewale.DTO.Model.ColorImageBaseDTO>();
             return Mapper.Map<IEnumerable<ColorImageBaseEntity>, IEnumerable<ColorImageBaseDTO>>(imageList);
         }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 4th Oct 2017
+        /// Summary : Map BikeModelPage to gallery component
+        /// </summary>
+        /// <param name="objModelPage"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        internal static ModelGallery ConvertToModelGallery(BikeModelPageEntity objModelPage, int modelId)
+        {
+            ModelGallery objModelGallery = new ModelGallery();
+            if(objModelPage != null)
+            {
+                ICollection<ModelGalleryComponent> objGalleryComponent = new List<ModelGalleryComponent>();
+                if(objModelPage.ModelDetails != null)
+                {
+                    if (objModelPage.ModelDetails.PhotosCount > 0)
+                    {
+                        objGalleryComponent.Add(
+                                new ModelGalleryComponent()
+                                {
+                                    ComponentType = 1,
+                                    DisplayText = string.Format("Photos({0})", objModelPage.ModelDetails.PhotosCount),
+                                    DataUrl = string.Format("api/model/{0}/photos/", modelId)
+                                }
+                            );
+                    }
+
+                    if (objModelPage.ModelDetails.VideosCount > 0)
+                    {
+                        objGalleryComponent.Add(
+                                new ModelGalleryComponent()
+                                {
+                                    ComponentType = 2,
+                                    DisplayText = string.Format("Videos({0})", objModelPage.ModelDetails.VideosCount),
+                                    DataUrl = string.Format("api/model/{0}/videos/", modelId)
+                                }
+                            );
+                    }
+
+                    if (objModelPage.colorPhotos.Any())
+                    {
+                        objGalleryComponent.Add(
+                                new ModelGalleryComponent()
+                                {
+                                    ComponentType = 3,
+                                    DisplayText = string.Format("Colours({0})", objModelPage.colorPhotos.Count()),
+                                    DataUrl = string.Format("api/model/{0}/colorphotos/", modelId)
+                                }
+                            );
+                    }
+                }
+
+                var component = objGalleryComponent.FirstOrDefault();
+
+                if(component != null)
+                {
+                    objModelGallery.SelectedTypeId = component.ComponentType;
+                    objModelGallery.GalleryComponents = objGalleryComponent;
+                } 
+            }
+            
+            return objModelGallery;
+        }
     }
 }

@@ -249,6 +249,8 @@
     <Compile Include="Model\ImageBaseEntity.cs" />
     <Compile Include="Model\ModelColor.cs" />
     <Compile Include="Model\ModelDetail.cs" />
+    <Compile Include="Model\ModelGallery.cs" />
+    <Compile Include="Model\ModelGalleryComponent.cs" />
     <Compile Include="Model\NewModelColor.cs" />
     <Compile Include="Model\Overview.cs" />
     <Compile Include="Model\Specifications.cs" />
