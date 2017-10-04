@@ -22,6 +22,11 @@
                         <option value="" selected disabled>--Select Brand--</option>
                         @if (Model != null && Model.Makes != null && Model.Makes.Count() > 0)
                         {
+                            if (!(Model.Makes.Any(objModel => objModel.MakeId == Model.MakeId)))
+                            {
+                                <option value="@Model.MakeId">@Model.MakeName</option>
+                            }
+
                             foreach (var make in Model.Makes)
                             {
                                 <option value="@make.MakeId">@make.MakeName</option>

@@ -75,6 +75,7 @@ namespace Bikewale.Models.UserReviews
                 viewModel.UserReviewPopup.MakeId = _makeId;
                 viewModel.UserReviewPopup.ModelId = _modelId;
                 viewModel.UserReviewPopup.ModelName = _modelName;
+                viewModel.UserReviewPopup.MakeName = _makeName;
 
                 if (csrc > 0)
                     viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", csrc));

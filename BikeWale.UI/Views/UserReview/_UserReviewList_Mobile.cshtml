@@ -95,9 +95,25 @@
 </li>
 		}
 
-		<div class="hide" id="loader" data-bind="visible: isLoading()">   
-		<img  src="https://imgd.aeplcdn.com/0x0/bw/static/icons/loader-horizontal.gif" class="padding-right20 padding-left20 padding-bottom10">
-		</div> 
+		<li class="list-item padding-15-20 hide" id="loader" data-bind="visible: isLoading()">
+			<span class="rating-container"></span>
+			<span class="review-header"></span>
+			<div class="review-author"></div>
+			<div class="paragraph-item para-one"></div>
+			<div class="paragraph-item para-two"></div>
+			<div class="paragraph-item para-three"></div>
+			<div class="paragraph-item para-four"></div>
+
+			<div class="user-review-loader-divider"></div>
+
+			<span class="rating-container"></span>
+			<span class="review-header"></span>
+			<div class="review-author"></div>
+			<div class="paragraph-item para-one"></div>
+			<div class="paragraph-item para-two"></div>
+			<div class="paragraph-item para-three"></div>
+			<div class="paragraph-item para-four"></div>
+		</li>
 			
 
 		<!-- ko if : reviewList() && reviewList().length > 0 -->

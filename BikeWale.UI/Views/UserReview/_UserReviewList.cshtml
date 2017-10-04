@@ -3,7 +3,7 @@
 @using Bikewale.Utility;
 
 @if (Model != null && Model.ObjQuestionValue != null && Model.ObjQuestionValue.QuestionsList != null)
-{<ul class="rating-circle-list overall-circle-list">
+{<ul class="model-rating-list rating-circle-list overall-circle-list">
         @foreach (var obj in Model.ObjQuestionValue.QuestionsList)
         {
             <li>
@@ -105,11 +105,81 @@
 				<div class="clear"></div>
 				@{i++;}
 			</li>       
-		}   
+		}
 
-		<div class="hide margin-left20" id="loader" data-bind="visible: isLoading()">
-			<img src="https://imgd.aeplcdn.com/0x0/bw/static/icons/loader-horizontal.gif" class="padding-bottom10">
-		</div>
+		<li class="list-item hide" id="loader" data-bind="visible: isLoading()">
+			<div class="list-left-grid item-grid padding-right20 grid-9">
+				<span class="rating-container"></span>
+				<span class="review-header"></span>
+				<span class="review-author"></span>
+				<div class="paragraph-item para-one"></div>
+				<div class="paragraph-item para-two"></div>
+				<div class="paragraph-item para-three"></div>
+				<div class="paragraph-item para-four"></div>
+				<div class="paragraph-item para-five"></div>
+			</div>
+			<div class="list-right-grid grid-3 padding-left20">
+				<div class="right-data-container">
+					<span class="loader-circle"></span>
+					<div class="right-para-container">
+						<div class="paragraph-item right-para-one"></div>
+						<div class="paragraph-item right-para-two"></div>
+					</div>
+				</div>
+				<div class="right-data-container">
+					<span class="loader-circle"></span>
+					<div class="right-para-container">
+						<div class="paragraph-item right-para-one"></div>
+						<div class="paragraph-item right-para-two"></div>
+					</div>
+				</div>
+				<div class="right-data-container">
+					<span class="loader-circle"></span>
+					<div class="right-para-container">
+						<div class="paragraph-item right-para-one"></div>
+						<div class="paragraph-item right-para-two"></div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+
+			<div class="user-review-loader-divider"></div>
+
+			<div class="list-left-grid item-grid padding-right20 grid-9">
+				<span class="rating-container"></span>
+				<span class="review-header"></span>
+				<span class="review-author"></span>
+				<div class="paragraph-item para-one"></div>
+				<div class="paragraph-item para-two"></div>
+				<div class="paragraph-item para-three"></div>
+				<div class="paragraph-item para-four"></div>
+				<div class="paragraph-item para-five"></div>
+			</div>
+			<div class="list-right-grid grid-3 padding-left20">
+				<div class="right-data-container">
+					<span class="loader-circle"></span>
+					<div class="right-para-container">
+						<div class="paragraph-item right-para-one"></div>
+						<div class="paragraph-item right-para-two"></div>
+					</div>
+				</div>
+				<div class="right-data-container">
+					<span class="loader-circle"></span>
+					<div class="right-para-container">
+						<div class="paragraph-item right-para-one"></div>
+						<div class="paragraph-item right-para-two"></div>
+					</div>
+				</div>
+				<div class="right-data-container">
+					<span class="loader-circle"></span>
+					<div class="right-para-container">
+						<div class="paragraph-item right-para-one"></div>
+						<div class="paragraph-item right-para-two"></div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</li>
 
 		<!-- ko if : reviewList() && reviewList().length > 0 -->
 		<!-- ko foreach: reviewList() -->
