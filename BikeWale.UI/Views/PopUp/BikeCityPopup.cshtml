@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.PopUp.BikeCityPopup  
 
-<div id="priceInCityPopUp" class="hide popup-loader-animate" data-url="@Model.ApiUrl">
+<div id="priceInCityPopUp" class="hide popup-loader-animate" data-url="@Model.ApiUrl" data-loading-text="@Model.FetchDataPopupMessage" data-redirect-url="@Model.RedirectUrl">
     <div class="bw-popup bw-popup-sm" data-bind="css: IsLoading() ? 'location-loader-active' : ''">
         <!-- ko if : IsLoading() -->
         <div class="content-inner-block-20">
@@ -177,10 +177,10 @@
 
                   };
 
-                self.redirectToPriceInCity = function () {
+                  self.redirectToPage = function () {
                     try {
-                        if (self.SelectedCity() != null && self.SelectedModelId() > 0) {
-                            window.location = "/" + self.MakeMasking + "-bikes/" + self.ModelMasking + "/price-in-" + self.SelectedCityMasking() + "/";
+                        if ($('#priceInCityPopUp').attr('data-redirect-url') && self.SelectedCityMasking()) {                           
+                            window.location = $('#priceInCityPopUp').attr('data-redirect-url') + self.SelectedCityMasking() + "/";
                         }
                     }
                     catch (e) {
@@ -196,15 +196,15 @@
                 };
 
                 self.selectCity = function () {
-                    try {
+                    try {                       
                         self.SelectedCity(self.findById(self.ListCities(), "cityId", self.SelectedCityId()));
-                        self.SelectedCityMasking(self.SelectedCity().maskingName);
+                        self.SelectedCityMasking(self.SelectedCity().cityMaskingName);
                         if (self.SelectedCity() != null && self.SelectedCity().cityId > 0) {
                            $('#priceinCityPopupList').parent().addClass('done');
 
-                            self.LoadingText("Fetching on-road price for " + self.SelectedCity().cityName);
+                           self.LoadingText($('#priceInCityPopUp').attr('data-loading-text') + self.SelectedCity().cityName);
                             self.IsLoading(true);
-                            self.redirectToPriceInCity();
+                            self.redirectToPage();
 
                         }
                     } catch (e) {

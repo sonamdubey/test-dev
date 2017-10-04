@@ -84,7 +84,9 @@ namespace Bikewale.Models.ServiceCenters
                 {
                     ApiUrl = "/api/servicecenter/cities/make/" + objVM.Make.MakeId + "/",
                     PopupShowButtonMessage = "Show service centers",
-                    PopupSubHeading = "See service centers in your city!"
+                    PopupSubHeading = "See service centers in your city!",
+                    FetchDataPopupMessage = "Fetching service centers for ",
+                    RedirectUrl = string.Format("/{0}-service-center-in-", objVM.Make.MaskingName)
                 };
 
                 BindPageMetas(objVM);
