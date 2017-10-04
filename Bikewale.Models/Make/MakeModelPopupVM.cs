@@ -15,6 +15,7 @@ namespace Bikewale.Models.Make
         public uint? MakeId { get; set; }
         public uint? ModelId { get; set; }
 
+        public string MakeName { get; set; }
         public string ModelName { get; set; }
     }
 }
