@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Bikewale.Models
 {
@@ -53,11 +54,12 @@ namespace Bikewale.Models
         public string redirectUrl;
         private GlobalCityAreaEntity currentCityArea;
         private uint CityId, MakeId, ModelId, pageCatId = 0;
-        private uint _totalTabCount = 3;
+        private readonly uint _totalTabCount = 3;
         private BikeInfoTabType _pageId = BikeInfoTabType.News;
         private EnumBikeType bikeType = EnumBikeType.All;
-        private bool showCheckOnRoadCTA = false;
+        private readonly bool showCheckOnRoadCTA = false;
         private uint basicId;
+        private readonly ControllerContext _ctrlContext = null;
         private PQSourceEnum pqSource = 0;
         #endregion
 
@@ -82,10 +84,11 @@ namespace Bikewale.Models
         }
 
         public bool LogNewsUrl { get; set; }
+        public bool IsAMPPage { get; set; }
         #endregion
 
         #region Constructor
-        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
+        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, ControllerContext ctrlContext)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -98,6 +101,7 @@ namespace Bikewale.Models
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _objBikeVersionsCache = objBikeVersionsCache;
             LogNewsUrl = BWConfiguration.Instance.LogNewsUrl;
+            _ctrlContext = ctrlContext;
             ProcessQueryString();
         }
         #endregion
@@ -120,9 +124,9 @@ namespace Bikewale.Models
                     mappedCWId = qsBasicId;
                     string url = request["t"];
 
-                    if(url.Contains("/"+mappedCWId+"-") ||
-                        url.StartsWith(@"/news/")||
-                        url.StartsWith(@"/m/news/")||
+                    if (url.Contains(string.Format("/{0}-", mappedCWId)) ||
+                        url.StartsWith(@"/news/") ||
+                        url.StartsWith(@"/m/news/") ||
                         url.EndsWith(@".html"))
                     {
                         redirectUrl = url;
@@ -132,7 +136,7 @@ namespace Bikewale.Models
                         _logger.Error("NewsDetailPage.ProcessQueryString()");
                     }
                     else
-                        redirectUrl = string.Format("/news/{0}-{1}.html", mappedCWId, request["t"]);
+                        redirectUrl = string.Format("{0}/news/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, mappedCWId, request["t"]);
                 }
                 else if (uint.TryParse(qsBasicId, out basicId) && basicId > 0)
                     status = StatusCodes.ContentFound;
@@ -143,7 +147,7 @@ namespace Bikewale.Models
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.NewsDetailPage.ProcessQueryString");
             }
-            
+
         }
 
         /// <summary>
@@ -167,6 +171,9 @@ namespace Bikewale.Models
 
                     if (objData.Model != null && ModelId != 0 && objData.Model.ModelId != ModelId)
                         objData.Model.ModelId = (int)ModelId;
+
+                    InsertBikeInfoWidgetIntoContent(objData);
+
                 }
                 else
                     status = StatusCodes.ContentNotFound;
@@ -478,6 +485,46 @@ namespace Bikewale.Models
                     objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
                     bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
                 }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objData"></param>
+        private void InsertBikeInfoWidgetIntoContent(NewsDetailPageVM objData)
+        {
+            try
+            {
+                if (objData.ArticleDetails != null && objData.BikeInfo != null && !IsAMPPage)
+                {
+                    int totalStrippedHTMLLength = 0, requiredLength = 0;
+                    string inputString = null;
+
+                    //get length of each pages with stripped html
+                    var tuple = StringHtmlHelpers.StripHtmlTagsWithLength(objData.ArticleDetails.Content);
+                    totalStrippedHTMLLength += tuple.Item2;
+
+                    requiredLength = Convert.ToInt32(totalStrippedHTMLLength * 0.25);
+
+
+                    if (_ctrlContext != null)
+                    {
+                        string viewName = IsMobile ? "~/views/BikeModels/_minBikeInfoCard_Mobile.cshtml" : "~/views/BikeModels/_minBikeInfoCard.cshtml";
+                        inputString = MvcHelper.RenderViewToString(_ctrlContext, viewName, objData.BikeInfo);
+                    }
+
+                    if (!string.IsNullOrEmpty(inputString))
+                    {
+                        string output = StringHtmlHelpers.InsertHTMLBetweenHTML(objData.ArticleDetails.Content, inputString, requiredLength);
+
+                        objData.ArticleDetails.Content = output;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ExpertReviewsDetailPage.InsertBikeInfoWidgetIntoContent");
             }
         }
         #endregion
