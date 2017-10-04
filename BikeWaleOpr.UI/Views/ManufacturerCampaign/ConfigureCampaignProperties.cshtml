@@ -89,39 +89,6 @@
                                     <label for="chkLeadsDesktopTemplate">Use Default</label>
                                 </div>
                             </div>
-                            <div class="row padding-bottom20">
-                                <div class="input-field col m6">
-                                    <span class="font18" for="isPopup">Open Lead Capture as a separate page?</span>
-                                </div>
-                                <div class="input-field col m6">
-                                    <div class="switch">
-                                        <label>
-                                            No<input type="checkbox" name="IsPopup" id="isPopUp" @((!string.IsNullOrEmpty(Model.Lead.PriceBreakUpLinkMobile) && (!string.IsNullOrEmpty(Model.Lead.PriceBreakUpLinkDesktop))) ? "checked='checked'" : string.Empty)>
-                                            <span class="lever"></span>Yes
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col m6">
-                                    <input id="PriceBreakUpLinkTextMobile" name="PriceBreakUpLinkTextMobile" type="text" data-ignorevalidation class="validate" maxlength="100" value="@(Model.Lead.PriceBreakUpLinkTextMobile!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkTextMobile) : string.Empty)">
-                                    <label for="PriceBreakUpLinkTextMobile">Mobile Price Breakup Text</label>
-                                </div>
-                                <div class="input-field col m6">
-                                    <input id="PriceBreakUpLinkMobile" name="PriceBreakUpLinkMobile" type="text" class="validate price_link" maxlength="100" disabled="disabled" value="@(Model.Lead.PriceBreakUpLinkMobile!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkMobile) : string.Empty)">
-                                    <label for="PriceBreakUpLinkMobile">Mobile Price Breakup Link</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col m6">
-                                    <input id="PriceBreakUpLinkTextDesktop" name="PriceBreakUpLinkTextDesktop" type="text" data-ignorevalidation class="validate" maxlength="100" value="@(Model.Lead.PriceBreakUpLinkTextDesktop!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkTextDesktop) : string.Empty)">
-                                    <label for="PriceBreakUpLinkTextDesktop">Desktop Price Breakup Text</label>
-                                </div>
-                                <div class="input-field col m6">
-                                    <input id="PriceBreakUpLinkDesktop" name="PriceBreakUpLinkDesktop" type="text" class="validate price_link" maxlength="100" disabled="disabled" value="@(Model.Lead.PriceBreakUpLinkDesktop!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkDesktop) : string.Empty)">
-                                    <label for="PriceBreakUpLinkDesktop">Desktop Price Breakup Link</label>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="input-field col m8">
                                     <select id="LeadPriority" name="LeadPriority" disabled>
@@ -134,7 +101,49 @@
                                 </div>
                             </div>
 
-                        </div>
+                            <div class="card teal lighten-5">
+                                <div class="card-content">
+                                    <div class="row">
+                                        <h6>Configure Price breakup link on PriceInCity and PriceQuote page</h6>
+                                    </div>
+                                    <div class="row padding-bottom20">
+                                        <div class="input-field col m6">
+                                            <span class="font18" for="isPopup">Open Lead Capture as a separate page?</span>
+                                        </div>
+                                        <div class="input-field col m6">
+                                            <div class="switch">
+                                                <label>
+                                                    No<input type="checkbox" name="IsPopup" id="isPopUp" @((!string.IsNullOrEmpty(Model.Lead.PriceBreakUpLinkMobile) && (!string.IsNullOrEmpty(Model.Lead.PriceBreakUpLinkDesktop))) ? "checked='checked'" : string.Empty)>
+                                                    <span class="lever"></span>Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col m6">
+                                            <input id="PriceBreakUpLinkTextMobile" name="PriceBreakUpLinkTextMobile" type="text" data-ignorevalidation class="validate" maxlength="100" value="@(Model.Lead.PriceBreakUpLinkTextMobile!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkTextMobile) : string.Empty)">
+                                            <label for="PriceBreakUpLinkTextMobile">Mobile Price Breakup Text</label>
+                                        </div>
+                                        <div class="input-field col m6">
+                                            <input id="PriceBreakUpLinkMobile" name="PriceBreakUpLinkMobile" type="text" class="validate price_link" maxlength="100" disabled="disabled" value="@(Model.Lead.PriceBreakUpLinkMobile!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkMobile) : string.Empty)">
+                                            <label for="PriceBreakUpLinkMobile">Mobile Price Breakup Link</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col m6">
+                                            <input id="PriceBreakUpLinkTextDesktop" name="PriceBreakUpLinkTextDesktop" type="text" data-ignorevalidation class="validate" maxlength="100" value="@(Model.Lead.PriceBreakUpLinkTextDesktop!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkTextDesktop) : string.Empty)">
+                                            <label for="PriceBreakUpLinkTextDesktop">Desktop Price Breakup Text</label>
+                                        </div>
+                                        <div class="input-field col m6">
+                                            <input id="PriceBreakUpLinkDesktop" name="PriceBreakUpLinkDesktop" type="text" class="validate price_link" maxlength="100" disabled="disabled" value="@(Model.Lead.PriceBreakUpLinkDesktop!= null? WebUtility.HtmlDecode(Model.Lead.PriceBreakUpLinkDesktop) : string.Empty)">
+                                            <label for="PriceBreakUpLinkDesktop">Desktop Price Breakup Link</label>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+
+
+                            </div>
                     </div>
                 </li>
                 <li class="step">
