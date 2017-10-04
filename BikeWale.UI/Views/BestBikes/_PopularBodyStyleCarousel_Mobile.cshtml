@@ -13,16 +13,20 @@
                     </div>
                     <div class="swiper-details-block">
                         <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
-                        @if(bike.VersionPrice > 0) { 
-                        <p class="text-truncate text-light-grey font11">Ex-showroom, @(!string.IsNullOrEmpty(bike.CityName)? bike.CityName : BWConfiguration.Instance.DefaultName)</p>
-                        <p class="text-default font16">
-                            @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span>
-                        </p>
-                        }else { 
-                        <p class="text-default">
-                            <span class="font14 text-light-grey">Price not available</span>
-                        </p>
-                         } 
+
+                        @if (bike.VersionPrice == 0 && bike.AvgPrice == 0)
+                        {
+                            <p class="text-default">
+                                <span class="font14 text-light-grey">Price not available</span>
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="text-truncate text-light-grey font11">@(bike.VersionPrice > 0 ? string.Format("Ex-showroom, {0}",  (!string.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.DefaultCity)) : "Avg. Ex-showroom price")</p>
+                            <p class="text-default font16">
+                                @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Format.FormatPrice(Convert.ToString(bike.VersionPrice > 0 ? bike.VersionPrice : bike.AvgPrice))</span>
+                            </p>
+                        }
                     </div>
                 </a>
                 @if (Model.ShowCheckOnRoadCTA)

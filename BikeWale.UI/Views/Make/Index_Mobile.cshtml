@@ -8,7 +8,6 @@
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_300x250 = true;
 }
-
 <section>
     <div id="bikeByMakesListing" class="container bg-white margin-bottom20">
         <div>
@@ -31,7 +30,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="bg-white box-shadow content-inner-block-1520">
                 <h1>@Model.Page_H1</h1>
             </div>
@@ -60,17 +58,31 @@
                                         <div class="font14 text-x-light margin-bottom10">
                                             @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
                                         </div>
-                                        <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</div>
+                                        @if (bike.ExShowroomPrice != 0)
+                                        {
+                                            <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, @(Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="margin-bottom5 font14 text-light-grey">Avg. Ex-showroom price</div>
+                                        }
                                         <div class="margin-bottom5">
-                                            @if (bike.VersionPrice > 0) {
-                                                @Html.Raw("<span class='font18' style='display: inline - block;'> &#x20B9;</span>")}
+                                            @if (bike.VersionPrice > 0)
+                                            {
+                                                @Html.Raw("<span class='font18' style='display: inline-block;'> &#x20B9;</span>")}
 
-                                            else {
+                                            else
+                                            {
                                                 @Html.Raw("<span class='font18' style='display: none;'> &#x20B9;</span>")
                                             }
-                                            
-
-                                            <span class="text-bold font18">@Html.Raw(string.Format("{0}", bike.VersionPrice > 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(bike.VersionPrice.ToString())) : "Price unavailable"))</span>
+                                            @if (bike.AvgPrice != 0)
+                                            {
+                                                <span class="text-bold font18">@Html.Raw(string.Format("{0}", bike.ExShowroomPrice == 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))) : Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice))))</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-bold font18">Price unavailable</span>
+                                            }
                                         </div>
                                         @if (bike.VersionPrice > 0)
                                         {
@@ -105,8 +117,8 @@
         </div>
     }
 </section>
-
-@if (Model.IsCompareBikesAvailable){
+@if (Model.IsCompareBikesAvailable)
+{
     <section>
         <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
             <div class="carousel-heading-content">
@@ -122,7 +134,6 @@
         </div>
     </section>
 }
-
 @if (Model.IsMakeTabsDataAvailable)
 {
     <section>
@@ -159,7 +170,6 @@
                     </ul>
                 </div>
             </div>
-
             @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription.Length > 0)
             {
                 <div id="makeAboutContent" class="bw-model-tabs-data padding-top15 padding-bottom15 border-solid-bottom">
@@ -182,8 +192,7 @@
                         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
                     </div>
                 </div>
-            }
-
+                            }
             @if (Model.IsNewsAvailable)
             {
                 <div id="makeNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
@@ -240,7 +249,6 @@
                     {
                         <div class="padding-bottom20 padding-top15 font14">
                             <div class="carousel-heading-content">
-
                                 <div class="swiper-heading-left-grid inline-block">
                                     <h2>@Model.MakeName service centers in @Model.Location</h2>
                                 </div>
@@ -267,7 +275,6 @@
                     }
                 </div>
             }
-
             @if (Model.IsUsedModelsBikeAvailable)
             {
                 <div id="makeUsedBikeContent" class="bw-model-tabs-data  padding-top15">
@@ -287,7 +294,7 @@
         </div>
     </section>
 
-}
+                            }
 @if (Model.OtherMakes != null && Model.OtherMakes.Count() > 0)
 {
     <section>
@@ -304,8 +311,7 @@
             @Html.Partial("~/Views/Make/_BrandsModelCount_Mobile.cshtml", Model.OtherMakes)
         </div>
     </section>
-                }
-
+}
 @if (Model.IsDiscontinuedBikeAvailable)
 {
     <section>

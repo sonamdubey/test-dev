@@ -9,7 +9,6 @@
     Model.AdTags.Ad_970x90Bottom = true;
     Model.AdTags.Ad_300x250 = true;
 }
-
 <section class="container margin-bottom20">
     <div class="grid-12">
         <div class="content-box-shadow">
@@ -23,7 +22,6 @@
                         <div class="leftfloat sort-by-text text-light-grey margin-left50">
                             <p>Sort by:</p>
                         </div>
-
                         <div class="rightfloat">
                             <div class="sort-div rounded-corner2">
                                 <div class="sort-by-title" id="sort-by-container">
@@ -65,7 +63,7 @@
                                         <div class="text-xt-light-grey font14 margin-bottom15">
                                             @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
                                         </div>
-                                        @if (bike.ExShowroomPrice != 0 )
+                                        @if (bike.ExShowroomPrice != 0)
                                         {
                                             <div class="font14 text-light-grey margin-bottom5">@string.Format("Ex-showroom, {0}", Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</div>
                                         }
@@ -79,14 +77,15 @@
                                             </div>
                                         }
                                         <div class="text-bold">
-                                            @{ if (bike.AvgPrice == 0)
-                                                { @Html.Raw("<span class='font16'>Price Unavailable</span>");
-                                                }
-                                                else
-                                                { @Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", bike.ExShowroomPrice == 0 ? Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice)) : Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice))));
-                                                }
+                                            @if (bike.AvgPrice == 0)
+                                            { @Html.Raw("<span class='font16'>Price Unavailable</span>");
                                             }
+                                            else
+                                            { @Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))));
+                                            }
+
                                         </div>
+
                                         @if (bike.VersionPrice > 0)
                                         {
                                             <a rel="nofollow" href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
@@ -94,11 +93,10 @@
                                     </div>
                                 </div>
                             </li>
-                                                }
+                        }
                     </ul>
                 </div>
-                                                }
-
+            }
         </div>
     </div>
     <div class="clear"></div>
@@ -125,7 +123,6 @@
         </div>
     </section>
 }
-
 @if (Model.IsCompareBikesAvailable)
 {
     <section>
@@ -147,7 +144,6 @@
         </div>
     </section>
 }
-
 @if (Model.IsMakeTabsDataAvailable)
 {
     <section class="container">
@@ -217,10 +213,8 @@
                             <a href="@Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Bikes News"))"
                                class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
                         </div>
-
                     </div>
                 }
-
 
                 <!-- news control ends here -->
                 @if (Model.IsExpertReviewsAvailable)
@@ -288,7 +282,6 @@
                                 @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
                             </div>
                         }
-
                     </div>
                     <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                 }
@@ -313,7 +306,7 @@
         </div>
         <div class="clear"></div>
     </section>
-}
+                                }
 @if (Model.OtherMakes != null && Model.OtherMakes.Count() > 0)
 {
     <section>
@@ -354,10 +347,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="clear"></div>
         </div>
     </section>
 }
-

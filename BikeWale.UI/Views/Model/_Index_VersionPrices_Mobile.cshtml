@@ -20,7 +20,7 @@
                         <td>
                             <span class='font14'>&#x20B9;</span>
                             <span id="priced_@version.VersionId" class="text-bold">
-                                <span>@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
+                                <span>@(version.Price > 0 ? Bikewale.Utility.Format.FormatPrice(version.Price.ToString()) : Bikewale.Utility.Format.FormatPrice(version.AverageExShowroom.ToString()))</span>
                             </span>
                         </td>
                         <td>@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>

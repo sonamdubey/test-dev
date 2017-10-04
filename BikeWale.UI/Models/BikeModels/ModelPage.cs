@@ -490,6 +490,8 @@ namespace Bikewale.Models.BikeModels
         /// Description :   Set makename,modelname,make and model masking name to news widget
         /// Modified by: Vivek Singh Tomar on 23 Aug 2017
         /// Summary: Added page enum to similar bike widget
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Get emi details for avg ex-showroom price when bike price is zero.
         /// </summary>
         private void BindControls()
         {
@@ -556,8 +558,14 @@ namespace Bikewale.Models.BikeModels
                                 BikeName = _objData.BikeName,
                                 IsManufacturerCampaign = _objData.IsManufacturerLeadAdShown || _objData.IsManufacturerEMIAdShown || _objData.IsManufacturerTopLeadAdShown
                             };
-
-                            _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
+                            if (_objData.BikePrice > 0)
+                            {
+                                _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
+                            }
+                            else if(_objData.SelectedVersion != null)
+                            {
+                                _objData.EMIDetails = setDefaultEMIDetails(_objData.SelectedVersion.AverageExShowroom);
+                            }
                         }
                     }
 
@@ -1367,9 +1375,9 @@ namespace Bikewale.Models.BikeModels
                 _objData.CampaignId = pqOnRoad.BPQOutput.CampaignId;
             }
 
-            if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null && _objData.VersionId > 0)
+            if (pqOnRoad != null && pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null && _objData.VersionId > 0)
             {
-                var objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == _objData.VersionId).FirstOrDefault();
+                var objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == _objData.VersionId);
                 if (objSelectedVariant != null)
                     _objData.BikePrice = _objData.IsLocationSelected && !_objData.ShowOnRoadButton ? Convert.ToUInt32(objSelectedVariant.OnRoadPrice) : Convert.ToUInt32(objSelectedVariant.Price);
 

@@ -14,9 +14,9 @@
                             <h3 class="target-link font12 text-truncate margin-bottom5">@Bike.Make.MakeName @Bike.Model.ModelName</h3>
                             @if (Bike.OnRoadPriceInCity == 0 && Bike.Price > Bike.OnRoadPriceInCity)
                             {
-                                <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
+                                <p class="text-truncate text-light-grey font11">@(Bike.UsedCity.CityId == 0 ? "Ex-showroom, Mumbai" : "Avg. Ex-showroom price")</p>
                                 <span class='font16 text-default'> &#x20B9;</span>
-                                <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
+                                <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price > 0 ? Bike.Price : Bike.AvgPrice))</span>
                             }
                             else
                             {

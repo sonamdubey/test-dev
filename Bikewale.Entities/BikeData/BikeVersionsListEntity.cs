@@ -23,7 +23,7 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public UInt64 Price { get; set; }
         [DataMember]
-        public UInt64 AverageExShowroom { get; set; }
+        public UInt32 AverageExShowroom { get; set; }
         [DataMember]
         public bool IsDealerPriceQuote { get; set; }
         

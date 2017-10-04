@@ -267,8 +267,8 @@ namespace Bikewale.DAL.BikeData
         /// Versions list with Min specs
         /// Modified by : Ashutosh Sharma on 30 Aug 2017 
         /// Description : Changed SP from 'getversions_23082017' to 'getversions_30082017', removed IsGstPrice flag
-        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
-        /// Description : Changed SP from 'getversions_23082017' to 'getversions_30082017', removed IsGstPrice flag
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Changed SP from 'getversions_30082017' to 'getversions_29092017', to get avg price.
         /// </summary>
         /// <param name="modelId">model id</param>
         /// <param name="isNew">is new</param>
@@ -299,7 +299,7 @@ namespace Bikewale.DAL.BikeData
                                     VersionName = Convert.ToString(dr["Version"]),
                                     ModelName = Convert.ToString(dr["Model"]),
                                     Price = Convert.ToUInt64(dr["VersionPrice"]),
-                                    AverageExShowroom = Convert.ToUInt64(dr["AverageExShowroom"]),
+                                    AverageExShowroom = Convert.ToUInt32(dr["AverageExShowroom"]),
                                     BrakeType = !Convert.IsDBNull(dr["BrakeType"]) ? Convert.ToString(dr["BrakeType"]) : String.Empty,
                                     AlloyWheels = !Convert.IsDBNull(dr["AlloyWheels"]) ? Convert.ToBoolean(dr["AlloyWheels"]) : false,
                                     ElectricStart = !Convert.IsDBNull(dr["ElectricStart"]) ? Convert.ToBoolean(dr["ElectricStart"]) : false,
@@ -943,7 +943,13 @@ namespace Bikewale.DAL.BikeData
             return objList;
         }
 
-
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : To get avg price.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId)
         {
             List<MostPopularBikesBase> objList = null;
@@ -983,7 +989,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
                                 objData.AvgPrice = SqlReaderConvertor.ToInt64(dr["AvgVersionPrice"]);
-                                objData.ExShowroomPrice = SqlReaderConvertor.ToUInt64(dr["ExShowroomPrice"]);
+                                objData.ExShowroomPrice = SqlReaderConvertor.ToInt64(dr["ExShowroomPrice"]);
                                 objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
@@ -1968,6 +1974,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by : Aditi Srivastava on 25 Jan 2017
         /// summary    : Get details of top bikes by bodystyle and pricing by city
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Changed SP from 'getmostpopularbikesbybodystyle_02022017' to 'getmostpopularbikesbybodystyle_03102017', to get avg price.
         /// </summary>
         /// <param name="bodyStyleId"></param>
         /// <param name="topCount"></param>
@@ -1980,7 +1988,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmostpopularbikesbybodystyle_02022017";
+                    cmd.CommandText = "getmostpopularbikesbybodystyle_03102017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId > 0 ? cityId : Convert.DBNull));
@@ -2003,6 +2011,7 @@ namespace Bikewale.DAL.BikeData
                                 popularObj.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 popularObj.HostURL = Convert.ToString(dr["HostURL"]);
                                 popularObj.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
+                                popularObj.AvgPrice = SqlReaderConvertor.ToInt64(dr["AvgPrice"]);
                                 popularObj.CityName = Convert.ToString(dr["CityName"]);
                                 popularObj.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                                 popularObj.BikePopularityIndex = SqlReaderConvertor.ToUInt16(dr["Rank"]);
@@ -2192,7 +2201,9 @@ namespace Bikewale.DAL.BikeData
         /// Created By : Aditi Srivastava on 17 Jan 2017
         /// Description : To get top 10 bikes of a given body style
         /// Modified by : Sajal Gupta on 02-02-2017
-        /// Description : Passed cityid to get used bikes count.       
+        /// Description : Passed cityid to get used bikes count.     
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Changed SP from 'getgenericbikelisting_03042017' to 'getgenericbikelisting_02102017', to get avg price.
         /// </summary>
         /// <param name="bodyStyle"></param>
         /// <returns></returns>
@@ -2204,7 +2215,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getgenericbikelisting_03042017";
+                    cmd.CommandText = "getgenericbikelisting_02102017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int32, bodyStyle));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId.Value : Convert.DBNull));
 
@@ -2234,6 +2245,7 @@ namespace Bikewale.DAL.BikeData
                                 bestBikeObj.Make.MakeName = Convert.ToString(dr["MakeName"]);
                                 bestBikeObj.Make.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 bestBikeObj.Price = SqlReaderConvertor.ToUInt32(dr["MinPrice"]);
+                                bestBikeObj.AvgPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]);
                                 bestBikeObj.SmallModelDescription = Convert.ToString(dr["SmallDescription"]);
                                 bestBikeObj.FullModelDescription = Convert.ToString(dr["FullDescription"]);
                                 bestBikeObj.UnitsSold = SqlReaderConvertor.ToUInt32(dr["UnitsSold"]);
@@ -2371,6 +2383,7 @@ namespace Bikewale.DAL.BikeData
                                 bestBikeObj.Make.MakeName = Convert.ToString(dr["MakeName"]);
                                 bestBikeObj.Make.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 bestBikeObj.Price = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]);
+                                bestBikeObj.AvgPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]);
                                 bestBikeObj.UsedCity = new CityEntityBase();
                                 bestBikeObj.OnRoadPriceInCity = SqlReaderConvertor.ToUInt32(dr["OnRoadPriceInCity"]);
                                 bestBikeObj.UsedCity.CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);

@@ -5,6 +5,8 @@ namespace Bikewale.Entities.BikeData
 {
     /// <summary>
     /// Created By : Sadhana Upadhyay on 5th Aug 2014
+    /// Modified by : Ashutosh Sharma on 03 Oct 2017
+    /// Description : Added AvgExShowroomPrice.
     /// </summary>
     [Serializable, DataContract]
     public class SimilarBikeEntity : MinSpecsEntity
@@ -15,6 +17,8 @@ namespace Bikewale.Entities.BikeData
         public int MaxPrice { get; set; }
         [DataMember]
         public int VersionPrice { get; set; }
+        [DataMember]
+        public uint AvgExShowroomPrice { get; set; }
         [DataMember]
         public string HostUrl { get; set; }
         [DataMember]
