@@ -13,6 +13,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
@@ -34,6 +35,7 @@ namespace Bikewale.BAL.PriceQuote
         Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = null;
         IAreaCacheRepository objArea = null;
         IDealerPriceQuoteDetail objIPQ = null;
+        private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
         /// <summary>
         /// 
@@ -51,8 +53,7 @@ namespace Bikewale.BAL.PriceQuote
                 container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();
                 container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
                 container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
-
-
+                container.RegisterType<IManufacturerCampaign, Bikewale.ManufacturerCampaign.BAL.ManufacturerCampaign>();
 
                 objcity = container.Resolve<ICityCacheRepository>();
                 objClient = container.Resolve<IBikeModels<BikeModelEntity, int>>();
@@ -61,6 +62,7 @@ namespace Bikewale.BAL.PriceQuote
                 objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
                 objArea = container.Resolve<IAreaCacheRepository>();
                 objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
+                _objManufacturerCampaign = container.Resolve<IManufacturerCampaign>();
             }
         }
 
@@ -443,7 +445,7 @@ namespace Bikewale.BAL.PriceQuote
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
-        public PQByCityAreaEntity GetVersionListV2(int modelID, IEnumerable<BikeVersionMinSpecs> modelVersions, int? cityId, int? areaId, ushort? sourceId, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null)
+        public PQByCityAreaEntity GetVersionListV2(int modelId, IEnumerable<BikeVersionMinSpecs> modelVersions, int? cityId, int? areaId, ushort? sourceId, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null)
         {
             PQByCityAreaEntity pqEntity = new PQByCityAreaEntity();
             uint versionID = 0;
@@ -454,7 +456,7 @@ namespace Bikewale.BAL.PriceQuote
                 PQOnRoadPrice pqOnRoad = null;
                 if (cityId > 0)
                 {
-                    IEnumerable<CityEntityBase> cityList = FetchCityByModelId(modelID);
+                    IEnumerable<CityEntityBase> cityList = FetchCityByModelId(modelId);
                     CityEntityBase selectedCity = null;
                     if (cityList != null)
                     {
@@ -463,7 +465,7 @@ namespace Bikewale.BAL.PriceQuote
                     pqEntity.IsCityExists = selectedCity != null;
                     if (pqEntity.IsCityExists)
                     {
-                        var areaList = GetAreaForCityAndModel(modelID, Convert.ToInt16(cityId));
+                        var areaList = GetAreaForCityAndModel(modelId, Convert.ToInt16(cityId));
                         pqEntity.IsAreaExists = (areaList != null && areaList.Count() > 0);
                         // If area is provided, check if area exists in list
                         if (areaId > 0)
@@ -473,11 +475,11 @@ namespace Bikewale.BAL.PriceQuote
                         if (selectedCity.HasAreas)
                         {
                             if (pqEntity.IsAreaSelected)
-                                pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                                pqOnRoad = GetOnRoadPrice(modelId, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
                         }
                         else
                         {
-                            pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                            pqOnRoad = GetOnRoadPrice(modelId, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
                         }
                         if (pqOnRoad != null)
                         {
@@ -557,17 +559,15 @@ namespace Bikewale.BAL.PriceQuote
                 if (versionID <= 0)
                 {
                     if (areaId.HasValue && areaId.Value > 0)
-                        versionID = objDealer.GetDefaultPriceQuoteVersion((uint)modelID, (uint)cityId.Value, (uint)areaId.Value);
+                        versionID = objDealer.GetDefaultPriceQuoteVersion((uint)modelId, (uint)cityId.Value, (uint)areaId.Value);
                     else
-                        versionID = objDealer.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
+                        versionID = objDealer.GetDefaultPriceQuoteVersion((uint)modelId, Convert.ToUInt32(cityId));
                 }
 
                 if (cityId > 0 && versionID > 0 && pqOnRoad != null)
                 {
                     DetailedDealerQuotationEntity detailedDealer = null;
-
                     detailedDealer = objIPQ.GetDealerQuotation(Convert.ToUInt32(cityId), versionID, pqEntity.DealerId);
-
 
                     if (isAreaExistAndSelected || (!pqEntity.IsAreaExists))
                     {
@@ -581,14 +581,19 @@ namespace Bikewale.BAL.PriceQuote
                         }
                     }
                 }
+
+                // Check for ES campaign
+
+                if(cityId > 0 && pqOnRoad.PriceQuote.PQId > 0)
+                {
+                    pqEntity.ManufacturerCampaign = _objManufacturerCampaign.GetCampaigns((uint)modelId, (uint)cityId, Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
+                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : PQByCityArea GetVersionList");
-                objErr.SendMail();
             }
             return pqEntity;
         }
-
     }
 }

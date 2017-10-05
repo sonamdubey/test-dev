@@ -341,7 +341,7 @@ namespace Bikewale.Service.Controllers.Model
                     return BadRequest();
                 }
                 BikeModelPageEntity objModelPage = null;
-                objModelPage = _modelBL.GetModelPageDetails(Convert.ToInt32(modelId));
+                objModelPage = _modelBL.GetModelPageDetails(modelID);
                 if (objModelPage != null)
                 {
                     if (Request.Headers.Contains("platformId"))
@@ -349,7 +349,7 @@ namespace Bikewale.Service.Controllers.Model
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if (platformId == "3")
                         {
-                            objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
+                            objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                             #region On road pricing for versions
                             PQOnRoadPrice pqOnRoad;
                             PQByCityArea getPQ;
