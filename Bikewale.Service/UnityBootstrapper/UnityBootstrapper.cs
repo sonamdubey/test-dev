@@ -78,6 +78,9 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Microsoft.Practices.Unity;
 using System;
 using Bikewale.BAL.CMS;
+using Bikewale.Interfaces.Videos;
+using Bikewale.Cache.Videos;
+using Bikewale.DAL.Videos;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -203,7 +206,12 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ISplashScreenCacheRepository, SplashScreenCacheRepository>();
             container.RegisterType<ICMS, CMS>();
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
+            container.RegisterType<IVideosCacheRepository, VideosCacheRepository>();
+            container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
+            container.RegisterType<IVideoRepository, ModelVideoRepository>();
+
             return container;
+            
         }
     }
 }

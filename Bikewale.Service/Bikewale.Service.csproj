@@ -362,6 +362,7 @@
     <Compile Include="Controllers\UserReviews\UserReviewsListTypeController.cs" />
     <Compile Include="Controllers\Version\VersionController.cs" />
     <Compile Include="Controllers\Version\VersionListController.cs" />
+    <Compile Include="Controllers\Videos\PwaVideosController.cs" />
     <Compile Include="Controllers\Videos\VideosController.cs" />
     <Compile Include="Controllers\Feedback\FeedbackController.cs" />
     <Compile Include="CustomActionResults\NoContent.cs" />
@@ -459,6 +460,10 @@
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Interface\Bikewale.ManufacturerCampaign.Interface.csproj">
       <Project>{fd9b192f-137e-40cf-8ac8-623ab79c6c53}</Project>
       <Name>Bikewale.ManufacturerCampaign.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Models\Bikewale.Models.csproj">
+      <Project>{EA7198A6-5347-4F8F-A25E-92B1E1CEB086}</Project>
+      <Name>Bikewale.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>

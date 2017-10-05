@@ -4,6 +4,18 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PWA.Articles
 {
+
+    [DataContract, Serializable]
+    public class PwaVideosByCategory
+    {
+
+        [DataMember]
+        public IEnumerable<PwaBikeVideoEntity> Videos { get; set; }
+        [DataMember]
+        public string SectionTitle { get; set; }
+    }
+
+
     [DataContract, Serializable]
     public class PwaVideosLandingPageTopVideos
     {

@@ -8,6 +8,7 @@ namespace Bikewale.Entities.PWA.Articles
     {
         [DataMember]
         public PwaVideosLandingPageTopVideos TopVideos { get; set; }
+        [DataMember]
         public PwaVideosLandingPageOtherVideos OtherVideos { get; set; }
     }
 

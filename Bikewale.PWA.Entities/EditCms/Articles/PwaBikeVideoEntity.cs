@@ -24,5 +24,7 @@ namespace Bikewale.Entities.PWA.Articles
         public string VideoTitleUrl { get; set; }
         [DataMember]
         public string DisplayDate { get; set; }
+        [DataMember]
+        public string DisplayImageUrl { get; set; }
     }
 }
