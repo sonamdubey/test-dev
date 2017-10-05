@@ -57,7 +57,7 @@
                     {
                         count++;
                     <li>
-                        <a href="/m@(Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.BikeInfo.Make.MaskingName, !string.IsNullOrEmpty(Model.BikeInfo.PriceInCity.ToString()) ? Model.BikeInfo.PriceInCity.ToString() : " india"))" title="@Model.BikeName Dealers">
+                        <a href="/m@(Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.BikeInfo.Make.MaskingName,Model.CityDetails!=null ? Model.CityDetails.CityMaskingName : "india"))" title="@Model.BikeName Dealers">
                             <span class="bwsprite dealers-sm"></span>
                             <span class="icon-label">Dealers</span>
                         </a>

@@ -336,6 +336,8 @@ docReady(function () {
     });
 
     colorGallerySwiper = new Swiper('.gallery-color-type-swiper', {
+        nextButton: '.color-type-next',
+        prevButton: '.color-type-prev',
         slidesPerView: 'auto',
         preloadImages: false,
         lazyLoading: true,
@@ -346,6 +348,16 @@ docReady(function () {
         mousewheelControl: true,
         onInit: function (swiper) {
             thumbnailSwiperEvents.setColorPhotoDetails(swiper);
+        },
+        onTouchStart: function () {
+            if (vmModelGallery.modelInfoScreen()) {
+                vmModelGallery.modelInfoScreen(false);
+            }
+        },
+        onSlideChangeStart: function (swiper) {
+            thumbnailSwiperEvents.setColorPhotoDetails(swiper);
+            thumbnailSwiperEvents.focusThumbnail(colorThumbnailSwiper, vmModelGallery.activeColorIndex(), true);
+            triggerGA('Gallery_Page', 'Colour_Changed', modelName);
         }
     });
 
