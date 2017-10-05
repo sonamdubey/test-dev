@@ -62,7 +62,7 @@
                             <div class="collapsible-content toggle-off main-content-off" data-bind="attr: {'data-reviewId': $data.reviewId }">
                                 <div class="main-content">
                                     <div class="font14 text-slate-grey">
-                                        <p data-bind="text: $data.sanitizedDescription">@review.SanitizedDescription</p>
+                                        <p data-bind="truncatedText: $data.sanitizedDescription" data-trimlength="150" >@string.Format("{0}...", review.SanitizedDescription)</p>
                                         <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-bind="click: function (data, event) { return $parent.readMore(event);}, attr: {'data-reviewId': $data.reviewId }" data-reviewId="@review.ReviewId"  data-id="@i">Read more</a>
                                     </div>
                                 </div>
