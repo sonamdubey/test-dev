@@ -1324,6 +1324,8 @@ namespace Bikewale.Models.BikeModels
                             LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
                             LeadSourceId = (int)LeadSource,
                             PqSourceId = (int)PQSource,
+                            GACategory = "Model_Page",
+                            GALabel = string.Format("{0}_{1}", _objData.BikeName, _objData.City!= null? _objData.City.CityName : string.Empty),
                             LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
                             LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
                             LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,

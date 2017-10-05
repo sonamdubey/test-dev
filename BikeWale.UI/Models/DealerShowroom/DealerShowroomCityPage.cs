@@ -214,13 +214,11 @@ namespace Bikewale.Models.DealerShowroom
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
 
-            url += "dealer-showroom-locator/";
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Showroom Locator"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}", url, "dealer-showroom-locator/"), "Showroom Locator"));
 
             if (objDealerVM != null && objDealerVM.Make != null)
             {
-                url = string.Format("{0}-dealer-showrooms-in-india/", objDealerVM.Make.MaskingName);
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objDealerVM.Make.MakeName + " Showrooms"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-dealer-showrooms-in-india/", url, objDealerVM.Make.MaskingName), objDealerVM.Make.MakeName + " Showrooms"));
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));

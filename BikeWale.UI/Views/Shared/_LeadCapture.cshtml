@@ -302,7 +302,7 @@
                     self.getDealersList(self.dealerId());
                 }
             }
-        }
+        };
         </text>
         }
 
@@ -367,7 +367,6 @@
                             $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
                             $("#ddlMfgDealers").val('0');
                             $("#ddlMfgDealers").closest('.select-box').addClass('done');
-                            self.dealersRequired(false);
                         } else {
                             $("#ddlMfgDealers").html('');
                             $("#ddlMfgDealers").append("<option value></option>");
@@ -555,7 +554,7 @@
                         $("#personalInfo").hide();
                         $("#dealer-lead-msg").fadeIn();
                         if (self.cityRequired() && self.selectedCity()) {
-                            SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName(), 365);
+                            SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {

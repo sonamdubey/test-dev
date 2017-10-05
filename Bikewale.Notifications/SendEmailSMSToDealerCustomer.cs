@@ -310,7 +310,7 @@ namespace Bikewale.Notifications
                         message = String.Format("Contact {0} at {1} or visit at {2}, {3}, {4} for further assistance.", objDPQSmsEntity.OrganisationName, objDPQSmsEntity.DealerMobile, objDPQSmsEntity.DealerAdd, objDPQSmsEntity.DealerArea, objDPQSmsEntity.DealerCity);
                         break;
                     case DPQTypes.KawasakiCampaign:
-                        message = string.Format("Thank you {0} for your interest in Ninja 300. Your coupon code is BW1038. Please visit the nearest authorized Kawasaki dealership and use the coupon to avail an exclusive offer.",objDPQSmsEntity.CustomerName);
+                        message = string.Format("Thank you {0} for your interest in Ninja 300. Your coupon code is BW1038. Please visit the nearest authorized Kawasaki dealership {1} and use the coupon to avail an exclusive offer.",objDPQSmsEntity.CustomerName,objDPQSmsEntity.DealerName);
                         break;
 
                 }
