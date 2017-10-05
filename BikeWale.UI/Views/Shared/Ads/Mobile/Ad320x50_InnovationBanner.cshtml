@@ -3,7 +3,7 @@
     var currentTimestamp = DateTime.Now.ToString("o");
 }
 <style type="text/css">
-    .animated{animation-duration:1s;animation-fill-mode:both}.animated.infinite{animation-iteration-count:infinite}.animated.hinge{animation-duration:2s}@@keyframes fadeInRight{from{opacity:0;transform:translate3d(100%,0,0)}to{opacity:1;transform:none}}.fadeInRight{animation-name:fadeInRight}@@keyframes zoomIn{from{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}.zoomIn{animation-name:zoomIn}
+.animated{animation-duration:1s;animation-fill-mode:both}.animated.infinite{animation-iteration-count:infinite}.animated.hinge{animation-duration:2s}@@keyframes fadeInRight{from{opacity:0;transform:translate3d(100%,0,0)}to{opacity:1;transform:none}}.fadeInRight{animation-name:fadeInRight}@@keyframes zoomIn{from{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}.zoomIn{animation-name:zoomIn}
 
 
 @@keyframes move_background {
@@ -69,9 +69,7 @@
     top: -23px;
     right: 90px;
 }
-.expand-popup {
-    font-weight: bold;
-}
+
 
 /*containers*/
 
@@ -88,32 +86,29 @@
     display: none;
 }
 
-.banner-screen .banner-screen__content1 {
-    left: 30%;
+.banner-screen .banner-screen__content2 {
+    left: 34%;
     top: 28%;
     height: auto;
     width: 90px;
     line-height: 120%;
-    text-align: right;
-}
-#banner1 .banner-screen__content2 {
-    width: 110px;
-    height: auto;
-    top: 28%;
-    left: 62%;
-    line-height: 120%;
 }
 .banner-screen .banner-screen__content3 {
-    height: 15px;
-    width: 40px;
-    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/hero-logo.png');
+    width: 119px;
+    height: auto;
+    top: 28%;
+    left: 63%;
+    line-height: 120%;
+}
+.banner-screen .banner-screen__content1 {
+    height: 40px;
+    width: 60px;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/lb-logo.png');
     background-size: cover;
-    top: 7px;
-    right:10px;
 }
 .banner-screen .banner-screen__content4 {
     top: 75%;
-    left: 62%;
+    left: 63%;
     color: #0288d1;
 }
 
@@ -133,29 +128,27 @@
     position: relative;
 }
 .banner1-image {
-    height: 310px;
+    height: 290px;
     width: 100%;
     background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/bike-collage.png') no-repeat center;
 }
 .banner-popup__make-icon {
-    width: 90px;
-    height: 30px;
-    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/hero-logo.png');
+    width: 120px;
+    height: 74px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/popup-logo.png');
     background-size: cover;
-    position: absolute;
-    top: 20px;
-    left: 15px;
 }
 .benefit-list {
     display: block;
     height: auto;
-    position: relative;
     padding: 0 20px 20px;
 }
 .benefit-list__head {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
 }
 .benefit-list__ul {
     margin: 0 15px 0;
@@ -163,25 +156,25 @@
 }
 .benefit-list__ul li {
     margin-bottom: 10px;
-    width: 70%;
 }
-.benefit-list__ul li:first-of-type {
-    width: 100%;
+.benefit-list__ul li:last-child {
+    margin-bottom: 0;
 }
 .warrantyunit-icon {
-    height: 80px;
-    width: 80px;
-    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/warranty-logo.png') no-repeat;
+    height: 50px;
+    width: 50px;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/warranty.png') no-repeat;
     background-size: cover;
-    position: absolute;
-    bottom: 25px;
-    right: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 19%;
 }
 .banner__termscondition {
     font-size: 9px;
     color: #a1a1a1;
-    position: absolute;
-    bottom: 0;
+    display: inline-block;
+    vertical-align: middle;
+    width: 79%;
 }
 .banner__explore-more {
     display: block;
@@ -195,13 +188,32 @@
     margin-top: 15px;
 }
 .view-more-link {
-    padding: 15px 25px 15px;
-    display: block;
+    display: inline-block;
     font-size: 14px;
-    text-align: right;
     float: right;
 }
-
+.previous-link {
+    display: inline-block;
+    font-size: 14px;
+    float: left;
+}
+/*popup 2*/
+.banner-popup__top-block {
+    position: absolute;
+}
+.banner-popup__top-head {
+    text-transform: uppercase;
+    font-size: 13px;
+    padding-left: 20px;
+    font-weight: 600;
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 5px;
+}
+.banner-popup__bottom-block {
+    clear: both;
+    padding: 15px 25px 15px;
+}
 .banner-element {
     display: none;
 }
@@ -233,26 +245,116 @@
 	z-index: 10;	
 }
 /* swiper */
-.banner-photos-swiper.swiper-container {
-    width: 100%;
-    height: 202px;
-    overflow: hidden;
+.banner-popup__carousel {
+    padding-top: 90px;
+    padding-left: 5px;
     position: relative;
-    top: 1px;
+}
+.banner-photos-swiper.swiper-container {
+    text-align: center;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding-bottom: 30px;
 }
 .banner-photos-swiper .swiper-slide,
 .banner-photos-swiper .swiper-card {
-    width: 80%;
+    width: 288px;
     text-align: center;
 }
-.banner-photos-swiper .swiper-wrapper .swiper-slide:first-child,
 .banner-photos-swiper .swiper-card {
     margin-left: 0;
+    box-shadow: none;
+}
+.banner-photos-swiper .swiper-wrapper .swiper-slide:first-child {
+    margin-left: 0;
+}
+.banner-photos-swiper .swiper-image-preview {
+    height: 314px;
+    padding: 0;
 }
 .banner-photos-swiper img {
     width: auto;
-    max-height: 202px;
+    height: 314px;
 }
+.banner-photos-swiper.swiper-container-horizontal > .swiper-pagination {
+    bottom: 0;
+}
+.banner-photos-swiper .target-link {
+    text-align: center;
+}
+.warrantyunit-sm-icon {
+    height: 50px;
+    width: 50px;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/warranty-logo.png) no-repeat;
+    background-size: cover;
+    position: absolute;
+    bottom: -5px;
+    right: 42px;
+    z-index: 1;
+}
+
+/* Popup 3*/
+
+.font7 {
+    font-size: 7px;
+}
+
+.banner-popup__360view {
+    height: 300px;
+}
+.popup_varient-carousel {
+    height: 170px;
+    background: #f5f5f5;
+    text-align: center;
+    z-index: 2;
+}
+.popup_varient-carousel ul {
+    /*width: 100%;
+    display: table;*/
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+}
+.popup_varient-carousel li {
+    width: 150px;
+    min-height: 95px;
+    display: table-cell;
+    width: 1%;
+    padding: 10px 15px;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #82888b;
+    cursor: pointer;
+}
+.varient-carousel__image-preview {
+
+}
+.varient-carousel__details-block {
+    font-size: 10px;
+    color: #a8afb3;
+    text-transform: capitalize;
+}
+/*buttons*/
+
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+}
+button.left {
+    left: 0;
+    top: 20px;
+}
+button.right {
+    right: 0;
+    top: 20px;
+}
+
+
 /*animate*/
 .animated {
     animation-duration: 1s;
@@ -296,7 +398,7 @@
 
 .zoomIn {
     animation-name: zoomIn;
-}
+
 </style>
 <div class="container">
     <div class="bg-animation" data-screen="1">
@@ -309,33 +411,18 @@
         </div>
         <div id="banner1" class="banner-screen" data-position="10">
             <div class="banner-screen__content1">
-                <p class="font12 text-bold">All new Hero</p>
+                @*<span class="banner__make--icon"></span>*@
+            </div>
+            <div class="banner-screen__content2">
+                <p class="font12 text-bold">New</p>
                 <p class="font13 capitalize font-bold">Maestro Edge</p>
             </div>
-            <div class="banner-screen__content2">
-                <p class="font12 capitalize font-bold">avail grand celebration offer</p>
-            </div>
             <div class="banner-screen__content3">
-                <span class="banner__make--icon"></span>
+                <p class="font12 capitalize text-bold">limited festive offer</p>
             </div>
+
             <div class="banner-screen__content4">
-                <p class="expand-popup bw-ga" c="Innovation_Banner" a="Click_to_view_offer_Clicked" l="@Model.InnovationBannerGALabel">Click to view offer >></p>
-            </div>
-        </div>
-        <div id="banner2" class="banner-screen" data-position="50">
-            <div class="banner-screen__content1">
-                <p style="font-size: 14px; font-weight: bold;">Huge Festive Benefits.</p>
-            </div>
-            <div class="banner-screen__content2">
-                <p class="expand-popup">Click To Expand</p>
-            </div>
-        </div>
-        <div id="banner3" class="banner-screen" data-position="70">
-            <div class="banner-screen__content1">
-                <p style="font-size: 14px; font-weight: bold;">Huge Festive Benefits.</p>
-            </div>
-            <div class="banner-screen__content2">
-                <p class="expand-popup">Click To Expand</p>
+                <p class="expand-popup bw-ga" c="Innovation_Banner" a="Click_to_view_offer_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
             </div>
         </div>
     </div>
@@ -343,14 +430,17 @@
         <span class="popup-close bwmsprite bw-ga" c="Innovation_Banner" a="Popup_Close_Clicked" l="@Model.InnovationBannerGALabel"></span>
         <div class="banner1-popup" data-flag="0">
             <div class="popup-container">
-                <span class="banner-popup__make-icon banner-element"></span>
+                <div class="banner-popup__top-block  banner-element">
+                    <span class="banner-popup__make-icon"></span>
+                </div>
                 <div class="banner1-image banner-element">
                 </div>
                 <div class="benefit-list banner-element">
-                    <h3 class="benefit-list__head">Bring home a new Hero scooter and get</h3>
+                    <span class="benefit-list__head block">Limited Festive Offer</span>
+                    <span class="block padding-bottom25 font13">Bring home a new Hero scooter and get</span>
                     <ul class="benefit-list__ul">
                         <li>
-                            75 gm silver coin or cash Benefit of &#x20b9; 3000
+                            75 gm silver coin and cash Benefit of &#x20b9; 3000
                         </li>
                         <li>
                             Additional Benefit of &#x20b9; 1500 for Govt. & PSU Employees
@@ -359,11 +449,13 @@
                             Special Festive Rate of 6.99%
                         </li>
                     </ul>
+
+                    <span class="banner__termscondition">* T&C; Apply, Finance is available from our preferred financier
+                    </span>
                     <span class="warrantyunit-icon"></span>
-                    <div class="banner__termscondition">* T&C; Apply, Finance is available from our preferred financier</div>
                 </div>
-                <div class="grid-12 alpha omega margin-top15 banner-element">
-                    <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699877&PluID=0&ord=@currentTimestamp" class="btn btn-orange banner__explore-more bw-ga" c="Innovation_Banner" a="Explore_more_Clicked" l="@Model.InnovationBannerGALabel">Explore more</a>
+                <div class="grid-12 alpha omega margin-top5 banner-element">
+                    <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699877&PluID=0&ord=@currentTimestamp" class="btn btn-orange banner__explore-more bw-ga" c="Innovation_Banner" a="Explore_more_Clicked" l="@Model.InnovationBannerGALabel">Know more</a>
                     <a rel="nofollow noopener" target="_blank"  href="https://stb.bikewale.com/bikewale/ad/maestro-edge.pdf" c="Innovation_Banner" a="Download_e_brochure_Clicked" l="@Model.InnovationBannerGALabel" class="download-link bw-ga">Download brochure</a>
                 </div>
                 @*<a href="javascript:void(0)" class="view-more-link banner-element bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel" >View features >></a>*@
@@ -431,7 +523,7 @@
         }
 
         $(".vehicle-container").animate({
-            'left': "30px"
+            'left': "50px"
         }, function () {
             showBanner("banner1");
             animateBannerContent("banner1");
