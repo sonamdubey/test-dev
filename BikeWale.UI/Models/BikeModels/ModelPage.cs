@@ -162,7 +162,7 @@ namespace Bikewale.Models.BikeModels
 
                     SetBreadcrumList();
                     SetPageJSONLDSchema();
-
+                    ShowInnovationBanner(_modelId);
                     #endregion Do Not change the sequence
                 }
             }
@@ -172,6 +172,28 @@ namespace Bikewale.Models.BikeModels
             }
 
             return _objData;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Sep 2017
+        /// Description :   To Show Innovation Banner
+        /// </summary>
+        /// <param name="_modelId"></param>
+        private void ShowInnovationBanner(uint _modelId)
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty
+                    (BWConfiguration.Instance.InnovationBannerModels))
+                {
+                    _objData.AdTags.ShowInnovationBannerDesktop = _objData.AdTags.ShowInnovationBannerMobile = BWConfiguration.Instance.InnovationBannerModels.Split(',').Contains(_modelId.ToString());
+                    _objData.AdTags.InnovationBannerGALabel = _objData.BikeName.Replace(" ", "_");
+                }
+            }
+            catch (Exception ex)
+            {
+                var err = new Notifications.ErrorClass(ex, String.Format("ShowInnovationBanner({0})", _modelId));
+            }
         }
 
         /// <summary>

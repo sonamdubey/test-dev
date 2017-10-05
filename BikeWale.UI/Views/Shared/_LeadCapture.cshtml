@@ -93,7 +93,7 @@
         <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text: dealerName()"></span><span data-bind="visible : dealerArea() && dealerArea().length > 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
         <!-- /ko -->
         <!-- ko ifnot : !dealerMessage()-->
-        <p class="font18 margin-top25 margin-bottom20" data-bind="text: dealerMessage()"></p>
+        <p class="font18 margin-top25 margin-bottom20" id="ko_thankyoumessage" data-bind="html: dealerMessage()"></p>
         <!-- /ko -->
         <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
     </div>
@@ -118,7 +118,7 @@
     var leadmodelid = parseInt('@Model.ModelId'), leadcityid = parseInt('@Model.CityId'), leadareaid = parseInt('@Model.AreaId');
     var leadBikeName = '@Model.BikeName', leadLocation = '@Model.Location';
     var objPinCodes = new Object(), dleadvm, validate;
-   
+    var isBindingApplied = false;
     function leadModel() {
         var arr = setuserDetails();
         var self = this;
@@ -168,6 +168,7 @@
         self.eventCategory = ko.observable();
         self.cities = ko.observableArray();
         self.selectedCity = ko.observable();
+        self.ko_DealerName = ko.observable();
         self.setOptions = function (options) {
             if (options != null) {
                 if (options.eventcategory != null)
@@ -519,6 +520,7 @@
                 if (!(self.pqId() && self.pqId() != "0"))
                     self.generatePQ(data, event);
                 }
+            self.ko_DealerName($('#ddlMfgDealers option:selected').text());
 
                 $('#processing').show();
                 var objCust = {
@@ -533,7 +535,8 @@
                     "pinCode": self.pincode() || 0,
                     "campaignId": self.mfgCampaignId(),
                     "deviceId": getCookie('BWC'),
-                    "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id')
+                    "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id'),
+                    "manufacturerDealer":self.ko_DealerName()
                 };
                 $.ajax({
                     type: "POST",
@@ -562,6 +565,10 @@
                     },
                     complete: function (xhr, ajaxOptions, thrownError) {
                         self.hideLoader();
+                        if (self.dealerMessage && !isBindingApplied) {
+                            ko.applyBindings(self, $('#ko_thankyoumessage div.html_ko')[0]);
+                            isBindingApplied = true;
+                        }
                     }
                 });
                 setPQUserCookie();
