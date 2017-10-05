@@ -430,6 +430,8 @@ namespace Bikewale.Models.BikeModels
 
                     if (_objData.BikePrice > 0 && _objData.IsLocationSelected && _objData.City != null && !_objData.ShowOnRoadButton)
                         priceDescription = string.Format("Price - &#x20B9; {0} onwards (On-road, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(_objData.BikePrice)), _objData.City.CityName);
+                    else if (_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0 && _objData.LocationCookie != null && _objData.LocationCookie.CityId > 0)
+                        priceDescription = string.Format("Price - &#x20B9; {0} onwards (Avg. Ex-showroom price).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(_objData.SelectedVersion.AverageExShowroom)));
                     else
                         priceDescription = _objData.ModelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("Price - &#x20B9; {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(_objData.ModelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
 
@@ -482,6 +484,8 @@ namespace Bikewale.Models.BikeModels
                     string priceDescription = string.Empty;
                     if (_objData.BikePrice > 0 && _objData.IsLocationSelected && _objData.City != null && !_objData.ShowOnRoadButton)
                         priceDescription = string.Format("Price - &#x20B9; {0} onwards (On-road, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(_objData.BikePrice)), _objData.City.CityName);
+                    else if (_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0 && _objData.LocationCookie != null && _objData.LocationCookie.CityId > 0)
+                        priceDescription = string.Format("Price - &#x20B9; {0} onwards (Avg. Ex-showroom price).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(_objData.SelectedVersion.AverageExShowroom)));
                     else
                         priceDescription = _objData.ModelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("Price - &#x20B9; {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(_objData.ModelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
                     if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionSpecs != null && (_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0 || _objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0))
@@ -517,6 +521,8 @@ namespace Bikewale.Models.BikeModels
         /// Summary: Added page enum to similar bike widget
         /// Modified by : Vivek Singh Tomar on 28th Sep 2017
         /// Summary : Added BindModelsBySeries
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Get emi details for avg ex-showroom price when bike price is zero.
         /// </summary>
         private void BindControls()
         {
@@ -583,8 +589,14 @@ namespace Bikewale.Models.BikeModels
                                 BikeName = _objData.BikeName,
                                 IsManufacturerCampaign = _objData.IsManufacturerLeadAdShown || _objData.IsManufacturerEMIAdShown || _objData.IsManufacturerTopLeadAdShown
                             };
-
-                            _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
+                            if (_objData.BikePrice > 0)
+                            {
+                                _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
+                            }
+                            else if(_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0)
+                            {
+                                _objData.EMIDetails = setDefaultEMIDetails(_objData.SelectedVersion.AverageExShowroom);
+                            }
                         }
                     }
 
@@ -1395,9 +1407,9 @@ namespace Bikewale.Models.BikeModels
                 _objData.CampaignId = pqOnRoad.BPQOutput.CampaignId;
             }
 
-            if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null && _objData.VersionId > 0)
+            if (pqOnRoad != null && pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null && _objData.VersionId > 0)
             {
-                var objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == _objData.VersionId).FirstOrDefault();
+                var objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == _objData.VersionId);
                 if (objSelectedVariant != null)
                     _objData.BikePrice = _objData.IsLocationSelected && !_objData.ShowOnRoadButton ? Convert.ToUInt32(objSelectedVariant.OnRoadPrice) : Convert.ToUInt32(objSelectedVariant.Price);
 

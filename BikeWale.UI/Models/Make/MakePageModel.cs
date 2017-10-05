@@ -67,6 +67,8 @@ namespace Bikewale.Models
 
         /// <summary>
         /// Gets the data for homepage
+        /// Modified by : Ashutosh Sharma on 05 Oct 2017
+        /// Description : Replaced call to method 'GetMostPopularBikesByMake' with 'GetMostPopularBikesByMakeWithCityPrice' to get city price when city is selected.
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
@@ -83,6 +85,7 @@ namespace Bikewale.Models
                 string cityName = string.Empty, cityMaskingName = string.Empty;
                 CityEntityBase cityBase = null;
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
+                objData.City = location;
                 if (location != null && location.CityId > 0)
                 {
                     cityId = location.CityId;
@@ -106,7 +109,7 @@ namespace Bikewale.Models
 
                 #endregion
 
-                objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMake((int)_makeId);
+                objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
                 BikeMakeEntityBase makeBase = _bikeMakesCache.GetMakeDetails(_makeId);
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
                 if (makeBase != null)

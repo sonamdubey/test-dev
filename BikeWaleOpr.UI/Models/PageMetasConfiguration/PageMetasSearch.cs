@@ -43,6 +43,11 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
             return objPageMetaVM;
         }
 
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
+        /// </summary>
+        /// <param name="objMetas"></param>
         public void SaveMetas(PageMetasEntity objMetas)
         {           
             try
@@ -61,7 +66,7 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
                     }
 
                     if (objMetas.ModelId > 0)
-                        MemCachedUtil.Remove("BW_ModelDetail_" + objMetas.ModelId);
+                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", objMetas.ModelId));
 
                     MemCachedUtil.Remove("BW_MakeDetails_" + objMetas.MakeId);
                 }

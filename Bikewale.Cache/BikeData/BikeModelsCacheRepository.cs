@@ -65,16 +65,18 @@ namespace Bikewale.Cache.BikeData
         /// Description : Changed version of cache key.
         /// Modified by : Vivek Singh Tomar on 27th Sep 2017
         /// Summary : Changed version of cache key
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017.
+        /// Description : Changed version of key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
         /// </summary>
         public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
         {
             BikeModelPageEntity objModelPage = null;
-            string key = string.Format("BW_ModelDetail_{0}_v1", modelId);
+            string key = string.Format("BW_ModelDetail_V1_{0}", modelId);
             try
             {
                 objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => GetModelPageDetailsNew(modelId));
 
-                if (objModelPage != null && objModelPage.ModelVersionSpecsList != null && objModelPage.ModelVersionSpecs != null && objModelPage.ModelVersions.Count() > 1)
+                if (objModelPage != null && objModelPage.ModelVersionSpecsList != null && objModelPage.ModelVersionSpecs != null && objModelPage.ModelVersions.Count > 1)
                 {
                     // First page load where version id is Zero, fetch default version properties
                     versionId = versionId == 0 ? (int)objModelPage.ModelVersionSpecs.BikeVersionId : versionId;
@@ -950,6 +952,31 @@ namespace Bikewale.Cache.BikeData
 
             return objBikes;
         }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Cache method for most popular bikes by make with city price if city is selected.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId)
+        {
+            IEnumerable<MostPopularBikesBase> objBikes = null;
+            string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V1_{0}_{1}", makeId, cityId);
+
+            try
+            {
+                objBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularBikesByMakeWithCityPrice(makeId, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                objErr.SendMail();
+            }
+
+            return objBikes;
+        }
         /// <summary>
         /// Created by :Subodh Jain 22 sep 2013
         /// Des: method to get popular bike by make and city
@@ -1117,6 +1144,8 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created By : Aditi Srivastava on 25 Jan 2017
         /// Summary    : Get list of top popular bikes by category
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017.
+        /// Description : Changed version of key from 'BW_PopularBikesListByBodyType_MO_' to 'BW_PopularBikesListByBodyType_MO_V1_'.
         /// </summary>
         /// <param name="bodyStyleId"></param>
         /// <param name="topCount"></param>
@@ -1125,7 +1154,7 @@ namespace Bikewale.Cache.BikeData
         public ICollection<MostPopularBikesBase> GetMostPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId)
         {
             ICollection<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_PopularBikesListByBodyType_MO_{0}_city_{1}_topcount_{2}", modelId, cityId, topCount);
+            string key = string.Format("BW_PopularBikesListByBodyType_MO_V1_{0}_city_{1}_topcount_{2}", modelId, cityId, topCount);
             try
             {
                 popularBikesList = _cache.GetFromCache<Collection<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (Collection<MostPopularBikesBase>)_modelRepository.GetPopularBikesByModelBodyStyle(modelId, topCount, cityId));
@@ -1212,13 +1241,15 @@ namespace Bikewale.Cache.BikeData
         /// Created By : Aditi Srivastava on 17 Jan 2017
         /// Description : To get top 10 bikes of a given body style
         /// Modified by : Sajal Gupta on 02-02-2017
-        /// Description : Passed cityid to get used bikes count.  
+        /// Description : Passed cityid to get used bikes count. 
+        ///  Modified by : Ashutosh Sharma on 29 Sep 2017.
+        /// Description : Changed version of key from 'BW_BestBikesByBodyStyle_' to 'BW_BestBikesByBodyStyle_V1'.
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
         public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null)
         {
-            string key = string.Format("BW_BestBikesByBodyStyle_{0}", bodyStyle);
+            string key = string.Format("BW_BestBikesByBodyStyle_V1_{0}", bodyStyle);
 
             if (cityId != null)
                 key = string.Format("{0}_{1}", key, cityId.Value);
