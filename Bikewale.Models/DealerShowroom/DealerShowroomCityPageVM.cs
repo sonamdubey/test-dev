@@ -4,6 +4,7 @@ using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Models.PopUp;
 using Bikewale.Models.ServiceCenters;
 namespace Bikewale.Models
 {
@@ -28,5 +29,6 @@ namespace Bikewale.Models
         public ServiceCenterDetailsWidgetVM ServiceCenterDetails { get; set; }
         public BrandCityPopupVM BrandCityPopUp { get; set; }
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenterPopularCities { get; set; }
+        public BikeCityPopup BikeCityPopup { get; set; }
     }
 }

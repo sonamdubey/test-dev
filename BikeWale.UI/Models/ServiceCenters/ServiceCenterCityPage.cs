@@ -194,6 +194,9 @@ namespace Bikewale.Models.ServiceCenters
                 objData.DealerServiceCenters = _objDealerCache.GetPopularCityDealer(_makeId, topCount);
                 objData.MakeMaskingName = _makeMaskingName;
                 objData.MakeName = objVM.Make.MakeName;
+                objData.CityCardTitle = "service center in";
+                objData.CityCardLink = "service-center-in";
+                objData.IsServiceCenterPage = true;
                 objVM.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())
                 {

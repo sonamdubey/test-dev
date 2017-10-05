@@ -86,7 +86,16 @@ namespace Bikewale.Models.DealerShowroom
                 objDealerVM.PopularBikes = BindMostPopularBikes();
                 BindPageMetas(objDealerVM);
                 BindLeadCapture(objDealerVM);
-                //BindShowroomPopularCityWidget(objDealerVM);
+
+                objDealerVM.BikeCityPopup = new PopUp.BikeCityPopup()
+                {
+                    ApiUrl = "/api/servicecenter/cities/make/" + objDealerVM.Make.MakeId + "/",
+                    PopupShowButtonMessage = "Show showrooms",
+                    PopupSubHeading = "See showrooms in your city!",
+                    FetchDataPopupMessage = "Fetching showrooms for ",
+                    RedirectUrl = string.Format("/{0}-dealer-showrooms-in-", objDealerVM.Make.MaskingName)
+                };
+                BindShowroomPopularCityWidget(objDealerVM);
 
             }
             catch (Exception ex)
@@ -341,33 +350,36 @@ namespace Bikewale.Models.DealerShowroom
 
         }
 
-        /// <summary>
-        /// Created By : Snehal Dange on 3rd Oct 2017
-        /// Description : Method for showrooms in popular cities widget 
-        /// </summary>
-        /// <param name="objVM"></param>
-        //private void BindShowroomPopularCityWidget(DealerShowroomCityPageVM objDealerDetails)
-        //{
-        //    DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();
-        //    try
-        //    {
-        //        uint topCount = 8;
-        //        objData.DealerServiceCenters = _objDealerCache.GetPopularCityDealer(_makeId, topCount);
-        //        objData.MakeMaskingName = _makeMaskingName;
-        //        objData.MakeName = objVM.Make.MakeName;
-        //        objVM.DealersServiceCenterPopularCities = objData;
-        //        if (objData.DealerServiceCenters.DealerDetails.Any())
-        //        {
-        //            objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(_cityId)).ToList();
-        //        }
+         //<summary>
+         //Created By : Snehal Dange on 3rd Oct 2017
+         //Description : Method for showrooms in popular cities widget 
+         //</summary>
+         //<param name = "objVM" ></ param >
+        private void BindShowroomPopularCityWidget(DealerShowroomCityPageVM objDealerDetails)
+        {
+            DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();
+            try
+            {
+                uint topCount = 8;
+                objData.DealerServiceCenters = _objDealerCache.GetPopularCityDealer(makeId, topCount);
+                objData.MakeMaskingName = objDealerDetails.Make.MaskingName;
+                objData.MakeName = objDealerDetails.Make.MakeName;
+                objData.CityCardTitle = "showroom in";
+                objData.CityCardLink = "dealer-showrooms-in";
+                objData.IsServiceCenterPage = false;
+                objDealerDetails.DealersServiceCenterPopularCities = objData;
+                if (objData.DealerServiceCenters.DealerDetails.Any())
+                {
+                    objDealerDetails.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objDealerDetails.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(cityId)).ToList();
+                }
 
-        //    }
-        //    catch (System.Exception ex)
-        //    {
+            }
+            catch (System.Exception ex)
+            {
 
-        //        ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindServiceCenterPopularCityWidget");
-        //    }
+                ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindShowroomPopularCityWidget");
+            }
 
-        //}
+        }
     }
 }
