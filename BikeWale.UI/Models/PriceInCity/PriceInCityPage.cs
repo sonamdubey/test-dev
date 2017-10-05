@@ -554,6 +554,7 @@ namespace Bikewale.Models
 
                 try
                 {
+                    priceInCityAMPVM.LeadCampaign.IsAmp = true;
                     str = MvcHelper.GetRenderedContent(String.Format("LeadCampaign_Mobile_AMP_{0}", priceInCityAMPVM.LeadCampaign.CampaignId), priceInCityAMPVM.LeadCampaign.LeadsHtmlMobile, priceInCityAMPVM.LeadCampaign);
 
                     // Code to remove name attribute form span tags, remove style css tag and replace javascript:void(0) in href with url (not supported in AMP)
@@ -1104,7 +1105,7 @@ namespace Bikewale.Models
                             LeadSourceId = (int)LeadSource,
                             PqSourceId = (int)PQSource,
                             GACategory = "Price_in_City_Page",
-                            GALabel = string.Format("{0}_{1}",objData.BikeName, cityMaskingName),
+                            GALabel = string.Format("{0}_{1}", objData.BikeName, cityMaskingName),
                             LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
                             LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
                             LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,

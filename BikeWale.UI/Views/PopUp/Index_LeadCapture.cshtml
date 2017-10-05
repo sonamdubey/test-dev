@@ -15,7 +15,7 @@
     docReady(function () {
         try {
 
-            var obj = $.parseJSON('@Html.Raw(Model.PopupJson)');
+            var obj = $.parseJSON(Base64.decode('@Model.PopupJson'));
             var leadOptions = {
                 "dealerid": obj.dealerid,
                 "dealername": obj.dealername,
