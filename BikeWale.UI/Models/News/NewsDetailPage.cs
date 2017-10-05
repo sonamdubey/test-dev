@@ -172,8 +172,6 @@ namespace Bikewale.Models
                     if (objData.Model != null && ModelId != 0 && objData.Model.ModelId != ModelId)
                         objData.Model.ModelId = (int)ModelId;
 
-                    InsertBikeInfoWidgetIntoContent(objData);
-
                 }
                 else
                     status = StatusCodes.ContentNotFound;
@@ -383,8 +381,12 @@ namespace Bikewale.Models
                 {
                     List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
-                    GenericBikeInfo bikeInfo = _models.GetBikeInfo(ModelId);
-                    bodyStyle = (EnumBikeBodyStyles)bikeInfo.BodyStyleId;
+                    if (objVersionsList != null && objVersionsList.Count > 0)
+                        bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+
+                    BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId);
+                    objData.BikeInfo = objBikeInfo.GetData();
+                    objData.BikeInfo.IsSmallSlug = true;
 
                     if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !isPWA)
                     {
@@ -396,9 +398,6 @@ namespace Bikewale.Models
                     else
                     {
                         SetPopularBikeByBodyStyleId(objData, topCount);
-                        BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId);
-                        objData.BikeInfo = objBikeInfo.GetData();
-                        objData.BikeInfo.IsSmallSlug = true;
                     }
 
                 }
@@ -488,45 +487,6 @@ namespace Bikewale.Models
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="objData"></param>
-        private void InsertBikeInfoWidgetIntoContent(NewsDetailPageVM objData)
-        {
-            try
-            {
-                if (objData.ArticleDetails != null && objData.BikeInfo != null && !IsAMPPage)
-                {
-                    int totalStrippedHTMLLength = 0, requiredLength = 0;
-                    string inputString = null;
-
-                    //get length of each pages with stripped html
-                    var tuple = StringHtmlHelpers.StripHtmlTagsWithLength(objData.ArticleDetails.Content);
-                    totalStrippedHTMLLength += tuple.Item2;
-
-                    requiredLength = Convert.ToInt32(totalStrippedHTMLLength * 0.25);
-
-
-                    if (_ctrlContext != null)
-                    {
-                        string viewName = IsMobile ? "~/views/BikeModels/_minBikeInfoCard_Mobile.cshtml" : "~/views/BikeModels/_minBikeInfoCard.cshtml";
-                        inputString = MvcHelper.RenderViewToString(_ctrlContext, viewName, objData.BikeInfo);
-                    }
-
-                    if (!string.IsNullOrEmpty(inputString))
-                    {
-                        string output = StringHtmlHelpers.InsertHTMLBetweenHTML(objData.ArticleDetails.Content, inputString, requiredLength);
-
-                        objData.ArticleDetails.Content = output;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ExpertReviewsDetailPage.InsertBikeInfoWidgetIntoContent");
-            }
-        }
         #endregion
     }
 }

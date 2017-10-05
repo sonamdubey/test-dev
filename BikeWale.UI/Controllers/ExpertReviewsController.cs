@@ -105,8 +105,7 @@ namespace Bikewale.Controllers
         [Route("m/expertreviews/details/{basicid}/")]
         public ActionResult Detail_Mobile(string basicid)
         {
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, basicid, ControllerContext);
-            obj.IsMobile = true;
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, basicid);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/m/pagenotfound.aspx");
@@ -117,6 +116,8 @@ namespace Bikewale.Controllers
             }
             else
             {
+                obj.IsMobile = true;
+                obj.RefControllerContext = ControllerContext;
                 ExpertReviewsDetailPageVM objData = obj.GetData(9);
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pagenotfound.aspx");
@@ -133,7 +134,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, basicid, ControllerContext);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, basicid);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -144,6 +145,7 @@ namespace Bikewale.Controllers
             }
             else
             {
+                obj.RefControllerContext = ControllerContext;
                 ExpertReviewsDetailPageVM objData = obj.GetData(3);
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/pagenotfound.aspx");
@@ -164,7 +166,7 @@ namespace Bikewale.Controllers
         {
             ExpertReviewsDetailPageVM objData = null;
 
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, basicid, ControllerContext);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, basicid);
             if (obj.status == StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -176,6 +178,7 @@ namespace Bikewale.Controllers
             else
             {
                 obj.IsAMPPage = true;
+                obj.RefControllerContext = ControllerContext;
                 objData = obj.GetData(3);
                 if (obj.status == StatusCodes.ContentNotFound)
                     return Redirect("/pagenotfound.aspx");

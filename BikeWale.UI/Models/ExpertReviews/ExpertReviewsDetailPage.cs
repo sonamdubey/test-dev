@@ -39,7 +39,6 @@ namespace Bikewale.Models
         private readonly string _basicId;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCacheRepository = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
-        private readonly ControllerContext _ctrlContext = null;
         #endregion
 
         #region Page level variables
@@ -49,7 +48,6 @@ namespace Bikewale.Models
         private GlobalCityAreaEntity currentCityArea;
         private uint CityId, MakeId, ModelId, pageCatId = 0;
         private uint _totalTabCount = 3;
-        private BikeInfoTabType _pageId = BikeInfoTabType.News;
         private EnumBikeType bikeType = EnumBikeType.All;
         private bool showCheckOnRoadCTA = false;
         private uint basicId;
@@ -59,10 +57,11 @@ namespace Bikewale.Models
         #region Public properties
         public bool IsMobile { get; set; }
         public bool IsAMPPage { get; set; }
+        public ControllerContext RefControllerContext { get; set; }
         #endregion
 
         #region Constructor
-        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, string basicId, ControllerContext ctrlContext)
+        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, string basicId)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -73,7 +72,6 @@ namespace Bikewale.Models
             _basicId = basicId;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _objBikeVersionsCache = objBikeVersionsCache;
-            _ctrlContext = ctrlContext;
             ProcessQueryString();
         }
         #endregion
@@ -290,6 +288,10 @@ namespace Bikewale.Models
                     if (objVersionsList != null && objVersionsList.Count > 0)
                         bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
 
+                    BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, BikeInfoTabType.ExpertReview);
+                    objData.BikeInfo = objBikeInfo.GetData();
+                    objData.BikeInfo.IsSmallSlug = true;
+
                     if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                     {
                         PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
@@ -311,10 +313,6 @@ namespace Bikewale.Models
                             objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
                             bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
                         }
-
-                        BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId);
-                        objData.BikeInfo = objBikeInfo.GetData();
-                        objData.BikeInfo.IsSmallSlug = true;
                     }
                 }
                 else
@@ -452,13 +450,29 @@ namespace Bikewale.Models
         {
             try
             {
-                if (objData.ArticleDetails != null && objData.ArticleDetails.PageList != null && objData.BikeInfo != null && !IsAMPPage)
+                if (objData.ArticleDetails != null && objData.ArticleDetails.PageList != null && objData.BikeInfo != null)
                 {
-                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = objData.ArticleDetails.PageList.Count; string inputString = null;
-
-                    string viewName = IsMobile ? "~/views/BikeModels/_minBikeInfoCard_Mobile.cshtml" : "~/views/BikeModels/_minBikeInfoCard.cshtml";
-
+                    int totalStrippedHTMLLength = 0, matchedPage = 0, currentPageLength = 0, requiredLength = 0, totalPages = objData.ArticleDetails.PageList.Count; string inputString = null, viewName = null;
                     IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
+                    Bikewale.Models.Shared.BikeInfo ampBikeInfo = null;
+
+                    if (IsMobile && !IsAMPPage)
+                    {
+                        viewName = "~/views/BikeModels/_minBikeInfoCard_Mobile.cshtml";
+                    }
+                    else if (IsAMPPage)
+                    {
+                        ampBikeInfo = new Bikewale.Models.Shared.BikeInfo()
+                        {
+                            Info = objData.BikeInfo.BikeInfo,
+                            Bike = objData.BikeInfo.BikeName,
+                            Url = objData.BikeInfo.BikeUrl
+                        };
+                        viewName = "~/views/BikeModels/_BikeInfoCard_AMP_Mobile.cshtml";
+                    }
+                    else viewName = "~/views/BikeModels/_minBikeInfoCard.cshtml";
+
+
                     //get length of each pages with stripped html
                     for (int i = 0; i < totalPages; i++)
                     {
@@ -467,7 +481,7 @@ namespace Bikewale.Models
                         objPagesInfo.Add(Tuple.Create(i, tuple.Item2));
                     }
 
-                    int matchedPage = 0;
+
                     requiredLength = Convert.ToInt32(totalStrippedHTMLLength * 0.25);
 
                     foreach (var item in objPagesInfo)
@@ -482,10 +496,16 @@ namespace Bikewale.Models
 
                     }
 
-                    if (_ctrlContext != null)
+                    if (RefControllerContext != null)
                     {
-
-                        inputString = MvcHelper.RenderViewToString(_ctrlContext, viewName, objData.BikeInfo);
+                        if (IsAMPPage)
+                        {
+                            inputString = MvcHelper.RenderViewToString(RefControllerContext, viewName, ampBikeInfo);
+                        }
+                        else
+                        {
+                            inputString = MvcHelper.RenderViewToString(RefControllerContext, viewName, objData.BikeInfo);
+                        }
                     }
 
                     if (!string.IsNullOrEmpty(inputString))

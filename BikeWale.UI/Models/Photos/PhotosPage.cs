@@ -207,7 +207,7 @@ namespace Bikewale.Models.Photos
                     var similarBikes = new SimilarBikesWithPhotosWidget(_objModelMaskingCache, _modelId, _cityId);
                     similarBikes.BikeName = _objData.BikeName;
                     _objData.SimilarBikes = similarBikes.GetData();
-                  
+
                     if (_objData.PhotoGallery != null && _objData.PhotoGallery.ImageList != null)
                     {
                         var modelgallery = new ModelGalleryWidget(_objData.Make, _objData.Model, _objData.PhotoGallery.ImageList, _objData.ModelVideos, _objData.BikeInfo);

@@ -35,7 +35,10 @@
                     }
                     @Html.Raw(string.IsNullOrEmpty(Model.ArticleDetails.Content) ? "" : Model.ArticleDetails.Content)
                 </div>
-
+                @if (Model.BikeInfo != null)
+                {
+                    @Html.Partial("~/Views/BikeModels/_minBikeInfoCard_Mobile.cshtml", Model.BikeInfo)
+                }
                 <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
                 <ul class="social-wrapper">
                     <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">

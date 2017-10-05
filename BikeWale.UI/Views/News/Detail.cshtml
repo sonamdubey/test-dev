@@ -69,6 +69,10 @@
                                     <div class="clear"></div>
                                 </div>
                             </div>
+                            @if (Model.BikeInfo != null)
+                            {
+                                @Html.Partial("~/Views/BikeModels/_MinBikeInfoCard.cshtml", Model.BikeInfo)
+                            }
                             <div class="border-solid-top padding-top10">
                                 @if (!string.IsNullOrEmpty(Model.ArticleDetails.PrevArticle.Title) && Model.PageMetaTags != null)
                                 {
