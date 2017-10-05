@@ -3765,6 +3765,7 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad200x253.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad292x359.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad200x216.cshtml" />
+    <Content Include="Views\Price\_PriceInCityPopUp.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad970x90_InnovationBanner.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_InnovationBanner.cshtml" />
     <None Include="Web.Debug.config">
