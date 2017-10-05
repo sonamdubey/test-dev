@@ -171,6 +171,11 @@
     <Compile Include="BikeData\Upcoming\UpcomingBikeDTOBase.cs" />
     <Compile Include="BikeData\Upcoming\UpcomingBikeResultDTO.cs" />
     <Compile Include="BikeData\v2\MinSpecs.cs" />
+    <Compile Include="Campaign\CampaignBaseDTO.cs" />
+    <Compile Include="Campaign\CampaignDetailsBase.cs" />
+    <Compile Include="Campaign\CampaignType.cs" />
+    <Compile Include="Campaign\DealerCampaignBase.cs" />
+    <Compile Include="Campaign\PreRenderCampaignBase.cs" />
     <Compile Include="Compare\BikeColorDTO.cs" />
     <Compile Include="BikeBooking\BikeCancellationCustomer.cs" />
     <Compile Include="Compare\BikeCompareDTO.cs" />
@@ -265,6 +270,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\v4\ModelPage.cs" />
+    <Compile Include="Model\v5\ModelPage.cs" />
     <Compile Include="NewBikeSearch\Pager.cs" />
     <Compile Include="NewBikeSearch\SearchOutput.cs" />
     <Compile Include="NewBikeSearch\SearchOutputBase.cs" />
