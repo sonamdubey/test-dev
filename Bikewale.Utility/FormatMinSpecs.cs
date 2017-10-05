@@ -378,17 +378,17 @@ namespace Bikewale.Utility
             string str = String.Empty;
             try
             {
-                if (!string.IsNullOrEmpty(displacement) && Convert.ToInt32(displacement) > 0)
+                if (!string.IsNullOrEmpty(displacement) && Convert.ToDecimal(displacement) > 0)
                     str = string.Format("{0} cc", displacement);
 
-                if (!string.IsNullOrEmpty(fuelEffecient) && Convert.ToInt32(fuelEffecient) > 0)
+                if (!string.IsNullOrEmpty(fuelEffecient) && Convert.ToDecimal(fuelEffecient) > 0)
                     str = string.Format("{0}, {1} kmpl", str, fuelEffecient);
 
 
-                if (!string.IsNullOrEmpty(maxpower) && Convert.ToInt32(maxpower) > 0)
+                if (!string.IsNullOrEmpty(maxpower) && Convert.ToDecimal(maxpower) > 0)
                     str = string.Format("{0}, {1} bhp", str, maxpower);
 
-                if (!string.IsNullOrEmpty(weight) && Convert.ToInt32(weight) > 0)
+                if (!string.IsNullOrEmpty(weight) && Convert.ToDecimal(weight) > 0)
                     str = string.Format("{0}, {1} kgs", str, weight);
 
                 if (!string.IsNullOrEmpty(str))
