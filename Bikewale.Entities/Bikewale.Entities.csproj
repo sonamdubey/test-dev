@@ -391,6 +391,7 @@
     <Compile Include="Schema\BreadcrumbListItem.cs" />
     <Compile Include="Schema\ContactPoint.cs" />
     <Compile Include="Schema\GeoCoordinates.cs" />
+    <Compile Include="Schema\ImageGallery.cs" />
     <Compile Include="Schema\ImageObject.cs" />
     <Compile Include="Schema\ListItem.cs" />
     <Compile Include="Schema\MainEntityOfPage.cs" />
@@ -465,6 +466,8 @@
     <Compile Include="UserReviews\QuestionRatingsValueEntity.cs" />
     <Compile Include="UserReviews\QuestionsRatingValueByModel.cs" />
     <Compile Include="UserReviews\RecentReviewsWidget.cs" />
+    <Compile Include="UserReviews\ReviewDataCombinedFilter.cs" />
+    <Compile Include="UserReviews\ReviewDataFilter.cs" />
     <Compile Include="UserReviews\ReviewDetailsEntity.cs" />
     <Compile Include="UserReviews\ReviewEntity.cs" />
     <Compile Include="UserReviews\ReviewEntityBase.cs" />

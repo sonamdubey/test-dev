@@ -85,7 +85,7 @@ namespace Bikewale.New.DealerLocator
                             ;
                     var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
                     _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
-                    if (_makes != null && _makes.Count() > 0)
+                    if (_makes != null && _makes.Any())
                     {
                         rptMakes.DataSource = _makes;
                         rptMakes.DataBind();
@@ -123,7 +123,7 @@ namespace Bikewale.New.DealerLocator
 
                     var objCities = container.Resolve<IDealerRepository>();
                     _cities = objCities.FetchDealerCitiesByMake(makeId);
-                    if (_cities != null && _cities.Count() > 0)
+                    if (_cities != null && _cities.Any())
                     {
                         rptCities.DataSource = _cities;
                         rptCities.DataBind();

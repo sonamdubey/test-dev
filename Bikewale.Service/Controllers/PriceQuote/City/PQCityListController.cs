@@ -49,7 +49,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.City
             {
                 objCityList = _cityCache.GetPriceQuoteCities(modelId);
 
-                if (objCityList != null && objCityList.Count() > 0)
+                if (objCityList != null && objCityList.Any())
                 {
                     // Auto map the properties
                     objDTOCityList = new PQCityList();
@@ -87,7 +87,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.City
             {
                 objCityList = _cityCache.GetPriceQuoteCities(modelId);
 
-                if (objCityList != null && objCityList.Count() > 0)
+                if (objCityList != null && objCityList.Any())
                 {
                     // Auto map the properties
                     objDTOCityList = new Bikewale.DTO.PriceQuote.City.v2.PQCityList();

@@ -2,7 +2,7 @@
 @using Bikewale.Entities.UserReviews;
 @using Bikewale.Utility;
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/listing.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/user-review/listing.css' inline />";
     Model.Page_JS_Path = "/m/src/user-review/listing.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_UserReviews";
@@ -14,7 +14,7 @@
 
 @if (Model != null && Model.UserReviewDetailsObj != null && Model.UserReviewDetailsObj.Model != null && Model.UserReviewDetailsObj.Make != null)
 {
-    <section id="section-review-details" data-modelid="@Model.UserReviewDetailsObj.Model.ModelId">
+    <section id="section-review-details" data-modelid="@Model.UserReviewDetailsObj.Model.ModelId" data-makeid="@Model.UserReviewDetailsObj.Make.MakeId">
         <div class="container content-box-shadow card-bottom-margin">
             <div class="model-card-details content-box-shadow padding-10-20">
                 <div class="left-grid-image inline-block">
@@ -62,7 +62,7 @@
                 </div>
             }
 
-            <div id="modelName" data-modelName="@Model.UserReviewDetailsObj.Model.ModelName"class="content-inner-block-20">
+            <div id="modelName" data-modelName="@Model.UserReviewDetailsObj.Model.ModelName" data-makeName="@Model.UserReviewDetailsObj.Make.MakeName" class="content-inner-block-20">
                 <h2 class="font14 margin-bottom10">Full review of @Model.UserReviewDetailsObj.Make.MakeName @Model.UserReviewDetailsObj.Model.ModelName</h2>
                 @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Count > 0)
                 {
@@ -100,7 +100,7 @@
                     <button type="button" class="feedback-button" id="upvoteButton" onclick="upVoteReview()">
                         <span class="bwmsprite like-sm"></span>
                         Yes
-                        (<span id="upvoteText" class="btn-count review-btn">@Format.FormatNumbers(Model.UserReviewDetailsObj.UpVotes)</span>)
+                        (<span id="upvoteCount" class="btn-count review-btn">@Format.FormatNumbers(Model.UserReviewDetailsObj.UpVotes)</span>)
                     </button>
 
 

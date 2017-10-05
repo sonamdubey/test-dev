@@ -16,8 +16,6 @@ namespace Bikewale.Utility
     /// Description :   Added keys for AWSAccessKey, AWSBucketName, AWSSecretKey, AWSEnvironment, AWSImageQueueName, SecurityHashLength web config
     /// Modified By :   Vishnu Teja Yalakuntla on 15 Sep 2017
     /// Summary     :   Added BestBikesMakes property
-    /// Modified by :   Sumit Kate on 28 Sep 2017
-    /// Description :   Added InnovationBannerModels
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -105,7 +103,7 @@ namespace Bikewale.Utility
             _UserReviewIndexName = string.Empty,
             _OtherBikesInMakeId = string.Empty,
         _CapitalFirstPincodeIndex = string.Empty,
-            _InnovationBannerModels = String.Empty;
+            _UserReviewsReadInSessionCount = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -121,7 +119,8 @@ namespace Bikewale.Utility
         private readonly bool _DisablePWA;
         private readonly string _AMPDomainForSW;
         private readonly bool _logNewsUrl;
-        private readonly string _capitalFirstConsumerQueue;
+        private string _capitalFirstConsumerQueue;
+        private readonly string _PageSchemaModels;
         private readonly bool _IsIPSecurityEnabled;
         private readonly uint _CapitalFirstDealerId;
         private readonly string _CarTradeLeadUrl, _CarTradeLeadApiAction, _CarTradeLeadApiCode;
@@ -229,7 +228,7 @@ namespace Bikewale.Utility
             _CarTradeLeadUrl = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadUrl"]);
             _CarTradeLeadApiAction = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadApiAction"]);
             _CarTradeLeadApiCode = Convert.ToString(ConfigurationManager.AppSettings["CarTradeLeadApiCode"]);
-            _InnovationBannerModels = Convert.ToString(ConfigurationManager.AppSettings["InnovationBannerModels"]);
+            _UserReviewsReadInSessionCount = Convert.ToString(ConfigurationManager.AppSettings["UserReviewsReadInSessionCount"]);
         }
 
         // Static method to provide access to instance
@@ -390,6 +389,7 @@ namespace Bikewale.Utility
         public string CarTradeLeadApiCode { get { return _CarTradeLeadApiCode; } }
 
         public string CapitalFirstPinCode { get { return _CapitalFirstPincodeIndex; } }
-        public string InnovationBannerModels { get { return _InnovationBannerModels; } }
+
+        public string UserReviewsReadInSessionCount { get { return _UserReviewsReadInSessionCount; } }       
     }   // class
 }   // namespace

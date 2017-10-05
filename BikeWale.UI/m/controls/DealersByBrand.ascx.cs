@@ -30,7 +30,7 @@ namespace Bikewale.Mobile.Controls
             {
                 BindDealersByBrand servicecentViewModel = new BindDealersByBrand();
                 AllDealers = servicecentViewModel.GetDealerByBrandList();
-                if (AllDealers != null && AllDealers.Count() > 0)
+                if (AllDealers != null && AllDealers.Any())
                 {
                     FetchedRecordsCount = AllDealers.Count();
                     AllDealers = AllDealers.Where(v => v.MakeId != makeId);

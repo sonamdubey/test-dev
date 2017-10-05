@@ -25,14 +25,14 @@
     {
         <li data-tabs="#specsFeaturesAndAboutContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;About">About</li>
     }
-    @if (Model.IsUserReviewsAvailable)
-    {
-        <li data-tabs="#reviewsContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;UserReviews">User Reviews</li>
-    }
     @if (Model.IsReviewsAvailable)
     {
         <li data-tabs="#expertReviewsContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;ExpertReviews">Expert Reviews</li>
     }
+    @if (Model.IsUserReviewsAvailable)
+    {
+        <li data-tabs="#reviewsContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;UserReviews">User Reviews</li>
+    }    
     @if (Model.IsNewsAvailable)
     {
         <li data-tabs="#newsContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;News">News</li>

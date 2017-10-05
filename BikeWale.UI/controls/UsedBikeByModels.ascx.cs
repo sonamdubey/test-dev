@@ -51,7 +51,7 @@ namespace Bikewale.Controls
             {
                 BindUsedBikeModelInCity objUsedBikeModelCity = new BindUsedBikeModelInCity();
                 UsedBikeModelInCityList = objUsedBikeModelCity.GetUsedBikeByModelCountInCity(MakeId, CityId, TopCount).ToList();
-                if (UsedBikeModelInCityList != null && UsedBikeModelInCityList.Count() > 0)
+                if (UsedBikeModelInCityList != null && UsedBikeModelInCityList.Any())
                     FetchCount = UsedBikeModelInCityList.Count();
             }
             catch (Exception ex)

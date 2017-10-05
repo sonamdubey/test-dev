@@ -128,7 +128,7 @@ namespace BikewaleOpr.NewBikeBooking
                     }
                 }
 
-                if (objOfferList != null && objOfferList.Count() > 0)
+                if (objOfferList != null && objOfferList.Any())
                 {
                     rptBenefits.DataSource = objOfferList;
                     rptBenefits.DataBind();

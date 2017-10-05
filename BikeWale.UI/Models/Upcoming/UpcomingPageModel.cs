@@ -87,7 +87,7 @@ namespace Bikewale.Models
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
                 //objUpcoming.NewLaunches.PageCatId = 1;
                 objUpcoming.NewLaunches.PQSourceId = (uint)PQSourceEnum.Desktop_UpcomiingBikes_NewLaunchesWidget;
-                objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Count() > 0);
+                objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Any());
                 objUpcoming.YearsList = _upcoming.GetYearList();
                 objUpcoming.MakesList = _upcoming.GetMakeList();
                 CreatePager(objUpcoming, objUpcoming.PageMetaTags);

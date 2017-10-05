@@ -107,24 +107,32 @@ namespace Bikewale.Models.UserReviews
             {
                 objData.SimilarBikesWidget = new UserReviewSimilarBikesWidgetVM();
 
-                InputFilters filters = null;
-
-                // Set default category to be loaded here
                 FilterBy activeReviewCateory = FilterBy.MostRecent;
                 _pageSize = (uint)(IsMobile ? 8 : 10);
-                filters = new InputFilters()
+                ReviewDataCombinedFilter objFilter = new ReviewDataCombinedFilter()
                 {
-                    Model = _modelId.ToString(),
-                    SO = (ushort)activeReviewCateory,
-                    PN = (int)(PageNumber.HasValue ? PageNumber.Value : 1),
-                    PS = (int)_pageSize,
-                    Reviews = true
+                    InputFilter = new Entities.UserReviews.Search.InputFilters()
+                    {
+                        Model = _modelId.ToString(),
+                        SO = (ushort)activeReviewCateory,
+                        PN = (int)(PageNumber.HasValue ? PageNumber.Value : 1),
+                        PS = (int)_pageSize,
+                        Reviews = true
+                    },
+                    ReviewFilter = new ReviewFilter()
+                    {
+                        RatingQuestion = !IsMobile,
+                        ReviewQuestion = false,
+                        SantizeHtml = true,
+                        SanitizedReviewLength = (uint)(IsMobile ? 150 : 270),
+                        BasicDetails = true
+                    }
                 };
-
-
+                
                 if (objData.RatingsInfo != null)
                 {
-                    var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _objUserReviewCache, _userReviewsSearch);
+                    var objUserReviews = new UserReviewsSearchWidget(_modelId, objFilter, _objUserReviewCache, _userReviewsSearch);
+
                     objUserReviews.ActiveReviewCateory = activeReviewCateory;
 
                     if (objData.ReviewsInfo != null)

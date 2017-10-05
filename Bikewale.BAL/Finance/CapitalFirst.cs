@@ -218,7 +218,7 @@ namespace Bikewale.BAL.Finance
                         formData.Add(new KeyValuePair<string, string>("emp_address1", objDetails.OfficialAddressLine1));
                         formData.Add(new KeyValuePair<string, string>("emp_address2", objDetails.OfficialAddressLine2));
                         formData.Add(new KeyValuePair<string, string>("emp_pincode", objDetails.PincodeOffice));
-                        formData.Add(new KeyValuePair<string, string>("emp_type", objDetails.Status == 1 ? "Salaried" : "Self Employed"));
+                        formData.Add(new KeyValuePair<string, string>("emp_type", objDetails.Status == 1 ? "Salaried" : "Self-Employed"));
                         formData.Add(new KeyValuePair<string, string>("fname", objDetails.FirstName));
                         formData.Add(new KeyValuePair<string, string>("from_source", leadSource.ToString())); // 1 - Desktop, 2 - Mobile
                         formData.Add(new KeyValuePair<string, string>("gender", objDetails.Gender == 1 ? "Male" : "Female"));

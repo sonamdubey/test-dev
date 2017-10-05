@@ -14,10 +14,8 @@ using System.Web.Mvc;
 namespace Bikewale.Controllers
 {
     using Common;
-    using Entities.CMS.Articles;
     using Interfaces.PWA.CMS;
     using Models.News;
-    using System.Linq;
 
 
     public class NewsController : Controller
@@ -166,7 +164,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
-            NewsDetailPage obj = new NewsDetailPage(_articles, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache);
+            NewsDetailPage obj = new NewsDetailPage(_articles, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache, ControllerContext);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -192,7 +190,7 @@ namespace Bikewale.Controllers
         [Route("m/news/detail/{basicid}/")]
         public ActionResult Detail_Mobile(string basicid)
         {
-            NewsDetailPage obj = new NewsDetailPage(_articles, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache);
+            NewsDetailPage obj = new NewsDetailPage(_articles, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache, ControllerContext);
             obj.IsMobile = true;
             obj.LogNewsUrl = _logNewsUrl;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
@@ -255,8 +253,9 @@ namespace Bikewale.Controllers
             NewsDetailPageVM objData = null;
             try
             {
-                NewsDetailPage obj = new NewsDetailPage(_articles, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache);
+                NewsDetailPage obj = new NewsDetailPage(_articles, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache, ControllerContext);
                 obj.IsMobile = true;
+                obj.IsAMPPage = true;
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                 {
                     return Redirect("/m/pagenotfound.aspx");

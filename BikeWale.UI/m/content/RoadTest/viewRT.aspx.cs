@@ -88,7 +88,7 @@ namespace Bikewale.Content
                                 rptPageContent.DataBind();
                             }
                             objImg = objArticle.objImg;
-                            if (objImg != null && objImg.Count() > 0)
+                            if (objImg != null && objImg.Any())
                                 BindGallery();
                         }
                         BindPageWidgets();

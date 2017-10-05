@@ -170,7 +170,7 @@ namespace Bikewale.Utility
                 if (httpClient != null)
                 {
                     //Add parameter
-                    //if (headerParameters != null && headerParameters.Count() > 0)
+                    //if (headerParameters != null && headerParameters.Any())
                     //{
                     //    foreach (var param in headerParameters)
                     //    {
@@ -225,7 +225,7 @@ namespace Bikewale.Utility
             }
             finally
             {
-                //if (httpClient != null && headerParameters != null && headerParameters.Count() > 0)
+                //if (httpClient != null && headerParameters != null && headerParameters.Any())
                 //{
                 //    foreach (var param in headerParameters)
                 //    {

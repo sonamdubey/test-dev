@@ -134,7 +134,7 @@ namespace BikewaleOpr.content
                     objManageModelColor = new ManageModelColor();
                     modelColors = objManageModelColor.FetchModelColors(Convert.ToInt32(modelId));
 
-                    if (modelColors != null && modelColors.Count() > 0)
+                    if (modelColors != null && modelColors.Any())
                     {
                         ModelColorBase modelColor = (from color in modelColors
                                                      where color.Id == Convert.ToInt32(modelColorId)

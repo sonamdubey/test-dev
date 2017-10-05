@@ -2,7 +2,7 @@
 @using Bikewale.Utility
 @using Bikewale.Entities.GenericBikes
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
     Model.Page_JS_Path = "/src/content/details.js";
     Model.PageMetaTags.FBTitle = Model.ArticleDetails.Title;
@@ -81,9 +81,6 @@
                                 </div>
                             </div>
                             }}
-                        @if(Model.BikeInfo != null) {
-                            @Html.Partial("~/Views/BikeModels/_minBikeInfoCard.cshtml", Model.BikeInfo)
-                                }
 
                         @if (Model.PhotoGallery!=null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
                         {

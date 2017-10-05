@@ -50,7 +50,7 @@ namespace Bikewale.Models
                     objComparison.CompareBikes = _objCompare.GetScooterCompareList(CityId);
                 else
                     objComparison.CompareBikes = _objCompare.GetPopularCompareList(CityId);
-                if (objComparison.CompareBikes != null && objComparison.CompareBikes.Count() > 0)
+                if (objComparison.CompareBikes != null && objComparison.CompareBikes.Any())
                 {
                     objComparison.IsDataAvailable = true;
                     objComparison.CompareBikes = objComparison.CompareBikes.Take((int)TopCount);

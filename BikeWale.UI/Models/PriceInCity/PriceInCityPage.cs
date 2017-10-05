@@ -334,7 +334,7 @@ namespace Bikewale.Models
 
                         objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
                         BuildPageMetas(objVM);
-                        ShowInnovationBanner(objVM, modelId);
+
                     }
                     else
                     {
@@ -356,30 +356,6 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("PriceInCityPage.GetData({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
-        }
-
-        /// <summary>
-        /// Created by  :   Sumit Kate on 28 Sep 2017
-        /// Description :   To Show Innovation Banner
-        /// </summary>
-        /// <param name="_modelId"></param>
-        private void ShowInnovationBanner(PriceInCityPageVM objData, uint _modelId)
-        {
-            try
-            {
-                if (!String.IsNullOrEmpty
-                    (BWConfiguration.Instance.InnovationBannerModels))
-                {
-                    objData.AdTags.ShowInnovationBannerDesktop = objData.AdTags.ShowInnovationBannerMobile = BWConfiguration.Instance.InnovationBannerModels.Split(',').Contains(_modelId.ToString());
-                    objData.AdTags.InnovationBannerGALabel =
-                        String.Format("{0}_PriceIn_{1}", objData.BikeName.Replace(" ", "_"), objData.CityEntity.CityName.Replace(" ", "_"));
-                    //String.Join("_", objData.BikeName.Replace(" ", "_"), objData.FirstVersion.City.Replace(" ", "_"));
-                }
-            }
-            catch (Exception ex)
-            {
-                var err = new Notifications.ErrorClass(ex, String.Format("ShowInnovationBanner({0})", _modelId));
-            }
         }
 
         /// <summary>
@@ -412,7 +388,7 @@ namespace Bikewale.Models
                     }
                     objVM.FormatedBikeVersionPrices = objBikePQAMPList;
 
-                    if (objVM.FormatedBikeVersionPrices != null && objVM.FormatedBikeVersionPrices.Count() > 0)
+                    if (objVM.FormatedBikeVersionPrices != null && objVM.FormatedBikeVersionPrices.Any())
                     {
                         firstVersion = objVM.FormatedBikeVersionPrices.OrderByDescending(m => m.BikeQuotationEntity.IsVersionNew).OrderBy(v => v.BikeQuotationEntity.ExShowroomPrice).First().BikeQuotationEntity;
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
@@ -554,7 +530,7 @@ namespace Bikewale.Models
 
                 try
                 {
-                    str = Format.GetRenderedContent(String.Format("LeadCampaign_Mobile_AMP_{0}", priceInCityAMPVM.LeadCampaign.CampaignId), priceInCityAMPVM.LeadCampaign.LeadsHtmlMobile, priceInCityAMPVM.LeadCampaign);
+                    str = MvcHelper.GetRenderedContent(String.Format("LeadCampaign_Mobile_AMP_{0}", priceInCityAMPVM.LeadCampaign.CampaignId), priceInCityAMPVM.LeadCampaign.LeadsHtmlMobile, priceInCityAMPVM.LeadCampaign);
 
                     // Code to remove name attribute form span tags, remove style css tag and replace javascript:void(0) in href with url (not supported in AMP)
 

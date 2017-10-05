@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.MakePageVM
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline />";
     Model.Page_JS_Path = "/src/new/bikemake.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_NewBike_";
     Model.AdTags.AdId = "1442913773076";
@@ -285,9 +285,9 @@
                     <div id="makeUsedBikeContent" class="bw-model-tabs-data">
                         <div class="carousel-heading-content padding-top20">
                             <div class="swiper-heading-left-grid inline-block">
-                                <h2>Used @Model.MakeName bikes in @Model.Location</h2>
+                                <h2>Second-hand @Model.MakeName bikes in @Model.Location</h2>
                             </div><div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="/used/@Model.MakeMaskingName-bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all</a>
+                                <a href="/used/@Model.MakeMaskingName-bikes-in-@Model.LocationMasking/" title="Second-hand Bikes in @Model.Location" class="btn view-all-target-btn">View all</a>
                             </div>
                             <div class="clear"></div>
                         </div>
