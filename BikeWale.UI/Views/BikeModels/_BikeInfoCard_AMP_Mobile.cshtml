@@ -41,7 +41,7 @@
                     </a>
                 </li>
             }
-            @if (@Model.Info.IsSpecsAvailable)
+            @if (Model.Info.IsSpecsAvailable)
             {
                 <li>
                     <a href="@String.Format("{0}/m{1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(Model.Info.Make.MaskingName, Model.Info.Model.MaskingName))" title="@Model.Bike Specification">
