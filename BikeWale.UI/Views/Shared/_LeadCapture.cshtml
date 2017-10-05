@@ -555,7 +555,7 @@
                         $("#personalInfo").hide();
                         $("#dealer-lead-msg").fadeIn();
                         if (self.cityRequired() && self.selectedCity()) {
-                            SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName(), 365);
+                            SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
