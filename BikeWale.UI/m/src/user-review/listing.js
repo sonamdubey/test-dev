@@ -1,5 +1,5 @@
 
-var reviewId = 0,makeid, modelid, vmUserReviews, modelReviewsSection, categoryId = 1, pageNumber = 1, modelName, makeName;
+var reviewId = 0, makeid, modelid, vmUserReviews, modelReviewsSection, categoryId = 1, pageNumber = 1, modelName, makeName, vmModelExpertReviewsList;
 var reg = new RegExp('^[0-9]*$');
 var helpfulReviews = [];
 var expertReviewWidgetHtml;
@@ -767,4 +767,36 @@ docReady(function () {
     if (checkedStar)
         document.getElementById('rate-star-' + parseInt(checkedStar)).checked = false;
 
+    $("#expert-review-ul").load("/Templates/ExpertReviewsList_Mobile.html", function (responseTxt, statusTxt, xhr) {
+        if (statusTxt == "success") {
+            vmModelExpertReviewsList.init();
+        }
+    });
+
+    var modelExpertReviewsList = function () {
+        var self = this;
+        self.IsInitialized = ko.observable(false);
+        self.expertReviewsList = ko.observableArray();
+
+        self.init = function () {
+            self.IsInitialized(true);
+            
+            var eleSection = $(".article-list");
+            ko.applyBindings(self, eleSection[0]);
+
+            self.fetchExpertReviews();
+        };
+
+        self.fetchExpertReviews = function () {
+            $.ajax({
+                type: "GET",
+                url: "/api/cms/cat/V2/8/posts/12/make/" + makeid + "/?modelId=" + modelid,
+                success: function (response) {
+                    self.expertReviewsList(JSON.parse(response));                    
+                }
+            });
+        };
+    }
+
+    vmModelExpertReviewsList = new modelExpertReviewsList();
 });
