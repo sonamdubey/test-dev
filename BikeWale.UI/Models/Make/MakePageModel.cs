@@ -67,6 +67,8 @@ namespace Bikewale.Models
 
         /// <summary>
         /// Gets the data for homepage
+        /// Modified by : Ashutosh Sharma on 05 Oct 2017
+        /// Description : Replaced call to method 'GetMostPopularBikesByMake' with 'GetMostPopularBikesByMakeWithCityPrice' to get city price when city is selected.
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 

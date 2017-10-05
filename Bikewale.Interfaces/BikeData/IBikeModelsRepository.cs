@@ -48,6 +48,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added GetAlternativeBikesWithPhotosInCity method
     /// Modified by : Ashutosh Sharma on 26-Sep-2017
     /// Description : Added GetFuturisticVersionMinSpecs
+    /// Modified by : Ashutosh Sharma on 03 Oct 2017
+    /// Description : Added 'GetMostPopularBikesByMakeWithCityPrice' to get most popular bikes by make wity city price if city is selected.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>

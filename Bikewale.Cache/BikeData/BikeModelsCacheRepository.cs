@@ -954,8 +954,8 @@ namespace Bikewale.Cache.BikeData
         }
 
         /// <summary>
-        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
-        /// Description : Changed key from 'BW_PopularBikesByMakeWithCityPrice_{0}_{1}' to 'BW_PopularBikesByMakeWithCityPrice_V1_{0}_{1}' to get avg price.
+        /// Created by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Cache method for most popular bikes by make with city price if city is selected.
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="cityId"></param>

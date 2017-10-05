@@ -944,8 +944,8 @@ namespace Bikewale.DAL.BikeData
         }
 
         /// <summary>
-        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
-        /// Description : To get avg price.
+        /// Created by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : DAL method to get most popular bikes by make with city price when city is selected.
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="cityId"></param>
@@ -1005,7 +1005,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.BikeData.BikeModelsRepository_{0}_{1}", makeId, cityId));
+                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.BikeData.BikeModelsRepository_GetMostPopularBikesByMakeWithCityPrice_{0}_{1}", makeId, cityId));
             }
             return objList;
         }

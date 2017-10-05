@@ -593,7 +593,7 @@ namespace Bikewale.Models.BikeModels
                             {
                                 _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
                             }
-                            else if(_objData.SelectedVersion != null)
+                            else if(_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0)
                             {
                                 _objData.EMIDetails = setDefaultEMIDetails(_objData.SelectedVersion.AverageExShowroom);
                             }
