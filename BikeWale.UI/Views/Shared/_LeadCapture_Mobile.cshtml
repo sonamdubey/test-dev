@@ -428,6 +428,7 @@
                         var count = obj.length;
                         if (count >= 1) {
                             if (count == 1) {
+                                $("#ddlMfgDealers").html('');
                                 $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
                                 $("#ddlMfgDealers").val('0');
                                 $("#ddlMfgDealers").closest('.select-box').addClass('done');
