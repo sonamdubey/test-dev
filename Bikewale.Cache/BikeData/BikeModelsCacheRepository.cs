@@ -63,6 +63,8 @@ namespace Bikewale.Cache.BikeData
         /// Summary: To Create a overload of cached model entity with version Id
         /// Modified by Sajal Gupta on 19-05-2017
         /// Description : Changed version of cache key.
+        /// Modified by : Vivek Singh Tomar on 27th Sep 2017
+        /// Summary : Changed version of cache key
         /// Modified by : Ashutosh Sharma on 29 Sep 2017.
         /// Description : Changed version of key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
         /// </summary>

@@ -289,8 +289,7 @@ docReady(function () {
     $('.overall-specs-tabs-wrapper li').click(function () {
         var target = $(this).attr('data-tabs');
         $('html, body').animate({ scrollTop: $(target).offset().top - topNavBarHeight }, 1000);
-        centerItVariableWidth($(this), '.overall-specs-tabs-container');
-        return false;
+        centerItVariableWidth($(this), '.overall-specs-tabs-container');        
     });
 
     // dropdown
@@ -753,6 +752,15 @@ docReady(function () {
     };
 
     applyLikeDislikes();
+
+    if (document.getElementById("modelsBySeriesWidget")) {
+        try {
+            var testingObject = $("#modelsBySeriesWidget");
+            triggerNonInteractiveGA(testingObject.attr("c"), testingObject.attr("a"), testingObject.attr("l"));
+        } catch (e) {
+
+        }
+    }
 });
 
 function upVoteListReview(e) {

@@ -248,7 +248,6 @@ docReady(function () {
 
     if ($("#user-review-div")[0])
         ko.applyBindings(vmUserReviews, $("#user-review-div")[0]);
-
 });
 
 docReady(function () {
@@ -688,6 +687,15 @@ docReady(function () {
     $('#report-background, .report-abuse-close-btn').on('click', function() {
         reportAbusePopup.close();
     });
+
+    if (document.getElementById("modelsBySeriesWidget")) {
+        try {
+            var testingObject = $("#modelsBySeriesWidget");
+            triggerNonInteractiveGA(testingObject.attr("c"), testingObject.attr("a"), testingObject.attr("l"));
+        } catch (e) {
+
+        }
+    }
 });
 
 

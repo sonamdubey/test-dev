@@ -34,6 +34,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         /// Function to update ther user reviews status. It can be approved or discarded. In case of disapproval need reason for disapproval.
         /// Modified by : Aditi Srivastava on 25 May 2017
         /// Summary     : Form user review detail link using new review id instead of old one to avoid redirection
+        /// Modified by : Vivek Singh Tomar on 27th Sep 2017
+        /// Summary : Changed version of cache key
         /// Modified by : Ashutosh Sharma on 04 Oct 2017
         /// Description : Changed cacke key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1'.
         /// </summary>
@@ -136,6 +138,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         /// <summary>
         /// Created by Sajal Gupta on 19-06-2017
         /// Descrioption : Approve given comma separated review ids
+        /// Modified by : Vivek Singh Tomar on 27th Sep 2017
+        /// Summary : Changed version of cache key
         /// Modified by : Ashutosh Sharma on 04 Oct 2017
         /// Description : Changed cacke key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1'.
         /// </summary>

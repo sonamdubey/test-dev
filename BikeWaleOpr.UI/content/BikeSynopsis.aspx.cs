@@ -74,8 +74,9 @@ namespace BikeWaleOpr.Content
             }
 
         }
-
         /// <summary>
+        /// Modified by : Vivek Singh Tomar on 27th Sep 2017
+        /// Summary : Changed version of cache key
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
         /// </summary>

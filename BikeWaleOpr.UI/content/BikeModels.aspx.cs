@@ -136,6 +136,8 @@ namespace BikeWaleOpr.Content
         /// Description : Refreshed memcache popular bike makes key
         /// Modified By : Sushil Kumar on 9th July 2017
         /// Description : Change input parametres as per carwale mysql master base conventions
+        /// Modified by : Ashutosh Sharma on 28-Sep-2017
+        /// Description : Added call to ClearModelsBySeriesId
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="e"></param>
@@ -201,7 +203,7 @@ namespace BikeWaleOpr.Content
                         if (_mc.Get("BW_OldModelMaskingNames") != null)
                             _mc.Remove("BW_OldModelMaskingNames");
                     }
-
+                    BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId(Convert.ToUInt32(ddlSeries.SelectedValue));
                 }
 
             }
@@ -281,6 +283,8 @@ namespace BikeWaleOpr.Content
         /// </summary>
         /// Modified by : Vivek Singh Tomar on 31 July 2017
         /// Description : Refresh the cache when any model is updated
+        /// Modified by : Vivek Singh Tomar on 27th Sep 2017
+        /// Summary : Changed version of cache key
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
         /// <param name="sender"></param>
@@ -748,7 +752,9 @@ namespace BikeWaleOpr.Content
 
         /// <summary>
         /// Created by : Ashutosh Sharma on 14th Sep 2017
-        /// Summary : Update series of selected model and log model and series mapping
+        /// Description : Update series of selected model and log model and series mapping
+        /// Modified by : Ashutosh Sharma on 28-Sep-2017
+        /// Description : Added call to ClearModelsBySeriesId 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -763,6 +769,9 @@ namespace BikeWaleOpr.Content
                     ModelIdsList = ModelIdsList.Substring(0, ModelIdsList.Length - 1);
 
                 UpdateModelSeries(ddlUpdateSeries.SelectedValue, ModelIdsList);
+
+                BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId(Convert.ToUInt32(ddlUpdateSeries.SelectedValue));
+
                 BindGrid();
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Series Updated Successfully.');", true);
             }
@@ -788,19 +797,16 @@ namespace BikeWaleOpr.Content
                     cmd.CommandText = "updatemodelseries";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, seriesId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, Convert.ToInt32(seriesId)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelidslist", DbType.String, 500, modelIdsList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, BikeWaleOpr.Common.CurrentUser.Id));
-
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn(err.Message + err.Source);
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
         }
     }

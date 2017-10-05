@@ -939,6 +939,7 @@
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\BikeModels\ModelPage.cs" />
     <Compile Include="Models\BikeModels\OtherBestBikesModel.cs" />
+    <Compile Include="Models\BikeSeries\BikeModelsBySeriesPage.cs" />
     <Compile Include="Models\CompareBikes\ComparePopularBikes.cs" />
     <Compile Include="Models\Compare\CompareDetails.cs" />
     <Compile Include="Models\Compare\CompareIndex.cs" />
@@ -3778,6 +3779,10 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad200x253.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad292x359.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad200x216.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad970x90_InnovationBanner.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x50_InnovationBanner.cshtml" />
+    <Content Include="Views\BikeSeries\_BikeModelsBySeries.cshtml" />
+    <Content Include="Views\BikeSeries\_BikeModelsBySeries_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
