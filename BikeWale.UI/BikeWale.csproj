@@ -2878,6 +2878,7 @@
     <Content Include="m\css\user-review\write-review.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
     <Content Include="m\css\videos\video-detail.css" />
+    <Content Include="m\css\videos\video-landing.css" />
     <Content Include="m\css\videos\videos-by-make.css" />
     <Content Include="m\css\videos\VideosByCategory.css" />
     <Content Include="m\css\videos\videosByModel.css" />
