@@ -15,11 +15,12 @@ namespace Bikewale.Models.UserReviews
         public BikeRatingsReviewsInfo RatingReviewData { get; set; }
         public BikeRatingsInfo RatingsInfo { get { return (RatingReviewData != null ? RatingReviewData.RatingDetails : null); } }
         public BikeReviewsInfo ReviewsInfo { get { return (RatingReviewData != null ? RatingReviewData.ReviewDetails : null); } }
+        public QuestionsRatingValueByModel ObjQuestionValue { get { return (RatingReviewData != null ? RatingReviewData.ObjQuestionValue : null); } }
         public bool IsRatingsAvailable { get { return RatingsInfo != null; } }
         public bool IsReviewsAvailable { get { return ReviewsInfo != null && ReviewsInfo.TotalReviews > 0; } }
         public UserReviewsSearchVM UserReviews { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }
-        public UserReviewSimilarBikesWidgetVM SimilarBikesWidget { get; set; }
+        public UserReviewSimilarBikesWidgetVM SimilarBikesWidget { get; set; } 
         public string PageUrl { get; set; }
     }
 }

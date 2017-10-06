@@ -20,11 +20,24 @@ namespace Bikewale.Models.UserReviews
         private bool _isMobile = false;
         private readonly IBikeMakesCacheRepository<int> _makeRepository = null;
         private readonly IUserReviewsCache _userReviewCache = null;
-        public WriteReviewContest(bool IsMobile, IBikeMakesCacheRepository<int> makeRepository, IUserReviewsCache userReviewCache)
+        private readonly uint? _makeId =0;
+        private readonly uint? _modelId = 0;
+        private readonly string _makeName = null;
+        private readonly string _modelName = null;
+        private readonly string _makeMasking = null;
+        private readonly string _modelMasking = null;
+
+        public WriteReviewContest(bool IsMobile, IBikeMakesCacheRepository<int> makeRepository, IUserReviewsCache userReviewCache , uint? makeId ,uint? modelId, string makeName, string modelName, string makeMaskingName, string modelMaskingName)
         {
             _makeRepository = makeRepository;
             _isMobile = IsMobile;
             _userReviewCache = userReviewCache;
+            _makeId = makeId;
+            _modelId = modelId;
+            _makeName = makeName;
+            _modelName = modelName;
+            _makeMasking = makeMaskingName;
+            _modelMasking = modelMaskingName;
         }
 
         public int csrc { get; set; }
@@ -44,13 +57,25 @@ namespace Bikewale.Models.UserReviews
             viewModel.UserReviewPopup = new Make.UserReviewPopupVM();
 
             try
+
             {
+                viewModel.MakeId = _makeId;
+                viewModel.ModelId = _modelId;
+                viewModel.MakeName = _makeName;
+                viewModel.ModelName = _modelName;
+                viewModel.MakeMaskingName = _makeMasking;
+                viewModel.ModelMaskingName = _modelMasking;
                 IEnumerable<BikeMakeEntityBase> makesList = _makeRepository.GetMakesByType(Entities.BikeData.EnumBikeType.UserReviews);
                 viewModel.Makes = makesList;
 
                 viewModel.UserReviewPopup = new Make.UserReviewPopupVM();
                 UserReviewPopupModel userReviewPopupModel = new UserReviewPopupModel(_makeRepository, makesList);
+
                 viewModel.UserReviewPopup.Makes = userReviewPopupModel.GetMakesList();
+                viewModel.UserReviewPopup.MakeId = _makeId;
+                viewModel.UserReviewPopup.ModelId = _modelId;
+                viewModel.UserReviewPopup.ModelName = _modelName;
+                viewModel.UserReviewPopup.MakeName = _makeName;
 
                 if (csrc > 0)
                     viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", csrc));

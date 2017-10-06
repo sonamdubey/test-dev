@@ -45,12 +45,12 @@ namespace Bikewale.Entities.PriceQuote
         public IEnumerable<string> Disclaimer { get; set; }
 
         [JsonProperty("hasDisclaimer")]
-        public bool HasDisclaimer { get { return (Disclaimer != null && Disclaimer.Count() > 0); } }
+        public bool HasDisclaimer { get { return (Disclaimer != null && Disclaimer.Any()); } }
 
         [JsonProperty("hasBenefits")]
-        public bool HasBenefits { get { return (Benefits != null && Benefits.Count() > 0); } }
+        public bool HasBenefits { get { return (Benefits != null && Benefits.Any()); } }
 
-        public bool HasOffers { get { return (OfferList != null && OfferList.Count() > 0); } }
+        public bool HasOffers { get { return (OfferList != null && OfferList.Any()); } }
 
         [JsonProperty("totalPrice")]
         public ulong TotalPrice { get { return (PriceList != null ? Convert.ToUInt64(PriceList.Sum(m => Convert.ToInt64(m.Price))) : 0UL); } }

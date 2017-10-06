@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
-using Bikewale.Entities.CMS;
-using Bikewale.Interfaces.CMS;
-using Bikewale.DAL.CMS;
-using Bikewale.Notifications;
+﻿using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.PWA.CMS;
-using Bikewale.Entities.PWA.Articles;
-using System.Web;
-using React;
-using System.Diagnostics;
 using Bikewale.Utility;
 using log4net;
-using React.TinyIoC;
+using React;
 using React.Exceptions;
+using React.TinyIoC;
+using System;
+using System.Diagnostics;
+using System.Web;
 
 
 namespace Bikewale.BAL.PWA.CMS
@@ -56,7 +47,7 @@ namespace Bikewale.BAL.PWA.CMS
             }
         }
 
-  
+
         static IHtmlString React<T>(
             string componentName,
             T props,
@@ -95,7 +86,7 @@ namespace Bikewale.BAL.PWA.CMS
             if (_logPWAStats)
                 sw = Stopwatch.StartNew();
 
-            IHtmlString renderedHtml=null;
+            IHtmlString renderedHtml = null;
             try
             {
                 renderedHtml = React(componentName, new
@@ -108,6 +99,8 @@ namespace Bikewale.BAL.PWA.CMS
             }
             catch (Exception ex)
             {
+                ThreadContext.Properties["ArticleUrl"] = url;
+                ThreadContext.Properties["Component"] = componentName + ":" + containerId;
                 _logger.Error(ex);
             }
 

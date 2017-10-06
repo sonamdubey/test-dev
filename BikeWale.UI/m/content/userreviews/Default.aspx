@@ -14,9 +14,13 @@
 <script type="text/javascript" src="https://stb.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 
 <section>
-	<a href="/m/bike-review-contest/?csrc=<%=(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Landing %>" class="contest-slug-sm slug-teal-target">
+    <% 
+        string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}",(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Landing));
+        string hrefStr = string.Format("/m/bike-review-contest/?q={0}", q);
+         %>
+	<a href="<%= hrefStr %>" class="contest-slug-sm slug-teal-target">
 		<span class="trophy-white"></span>
-		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;1,000</p>
+		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;2,000</p>
 		<span class="bwmsprite arrow-white-right"></span>
 	</a>
 </section>

@@ -5,7 +5,7 @@
         <div id="modelSimilar" class="bw-model-tabs-data padding-top15 padding-bottom15">
             <div class="carousel-heading-content">  
             <div class="swiper-heading-left-grid inline-block">
-                  <h2>More <%= ModelName %> bikes in <%=CityName%></h2>
+                  <h2>More second-hand <%= ModelName %> bikes in <%=CityName%></h2>
          </div>
         <div class="swiper-heading-right-grid inline-block text-right">
             <a href="<%=WidgetHref %>" title="<%=WidgetTitle%>" class="btn view-all-target-btn">View all</a>
@@ -28,7 +28,7 @@
                             </a>
                         </div>
                         <div class="model-swiper-details font11">
-                            <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" class="target-link font12 text-truncate margin-bottom5" title="Used <%=String.Format("{0} {1}",bike.ModelYear.Year, bike.BikeName)%>"><%= bike.BikeName %></a>
+                            <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" class="target-link font12 text-truncate margin-bottom5" title="Used <%=String.Format("{0} {1}",bike.ModelYear.Year, bike.BikeName)%>">Used <%= bike.BikeName %></a>
                              <% if (bike.ModelYear!=null)
                                  { %>
                             <div class="grid-6 alpha padding-right5">

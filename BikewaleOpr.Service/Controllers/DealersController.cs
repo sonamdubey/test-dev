@@ -60,7 +60,7 @@ namespace BikewaleOpr.Service
                         objMakes = objAllDealer.GetDealerMakesByCity(cityId);
                     }
 
-                    if (objMakes != null && objMakes.Count() > 0)
+                    if (objMakes != null && objMakes.Any())
                     {
                         objMakesDTO = new Collection<BikeMakeBase>();
                         objMakesDTO = DealerListMapper.Convert(objMakes);
@@ -109,7 +109,7 @@ namespace BikewaleOpr.Service
                         objDealers = objAllDealer.GetDealersByMake(makeId, cityId);
                     }
 
-                    if (objDealers != null && objDealers.Count() > 0)
+                    if (objDealers != null && objDealers.Any())
                     {
                         objDealersDTO = new Collection<DealerBase>();
                         objDealersDTO = DealerListMapper.Convert(objDealers);
@@ -572,7 +572,7 @@ namespace BikewaleOpr.Service
             {
                 try
                 {
-                    if (dealerPricesAvaialabilities.DealerVersionPrices.ItemIds != null && dealerPricesAvaialabilities.DealerVersionPrices.ItemIds.Count() > 0 && dealerPricesAvaialabilities.DealerVersionPrices.ItemValues != null && dealerPricesAvaialabilities.DealerVersionPrices.ItemValues.Count() > 0 && dealerPricesAvaialabilities.DealerVersionPrices.VersionIds != null && dealerPricesAvaialabilities.DealerVersionPrices.VersionIds.Count() > 0 && dealerPricesAvaialabilities.DealerVersionPrices.CityIds != null && dealerPricesAvaialabilities.DealerVersionPrices.CityIds.Count() > 0 && dealerPricesAvaialabilities.DealerVersionPrices.DealerIds.Count() > 0)
+                    if (dealerPricesAvaialabilities.DealerVersionPrices.ItemIds != null && dealerPricesAvaialabilities.DealerVersionPrices.ItemIds.Any() && dealerPricesAvaialabilities.DealerVersionPrices.ItemValues != null && dealerPricesAvaialabilities.DealerVersionPrices.ItemValues.Any() && dealerPricesAvaialabilities.DealerVersionPrices.VersionIds != null && dealerPricesAvaialabilities.DealerVersionPrices.VersionIds.Any() && dealerPricesAvaialabilities.DealerVersionPrices.CityIds != null && dealerPricesAvaialabilities.DealerVersionPrices.CityIds.Any() && dealerPricesAvaialabilities.DealerVersionPrices.DealerIds.Any())
                         savePriceResponse = dealerPrice.SaveVersionPriceQuotes(
                             dealerPricesAvaialabilities.DealerVersionPrices.DealerIds,
                             dealerPricesAvaialabilities.DealerVersionPrices.CityIds,
@@ -585,7 +585,7 @@ namespace BikewaleOpr.Service
                             dealerPricesAvaialabilities.MakeId
                         );
 
-                    if (dealerPricesAvaialabilities.DealerVersionAvailabilities.DealerId > 0 && dealerPricesAvaialabilities.DealerVersionAvailabilities.BikeVersionIds != null && dealerPricesAvaialabilities.DealerVersionAvailabilities.BikeVersionIds.Count() > 0 && dealerPricesAvaialabilities.DealerVersionAvailabilities.NumberOfDays != null && dealerPricesAvaialabilities.DealerVersionAvailabilities.NumberOfDays.Count() > 0)
+                    if (dealerPricesAvaialabilities.DealerVersionAvailabilities.DealerId > 0 && dealerPricesAvaialabilities.DealerVersionAvailabilities.BikeVersionIds != null && dealerPricesAvaialabilities.DealerVersionAvailabilities.BikeVersionIds.Any() && dealerPricesAvaialabilities.DealerVersionAvailabilities.NumberOfDays != null && dealerPricesAvaialabilities.DealerVersionAvailabilities.NumberOfDays.Any())
                         isAvailabilitySaved = versionAvailability.SaveVersionAvailability(
                             dealerPricesAvaialabilities.DealerVersionAvailabilities.DealerId,
                             dealerPricesAvaialabilities.DealerVersionAvailabilities.BikeVersionIds,
@@ -618,7 +618,7 @@ namespace BikewaleOpr.Service
         public IHttpActionResult SaveDealerPrices(DealerPriceListDTO dealerPrices)
         {
             bool isSaved = false;
-            if (dealerPrices != null && dealerPrices.VersionIds != null && dealerPrices.VersionIds.Count() > 0 && dealerPrices.CityIds != null && dealerPrices.DealerIds != null && dealerPrices.CityIds.Count() > 0 && dealerPrices.DealerIds.Count() > 0)
+            if (dealerPrices != null && dealerPrices.VersionIds != null && dealerPrices.VersionIds.Any() && dealerPrices.CityIds != null && dealerPrices.DealerIds != null && dealerPrices.CityIds.Any() && dealerPrices.DealerIds.Any())
             {
                 try
                 {

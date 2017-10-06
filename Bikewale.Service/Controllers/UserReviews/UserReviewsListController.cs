@@ -106,6 +106,37 @@ namespace Bikewale.Service.Controllers.UserReviews
             return NotFound();
         }
 
+        [Route("api/user-reviews/search/V2/")]
+        public IHttpActionResult GetUserReviewListV2([FromUri]Bikewale.Entities.UserReviews.ReviewDataCombinedFilter filters)
+        {
+            Bikewale.Entities.UserReviews.Search.SearchResult objUserReviews = null;
+            Bikewale.DTO.UserReviews.Search.SearchResult objDTOUserReview = null;
+            try
+            {
+                if (filters != null && (!String.IsNullOrEmpty(filters.InputFilter.Model) || !String.IsNullOrEmpty(filters.InputFilter.Make)))
+                {
+                    objUserReviews = _userReviewsSearch.GetUserReviewsList(filters);
+                    if (objUserReviews != null)
+                    {
+                        objDTOUserReview = UserReviewsMapper.Convert(objUserReviews);
+                        return Ok(objDTOUserReview);
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.GetUserReviewList");
+                return InternalServerError();
+            }
+
+            return NotFound();
+        }
+
 
         /// <summary>
         /// Created by Sajal Gupta on 11-09-2017

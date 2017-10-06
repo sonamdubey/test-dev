@@ -81,7 +81,7 @@ namespace Bikewale.Mobile.New
                 container.RegisterType<IState, States>();
                 objStates = container.Resolve<IState>();
                 states = objStates.GetDealerStates(Convert.ToUInt32(strMakeId));
-                if (states != null && states.Count() > 0)
+                if (states != null && states.Any())
                 {
                     rptState.DataSource = states;
                     rptState.DataBind();
@@ -195,7 +195,7 @@ namespace Bikewale.Mobile.New
                         container.RegisterType<IDealerRepository, DealersRepository>();
                         var objCities = container.Resolve<IDealerRepository>();
                         _cities = objCities.FetchDealerCitiesByMake(_makeId);
-                        if (_cities != null && _cities.Count() > 0)
+                        if (_cities != null && _cities.Any())
                         {
                             var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                             if (_city != null)

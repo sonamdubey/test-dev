@@ -30,10 +30,19 @@
             <span class="star-span star-zero-icon leftfloat"></span>
             <span class="font12 text-light-grey leftfloat margin-right10 padding-left5">Not rated yet</span>
         }
-        <a rel="nofollow" href="@string.Format("/m/rate-your-bike/{0}/?q={1}", Model.ModelId,Model.ReturnUrl)" class="border-light-left leftfloat margin-right10 padding-left10 font12 bw-ga" l='@string.Format("{0}_{1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName)' a="Clicked_RateThisBike" c="Model_Page">
-           <span>Rate this @Model.BodyStyleTextSingular</span>
-        </a>
+        @{
+            var ModelDetails = Model.ModelPageEntity.ModelDetails;
+            var MakeDetails = Model.ModelPageEntity.ModelDetails.MakeBase;
+            string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc=24&makeId={0}&modelId={1}&makeName={2}&modelName={3}&makeMaskingName={4}&modelMaskingName={5}", MakeDetails.MakeId, ModelDetails.ModelId, MakeDetails.MakeName, ModelDetails.ModelName, MakeDetails.MaskingName,ModelDetails.MaskingName));
 
+        }
+
+            <a rel="nofollow" href="@string.Format("/m/bike-review-contest/?q={0}" , q)" class="bw-ga" l='@string.Format("{0}_{1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName)' a="Clicked_RateThisBike" c="Model_Page">
+                <span class="border-light-left padding-left10"></span>
+                <span>Rate & Win</span>
+            </a>
+       
+      
     </div>
 </div>
 

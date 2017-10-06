@@ -113,7 +113,7 @@ namespace Bikewale.Mobile.Service
                      .RegisterType<ICacheManager, MemcacheManager>();
                         ObjServiceCenter = container.Resolve<IServiceCenterCacheRepository>();
                         _cities = ObjServiceCenter.GetServiceCenterCities(_makeId);
-                        if (_cities != null && _cities.Count() > 0)
+                        if (_cities != null && _cities.Any())
                         {
                             var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                             if (_city != null)

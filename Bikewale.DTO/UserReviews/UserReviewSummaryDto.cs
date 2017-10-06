@@ -31,6 +31,9 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("description"), DataMember]
         public string Description { get; set; }
 
+        [JsonProperty("sanitizedDescription"), DataMember]
+        public string SanitizedDescription { get; set; }
+
         [JsonProperty("shortDescription"), DataMember]
         public string ShortDescription { get { return Description.TruncateHtml(270); } }
 

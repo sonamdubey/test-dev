@@ -152,7 +152,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
 
                     numbersList = objCC.GetAllMaskingNumbers(dealerId);
 
-                    if (numbersList != null && numbersList.Count() > 0)
+                    if (numbersList != null && numbersList.Any())
                     {
                         return Ok(numbersList);
 
@@ -206,7 +206,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
                 if (makeId > 0)
                 {
                     _models = _objMfgCampaign.GetBikeModels(makeId);
-                    if (_models != null && _models.Count() > 0)
+                    if (_models != null && _models.Any())
                     {
                         IEnumerable<BikeModelDTO> objModelsDTO = BikeModelsMapper.ConvertV2(_models);
                         return Ok(objModelsDTO);
@@ -242,7 +242,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
                 {
                     _cities = _objMfgCampaign.GetCitiesByState(stateId);
 
-                    if (_cities != null && _cities.Count() > 0)
+                    if (_cities != null && _cities.Any())
                     {
                         IEnumerable<CityDTO> objCitiesDTO = CityMapper.Convert(_cities);
                         return Ok(objCitiesDTO);

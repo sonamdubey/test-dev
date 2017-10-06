@@ -42,7 +42,7 @@ namespace Bikewale.Models.PriceInCity
 
                 objData = new PriceInTopCitiesWidgetVM();
 
-                if (prices != null && prices.Count() > 0)
+                if (prices != null && prices.Any())
                 {
                     objData.PriceQuoteList = prices;
                     objData.BikeName = string.Format("{0} {1}", prices.First().Make, prices.First().Model);

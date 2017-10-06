@@ -75,7 +75,7 @@ namespace Bikewale.BindViewModels.Controls
                     popularUsedBikes = _objUsedBikes.GetPopularUsedBikes(topCount, cityId);
                 }
 
-                if (popularUsedBikes != null && popularUsedBikes.Count() > 0)
+                if (popularUsedBikes != null && popularUsedBikes.Any())
                 {
                     FetchedRecordsCount = popularUsedBikes.Count();
                     cityMaskingName = popularUsedBikes.FirstOrDefault().CityMaskingName;
@@ -119,7 +119,7 @@ namespace Bikewale.BindViewModels.Controls
                     if (objMostRecentBikes != null)
                         FetchedRecordsCount = objMostRecentBikes.Count();
 
-                    if (objMostRecentBikes != null && objMostRecentBikes.Count() > 0)
+                    if (objMostRecentBikes != null && objMostRecentBikes.Any())
                     {
                         MostRecentBikes objMostRecentUsedBikes = null;
                         objMostRecentUsedBikes = objMostRecentBikes.FirstOrDefault();

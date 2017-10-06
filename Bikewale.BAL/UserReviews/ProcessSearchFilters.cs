@@ -5,8 +5,6 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Notifications;
-using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +47,7 @@ namespace Bikewale.BAL.UserReviews.Search
             {
                 objResult = GetUserReviewsList(inputFilters);
 
-                if(objResult != null && objResult.Result != null && objResult.Result.Count() > skipTopCount)
+                if (objResult != null && objResult.Result != null && objResult.Result.Count() > skipTopCount)
                 {
                     objResult.Result = objResult.Result.Skip((int)skipTopCount);
                     objResult.TotalCount = objResult.TotalCount - (int)skipTopCount;
@@ -58,6 +56,59 @@ namespace Bikewale.BAL.UserReviews.Search
                 {
                     objResult = null;
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GetUserReviewsList");
+            }
+            return objResult;
+        }
+
+        public SearchResult GetUserReviewsList(ReviewDataCombinedFilter filter)
+        {
+            SearchResult objResult = null;
+            try
+            {
+                objResult = GetUserReviewsList(filter.InputFilter);
+
+                if (objResult != null && objResult.Result != null && objResult.TotalCount > 0 && filter.ReviewFilter != null)
+                    foreach (var review in objResult.Result)
+                    {
+                        if (review.Questions != null && !filter.ReviewFilter.RatingQuestion)
+                        {
+                            review.Questions = review.Questions.Where(x => x.Type != UserReviewQuestionType.Rating);
+                            review.RatingQuestionsCount = 0;
+                        }
+
+                        if (review.Questions != null && !filter.ReviewFilter.ReviewQuestion)
+                        {
+                            review.Questions = review.Questions.Where(x => x.Type != UserReviewQuestionType.Review);
+
+                        }
+
+                        if (!filter.ReviewFilter.BasicDetails)
+                        {
+                            review.OverallRating = null;
+                            review.Title = null;
+                            review.ReviewAge = null;
+                            review.Make = null;
+                            review.Model = null;
+                            review.OriginalImagePath = null;
+                            review.HostUrl = null;
+                        }
+
+                        if (filter.ReviewFilter.SantizeHtml)
+                        {
+                            review.SanitizedDescription = (review.SanitizedDescription != null) && (review.SanitizedDescription.Length > filter.ReviewFilter.SanitizedReviewLength) ? review.SanitizedDescription.Substring(0, (int)filter.ReviewFilter.SanitizedReviewLength) : review.SanitizedDescription;
+                            review.Description = null;
+                        }
+                        else
+                        {
+                            review.SanitizedDescription = null;
+                        }
+
+                    }
+
             }
             catch (Exception ex)
             {
@@ -174,143 +225,6 @@ namespace Bikewale.BAL.UserReviews.Search
                 ErrorClass objErr = new ErrorClass(ex, "GetUserReviewsList");
             }
             return objResult;
-        }
-
-        private void SetpaginationProperties(SearchResult objResult, InputFilters inputFilters)
-        {
-            // Set paging url and current page numbers
-            objResult.PageUrl = GetPrevNextUrl(inputFilters, objResult.TotalCount);
-            objResult.CurrentPageNo = inputFilters.PN;
-            if (!String.IsNullOrEmpty(objResult.PageUrl.PrevPageUrl))
-            {
-                objResult.PageUrl.PrevPageUrl = objResult.PageUrl.PrevPageUrl.Replace("+", "%2b");
-            }
-            if (!String.IsNullOrEmpty(objResult.PageUrl.NextPageUrl))
-            {
-                objResult.PageUrl.NextPageUrl = objResult.PageUrl.NextPageUrl.Replace("+", "%2b");
-            }
-        }
-
-
-        /// <summary>
-        /// Function to process all filters and populate the data into output entity
-        /// </summary>
-        /// <param name="objFilters">Input raw filters data</param>
-        /// <returns>Returns processed filters into ProcessedInputFilters entity</returns>
-        private ProcessedInputFilters ProcessFilters(InputFilters objFilters)
-        {
-            filterInputs = new ProcessedInputFilters();
-
-            try
-            {
-                filterInputs.Reviews = objFilters.Reviews;
-                filterInputs.Ratings = objFilters.Ratings;
-
-                if (!string.IsNullOrEmpty(objFilters.Make))
-                    ProcessMakes(objFilters.Make);
-
-                if (!string.IsNullOrEmpty(objFilters.Model))
-                    ProcessModels(objFilters.Model);
-
-                if (!string.IsNullOrEmpty(objFilters.CAT))
-                    ProcessCategories(objFilters.CAT);
-
-                if (objFilters.SkipReviewId > 0)
-                {
-                    filterInputs.SkipReviewId = objFilters.SkipReviewId;
-                }
-
-                filterInputs.SortOrder = objFilters.SO;
-
-                ProcessPaging(objFilters.PN, objFilters.PS);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviews.Search.ProcessFilters");
-
-            }
-
-            return filterInputs;
-        }
-
-
-
-        /// <summary>
-        /// Function to filter the makes list and populate it into array
-        /// </summary>
-        private void ProcessMakes(string make)
-        {
-            try
-            {
-                filterInputs.Make = make.Split('+');
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviews.Search.ProcessMakes");
-
-            }
-        }
-
-        /// <summary>
-        /// Function to filter the models list and populate it into array
-        /// </summary>
-        private void ProcessModels(string model)
-        {
-            try
-            {
-                filterInputs.Model = model.Split('+');
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviews.Search.ProcessModels");
-
-            }
-        }
-
-        /// <summary>
-        /// Process type of sellers
-        /// </summary>
-        private void ProcessCategories(string category)
-        {
-            try
-            {
-                filterInputs.Category = category.Split('+');
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviews.Search.ProcessCategories");
-
-            }
-        }
-
-        /// <summary>
-        /// Function to process the page filters
-        /// </summary>
-        private void ProcessPaging(int pgNo, int pgSize)
-        {
-            int startIndex = 0, endIndex = 0;
-            try
-            {
-                // If page no is not valid, then consider this as a first page
-                pgNo = pgNo <= 0 ? 1 : pgNo;
-
-                // If page size is not passed then take the default page size
-                pgSize = pgSize <= 0 ? Convert.ToInt32(Utility.BWConfiguration.Instance.PageSize) : pgSize;
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    Paging.GetStartEndIndex(pgSize, pgNo, out startIndex, out endIndex);
-
-                    filterInputs.StartIndex = startIndex;
-                    filterInputs.EndIndex = endIndex;
-                    filterInputs.PageNo = pgNo;
-                    filterInputs.PageSize = pgSize;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviews.Search.ProcessPaging");
-            }
         }
 
         /// <summary>

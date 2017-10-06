@@ -96,7 +96,7 @@ namespace Bikewale.Service.Controllers.Model
             {
                 objModelList = _modelCacheRepository.GetMostPopularBikes(totalCount, makeId);
 
-                if (objModelList != null && objModelList.Count() > 0)
+                if (objModelList != null && objModelList.Any())
                 {
                     // Auto map the properties
                     objDTOModelList = new MostPopularBikesList();
@@ -167,7 +167,7 @@ namespace Bikewale.Service.Controllers.Model
             {
                 objList = _modelRepository.GetAllModels(requestType);
 
-                if (objList != null && objList.Count() > 0)
+                if (objList != null && objList.Any())
                 {
                     objModelList = new List<BikeMakeModel>();
 

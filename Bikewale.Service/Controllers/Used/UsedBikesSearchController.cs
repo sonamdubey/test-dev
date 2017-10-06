@@ -43,7 +43,7 @@ namespace Bikewale.Service.Controllers.Used
 
                     Bikewale.DTO.Used.Search.SearchResult searchResult = UsedBikeSearchResult.Convert(objSearchList);
 
-                    if (searchResult != null && searchResult.Result != null && searchResult.Result.Count() > 0)
+                    if (searchResult != null && searchResult.Result != null && searchResult.Result.Any())
                     {
                         return Ok(searchResult);
                     }

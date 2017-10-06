@@ -1,0 +1,187 @@
+﻿@model Bikewale.Models.WriteReviewContestVM
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/user-review/review-contest.css' inline />";
+    Model.Page_JS_Path = "/m/src/user-review/review-contest.js";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+
+<link href="https://fonts.googleapis.com/css?family=Oxygen:300,400,700" rel="stylesheet">
+
+<section class="font-oxygen">
+    <div class="container contest-banner-container card-bottom-margin">
+        <div class="contest-banner"></div>
+        <div class="text-center">
+            <h1 class="font14 text-white text-unbold margin-bottom5">Help fellow bikers make the right choice.</h1>
+            <a href="javascript:void(0)" id="write-review-target" data-bind="click: function (d, e) { openBikeSelection(); }" class="btn btn-orange btn-130-34 text-uppercase" rel="nofollow">Write a review</a>
+        </div>
+    </div>
+</section>
+
+<section class="font-oxygen">
+    <div class="rewards-banner">
+        <p class="font13">Best review wins</p>
+		<p class="font14 font-bold">Amazon voucher worth&nbsp;<span class="text-unbold">&#x20b9;</span>&nbsp;2,000 every week</p>
+    </div>
+</section>
+
+<section class="font-oxygen">
+    <div id="specsTabsContentWrapper" class="container">
+        <div id="overallSpecsTopContent" class="bg-white position-rel">
+            <div id="overallSpecsTab" class="overall-specs-tabs-container">
+                <ul class="overall-specs-tabs-wrapper">
+                    <li data-tabs="#overviewContent" class="active">Overview</li>
+                    <li data-tabs="#cheatsheetContent">Cheatsheet</li>
+                    <li data-tabs="#winnersContent">Winners' reviews</li>
+                    <li data-tabs="#tncContent">T&amp;C</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="overviewContent" class="bw-model-tabs-data card-shadow padding-25-20 active margin-bottom40 text-center">
+            <h2 class="h2-heading">Write a review</h2>
+            <p class="font-light bottom-divider">Write a review of your bike - new or old, owned or sold - and help fellow riders make the right choice</p>
+
+            <p class="font14 text-light-black margin-bottom15">Write it right</p>
+            <ul class="guideline-list">
+                <li class="list-item">
+                    <span class="guideline-sprite truth-icon"></span>
+                    <p>Tell the truth</p>
+                </li>
+                <li class="list-item">
+                    <span class="guideline-sprite details-icon"></span>
+                    <p>Put in details</p>
+                </li>
+                <li class="list-item">
+                    <span class="guideline-sprite original-icon"></span>
+                    <p>Be original</p>
+                </li>
+            </ul>
+
+            <p class="font14 margin-bottom15 text-dark">Start writing your review</p>
+            <div id="bike-selection-form">
+                <div id="form-make-field" class="form-control-box form-input-box margin-bottom20" data-bind="click: function (d, e) { openBikeSelection(); }">
+                    <span data-bind="text: makeName">Select make</span>
+                    <span class="bwmsprite grey-right-icon"></span>
+                    <span class="bwmsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText"></div>
+                </div>
+                <div id="form-model-field" class="form-control-box form-input-box margin-bottom20" data-bind="click: function (d, e) { openModelSelection(); }">
+                    <span data-bind="text: modelName">Select model</span>
+                    <span class="bwmsprite grey-right-icon"></span>
+                    <span class="bwmsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText"></div>
+                </div>
+                <input id="submit-bike-selection" type="button" class="btn btn-orange btn-full-width text-uppercase" value="Write your review">
+
+                <div id="select-bike-cover-popup" data-bind="with: bikeSelection" class="cover-window-popup text-left">
+                    <div class="ui-corner-top">
+                        <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="click: closeBikePopup">
+                            <span class="bwmsprite fa-angle-left"></span>
+                        </div>
+                        <div class="cover-popup-header leftfloat">Select bikes</div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="bike-banner"></div>
+                    <div class="cover-popup-body" data-bind="visible: currentStep() == 1">
+                        <div class="cover-popup-body-head">
+                            <p class="no-back-btn-label head-label inline-block">Select Make</p>
+                        </div>
+                        <ul class="cover-popup-list with-arrow">
+                            @if (!(Model.Makes.Any(objModel => objModel.MakeId == Model.MakeId)))
+                            {
+                                <li data-bind="click: makeChanged"><span data-masking="@Model.MakeMaskingName" data-id="@Model.MakeId">@Model.MakeName</span></li>
+
+                            }
+
+                            @foreach (var make in Model.Makes)
+                            {
+                                <li data-bind="click: makeChanged"><span data-masking="@make.MaskingName" data-id="@make.MakeId">@make.MakeName</span></li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="cover-popup-body" data-bind="visible: currentStep() == 2">
+                        <div class="cover-popup-body-head">
+                            <div data-bind="click: modelBackBtn" class="body-popup-back cur-pointer inline-block">
+                                <span class="bwmsprite back-long-arrow-left"></span>
+                            </div>
+                            <p class="head-label inline-block">Select Model</p>
+                        </div>
+                        <ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
+                            <li data-bind="click: $parent.modelChanged">
+                                <span data-bind="text: modelName, attr: { 'data-id': modelId }"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cover-popup-loader-body" data-bind="visible: IsLoading()">
+                        <div class="cover-popup-loader"></div>
+                        <div class="cover-popup-loader-text font14" data-bind="text: LoadingText()"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="cheatsheetContent" class="bw-model-tabs-data card-shadow padding-25-20 margin-bottom40">
+            <h2 class="h2-heading text-center">Cheatsheet to win</h2>
+            <div class="collapsible-list font-light">
+                <ul class="main-content bullet-list">
+                    <li>Be original. Our examiners get a stroke on seeing copied text. Be kind to them.</li>
+                    <li>Write no less than 150 words. We are sure you have more to tell.</li>
+                    <li>Spill all the beans. Write all the pros and cons. The more the details, the more your chances of winning.</li>
+                </ul>
+                <ul class="more-content bullet-list more-list-content">
+                    <li>Keep calm and be good. The contest judges are incorruptible.</li>
+                    <li>Be patient. Winners will be announced every week. The winners will be notified via e-mail.</li>
+                </ul>
+                <a href="javascript:void(0)" class="read-more-list rightfloat margin-top10" rel="nofollow">Read more&nbsp;[+]</a>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        @if (Model.UserReviewsWinners != null && Model.UserReviewsWinners.Count() > 0)
+        {
+            @Html.Partial("~/Views/UserReview/_UserReviewContestWinners_Mobile.cshtml", Model)
+        }
+        <div id="tncContent" class="bw-model-tabs-data card-shadow padding-25-20 margin-bottom40">
+            <h2 class="h2-heading text-center">Terms &amp; Conditions</h2>
+            <div class="collapsible-list font-light">
+                <ul class="main-content bullet-list">
+                    <li>This promotion is brought to you by Automotive Exchange Private Limited (hereafter referred to as 'BikeWale'). Any participation in this regard is voluntary.</li>
+                    <li>This promotion is open only to bonafide citizens of India in their individual capacity who are above the age of 18 years as on 01 June 2017. Employees of BikeWale (and any group or subsidiaries companies) and their immediate family members (spouses, children and parents) are not eligible to win any gifts under this promotion.</li>
+                </ul>
+                <ul class="more-content bullet-list more-list-content">
+                    <li>The contest ends on 30 September 2017 and a winner will be announced every week on BikeWale. The winner will be notified via e-mail</li>
+                    <li>In order to participate, a user needs to submit a complete user review of any two wheeler available in India on&nbsp;<a href="https://www.bikewale.com/">www.bikewale.com</a>&nbsp;or via BikeWale's mobile app.</li>
+                    <li>Each user is allowed to submit as many entries as they like during the promotion period, however each user will be entitled to only one gift under the terms of this promotion, if selected, irrespective of the number of entries submitted.</li>
+                    <li>BikeWale will, at its own sole discretion, select and announce one or more winners within three (3) business days of the last day of the promotion period.</li>
+                    <li>The winner(s) will be gifted with an Amazon voucher worth Rs. 2000.</li>
+                    <li>BikeWale reserves the right to independently verify the authenticity of the information entered by the user, especially with respect to the originality of the review.</li>
+                    <li>All gifts will be dispatched to the winner(s) within thirty (30) days of the end of the promotion period.</li>
+                    <li>Winner(s) will be contacted individually on the e-mail address they provide while submitting their user review. If a winner remains non-contactable for a period of seven (7) days, BikeWale reserves the right to withdraw the gift and/or assign it to another user.</li>
+                    <li>This promotion cannot be combined with any other promotion, offer or discount from BikeWale.</li>
+                    <li>All decisions with respect to this promotion, including number of gifts and type of gifts, will be at the sole discretion of BikeWale and the same will be final and binding on a non-contestable basis.</li>
+                    <li>Gifts are non-transferable and cannot be exchanged for cash. No cash claim can be made in lieu of the gifts.</li>
+                    <li>BikeWale will not be held responsible for the suitability or merchantability of any gift.</li>
+                    <li>BikeWale shall not be liable for any direct or indirect loss or damage whatsoever that may be suffered, or for any personal injury that may be suffered, as a result of participating in this promotion.</li>
+                    <li>Any dispute arising out of or in connection with this promotion shall be subject to the exclusive jurisdiction of the courts in Mumbai only. The existence of a dispute, if any, shall not constitute a claim against BikeWale.</li>
+                    <li>BikeWale reserves the right to withdraw and / or alter any / all of the terms and conditions of this promotion at any time without prior notice.</li>
+                    <li>By participating in this promotion, the participants accept the terms and conditions as specified above in toto.</li>
+                </ul>
+                <a href="javascript:void(0)" class="read-more-list rightfloat margin-top10" rel="nofollow">Read more&nbsp;[+]</a>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <div id="specsFooter"></div>
+
+    </div>
+    <input type="hidden" id="makeId" value="@Model.MakeId" />
+    <input type="hidden" id="modelId" value="@Model.ModelId" />
+    <input type="hidden" id="displayMakeName" value="@Model.MakeName" />
+    <input type="hidden" id="displayModelName" value="@Model.ModelName" />
+    <input type="hidden" id="makeMaskingName" value="@Model.MakeMaskingName" />
+    <input type="hidden" id="modelMaskingName" value="@Model.ModelMaskingName" />
+</section>
+
+<span id="querystring" data-query="@Model.QueryString" />

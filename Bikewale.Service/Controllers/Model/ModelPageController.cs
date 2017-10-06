@@ -364,7 +364,7 @@ namespace Bikewale.Service.Controllers.Model
                             if (cityId != null && cityId.Value > 0 && !objModelPage.ModelDetails.Futuristic)
                             {
                                 int versionId = 0;
-                                if (pqEntity != null && pqEntity.VersionList != null && pqEntity.VersionList.Count() > 0)
+                                if (pqEntity != null && pqEntity.VersionList != null && pqEntity.VersionList.Any())
                                 {
                                     var deafultVersion = pqEntity.VersionList.FirstOrDefault(i => i.IsDealerPriceQuote);
                                     if (deafultVersion != null)

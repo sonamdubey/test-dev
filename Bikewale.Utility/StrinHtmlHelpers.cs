@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace System
 {
-    public static class StrinHtmlHelpers
+    public static class StringHtmlHelpers
     {
         /// <summary>
         /// Truncates a string containing HTML to a number of text characters, keeping whole words.
@@ -270,6 +270,137 @@ namespace System
             // trunctate the text, then remove the partial word at the end
             return Regex.Replace(text.HtmlTruncate(maxCharacters),
                 @"\s+[^\s]+$", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Compiled) + trailingText;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 2nd Oct 2017
+        /// Description : To strip html and simultaneously find the length of stripped html of source
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static Tuple<string, int> StripHtmlTagsWithLength(string source)
+        {
+            if (string.IsNullOrEmpty(source))
+            {
+                return Tuple.Create(string.Empty, 0);
+            }
+
+            var arr = new char[source.Length];
+            int arrayIndex = 0;
+            bool inside = false;
+
+            try
+            {
+
+                for (int i = 0; i < source.Length; i++)
+                {
+                    char let = source[i];
+                    if (let == '<')
+                    {
+                        inside = true;
+                        continue;
+                    }
+                    else if (let == '>')
+                    {
+                        inside = false;
+                        continue;
+                    }
+
+                    if (!inside)
+                    {
+                        arr[arrayIndex] = let;
+                        arrayIndex++;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return Tuple.Create(new string(arr, 0, arrayIndex), arrayIndex);
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 2nd Oct 2017
+        /// Description : To insert html in between the source html 
+        ///               If location is found i.e. index where html to be injected then 
+        ///               find nearest ending or closing tag and insert html after that
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="inputHtml"></param>
+        /// <param name="truncateAt"></param>
+        /// <returns></returns>
+        public static string InsertHTMLBetweenHTML(string source, string inputHtml, int truncateAt)
+        {
+            if (string.IsNullOrEmpty(source))
+            {
+                return inputHtml;
+            }
+
+            if (string.IsNullOrEmpty(inputHtml))
+            {
+                return source;
+            }
+
+            var arr = new char[source.Length + inputHtml.Length];
+            int arrayIndex = 0;
+            bool inside = false;
+
+            try
+            {
+
+                for (int i = 0, j = 0; i < source.Length; i++)
+                {
+                    char let = source[i];
+                    arr[j] = let;
+                    if (let == '<')
+                    {
+                        inside = true;
+                    }
+                    else if (let == '>')
+                    {
+                        inside = false;
+                    }
+
+                    if (!inside)
+                    {
+                        arrayIndex++;
+                        if (arrayIndex == truncateAt)
+                        {
+                            while (i < source.Length)
+                            {
+                                if (source[i] == '<')
+                                {
+                                    i--; j--;
+                                    break;
+                                }
+                                else if (source[i] == '>')
+                                {
+                                    i++; j++;
+                                    break;
+                                }
+                                arr[j++] = source[i++];
+                            }
+
+                            for (int k = 0; k < inputHtml.Length; k++, j++)
+                            {
+                                arr[j] = inputHtml[k];
+                            }
+                        }
+                        else j++;
+
+                    }
+                    else j++;
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return new string(arr);
         }
     }
 }

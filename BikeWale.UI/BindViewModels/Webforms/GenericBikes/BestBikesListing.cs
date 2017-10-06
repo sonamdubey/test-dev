@@ -147,7 +147,7 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
                 if (_objBestBikes != null)
                 {
                     objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType, cityId).Take(topCount);
-                    if (objBestBikesList != null && objBestBikesList.Count() > 0)
+                    if (objBestBikesList != null && objBestBikesList.Any())
                     {
                         FetchedRecordCount = objBestBikesList.Count();
 

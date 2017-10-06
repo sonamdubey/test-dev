@@ -5,7 +5,7 @@
     <!-- Manufacturer Campaign Ad section starts -->
     try
     {
-        @Html.Raw(Format.GetRenderedContent(String.Format("LeadCampaign_Mobile_AMP_{0}", Model.CampaignId), Model.LeadsHtmlMobile, Model).ConvertToAmpContent())
+        @Html.Raw(MvcHelper.GetRenderedContent(String.Format("LeadCampaign_Mobile_AMP_{0}", Model.CampaignId), Model.LeadsHtmlMobile, Model).ConvertToAmpContent())
     }
     catch (Exception ex)
     {
