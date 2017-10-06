@@ -86,6 +86,15 @@ var modelGallery = function () {
     self.photoList = ko.observableArray(modelImages);
     self.colorPhotoList = ko.observableArray(modelColorImages);
 
+    self.renderImage = function (hostUrl, originalImagePath, imageSize) {
+        if (originalImagePath && originalImagePath != null) {
+            return (hostUrl + '/' + imageSize + '/' + originalImagePath);
+        }
+        else {
+            return ('https://imgd.aeplcdn.com/' + imageSize + '/bikewaleimg/images/noimage.png?q=70');
+        }
+    }
+
     // video
     self.activeVideoTitle = ko.observable('');
     self.activeVideoIndex = ko.observable(0);
