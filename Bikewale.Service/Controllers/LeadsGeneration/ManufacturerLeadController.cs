@@ -119,7 +119,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                                 objNVC.Add("manufacturerLeadId", Convert.ToString(objLead.LeadId));
                                 RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                                 objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
-                                if (objLead.CampaignId== Utility.BWConfiguration.Instance.KawasakiCampaignId)
+                                if (objLead.CampaignId == Utility.BWConfiguration.Instance.KawasakiCampaignId)
                                     SMSKawasaki(objLead);
                             }
                             

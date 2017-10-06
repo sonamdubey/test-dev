@@ -29,7 +29,7 @@
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide">
                                 <div class="gallery-image-placeholder">
-                                    <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: ImageTitle, 'data-src': HostUrl + '/1056x594/' + OriginalImgPath }" src="" alt="" border="0" />
+                                    <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: ImageTitle, 'data-src':  (OriginalImgPath && OriginalImgPath != '') ? (HostUrl + '/1056x594/' + OriginalImgPath):'https://imgd.aeplcdn.com/1056x594/bikewaleimg/images/noimage.png?q=70' }" src="" alt="" border="0" />
                                 </div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                         <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
                             <div class="swiper-slide">
                                 <div class="gallery-image-placeholder">
-                                    <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: ImageTitle, 'data-src': HostUrl + '/1056x594/' + OriginalImgPath }" src="" alt="" border="0" />
+                                    <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: ImageTitle, 'data-src': (OriginalImgPath && OriginalImgPath != '') ? (HostUrl + '/1056x594/' + OriginalImgPath):'https://imgd.aeplcdn.com/1056x594/bikewaleimg/images/noimage.png?q=70' }" src="" alt="" border="0" />
                                 </div>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide">
                                 <div class="thumbnail-image-placeholder">
-                                    <img class="swiper-lazy" data-bind="attr: { alt: modelName + ' ' +ImageTitle, title:  modelName + ' ' +ImageTitle, 'data-src': HostUrl + '/110x61/' + OriginalImgPath }" src="" alt="" title="" border="0" />
+                                    <img class="swiper-lazy" data-bind="attr: { alt: modelName + ' ' +ImageTitle, title:  modelName + ' ' +ImageTitle, 'data-src': (OriginalImgPath && OriginalImgPath != '') ? (HostUrl + '/110x61/' + OriginalImgPath):'https://imgd.aeplcdn.com/110x61/bikewaleimg/images/noimage.png?q=70' }" src="" alt="" title="" border="0" />
                                 </div>
                             </div>
                         </div>
