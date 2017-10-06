@@ -12,7 +12,6 @@ using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -162,7 +161,7 @@ namespace Bikewale.Models.BikeModels
 
                     SetBreadcrumList();
                     SetPageJSONLDSchema();
-
+                    ShowInnovationBanner(_modelId);
                     #endregion Do Not change the sequence
                 }
             }
@@ -172,6 +171,28 @@ namespace Bikewale.Models.BikeModels
             }
 
             return _objData;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Sep 2017
+        /// Description :   To Show Innovation Banner
+        /// </summary>
+        /// <param name="_modelId"></param>
+        private void ShowInnovationBanner(uint _modelId)
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty
+                    (BWConfiguration.Instance.InnovationBannerModels))
+                {
+                    _objData.AdTags.ShowInnovationBannerDesktop = _objData.AdTags.ShowInnovationBannerMobile = BWConfiguration.Instance.InnovationBannerModels.Split(',').Contains(_modelId.ToString());
+                    _objData.AdTags.InnovationBannerGALabel = _objData.BikeName.Replace(" ", "_");
+                }
+            }
+            catch (Exception ex)
+            {
+                var err = new Notifications.ErrorClass(ex, String.Format("ShowInnovationBanner({0})", _modelId));
+            }
         }
 
         /// <summary>
@@ -251,7 +272,7 @@ namespace Bikewale.Models.BikeModels
                     SetAdditionalProperties(product);
                     SetSimilarBikesProperties(product);
                     _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
-                    _objData.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(product);                    
+                    _objData.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(product);
                 }
             }
             catch (Exception ex)
@@ -704,7 +725,7 @@ namespace Bikewale.Models.BikeModels
                         RatingQuestion = !IsMobile,
                         ReviewQuestion = false,
                         SantizeHtml = true,
-                        SanitizedReviewLength = (uint)( IsMobile ? 150 : 270) ,
+                        SanitizedReviewLength = (uint)(IsMobile ? 150 : 270),
                         BasicDetails = true
                     }
                 };
@@ -1302,6 +1323,8 @@ namespace Bikewale.Models.BikeModels
                             LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
                             LeadSourceId = (int)LeadSource,
                             PqSourceId = (int)PQSource,
+                            GACategory = "Model_Page",
+                            GALabel = string.Format("{0}_{1}", _objData.BikeName, _objData.City != null ? _objData.City.CityName : string.Empty),
                             LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
                             LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
                             LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
@@ -1325,7 +1348,7 @@ namespace Bikewale.Models.BikeModels
                         _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
                         _objData.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
 
-                        if (_objData.PQId == 0)
+                        if (_objData.PQId == 0 && _cityId != 0)
                         {
                             PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
                             objPQEntity.CityId = Convert.ToUInt16(_cityId);
@@ -1542,7 +1565,7 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-               
+
                 if (_objData != null && _objData.SimilarBikes != null && _objData.SimilarBikes.Bikes != null)
                 {
                     IList<Product> listSimilarBikes = new List<Product>();

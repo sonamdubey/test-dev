@@ -281,7 +281,7 @@ docReady(function () {
         update: function (element, valueAccessor, allBindingsAccessor) {
             if (ko.utils.unwrapObservable(valueAccessor())) {
                 var originalText = ko.utils.unwrapObservable(valueAccessor()),
-                    length = ko.utils.unwrapObservable(allBindingsAccessor().maxTextLength) || 65,
+                     length = parseInt(element.getAttribute("data-trimlength")) || 65,
                     truncatedText = originalText.length > length ? originalText.substring(0, length) + "..." : originalText;
                 ko.bindingHandlers.text.update(element, function () {
                     return truncatedText;

@@ -35,7 +35,7 @@
                     </div>
                     <div class="swiper-wrapper" data-bind="foreach: photoList">
                         <div class="swiper-slide">
-                            <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                            <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                         </div>
                     </div>
                     <div class="bwmsprite swiper-button-next gallery-type-next"></div>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
                         <div class="swiper-slide">
-                            <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                            <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                         </div>
                     </div>
                     <div class="bwmsprite swiper-button-next color-type-next"></div>
@@ -109,7 +109,7 @@
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide">
                                 <div class="thumbnail-image-placeholder">
-                                    <img class="swiper-lazy" data-bind="attr: { alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': HostUrl + '/110x61/' + OriginalImgPath }" src="" alt="" title="" border="0" />
+                                    <img class="swiper-lazy" data-bind="attr: { alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'110x61') }" src="" alt="" title="" border="0" />
                                     <span class="swiper-lazy-preloader"></span>
                                 </div>
                             </div>
@@ -157,4 +157,4 @@
     </div>
 </section>
 
-<script type="text/javascript" src="/m/src/photos/modelgallery.js"></script>
+<script type="text/javascript" src="@String.Format("{0}/m/src/photos/modelgallery.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>

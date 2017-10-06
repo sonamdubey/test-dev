@@ -203,18 +203,15 @@ namespace Bikewale.Models
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
 
-            url += "dealer-showroom-locator/";
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Showroom Locator"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}", url, "dealer-showroom-locator/"), "Showroom Locator"));
 
             if (objDealerDetails != null && objDealerDetails.Make != null)
             {
-                url = string.Format("{0}-dealer-showrooms-in-india/", objDealerDetails.Make.MaskingName);
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objDealerDetails.Make.MakeName + " Showrooms"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-dealer-showrooms-in-india/", url, objDealerDetails.Make.MaskingName), objDealerDetails.Make.MakeName + " Showrooms"));
 
                 if (objDealerDetails.CityDetails != null)
                 {
-                    url = string.Format("{0}-dealer-showrooms-in-{1}", objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName);
-                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Showroom in {1}", objDealerDetails.Make.MakeName, objDealerDetails.CityDetails.CityName)));
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-dealer-showrooms-in-{2}/", url, objDealerDetails.Make.MaskingName, objDealerDetails.CityDetails.CityMaskingName), string.Format("{0} Showroom in {1}", objDealerDetails.Make.MakeName, objDealerDetails.CityDetails.CityName)));
                 }
 
             }

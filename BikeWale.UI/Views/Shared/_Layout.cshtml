@@ -51,7 +51,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
-    <link rel='stylesheet' type='text/css' href='/css/bw-common-atf.css' />
+    <link rel='stylesheet' type='text/css' href='/css/bw-common-atf.css' inline/>
 
     <link href="//www.googletagservices.com" rel="dns-prefetch" />
     <link href="//ad.doubleclick.net" rel="dns-prefetch" />
@@ -269,8 +269,7 @@
             </div>
         </div>
     }
-
-    @if (Model.AdTags.Ad_Model_ATF_970x90)
+    else if (Model.AdTags.Ad_Model_ATF_970x90)
     {
         <div class="bg-white ">
             <div class="container">
@@ -287,7 +286,10 @@
                 <div class="clear"></div>
             </div>
         </div>
-   }
+    }else if (Model.AdTags.ShowInnovationBannerDesktop)
+    {
+        Html.RenderPartial("~/Views/Shared/Ads/Desktop/Ad970x90_InnovationBanner.cshtml",Model.AdTags);
+    }
 
 
     @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())

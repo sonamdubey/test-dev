@@ -9,7 +9,7 @@
     Model.Page_JS_Path = "/src/dealerpricequote.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_PQ_";
     Model.AdTags.AdId = "1395986297721";
-    Model.AdTags.Ad_970x90 = Model.DealerId <= 0;
+    Model.AdTags.Ad_970x90 = Model.DealerId <= 0 && !Model.AdTags.ShowInnovationBannerDesktop;
     Model.AdTags.Ad_300x250 = false;
     Model.AdTags.Ad_300x250BTF = false;
     Model.IsHeaderFix = true;
@@ -200,7 +200,24 @@
                                                 @Html.Raw("<span class='font22'>&#x20B9;</span>")&nbsp;<span class="font22 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.OnRoadPrice.ToString())</span>
                                             </td>
                                         </tr>
-                                        <tr></tr>
+                                        @if (Model.LeadCampaign!= null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextDesktop))
+                                        {
+                                        <tr>
+                                            <td align="left"></td>
+                                            <td align="right">
+                                                @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkDesktop))
+                                                {
+                                                    <a class="bw-ga font14" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}",Model.LeadCampaign.PriceBreakUpLinkDesktop,Model.LeadCampaign.CampaignId,Model.LeadCampaign.DealerId,Model.LeadCampaign.PQId,Model.LeadCampaign.LeadSourceId,Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount)" rel="nofollow">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop</a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="leadcapturebtn bw-ga font-14" id="pricebreakuplink" href="javascript:void(0)" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@Model.LeadCampaign.PopupSuccessMessage" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.LeadCampaign.Organization))" data-isemailrequired="@Model.LeadCampaign.EmailRequired" c="@Model.LeadCampaign.GACategory" a="Get_more_details_below_price_clicked" l="@Model.LeadCampaign.GALabel" rel="nofollow">
+                                                        @Model.LeadCampaign.PriceBreakUpLinkTextDesktop
+                                                     </a>
+                                                }
+                                            </td>
+                                        </tr>
+                                        }
                                         @if (Model.IsPrimaryDealerAvailable)
                                         {
                                             <tr>
