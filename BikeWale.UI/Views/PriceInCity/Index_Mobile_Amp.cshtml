@@ -135,7 +135,7 @@
                                 </tbody>
                             </table>
                             <!-- Price break up link property starts -->
-                            if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
+                            if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
                             {
                                 <div class="right-float">
                                     @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
