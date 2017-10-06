@@ -239,7 +239,6 @@ docReady(function () {
 
 
     ko.applyBindings(vmRateBikeVM, document.getElementById("bike-selection-form"));
-    //ko.applyBindings(vmRateBikeVM, document.getElementById("write-review-target"));
 
 
     $("#submit-bike-selection").click(function () {

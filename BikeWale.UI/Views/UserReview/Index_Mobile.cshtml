@@ -192,13 +192,13 @@
                 <p class="contest-banner__subtitle">Help others by sharing your experience.</p>
                 <div id="bike-selection-form">
                     <div id="form-make-field" class="form-control-box form-input-box margin-bottom20 margin-top20" data-bind="click: function (d, e) { openBikeSelection(); }" data-make-id="1">
-                        <span data-bind="text: makeName">Select model to participate</span>
+                        <span @*data-bind="text: makeName"*@>Select model to participate</span>
                         <span class="bwmsprite grey-right-icon"></span>
                         <span class="bwmsprite error-icon errorIcon"></span>
                         <div class="bw-blackbg-tooltip errorText"></div>
                     </div>
                     <div id="form-model-field" class="form-control-box form-input-box margin-bottom20" data-bind="click: function (d, e) { openModelSelection(); }">
-                        <span data-bind="text: modelName">Select model</span>
+                        <span @*data-bind="text: modelName"*@>Select model</span>
                         <span class="bwmsprite grey-right-icon"></span>
                         <span class="bwmsprite error-icon errorIcon"></span>
                         <div class="bw-blackbg-tooltip errorText"></div>
@@ -307,7 +307,7 @@
                             <div class="cover-popup-loader-text font14" data-bind="text: LoadingText()">Loading bike models...</div>
                         </div>
                     </div>
-                    <a href="/bike-review-contest/?csrc=19" class="btn btn-orange btn-180-40">Write and win &#x20b9; 1,000<span class="bwsprite btn-white-arrow"></span></a>
+                    <p class="btn btn-orange btn-180-40" data-bind="click: function (d, e) { openBikeSelection(); }">Write and win &#x20b9; 1,000<span class="bwsprite btn-white-arrow"></span></p>
                 </div>
             </div>
             <span id="querystring" data-query="v5EINN8tC9b114V0VycqiQ==">
