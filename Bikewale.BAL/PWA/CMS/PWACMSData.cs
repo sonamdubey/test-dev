@@ -99,8 +99,9 @@ namespace Bikewale.BAL.PWA.CMS
             }
             catch (Exception ex)
             {
-                ThreadContext.Properties["ArticleUrl"] = url;
-                ThreadContext.Properties["Component"] = componentName + ":" + containerId;
+                string newStr = string.IsNullOrEmpty(componentName) ? "Null Component" : componentName;
+                ThreadContext.Properties["ComponentName"] = newStr + " : " + containerId;
+                ThreadContext.Properties["NewsURL"] = string.IsNullOrEmpty(url) ? "Null News URL" : url;
                 _logger.Error(ex);
             }
 
@@ -136,6 +137,9 @@ namespace Bikewale.BAL.PWA.CMS
             }
             catch (Exception ex)
             {
+                string newStr = string.IsNullOrEmpty(componentName) ? "Null Component" : componentName;
+                ThreadContext.Properties["ComponentName"] = newStr+" : "+containerId;
+                ThreadContext.Properties["NewsURL"] = string.IsNullOrEmpty(url) ? "Null News URL" : url;
                 _logger.Error(ex);
             }
 
