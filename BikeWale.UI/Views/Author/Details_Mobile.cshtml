@@ -3,7 +3,7 @@
 
 @if (Model != null && Model.Author != null)
 {
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/authors.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/authors.css' inline />";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
@@ -18,7 +18,7 @@
             </div>
             <div class="detail-author__body">
                 <div class="detail-author__image">
-                    <img src="@string.Format("https://{0}/{1}/{2}", Model.Author.HostUrl, Model.Author.ProfileImage, Model.Author.ImageName)" alt="@Model.Author.AuthorName" title="@Model.Author.AuthorName" border="0">
+                    <img src="@string.Format("https://{0}/{1}/{2}?q=70", Model.Author.HostUrl, Model.Author.ProfileImage, Model.Author.ImageName)" alt="@Model.Author.AuthorName" title="@Model.Author.AuthorName" border="0">
                 </div>
                 <div class="detail-author__description">
                    @Model.Author.FullDescription 

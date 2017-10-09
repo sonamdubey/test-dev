@@ -4,7 +4,7 @@
 @if (Model != null)
 {
     {
-        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/authors.css' />";
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/authors.css' inline />";
         Model.AdTags.AdPath = "/1017752/BikeWale_News_";
         Model.AdTags.AdId = "1395995626568";
         Model.AdTags.Ad_300x250 = true;
@@ -51,7 +51,7 @@
                                             }
                                             else
                                             {
-                                                <img src="@string.Format("https://{0}/{1}/{2}", item.HostUrl, item.ProfileImage, item.ImageName)" alt="@item.AuthorName" title="@item.AuthorName" border="0">
+                                                <img src="@string.Format("https://{0}/{1}/{2}?q=70", item.HostUrl, item.ProfileImage, item.ImageName)" alt="@item.AuthorName" title="@item.AuthorName" border="0">
                                             }
                                         </a>
                                     </div>
