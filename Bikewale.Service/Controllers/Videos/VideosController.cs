@@ -240,8 +240,8 @@ namespace Bikewale.Service.Videos.Controllers
 
                 if (Request.Headers.Contains("platformId"))
                 {
-                    string platformId = Request.Headers.GetValues("platformId").First().ToString();
-                    if (platformId.Equals("3"))
+                    var platformId = Request.Headers.GetValues("platformId").First();
+                    if (platformId != null && platformId.ToString().Equals("3"))
                     {
                         var objVideosList = GetVideosByModelIdViaGrpcV2(pageNo, pageSize, modelId);
 

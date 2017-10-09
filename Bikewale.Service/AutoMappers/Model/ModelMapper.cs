@@ -585,7 +585,7 @@ namespace Bikewale.Service.AutoMappers.Model
                                     CategoryId = 2,
                                     CategoryName = "Videos",
                                     CategoryCount = objModelPage.ModelDetails.VideosCount,
-                                    DataUrl = string.Format("api/model/{0}/videos/", modelId)
+                                    DataUrl = string.Format("api/v2/videos/pn/1/ps/{0}/model/{1}/", objModelPage.ModelDetails.VideosCount, modelId)
                                 }
                             );
                     }
@@ -625,8 +625,8 @@ namespace Bikewale.Service.AutoMappers.Model
         internal static IEnumerable<ModelColorPhoto> Convert(IEnumerable<ModelColorImage> objAllPhotosEntity)
         {
             Mapper.CreateMap<ColorCodeBase, ColorCode>();
-            Mapper.CreateMap<ModelColorBase, ModelColorDto>();
-            Mapper.CreateMap<ModelColorImage, ModelColorPhoto>();
+            Mapper.CreateMap<ModelColorImage, ModelColorPhoto>()
+                .ForMember(dest => dest.ModelColorId, opt => opt.MapFrom(src => src.Id)); 
             return Mapper.Map<IEnumerable<ModelColorImage>, IEnumerable<ModelColorPhoto>>(objAllPhotosEntity);
         }
     }

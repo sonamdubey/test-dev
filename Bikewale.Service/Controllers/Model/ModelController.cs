@@ -259,8 +259,8 @@ namespace Bikewale.Service.Controllers.Model
                 }
                 if (Request.Headers.Contains("platformId"))
                 {
-                    string platformId = Request.Headers.GetValues("platformId").First().ToString();
-                    if (platformId == "3")
+                    var platformId = Request.Headers.GetValues("platformId").First();
+                    if (platformId != null && platformId.ToString().Equals("3"))
                     {
                         BikeModelPageEntity objModelPage = null;
                         objModelPage = _modelsContent.GetModelPageDetails(modelId);
@@ -296,8 +296,8 @@ namespace Bikewale.Service.Controllers.Model
                 }
                 if (Request.Headers.Contains("platformId"))
                 {
-                    string platformId = Request.Headers.GetValues("platformId").First().ToString();
-                    if (platformId == "3")
+                    var platformId = Request.Headers.GetValues("platformId").First();
+                    if (platformId != null && platformId.ToString().Equals("3"))
                     {
                         IEnumerable<ModelColorImage> objAllPhotosEntity = _modelsContent.GetModelColorPhotos(modelId);
                         objAllPhotos = ModelMapper.Convert(objAllPhotosEntity);

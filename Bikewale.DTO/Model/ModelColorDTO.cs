@@ -8,8 +8,8 @@ namespace Bikewale.DTO.Model
     /// </summary>
     public class ModelColorDto
     {
-        [JsonProperty("id")]
-        public uint Id { get; set; }
+        [JsonProperty("modelColorId")]
+        public uint ModelColorId { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("colorCodes")]
