@@ -26,7 +26,7 @@
     width: 100%;
     height: 70px;
     background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/bg-animation.png') repeat-x;
-    animation: move_background 5s linear infinite;
+    animation: move_background 8s linear infinite;
 }
 .vehicle-container {
     width: 98px;
@@ -57,9 +57,9 @@
     -moz-border-radius: 30px;
     border-radius: 30px;
     background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/tyre-msite.png') no-repeat;
-    -webkit-animation: spin 0.2s linear infinite;
-    -moz-animation: spin 0.2s linear infinite;
-    animation: spin 0.2s linear infinite;
+    -webkit-animation: spin 0.5s linear infinite;
+    -moz-animation: spin 0.5s linear infinite;
+    animation: spin 0.5s linear infinite;
 }
 .front-tyre {
     top: -22px;
@@ -79,12 +79,12 @@ button {
     position: absolute;
 }
 button.left {
-    left: 0;
-    top: 20px;
+    left: 15px;
+    top: 36px;
 }
 button.right {
-    right: 0;
-    top: 20px;
+    right: 15px;
+    top: 36px;
 }
 
 /*containers*/
@@ -126,6 +126,7 @@ button.right {
     top: 75%;
     left: 63%;
     color: #0288d1;
+    display: block;
 }
 
 .font-bold {
@@ -207,6 +208,13 @@ button.right {
     display: inline-block;
     font-size: 14px;
     float: right;
+    padding: 10px;
+}
+.view-prev-link {
+    display: inline-block;
+    font-size: 14px;
+    float: left;
+    padding: 10px;
 }
 .previous-link {
     display: inline-block;
@@ -216,10 +224,11 @@ button.right {
 /*popup 2*/
 .banner-popup__top-block {
     position: absolute;
+    width: 100%;
 }
 .banner-popup__top-head {
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 14px;
     padding-left: 20px;
     font-weight: 600;
     display: inline-block;
@@ -278,6 +287,7 @@ button.right {
 .banner-photos-swiper .swiper-card {
     width: 288px;
     text-align: center;
+    margin-right: 5px;
 }
 .banner-photos-swiper .swiper-card {
     margin-left: 0;
@@ -322,7 +332,8 @@ button.right {
 }
 
 .banner-popup__360view {
-    height: 300px;
+    height: 380px;
+    padding-top: 80px;
 }
 .popup_varient-carousel {
     height: 170px;
@@ -353,7 +364,7 @@ button.right {
 
 }
 .varient-carousel__details-block {
-    font-size: 10px;
+    font-size: 13px;
     color: #a8afb3;
     text-transform: capitalize;
 }
@@ -367,14 +378,29 @@ button {
     position: absolute;
 }
 button.left {
-    left: 0;
-    top: 20px;
+    height: 10px;
+    width: 10px;
+    border: solid black;
+    border-width: 0px 1px 1px 0px;
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    display: block;
 }
-button.right {
+/*button.right {
     right: 0;
     top: 20px;
+}*/
+button.right {
+    height: 10px;
+    width: 10px;
+    border: solid black;
+    border-width: 0px 1px 1px 0px;
+    -webkit-transform: rotate(320deg);
+    -moz-transform: rotate(320deg);
+    -o-transform: rotate(320deg);
+    display: block;
 }
-
 
 /*animate*/
 .animated {
@@ -404,6 +430,20 @@ button.right {
 
 .fadeInRight {
     animation-name: fadeInRight;
+}
+
+@@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
 }
 
 @@keyframes zoomIn {
@@ -437,76 +477,75 @@ button.right {
             <span class="vehicle-container__body"></span>
         </div>
         <div id="banner1" class="banner-screen" data-position="10">
-            <div class="banner-screen__content1">
+            <div class="banner-screen__content1" data-animation="fadeInRight">
                 @*<span class="banner__make--icon"></span>*@
             </div>
-            <div class="banner-screen__content2">
+            <div class="banner-screen__content2" data-animation="fadeIn">
                 <p class="font12 text-bold">New</p>
                 <p class="font13 capitalize font-bold">Maestro Edge</p>
             </div>
-            <div class="banner-screen__content3">
+            <div class="banner-screen__content3" data-animation="fadeInRight">
                 <p class="font12 capitalize text-bold">limited festive offer</p>
             </div>
 
-            <div class="banner-screen__content4">
+            <div class="banner-screen__content4" data-animation="fadeInRight">
                 <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
             </div>
         </div>
         <div id="banner2" class="banner-screen" data-position="10">
-            <div class="banner-screen__content1">
+            <div class="banner-screen__content1" data-animation="fadeInRight">
                 @*<span class="banner__make--icon"></span>*@
             </div>
-            <div class="banner-screen__content2">
+            <div class="banner-screen__content2" data-animation="fadeIn">
                 <p class="font12 text-bold">New</p>
                 <p class="font13 capitalize font-bold">Maestro Edge</p>
             </div>
-            <div class="banner-screen__content3">
+            <div class="banner-screen__content3" data-animation="fadeInRight">
                 <p class="font12 capitalize text-bold">Advanced features</p>
             </div>
 
-            <div class="banner-screen__content4">
+            <div class="banner-screen__content4" data-animation="fadeInRight">
                 <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
             </div>
         </div>
         <div id="banner3" class="banner-screen" data-position="10">
-            <div class="banner-screen__content1">
+            <div class="banner-screen__content1"  data-animation="fadeInRight">
                 @*<span class="banner__make--icon"></span>*@
             </div>
-            <div class="banner-screen__content2">
+            <div class="banner-screen__content2" data-animation="fadeIn">
                 <p class="font12 text-bold">New</p>
                 <p class="font13 capitalize font-bold">Maestro Edge</p>
             </div>
-            <div class="banner-screen__content3">
+            <div class="banner-screen__content3" data-animation="fadeInRight">
                 <p class="font12 capitalize text-bold">experience 360<sup class="font8">o</sup> view</p>
             </div>
 
-            <div class="banner-screen__content4">
+            <div class="banner-screen__content4" data-animation="fadeInRight">
                 <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
             </div>
         </div>
 
         <button class="arrow left">
-            <svg width="20px" height="25px" viewBox="0 0 50 80" xml:space="preserve">
+            @*<svg width="20px" height="25px" viewBox="0 0 50 80" xml:space="preserve">
             <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 " />
-		  </svg>
+		  </svg>*@
         </button>
         <button class="arrow right">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="25px" viewBox="0 0 50 80" xml:space="preserve">
-            <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="
-                      0.375,0.375 45.63,38.087 0.375,75.8 " />
-		  </svg>
+            @*<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="25px" viewBox="0 0 50 80" xml:space="preserve">
+            <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8 " />
+		  </svg>*@
         </button>
     </div>
     <div class="banner-popup">
         <span class="popup-close bwmsprite bw-ga" c="Innovation_Banner" a="Popup_Close_Clicked" l="@Model.InnovationBannerGALabel"></span>
         <div class="banner1-popup" data-flag="0">
             <div class="popup-container">
-                <div class="banner-popup__top-block  banner-element">
+                <div class="banner-popup__top-block  banner-element"  data-animation="fadeInRight">
                     <span class="banner-popup__make-icon"></span>
                 </div>
-                <div class="banner1-image banner-element">
+                <div class="banner1-image banner-element"  data-animation="fadeIn">
                 </div>
-                <div class="benefit-list banner-element">
+                <div class="benefit-list banner-element"  data-animation="fadeIn">
                     <span class="benefit-list__head block">Limited Festive Offer</span>
                     <span class="block padding-bottom25 font13">Bring home a new Hero scooter and get</span>
                     <ul class="benefit-list__ul">
@@ -525,22 +564,25 @@ button.right {
                     </span>
                     <span class="warrantyunit-icon"></span>
                 </div>
-                <div class="grid-12 alpha omega margin-top5 banner-element">
+                <div class="grid-12 alpha omega margin-top5 banner-element"  data-animation="fadeInRight">
                     <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699877&PluID=0&ord=@currentTimestamp" class="btn btn-orange banner__explore-more bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know more</a>
                 </div>
-                @*<a href="javascript:void(0)" class="view-more-link banner-element bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel" >View features >></a>*@
+                <div class="grid-12 alpha omega margin-top10 banner-element" data-animation="fadeIn">
+                    <a href="javascript:void(0)" class="view-more-link next-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel">View features >></a>
 
+                </div>
+                
             </div>
 
         </div>
 
         <div class="banner2-popup" data-flag="0">
             <div class="popup-container">
-                <div class="banner-popup__top-block  banner-element">
+                <div class="banner-popup__top-block  banner-element"  data-animation="fadeInRight">
                     <span class="banner-popup__make-icon"></span>
                     <span class="banner-popup__top-head">Advanced features</span>
                 </div>
-                <div class="banner-popup__carousel  banner-element swiper-block">
+                <div class="banner-popup__carousel  banner-element swiper-block" data-animation="fadeIn">
                     <p class="capitalize font13 padding-bottom10 font-bold padding-left5">top 5 hero maestro edge features</p>
                     <div id="banner-photos-swiper" class="swiper-container noSwiper banner-photos-swiper">
 
@@ -548,7 +590,7 @@ button.right {
                             <div class="swiper-slide">
                                 <div class="swiper-card">
                                     <div class="swiper-image-preview">
-                                        <img src="https://imgd.aeplcdn.com//393x221//n/bw/models/colors/bajaj-pulsar-rs200-demon-black-1486469764928.jpg?q=85" alt="" title="" border="0" />
+                                        <img src="/images/col1.jpg" alt="" title="" border="0" />
                                     </div>
                                     <div class="swiper-details-block">
                                         <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
@@ -558,7 +600,7 @@ button.right {
                             <div class="swiper-slide">
                                 <div class="swiper-card">
                                     <div class="swiper-image-preview">
-                                        <img src="https://imgd.aeplcdn.com//393x221//n/bw/models/colors/bajaj-pulsar-rs200-demon-black-1486469764928.jpg?q=85" alt="" title="" border="0" />
+                                        <img src="/images/col1.jpg" alt="" title="" border="0" />
                                     </div>
                                     <div class="swiper-details-block">
                                         <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
@@ -568,7 +610,7 @@ button.right {
                             <div class="swiper-slide">
                                 <div class="swiper-card">
                                     <div class="swiper-image-preview">
-                                        <img src="https://imgd.aeplcdn.com//393x221//n/bw/models/colors/bajaj-pulsar-rs200-demon-black-1486469764928.jpg?q=85" alt="" title="" border="0" />
+                                        <img src="/images/col1.jpg" alt="" title="" border="0" />
                                     </div>
                                     <div class="swiper-details-block">
                                         <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
@@ -580,8 +622,14 @@ button.right {
                     </div>
                     @*<span class="warrantyunit-sm-icon"></span>*@
                 </div>
-                <div class="grid-12 alpha omega margin-top5 banner-element">
+                <div class="grid-12 alpha omega margin-top5 banner-element" data-animation="fadeInRight">
                     <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699877&PluID=0&ord=@currentTimestamp" class="btn btn-orange banner__explore-more bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know more</a>
+                </div>
+                <div class="grid-12 alpha omega margin-top10 banner-element" data-animation="fadeIn">
+                    <a href="javascript:void(0)" class="view-prev-link prev-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel"><< View offers</a>
+ 
+                   <a href="javascript:void(0)" class="view-more-link next-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel">View 360 >></a>
+
                 </div>
                 @*<a href="javascript:void(0)" class="view-more-link banner-element bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel" >View features >></a>*@
 
@@ -592,52 +640,66 @@ button.right {
 
         <div class="banner3-popup" data-flag="0">
             <div class="popup-container">
-                <div class="banner-popup__top-block  banner-element">
+                <div class="banner-popup__top-block  banner-element" data-animation="fadeInRight">
                     <span class="banner-popup__make-icon"></span>
                     <span class="banner-popup__top-head">360<sup class="font7">o</sup> view</span>
                 </div>
-                <div class="banner-popup__carousel  banner-element swiper-block">
-                    <p class="capitalize font13 padding-bottom10 font-bold padding-left5">top 5 hero maestro edge features</p>
-                    <div id="banner-photos-swiper" class="swiper-container noSwiper banner-photos-swiper">
+                <div class="banner-popup__360view banner-element"  data-animation="fadeIn">
 
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="swiper-card">
-                                    <div class="swiper-image-preview">
-                                        <img src="https://imgd.aeplcdn.com//393x221//n/bw/models/colors/bajaj-pulsar-rs200-demon-black-1486469764928.jpg?q=85" alt="" title="" border="0" />
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="swiper-card">
-                                    <div class="swiper-image-preview">
-                                        <img src="https://imgd.aeplcdn.com//393x221//n/bw/models/colors/bajaj-pulsar-rs200-demon-black-1486469764928.jpg?q=85" alt="" title="" border="0" />
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="swiper-card">
-                                    <div class="swiper-image-preview">
-                                        <img src="https://imgd.aeplcdn.com//393x221//n/bw/models/colors/bajaj-pulsar-rs200-demon-black-1486469764928.jpg?q=85" alt="" title="" border="0" />
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-pagination"></div>
-                    </div>
-                    @*<span class="warrantyunit-sm-icon"></span>*@
                 </div>
-                <div class="grid-12 alpha omega margin-top5 banner-element">
+                <div class="popup_varient-carousel banner-element" data-animation="fadeInRight">
+                    <div class="font14 text-x-light padding-top10 padding-bottom10">Available in below colors</div>
+                    <ul>
+                        <li>
+                            <div class="varient-carousel__image-preview">
+                                <img src="/images/col3.png" alt="" title="" />
+                            </div>
+                            <div class="varient-carousel__details-block">
+                                matte blue
+                            </div>
+                        </li>
+                        <li>
+                            <div class="varient-carousel__image-preview">
+                                <img src="/images/col3.png" alt="" title="" />
+                            </div>
+                            <div class="varient-carousel__details-block">
+                                matte blue
+                            </div>
+                        </li>
+                        <li>
+                            <div class="varient-carousel__image-preview">
+                                <img src="/images/col3.png" alt="" title="" />
+                            </div>
+                            <div class="varient-carousel__details-block">
+                                matte blue
+                            </div>
+                        </li>
+                        <li>
+                            <div class="varient-carousel__image-preview">
+                                <img src="/images/col3.png" alt="" title="" />
+                            </div>
+                            <div class="varient-carousel__details-block">
+                                matte blue
+                            </div>
+                        </li>
+                        <li>
+                            <div class="varient-carousel__image-preview">
+                                <img src="/images/col3.png" alt="" title="" />
+                            </div>
+                            <div class="varient-carousel__details-block">
+                                matte blue
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+                <div class="grid-12 alpha omega margin-top5 banner-element" data-animation="fadeInRight">
                     <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699877&PluID=0&ord=@currentTimestamp" class="btn btn-orange banner__explore-more bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know more</a>
+                </div>
+                <div class="grid-12 alpha omega banner-element" data-animation="fadeIn">
+                    <a href="javascript:void(0)" class="view-prev-link prev-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel"><< View features</a>
+
                 </div>
                 @*<a href="javascript:void(0)" class="view-more-link banner-element bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel" >View features >></a>*@
 
@@ -661,12 +723,27 @@ button.right {
                 var animationend = 'webkitanimationend mozanimationend msanimationend oanimationend animationend';
                 this.addClass('animated ' + animationname).one(animationend, function () {
                     $(this).removeClass('animated ' + animationname);
+                    var swiperElem = $(this).find(".swiper-container");
+                    if (swiperElem.length) {
+                        $(swiperElem).data('swiper').update(true);
+                    }
                     if (callback) {
                         callback();
                     }
                 });
                 return this;
             }
+        });
+
+
+        //carousel
+
+        var bannercarousel = new Swiper('.banner-photos-swiper.swiper-container', {
+            direction: 'horizontal',
+            pagination: '.swiper-pagination',
+            centeredSlides: true,
+            paginationClickable: true,
+            slidesPerView: 'auto'
         });
 
         function animateBannerContent(elemId) {
@@ -678,24 +755,25 @@ button.right {
         function recursiveAnimate(elem) {
 
             var nextElem = $(elem).next();
-            if ($(elem).children(".swiper-container").length) {
-                bannercarousel.update(true);
-            }
-            if (nextElem.length >= 0) {
-                if (navigator.userAgent.indexOf('UCBrowser') >= 0) {
-                    $(elem).show();
-                    if (nextElem.length > 0) {
-                        recursiveAnimate($(nextElem));
-                    }
-                } else {
-                    animateContent($(elem), "fadeInRight", function () {
-                        var nextElem = $(elem).next();
+
+            if ($(elem).attr('class') != 'banner-screen__content4') {
+                //if (nextElem.length >= 0) {
+                    if (navigator.userAgent.indexOf('UCBrowser') > 0) {
+                        $(elem).show();
                         if (nextElem.length > 0) {
                             recursiveAnimate($(nextElem));
                         }
-                    });
-                }
+                    } else {
+                        animateContent($(elem), ""+$(elem).attr('data-animation')+"", function () {
+                            var nextElem = $(elem).next();
+                            if (nextElem.length > 0) {
+                                recursiveAnimate($(nextElem));
+                            }
+                        });
+                    }
+                //}
             }
+
             
         }
         function animateContent(element, animationName, callBack) {
@@ -703,7 +781,8 @@ button.right {
         }
 
         function showBanner(bannerId) {
-            $(".banner-screen, .banner-screen div").hide();
+            $(".banner-screen, .banner-screen div").not('.banner-screen__content4').hide();
+            //$('.banner-screen__content4').show();
             $("#" + bannerId).show();
         }
 
@@ -714,25 +793,72 @@ button.right {
             animateBannerContent("banner1");
         });
 
+        function popupClose(element) {
+            var popupContainer = element.closest('.popup-container');
+
+            var bannerPopup = element.closest('.banner-popup').find("[data-flag = '1']");
+            $('.' + bannerPopup.attr('class') + ' .popup-container').find('.banner-element').hide();
+            element.closest('.banner-popup').toggle();
+            bannerPopup.attr('data-flag', '0').hide();
+
+            $('body').removeClass('lock-browser-scroll');
+
+        }
+        $('.popup-close').on('click', function () {
+            popupClose($(this));
+            window.history.back();
+        });
+
         $(".expand-popup").on('click', function () {
             var popupBannerId = $(this).closest('.banner-screen').attr('id');
             var bannerPopup = $(this).closest('.container').find('.banner-popup');
             bannerPopup.show();
 
-            var elemClass = bannerPopup.find(".popup-container").attr('class');
-            recursiveAnimate($('.' + popupBannerId + '-popup .' + elemClass).children()[0]);
+            recursiveAnimate($('.' + popupBannerId + '-popup .popup-container').children()[0]);
 
             bannerPopup.find('.' + popupBannerId + '-popup').attr('data-flag', '1').show();
+            //bannerPopup.find('.' + popupBannerId + '-popup').attr('data-flag', '1');
+
             $('body').addClass('lock-browser-scroll');
-        });
-        $('.popup-close').on('click', function () {
-            var bannerPopup = $(this).closest('.banner-popup').find("[data-flag = '1']");
-            $(this).closest('.banner-popup').toggle();
-            bannerPopup.attr('data-flag', '0').hide();
-            $('.' + bannerPopup.attr('class') + ' .popup-container').find('.banner-element').hide();
-            $('body').removeClass('lock-browser-scroll');
+            window.history.pushState('addPopup', "", "");
         });
 
+        $('.next-popup').on('click', function () {
+ 
+            popupClose($(this));
+            var popupContainer = $(this).closest('.popup-container');
+
+            var popupBannerId = popupContainer.parent().next('div');
+            popupBannerId.show();
+            $('.banner-popup').show();
+
+
+            $('.banner-popup').find('.' + popupBannerId.attr('class')).attr('data-flag', '1').show();
+            recursiveAnimate($('.' + popupBannerId.attr('class') + ' .popup-container').children()[0]);
+        });
+       
+
+        $('.prev-popup').on('click', function () {
+            var popupContainer = $(this).closest('.popup-container');
+
+            var bannerPopup = $(this).closest('.banner-popup').find("[data-flag = '1']");
+            $('.' + bannerPopup.attr('class') + ' .popup-container').find('.banner-element').hide();
+            $(this).closest('.banner-popup').toggle();
+            bannerPopup.attr('data-flag', '0').hide();
+
+            $('body').removeClass('lock-browser-scroll');
+
+
+
+
+            var popupBannerId = popupContainer.parent().prev('div');
+            popupBannerId.show();
+            $('.banner-popup').show();
+
+
+            $('.banner-popup').find('.' + popupBannerId.attr('class')).attr('data-flag', '1').show();
+            recursiveAnimate($('.' + popupBannerId.attr('class') + ' .popup-container').children()[0]);
+        });
         var totalScreens = 3;
 
         $(".arrow").on('click', function () {
@@ -743,11 +869,7 @@ button.right {
                 bannerId = getPrevScreenId();
             if (bannerId) {
                 showBanner(bannerId);
-                $(".vehicle-container").animate({
-                    'left': $("#" + bannerId).attr("data-position") + "%"
-                }, function () {
-                    animateBannerContent(bannerId);
-                });
+                animateBannerContent(bannerId);
             } else {
                 return false;
             }
@@ -773,15 +895,11 @@ button.right {
                 return false;
         }
 
-        //carousel
-
-        var bannercarousel = new Swiper('.banner-photos-swiper.swiper-container', {
-            direction: 'horizontal',
-            pagination: '.swiper-pagination',
-            centeredSlides: true,
-            paginationClickable: true,
-            slidesPerView: 'auto',
+        $(window).on("popstate", function (e) {
+            if ($('.banner-popup').is(":visible")) {
+                popupClose($('.popup-close'));
+            }
         });
-
     });
+
 </script>
