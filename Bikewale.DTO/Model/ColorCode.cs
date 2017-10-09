@@ -13,7 +13,7 @@ namespace Bikewale.DTO.Model
         public uint ModelColorId { get; set; }
         [JsonProperty("hexCode")]
         public string HexCode { get; set; }
-        [JsonProperty("isActive")]
+        [JsonProperty("isActive"), JsonIgnore]
         public bool IsActive { get; set; }
     }
 }

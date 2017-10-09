@@ -7,13 +7,13 @@ namespace Bikewale.DTO.Model
     /// </summary>
     public class ModelColorPhoto: ModelColorDto
     {
-        [JsonProperty("host")]
+        [JsonProperty("hostUrl")]
         public string Host { get; set; }
         [JsonProperty("originalImagePath")]
         public string OriginalImagePath { get; set; }
         [JsonProperty("isImageExists")]
         public bool IsImageExists { get; set; }
-        [JsonProperty("bikeModelColoeId")]
+        [JsonProperty("bikeModelColorId")]
         public uint BikeModelColorId { get; set; }
         [JsonProperty("imageCategory")]
         public string ImageCategory { get; set; }

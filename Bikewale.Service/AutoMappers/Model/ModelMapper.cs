@@ -569,8 +569,9 @@ namespace Bikewale.Service.AutoMappers.Model
                         objGalleryComponent.Add(
                                 new ModelGalleryComponent()
                                 {
-                                    ComponentType = 1,
-                                    DisplayText = string.Format("Photos({0})", objModelPage.ModelDetails.PhotosCount),
+                                    CategoryId = 1,
+                                    CategoryName = "Photos",
+                                    CategoryCount = objModelPage.ModelDetails.PhotosCount,
                                     DataUrl = string.Format("api/model/{0}/photos/", modelId)
                                 }
                             );
@@ -581,8 +582,9 @@ namespace Bikewale.Service.AutoMappers.Model
                         objGalleryComponent.Add(
                                 new ModelGalleryComponent()
                                 {
-                                    ComponentType = 2,
-                                    DisplayText = string.Format("Videos({0})", objModelPage.ModelDetails.VideosCount),
+                                    CategoryId = 2,
+                                    CategoryName = "Videos",
+                                    CategoryCount = objModelPage.ModelDetails.VideosCount,
                                     DataUrl = string.Format("api/model/{0}/videos/", modelId)
                                 }
                             );
@@ -593,8 +595,9 @@ namespace Bikewale.Service.AutoMappers.Model
                         objGalleryComponent.Add(
                                 new ModelGalleryComponent()
                                 {
-                                    ComponentType = 3,
-                                    DisplayText = string.Format("Colours({0})", objModelPage.colorPhotos.Count()),
+                                    CategoryId = 3,
+                                    CategoryName = "Colours",
+                                    CategoryCount = objModelPage.colorPhotos.Count(),
                                     DataUrl = string.Format("api/model/{0}/colorphotos/", modelId)
                                 }
                             );
@@ -605,7 +608,7 @@ namespace Bikewale.Service.AutoMappers.Model
 
                 if(component != null)
                 {
-                    objModelGallery.SelectedTypeId = component.ComponentType;
+                    objModelGallery.SelectedCategoryId = component.CategoryId;
                     objModelGallery.GalleryComponents = objGalleryComponent;
                 } 
             }

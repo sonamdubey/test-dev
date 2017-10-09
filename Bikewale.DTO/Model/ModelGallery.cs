@@ -9,8 +9,8 @@ namespace Bikewale.DTO.Model
     /// </summary>
     public class ModelGallery
     {
-        [JsonProperty("selectedTypeId")]
-        public ushort SelectedTypeId { get; set; }
+        [JsonProperty("selectedCategoryId")]
+        public ushort SelectedCategoryId { get; set; }
         [JsonProperty("galleryComponents")]
         public IEnumerable<ModelGalleryComponent> GalleryComponents { get; set; }
     }

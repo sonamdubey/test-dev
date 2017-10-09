@@ -8,10 +8,12 @@ namespace Bikewale.DTO.Model
     /// </summary>
     public class ModelGalleryComponent
     {
-        [JsonProperty("componentType")]
-        public ushort ComponentType { get; set; }
-        [JsonProperty("displayText")]
-        public string DisplayText { get; set; }
+        [JsonProperty("categoryId")]
+        public ushort CategoryId { get; set; }
+        [JsonProperty("categoryName")]
+        public string CategoryName { get; set; }
+        [JsonProperty("categoryCount")]
+        public int CategoryCount { get; set; }
         [JsonProperty("dataUrl")]
         public string DataUrl { get; set; }
     }

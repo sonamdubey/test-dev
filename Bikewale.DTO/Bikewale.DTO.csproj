@@ -433,6 +433,8 @@
     <Compile Include="Version\VersionList.cs" />
     <Compile Include="Version\VersionMinSpecs.cs" />
     <Compile Include="Version\VersionSpecifications.cs" />
+    <Compile Include="Videos\v2\VideoBase.cs" />
+    <Compile Include="Videos\v2\VideosList.cs" />
     <Compile Include="Videos\VideoBase.cs" />
     <Compile Include="Videos\VideosList.cs" />
     <Compile Include="Widgets\MostPopularBikes.cs" />
