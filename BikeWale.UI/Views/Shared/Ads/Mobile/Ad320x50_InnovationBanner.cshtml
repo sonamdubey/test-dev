@@ -70,6 +70,22 @@
     right: 90px;
 }
 
+/* arrow*/
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+}
+button.left {
+    left: 0;
+    top: 20px;
+}
+button.right {
+    right: 0;
+    top: 20px;
+}
 
 /*containers*/
 
@@ -94,7 +110,7 @@
     line-height: 120%;
 }
 .banner-screen .banner-screen__content3 {
-    width: 119px;
+    width: 90px;
     height: auto;
     top: 28%;
     left: 63%;
@@ -248,6 +264,7 @@
 .banner-popup__carousel {
     padding-top: 90px;
     padding-left: 5px;
+    margin-bottom: 35px;
     position: relative;
 }
 .banner-photos-swiper.swiper-container {
@@ -283,7 +300,11 @@
 .banner-photos-swiper .target-link {
     text-align: center;
 }
-.warrantyunit-sm-icon {
+.banner-photos-swiper .swiper-pagination-bullet {
+    height: 8px;
+    width: 8px;
+}
+/*.warrantyunit-sm-icon {
     height: 50px;
     width: 50px;
     background: url(https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/warranty-logo.png) no-repeat;
@@ -292,7 +313,7 @@
     bottom: -5px;
     right: 42px;
     z-index: 1;
-}
+}*/
 
 /* Popup 3*/
 
@@ -396,9 +417,15 @@ button.right {
     }
 }
 
-.zoomIn {
-    animation-name: zoomIn;
+    .zoomIn {
+        animation-name: zoomIn;
+    }
 
+
+
+.font8 {
+    font-size: 8px;
+}
 </style>
 <div class="container">
     <div class="bg-animation" data-screen="1">
@@ -425,6 +452,50 @@ button.right {
                 <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
             </div>
         </div>
+        <div id="banner2" class="banner-screen" data-position="10">
+            <div class="banner-screen__content1">
+                @*<span class="banner__make--icon"></span>*@
+            </div>
+            <div class="banner-screen__content2">
+                <p class="font12 text-bold">New</p>
+                <p class="font13 capitalize font-bold">Maestro Edge</p>
+            </div>
+            <div class="banner-screen__content3">
+                <p class="font12 capitalize text-bold">Advanced features</p>
+            </div>
+
+            <div class="banner-screen__content4">
+                <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
+            </div>
+        </div>
+        <div id="banner3" class="banner-screen" data-position="10">
+            <div class="banner-screen__content1">
+                @*<span class="banner__make--icon"></span>*@
+            </div>
+            <div class="banner-screen__content2">
+                <p class="font12 text-bold">New</p>
+                <p class="font13 capitalize font-bold">Maestro Edge</p>
+            </div>
+            <div class="banner-screen__content3">
+                <p class="font12 capitalize text-bold">experience 360<sup class="font8">o</sup> view</p>
+            </div>
+
+            <div class="banner-screen__content4">
+                <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
+            </div>
+        </div>
+
+        <button class="arrow left">
+            <svg width="20px" height="25px" viewBox="0 0 50 80" xml:space="preserve">
+            <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 " />
+		  </svg>
+        </button>
+        <button class="arrow right">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="25px" viewBox="0 0 50 80" xml:space="preserve">
+            <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="
+                      0.375,0.375 45.63,38.087 0.375,75.8 " />
+		  </svg>
+        </button>
     </div>
     <div class="banner-popup">
         <span class="popup-close bwmsprite bw-ga" c="Innovation_Banner" a="Popup_Close_Clicked" l="@Model.InnovationBannerGALabel"></span>
@@ -462,6 +533,118 @@ button.right {
             </div>
 
         </div>
+
+        <div class="banner2-popup" data-flag="0">
+            <div class="popup-container">
+                <div class="banner-popup__top-block  banner-element">
+                    <span class="banner-popup__make-icon"></span>
+                    <span class="banner-popup__top-head">Advanced features</span>
+                </div>
+                <div class="banner-popup__carousel  banner-element swiper-block">
+                    <p class="capitalize font13 padding-bottom10 font-bold padding-left5">top 5 hero maestro edge features</p>
+                    <div id="banner-photos-swiper" class="swiper-container noSwiper banner-photos-swiper">
+
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <div class="swiper-image-preview">
+                                        <img src="https://imgd.aeplcdn.com//393x221//n/bw/models/colors/bajaj-pulsar-rs200-demon-black-1486469764928.jpg?q=85" alt="" title="" border="0" />
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <div class="swiper-image-preview">
+                                        <img src="https://imgd.aeplcdn.com//393x221//n/bw/models/colors/bajaj-pulsar-rs200-demon-black-1486469764928.jpg?q=85" alt="" title="" border="0" />
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <div class="swiper-image-preview">
+                                        <img src="https://imgd.aeplcdn.com//393x221//n/bw/models/colors/bajaj-pulsar-rs200-demon-black-1486469764928.jpg?q=85" alt="" title="" border="0" />
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    @*<span class="warrantyunit-sm-icon"></span>*@
+                </div>
+                <div class="grid-12 alpha omega margin-top5 banner-element">
+                    <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699877&PluID=0&ord=@currentTimestamp" class="btn btn-orange banner__explore-more bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know more</a>
+                </div>
+                @*<a href="javascript:void(0)" class="view-more-link banner-element bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel" >View features >></a>*@
+
+            </div>
+
+        </div>
+
+
+        <div class="banner3-popup" data-flag="0">
+            <div class="popup-container">
+                <div class="banner-popup__top-block  banner-element">
+                    <span class="banner-popup__make-icon"></span>
+                    <span class="banner-popup__top-head">360<sup class="font7">o</sup> view</span>
+                </div>
+                <div class="banner-popup__carousel  banner-element swiper-block">
+                    <p class="capitalize font13 padding-bottom10 font-bold padding-left5">top 5 hero maestro edge features</p>
+                    <div id="banner-photos-swiper" class="swiper-container noSwiper banner-photos-swiper">
+
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <div class="swiper-image-preview">
+                                        <img src="https://imgd.aeplcdn.com//393x221//n/bw/models/colors/bajaj-pulsar-rs200-demon-black-1486469764928.jpg?q=85" alt="" title="" border="0" />
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <div class="swiper-image-preview">
+                                        <img src="https://imgd.aeplcdn.com//393x221//n/bw/models/colors/bajaj-pulsar-rs200-demon-black-1486469764928.jpg?q=85" alt="" title="" border="0" />
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <div class="swiper-image-preview">
+                                        <img src="https://imgd.aeplcdn.com//393x221//n/bw/models/colors/bajaj-pulsar-rs200-demon-black-1486469764928.jpg?q=85" alt="" title="" border="0" />
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    @*<span class="warrantyunit-sm-icon"></span>*@
+                </div>
+                <div class="grid-12 alpha omega margin-top5 banner-element">
+                    <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699877&PluID=0&ord=@currentTimestamp" class="btn btn-orange banner__explore-more bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know more</a>
+                </div>
+                @*<a href="javascript:void(0)" class="view-more-link banner-element bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel" >View features >></a>*@
+
+            </div>
+
+        </div>
+
     </div>
     <img src="https://bs.serving-sys.com/serving/adServer.bs?cn=display&c=19&mc=imp&pli=22699877&PluID=0&ord=@currentTimestamp&rtu=-1" class="hide" />
 </div>
@@ -495,20 +678,23 @@ button.right {
         function recursiveAnimate(elem) {
 
             var nextElem = $(elem).next();
-
-
-            if (navigator.userAgent.indexOf('UCBrowser') >= 0) {
-                $(elem).show();
-                if (nextElem.length > 0) {
-                    recursiveAnimate($(nextElem));
-                }
-            } else {
-                animateContent($(elem), "fadeInRight", function () {
-                    var nextElem = $(elem).next();
+            if ($(elem).children(".swiper-container").length) {
+                bannercarousel.update(true);
+            }
+            if (nextElem.length >= 0) {
+                if (navigator.userAgent.indexOf('UCBrowser') >= 0) {
+                    $(elem).show();
                     if (nextElem.length > 0) {
                         recursiveAnimate($(nextElem));
                     }
-                });
+                } else {
+                    animateContent($(elem), "fadeInRight", function () {
+                        var nextElem = $(elem).next();
+                        if (nextElem.length > 0) {
+                            recursiveAnimate($(nextElem));
+                        }
+                    });
+                }
             }
             
         }
@@ -534,7 +720,7 @@ button.right {
             bannerPopup.show();
 
             var elemClass = bannerPopup.find(".popup-container").attr('class');
-            recursiveAnimate($("." + elemClass).children()[0]);
+            recursiveAnimate($('.' + popupBannerId + '-popup .' + elemClass).children()[0]);
 
             bannerPopup.find('.' + popupBannerId + '-popup').attr('data-flag', '1').show();
             $('body').addClass('lock-browser-scroll');
@@ -546,5 +732,56 @@ button.right {
             $('.' + bannerPopup.attr('class') + ' .popup-container').find('.banner-element').hide();
             $('body').removeClass('lock-browser-scroll');
         });
+
+        var totalScreens = 3;
+
+        $(".arrow").on('click', function () {
+            var bannerId;
+            if ($(this).hasClass("right"))
+                bannerId = getNextScreenId();
+            else
+                bannerId = getPrevScreenId();
+            if (bannerId) {
+                showBanner(bannerId);
+                $(".vehicle-container").animate({
+                    'left': $("#" + bannerId).attr("data-position") + "%"
+                }, function () {
+                    animateBannerContent(bannerId);
+                });
+            } else {
+                return false;
+            }
+        });
+
+        function getNextScreenId() {
+            var dataScreen = ($(".bg-animation").attr("data-screen") * 1) + 1;
+            if (dataScreen <= totalScreens) {
+                $(".bg-animation").attr("data-screen", dataScreen);
+                return ("banner" + dataScreen);
+            }
+            else
+                return false;
+        }
+
+        function getPrevScreenId() {
+            var dataScreen = ($(".bg-animation").attr("data-screen") * 1) - 1;
+            if (dataScreen > 0) {
+                $(".bg-animation").attr("data-screen", dataScreen);
+                return ("banner" + dataScreen);
+            }
+            else
+                return false;
+        }
+
+        //carousel
+
+        var bannercarousel = new Swiper('.banner-photos-swiper.swiper-container', {
+            direction: 'horizontal',
+            pagination: '.swiper-pagination',
+            centeredSlides: true,
+            paginationClickable: true,
+            slidesPerView: 'auto',
+        });
+
     });
 </script>
