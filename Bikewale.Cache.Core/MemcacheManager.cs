@@ -31,7 +31,7 @@ namespace Bikewale.Cache.Core
             {
                 var dataList = doCallback(String.Join(",", keyValuePair.Keys.ToArray()));
 
-                if (dataList != null && dataList.Count() > 0)
+                if (dataList != null && dataList.Any())
                 {
                     list = dataList.ToList();
                     if (_useMemcached && list.Count > 0 && keyValuePair.Count == list.Count)

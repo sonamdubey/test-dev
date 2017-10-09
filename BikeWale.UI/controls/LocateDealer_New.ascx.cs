@@ -42,7 +42,7 @@ namespace Bikewale.Controls
                     makes = objClient.GetApiResponseSync<NewBikeDealersMakeList>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, makes);
                 }
 
-                if (makes != null && makes.Makes!=null && makes.Makes.Count() > 0)
+                if (makes != null && makes.Makes!=null && makes.Makes.Any())
                 {
                     cmbMake.DataSource = makes.Makes;
                     cmbMake.DataBind();

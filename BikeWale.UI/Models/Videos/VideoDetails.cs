@@ -59,7 +59,7 @@ namespace Bikewale.Models
                         model.IsBikeTagged = true;
                     model.DisplayDate = FormatDate.GetFormatDate(model.Video.DisplayDate, "dd MMMM yyyy");
                     model.Description = FormatDescription.SanitizeHtml(model.Video.Description);
-                    model.SmallDescription = model.IsSmallDescription ? StrinHtmlHelpers.TruncateHtml(_videoEntity.Description, 200, " ..") : "";
+                    model.SmallDescription = model.IsSmallDescription ? StringHtmlHelpers.TruncateHtml(_videoEntity.Description, 200, " ..") : "";
                     CreateDescriptionTag(model);
 
                     if (model.IsBikeTagged)

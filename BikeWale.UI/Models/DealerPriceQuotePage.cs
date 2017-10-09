@@ -360,7 +360,7 @@ namespace Bikewale.Models
 
                         #endregion
                         #endregion
-                        if (detailedDealer.PrimaryDealer.PriceList != null && detailedDealer.PrimaryDealer.PriceList.Count() > 0)
+                        if (detailedDealer.PrimaryDealer.PriceList != null && detailedDealer.PrimaryDealer.PriceList.Any())
                         {
                             #region Dealer PriceQuote
                             objData.TotalPrice = (uint)detailedDealer.PrimaryDealer.TotalPrice;
@@ -563,10 +563,17 @@ namespace Bikewale.Models
                             LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
                             LeadSourceId = (int)LeadSource,
                             PqSourceId = (int)objData.PQSourcePage,
+                            GACategory = "Dealer_PQ",
+                            GALabel = string.Format("{0}_{1}", objData.BikeName, currentCity),
                             LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
                             LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
                             LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
                             LeadsPropertyTextMobile = campaigns.LeadCampaign.LeadsPropertyTextMobile,
+                            PriceBreakUpLinkDesktop = campaigns.LeadCampaign.PriceBreakUpLinkDesktop,
+                            PriceBreakUpLinkMobile = campaigns.LeadCampaign.PriceBreakUpLinkMobile,
+                            PriceBreakUpLinkTextDesktop = campaigns.LeadCampaign.PriceBreakUpLinkTextDesktop,
+                            PriceBreakUpLinkTextMobile = campaigns.LeadCampaign.PriceBreakUpLinkTextMobile,
+
                             MakeName = objData.SelectedVersion.MakeBase.MakeName,
                             MaskingNumber = campaigns.LeadCampaign.MaskingNumber,
                             PincodeRequired = campaigns.LeadCampaign.PincodeRequired,

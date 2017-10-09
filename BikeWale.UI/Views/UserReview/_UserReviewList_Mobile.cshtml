@@ -9,7 +9,7 @@
             @foreach (var obj in Model.ObjQuestionValue.QuestionsList)
             {
                 <li>
-                    <div class="rating-circle circle-rate-@(obj.AverageRatingValue.ToString("0"))">
+                    <div class="rating-circle circle-rate-@(Math.Floor(obj.AverageRatingValue))">
                         <p class="circle-label">@(obj.AverageRatingValue.ToString("0.0"))</p>
                         <span class="rating-progress"></span>
                     </div>
@@ -19,154 +19,177 @@
         </ul>
     }
 }
-<ul class="user-review-list">
-    @{ uint i = 0;}
-    @foreach (UserReviewSummary review in Model.UserReviews.Result)
-    {
-        <li class="list-item padding-top15">
-			<div class="padding-right20 padding-left20">
-				<div class="margin-bottom10">
-					<span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
-						<span class="bwmsprite star-white"></span>
-						<span>@review.OverallRating.Value</span>
-					</span>
-					<div class="grid-10-inline font15 text-bold text-truncate">
-						<a onclick="logBhrighu(@i,'TitleClick')" href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-id="@i" class="text-black">@review.Title</a>
+<div class="position-rel">
+	<ul class="user-review-list">
+		@{ uint i = 0;}
+		@foreach (UserReviewSummary review in Model.UserReviews.Result)
+		{
+			<li class="list-item padding-top15">
+				<div class="padding-right20 padding-left20">
+					<div class="margin-bottom10">
+						<span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
+							<span class="bwmsprite star-white"></span>
+							<span>@review.OverallRating.Value</span>
+						</span>
+						<div class="grid-10-inline font15 text-bold text-truncate">
+							<a onclick="logBhrighu(@i,'TitleClick')" href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-id="@i" class="text-black">@review.Title</a>
+						</div>
+					</div>
+					<div class="margin-bottom10">
+						<span class="font12 text-light-grey">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
 					</div>
 				</div>
+				<div class="collapsible-content toggle-off main-content-off">
+					<div class="main-content">
+						<div class="font14 text-slate-grey margin-bottom10">
+							<p>@review.SanitizedDescription</p>
+							<a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-id="@i" data-reviewId="@review.ReviewId" data-bind="click: function (data, event) { return readMore(event);}">Read more</a>
+						</div>
+					</div>
+					<div class="more-content">
+						<div class="padding-right20 padding-left20 font14 text-slate-grey margin-bottom10">
+							<!-- ko if: currentReviewList && currentReviewList()[@i] -->
+							<div class="more-description inline" data-bind="html: currentReviewList()[@i].description"></div>
+							<!-- /ko -->
+						</div>
+
+						<!-- ko if: currentReviewList && currentReviewList()[@i] && currentReviewList()[@i].questions && currentReviewList()[@i].questions.length > 0 -->                
+						<div class="about-reviewer-content margin-bottom15">
+                        <p class="font13 text-grey text-bold">About the reviewer</p>
+							<ul data-bind="css: 'about-reviewer-list item-count-' +  currentReviewList()[@i].ratingQuestionsCount ">
+								<!-- ko foreach: currentReviewList()[@i].questions -->
+								<!-- ko if : $data.qtype == 1 -->
+								<li>
+									<span data-bind="css: 'bwmsprite questionId-' +  $data.qId "></span>
+									<p class="item-question" data-bind="text: $data.minHeading"> </p>
+									<p class="item-answer" data-bind="text: $data.selectedRatingText"> </p>
+								</li>
+								<!-- /ko -->
+								<!-- /ko -->
+							</ul>
+						</div>
+						<!-- /ko -->
+
+						<div class="margin-top15 margin-bottom15 padding-right20 padding-left20">
+
+							<span class="review__question text-light-grey font12">Was this review helpful?</span>
+
+							<button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)">
+								<span class="bwmsprite like-sm"></span>
+								Yes
+								(<span id="upvoteCount-@review.ReviewId" class="btn-count review-btn">@Format.FormatNumbers(review.UpVotes)</span>)
+							</button>
+
+							<button class="feedback-button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="downVoteListReview(event)">
+								<span class="bwmsprite dislike-sm"></span>
+								No
+								(<span id="downvoteCount-@review.ReviewId" class="btn-count">@Format.FormatNumbers(review.DownVotes)</span>)
+							</button>
+						</div>
+                    
+
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    @{i++;}
+</li>
+		}
+
+		<li class="list-item padding-15-20 hide" id="loader" data-bind="visible: isLoading()">
+			<span class="rating-container"></span>
+			<span class="review-header"></span>
+			<div class="review-author"></div>
+			<div class="paragraph-item para-one"></div>
+			<div class="paragraph-item para-two"></div>
+			<div class="paragraph-item para-three"></div>
+			<div class="paragraph-item para-four"></div>
+
+			<div class="user-review-loader-divider"></div>
+
+			<span class="rating-container"></span>
+			<span class="review-header"></span>
+			<div class="review-author"></div>
+			<div class="paragraph-item para-one"></div>
+			<div class="paragraph-item para-two"></div>
+			<div class="paragraph-item para-three"></div>
+			<div class="paragraph-item para-four"></div>
+		</li>
+			
+
+		<!-- ko if : reviewList() && reviewList().length > 0 -->
+		<!-- ko foreach: reviewList() -->
+		<li class="list-item padding-top15 padding-bottom15 more-review-li hide">
+			<div class="padding-right20 padding-left20">
 				<div class="margin-bottom10">
-					<span class="font12 text-light-grey">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
+					<!-- ko with: $data.overallRating -->
+					<span class="rating-badge" data-bind="attr: {'data-rate-bg': id }">
+						<span class="bwmsprite star-white"></span>
+						<span data-bind="text: value"></span>
+					</span>
+					<!-- /ko -->
+					<div class="grid-10-inline font15 text-black text-bold text-truncate">
+
+						<a data-index="" data-bind="click: function (data, event) { return $parent.logBhrighuData(event, 'TitleClick'); }, attr : {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId, 'title' : $data.title,'href' : (($data.reviewId) ? ('/m' + $data.reviewUrl) : '')}" class="text-black"> <span class="review-title position-rel" data-bind="text:$data.title"></span></a>
+					</div>
+				</div>
+
+				<div class="margin-bottom10">
+					<span class="font12 text-light-grey" data-trimLength="25" data-bind="text: $data.reviewAge + ' ago by ' + $data.customerName"></span>
 				</div>
 			</div>
-            <div class="collapsible-content toggle-off main-content-off">
-                <div class="main-content">
-                    <div class="font14 text-slate-grey margin-bottom10">
-                        <p>@FormatDescription.TruncateDescription(review.Description, 150)</p>
-                        <a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-id="@i" data-reviewId="@review.ReviewId" onclick="readMore(event)">Read more</a>
-                    </div>
-                </div>
-                <div class="more-content">
-                    <div class="padding-right20 padding-left20 font14 text-slate-grey margin-bottom10">
-                        <div class="more-description inline" data-bind="html: $data.description" data-description="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(review.Description)"></div>
-                    </div>
+			<div class="collapsible-content toggle-off main-content-off">
+				<div class="main-content">
+					<div class="font14 text-slate-grey">
+						<p data-bind="truncateDesc: $data.description"></p>
+						<a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-index="@i" data-bind="click: function (data, event) { return $parent.readMoreNew(event)}, attr: {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId }">Read more</a>
+					</div>
+				</div>
+				<div class="more-content">
+					<div class="font14 text-slate-grey padding-right20 padding-left20 margin-bottom15" data-bind="html: $data.description"></div>               
 
-                    @if (review.RatingQuestionsCount > 0)
-                {
-                        <div class="about-reviewer-content">
-							<p class="font13 text-grey text-bold">About the reviewer</p>
-                            <ul class="about-reviewer-list item-count-@review.RatingQuestionsCount">
-                                @foreach (var q in review.Questions.Where(q => q.Type == UserReviewQuestionType.Rating))
-                                {
-                                    <li>
-                                        <span class="bwmsprite questionId-@q.Id"></span>
-                                        <p class="item-question">@q.MinHeading</p>
-                                        <p class="item-answer">@q.SelectedRatingText</p>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    }
-
-                    <div class="margin-top15 margin-bottom15 padding-right20 padding-left20">
-
-                        <span class="review__question text-light-grey font12">Was this review helpful?</span>
-
-                        <button class="feedback-button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)">
-                            <span class="bwmsprite like-sm"></span>
-                            Yes
-                            (<span id="upvoteCount-@review.ReviewId" class="btn-count review-btn">@Format.FormatNumbers(review.UpVotes)</span>)
-                        </button>
-
-                        <button class="feedback-button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="downVoteListReview(event)">
-                            <span class="bwmsprite dislike-sm"></span>
-                            No
-                            (<span id="downvoteCount-@review.ReviewId" class="btn-count">@Format.FormatNumbers(review.DownVotes)</span>)
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-            @{i++;}
-        </li>
-    }
-
-    <div data-bind="visible: isLoading()">   
-    <img  src="https://imgd.aeplcdn.com/0x0/bw/static/icons/loader-horizontal.gif" class="padding-right20 padding-left20 padding-bottom10">
-    </div> 
-         
-
-    <!-- ko if : reviewList() && reviewList().length > 0 -->
-    <!-- ko foreach: reviewList() -->
-    <li class="list-item padding-top15 padding-bottom15">
-        <div class="padding-right20 padding-left20">
-            <div class="margin-bottom10">
-                <!-- ko with: $data.overallRating -->
-                <span class="rating-badge" data-bind="attr: {'data-rate-bg': id }">
-                    <span class="bwmsprite star-white"></span>
-                    <span data-bind="text: value"></span>
-                </span>
-                <!-- /ko -->
-                <div class="grid-10-inline font15 text-black text-bold text-truncate">
-
-                    <a data-index="" data-bind="click: function (data, event) { return $parent.logBhrighuData(event, 'TitleClick'); }, attr : {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId, 'title' : $data.title,'href' : (($data.reviewId) ? ('/m' + $data.reviewUrl) : '')}" class="text-black"> <span class="review-title position-rel" data-bind="text:$data.title"></span></a>
-                </div>
-            </div>
-
-            <div class="margin-bottom10">
-                <span class="font12 text-light-grey" data-trimLength="25" data-bind="text: $data.reviewAge + ' ago by ' + $data.customerName"></span>
-            </div>
-        </div>
-        <div class="collapsible-content toggle-off main-content-off">
-            <div class="main-content">
-                <div class="font14 text-slate-grey">
-                    <p data-bind="truncateDesc: $data.description"></p>
-                    <a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-index="@i" data-bind="click: function (data, event) { return $parent.readMoreNew(event)}, attr: {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId }">Read more</a>
-                </div>
-            </div>
-            <div class="more-content">
-                <div class="font14 text-slate-grey padding-right20 padding-left20 margin-bottom15" data-bind="html: $data.description"></div>               
-
-                <!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
-                <div class="about-reviewer-content margin-bottom15 hide" data-bind="css: ($data.ratingQuestionsCount > 0) ? 'show' : '' ">
-                    <p class="text-grey text-bold">About the reviewer</p>
-                    <ul data-bind="css: 'about-reviewer-list item-count-' +  $data.ratingQuestionsCount ">
-                        <!-- ko foreach: $data.questions -->
-                        <!-- ko if : $data.qtype == 1 -->
-                        <li>
-                            <span data-bind="css: 'bwmsprite questionId-' +  $data.qId "></span>
-                            <p class="item-question" data-bind="text: $data.minHeading"> </p>
-                            <p class="item-answer" data-bind="text: $data.selectedRatingText"> </p>
-                        </li>
-                        <!-- /ko -->
-                        <!-- /ko -->
-                    </ul>
-                </div>
-                <!-- /ko -->
+					<!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
+					<div class="about-reviewer-content margin-bottom15 hide" data-bind="css: ($data.ratingQuestionsCount > 0) ? 'show' : '' ">
+						<p class="text-grey text-bold">About the reviewer</p>
+						<ul data-bind="css: 'about-reviewer-list item-count-' +  $data.ratingQuestionsCount ">
+							<!-- ko foreach: $data.questions -->
+							<!-- ko if : $data.qtype == 1 -->
+							<li>
+								<span data-bind="css: 'bwmsprite questionId-' +  $data.qId "></span>
+								<p class="item-question" data-bind="text: $data.minHeading"> </p>
+								<p class="item-answer" data-bind="text: $data.selectedRatingText"> </p>
+							</li>
+							<!-- /ko -->
+							<!-- /ko -->
+						</ul>
+					</div>
+					<!-- /ko -->
 
 
-                <div class="padding-right20 padding-left20">
+					<div class="padding-right20 padding-left20">
 
-                    <span class="review__question text-light-grey font12">Was this review helpful?</span>
+						<span class="review__question text-light-grey font12">Was this review helpful?</span>
 
-                    <button class="feedback-button" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="upVoteListReview(event)">
-                        <span class="bwmsprite like-sm"></span>
-                        Yes
-                        (<span class="btn-count review-btn" data-bind="attr: { id: 'upvoteCount-' + $data.reviewId}, formattedVotes : $data.upVotes"></span>)
-                    </button>
+						<button class="feedback-button" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="upVoteListReview(event)">
+							<span class="bwmsprite like-sm"></span>
+							Yes
+							(<span class="btn-count review-btn" data-bind="attr: { id: 'upvoteCount-' + $data.reviewId}, formattedVotes : $data.upVotes"></span>)
+						</button>
 
 
-                    <button class="feedback-button" data-bind="attr: { id: 'downvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="downVoteListReview(event)">
-                        <span class="bwmsprite dislike-sm"></span>
-                        No
-                        (<span class="btn-count" data-bind="attr: { id: 'downvoteCount-' + $data.reviewId}, formattedVotes : $data.downVotes"></span>)
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="clear"></div>
-    </li>
-    <!-- /ko -->
-    <!-- /ko -->
+						<button class="feedback-button" data-bind="attr: { id: 'downvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" onclick="downVoteListReview(event)">
+							<span class="bwmsprite dislike-sm"></span>
+							No
+							(<span class="btn-count" data-bind="attr: { id: 'downvoteCount-' + $data.reviewId}, formattedVotes : $data.downVotes"></span>)
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</li>
+		<!-- /ko -->
+		<!-- /ko -->
 
-</ul>
-<input type="hidden" id="pageSource" value="@((int)UserReviewPageSourceEnum.Mobile_ModelPage)" />
+	</ul>
+	<div id="userReviewSpinner" class="section-spinner"></div>
+	<input type="hidden" id="pageSource" value="@((int)UserReviewPageSourceEnum.Mobile_ModelPage)" />
+</div>

@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.Customer;
 using Bikewale.Entities.Dealer;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.MobileVerification;
@@ -118,7 +119,11 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                                 objNVC.Add("manufacturerLeadId", Convert.ToString(objLead.LeadId));
                                 RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                                 objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
+                                if (objLead.CampaignId == Utility.BWConfiguration.Instance.KawasakiCampaignId)
+                                    SMSKawasaki(objLead);
                             }
+                            
+
                             return Ok(objLead.LeadId);
                         }
                         else
@@ -143,5 +148,16 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                 return InternalServerError();
             }
         }
+
+        private void SMSKawasaki(ManufacturerLeadEntity objLead)
+        {
+            DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
+            objDPQSmsEntity.CustomerMobile = objLead.Mobile;
+            objDPQSmsEntity.CustomerName = objLead.Name;
+            objDPQSmsEntity.DealerName = objLead.ManufacturerDealer;
+            SendEmailSMSToDealerCustomer.SendSMSToCustomer(objLead.PQId, string.Empty, objDPQSmsEntity, DPQTypes.KawasakiCampaign);
+        }
+
+       
     }
 }

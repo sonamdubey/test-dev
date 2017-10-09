@@ -102,7 +102,7 @@ namespace Bikewale.Models.ServiceCenters
 
                         CityEntityBase city = null;
 
-                        if (_cities != null && _cities.Count() > 0)
+                        if (_cities != null && _cities.Any())
                         {
                             var _city = _cities.FirstOrDefault(x => x.CityId == _cookieCityId);
 

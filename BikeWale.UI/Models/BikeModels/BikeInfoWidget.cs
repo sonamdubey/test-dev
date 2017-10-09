@@ -6,7 +6,6 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 namespace Bikewale.Models
 {
@@ -53,19 +52,22 @@ namespace Bikewale.Models
             {
                 objVM = new BikeInfoVM();
                 objVM.BikeInfo = _bikeInfo.GetBikeInfo(_modelId, _cityId);
-                if (_cityId > 0)
-                {
-                    var objCityList = _cityCacheRepo.GetAllCities(EnumBikeType.All);
-                    objVM.CityDetails = objCityList.FirstOrDefault(c => c.CityId == _cityId);
-                   
-                }
+
                 if (objVM.BikeInfo != null)
                 {
+                    if (_cityId > 0)
+                    {
+                        var objCityList = _cityCacheRepo.GetAllCities(EnumBikeType.All);
+                        objVM.CityDetails = objCityList.FirstOrDefault(c => c.CityId == _cityId);
+
+                    }
+
                     objVM.BikeInfo.Tabs = BindInfoWidgetDatas(objVM.BikeInfo, objVM.CityDetails, _tabCount, _pageId);
                     objVM.BikeName = string.Format("{0} {1}", objVM.BikeInfo.Make.MakeName, objVM.BikeInfo.Model.ModelName);
                     objVM.BikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(objVM.BikeInfo.Make.MaskingName, objVM.BikeInfo.Model.MaskingName));
                     objVM.IsDiscontinued = (!objVM.BikeInfo.IsNew && !objVM.BikeInfo.IsFuturistic);
                     objVM.IsUpcoming = objVM.BikeInfo.IsFuturistic;
+                    objVM.Category = _pageId;
                 }
             }
             catch (Exception ex)
@@ -86,10 +88,10 @@ namespace Bikewale.Models
         /// <returns></returns>
         private ICollection<BikeInfoTab> BindInfoWidgetDatas(GenericBikeInfo _genericBikeInfo, CityEntityBase cityDetails, uint totalTabCount, BikeInfoTabType pageId)
         {
-            ICollection<BikeInfoTab> tabs = null;
+            IList<BikeInfoTab> tabs = null;
             try
             {
-                tabs = new Collection<BikeInfoTab>();
+                tabs = new List<BikeInfoTab>();
                 if (_genericBikeInfo != null)
                 {
                     if (_genericBikeInfo.ExpertReviewsCount > 0)
@@ -165,7 +167,7 @@ namespace Bikewale.Models
                         });
                     }
                 }
-                if (tabs.Count() > 0)
+                if (tabs.Any())
                 {
                     tabs = tabs.Where(m => (m.Count > 0 || m.IsVisible) && pageId != m.Tab).OrderBy(m => m.Tab).Take((int)totalTabCount).ToList();
                 }

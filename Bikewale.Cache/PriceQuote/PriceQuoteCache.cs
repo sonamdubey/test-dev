@@ -101,7 +101,7 @@ namespace Bikewale.Cache.PriceQuote
             try
             {
                 dealers = _cache.GetFromCache<IEnumerable<ManufacturerDealer>>(key, new TimeSpan(24, 0, 0), () => _obPriceQuote.GetManufacturerDealers());
-                if (dealers != null && dealers.Count() > 0)
+                if (dealers != null && dealers.Any())
                 {
                     dealers = (from d in dealers where d.CityId == cityId && d.DealerId == dealerId select d).ToList();
                 }

@@ -57,7 +57,7 @@ namespace Bikewale.BindViewModels.Controls
             {
                 DealerCountCityList = objDealer.FetchNearByCityDealersCount(MakeId, CityId);
 
-                if (DealerCountCityList != null && DealerCountCityList.Count() > 0)
+                if (DealerCountCityList != null && DealerCountCityList.Any())
                 {
                     DealerCountCityList = DealerCountCityList.Take((int)TopCount);
                 }

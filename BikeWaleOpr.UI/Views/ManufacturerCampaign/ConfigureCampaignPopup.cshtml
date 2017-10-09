@@ -33,7 +33,7 @@
 
         <div class="row">
             <div class="input-field col s3 offset-s4">
-                <input id="txtpopupMessage" type="text" class="validate" maxlength="100" name="PopupSuccessMessage" value="@Model.objPopup.PopupSuccessMessage" data-bind="disable : isDefaultMsg">
+                <input id="txtpopupMessage" type="text" class="validate" maxlength="4096" name="PopupSuccessMessage" value="@Model.objPopup.PopupSuccessMessage" data-bind="disable : isDefaultMsg">
                 <label for="txtpopupMessage">Popup Success Message</label>
             </div>
             <div class="input-field col m3 offset-s4">
@@ -110,6 +110,7 @@
                         validate = false;
                         Materialize.toast('Please Enter PopupMessage', 5000);
                     }
+                    $('#txtpopupMessage').val('<div class="html_ko">' + $('#txtpopupMessage').val() + '</div>');
                 }
                 return validate;
             };

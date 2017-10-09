@@ -111,9 +111,9 @@
                                         </a>
                                     </div>
                                     <div class="margin-right20 margin-left20 padding-top10 font14">
-                                        <h2 class="margin-bottom5">
-                                        <a href="<%= string.Format("/m/used/bikes-in-{0}/{1}-{2}-{3}/",bike.CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName,bike.ProfileId) %>" title="<%= curBikeName %>">
-                                                <%= curBikeName %>
+                                        <h2 class="margin-bottom5 text-truncate">
+                                        <a href="<%= string.Format("/m/used/bikes-in-{0}/{1}-{2}-{3}/",bike.CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName,bike.ProfileId) %>" title="<%= string.Format("{0}, {1}",bike.ModelYear,curBikeName) %>">
+                                                <%= string.Format("{0}, {1}",!string.IsNullOrEmpty(bike.ModelYear) ? bike.ModelYear : "" ,curBikeName) %>
                                             </a>
                                         </h2>
                                         <div class="margin-bottom5">
@@ -179,7 +179,7 @@
                                 </a>
                             </div>
                             <div class="margin-right20 margin-left20 padding-top10 font14">
-                                <h2 class="margin-bottom5"><a data-bind="text: bikeName, attr: { 'href': '/m/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }"></a></h2>
+                                <h2 class="margin-bottom5 text-truncate"><a data-bind="text: (modelYear > 0?modelYear+', ':'') + bikeName, attr: { 'href': '/m/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }"></a></h2>
                                 <div class="margin-bottom5">
                                     <span class="font12 text-x-light" data-bind="text: 'Updated on: ' + strLastUpdated"></span>
                                 </div>

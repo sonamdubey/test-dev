@@ -81,7 +81,7 @@ namespace Bikewale.Mobile.Controls
 
                     prices = objCache.GetModelPriceInNearestCities(ModelId, CityId, TopCount);
 
-                    if (prices != null && prices.Count() > 0)
+                    if (prices != null && prices.Any())
                     {
                         make = prices.First().Make;
                         model = prices.First().Model;

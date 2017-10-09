@@ -90,7 +90,7 @@ namespace Bikewale.Service.Controllers.City
                 if (makeId > 0)
                 {
                     cities = _objDealer.FetchDealerCitiesByMake(makeId);
-                    if (cities != null && cities.Count() > 0)
+                    if (cities != null && cities.Any())
                     {
                         // If android, IOS client send the response similar to PQCityList API
                         string platformId = string.Empty;

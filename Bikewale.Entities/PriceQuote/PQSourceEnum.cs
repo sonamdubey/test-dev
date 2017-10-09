@@ -123,7 +123,7 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_NewPage_BestBikes = 97,
         Desktop_Scooter_MakePage_PopularBikes = 98,
         Mobile_Scooter_MakePage_PopularBikes = 99,
-        Mobile_Popup_LeadCapture_ForAMP = 100
-
+        Mobile_Popup_LeadCapture_ForAMP = 100,
+        Mobile_Photos_Page = 101
     }
 }

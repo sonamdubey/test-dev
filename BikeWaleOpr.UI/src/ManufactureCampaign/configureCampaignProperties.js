@@ -94,6 +94,9 @@ function HasLeadSelected() {
     });
     $('#LeadPriority').prop('disabled', false);
     $('#LeadPriority').material_select();
+    $('#PriceBreakUpLinkTextMobile').prop('disabled', false);
+    $('#PriceBreakUpLinkTextDesktop').prop('disabled', false);
+
 }
 
 function HasLeadNotSelected() {
@@ -115,8 +118,7 @@ $(".default-chk").change(function () {
 
 $(document).ready(function () {
 
-    if ($(".stepper"))
-    {
+    if ($(".stepper")){
         $('.stepper').activateStepper();
     }
 
@@ -139,30 +141,40 @@ $(document).ready(function () {
     else {
         HasLeadNotSelected();
     }
+
+    $('#isPopUp').change(function ()
+    {
+        if ($(this).is(":checked")) {
+            $('.price_link').prop("disabled", false);
+        }
+        else {
+            $('.price_link').prop("disabled", true);
+            $('.price_link').val('').removeClass('valid');
+            $("label[for=PriceBreakUpLinkMobile]").removeClass('active');
+            $("label[for=PriceBreakUpLinkDesktop]").removeClass('active');
+        }
+    });
 });
 
 $('#btnConfigureCampaign').click(function () {
     var isValid = true;
    
     $('form input[type="text"]').each(function () {
-
         var currentEle = $(this);
-
-        if (!(currentEle.parent().nextAll().has(":checkbox").first().find(":checkbox").prop("checked")))
-        {
-            if (currentEle.val().trim() == '')
-            {
-                currentEle.parent().first().find("label").attr("data-error", "Enter " + currentEle.parent().first().find("label").text());
-                currentEle.addClass("Invalid");
-                isValid = false;
+        if (!currentEle.prop('disabled') && currentEle.attr('data-ignorevalidation') == null) {
+            if (!(currentEle.parent().nextAll().has(":checkbox").first().find(":checkbox").prop("checked"))) {
+                if (currentEle.val().trim() == '') {
+                    currentEle.parent().first().find("label").attr("data-error", "Enter " + currentEle.parent().first().find("label").text());
+                    currentEle.addClass("Invalid");
+                    isValid = false;
+                }
+                else {
+                    currentEle.removeClass("Invalid");
+                }
             }
             else {
                 currentEle.removeClass("Invalid");
             }
-        }
-        else
-        {
-            currentEle.removeClass("Invalid");
         }
     });
 

@@ -1,5 +1,12 @@
 ﻿var $window, overallSpecsTabsContainer, specsTabsContentWrapper, specsFooter;
 var topNavBarHeight = 45;
+var makeList;
+
+// Make Model info
+var makeId = $('#makeId').val(),
+    modelId = $('#modelId').val(),
+    displayModelName = $('#displayModelName').val();
+  
 
 // read more list - collapse
 $(document).on('click','.read-more-list', function () {
@@ -65,6 +72,7 @@ docReady(function () {
         }
     };
 
+    
     var bikeSelection = function () {
         var self = this;
         self.make = ko.observable();
@@ -76,6 +84,7 @@ docReady(function () {
 
 		self.makeName = ko.observable('Select make');
 		self.modelName = ko.observable('Select model');
+
 
         self.makeChanged = function (data, event) {
             self.currentStep(2);
@@ -90,7 +99,7 @@ docReady(function () {
 
 			self.makeName(self.make().name);
 			makeField.attr('data-make-id', self.make().id);
-			hideError(makeField);
+		hideError(makeField);
 
 			self.modelName('Select model');
 			modelField.attr('data-model-id', '');
@@ -109,6 +118,7 @@ docReady(function () {
                         .done(function (res) {
                             self.modelArray(res.modelList);
                             bwcache.set(_cmodelsKey, res, true);
+
                         })
                         .fail(function () {
                             self.make(null);
@@ -133,7 +143,7 @@ docReady(function () {
             self.model(data);
 			self.modelName(data.modelName);
 			modelField.attr('data-model-id', data.modelId);
-			hideError(modelField);
+		    hideError(modelField);
 
             if (self.model() && self.model().modelId > 0) {
                 self.currentStep(self.currentStep() + 1);
@@ -151,6 +161,16 @@ docReady(function () {
 			self.currentStep(0);
             history.back();
         };
+
+        
+        self.fillBikeInfo = function () {
+            makeList = $("ul.cover-popup-list").first();
+            makeList.find('span[data-id=' + makeId + ']').parent().trigger("click");
+
+            modelField.attr('data-model-id', modelId);
+            self.modelName(displayModelName);
+        };
+
 	};
 
 	var rateBikeVM = function () {
@@ -189,11 +209,15 @@ docReady(function () {
 		};
     };
 
-    var vmRateBikeVM = new rateBikeVM();
+	var vmRateBikeVM = new rateBikeVM();
+
+    
 
     ko.applyBindings(vmRateBikeVM, document.getElementById("bike-selection-form"));
     ko.applyBindings(vmRateBikeVM, document.getElementById("write-review-target"));
 
+   
+   
 
     $(window).on('popstate', function (event) {
         if ($('#select-bike-cover-popup').is(':visible')) {
@@ -299,4 +323,11 @@ docReady(function () {
         return false;
     });
 
+    //prefil the make and model data
+	if (makeId > 0 && modelId > 0) {
+
+	    vmRateBikeVM.bikeSelection().fillBikeInfo();
+	}
+
+	
 });

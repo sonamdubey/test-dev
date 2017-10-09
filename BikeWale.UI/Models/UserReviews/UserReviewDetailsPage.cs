@@ -237,23 +237,32 @@ namespace Bikewale.Models.UserReviews
         public void BindUserReviewSWidget(UserReviewDetailsVM objPage)
         {
             try
-            {
-                InputFilters filters = null;
+            {               
                 // Set default category to be loaded here
                 FilterBy activeReviewCateory = FilterBy.MostHelpful;
 
-                filters = new InputFilters()
+                ReviewDataCombinedFilter objFilter = new ReviewDataCombinedFilter()
                 {
-                    Model = _modelId.ToString(),
-                    SO = (ushort)activeReviewCateory,
-                    PN = 1,
-                    PS = IsMobile ? 8 : 10,
-                    Reviews = true,
-                    SkipReviewId = _reviewId
-                };
+                    InputFilter = new Entities.UserReviews.Search.InputFilters()
+                    {
+                        Model = _modelId.ToString(),
+                        SO = (ushort)activeReviewCateory,
+                        PN = 1,
+                        PS = IsMobile ? 8 : 10,
+                        Reviews = true,
+                        SkipReviewId = _reviewId
+                    },
+                    ReviewFilter = new ReviewFilter()
+                    {
+                        RatingQuestion = !IsMobile,
+                        ReviewQuestion = false,
+                        SantizeHtml = true,
+                        SanitizedReviewLength = (uint)(IsMobile ? 150 : 270),
+                        BasicDetails = true
+                    }
+                };                
 
-
-                var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
+                var objUserReviews = new UserReviewsSearchWidget(_modelId, objFilter, _userReviewsCache, _userReviewsSearch);
                 objUserReviews.IsDesktop = !IsMobile;
 
 

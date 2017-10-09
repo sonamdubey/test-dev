@@ -412,7 +412,7 @@ namespace Bikewale.Models
                     }
                     objVM.FormatedBikeVersionPrices = objBikePQAMPList;
 
-                    if (objVM.FormatedBikeVersionPrices != null && objVM.FormatedBikeVersionPrices.Count() > 0)
+                    if (objVM.FormatedBikeVersionPrices != null && objVM.FormatedBikeVersionPrices.Any())
                     {
                         firstVersion = objVM.FormatedBikeVersionPrices.OrderByDescending(m => m.BikeQuotationEntity.IsVersionNew).OrderBy(v => v.BikeQuotationEntity.ExShowroomPrice).First().BikeQuotationEntity;
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
@@ -554,7 +554,8 @@ namespace Bikewale.Models
 
                 try
                 {
-                    str = Format.GetRenderedContent(String.Format("LeadCampaign_Mobile_AMP_{0}", priceInCityAMPVM.LeadCampaign.CampaignId), priceInCityAMPVM.LeadCampaign.LeadsHtmlMobile, priceInCityAMPVM.LeadCampaign);
+                    priceInCityAMPVM.LeadCampaign.IsAmp = true;
+                    str = MvcHelper.GetRenderedContent(String.Format("LeadCampaign_Mobile_AMP_{0}", priceInCityAMPVM.LeadCampaign.CampaignId), priceInCityAMPVM.LeadCampaign.LeadsHtmlMobile, priceInCityAMPVM.LeadCampaign);
 
                     // Code to remove name attribute form span tags, remove style css tag and replace javascript:void(0) in href with url (not supported in AMP)
 
@@ -1103,10 +1104,16 @@ namespace Bikewale.Models
                             LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
                             LeadSourceId = (int)LeadSource,
                             PqSourceId = (int)PQSource,
+                            GACategory = "Price_in_City_Page",
+                            GALabel = string.Format("{0}_{1}", objData.BikeName, cityMaskingName),
                             LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
                             LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
                             LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
                             LeadsPropertyTextMobile = campaigns.LeadCampaign.LeadsPropertyTextMobile,
+                            PriceBreakUpLinkDesktop = campaigns.LeadCampaign.PriceBreakUpLinkDesktop,
+                            PriceBreakUpLinkMobile = campaigns.LeadCampaign.PriceBreakUpLinkMobile,
+                            PriceBreakUpLinkTextDesktop = campaigns.LeadCampaign.PriceBreakUpLinkTextDesktop,
+                            PriceBreakUpLinkTextMobile = campaigns.LeadCampaign.PriceBreakUpLinkTextMobile,
                             MakeName = objData.Make.MakeName,
                             MaskingNumber = campaigns.LeadCampaign.MaskingNumber,
                             PincodeRequired = campaigns.LeadCampaign.PincodeRequired,

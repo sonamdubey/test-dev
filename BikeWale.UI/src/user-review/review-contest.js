@@ -7,6 +7,10 @@ var reviewSelectMake = $('#reviewSelectMake'),
 var $window, overallSpecsTabsContainer, specsTabsContentWrapper, specsFooter, specsTabs;
 var topNavBarHeight = 45;
 
+// Make Model info
+var makeId = $('#makeId').val(),
+    modelId = $('#modelId').val();
+
 docReady(function () {
 	var bikeSelectField = $('.bike-select-field');
 
@@ -28,6 +32,7 @@ docReady(function () {
 		}
 	});
 
+	
 	reviewSelectMake.on('change', function () {
 		var makeId = parseInt(reviewSelectMake.val());
 
@@ -85,6 +90,15 @@ docReady(function () {
 		return isValid;
 	}
 
+	function prefillMakeModel() {
+	    reviewSelectMake.val(makeId);
+	    reviewSelectMake.parent().addClass("done");
+	    reviewSelectMake.trigger("chosen:updated").change();
+
+	    reviewSelectModel.val(modelId).trigger("chosen:updated");
+	    reviewSelectModel.parent().addClass("done");
+
+	}
 	var validateBike = {
 		make: function (selectField) {
 			var isValid = false;
@@ -199,7 +213,7 @@ docReady(function () {
 
 	// redirect user to review page, since swiper prevents click event
 	$('.winner-review-swiper').on('click', '.swiper-card-target', function() {
-		window.location = $(this).attr('href');
+		window.location = $(this).attr('href'); 
 	});
 
 	// read more list - collapse
@@ -217,5 +231,12 @@ docReady(function () {
 			$('body').scrollTop(parentElemtent.offset().top - 20);
 		}
 	});
+
+    // Make Model prefill when clicked userreview from Model page
+	if(makeId > 0 &&  modelId > 0 )
+	{
+	    prefillMakeModel();
+	 
+	}
 
 });

@@ -11,7 +11,7 @@ namespace Bikewale.Models
         public UpcomingBikesWidgetVM Upcoming { get; set; }
         public BrandWidgetVM Brands { get; set; }
         public uint CityId { get; set; }
-        public bool HasUpcoming { get { return Upcoming != null && Upcoming.UpcomingBikes != null && Upcoming.UpcomingBikes.Count() > 0; } }
-        public bool HasBrands { get { return Brands != null && Brands.TopBrands != null && Brands.TopBrands.Count() > 0; } }
+        public bool HasUpcoming { get { return Upcoming != null && Upcoming.UpcomingBikes != null && Upcoming.UpcomingBikes.Any(); } }
+        public bool HasBrands { get { return Brands != null && Brands.TopBrands != null && Brands.TopBrands.Any(); } }
     }
 }

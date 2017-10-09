@@ -260,7 +260,7 @@ namespace Bikewale.Mobile.Videos
                         {
                             objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId);
                         }
-                        if (objVideosList != null && objVideosList.Count() > 0)
+                        if (objVideosList != null && objVideosList.Any())
                         {
                             rptVideos.DataSource = objVideosList;
                             rptVideos.DataBind();

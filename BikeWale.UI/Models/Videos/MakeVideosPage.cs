@@ -47,7 +47,7 @@ namespace Bikewale.Models
                 objVM.CityId = GlobalCityArea.GetGlobalCityArea().CityId > 0 ? GlobalCityArea.GetGlobalCityArea().CityId : Convert.ToUInt32(BWConfiguration.Instance.DefaultCity);
 
                 var videos = _videosCache.GetModelVideos(_makeId);
-                if (videos != null && videos.Count() > 0)
+                if (videos != null && videos.Any())
                 {
                     objVM.Videos = videos;
                     objVM.Make = videos.FirstOrDefault().objMake;

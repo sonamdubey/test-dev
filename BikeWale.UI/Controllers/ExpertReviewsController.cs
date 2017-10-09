@@ -106,7 +106,6 @@ namespace Bikewale.Controllers
         public ActionResult Detail_Mobile(string basicid)
         {
             ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, basicid);
-            obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/m/pagenotfound.aspx");
@@ -117,6 +116,8 @@ namespace Bikewale.Controllers
             }
             else
             {
+                obj.IsMobile = true;
+                obj.RefControllerContext = ControllerContext;
                 ExpertReviewsDetailPageVM objData = obj.GetData(9);
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pagenotfound.aspx");
@@ -144,6 +145,7 @@ namespace Bikewale.Controllers
             }
             else
             {
+                obj.RefControllerContext = ControllerContext;
                 ExpertReviewsDetailPageVM objData = obj.GetData(3);
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/pagenotfound.aspx");
@@ -175,12 +177,36 @@ namespace Bikewale.Controllers
             }
             else
             {
+                obj.IsAMPPage = true;
+                obj.RefControllerContext = ControllerContext;
                 objData = obj.GetData(3);
                 if (obj.status == StatusCodes.ContentNotFound)
                     return Redirect("/pagenotfound.aspx");
                 else
                     return View("~/views/m/content/expertreviews/details_amp.cshtml", objData);
-            }           
+            }
+        }
+
+        [Route("expertreviews/list/")]
+        public ActionResult ExpertReviewsListByModel(uint makeId, uint modelId, uint topCount)
+        {
+            RecentExpertReviewsVM objData = null;
+
+            RecentExpertReviews obj = new RecentExpertReviews(topCount, makeId, modelId, _cmsCache);
+            objData = obj.GetData();
+
+            return View("~/views/ExpertReviews/_ExpertReviewHorizontalListByModel.cshtml", objData);
+        }
+
+        [Route("m/expertreviews/list/")]
+        public ActionResult ExpertReviewsListByModel_Mobile(uint makeId, uint modelId, uint topCount)
+        {
+            RecentExpertReviewsVM objData = null;
+
+            RecentExpertReviews obj = new RecentExpertReviews(topCount, makeId, modelId, _cmsCache);
+            objData = obj.GetData();
+
+            return View("~/views/ExpertReviews/_ExpertReviewHorizontalListByModel_Mobile.cshtml", objData);
         }
 
         /// <summary>

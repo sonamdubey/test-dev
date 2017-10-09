@@ -59,7 +59,7 @@ namespace Bikewale.Notifications.MailTemplates
             mail.AppendFormat("<div style=\"margin:10px 0 15px 0;\"><a href=\"https://maps.google.com/maps?q={0},{1}\" target=\"_blank\" style=\" background: url(https://imgd.aeplcdn.com/0x0/bw/static/design15/mailer-images/get-directions-icon.png) no-repeat 0 3px; padding-left:15px; color:#0288d1; font-size:14px; text-decoration: none;\">Get directions</a></div> </div>"
                 , dealerLat, dealerLong); //url need to copy paste
 
-            if (offerList != null && offerList.Count() > 0)
+            if (offerList != null && offerList.Any())
             {
                 mail.Append("<div style=\"text-align:center; border-top:1px solid #f5f5f5;\"> <div style=\" padding-bottom:10px; padding-top:15px; margin:0 20px; text-align:left; font-size:14px; font-weight:bold; color:#4d5057;\">Exclusive offers from this dealer:</div> <div style=\" line-height:1.4; margin:0 20px; text-align:left;\">");
                 foreach (var offer in offerList)

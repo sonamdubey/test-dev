@@ -278,7 +278,7 @@ namespace BikewaleOpr.Campaign
                 {
                     numbersList = objCC.GetAllMaskingNumbers(Convert.ToUInt32(dealerId));
 
-                    if (numbersList != null && numbersList.Count() > 0)
+                    if (numbersList != null && numbersList.Any())
                     {
                         ddlMaskingNumber.DataSource = numbersList;
                         ddlMaskingNumber.DataTextField = "Number";

@@ -13,10 +13,11 @@ namespace Bikewale.Models.UserReviews
     public class UserReviewsSearchWidget
     {
         private InputFilters _filters = null;
+        private ReviewDataCombinedFilter _filtersCombined = null;
         private uint _modelId;
         private readonly IUserReviewsCache _userReviewsCacheRepo = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
-        public BikeReviewsInfo ReviewsInfo { get; set; }        
+        public BikeReviewsInfo ReviewsInfo { get; set; }
         public FilterBy ActiveReviewCateory { get; set; }
         public string WriteReviewLink { get; set; }
         public bool IsDesktop { get; set; }
@@ -27,11 +28,11 @@ namespace Bikewale.Models.UserReviews
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="filters"></param>
-        /// <param name="userReviewsCacheRepo"></param>
-        public UserReviewsSearchWidget(uint modelId, InputFilters filters, IUserReviewsCache userReviewsCacheRepo, IUserReviewsSearch userReviewsSearch)
+        /// <param name="userReviewsCacheRepo"></param>        
+        public UserReviewsSearchWidget(uint modelId, ReviewDataCombinedFilter filters, IUserReviewsCache userReviewsCacheRepo, IUserReviewsSearch userReviewsSearch)
         {
             _modelId = modelId;
-            _filters = filters;
+            _filtersCombined = filters;
             _userReviewsCacheRepo = userReviewsCacheRepo;
             _userReviewsSearch = userReviewsSearch;
         }
@@ -43,8 +44,11 @@ namespace Bikewale.Models.UserReviews
             objData.ReviewsInfo = ReviewsInfo;
             objData.ActiveReviewCategory = ActiveReviewCateory;
 
-            objData.UserReviews = _userReviewsSearch.GetUserReviewsList(_filters);
-            objData.ObjQuestionValue = _userReviewsCacheRepo.GetReviewQuestionValuesByModel(_modelId);           
+            objData.UserReviews = _userReviewsSearch.GetUserReviewsList(_filtersCombined);
+
+            objData.ObjQuestionValue = _userReviewsCacheRepo.GetReviewQuestionValuesByModel(_modelId);
+
+            objData.ReviewsReadPerSession = Convert.ToUInt32(Utility.BWConfiguration.Instance.UserReviewsReadInSessionCount);
 
             if (objData.UserReviews != null)
             {
@@ -62,10 +66,10 @@ namespace Bikewale.Models.UserReviews
 
                     objData.Pager = new Entities.Pager.PagerEntity()
                     {
-                        PageNo = _filters.PN,
-                        PageSize = _filters.PS,
+                        PageNo = _filtersCombined.InputFilter.PN,
+                        PageSize = _filtersCombined.InputFilter.PS,
                         PagerSlotSize = 5,
-                        BaseUrl = String.Format("{0}/{1}-bikes/{2}/reviews/", (IsDesktop ? "" : "/m") , objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.MaskingName),
+                        BaseUrl = String.Format("{0}/{1}-bikes/{2}/reviews/", (IsDesktop ? "" : "/m"), objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.MaskingName),
                         PageUrlType = "page/",
                         TotalResults = objData.UserReviews.TotalCount
                     };
