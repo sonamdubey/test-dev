@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<Bikewale.Entities.GenericBikes.BestBikeEntityBase>
 @using Bikewale.Utility;
-<div class="jcarousel-wrapper inner-content-carousel carousel-height-360">
-    <div class="jcarousel">
-        <ul>
+
             @foreach (var bike in Model)
             {
                 var bikeName = String.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
@@ -40,8 +38,4 @@
                     
                 </li>
             }
-        </ul>
-    </div>
-    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-</div>
+    

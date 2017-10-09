@@ -323,7 +323,11 @@
                 @if (Model.BestBikes.objBestScootersList != null && Model.BestBikes.objBestScootersList.Count() > 0)
                 {
                     <div id="compareTypeBike" class="bw-tabs-data">
-                        @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestScootersList)
+                        <div class="swiper-container card-container swiper-small">
+                            <div class="swiper-wrapper discover-bike-carousel">
+                                @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestScootersList)
+                            </div>
+                        </div>
                         <div class="padding-left10 view-all-btn-container margin-top10">
                             <a href="/m/best-scooters-in-india/" title="Best Scooters" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
                         </div>
@@ -332,7 +336,11 @@
                 @if (Model.BestBikes.objBestMileageBikesList != null && Model.BestBikes.objBestMileageBikesList.Count() > 0)
                 {
                     <div id="compareTypeScooter" class="bw-tabs-data hide">
-                        @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestMileageBikesList)
+                        <div class="swiper-container card-container swiper-small">
+                            <div class="swiper-wrapper discover-bike-carousel">
+                                @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestMileageBikesList)
+                            </div>
+                        </div>
                         <div class="padding-left10 view-all-btn-container margin-top10">
                             <a href="/m/best-mileage-bikes-in-india/" title="Best Mileage Bikes" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
                         </div>
@@ -341,7 +349,11 @@
                 @if (Model.BestBikes.objBestSportsBikeList != null && Model.BestBikes.objBestSportsBikeList.Count() > 0)
                 {
                     <div id="compareTypeCruiser" class="bw-tabs-data hide">
-                        @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestSportsBikeList)
+                        <div class="swiper-container card-container swiper-small">
+                            <div class="swiper-wrapper discover-bike-carousel">
+                                @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestSportsBikeList)
+                            </div>
+                        </div>
                         <div class="padding-left10 view-all-btn-container margin-top10">
                             <a href="/m/best-sports-bikes-in-india/" title="Best Sports Bikes" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
                         </div>
@@ -350,7 +362,11 @@
                 @if (Model.BestBikes.objBestCruiserBikesList != null && Model.BestBikes.objBestCruiserBikesList.Count() > 0)
                 {
                     <div id="compareTypeSport" class="bw-tabs-data hide">
-                        @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestCruiserBikesList)
+                        <div class="swiper-container card-container swiper-small">
+                            <div class="swiper-wrapper discover-bike-carousel">
+                                @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestCruiserBikesList)
+                            </div>
+                        </div>
                         <div class="padding-left10 view-all-btn-container margin-top10">
                             <a href="/m/best-cruiser-bikes-in-india/" title="Best Cruisers" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
                         </div>
