@@ -398,3 +398,8 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 	text-align: center;
 	z-index: 1;
 }
+
+/* tooltip atf content */
+.info-tooltip {
+	display: none;
+}

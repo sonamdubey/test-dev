@@ -1093,3 +1093,17 @@ h2.text-bold { font-weight: bold; }
 .more-make-bikes .swiper-slide:first-child {
     margin-left: 0px;
 }
+
+/* best bikes and other bikes tooltip */
+.best-bike-list .tooltip-icon-target {
+	position: absolute;
+	top: 53px;
+	left: 230px;
+}
+
+.discover-bike-carousel .tooltip-icon-target,
+.other-popular-bikes-swiper .tooltip-icon-target {
+	position: absolute;
+	top: 123px;
+	left: 138px;
+}
