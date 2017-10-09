@@ -75,13 +75,13 @@ namespace Bikewale.Models
                 };
                 objVM.NewLaunched = (new NewLaunchesBikesModel(_newLaunches, _filter, _pqSource)).GetData();
 
-                _totalPagesCount = (uint)(objVM.NewLaunched.Bikes.TotalCount / PageSize);
-
-                if ((objVM.NewLaunched.Bikes.TotalCount % PageSize) > 0)
-                    _totalPagesCount += 1;
-
                 if (objVM.NewLaunched != null && objVM.NewLaunched.HasBikes)
                 {
+                    _totalPagesCount = (uint)(objVM.NewLaunched.Bikes.TotalCount / PageSize);
+
+                    if ((objVM.NewLaunched.Bikes.TotalCount % PageSize) > 0)
+                        _totalPagesCount += 1;
+
                     objVM.NewLaunched.Makes = null;
                     objVM.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
                     objVM.Brands = (new BrandWidgetModel(MakeTopCount, _newLaunches)).GetData(EnumBikeType.NewLaunched);

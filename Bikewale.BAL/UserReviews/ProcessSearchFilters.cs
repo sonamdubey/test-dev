@@ -5,8 +5,6 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Notifications;
-using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,13 +74,13 @@ namespace Bikewale.BAL.UserReviews.Search
                 if (objResult != null && objResult.Result != null && objResult.TotalCount > 0 && filter.ReviewFilter != null)
                     foreach (var review in objResult.Result)
                     {
-                        if (!filter.ReviewFilter.RatingQuestion)
+                        if (review.Questions != null && !filter.ReviewFilter.RatingQuestion)
                         {
                             review.Questions = review.Questions.Where(x => x.Type != UserReviewQuestionType.Rating);
                             review.RatingQuestionsCount = 0;
                         }
 
-                        if (!filter.ReviewFilter.ReviewQuestion)
+                        if (review.Questions != null && !filter.ReviewFilter.ReviewQuestion)
                         {
                             review.Questions = review.Questions.Where(x => x.Type != UserReviewQuestionType.Review);
 
@@ -99,16 +97,16 @@ namespace Bikewale.BAL.UserReviews.Search
                             review.HostUrl = null;
                         }
 
-                        if(filter.ReviewFilter.SantizeHtml)
+                        if (filter.ReviewFilter.SantizeHtml)
                         {
                             review.SanitizedDescription = (review.SanitizedDescription != null) && (review.SanitizedDescription.Length > filter.ReviewFilter.SanitizedReviewLength) ? review.SanitizedDescription.Substring(0, (int)filter.ReviewFilter.SanitizedReviewLength) : review.SanitizedDescription;
-                            review.Description = null;                            
+                            review.Description = null;
                         }
                         else
                         {
                             review.SanitizedDescription = null;
                         }
-                       
+
                     }
 
             }

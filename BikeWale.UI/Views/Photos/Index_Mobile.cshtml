@@ -5,70 +5,86 @@
     Model.Page_JS_Path = "/m/src/photos/photos.js";
 }
 
+@if (Model != null)
+{
+    int i = 0; IList<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> objImages = new List<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity>();
 
-<section>
-    <div class="container box-shadow section-bottom-margin padding-bottom2">
-        <h1 class="section-header bg-white">@Model.Page_H1</h1>
-        @if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
-        {
-            int i = 0; var objImages = Model.ModelImages.ToList();
-            <ul class="photos-grid-list">
-                @for (; i < Model.GridPhotoCount - 1 && i < 6; i++)
-                {
-                    <li>
-                        <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                    </li>
-                }
-                @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
-                {
-                    <li>
-                        <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                    </li>
-                }
-            </ul>
+    if (Model.ModelImages != null)
+    {
+        objImages = Model.ModelImages.ToList();
+    }
 
-            if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 1)
+    <section>
+        <div class="container box-shadow section-bottom-margin padding-bottom2">
+            <h1 class="section-header bg-white">@Model.Page_H1</h1>
+            @if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
             {
-                <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images">
-                    @for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
+                <ul class="photos-grid-list">
+                    @for (; i < Model.GridPhotoCount && i < 6; i++)
+                    {
+                        <li>
+                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                        </li>
+                    }
+                    @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
                     {
                         <li>
                             <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
                         </li>
                     }
                 </ul>
+
+
+                <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images">
+                    @if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 1)
+                    {
+                        for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
+                        {
+                            <li>
+                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                            </li>
+                        }
+                    }
+                    else if (Model.TotalPhotos == 1)
+                    {
+                        <li>
+                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                        </li>
+                    }
+                </ul>
+
+
             }
+            <div class="clear"></div>
+        </div>
+    </section>
 
-        }
-        <div class="clear"></div>
-    </div>
-</section>
-
-@if (Model.BikeInfo != null)
-{ <section>
+    if (Model.BikeInfo != null)
+    { <section>
         <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
             @Html.Partial("~/views/Bikemodels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfo)
         </div>
     </section>
-}
+    }
 
-@if (Model.ModelVideos != null && Model.Videos != null)
-{
-    <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
-        <h2 class="margin-bottom15">@Model.BikeName Videos</h2>
-        @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
-        <div class="view-all-btn-container">
-            <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
+    if (Model.ModelVideos != null && Model.Videos != null)
+    {
+        <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
+            <h2 class="margin-bottom15">@Model.BikeName Videos</h2>
+            @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+            <div class="view-all-btn-container">
+                <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}", Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
+            </div>
         </div>
-    </div>
-}
+    }
 
-@if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
-{
-    @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_Mobile.cshtml", Model.SimilarBikes)
-}
+    if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
+    {
+        @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_Mobile.cshtml", Model.SimilarBikes)
+    }
 
-@if (Model.ModelGallery != null)
-{
-    @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
+    if (Model.ModelGallery != null)
+    {
+        @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
+    }
 }

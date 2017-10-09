@@ -15,7 +15,7 @@
                     }
                     <div class="clear"></div>
                     <div class="margin-bottom15">
-                        <a href="@Model.BikeUrl" title="@Model.BikeName" class="margin-right10 inline-block">
+                        <a href="@Model.BikeUrl" title="@Model.BikeName" class="margin-right10 inline-block bw-ga" c="@Model.Category" a="Clicked_Model_GenericSlug" l="@Model.BikeName">
                             <h2>@Model.BikeName</h2>
                         </a>
                         @if (Model.BikeInfo.RatingCount > 0)
@@ -36,7 +36,7 @@
                         <a href="@Model.BikeUrl" title="@Model.BikeName" class="model-image-target vertical-top">
                             <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath, Model.BikeInfo.HostUrl, Bikewale.Utility.ImageSize._160x89, Bikewale.Utility.QualityFactor._70) " src="" alt="@Model.BikeName" width="157" height="88" />
                         </a>
-                        <div class="model-details-block vertical-top">
+                        <div class="model-details-block vertical-top bw-ga" c="@Model.Category" a="Clicked_OtherElements_GenericSlug" l="@Model.BikeName">
                             @if (Model.BikeInfo.MinSpecs != null)
                             {
                                 <ul class="key-specs-list margin-bottom15 text-light-grey">

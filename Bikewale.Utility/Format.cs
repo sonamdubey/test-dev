@@ -1,9 +1,7 @@
-﻿
-using Bikewale.Entities.manufacturecampaign;
-using RabbitMqPublishing.Common;
-using RazorEngine;
+﻿using RabbitMqPublishing.Common;
 using System;
 using System.Text.RegularExpressions;
+
 namespace Bikewale.Utility
 {
     public static class Format
@@ -309,27 +307,6 @@ namespace Bikewale.Utility
 
             }
             return RankText;
-        }
-
-        /// <summary>
-        /// Created by  :   Sumit Kate on 29 Jun 2017
-        /// Description :   Returns the Render engine raw output
-        /// </summary>
-        /// <param name="templateName"></param>
-        /// <param name="template"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public static string GetRenderedContent(string templateName, string template, ManufactureCampaignLeadEntity model)
-        {
-            try
-            {
-                var renderedContent = Razor.Parse(template, model, templateName);
-                return renderedContent;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
 
     }

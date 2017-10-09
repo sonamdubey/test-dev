@@ -71,6 +71,11 @@
                         <p class="select-label">Make</p>
                         <select id="reviewSelectMake" class="chosen-select bike-select-field" data-placeholder="Select make">
                             <option value></option>
+                            @if (!(Model.Makes.Any(objModel => objModel.MakeId == Model.MakeId)))
+                            {
+                                <option value="@Model.MakeId">@Model.MakeName</option>
+                            }
+
                             @foreach (var make in Model.Makes)
                             {
                                 <option value="@make.MakeId">@make.MakeName</option>
@@ -84,7 +89,11 @@
                     <div class="select-box review-form-field">
                         <p class="select-label">Model</p>
                         <select id="reviewSelectModel" class="chosen-select bike-select-field" data-placeholder="Select model" disabled>
-                            <option value></option>
+                            @if (!(Model.Makes.Any(objModel => objModel.MakeId == Model.MakeId)))
+                            {
+                                <option value="@Model.ModelId">@Model.ModelName</option>
+                            }
+                             <option value></option>
                         </select>
                         <span class="boundary"></span>
                         <span class="error-text"></span>

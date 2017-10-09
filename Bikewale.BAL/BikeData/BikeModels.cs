@@ -52,11 +52,12 @@ namespace Bikewale.BAL.BikeData
         private readonly IArticles _articles = null;
         private readonly ICMSCacheContent _cacheArticles = null;
         private readonly IBikeModelsCacheRepository<U> _modelCacheRepository = null;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _modelMaskingCache = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IVideos _videos = null;
         private readonly IUserReviews _userReviews = null;
-        static readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
-        static uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
+        private readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
+        private readonly uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
 
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
@@ -91,6 +92,7 @@ namespace Bikewale.BAL.BikeData
                 _userReviewCache = container.Resolve<IUserReviewsCache>();
                 _userReviews = container.Resolve<IUserReviews>();
                 _userReviewsSearch = container.Resolve<IUserReviewsSearch>();
+                _modelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
             }
         }
 
@@ -529,6 +531,11 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Created by : Sajal Gupta on 24-02-2017
         /// Description : Get model photo gallery data
+        /// Modified By : sushil Kumar on 4th Oct 2017
+        /// Description : Remove unused call to modeldetails 
+        ///                 Now only call two function for model details and model color photos
+        ///                 Moved galleryimages call and videos call by model into this specified function
+        ///                 Added task for all other calls after model details is fetched from the cache
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -537,23 +544,26 @@ namespace Bikewale.BAL.BikeData
             ModelPhotoGalleryEntity objModelPhotoGalleryData = null;
             try
             {
-                var modelPage = _modelCacheRepository.GetModelPageDetails(modelId);
+                BikeModelPageEntity modelPage = new BikeModelPageEntity();
+                modelPage.ModelDetails = _modelMaskingCache.GetById(Convert.ToInt32(modelId));
 
-                if (modelPage != null)
+                if (modelPage.ModelDetails != null)
                 {
                     objModelPhotoGalleryData = new ModelPhotoGalleryEntity();
                     objModelPhotoGalleryData.ObjModelEntity = modelPage.ModelDetails;
 
-                    if (objModelPhotoGalleryData.ObjModelEntity != null && objModelPhotoGalleryData.ObjModelEntity.MakeBase != null)
-                        objModelPhotoGalleryData.VideosList = _videos.GetVideosByMakeModel(1, 50, (uint)objModelPhotoGalleryData.ObjModelEntity.MakeBase.MakeId, Convert.ToUInt32(modelId));
+                    var colorPhotosTask = Task.Factory.StartNew(() => modelPage.colorPhotos = _modelCacheRepository.GetModelColorPhotos(modelId));
+                    var galleryTask = Task.Factory.StartNew(() => modelPage.Photos = GetBikeModelPhotoGallery(modelId));
+                    var videosTask = Task.Factory.StartNew(() => objModelPhotoGalleryData.VideosList = _videos.GetVideosByMakeModel(1, 50, (uint)objModelPhotoGalleryData.ObjModelEntity.MakeBase.MakeId, Convert.ToUInt32(modelId)));
 
-                    CreateAllPhotoList(modelId, modelPage);
-                    objModelPhotoGalleryData.ImageList = modelPage.AllPhotos;
+                    Task.WaitAll(colorPhotosTask, galleryTask, videosTask);
+
+                    objModelPhotoGalleryData.ImageList = CreateAllBikePhotosList(modelPage.ModelDetails, modelPage.Photos, modelPage.colorPhotos);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetPhotoGalleryData  modelId{0}", modelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetPhotoGalleryData : modelId{0}", modelId));
             }
             return objModelPhotoGalleryData;
         }
@@ -673,7 +683,7 @@ namespace Bikewale.BAL.BikeData
 
                     //Add Color Photos
                     IEnumerable<ModelColorImage> colorPhotos = objModelPage.colorPhotos != null ? objModelPage.colorPhotos.Where(m => !String.IsNullOrEmpty(m.OriginalImagePath)) : null;
-                    var colorImages = (colorPhotos != null && colorPhotos.Any()) ? colorPhotos.Select(x => new ColorImageBaseEntity()
+                    var colorImages = colorPhotos.Select(x => new ColorImageBaseEntity()
                     {
                         HostUrl = x.Host,
                         OriginalImgPath = x.OriginalImagePath,
@@ -682,7 +692,8 @@ namespace Bikewale.BAL.BikeData
                         ImageType = ImageBaseType.ModelColorImage,
                         ImageCategory = x.ImageCategory,
                         Colors = x.ColorCodes.Select(y => y.HexCode)
-                    }) : null;
+                    });
+
                     if (colorImages != null && colorImages.Any())
                     {
                         allPhotos.AddRange(colorImages);
@@ -724,6 +735,78 @@ namespace Bikewale.BAL.BikeData
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.CreateAllPhotoList() : ModelId => {0}", modelId));
             }
+        }
+
+        /// <summary>
+        /// Created by: Sushil Kumar on 4th Oct 2017
+        /// Summary: To club all model images which includes modelimage,colorimages and gallery images
+        /// </summary>
+        /// <param name="objModelPage"></param>
+        /// <returns></returns>
+        private IEnumerable<ColorImageBaseEntity> CreateAllBikePhotosList(BikeModelEntity modelDetails, IEnumerable<ModelImage> galleryImages, IEnumerable<ModelColorImage> colorPhotos)
+        {
+            List<ColorImageBaseEntity> allPhotos = null;
+            try
+            {
+
+                if (modelDetails != null && !String.IsNullOrEmpty(modelDetails.HostUrl) && !String.IsNullOrEmpty(modelDetails.OriginalImagePath))
+                {
+                    allPhotos = new List<ColorImageBaseEntity>();
+
+                    var imageDesc = String.Format("{0} Model Image", modelDetails.ModelName);
+                    //Add Model Image
+                    allPhotos.Add(new ColorImageBaseEntity()
+                    {
+                        HostUrl = modelDetails.HostUrl,
+                        OriginalImgPath = modelDetails.OriginalImagePath,
+                        ImageCategory = "Model Image",
+                        ImageTitle = imageDesc,
+                        ImageType = ImageBaseType.ModelImage
+                    });
+                    if (colorPhotos != null)
+                    {
+                        var colorImages = colorPhotos.Select(x => new ColorImageBaseEntity()
+                        {
+                            HostUrl = x.Host,
+                            OriginalImgPath = x.OriginalImagePath,
+                            ColorId = x.BikeModelColorId,
+                            ImageTitle = x.Name,
+                            ImageType = ImageBaseType.ModelColorImage,
+                            ImageCategory = x.ImageCategory,
+                            Colors = x.ColorCodes.Select(y => y.HexCode)
+                        });
+
+                        if (colorImages != null && colorImages.Any())
+                        {
+                            allPhotos.AddRange(colorImages);
+                        }
+                    }
+
+                    //Add Model Gallery Photos
+                    if (galleryImages != null && galleryImages.Any())
+                    {
+                        var galleryBikeImages = galleryImages.Select(
+                                m => new ColorImageBaseEntity()
+                                {
+                                    HostUrl = m.HostUrl,
+                                    OriginalImgPath = m.OriginalImgPath,
+                                    ImageCategory = m.ImageCategory,
+                                    ImageTitle = m.ImageTitle,
+                                    ImageType = ImageBaseType.ModelGallaryImage
+                                });
+                        if (galleryBikeImages != null)
+                        {
+                            allPhotos.AddRange(galleryBikeImages);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.CreateAllBikePhotosList() : ModelId => {0}", (modelDetails != null ? modelDetails.ModelId : 0)));
+            }
+
+            return allPhotos;
         }
 
         /// <summary>

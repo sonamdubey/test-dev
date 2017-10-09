@@ -14,7 +14,7 @@
 
 @if (Model != null && Model.UserReviewDetailsObj != null && Model.UserReviewDetailsObj.Model != null && Model.UserReviewDetailsObj.Make != null)
 {
-    <section id="section-review-details" data-modelid="@Model.UserReviewDetailsObj.Model.ModelId">
+    <section id="section-review-details" data-modelid="@Model.UserReviewDetailsObj.Model.ModelId" data-makeid="@Model.UserReviewDetailsObj.Make.MakeId">
         <div class="container content-box-shadow card-bottom-margin">
             <div class="model-card-details content-box-shadow padding-10-20">
                 <div class="left-grid-image inline-block">
@@ -62,7 +62,7 @@
                 </div>
             }
 
-            <div id="modelName" data-modelName="@Model.UserReviewDetailsObj.Model.ModelName"class="content-inner-block-20">
+            <div id="modelName" data-modelName="@Model.UserReviewDetailsObj.Model.ModelName" data-makeName="@Model.UserReviewDetailsObj.Make.MakeName" class="content-inner-block-20">
                 <h2 class="font14 margin-bottom10">Full review of @Model.UserReviewDetailsObj.Make.MakeName @Model.UserReviewDetailsObj.Model.ModelName</h2>
                 @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Count > 0)
                 {

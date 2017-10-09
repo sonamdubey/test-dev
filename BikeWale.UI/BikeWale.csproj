@@ -3664,7 +3664,6 @@
     <Content Include="Views\UserReview\ListReviews_Mobile.cshtml" />
     <Content Include="Views\UserReview\ReviewDetails_Mobile.cshtml" />
     <Content Include="Views\UserReview\_UserReviewsSearch_Mobile.cshtml" />
-    <Content Include="Views\ExpertReviews\_ExpertReviewsModelWiseCard_Mobile.cshtml" />
     <Content Include="Views\UserReview\_SimilarBikeUserReview_Mobile.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad300x100_Middle.cshtml" />
     <Content Include="Views\CompareBikes\Index.cshtml" />
@@ -3765,6 +3764,14 @@
     <Content Include="Views\PopularCityWidget\DealerServiceCenterInTopCityWidget.cshtml" />
     <Content Include="Views\PopularCityWidget\DealerServiceCenterInTopCityWidget_Mobile.cshtml" />
     <Content Include="Views\PopUp\BikeCityPopup_Mobile.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad970x90_InnovationBanner.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x50_InnovationBanner.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReviewsSwiperCard.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReviewHorizontalListByModel.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReviewHorizontalListByModel_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReviewsModelWiseCard_Mobile.cshtml" />
+    <Content Include="Views\Photos\_PhotosBikeInfoCard.cshtml" />
+    <Content Include="Views\Photos\_PhotosBikeInfoCard_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

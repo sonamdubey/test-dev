@@ -13,8 +13,8 @@
 }
 
 
-<section id="section-review-list" data-modelid="@Model.ModelId">
-    <div id="modelName" data-modelName="@Model.RatingsInfo.Model.ModelName" class="container content-box-shadow card-bottom-margin">
+<section id="section-review-list" data-modelid="@Model.ModelId" data-makeid="@(Model.RatingReviewData != null && Model.RatingReviewData.ReviewDetails != null && Model.RatingReviewData.ReviewDetails.Make != null ? Model.RatingReviewData.ReviewDetails.Make.MakeId : 0)">
+    <div id="modelName" data-modelName="@Model.RatingsInfo.Model.ModelName" data-makeName="@Model.RatingsInfo.Make.MakeName" class="container content-box-shadow card-bottom-margin">
         <h1 class="font20 padding-15-20 content-box-shadow">@Model.BikeName user reviews</h1>
         <div class="padding-15-20">
             <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName Reviews" class="left-grid-image inline-block">

@@ -1,8 +1,9 @@
 
-var reviewId = 0, modelid, vmUserReviews, modelReviewsSection,categoryId = 1, pageNumber = 1;
+var reviewId = 0,makeid, modelid, vmUserReviews, modelReviewsSection, categoryId = 1, pageNumber = 1, modelName, makeName;
 var reg = new RegExp('^[0-9]*$');
-
 var helpfulReviews = [];
+var expertReviewWidgetHtml;
+var reviewsReadPerSession;
 
 var reviewCategory = {
     2: 'helpful',
@@ -253,12 +254,18 @@ docReady(function () {
 
     modelReviewsSection = $("#modelReviewsListing");
     modelName = $('#modelName').attr('data-modelName');
+    makeName = $('#modelName').attr('data-makeName');
     reviewId = $('#divAbuse').attr('data-reviewId');
+    reviewsReadPerSession = modelReviewsSection.attr('data-userReviewsReadCount');
 
-    if ($('#section-review-details').length > 0)
+    if ($('#section-review-details').length > 0) {
+        makeid = $('#section-review-details').attr('data-makeid');
         modelid = $('#section-review-details').attr('data-modelId');
-    else
+    }
+    else {
+        makeid = $('#section-review-list').attr('data-makeid');
         modelid = $('#section-review-list').attr('data-modelId');
+    }
 
     var vote = bwcache.get("ReviewDetailPage_reviewVote_" + reviewId);
 
@@ -317,6 +324,19 @@ docReady(function () {
             var originalText = strip(valueAccessor());
             var formattedText = originalText && originalText.length > 120 ? originalText.substring(0, 120) + '...' : originalText;
             $(element).text(formattedText);
+        }
+    };
+
+    ko.bindingHandlers.truncatedText = {
+        update: function (element, valueAccessor, allBindingsAccessor) {
+            if (ko.utils.unwrapObservable(valueAccessor())) {
+                var originalText = ko.utils.unwrapObservable(valueAccessor()),
+                    length = parseInt(element.getAttribute("data-trimlength")) || 150,
+                    truncatedText = originalText.length > length ? originalText.substring(0, length) + "..." : originalText;
+                ko.bindingHandlers.text.update(element, function () {
+                    return truncatedText;
+                });
+            }
         }
     };
 
@@ -632,12 +652,64 @@ docReady(function () {
 
             }
 
+            if ($('#modelReviewsListing')) {
+                $('#modelReviewsListing').attr('data-readMoreCount', parseInt($('#modelReviewsListing').attr('data-readMoreCount')) + 1);
+            }
+
+            if ($('#modelReviewsListing').attr('data-readMoreCount') == (parseInt(reviewsReadPerSession) - 1)) {
+                $.ajax({
+                    type: "GET",
+                    url: "/m/expertreviews/list/?makeId="+ makeid + "&modelId=" + modelid + "&topCount=12",
+                    success: function (response) {
+                        expertReviewWidgetHtml = response;
+                        if (parseInt($('#modelReviewsListing').attr('data-readMoreCount')) > (parseInt(reviewsReadPerSession) - 1)) {
+                            self.bindExpertReviewWidget(event);
+                        }
+                    }
+                });
+            }
+
+            if ($('#modelReviewsListing').attr('data-readMoreCount') == reviewsReadPerSession) {
+                self.bindExpertReviewWidget(event);
+                $('.expert-review-list .swiper-container:not(".noSwiper")').each(function (index, element) {
+                    $(this).addClass('sw-' + index);
+                    $('.sw-' + index).swiper({
+                        effect: 'slide',
+                        speed: 300,                        
+                        nextButton: $(this).find('.swiper-button-next'),
+                        prevButton: $(this).find('.swiper-button-prev'),
+                        pagination: $(this).find('.swiper-pagination'),
+                        slidesPerView: 'auto',
+                        paginationClickable: true,
+                        spaceBetween: 10,                        
+                        preloadImages: false,
+                        lazyLoading: true,
+                        lazyLoadingInPrevNext: true,
+                        watchSlidesProgress: true,
+                        watchSlidesVisibility: true
+
+                    });
+
+
+                })
+            }
+
             updateView(event);
             logBhrighu(event, 'ReadMoreClick');
 
             return true;
         };
 
+        self.bindExpertReviewWidget = function (event) {
+            var reviewId = event.currentTarget.getAttribute("data-reviewid");
+            var ele = $(document).find('.insertWidget[data-reviewId=' + reviewId + ']');
+            ele.after(expertReviewWidgetHtml);
+            $('.swiper-image-preview img.lazy').lazyload();
+
+            if (expertReviewWidgetHtml.trim()) {
+                triggerGA("User_Reviews", "ExpertReviews_CarouselLoaded", makeName + "_" + modelName);
+            }
+        };
     }
 
     vmUserReviews = new modelUserReviews();
@@ -649,6 +721,10 @@ docReady(function () {
             vmUserReviews.init(e);
             vmUserReviews.readMore(e);           
         }
+    });
+
+    $(document).on("click", ".expert-review-list .swiper-card a", function (e) {
+        triggerGA("User_Reviews", "ExpertReviews_CarouselCard_Clicked", makeName + "_" + modelName);
     });
 
     $("#overallSpecsTab ul li , #pagination-list-content ul li").click(function (e) {

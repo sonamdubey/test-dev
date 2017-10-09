@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Bikewale.Models
 {
@@ -53,11 +54,12 @@ namespace Bikewale.Models
         public string redirectUrl;
         private GlobalCityAreaEntity currentCityArea;
         private uint CityId, MakeId, ModelId, pageCatId = 0;
-        private uint _totalTabCount = 3;
+        private readonly uint _totalTabCount = 3;
         private BikeInfoTabType _pageId = BikeInfoTabType.News;
         private EnumBikeType bikeType = EnumBikeType.All;
-        private bool showCheckOnRoadCTA = false;
+        private readonly bool showCheckOnRoadCTA = false;
         private uint basicId;
+        private readonly ControllerContext _ctrlContext = null;
         private PQSourceEnum pqSource = 0;
         #endregion
 
@@ -82,10 +84,11 @@ namespace Bikewale.Models
         }
 
         public bool LogNewsUrl { get; set; }
+        public bool IsAMPPage { get; set; }
         #endregion
 
         #region Constructor
-        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
+        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, ControllerContext ctrlContext)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -98,6 +101,7 @@ namespace Bikewale.Models
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _objBikeVersionsCache = objBikeVersionsCache;
             LogNewsUrl = BWConfiguration.Instance.LogNewsUrl;
+            _ctrlContext = ctrlContext;
             ProcessQueryString();
         }
         #endregion
@@ -120,9 +124,9 @@ namespace Bikewale.Models
                     mappedCWId = qsBasicId;
                     string url = request["t"];
 
-                    if(url.Contains("/"+mappedCWId+"-") ||
-                        url.StartsWith(@"/news/")||
-                        url.StartsWith(@"/m/news/")||
+                    if (url.Contains(string.Format("/{0}-", mappedCWId)) ||
+                        url.StartsWith(@"/news/") ||
+                        url.StartsWith(@"/m/news/") ||
                         url.EndsWith(@".html"))
                     {
                         redirectUrl = url;
@@ -132,7 +136,7 @@ namespace Bikewale.Models
                         _logger.Error("NewsDetailPage.ProcessQueryString()");
                     }
                     else
-                        redirectUrl = string.Format("/news/{0}-{1}.html", mappedCWId, request["t"]);
+                        redirectUrl = string.Format("{0}/news/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, mappedCWId, request["t"]);
                 }
                 else if (uint.TryParse(qsBasicId, out basicId) && basicId > 0)
                     status = StatusCodes.ContentFound;
@@ -143,7 +147,7 @@ namespace Bikewale.Models
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.NewsDetailPage.ProcessQueryString");
             }
-            
+
         }
 
         /// <summary>
@@ -167,6 +171,7 @@ namespace Bikewale.Models
 
                     if (objData.Model != null && ModelId != 0 && objData.Model.ModelId != ModelId)
                         objData.Model.ModelId = (int)ModelId;
+
                 }
                 else
                     status = StatusCodes.ContentNotFound;
@@ -376,8 +381,12 @@ namespace Bikewale.Models
                 {
                     List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
-                    GenericBikeInfo bikeInfo = _models.GetBikeInfo(ModelId);
-                    bodyStyle = (EnumBikeBodyStyles)bikeInfo.BodyStyleId;
+                    if (objVersionsList != null && objVersionsList.Count > 0)
+                        bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+
+                    BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId);
+                    objData.BikeInfo = objBikeInfo.GetData();
+                    objData.BikeInfo.IsSmallSlug = true;
 
                     if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !isPWA)
                     {
@@ -389,9 +398,6 @@ namespace Bikewale.Models
                     else
                     {
                         SetPopularBikeByBodyStyleId(objData, topCount);
-                        BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId);
-                        objData.BikeInfo = objBikeInfo.GetData();
-                        objData.BikeInfo.IsSmallSlug = true;
                     }
 
                 }
@@ -480,6 +486,7 @@ namespace Bikewale.Models
                 }
             }
         }
+
         #endregion
     }
 }

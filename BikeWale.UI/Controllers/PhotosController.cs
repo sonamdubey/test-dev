@@ -8,6 +8,10 @@ using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
+    /// <summary>
+    /// Created by  : Sushil Kumar on 30th Sep 2017
+    /// Description :  Photos controller to set photos related methods
+    /// </summary>
     public class PhotosController : Controller
     {
         private readonly IBikeModelsCacheRepository<int> _objModelCache = null;
@@ -30,6 +34,14 @@ namespace Bikewale.Controllers
             _objVideos = objVideos;
         }
 
+        /// <summary>
+        /// Created by  : Sushil Kumar on 30th Sep 2017
+        /// Description :  Photos page for desktop
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"></param>
+        /// <param name="q"></param>
+        /// <returns></returns>
         [Route("photos/{makeMasking}-bikes/{modelMasking}/"), Filters.DeviceDetection]
         public ActionResult Index(string makeMasking, string modelMasking, string q)
         {
@@ -37,7 +49,7 @@ namespace Bikewale.Controllers
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
-                PhotosPageVM objData = obj.GetData(24,8,q);
+                PhotosPageVM objData = obj.GetData(24, 8, q);
                 return View(objData);
 
             }
@@ -51,6 +63,14 @@ namespace Bikewale.Controllers
             }
         }
 
+        /// <summary>
+        /// Created by  : Sushil Kumar on 30th Sep 2017
+        /// Description :  Photos page for mobile
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"></param>
+        /// <param name="q"></param>
+        /// <returns></returns>
         [Route("m/photos/{makeMasking}-bikes/{modelMasking}/")]
         public ActionResult Index_Mobile(string makeMasking, string modelMasking, string q)
         {

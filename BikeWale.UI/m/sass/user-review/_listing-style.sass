@@ -422,7 +422,7 @@ $graph-bg: #eee
 
 .review-left-divider
 	position: relative
-	padding-left: 10px
+	padding-left: 5px
 
 	&:before
 		content: ''
@@ -730,3 +730,36 @@ $graph-bg: #eee
 	.review__question
 		display: block
 		padding-bottom: 5px
+
+// expert review carousel
+.expert-review-list
+	margin-top: 15px
+	background: #f5f5f5
+
+	h2
+		font-size: 14px
+		margin-bottom: 0
+		padding: 15px 20px 10px
+
+	.card-container
+		padding-bottom: 15px
+
+	.swiper-slide
+		&:first-child
+			margin-left: 5px
+
+.article-type-carousel
+	.swiper-slide,
+	.swiper-card
+		min-height: 190px
+
+	.swiper-image-preview
+		padding: 0
+		height: 113px
+
+		img
+			height: 113px
+
+	.swiper-details-block
+		padding-top: 15px
+		padding-bottom: 8px
