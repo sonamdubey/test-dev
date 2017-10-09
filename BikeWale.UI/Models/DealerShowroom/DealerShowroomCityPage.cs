@@ -89,11 +89,12 @@ namespace Bikewale.Models.DealerShowroom
 
                 objDealerVM.BikeCityPopup = new PopUp.BikeCityPopup()
                 {
-                    ApiUrl = "/api/servicecenter/cities/make/" + objDealerVM.Make.MakeId + "/",
+                    ApiUrl = "/api/v2/DealerCity/?makeId=" + (uint)objMake.MakeId,
                     PopupShowButtonMessage = "Show showrooms",
-                    PopupSubHeading = "See showrooms in your city!",
+                    PopupSubHeading = "See Showrooms in your city!",
                     FetchDataPopupMessage = "Fetching showrooms for ",
-                    RedirectUrl = string.Format("/{0}-dealer-showrooms-in-", objDealerVM.Make.MaskingName)
+                    RedirectUrl = string.Format("/{0}-dealer-showrooms-in-", objDealerVM.Make.MaskingName),
+                    IsCityWrapperPresent = 1
                 };
                 BindShowroomPopularCityWidget(objDealerVM);
 
@@ -364,7 +365,7 @@ namespace Bikewale.Models.DealerShowroom
                 objData.DealerServiceCenters = _objDealerCache.GetPopularCityDealer(makeId, topCount);
                 objData.MakeMaskingName = objDealerDetails.Make.MaskingName;
                 objData.MakeName = objDealerDetails.Make.MakeName;
-                objData.CityCardTitle = "showroom in";
+                objData.CityCardTitle = "showrooms in";
                 objData.CityCardLink = "dealer-showrooms-in";
                 objData.IsServiceCenterPage = false;
                 objDealerDetails.DealersServiceCenterPopularCities = objData;

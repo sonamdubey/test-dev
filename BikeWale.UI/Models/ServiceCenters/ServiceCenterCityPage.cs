@@ -86,7 +86,9 @@ namespace Bikewale.Models.ServiceCenters
                     PopupShowButtonMessage = "Show service centers",
                     PopupSubHeading = "See service centers in your city!",
                     FetchDataPopupMessage = "Fetching service centers for ",
-                    RedirectUrl = string.Format("/{0}-service-center-in-", objVM.Make.MaskingName)
+                    RedirectUrl = string.Format("/{0}-service-center-in-", objVM.Make.MaskingName),
+                    IsCityWrapperPresent = 0
+
                 };
 
                 BindPageMetas(objVM);
@@ -194,7 +196,7 @@ namespace Bikewale.Models.ServiceCenters
                 objData.DealerServiceCenters = _objDealerCache.GetPopularCityDealer(_makeId, topCount);
                 objData.MakeMaskingName = _makeMaskingName;
                 objData.MakeName = objVM.Make.MakeName;
-                objData.CityCardTitle = "service center in";
+                objData.CityCardTitle = "service centers in";
                 objData.CityCardLink = "service-center-in";
                 objData.IsServiceCenterPage = true;
                 objVM.DealersServiceCenterPopularCities = objData;

@@ -1,6 +1,8 @@
 ﻿@model Bikewale.Models.PopUp.BikeCityPopup  
 
 <div id="priceInCityPopUp" class="hide popup-loader-animate" data-url="@Model.ApiUrl" data-loading-text="@Model.FetchDataPopupMessage" data-redirect-url="@Model.RedirectUrl">
+    <input type="hidden" id="IsCityWrapperPresent" value="@(Model.IsCityWrapperPresent)" />
+
     <div class="bw-popup bw-popup-sm" data-bind="css: IsLoading() ? 'location-loader-active' : ''">
         <!-- ko if : IsLoading() -->
         <div class="content-inner-block-20">
@@ -40,21 +42,25 @@
                     <p class="position-abt progress-bar-label"></p>
                 </div>
                 <input id="btnPriceInCity" class="action-btn margin-top15 margin-left60 " style="display: block;" type="button" value="@Model.PopupShowButtonMessage" data-bind="click: goToPriceInCity">
+                
             </div>
 
         </div>
         <!-- /ko -->
     </div>
+   
 </div>
 
 <script type="text/javascript">
     var vmPriceInCity, timeOutVariable, pcPopupContent, progressBar;
-    var CitiesKey,isAborted = false;
+    var CitiesKey, isAborted = false;
+    var isCityWrapperPresent;
     docReady(function () {
         bwcache.removeAll(true);
 
         $(document).on("click", ".blackOut-window, #priceInCityPopUp .close-btn", function () {
             pcPopupContent.close();
+           
         });
 
         var chosenSelectBox = $('.chosen-select');
@@ -117,6 +123,7 @@
                   self.removeErr = function () {
                       self.errMsg("");
                   };
+                 
                   self.LoadCities = function () {
                       try {
                           CitiesKey = "PriceInCityPopUp_" + self.SelectedModelId();
@@ -142,8 +149,10 @@
                                       }
                                   }
                               },
+    
                               success: function (response) {
-                                  var cities = ko.toJS(response);
+                                  isCityWrapperPresent = $("#IsCityWrapperPresent").val();
+                                  var cities = ((isCityWrapperPresent == "1") ? ko.toJS(response.City) : ko.toJS(response) );
                                   if (cities) {                                      
                                       bwcache.set(CitiesKey, cities, 60);
                                       progressBar.stopLoading();

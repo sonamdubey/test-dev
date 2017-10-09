@@ -3760,9 +3760,11 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad200x253.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad292x359.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad200x216.cshtml" />
-    <Content Include="Views\PopularCityWidget\DealerServiceCenterInTopCityWidget.cshtml" />
     <Content Include="Views\Price\_PriceInCityPopUp.cshtml" />
     <Content Include="Views\PopUp\BikeCityPopup.cshtml" />
+    <Content Include="Views\PopularCityWidget\DealerServiceCenterInTopCityWidget.cshtml" />
+    <Content Include="Views\PopularCityWidget\DealerServiceCenterInTopCityWidget_Mobile.cshtml" />
+    <Content Include="Views\PopUp\BikeCityPopup_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -13,5 +13,8 @@ namespace Bikewale.Models.PopUp
         public string PopupSubHeading { get; set; }
         public string FetchDataPopupMessage { get; set; }
         public string RedirectUrl { get; set; }
+
+        public sbyte IsCityWrapperPresent { get; set; }
+
     }
 }
