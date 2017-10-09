@@ -68,7 +68,7 @@
                                 @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
                             }
 
-                            @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && Model.BikePrice > 0 && !Model.IsManufacturerTopLeadAdShown)
+                            @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0)) && !Model.IsManufacturerTopLeadAdShown)
                             {
                                 <div class="floating-btn clearfix">
                                     <div class="grid-12 alpha omega">

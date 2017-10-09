@@ -12,7 +12,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 @foreach (var version in Model.ModelPageEntity.ModelVersions)
                 {
                     <tr>
@@ -28,9 +27,14 @@
                 }
             </tbody>
         </table>
-
-        <div class="font12 text-x-light padding-right20 padding-left20 margin-bottom20 padding-top5">Above mentioned prices are @(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</div>
-
+        @if (!Model.ModelPageEntity.ModelVersions.Any(x => x.Price == 0))
+        {
+            <div class="font12 text-x-light padding-right20 padding-left20 margin-bottom20 padding-top5">Above mentioned prices are @(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</div>
+        }
+        else
+        {
+            <div class="font12 text-x-light padding-right20 padding-left20 margin-bottom20 padding-top5">Above mentioned prices are Avg. Ex-showroom.</div>
+        }
         @if (Model.IsPriceInTopCitiesAvailable)
         {
             var priceQuotesCities = Model.PriceInTopCities.PriceQuoteList;
@@ -44,7 +48,6 @@
                 {
                     <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">Price by cities<span class="text-light-grey text-unbold"> (@(Model.IsLocationSelected && !Model.ShowOnRoadButton && Model.IsNewBike ? "On-road price" : "Ex-showroom price"))</span></h3>
                 }
-
                 <ul class="PriceInTopCity">
                     @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
                 </ul>
@@ -55,17 +58,15 @@
                 @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
             </ul>
 
-            if (priceQuotesCities != null && priceQuotesCities.Count() > 4)
-            {
-                <div class="padding-top10 padding-right20 padding-left20 padding-bottom5">
-                    <a href="javascript:void(0)" class="view-cities-link position-rel block font14" title="" rel="nofollow">View more cities</a>
-                </div>
-            }
-        }
-
+                    if (priceQuotesCities != null && priceQuotesCities.Count() > 4)
+                    {
+                        <div class="padding-top10 padding-right20 padding-left20 padding-bottom5">
+                            <a href="javascript:void(0)" class="view-cities-link position-rel block font14" title="" rel="nofollow">View more cities</a>
+                        </div>
+                        }
+                    }
         <div class="font14 text-light-grey line-height16 padding-bottom20 padding-right20 padding-left20">
             @Html.Raw(Model.VersionPriceListSummary)
         </div>
-
     </div>
-}
+                    }
