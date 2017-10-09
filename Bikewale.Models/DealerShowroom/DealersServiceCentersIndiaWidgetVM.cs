@@ -11,6 +11,9 @@ namespace Bikewale.Models
         public PopularDealerServiceCenter DealerServiceCenters { get; set; }
         public string MakeName { get; set; }
         public string MakeMaskingName { get; set; }
+        public bool IsServiceCenterPage { get; set; }
+        public string CityCardLink { get; set; }
 
+        public string CityCardTitle { get; set; }
     }
 }
