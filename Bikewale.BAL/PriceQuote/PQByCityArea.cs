@@ -13,6 +13,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.ManufacturerCampaign.DAL;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
@@ -53,6 +54,7 @@ namespace Bikewale.BAL.PriceQuote
                 container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();
                 container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
                 container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
+                container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaignRepository> ();
                 container.RegisterType<IManufacturerCampaign, Bikewale.ManufacturerCampaign.BAL.ManufacturerCampaign>();
 
                 objcity = container.Resolve<ICityCacheRepository>();
@@ -572,7 +574,6 @@ namespace Bikewale.BAL.PriceQuote
                     if (isAreaExistAndSelected || (!pqEntity.IsAreaExists))
                     {
                         pqEntity.PrimaryDealer = detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null ? detailedDealer.PrimaryDealer : null;
-
                         pqEntity.SecondaryDealerCount = detailedDealer.SecondaryDealerCount;
 
                         if (detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null)
@@ -582,9 +583,10 @@ namespace Bikewale.BAL.PriceQuote
                     }
                 }
 
-                // Check for ES campaign
+                // Fetch ES only when Primary dealer is absent for given model
+                // ES campaign should be shown even if the secondary dealers are found
 
-                if(cityId > 0 && pqOnRoad.PriceQuote.PQId > 0)
+                if(cityId > 0 && pqOnRoad.PriceQuote.PQId > 0 && pqEntity.PrimaryDealer == null)
                 {
                     pqEntity.ManufacturerCampaign = _objManufacturerCampaign.GetCampaigns((uint)modelId, (uint)cityId, Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
                 }

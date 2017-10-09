@@ -76,6 +76,7 @@ using Bikewale.Interfaces.Used.Search;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
+using Bikewale.ManufacturerCampaign.Interface;
 using Microsoft.Practices.Unity;
 using System;
 
@@ -202,6 +203,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ISplashScreenCacheRepository, SplashScreenCacheRepository>();
             container.RegisterType<ICMS, CMS>();
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
+            container.RegisterType<IManufacturerCampaign, Bikewale.ManufacturerCampaign.BAL.ManufacturerCampaign>();
             container.RegisterType<Bikewale.Interfaces.Finance.CapitalFirst.IFinanceRepository, Bikewale.DAL.Finance.CapitalFirst.FinanceRepository>();
             container.RegisterType<Bikewale.Interfaces.Finance.ICapitalFirst,
                 Bikewale.BAL.Finance.CapitalFirst>();
