@@ -13,6 +13,8 @@ namespace Bikewale.Interfaces.EditCMS
     /// Summary     : Added overload for GetMostRecentArticlesByIdList(bodystyleId)
     /// Modified by: Vivek Singh Tomar on 16th Aug 2017
     /// Summary: Added overload for GetArticlesByCategoryList(bodyStyleId)
+    /// Modified by: Ashutosh Sharma on 20-Sep-2017
+    /// Description : Added GetArticlesByCategoryList with parameters 'categoryIdList, startIndex, endIndex'
     /// </summary>
     public interface IArticles
     {
@@ -24,5 +26,6 @@ namespace Bikewale.Interfaces.EditCMS
         void UpdateViewCount(uint basicId);
         IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords,string bodyStyleId, uint makeId, uint modelId);
         CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId);
+        CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex);
     }
 }

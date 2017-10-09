@@ -447,6 +447,10 @@
       <Project>{12b0edcd-aa9e-41bb-bdc9-cef75952fd49}</Project>
       <Name>Bikewale.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.BAL\Bikewale.ManufacturerCampaign.BAL.csproj">
+      <Project>{5d58150b-55aa-4220-be98-5aca515ced8c}</Project>
+      <Name>Bikewale.ManufacturerCampaign.BAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.DAL\Bikewale.ManufacturerCampaign.DAL.csproj">
       <Project>{f3148a79-9fec-4a19-9977-0fa6163c9e77}</Project>
       <Name>Bikewale.ManufacturerCampaign.DAL</Name>

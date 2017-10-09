@@ -1,6 +1,5 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 @using Bikewale.Utility;
-
 <section>
     <div class="container" id="modelDetailsContainer">
         <div id="modelSummaryContent" class="bw-model-tabs-data">
@@ -12,7 +11,6 @@
                             @Html.Partial("~/Views/Model/_Index_Reviews.cshtml", Model)
                         </div>
                     </div>
-
                     <div id="overallTabsWrapper" class="overall-tabs position-rel">
                         <div id="overallSpecsTab" class="overall-specs-tabs-container">
                             <div class="overall-specs-tabs-wrapper">
@@ -20,48 +18,73 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="padding-top15 padding-right20 padding-bottom10 padding-left20">
                         <div id="model-right-grid" class="grid-7 alpha omega rightfloat">
-
                             @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs.cshtml", Model)
-
                             <div id="modelPriceContainer">
-                                <p class="font14 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price " : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price " : "Ex-showroom price ")) in @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</p>
-                                
+                                @if (Model.BikePrice > 0)
+                                {
+                                    <p class="font14 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price " : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price " : "Ex-showroom price ")) in @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</p>
+                                }
+                                else
+                                {
+                                    <span class="font14 text-light-grey">Avg. Ex-showroom price</span>
+                                    <span class="bwsprite emi-info tooltip-icon-target">
+                                        <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.LocationCookie.City)</span></span>
+                                    </span>
+                                }
+
                                 @if (Model.BikePrice > 0)
                                 {
                                     <div class="model-price-content padding-top5">
                                         <span>
                                             @Html.Raw("<span class='font22'>&#x20B9;</span>")
                                         </span>
-                                        <span id="new-bike-price" class="font22 font-bold" >@Format.FormatPrice(Model.BikePrice.ToString())</span>
+                                        <span id="new-bike-price" class="font22 font-bold">@Format.FormatPrice(Model.BikePrice.ToString())</span>
                                         @if ((Model.City != null && Model.IsLocationSelected && !Model.ShowOnRoadButton) && Model.BikePrice > 0 && Model.IsNewBike)
                                         {
                                             <a id="viewBreakupText" href="/pricequote/dealer/?MPQ=@Model.MPQString" rel="nofollow" class="font14 text-bold viewBreakupText">View detailed price</a>
                                             <br>
                                         }
                                     </div>
-                                    
+
                                     if (Model.EMIDetails != null)
                                     {
                                         <div class="font12 margin-top5 position-rel">
                                             <span class="text-light-grey">EMI starting at</span>&nbsp;<span class="text-default">@Html.Raw("<span>&#x20B9;</span>") @Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
-
                                             <span class="bwsprite emi-info tooltip-icon-target">
                                                 <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">EMI is calculated based on @Model.EMIDetails.RateOfInterest% for a tenure of @Model.EMIDetails.Tenure months</span></span>
                                             </span>
                                         </div>
                                     }
-                                     <div class="clear"></div>
-                                    
+                                    <div class="clear"></div>
+
+                                }
+                                else if (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0)
+                                {
+                                    <div class="model-price-content padding-top5">
+                                        <span>
+                                            @Html.Raw("<span class='font22'>&#x20B9;</span>")
+                                        </span>
+                                        <span id="new-bike-price" class="font22 font-bold">@Format.FormatPrice(Model.SelectedVersion.AverageExShowroom.ToString())</span>
+                                    </div>
+
+                                    if (Model.EMIDetails != null)
+                                    {
+                                        <div class="font12 margin-top5 position-rel">
+                                            <span class="text-light-grey">EMI starting at</span>&nbsp;<span class="text-default">@Html.Raw("<span>&#x20B9;</span>") @Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
+                                            <span class="bwsprite emi-info tooltip-icon-target">
+                                                <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">EMI is calculated based on @Model.EMIDetails.RateOfInterest% for a tenure of @Model.EMIDetails.Tenure months</span></span>
+                                            </span>
+                                        </div>
+                                    }
+                                    <div class="clear"></div>
                                 }
                                 else
                                 {
                                     <span class="font16">Price not available</span>
-                                     <div class="clear"></div>
-                                }                                
-
+                                    <div class="clear"></div>
+                                }
 
                                 @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && Model.BikePrice > 0 && !Model.IsManufacturerTopLeadAdShown)
                                 {
@@ -69,7 +92,6 @@
                                     <div class="clear"></div>
                                 }
                             </div>
-
                             @if (Model.IsPrimaryDealer || Model.IsManufacturerLeadAdShown)
                             {
                                 @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Right.cshtml", Model)
@@ -105,10 +127,10 @@
                     </div>
                 </div>
                 <div class="clear"></div>
-            }                 
-        </div>
+            }
+        </div> 
         @if ((Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
-                || (Model.IsModelDescriptionAvailable))
+                            || (Model.IsModelDescriptionAvailable))
         {
             <div class="bw-model-tabs-data">
                 @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
@@ -117,21 +139,27 @@
                         @Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
                     </div>
                 }
+                @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
+                {
+                    <div id="modelsBySeriesWidget" class="card-bottom-margin bw-ga" c="@Model.ModelsBySeries.Page" a="Series_WidgetShown" l="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
+                        <h2 class="horizontal-swiper__title">Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "Scooters:" : "Bikes:")</h2>
+                        @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries.cshtml", Model.ModelsBySeries)
+                    </div>
+                } 
                 @if (Model.IsModelDescriptionAvailable)
                 {   <div class="grid-12">
-                        @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)    
-                    </div>
+                    @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
+                </div>
                 }
                 <div class="clear"></div>
             </div>
-        }        
+        }
         @Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)
     </div>
 </section>
- 
+
 @if (Model.LeadCapture != null && (Model.IsLocationSelected || Model.IsManufacturerLeadAdShown))
 {
-  
+
     @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
 }
-

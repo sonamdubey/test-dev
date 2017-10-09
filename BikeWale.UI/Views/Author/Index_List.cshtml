@@ -1,0 +1,89 @@
+﻿@model Bikewale.Models.Authors.AuthorsListVM
+@using Bikewale.Utility;
+
+@if (Model != null)
+{
+    {
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/authors.css' />";
+        Model.AdTags.AdPath = "/1017752/BikeWale_News_";
+        Model.AdTags.AdId = "1395995626568";
+        Model.AdTags.Ad_300x250 = true;
+        Model.AdTags.Ad_970x90 = true;
+        Model.AdTags.Ad_970x90Bottom = true;
+        Model.IsHeaderFix = true;
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <section class="container padding-top10">
+        <div class="grid-12">
+            <div class="breadcrumb margin-bottom10 margin-top20">
+                <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <a href="/" itemprop="item">
+                            <span itemprop="name">Home</span>
+                        </a>
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <span class="bwsprite fa-angle-right margin-right10"></span>
+                        <span itemprop="name">Authors</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </section>
+    <section class="container padding-top10">
+        <div class="grid-12">
+            <div class="author grid-8 alpha content-box-shadow">
+                <h1 class="author__title">All authors</h1>
+                <ul class="author__list">
+                    @foreach (var item in Model.AuthorsList)
+                    {
+                        if (!string.IsNullOrEmpty(item.ShortDescription) && !string.IsNullOrEmpty(item.MaskingName))
+                        {
+                            <li>
+                                <div class="author__body">
+                                    <div class="author__image">
+                                        <a href=@UrlFormatter.AuthorPageUrl(item.MaskingName) title="@item.AuthorName" class="block">
+                                            @if (string.IsNullOrEmpty(item.HostUrl) || string.IsNullOrEmpty(item.ProfileImage) || string.IsNullOrEmpty(item.ImageName))
+                                            {
+                                                <div class="no-image-block"></div>
+                                            }
+                                            else
+                                            {
+                                                <img src="@string.Format("https://{0}/{1}/{2}", item.HostUrl, item.ProfileImage, item.ImageName)" alt="@item.AuthorName" title="@item.AuthorName" border="0">
+                                            }
+                                        </a>
+                                    </div>
+                                    <div class="author__detail">
+                                        <h2>
+                                            <a href=@UrlFormatter.AuthorPageUrl(item.MaskingName) title="@item.AuthorName" class="author__name">@item.AuthorName</a>
+                                        </h2>
+                                        <span class="author__designation">@item.Designation</span>
+                                        <div class="author__description">
+                                            @item.ShortDescription
+                                        </div>
+                                        <a href=@UrlFormatter.AuthorPageUrl(item.MaskingName) title="@string.Format("Read more about {0}", item.AuthorName)">Read more</a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="grid-4 omega">
+                @if (Model.ArticlesList != null)
+                {
+                    @Html.Partial("~/Views/News/_RecentNewsWidget.cshtml", Model.ArticlesList)
+                }
+                <div class="margin-bottom20">
+                    @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+
+

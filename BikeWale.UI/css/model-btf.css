@@ -1,4 +1,45 @@
-﻿/* review contest slug start */
+﻿/* horizontal swiper arrow icons start */
+.horizontal-card-swiper.inner-content-carousel .jcarousel-control-left,
+.horizontal-card-swiper.inner-content-carousel .jcarousel-control-right {
+	top: 24%;
+}
+
+.horizontal-card-swiper.inner-content-carousel .jcarousel-control-right {
+	right: 2px;
+}
+
+.horizontal-card-swiper .jcarousel-control-prev,
+.horizontal-card-swiper .jcarousel-control-next {
+	width: 30px;
+	height: 35px;
+}
+
+.horizontal-card-swiper.inner-content-carousel .jcarousel-control-prev {
+	background-position: -122px -361px;
+}
+
+.horizontal-card-swiper.inner-content-carousel .jcarousel-control-next {
+	background-position: -148px -361px;
+}
+
+.horizontal-card-swiper.inner-content-carousel .jcarousel-control-prev:hover {
+	background-position: -122px -392px;
+}
+
+.horizontal-card-swiper.inner-content-carousel .jcarousel-control-next:hover {
+	background-position: -148px -392px;
+}
+
+.horizontal-card-swiper.inner-content-carousel .jcarousel-control-prev.inactive {
+	background-position: -122px -330px;
+}
+
+.horizontal-card-swiper.inner-content-carousel .jcarousel-control-next.inactive {
+	background-position: -148px -330px;
+}
+/* horizontal swiper arrow icons end */
+
+/* review contest slug start */
 .contest-fullwidth__heading {
 	font-size: 18px;
 	color: #2a2a2a;

@@ -139,6 +139,7 @@
     <Compile Include="BikeBooking\DealerPriceQuoteRepository.cs" />
     <Compile Include="BikeData\BikeMakesRespository.cs" />
     <Compile Include="BikeData\BikeModelsRespository.cs" />
+    <Compile Include="BikeData\BikeSeriesRespository.cs" />
     <Compile Include="BikeData\BikeVersionsRespository.cs" />
     <Compile Include="BikeBooking\FeedBacksRespositry.cs" />
     <Compile Include="BikeData\ModelsRepository.cs" />

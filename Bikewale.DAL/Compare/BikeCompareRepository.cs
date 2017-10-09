@@ -737,6 +737,8 @@ namespace Bikewale.DAL.Compare
         /// Description : DAL layer to similar comaprisions bikes changed topcount to ushort  
         /// Modified By :-Subodh Jain 23 May 2017 
         /// Added :- Bike1 and Bike 2
+        /// Modified by : Ashutosh Sharma on 03 Oct 2017
+        /// Description : Changed SP from 'getsimilarcomparebikeslist_27042017' to 'getsimilarcomparebikeslist_03102017', to get avg price.
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>
         /// <returns></returns>
@@ -747,9 +749,9 @@ namespace Bikewale.DAL.Compare
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarcomparebikeslist_27042017";
+                    cmd.CommandText = "getsimilarcomparebikeslist_03102017";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 100, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -777,6 +779,8 @@ namespace Bikewale.DAL.Compare
                                     OriginalImagePath2 = Convert.ToString(reader["OriginalImagePath2"]),
                                     Price1 = SqlReaderConvertor.ToInt32(reader["Price1"]),
                                     Price2 = SqlReaderConvertor.ToInt32(reader["Price2"]),
+                                    AvgPrice1 = SqlReaderConvertor.ToInt32(reader["AvgPrice1"]),
+                                    AvgPrice2 = SqlReaderConvertor.ToInt32(reader["AvgPrice2"]),
                                     HostUrl1 = Convert.ToString(reader["HostUrl1"]),
                                     HostUrl2 = Convert.ToString(reader["HostUrl2"]),
                                     City1 = Convert.ToString(reader["city1"]),

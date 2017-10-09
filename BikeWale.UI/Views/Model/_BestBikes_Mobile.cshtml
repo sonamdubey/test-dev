@@ -18,9 +18,9 @@
                         @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(Bike.MinSpecs.Displacement), Convert.ToString(Bike.MinSpecs.FuelEfficiencyOverall), Convert.ToString(Bike.MinSpecs.MaxPower), Convert.ToString(Bike.MinSpecs.KerbWeight)))
                     </div>
 
-                    <p class="font11 text-grey text-truncate">Ex-showroom, @Bike.PriceInCity</p>
+                    <p class="font11 text-grey text-truncate">@(Bike.Price > 0 ? string.Format("Ex-showroom, {0}", Bike.PriceInCity) : "Avg. Ex-showroom price")</p>
                     <span class='font16 text-default'> &#x20B9;</span>
-                    <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
+                    <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price > 0 ? Bike.Price : Bike.AvgPrice))</span>
 
                 </div>
             </a>

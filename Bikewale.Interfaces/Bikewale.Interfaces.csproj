@@ -120,6 +120,8 @@
     <Compile Include="App\IAppVersionCache.cs" />
     <Compile Include="App\ISplashScreen.cs" />
     <Compile Include="App\ISplashScreenCache.cs" />
+    <Compile Include="Authors\IAuthors.cs" />
+    <Compile Include="Authors\IAuthorsCacheRepository.cs" />
     <Compile Include="AutoBiz\DealerPriceQuote\IDealer.cs" />
     <Compile Include="AutoBiz\DealerPriceQuote\IDealerPriceQuote.cs" />
     <Compile Include="AutoBiz\Dealers\IDealers.cs" />
@@ -135,7 +137,9 @@
     <Compile Include="BikeData\IBikeModels.cs" />
     <Compile Include="BikeData\IBikeModelsCacheRepository.cs" />
     <Compile Include="BikeData\IBikeModelsRepository.cs" />
-    <Compile Include="BikeData\IBikeSeries.cs">
+    <Compile Include="BikeData\IBikeSeries.cs" />
+    <Compile Include="BikeData\IBikeSeriesCacheRepository.cs" />
+    <Compile Include="BikeData\IBikeSeriesRepository.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BikeData\IBikeVersionCacheRepository.cs" />

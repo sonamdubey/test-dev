@@ -187,6 +187,7 @@
     <Compile Include="ABServiceRef\TCApi_Inquiry.cs" />
     <Compile Include="AppDeepLinking\DeepLinking.cs" />
     <Compile Include="App\SplashScreen.cs" />
+    <Compile Include="Authors\Authors.cs" />
     <Compile Include="AutoBiz\Dealers.cs" />
     <Compile Include="AutoComplete\AutoSuggest.cs" />
     <Compile Include="BikeBooking\AbstractBikeBooking.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="BikeData\BikeInfo.cs" />
     <Compile Include="BikeData\BikeMakes.cs" />
     <Compile Include="BikeData\BikeModels.cs" />
+    <Compile Include="BikeData\BikeSeries.cs" />
     <Compile Include="BikeData\BikeVersions.cs" />
     <Compile Include="BikeData\NewLaunched\NewBikeLaunchesBL.cs" />
     <Compile Include="BikeData\Upcoming.cs" />

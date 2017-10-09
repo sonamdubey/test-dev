@@ -518,6 +518,26 @@ namespace Bikewale.Utility
             }
             return url;
         }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 28th Sep 2017
+        /// Summary : Create url for author details page
+        /// </summary>
+        /// <param name="authorName"></param>
+        /// <returns></returns>
+        public static string AuthorPageUrl(string authorName)
+        {
+            string url = string.Empty;
+            if (!String.IsNullOrEmpty(authorName))
+            {
+                url = string.Format("/authors/{0}/", authorName);
+            }
+            else
+            {
+                url = "/authors/";
+            }
+            return url;
+        }
     }
 }
 
