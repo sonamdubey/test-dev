@@ -13,7 +13,7 @@
                     <li>
                         <a href="@Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(item.BasicId), item.ArticleUrl, Convert.ToString(item.CategoryId))" title="@item.Title" class="bike-target-link">
                             <div class="bike-target-image inline-block">
-                                <img src="@string.Format("{0}/{1}", item.HostUrl, item.SmallPicUrl)" alt="@item.Title">
+                                <img src="@string.Format("{0}/{1}?q=70", item.HostUrl, item.SmallPicUrl)" alt="@item.Title">
                             </div>
                             <div class="bike-target-content inline-block padding-left10">
                                 <h3 class="text-black">@item.Title</h3>
