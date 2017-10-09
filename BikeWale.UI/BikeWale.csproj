@@ -146,20 +146,22 @@
     <Reference Include="itextsharp">
       <HintPath>..\Libs\itextsharp.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.ChakraCore">
+    <Reference Include="JavaScriptEngineSwitcher.ChakraCore, Version=2.4.8.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.ChakraCore.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.Core">
+    <Reference Include="JavaScriptEngineSwitcher.Core, Version=2.4.9.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.Core.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.Msie, Version=2.3.2.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+    <Reference Include="JavaScriptEngineSwitcher.Msie, Version=2.4.9.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.Msie.dll</HintPath>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.V8">
       <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.V8.dll</HintPath>
     </Reference>
-    <Reference Include="JSPool, Version=2.0.1.0, Culture=neutral, PublicKeyToken=2fc7775f73072640, processorArchitecture=MSIL">
+    <Reference Include="JSPool, Version=3.0.1.0, Culture=neutral, PublicKeyToken=2fc7775f73072640, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\JSPool.dll</HintPath>
     </Reference>
@@ -184,10 +186,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="MsieJavaScriptEngine, Version=2.1.2.0, Culture=neutral, PublicKeyToken=a3a2846a37ac0d3e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\PWA\MsieJavaScriptEngine.dll</HintPath>
     </Reference>
     <Reference Include="MSMQLibrary, Version=1.0.0.1, Culture=neutral, PublicKeyToken=14ca6d48bbc78a0c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -223,10 +221,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\React.Core.dll</HintPath>
     </Reference>
-    <Reference Include="React.Web">
+    <Reference Include="React.Web, Version=3.0.1.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\React.Web.dll</HintPath>
     </Reference>
-    <Reference Include="React.Web.Mvc4">
+    <Reference Include="React.Web.Mvc4, Version=3.0.1.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\React.Web.Mvc4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
