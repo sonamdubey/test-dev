@@ -17,7 +17,7 @@ namespace Bikewale.Models.Videos
     public class VideosBySubcategory
     {
         private readonly IVideos _videos = null;
-        public static readonly string EditCMSModuleName = ConfigurationManager.AppSettings["EditCMSModuleName"];
+        private readonly string EditCMSModuleName = Bikewale.Utility.BWConfiguration.Instance.EditCMSModuleName;
         #region Constructor
         public VideosBySubcategory(IVideos videos)
         {
