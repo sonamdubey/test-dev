@@ -16,9 +16,11 @@
                         @(Bike.Price > 0 ? string.Format("Ex-showroom, {0}", Bike.PriceInCity) : "Avg. Ex-showroom price")
                         @if (Bike.Price == 0)
                         {
-                            <span class="bwsprite emi-info tooltip-icon-target">
-                                <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Bike.PriceInCity)</span></span>
-                            </span>
+						<span class="bwsprite info-icon tooltip-icon-target tooltip-top tooltip--right">
+							<span class="bw-tooltip info-tooltip">
+								<span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Bike.PriceInCity)</span>
+							</span>
+						</span>
 
                         }
                     </p>

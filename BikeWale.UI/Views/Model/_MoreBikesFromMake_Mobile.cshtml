@@ -6,26 +6,33 @@
         {
             <div  class="swiper-slide">
                 <div class="swiper-card">
-                    <a class="bw-ga block" l="@Bike.BikeName" c="Model_Page" a="Clicked_SameBrandBikes_widget" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName))" title="@Bike.Make.MakeName @Bike.Model.ModelName">
-                        <div class="swiper-image-preview">
-                            <img class="lazy" src="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" alt="@Bike.Make.MakeName @Bike.Model.ModelName" title="@Bike.Make.MakeName @Bike.Model.ModelName" />
-                        </div>
-                        <div class="swiper-details-block">
-                            <h3 class="target-link font12 text-truncate margin-bottom5">@Bike.Make.MakeName @Bike.Model.ModelName</h3>
-                            @if (Bike.OnRoadPriceInCity == 0 && Bike.Price > Bike.OnRoadPriceInCity)
-                            {
-                                <p class="text-truncate text-light-grey font11">@(Bike.UsedCity.CityId == 0 ? "Ex-showroom, Mumbai" : "Avg. Ex-showroom price")</p>
-                                <span class='font16 text-default'> &#x20B9;</span>
-                                <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price > 0 ? Bike.Price : Bike.AvgPrice))</span>
-                            }
-                            else
-                            {
-                                <p class="font11 text-grey text-truncate">On Road, @Bike.UsedCity.CityName</p>
-                                <span class='font16 text-default'> &#x20B9;</span>
-                                <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.OnRoadPriceInCity))</span>
-                            }
-                        </div>
-                    </a>
+					<div class="position-rel">
+						<a class="bw-ga block" l="@Bike.BikeName" c="Model_Page" a="Clicked_SameBrandBikes_widget" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName))" title="@Bike.Make.MakeName @Bike.Model.ModelName">
+							<div class="swiper-image-preview">
+								<img class="lazy" src="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" alt="@Bike.Make.MakeName @Bike.Model.ModelName" title="@Bike.Make.MakeName @Bike.Model.ModelName" />
+							</div>
+							<div class="swiper-details-block">
+								<h3 class="target-link font12 text-truncate margin-bottom5">@Bike.Make.MakeName @Bike.Model.ModelName</h3>
+								@if (Bike.OnRoadPriceInCity == 0 && Bike.Price > Bike.OnRoadPriceInCity)
+								{
+									<p class="text-truncate text-light-grey font11">@(Bike.UsedCity.CityId == 0 ? "Ex-showroom, Mumbai" : "Avg. Ex-showroom price")</p>
+									<span class='font16 text-default'> &#x20B9;</span>
+									<span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price > 0 ? Bike.Price : Bike.AvgPrice))</span>
+								}
+								else
+								{
+									<p class="font11 text-grey text-truncate">On Road, @Bike.UsedCity.CityName</p>
+									<span class='font16 text-default'> &#x20B9;</span>
+									<span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.OnRoadPriceInCity))</span>
+								}
+							</div>
+						</a>
+						<span class="info-icon tooltip-icon-target tooltip-top tooltip--right">
+							<span class="bw-tooltip info-tooltip">
+								<span class="bw-tooltip-text">Price is not available in City</span>
+							</span>
+						</span>
+					</div>
                 </div>
             </div>
         }

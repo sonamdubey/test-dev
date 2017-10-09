@@ -30,10 +30,14 @@
                     }
                     else
                     {
-                        <p><span class="text-light-grey margin-bottom5">Avg. Ex-showroom price</span>
-                        <span class="bwsprite emi-info tooltip-icon-target">
-                            <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">@string.Format("Price is not available in {0}", bike.CityName)</span></span>
-                        </span></p>
+                        <p>
+							<span class="text-light-grey margin-bottom5">Avg. Ex-showroom price</span>
+							<span class="bwsprite info-icon tooltip-icon-target tooltip-top">
+								<span class="bw-tooltip info-tooltip">
+									<span class="bw-tooltip-text">@string.Format("Price is not available in {0}", bike.CityName)</span>
+								</span>
+							</span>
+						</p>
                     }
 
                     @Html.Raw("<span class='font18 text-default'>&#x20B9;</span>")<span class="font18 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(bike.VersionPrice > 0 ? bike.VersionPrice.ToString() : bike.AvgExShowroomPrice.ToString())</span>
