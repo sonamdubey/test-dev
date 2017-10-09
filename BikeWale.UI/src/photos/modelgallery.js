@@ -240,21 +240,25 @@ var setPageVariables = function () {
     eleGallery = $("#pageGallery");
 
     try {
-        var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
+        if (eleGallery.data("images") != '') {
+            var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
+            modelImages = imageList;
+            modelColorImages = filterColorImagesArray(imageList);
 
-        videoList = JSON.parse(Base64.decode(eleGallery.data("videos")));
-        modelImages = imageList;
-        modelColorImages = filterColorImagesArray(imageList);
+            if (modelColorImages)
+                modelColorImageCount = modelColorImages.length;
+        }
 
-        if (modelColorImages)
-            modelColorImageCount = modelColorImages.length;
+        if (eleGallery.data("videos") != '') {
+            videoList = JSON.parse(Base64.decode(eleGallery.data("videos")));
+        }
+
         photoCount = eleGallery.data("photoscount");
         videoCount = eleGallery.data("videoscount");
         imageIndex = eleGallery.data("selectedimageid");
         colorImageId = eleGallery.data("selectedcolorimageid");
         returnUrl = eleGallery.data("returnurl");
         modelName = eleGallery.data("modelname");
-
         isIEBrowser = detectIEBrowser();
 
     } catch (e) {
