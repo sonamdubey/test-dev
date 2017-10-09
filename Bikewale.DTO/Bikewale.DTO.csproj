@@ -248,6 +248,9 @@
     <Compile Include="Model\Features.cs" />
     <Compile Include="Model\ImageBaseEntity.cs" />
     <Compile Include="Model\ModelColor.cs" />
+    <Compile Include="Model\ColorCode.cs" />
+    <Compile Include="Model\ModelColorDTO.cs" />
+    <Compile Include="Model\ModelColorPhoto.cs" />
     <Compile Include="Model\ModelDetail.cs" />
     <Compile Include="Model\ModelGallery.cs" />
     <Compile Include="Model\ModelGalleryComponent.cs" />

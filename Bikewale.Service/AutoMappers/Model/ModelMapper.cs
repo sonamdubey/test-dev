@@ -612,5 +612,19 @@ namespace Bikewale.Service.AutoMappers.Model
             
             return objModelGallery;
         }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 5th Oct 2017
+        /// Summary : Map Model color Image entity to dto
+        /// </summary>
+        /// <param name="objAllPhotosEntity"></param>
+        /// <returns></returns>
+        internal static IEnumerable<ModelColorPhoto> Convert(IEnumerable<ModelColorImage> objAllPhotosEntity)
+        {
+            Mapper.CreateMap<ColorCodeBase, ColorCode>();
+            Mapper.CreateMap<ModelColorBase, ModelColorDto>();
+            Mapper.CreateMap<ModelColorImage, ModelColorPhoto>();
+            return Mapper.Map<IEnumerable<ModelColorImage>, IEnumerable<ModelColorPhoto>>(objAllPhotosEntity);
+        }
     }
 }

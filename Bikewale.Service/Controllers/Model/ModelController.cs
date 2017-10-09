@@ -1,6 +1,7 @@
 ﻿using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
@@ -8,6 +9,7 @@ using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 namespace Bikewale.Service.Controllers.Model
@@ -165,7 +167,7 @@ namespace Bikewale.Service.Controllers.Model
         [ResponseType(typeof(Bikewale.DTO.Model.v2.BikeModelContentDTO)), Route("api/v2/model/{modelId}/articles/")]
         public IHttpActionResult GetModelContentV2(int modelId)
         {
-           
+
 
             try
             {
@@ -192,7 +194,7 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : Bikewale.Service.Model.ModelController.GetModelContent({0})",modelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : Bikewale.Service.Model.ModelController.GetModelContent({0})", modelId));
                 return InternalServerError();
             }
         }
@@ -235,6 +237,79 @@ namespace Bikewale.Service.Controllers.Model
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController.GetModelColorPhotos");
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 05th Oct 2017
+        /// Summary : Get available gallery components details
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(ModelGallery)), Route("api/model/{modelId}/gallery/")]
+        public IHttpActionResult GetGalleryByModelId(int modelId)
+        {
+            ModelGallery objGallery = null;
+            try
+            {
+                if (modelId <= 0)
+                {
+                    return BadRequest();
+                }
+                if (Request.Headers.Contains("platformId"))
+                {
+                    string platformId = Request.Headers.GetValues("platformId").First().ToString();
+                    if (platformId == "3")
+                    {
+                        BikeModelPageEntity objModelPage = null;
+                        objModelPage = _modelsContent.GetModelPageDetails(modelId);
+                        objGallery = ModelMapper.ConvertToModelGallery(objModelPage, modelId);
+                        return Ok(objGallery);
+                    }
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Service.Controllers.GalleryController: GalleryComponents, modelid = {0}", modelId));
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 5th Oct 2017
+        /// Summary : Get color photos for modelid
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(IEnumerable<ModelColorPhoto>)), Route("api/model/{modelId}/colorphotos/")]
+        public IHttpActionResult GetColorPhotosByModelId(int modelId)
+        {
+            IEnumerable<ModelColorPhoto> objAllPhotos = null;
+            try
+            {
+                if (modelId <= 0)
+                {
+                    return BadRequest();
+                }
+                if (Request.Headers.Contains("platformId"))
+                {
+                    string platformId = Request.Headers.GetValues("platformId").First().ToString();
+                    if (platformId == "3")
+                    {
+                        IEnumerable<ModelColorImage> objAllPhotosEntity = _modelsContent.GetModelColorPhotos(modelId);
+                        objAllPhotos = ModelMapper.Convert(objAllPhotosEntity);
+                        return Ok(objAllPhotos);
+                    }
+                }
+                return BadRequest();
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Service.Controllers.GalleryController: GetColorPhotosByModelId, modelid = {0}", modelId));
+                objErr.SendMail();
                 return InternalServerError();
             }
         }
