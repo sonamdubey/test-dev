@@ -1,5 +1,6 @@
 ﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
@@ -1327,7 +1328,8 @@ namespace Bikewale.DAL.UserReviews
                                     FourStarRatings = SqlReaderConvertor.ToUInt32(dr["fourstars"]),
                                     FiveStarRatings = SqlReaderConvertor.ToUInt32(dr["fivestars"]),
                                     TotalRatings = SqlReaderConvertor.ToUInt32(dr["totalratings"]),
-
+                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToUInt16(dr["BodyStyleId"]),
+                                    ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewsCount"])
                                 },
                                 ReviewDetails = new BikeReviewsInfo()
                                 {

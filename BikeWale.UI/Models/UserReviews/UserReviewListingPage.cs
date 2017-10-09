@@ -213,7 +213,7 @@ namespace Bikewale.Models.UserReviews
                 {
                     objPage.AdTags.TargetedMakes = objPage.ReviewsInfo.Make.MakeName;
                     objPage.AdTags.TargetedModel = objPage.ReviewsInfo.Model.ModelName;
-                    objPage.PageMetaTags.Title = string.Format("{0} {1} Reviews | {1} User Reviews – BikeWale", objPage.ReviewsInfo.Make.MakeName, objPage.ReviewsInfo.Model.ModelName);
+                    objPage.PageMetaTags.Title = string.Format("{0} {1} Reviews | Reviews from Users & Experts", objPage.ReviewsInfo.Make.MakeName, objPage.ReviewsInfo.Model.ModelName);
                     objPage.PageMetaTags.Description = string.Format("Read {0} {1} reviews from genuine buyers and know the pros and cons of {1}. Also, find reviews on {1} from BikeWale experts.", objPage.ReviewsInfo.Make.MakeName, objPage.ReviewsInfo.Model.ModelName);
 
                     uint _totalPagesCount = (uint)(_totalResults / _pageSize);

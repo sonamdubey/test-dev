@@ -1,4 +1,6 @@
 ﻿using Bikewale.DTO.BikeData;
+using Bikewale.DTO.Widgets;
+using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.BikeData;
@@ -14,14 +16,16 @@ namespace Bikewale.Service.Controllers.BikeData
     /// </summary>
     public class MakeModelsController : CompressionApiController
     {
-        private readonly IBikeMakesCacheRepository<int> _makesRepository;
+        private readonly IBikeMakesCacheRepository<int> _makesRepository;        
+        private readonly IBikeModelsCacheRepository<int> _bikeMakeCache = null;
         /// <summary>
         /// Constructor to Initialize cache layer
         /// </summary>
         /// <param name="makesRepository"></param>
-        public MakeModelsController(IBikeMakesCacheRepository<int> makesRepository)
+        public MakeModelsController(IBikeMakesCacheRepository<int> makesRepository, IBikeModelsCacheRepository<int> bikeMakeCache)
         {
             _makesRepository = makesRepository;
+            _bikeMakeCache = bikeMakeCache;
         }
 
         /// <summary>
@@ -45,5 +49,41 @@ namespace Bikewale.Service.Controllers.BikeData
             }
             return Ok(makeModels);
         }
+         
+        [HttpGet, Route("api/popularbikesbybodystyle/{modelId}/{topCount}")]
+        public IHttpActionResult GetPopularBikesByBodyStyle(uint modelId, uint topCount, uint cityId)
+        {
+            IEnumerable<MostPopularBikes> makeModels = null;
+            try
+            {
+                ICollection<MostPopularBikesBase> bikeModelEntity = _bikeMakeCache.GetMostPopularBikesByModelBodyStyle((int)modelId, (int)topCount, cityId);
+                makeModels = MakeModelEntityMapper.Convert(bikeModelEntity);
+            }
+            catch (System.Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "MakeModelsController.GetPopularBikesByBodyStyle");               
+                InternalServerError();
+            }
+            return Ok(makeModels);
+        }
+
+
+        [HttpGet, Route("api/popularbikesbymake/{makeId}/{topCount}")]
+        public IHttpActionResult GetPopularBikesByMake(uint makeId, uint topCount, uint cityId)
+        {
+            IEnumerable<MostPopularBikes> makeModels = null;
+            try
+            {
+                IEnumerable<MostPopularBikesBase> bikeModelEntity = _bikeMakeCache.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
+                makeModels = MakeModelEntityMapper.Convert(bikeModelEntity);
+            }
+            catch (System.Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "MakeModelsController.GetPopularBikesByMake");                
+                InternalServerError();
+            }
+            return Ok(makeModels);
+        }
+
     }
 }

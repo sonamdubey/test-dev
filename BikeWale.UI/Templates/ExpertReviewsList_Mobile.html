@@ -2,19 +2,19 @@
 <ul class="article-list">
     <!-- ko foreach: expertReviewsList() -->
     <li>
-        <a data-bind="attr: {'href': $data.ArticleUrl, 'title': $data.Title }" class="list-target">
+        <a data-bind="attr: {'href': '/m/expert-reviews/' + $data.ArticleUrl + '-' + $data.BasicId + '.html', 'title': $data.Title }" class="list-target">
             <div class="article-item-content">
                 <div class="article-wrapper">
                     <div class="article-image-wrapper">
                         <img class="lazy" data-bind="attr: {'alt': $data.Title, 'title': $data.Title, 'data-original': 'https://imgd.aeplcdn.com//110x61/' + $data.OriginalImgUrl }" data-original="" width="100%" border="0" src="">
                     </div>
                     <div class="article-desc-wrapper">
-                        <h2 class="font14" data-bind="text: $data.Title"></h2>
+                        <h2 class="font14" data-trimlength="65" data-bind="truncatedText: $data.Title"></h2>
                     </div>
                 </div>
                 <div class="article-stats-wrapper font12 leftfloat text-light-grey">
                     <span class="bwmsprite calender-grey-icon inline-block"></span>
-                    <span class="inline-block" data-bind="text: $data.DisplayDate"></span>
+                    <span class="inline-block" data-bind="text: $data.FormattedDisplayDate"></span>
                 </div>
                 <div class="article-stats-wrapper font12 leftfloat text-light-grey">
                     <span class="bwmsprite author-grey-icon inline-block"></span>
