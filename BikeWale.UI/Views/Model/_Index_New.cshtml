@@ -86,7 +86,7 @@
                                     <div class="clear"></div>
                                 }
 
-                                @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && Model.BikePrice > 0 && !Model.IsManufacturerTopLeadAdShown)
+                                @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0)) && !Model.IsManufacturerTopLeadAdShown)
                                 {
                                     <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-persistent="true" data-reload="true" data-modelid="@Model.ModelId" class="btn btn-orange margin-top10 getquotation">Check on-road price</a>
                                     <div class="clear"></div>
