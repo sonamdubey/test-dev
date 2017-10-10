@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewsSearchVM
 @using Bikewale.Entities.UserReviews;
-@using Bikewale.Utility; 
+@using Bikewale.Utility;
 @if (Model.UserReviews != null && Model.ReviewsInfo != null && Model.ReviewsInfo.TotalReviews > 0)
 {
     <section>
@@ -9,18 +9,11 @@
             <div id="overallSpecsTopContent" class="bg-white position-rel user-review-tabs">
                 <div id="overallSpecsTab" class="overall-specs-tabs-container">
                     <ul class="overall-specs-tabs-wrapper">
-                        @if (Model.ActiveReviewCategory.Equals(FilterBy.MostRecent))
-                        {
-                            <li class="active" data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</li>
-                            <li data-category="2" data-page-num="1" data-count="@Model.ReviewsInfo.MostHelpfulReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Helpful (@Model.ReviewsInfo.MostHelpfulReviews)</li>
-                        }
-                        else
-                        {
-                            <li data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</li>
-                            <li class="active" data-category="2" data-page-num="1" data-count="@Model.ReviewsInfo.MostHelpfulReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Helpful (@Model.ReviewsInfo.MostHelpfulReviews)</li>
-                        }
-                        <li data-cattypes="4,5" data-category="5" data-page-num="1" data-count="@Model.ReviewsInfo.PostiveReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Positive (@Model.ReviewsInfo.PostiveReviews)</li>
+
+                        <li class="@(Model.ActiveReviewCategory.Equals(FilterBy.MostRecent)?"active":"")" data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</li>
+                        <li class="@(Model.ActiveReviewCategory.Equals(FilterBy.MostRecent)?"":"active")" data-category="2" data-page-num="1" data-count="@Model.ReviewsInfo.MostHelpfulReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Helpful (@Model.ReviewsInfo.MostHelpfulReviews)</li>
                         <li data-cattypes="1,2,3" data-category="6" data-page-num="1" data-count="@Model.ReviewsInfo.NegativeReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Critical (@Model.ReviewsInfo.NegativeReviews)</li>
+                        <li data-cattypes="4,5" data-category="5" data-page-num="1" data-count="@Model.ReviewsInfo.PostiveReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Positive (@Model.ReviewsInfo.PostiveReviews)</li>
                     </ul>
                 </div>
             </div>
@@ -49,7 +42,7 @@
                                     </span>
                                     <!-- /ko -->
                                     <div class="grid-10-inline font15 text-black text-bold text-truncate">
-                                      
+
                                         <a onclick="logBhrighu(event, 'TitleClick')" data-id="@i" data-reviewId="@review.ReviewId" href="/m@(review.ReviewUrl)" data-bind="attr : {'data-reviewId': $data.reviewId, 'title' : $data.title,'href' : '/m' + $data.reviewUrl}"> <span class="review-title position-rel" data-bind="text:$data.title">@review.Title</span></a>
                                     </div>
                                 </div>
@@ -61,8 +54,8 @@
                             <div class="collapsible-content toggle-off main-content-off" data-bind="attr: {'data-reviewId': $data.reviewId }">
                                 <div class="main-content">
                                     <div class="font14 text-slate-grey">
-                                        <p data-bind="truncatedText: $data.sanitizedDescription" data-trimlength="150" >@string.Format("{0}...", review.SanitizedDescription)</p>
-                                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-bind="click: function (data, event) { return $parent.readMore(event);}, attr: {'data-reviewId': $data.reviewId }" data-reviewId="@review.ReviewId"  data-id="@i">Read more</a>
+                                        <p data-bind="truncatedText: $data.sanitizedDescription" data-trimlength="150">@string.Format("{0}...", review.SanitizedDescription)</p>
+                                        <a href="javascript:void(0)" class="read-more-target upvoteListButton" rel="nofollow" data-bind="click: function (data, event) { return $parent.readMore(event);}, attr: {'data-reviewId': $data.reviewId }" data-reviewId="@review.ReviewId" data-id="@i">Read more</a>
                                     </div>
                                 </div>
                                 <div class="more-content">
@@ -122,7 +115,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="clear insertWidget" data-bind="attr: {'data-reviewId': $data.reviewId }"></div>							
+                            <div class="clear insertWidget" data-bind="attr: {'data-reviewId': $data.reviewId }"></div>
                         </li>
                         if (@i == 0)
                         {
