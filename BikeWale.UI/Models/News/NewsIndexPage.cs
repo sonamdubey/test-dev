@@ -192,10 +192,11 @@ namespace Bikewale.Models
                 //objData.Articles
                 var pwaCmsContent = _articles.GetArticlesByCategoryListPwa(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
 
-                _totalPagesCount = (uint)_pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
+
 
                 if (pwaCmsContent != null && pwaCmsContent.RecordCount > 0)
                 {
+                    _totalPagesCount = (uint)_pager.GetTotalPages((int)pwaCmsContent.RecordCount, pageSize);
                     status = StatusCodes.ContentFound;
                     int recordCount = (int)pwaCmsContent.RecordCount;
 
