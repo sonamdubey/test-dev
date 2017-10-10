@@ -985,7 +985,7 @@ namespace Bikewale.Models.BikeModels
                     if (_pqOnRoad != null)
                     {
                         ///Dealer Pricing
-                        if (_pqOnRoad.IsDealerPriceAvailable && _pqOnRoad.DPQOutput != null && _pqOnRoad.DPQOutput.Varients != null && modelPg.ModelVersions.Count > 0)
+                        if (_pqOnRoad.IsDealerPriceAvailable && _pqOnRoad.DPQOutput != null && _pqOnRoad.DPQOutput.Varients.Any() && modelPg.ModelVersions.Count > 0)
                         {
                             foreach (var version in modelPg.ModelVersions)
                             {
@@ -1010,6 +1010,10 @@ namespace Bikewale.Models.BikeModels
                                 if (selected != null)
                                 {
                                     version.Price = !_objData.ShowOnRoadButton ? selected.OnRoadPrice : selected.Price;
+                                    if (modelPg.ModelVersions.Any() && version.Price == 0)
+                                    {
+                                        _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(m => m.AverageExShowroom > 0 && m.VersionId == version.VersionId);
+                                    }
                                     break;
                                 }
                             }
