@@ -15,7 +15,7 @@ namespace Bikewale.Interfaces.UserReviews
     /// Modified by sajal gupta on 14-07-2017
     /// Description : Added GetReviewQuestionValuesByModel,
     /// Modified by sajal gupta on 02-08-2017
-    /// Description : Added GetRecentReviews
+    /// Description : Added GetRecentReviews, GetTopRatedBikes
     /// </summary>
     public interface IUserReviewsCache
     {
@@ -31,5 +31,6 @@ namespace Bikewale.Interfaces.UserReviews
         QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
         IEnumerable<RecentReviewsWidget> GetRecentReviews();
         IEnumerable<RecentReviewsWidget> GetUserReviewsWinners();
+        IEnumerable<TopRatedBikes> GetTopRatedBikes(uint? topCount, uint? cityId);
     }
 }

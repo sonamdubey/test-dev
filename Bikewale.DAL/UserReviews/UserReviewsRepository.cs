@@ -1,6 +1,7 @@
 ﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
@@ -1698,6 +1699,73 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.UserReviews.UserReviewsRepository.GetUserReviewsWinners");
             }
             return objReviewsWinnersList;
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 10-10-2017
+        /// Description : Dal layer function to get data of top rated bikes        
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<TopRatedBikes> GetTopRatedBikes(uint? topCount, uint? cityId)
+        {
+            IList<TopRatedBikes> objTopRatedBikes = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("gettopratedbikes"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topCount", DbType.Int32, topCount.HasValue ? topCount.Value : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId.HasValue ? cityId.Value : 0));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objTopRatedBikes = new List<TopRatedBikes>();
+
+                            while (dr.Read())
+                            {
+                                objTopRatedBikes.Add(new TopRatedBikes()
+                                {
+                                    Make = new BikeMakeEntityBase
+                                    {
+                                        MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                        MakeName = Convert.ToString(dr["MakeName"]),
+                                        MaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                    },
+                                    Model = new BikeModelEntityBase
+                                    {
+                                        ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                        ModelName = Convert.ToString(dr["modelname"]),
+                                        MaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                    },
+                                    City = new CityEntityBase
+                                    {
+                                        CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
+                                        CityName = Convert.ToString(dr["cityname"]),
+                                        CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    },
+                                    ReviewRate = SqlReaderConvertor.ToFloat(dr["ReviewRate"]),
+                                    RatingsCount = SqlReaderConvertor.ToUInt32(dr["ratingscount"]),
+                                    ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
+                                    ExShowroomPrice = SqlReaderConvertor.ToUInt32(dr["price"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    HostUrl = Convert.ToString(dr["hosturl"])
+                                });
+
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, string.Format(" ModelVersionDescription.GetTopRatedBikes_topcount_{0}_cityid_{1}", topCount, cityId));
+            }
+            return objTopRatedBikes;
         }
     }// class end
 }

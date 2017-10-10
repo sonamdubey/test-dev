@@ -2,7 +2,6 @@
 using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.UserReviews;
-using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Notifications;
 using System;
 using System.Collections;
@@ -288,6 +287,28 @@ namespace Bikewale.Cache.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.UserReviews.UserReviewsCacheRepository.GetUserReviewsWinners");
             }
             return objReviewsWinnersList;
+        }
+
+        /// <summary>
+        /// Creaetd by sajal Gupta to cache top rated bikes for 1 day
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<TopRatedBikes> GetTopRatedBikes(uint? topCount, uint? cityId)
+        {
+            IEnumerable<TopRatedBikes> objTopRatedBikesWidget = null;
+            string key = string.Empty;
+            try
+            {
+                key = string.Format("BW_TopRatedBikes_topCount_{0}_city_{1}", topCount.HasValue ? topCount.Value : 12, cityId.HasValue ? cityId.Value : 1);
+                objTopRatedBikesWidget = _cache.GetFromCache<IEnumerable<TopRatedBikes>>(key, new TimeSpan(1, 0, 0), () => (IEnumerable<TopRatedBikes>)_objUserReviews.GetTopRatedBikes(topCount, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsCacheRepository.GetTopRatedBikes: topCount: {0}, CityId {1}", topCount, cityId));
+            }
+            return objTopRatedBikesWidget;
         }
     }
 }

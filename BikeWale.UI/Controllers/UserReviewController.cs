@@ -551,8 +551,8 @@ namespace Bikewale.Controllers
         [Route("m/review/")]
         public ActionResult Index_Mobile()
         {
-            ModelPageVM obj = new ModelPageVM();
-            return View(obj);
+            UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo);
+            return View(obj.GetData()); 
         }
 
     }

@@ -46,5 +46,6 @@ namespace Bikewale.Interfaces.UserReviews
 
         IEnumerable<RecentReviewsWidget> GetRecentReviews();
         IEnumerable<RecentReviewsWidget> GetUserReviewsWinners();
+        IEnumerable<TopRatedBikes> GetTopRatedBikes(uint? topCount, uint? cityId);
     }   // class
 }   // namespace
