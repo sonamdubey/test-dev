@@ -3,7 +3,6 @@
 <section>
     @{
         string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug));
-    } 
     }
 	<a href="@string.Format("/m/bike-review-contest/?q={0}",q)" class="contest-slug-sm slug-teal-target">
 		<span class="trophy-white"></span>
