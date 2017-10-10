@@ -1,5 +1,6 @@
 
-var reviewId = 0, makeid, modelid, vmUserReviews, modelReviewsSection, categoryId = 1, pageNumber = 1, modelName, makeName, vmModelExpertReviewsList, vmModelPopularBikes, vmModelPopularBikesBodyStyle, expertReviewCount;
+var reviewId = 0, makeid, modelid, vmUserReviews, modelReviewsSection, categoryId = 1
+var pageNumber = 1, modelName, makeName, vmModelExpertReviewsList, vmModelPopularBikes, vmModelPopularBikesBodyStyle, expertReviewCount;
 var reg = new RegExp('^[0-9]*$');
 var helpfulReviews = [];
 var expertReviewWidgetHtml;
@@ -260,12 +261,12 @@ docReady(function () {
 
     if ($('#section-review-details').length > 0) {
         makeid = $('#section-review-details').attr('data-makeid');
-        modelid = $('#section-review-details').attr('data-modelId');
-        expertReviewCount = $('#section-review-details').attr('data-expertReviewCount');
+        modelid = $('#section-review-details').attr('data-modelId');        
     }
     else {
         makeid = $('#section-review-list').attr('data-makeid');
         modelid = $('#section-review-list').attr('data-modelId');
+        expertReviewCount = $('#section-review-list').attr('data-expertReviewCount');
     }
 
     var vote = bwcache.get("ReviewDetailPage_reviewVote_" + reviewId);
