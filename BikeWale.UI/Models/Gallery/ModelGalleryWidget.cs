@@ -107,9 +107,16 @@ namespace Bikewale.Models.Gallery
         {
             if (IsJSONRequired && _modelGallery != null)
             {
+                if (_modelGallery.ImageList != null)
+                {
+                    _modelGallery.ImagesJSON = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(_modelGallery.ImageList));
+                }
 
-                _modelGallery.ImagesJSON = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(_modelGallery.ImageList));
-                _modelGallery.VideosJSON = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(_modelGallery.VideosList));
+                if (_modelGallery.VideosList != null)
+                {
+                    _modelGallery.VideosJSON = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(_modelGallery.VideosList));
+                }
+
             }
         }
     }

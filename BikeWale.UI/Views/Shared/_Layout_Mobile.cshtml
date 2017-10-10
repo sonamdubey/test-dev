@@ -469,7 +469,11 @@
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
     @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
     {
-        <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+        var jsPaths = Model.Page_JS_Path.Split(',');
+        foreach (var scriptLink in jsPaths)
+        {
+            <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, scriptLink.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+        }
     }
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" defer>
     </script>

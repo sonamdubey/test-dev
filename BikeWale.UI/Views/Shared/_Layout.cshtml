@@ -404,26 +404,12 @@
                     <span class="navbarTitle">Track Day 2016</span>
                 </a>
             </li>
-            @*
-                <li>
-                    <a href="/insurance/">
-                        <span class="bwsprite insurance-icon"></span>
-                        <span class="navbarTitle">Insurance</span>
-                    </a>
-                </li>*@
             <li>
                 <a href="/bike-loan-emi-calculator/">
                     <span class="bwsprite forum-icon"></span>
                     <span class="navbarTitle">Tools</span>
                 </a>
             </li>
-            @*<li>
-                <a href="/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_Hamburger)">
-                    <span class="teal-trophy-circle"></span>
-                    <span class="navbarTitle inline-block">Bike Review Contest</span>
-                    <span class="bwsprite nav-right-arrow"></span>
-                </a>
-            </li>*@
             <li>
                 <a href="/mybikewale/">
                     <span class="bwsprite myBikeWale-icon"></span>
@@ -463,8 +449,6 @@
         </div>
         <div class="clear"></div>
     </div>
-
-    <script defer type="text/javascript" src="@String.Format("{0}/src/bwcache.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
 
     <footer class="bg-footer padding-top40 padding-bottom20" id="bg-footer">
         <!-- Footer section code starts here -->
@@ -527,7 +511,12 @@
             <div class="clear"></div>
         </div>
     </footer><!-- Ends here -->
+
+
     @Html.Partial("~/Views/Shared/_LoginControl.cshtml")
+
+    <script defer type="text/javascript" src="@String.Format("{0}/src/bwcache.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+
     <script>
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
     </script>
@@ -535,7 +524,11 @@
     <script defer type="text/javascript" src="@String.Format("{0}/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
     @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
     {
-        <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+        var jsPaths = Model.Page_JS_Path.Split(',');
+        foreach (var scriptLink in jsPaths)
+        {
+            <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, scriptLink.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+        }
     }
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" defer></script>
     <noscript>

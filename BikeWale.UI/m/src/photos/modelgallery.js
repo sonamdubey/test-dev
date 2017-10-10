@@ -12,7 +12,7 @@ var setPageVariables = function () {
     try {
         if (eleGallery.data("images") != '')
         {
-            var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
+            var imageList = JSON.parse(window.atob(eleGallery.data("images")));
             modelImages = imageList;
             modelColorImages = filterColorImagesArray(imageList);
 
@@ -22,7 +22,7 @@ var setPageVariables = function () {
 
         if(eleGallery.data("videos") != '')
         {
-            videoList = JSON.parse(Base64.decode(eleGallery.data("videos")));
+            videoList = JSON.parse(window.atob(eleGallery.data("videos")));
         }
 
         photoCount = eleGallery.data("photoscount");
@@ -265,6 +265,7 @@ var popupGallery = {
         $('body').addClass('lock-browser-scroll');
 
         if (colorImageId > 0) {
+            if (vmModelGallery.activeColorIndex() == 0) vmModelGallery.activeColorIndex(1);
             vmModelGallery.toggleColorThumbnailScreen();
         }
     },
@@ -517,6 +518,7 @@ docReady(function () {
         ko.utils.arrayForEach(modelColorImages, function (item, index) {
             if (item.ColorId == colorImageId) { colorIndex = index; }
         });
+        colorIndex++;
         vmModelGallery.activeColorIndex(colorIndex);
         thumbnailSwiperEvents.focusGallery(colorGallerySwiper, colorIndex);
     }

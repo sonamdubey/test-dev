@@ -14,6 +14,7 @@ var popupGallery = {
         lockPopup();
 
         if (colorImageId > 0) {
+            if (vmModelGallery.activeColorIndex() == 0) vmModelGallery.activeColorIndex(1);
             vmModelGallery.toggleColorThumbnailScreen();
         }
 
@@ -153,7 +154,7 @@ var modelGallery = function () {
 
             colorGallerySwiper.update(true);
             colorThumbnailSwiper.update(true);
-            thumbnailSwiperEvents.focusThumbnail(colorThumbnailSwiper, vmModelGallery.activeColorIndex(), true);
+            thumbnailSwiperEvents.focusThumbnail(colorThumbnailSwiper, self.activeColorIndex(), true);
             triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', modelName);
         }
         else {
@@ -183,7 +184,7 @@ var modelGallery = function () {
             self.deactivateAllScreens();
             self.videoListScreen(true);
             videoThumbnailSwiper.update(true);
-            thumbnailSwiperEvents.focusThumbnail(videoThumbnailSwiper, vmModelGallery.activeVideoIndex(), true);
+            thumbnailSwiperEvents.focusThumbnail(videoThumbnailSwiper, self.activeVideoIndex(), true);
             triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Opened', modelName);
         }
         else {
@@ -241,7 +242,7 @@ var setPageVariables = function () {
 
     try {
         if (eleGallery.data("images") != '') {
-            var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
+            var imageList = JSON.parse(window.atob(eleGallery.data("images")));
             modelImages = imageList;
             modelColorImages = filterColorImagesArray(imageList);
 
@@ -250,7 +251,7 @@ var setPageVariables = function () {
         }
 
         if (eleGallery.data("videos") != '') {
-            videoList = JSON.parse(Base64.decode(eleGallery.data("videos")));
+            videoList = JSON.parse(window.atob(eleGallery.data("videos")));
         }
 
         photoCount = eleGallery.data("photoscount");
@@ -402,23 +403,7 @@ docReady(function () {
 
 
 
-    if (!isIEBrowser) {
-        (function () {
-            try {
-                if (colorImageId > 0) {
-
-                    ko.utils.arrayForEach(modelColorImages, function (item, index) {
-                        if (item.ColorId == colorImageId) { colorIndex = index; }
-                    });
-
-                    vmModelGallery.activeColorIndex(colorIndex);
-                    thumbnailSwiperEvents.focusGallery(colorGallerySwiper, colorIndex);
-                }
-            } catch (e) {
-                console.warn(e);
-            }
-        })();
-    }
+    
 
     $(window).on('hashchange', function (e) {
         hashChange(e);
@@ -477,6 +462,23 @@ docReady(function () {
         setVideo(elementIndex);
         thumbnailSwiperEvents.focusThumbnail(videoThumbnailSwiper, vmModelGallery.activeVideoIndex(), true);
     });
+
+    if (!isIEBrowser) {
+        (function () {
+            try {
+                if (colorImageId > 0) {
+
+                    ko.utils.arrayForEach(modelColorImages, function (item, index) {
+                        if (item.ColorId == colorImageId) { colorIndex = index; }
+                    });
+                    vmModelGallery.activeColorIndex(colorIndex);
+                    thumbnailSwiperEvents.focusGallery(colorGallerySwiper, colorIndex);
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+        })();
+    }
 
 });
 

@@ -1,6 +1,4 @@
-﻿
-using Bikewale.Entities.Models;
-using Bikewale.Entities.Pages;
+﻿using Bikewale.Entities.Pages;
 using Bikewale.Entities.Schema;
 
 namespace Bikewale.Models
