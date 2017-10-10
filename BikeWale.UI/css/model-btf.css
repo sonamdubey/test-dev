@@ -1395,3 +1395,10 @@ li.offertxt:hover span {display:inline}
 	margin-bottom: 20px;
 	border-bottom: 1px solid #eee;
 }
+
+.more-make-bikes-desk .info-tooltip {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 11px;
+}
+
