@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Models.ServiceCenters;
 using System.Collections.Generic;
 namespace Bikewale.Models
@@ -14,6 +15,8 @@ namespace Bikewale.Models
     /// Summary  : Added new viewModel for similar comparisons carousel
     /// Modified by :   Sumit Kate on 24 Aug 2017
     /// Description :   Added Other Makes property
+    /// Modified by : Ashutosh Sharma on 03 Oct 2017
+    /// Description : Added City
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -53,6 +56,9 @@ namespace Bikewale.Models
         public DealerCardVM Dealers { get; set; }
 
         public IEnumerable<BikeMakeEntityBase> OtherMakes { get; set; }
+
+        public GlobalCityAreaEntity City{ get; set; }
+
 
     }
 }

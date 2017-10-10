@@ -7,7 +7,7 @@
     </div>
 }
 
-<section id="pageGallery" data-videos="@Model.VideosJSON" data-images="@Model.ImagesJSON" data-modelname="@Model.Model.ModelName" data-selectedimageid="@Model.SelectedImageId" data-selectedcolorimageid="@Model.SelectedColorImageId" data-returnurl="@Model.ReturnUrl" data-bikename="@Model.BikeName" data-photoscount="@Model.ImagesCount" data-videoscount="@Model.VideosCount">
+<section id="pageGallery" data-videos="@(Model.IsVideosAvailable ? Model.VideosJSON : string.Empty)" data-images="@(Model.IsImagesAvailable ? Model.ImagesJSON : string.Empty)" data-modelname="@Model.Model.ModelName" data-selectedimageid="@Model.SelectedImageId" data-selectedcolorimageid="@Model.SelectedColorImageId" data-returnurl="@Model.ReturnUrl" data-bikename="@Model.BikeName" data-photoscount="@Model.ImagesCount" data-videoscount="@Model.VideosCount">
     <div id="gallery-root">
         <div class="gallery-loader-placeholder gallery-bg-overlay text-center hide"><span class="spin-loader fixed-loader"></span></div>
 
@@ -156,5 +156,3 @@
         </div>
     </div>
 </section>
-
-<script type="text/javascript" src="@String.Format("{0}/m/src/photos/modelgallery.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>

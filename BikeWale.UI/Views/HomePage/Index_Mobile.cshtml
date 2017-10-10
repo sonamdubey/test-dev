@@ -18,14 +18,14 @@
             <h1 class="font22 text-uppercase text-white">Find your bike</h1>
             <h2 class="banner-subheading font14 text-unbold text-white">Get Comprehensive Information on Bikes!</h2>
             <div class="new-bikes-search position-rel">
-                <input type="text" placeholder="Search your bike here, e.g. Bullet 350 " id="newBikeList" autocomplete="off" class="rounded-corner2">
+                <input type="text" placeholder="Search your bike here, e.g. Maestro Edge " id="newBikeList" autocomplete="off" class="rounded-corner2">
                 <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search" rel="nofollow"><span class="bwmsprite search-bold-icon"></span></a>
                 <span id="loaderMakeModel" class="fa-spinner position-abt pos-right45 pos-top15" style="display: none"></span>
             </div>
             <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
                 <li class="ui-menu-item" tabindex="-1">
                     <span class="text-bold">Oops! No suggestions found</span><br />
-                    <span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
+                    <span class="text-light-grey font12">Search by bike name e.g: Maestro Edge</span>
                 </li>
             </ul>
             <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
@@ -293,11 +293,11 @@
                 <span class="contest-banner__title-13">Bike Review</span><br>
                 <span class="contest-banner__title-18">Contest</span>
             </p>
-            @{
-                <p class="contest-banner__subtitle">Stand a chance to win &#x20b9;&nbsp;2,000.</p>
+            @{  
                 string q = EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_HomePage));
             }
             <a href="@string.Format("/m/bike-review-contest/?q={0}",q)" title="Participate &amp; win" class="contest-banner__right-grid inline-block">
+                <p class="contest-banner__subtitle">Stand a chance to win &#x20b9;&nbsp;2,000.</p>
                 <p class="contest-banner__target-link">Participate &amp; win <span class="yellow-arrow-7x10"></span></p>
             </a>
         </div>

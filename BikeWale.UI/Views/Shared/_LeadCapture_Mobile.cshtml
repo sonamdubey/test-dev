@@ -13,12 +13,12 @@
                     <div class="personal-info-form-container">
                         @if (Model.CityId <= 0)
                     {
-                            <div class="slideIn-input-box-content margin-bottom20" data-bind="css: selectedCity() ? 'selection-done' : '',click : openCityList">
-                                <div id="city-select-element" class="slideIn-input-box">
+                            <div class="slideIn-input-box-content margin-bottom15" data-bind="css: selectedCity() ? 'selection-done' : '',click : openCityList">
+                                <div id="city-select-element" class="slideIn-input-box text-left">
                                     <p class="slideIn-input-label city-box-default text-left" data-bind="visible: (selectedCity() && selectedCity().cityName != ''),css : (selectedCity() && selectedCity().cityName != '') ? 'done' : '' ">City<sup>*</sup></p>
                                     <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: (selectedCity() && selectedCity().cityName != '') ? selectedCity().cityName : 'Select City'"></p>
                                     <span class="boundary"></span>
-                                    <span class="text-left error-text hide"></span>
+                                    <span class="error-text hide"></span>
                                     <span class="bwmsprite grey-right-icon"></span>
                                 </div>
                             </div>
@@ -79,8 +79,9 @@
                                 </li>
                             </ul>
                         </div>
-                        <div id="getDealer-select-box" class="form-control-box margin-bottom15 full-width-select text-left" data-bind="visible: dealersRequired()">
-                            <div class="dropdown-select-wrapper">
+                        <div id="getDealer-select-box" class="form-control-box margin-bottom30 full-width-select text-left position-rel" data-bind="visible: dealersRequired()">
+                            <div class="dropdown-select-wrapper position-rel">
+								<span id="dealerDropdownLabel" class="font16 text-light-grey">Select dealer</span>
                                 <select id="ddlMfgDealers" data-title="Select dealer" class="dropdown-select"></select>
                                 <span class="boundary"></span>
                                 <span class="error-text hide"></span>
@@ -424,6 +425,8 @@
                     contentType: "application/json",
                     dataType: 'json',
                     success: function (response) {
+						$("#dealerDropdownLabel").hide();
+
                         var obj = ko.toJS(response);
                         var count = obj.length;
                         if (count >= 1) {

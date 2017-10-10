@@ -3,7 +3,6 @@
 <section>
     @{
         string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug));
-    } 
     }
 	<a href="@string.Format("/m/bike-review-contest/?q={0}",q)" class="contest-slug-sm slug-teal-target">
 		<span class="trophy-white"></span>
@@ -62,7 +61,13 @@
                     @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
                     }
             </div>
-
+            @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
+            {
+                <div id="modelsBySeriesWidget" class="margin-bottom15 bw-ga" c="@Model.ModelsBySeries.Page" a="Series_WidgetShown" l="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
+                    <h2 class="horizontal-swiper__title">Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
+                    @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
+                </div>
+            }
             @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
         </div>
     </div>

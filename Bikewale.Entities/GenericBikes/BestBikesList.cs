@@ -15,6 +15,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Description : Added UsedBikesCount, PriceInCity and city property
     /// Modified By :   Vishnu Teja Yalakuntla on 12 Sep 2017
     /// Description :   Added OnRoadPriceInCity property
+    /// Modified by : Ashutosh Sharma on 03 Oct 2017
+    /// Description : Added AvgPrice.
     /// </summary>
     [Serializable]
     public class BestBikeEntityBase //: BasicBikeEntityBase
@@ -29,6 +31,7 @@ namespace Bikewale.Entities.GenericBikes
         public uint VideosCount { get; set; }
         public uint ExpertReviewsCount { get; set; }
         public uint Price { get; set; }
+        public uint AvgPrice { get; set; }
         public string FullModelDescription { get; set; }
         public string SmallModelDescription { get; set; }
         public string Description { get { return String.Concat(SmallModelDescription, FullModelDescription); } }

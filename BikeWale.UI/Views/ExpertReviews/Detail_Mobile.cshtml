@@ -19,8 +19,18 @@
                 <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(Model.ArticleDetails.DisplayDate), "dd MMM yyyy, hh:mm tt")</span>
             </div>
             <div class="grid-6 alpha omega">
-                <span class="bwmsprite author-grey-sm-icon"></span>
-                <span class="article-stats-content">@Model.ArticleDetails.AuthorName</span>
+                @if (string.IsNullOrEmpty(Model.ArticleDetails.AuthorMaskingName))
+                {
+                    <span class="bwmsprite author-grey-sm-icon"></span>
+                    <span class="article-stats-content"><span>@Model.ArticleDetails.AuthorName</span></span>
+                }
+                else
+                {
+                    <a href=@string.Format("/m{0}", UrlFormatter.AuthorPageUrl(Model.ArticleDetails.AuthorMaskingName)) class="hover-no-underline">
+                        <span class="bwmsprite author-grey-sm-icon"></span>
+                        <span class="article-stats-content"><span class="text-link">@Model.ArticleDetails.AuthorName</span></span>
+                    </a>
+                }
             </div>
             <div class="clear"></div>
         </div>

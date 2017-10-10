@@ -10,14 +10,21 @@ var setPageVariables = function () {
     eleGallery = $("#pageGallery");
 
     try {
-        var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
+        if (eleGallery.data("images") != '')
+        {
+            var imageList = JSON.parse(window.atob(eleGallery.data("images")));
+            modelImages = imageList;
+            modelColorImages = filterColorImagesArray(imageList);
 
-        videoList = JSON.parse(Base64.decode(eleGallery.data("videos")));
-        modelImages = imageList;
-        modelColorImages = filterColorImagesArray(imageList);
+            if (modelColorImages)
+                modelColorImageCount = modelColorImages.length;
+        }
 
-        if (modelColorImages)
-            modelColorImageCount = modelColorImages.length;
+        if(eleGallery.data("videos") != '')
+        {
+            videoList = JSON.parse(window.atob(eleGallery.data("videos")));
+        }
+
         photoCount = eleGallery.data("photoscount");
         videoCount = eleGallery.data("videoscount");
         imageIndex = eleGallery.data("selectedimageid");
@@ -258,6 +265,7 @@ var popupGallery = {
         $('body').addClass('lock-browser-scroll');
 
         if (colorImageId > 0) {
+            if (vmModelGallery.activeColorIndex() == 0) vmModelGallery.activeColorIndex(1);
             vmModelGallery.toggleColorThumbnailScreen();
         }
     },
@@ -510,6 +518,7 @@ docReady(function () {
         ko.utils.arrayForEach(modelColorImages, function (item, index) {
             if (item.ColorId == colorImageId) { colorIndex = index; }
         });
+        colorIndex++;
         vmModelGallery.activeColorIndex(colorIndex);
         thumbnailSwiperEvents.focusGallery(colorGallerySwiper, colorIndex);
     }
