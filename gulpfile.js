@@ -221,6 +221,12 @@ gulp.task('sass', function () {
 		.pipe(gulp.dest(app));
 });
 
+gulp.task('replace-special-character', function () {
+	return gulp.src(app + 'css/campaign/*.css', { base: app })
+		.pipe(replace(/[@]{1}/g, '@@'))
+		.pipe(gulp.dest(buildFolder));
+});
+
 //Watch task
 gulp.task('sass:watch', function () {
 	gulp.watch(app + 'sass/**/*.sass', ['sass']);
@@ -230,6 +236,7 @@ gulp.task('default',
 	gulpSequence(
 		'clean',
 		'sass',
+		'replace-@-keyframe',
 		'minify-css', 'minify-js', 'minify-sass-css',
 		'bw-framework-js',
 		'replace-css-reference',
