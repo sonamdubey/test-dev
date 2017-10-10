@@ -33,9 +33,9 @@
                     <a href=@(Details.IsFeatured ? string.Format("/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Details.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)) : "javascript:void(0)") rel="nofollow" title="@Details.Name">
                         @if (Details.IsFeatured)
                         {
-                        <div class="featured-tag">
-                            <span class="bwmsprite star-white"></span>Featured
-                        </div>
+                            <div class="featured-tag">
+                                <span class="bwmsprite star-white"></span>Featured
+                            </div>
                         }
                         @if (Details.objArea != null)
                         {
@@ -68,9 +68,9 @@
                     </a>
                     @if (Details.IsFeatured)
                     {
-                    <input data-leadsourceid="20" data-item-id="@Details.DealerId" data-item-type="@Details.DealerType" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" type="button" class="btn btn-white margin-top10 leadcapturebtn bw-ga margin-top20" c="Dealer_Locator" a="Get_Offers_Clicked" l="@Details.GetOffersGALabel" data-cityname="@Model.CityDetails.CityName" data-areaname="@Details.objArea.AreaName" data-eventcategory="Dealer_Locator" value="@Details.DisplayTextLarge" />
+                        <input data-leadsourceid="20" data-item-id="@Details.DealerId" data-item-type="@Details.DealerType" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" type="button" class="btn btn-white margin-top10 leadcapturebtn bw-ga margin-top20" c="Dealer_Locator" a="Get_Offers_Clicked" l="@Details.GetOffersGALabel" data-cityname="@Model.CityDetails.CityName" data-areaname="@Details.objArea.AreaName" data-eventcategory="Dealer_Locator" value="@Details.DisplayTextLarge" />
                     }
-                   </li>
+                </li>
             }
         </ul>
     </div>
@@ -164,10 +164,69 @@
         </div>
     </section>
 }
+
+@if (Model.DealersServiceCenterPopularCities != null)
+{
+    <section>
+        <div class="container box-shadow padding-top15 card-bottom-margin">
+
+            <!-- model prices in other cities start -->
+            <div class="content-box-shadow padding-bottom5 card-bottom-margin">
+                <div class="content-inner-block-20">
+                    <span class="bwmsprite service-center-grey"></span>
+                    <h2 class="card-h2-heading margin-bottom10 inline-block padding-left10">@Model.Make.MakeName showrooms in other cities</h2>
+                    <p class="font14 text-slate-grey margin-bottom15">You are currently viewing showrooms of @Model.Make.MakeName in @Model.CityDetails.CityName. Not from @Model.CityDetails.CityName? Select your city to find @Model.Make.MakeName showrooms in your city.</p>
+                    <a href="javascript:void(0)" id="changeCity" class="btn btn-white btn-170-32 changepriceincitypage " rel="nofollow"  data-modelid="@Model.Make.MakeId" data-makemasking="@Model.Make.MaskingName">
+                        Select your city
+                    </a>
+                    @Html.Partial("~/Views/PopUp/BikeCityPopup_Mobile.cshtml", Model.BikeCityPopup)
+                </div>
+                <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom">
+
+                </div>
+                <h3 class="margin-right20 margin-bottom10 margin-left20">
+                    @Model.Make.MakeName showrooms in popular cities
+                </h3>
+                <div class="swiper-container card-container swiper-city">
+                    @Html.Partial("~/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget_Mobile.cshtml", Model.DealersServiceCenterPopularCities)
+                </div>
+            </div>
+            <!-- model prices in other cities end -->
+
+        </div>
+    </section>
+
+}
+
+@if (Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalServiceCenterCount > 0)
+{
+    
+    {
+        <section>
+            <div class="content-box-shadow card-bottom-margin content-inner-block-20">
+                <div class="margin-bottom10">
+                    <span class="bwmsprite service-center-grey"></span>
+                    <div class="grid-11-inline padding-left10">
+                        <h2 class="card-h2-heading">@string.Format("{0} service centers in {1}", @Model.Make.MakeName, Model.CityDetails.CityName)</h2>
+                    </div>
+                </div>
+                <p class="font14 text-slate-grey margin-bottom15">Get in touch with your nearest @Model.Make.MakeName service centers in @Model.CityDetails.CityName for service enquiries, service and repair costs and more!</p>
+                <a href="@string.Format("/m/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Center in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+            </div>
+        </section>
+       
+
+
+    }
+}
+
 @if (Model.LeadCapture != null)
 {
     @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 }
+
+
+
 
 
 <section>

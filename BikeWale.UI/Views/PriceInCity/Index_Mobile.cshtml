@@ -2,7 +2,7 @@
 @using Bikewale.Common;
 @using Bikewale.Utility;
 @{
-    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_320x50 = !Model.AdTags.ShowInnovationBannerMobile;
     Model.AdTags.Ad_Bot_320x50 = true;
     Model.AdTags.Ad_300x250 = true;
     Model.AdTags.Ad_200x253 = true;
@@ -98,12 +98,29 @@
                                 </tr>
                                 <!-- /ko -->
                                 <tr>
-                                    <td align="left" valign="top" class="padding-top15 padding-bottom5 border-solid-top border-solid-bottom text-default">@Model.BikeModel.ModelName on-road price in @Model.CityEntity.CityName</td>
-                                    <td align="right" valign="top" class="padding-top15 padding-bottom15 border-solid-top border-solid-bottom  font16">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold" data-bind="text: onRoadPrice()"></span></td>
+                                    <td align="left" valign="top" class="padding-top15 padding-bottom5 border-solid-top text-default">@Model.BikeModel.ModelName on-road price in @Model.CityEntity.CityName</td>
+                                    <td align="right" valign="top" class="padding-top15 padding-bottom15 border-solid-top font16">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold" data-bind="text: onRoadPrice()"></span></td>
                                 </tr>
                             </tbody>
                         </table>
-
+                            if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
+                            {
+                                <div class="rightfloat">
+                                    @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
+                                    {
+                                        <a class="bw-ga get-offer-link font14" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}",Model.LeadCampaign.PriceBreakUpLinkMobile,Model.LeadCampaign.CampaignId,Model.LeadCampaign.DealerId,Model.LeadCampaign.PQId,Model.LeadCampaign.LeadSourceId,Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount)" c="@Model.LeadCampaign.GACategory" a="Get_more_details_below_price_clicked" l="@Model.LeadCampaign.GALabel" rel="nofollow">
+                                            @Model.LeadCampaign.PriceBreakUpLinkTextMobile
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="leadcapturebtn bw-ga get-offer-link font14" id="pricebreakuplink" href="javascript:void(0)" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@Model.LeadCampaign.PopupSuccessMessage" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.LeadCampaign.Organization))" data-isemailrequired="@Model.LeadCampaign.EmailRequired" c="@Model.LeadCampaign.GACategory" a="Get_more_details_below_price_clicked" l="@Model.LeadCampaign.GALabel" rel="nofollow">
+                                            @Model.LeadCampaign.PriceBreakUpLinkTextMobile
+                                        </a>
+                                    }
+                                </div>
+                                <div class="clear"></div>
+                            }
                         }
                         @if (Model.IsNew)
                         {

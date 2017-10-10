@@ -52,19 +52,22 @@ namespace Bikewale.Models
             {
                 objVM = new BikeInfoVM();
                 objVM.BikeInfo = _bikeInfo.GetBikeInfo(_modelId, _cityId);
-                if (_cityId > 0)
-                {
-                    var objCityList = _cityCacheRepo.GetAllCities(EnumBikeType.All);
-                    objVM.CityDetails = objCityList.FirstOrDefault(c => c.CityId == _cityId);
 
-                }
                 if (objVM.BikeInfo != null)
                 {
+                    if (_cityId > 0)
+                    {
+                        var objCityList = _cityCacheRepo.GetAllCities(EnumBikeType.All);
+                        objVM.CityDetails = objCityList.FirstOrDefault(c => c.CityId == _cityId);
+
+                    }
+
                     objVM.BikeInfo.Tabs = BindInfoWidgetDatas(objVM.BikeInfo, objVM.CityDetails, _tabCount, _pageId);
                     objVM.BikeName = string.Format("{0} {1}", objVM.BikeInfo.Make.MakeName, objVM.BikeInfo.Model.ModelName);
                     objVM.BikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(objVM.BikeInfo.Make.MaskingName, objVM.BikeInfo.Model.MaskingName));
                     objVM.IsDiscontinued = (!objVM.BikeInfo.IsNew && !objVM.BikeInfo.IsFuturistic);
                     objVM.IsUpcoming = objVM.BikeInfo.IsFuturistic;
+                    objVM.Category = _pageId;
                 }
             }
             catch (Exception ex)

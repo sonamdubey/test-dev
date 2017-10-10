@@ -6,7 +6,6 @@ var eleGallery, vmModelGallery, colorIndex = 0, galleryRoot;
 var photoCount, videoCount, modelName, imageIndex, colorImageId, returnUrl, isColorImageSet = false;
 var thumbnailSwiperEvents, gallerySwiper, colorGallerySwiper, thumbnailSwiper, colorThumbnailSwiper, videoThumbnailSwiper, videoListEvents;
 
-
 var setPageVariables = function () {
     eleGallery = $("#pageGallery");
 
@@ -68,6 +67,18 @@ var modelGallery = function () {
     self.photoList = ko.observableArray(modelImages);
     self.colorPhotoList = ko.observableArray(modelColorImages);
     self.videoList = ko.observableArray(videoList);
+
+    self.renderImage = function (hostUrl, originalImagePath, imageSize)
+    {
+        if(originalImagePath && originalImagePath!=null)
+        {
+            return (hostUrl + '/' + imageSize + '/' + originalImagePath);
+        }
+        else
+        {
+            return ('https://imgd.aeplcdn.com/' + imageSize + '/bikewaleimg/images/noimage.png?q=70');
+        }
+    }
 
     self.togglePhotoTab = function () {
         if (self.screenActive()) {

@@ -26,61 +26,60 @@
         </div>
 
         <div class="article-content-padding">
-            @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Count() > 0) {
+            @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Count() > 0)
+            {
                 <div id="divDesc" class="article-content">
-                    @foreach (var page in Model.ArticleDetails.PageList) {
+                    @foreach (var page in Model.ArticleDetails.PageList)
+                    {
                         <div class="margin-bottom10">
                             <h3 class="margin-bottom10" role="heading">@page.PageName</h3>
                             <div id='@page.pageId' class="margin-top-10 article-content">
                                 @Html.Raw(page.Content)
                             </div>
                         </div>
-                        }
+                    }
                 </div>
             }
-               @if(Model.BikeInfo != null) { 
-                
-              @Html.Partial("~/Views/BikeModels/_minBikeInfoCard_Mobile.cshtml", Model.BikeInfo)
-                    
-              }
-                        @if(Model.BikeTested != null && !String.IsNullOrEmpty(Model.BikeTested.ToString())){
-                            @Html.Raw(string.Format("<div class='font12 text-light-grey margin-top10 margin-bottom10'>{0}</div>",Model.BikeTested)) }
-                        <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
-                        <ul class="social-wrapper">
-                            <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">
-                                <span data-text="share this video" data-link="www.google.com" class="social-icons-sprite whatsapp-icon"></span>
-                            </li>
-                            <li class="fb-container rounded-corner2 text-center share-btn" data-attr="fb">
-                                <span class="social-icons-sprite fb-icon"></span>
-                            </li>
-                            <li class="tweet-container rounded-corner2 text-center share-btn" data-attr="tw">
-                                <span class="social-icons-sprite tweet-icon"></span>
-                            </li>
-                            <li class="gplus-container rounded-corner2 text-center  share-btn" data-attr="gp">
-                                <span class="social-icons-sprite gplus-icon"></span>
-                            </li>
-                        </ul>
-                        <div class="clear"></div>
+            @if (Model.BikeTested != null && !String.IsNullOrEmpty(Model.BikeTested.ToString()))
+            {
+                @Html.Raw(string.Format("<div class='font12 text-light-grey margin-top10 margin-bottom10'>{0}</div>", Model.BikeTested)) }
+            <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
+            <ul class="social-wrapper">
+                <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">
+                    <span data-text="share this video" data-link="www.google.com" class="social-icons-sprite whatsapp-icon"></span>
+                </li>
+                <li class="fb-container rounded-corner2 text-center share-btn" data-attr="fb">
+                    <span class="social-icons-sprite fb-icon"></span>
+                </li>
+                <li class="tweet-container rounded-corner2 text-center share-btn" data-attr="tw">
+                    <span class="social-icons-sprite tweet-icon"></span>
+                </li>
+                <li class="gplus-container rounded-corner2 text-center  share-btn" data-attr="gp">
+                    <span class="social-icons-sprite gplus-icon"></span>
+                </li>
+            </ul>
+            <div class="clear"></div>
 
-                        @if (Model.PhotoGallery!=null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
-                        {
-                            <div class="border-solid-top padding-top10">
-                                <h3 class="margin-bottom10">Images</h3>
-                                <div class="swiper-container article-photos-swiper">
-                                    <div class="swiper-wrapper">
-                                        @foreach(var photo in Model.PhotoGallery.Images){
-                                            <div class="swiper-slide">
-                                                <img class="swiper-lazy" title="@photo.ImageName" alt="@photo.ImageName" data-src='@Image.GetPathToShowImages(photo.OriginalImgPath, photo.HostUrl, ImageSize._110x61, QualityFactor._70)'>
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                        }
-                                    </div>
-                                    <div class="bwmsprite swiper-button-next"></div>
-                                    <div class="bwmsprite swiper-button-prev"></div>
+            @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
+            {
+                <div class="border-solid-top padding-top10">
+                    <h3 class="margin-bottom10">Images</h3>
+                    <div class="swiper-container article-photos-swiper">
+                        <div class="swiper-wrapper">
+                            @foreach (var photo in Model.PhotoGallery.Images)
+                            {
+                                <div class="swiper-slide">
+                                    <img class="swiper-lazy" title="@photo.ImageName" alt="@photo.ImageName" data-src='@Image.GetPathToShowImages(photo.OriginalImgPath, photo.HostUrl, ImageSize._110x61, QualityFactor._70)'>
+                                    <span class="swiper-lazy-preloader"></span>
                                 </div>
-                            </div>
-            }
+                            }
+                        </div>
+                        <div class="bwmsprite swiper-button-next"></div>
+                        <div class="bwmsprite swiper-button-prev"></div>
                     </div>
+                </div>
+            }
+        </div>
     </div>
 </section>
 
@@ -162,11 +161,11 @@ else
 
 @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
 {
-<section>
-    <div class="model-gallery-container relative-gallery-container">
-        <h3 class="font16 text-white">@Model.ArticleDetails.Title</h3>
-        <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
-            @Html.Partial("~/Views/Shared/_EditCMSModelGallery_Mobile.cshtml",Model.PhotoGallery)
+    <section>
+        <div class="model-gallery-container relative-gallery-container">
+            <h3 class="font16 text-white">@Model.ArticleDetails.Title</h3>
+            <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
+            @Html.Partial("~/Views/Shared/_EditCMSModelGallery_Mobile.cshtml", Model.PhotoGallery)
         </div>
     </section>
 }

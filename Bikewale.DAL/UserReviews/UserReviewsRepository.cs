@@ -1344,7 +1344,7 @@ namespace Bikewale.DAL.UserReviews
                             };
                         }
 
-                        if (dr.NextResult())
+                        if (dr != null && dr.NextResult() && objBikeRatingReviewInfo != null)
                         {
                             objBikeRatingReviewInfo.ObjQuestionValue = new QuestionsRatingValueByModel();
                             objBikeRatingReviewInfo.ObjQuestionValue.ModelId = modelId;

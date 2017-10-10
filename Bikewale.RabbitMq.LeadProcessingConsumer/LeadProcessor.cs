@@ -137,6 +137,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                                         success = PushDealerLead(priceQuote, pqId, iteration);
                                         break;
                                     case LeadTypes.Manufacturer:
+                                        priceQuote.CityId = priceQuote.CityId > 0 ? priceQuote.CityId : cityId;
                                         success = PushManufacturerLead(priceQuote, pqId, pincodeId, leadSourceId, iteration, manufacturerDealerId, manufacturerLeadId);
                                         break;
                                     default:

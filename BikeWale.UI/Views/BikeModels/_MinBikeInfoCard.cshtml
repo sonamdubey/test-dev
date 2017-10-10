@@ -13,11 +13,11 @@
         }
         <div class="clear"></div>
         <div class="grid-8 alpha border-solid-right">
-            <a href="@Model.BikeUrl" title="@Model.BikeName" class="model-image-target vertical-top">
+            <a href="@Model.BikeUrl" title="@Model.BikeName" class="model-image-target vertical-top bw-ga" c="@Model.Category" a="Clicked_Model_GenericSlug" l="@Model.BikeName">
                 <img class="lazy" data-original="@Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath, Model.BikeInfo.HostUrl, ImageSize._160x89, QualityFactor._70)" src="" alt="@Model.BikeName" />
             </a>
             <div class="model-details-block vertical-top">
-                <a href="@Model.BikeUrl" title="@Model.BikeName" class="block text-default">
+                <a href="@Model.BikeUrl" title="@Model.BikeName" class="block text-default bw-ga" c="@Model.Category" a="Clicked_Model_GenericSlug" l="@Model.BikeName">
                     <h3>@Model.BikeName</h3>
                 </a>
                 @if (Model.BikeInfo.RatingCount > 0)
@@ -34,7 +34,7 @@
                     }
                 </div>
                 }
-                <ul class="item-more-details-list inline-block">
+                <ul class="item-more-details-list inline-block bw-ga" c="@Model.Category" a="Clicked_OtherElements_GenericSlug" l="@Model.BikeName">
                     @if (Model.BikeInfo.Tabs != null)
                     {
                         foreach (var Tabsdetails in Model.BikeInfo.Tabs)
