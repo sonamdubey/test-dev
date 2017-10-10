@@ -185,6 +185,8 @@ namespace Bikewale.DAL.NewBikeSearch
                     apiUrlstr += "&AlloyWheel=" + filterInputs.AlloyWheel.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(filterInputs.ABS))
                     apiUrlstr += "&ABS=" + filterInputs.ABS.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.AntiBreakingSystem))
+                    apiUrlstr += "&AntiBreakingSystem=" + filterInputs.AntiBreakingSystem.Replace(" ", "+");
             }
             catch (Exception ex)
             {
