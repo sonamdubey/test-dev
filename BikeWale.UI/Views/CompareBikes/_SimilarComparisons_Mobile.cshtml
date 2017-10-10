@@ -2,48 +2,59 @@
 @if (Model != null && Model.IsDataAvailable)
 {
     <div id="ctrlCompareBikes">
-            <div id="comparisonSwiper" class="swiper-container comparison-swiper card-container">
-                <div class="swiper-wrapper model-comparison-list">
-                    @foreach (var bikedetails in Model.CompareBikes)
-                    {
-                        string bike1 = string.Format("{0} {1}", bikedetails.Make1, bikedetails.Model1);
-                        string bike2 = string.Format("{0} {1}", bikedetails.Make2, bikedetails.Model2);
-                        <div class="swiper-slide">
-                            <div class="swiper-card rounded-corner2">
-                                <a href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails.MakeMasking1, bikedetails.ModelMasking1, bikedetails.MakeMasking2, bikedetails.ModelMasking2, Convert.ToString(bikedetails.VersionId1), Convert.ToString(bikedetails.VersionId2),bikedetails.ModelId1,bikedetails.ModelId2, Model.CompareSource)" title="@string.Format("{0} {1} vs {2} {3}",bikedetails.Make1,bikedetails.Model1,bikedetails.Make2,bikedetails.Model2)" class="block">
-                                    <span class="text-light-grey position-abt pos-top0 pos-right0 font10">@(bikedetails.IsSponsored?"Sponsored":"")</span>
-                                        <h3 class="font12 text-black text-center margin-bottom10">@string.Format("{0} vs {1}", bikedetails.Model1, bikedetails.Model2)</h3>
-                                        <div class="grid-6">
-                                            <div class="model-img-content">
-                                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath1, bikedetails.HostUrl1, Bikewale.Utility.ImageSize._144x81,Bikewale.Utility.QualityFactor._60)" alt="@bike1" title="@bike1" src="" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                            @if (!string.IsNullOrEmpty(bikedetails.City1))
-                                            { <p class="font11 text-light-grey text-truncate">Ex-showroom, @bikedetails.City1</p>}
-                                            else
-                                            {<p class="font11 text-light-grey text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>}
-                                            @Html.Raw("<span class='font16 text-default'> &#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price1))</span>
-                                        </div>
-                                        <div class="grid-6">
-                                            <div class="model-img-content">
-                                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath2, bikedetails.HostUrl2, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._60)" alt="@bike2" title="@bike2" src="" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                            @if (!string.IsNullOrEmpty(bikedetails.City2))
-                                            { <p class="font11 text-light-grey text-truncate">Ex-showroom, @bikedetails.City2</p>}
-                                            else
-                                            {<p class="font11 text-light-grey text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>}
-                                            @Html.Raw("<span class='font16 text-default'> &#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price2))</span>
-                                        </div>
-                                        <div class="clear"></div>
-                                        <div class="margin-top15 text-center">
-                                            <span class="btn btn-white btn-size-1">Compare now</span>
-                                        </div>
-</a>
-                            </div>
+        <div id="comparisonSwiper" class="swiper-container comparison-swiper card-container">
+            <div class="swiper-wrapper model-comparison-list">
+                @foreach (var bikedetails in Model.CompareBikes)
+                {
+                    string bike1 = string.Format("{0} {1}", bikedetails.Make1, bikedetails.Model1);
+                    string bike2 = string.Format("{0} {1}", bikedetails.Make2, bikedetails.Model2);
+                    <div class="swiper-slide">
+                        <div class="swiper-card rounded-corner2">
+                            <a href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails.MakeMasking1, bikedetails.ModelMasking1, bikedetails.MakeMasking2, bikedetails.ModelMasking2, Convert.ToString(bikedetails.VersionId1), Convert.ToString(bikedetails.VersionId2),bikedetails.ModelId1,bikedetails.ModelId2, Model.CompareSource)" title="@string.Format("{0} {1} vs {2} {3}",bikedetails.Make1,bikedetails.Model1,bikedetails.Make2,bikedetails.Model2)" class="block">
+                                <span class="text-light-grey position-abt pos-top0 pos-right0 font10">@(bikedetails.IsSponsored ? "Sponsored" : "")</span>
+                                <h3 class="font12 text-black text-center margin-bottom10">@string.Format("{0} vs {1}", bikedetails.Model1, bikedetails.Model2)</h3>
+                                <div class="grid-6">
+                                    <div class="model-img-content">
+                                        <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath1, bikedetails.HostUrl1, Bikewale.Utility.ImageSize._144x81,Bikewale.Utility.QualityFactor._60)" alt="@bike1" title="@bike1" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <p class="font11 text-light-grey text-truncate">@(bikedetails.Price1 > 0 ? string.Format("Ex-showroom, {0}", bikedetails.City1) : "Avg. Ex-showroom price")</p>
+                                    @Html.Raw("<span class='font16 text-default'> &#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price1 > 0 ? bikedetails.Price1 : bikedetails.AvgPrice1))</span>
+                                </div>
+                                <div class="grid-6">
+                                    <div class="model-img-content">
+                                        <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath2, bikedetails.HostUrl2, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._60)" alt="@bike2" title="@bike2" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <p class="font11 text-light-grey text-truncate">@(bikedetails.Price2 > 0 ? string.Format("Ex-showroom, {0}", bikedetails.City2) : "Avg. Ex-showroom price")</p>
+                                    @Html.Raw("<span class='font16 text-default'> &#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price2 > 0 ? bikedetails.Price2 : bikedetails.AvgPrice2))</span>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="margin-top15 text-center">
+                                    <span class="btn btn-white btn-size-1">Compare now</span>
+                                </div>
+                            </a>
                         </div>
-                    }
-                </div>
+                        @if (bikedetails.Price1 == 0)
+                        {
+                            <span class="info-icon tooltip-icon-target tooltip-top tooltip--right">
+                                <span class="bw-tooltip info-tooltip">
+                                    <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", bikedetails.City1)</span>
+                                </span>
+                            </span>
+                        }
+                        @if (bikedetails.Price2 == 0)
+                        {
+                            <span class="info-icon tooltip-icon-target tooltip-top comparison-bike-2">
+                                <span class="bw-tooltip info-tooltip">
+                                    <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", bikedetails.City2)</span>
+                                </span>
+                            </span>
+                        }
+                        
+                    </div>
+                }
             </div>
         </div>
+    </div>
 }

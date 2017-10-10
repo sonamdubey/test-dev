@@ -40,6 +40,10 @@
                 width: 12px;
                 height: 12px;
             }
+
+            .update-block-width450{
+                width: 450px;
+            }
     </style>
     <span id="spnError" class="error" runat="server"></span>
     <div>
@@ -56,6 +60,17 @@
                         </div>
                         <div class="floatLeft margin-left10">
                             <span id="spntxtMake" class="errorMessage"></span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="margin10">
+                        <div class="floatLeft">
+                            Select Series :
+                        </div>
+                        <div class="floatLeft margin-left10">
+                            <asp:dropdownlist id="ddlSeries" runat="server" width="100%">
+									<asp:ListItem Text="--Select Series--" Value="-1" />
+							</asp:dropdownlist>
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -124,38 +139,69 @@
                 </div>
             </fieldset>
         </div>
-        <div class="floatLeft" style="width: 450px;">
-            <fieldset>
-                <legend>Update Existing CC Segments</legend>
-                <div>
-                    <div class="margin10">
-                        <div class="floatLeft">
-                            Select Segment :
+        <div class="floatLeft">
+            <div class="update-block-width450">
+                <fieldset>
+                    <legend>Update Existing CC Segments</legend>
+                    <div>
+                        <div class="margin10">
+                            <div class="floatLeft">
+                                Select Segment :
+                            </div>
+                            <div class="floatLeft margin-left10">
+                                <asp:dropdownlist id="ddlUpdateSegment" runat="server">
+								    <asp:ListItem Text="--Select Segment--" Value="-1" />
+							    </asp:dropdownlist>
+                            </div>
+                            <div class="floatLeft margin-left10">
+                                <span id="spnUpdateSeg" class="errorMessage"></span>
+                            </div>
+                            <div class="floatLeft margin-left10">
+                                <input type="button" id="btnSelModel" value="Select Bike Model(s)" />
+                            </div>
                         </div>
-                        <div class="floatLeft margin-left10">
-                            <asp:dropdownlist id="ddlUpdateSegment" runat="server">
-								<asp:ListItem Text="--Select Segment--" Value="-1" />
-							</asp:dropdownlist>
-                        </div>
-                        <div class="floatLeft margin-left10">
-                            <span id="spnUpdateSeg" class="errorMessage"></span>
-                        </div>
-                        <div class="floatLeft margin-left10">
-                            <input type="button" id="btnSelModel" value="Select Bike Model(s)" />
+                        <div class="clear"></div>
+                        <div class="margin-top10">
+                            <div style="text-align: center; margin-top: 20px;">
+                                <input type="submit" id="btnUpdateSegment" value="Update Model Segment" runat="server" /><span id="spnSeg" class="errorMessage"></span>
+                                <asp:hiddenfield id="hdnModelIdsList" runat="server"></asp:hiddenfield>
+                            </div>
                         </div>
                     </div>
-                    <div class="clear"></div>
-                    <div class="margin-top10">
-                        <div style="text-align: center; margin-top: 20px;">
-                            <input type="submit" id="btnUpdateSegment" value="Update Model Segment" runat="server" /><span id="spnSeg" class="errorMessage"></span>
-                            <asp:hiddenfield id="hdnModelIdsList" runat="server"></asp:hiddenfield>
+                </fieldset>
+            </div>
+            <div class="margin-top20 update-block-width450">
+                <fieldset>
+                    <legend>Update Existing Series</legend>
+                    <div>
+                        <div class="margin10">
+                            <div class="floatLeft">
+                                Select Series :
+                            </div>
+                            <div class="floatLeft margin-left10">
+                                <asp:dropdownlist id="ddlUpdateSeries" runat="server">
+								    <asp:ListItem Text="--Select Series--" Value="-1" />
+							    </asp:dropdownlist>
+                            </div>
+                            <div class="floatLeft margin-left10">
+                                <span id="spnUpdateSeries" class="errorMessage"></span>
+                            </div>
+                            <div class="floatLeft margin-left10">
+                                <input type="button" id="btnSelModelSeries" value="Select Bike Model(s)" />
+                            </div>
                         </div>
+                        <div class="clear"></div>
+                        <div class="margin-top10">
+                            <div style="text-align: center; margin-top: 20px;">
+                                <input type="submit" id="btnUpdateSeries" value="Update Model Series" runat="server" /><span id="spnSeries" class="errorMessage"></span>
+                                <asp:hiddenfield id="hdnModelIdsListSeries" runat="server"></asp:hiddenfield>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="clear"></div>
-                </div>
-            </fieldset>
-        </div>       
-
+                </fieldset>
+            </div>
+        </div>      
     </div>
     <div class="clear"></div>
     <br />
@@ -190,15 +236,21 @@
 					<asp:Label Visible="false" ID="lblMakeId" Text='<%# DataBinder.Eval( Container.DataItem, "BikeMakeId" ) %>' runat="server"></asp:Label>
 				</edititemtemplate>
 			</asp:TemplateColumn>
-			<asp:TemplateColumn HeaderText="Masking Name" ItemStyle-Width="350">
+			<asp:TemplateColumn HeaderText="Masking Name" ItemStyle-Width="300">
 				<itemtemplate>
 				  <span><%# DataBinder.Eval( Container.DataItem, "MaskingName" ) %></span>&nbsp;&nbsp;<a ID="editId_<%# DataBinder.Eval( Container.DataItem, "ID" ) %>"  data-modelname='<%# DataBinder.Eval( Container.DataItem, "Name" ) %>' class='pointer <%# string.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "MaskingName" ).ToString()) ? "hide" : "" %>' title="Update Masking Name">Edit</a> 
 				</itemtemplate>            
 			    </asp:TemplateColumn>
 			<asp:BoundColumn DataField="BikeMakeId" ReadOnly="true" ItemStyle-CssClass="doNotDisplay" HeaderStyle-CssClass="doNotDisplay" />
-			<asp:TemplateColumn HeaderText="CC Segment" ItemStyle-Width="1100">
+            <asp:TemplateColumn HeaderText="Series" ItemStyle-Width="900">
 				<itemtemplate>
-					<input    type="checkbox" name="chkSegment" modelId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' disabled="disabled"/><span><%#DataBinder.Eval(Container.DataItem,"ClassSegmentName") %></span>
+					<input type="checkbox" name="chkSeries" modelId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' disabled="disabled" style="vertical-align:middle"/><span style="vertical-align:middle"><%#DataBinder.Eval(Container.DataItem,"seriesName") %></span>
+                    <input type="image" title="Remove mapping" class="deleteMapModelSeries  <%# (Convert.ToString(DataBinder.Eval(Container.DataItem,"seriesName")) == "N/A" ? "hide":"")%>"  data-modelid='<%# DataBinder.Eval(Container.DataItem,"ID") %>' src="https://opr.carwale.com/images/icons/delete.ico" style="vertical-align:middle">
+				</itemtemplate>
+			</asp:TemplateColumn>
+			<asp:TemplateColumn HeaderText="CC Segment" ItemStyle-Width="800">
+				<itemtemplate>
+					<input type="checkbox" name="chkSegment" modelId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' disabled="disabled"/><span><%#DataBinder.Eval(Container.DataItem,"ClassSegmentName") %></span>
 				</itemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Used">
@@ -325,6 +377,29 @@
             }        
         });
 
+        $(".deleteMapModelSeries").click(function () {
+            if (confirm("Do you really want to delete this mapping."))
+            {
+                var deletebtn = this;
+                var modelId = $(this).data("modelid");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/model/"+modelId+"/series/delete/",
+                    success: function (response) {
+                        if (response != null) {
+                            $(deletebtn).siblings("span").html("N/A");
+                            $(deletebtn).remove();
+                            alert("Mapping successfully removed");
+                        }
+                    },
+                    error: function (respose) {
+                        alert("Something went wrong, Could't remove mapping");
+                    }
+                });
+            }
+            return false;
+        });
         function cmbMakes_Change(e) {	        
             var el = document.getElementById('cmbMakes');
             var alter = false;
@@ -534,6 +609,42 @@
             {
                 alert("Select Models to Update Segement");
                 $("input[name=chkSegment]:first-of-type").removeAttr("disabled");
+                isError=true;
+            }
+            return !isError;
+        });
+
+        //oerations  added for updating existing series
+        $("#btnSelModelSeries").click(function(){
+            $("#spnUpdateSeries").text("");
+            if ($("#ddlUpdateSeries").val() <= 0) 
+            {
+                $("#spnUpdateSeries").text("Select Series");
+                return false;
+            }
+            else
+            {
+                $("input[name=chkSeries]").removeAttr("disabled");
+                $("input[name=chkSeries]:first").focus();
+            }
+        });
+
+
+        $("#btnUpdateSeries").click(function(){
+            var ModelIdList = "";
+            var isError = false;
+            if($("input[name=chkSeries]:checked").length != 0)
+            {
+                $("input[name=chkSeries]:checked").each(function(){
+				
+                    ModelIdList += $(this).attr("modelId") + ",";
+                    $("#hdnModelIdsListSeries").val(ModelIdList);
+                });
+            }
+            else
+            {
+                alert("Select Models to Update Series");
+                $("input[name=chkSeries]:first-of-type").removeAttr("disabled");
                 isError=true;
             }
             return !isError;

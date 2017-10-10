@@ -107,6 +107,10 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Modified by : Ashutosh Sharma on 30 Aug 2017 
         /// Description : Changed SP from 'getversions_23082017' to 'getversions_30082017'
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Changed SP from 'getversions_30082017' to 'getversions_29092017'
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Changed SP from 'getversions_30082017' to 'getversions_29092017', to get avg price.
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="isNew"></param>
@@ -119,7 +123,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getversions_30082017";
+                    cmd.CommandText = "getversions_29092017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
 
@@ -135,6 +139,7 @@ namespace Bikewale.DAL.BikeData
                                     VersionName = dr["Version"].ToString(),
                                     ModelName = dr["Model"].ToString(),
                                     Price = Convert.ToUInt64(dr["VersionPrice"]),
+                                    AverageExShowroom = Convert.ToUInt32(dr["AverageExShowroom"]),
                                     BrakeType = dr["BrakeType"].ToString(),
                                     AlloyWheels = Convert.ToBoolean(dr["AlloyWheels"]),
                                     ElectricStart = Convert.ToBoolean(dr["ElectricStart"]),
@@ -449,6 +454,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary : To get list of similar bikes by version id
         /// modified by:- Subodh Jain
         /// Summary :- To get list of similar bikes by version id and cityid
+        /// Modified by : Ashutosh Sharma on 03 Oct 2017 
+        /// Description : Changed SP from 'getsimilarbikeslist_13102016' to 'getsimilarbikeslist_02102017', to get avg price.
         /// </summary>
         /// <param name="versionId"></param>
         /// <param name="topCount"></param>
@@ -461,7 +468,7 @@ namespace Bikewale.DAL.BikeData
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarbikeslist_13102016";
+                    cmd.CommandText = "getsimilarbikeslist_02102017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
 
@@ -489,6 +496,7 @@ namespace Bikewale.DAL.BikeData
                                 objBike.HostUrl = Convert.ToString(dr["hosturl"]);
                                 objBike.MinPrice = SqlReaderConvertor.ToInt32(dr["versionprice"]);
                                 objBike.VersionPrice = SqlReaderConvertor.ToInt32(dr["versionprice"]);
+                                objBike.AvgExShowroomPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]);
                                 objBike.OriginalImagePath = dr["originalimagepath"].ToString();
                                 objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["displacement"]);
                                 objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["fuelefficiencyoverall"]);

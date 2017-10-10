@@ -1,0 +1,48 @@
+﻿@model Bikewale.Models.Authors.AuthorsListVM
+@using Bikewale.Utility
+@if (Model != null)
+{
+    {
+        
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/authors.css' inline />";
+        Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+        Model.AdTags.AdId = "1395986297721";
+        Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
+        Model.AdTags.Ad_320x50 = true;
+        Model.AdTags.Ad_Bot_320x50 = true;
+    }
+    <div class="author-listing box-content">
+        <h1 class="author__head">All authors</h1>
+        <ul class="author__list">
+            @foreach (var item in Model.AuthorsList)
+            {
+                if (!string.IsNullOrEmpty(item.ShortDescription) && !string.IsNullOrEmpty(item.MaskingName))
+                {
+                    <li>
+                        <a href=@string.Format("/m{0}", UrlFormatter.AuthorPageUrl(item.MaskingName)) title="@item.AuthorName" class="author__block">
+                            <div class="author__image">
+                                @if (string.IsNullOrEmpty(item.HostUrl) || string.IsNullOrEmpty(item.ProfileImage) || string.IsNullOrEmpty(item.ImageName))
+                                {
+                                    <div class="no-image-block"></div>
+                                }
+                                else
+                                {
+
+                                    <img src="@string.Format("https://{0}/80x60/cw/author/{1}?q=70", item.HostUrl, item.ImageName)" alt="@item.AuthorName" title="@item.AuthorName" border="0">
+                                }
+                            </div>
+                            <div class="author__detail">
+                                <h2 class="author__name">@item.AuthorName</h2>
+                                <span class="author__designation">@item.Designation</span>
+                            </div>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+
+
+

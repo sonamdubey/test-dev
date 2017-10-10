@@ -17,7 +17,7 @@ namespace Bikewale.Entities.BikeBooking
         public string Budget { get; set; }
         public string Mileage { get; set; }
         public string RideStyle { get; set; }
-        public string AntiBreakingSystem { get; set; }
+        public string ABS { get; set; }
         public string BrakeType { get; set; }
         public string AlloyWheel { get; set; }
         public string StartType { get; set; }

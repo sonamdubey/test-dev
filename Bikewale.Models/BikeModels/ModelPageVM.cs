@@ -6,6 +6,7 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Models.BikeSeries;
 using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 using System.Linq;
@@ -128,6 +129,7 @@ namespace Bikewale.Models.BikeModels
         public string BodyStyleTextSingular { get; set; }
         public PopularBodyStyleVM PopularBodyStyle { get; set; }
         public bool IsPopularBodyStyleAvailable { get { return (PopularBodyStyle != null && PopularBodyStyle.PopularBikes != null && PopularBodyStyle.PopularBikes.Any()); } }
+        public BikeSeriesModelsVM ModelsBySeries { get; set; }
     }
 
 }

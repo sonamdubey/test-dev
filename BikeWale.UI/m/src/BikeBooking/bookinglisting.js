@@ -797,7 +797,7 @@ $.fn.resetAll = function () {
 resetButton.resetAll();
 
 $.resetFilterUI = function () {
-    var params = ['bike', 'displacement', 'ridestyle', 'AntiBreakingSystem', 'braketype', 'alloywheel', 'starttype', 'budget', 'mileage'];
+    var params = ['bike', 'displacement', 'ridestyle', 'ABS', 'braketype', 'alloywheel', 'starttype', 'budget', 'mileage'];
     for (var i = 0; i < params.length; i++) {
         if (params[i].length > 0) {
             var node = $('div[name=' + params[i] + ']');
@@ -807,7 +807,7 @@ $.resetFilterUI = function () {
                 node.find('li').each(function () {
                     $(this).removeClass('checked');
                 });
-            } else if (params[i] == 'AntiBreakingSystem' || params[i] == 'braketype' || params[i] == 'alloywheel' || params[i] == 'starttype') {
+            } else if (params[i] == 'ABS' || params[i] == 'braketype' || params[i] == 'alloywheel' || params[i] == 'starttype') {
                 node.children().each(function () {
                     $(this).removeClass('optionSelected');
                 });
@@ -841,7 +841,7 @@ $.selectFiltersPresentInQS = function () {
                 node.prev().find('.hida').addClass('hide');
                 node.prev().find('.multiSel').html(html);
 
-            } else if (params[i] == 'AntiBreakingSystem' || params[i] == 'braketype' || params[i] == 'alloywheel' || params[i] == 'starttype') {
+            } else if (params[i] == 'ABS' || params[i] == 'braketype' || params[i] == 'alloywheel' || params[i] == 'starttype') {
                 var values = $.getFilterFromQS(params[i]);
 
                 for (var j = 0; j < values.length; j++) {

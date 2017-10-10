@@ -98,6 +98,8 @@ namespace Bikewale.Cache.Compare
         /// <summary>
         /// Created By : Sushil Kumar on 2nd Dec 2016
         /// Description : Cache layer to similar cache comaprisions bikes
+        /// Modified by: Ashutosh Sharma on 02 Oct 2017
+        /// Description : Changed key form 'BW_SimilarCompareBikes_' to 'BW_SimilarCompareBikes_V1_'.
         /// </summary>
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>
@@ -111,7 +113,7 @@ namespace Bikewale.Cache.Compare
             {
                 if (!String.IsNullOrEmpty(versionList))
                 {
-                    key = string.Format("BW_SimilarCompareBikes_{0}_City_{1}_Count_{2}", versionList.Replace(',', '_'), cityid, topCount);
+                    key = string.Format("BW_SimilarCompareBikes_V1_{0}_City_{1}_Count_{2}", versionList.Replace(',', '_'), cityid, topCount);
                     compareEntity = _cache.GetFromCache<ICollection<SimilarCompareBikeEntity>>(key, new TimeSpan(1, 0, 0), () => _compareRepository.GetSimilarCompareBikes(versionList, topCount, cityid));
                 }
             }
