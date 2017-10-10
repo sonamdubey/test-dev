@@ -2,6 +2,10 @@
 
 namespace Bikewale.Entities.NewBikeSearch
 {
+    /// <summary>
+    /// modified by : Vivek Singh Tomar on 10th Oct 2017
+    /// Summary : Added property AntiBreakingSystem 
+    /// </summary>
     public class InputBaseEntity
     {
         public string Bike { get; set; }
@@ -17,5 +21,6 @@ namespace Bikewale.Entities.NewBikeSearch
         public string PageSize { get; set; }
         public string so { get; set; }
         public string sc { get; set; }
+        public string AntiBreakingSystem { get; set; }
     }
 }
