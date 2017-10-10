@@ -132,13 +132,16 @@ docReady(function () {
         vmMakeModelPopupModel.prefillMakeModel();
     }
 
-  
-    $('#ddlModelsPopup_chosen').one("click",(function () {
-       
-           ddlModelsPopup.find("option:first").attr("value", "0");
+    if (modelId > 0)
+    {
+        $('#ddlModelsPopup_chosen').one("click", (function () {
+
+            ddlModelsPopup.find("option:first").attr("value", "0");
             ddlMakesPopup.val(makeId).trigger("change");
-          
+
         }));
+    }
+   
     
    
 
