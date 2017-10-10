@@ -150,7 +150,10 @@ namespace Bikewale.Controllers
                 else
                 {
                     if (_disablePWA)
+                    {
+                        objData = obj.GetData(9);
                         return View("~/Views/News/Index_Mobile.cshtml", objData);
+                    }
                     else
                     {
                         return View(objData);
