@@ -2,6 +2,7 @@
 using Bikewale.DTO.Videos;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Videos;
 using Bikewale.Service.Utilities;
 using Grpc.CMS;
 using log4net;
@@ -173,7 +174,7 @@ namespace Bikewale.Service.Videos.Controllers
                 {
                     var objVideosList = GetVideosByModelIdViaGrpc(pageNo, pageSize, modelId);
 
-                    if (objVideosList != null && objVideosList.Videos != null && objVideosList.Videos.Count() > 0)
+                    if (objVideosList != null && objVideosList.Videos != null && objVideosList.Videos.Any())
                     {
                         return Ok(objVideosList);
                     }
@@ -217,5 +218,79 @@ namespace Bikewale.Service.Videos.Controllers
 
         #endregion
 
+
+        #region Videos List
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 09th Oct 2017
+        /// Summary : API to get list of videos for given model id for android app
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(DTO.Videos.v2.VideosList)), Route("api/v2/videos/pn/{pageNo}/ps/{pageSize}/model/{modelId}/")]
+        public IHttpActionResult GetVideosByModelIdV2(uint pageNo, uint pageSize, int modelId)
+        {
+            try
+            {
+                if(pageNo <= 0 && pageSize <= 0 && modelId <= 0)
+                {
+                    return BadRequest();
+                }
+
+                if (Request.Headers.Contains("platformId"))
+                {
+                    var platformId = Request.Headers.GetValues("platformId").First();
+                    if (platformId != null && platformId.ToString().Equals("3"))
+                    {
+                        var objVideosList = GetVideosByModelIdViaGrpcV2(pageNo, pageSize, modelId);
+
+                        if (objVideosList != null && objVideosList.Videos != null && objVideosList.Videos.Count() > 0)
+                        {
+                            return Ok(objVideosList);
+                        }
+                    }
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Videos.VideosController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 09th Oct 2017
+        /// Summary : Get list of videos for given model id from grpc
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        private DTO.Videos.v2.VideosList GetVideosByModelIdViaGrpcV2(uint pageNo, uint pageSize, int modelId)
+        {
+            DTO.Videos.v2.VideosList videoDTOList = null;
+            try
+            {
+                int startIndex, endIndex;
+                Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
+
+                var _objVideoList = GrpcMethods.GetVideosByModelId(modelId, (uint)startIndex, (uint)endIndex);
+
+                if (_objVideoList != null)
+                {
+                    videoDTOList = VideosMapper.ConvertV2(_objVideoList);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+            }
+
+            return videoDTOList;
+        }
+        #endregion
     }   // class
 }   // namespace

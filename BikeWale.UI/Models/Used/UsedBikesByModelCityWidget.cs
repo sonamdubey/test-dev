@@ -41,7 +41,7 @@ namespace Bikewale.Models.Used
 
                 objMostRecentBikes = _objCache.GetUsedBikes(_makeId, _modelId, _cityId, _topCount);
 
-                if (objMostRecentBikes != null && objMostRecentBikes.Count() > 0)
+                if (objMostRecentBikes != null && objMostRecentBikes.Any())
                 {
                     MostRecentBikes objMostRecentUsedBikes = null;
                     objMostRecentUsedBikes = objMostRecentBikes.FirstOrDefault();

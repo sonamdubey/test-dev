@@ -9,6 +9,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
+using Bikewale.Utility;
 using Bikewale.Utility.StringExtention;
 using System;
 using System.Collections.Specialized;
@@ -495,11 +496,26 @@ namespace Bikewale.Controllers
         /// Created by: Sangram Nandkhile on 05 June 2017
         /// Modified by: Vivek Singh Tomar on 12th Aug 2017
         /// Summary: Added _userReviewCache to get winners of user review contest
+        /// Modified By :Snehal Dange on 25th Sep 2017
+        /// Descrption : Added MakeId and ModelId 
         /// </summary>
         [Route("m/user-reviews/contest/")]
-        public ActionResult WriteReviewContest_Mobile(int? csrc)
+        public ActionResult ReviewContest_Mobile(string q)
         {
-            WriteReviewContest objData = new WriteReviewContest(true, _makesRepository, _userReviewCache);
+            NameValueCollection queryCollection = HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(q));
+            uint makeId = 0, modelId = 0;
+            int? csrc ;
+            string makeName, modelName, makeMaskingName, modelMaskingName;
+
+            csrc = Convert.ToInt16(queryCollection["csrc"]);
+            uint.TryParse(queryCollection["makeId"], out makeId);
+            uint.TryParse(queryCollection["modelId"], out modelId);
+            makeName = queryCollection["makeName"];
+            modelName = queryCollection["modelName"];
+            makeMaskingName=queryCollection["makeMaskingName"];
+            modelMaskingName=queryCollection["modelMaskingName"];
+            
+            WriteReviewContest objData = new WriteReviewContest(true, _makesRepository, _userReviewCache, makeId , modelId ,makeName, modelName, makeMaskingName, modelMaskingName);
             objData.IsMobile = true;
             objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
@@ -508,9 +524,22 @@ namespace Bikewale.Controllers
 
         [Filters.DeviceDetection()]
         [Route("user-reviews/contest/")]
-        public ActionResult WriteReviewContest(int? csrc)
+        public ActionResult ReviewContest(string q)
         {
-            WriteReviewContest objData = new WriteReviewContest(false, _makesRepository, _userReviewCache);
+            NameValueCollection queryCollection = HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(q));
+            uint makeId = 0, modelId = 0;
+            int? csrc;
+            string makeName, modelName, makeMaskingName, modelMaskingName;
+
+            csrc = Convert.ToInt16(queryCollection["csrc"]);
+            uint.TryParse(queryCollection["makeId"], out makeId);
+            uint.TryParse(queryCollection["modelId"], out modelId);
+            makeName = queryCollection["makeName"];
+            modelName = queryCollection["modelName"];
+            makeMaskingName = queryCollection["makeMaskingName"];
+            modelMaskingName = queryCollection["modelMaskingName"];
+
+            WriteReviewContest objData = new WriteReviewContest(false, _makesRepository, _userReviewCache, makeId , modelId , makeName, modelName, makeMaskingName, modelMaskingName);
             objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
             return View(objVM);

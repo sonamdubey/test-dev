@@ -12,7 +12,6 @@ using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -276,7 +275,7 @@ namespace Bikewale.Models.BikeModels
                     SetAdditionalProperties(product);
                     SetSimilarBikesProperties(product);
                     _objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
-                    _objData.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(product);                    
+                    _objData.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(product);
                 }
             }
             catch (Exception ex)
@@ -729,17 +728,27 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-                InputFilters filters = null;
-
-                filters = new InputFilters()
+                ReviewDataCombinedFilter objFilter = new ReviewDataCombinedFilter()
                 {
-                    Model = _modelId.ToString(),
-                    SO = 1,
-                    PN = 1,
-                    PS = 3,
-                    Reviews = true
+                    InputFilter = new Entities.UserReviews.Search.InputFilters()
+                    {
+                        Model = _modelId.ToString(),
+                        SO = 1,
+                        PN = 1,
+                        PS = 3,
+                        Reviews = true
+                    },
+                    ReviewFilter = new ReviewFilter()
+                    {
+                        RatingQuestion = !IsMobile,
+                        ReviewQuestion = false,
+                        SantizeHtml = true,
+                        SanitizedReviewLength = (uint)(IsMobile ? 150 : 270),
+                        BasicDetails = true
+                    }
                 };
-                var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
+
+                var objUserReviews = new UserReviewsSearchWidget(_modelId, objFilter, _userReviewsCache, _userReviewsSearch);
                 objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;
                 objPage.UserReviews = objUserReviews.GetData();
             }
@@ -1210,7 +1219,7 @@ namespace Bikewale.Models.BikeModels
                             _objData.BikePrice = (uint)_objData.SelectedVersion.Price;
                         }
 
-                        if (modelPg.ModelDetails != null && modelPg.ModelDetails.PhotosCount > 0 && modelPg.ModelColors != null && modelPg.ModelColors.Count() > 0)
+                        if (modelPg.ModelDetails != null && modelPg.ModelDetails.PhotosCount > 0 && modelPg.ModelColors != null && modelPg.ModelColors.Any())
                         {
                             var colorImages = modelPg.ModelColors.Where(x => x.ColorImageId > 0);
                             if (colorImages != null && colorImages.Any())
@@ -1342,6 +1351,8 @@ namespace Bikewale.Models.BikeModels
                             LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
                             LeadSourceId = (int)LeadSource,
                             PqSourceId = (int)PQSource,
+                            GACategory = "Model_Page",
+                            GALabel = string.Format("{0}_{1}", _objData.BikeName, _objData.City != null ? _objData.City.CityName : string.Empty),
                             LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
                             LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
                             LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
@@ -1365,7 +1376,7 @@ namespace Bikewale.Models.BikeModels
                         _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
                         _objData.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
 
-                        if (_objData.PQId == 0)
+                        if (_objData.PQId == 0 && _cityId != 0)
                         {
                             PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
                             objPQEntity.CityId = Convert.ToUInt16(_cityId);
@@ -1582,7 +1593,7 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-               
+
                 if (_objData != null && _objData.SimilarBikes != null && _objData.SimilarBikes.Bikes != null)
                 {
                     IList<Product> listSimilarBikes = new List<Product>();

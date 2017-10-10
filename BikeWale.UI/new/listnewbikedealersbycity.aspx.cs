@@ -102,7 +102,7 @@ namespace Bikewale.New
 
                     var objCities = container.Resolve<IDealerRepository>();
                     _cities = objCities.FetchDealerCitiesByMake(_makeId);
-                    if (_cities != null && _cities.Count() > 0)
+                    if (_cities != null && _cities.Any())
                     {
                         var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                         if (_city != null)

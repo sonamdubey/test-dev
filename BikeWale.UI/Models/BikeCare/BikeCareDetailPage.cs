@@ -135,7 +135,7 @@ namespace Bikewale.Models
             objSchema.DateModified = objData.ArticleDetails.DisplayDate.ToString();
             objSchema.DatePublished = objSchema.DateModified;
             objSchema.Description = FormatDescription.SanitizeHtml(objData.ArticleDetails.Description);
-            if (objData.ArticleDetails.PageList != null && objData.ArticleDetails.PageList.Count() > 0)
+            if (objData.ArticleDetails.PageList != null && objData.ArticleDetails.PageList.Any())
             {
                 objSchema.ArticleBody = Bikewale.Utility.FormatDescription.SanitizeHtml(Convert.ToString(objData.ArticleDetails.PageList.First().Content));
             }
@@ -163,7 +163,7 @@ namespace Bikewale.Models
         {
             try
             {
-                if (objData.ArticleDetails.VehiclTagsList != null && objData.ArticleDetails.VehiclTagsList.Count() > 0)
+                if (objData.ArticleDetails.VehiclTagsList != null && objData.ArticleDetails.VehiclTagsList.Any())
                 {
 
                     var taggedMakeObj = objData.ArticleDetails.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
@@ -195,7 +195,7 @@ namespace Bikewale.Models
         {
             try
             {
-                if (objData.ArticleDetails.VehiclTagsList != null && objData.ArticleDetails.VehiclTagsList.Count() > 0)
+                if (objData.ArticleDetails.VehiclTagsList != null && objData.ArticleDetails.VehiclTagsList.Any())
                 {
 
                     var taggedModelObj = objData.ArticleDetails.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.ModelBase.MaskingName));
@@ -323,7 +323,7 @@ namespace Bikewale.Models
             {
                 objData.PhotoGallery = new EditCMSPhotoGalleryVM();
                 objData.PhotoGallery.Images = _cmsCache.GetArticlePhotos(Convert.ToInt32(basicId));
-                if (objData.PhotoGallery.Images != null && objData.PhotoGallery.Images.Count() > 0)
+                if (objData.PhotoGallery.Images != null && objData.PhotoGallery.Images.Any())
                 {
                     objData.PhotoGallery.ImageCount = objData.PhotoGallery.Images.Count();
                 }

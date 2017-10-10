@@ -59,7 +59,7 @@ namespace Bikewale.BindViewModels.Controls
 
                 }
 
-                if (objModelList != null && objModelList.Count() > 0)
+                if (objModelList != null && objModelList.Any())
                 {
                     FetchedRecordsCount = objModelList.Count();
                     Make = objModelList.FirstOrDefault().objMake;
@@ -110,7 +110,7 @@ namespace Bikewale.BindViewModels.Controls
 
                 }
 
-                if (objModelList != null && objModelList.Count() > 0)
+                if (objModelList != null && objModelList.Any())
                 {
                     FetchedRecordsCount = objModelList.Count();
                     Make = objModelList.FirstOrDefault().objMake;

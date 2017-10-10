@@ -12,6 +12,6 @@ namespace Bikewale.Models
     {
         public IEnumerable<BikeMakeEntityBase> TopBrands { get; set; }
         public IEnumerable<BikeMakeEntityBase> OtherBrands { get; set; }
-        public bool HasOtherBrands { get { return (OtherBrands != null && OtherBrands.Count() > 0); } }
+        public bool HasOtherBrands { get { return (OtherBrands != null && OtherBrands.Any()); } }
     }
 }

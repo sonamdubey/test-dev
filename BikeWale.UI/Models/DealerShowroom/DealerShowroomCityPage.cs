@@ -214,13 +214,11 @@ namespace Bikewale.Models.DealerShowroom
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
 
-            url += "dealer-showroom-locator/";
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Showroom Locator"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}", url, "dealer-showroom-locator/"), "Showroom Locator"));
 
             if (objDealerVM != null && objDealerVM.Make != null)
             {
-                url = string.Format("{0}-dealer-showrooms-in-india/", objDealerVM.Make.MaskingName);
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objDealerVM.Make.MakeName + " Showrooms"));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-dealer-showrooms-in-india/", url, objDealerVM.Make.MaskingName), objDealerVM.Make.MakeName + " Showrooms"));
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
@@ -240,7 +238,7 @@ namespace Bikewale.Models.DealerShowroom
             try
             {
                 objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
-                if (objDealerList != null && objDealerList.Dealers != null && objDealerList.Dealers.Count() > 0)
+                if (objDealerList != null && objDealerList.Dealers != null && objDealerList.Dealers.Any())
                     foreach (var dealer in objDealerList.Dealers)
                     {
                         dealer.GetOffersGALabel = string.Format("{0}_{1}_{2}", objMake.MakeName, dealer.City, dealer.objArea.AreaName);
@@ -265,7 +263,7 @@ namespace Bikewale.Models.DealerShowroom
             try
             {
                 objDealer.objDealerInNearCityList = _objDealerCache.FetchNearByCityDealersCount(makeId, cityId);
-                if (objDealer != null && objDealer.objDealerInNearCityList != null && objDealer.objDealerInNearCityList.Count() > 0)
+                if (objDealer != null && objDealer.objDealerInNearCityList != null && objDealer.objDealerInNearCityList.Any())
                 {
                     objDealer.objDealerInNearCityList = objDealer.objDealerInNearCityList.Take((int)topCount);
                 }

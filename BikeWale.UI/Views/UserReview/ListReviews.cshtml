@@ -3,7 +3,7 @@
 @using Bikewale.Entities.UserReviews;
 @{
     Model.IsHeaderFix = false;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/user-review/listing.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/user-review/listing.css' inline />";
     Model.Page_JS_Path = "/src/user-review/listing.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_UserReviews_";
     Model.AdTags.AdId = "1496833829224";
@@ -14,11 +14,11 @@
 }
 
 <input type="hidden" value="@Model.ModelId" id="hdnModelId" />
-
+<input type="hidden" value="@(Model.RatingReviewData != null && Model.RatingReviewData.ReviewDetails != null && Model.RatingReviewData.ReviewDetails.Make != null ? Model.RatingReviewData.ReviewDetails.Make.MakeId : 0)" id="hdnMakeId" />
 <section>
     <div class="container card-bottom-margin">
         <div class="grid-12">
-            <div id="modelName" data-modelName="@Model.RatingsInfo.Model.ModelName" class="content-box-shadow">
+            <div id="modelName" data-modelName="@Model.RatingsInfo.Model.ModelName" data-makeName="@Model.RatingsInfo.Make.MakeName" class="content-box-shadow">
                 <h1 class="content-box-shadow padding-15-20">@Model.BikeName User Reviews</h1>
 
                 <div class="padding-20-10">
@@ -115,6 +115,26 @@
                         </div>
                     </div>
                     <div class="clear"></div>
+                    @if (Model.ObjQuestionValue != null && Model.ObjQuestionValue.QuestionsList.Any())
+                    {
+						<div class="rating-parameters-content">
+							<p class="rating-circle-list-title">Rating Parameters:</p>
+							<div class="rating-list">
+								<ul class="rating-circle-list">
+									@foreach (QuestionRatingsValueEntity ques in Model.ObjQuestionValue.QuestionsList)
+									{
+										<li>
+											<div class="rating-circle circle-rate-@Math.Floor(ques.AverageRatingValue)">
+												<p class="circle-label">@ques.AverageRatingValue.ToString("0.0")</p>
+												<span class="rating-progress"></span>
+											</div>
+											<p class="list-item-label">@ques.QuestionHeading</p>
+										</li>
+									}
+								</ul>
+							</div>
+						</div>
+                    }
                 </div>
             </div>
         </div>
@@ -126,10 +146,13 @@
                 <div class="leftfloat">
                     <span class="contest-fullwidth__trophy-circle"></span>
                     <p class="contest-fullwidth__heading">Bike Review Contest</p>
-                    <p class="contest-fullwidth__subheading">Rate &amp; write a detailed review to win Amazon vouchers worth &#x20B9; 1,000</p>
+                    <p class="contest-fullwidth__subheading">Rate &amp; write a detailed review to win Amazon vouchers worth &#x20B9; 2,000</p>
                 </div>
                 <div class="rightfloat padding-top15">
-                    <a href="/bike-review-contest/" class="btn btn-inv-teal contest-fullwidth__target">Participate &amp; win<span class="bwsprite teal-right"></span></a>
+                    @{
+                        string q = EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)UserReviewPageSourceEnum.Desktop_UserReview_Listing));
+                    }
+                    <a href="@string.Format("/bike-review-contest/?q={0}",q)" class="btn btn-inv-teal contest-fullwidth__target">Participate &amp; win<span class="bwsprite teal-right"></span></a>
                 </div>
                 <div class="clear"></div>
             </div>

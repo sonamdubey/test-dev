@@ -132,7 +132,7 @@ namespace Bikewale.Mobile.Service
                             ;
                     var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
                     makes = objCache.GetMakesByType(EnumBikeType.ServiceCenter);
-                    if (makes != null && makes.Count() > 0)
+                    if (makes != null && makes.Any())
                     {
 
                         TopMakeList = makes.Take(6);

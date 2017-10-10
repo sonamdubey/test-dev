@@ -2,6 +2,7 @@
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -76,7 +77,32 @@ namespace Bikewale.BAL.EditCMS
             return objArticle;
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for News Details based on basic id using grpc
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        private PwaArticleDetails GetNewsDetailsViaGrpcForPwa(uint basicId)
+        {
+            PwaArticleDetails objArticle = null;
+            try
+            {
 
+                var _objGrpcArticle = GrpcMethods.GetContentDetails(Convert.ToUInt64(basicId));
+
+                if (_objGrpcArticle != null)
+                {
+                    objArticle = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWalePwa(_objGrpcArticle);
+                }
+
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+            }
+            return objArticle;
+        }
 
         #endregion
 
@@ -544,6 +570,65 @@ namespace Bikewale.BAL.EditCMS
             }
 
             return _objArticleList;
+        }
+
+        public PwaContentBase GetArticlesByCategoryListPwa(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId)
+        {
+            PwaContentBase _objArticleList = null;
+            try
+            {
+                switch (categoryIdList)
+                {
+                    case "8": //EnumCMSContentType.RoadTest
+                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
+                        break;
+
+                    case "1": //EnumCMSContentType.News
+                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
+                        break;
+                    default:
+                        break;
+                }
+
+                _objArticleList = GetArticlesByCategoryViaGrpcPwa(categoryIdList, startIndex, endIndex, makeId, modelId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return _objArticleList;
+        }
+
+        /// <summary>
+        /// Created by: Prasad Gawde 25th Sept 2017
+        /// Summary: Get articles for given category and body style using grpc
+        /// </summary>
+        /// <param name="categoryIds"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="bikeBodyType"></param>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        private PwaContentBase GetArticlesByCategoryViaGrpcPwa(string categoryIds, int startIndex, int endIndex, int makeId, int modelId)
+        {
+            try
+            {
+                var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIds, (uint)startIndex, (uint)endIndex, makeId, modelId);
+
+                if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
+                {
+                    return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWalePwa(_objGrpcArticle);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message, ex);
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.EditCMS.Articles.GetArticlesByCategoryViaGrpc");
+            }
+            return null;
         }
 
         /// <summary>

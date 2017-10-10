@@ -1,0 +1,60 @@
+﻿@model Bikewale.Models.Photos.SimilarBikesWithPhotosVM
+
+@if (Model != null && Model.FetchedRecordsCount > 0)
+{
+    <section>
+        <div class="container margin-bottom20">
+            <div class="grid-12">
+                <div class="content-box-shadow padding-top20 padding-bottom20">
+                    <div class="carousel-heading-content margin-bottom15">
+                        <h2 class="swiper-heading-left-grid font18  inline-block">@Model.WidgetHeading</h2>
+                    </div>
+                    <div class="jcarousel-wrapper inner-content-carousel alternate-photos-swiper">
+                        <div class="jcarousel">
+                            <ul>
+                                @foreach (var bike in Model.Bikes)
+                                {
+                                    string bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
+                                    <li>
+                                        <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName)" title="@bikeName" class="jcarousel-card">
+                                            <div class="model-jcarousel-image-preview">
+                                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174) " alt="@bikeName images" border="0">
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="bikeTitle">@bikeName</h3>
+                                                <p class="text-light-grey margin-bottom5">
+                                                    @if (bike.OnRoadPriceInCity > 0)
+                                                    {
+                                                        string.Format("On-Road Price, {0}", Model.City);
+                                                    }
+                                                    else
+                                                    {
+                                                        string.Format("Ex-showroom price, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName);
+                                                    }
+                                                </p>
+                                                <p class="font18 text-default inline-block">
+                                                    &#x20b9;<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.OnRoadPriceInCity > 0 ? bike.OnRoadPriceInCity : bike.ExShowroomPriceMumbai))</span>
+                                                    @if (bike.OnRoadPriceInCity > 0)
+                                                    {
+                                                        <span class="font14">&nbsp;onwards</span>
+                                                    }
+                                                </p>
+
+                                            </div>
+                                        </a>
+                                        <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName)images/" title="@bikeName  images" class="margin-bottom5 compare-with-target text-truncate">
+                                            <span class="bwsprite photos-sm"></span><span class="margin-left5 text-default inline-block">View all&nbsp;@bike.PhotosCount &nbsp;@(bike.PhotosCount > 1 ? "images" : "image") </span><span class="bwsprite next-grey-icon"></span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
+                        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+} 

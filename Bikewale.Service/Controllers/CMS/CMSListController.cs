@@ -52,7 +52,7 @@ namespace Bikewale.Service.Controllers.CMS
 
                 IEnumerable<ArticleSummary> objRecentArticles = _objCMSContent.GetMostRecentArticlesByIdList(Convert.ToString((int)categoryId), posts, 0, 0);
 
-                if (objRecentArticles != null && objRecentArticles.Count() > 0)
+                if (objRecentArticles != null && objRecentArticles.Any())
                 {
 
                     List<CMSArticleSummary> objCMSRArticles = new List<CMSArticleSummary>();
@@ -92,7 +92,7 @@ namespace Bikewale.Service.Controllers.CMS
             {
                 IEnumerable<ArticleSummary> objRecentArticles = _objCMSContent.GetMostRecentArticlesByIdList(Convert.ToString((int)categoryId), posts, Convert.ToUInt32(makeId), Convert.ToUInt32(modelId));
 
-                if (objRecentArticles != null && objRecentArticles.Count() > 0)
+                if (objRecentArticles != null && objRecentArticles.Any())
                 {
                     List<CMSArticleSummary> objCMSRArticles;
                     objCMSRArticles = CMSMapper.Convert(objRecentArticles);

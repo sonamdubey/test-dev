@@ -207,7 +207,7 @@ namespace BikewaleOpr.manufacturecampaign
             {
                 IEnumerable<MfgCityEntity> cities = new List<MfgCityEntity>();
                 cities = MfgCampaign.GetManufacturerCities();
-                if (cities != null && cities.Count() > 0)
+                if (cities != null && cities.Any())
                 {
                     ddlCity.DataSource = cities;
                     ddlCity.DataTextField = "CityName";
@@ -291,7 +291,7 @@ namespace BikewaleOpr.manufacturecampaign
             {
                 rptRules.DataSource = null;
                 IEnumerable<MfgCampaignRulesEntity> campaignRules = MfgCampaign.FetchManufacturerCampaignRules(campaignId);
-                if (campaignRules != null && campaignRules.Count() > 0)
+                if (campaignRules != null && campaignRules.Any())
                 {
                     rptRules.DataSource = campaignRules;
                     rptRules.DataBind();

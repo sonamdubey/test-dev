@@ -24,7 +24,7 @@
             
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/css/generic/listing.css" />
+    <link rel="stylesheet" type="text/css" href="/sass/generic/listing.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>

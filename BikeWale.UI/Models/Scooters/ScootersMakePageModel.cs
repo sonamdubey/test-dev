@@ -163,17 +163,17 @@ namespace Bikewale.Models
             if (objData != null)
             {
 
-                objData.IsScooterDataAvailable = objData.Scooters != null && objData.Scooters.Count() > 0;
-                objData.IsCompareDataAvailable = objData.SimilarCompareScooters != null && objData.SimilarCompareScooters.CompareBikes != null && objData.SimilarCompareScooters.CompareBikes.Count() > 0;
-                objData.IsUpComingBikesAvailable = objData.UpcomingScooters != null && objData.UpcomingScooters != null && objData.UpcomingScooters.UpcomingBikes != null && objData.UpcomingScooters.UpcomingBikes.Count() > 0;
-                objData.IsDealerAvailable = objData.Dealers != null && objData.Dealers.Dealers != null && objData.Dealers.Dealers.Count() > 0;
-                objData.IsServiceDataAvailable = objData.ServiceCenters != null && objData.ServiceCenters.ServiceCentersList != null && objData.ServiceCenters.ServiceCentersList.Count() > 0;
+                objData.IsScooterDataAvailable = objData.Scooters != null && objData.Scooters.Any();
+                objData.IsCompareDataAvailable = objData.SimilarCompareScooters != null && objData.SimilarCompareScooters.CompareBikes != null && objData.SimilarCompareScooters.CompareBikes.Any();
+                objData.IsUpComingBikesAvailable = objData.UpcomingScooters != null && objData.UpcomingScooters != null && objData.UpcomingScooters.UpcomingBikes != null && objData.UpcomingScooters.UpcomingBikes.Any();
+                objData.IsDealerAvailable = objData.Dealers != null && objData.Dealers.Dealers != null && objData.Dealers.Dealers.Any();
+                objData.IsServiceDataAvailable = objData.ServiceCenters != null && objData.ServiceCenters.ServiceCentersList != null && objData.ServiceCenters.ServiceCentersList.Any();
                 objData.IsDealerServiceDataAvailable = cityId > 0 && (objData.IsDealerAvailable || objData.IsServiceDataAvailable);
-                objData.IsDealerServiceDataInIndiaAvailable = cityId == 0 && objData.DealersServiceCenter != null && objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails.Count() > 0;
+                objData.IsDealerServiceDataInIndiaAvailable = cityId == 0 && objData.DealersServiceCenter != null && objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails.Any();
                 objData.DealerServiceTitle = (cityId == 0 ? "Dealers & Service Centers" : (((objData.IsDealerAvailable && objData.IsServiceDataAvailable) ? "Dealers & Service Centers" : (objData.IsDealerAvailable ? "Dealers" : (objData.IsServiceDataAvailable ? "Service Centers" : "")))));
-                objData.IsNewsAvailable = objData.News != null && objData.News.ArticlesList != null && objData.News.ArticlesList.Count() > 0;
-                objData.IsExpertReviewsAvailable = objData.News != null && objData.ExpertReviews.ArticlesList != null && objData.ExpertReviews.ArticlesList.Count() > 0;
-                objData.IsVideosAvailable = objData.Videos != null && objData.Videos.VideosList != null && objData.Videos.VideosList.Count() > 0;
+                objData.IsNewsAvailable = objData.News != null && objData.News.ArticlesList != null && objData.News.ArticlesList.Any();
+                objData.IsExpertReviewsAvailable = objData.News != null && objData.ExpertReviews.ArticlesList != null && objData.ExpertReviews.ArticlesList.Any();
+                objData.IsVideosAvailable = objData.Videos != null && objData.Videos.VideosList != null && objData.Videos.VideosList.Any();
                 objData.IsMakeTabsDataAvailable = (objData.Description != null && objData.Description.FullDescription.Length > 0 || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable || objData.IsNewsAvailable || objData.IsExpertReviewsAvailable || objData.IsVideosAvailable);
             }
 

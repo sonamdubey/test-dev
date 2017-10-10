@@ -2,7 +2,7 @@
 @using Bikewale.Utility
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/home.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/home.css' inline />";
     Model.Page_JS_Path = "/m/src/bwm-home.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Homepage";
     Model.AdTags.AdId = "1450262275060";
@@ -293,8 +293,11 @@
                 <span class="contest-banner__title-13">Bike Review</span><br>
                 <span class="contest-banner__title-18">Contest</span>
             </p>
-            <a href="/m/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_HomePage)" title="Participate &amp; win" class="contest-banner__right-grid inline-block">
-                <p class="contest-banner__subtitle">Stand a chance to win &#x20b9;&nbsp;1,000.</p>
+            @{  
+                string q = EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_HomePage));
+            }
+            <a href="@string.Format("/m/bike-review-contest/?q={0}",q)" title="Participate &amp; win" class="contest-banner__right-grid inline-block">
+                <p class="contest-banner__subtitle">Stand a chance to win &#x20b9;&nbsp;2,000.</p>
                 <p class="contest-banner__target-link">Participate &amp; win <span class="yellow-arrow-7x10"></span></p>
             </a>
         </div>
@@ -389,7 +392,7 @@
 
 <section>
     <div class="container margin-bottom20">
-        <h2 class="font18 text-center margin-top20 margin-bottom10">Find used bikes</h2>
+        <h2 class="font18 text-center margin-top20 margin-bottom10">Find second-hand bikes</h2>
         <div class="bw-tabs-panel content-box-shadow">
             <div class="bw-tabs bw-tabs-flex tabs-bottom15">
                 <ul>

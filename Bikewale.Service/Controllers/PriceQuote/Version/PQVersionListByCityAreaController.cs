@@ -62,7 +62,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
             {
                 objVersionsList = _objVersionCache.GetVersionMinSpecs(Convert.ToUInt32(modelId), true);
 
-                if (objVersionsList != null && objVersionsList.Count() > 0)
+                if (objVersionsList != null && objVersionsList.Any())
                 {
                     PQByCityArea pqByCityArea = new PQByCityArea();
                     string platformId = string.Empty;
@@ -115,7 +115,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
 
             try
             {
-                if (objVersionsList != null && objVersionsList.Count() > 0)
+                if (objVersionsList != null && objVersionsList.Any())
                 {
                     PQByCityArea pqByCityArea = new PQByCityArea();
                     string platformId = string.Empty;

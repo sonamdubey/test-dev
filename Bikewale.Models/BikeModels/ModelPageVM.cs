@@ -85,20 +85,20 @@ namespace Bikewale.Models.BikeModels
         public UsedBikeByModelCityVM UsedModels { get; set; }
         public UserReviewsSearchVM UserReviews { get; set; }
 
-        public bool AreModelPhotosAvailable { get { return (this.ModelPageEntity != null && ModelPageEntity.AllPhotos != null && this.ModelPageEntity.AllPhotos.Count() > 0); } }
+        public bool AreModelPhotosAvailable { get { return (this.ModelPageEntity != null && ModelPageEntity.AllPhotos != null && this.ModelPageEntity.AllPhotos.Any()); } }
         public bool IsNewsAvailable { get { return (News != null && News.FetchedCount > 0); } }
         public bool IsReviewsAvailable { get { return (ExpertReviews != null && ExpertReviews.FetchedCount > 0); } } //includes user reviews need to add
-        public bool IsVideosAvailable { get { return (Videos != null && Videos.VideosList != null && Videos.FetchedCount > 0 && Videos.VideosList.Count() > 0); } }
-        public bool IsSimilarBikesAvailable { get { return (SimilarBikes != null && SimilarBikes.Bikes != null && SimilarBikes.Bikes.Count() > 0); } }
-        public bool IsOtherDealersAvailable { get { return (OtherDealers != null && OtherDealers.Dealers != null && OtherDealers.Dealers.Count() > 0); } }
-        public bool IsServiceCentersAvailable { get { return (ServiceCenters != null && ServiceCenters.ServiceCentersList != null && ServiceCenters.ServiceCentersList.Count() > 0); } }
-        public bool IsPopularComparisionsAvailable { get { return (PopularComparisions != null && PopularComparisions.Count() > 0); } }
-        public bool IsPriceInTopCitiesAvailable { get { return (PriceInTopCities != null && PriceInTopCities.PriceQuoteList != null && PriceInTopCities.PriceQuoteList.Count() > 0); } }
+        public bool IsVideosAvailable { get { return (Videos != null && Videos.VideosList != null && Videos.FetchedCount > 0 && Videos.VideosList.Any()); } }
+        public bool IsSimilarBikesAvailable { get { return (SimilarBikes != null && SimilarBikes.Bikes != null && SimilarBikes.Bikes.Any()); } }
+        public bool IsOtherDealersAvailable { get { return (OtherDealers != null && OtherDealers.Dealers != null && OtherDealers.Dealers.Any()); } }
+        public bool IsServiceCentersAvailable { get { return (ServiceCenters != null && ServiceCenters.ServiceCentersList != null && ServiceCenters.ServiceCentersList.Any()); } }
+        public bool IsPopularComparisionsAvailable { get { return (PopularComparisions != null && PopularComparisions.Any()); } }
+        public bool IsPriceInTopCitiesAvailable { get { return (PriceInTopCities != null && PriceInTopCities.PriceQuoteList != null && PriceInTopCities.PriceQuoteList.Any()); } }
         public bool IsDealersServiceCenterAvailable { get { return (DealersServiceCenter != null && DealersServiceCenter.DealerServiceCenters != null && (DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 || DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0)); } }
         public bool IsVersionSpecsAvailable { get { return (ModelPageEntity != null && ModelPageEntity.ModelVersionSpecs != null); } }
         public bool IsModelDescriptionAvailable { get { return (this.IsVersionSpecsAvailable || (this.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(this.ModelPageEntity.ModelDesc.SmallDescription))); } }
-        public bool IsModelColorsAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.ModelColors != null && this.ModelPageEntity.ModelColors.Count() > 0); } }
-        public bool IsUsedBikesAvailable { get { return (UsedModels != null && UsedModels.RecentUsedBikesList != null && UsedModels.RecentUsedBikesList.Count() > 0); } }
+        public bool IsModelColorsAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.ModelColors != null && this.ModelPageEntity.ModelColors.Any()); } }
+        public bool IsUsedBikesAvailable { get { return (UsedModels != null && UsedModels.RecentUsedBikesList != null && UsedModels.RecentUsedBikesList.Any()); } }
         public bool IsShowPriceTab { get; set; }
         public bool IsUserReviewsAvailable { get { return UserReviews != null && UserReviews.UserReviews != null && UserReviews.ReviewsInfo != null && UserReviews.ReviewsInfo.TotalReviews > 0; } }
         public IEnumerable<ColorImageBaseEntity> ColorImages { get { return AreModelPhotosAvailable ? ModelPageEntity.AllPhotos.Where(x => x.ColorId > 0) : null; } }
@@ -128,7 +128,7 @@ namespace Bikewale.Models.BikeModels
         // Will add "scooter" or "bike"
         public string BodyStyleTextSingular { get; set; }
         public PopularBodyStyleVM PopularBodyStyle { get; set; }
-        public bool IsPopularBodyStyleAvailable { get { return (PopularBodyStyle != null && PopularBodyStyle.PopularBikes != null && PopularBodyStyle.PopularBikes.Count() > 0); } }
+        public bool IsPopularBodyStyleAvailable { get { return (PopularBodyStyle != null && PopularBodyStyle.PopularBikes != null && PopularBodyStyle.PopularBikes.Any()); } }
         public BikeSeriesModelsVM ModelsBySeries { get; set; }
     }
 

@@ -45,9 +45,9 @@ namespace Bikewale.Models.PopUp
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(qs);
                 var dict = HttpUtility.ParseQueryString(qs);
-                viewModel.PopupJson = new JavaScriptSerializer().Serialize(
+                viewModel.PopupJson = Utility.EncodingDecodingHelper.EncodeTo64( Newtonsoft.Json.JsonConvert.SerializeObject(
                     dict.AllKeys.ToDictionary(k => k, k => dict[k])
-                );
+                ));
 
                 #region Parse the Query collection
 

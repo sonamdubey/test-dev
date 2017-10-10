@@ -1,9 +1,7 @@
-﻿
-using Bikewale.Entities.manufacturecampaign;
-using RabbitMqPublishing.Common;
-using RazorEngine;
+﻿using RabbitMqPublishing.Common;
 using System;
 using System.Text.RegularExpressions;
+
 namespace Bikewale.Utility
 {
     public static class Format
@@ -216,14 +214,14 @@ namespace Bikewale.Utility
         /// <param name="number">The number.</param>
         /// <returns></returns>
         public static string FormatNumbers(uint number)
-        {            
+        {
             try
-            {   
-                if(number < 1000)
+            {
+                if (number < 1000)
                 {
                     return number.ToString();
                 }
-                else if(number < 1000000) //less than million
+                else if (number < 1000000) //less than million
                 {
                     return String.Format("{0:0.0}k", ((double)number / 1000));
                 }
@@ -231,13 +229,13 @@ namespace Bikewale.Utility
                 {
                     return String.Format("{0:0.0}m", (number / 1000000));
                 }
-                                            
+
             }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, String.Format("FormatPriceShort, input : {0}", number));
                 return "0";
-            }           
+            }
         }
 
         /// <summary>
@@ -311,25 +309,5 @@ namespace Bikewale.Utility
             return RankText;
         }
 
-        /// <summary>
-        /// Created by  :   Sumit Kate on 29 Jun 2017
-        /// Description :   Returns the Render engine raw output
-        /// </summary>
-        /// <param name="templateName"></param>
-        /// <param name="template"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public static string GetRenderedContent(string templateName, string template, ManufactureCampaignLeadEntity model)
-        {
-            try
-            {
-                var renderedContent = Razor.Parse(template, model, templateName);
-                return renderedContent;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
     }
 }

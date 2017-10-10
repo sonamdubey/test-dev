@@ -1362,6 +1362,12 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     right:0px;
 }
 
+/* lead capture control dealer error message */
+#getDealer-select-box .error-text {
+	position: absolute;
+	top: 110%;
+}
+
 /* info tooltip */
 .info-icon {
 	position: relative;

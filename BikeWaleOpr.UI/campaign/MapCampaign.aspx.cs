@@ -99,7 +99,7 @@ namespace BikewaleOpr.Campaign
                         campaignEntity = campaigns.CurrentCampaign;
                     }
 
-                    if (campaigns.DealerCampaigns != null && campaigns.DealerCampaigns.Count() > 0)
+                    if (campaigns.DealerCampaigns != null && campaigns.DealerCampaigns.Any())
                     {
                         rptCampaigns.DataSource = campaigns.DealerCampaigns;
                         rptCampaigns.DataBind();

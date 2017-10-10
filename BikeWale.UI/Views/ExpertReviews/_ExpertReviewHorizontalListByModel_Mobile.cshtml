@@ -1,0 +1,31 @@
+﻿@model Bikewale.Models.RecentExpertReviewsVM
+@using Bikewale.Utility;
+
+@if (Model != null && Model.ArticlesList != null)
+{
+    <div class="expert-review-list">
+        <h2>You may also like expert's reviews</h2>
+        <div class="swiper-container card-container article-type-carousel">
+            <div class="swiper-wrapper">
+                @foreach (var article in @Model.ArticlesList)
+                {
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="@string.Format("/m/expert-reviews/{0}-{1}.html", article.ArticleUrl, @article.BasicId)" title="@article.Title" class="block">
+                                <div class="swiper-image-preview">
+                                    <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._75)" alt="" src="" />
+                                    <span class="swiper-lazy-preloader"></span>
+                                </div>
+                                <div class="swiper-details-block">
+                                    <h3 class="text-black">@FormatDescription.TruncateDescription(article.Title, 50)</h3>
+                                    <div class="clear"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+}

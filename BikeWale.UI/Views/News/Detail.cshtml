@@ -2,7 +2,7 @@
 @using Bikewale.Entities.GenericBikes
 @using Bikewale.Utility
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
     Model.Page_JS_Path = "/src/jquery.floating-social-share.min.js";
     Model.AdTags.AdId = "1395995626568";
@@ -80,7 +80,7 @@
                                     <div class="clear"></div>
                                 </div>
                             </div>
-                             @if (Model.BikeInfo != null)
+                            @if (Model.BikeInfo != null)
                             {
                                 @Html.Partial("~/Views/BikeModels/_MinBikeInfoCard.cshtml", Model.BikeInfo)
                             }

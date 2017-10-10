@@ -73,7 +73,7 @@ namespace Bikewale.Service.Controllers.BikeData
                     objUpcoming = null;
                 }
 
-                if (upcomingBikes != null && upcomingBikes.UpcomingBike != null && upcomingBikes.UpcomingBike.Count() > 0)
+                if (upcomingBikes != null && upcomingBikes.UpcomingBike != null && upcomingBikes.UpcomingBike.Any())
                     return Ok(upcomingBikes);
                 else
                     return NotFound();
@@ -102,7 +102,7 @@ namespace Bikewale.Service.Controllers.BikeData
             {
                 objMakeList = _makeRepository.UpcomingBikeMakes();
 
-                if (objMakeList != null && objMakeList.Count() > 0)
+                if (objMakeList != null && objMakeList.Any())
                 {
                     objDTOMakeList = new MakeList();
 

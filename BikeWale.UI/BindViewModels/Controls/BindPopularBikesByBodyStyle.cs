@@ -44,7 +44,7 @@ namespace Bikewale.BindViewModels.Controls
                     if (ModelId > 0)
                     {
                         popularBikesList = modelCache.GetMostPopularBikesByModelBodyStyle((int)ModelId, WidgetItemCount, CityId);
-                        if (popularBikesList != null && popularBikesList.Count() > 0)
+                        if (popularBikesList != null && popularBikesList.Any())
                             popularBikesList = popularBikesList.Take(TopCount).ToList();
                         FetchedRecordsCount = popularBikesList.Count();
                     }

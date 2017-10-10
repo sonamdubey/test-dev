@@ -88,7 +88,7 @@ namespace Bikewale.Videos
                         objVideosList = objCache.GetVideosBySubCategory(categoryIdList, 1, 9, VideosSortOrder.JustLatest);
                         if (objVideosList != null)
                         {
-                            if (objVideosList.Videos != null && objVideosList.Videos.Count() > 0)
+                            if (objVideosList.Videos != null && objVideosList.Videos.Any())
                             {
                                 totalRecords = objVideosList.TotalRecords;
                                 rptVideos.DataSource = objVideosList.Videos;

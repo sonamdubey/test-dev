@@ -44,7 +44,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
             ManufacturerCampaignRulesWrapper rules = _mfgCampaign.GetManufacturerCampaignRules(CampaignId);
             if (rules != null)
               {
-                if(rules.ManufacturerCampaignRules != null && rules.ManufacturerCampaignRules.Count() > 0)
+                if(rules.ManufacturerCampaignRules != null && rules.ManufacturerCampaignRules.Any())
                 objData.Rules = rules.ManufacturerCampaignRules.GroupBy(x => new { x.ModelId, x.ModelName, x.MakeId, x.MakeName }).Select(
                     y => new ManufacturerCampaignRulesEntity
                     {

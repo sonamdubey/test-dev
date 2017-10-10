@@ -57,7 +57,7 @@ namespace Bikewale.Mobile.Controls
                 }
                 if (CityId > 0)
                     cityDetails = new CityHelper().GetCityById(CityId);
-                if (UsedBikeModelInCityList != null && UsedBikeModelInCityList.Count() > 0)
+                if (UsedBikeModelInCityList != null && UsedBikeModelInCityList.Any())
                     FetchCount = (uint)UsedBikeModelInCityList.Count();
 
 

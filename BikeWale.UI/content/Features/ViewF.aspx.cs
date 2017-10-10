@@ -106,7 +106,7 @@ namespace Bikewale.Content
                         BindPageWidgets();
 
                         objImg = objArticle.objImg;
-                        if (objImg != null && objImg.Count() > 0)
+                        if (objImg != null && objImg.Any())
                             BindGallery();
                     }
                     else
