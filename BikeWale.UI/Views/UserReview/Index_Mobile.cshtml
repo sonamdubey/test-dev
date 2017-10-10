@@ -6,15 +6,14 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
-
 <div class="bw-tabs-panel">
-    <div class="banner-review">
+    <div class="banner-review" data-bg-image="0">
         <div class="container banner-container text-center top-campaign-banner-container">
             <h1 class="banner-head">BIKE REVIEWS</h1>
             <div class="bw-tabs-content">
                 <ul class="bw-tabs tabs-type-switch">
-                    <li data-tabs="userReviewContent" class="active">User Reviews</li>
-                    <li data-tabs="expertReviewContent" class="">Expert Reviews</li>
+                    <li data-tabs="userReviewContent" data-image="m_bikewale_reviewlanding_user_banner" class="active">User Reviews</li>
+                    <li data-tabs="expertReviewContent" data-image="m_bikewale_reviewlanding_expert_banner" class="">Expert Reviews</li>
                 </ul>
             </div>
             <div class="new-bikes-search position-rel margin-top5">
@@ -33,61 +32,65 @@
             <ul id="new-global-recent-searches" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
         </div>
     </div>
-    <div class="swiper-container card-container banner-swiper noSwiper content-box-shadow padding-bottom40">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="/m/bajaj-bikes/pulsar-rs/price-in-mumbai/" title="Bajaj Pulsar RS200 price in Mumbai" class="block">
-                        <div class="swiper-image-preview">
-                            <span class="review-icon">
-                            </span>
-                        </div>
-                        <div class="swiper-details-block font12">
-                            <h3 class="font14 text-black margin-bottom5">More than 100’s of Reviews</h3>
-                            <div class="font14 text-default">
-                                Lorem ipsum dolor sit amet,consectetur
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="/m/bajaj-bikes/pulsar-rs/price-in-mumbai/" title="Bajaj Pulsar RS200 price in Mumbai" class="block">
-                        <div class="swiper-image-preview">
-                            <span class="review-icon">
-                            </span>
-                        </div>
-                        <div class="swiper-details-block font12">
-                            <h3 class="font14 text-black margin-bottom5">More than 100’s of Reviews</h3>
-                            <div class="font14 text-default">
-                                Lorem ipsum dolor sit amet,consectetur
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="/m/bajaj-bikes/pulsar-rs/price-in-mumbai/" title="Bajaj Pulsar RS200 price in Mumbai" class="block">
-                        <div class="swiper-image-preview">
-                            <span class="review-icon">
-                            </span>
-                        </div>
-                        <div class="swiper-details-block font12">
-                            <h3 class="font14 text-black margin-bottom5">More than 100’s of Reviews</h3>
-                            <div class="font14 text-default">
-                                Lorem ipsum dolor sit amet,consectetur
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
 
-        </div>
-        <div class="swiper-pagination"></div>
-    </div>
     <div id="userReviewContent" class="bw-tabs-data user-review">
+        <section>
+            <div class="swiper-container card-container banner-swiper noSwiper content-box-shadow padding-bottom40">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="block">
+                                <div class="swiper-image-preview">
+                                    <span class="review-icon">
+                                    </span>
+                                </div>
+                                <div class="swiper-details-block font12">
+                                    <h3 class="margin-bottom10">5000+ user reviews</h3>
+                                    <div class="font14 text-slate-grey">
+                                        Verified, unbiased & detailed reviews from real owners
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="block">
+                                <div class="swiper-image-preview">
+                                    <span class="review-icon">
+                                    </span>
+                                </div>
+                                <div class="swiper-details-block font12">
+                                    <h3 class="margin-bottom10">Pros & cons</h3>
+                                    <div class="font14 text-slate-grey">
+                                        Pros and cons & maintenance tips from users
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="block">
+                                <div class="swiper-image-preview">
+                                    <span class="review-icon">
+                                    </span>
+                                </div>
+                                <div class="swiper-details-block font12">
+                                    <h3 class="margin-bottom10">200+ Bike Models</h3>
+                                    <div class="font14 text-slate-grey">
+                                        Reviews for over 200 models available on BikeWale
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+                                <a href="" title="" class="block">
 
         @if (Model.TopRatedBikesWidget != null)
         {
@@ -97,14 +100,137 @@
         }
 
         <section>
-            <div class="advertise">
-                AD
+            <h2 class="font18 text-center margin-top20 margin-bottom15">Bike Review Contest</h2>
+            <div class="contest-banner">
+                <span class="contest-banner__icon margin-bottom20"></span>
+                <p class="contest-banner__title">Help fellow bikers make the right choice</p>
+                <p class="contest-banner__subtitle">Stand a chance to win Amazon voucher worth &#x20b9;&nbsp;1,000</p>
+                <div id="bike-selection-form">
+                    <div id="form-make-field" class="form-control-box form-input-box margin-bottom20 margin-top20" data-bind="click: function (d, e) { openBikeSelection(); }" data-make-id="1">
+                        <span>Select model to participate</span>
+                        <span class="bwmsprite grey-right-icon"></span>
+                        <span class="bwmsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText"></div>
+                    </div>
+                    <div id="form-model-field" class="form-control-box form-input-box margin-bottom20" data-bind="click: function (d, e) { openModelSelection(); }">
+                        <span>Select model</span>
+                        <span class="bwmsprite grey-right-icon"></span>
+                        <span class="bwmsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText"></div>
+                    </div>
+                    <div id="select-bike-cover-popup" class="cover-window-popup text-left" data-bind="with: bikeSelection">
+
+
+                        <div class="ui-corner-top">
+                            <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="click: closeBikePopup">
+                                <span class="bwmsprite fa-angle-left"></span>
+                            </div>
+                            <div class="cover-popup-header leftfloat">Select bikes</div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="bike-banner"></div>
+
+
+                        <div class="cover-popup-body" data-bind="visible: currentStep() == 1">
+                            <div class="cover-popup-body-head">
+                                <p class="no-back-btn-label head-label inline-block">Select Make</p>
+                            </div>
+                            <ul class="cover-popup-list with-arrow">
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="bajaj" data-id="1">Bajaj</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="benelli" data-id="40">Benelli</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="bmw2" data-id="3">BMW2</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="ducati" data-id="4">Ducati</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="harleydavidson" data-id="5">Harley Davidson</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="hero" data-id="6">Hero</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="heroelectric" data-id="39">Hero Electric</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="honda" data-id="7">Honda</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="hyosung" data-id="8">Hyosung</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="indian" data-id="34">Indian</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="kawasaki" data-id="17">Kawasaki</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="ktm" data-id="9">KTM1</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="mahindra" data-id="10">Mahindra</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="mvagusta" data-id="41">MV Agusta</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="royalenfield" data-id="11">Royal Enfield</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="suzuki" data-id="12">Suzuki</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="triumph" data-id="22">Triumph</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="tvs" data-id="15">TVS</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="um" data-id="42">UM</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="vespa" data-id="16">Vespa</span>
+                                </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="yamaha" data-id="13">Yamaha</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="cover-popup-body" data-bind="visible: currentStep() == 2" style="display: none;">
+                            <div class="cover-popup-body-head">
+                                <div class="body-popup-back cur-pointer inline-block" data-bind="click: modelBackBtn">
+                                    <span class="bwmsprite back-long-arrow-left"></span>
+                                </div>
+                                <p class="head-label inline-block">Select Model</p>
+                            </div>
+                            <ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
+                                <li data-bind="click: $parent.modelChanged">
+                                    <span data-bind="text: modelName, attr: { 'data-id': modelId }"></span>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div class="cover-popup-loader-body" data-bind="visible: IsLoading()" style="display: none;">
+                            <div class="cover-popup-loader"></div>
+                            <div class="cover-popup-loader-text font14" data-bind="text: LoadingText()">Loading bike models...</div>
+                        </div>
+                    </div>
+                    <p class="btn btn-orange btn-180-40" data-bind="click: function (d, e) { openBikeSelection(); }">Write and win &#x20b9; 1,000<span class="bwsprite btn-white-arrow"></span></p>
+                </div>
             </div>
-            <h2 class="font18 text-center margin-top20 margin-bottom10">Bike Review Contest</h2>
-            <div class="contest-banner"></div>
+            <span id="querystring" data-query="v5EINN8tC9b114V0VycqiQ==">
+
+            </span>
         </section>
         <section>
-            <h2 class="font18 text-center margin-top20 margin-bottom10">Top rated by our Users</h2>
+            <h2 class="font18 text-center margin-top20 margin-bottom15">Recently uploaded reviews</h2>
             <div class="user-review-swiper bw-tabs-data content-box-shadow card-bottom-margin">
                 <div class="swiper-container user-review__swiper">
                     <ul class="swiper-wrapper">
@@ -123,7 +249,7 @@
                                 <p class="review-card__bike text-truncate" title="Royal Enfield Classic 350">Royal Enfield Classic 350</p>
                                 <p class="review-card__desc">I’m using a classic 350 for around two years and have ridden...</p>
                                 <p class="review-card__date">1 month ago</p>
-                                <a href="/m/royalenfield-bikes/classic/reviews/10404/" title="Royal Enfield Classic 350 Review by Saket Gyani" class="font14">Read full review</a>
+                                <a href="" title="" class="font14">Read full review</a>
                             </div>
                         </li>
                         <li class="swiper-slide swiper-slide-prev">
@@ -141,7 +267,7 @@
                                 <p class="review-card__bike text-truncate" title="Royal Enfield Classic 350">Royal Enfield Classic 350</p>
                                 <p class="review-card__desc">I’m using a classic 350 for around two years and have ridden...</p>
                                 <p class="review-card__date">1 month ago</p>
-                                <a href="/m/royalenfield-bikes/classic/reviews/10404/" title="Royal Enfield Classic 350 Review by Saket Gyani" class="font14">Read full review</a>
+                                <a href="" title="" class="font14">Read full review</a>
                             </div>
                         </li>
                         <li class="swiper-slide swiper-slide-prev">
@@ -159,7 +285,7 @@
                                 <p class="review-card__bike text-truncate" title="Royal Enfield Classic 350">Royal Enfield Classic 350</p>
                                 <p class="review-card__desc">I’m using a classic 350 for around two years and have ridden...</p>
                                 <p class="review-card__date">1 month ago</p>
-                                <a href="/m/royalenfield-bikes/classic/reviews/10404/" title="Royal Enfield Classic 350 Review by Saket Gyani" class="font14">Read full review</a>
+                                <a href="" title="" class="font14">Read full review</a>
                             </div>
                         </li>
                     </ul>
@@ -167,34 +293,87 @@
             </div>
         </section>
         <section>
-            <div class="read-review__banner">
+            <div class="read-expert-review__banner margin-bottom20">
                 <a class="review__banner-link text-truncate" href="" title="">
-                    <span class="review-icon--white"></span>Read Reviews by our Experts
+                    <span class="expert-review-icon--white"></span>Read Reviews by our Experts
                     <span class="bwmsprite right-arrow"></span>
                 </a>
-            </div>
-            <div class="advertise margin-bottom20">
-                AD
             </div>
         </section>
     </div>
 
     <div id="expertReviewContent" class="bw-tabs-data">
         <section>
-            <h2 class="font18 text-center margin-top20 margin-bottom10">Expert Advice for Popular Bikes</h2>
+            <div class="swiper-container card-container banner-swiper noSwiper content-box-shadow padding-bottom40">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="block">
+                                <div class="swiper-image-preview">
+                                    <span class="review-icon">
+                                    </span>
+                                </div>
+                                <div class="swiper-details-block font12">
+                                    <h3 class="margin-bottom10">500+ expert reviews</h3>
+                                    <div class="font14 text-slate-grey">
+                                        Unbiased & detailed reviews from BikeWale expert
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="block">
+                                <div class="swiper-image-preview">
+                                    <span class="review-icon">
+                                    </span>
+                                </div>
+                                <div class="swiper-details-block font12">
+                                    <h3 class="margin-bottom10">100+ comparison tests</h3>
+                                    <div class="font14 text-slate-grey">
+                                        Detailed comparison test of bikes on 10 parameters
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="block">
+                                <div class="swiper-image-preview">
+                                    <span class="review-icon">
+                                    </span>
+                                </div>
+                                <div class="swiper-details-block font12">
+                                    <h3 class="margin-bottom10">First ride reviews</h3>
+                                    <div class="font14 text-slate-grey">
+                                        Know the expert opinion on recently launched biked
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+        <section>
+            <h2 class="font18 text-center margin-top15 margin-bottom10">Expert Advice for Popular Bikes</h2>
             <div class="user-review-swiper content-box-shadow card-bottom-margin">
                 <div class="swiper-container card-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="swiper-card">
-                                <a href="/m/honda-bikes/activa/" title="Honda Activa 4G" class="block">
+                                <a href="" title="" class="block">
                                     <div class="swiper-image-preview">
                                         <img class="swiper-lazy" title="Honda Activa 4G" alt="Honda Activa 4G" data-src="https://imgd.aeplcdn.com//174x98//bw/models/honda-activa-4g.jpg?20170203094346&amp;q=70" src="">
                                     </div>
                                     <div class="swiper-details-block">
                                         <h3 class="target-link font12 text-truncate margin-bottom5">Honda Activa 4G</h3>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p class="text-default font16">
+                                        <p class="text-truncate text-light-grey font12 margin-bottom5">Ex-showroom, Mumbai</p>
+                                        <p class="text-default font18">
                                             <span>₹</span>&nbsp;
                                             <span class="text-bold">60,966</span>
                                             <span class="font14 text-bold"> onwards</span>
@@ -202,21 +381,21 @@
                                     </div>
                                 </a>
                                 <a class="more-review text-truncate" href="" title="">
-                                    <span class="review-sm"></span>23 expert reviews
+                                    <span class="expert-review-sm"></span>23 expert reviews
                                     <span class="bwmsprite right-arrow"></span>
                                 </a>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="swiper-card">
-                                <a href="/m/honda-bikes/activa/" title="Honda Activa 4G" class="block">
+                                <a href="" title="" class="block">
                                     <div class="swiper-image-preview">
                                         <img class="swiper-lazy" title="Honda Activa 4G" alt="Honda Activa 4G" data-src="https://imgd.aeplcdn.com//174x98//bw/models/honda-activa-4g.jpg?20170203094346&amp;q=70" src="">
                                     </div>
                                     <div class="swiper-details-block">
                                         <h3 class="target-link font12 text-truncate margin-bottom5">Honda Activa 4G</h3>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p class="text-default font16">
+                                        <p class="text-truncate text-light-grey font12 margin-bottom5">Ex-showroom, Mumbai</p>
+                                        <p class="text-default font18">
                                             <span>₹</span>&nbsp;
                                             <span class="text-bold">60,966</span>
                                             <span class="font14 text-bold"> onwards</span>
@@ -224,21 +403,21 @@
                                     </div>
                                 </a>
                                 <a class="more-review text-truncate" href="" title="">
-                                    <span class="review-sm"></span>23 expert reviews
+                                    <span class="expert-review-sm"></span>23 expert reviews
                                     <span class="bwmsprite right-arrow"></span>
                                 </a>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="swiper-card">
-                                <a href="/m/honda-bikes/activa/" title="Honda Activa 4G" class="block">
+                                <a href="" title="" class="block">
                                     <div class="swiper-image-preview">
                                         <img class="swiper-lazy" title="Honda Activa 4G" alt="Honda Activa 4G" data-src="https://imgd.aeplcdn.com//174x98//bw/models/honda-activa-4g.jpg?20170203094346&amp;q=70" src="">
                                     </div>
                                     <div class="swiper-details-block">
                                         <h3 class="target-link font12 text-truncate margin-bottom5">Honda Activa 4G</h3>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p class="text-default font16">
+                                        <p class="text-truncate text-light-grey font12 margin-bottom5">Ex-showroom, Mumbai</p>
+                                        <p class="text-default font18">
                                             <span>₹</span>&nbsp;
                                             <span class="text-bold">60,966</span>
                                             <span class="font14 text-bold"> onwards</span>
@@ -246,7 +425,7 @@
                                     </div>
                                 </a>
                                 <a class="more-review text-truncate" href="" title="">
-                                    <span class="review-sm"></span>23 expert reviews
+                                    <span class="expert-review-sm"></span>23 expert reviews
                                     <span class="bwmsprite right-arrow"></span>
                                 </a>
                             </div>
@@ -255,69 +434,123 @@
                 </div>
             </div>
         </section>
-        <div class="advertise margin-bottom20">
-            AD
-        </div>
         <h2 class="font18 text-center margin-top20 margin-bottom10">Expert Advice for Popular Bikes</h2>
         <section>
-            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15 expert-advice-swiper">
-                <div class="swiper-container card-container">
+
+            <div class="expert-review-list content-box-shadow card-bottom-margin">
+                <div class="swiper-container card-container article-type-carousel">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="swiper-card">
-                                <a href="/m/triumph-bikes/street-triple-2017/" title="Triumph Street Triple (2017)" class="block">
-                                    <div class="swiper-image-preview position-rel">
-                                        <img class="swiper-lazy" alt="Triumph Street Triple (2017)" title="Triumph Street Triple (2017)" data-src="https://imgd.aeplcdn.com///174x98//bw/upcoming/triumph-streettriple(2017)-1034.jpg?20171301202719&amp;q=70" src="">
+                                <a href=" " title=" " class="block">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//144x81//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&q=75" alt="" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-details-block">
-                                        <h3 class="target-link font16 margin-bottom10 padding-top5">Lorem ipsum dolor sit amet,consectetur</h3>
-                                        <p class="text-truncate text-light-grey font12">8 days ago by Prince guru</p>
+                                        <h3 class="text-black">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200:</h3>
+                                        <div class="clear"></div>
                                     </div>
                                 </a>
                             </div>
                         </div>
+
                         <div class="swiper-slide">
                             <div class="swiper-card">
-                                <a href="/m/triumph-bikes/street-triple-2017/" title="Triumph Street Triple (2017)" class="block">
-                                    <div class="swiper-image-preview position-rel">
-                                        <img class="swiper-lazy" alt="Triumph Street Triple (2017)" title="Triumph Street Triple (2017)" data-src="https://imgd.aeplcdn.com///174x98//bw/upcoming/triumph-streettriple(2017)-1034.jpg?20171301202719&amp;q=70" src="">
+                                <a href=" " title=" " class="block">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//144x81//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&q=75" alt="" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-details-block">
-                                        <h3 class="target-link font16 margin-bottom10 padding-top5">Lorem ipsum dolor sit amet,consectetur</h3>
-                                        <p class="text-truncate text-light-grey font12">8 days ago by Prince guru</p>
+                                        <h3 class="text-black">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200:</h3>
+                                        <div class="clear"></div>
                                     </div>
                                 </a>
                             </div>
                         </div>
+
                         <div class="swiper-slide">
                             <div class="swiper-card">
-                                <a href="/m/triumph-bikes/street-triple-2017/" title="Triumph Street Triple (2017)" class="block">
-                                    <div class="swiper-image-preview position-rel">
-                                        <img class="swiper-lazy" alt="Triumph Street Triple (2017)" title="Triumph Street Triple (2017)" data-src="https://imgd.aeplcdn.com///174x98//bw/upcoming/triumph-streettriple(2017)-1034.jpg?20171301202719&amp;q=70" src="">
+                                <a href=" " title=" " class="block">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//144x81//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&q=75" alt="" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-details-block">
-                                        <h3 class="target-link font16 margin-bottom10 padding-top5">Lorem ipsum dolor sit amet,consectetur</h3>
-                                        <p class="text-truncate text-light-grey font12">8 days ago by Prince guru</p>
+                                        <h3 class="text-black">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200:</h3>
+                                        <div class="clear"></div>
                                     </div>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="padding-left10 view-all-btn-container margin-top10">
-                    <a href="/m/best-bikes-in-india/" title="Popular Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+                <div class="view-all-btn-container">
+                    <a href="" title="" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
                 </div>
             </div>
         </section>
         <section>
-            <div class="read-review__banner">
+            <h2 class="font18 text-center margin-top15 margin-bottom10">Know your Experts</h2>
+            <div class="author-block">
+                <span class="author-block__title">men of steel</span>
+                <p class="author-block__description">Our best people who lean into corners, pop wheelies and ride their adrenaline out of the bike.</p>
+
+                <div class="swiper-container card-container">
+                    <span class="detail-author__swiper-title">Our Arsenal</span>
+                    <div class="swiper-wrapper detail-author__swiper">
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a class="block" href="" title="Charles Pennefather">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/400x300/cw/author/charles.jpg" title="Charles Pennefather" alt="Charles Pennefather" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="author__swiper-label">Charles Pennefather</h3>
+                                        <p class="author__swiper-designation">Assistant Editor</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a class="block" href="" title="Charles Pennefather">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/400x300/cw/author/sagarbhanushali.jpg" title="Abhishek Nigam" alt="Abhishek Nigam" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="author__swiper-label">Abhishek Nigam</h3>
+                                        <p class="author__swiper-designation">Asst. Editor News and Features</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a class="block" href="" title="Charles Pennefather">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/400x300/cw/author/ameyadandekar.jpg" title="Ameya Dandekar" alt="Ameya Dandekar" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="author__swiper-label">Ameya Dandekar</h3>
+                                        <p class="author__swiper-designation">Associate Editor</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="read-user-review__banner margin-bottom20">
                 <a class="review__banner-link text-truncate" href="" title="">
                     <span class="review-icon--white"></span>Read Reviews by our Experts
                     <span class="bwmsprite right-arrow"></span>
                 </a>
-            </div>
-            <div class="advertise margin-bottom20">
-                AD
             </div>
         </section>
     </div>
