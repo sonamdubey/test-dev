@@ -160,7 +160,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\RabbitMqPublishing.dll</HintPath>
     </Reference>
-    <Reference Include="React.Core">
+    <Reference Include="React.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\React.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
