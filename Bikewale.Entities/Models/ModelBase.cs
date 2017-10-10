@@ -38,6 +38,8 @@ namespace Bikewale.Models
         public string Page_JS_Path { get; set; }
         public string Page_H1 { get; set; }
 
+        public string[] Page_JS_Paths { get; set; }
+
         public ModelBase()
         {
             this.PageMetaTags = new PageMetaTags();
