@@ -8,7 +8,6 @@ function bannerSwiper() {
             $('.bw-' + i).swiper({
                 effect: 'slide',
                 speed: 300,
-                //autoplay: 3000,
                 pagination: $(swiperContainer[i]).find('.swiper-pagination'),
                 slidesPerView: 'auto',
                 centeredSlides: true,
@@ -35,14 +34,9 @@ $(document).ready(function () {
 
         }
     });
-
-
-
-
 });
 
 docReady(function () {
-    //popup show/hide
     $(".banner-review .bw-tabs li").click(function () {
         if ($(this).attr('data-tabs') == 'userReviewContent') {
             $(this).closest('.banner-review').attr('data-bg-image', '0')
@@ -104,17 +98,6 @@ docReady(function () {
             $('html, body').scrollTop(-windowScrollTop);
         }
     };
-    //$('#close-bike-popup').on('click', function (event) {
-    //    if ($('#select-bike-cover-popup').is(':visible')) {
-    //        bikePopup.close();
-    //    }
-    //});
-    //$('#form-make-field').on('click', function (event) {
-    //    if ($('#select-bike-cover-popup').is(':hidden')) {
-    //        bikePopup.open();
-    //    }
-    //});
-
 
     var bikeSelection = function () {
         var self = this;
@@ -239,12 +222,7 @@ docReady(function () {
             }
         };
     };
-
     var vmRateBikeVM = new rateBikeVM();
-
-
-
-
     ko.applyBindings(vmRateBikeVM, document.getElementById("bike-selection-form"));
 
 
@@ -252,7 +230,6 @@ docReady(function () {
         validateSelection();
     });
    
-
     function validateSelection() {
         if (makeField.attr('data-make-id') > 0) {
             if (modelField.attr('data-model-id') > 0) {
