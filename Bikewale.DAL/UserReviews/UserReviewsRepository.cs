@@ -1181,7 +1181,7 @@ namespace Bikewale.DAL.UserReviews
             BikeReviewsInfo objBikeReviewInfo = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikereviewsinfo"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikereviewsinfo_10102017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.UInt32, modelId));
@@ -1292,7 +1292,7 @@ namespace Bikewale.DAL.UserReviews
             BikeRatingsReviewsInfo objBikeRatingReviewInfo = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeratingsandreviewsinfo_27092017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeratingsandreviewsinfo_10102017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.UInt32, modelId));
@@ -1457,7 +1457,7 @@ namespace Bikewale.DAL.UserReviews
             {
                 objIdList = new BikeReviewIdListByCategory();
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getreviewidlist"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getreviewidlist_10102017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.UInt32, modelId));
