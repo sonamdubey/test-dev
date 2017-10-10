@@ -774,7 +774,7 @@ namespace Bikewale.BAL.BikeData
                             ImageType = ImageBaseType.ModelColorImage,
                             ImageCategory = x.ImageCategory,
                             Colors = x.ColorCodes.Select(y => y.HexCode)
-                        });
+                        }).Where(m => !String.IsNullOrEmpty(m.OriginalImgPath));
 
                         if (colorImages != null && colorImages.Any())
                         {

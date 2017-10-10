@@ -183,6 +183,8 @@ namespace Bikewale.DAL.NewBikeSearch
                     apiUrlstr += "&StartType=" + filterInputs.StartType.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(filterInputs.AlloyWheel))
                     apiUrlstr += "&AlloyWheel=" + filterInputs.AlloyWheel.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.ABS))
+                    apiUrlstr += "&ABS=" + filterInputs.ABS.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(filterInputs.AntiBreakingSystem))
                     apiUrlstr += "&AntiBreakingSystem=" + filterInputs.AntiBreakingSystem.Replace(" ", "+");
             }

@@ -22,7 +22,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
 namespace Bikewale.Models
 {
@@ -59,7 +58,6 @@ namespace Bikewale.Models
         private EnumBikeType bikeType = EnumBikeType.All;
         private readonly bool showCheckOnRoadCTA = false;
         private uint basicId;
-        private readonly ControllerContext _ctrlContext = null;
         private PQSourceEnum pqSource = 0;
         #endregion
 
@@ -88,7 +86,7 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, ControllerContext ctrlContext)
+        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -101,7 +99,6 @@ namespace Bikewale.Models
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _objBikeVersionsCache = objBikeVersionsCache;
             LogNewsUrl = BWConfiguration.Instance.LogNewsUrl;
-            _ctrlContext = ctrlContext;
             ProcessQueryString();
         }
         #endregion

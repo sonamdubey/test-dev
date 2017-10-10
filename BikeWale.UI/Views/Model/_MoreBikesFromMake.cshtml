@@ -13,9 +13,20 @@
                             <p class="font14 text-bold text-black margin-bottom5">@Bike.Make.MakeName @Bike.Model.ModelName</p>
                             @if (Bike.OnRoadPriceInCity == 0 && Bike.Price > Bike.OnRoadPriceInCity)
                             {
-                                <p class="font11 text-light-grey">Ex-showroom, Mumbai</p>
-                                <span class='font16 text-default'>&#x20B9;</span>
-                                <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
+                                <p class="font11 text-light-grey">
+                                    @(Bike.UsedCity.CityId == 0 ? "Ex-showroom, Mumbai" : "Avg. Ex-showroom price")
+                                    @if (Bike.UsedCity.CityId > 0)
+                                    {
+                                        <span class="bwsprite info-icon tooltip-icon-target tooltip-top tooltip--right">
+                                            <span class="bw-tooltip info-tooltip">
+												<span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Bike.UsedCity.CityName)</span>
+												</span>
+                                        </span>
+
+                                    }
+                            </p>
+                            <span class='font16 text-default'>&#x20B9;</span>
+                                <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price > 0 ? Bike.Price : Bike.AvgPrice))</span>
                             }
                             else
                             {
@@ -23,7 +34,6 @@
                                 <span class='font16 text-default'>&#x20B9;</span>
                                 <span class="font16 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.OnRoadPriceInCity))</span>
                             }
-
                         </div>
                     </a>
                 </li>

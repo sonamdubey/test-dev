@@ -198,7 +198,7 @@
                                     <div class="more-filter-item-title">
                                         <h3>ABS</h3>
                                     </div>
-                                    <div name="antiBreakingSystem" class="more-filter-item-data margin-top10">
+                                    <div name="ABS" class="more-filter-item-data margin-top10">
                                         <div class="bw-tabs-panel">
                                             <div class="bw-tabs home-tabs">
                                                 <ul>

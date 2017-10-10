@@ -1,8 +1,8 @@
 ﻿@model Bikewale.Models.Photos.PhotosPageVM
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/photos.css' />";
-    Model.Page_JS_Path = "/src/photos/photos.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/photos.css' />";    
+    Model.Page_JS_Paths = new string[] { "/src/swiper-3.1.7.js", "/src/photos/modelgallery.js", "/src/photos/photos.js" };
     Model.AdTags.AdPath = "/1017752/Bikewale_NewBike_";
     Model.AdTags.AdId = "1442913773076";
     Model.AdTags.Ad_970x90 = true;

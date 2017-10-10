@@ -547,7 +547,7 @@ docReady(function () {
 
     try {
         EMIviewModel = new BikeEMI;
-        ko.applyBindings(EMIviewModel, $("#emiContent")[0]);
+        ko.applyBindings(EMIviewModel, $("#emiPopup")[0]);
     } catch (e) {
         console.log(e.message);
     }

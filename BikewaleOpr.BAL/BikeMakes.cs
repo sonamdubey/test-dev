@@ -38,7 +38,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-               ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeMakes.GetModelsByMake");
+               ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeMakes.GetModelsByMake_{0}_{1}", requestType, makeId));
             }
             return objBikeModelEntityBaseList;
         }
@@ -52,7 +52,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeMakes.GetMakes");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeMakes.GetMakes_{0}", requestType));
             }
             return objMakes;
         }
