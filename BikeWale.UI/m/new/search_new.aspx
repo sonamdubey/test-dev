@@ -26,6 +26,7 @@
 
     <link href="<%= staticUrl  %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+    <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <div class="blackOut-window"></div>
     <!-- global-search-popup code starts here -->
