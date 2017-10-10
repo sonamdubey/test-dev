@@ -30,7 +30,6 @@
                     <div class="elevated-shadow-top">
                         @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs_Mobile.cshtml", Model)
                         <div class="clear"></div>
-
                         <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                             @if (Model.BikePrice > 0)
                             {
@@ -38,7 +37,15 @@
                             }
                             else
                             {
-                                <p class="font12 text-light-grey">Avg. Ex-showroom price</p>
+                                <p class="font12 text-light-grey">
+                                    <span>Avg. Ex-showroom price</span>
+                                    <span class="info-icon tooltip-icon-target tooltip-top">
+                                        <span class="bw-tooltip info-tooltip">
+                                            <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.LocationCookie.City)</span>
+                                        </span>
+                                    </span>
+                                </p>
+
                             }
                             <div>
                                 <span>
@@ -57,63 +64,62 @@
                                         <span class="font18 text-bold">Price not available</span>
                                     }
                                 </span>
-                                    @if ((Model.City != null && Model.IsLocationSelected && !Model.ShowOnRoadButton) && Model.BikePrice > 0 && Model.IsNewBike)
-                                    {
-                                        <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" class="font14 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
-                                    }
-                                </div>
-                            </div>
-                            @if (Model.IsDealerDetailsExists || Model.DetailedDealer != null)
-                            {
-                                @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
-                            }
-
-                            @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0)) && !Model.IsManufacturerTopLeadAdShown)
-                            {
-                                <div class="floating-btn clearfix">
-                                    <div class="grid-12 alpha omega">
-                                        <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" style="width: 100%" class="btn btn-orange getquotation">Check on-road price</a>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                    @if (Model.IsManufacturerLeadAdShown)
-                    {
-                        @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
-                    }
-                    @if (Model.IsManufacturerTopLeadAdShown)
-                    {
-                        <div class="campaign__floating-btn floating-btn clearfix">
-                            <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
-                            <div class="grid-5 alpha omega">
-                                @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                                @if ((Model.City != null && Model.IsLocationSelected && !Model.ShowOnRoadButton) && Model.BikePrice > 0 && Model.IsNewBike)
                                 {
-                                    <a rel="nofollow" class="btn btn-orange btn-full-32" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount">@String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization)</a>
-                                }
-                                else
-                                {
-                                    <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@(String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization))" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization)</a>
+                                    <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" class="font14 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
                                 }
                             </div>
-                            <div class="clear"></div>
                         </div>
-                    }
-                @if(!(Model.IsManufacturerLeadAdShown || Model.IsDealerDetailsExists) && !Model.AdTags.ShowInnovationBannerMobile)
-                    {
-                        <div class="margin-bottom20 text-center">
-                            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
-                        </div>
-                                }
-                </div>
-                @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
-                || (Model.ModelPageEntity.ModelVersionSpecs != null)))
-                {
-                    <div class="bw-model-tabs-data">
-                        @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+                        @if (Model.IsDealerDetailsExists || Model.DetailedDealer != null)
                         {
-                            @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
+                            @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
                         }
+                        @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0)) && !Model.IsManufacturerTopLeadAdShown)
+                        {
+                            <div class="floating-btn clearfix">
+                                <div class="grid-12 alpha omega">
+                                    <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" style="width: 100%" class="btn btn-orange getquotation">Check on-road price</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                @if (Model.IsManufacturerLeadAdShown)
+                {
+                    @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
+                }
+                @if (Model.IsManufacturerTopLeadAdShown)
+                {
+                    <div class="campaign__floating-btn floating-btn clearfix">
+                        <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
+                        <div class="grid-5 alpha omega">
+                            @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                            {
+                                <a rel="nofollow" class="btn btn-orange btn-full-32" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount">@String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization)</a>
+                            }
+                            else
+                            {
+                                <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@(String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization))" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization)</a>
+                            }
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                }
+                @if (!(Model.IsManufacturerLeadAdShown || Model.IsDealerDetailsExists) && !Model.AdTags.ShowInnovationBannerMobile)
+                {
+                    <div class="margin-bottom20 text-center">
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
+                    </div>
+                            }
+            </div>
+            @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+                || (Model.ModelPageEntity.ModelVersionSpecs != null)))
+            {
+                <div class="bw-model-tabs-data">
+                    @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+                    {
+                        @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
+                    }
                     @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
                     {
                         <div id="modelsBySeriesWidget" class="margin-bottom15 bw-ga" c="@Model.ModelsBySeries.Page" a="Series_WidgetShown" l="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
@@ -121,16 +127,17 @@
                             @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
                         </div>
                     }
-                        @if (Model.ModelPageEntity.ModelVersionSpecs != null)
-                        {
-                            @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
-                        }
-                    </div>
-                }
-                @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
-            </div>
+                    @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+                    {
+                        @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
+                    }
+                </div>
+            }
+            @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
         </div>
-    </section>
+    </div>
+</section>
+
 @if (Model.OtherBestBikes != null && Model.OtherBestBikes.BestBikes != null && Model.OtherBestBikes.BestBikes.Any())
 {
     <section>

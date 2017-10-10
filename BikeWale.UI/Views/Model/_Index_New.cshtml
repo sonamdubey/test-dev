@@ -28,12 +28,14 @@
                                 }
                                 else
                                 {
-                                    <span class="font14 text-light-grey">Avg. Ex-showroom price</span>
-                                    <span class="bwsprite emi-info tooltip-icon-target">
-                                        <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.LocationCookie.City)</span></span>
-                                    </span>
-                                }
+                                    <p class="font14 text-light-grey">
+                                        <span>Avg. Ex-showroom price</span>
+                                        <span class="bwsprite emi-info tooltip-icon-target">
+                                            <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.LocationCookie.City)</span></span>
+                                        </span>
+                                    </p>
 
+                                }
                                 @if (Model.BikePrice > 0)
                                 {
                                     <div class="model-price-content padding-top5">
@@ -85,7 +87,6 @@
                                     <span class="font16">Price not available</span>
                                     <div class="clear"></div>
                                 }
-
                                 @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0)) && !Model.IsManufacturerTopLeadAdShown)
                                 {
                                     <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-persistent="true" data-reload="true" data-modelid="@Model.ModelId" class="btn btn-orange margin-top10 getquotation">Check on-road price</a>
@@ -128,9 +129,9 @@
                 </div>
                 <div class="clear"></div>
             }
-        </div> 
+        </div>
         @if ((Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
-                            || (Model.IsModelDescriptionAvailable))
+                                || (Model.IsModelDescriptionAvailable))
         {
             <div class="bw-model-tabs-data">
                 @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
@@ -145,7 +146,7 @@
                         <h2 class="horizontal-swiper__title">Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
                         @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries.cshtml", Model.ModelsBySeries)
                     </div>
-                } 
+                }
                 @if (Model.IsModelDescriptionAvailable)
                 {   <div class="grid-12">
                     @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)

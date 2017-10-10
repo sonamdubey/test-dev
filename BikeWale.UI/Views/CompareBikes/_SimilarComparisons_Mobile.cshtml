@@ -35,6 +35,23 @@
                                 </div>
                             </a>
                         </div>
+                        @if (bikedetails.Price1 == 0)
+                        {
+                            <span class="info-icon tooltip-icon-target tooltip-top tooltip--right">
+                                <span class="bw-tooltip info-tooltip">
+                                    <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", bikedetails.City1)</span>
+                                </span>
+                            </span>
+                        }
+                        @if (bikedetails.Price2 == 0)
+                        {
+                            <span class="info-icon tooltip-icon-target tooltip-top comparison-bike-2">
+                                <span class="bw-tooltip info-tooltip">
+                                    <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", bikedetails.City2)</span>
+                                </span>
+                            </span>
+                        }
+                        
                     </div>
                 }
             </div>
