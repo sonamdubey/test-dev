@@ -248,6 +248,9 @@
     <Compile Include="Make\NewBikeDealersMakeBase.cs" />
     <Compile Include="Make\NewBikedealersMakeList.cs" />
     <Compile Include="ManufacturerCampaign\ManufactureDealerDTO.cs" />
+    <Compile Include="ManufacturerCampaign\ManufacturerCampaignDTO.cs" />
+    <Compile Include="ManufacturerCampaign\ManufacturerCampaignEMIConfigurationDTO.cs" />
+    <Compile Include="ManufacturerCampaign\ManufacturerCampaignLeadConfigurationDTO.cs" />
     <Compile Include="Model\BikeModelContentDTO.cs" />
     <Compile Include="Model\BikeSpecs.cs" />
     <Compile Include="Model\Features.cs" />
@@ -441,6 +444,10 @@
     <Compile Include="Widgets\v2\MostPopularBikes.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{EA0864E7-7715-4D93-80BE-3300BB542E42}</Project>
       <Name>Bikewale.Utility</Name>

@@ -225,9 +225,8 @@ namespace Bikewale.BAL.PriceQuote
                         {
                             pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                         }
-                        if (selectedCity.HasAreas)
+                        if (selectedCity.HasAreas && pqEntity.IsAreaSelected)
                         {
-                            if (pqEntity.IsAreaSelected)
                                 pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
                         }
                         else
@@ -309,7 +308,6 @@ namespace Bikewale.BAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : PQByCityArea GetVersionList");
-                objErr.SendMail();
             }
             return pqEntity;
         }

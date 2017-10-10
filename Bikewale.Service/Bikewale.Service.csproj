@@ -246,6 +246,7 @@
     <Compile Include="AutoMappers\Finance\FinanceMapper.cs" />
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="AutoMappers\Make\MakePageEntityMapper.cs" />
+    <Compile Include="AutoMappers\ManufacturerCampaign\ManufacturerCampaignMapper.cs" />
     <Compile Include="AutoMappers\MobileAppAlert\FCMNotificationMapper.cs" />
     <Compile Include="AutoMappers\NewBikeSearch\SearchOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Area\PQAreaListMapper.cs" />
