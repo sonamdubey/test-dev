@@ -1193,12 +1193,16 @@ docReady(function () {
 
         var swiperContainer = $('#' + panelId + " .swiper-container");
         if (swiperContainer.length > 0) {
-            var sIndex = swiperContainer.attr('class');
-            var regEx = /sw-([0-9]+)/i;
-            try {
-                var index = regEx.exec(sIndex)[1]
-                $('.sw-' + index).data('swiper').update(true);
-            } catch (e) { }
+            for(i=0; i<swiperContainer.length; i++)
+            {
+                var sIndex = $(swiperContainer[i]).attr('class');
+                var regEx = /sw-[0-9]+/i;
+                try {
+                    var index = regEx.exec(sIndex)
+                    $('.' + index).data('swiper').update(true);
+                } catch (e) { }
+            }
+
         }
 
     }); // ends

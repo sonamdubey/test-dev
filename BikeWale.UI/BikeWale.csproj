@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -2899,6 +2899,7 @@
     <Content Include="m\src\photos\photos.js" />
     <Content Include="m\src\photos\modelgallery.js" />
     <Content Include="m\src\priceincity.js" />
+    <Content Include="m\src\review\listing.js" />
     <Content Include="m\src\scooters-by-make.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
@@ -3043,6 +3044,7 @@
     <Content Include="sass\partials\_overall-floating-tabs.sass" />
     <Content Include="sass\partials\_collapsible-content.sass" />
     <Content Include="sass\partials\_pagination.sass" />
+    <Content Include="sass\m\review\listing.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3742,6 +3744,7 @@
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\Model\_BestBikes.cshtml" />
     <Content Include="Views\Finance\CapitalFirst_Index_Mobile.cshtml" />
+    <Content Include="Views\UserReview\Index_Mobile.cshtml" />
     <Content Include="Views\Shared\_OtpScreen_Mobile.cshtml" />
     <Content Include="Views\Shared\_OtpScreen.cshtml" />
     <Content Include="Views\PriceInCity\Index_Mobile_Amp.cshtml" />
