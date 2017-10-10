@@ -706,7 +706,7 @@ docReady(function () {
             ele.after(expertReviewWidgetHtml);
             $('.swiper-image-preview img.lazy').lazyload();
 
-            if (expertReviewWidgetHtml.trim()) {
+            if (expertReviewWidgetHtml && expertReviewWidgetHtml.trim()) {
                 triggerGA("User_Reviews", "ExpertReviews_CarouselLoaded", makeName + "_" + modelName);
             }
         };
