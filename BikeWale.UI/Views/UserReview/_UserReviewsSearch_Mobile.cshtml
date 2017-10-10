@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewsSearchVM
 @using Bikewale.Entities.UserReviews;
-@using Bikewale.Utility;
+@using Bikewale.Utility; 
 @if (Model.UserReviews != null && Model.ReviewsInfo != null && Model.ReviewsInfo.TotalReviews > 0)
 {
     <section>
@@ -138,7 +138,7 @@
                 {
                     <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noReviews() && TotalReviews() != 0 && Pagination().paginated() > 0" style="display: @(Model.Pager!=null && Model.Pager.TotalResults > 0 ? "block" : "none")">
                         <div class="footer-pagination font14 border-solid-top padding-top10">
-                            <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalReviews() > 0">
+                            <div class="grid-5 alpha omega text-light-grey pagination-review-count" data-bind="visible: TotalReviews() > 0">
                                 <p>
                                     <span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-
                                     <span class="text-bold" data-bind="CurrencyText: Math.min(TotalReviews(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of

@@ -1894,6 +1894,10 @@ namespace Bikewale.DAL.BikeData
                             {
                                 MostPopularBikesBase popularObj = new MostPopularBikesBase();
                                 popularObj.objModel = new BikeModelEntityBase();
+                                popularObj.objMake = new BikeMakeEntityBase();
+                                popularObj.objMake.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                popularObj.objMake.MakeName = Convert.ToString(dr["MakeName"]);
+                                popularObj.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 popularObj.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                                 popularObj.MakeName = Convert.ToString(dr["MakeName"]);
                                 popularObj.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);

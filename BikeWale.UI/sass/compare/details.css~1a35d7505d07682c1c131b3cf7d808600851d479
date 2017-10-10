@@ -1,0 +1,492 @@
+.section-header,
+.section-inner-padding {
+  padding: 15px 20px;
+  -webkit-box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
+  -moz-box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
+  -ms-box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
+  -o-box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
+  box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
+  border: 1px solid #e2e2e2 \9; }
+
+.section-bottom-margin {
+  margin-bottom: 20px; }
+
+.section-h2-title {
+  font-size: 18px; }
+
+.section-heading {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  font-weight: 700; }
+
+.text-slate-grey {
+  color: #787878; }
+
+h1,
+.font-bold {
+  font-weight: 700; }
+
+.text-bold {
+  font-weight: 600; }
+
+.font15 {
+  font-size: 15px; }
+
+.h2-heading {
+  font-size: 18px; }
+
+.underline-none:hover {
+  text-decoration: none; }
+
+.inline-grid-9 {
+  width: 75.0%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: -4px; }
+
+.bw-tabs-flex.overall-specs-tabs-wrapper ul {
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 0; }
+
+.bw-tabs-flex.overall-specs-tabs-wrapper li {
+  display: table-cell;
+  padding: 10px 20px;
+  text-align: center;
+  width: auto;
+  cursor: pointer;
+  color: #82888b; }
+  .bw-tabs-flex.overall-specs-tabs-wrapper li.active {
+    font-weight: 600;
+    color: #4d5057; }
+
+.model-accordion-tab {
+  padding: 18px 20px;
+  background: #f9f9f9;
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2; }
+
+.accordion-list li:first-child .model-accordion-tab {
+  border-top: 0; }
+
+.table-content td {
+  vertical-align: top;
+  padding: 18px 20px;
+  border-top: 1px solid #f5f5f5; }
+  .table-content td:first-child {
+    color: #82888b;
+    border-right: 1px solid #e2e2e2; }
+
+.table-content tr:first-child td {
+  border-top: 0; }
+
+.table-content td.row-heading {
+  font-weight: 600;
+  color: #4d5057; }
+
+.compare-bike-list .list-item {
+  padding: 20px;
+  float: left; }
+  .compare-bike-list .list-item:first-child {
+    border-left: 1px solid #e2e2e2; }
+
+.compare-bike-list .bike-details-block {
+  position: relative; }
+  .compare-bike-list .bike-details-block .item-target-link {
+    display: block;
+    width: 88%; }
+
+.compare-bike-list .cross-md-dark-grey {
+  position: absolute;
+  right: 0;
+  top: -10px;
+  cursor: pointer; }
+
+.margin-bottom2 {
+  margin-bottom: 2px; }
+
+.top-neg17 {
+  top: -17px; }
+
+.top-neg10 {
+  top: -10px; }
+
+#bike-comparison-grid .select-box {
+  height: 40px;
+  margin-top: 20px; }
+
+#bike-comparison-grid .chosen-container {
+  width: 100% !important;
+  height: 28px; }
+
+#bike-comparison-grid .chosen-single,
+#bike-comparison-grid .no-input-label {
+  font-size: 14px;
+  color: #4d5057; }
+
+#bike-comparison-grid .chosen-drop {
+  width: 260px !important;
+  position: absolute;
+  top: -15px; }
+
+#bike-comparison-container[data-column-count="4"] .list-item:last-child .chosen-with-drop .chosen-drop {
+  left: -95px; }
+
+.single-version-content {
+  width: 100%;
+  margin-bottom: 12px; }
+
+.dropdown-effect-light {
+  padding: 3px 18px 7px 0;
+  position: relative;
+  background: transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+  border-bottom: 1px solid #ddd; }
+  .dropdown-effect-light:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 15px;
+    height: 100%;
+    background: #fff;
+    opacity: 0.7; }
+
+.select-box.select-box-size-13 .chosen-results {
+  max-height: 165px; }
+
+.compare-bike-list .box-placeholder {
+  width: 100%;
+  height: 90px;
+  background: #f5f5f5;
+  display: table;
+  table-layout: fixed;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px; }
+
+.compare-bike-list .box-label {
+  display: table-cell;
+  vertical-align: middle; }
+
+.compare-bike-list .bike-selection-box {
+  margin-top: 30px; }
+
+.btn-160-32 {
+  width: 160px;
+  font-size: 14px;
+  padding: 5px; }
+
+.sponsored-list-item {
+  background: #f8fcfd; }
+
+#sponsored-column-active[data-sponsored-column="2"] .table-content tr td:nth-child(3) {
+  background: #f8fcfd; }
+
+#sponsored-column-active[data-sponsored-column="3"] .table-content tr td:nth-child(4) {
+  background: #f8fcfd; }
+
+#sponsored-column-active[data-sponsored-column="4"] .table-content tr td:nth-child(5) {
+  background: #f8fcfd; }
+
+.know-more-target {
+  font-size: 14px;
+  position: relative;
+  top: 6px; }
+
+body[data-equivalent="1"] .equivalent-data {
+  display: none; }
+
+body[data-equivalent="1"] .toggle-features-btn .unchecked-box {
+  background-position: -216px -135px; }
+
+body[data-equivalent="0"] .equivalent-data {
+  display: table-row; }
+
+.color-box-list li {
+  margin-bottom: 20px; }
+
+.color-box-list .color-box {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  background: #f1f1f1;
+  border: 1px solid #f1f1f1; }
+
+.color-box-list .color-box-label {
+  width: 70%; }
+
+.color-box span {
+  width: 100%;
+  display: block !important;
+  background: #f1f1f1; }
+
+.color-count-1 span {
+  height: 100%; }
+
+.color-count-2 span {
+  height: 50%; }
+
+.color-count-3 span {
+  height: 33.33333%; }
+
+.model-preview-image-container {
+  max-width: 292px;
+  height: 164px;
+  display: table;
+  text-align: center;
+  border: 1px solid #e2e2e2; }
+  .model-preview-image-container a {
+    width: 292px;
+    height: 164px;
+    display: block;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center no-repeat; }
+    .model-preview-image-container a img {
+      height: 164px; }
+
+.article-list .article-target-link {
+  margin-bottom: 8px;
+  line-height: 1.5; }
+
+.article-list .line-height17 {
+  line-height: 1.7; }
+
+.model-sprite {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016") no-repeat;
+  display: inline-block; }
+
+.specs-2-sm,
+.specs-3-sm,
+.specs-4-sm,
+.specs-5-sm {
+  width: 30px;
+  height: 28px;
+  margin-right: 10px;
+  vertical-align: middle; }
+
+.specs-2-sm {
+  background-position: 0 -43px; }
+
+.specs-3-sm {
+  background-position: -40px -43px; }
+
+.specs-4-sm {
+  background-position: -80px -43px; }
+
+.specs-5-sm {
+  background-position: -120px -43px; }
+
+.unchecked-box {
+  width: 14px;
+  height: 14px;
+  background-position: -216px -120px;
+  vertical-align: middle;
+  margin-right: 10px; }
+
+.active.unchecked-box {
+  background-position: -216px -135px; }
+
+.tick-grey,
+.cross-grey {
+  height: 14px; }
+
+.tick-grey {
+  width: 18px;
+  background-position: -153px -515px; }
+
+.cross-grey {
+  width: 14px;
+  background-position: -181px -515px; }
+
+.add-icon {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/plus-filled.png") no-repeat; }
+
+.know-more-icon {
+  width: 12px;
+  height: 12px;
+  background-position: -210px -598px;
+  margin-left: 5px;
+  position: relative;
+  top: 1px; }
+
+#bike-comparison-container[data-column-count="3"] .compare-bike-list .list-item {
+  width: 270.66667px; }
+
+#bike-comparison-container[data-column-count="3"] .compare-bike-list .bike-image-block,
+#bike-comparison-container[data-column-count="3"] .compare-bike-list .box-placeholder {
+  height: 117px; }
+
+#bike-comparison-container[data-column-count="3"] .table-content .row-width-grid td {
+  padding: 0; }
+
+#bike-comparison-container[data-column-count="3"] .table-content .row-width-grid td:nth-child(2) {
+  width: 270.66667px; }
+
+#bike-comparison-container[data-column-count="3"] .table-content .row-width-grid td:nth-child(3) {
+  width: 270.66667px; }
+
+#bike-comparison-container[data-column-count="4"] .compare-bike-list .list-item {
+  width: 203px; }
+
+#bike-comparison-container[data-column-count="4"] .compare-bike-list .bike-image-block,
+#bike-comparison-container[data-column-count="4"] .compare-bike-list .box-placeholder {
+  height: 85px; }
+
+#bike-comparison-container[data-column-count="4"] .table-content .row-width-grid td {
+  padding: 0; }
+
+#bike-comparison-container[data-column-count="4"] .table-content .row-width-grid td:nth-child(2) {
+  width: 203px; }
+
+#bike-comparison-container[data-column-count="4"] .table-content .row-width-grid td:nth-child(3) {
+  width: 203px; }
+
+#bike-comparison-container[data-column-count="4"] .table-content .row-width-grid td:nth-child(4) {
+  width: 203px; }
+
+.bike-details-block:before {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/vs-icon-32.png) no-repeat;
+  top: 30%;
+  left: -35px;
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  transform: scale(0.7); }
+
+.compare-bike-list .list-item:first-child .bike-details-block:before {
+  display: none; }
+
+#comparison-floating-card {
+  display: block;
+  width: 976px;
+  position: fixed;
+  top: -200px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  margin: 0 auto;
+  -webkit-transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -o-transition: 0.2s ease all;
+  transition: 0.2s ease all; }
+  #comparison-floating-card .bike-details-block:before {
+    display: none; }
+  #comparison-floating-card.fixed-card {
+    top: 0; }
+  #comparison-floating-card .list-item {
+    padding: 10px 15px; }
+  #comparison-floating-card .cross-md-dark-grey {
+    top: -5px; }
+
+@media only screen and (max-width: 1024px) {
+  #bike-comparison-container[data-column-count="3"] .compare-bike-list .list-item {
+    width: 259.33333px; }
+  #bike-comparison-container[data-column-count="3"] .compare-bike-list .bike-image-block,
+  #bike-comparison-container[data-column-count="3"] .compare-bike-list .box-placeholder {
+    height: 117px; }
+  #bike-comparison-container[data-column-count="3"] .table-content .row-width-grid td {
+    padding: 0; }
+  #bike-comparison-container[data-column-count="3"] .table-content .row-width-grid td:nth-child(2) {
+    width: 259.33333px; }
+  #bike-comparison-container[data-column-count="3"] .table-content .row-width-grid td:nth-child(3) {
+    width: 259.33333px; }
+  #bike-comparison-container[data-column-count="4"] .compare-bike-list .list-item {
+    width: 194.5px; }
+  #bike-comparison-container[data-column-count="4"] .compare-bike-list .bike-image-block,
+  #bike-comparison-container[data-column-count="4"] .compare-bike-list .box-placeholder {
+    height: 85px; }
+  #bike-comparison-container[data-column-count="4"] .table-content .row-width-grid td {
+    padding: 0; }
+  #bike-comparison-container[data-column-count="4"] .table-content .row-width-grid td:nth-child(2) {
+    width: 194.5px; }
+  #bike-comparison-container[data-column-count="4"] .table-content .row-width-grid td:nth-child(3) {
+    width: 194.5px; }
+  #bike-comparison-container[data-column-count="4"] .table-content .row-width-grid td:nth-child(4) {
+    width: 194.5px; }
+  #comparison-floating-card {
+    width: 940px; } }
+
+select {
+  display: none; }
+
+.select-box {
+  position: relative; }
+  .select-box .select-label {
+    text-transform: capitalize;
+    position: absolute;
+    top: 0;
+    color: #82888b;
+    font-size: 16px; }
+  .select-box .chosen-container {
+    height: 30px;
+    position: relative;
+    top: 0;
+    cursor: pointer;
+    border-bottom: 1px solid #82888b;
+    background: transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat; }
+
+.chosen-container-single .chosen-single span {
+  display: block;
+  overflow: hidden;
+  margin-right: 26px;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+
+.done .select-label {
+  font-size: 12px;
+  top: -20px; }
+
+.collapsible-content .main-content {
+  display: inline; }
+
+.collapsible-content .more-content {
+  display: none; }
+
+.collapsible-content.active .more-content {
+  display: inline; }
+
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none; }
+
+.comparison-type-carousel.inner-content-carousel .jcarousel {
+  left: 17px !important; }
+  .comparison-type-carousel.inner-content-carousel .jcarousel li {
+    width: 453px;
+    min-height: 295px; }
+
+.comparison-type-carousel .card-target {
+  padding: 20px 10px;
+  display: block; }
+
+.comparison-type-carousel .model-img-content {
+  width: 189px;
+  height: 106px;
+  margin-bottom: 10px; }
+  .comparison-type-carousel .model-img-content img {
+    height: 106px; }
+
+.comparison-type-carousel .card-target .grid-6:first-of-type:after {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/vs-icon-32.png) no-repeat;
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  transform: scale(0.7);
+  top: 40%;
+  right: 0; }
+
+.btn-160-36 {
+  width: 160px;
+  font-size: 14px;
+  padding: 7px; }
