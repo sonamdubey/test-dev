@@ -951,7 +951,7 @@ docReady(function () {
         }
         else
         {
-            triggerGA("User_Reviews", "Clicked_Toggle_ExpertReviews", makeName + "_" + modelName);
+            triggerGA("User_Reviews", "Clicked_Toggle_UserReviews", makeName + "_" + modelName);
         }
     });
 
