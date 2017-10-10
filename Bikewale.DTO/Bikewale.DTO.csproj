@@ -175,6 +175,8 @@
     <Compile Include="Campaign\CampaignDetailsBase.cs" />
     <Compile Include="Campaign\CampaignType.cs" />
     <Compile Include="Campaign\DealerCampaignBase.cs" />
+    <Compile Include="Campaign\DetailsDto.cs" />
+    <Compile Include="Campaign\ESCampaignBase .cs" />
     <Compile Include="Campaign\PreRenderCampaignBase.cs" />
     <Compile Include="Compare\BikeColorDTO.cs" />
     <Compile Include="BikeBooking\BikeCancellationCustomer.cs" />

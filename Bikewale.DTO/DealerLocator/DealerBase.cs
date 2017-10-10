@@ -15,19 +15,19 @@ namespace Bikewale.DTO.DealerLocator
     /// </summary>
     public class DealerBase
     {
-        [JsonProperty("id")]
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public UInt32 DealerId { get; set; }
 
-        [JsonProperty("name")]
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Name { get; set; }
 
-        [JsonProperty("area")]
+        [JsonProperty("area", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Area { get; set; }
 
-        [JsonProperty("maskingNumber")]
+        [JsonProperty("maskingNumber", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string MaskingNumber { get; set; }
 
-        [JsonProperty("dealerPackageType")]
+        [JsonProperty("dealerPackageType", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DealerPackageType DealerPkgType { get; set; }
     }
 }

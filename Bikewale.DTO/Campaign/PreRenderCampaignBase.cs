@@ -2,7 +2,7 @@
 
 namespace Bikewale.DTO.Campaign
 {
-    public class PreRenderCampaignBase : CampaignBaseDTO
+    public class PreRenderCampaignBase 
     {
         [JsonProperty("templateHtml")]
         public string TemplateHtml { get; set; }
