@@ -43,7 +43,14 @@ $(document).ready(function () {
 
 docReady(function () {
     //popup show/hide
-
+    $(".banner-review .bw-tabs li").click(function () {
+        if ($(this).attr('data-tabs') == 'userReviewContent') {
+            $(this).closest('.banner-review').attr('data-bg-image', '0')
+        }
+        else if ($(this).attr('data-tabs') == 'expertReviewContent') {
+            $(this).closest('.banner-review').attr('data-bg-image', '1')
+        }
+    });
     var effect = 'slide',
     optionRight = { direction: 'right' },
     duration = 500;
@@ -244,6 +251,7 @@ docReady(function () {
     $("#submit-bike-selection").click(function () {
         validateSelection();
     });
+   
 
     function validateSelection() {
         if (makeField.attr('data-make-id') > 0) {

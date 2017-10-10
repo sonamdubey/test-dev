@@ -7,13 +7,13 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 <div class="bw-tabs-panel">
-    <div class="banner-review">
+    <div class="banner-review" data-bg-image="0">
         <div class="container banner-container text-center top-campaign-banner-container">
             <h1 class="banner-head">BIKE REVIEWS</h1>
             <div class="bw-tabs-content">
                 <ul class="bw-tabs tabs-type-switch">
-                    <li data-tabs="userReviewContent" class="active">User Reviews</li>
-                    <li data-tabs="expertReviewContent" class="">Expert Reviews</li>
+                    <li data-tabs="userReviewContent" data-image="m_bikewale_reviewlanding_user_banner" class="active">User Reviews</li>
+                    <li data-tabs="expertReviewContent" data-image="m_bikewale_reviewlanding_expert_banner" class="">Expert Reviews</li>
                 </ul>
             </div>
             <div class="new-bikes-search position-rel margin-top5">
@@ -182,9 +182,6 @@
             </div>
         </section>
         <section>
-            <div class="advertise">
-                AD
-            </div>
             <h2 class="font18 text-center margin-top20 margin-bottom15">Bike Review Contest</h2>
             <div class="contest-banner">
                 <span class="contest-banner__icon margin-bottom20"></span>
@@ -192,13 +189,13 @@
                 <p class="contest-banner__subtitle">Help others by sharing your experience.</p>
                 <div id="bike-selection-form">
                     <div id="form-make-field" class="form-control-box form-input-box margin-bottom20 margin-top20" data-bind="click: function (d, e) { openBikeSelection(); }" data-make-id="1">
-                        <span @*data-bind="text: makeName"*@>Select model to participate</span>
+                        <span>Select model to participate</span>
                         <span class="bwmsprite grey-right-icon"></span>
                         <span class="bwmsprite error-icon errorIcon"></span>
                         <div class="bw-blackbg-tooltip errorText"></div>
                     </div>
                     <div id="form-model-field" class="form-control-box form-input-box margin-bottom20" data-bind="click: function (d, e) { openModelSelection(); }">
-                        <span @*data-bind="text: modelName"*@>Select model</span>
+                        <span>Select model</span>
                         <span class="bwmsprite grey-right-icon"></span>
                         <span class="bwmsprite error-icon errorIcon"></span>
                         <div class="bw-blackbg-tooltip errorText"></div>
@@ -378,14 +375,11 @@
             </div>
         </section>
         <section>
-            <div class="read-review__banner">
+            <div class="read-expert-review__banner margin-bottom20">
                 <a class="review__banner-link text-truncate" href="" title="">
-                    <span class="review-icon--white"></span>Read Reviews by our Experts
+                    <span class="expert-review-icon--white"></span>Read Reviews by our Experts
                     <span class="bwmsprite right-arrow"></span>
                 </a>
-            </div>
-            <div class="advertise margin-bottom20">
-                AD
             </div>
         </section>
     </div>
@@ -469,7 +463,7 @@
                                     </div>
                                 </a>
                                 <a class="more-review text-truncate" href="" title="">
-                                    <span class="review-sm"></span>23 expert reviews
+                                    <span class="expert-review-sm"></span>23 expert reviews
                                     <span class="bwmsprite right-arrow"></span>
                                 </a>
                             </div>
@@ -491,7 +485,7 @@
                                     </div>
                                 </a>
                                 <a class="more-review text-truncate" href="" title="">
-                                    <span class="review-sm"></span>23 expert reviews
+                                    <span class="expert-review-sm"></span>23 expert reviews
                                     <span class="bwmsprite right-arrow"></span>
                                 </a>
                             </div>
@@ -513,7 +507,7 @@
                                     </div>
                                 </a>
                                 <a class="more-review text-truncate" href="" title="">
-                                    <span class="review-sm"></span>23 expert reviews
+                                    <span class="expert-review-sm"></span>23 expert reviews
                                     <span class="bwmsprite right-arrow"></span>
                                 </a>
                             </div>
@@ -522,9 +516,6 @@
                 </div>
             </div>
         </section>
-        <div class="advertise margin-bottom20">
-            AD
-        </div>
         <h2 class="font18 text-center margin-top20 margin-bottom10">Expert Advice for Popular Bikes</h2>
         <section>
 
@@ -577,8 +568,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="view-all-btn-container">
                     <a href="/m/best-bikes-in-india/" title="Popular Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
                 </div>
@@ -638,18 +627,12 @@
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
-            <div class="read-review__banner">
+            <div class="read-user-review__banner margin-bottom20">
                 <a class="review__banner-link text-truncate" href="" title="">
                     <span class="review-icon--white"></span>Read Reviews by our Experts
                     <span class="bwmsprite right-arrow"></span>
                 </a>
-            </div>
-            <div class="advertise margin-bottom20">
-                AD
             </div>
         </section>
     </div>
