@@ -1,13 +1,18 @@
 ﻿using Bikewale.BAL.PriceQuote;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.ManufacturerCampaign.Entities;
+using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.Utilities;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
@@ -24,11 +29,12 @@ namespace Bikewale.Service.Controllers.Model
     /// </summary>
     public class ModelPageController : CompressionApiController//ApiController
     {
-        private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        private readonly IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModelsCacheRepository<int> _cache;
         private readonly IDealerPriceQuoteDetail _dealers;
-        private readonly IBikeModels<BikeModelEntity, int> _modelBL = null;
+        private readonly IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> _modelBL = null;
         private readonly IUserReviews _userReviews = null;
+        private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
         /// <summary>
         /// 
@@ -38,13 +44,14 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="dealers"></param>
         /// <param name="modelBL"></param>
         /// <param name="userReviews"></param>
-        public ModelPageController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<BikeModelEntity, int> modelBL, IUserReviews userReviews)
+        public ModelPageController(IManufacturerCampaign objManufacturerCampaign, IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> modelBL, IUserReviews userReviews)
         {
             _modelRepository = modelRepository;
             _cache = cache;
             _dealers = dealers;
             _modelBL = modelBL;
             _userReviews = userReviews;
+            _objManufacturerCampaign = objManufacturerCampaign;
         }
 
         #region Model Page Complete
@@ -170,7 +177,7 @@ namespace Bikewale.Service.Controllers.Model
         {
             BikeModelPageEntity objModelPage = null;
             Bikewale.DTO.Model.v2.ModelPage objDTOModelPage = null;
-            //List<EnumCMSContentType> categorList = null;
+
 
             try
             {
@@ -396,6 +403,106 @@ namespace Bikewale.Service.Controllers.Model
                             else
                             {
                                 objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity, null);
+                            }
+
+                            #endregion
+                        }
+                    }
+
+
+                    return Ok(objDTOModelPage);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+
+
+        [ResponseType(typeof(DTO.Model.v5.ModelPage)), Route("api/v5/model/details/")]
+        public IHttpActionResult GetV5(uint modelId, uint? cityId, int? areaId, string deviceId = null)
+        {
+
+            DTO.Model.v5.ModelPage objDTOModelPage = null;
+            try
+            {
+                if (modelId <= 0 || cityId <= 0)
+                {
+                    return BadRequest();
+                }
+                BikeModelPageEntity objModelPage = null;
+                ManufacturerCampaignEntity campaigns = null;
+                objModelPage = _modelBL.GetModelPageDetails((int)modelId);
+                if (objModelPage != null)
+                {
+                    if (Request.Headers.Contains("platformId"))
+                    {
+                        string platformId = Request.Headers.GetValues("platformId").First().ToString();
+                        if (platformId == "3")
+                        {
+                            objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
+                            #region On road pricing for versions
+                            PQByCityArea getPQ;
+                            PQByCityAreaEntity pqEntity = null;
+                            if (!objModelPage.ModelDetails.Futuristic)
+                            {
+
+                                getPQ = new PQByCityArea();
+                                pqEntity = getPQ.GetVersionListV2((int)modelId, objModelPage.ModelVersions, (int)cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
+                            }
+
+                            if (cityId != null && cityId.Value > 0 && !objModelPage.ModelDetails.Futuristic)
+                            {
+                                int versionId = 0;
+                                if (pqEntity != null && pqEntity.VersionList != null && pqEntity.VersionList.Any())
+                                {
+                                    var deafultVersion = pqEntity.VersionList.FirstOrDefault(i => i.IsDealerPriceQuote);
+                                    if (deafultVersion != null)
+                                    {
+                                        versionId = deafultVersion.VersionId;
+                                    }
+                                }
+
+                                if (versionId <= 0)
+                                {
+                                    using (IUnityContainer container = new UnityContainer())
+                                    {
+                                        container.RegisterType<IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
+                                        IDealerPriceQuote dealerPQRepository = container.Resolve<IDealerPriceQuote>();
+
+                                        if (areaId.HasValue && areaId.Value > 0)
+                                            versionId = (int)dealerPQRepository.GetDefaultPriceQuoteVersion(modelId, (uint)cityId.Value, (uint)areaId.Value);
+                                        else
+                                            versionId = (int)dealerPQRepository.GetDefaultPriceQuoteVersion(modelId, Convert.ToUInt32(cityId));
+
+                                    }
+                                }
+                                
+                                if (pqEntity != null && pqEntity.DealerId == 0)
+                                {
+                                     campaigns = _objManufacturerCampaign.GetCampaigns(modelId, cityId.Value, ManufacturerCampaignServingPages.Mobile_Model_Page);
+                                   
+                                    
+                                }
+
+
+
+                                if (pqEntity != null && pqEntity.IsExShowroomPrice)
+                                    objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, campaigns);
+                                else
+                                    objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity,
+                                    _dealers.GetDealerQuotationV2(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId, Convert.ToUInt32(areaId.HasValue ? areaId.Value : 0)),  campaigns);                                
+                            }
+                            else
+                            {
+                                objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, campaigns);
                             }
 
                             #endregion

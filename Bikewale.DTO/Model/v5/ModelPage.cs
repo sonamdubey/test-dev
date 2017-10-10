@@ -1,4 +1,7 @@
-﻿using Bikewale.DTO.Model.v3;
+﻿using Bikewale.DTO.Campaign;
+using Bikewale.DTO.DealerLocator;
+using Bikewale.DTO.Model.v3;
+using Bikewale.DTO.PriceQuote.v2;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -72,5 +75,17 @@ namespace Bikewale.DTO.Model.v5
 
         [JsonProperty("expectedMaxPrice", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public ulong ExpectedMaxPrice { get; set; }
+        [JsonProperty("dealerId")]
+        public uint DealerId { get; set; }
+        [JsonProperty("pqId")]
+        public ulong PQId { get; set; }
+        [JsonProperty("campaign", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public CampaignBaseDto Campaign { get; set; }
+
+
+
+
+
+
     }
 }
