@@ -1993,7 +1993,7 @@ input[type="number"] {
 }
 
 /* info tooltip */
-.info-icon {
+.tooltip-icon-target.info-icon {
 	width: 12px;
 	height: 12px;
 	background-position: -217px -282px;

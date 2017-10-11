@@ -1633,8 +1633,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 }
 
 /* info tooltip */
-
-.info-icon {
+.tooltip-icon-target.info-icon {
 	position: relative;
 	width: 25px;
 	height: 20px;
