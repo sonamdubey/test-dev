@@ -8,17 +8,12 @@
     <div class="swiper-wrapper">
        @foreach (var details in Model.DealerServiceCenters.DealerDetails)
        {
-           if (Model.IsServiceCenterPage && details.ServiceCenterCount > 0)
-           {
-               flag = true;
-           }
-           else if (!Model.IsServiceCenterPage && details.DealerCount > 0)
+           if ((Model.IsServiceCenterPage && details.ServiceCenterCount > 0) || (!Model.IsServiceCenterPage && details.DealerCount > 0))
            {
                flag = true;
            }
            if (flag)
            {
-
             <div class="swiper-slide">
                 <div class="swiper-card">
                     <a href="@string.Format("/m/{0}-{1}-{2}/", Model.MakeMaskingName,Model.CityCardLink, details.CityMaskingName)" title="@string.Format("{0}  {1} {2}", Model.MakeName,Model.CityCardTitle,  details.CityName)" class="card-target-link">

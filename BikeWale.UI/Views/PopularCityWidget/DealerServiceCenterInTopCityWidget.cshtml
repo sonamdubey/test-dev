@@ -12,11 +12,7 @@
 
                 @foreach (var details in Model.DealerServiceCenters.DealerDetails)
                 {
-                    if (Model.IsServiceCenterPage && details.ServiceCenterCount > 0)
-                    {
-                        flag = true;
-                    }
-                    else if (!Model.IsServiceCenterPage && details.DealerCount > 0)
+                    if ((Model.IsServiceCenterPage && details.ServiceCenterCount > 0) || (!Model.IsServiceCenterPage && details.DealerCount > 0) )
                     {
                         flag = true;
                     }

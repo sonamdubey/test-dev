@@ -672,7 +672,7 @@ namespace Bikewale.Models
         {
             try
             {
-                uint[] topCityId = ConfigurationManager.AppSettings["PopularCitiesId"].Split(',').Select(uint.Parse).ToArray();
+                uint[] topCityId = BWConfiguration.Instance.PopularCitiesId.Split(',').Select(uint.Parse).ToArray();
                 objVM.PriceInTopCities = new PriceInTopCities(_objPQCache, modelId, 8).GetData();
                 if (objVM.HasPriceInTopCities)
                 {
