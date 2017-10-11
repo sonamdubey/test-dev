@@ -1,5 +1,4 @@
 ﻿using Bikewale.Entities.UserReviews;
-using Bikewale.Entities.UserReviews.Search;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,6 +7,8 @@ namespace Bikewale.Interfaces.UserReviews
     /// <summary>
     /// Modified by sajal gupta on 13-07-2017
     /// Description : Added SaveUserReviewMileage, GetReviewQuestionValuesByModel, GetRecentReviews, SaveUserReviews
+    /// Modified By : Sushil Kumar on 11th Oct 2017
+    /// Description : To cache popular bikes with expert reviews count and by cityid
     /// </summary>
     public interface IUserReviewsRepository
     {
@@ -33,7 +34,7 @@ namespace Bikewale.Interfaces.UserReviews
         bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, uint mileage);
         UserReviewSummary GetUserReviewSummary(uint reviewId);
         bool IsUserVerified(uint reviewId, ulong customerId);
-        ReviewListBase GetUserReviews();       
+        ReviewListBase GetUserReviews();
         UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId);
         BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId);
         BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId);
@@ -41,11 +42,13 @@ namespace Bikewale.Interfaces.UserReviews
 
         IEnumerable<UserReviewSummary> GetUserReviewSummaryList(string reviewIdList);
 
-        BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);        
+        BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);
         QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
 
         IEnumerable<RecentReviewsWidget> GetRecentReviews();
         IEnumerable<RecentReviewsWidget> GetUserReviewsWinners();
         IEnumerable<TopRatedBikes> GetTopRatedBikes(uint? topCount, uint? cityId);
+        IEnumerable<PopularBikesWithExpertReviews> GetPopularBikesWithExpertReviews(ushort topCount);
+        IEnumerable<PopularBikesWithExpertReviews> GetPopularBikesWithExpertReviewsByCity(ushort topCount, uint cityId);
     }   // class
 }   // namespace
