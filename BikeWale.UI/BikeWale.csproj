@@ -2221,6 +2221,7 @@
     <Content Include="css\bw-common-style.css" />
     <Content Include="css\bw-pq-new.css" />
     <Content Include="css\bw-pq.css" />
+    <Content Include="css\campaign\hero-campaign.css" />
     <Content Include="css\cancellation.css" />
     <Content Include="css\chosen.min.css" />
     <Content Include="css\compare\details.css" />
@@ -2233,8 +2234,10 @@
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
+    <Content Include="css\threesixty-slider.css" />
     <Content Include="css\PopUp\PopUpCityArea.css" />
     <Content Include="css\finance\capital-first.css" />
+    <Content Include="m\css\campaign\hero-campaign.css" />
     <Content Include="m\css\finance\capital-first.css" />
     <Content Include="css\survey\bajaj-survey.css" />
     <Content Include="m\css\amp\bwm-modelprice-in-city-amp.css" />

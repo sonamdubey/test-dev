@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <ProjectName>BikewaleAutoSuggest</ProjectName>
+  <ProjectLanguage>C#</ProjectLanguage>
+  <ProjectType>Product</ProjectType>
+  <ProjectGuid>53ba3292-b62d-4a22-9633-8c8cdfdd03e4</ProjectGuid>
+  <FullPath>D:\work\bikewaleweb\BikewaleAutoSuggest\BikewaleAutoSuggest.csproj</FullPath>
+  <IsExcluded>false</IsExcluded>
+  <AnalysisResults>
+    <AnalysisResult Id="FilesToAnalyze" Location="D:\work\bikewaleweb\.sonarqube\out\\BikewaleAutoSuggest_1059\FilesToAnalyze.txt" />
+  </AnalysisResults>
+  <AnalysisSettings>
+    <Property Name="sonar.cs.roslyn.reportFilePath">D:\work\bikewaleweb\BikewaleAutoSuggest\bin\Release\BikewaleAutoSuggest.exe.RoslynCA.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPath">D:\work\bikewaleweb\.sonarqube\out\\BikewaleAutoSuggest_1059</Property>
+    <Property Name="sonar.stylecop.projectFilePath">D:\work\bikewaleweb\BikewaleAutoSuggest\BikewaleAutoSuggest.csproj</Property>
+  </AnalysisSettings>
+</ProjectInfo>
