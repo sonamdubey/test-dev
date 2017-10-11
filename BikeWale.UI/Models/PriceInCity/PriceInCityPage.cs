@@ -17,6 +17,7 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BestBikes;
+using Bikewale.Models.Gallery;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Utility;
 using Newtonsoft.Json;
@@ -54,6 +55,7 @@ namespace Bikewale.Models
         private BikeQuotationEntity firstVersion;
         private uint primaryDealerId;
         private bool isNew, isAreaSelected, hasAreaAvailable;
+        private readonly IBikeModels<Entities.BikeData.BikeModelEntity, int> _objModelEntity;
         public StatusCodes Status { get; private set; }
         public String RedirectUrl { get; private set; }
         public uint NearestCityCount { get; set; }
@@ -103,6 +105,51 @@ namespace Bikewale.Models
             this.modelMaskingName = modelMaskingName;
             this.cityMaskingName = cityMaskingName;
             _objManufacturerCampaign = objManufacturerCampaign;
+            ProcessQueryString();
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 11 Oct 2017
+        /// Description : Added IBikeModels<Entities.BikeData.BikeModelEntity, int> instance in constructor for image gallery.
+        /// </summary>
+        /// <param name="cityMaskingCache"></param>
+        /// <param name="modelMaskingCache"></param>
+        /// <param name="objPQ"></param>
+        /// <param name="objPQCache"></param>
+        /// <param name="objDealerCache"></param>
+        /// <param name="objServiceCenter"></param>
+        /// <param name="versionCache"></param>
+        /// <param name="bikeInfo"></param>
+        /// <param name="modelCache"></param>
+        /// <param name="objDealerDetails"></param>
+        /// <param name="objDealerPQ"></param>
+        /// <param name="objCityCache"></param>
+        /// <param name="objAreaCache"></param>
+        /// <param name="objManufacturerCampaign"></param>
+        /// <param name="pqSource"></param>
+        /// <param name="modelMaskingName"></param>
+        /// <param name="cityMaskingName"></param>
+        /// <param name="modelEntity"></param>
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity)
+        {
+            _cityMaskingCache = cityMaskingCache;
+            _modelMaskingCache = modelMaskingCache;
+            _objPQ = objPQ;
+            _objPQCache = objPQCache;
+            _objDealerCache = objDealerCache;
+            _objServiceCenter = objServiceCenter;
+            _versionCache = versionCache;
+            _bikeInfo = bikeInfo;
+            _modelCache = modelCache;
+            _objDealerDetails = objDealerDetails;
+            _objDealerPQ = objDealerPQ;
+            _objCityCache = objCityCache;
+            _objAreaCache = objAreaCache;
+            this.pqSource = pqSource;
+            this.modelMaskingName = modelMaskingName;
+            this.cityMaskingName = cityMaskingName;
+            _objManufacturerCampaign = objManufacturerCampaign;
+            _objModelEntity = modelEntity;
             ProcessQueryString();
         }
 
@@ -349,15 +396,78 @@ namespace Bikewale.Models
                         }
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
+
+                    CheckGallaryLoad(objVM);
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("PriceInCityPage.GetData({0},{1})", modelMaskingName, cityMaskingName));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("PriceInCityPage.GetData({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 05 Oct 2017
+        /// Description : Method to check if Gallary will be loaded via AJAX call.
+        /// </summary>
+        /// <param name="objVM"></param>
+        private void CheckGallaryLoad(PriceInCityPageVM objVM)
+        {
+            try
+            {
+                int[] MakeIdList = new int[2] {6,7}; //For Hero and Honda
+                if (MakeIdList.Contains<int>(Convert.ToInt32(firstVersion.MakeId)))
+                {
+                    objVM.IsGalleryLoaded = true;
+                    BindModelGallery(objVM);
+                }
+            }
+            catch (Exception ex)
+            {
+                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, string.Format("PriceInCityPage.CheckGallaryLoad_{0}", objVM));
+            }
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 05 Oct 2017
+        /// Description : Method to Bind Gallary.
+        /// </summary>
+        /// <param name="objVM"></param>
+        private void BindModelGallery(PriceInCityPageVM objVM)
+        {
+            try
+            {
+                if (objVM.BikeModel != null)
+                {
+                    objVM.PhotoGallery = _objModelEntity.GetPhotoGalleryData(objVM.BikeModel.ModelId);
+
+                    if (objVM.PhotoGallery != null && objVM.PhotoGallery.ImageList != null)
+                    {
+                        var modelgallery = new ModelGalleryWidget(objVM.Make, objVM.BikeModel, objVM.PhotoGallery.ImageList, objVM.PhotoGallery.VideosList, objVM.BikeInfo);
+                        modelgallery.IsGalleryDataAvailable = true;
+                        modelgallery.IsJSONRequired = true;
+                        objVM.ModelGallery = modelgallery.GetData();
+                        if (objVM.ModelGallery != null)
+                        {
+                            objVM.ModelGallery.BikeName = objVM.BikeName;
+                            if (objVM.BikeInfo != null)
+                            {
+                                objVM.ModelGallery.IsDiscontinued = objVM.BikeInfo.IsDiscontinued;
+                                objVM.ModelGallery.IsUpcoming = objVM.BikeInfo.IsUpcoming;
+                            }
+                        }
+                    }
+                }
+                 
+            }
+            catch (Exception ex)
+            {
+                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, string.Format("PriceInCityPage.BindModelGallery{0}", objVM));
+            }
+        }
+
+        
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Sep 2017
         /// Description :   To Show Innovation Banner

@@ -31,7 +31,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- model on-road price start -->
                     <div id="orpContent" class="bw-model-tabs-data">
                         <div class="content-box-shadow content-inner-block-20 section-bottom-margin">
@@ -42,9 +41,18 @@
                                         {
                                         <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                                         }
-                                        <a href="@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName)?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))">
-                                            <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
-                                        </a>
+
+                                        @if (Model.IsGalleryLoaded && Model.ModelGallery != null)
+                                        {
+                                            <img id="imageTopCard" class="cur-pointer" src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" data-c="Price_in_City_Page" data-a="Image_GalleryClicked" data-l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName)"/>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName)?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))">
+                                                <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
+                                            </a>
+                                        }
+                                        
                                     </div>
                                     @Html.Raw(Model.MinSpecsHtml)
                                 </div>
@@ -142,14 +150,12 @@
                                     </div>
                                     }
                                 </div>
-
                                 <div class="clear"></div>
                             </div>
                             @if (Model.IsNew)
                             {
                             <div class="grid-4 padding-left5 omega">
                                 <div class="padding-left10">
-
                                     @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
                                         {
                                         <div class="padding-top30">
@@ -222,7 +228,6 @@
                             </div>
                             }
                         </div>
-
                         @if (Model.IsNew && Model.IsManufacturerLeadAdShown)
                         {
                         <div class="position-rel">
@@ -261,7 +266,6 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-
                         <!-- model service centers start -->
                         @if (Model.HasServiceCenters)
                         {
@@ -284,7 +288,6 @@
                         </div>
                         }
                         <!-- model service centers end -->
-
                     </div>
                     <!-- model dealers end -->
                     <!-- model emi calculator start -->
@@ -294,10 +297,8 @@
                         <div class="grid-12 grid-no-padding">
                             <div class="content-box-shadow content-inner-block-20">
                                 <h2 class="card-h2-heading margin-bottom20">@Model.BikeModel.ModelName EMI Calculator</h2>
-
                                 <div class="finance-emi-container font14">
                                     <div class="grid-8 alpha border-light-right padding-bottom5 margin-bottom10">
-
                                         <div class="emi-slider-box">
                                             <p class="text-slate-grey leftfloat">Down payment</p>
                                             <p class="rightfloat margin-right15">
@@ -305,7 +306,6 @@
                                                 &nbsp;<span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span>
                                             </p>
                                             <div class="clear"></div>
-
                                             <div id="downPaymentSlider"
                                                  data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2 ) + minDnPay()) }"
                                                  class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Price_in_City_Page" a="Interacted_with_EMI_Calculator" l="@gaBikeName">
@@ -313,7 +313,6 @@
                                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                             </div>
                                         </div>
-
                                         <div class="emi-slider-box">
                                             <p class="text-slate-grey leftfloat">Loan Amount</p>
                                             <p class="rightfloat margin-right15">
@@ -321,7 +320,6 @@
                                                 &nbsp;<span id="loanAmount" class="text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span>
                                             </p>
                                             <div class="clear"></div>
-
                                             <div id="loanAmountSlider"
                                                  data-bind="slider: loan, sliderOptions: { min: bikePrice() - maxDnPay(), max: bikePrice() - minDnPay(), range: 'min', step: 1 }"
                                                  class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Price_in_City_Page" a="Interacted_with_EMI_Calculator" l="@gaBikeName">
@@ -329,14 +327,12 @@
                                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                             </div>
                                         </div>
-
                                         <div class="emi-slider-box">
                                             <p class="text-slate-grey leftfloat">Tenure</p>
                                             <p class="rightfloat text-bold margin-right15">
                                                 <span id="tenurePeriod" data-bind="text: tenure"></span>&nbsp;Months
                                             </p>
                                             <div class="clear"></div>
-
                                             <div id="tenureSlider"
                                                  data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
                                                  class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Price_in_City_Page" a="Interacted_with_EMI_Calculator" l="@gaBikeName">
@@ -344,14 +340,12 @@
                                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                             </div>
                                         </div>
-
                                         <div class="emi-slider-box">
                                             <p class="text-slate-grey leftfloat">Interest</p>
                                             <p class="rightfloat text-bold margin-right15">
                                                 <span id="rateOfInterestPercentage" class="text-bold" data-bind="text: rateofinterest">5</span>%
                                             </p>
                                             <div class="clear"></div>
-
                                             <div id="rateOfInterestSlider"
                                                  data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
                                                  class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Price_in_City_Page" a="Interacted_with_EMI_Calculator" l="@gaBikeName">
@@ -360,7 +354,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="grid-4 padding-left20 omega">
                                         <div class="border-light-bottom padding-bottom20 margin-bottom20">
                                             <p class="text-light-grey margin-bottom5">Total amount (Principal + Interest)</p>
@@ -426,7 +419,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
                                                 @foreach (var bikeversion in Model.VersionSpecs)
                                                     {
                                                     <tr>
@@ -440,7 +432,6 @@
                                                     }
                                             </tbody>
                                         </table>
-
                                     </div>
 
                                     }
@@ -448,7 +439,6 @@
                                     {
                                     <div id="nearby-prices-grid" class="grid-12 omega alpha padding-top20">
                                         <h3 class="margin-bottom20">On-road prices in cities near @Model.CityEntity.CityName</h3>
-
                                         <ul id="prices-top-cities">
                                             @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.NearestPriceCities)
                                         </ul>
@@ -460,7 +450,6 @@
                         <div class="clear"></div>
                     </div>
                     }
-
                     <!-- model version prices end -->
                     <!-- model similar start -->
                     @if (Model.HasAlternateBikes)
@@ -480,7 +469,6 @@
                                                     }
                                                 @Html.Partial("~/views/Bikemodels/_SimilarBikes.cshtml", Model.AlternateBikes)
                                             </ul>
-
                                         </div>
                                         <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                                         <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
@@ -545,7 +533,7 @@
                         </div>
                         @if (Model.HasPriceInTopCities && Model.IsNew)
                         {
-                            <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+                        <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
                             <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.BikeModel.ModelName prices in popular cities</h3>
                             @Html.Partial("~/views/PriceInCity/_ModelPriceInTopCitiesWidget.cshtml", Model.PriceInTopCities);
                         }
@@ -582,6 +570,11 @@
         </section>
     }
     <!-- top 10 bikes end -->
+
+    if (Model.IsGalleryLoaded && Model.ModelGallery != null)
+    {
+        @Html.Partial("~/Views/Gallery/_ModelGallery.cshtml", Model.ModelGallery)
+    }
 
     <!-- disclaimer start -->
     <section>
