@@ -19,7 +19,7 @@ namespace BikewaleAutoSuggest
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getautosuggestmakemodellist_31072017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getautosuggestmakemodellist_11102017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
@@ -143,6 +143,9 @@ namespace BikewaleAutoSuggest
 
                     if (bikeItem.UserRatingsCount > 0)
                         ObjTemp.mm_suggest.contexts.types.Add("UserReviews");
+
+                    if (!bikeItem.Futuristic)
+                        ObjTemp.mm_suggest.contexts.types.Add("NonUpcomingBikes");
 
                     objSuggestList.Add(ObjTemp);
                     count--;
