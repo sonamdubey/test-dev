@@ -716,8 +716,6 @@ namespace Bikewale.Service.AutoMappers.Model
                             VersionId = objModelPage.ModelVersionSpecs.BikeVersionId,
                             PlatformId = 3,
                             BikeName = string.Format("{0} {1}", objModelPage.ModelDetails.MakeBase.MakeName, objModelPage.ModelDetails.ModelName),
-
-
                         };
                         objDTOModelPage.Campaign = new DTO.Campaign.CampaignBaseDto();
                         objDTOModelPage.Campaign.DetailsCampaign = new DTO.Campaign.DetailsDto();
@@ -728,8 +726,6 @@ namespace Bikewale.Service.AutoMappers.Model
                         objDTOModelPage.Campaign.CampaignLeadSource.CaptionText = LeadCampaign.LeadsPropertyTextMobile;
                         objDTOModelPage.Campaign.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
                         objDTOModelPage.Campaign.CampaignType = CampaignType.ES;
-
-
                     }
                     
 
