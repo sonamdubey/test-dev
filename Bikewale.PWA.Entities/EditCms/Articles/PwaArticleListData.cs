@@ -39,12 +39,8 @@ namespace Bikewale.Entities.PWA.Articles
     }
 
     public class PwaArticleListData
-    {
-        public PwaArticleListData()
-        {
-            ArticleList = new PwaContentBase();
-        }
-        public PwaContentBase ArticleList { get; private set; }
+    {       
+        public PwaContentBase ArticleList { get; set; }
     }
 
 

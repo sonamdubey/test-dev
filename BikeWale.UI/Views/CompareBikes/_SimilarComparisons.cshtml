@@ -1,5 +1,5 @@
 ﻿@model Bikewale.Models.PopularComparisonsVM
-
+@using Bikewale.Utility;
 @if (Model != null && Model.IsDataAvailable)
 {
     <div class="jcarousel-wrapper inner-content-carousel comparison-type-carousel padding-bottom20">
@@ -15,16 +15,38 @@
                                     <img class="lazy" alt="@bike.Bike1" title="@bike.Bike1" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1, bike.HostUrl1, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70)" src="" />
                                 </div>
                                 <h3 class="font15 text-black margin-bottom10 text-truncate">@bike.Bike1</h3>
-                                <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, @bike.City1</p>
-                                @Html.Raw("<span class='font18 text-default'> &#x20B9;</span>")&nbsp;<span class="font18 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1))</span>
+                                <p class="font14 text-light-grey margin-bottom5">
+                                    @(bike.Price1 > 0 ? string.Format("Ex-showroom, {0}", bike.City1) : "Avg. Ex-showroom price")
+                                    @if (bike.Price1 == 0)
+                                    {
+									<span class="bwsprite info-icon tooltip-icon-target tooltip-top">
+										<span class="bw-tooltip info-tooltip">
+											<span class="bw-tooltip-text">Price is not available in @bike.City1</span>
+										</span>
+									</span>
+                                    }
+
+                                </p>
+                                @Html.Raw("<span class='font18 text-default'> &#x20B9;</span>")&nbsp;<span class="font18 text-default text-bold">@Format.FormatPrice(Convert.ToString(bike.Price1 > 0 ? bike.Price1 : bike.AvgPrice1))</span>
                             </div>
                             <div class="grid-6">
                                 <div class="model-img-content">
                                     <img class="lazy" alt="@bike.Bike2" title="@bike.Bike2" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2, bike.HostUrl2, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70)" src="" />
                                 </div>
                                 <h3 class="font15 text-black margin-bottom10 text-truncate">@bike.Bike2</h3>
-                                <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, @bike.City2</p>
-                                @Html.Raw("<span class='font18 text-default'> &#x20B9;</span>")&nbsp;<span class="font18 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2))</span>
+                                <p class="font14 text-light-grey margin-bottom5">
+                                    @(bike.Price2 > 0 ? string.Format("Ex-showroom, {0}", bike.City2) : "Avg. Ex-showroom price")
+                                    @if (bike.Price2 == 0)
+                                    {
+									<span class="bwsprite info-icon tooltip-icon-target tooltip-top tooltip--right">
+										<span class="bw-tooltip info-tooltip">
+											<span class="bw-tooltip-text">Price is not available in @bike.City2</span>
+										</span>
+									</span>
+                                    }
+
+                                </p>
+                                @Html.Raw("<span class='font18 text-default'> &#x20B9;</span>")&nbsp;<span class="font18 text-default text-bold">@Format.FormatPrice(Convert.ToString(bike.Price2 > 0 ? bike.Price2 : bike.AvgPrice2))</span>
                             </div>
                             <div class="clear"></div>
                             <div class="margin-top20 text-center">

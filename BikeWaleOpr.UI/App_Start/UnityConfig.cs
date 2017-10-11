@@ -45,6 +45,8 @@ namespace BikewaleOpr
     /// Description : Added IBikeMakes
     /// Modified by : Vivek Singh Tomar on 7th Aug 2017
     /// Summary : Added IDealers
+    /// Modified by : Vivek Singh Tomar on 11th Aug 2017
+    /// Summary : Added IBikeSeriesRepository
     /// </summary>
     public static class UnityConfig
     {
@@ -85,7 +87,9 @@ namespace BikewaleOpr
                 .RegisterType<IServiceCenter, ServiceCenter>()
                 .RegisterType<IManageBookingAmountPage, ManageBookingAmountPage>()
                 .RegisterType<IPageMetasRepository, PageMetasRepository>()
-                .RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
+                .RegisterType<IServiceCenterRepository, ServiceCenterRepository>()
+                .RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
+                .RegisterType<IBikeSeries, BikeSeries>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 

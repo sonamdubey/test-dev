@@ -1,6 +1,4 @@
-﻿
-using Bikewale.Entities.Models;
-using Bikewale.Entities.Pages;
+﻿using Bikewale.Entities.Pages;
 using Bikewale.Entities.Schema;
 
 namespace Bikewale.Models
@@ -39,6 +37,8 @@ namespace Bikewale.Models
         public string Page_BTF_CSS_Path { get; set; }
         public string Page_JS_Path { get; set; }
         public string Page_H1 { get; set; }
+
+        public string[] Page_JS_Paths { get; set; }
 
         public ModelBase()
         {

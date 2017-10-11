@@ -362,6 +362,8 @@ namespace BikeWaleOpr.Content
 
         /// <summary>
         ///      Function will insert the specifications data into newbikespecifications table 
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017 
+        /// Description : Changed cache key from 'BW_VersionMinSpecs_' to 'BW_VersionMinSpecs_V1_'.
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="e"></param>
@@ -482,7 +484,7 @@ namespace BikeWaleOpr.Content
                     }
 
                     //Refresh memcache object for bikeVersionSpecs change
-                    MemCachedUtil.Remove(string.Format("BW_VersionMinSpecs_{0}_New_{1}", Request.QueryString["modelid"], isNew1));
+                    MemCachedUtil.Remove(string.Format("BW_VersionMinSpecs_V1_{0}_New_{1}", Request.QueryString["modelid"], isNew1));
                 }
             }
             catch (SqlException err)

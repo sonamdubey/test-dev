@@ -5,6 +5,8 @@ namespace Bikewale.Comparison.Entities
     /// <summary>
     /// Created by  :   Sumit Kate on 31 Jul 2017
     /// Description :   Sponsored Version Entity Base
+    /// Modified by :   Vivek Singh Tomar on 25th Sep 2017
+    /// Description :   Added EndDate for campaign
     /// </summary>
     [Serializable]
     public class SponsoredVersionEntityBase
@@ -17,5 +19,6 @@ namespace Bikewale.Comparison.Entities
         public string LinkUrl { get; set; }
         public uint TargetVersionId { get; set; }
         public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

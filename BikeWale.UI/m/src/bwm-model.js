@@ -749,6 +749,15 @@ docReady(function () {
     };
 
     applyLikeDislikes();
+
+    if (document.getElementById("modelsBySeriesWidget")) {
+        try {
+            var testingObject = $("#modelsBySeriesWidget");
+            triggerNonInteractiveGA(testingObject.attr("c"), testingObject.attr("a"), testingObject.attr("l"));
+        } catch (e) {
+
+        }
+    }
 });
 
 function upVoteListReview(e) {

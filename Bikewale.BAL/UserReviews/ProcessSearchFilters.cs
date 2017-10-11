@@ -157,11 +157,6 @@ namespace Bikewale.BAL.UserReviews.Search
                                 reviewIdList = reviewIdLists.NegativeReviews;
                                 break;
                             }
-                        case (ushort)SortOrderEnum.NeutralReviews:
-                            {
-                                reviewIdList = reviewIdLists.NeutralReviews;
-                                break;
-                            }
                         default:
                             reviewIdList = reviewIdLists.RecentReviews;
                             break;

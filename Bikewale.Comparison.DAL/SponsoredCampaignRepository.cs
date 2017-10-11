@@ -154,7 +154,7 @@ namespace Bikewale.Comparison.DAL
                 using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
                     connection.Open();
-                    sponsoredVersions = connection.Query<SponsoredVersionEntityBase>("getactivesponsoredcomparisons", commandType: CommandType.StoredProcedure);
+                    sponsoredVersions = connection.Query<SponsoredVersionEntityBase>("getactiveandfuturisticsponsoredcomparisions", commandType: CommandType.StoredProcedure);
 
 
                     if (connection.State == ConnectionState.Open)

@@ -1991,3 +1991,73 @@ input[type="number"] {
 	background-position: -222px -28px;
 	display: inline-block;
 }
+
+/* info tooltip */
+.tooltip-icon-target.info-icon {
+	width: 12px;
+	height: 12px;
+	background-position: -217px -282px;
+	position: relative;
+	top: 1px;
+	cursor: pointer;
+}
+
+.tooltip-icon-target.info-icon {
+	top: 3px
+}
+
+.tooltip-icon-target:hover .bw-tooltip {
+	display: block;
+}
+
+.info-tooltip {
+	display: none;
+	padding: 10px;
+	width: 230px;
+	height: auto;
+	cursor: default;
+	position: absolute;
+	bottom: 25px;
+	right: -102px;
+	z-index: 1;
+	text-align: center;
+	font-size: 12px;
+	color: #787878;
+	border-radius: 2px;
+	border: 1px solid #e2e2e2;
+	background: #fff;
+	box-shadow: 0 1px 2px #eee;
+}
+
+.tooltip-top .bw-tooltip-text:before,
+.tooltip-top .bw-tooltip-text:after {
+	content: '';
+	width: 9px;
+	height: 18px;
+	display: block;
+	position: absolute;
+	left: 110px;
+	border-left: 10px solid transparent;
+	border-top: 10px solid;
+	border-right: 10px solid transparent
+}
+
+.tooltip-top .bw-tooltip-text:before {
+	border-top-color: #e2e2e2;
+	bottom: -19px;
+}
+
+.tooltip-top .bw-tooltip-text:after {
+	border-top-color: #fff;
+	bottom: -18px;
+}
+
+/* tooltip types */
+.tooltip--right .info-tooltip {
+	right: -30px;
+}
+
+.tooltip-top.tooltip--right .bw-tooltip-text:before,
+.tooltip-top.tooltip--right .bw-tooltip-text:after {
+	left: 182px;
+}

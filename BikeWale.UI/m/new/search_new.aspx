@@ -26,6 +26,7 @@
 
     <link href="<%= staticUrl  %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+    <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <div class="blackOut-window"></div>
     <!-- global-search-popup code starts here -->
@@ -281,7 +282,7 @@
                 <div class="grid-5 alpha">
                     <h3>ABS</h3>
                 </div>
-                <div name="AntiBreakingSystem" class="grid-7 omega">
+                <div name="ABS" class="grid-7 omega">
                     <span filterid="1" class="form-control grid-6 checkOption">Yes</span>
                     <span filterid="2" class="form-control grid-6 checkOption">No</span>
                 </div>
