@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -146,20 +146,22 @@
     <Reference Include="itextsharp">
       <HintPath>..\Libs\itextsharp.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.ChakraCore">
+    <Reference Include="JavaScriptEngineSwitcher.ChakraCore, Version=2.4.8.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.ChakraCore.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.Core">
+    <Reference Include="JavaScriptEngineSwitcher.Core, Version=2.4.9.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.Core.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.Msie, Version=2.3.2.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+    <Reference Include="JavaScriptEngineSwitcher.Msie, Version=2.4.9.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.Msie.dll</HintPath>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.V8">
       <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.V8.dll</HintPath>
     </Reference>
-    <Reference Include="JSPool, Version=2.0.1.0, Culture=neutral, PublicKeyToken=2fc7775f73072640, processorArchitecture=MSIL">
+    <Reference Include="JSPool, Version=3.0.1.0, Culture=neutral, PublicKeyToken=2fc7775f73072640, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\JSPool.dll</HintPath>
     </Reference>
@@ -184,10 +186,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="MsieJavaScriptEngine, Version=2.1.2.0, Culture=neutral, PublicKeyToken=a3a2846a37ac0d3e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\PWA\MsieJavaScriptEngine.dll</HintPath>
     </Reference>
     <Reference Include="MSMQLibrary, Version=1.0.0.1, Culture=neutral, PublicKeyToken=14ca6d48bbc78a0c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -223,10 +221,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\React.Core.dll</HintPath>
     </Reference>
-    <Reference Include="React.Web">
+    <Reference Include="React.Web, Version=3.0.1.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\React.Web.dll</HintPath>
     </Reference>
-    <Reference Include="React.Web.Mvc4">
+    <Reference Include="React.Web.Mvc4, Version=3.0.1.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\React.Web.Mvc4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -507,6 +507,7 @@
     <Compile Include="Controllers\GenericBestBikesController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\MakeController.cs" />
+    <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
@@ -930,6 +931,8 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\Authors\AuthorsDetailsPageModel.cs" />
+    <Compile Include="Models\Authors\AuthorsListModel.cs" />
     <Compile Include="Models\BestBikes\BestBikeByBodyStyle.cs" />
     <Compile Include="Models\BikeCare\BikeCareDetailPage.cs" />
     <Compile Include="Models\BikeCare\BikeCareIndexPage.cs" />
@@ -937,6 +940,7 @@
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\BikeModels\ModelPage.cs" />
     <Compile Include="Models\BikeModels\OtherBestBikesModel.cs" />
+    <Compile Include="Models\BikeSeries\BikeModelsBySeriesPage.cs" />
     <Compile Include="Models\CompareBikes\ComparePopularBikes.cs" />
     <Compile Include="Models\Compare\CompareDetails.cs" />
     <Compile Include="Models\Compare\CompareIndex.cs" />
@@ -2209,6 +2213,7 @@
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
+    <Content Include="css\authors.css" />
     <Content Include="css\bookingconfig.css" />
     <Content Include="css\bookinglanding.css" />
     <Content Include="css\brand.css" />
@@ -2235,6 +2240,7 @@
     <Content Include="m\css\finance\capital-first.css" />
     <Content Include="css\survey\bajaj-survey.css" />
     <Content Include="m\css\amp\bwm-modelprice-in-city-amp.css" />
+    <Content Include="m\css\authors.css" />
     <Content Include="m\css\amp\content-amp.css" />
     <Content Include="m\css\content\app.css" />
     <Content Include="css\content\details.css" />
@@ -3065,6 +3071,7 @@
     <Content Include="pricequote\BookingSummary_New.aspx" />
     <Content Include="pricequote\PaymentConfirmation.aspx" />
     <Content Include="src\ads.js" />
+    <Content Include="src\authors.js" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
     <Content Include="src\bookingconfig.js" />
@@ -3753,6 +3760,10 @@
     <Content Include="Views\PopUp\PopUpCityArea_Mobile.cshtml" />
     <Content Include="Views\PopUp\Index_LeadCapture.cshtml" />
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile_Amp.cshtml" />
+    <Content Include="Views\Author\Index_List_Mobile.cshtml" />
+    <Content Include="Views\Author\Details_Mobile.cshtml" />
+    <Content Include="Views\Author\Index_List.cshtml" />
+    <Content Include="Views\Author\Details.cshtml" />
     <Content Include="Views\UserReview\WriteReview_old.cshtml" />
     <Content Include="Views\UserReview\RateOtherDetails.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_ATF_970x90.cshtml" />
@@ -3769,6 +3780,9 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile_AMP.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile_AMP.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCities_Mobile_AMP.cshtml" />
+    <Content Include="Views\Author\_AuthorsListCarousel.cshtml" />
+    <Content Include="Views\News\_RecentNewsWidget.cshtml" />
+    <Content Include="Views\Author\_AuthorsListCarousel_Mobile.cshtml" />
     <Content Include="Views\Photos\Index.cshtml" />
     <Content Include="Views\Photos\_SimilarBikeWithPhotos.cshtml" />
     <Content Include="Views\Gallery\_ModelGallery.cshtml" />
@@ -3786,6 +3800,8 @@
     <Content Include="Views\PopUp\BikeCityPopup_Mobile.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad970x90_InnovationBanner.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_InnovationBanner.cshtml" />
+    <Content Include="Views\BikeSeries\_BikeModelsBySeries.cshtml" />
+    <Content Include="Views\BikeSeries\_BikeModelsBySeries_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\_ExpertReviewsSwiperCard.cshtml" />
     <Content Include="Views\ExpertReviews\_ExpertReviewHorizontalListByModel.cshtml" />
     <Content Include="Views\ExpertReviews\_ExpertReviewHorizontalListByModel_Mobile.cshtml" />
@@ -4066,7 +4082,7 @@
 	<!--xcopy /Y "$(ProjectDir)..\Libs\System.Runtime.dll" "$(ProjectDir)bin\"-->
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x64.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x86.dll" "$(ProjectDir)bin\"
-<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
+	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

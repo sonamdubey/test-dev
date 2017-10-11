@@ -366,7 +366,19 @@ namespace Bikewale.Cache.Memcache
                                 ht.Add(dr["ModelMaskingName"], dr["TopVersionId"]);
                         }
                         break;
+                    case "BW_AuthorMapping":
+                        ds = FetchDataFromDatabase("getauthorsmappingname");
+                        if(ds != null && ds.Tables != null)
+                        {
+                            dt = ds.Tables[0];
 
+                            foreach (DataRow dr in dt.Rows)
+                            {
+                                if (!ht.ContainsKey(dr["MaskingName"]))
+                                    ht.Add(dr["MaskingName"], dr["AuthorId"]);
+                            }
+                        }
+                        break;
                 }
 
 

@@ -103,11 +103,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authors\AuthorDetailsPageVM.cs" />
+    <Compile Include="Authors\AuthorsListVM.cs" />
     <Compile Include="BestBikes\BestBikeByCategoryVM.cs" />
     <Compile Include="BikeCare\BikeCareDetailPageVM.cs" />
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
     <Compile Include="BikeModels\OtherBestBikesVM.cs" />
+    <Compile Include="BikeSeries\BikeSeriesModelsVM.cs" />
     <Compile Include="CompareBikes\PopularComparisonsVM.cs" />
     <Compile Include="Compare\CompareDetailsVM.cs" />
     <Compile Include="Compare\CompareVM.cs" />

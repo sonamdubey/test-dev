@@ -69,12 +69,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.ModelPageEntity.ModelDetails.MinPrice > 0)
+                    @if (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0))
                     {
                         <tr>
                             <td valign="top" width="36%"><strong class="text-unbold">Price</strong></td>
                             <td valign="top" width="64%">
-                                @Html.Raw("&#x20B9;")&nbsp;<strong class="text-bold">@(Model.BikePrice > 0 && Model.IsLocationSelected ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.ModelPageEntity.ModelDetails.MinPrice.ToString()))</strong>
+                                @Html.Raw("&#x20B9;")&nbsp;<strong class="text-bold">@(Model.BikePrice > 0 && Model.IsLocationSelected ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.SelectedVersion.AverageExShowroom.ToString()))</strong>
 
                             </td>
                         </tr>

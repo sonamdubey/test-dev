@@ -31,12 +31,12 @@
             <div class="content-box-shadow card-bottom-margin">
                 <div class="padding-15-20">
                     <div class="bike-details-card">
-                        <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName Reviews" class="left-grid-image inline-block">
-                            <img src="@Image.GetPathToShowImages(Model.RatingsInfo.OriginalImagePath,Model.RatingsInfo.HostUrl,ImageSize._110x61,QualityFactor._65)" alt="@Model.BikeName Reviews" />
+                        <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName Reviews" class="left-grid-image inline-block">
+                            <img src="@Image.GetPathToShowImages(Model.RatingsInfo.OriginalImagePath, Model.RatingsInfo.HostUrl, ImageSize._110x61, QualityFactor._65)" alt="@Model.BikeName Reviews" />
                         </a>
                         <div class="right-grid-details inline-block">
                             <h2 class="margin-bottom5 font12">
-                                <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName" class="text-black">@Model.BikeName</a>
+                                <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName" class="text-black">@Model.BikeName</a>
                             </h2>
                             <p class="font11 text-light-grey">@(Model.ReviewsInfo.IsDiscontinued ? "Last known " : "") Ex-showroom, @BWConfiguration.Instance.DefaultName</p>
                             @Html.Raw("<span class='font16'> &#x20B9;</span>")<span class='text-bold font16'>&nbsp;@Format.FormatPrice(Model.RatingReviewData.Price.ToString())</span>
@@ -143,15 +143,15 @@
                     </div>
                     <p class="font14 text-black inline-block line-height25">Rate this bike now</p>
                     <div class="answer-star-list inline-block text-right">
-                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-5" name="rate-bike" value="5">
+                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl, (int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-5" name="rate-bike" value="5">
                         <label class="bwmsprite star-0" for="rate-star-5" data-value="5"></label>
-                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-4" name="rate-bike" value="4">
+                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4&sourceid={1}", Model.PageUrl, (int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-4" name="rate-bike" value="4">
                         <label class="bwmsprite star-0" for="rate-star-4" data-value="4"></label>
-                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=3&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-3" name="rate-bike" value="3">
+                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=3&sourceid={1}", Model.PageUrl, (int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-3" name="rate-bike" value="3">
                         <label class="bwmsprite star-0" for="rate-star-3" data-value="3"></label>
-                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=2&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-2" name="rate-bike" value="2">
+                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=2&sourceid={1}", Model.PageUrl, (int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-2" name="rate-bike" value="2">
                         <label class="bwmsprite star-0" for="rate-star-2" data-value="2"></label>
-                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=1&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-1" name="rate-bike" value="1">
+                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=1&sourceid={1}", Model.PageUrl, (int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-1" name="rate-bike" value="1">
                         <label class="bwmsprite star-0" for="rate-star-1" data-value="1"></label>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
                                 <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
                             </div>
                             <div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="/m@(Model.ExpertReviews.MoreExpertReviewUrl)" title="@string.Format(@"{0} {1} Expert Reviews",Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" class="btn view-all-target-btn">View all</a>
+                                <a href="/m@(Model.ExpertReviews.MoreExpertReviewUrl)" title="@string.Format(@"{0} {1} Expert Reviews", Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" class="btn view-all-target-btn">View all</a>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -205,38 +205,38 @@
         <div id="expertReviewContent" class="bw-tabs-data hide">
             <div id="expert-review-ul" class="content-box-shadow card-bottom-margin">
             </div>
-        </div>
 
-        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
-            <div class="carousel-heading-content">
-                <div class="swiper-heading-left-grid inline-block">
-                    <h2>@string.Format("Popular {0} bikes", Model.ReviewsInfo.Make.MakeName)</h2>
+            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2>@string.Format("Popular {0} bikes", Model.ReviewsInfo.Make.MakeName)</h2>
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="@string.Format("/m/{0}-bikes/", Model.ReviewsInfo.Make.MaskingName)" title="@Model.ReviewsInfo.Make.MakeName Bikes" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="@string.Format("/m/{0}-bikes/", Model.ReviewsInfo.Make.MaskingName)" title="@Model.ReviewsInfo.Make.MakeName Bikes" class="btn view-all-target-btn">View all</a>
+                <div id="popular-bikes-widget" class="section-loader-container">
+                    <div class="section-spinner" data-bind="visible : IsLoading()"></div>
                 </div>
-                <div class="clear"></div>
             </div>
-            <div id="popular-bikes-widget" class="section-loader-container">
-                <div class="section-spinner" data-bind="visible : IsLoading()"></div>
+
+            <div id="popular-bodystyle-bikes-widget" class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2>Popular&nbsp;@Model.RatingReviewData.RatingDetails.BodyStyle@(Model.RatingReviewData.RatingDetails.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "s" : " bikes")</h2>
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="@string.Format("/m{0}", UrlFormatter.FormatGenericPageUrl(Model.RatingReviewData.RatingDetails.BodyStyle))" title="Best Bikes in India" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div id="popular-bodystyle-bikes-list" class="section-loader-container">
+                    <div class="section-spinner" data-bind="visible : IsLoading()"></div>
+                </div>
             </div>
         </div>
-
-        <div id="popular-bodystyle-bikes-widget" class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
-            <div class="carousel-heading-content">
-                <div class="swiper-heading-left-grid inline-block">
-                    <h2>Popular&nbsp;@Model.RatingReviewData.RatingDetails.BodyStyle@(Model.RatingReviewData.RatingDetails.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "s" : " bikes")</h2>
-                </div>
-                <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="/m/best-bikes-in-india/" title="Best Bikes in India" class="btn view-all-target-btn">View all</a>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div id="popular-bodystyle-bikes-list" class="section-loader-container">
-                <div class="section-spinner" data-bind="visible : IsLoading()"></div>
-            </div>
-        </div>
-
+       
     </div>
 </section>
 

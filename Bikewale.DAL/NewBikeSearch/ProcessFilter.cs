@@ -22,6 +22,8 @@ namespace Bikewale.DAL.NewBikeSearch
         /// <summary>
         /// Created By : Sadhana Upadhyay on 31 Aug 2015
         /// Summary : To process new search page filters
+        /// Modified by : Vivek Singh Tomar on 10th Oct 2017
+        /// Summary : Added processing of AntiBreakingSystem
         /// </summary>
         /// <param name="objInput"></param>
         /// <returns></returns>
@@ -62,9 +64,14 @@ namespace Bikewale.DAL.NewBikeSearch
                 }
 
 
-                if(!String.IsNullOrEmpty(_input.AntiBreakingSystem))
+                if(!String.IsNullOrEmpty(_input.ABS))
                 {
                     ProcessABS();
+                }
+
+                if (!String.IsNullOrEmpty(_input.AntiBreakingSystem))
+                {
+                    ProcessAntiBreakingSystem();
                 }
 
                 if(!String.IsNullOrEmpty(_input.BrakeType))
@@ -182,7 +189,7 @@ namespace Bikewale.DAL.NewBikeSearch
         {
             try
             {
-                string[] ABS = _input.AntiBreakingSystem.Split(' ');
+                string[] ABS = _input.ABS.Split(' ');
                 foreach(string strABS in ABS)
                 {
                     if (strABS == ((int)AntiBreakingSystem.ABSAvailable).ToString())
@@ -194,6 +201,30 @@ namespace Bikewale.DAL.NewBikeSearch
             catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessABS");
+                objError.SendMail();
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 10th Oct 2017
+        /// Summary : Filter AntiBreakingSystem
+        /// </summary>
+        private void ProcessAntiBreakingSystem()
+        {
+            try
+            {
+                string[] ABS = _input.AntiBreakingSystem.Split(' ');
+                foreach (string strABS in ABS)
+                {
+                    if (strABS == ((int)AntiBreakingSystem.ABSAvailable).ToString())
+                        _filters.ABSAvailable = true;
+                    else if (strABS == ((int)AntiBreakingSystem.ABSNotAvailable).ToString())
+                        _filters.ABSNotAvailable = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessAntiBreakingSystem");
                 objError.SendMail();
             }
         }

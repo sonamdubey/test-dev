@@ -113,9 +113,11 @@
   <ItemGroup>
     <Compile Include="App\AppVersionCacheRepository.cs" />
     <Compile Include="App\SplashScreenCacheRepository.cs" />
+    <Compile Include="Authors\AuthorsCacheRepository.cs" />
     <Compile Include="BikeData\BikeMakesCacheRepository.cs" />
     <Compile Include="BikeData\BikeModelMaskingCache.cs" />
     <Compile Include="BikeData\BikeModelsCacheRepository.cs" />
+    <Compile Include="BikeData\BikeSeriesCacheRepository.cs" />
     <Compile Include="BikeData\BikeVersionsCacheRepository.cs" />
     <Compile Include="BikeData\ModelsCache.cs" />
     <Compile Include="CMS\CMSCacheRepository.cs" />

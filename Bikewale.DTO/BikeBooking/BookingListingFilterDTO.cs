@@ -23,8 +23,8 @@ namespace Bikewale.DTO.BikeBooking
         public string Mileage { get; set; }
         [JsonProperty("rideStyle")]
         public string RideStyle { get; set; }
-        [JsonProperty("antiBreakingSystem")]
-        public string AntiBreakingSystem { get; set; }
+        [JsonProperty("ABS")]
+        public string ABS { get; set; }
         [JsonProperty("brakeType")]
         public string BrakeType { get; set; }
         [JsonProperty("alloyWheel")]

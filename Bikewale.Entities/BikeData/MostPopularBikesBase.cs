@@ -9,6 +9,8 @@ namespace Bikewale.Entities.BikeData
     /// Description : Bike Entity to show most popular bikes by make
     /// Modified by : Sajal Gupta on 26-09-2016
     /// Description : Added MakeId, MakeMaskingName.
+    /// Modified by : Ashutosh Sharma on 29 Sep 2017
+    /// Description : Added AvgPrice and ExShowroomPrice.
     /// </summary>
     [Serializable, DataContract]
     public class MostPopularBikesBase
@@ -31,6 +33,10 @@ namespace Bikewale.Entities.BikeData
         public double ModelRating { get; set; }
         [DataMember]
         public Int64 VersionPrice { get; set; }
+        [DataMember]
+        public Int64 ExShowroomPrice { get; set; }
+        [DataMember]
+        public Int64 AvgPrice { get; set; }
         [DataMember]
         public MinSpecsEntity Specs { get; set; }
         [DataMember]

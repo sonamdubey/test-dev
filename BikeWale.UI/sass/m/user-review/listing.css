@@ -264,6 +264,11 @@
   -moz-transform: scale(0.8);
   -ms-transform: scale(0.8);
   transform: scale(0.8); }
+  .star-icon.star-size-14 {
+    -webkit-transform: scale(0.5);
+    -moz-transform: scale(0.5);
+    -ms-transform: scale(0.5);
+    transform: scale(0.5); }
 
 .margin-neg5 {
   margin-left: -5px; }
@@ -686,8 +691,7 @@
 
 .review-left-divider {
   position: relative;
-  margin-left: 10px;
-  padding-left: 10px; }
+  padding-left: 5px; }
   .review-left-divider:before {
     content: '';
     position: absolute;
@@ -835,8 +839,7 @@
   min-height: 110px; }
 
 .user-reviews-type-carousel .swiper-details-block {
-  padding-top: 7px;
-  padding-bottom: 15px; }
+  padding-top: 7px; }
 
 #report-abuse-popup {
   display: none;
@@ -924,6 +927,71 @@
 .section-loader-container {
   position: relative;
   min-height: 185px; }
+
+.expert-review-list {
+  margin-top: 15px;
+  background: #f5f5f5; }
+  .expert-review-list h2 {
+    font-size: 14px;
+    margin-bottom: 0;
+    padding: 15px 20px 10px; }
+  .expert-review-list .card-container {
+    padding-bottom: 15px; }
+  .expert-review-list .swiper-slide:first-child {
+    margin-left: 5px; }
+
+.article-type-carousel .swiper-slide,
+.article-type-carousel .swiper-card {
+  min-height: 190px; }
+
+.article-type-carousel .swiper-image-preview {
+  padding: 0;
+  height: 113px; }
+  .article-type-carousel .swiper-image-preview img {
+    height: 113px; }
+
+.article-type-carousel .swiper-details-block {
+  padding-top: 15px;
+  padding-bottom: 8px; }
+
+.swiper-review-target {
+  display: block;
+  padding: 0 15px 5px; }
+
+.rating-container {
+  position: relative;
+  left: -6px; }
+
+.rating-text-pos {
+  position: relative;
+  left: -5px;
+  top: 1px; }
+
+.next-grey-icon-listing {
+  width: 8px;
+  height: 12px;
+  background-position: -182px -394px;
+  position: absolute;
+  right: 0px;
+  top: 7px;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8); }
+
+.star-position-offset {
+  position: relative;
+  left: -7px; }
+
+.grid-8-inline {
+  width: 63%;
+  display: inline-block;
+  vertical-align: middle; }
+
+.grid-4-inline {
+  width: 30%;
+  display: inline-block;
+  vertical-align: middle; }
 
 .article-list .list-target {
   padding: 0 20px 20px;
