@@ -525,6 +525,13 @@ namespace Bikewale.Service.AutoMappers.Model
             return versionPrices;
         }
 
+        internal static Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO ConvertV3(PQByCityAreaEntity pqCityAea)
+        {
+            Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
+            Mapper.CreateMap<PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO>();
+            var versionPrices = Mapper.Map<PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO>(pqCityAea);
+            return versionPrices;
+        }
         /// <summary>
         /// Created by  :   Sumit Kate on 01 Jul 2016
         /// Description :   AutoMapper Entity to DTO for Popular Bikes

@@ -445,7 +445,9 @@ namespace Bikewale.BAL.PriceQuote
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
-        public PQByCityAreaEntity GetVersionListV2(int modelId, IEnumerable<BikeVersionMinSpecs> modelVersions, int? cityId, int? areaId, ushort? sourceId, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null)
+        public PQByCityAreaEntity GetVersionListV2(int modelId, IEnumerable<BikeVersionMinSpecs> modelVersions,
+            int? cityId, int? areaId, ushort? sourceId, string UTMA = null,
+            string UTMZ = null, string DeviceId = null, string clientIP = null)
         {
             PQByCityAreaEntity pqEntity = new PQByCityAreaEntity();
             uint versionID = 0;
@@ -584,7 +586,7 @@ namespace Bikewale.BAL.PriceQuote
                 // Fetch ES only when Primary dealer is absent for given model
                 // ES campaign should be shown even if the secondary dealers are found
 
-                if(cityId > 0 && pqOnRoad.PriceQuote.PQId > 0 && pqEntity.PrimaryDealer == null)
+                if(cityId > 0 && pqOnRoad.PriceQuote.PQId > 0 && pqEntity.PrimaryDealer == null && _objManufacturerCampaign != null)
                 {
                     pqEntity.ManufacturerCampaign = _objManufacturerCampaign.GetCampaigns((uint)modelId, (uint)cityId, Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
                 }

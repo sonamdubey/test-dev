@@ -327,6 +327,7 @@
     <Compile Include="PriceQuote\Version\PQByCityArea.cs" />
     <Compile Include="PriceQuote\Version\v2\PQByCityAreaV2.cs" />
     <Compile Include="App\SplashScreen.cs" />
+    <Compile Include="PriceQuote\Version\v3\PQByCityAreaDTO.cs" />
     <Compile Include="UsedBikes\BikeInterestDetailsDTO.cs" />
     <Compile Include="UsedBikes\PhotoRequestDTO.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
@@ -456,6 +457,7 @@
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -21,22 +21,6 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
         internal static CampaignBaseDto Convert(Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ManufacturerCampaignEntity manufacturerCampaign)
         {
             CampaignBaseDto campaignResponse = null;
-            //Mapper.CreateMap<ManufacturerCampaignLeadConfiguration, ManufacturerCampaignLeadConfigurationDTO>();
-            //Mapper.CreateMap<ManufacturerCampaignEMIConfiguration, ManufacturerCampaignEMIConfigurationDTO>();
-            //Mapper.CreateMap<ManufacturerCampaignEntity, ManufacturerCampaignDTO>();
-            //return Mapper.Map<ManufacturerCampaignEntity, ManufacturerCampaignDTO>(objModel);
-
-
-            //CampaignBaseDto campaign = new DTO.Campaign.CampaignBaseDto();
-            //campaign.DetailsCampaign = new DTO.Campaign.DetailsDto();
-            //campaign.DetailsCampaign.EsCamapign = new DTO.Campaign.PreRenderCampaignBase();
-            //campaign.CampaignLeadSource = new DTO.Campaign.ESCampaignBase();
-            //campaign.DetailsCampaign.EsCamapign.TemplateHtml = Format.GetRenderedContent(string.Format("LeadCampaign_{0}", objModel.LeadCampaign.CampaignId), objModel.LeadCampaign.LeadsHtmlDesktop, objModel.LeadCampaign);
-            //campaign.CampaignLeadSource.FloatingBtnText = objModel.LeadCampaign.LeadsButtonTextMobile;
-            //campaign.CampaignLeadSource.CaptionText = objModel.LeadCampaign.LeadsPropertyTextMobile;
-            //campaign.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
-            //campaign.CampaignType = CampaignType.ES;
-            //return campaign;
             if (dealers != null)
             {
                 if (dealers.PrimaryDealer != null)

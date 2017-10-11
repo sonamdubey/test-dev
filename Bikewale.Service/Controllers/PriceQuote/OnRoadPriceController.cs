@@ -338,7 +338,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <param name="areaId"></param>
         /// <param name="versionId"></param>
         /// <returns></returns>
-        [ResponseType(typeof(Bikewale.DTO.PriceQuote.v2.PQOnRoad)), Route("api/dealerversionprices")]
+        [ResponseType(typeof(DTO.PriceQuote.v2.DPQuotationOutput)), Route("api/dealerversionprices")]
         public IHttpActionResult GetDealerVersionPrices(uint cityId, string deviceId, uint dealerId, uint modelId, uint? areaId = null, uint? versionId = null)
         {
             try
@@ -376,11 +376,53 @@ namespace Bikewale.Service.Controllers.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetDealerVersionPrices");
-                objErr.SendMail();
                 return InternalServerError();
             }
         }
 
+        //[ResponseType(typeof(Bikewale.DTO.PriceQuote.v4.PQOnRoad)), Route("api/v2/dealerversionprices")]
+        //public IHttpActionResult GetDealerVersionPricesV2(uint cityId, string deviceId, uint dealerId, uint modelId, uint? areaId = null, uint? versionId = null)
+        //{
+        //    Bikewale.DTO.PriceQuote.v4.PQOnRoad dpq = null;
+        //    try
+        //    {
+        //        bool isPQRegistered = Request.Headers.Contains("isRegistered") ? Convert.ToBoolean(Request.Headers.GetValues("isRegistered").FirstOrDefault()) : false;
+        //        UInt64 pqId = Request.Headers.Contains("quoteId") ? Convert.ToUInt64(Request.Headers.GetValues("quoteId").FirstOrDefault()) : default(UInt64);
+        //        UInt16 platformId = Request.Headers.Contains("platformId") ? Convert.ToUInt16(Request.Headers.GetValues("platformId").FirstOrDefault()) : default(UInt16);
+
+        //        if (pqId > 0 && platformId > 0)
+        //        {
+        //            PQ_QuotationEntity bwPQ = _objDPQ.Quotation(cityId, platformId, deviceId, dealerId, modelId, ref pqId, isPQRegistered, areaId, versionId);
+
+        //            DetailedDealerQuotationEntity objDealerQuotation = _objDPQ.GetDealerQuotation(cityId, versionId.HasValue ? versionId.Value : 0, dealerId);
+
+        //            dpq = PQBikePriceQuoteOutputMapper.Convert(objDealerQuotation, bwPQ.Varients);
+        //            dpq.PriceQuoteId = pqId;
+        //            //
+        //            if (objDealerQuotation != null && objDealerQuotation.PrimaryDealer != null && objDealerQuotation.PrimaryDealer.DealerDetails != null)
+        //            {
+
+        //                dpq.Dealer = PQBikePriceQuoteOutputMapper.Convert(objDealerQuotation.PrimaryDealer.DealerDetails);
+        //            }
+        //            else if (dealerId == 0) // Show ES campaign is available
+        //            {
+        //                Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignEntity manufactureCampaign = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
+        //            }
+        //            return Ok(dpq);
+        //        }
+        //        else
+        //        {
+        //            return BadRequest();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetDealerVersionPricesV2");
+        //        return InternalServerError();
+
+        //    }
+
+        //}
         /// <summary>
         /// Gets the On Road Price Quote
         /// Includes the Bike Wale price quote and Dealer price quote
@@ -643,14 +685,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                 manufacturerCampaign = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
                             }
                         }
-                        //return Ok(onRoadPrice);
+                        onRoadPrice.Campaign = ManufacturerCampaignMapper.Convert(objDealerQuotation, manufacturerCampaign);
                     }
-                    onRoadPrice.Campaign = ManufacturerCampaignMapper.Convert(objDealerQuotation, manufacturerCampaign);
                     return Ok(onRoadPrice);
-                    //else
-                    //{
-                    //    return Ok(onRoadPrice);
-                    //}
                 }
                 else
                 {

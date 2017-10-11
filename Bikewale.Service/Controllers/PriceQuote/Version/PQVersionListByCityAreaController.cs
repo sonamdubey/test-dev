@@ -137,10 +137,64 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.Get");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.GetV2");
                 objErr.SendMail();
                 return InternalServerError();
             }
         }
+
+        /// <summary>
+        /// Created By : Sangram Nandkhile 
+        /// Date : 11 Oct 2017
+        /// Desc : adding dealerpackage type, secondary dealer count and primary dealer offers
+        /// </summary>
+        /// <param name="modelId">The model identifier.</param>
+        /// <param name="cityId">The city identifier.</param>
+        /// <param name="areaId">The area identifier.</param>
+        /// <param name="deviceId">The device identifier.</param>
+        /// <returns></returns>
+        [ResponseType(typeof(Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO)), Route("api/v3/model/versionlistprice/")]
+        public IHttpActionResult GetV3(int modelId, int? cityId = null, int? areaId = null, string deviceId = null)
+        {
+            if (cityId < 0 || modelId < 0)
+            {
+                return BadRequest();
+            }
+            IEnumerable<BikeVersionMinSpecs> objVersionsList = null;
+            Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO objPQDTO = null;
+            PQByCityAreaEntity pqEntity = null;
+
+            objVersionsList = _objVersionCache.GetVersionMinSpecs(Convert.ToUInt32(modelId), true);
+
+            try
+            {
+                if (objVersionsList != null && objVersionsList.Count() > 0)
+                {
+                    PQByCityArea pqByCityArea = new PQByCityArea();
+                    string platformId = string.Empty;
+                    UInt16 platform = default(UInt16);
+                    if (Request.Headers.Contains("platformId"))
+                    {
+                        platformId = Request.Headers.GetValues("platformId").First().ToString();
+                    }
+                    UInt16.TryParse(platformId, out platform);
+                    pqEntity = pqByCityArea.GetVersionListV2(modelId, objVersionsList, cityId, areaId, platform, null, null, deviceId);
+                    objPQDTO = ModelMapper.ConvertV3(pqEntity);
+                    objVersionsList = null;
+                    return Ok(objPQDTO);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.GetV3");
+                return InternalServerError();
+            }
+        }
+
+
     }
 }
