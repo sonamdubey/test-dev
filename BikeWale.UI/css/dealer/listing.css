@@ -255,6 +255,13 @@
     vertical-align: top;
 }
 
+.dealer-grey {
+    width: 25px;
+    height: 29px;
+    background-position: -105px -747px;
+    vertical-align: top;
+}
+
 
 .grid-11-inline,
 .grid-10-inline,
@@ -273,4 +280,3 @@
 .grid-10-inline {
     width: 83.33333333%;
 }
-.gri

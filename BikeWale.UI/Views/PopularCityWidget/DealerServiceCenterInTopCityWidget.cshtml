@@ -5,72 +5,53 @@
 
 @if (Model != null)
 {
+    var flag = false;
     <div class="jcarousel-wrapper inner-content-carousel carousel-type-city">
         <div class="jcarousel">
             <ul>
 
                 @foreach (var details in Model.DealerServiceCenters.DealerDetails)
                 {
-                    <li>
-                        <a href="@string.Format("/{0}-{1}-{2}/", Model.MakeMaskingName,Model.CityCardLink, details.CityMaskingName)" title="@string.Format("{0}  {1} {2}", Model.MakeName,Model.CityCardTitle,  details.CityName)" class="card-target-link">
-                            <div class="city-image-preview">
-                                <span class="city-sprite @string.Format("{0}-icon",details.CityMaskingName)"></span>
-                            </div>
-                            <div class="text-left padding-top15 padding-left20 padding-right20 padding-bottom20">
-                                <p class="font15 text-default text-bold margin-bottom5">@details.CityName</p>
-
-                                @if (Model.IsServiceCenterPage)
-                                {
-                                    <p class="text-light-grey font14">
-                                        @details.ServiceCenterCount @Model.MakeName Service @((details.ServiceCenterCount > 1) ? "centers" : "center")
-                                    </p>
-
-                                }
-                                else
-                                {
-                                    <p class="text-light-grey font14">
-                                        @details.DealerCount @Model.MakeName @((details.DealerCount > 1) ? "showrooms" : "showroom")
-                                    </p>
-                                }
-
-                            </div>
-                        </a>
-                    </li>
-
-
-                    @*<li>
-                            <a href="/@Model.MakeMaskingName-service-center-in-@details.CityMaskingName/" title="@string.Format("{0}  Service center {1}", Model.MakeMaskingName,  details.CityName)" class="card-target-link">
-                                <div class="city-image-preview">
-                                    <span class="city-sprite @string.Format("{0}-icon",details.CityMaskingName)"></span>
-                                </div>
-                                <div class="text-left padding-top15 padding-left20 padding-right20 padding-bottom20">
-                                    <p class="font15 text-default text-bold margin-bottom5">@details.CityMaskingName</p>
-                                    <p class="text-light-grey font14">
-                                       @details.ServiceCenterCount @Model.MakeMaskingName Service @((details.ServiceCenterCount > 1) ? "centers" : "center")
-                                    </p>
-                                </div>
-                            </a>
-                        </li>*@
-                }
-                @*@if (Model.DealerServiceCenters.TotalDealerCount > 0 || Model.DealerServiceCenters.TotalServiceCenterCount > 0)
+                    if (Model.IsServiceCenterPage && details.ServiceCenterCount > 0)
+                    {
+                        flag = true;
+                    }
+                    else if (!Model.IsServiceCenterPage && details.DealerCount > 0)
+                    {
+                        flag = true;
+                    }
+                    if (flag)
                     {
                         <li>
-                            <div class="dealer-jcarousel-image-preview">
-                                <span class="city-sprite india-icon"></span>
-                            </div>
-                            <div class="font14 padding-left20 padding-right20 padding-bottom20">
-                                <p class="text-default text-bold margin-bottom5">@Model.MakeName outlets in India</p>
-                                @if (Model.DealerServiceCenters.TotalDealerCount > 0)
-                                {
-                                    <a href="/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showroom in India" class="block">@Model.DealerServiceCenters.TotalDealerCount @((Model.DealerServiceCenters.TotalDealerCount > 0) ? "showrooms" : "showroom" )</a>
-                                }
-                                @if (Model.DealerServiceCenters.TotalServiceCenterCount > 0)
-                                {
-                                    <a href="/@Model.MakeMaskingName-service-center-in-india/" title="@Model.MakeName service center in India" class="block">@Model.DealerServiceCenters.TotalServiceCenterCount service center@((Model.DealerServiceCenters.TotalServiceCenterCount > 1) ? "s" : "")</a>
-                                }
-                            </div>
+                            <a href="@string.Format("/{0}-{1}-{2}/", Model.MakeMaskingName, Model.CityCardLink, details.CityMaskingName)" title="@string.Format("{0}  {1} {2}", Model.MakeName, Model.CityCardTitle, details.CityName)" class="card-target-link">
+                                <div class="city-image-preview">
+                                    <span class="city-sprite @string.Format("{0}-icon", details.CityMaskingName)"></span>
+                                </div>
+                                <div class="text-left padding-top15 padding-left20 padding-right20 padding-bottom20">
+                                    <p class="font15 text-default text-bold margin-bottom5">@details.CityName</p>
+
+                                    @if (Model.IsServiceCenterPage)
+                                    {
+                                        <p class="text-light-grey font14">
+                                            @details.ServiceCenterCount @Model.MakeName Service @((details.ServiceCenterCount > 1) ? "centers" : "center")
+                                        </p>
+
+                                    }
+                                    else
+                                    {
+                                        <p class="text-light-grey font14">
+                                            @details.DealerCount @Model.MakeName @((details.DealerCount > 1) ? "showrooms" : "showroom")
+                                        </p>
+                                    }
+
+                                </div>
+                            </a>
                         </li>
-                    }*@
+                    }
+
+                    flag = false;
+
+                }
             </ul>
         </div>
         <span class="jcarousel-control-left">
