@@ -947,7 +947,8 @@ docReady(function () {
                 }
             }
         }
-        else {
+
+        if (e.target.getAttribute('data-tabs') == 'userReviewContent') {
             triggerGA("User_Reviews", "Clicked_Toggle_UserReviews", makeName + "_" + modelName);
         }
     });
