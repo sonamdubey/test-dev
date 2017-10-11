@@ -265,10 +265,22 @@
     vertical-align: middle;
 }
 
+.dealer-grey{
+    width: 26px;
+    height: 24px;
+    background-position: -32px -638px;
+     vertical-align: top;
+}
+
+
 .grid-11-inline {
     display: inline-block;
     vertical-align: middle;
 }
 .grid-11-inline {
     width: 88.66666667%;
+}
+
+.swiper-card{
+    min-height: 165px;
 }
