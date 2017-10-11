@@ -402,8 +402,7 @@ namespace Bikewale.Utility
         public string InnovationBannerModels { get { return _InnovationBannerModels; } }
         public string UserReviewsReadInSessionCount { get { return _UserReviewsReadInSessionCount; } }
         public uint KawasakiCampaignId { get { return _KawasakiCampaignId; } }
-        public string EditCMSModuleName { get { return _EditCMSModuleName; } }
         public string PopularCitiesId { get { return _PopularCitiesId; } }
-
+        public string EditCMSModuleName { get { return _EditCMSModuleName; } }
     }   // class
 }   // namespace
