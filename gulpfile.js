@@ -208,7 +208,7 @@ gulp.task('replace-css-link-reference', function () {
 	return gulp.src(app + 'Views/**/*.cshtml', { base: app })
 		.pipe(replace(pattern.CSS, function (s, fileName) {
 			var style = fs.readFileSync(minifiedAssetsFolder + fileName, 'utf-8'),
-				styleTag = "<style type='text/css'>" + style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "") + "</style>";
+				styleTag = "<style type='text/css'>" + style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "").replace(/@/g, "@@") + "</style>";
 
 			return styleTag;
 		}))
