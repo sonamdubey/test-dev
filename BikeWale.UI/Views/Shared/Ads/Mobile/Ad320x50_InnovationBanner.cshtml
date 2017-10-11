@@ -167,7 +167,7 @@
                 </div>
                 <div class="grid-12 alpha omega margin-top10 banner-element" data-animation="fadeIn">
                     <a href="javascript:void(0)" class="view-prev-link prev-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel"><< Previous</a>
-                   <a href="javascript:void(0)" class="view-more-link next-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel">View 360 >></a>
+                   <a href="javascript:void(0)" class="view-more-link next-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel">View 360<sup class="font7">o</sup> >></a>
                 </div>
             </div>
 
@@ -408,6 +408,23 @@
 
             $('.banner-popup').find('.' + popupBannerId.attr('class')).attr('data-flag', '1').show();
             recursiveAnimate($('.' + popupBannerId.attr('class') + ' .popup-container').children()[0]);
+
+            var isThreeSixty = $(popupBannerId).find(".banner-popup__360view");
+            if ($(isThreeSixty).length && !$(isThreeSixty).hasClass("started")) {
+                $(isThreeSixty).addClass("started");
+                car = $('.car').ThreeSixty({
+                    totalFrames: 24,
+                    endFrame: 24,
+                    currentFrame: 2,
+                    imgList: '.threesixty_images',
+                    progress: '.spinner',
+                    imagePath: 'https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/360-images/',
+                    filePrefix: '',
+                    ext: '.jpg',
+                    height: 180,
+                    width: 245
+                });
+            }
         });
        
 
