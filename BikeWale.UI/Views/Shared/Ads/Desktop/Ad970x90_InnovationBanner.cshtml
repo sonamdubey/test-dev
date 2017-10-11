@@ -15,7 +15,7 @@
             </span>
             <span class="vehicle-container__body"></span>
         </div>
-        <div id="banner1" class="banner-screen" data-position="10">
+        <div id="banner1" class="banner-screen" data-position="13">
             <div class="banner-screen__content1 no-animate">
                 <span class="hero-logo"></span>
             </div>
@@ -76,17 +76,8 @@
                 <a href="javascript:void(0)" class="btn btn-orangebtn btn-orange avail-offer">Know more</a>
             </div>
         </div>
-        <button class="arrow left">
-            <svg width="20px" height="25px" viewBox="0 0 50 80" xml:space="preserve">
-                <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 " />
-		    </svg>
-        </button>
-        <button class="arrow right">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="25px" viewBox="0 0 50 80" xml:space="preserve">
-                <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="
-                      0.375,0.375 45.63,38.087 0.375,75.8 " />
-		    </svg>
-        </button>
+        <button class="arrow left"> </button>
+        <button class="arrow right"></button>
     </div>
     <div class="modal-window container hide">
         <div class="popup-close bw-ga" c="Innovation_Banner" a="Popup_Close_Clicked" l="@Model.InnovationBannerGALabel"></div>
@@ -101,6 +92,9 @@
             <div class="warranty-logo warranty-logo-inside popup-content" data-animation="fadeIn"></div>
             <div class="text-center popup-content margin-top10" data-animation="fadeIn">
                 <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699878&PluID=0&ord=@currentTimestamp" class="btn btn-orange btn-sm margin-right10 bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More</a>
+            </div>
+            <div class="popup-navigation popup-content" data-animation="fadeIn">
+                <span class="popup-navigation__span popup-navigation__span-right" data-click="1">View features >></span>
             </div>
         </div>
         <div class="banner2_popup campaign-advance-features banner-popup">
@@ -147,6 +141,10 @@
             <div class="text-center popup-content full-width" style="bottom: 40px;" data-animation="fadeIn">
                 <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699878&PluID=0&ord=@currentTimestamp" class="btn btn-orange btn-sm margin-right10 bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More</a>
             </div>
+            <div class="popup-navigation popup-content" data-animation="fadeIn">
+                <span class="popup-navigation__span popup-navigation__span-left" data-click="0"><< Previous</span>
+                <span class="popup-navigation__span popup-navigation__span-right" data-click="2">View 360 >></span>
+            </div>
         </div>
         <div class="banner3_popup banner-popup threesixty-view">
             <div class="hero-logo-inside popup-content no-animate">
@@ -154,6 +152,7 @@
                 <div class="text-black text-capitalize font20 text-bold position-abt" style="right: 40px; top: 20px;">360<sup>o</sup> View</div>
             </div>
             <div class="three-sixty-container popup-content no-animate">
+                <div class="threesixty-slider"></div>
                 <div class="threesixty car">
                     <div class="spinner">
                         <span>0%</span>
@@ -162,7 +161,7 @@
                 </div>
             </div>
             <div class="text-center margin-bottom15 popup-content color-container no-animate">
-                <p class="font14 padding-10-15">Available in below colours</p>
+                <p class="font14 padding-10-15 margin-top10 margin-bottom10">Available in below colours</p>
                 <div style="overflow:auto">
                     <ul style="width: 140%">
                         <li class="campaign-bike-color">
@@ -206,6 +205,9 @@
             </div>
             <div class="text-center popup-content full-width" style="bottom: 30px;" data-animation="fadeIn">
                 <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699878&PluID=0&ord=@currentTimestamp" class="btn btn-orange btn-sm margin-right10 bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More</a>
+            </div>
+            <div class="popup-navigation popup-content" data-animation="fadeIn">
+                <span class="popup-navigation__span popup-navigation__span-left" data-click="1"> << Advanced features</span>
             </div>
         </div>
     </div>
@@ -376,7 +378,8 @@ docReady(function () {
                 if ($(popupElem).find(".jcarousel").length) {
                     bannerAnimation.initializeCarousel();
                 }
-                if ($(popupElem).find(".three-sixty-container").length) {
+                var isThreeSixty = $(popupElem).find(".three-sixty-container");
+                if ($(isThreeSixty).length && !$(isThreeSixty).hasClass("started")) {
                     $(".modal-window").addClass("no-bg");
                     car = $('.car').ThreeSixty({
                         totalFrames: 24,
@@ -403,6 +406,12 @@ docReady(function () {
                 $(".modal-window, .black-window-animation, .popup-content, .banner-popup").hide();
                 docBody.unlockScroll();
             });
+        
+            $(".popup-navigation__span").on('click', function () {
+                $(".banner-popup, .popup-content, .banner-popup").hide();
+                $($(".avail-offer")[$(this).attr('data-click')]).trigger('click');
+            });
+
 
             bannerAnimation.showBanner("banner1");
             var startAnimteTime = setTimeout(function () {

@@ -2,471 +2,7 @@
 @{
     var currentTimestamp = DateTime.Now.ToString("o");
 }
-<style type="text/css">
-.animated{animation-duration:1s;animation-fill-mode:both}.animated.infinite{animation-iteration-count:infinite}.animated.hinge{animation-duration:2s}@@keyframes fadeInRight{from{opacity:0;transform:translate3d(100%,0,0)}to{opacity:1;transform:none}}.fadeInRight{animation-name:fadeInRight}@@keyframes zoomIn{from{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}.zoomIn{animation-name:zoomIn}
-
-
-@@keyframes move_background {
-    from {
-        background-position: 0 0;
-    } to {
-        background-position: -1136px 0;
-    }
-}
-@@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
-.container{
-    overflow: hidden;
-    position: relative;
-}
-
-.bg-animation {
-    position: relative;
-    width: 100%;
-    height: 70px;
-    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/bg-animation.png') repeat-x;
-    animation: move_background 8s linear infinite;
-}
-.vehicle-container {
-    width: 98px;
-    height: 70px;
-    position: relative;
-    left: -70px;
-}
-.vehicle-container__body {
-    width: 98px;
-    height: 70px;
-    display: inline-block;
-    position: absolute;
-    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/bike-body.png') no-repeat;
-    top: 14px;
-    left: -14px;
-}
-.vehicle-container__tyres {
-    display: inline-block;
-    position: absolute;
-    top: 70px;
-    left: 98px;
-}
-.tyre {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    border-radius: 30px;
-    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/tyre-msite.png') no-repeat;
-    -webkit-animation: spin 0.5s linear infinite;
-    -moz-animation: spin 0.5s linear infinite;
-    animation: spin 0.5s linear infinite;
-}
-.front-tyre {
-    top: -22px;
-    right: 35px;
-}
-.rear-tyre {
-    top: -23px;
-    right: 90px;
-}
-
-/* arrow*/
-button {
-    border: none;
-    background: none;
-    padding: 0;
-    margin: 0;
-    position: absolute;
-}
-button.left {
-    left: 15px;
-    top: 36px;
-}
-button.right {
-    right: 15px;
-    top: 36px;
-}
-
-/*containers*/
-
-.banner-screen {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: none;
-}
-.banner-screen div {
-    position: absolute;
-    top: 0;
-    display: none;
-}
-
-.banner-screen .banner-screen__content2 {
-    left: 34%;
-    top: 28%;
-    height: auto;
-    width: 90px;
-    line-height: 120%;
-}
-.banner-screen .banner-screen__content3 {
-    width: 90px;
-    height: auto;
-    top: 28%;
-    left: 63%;
-    line-height: 120%;
-}
-.banner-screen .banner-screen__content1 {
-    height: 40px;
-    width: 60px;
-    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/lb-logo.png');
-    background-size: cover;
-}
-.banner-screen .banner-screen__content4 {
-    top: 75%;
-    left: 63%;
-    color: #0288d1;
-    display: block;
-}
-
-.font-bold {
-    font-weight: 700;
-}
-.capitalize {
-    text-transform: capitalize;
-}
-
-/*banner1*/
-
-.popup-container {
-    height: 100%;
-    max-width: 400px;
-    margin: auto;
-    position: relative;
-}
-.banner1-image {
-    height: 290px;
-    width: 100%;
-    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/bike-collage.png') no-repeat center;
-}
-.banner-popup__make-icon {
-    width: 120px;
-    height: 74px;
-    display: inline-block;
-    vertical-align: middle;
-    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/popup-logo.png');
-    background-size: cover;
-}
-.benefit-list {
-    display: block;
-    height: auto;
-    padding: 0 20px 20px;
-}
-.benefit-list__head {
-    font-size: 13px;
-    font-weight: 600;
-    padding-bottom: 15px;
-}
-.benefit-list__ul {
-    margin: 0 15px 0;
-    list-style-type: disc;
-}
-.benefit-list__ul li {
-    margin-bottom: 10px;
-}
-.benefit-list__ul li:last-child {
-    margin-bottom: 0;
-}
-.warrantyunit-icon {
-    height: 50px;
-    width: 50px;
-    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/warranty.png') no-repeat;
-    background-size: cover;
-    display: inline-block;
-    vertical-align: middle;
-    width: 19%;
-}
-.banner__termscondition {
-    font-size: 9px;
-    color: #a1a1a1;
-    display: inline-block;
-    vertical-align: middle;
-    width: 79%;
-}
-.banner__explore-more {
-    display: block;
-    margin: 0 auto;
-    width: 80%;
-}
-.download-link {
-    text-align: center;
-    font-size: 14px;
-    display: block;
-    margin-top: 15px;
-}
-.view-more-link {
-    display: inline-block;
-    font-size: 14px;
-    float: right;
-    padding: 10px;
-}
-.view-prev-link {
-    display: inline-block;
-    font-size: 14px;
-    float: left;
-    padding: 10px;
-}
-.previous-link {
-    display: inline-block;
-    font-size: 14px;
-    float: left;
-}
-/*popup 2*/
-.banner-popup__top-block {
-    position: absolute;
-    width: 100%;
-}
-.banner-popup__top-head {
-    text-transform: uppercase;
-    font-size: 14px;
-    padding-left: 20px;
-    font-weight: 600;
-    display: inline-block;
-    vertical-align: middle;
-    padding-top: 5px;
-}
-.banner-popup__bottom-block {
-    clear: both;
-    padding: 15px 25px 15px;
-}
-.banner-element {
-    display: none;
-}
-/*popup*/
-.banner-popup {
-    display: none;
-    background: #fff;
-    position: fixed;
-    top: 0;
-    z-index: 9;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-}
-.banner1-popup,
-.banner2-popup,
-.banner3-popup {
-    height: 100%;
-    display: none;
-}
-/*close icon*/
-.popup-close {
-	position: absolute;
-	right: 20px;
-	top: 20px;
-	width: 18px;
-	height: 18px;
-    background-position: -36px -226px;
-	z-index: 10;	
-}
-/* swiper */
-.banner-popup__carousel {
-    padding-top: 90px;
-    padding-left: 5px;
-    margin-bottom: 35px;
-    position: relative;
-}
-.banner-photos-swiper.swiper-container {
-    text-align: center;
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-    padding-bottom: 30px;
-}
-.banner-photos-swiper .swiper-slide,
-.banner-photos-swiper .swiper-card {
-    width: 288px;
-    text-align: center;
-    margin-right: 5px;
-}
-.banner-photos-swiper .swiper-card {
-    margin-left: 0;
-    box-shadow: none;
-}
-.banner-photos-swiper .swiper-wrapper .swiper-slide:first-child {
-    margin-left: 0;
-}
-.banner-photos-swiper .swiper-image-preview {
-    height: 314px;
-    padding: 0;
-}
-.banner-photos-swiper img {
-    width: auto;
-    height: 314px;
-}
-.banner-photos-swiper.swiper-container-horizontal > .swiper-pagination {
-    bottom: 0;
-}
-.banner-photos-swiper .target-link {
-    text-align: center;
-}
-.banner-photos-swiper .swiper-pagination-bullet {
-    height: 8px;
-    width: 8px;
-}
-/*.warrantyunit-sm-icon {
-    height: 50px;
-    width: 50px;
-    background: url(https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/warranty-logo.png) no-repeat;
-    background-size: cover;
-    position: absolute;
-    bottom: -5px;
-    right: 42px;
-    z-index: 1;
-}*/
-
-/* Popup 3*/
-
-.font7 {
-    font-size: 7px;
-}
-
-.banner-popup__360view {
-    height: 380px;
-    padding-top: 80px;
-}
-.popup_varient-carousel {
-    height: 170px;
-    background: #f5f5f5;
-    text-align: center;
-    z-index: 2;
-}
-.popup_varient-carousel ul {
-    /*width: 100%;
-    display: table;*/
-    width: 100%;
-    display: block;
-    overflow-x: auto;
-}
-.popup_varient-carousel li {
-    width: 150px;
-    min-height: 95px;
-    display: table-cell;
-    width: 1%;
-    padding: 10px 15px;
-    text-align: center;
-    white-space: nowrap;
-    font-size: 14px;
-    color: #82888b;
-    cursor: pointer;
-}
-.varient-carousel__image-preview {
-
-}
-.varient-carousel__details-block {
-    font-size: 13px;
-    color: #a8afb3;
-    text-transform: capitalize;
-}
-/*buttons*/
-
-button {
-    border: none;
-    background: none;
-    padding: 0;
-    margin: 0;
-    position: absolute;
-}
-button.left {
-    height: 10px;
-    width: 10px;
-    border: solid black;
-    border-width: 0px 1px 1px 0px;
-    -webkit-transform: rotate(135deg);
-    -moz-transform: rotate(135deg);
-    -o-transform: rotate(135deg);
-    display: block;
-}
-/*button.right {
-    right: 0;
-    top: 20px;
-}*/
-button.right {
-    height: 10px;
-    width: 10px;
-    border: solid black;
-    border-width: 0px 1px 1px 0px;
-    -webkit-transform: rotate(320deg);
-    -moz-transform: rotate(320deg);
-    -o-transform: rotate(320deg);
-    display: block;
-}
-
-/*animate*/
-.animated {
-    animation-duration: 1s;
-    animation-fill-mode: both;
-}
-
-    .animated.infinite {
-        animation-iteration-count: infinite;
-    }
-
-    .animated.hinge {
-        animation-duration: 2s;
-    }
-
-@@keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translate3d(100%,0,0);
-    }
-
-    to {
-        opacity: 1;
-        transform: none;
-    }
-}
-
-.fadeInRight {
-    animation-name: fadeInRight;
-}
-
-@@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.fadeIn {
-  animation-name: fadeIn;
-}
-
-@@keyframes zoomIn {
-    from {
-        opacity: 0;
-        transform: scale3d(.3,.3,.3);
-    }
-
-    50% {
-        opacity: 1;
-    }
-}
-
-    .zoomIn {
-        animation-name: zoomIn;
-    }
-
-
-
-.font8 {
-    font-size: 8px;
-}
-</style>
+<link href='/css/threesixty-slider.css' rel='stylesheet' type='text/css' inline />
 <div class="container">
     <div class="bg-animation" data-screen="1">
         <div class="vehicle-container">
@@ -477,10 +13,8 @@ button.right {
             <span class="vehicle-container__body"></span>
         </div>
         <div id="banner1" class="banner-screen" data-position="10">
-            <div class="banner-screen__content1" data-animation="fadeInRight">
-                @*<span class="banner__make--icon"></span>*@
-            </div>
-            <div class="banner-screen__content2" data-animation="fadeIn">
+            <div class="banner-screen__content1 no-animate"></div>
+            <div class="banner-screen__content2" data-animation="fadeInRight">
                 <p class="font12 text-bold">New</p>
                 <p class="font13 capitalize font-bold">Maestro Edge</p>
             </div>
@@ -488,15 +22,14 @@ button.right {
                 <p class="font12 capitalize text-bold">limited festive offer</p>
             </div>
 
-            <div class="banner-screen__content4" data-animation="fadeInRight">
+            <div class="banner-screen__content4 no-animate">
                 <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
             </div>
         </div>
         <div id="banner2" class="banner-screen" data-position="10">
-            <div class="banner-screen__content1" data-animation="fadeInRight">
-                @*<span class="banner__make--icon"></span>*@
+            <div class="banner-screen__content1 no-animate">
             </div>
-            <div class="banner-screen__content2" data-animation="fadeIn">
+            <div class="banner-screen__content2" data-animation="fadeInRight">
                 <p class="font12 text-bold">New</p>
                 <p class="font13 capitalize font-bold">Maestro Edge</p>
             </div>
@@ -504,15 +37,14 @@ button.right {
                 <p class="font12 capitalize text-bold">Advanced features</p>
             </div>
 
-            <div class="banner-screen__content4" data-animation="fadeInRight">
+            <div class="banner-screen__content4 no-animate">
                 <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
             </div>
         </div>
         <div id="banner3" class="banner-screen" data-position="10">
-            <div class="banner-screen__content1"  data-animation="fadeInRight">
-                @*<span class="banner__make--icon"></span>*@
+            <div class="banner-screen__content1 no-animate">
             </div>
-            <div class="banner-screen__content2" data-animation="fadeIn">
+            <div class="banner-screen__content2" data-animation="fadeInRight">
                 <p class="font12 text-bold">New</p>
                 <p class="font13 capitalize font-bold">Maestro Edge</p>
             </div>
@@ -520,27 +52,19 @@ button.right {
                 <p class="font12 capitalize text-bold">experience 360<sup class="font8">o</sup> view</p>
             </div>
 
-            <div class="banner-screen__content4" data-animation="fadeInRight">
+            <div class="banner-screen__content4 no-animate">
                 <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
             </div>
         </div>
 
-        <button class="arrow left">
-            @*<svg width="20px" height="25px" viewBox="0 0 50 80" xml:space="preserve">
-            <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 " />
-		  </svg>*@
-        </button>
-        <button class="arrow right">
-            @*<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="25px" viewBox="0 0 50 80" xml:space="preserve">
-            <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8 " />
-		  </svg>*@
-        </button>
+        <button class="arrow left"></button>
+        <button class="arrow right"></button>
     </div>
     <div class="banner-popup">
         <span class="popup-close bwmsprite bw-ga" c="Innovation_Banner" a="Popup_Close_Clicked" l="@Model.InnovationBannerGALabel"></span>
         <div class="banner1-popup" data-flag="0">
             <div class="popup-container">
-                <div class="banner-popup__top-block  banner-element"  data-animation="fadeInRight">
+                <div class="banner-popup__top-block banner-element no-animate">
                     <span class="banner-popup__make-icon"></span>
                 </div>
                 <div class="banner1-image banner-element"  data-animation="fadeIn">
@@ -564,95 +88,111 @@ button.right {
                     </span>
                     <span class="warrantyunit-icon"></span>
                 </div>
-                <div class="grid-12 alpha omega margin-top5 banner-element"  data-animation="fadeInRight">
+                <div class="grid-12 alpha omega margin-top5 banner-element"  data-animation="fadeIn">
                     <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699877&PluID=0&ord=@currentTimestamp" class="btn btn-orange banner__explore-more bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know more</a>
                 </div>
                 <div class="grid-12 alpha omega margin-top10 banner-element" data-animation="fadeIn">
                     <a href="javascript:void(0)" class="view-more-link next-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel">View features >></a>
 
                 </div>
-                
             </div>
-
         </div>
-
         <div class="banner2-popup" data-flag="0">
             <div class="popup-container">
-                <div class="banner-popup__top-block  banner-element"  data-animation="fadeInRight">
+                <div class="banner-popup__top-block  banner-element no-animate">
                     <span class="banner-popup__make-icon"></span>
                     <span class="banner-popup__top-head">Advanced features</span>
                 </div>
                 <div class="banner-popup__carousel  banner-element swiper-block" data-animation="fadeIn">
-                    <p class="capitalize font13 padding-bottom10 font-bold padding-left5">top 5 hero maestro edge features</p>
+                    <p class="capitalize font15 padding-bottom10 font-bold padding-left5 text-center">top 5 hero maestro edge features</p>
                     <div id="banner-photos-swiper" class="swiper-container noSwiper banner-photos-swiper">
 
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
                                 <div class="swiper-card">
                                     <div class="swiper-image-preview">
-                                        <img src="/images/col1.jpg" alt="" title="" border="0" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/feature1.jpg?q=85" alt="Telephonic Front Suspension" title="Telephonic Front Suspension" border="0" />
                                     </div>
                                     <div class="swiper-details-block">
-                                        <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
+                                        <p class="target-link font13 text-truncate margin-bottom5 capitalize">Telephonic Front Suspension</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="swiper-card">
                                     <div class="swiper-image-preview">
-                                        <img src="/images/col1.jpg" alt="" title="" border="0" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/feature2.jpg?q=85" alt="Mobile Charging Port" title="Mobile Charging Port" border="0" />
                                     </div>
                                     <div class="swiper-details-block">
-                                        <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
+                                        <p class="target-link font13 text-truncate margin-bottom5 capitalize">Mobile Charging Port & Boot Light</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="swiper-card">
                                     <div class="swiper-image-preview">
-                                        <img src="/images/col1.jpg" alt="" title="" border="0" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/feature3.jpg?q=85" alt="Integrated Braking" title="Integrated Braking" border="0" />
                                     </div>
                                     <div class="swiper-details-block">
-                                        <p class="target-link font12 text-truncate margin-bottom5 capitalize">Always Headlamp On (AHO)</p>
+                                        <p class="target-link font13 text-truncate margin-bottom5 capitalize">Integrated Braking</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/feature4.jpg?q=85" alt="External Fuel Filling" title="External Fuel Filling" border="0" />
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="target-link font13 text-truncate margin-bottom5 capitalize">External Fuel Filling</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/feature5.jpg?q=85" alt="Bigger Front Wheel" title="Bigger Front Wheel" border="0" />
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="target-link font13 text-truncate margin-bottom5 capitalize">Bigger Front Wheel</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
-                    @*<span class="warrantyunit-sm-icon"></span>*@
                 </div>
-                <div class="grid-12 alpha omega margin-top5 banner-element" data-animation="fadeInRight">
+                <div class="grid-12 alpha omega margin-top5 banner-element" data-animation="fadeIn">
                     <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699877&PluID=0&ord=@currentTimestamp" class="btn btn-orange banner__explore-more bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know more</a>
                 </div>
                 <div class="grid-12 alpha omega margin-top10 banner-element" data-animation="fadeIn">
-                    <a href="javascript:void(0)" class="view-prev-link prev-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel"><< View offers</a>
- 
+                    <a href="javascript:void(0)" class="view-prev-link prev-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel"><< Previous</a>
                    <a href="javascript:void(0)" class="view-more-link next-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel">View 360 >></a>
-
                 </div>
-                @*<a href="javascript:void(0)" class="view-more-link banner-element bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel" >View features >></a>*@
-
             </div>
 
         </div>
-
-
         <div class="banner3-popup" data-flag="0">
             <div class="popup-container">
-                <div class="banner-popup__top-block  banner-element" data-animation="fadeInRight">
+                <div class="banner-popup__top-block  banner-element no-animate">
                     <span class="banner-popup__make-icon"></span>
                     <span class="banner-popup__top-head">360<sup class="font7">o</sup> view</span>
                 </div>
-                <div class="banner-popup__360view banner-element"  data-animation="fadeIn">
-
+                <div class="banner-popup__360view banner-element no-animate">
+                    <div class="threesixty-slider"></div>
+                    <div class="threesixty car">
+                        <div class="spinner">
+                            <span>0%</span>
+                        </div>
+                        <ol class="threesixty_images"></ol>
+                    </div>
                 </div>
-                <div class="popup_varient-carousel banner-element" data-animation="fadeInRight">
+                <div class="popup_varient-carousel banner-element" data-animation="fadeIn">
                     <div class="font14 text-x-light padding-top10 padding-bottom10">Available in below colors</div>
                     <ul>
                         <li>
                             <div class="varient-carousel__image-preview">
-                                <img src="/images/col3.png" alt="" title="" />
+                                <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color1.png?q=85" alt="" title="" />
                             </div>
                             <div class="varient-carousel__details-block">
                                 matte blue
@@ -660,7 +200,7 @@ button.right {
                         </li>
                         <li>
                             <div class="varient-carousel__image-preview">
-                                <img src="/images/col3.png" alt="" title="" />
+                                <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color2.png?q=85" alt="" title="" />
                             </div>
                             <div class="varient-carousel__details-block">
                                 matte blue
@@ -668,7 +208,7 @@ button.right {
                         </li>
                         <li>
                             <div class="varient-carousel__image-preview">
-                                <img src="/images/col3.png" alt="" title="" />
+                                <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color3.png?q=85" alt="" title="" />
                             </div>
                             <div class="varient-carousel__details-block">
                                 matte blue
@@ -676,7 +216,7 @@ button.right {
                         </li>
                         <li>
                             <div class="varient-carousel__image-preview">
-                                <img src="/images/col3.png" alt="" title="" />
+                                <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color4.png?q=85" alt="" title="" />
                             </div>
                             <div class="varient-carousel__details-block">
                                 matte blue
@@ -684,7 +224,39 @@ button.right {
                         </li>
                         <li>
                             <div class="varient-carousel__image-preview">
-                                <img src="/images/col3.png" alt="" title="" />
+                                <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color5.png?q=85" alt="" title="" />
+                            </div>
+                            <div class="varient-carousel__details-block">
+                                matte blue
+                            </div>
+                        </li>
+                        <li>
+                            <div class="varient-carousel__image-preview">
+                                <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color6.png?q=85" alt="" title="" />
+                            </div>
+                            <div class="varient-carousel__details-block">
+                                matte blue
+                            </div>
+                        </li>
+                        <li>
+                            <div class="varient-carousel__image-preview">
+                                <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color7.png?q=85" alt="" title="" />
+                            </div>
+                            <div class="varient-carousel__details-block">
+                                matte blue
+                            </div>
+                        </li>
+                        <li>
+                            <div class="varient-carousel__image-preview">
+                                <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color8.png?q=85" alt="" title="" />
+                            </div>
+                            <div class="varient-carousel__details-block">
+                                matte blue
+                            </div>
+                        </li>
+                        <li>
+                            <div class="varient-carousel__image-preview">
+                                <img src="https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color9.png?q=85" alt="" title="" />
                             </div>
                             <div class="varient-carousel__details-block">
                                 matte blue
@@ -694,22 +266,18 @@ button.right {
                     </ul>
 
                 </div>
-                <div class="grid-12 alpha omega margin-top5 banner-element" data-animation="fadeInRight">
+                <div class="grid-12 alpha omega margin-top5 banner-element" data-animation="fadeIn">
                     <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699877&PluID=0&ord=@currentTimestamp" class="btn btn-orange banner__explore-more bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know more</a>
                 </div>
                 <div class="grid-12 alpha omega banner-element" data-animation="fadeIn">
                     <a href="javascript:void(0)" class="view-prev-link prev-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel"><< View features</a>
-
                 </div>
-                @*<a href="javascript:void(0)" class="view-more-link banner-element bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel" >View features >></a>*@
-
             </div>
-
         </div>
-
     </div>
     <img src="https://bs.serving-sys.com/serving/adServer.bs?cn=display&c=19&mc=imp&pli=22699877&PluID=0&ord=@currentTimestamp&rtu=-1" class="hide" />
 </div>
+
 <script type="text/javascript">
     docReady(function () {
         try {
@@ -734,64 +302,56 @@ button.right {
                 return this;
             }
         });
-
-
-        //carousel
-
         var bannercarousel = new Swiper('.banner-photos-swiper.swiper-container', {
             direction: 'horizontal',
             pagination: '.swiper-pagination',
             centeredSlides: true,
             paginationClickable: true,
-            slidesPerView: 'auto'
+            slidesPerView: 'auto',
+            preloadImages: false,
+            lazyLoading: true,
+            lazyLoadingInPrevNextAmount: 1
         });
 
         function animateBannerContent(elemId) {
-
             var firstElem = $("#" + elemId + " .banner-screen__content1");
             recursiveAnimate(firstElem);
         }
 
         function recursiveAnimate(elem) {
-
             var nextElem = $(elem).next();
-
-            if ($(elem).attr('class') != 'banner-screen__content4') {
-                //if (nextElem.length >= 0) {
-                    if (navigator.userAgent.indexOf('UCBrowser') > 0) {
-                        $(elem).show();
-                        if (nextElem.length > 0) {
-                            recursiveAnimate($(nextElem));
-                        }
-                    } else {
-                        animateContent($(elem), ""+$(elem).attr('data-animation')+"", function () {
-                            var nextElem = $(elem).next();
-                            if (nextElem.length > 0) {
-                                recursiveAnimate($(nextElem));
-                            }
-                        });
+            if (navigator.userAgent.indexOf('UCBrowser') > 0 || $(elem).hasClass("no-animate")) {
+                $(elem).show();
+                if (nextElem.length > 0) {
+                    recursiveAnimate($(nextElem));
+                }
+            } else {
+                animateContent($(elem), "" + $(elem).attr('data-animation') + "", function () {
+                    var nextElem = $(elem).next();
+                    if (nextElem.length > 0) {
+                        recursiveAnimate($(nextElem));
                     }
-                //}
+                });
             }
-
-            
         }
         function animateContent(element, animationName, callBack) {
             $(element).show().animateCss(animationName, callBack);
         }
 
         function showBanner(bannerId) {
-            $(".banner-screen, .banner-screen div").not('.banner-screen__content4').hide();
-            //$('.banner-screen__content4').show();
+            $(".banner-screen, .banner-screen div").not('.no-animate').hide();
             $("#" + bannerId).show();
         }
 
-        $(".vehicle-container").animate({
-            'left': "50px"
-        }, function () {
-            showBanner("banner1");
-            animateBannerContent("banner1");
-        });
+        showBanner("banner1");
+        var initTimeout = setTimeout(function () {
+            $(".vehicle-container").animate({
+                'left': "50px"
+            }, function () {
+                animateBannerContent("banner1");
+            });
+            clearTimeout(initTimeout);
+        }, 3000);
 
         function popupClose(element) {
             var popupContainer = element.closest('.popup-container');
@@ -812,13 +372,27 @@ button.right {
         $(".expand-popup").on('click', function () {
             var popupBannerId = $(this).closest('.banner-screen').attr('id');
             var bannerPopup = $(this).closest('.container').find('.banner-popup');
+            var isThreeSixty = $("." + popupBannerId + "-popup").find(".banner-popup__360view");
+            if ($(isThreeSixty).length && !$(isThreeSixty).hasClass("started")) {
+                $(isThreeSixty).addClass("started");
+                car = $('.car').ThreeSixty({
+                    totalFrames: 24,
+                    endFrame: 24,
+                    currentFrame: 2,
+                    imgList: '.threesixty_images',
+                    progress: '.spinner',
+                    imagePath: 'https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/360-images/',
+                    filePrefix: '',
+                    ext: '.jpg',
+                    height: 180,
+                    width: 245
+                });
+            }
             bannerPopup.show();
-
             recursiveAnimate($('.' + popupBannerId + '-popup .popup-container').children()[0]);
-
-            bannerPopup.find('.' + popupBannerId + '-popup').attr('data-flag', '1').show();
-            //bannerPopup.find('.' + popupBannerId + '-popup').attr('data-flag', '1');
-
+            bannerPopup.find('.' + popupBannerId + '-popup').attr('data-flag', '1').show(function () {
+                $('.' + popupBannerId + '-popup img.lazy').lazyload();
+            });
             $('body').addClass('lock-browser-scroll');
             window.history.pushState('addPopup', "", "");
         });
@@ -903,3 +477,4 @@ button.right {
     });
 
 </script>
+<script type="text/javascript" src="/src/threesixty-slider.js" defer></script>

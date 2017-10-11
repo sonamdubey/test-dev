@@ -33,18 +33,23 @@
 }
 button {
     border: none;
-    background: none;
     padding: 0;
     margin: 0;
     position: absolute;
+    cursor: pointer;
+    top: 36px;
 }
 button.left {
-    left: 0;
-    top: 20px;
+    left: 140px;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/arrows.png) no-repeat -43px -48px;
+    width: 30px;
+    height: 40px;
 }
 button.right {
-    right: 0;
-    top: 20px;
+    right: 20px;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/arrows.png) no-repeat -105px -48px;
+    width: 30px;
+    height: 40px;
 }
 .maestro-animation-container .no-animate {
     display: block;
@@ -413,9 +418,33 @@ button.right {
 }
 .three-sixty-container {
     width: 100%;
-    top: 80px;
+    top: 55px;
 }
 .no-bg{
     background-image: none;
+}
+.threesixty-slider {
+    width: 100%;
+    height: 118px;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/desktop-slider-threesixty.png) no-repeat center;
+    position: absolute;
+    top: 157px;
+}
+.popup-navigation {
+    bottom: 20px;
+    width: 100%;
+}
+.popup-navigation__span {
+    color: #0288d1;
+    font-size: 14px;
+    cursor: pointer;
+}
+.popup-navigation__span-right {
+    float: right;
+    margin-right: 40px;
+}
+.popup-navigation__span-left {
+    float: left;
+    margin-left: 40px;
 }
 .animated{animation-duration:1s;animation-fill-mode:both}.animated.infinite{animation-iteration-count:infinite}.animated.hinge{animation-duration:2s}@keyframes fadeInRight{from{opacity:0;transform:translate3d(100%,0,0)}to{opacity:1;transform:none}}.fadeInRight{animation-name:fadeInRight}@keyframes zoomIn{from{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}.zoomIn{animation-name:zoomIn}@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}.fadeIn{animation-name:fadeIn;}
