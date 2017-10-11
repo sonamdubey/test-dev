@@ -261,7 +261,7 @@ docReady(function () {
 
     if ($('#section-review-details').length > 0) {
         makeid = $('#section-review-details').attr('data-makeid');
-        modelid = $('#section-review-details').attr('data-modelId');        
+        modelid = $('#section-review-details').attr('data-modelId');
     }
     else {
         makeid = $('#section-review-list').attr('data-makeid');
@@ -818,10 +818,8 @@ docReady(function () {
 
         self.init = function () {
             if (!self.IsInitialized()) {
-
                 self.IsInitialized(true);
                 ko.applyBindings(self, $("#popular-bikes-widget")[0]);
-
                 self.fetchPopularBikes();
             }
         };
@@ -871,10 +869,8 @@ docReady(function () {
 
         self.init = function () {
             if (!self.IsInitialized()) {
-
                 self.IsInitialized(true);
                 ko.applyBindings(self, $("#popular-bodystyle-bikes-list")[0]);
-
                 self.fetchPopularBikesByBodyStyle();
             }
         };
@@ -884,7 +880,7 @@ docReady(function () {
                 type: "GET",
                 url: "/api/popularbikesbybodystyle/" + modelid + "/12/?cityId=" + globalCityId,
                 success: function (response) {
-                    self.bikeList(JSON.parse(response));                    
+                    self.bikeList(JSON.parse(response));
                     $('#popular-bodystyle-bikes-list .swiper-container:not(".noSwiper")').each(function (index, element) {
                         $(this).addClass('sw-' + index);
                         $('.sw-' + index).swiper({
@@ -929,7 +925,7 @@ docReady(function () {
     $(".tabs-type-switch").click(function (e) {
 
         if (e.target.getAttribute('data-tabs') == 'expertReviewContent') {
-            triggerGA("User_Reviews", "Clicked_Toggle_UserReviews", makeName + "_" + modelName);
+            triggerGA("User_Reviews", "Clicked_Toggle_ExpertReviews", makeName + "_" + modelName);
 
             var bikeReviewsListTemplate = bwcache.get("BikeReviewsListTemplate")
             if (bikeReviewsListTemplate) {
@@ -939,24 +935,24 @@ docReady(function () {
                 vmModelPopularBikesBodyStyle.init();
             }
             else {
-                $("#popular-bikes-widget").load("/Templates/BikesSwiperList_Mobile.html", function (responseTxt, statusTxt, xhr) {
-                    if (statusTxt == "success") {
-                        bwcache.set("BikeReviewsListTemplate", responseTxt, true);
-                        $("#popular-bodystyle-bikes-list").html(responseTxt);
-                        vmModelPopularBikes.init();
-                        vmModelPopularBikesBodyStyle.init();
-                    }
-                });
+                if (vmModelPopularBikes.bikeList().length == 0) {
+                    $("#popular-bikes-widget").load("/Templates/BikesSwiperList_Mobile.html", function (responseTxt, statusTxt, xhr) {
+                        if (statusTxt == "success") {
+                            bwcache.set("BikeReviewsListTemplate", responseTxt, true);
+                            $("#popular-bodystyle-bikes-list").html(responseTxt);
+                            vmModelPopularBikes.init();
+                            vmModelPopularBikesBodyStyle.init();
+                        }
+                    });
+                }
             }
         }
-        else
-        {
+        else {
             triggerGA("User_Reviews", "Clicked_Toggle_UserReviews", makeName + "_" + modelName);
         }
     });
 
-    if(parseInt(expertReviewCount) > 0)
-    {
+    if (parseInt(expertReviewCount) > 0) {
         triggerGA("User_Reviews", "Toggle_Appeared_on_PageLoad", makeName + "_" + modelName);
     }
 
