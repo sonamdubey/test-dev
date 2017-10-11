@@ -37,7 +37,7 @@ var popupGallery = {
         gallerySwiper.update(true);
         thumbnailSwiperEvents.focusGallery(gallerySwiper, imageIndex);
 
-        if (returnUrl && returnUrl.length <= 0) {
+        if (returnUrl.length <= 0) {
             window.location.hash = 'photosGallery';
         }
     }

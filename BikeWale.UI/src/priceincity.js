@@ -20,7 +20,9 @@ docReady(function () {
     //Gallery open and close
     $("#imageTopCard").click(function () {
         try {
-            popupGallery.bindGallery(0);
+            if (photoCount > 0 || videoCount > 0) {
+                popupGallery.bindGallery(0);
+            }
             triggerGA($(this).data("c"), $(this).data("a"), $(this).data("l"));
         } catch (e) {
             console.warn(e);

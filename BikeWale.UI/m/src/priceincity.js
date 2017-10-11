@@ -64,9 +64,12 @@ docReady(function () {
         //Gallery open and close
 		$("#imageTopCard").click(function () {
 		    try {
-		        galleryRoot.find('.gallery-loader-placeholder').show();
-		        popupGallery.bindGallery(0);
-		        galleryRoot.find('.gallery-loader-placeholder').hide();
+		        if (photoCount > 0 || videoCount > 0) {
+		            galleryRoot.find('.gallery-loader-placeholder').show();
+		            popupGallery.bindGallery(0);
+		            galleryRoot.find('.gallery-loader-placeholder').hide();
+		        }
+		        
 		        triggerGA($(this).data("c"), $(this).data("a"), $(this).data("l"));
 		    } catch (e) {
 		        console.warn(e);
