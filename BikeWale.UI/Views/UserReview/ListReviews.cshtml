@@ -149,7 +149,10 @@
                     <p class="contest-fullwidth__subheading">Rate &amp; write a detailed review to win Amazon vouchers worth &#x20B9; 2,000</p>
                 </div>
                 <div class="rightfloat padding-top15">
-                    <a href="/bike-review-contest/" class="btn btn-inv-teal contest-fullwidth__target">Participate &amp; win<span class="bwsprite teal-right"></span></a>
+                    @{
+                        string q = EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)UserReviewPageSourceEnum.Desktop_UserReview_Listing));
+                    }
+                    <a href="@string.Format("/bike-review-contest/?q={0}",q)" class="btn btn-inv-teal contest-fullwidth__target">Participate &amp; win<span class="bwsprite teal-right"></span></a>
                 </div>
                 <div class="clear"></div>
             </div>

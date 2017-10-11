@@ -22,7 +22,7 @@ namespace BikewaleAutoSuggest
                 using (DbCommand cmd = DbFactory.GetDBCommand("getautosuggestmakemodellist_31072017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                  
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {

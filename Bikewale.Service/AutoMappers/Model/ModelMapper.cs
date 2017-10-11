@@ -548,5 +548,86 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<Entities.CMS.Photos.ColorImageBaseEntity, Bikewale.DTO.Model.ColorImageBaseDTO>();
             return Mapper.Map<IEnumerable<ColorImageBaseEntity>, IEnumerable<ColorImageBaseDTO>>(imageList);
         }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 4th Oct 2017
+        /// Summary : Map BikeModelPage to gallery component
+        /// </summary>
+        /// <param name="objModelPage"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        internal static ModelGallery ConvertToModelGallery(BikeModelPageEntity objModelPage, int modelId)
+        {
+            ModelGallery objModelGallery = new ModelGallery();
+            if(objModelPage != null)
+            {
+                ICollection<ModelGalleryComponent> objGalleryComponent = new List<ModelGalleryComponent>();
+                if(objModelPage.ModelDetails != null)
+                {
+                    if (objModelPage.ModelDetails.PhotosCount > 0)
+                    {
+                        objGalleryComponent.Add(
+                                new ModelGalleryComponent()
+                                {
+                                    CategoryId = 1,
+                                    CategoryName = "Photos",
+                                    CategoryCount = objModelPage.ModelDetails.PhotosCount,
+                                    DataUrl = string.Format("api/model/{0}/photos/", modelId)
+                                }
+                            );
+                    }
+
+                    if (objModelPage.ModelDetails.VideosCount > 0)
+                    {
+                        objGalleryComponent.Add(
+                                new ModelGalleryComponent()
+                                {
+                                    CategoryId = 2,
+                                    CategoryName = "Videos",
+                                    CategoryCount = objModelPage.ModelDetails.VideosCount,
+                                    DataUrl = string.Format("api/v2/videos/pn/1/ps/{0}/model/{1}/", objModelPage.ModelDetails.VideosCount, modelId)
+                                }
+                            );
+                    }
+
+                    if (objModelPage.colorPhotos.Any())
+                    {
+                        objGalleryComponent.Add(
+                                new ModelGalleryComponent()
+                                {
+                                    CategoryId = 3,
+                                    CategoryName = "Colours",
+                                    CategoryCount = objModelPage.colorPhotos.Count(),
+                                    DataUrl = string.Format("api/model/{0}/colorphotos/", modelId)
+                                }
+                            );
+                    }
+                }
+
+                var component = objGalleryComponent.FirstOrDefault();
+
+                if(component != null)
+                {
+                    objModelGallery.SelectedCategoryId = component.CategoryId;
+                    objModelGallery.GalleryComponents = objGalleryComponent;
+                } 
+            }
+            
+            return objModelGallery;
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 5th Oct 2017
+        /// Summary : Map Model color Image entity to dto
+        /// </summary>
+        /// <param name="objAllPhotosEntity"></param>
+        /// <returns></returns>
+        internal static IEnumerable<ModelColorPhoto> Convert(IEnumerable<ModelColorImage> objAllPhotosEntity)
+        {
+            Mapper.CreateMap<ColorCodeBase, ColorCode>();
+            Mapper.CreateMap<ModelColorImage, ModelColorPhoto>()
+                .ForMember(dest => dest.ModelColorId, opt => opt.MapFrom(src => src.Id)); 
+            return Mapper.Map<IEnumerable<ModelColorImage>, IEnumerable<ModelColorPhoto>>(objAllPhotosEntity);
+        }
     }
 }

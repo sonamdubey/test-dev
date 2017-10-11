@@ -93,10 +93,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ElasticSearch\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -415,6 +414,7 @@
       <DependentUpon>ViewReview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\BikeSeriesController.cs" />
     <Compile Include="Controllers\DealerBikePriceController.cs" />
     <Compile Include="Controllers\ComparisonController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
@@ -464,6 +464,7 @@
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Models\BikeSeries\BikeSeriesPageModel.cs" />
     <Compile Include="Models\DealerBikePrice\DealerPricingIndexPageModel.cs" />
     <Compile Include="Models\DealerBikePrice\DealerPricingSheetPageModel.cs" />
     <Compile Include="Models\Banner\Banner.cs" />
@@ -1941,6 +1942,7 @@
     <Content Include="src\AjaxFunctions.js" />
     <Content Include="src\Banner.js" />
     <Content Include="src\BannerList.js" />
+    <Content Include="src\BikeSeries\BikeSeries.js" />
     <Content Include="src\bt.js" />
     <Content Include="src\calender.js" />
     <Content Include="src\chains.js" />
@@ -2038,6 +2040,8 @@
     <Content Include="Views\PageMetas\Search_Index.cshtml" />
     <Content Include="Views\PageMetas\Index.cshtml" />
     <Content Include="Views\ServiceCenter\AddServiceCenter.cshtml" />
+    <Content Include="Views\BikeSeries\Index.cshtml" />
+    <Content Include="packages.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

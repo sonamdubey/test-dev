@@ -249,7 +249,12 @@
     <Compile Include="Model\Features.cs" />
     <Compile Include="Model\ImageBaseEntity.cs" />
     <Compile Include="Model\ModelColor.cs" />
+    <Compile Include="Model\ColorCode.cs" />
+    <Compile Include="Model\ModelColorDTO.cs" />
+    <Compile Include="Model\ModelColorPhoto.cs" />
     <Compile Include="Model\ModelDetail.cs" />
+    <Compile Include="Model\ModelGallery.cs" />
+    <Compile Include="Model\ModelGalleryComponent.cs" />
     <Compile Include="Model\NewModelColor.cs" />
     <Compile Include="Model\Overview.cs" />
     <Compile Include="Model\Specifications.cs" />
@@ -429,6 +434,8 @@
     <Compile Include="Version\VersionList.cs" />
     <Compile Include="Version\VersionMinSpecs.cs" />
     <Compile Include="Version\VersionSpecifications.cs" />
+    <Compile Include="Videos\v2\VideoBase.cs" />
+    <Compile Include="Videos\v2\VideosList.cs" />
     <Compile Include="Videos\VideoBase.cs" />
     <Compile Include="Videos\VideosList.cs" />
     <Compile Include="Widgets\MostPopularBikes.cs" />

@@ -1,4 +1,8 @@
-﻿function applyLazyLoad() {
+﻿var videosPageSize = 40;
+var videoiFrame = document.getElementById("video-iframe");
+var mainImgIndexA;
+
+function applyLazyLoad() {
     $("img.lazy").lazyload({
         event: "imgLazyLoad",
         effect: "fadeIn"
@@ -109,12 +113,10 @@ function applyCarousel() {
     applyLazyLoad();
 };
 
-var videosPageSize = 40;
-
 var fallbackModelGallery = function () {
     var self = this;
 
-    self.photoList = ko.observableArray(modelImages);
+    self.photoList = ko.observableArray(modelImages || []);
     self.videoList = ko.observableArray([]);
 
     self.getAllVideos = function () {
@@ -139,10 +141,6 @@ var fallbackModelGallery = function () {
     applyCarousel();
 };
 
-var vmFallbackGallery = new fallbackModelGallery();
-
-ko.applyBindings(vmFallbackGallery, document.getElementById('fallback-model-gallery'));
-
 var fallbackGallery = {
     open: function (imageIndex) {
         $('.blackOut-window-model').show();
@@ -162,37 +160,6 @@ var fallbackGallery = {
         }
     }
 }
-
-$(".photos-next-stage").click(function () {
-    getImageNextIndex();
-});
-
-$(".photos-prev-stage").click(function () {
-    getImagePrevIndex();
-});
-
-$(".carousel-navigation-photos").click(function () {
-    getImageIndex();
-});
-
-$(".modelgallery-close-btn").click(function () {
-    fallbackGallery.close();
-    if (videoiFrame != undefined) {
-        videoiFrame.setAttribute("src", "");
-    }
-});
-
-var setGalleryImage = function (currentImgIndex) {
-    $(".carousel-stage-photos").jcarousel('scroll', currentImgIndex);
-    getImageDetails();
-};
-
-var mainImgIndexA;
-
-$(".carousel-stage ul li").click(function () {
-    mainImgIndexA = $(".carousel-navigation ul li.active").index();
-    setGalleryImage(mainImgIndexA);
-});
 
 var setGalleryImage = function (currentImgIndex) {
     $(".carousel-stage-photos").jcarousel('scroll', currentImgIndex);
@@ -235,38 +202,70 @@ var setImageDetails = function (imgTitle, imgIndex) {
     }
 }
 
-// videos
-var videoiFrame = document.getElementById("video-iframe");
-
-$('#videos-tab').click(function () {
-    vmFallbackGallery.getAllVideos();
-});
-
 var firstVideo = function () {
     var a = $(".carousel-navigation-videos ul").first("li");
     var newSrc = a.find("img").attr("iframe-data");
     videoiFrame.setAttribute("src", newSrc);
 };
 
-$(".carousel-navigation-videos ul").on('click', 'li', function () {
-    $(this).siblings().removeClass("active");
-    $(this).addClass("active");
-    var newSrc = $(this).find("img").attr("iframe-data");
-    videoiFrame.setAttribute("src", newSrc);
-});
 
-$(document).on("keydown", function (event) {
-    var blackModel = $(".blackOut-window-model");
-    var bikegallerypopup = $(".bike-gallery-popup");
-    if (bikegallerypopup.is(":visible")) {
-        if(event.keyCode === 27) {
-            $(".modelgallery-close-btn").click();
+docReady(function () {
+
+    var vmFallbackGallery = new fallbackModelGallery();
+    ko.applyBindings(vmFallbackGallery, document.getElementById('fallback-model-gallery'));
+
+
+    $(".carousel-stage ul li").click(function () {
+        mainImgIndexA = $(".carousel-navigation ul li.active").index();
+        setGalleryImage(mainImgIndexA);
+    });
+
+
+    $(".photos-next-stage").click(function () {
+        getImageNextIndex();
+    });
+
+    $(".photos-prev-stage").click(function () {
+        getImagePrevIndex();
+    });
+
+    $(".carousel-navigation-photos").click(function () {
+        getImageIndex();
+    });
+
+    $(".modelgallery-close-btn").click(function () {
+        fallbackGallery.close();
+        if (videoiFrame != undefined) {
+            videoiFrame.setAttribute("src", "");
         }
-        if (event.keyCode === 39 && $("#photos-tab").hasClass("active")) {
-            $(".photos-next-stage").click();
+    });
+
+    $('#videos-tab').click(function () {
+        vmFallbackGallery.getAllVideos();
+    });
+
+    $(".carousel-navigation-videos ul").on('click', 'li', function () {
+        $(this).siblings().removeClass("active");
+        $(this).addClass("active");
+        var newSrc = $(this).find("img").attr("iframe-data");
+        videoiFrame.setAttribute("src", newSrc);
+    });
+
+    $(document).on("keydown", function (event) {
+        var blackModel = $(".blackOut-window-model");
+        var bikegallerypopup = $(".bike-gallery-popup");
+        if (bikegallerypopup.is(":visible")) {
+            if (event.keyCode === 27) {
+                $(".modelgallery-close-btn").click();
+            }
+            if (event.keyCode === 39 && $("#photos-tab").hasClass("active")) {
+                $(".photos-next-stage").click();
+            }
+            if (event.keyCode === 37 && $("#photos-tab").hasClass("active")) {
+                $(".photos-prev-stage").click();
+            }
         }
-        if (event.keyCode === 37 && $("#photos-tab").hasClass("active")) {
-            $(".photos-prev-stage").click();
-        }
-    }   
+    });
+
+
 });

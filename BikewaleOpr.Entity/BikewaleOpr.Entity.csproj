@@ -124,6 +124,8 @@
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeModelMailEntity.cs" />
     <Compile Include="BikeData\BikeModelsByMake.cs" />
+    <Compile Include="BikeData\BikeSeriesEntity.cs" />
+    <Compile Include="BikeData\BikeSeriesEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
     <Compile Include="BikeData\OprNotificationType.cs" />
