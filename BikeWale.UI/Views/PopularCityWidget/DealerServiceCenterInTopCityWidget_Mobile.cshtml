@@ -4,15 +4,11 @@
 
 @if (Model != null && Model.DealerServiceCenters != null)
 {
-    var flag = false;
+   
     <div class="swiper-wrapper">
        @foreach (var details in Model.DealerServiceCenters.DealerDetails)
        {
            if ((Model.IsServiceCenterPage && details.ServiceCenterCount > 0) || (!Model.IsServiceCenterPage && details.DealerCount > 0))
-           {
-               flag = true;
-           }
-           if (flag)
            {
             <div class="swiper-slide">
                 <div class="swiper-card">
@@ -43,7 +39,6 @@
             </div>
 
            }
-           flag = false;
        }
     </div>
 }
