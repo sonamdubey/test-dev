@@ -33,6 +33,68 @@ namespace Grpc.CMS
             return DateTime.UtcNow.Add(TimeSpan.FromMilliseconds(incrementMillisecond));
         }
 
+        public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx)
+        {
+            Stopwatch sw = null;
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
+                    {
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+                            return client.GetContentListByCategory(new GrpcArticleByCatURI()
+                            {
+                                ApplicationId = 2,
+                                CategoryIdList = catIdList,
+                                EndIndex = endIdx,
+                                StartIndex = startIdx
+                            },
+                          null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
+                            {
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
+                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                            }
+                            else
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
+                    }
+                    else
+                        break;
+                }
+
+
+                return null;
+            }
+            finally
+            {
+                if (_logGrpcErrors)
+                {
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetArticleListByCategory took " + sw.ElapsedMilliseconds);
+                }
+            }
+
+        }
+
         public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx, int makeid = 0, int modelid = 0)
         {
             Stopwatch sw = null;
@@ -131,7 +193,7 @@ namespace Grpc.CMS
                                 CategoryIdList = catIdList,
                                 EndIndex = endIdx,
                                 MakeId = makeid,
-                                ModelIds = modelIds,
+                                //ModelIds = modelIds,
                                 StartIndex = startIdx
                             },
                           null, GetForwardTime(m_ChanelWaitTime));
@@ -358,7 +420,7 @@ namespace Grpc.CMS
                                     ApplicationId = 2,
                                     ContentTypes = contenTypes,
                                     TotalRecords = (uint)totalRecords,
-                                    ModelIds = String.IsNullOrEmpty(modelIds) ? string.Empty : modelIds,
+                                    //ModelIds = String.IsNullOrEmpty(modelIds) ? string.Empty : modelIds,
                                 },
                                  null, GetForwardTime(m_ChanelWaitTime));
                         }
@@ -499,7 +561,7 @@ namespace Grpc.CMS
                                 (new GrpcArticleRecentURI()
                                 {
                                     MakeId = makeId == null ? 0 : makeId.Value,
-                                    ModelIds = modelIds,
+                                    //ModelIds = modelIds,
                                     ApplicationId = 2,
                                     ContentTypes = contenTypes,
                                     TotalRecords = (uint)totalRecords,
@@ -1392,6 +1454,70 @@ namespace Grpc.CMS
             }
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 20-Sep-2017
+        /// Description :  GRPC method to get author list.
+        /// </summary>
+        /// <param name="applicationId"></param>
+        /// <returns></returns>
+        public static GrpcAuthorList GetAuthorsList(int applicationId)
+        {
+            Stopwatch sw = null;
+            try
+            {
+                if (_logGrpcErrors)
+                    sw = Stopwatch.StartNew();
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
+                    {
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+                            return client.GetAuthorsList(new GrpcInt()
+                            {
+                                ApplicationId = applicationId
+                            },
+                          null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
+                            {
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
+                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                            }
+                            else
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
+                    }
+                    else
+                        break;
+                }
+
+                return null;
+            }
+            finally
+            {
+                if (_logGrpcErrors && sw != null)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetAuthorsList took " + sw.ElapsedMilliseconds);
+                }
+            }
+        }
+
+
+
         public static GrpcBool ClearMemCachedKEys(EditCMSCategoryEnum cat)
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
@@ -1429,6 +1555,220 @@ namespace Grpc.CMS
                     break;
             }
             return null;
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 19th Sep 2017
+        /// Summary : Get author details w.r.t. author id
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <returns></returns>
+        public static GrpcAuthor GetAuthorDetails(int authorId)
+        {
+            Stopwatch sw = null;
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
+                    {
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+                            return client.GetAuthorDetails(new GrpcInt()
+                            {
+                                IntOutput = authorId,
+                                ApplicationId = 2
+                            }, null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
+
+                            if (i > 0)
+                            {
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
+                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                            }
+                            else
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
+                        }
+                    }
+                    else
+                        break;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
+                return null;
+            }
+            finally
+            {
+                if (_logGrpcErrors)
+                {
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetAuthorDetails took " + sw.ElapsedMilliseconds);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 19th Sep 2017
+        /// Summary : Get Content List by Author
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <param name="applicationId"></param>
+        /// <param name="categoryList"></param>
+        /// <returns></returns>
+        public static GrpcAuthorContentList GetContentByAuthor(int authorId, int applicationId, string categoryList)
+        {
+            Stopwatch sw = null;
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
+                    {
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+                            return client.GetContentByAuthor(new GrpcContentByAuthorURI()
+                            {
+                                AuthorId = authorId,
+                                ApplicationId = applicationId,
+                                Categoryids = categoryList
+                            }, null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+
+                            if (i > 0)
+                            {
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
+                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                            }
+                            else
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                        }
+                    }
+                    else
+                        break;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                return null;
+            }
+            finally
+            {
+                if (_logGrpcErrors)
+                {
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetContentByAuthor took " + sw.ElapsedMilliseconds);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 20th Sep 2017
+        /// Summary : Get List of other authors
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <param name="applicationId"></param>
+        /// <returns></returns>
+        public static GrpcAuthorList GetAllOtherAuthors(int authorId, int applicationId)
+        {
+            Stopwatch sw = null;
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
+                    {
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+                            return client.GetAllOtherAuthors(new GrpcContentByAuthorURI()
+                            {
+                                AuthorId = authorId,
+                                ApplicationId = applicationId
+                            }, null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+
+                            if (i > 0)
+                            {
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
+                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                            }
+                            else
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                            ErrorClass objErr = new ErrorClass(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                        }
+                    }
+                    else
+                        break;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                return null;
+            }
+            finally
+            {
+                if (_logGrpcErrors)
+                {
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetContentByAuthor took " + sw.ElapsedMilliseconds);
+                }
+            }
         }
     }
 }

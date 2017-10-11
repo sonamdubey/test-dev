@@ -6,19 +6,25 @@ var eleGallery, vmModelGallery, colorIndex = 0, galleryRoot;
 var photoCount, videoCount, modelName, imageIndex, colorImageId, returnUrl, isColorImageSet = false;
 var thumbnailSwiperEvents, gallerySwiper, colorGallerySwiper, thumbnailSwiper, colorThumbnailSwiper, videoThumbnailSwiper, videoListEvents;
 
-
 var setPageVariables = function () {
     eleGallery = $("#pageGallery");
 
     try {
-        var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
+        if (eleGallery.data("images") != '')
+        {
+            var imageList = JSON.parse(window.atob(eleGallery.data("images")));
+            modelImages = imageList;
+            modelColorImages = filterColorImagesArray(imageList);
 
-        videoList = JSON.parse(Base64.decode(eleGallery.data("videos")));
-        modelImages = imageList;
-        modelColorImages = filterColorImagesArray(imageList);
+            if (modelColorImages)
+                modelColorImageCount = modelColorImages.length;
+        }
 
-        if (modelColorImages)
-            modelColorImageCount = modelColorImages.length;
+        if(eleGallery.data("videos") != '')
+        {
+            videoList = JSON.parse(window.atob(eleGallery.data("videos")));
+        }
+
         photoCount = eleGallery.data("photoscount");
         videoCount = eleGallery.data("videoscount");
         imageIndex = eleGallery.data("selectedimageid");
@@ -68,6 +74,18 @@ var modelGallery = function () {
     self.photoList = ko.observableArray(modelImages);
     self.colorPhotoList = ko.observableArray(modelColorImages);
     self.videoList = ko.observableArray(videoList);
+
+    self.renderImage = function (hostUrl, originalImagePath, imageSize)
+    {
+        if(originalImagePath && originalImagePath!=null)
+        {
+            return (hostUrl + '/' + imageSize + '/' + originalImagePath);
+        }
+        else
+        {
+            return ('https://imgd.aeplcdn.com/' + imageSize + '/bikewaleimg/images/noimage.png?q=70');
+        }
+    }
 
     self.togglePhotoTab = function () {
         if (self.screenActive()) {
@@ -247,6 +265,7 @@ var popupGallery = {
         $('body').addClass('lock-browser-scroll');
 
         if (colorImageId > 0) {
+            if (vmModelGallery.activeColorIndex() == 0) vmModelGallery.activeColorIndex(1);
             vmModelGallery.toggleColorThumbnailScreen();
         }
     },
@@ -499,6 +518,7 @@ docReady(function () {
         ko.utils.arrayForEach(modelColorImages, function (item, index) {
             if (item.ColorId == colorImageId) { colorIndex = index; }
         });
+        colorIndex++;
         vmModelGallery.activeColorIndex(colorIndex);
         thumbnailSwiperEvents.focusGallery(colorGallerySwiper, colorIndex);
     }

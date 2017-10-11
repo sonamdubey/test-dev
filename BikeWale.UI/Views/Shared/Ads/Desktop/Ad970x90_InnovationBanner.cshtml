@@ -1,0 +1,391 @@
+﻿@model Bikewale.Models.AdTags
+@{
+    var currentTimestamp = DateTime.Now.ToString("o");
+}
+<style type="text/css">
+   
+body {
+    margin: 0;
+    padding: 0;
+}
+.inline-block {
+    display: inline-block;
+    vertical-align: middle;
+}
+.dot-style {
+    width: 5px;
+    height: 5px;
+    background-color: #2a2a2a;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+.font17 {
+    font-size: 17px;
+}
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+}
+button.left {
+    left: 0;
+    top: 20px;
+}
+button.right {
+    right: 0;
+    top: 20px;
+}
+
+.container{
+    overflow: hidden;
+}
+
+.bg-animation {
+    position: relative;
+    width: 100%;
+    height: 117px;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/bg-animation.png') repeat-x;
+    animation: move_background 7s linear infinite;
+}
+
+.vehicle-container__body {
+    width: 161px;
+    height: 109px;
+    display: inline-block;
+    position: absolute;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/duet-body.png') no-repeat;
+    top: 9px;
+    background-size: cover;
+    left: -20px;
+}
+
+.vehicle-container__tyres {
+    display: inline-block;
+    position: absolute;
+    top: 70px;
+    left: 116px;
+}
+
+.tyre {
+    position: absolute;
+    width: 41px;
+    height: 41px;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/duet-tyre.png') no-repeat;
+    -webkit-animation: spin 0.4s linear infinite;
+    -moz-animation: spin 0.4s linear infinite;
+    animation: spin 0.4s linear infinite;
+    background-size: cover;
+}
+.front {
+    top: 10px;
+    left: -12px;
+}
+.rear {
+    top: 10px;
+    right: 82px;
+}
+
+@@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+@@keyframes move_background {
+    from {
+        background-position: 0 0;
+    } to {
+        background-position: -1136px 0;
+    }
+}
+.vehicle-container{
+    width: 108px;
+    height: 118px;
+    position: relative;
+    left: -20%;
+    top: -10px;
+}
+.banner-screen {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.banner-screen div {
+    position: absolute;
+    top: 0;
+    display: none;
+}
+.offer-unit {
+    width: 146px;
+    height: 100px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/offer-unit.png?20171006") no-repeat;
+    display: block;        
+}
+.warranty-logo {
+    width: 85px;
+    height: 72px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/warranty-logo.png") no-repeat;
+    display: block;
+}
+.warranty-logo-inside {
+    position: absolute;
+    bottom: 30px;
+    left: 10px;
+}
+.hero-logo {
+    width: 210px;
+    height: 107px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/popup-logo.png") no-repeat;
+    background-size: contain;
+    display: block;
+}
+.bike-collage{
+    width: 539px;
+    height: 322px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/bike-collage.png");
+}
+#banner1 .banner-screen__content1 {
+}
+#banner1 .banner-screen__content2 {
+    left: 29%;
+    top: 14px;
+}
+#banner1 .banner-screen__content3 {
+    left: 51%;
+    top: 12px;
+}
+#banner1 .banner-screen__content4 {
+    left: 67%;
+    top: 10px;
+}
+#banner1 .banner-screen__content5 {
+    left: 80%;
+    top: 35px;
+}
+
+.black-window-animation {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0, 0.9);
+    z-index: 5;
+}
+.modal-window{
+    position : absolute;
+    background-color: #fff;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    padding: 50px 10px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/popup-bg.jpg") no-repeat #fff;
+    background-size: cover;
+}
+.auto-margin {
+    margin: 0 auto;
+}
+
+.popup-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    z-index: 10;
+    cursor: pointer;
+}
+.popup-close:hover {
+    opacity: 1;
+}
+.popup-close:before, 
+.popup-close:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+}
+.popup-close:before {
+    transform: rotate(45deg);
+}
+.popup-close:after {
+    transform: rotate(-45deg);
+}
+.popup-content,
+.banner-popup {
+    display: none;
+}
+.group-of-slug {
+    height: 150px;
+    width: 610px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/group-of-slug.png") no-repeat;
+    top: -12px;
+    margin: 0 auto;
+    position: relative;
+}
+.codition-text {
+    position: absolute;
+    bottom: -5px;
+    color: #82888b;
+    font-size: 10px;
+    left: 143px;
+}
+.popup-make-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 212px;
+    height: 136px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/popup-logo.png") no-repeat;
+    display: block;       
+}
+@@charset "UTF-8";
+.animated{animation-duration:1s;animation-fill-mode:both}.animated.infinite{animation-iteration-count:infinite}.animated.hinge{animation-duration:2s}@@keyframes fadeInRight{from{opacity:0;transform:translate3d(100%,0,0)}to{opacity:1;transform:none}}.fadeInRight{animation-name:fadeInRight}@@keyframes zoomIn{from{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}.zoomIn{animation-name:zoomIn}
+</style>
+<div class="maestro-animation-container">
+    <div class="black-window-animation hide"></div>
+    <div class="bg-animation" data-screen="1">
+        <div class="vehicle-container">
+            <span class="vehicle-container__tyres">
+                <i class="tyre front"></i>
+                <i class="tyre rear"></i>
+            </span>
+            <span class="vehicle-container__body"></span>
+        </div>
+        <div id="banner1" class="banner-screen" data-position="10">
+            <div class="banner-screen__content1">
+                <span class="hero-logo"></span>
+            </div>
+
+            <div class="banner-screen__content2 text-black">
+                <p style="font-size: 18px;">New</p>
+                <p style="font-size: 32px; font-weight: 600; margin-top: -10px; margin-left: -3px;">Maestro Edge</p>
+            </div>
+            <div class="banner-screen__content3">
+                <span class="offer-unit"></span>
+            </div>
+            <div class="banner-screen__content4">
+                <span class="warranty-logo"></span>
+            </div>
+            <div class="banner-screen__content5">
+                <a href="javascript:void(0)" class="btn btn-orangebtn btn-orange avail-offer bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-window container hide">
+        <div class="popup-close bw-ga" c="Innovation_Banner" a="Popup_Close_Clicked" l="@Model.InnovationBannerGALabel"></div>
+        <div class="banner1_popup banner-popup">
+            <span class="popup-make-logo"></span>
+            <div class="bike-collage auto-margin popup-content"></div>
+            <div class="banner-content text-center margin-bottom5 popup-content">
+                <div class="group-of-slug">
+                    <p class="codition-text"><sup>*</sup>T&C Apply, Finance is available from our preferred financier.</p>
+                </div>
+
+
+            </div>
+            <div class="warranty-logo warranty-logo-inside popup-content"></div>
+            <div class="text-center popup-content">
+                <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699878&PluID=0&ord=@currentTimestamp" class="btn btn-orange btn-sm margin-right10 bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More</a>
+            </div>
+
+        </div>
+    </div>
+    <img src="https://bs.serving-sys.com/serving/adServer.bs?cn=display&c=19&mc=imp&pli=22699878&PluID=0&ord=@currentTimestamp&rtu=-1" class="hide" />
+</div>
+<script type="text/javascript">docReady(function () {
+    var totalScreens = 3;
+    try {
+        triggerNonInteractiveGA('Innovation_Banner', 'Hero_Innovation_Banner_Shown', '@Model.InnovationBannerGALabel');
+    } catch (e) {
+        console.warn(e.message);
+    }
+    $.fn.extend({
+        animateCss: function (animationName, callBack) {
+            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            this.addClass('animated ' + animationName).one(animationEnd, function () {
+                $(this).removeClass('animated ' + animationName);
+                if (callBack) {
+                    callBack();
+                }
+            });
+            return this;
+        }
+    });
+
+    function animateContent(element, animationName, callBack) {
+        $(element).show().animateCss(animationName, callBack);
+    }
+
+    function animateBannerContent(elemId) {
+        var firstElem = $("#" + elemId + " .banner-screen__content1");
+
+        recursiveAnimate(firstElem);
+    }
+
+    function recursiveAnimate(elem) {
+        animateContent($(elem), "fadeInRight", function () {
+            var nextElem = $(elem).next();
+
+            if (nextElem.length > 0)
+                recursiveAnimate($(nextElem));
+        });
+    }
+
+    $(".avail-offer").on('click', function () {
+        var elemId = $(this).closest(".banner-screen").attr('id'),
+            popupElem = $("." + elemId + "_popup");
+        $(".modal-window, .black-window-animation").show();
+        docBody.lockScroll();
+        $(popupElem).show();
+        recursiveAnimate($("." + elemId + "_popup").children()[0]);
+    });
+
+    $(".popup-close, .black-window-animation").on('click', function () {
+        $(".modal-window, .black-window-animation, .popup-content, .banner-popup").hide();
+        docBody.unlockScroll();
+    });
+
+    function showBanner(bannerId) {
+        $(".banner-screen, .banner-screen div").hide();
+        $("#" + bannerId).show();
+    }
+
+    $(".vehicle-container").animate({
+        'left': "15%"
+    }, function () {
+        showBanner("banner1");
+        animateBannerContent("banner1");
+    });
+
+    docBody = {
+        lockScroll: function () {
+            var html_el = $('html'), body_el = $('body'), doc = $(document);
+            if (doc.height() > $(window).height()) {
+                var scrollTop = (html_el.scrollTop()) ? html_el.scrollTop() : body_el.scrollTop(); // Works for Chrome, Firefox, IE...
+                if (scrollTop < 0) { scrollTop = 0; }
+                html_el.addClass('lock-browser-scroll').css('top', -scrollTop);
+            }
+        },
+        unlockScroll: function () {
+            var scrollTop = parseInt($('html').css('top'));
+            $('html').removeClass('lock-browser-scroll');
+            $('html,body').scrollTop(-scrollTop);
+        }
+    };
+
+});
+</script>

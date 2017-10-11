@@ -50,7 +50,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <meta name="theme-color" content="#2a2a2a" />
-    <link rel='stylesheet' type='text/css' href='/m/css/bwm-common-atf.css' />
+    <link rel='stylesheet' type='text/css' href='/m/css/bwm-common-atf.css' inline />
 
     <link href="//www.googletagservices.com" rel="dns-prefetch" />
     <link href="//ad.doubleclick.net" rel="dns-prefetch" />
@@ -238,6 +238,10 @@
                 googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-0'); });
             </script>
         </div>
+    }
+    else if (Model.AdTags.ShowInnovationBannerMobile)
+    {
+        Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad320x50_InnovationBanner.cshtml",Model.AdTags);
     }
 
     @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
@@ -465,7 +469,14 @@
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
     @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
     {
-        <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+            <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+    }
+    @if (Model.Page_JS_Paths!=null)
+    {   
+        foreach (var scriptLink in Model.Page_JS_Paths)
+        {
+            <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, scriptLink.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+        }
     }
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" defer>
     </script>

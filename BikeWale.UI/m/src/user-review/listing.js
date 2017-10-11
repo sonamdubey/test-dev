@@ -327,6 +327,19 @@ docReady(function () {
         }
     };
 
+    ko.bindingHandlers.truncatedText = {
+        update: function (element, valueAccessor, allBindingsAccessor) {
+            if (ko.utils.unwrapObservable(valueAccessor())) {
+                var originalText = ko.utils.unwrapObservable(valueAccessor()),
+                    length = parseInt(element.getAttribute("data-trimlength")) || 150,
+                    truncatedText = originalText.length > length ? originalText.substring(0, length) + "..." : originalText;
+                ko.bindingHandlers.text.update(element, function () {
+                    return truncatedText;
+                });
+            }
+        }
+    };
+
     ko.bindingHandlers.CurrencyText = {
         update: function (element, valueAccessor) {
             var amount = valueAccessor();

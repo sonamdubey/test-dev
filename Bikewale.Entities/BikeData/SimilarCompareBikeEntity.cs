@@ -13,6 +13,8 @@ namespace Bikewale.Entities.BikeData
     /// summary :- Added bodystyle1 and bodystyle2
     /// Modified by : Aditi Srivastava on 2 June 2017
     /// Summary     : Added IsSponsored Flag and Start and end dates and DisplayPriority
+    /// Modified by : Ashutosh Sharma on 03 Oct 2017
+    /// Description : Added AvgPrice1 and AvgPrice2.
     /// </summary>
     [Serializable]
     public class SimilarCompareBikeEntity
@@ -32,6 +34,8 @@ namespace Bikewale.Entities.BikeData
         public string VersionId2 { get; set; }
         public int Price1 { get; set; }
         public int Price2 { get; set; }
+        public int AvgPrice1 { get; set; }
+        public int AvgPrice2 { get; set; }
         public string OriginalImagePath1 { get; set; }
         public string OriginalImagePath2 { get; set; }
         public string HostUrl1 { get; set; }

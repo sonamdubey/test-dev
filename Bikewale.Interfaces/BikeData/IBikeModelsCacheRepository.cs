@@ -40,7 +40,9 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary :- added GetMostPopularScooters
     /// Modified by : Ashutosh Sharma on 18-Aug-2017
     /// Description : Added GetPopularBikesByBodyStyle and changed old "GetPopularBikesByBodyStyle" to GetPopularBikesByBodyStyleViaModel
-   
+    /// Modified by : Ashutosh Sharma on 18-Aug-2017
+    /// Description : Added 'GetMostPopularBikesByMakeWithCityPrice' to get most popular bikes by make wity city price if city is selected.
+
 
     /// <typeparam name="U"></typeparam>
     /// </summary>
@@ -50,6 +52,7 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
         IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null);
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeId = null);
         NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeId = null);

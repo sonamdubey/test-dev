@@ -19,8 +19,18 @@
                     <tr>
                         <td class="font14">@version.ModelName&nbsp;@version.VersionName</td>
                         <td class="font13">
-                            @Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
-                            &nbsp;<span class="font12">(@(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</span>
+                            @Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(version.Price > 0 ? version.Price.ToString() : version.AverageExShowroom.ToString())</span>
+                            @if (version.Price > 0)
+                            {
+                                <span class="font12">(@(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</span>
+                            }
+                            else
+                            {
+                                <span class="font12 margin-right5">Avg. Ex-showroom price</span><span class="bwsprite emi-info tooltip-icon-target">
+                                    <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.LocationCookie.City)</span></span>
+                                </span>
+                            }
+
                         </td>
                         <td class="font12">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
                     </tr>

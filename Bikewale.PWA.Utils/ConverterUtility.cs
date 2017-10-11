@@ -140,41 +140,28 @@ namespace Bikewale.PWA.Utils
         {
             string articleUrl = string.Empty;
             EnumCMSContentType _contentType = (EnumCMSContentType)contentType;
-            try
+            switch (_contentType)
             {
-                switch (_contentType)
-                {
-                    case EnumCMSContentType.AutoExpo2016:
-                    case EnumCMSContentType.News:
-                        articleUrl = string.Format("/m/news/{0}-{1}.html", basicid, url);
-                        break;
-                    case EnumCMSContentType.Features:
-                    case EnumCMSContentType.SpecialFeature:
-                        articleUrl = string.Format("/m/features/{0}-{1}/", url, basicid);
-                        break;
-                    case EnumCMSContentType.ComparisonTests:
-                    case EnumCMSContentType.RoadTest:
-                        articleUrl = string.Format("/m/expert-reviews/{0}-{1}.html", url, basicid);
-                        break;
-                    case EnumCMSContentType.TipsAndAdvices:
-                        articleUrl = string.Format("/m/bike-care/{0}-{1}.html", url, basicid);
-                        break;
-                    case EnumCMSContentType.Videos:
-                        articleUrl = string.Format("/m/videos/{0}-{1}/", url, basicid);
-                        break;
-                    default:
-                        string.Format("/m/{0}/{1}-{2}.html", _contentType.ToString().ToLower(), articleUrl, basicid);
-                        break;
-                }
-            }
-            finally
-            {
-                if (_logNewsUrl && articleUrl.EndsWith(@".html.html"))
-                {
-                    ThreadContext.Properties["ShareUrl"] = articleUrl;
-                    _logger.Error("ConverterUtility.GetArticleUrl");
-                }
-
+                case EnumCMSContentType.AutoExpo2016:
+                case EnumCMSContentType.News:
+                    articleUrl = string.Format("/m/news/{0}-{1}.html", basicid, url);
+                    break;
+                case EnumCMSContentType.Features:
+                case EnumCMSContentType.SpecialFeature:
+                    articleUrl = string.Format("/m/features/{0}-{1}/", url, basicid);
+                    break;
+                case EnumCMSContentType.ComparisonTests:
+                case EnumCMSContentType.RoadTest:
+                    articleUrl = string.Format("/m/expert-reviews/{0}-{1}.html", url, basicid);
+                    break;
+                case EnumCMSContentType.TipsAndAdvices:
+                    articleUrl = string.Format("/m/bike-care/{0}-{1}.html", url, basicid);
+                    break;
+                case EnumCMSContentType.Videos:
+                    articleUrl = string.Format("/m/videos/{0}-{1}/", url, basicid);
+                    break;
+                default:
+                    break;
             }
             return articleUrl;
         }

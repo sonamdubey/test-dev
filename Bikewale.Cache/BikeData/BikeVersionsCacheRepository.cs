@@ -32,13 +32,15 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by  :    Sushil Kumar on 28th June 2016
         /// Summary     :   Gets the Similar Bikes  list
+        /// Modified by : Ashutosh Sharma on 03 Oct 2017
+        /// Description : Changed key from 'BW_SimilarBikes_' to 'BW_SimilarBikes_V1_'.
         /// </summary>
         /// <param name="makeType">Type of make</param>
         /// <returns></returns>
         public IEnumerable<Entities.BikeData.SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid)
         {
             IEnumerable<Entities.BikeData.SimilarBikeEntity> versions = null;
-            string key = String.Format("BW_SimilarBikes_{0}_Cnt_{1}_{2}", versionId, topCount, cityid);
+            string key = String.Format("BW_SimilarBikes_V1_{0}_Cnt_{1}_{2}", versionId, topCount, cityid);
             try
             {
                 TimeSpan cacheTime = new TimeSpan(3, 0, 0);
@@ -114,13 +116,15 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by  : Sushil Kumar on 28th June 2016
         /// Summary     : Gets version minspecs
+        /// Modified by : Ashutosh Sharma on 03 Oct 2017
+        /// Description :  Changed key from 'BW_VersionMinSpecs_' to 'BW_VersionMinSpecs_V1_'.
         /// </summary>
         /// <param name="makeType">Type of make</param>
         /// <returns></returns>
         public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
             List<BikeVersionMinSpecs> versions = null;
-            string key = String.Format("BW_VersionMinSpecs_{0}_New_{1}", modelId, isNew);
+            string key = String.Format("BW_VersionMinSpecs_V1_{0}_New_{1}", modelId, isNew);
             try
             {
                 versions = _cache.GetFromCache<List<BikeVersionMinSpecs>>(key, new TimeSpan(1, 0, 0), () => _objVersions.GetVersionMinSpecs(modelId, isNew));

@@ -24,6 +24,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary :- Added GetMostPopularScooters
     /// Modified by :   Sumit Kate on 24 Mar 2017
     /// Description :   IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId)
+    /// Modified by : Vivek Singh Tomar on 5th Oct 2017
+    /// Summary : Added GetModelColorPhotos(U modelId)
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
     public interface IBikeModels<T, U> : IRepository<T, U>
@@ -50,5 +52,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId);
+        IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
     }
 }
