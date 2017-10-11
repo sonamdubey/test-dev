@@ -291,23 +291,31 @@ namespace Bikewale.Models.BikeModels
         private void SetBreadcrumList()
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            string bikeUrl, scooterUrl;
+            bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
             ushort position = 1;
             if (IsMobile)
             {
-                url += "m/";
+                bikeUrl += "m/";
+                scooterUrl += "m/";
             }
 
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
 
 
             if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
             {
-                url = string.Format("{0}{1}-bikes/", url, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName);
+                bikeUrl = string.Format("{0}{1}-bikes/", bikeUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
             }
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, _objData.Page_H1));
+            if(_objData.BodyStyle == EnumBikeBodyStyles.Scooter && _objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
+            {
+                scooterUrl = string.Format("{0}/{1}-scooters/", scooterUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters ", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
+            }
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, _objData.Page_H1));
 
 
             _objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;

@@ -38,7 +38,7 @@ namespace Bikewale.New
         protected BikeModelPageEntity modelPg;
         protected LeadCaptureControl ctrlLeadPopUp;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
-
+        protected bool IsScooter =false;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -118,6 +118,7 @@ namespace Bikewale.New
                                 makeName = modelPg.ModelDetails.MakeBase.MakeName;
                                 makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
                             }
+                            IsScooter = (modelPg.ModelVersions.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter));
                             bikeName = string.Format("{0} {1}", makeName, modelName);
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                             {

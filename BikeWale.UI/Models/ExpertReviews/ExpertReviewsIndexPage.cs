@@ -49,13 +49,15 @@ namespace Bikewale.Models
         private GlobalCityAreaEntity currentCityArea;
         private BikeModelEntity objModel = null;
         private BikeMakeEntityBase objMake = null;
-        private EnumBikeType bikeType = EnumBikeType.All;
+       
         private bool showCheckOnRoadCTA = false;
         private PQSourceEnum pqSource = 0;
+        private EnumBikeType bikeType = EnumBikeType.All;
         #endregion
 
         #region Public properties
         public bool IsMobile { get; set; }
+       
         #endregion
 
         #region Constructor
@@ -283,6 +285,8 @@ namespace Bikewale.Models
                         objPopularScooterBrands.TopCount = 4;
                         objData.PopularScooterMakesWidget = objPopularScooterBrands.GetData();
                         bikeType = EnumBikeType.Scooters;
+                        objData.BodyStyle = EnumBikeBodyStyles.Scooter;
+
                     }
                     else
                     {
