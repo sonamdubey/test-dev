@@ -10,7 +10,7 @@ var reviewCategory = {
     2: 'helpful',
     1: 'recent',
     5: 'positive',
-    6: 'negative',
+    6: 'critical',
     7: 'neutral'
 }
 
