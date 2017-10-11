@@ -309,6 +309,9 @@ button.right {
     height: 8px;
     width: 8px;
 }
+.banner-photos-swiper .swiper-card {
+    height: 315px;
+}
 
 /* Popup 3*/
 
@@ -448,9 +451,6 @@ button.right {
     display: block;
 }
 
-.swiper-card {
-    height: 315px;
-}
 #banner-photos-swiper .swiper-slide:before {
     content: " ";
     position:absolute;
