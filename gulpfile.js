@@ -236,6 +236,7 @@ gulp.task('default',
 	gulpSequence(
 		'clean',
 		'sass',
+		'replace-special-character',
 		'minify-css', 'minify-js', 'minify-sass-css',
 		'bw-framework-js',
 		'replace-css-reference',
