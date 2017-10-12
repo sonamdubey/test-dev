@@ -1352,10 +1352,10 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     width: 5px;
     border: solid grey;
     border-width: 0px 1px 1px 0px;
-    -webkit-transform: rotate(320deg);
-    -moz-transform: rotate(45deg);
-	-o-transform: rotate(45deg);
-	transform: rotate(45deg);
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
     display: inline-block;
     position: absolute;
     top: 7px;
