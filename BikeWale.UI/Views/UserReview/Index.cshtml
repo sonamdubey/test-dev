@@ -94,36 +94,15 @@
                 <div class="contest-banner">
                     <span class="contest-banner__icon margin-bottom20"></span>
                     <p class="font18 text-white text-bold margin-bottom10">Help fellow bikers make the right choice</p>
-                    <p class="font13 text-white margin-top5 margin-bottom30">Stand a chance to win Amazon voucher worth Rs. 1,000</p>
+                    <p class="font13 text-white margin-top5 margin-bottom30">Stand a chance to win Amazon voucher worth Rs. 2,000</p>
                     <div class="locator-search-container">
                         <div class="locator-search-brand form-control-box">
                             <select id="reviewSelectMake" class="form-control make-model-chosen chosen-select">
                                 <option value="0">Select a Make</option>
-                                <option maskingname="honda" value="7">Honda</option>
-                                <option maskingname="bajaj" value="1">Bajaj</option>
-                                <option maskingname="hero" value="6">Hero</option>
-                                <option maskingname="tvs" value="15">TVS</option>
-                                <option maskingname="royalenfield" value="11">Royal Enfield</option>
-                                <option maskingname="yamaha" value="13">Yamaha</option>
-                                <option maskingname="suzuki" value="12">Suzuki</option>
-                                <option maskingname="ktm" value="9">KTM1</option>
-                                <option maskingname="mahindra" value="10">Mahindra</option>
-                                <option maskingname="harleydavidson" value="5">Harley Davidson</option>
-                                <option maskingname="aprilia" value="2">Aprilia</option>
-                                <option maskingname="benelli" value="40">Benelli</option>
-                                <option maskingname="bmw2" value="3">BMW2</option>
-                                <option maskingname="ducati" value="4">Ducati</option>
-                                <option maskingname="heroelectric" value="39">Hero Electric</option>
-                                <option maskingname="hyosung" value="8">Hyosung</option>
-                                <option maskingname="indian" value="34">Indian</option>
-                                <option maskingname="kawasaki" value="17">Kawasaki</option>
-                                <option maskingname="lml" value="19">LML</option>
-                                <option maskingname="motoguzzi" value="20">Moto Guzzi</option>
-                                <option maskingname="mvagusta" value="41">MV Agusta</option>
-                                <option maskingname="triumph" value="22">Triumph</option>
-                                <option maskingname="um" value="42">UM</option>
-                                <option maskingname="vespa" value="16">Vespa</option>
-                                <option maskingname="yo" value="14">Yo</option>
+                                @foreach (var make in Model.Makes)
+                                {
+                                    <option maskingname="@make.MaskingName" value="@make.MakeId">@make.MakeName</option>
+                                }
                             </select>
                             <div class="clear"></div>
                             <span class="bwsprite error-icon errorIcon hide"></span>

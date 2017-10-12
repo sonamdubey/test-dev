@@ -1,5 +1,6 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Authors;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.UserReviews;
@@ -11,16 +12,17 @@ namespace Bikewale.Models.UserReviews
     public class UserReviewLandingPage
     {
         private readonly IUserReviewsCache _userReviewsCache = null;
+        private readonly IBikeMakesCacheRepository<int> _makeRepository = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IAuthors _authors = null;
-
-        private UserReviewLandingVM objData = null;
+        private UserReviewLandingVM objData = null;        
 
         public bool IsMobile { get; set; }
 
-        public UserReviewLandingPage(IUserReviewsCache userReviewsCache, ICMSCacheContent articles, IAuthors authors)
+        public UserReviewLandingPage(IUserReviewsCache userReviewsCache, ICMSCacheContent articles, IAuthors authors, IBikeMakesCacheRepository<int> makeRepository)
         {
             _userReviewsCache = userReviewsCache;
+            _makeRepository = makeRepository;
             _articles = articles;
             _authors = authors;
         }
@@ -30,7 +32,7 @@ namespace Bikewale.Models.UserReviews
             try
             {
                 objData = new UserReviewLandingVM();
-
+                objData.Makes = _makeRepository.GetMakesByType(Entities.BikeData.EnumBikeType.UserReviews);
                 BindWidgets();
                 BindPageMetas();
             }

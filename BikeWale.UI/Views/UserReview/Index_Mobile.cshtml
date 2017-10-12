@@ -90,7 +90,7 @@
             <div class="contest-banner">
                 <span class="contest-banner__icon margin-bottom20"></span>
                 <p class="contest-banner__title">Help fellow bikers make the right choice</p>
-                <p class="contest-banner__subtitle">Stand a chance to win Amazon voucher worth &#x20b9;&nbsp;1,000</p>
+                <p class="contest-banner__subtitle">Stand a chance to win Amazon voucher worth &#x20b9;&nbsp;2,000</p>
                 <div id="bike-selection-form">
                     <div id="form-make-field" class="form-control-box form-input-box margin-bottom20 margin-top20" data-bind="click: function (d, e) { openBikeSelection(); }" data-make-id="1">
                         <span>Select model to participate</span>
@@ -122,69 +122,12 @@
                                 <p class="no-back-btn-label head-label inline-block">Select Make</p>
                             </div>
                             <ul class="cover-popup-list with-arrow">
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="bajaj" data-id="1">Bajaj</span>
+                                @foreach (var make in Model.Makes)
+                                {
+                                    <li data-bind="click: makeChanged">
+                                        <span data-masking="@make.MaskingName" data-id="@make.MakeId">@make.MakeName</span>
                                 </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="benelli" data-id="40">Benelli</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="bmw2" data-id="3">BMW2</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="ducati" data-id="4">Ducati</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="harleydavidson" data-id="5">Harley Davidson</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="hero" data-id="6">Hero</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="heroelectric" data-id="39">Hero Electric</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="honda" data-id="7">Honda</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="hyosung" data-id="8">Hyosung</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="indian" data-id="34">Indian</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="kawasaki" data-id="17">Kawasaki</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="ktm" data-id="9">KTM1</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="mahindra" data-id="10">Mahindra</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="mvagusta" data-id="41">MV Agusta</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="royalenfield" data-id="11">Royal Enfield</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="suzuki" data-id="12">Suzuki</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="triumph" data-id="22">Triumph</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="tvs" data-id="15">TVS</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="um" data-id="42">UM</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="vespa" data-id="16">Vespa</span>
-                                </li>
-                                <li data-bind="click: makeChanged">
-                                    <span data-masking="yamaha" data-id="13">Yamaha</span>
-                                </li>
+                                }
                             </ul>
                         </div>
 
@@ -208,7 +151,7 @@
                             <div class="cover-popup-loader-text font14" data-bind="text: LoadingText()">Loading bike models...</div>
                         </div>
                     </div>
-                    <p class="btn btn-orange btn-180-40" data-bind="click: function (d, e) { openBikeSelection(); }">Write and win &#x20b9; 1,000<span class="bwsprite btn-white-arrow"></span></p>
+                    <p class="btn btn-orange btn-180-40" data-bind="click: function (d, e) { openBikeSelection(); }">Write and win &#x20b9; 2,000<span class="bwsprite btn-white-arrow"></span></p>
                 </div>
             </div>
             <span id="querystring" data-query="v5EINN8tC9b114V0VycqiQ==">

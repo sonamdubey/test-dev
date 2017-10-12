@@ -552,8 +552,8 @@ namespace Bikewale.Controllers
         // GET: Review
         [Route("review/")]
         public ActionResult Index()
-        {
-            UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors);
+        {       
+            UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors, _makesRepository);
             return View(obj.GetData());
         }
 
@@ -561,7 +561,7 @@ namespace Bikewale.Controllers
         [Route("m/review/")]
         public ActionResult Index_Mobile()
         {
-            UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles, _authors);
+              UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors, _makesRepository);
             obj.IsMobile = true;
             return View(obj.GetData());
         }
