@@ -7,6 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.IsPageTypeLanding = true;
     Model.IsTransparentHeader = true;
+    Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/review/";
 }
 <div class="bw-tabs-panel">
     <div class="banner-review" data-bg-image="0">
@@ -77,14 +78,14 @@
                     </div>
                 </div>
             </div>
- 
+
         </section>
-        
+
         @if (Model.TopRatedBikesWidget != null)
         {
-        <section>
-            @Html.Partial("~/views/UserReview/_TopRatedBikes.cshtml", Model.TopRatedBikesWidget)
-        </section>
+            <section>
+                @Html.Partial("~/views/UserReview/_TopRatedBikes.cshtml", Model.TopRatedBikesWidget)
+            </section>
         }
 
         <section class="container">
@@ -147,64 +148,15 @@
 
             </div>
             <div class="grid-12">
-
-                <h2 class="font22 text-center margin-bottom20 padding-top30 text-bold">Recently uploaded reviews</h2>
-                <div class="jcarousel-wrapper inner-content-carousel user-review__swiper section-bottom-margin content-box-shadow padding-bottom20 padding-top20">
-                    <div class="jcarousel">
-                        <ul>
-                            <li>
-                                <span class="review-card__author-circle"></span>
-                                <p class="review-card__author">Mayank Tripathi</p>
-                                <span class="rating-badge" data-rate-bg="5">
-                                    <span class="bwsprite star-white"></span>5
-                                </span>
-                                <p class="review-card__bike text-truncate" title="Bajaj Avenger 220 Cruise">Bajaj Avenger 220 Cruise</p>
-                                <p class="review-card__desc">Best bike in this price range , much better than other cruise...</p>
-                                <p class="review-card__date">1 month ago</p>
-                                <a href="" title="" class="font14">Read full review</a>
-                            </li>
-                            <li>
-                                <span class="review-card__author-circle"></span>
-                                <p class="review-card__author">Mayank Tripathi</p>
-                                <span class="rating-badge" data-rate-bg="5">
-                                    <span class="bwsprite star-white"></span>5
-                                </span>
-                                <p class="review-card__bike text-truncate" title="Bajaj Avenger 220 Cruise">Bajaj Avenger 220 Cruise</p>
-                                <p class="review-card__desc">Best bike in this price range , much better than other cruise...</p>
-                                <p class="review-card__date">1 month ago</p>
-                                <a href="" title="" class="font14">Read full review</a>
-                            </li>
-                            <li>
-                                <span class="review-card__author-circle"></span>
-                                <p class="review-card__author">Mayank Tripathi</p>
-                                <span class="rating-badge" data-rate-bg="5">
-                                    <span class="bwsprite star-white"></span>5
-                                </span>
-                                <p class="review-card__bike text-truncate" title="Bajaj Avenger 220 Cruise">Bajaj Avenger 220 Cruise</p>
-                                <p class="review-card__desc">Best bike in this price range , much better than other cruise...</p>
-                                <p class="review-card__date">1 month ago</p>
-                                <a href="" title="" class="font14">Read full review</a>
-                            </li>
-                            <li>
-                                <span class="review-card__author-circle"></span>
-                                <p class="review-card__author">Mayank Tripathi</p>
-                                <span class="rating-badge" data-rate-bg="5">
-                                    <span class="bwsprite star-white"></span>5
-                                </span>
-                                <p class="review-card__bike text-truncate" title="Bajaj Avenger 220 Cruise">Bajaj Avenger 220 Cruise</p>
-                                <p class="review-card__desc">Best bike in this price range , much better than other cruise...</p>
-                                <p class="review-card__date">1 month ago</p>
-                                <a href="" title="" class="font14">Read full review</a>
-                            </li>
-                        </ul>
+                @if (Model.RecentUserReviewsList != null)
+                {
+                    <h2 class="font22 text-center margin-bottom20 padding-top30 text-bold">Recently uploaded reviews</h2>
+                    <div class="jcarousel-wrapper inner-content-carousel user-review__swiper section-bottom-margin content-box-shadow padding-bottom20 padding-top20">
+                        @Html.Partial("~/views/UserReview/_RecentUploadedReviews.cshtml", Model.RecentUserReviewsList)
                     </div>
-                    <span class="jcarousel-control-left">
-                        <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
-                    </span>
-                    <span class="jcarousel-control-right">
-                        <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
-                    </span>
-                </div>
+                }
+
+
                 <div class="grid-12 omega alpha">
                     <div class="read-expert-review__banner margin-bottom20">
                         <a class="review__banner-link text-truncate" href="" title="">

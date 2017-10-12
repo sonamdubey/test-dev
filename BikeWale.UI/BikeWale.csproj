@@ -3817,6 +3817,8 @@
     <Content Include="Views\UserReview\_SearchUserReviewExpertReviewModel.cshtml" />
     <Content Include="Views\UserReview\Index.cshtml" />
     <Content Include="Views\UserReview\_TopRatedBikes.cshtml" />
+    <Content Include="Views\UserReview\_RecentUploadedReviews.cshtml" />
+    <Content Include="Views\UserReview\_RecentUploadedReviews_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

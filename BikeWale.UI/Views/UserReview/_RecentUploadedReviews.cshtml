@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Bikewale.Entities.UserReviews.RecentReviewsWidget>
+
+@if (Model != null && Model.Count() > 0)
+{
+
+    <div class="jcarousel">
+        <ul>
+            @foreach (var review in Model)
+            {
+                <li>
+                    @if (review.IsWinner)
+                    {
+                        <div class="review-card__winner">
+                            <span class="vertical-ribbon bg-color--teal trophy-teal-10x12"></span>
+                            <span class="winner-tag__label">Winner</span>
+                        </div>
+                    }
+                    <span class="review-card__author-circle"></span>
+                    <p class="review-card__author">@review.CustomerName</p>
+                    <span class="rating-badge" data-rate-bg="@review.Rating">
+                        <span class="bwsprite star-white"></span>@review.Rating
+                    </span>
+                    <p class="review-card__bike text-truncate" title="@review.BikeName">@review.BikeName</p>
+                    <p class="review-card__desc">@string.Format("{0}...", review.ReviewDescription)</p>
+                    <p class="review-card__date">@Bikewale.Utility.FormatDate.GetTimeSpan(review.EntryDate) ago</p>
+                    <a href="@string.Format("/{0}-bikes/{1}/reviews/{2}/",review.MakeMaskingName,review.ModelMaskingName,review.ReviewId)" title="@string.Format("{0} Review by {1}",review.BikeName,review.CustomerName)" class="font14">Read full review</a>
+                </li>
+            }
+        </ul>
+    </div>
+                        <span class="jcarousel-control-left">
+                            <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+                        </span>
+                        <span class="jcarousel-control-right">
+                            <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                        </span>
+
+}

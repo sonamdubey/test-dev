@@ -215,69 +215,17 @@
 
             </span>
         </section>
-        <section>
-            <h2 class="font18 text-center margin-top20 margin-bottom15">Recently uploaded reviews</h2>
-            <div class="user-review-swiper bw-tabs-data content-box-shadow card-bottom-margin">
-                <div class="swiper-container user-review__swiper">
-                    <ul class="swiper-wrapper">
-                        <li class="swiper-slide swiper-slide-prev">
-                            <div class="swiper-card">
-                                <div class="review-card__winner">
-                                    <span class="vertical-ribbon bg-color--teal trophy-teal-10x12"></span>
-                                    <span class="winner-tag__label">Winner</span>
-                                </div>
-
-                                <span class="review-card__author-circle"></span>
-                                <p class="review-card__author">Saket Gyani</p>
-                                <span class="rating-badge" data-rate-bg="3">
-                                    <span class="bwmsprite star-white"></span>3
-                                </span>
-                                <p class="review-card__bike text-truncate" title="Royal Enfield Classic 350">Royal Enfield Classic 350</p>
-                                <p class="review-card__desc">I’m using a classic 350 for around two years and have ridden...</p>
-                                <p class="review-card__date">1 month ago</p>
-                                <a href="" title="" class="font14">Read full review</a>
-                            </div>
-                        </li>
-                        <li class="swiper-slide swiper-slide-prev">
-                            <div class="swiper-card">
-                                <div class="review-card__winner">
-                                    <span class="vertical-ribbon bg-color--teal trophy-teal-10x12"></span>
-                                    <span class="winner-tag__label">Winner</span>
-                                </div>
-
-                                <span class="review-card__author-circle"></span>
-                                <p class="review-card__author">Saket Gyani</p>
-                                <span class="rating-badge" data-rate-bg="3">
-                                    <span class="bwmsprite star-white"></span>3
-                                </span>
-                                <p class="review-card__bike text-truncate" title="Royal Enfield Classic 350">Royal Enfield Classic 350</p>
-                                <p class="review-card__desc">I’m using a classic 350 for around two years and have ridden...</p>
-                                <p class="review-card__date">1 month ago</p>
-                                <a href="" title="" class="font14">Read full review</a>
-                            </div>
-                        </li>
-                        <li class="swiper-slide swiper-slide-prev">
-                            <div class="swiper-card">
-                                <div class="review-card__winner">
-                                    <span class="vertical-ribbon bg-color--teal trophy-teal-10x12"></span>
-                                    <span class="winner-tag__label">Winner</span>
-                                </div>
-
-                                <span class="review-card__author-circle"></span>
-                                <p class="review-card__author">Saket Gyani</p>
-                                <span class="rating-badge" data-rate-bg="3">
-                                    <span class="bwmsprite star-white"></span>3
-                                </span>
-                                <p class="review-card__bike text-truncate" title="Royal Enfield Classic 350">Royal Enfield Classic 350</p>
-                                <p class="review-card__desc">I’m using a classic 350 for around two years and have ridden...</p>
-                                <p class="review-card__date">1 month ago</p>
-                                <a href="" title="" class="font14">Read full review</a>
-                            </div>
-                        </li>
-                    </ul>
+        @if (Model.RecentUserReviewsList != null)
+        {
+            <section>
+                <h2 class="font18 text-center margin-top20 margin-bottom15">Recently uploaded reviews</h2>
+                <div class="user-review-swiper bw-tabs-data content-box-shadow card-bottom-margin">
+                    <div class="swiper-container user-review__swiper">
+                        @Html.Partial("~/views/UserReview/_RecentUploadedReviews_Mobile.cshtml", Model.RecentUserReviewsList)
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        }
         <section>
             <div class="read-expert-review__banner margin-bottom20">
                 <a class="review__banner-link text-truncate" href="" title="">
@@ -346,7 +294,7 @@
             </div>
         </section>
 
-       
+
         @if (Model.BikesWithExpertReviews != null)
         {
             <section>
@@ -475,4 +423,3 @@
         </section>
     </div>
 </div>
-
