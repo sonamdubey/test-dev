@@ -8,6 +8,7 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Models.Videos;
 using Bikewale.Notifications;
 using Bikewale.Service.Utilities;
+using Bikewale.Utility;
 using Grpc.CMS;
 using log4net;
 using System;
@@ -50,7 +51,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             {                
                 var landingVideos = GetVideosFromCacheForCategory(EnumVideosCategory.FeaturedAndLatest, 5);
 
-                var experReviewVideos = GetVideosFromCacheForSubCategory(55, 2);
+                var experReviewVideos = GetVideosFromCacheForSubCategory(55, 2,true);
 
                 if (landingVideos != null || experReviewVideos!=null)
                 {
@@ -83,26 +84,60 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
         /// </summary>
         /// <param name="catId"></param>
         /// <param name="count"></param>
-        [ResponseType(typeof(PwaVideosLandingPageTopVideos)), Route("api/pwa/catvideos/catId/{catId}/count/{count}/")]
-        public IHttpActionResult Get(uint catId,ushort count)
+        [ResponseType(typeof(PwaVideosBySubcategory)), Route("api/pwa/catvideos/catId/{catId}/count/{count}/")]
+        public IHttpActionResult Get(ushort catId,ushort count)
         {
             try
-            {
-                var landingVideos = GetVideosFromCacheForCategory((EnumVideosCategory)catId, count);
+            { 
 
-                var experReviewVideos = GetVideosFromCacheForSubCategory(55, 2);
+                var subCatVideos = GetVideosFromCacheForSubCategory(catId, count);
 
-                if (landingVideos != null || experReviewVideos != null)
+                if (subCatVideos != null)
                 {
-                    var topVideos = new PwaVideosLandingPageTopVideos();
-                    topVideos.LandingFirstVideos = landingVideos;
 
-                    var expertReviews = new PwaVideosBySubcategory();
-                    expertReviews.Videos = experReviewVideos;
-                    expertReviews.MoreVideosUrl = @"/expert-reviews-55/";
-                    expertReviews.SectionTitle = "Expert Reviews";
-                    topVideos.ExpertReviews = expertReviews;
-                    return Ok(topVideos);
+                    var moreSubCatvideos = new PwaVideosBySubcategory();
+                    moreSubCatvideos.Videos = subCatVideos;
+
+                    switch(catId)
+                    {
+                        case 51:
+                            moreSubCatvideos.SectionTitle = "Motorsports";
+                            break;
+
+                        case 55:
+                            moreSubCatvideos.SectionTitle = "Expert Reviews";
+                            break;
+
+                        case 57:
+                            moreSubCatvideos.SectionTitle = "First Ride Impressions";
+                            break;
+
+                        case 58:
+                            moreSubCatvideos.SectionTitle = "Miscellaneous";
+                            break;
+
+                        case 59:
+                            moreSubCatvideos.SectionTitle = "Launch Alert";
+                            break;
+
+                        case 60:
+                            moreSubCatvideos.SectionTitle = "PowerDrift Top Music";
+                            break;
+
+                        case 61:
+                            moreSubCatvideos.SectionTitle = "First Look";
+                            break;
+
+                        case 62:
+                            moreSubCatvideos.SectionTitle = "PowerDrift Blockbuster";
+                            break;
+
+                        case 63:
+                            moreSubCatvideos.SectionTitle = "PowerDrift Specials";
+                            break;
+
+                    }
+                    return Ok(moreSubCatvideos);
                 }
                 else
                 {
@@ -188,6 +223,32 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
         }  //get  Categorized Videos 
 
 
+        [ResponseType(typeof(PwaBikeVideoEntity)), Route("api/pwa/videodet/{basicId}/")]
+        public IHttpActionResult Get(uint basicID)
+        {
+            try
+            {
+                var videDet = _videos.GetVideoDetails(basicID);
+                if (videDet != null)
+                {
+                    var output = Convert(videDet, true);
+                    if (output != null)
+                    {
+                        return Ok(output);
+                    }
+                }
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                return InternalServerError();
+            }
+
+        }  //get  Categorized Videos 
+
+
         private PwaBrandsInfo GetBrandsInfo(int topCount)
         {
             var brands = _objModelCache.GetMakeIfVideo();
@@ -243,7 +304,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
         }
 
 
-        private IEnumerable<PwaBikeVideoEntity> GetVideosFromCacheForSubCategory(ushort vidCat,ushort count)
+        private IEnumerable<PwaBikeVideoEntity> GetVideosFromCacheForSubCategory(ushort vidCat,ushort count,bool addShortDesc=false)
         {
             try
             {
@@ -278,16 +339,20 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             return outList;
         }
 
-        private PwaBikeVideoEntity Convert(BikeVideoEntity inpEntity)
+        private PwaBikeVideoEntity Convert(BikeVideoEntity inpEntity, bool addShortDesc=false)
         {
             PwaBikeVideoEntity outEntity=null;
             if(inpEntity!=null)
             {
                 outEntity = new PwaBikeVideoEntity();
                 outEntity.BasicId = inpEntity.BasicId;
-                outEntity.Description = inpEntity.Description;
+                if (addShortDesc)
+                { 
+                    outEntity.Description = FormatDescription.SanitizeHtml(inpEntity.Description);
+                    outEntity.ShortDescription = outEntity.Description.Length > 200? StrinHtmlHelpers.TruncateHtml(outEntity.Description, 200, " ..") : "";
+                }
                 outEntity.DisplayDate = inpEntity.DisplayDate;
-                outEntity.Likes = inpEntity.BasicId;
+                outEntity.Likes = inpEntity.Likes;
                 outEntity.VideoId = inpEntity.VideoId;
                 outEntity.VideoTitle = inpEntity.VideoTitle;
                 outEntity.VideoTitleUrl = inpEntity.VideoTitleUrl;

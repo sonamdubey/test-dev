@@ -19,6 +19,8 @@ namespace Bikewale.Entities.PWA.Articles
         [DataMember]
         public string Description { get; set; }
         [DataMember]
+        public string ShortDescription { get; set; }
+        [DataMember]
         public uint BasicId { get; set; }
         [DataMember]        
         public string VideoTitleUrl { get; set; }
