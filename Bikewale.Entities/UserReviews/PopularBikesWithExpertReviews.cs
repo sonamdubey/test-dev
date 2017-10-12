@@ -12,6 +12,7 @@ namespace Bikewale.Entities.UserReviews
         public CityEntityBase City { get; set; }
         public uint ExpertReviewCount { get; set; }
         public uint Price { get; set; }
+        public bool IsOnRoadPrice { get; set; }
         public string OriginalImagePath { get; set; }
         public string HostUrl { get; set; }
     }

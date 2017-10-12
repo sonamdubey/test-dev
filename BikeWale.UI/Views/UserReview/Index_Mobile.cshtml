@@ -77,7 +77,6 @@
                 <div class="swiper-pagination"></div>
             </div>
         </section>
-                                <a href="" title="" class="block">
 
         @if (Model.TopRatedBikesWidget != null)
         {
@@ -346,81 +345,15 @@
                 <div class="swiper-pagination"></div>
             </div>
         </section>
-        <section>
-            <h2 class="font18 text-center margin-top15 margin-bottom10">Expert Advice for Popular Bikes</h2>
-            <div class="user-review-swiper content-box-shadow card-bottom-margin">
-                <div class="swiper-container card-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="" class="block">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" title="Honda Activa 4G" alt="Honda Activa 4G" data-src="https://imgd.aeplcdn.com//174x98//bw/models/honda-activa-4g.jpg?20170203094346&amp;q=70" src="">
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="target-link font12 text-truncate margin-bottom5">Honda Activa 4G</h3>
-                                        <p class="text-truncate text-light-grey font12 margin-bottom5">Ex-showroom, Mumbai</p>
-                                        <p class="text-default font18">
-                                            <span>₹</span>&nbsp;
-                                            <span class="text-bold">60,966</span>
-                                            <span class="font14 text-bold"> onwards</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <a class="more-review text-truncate" href="" title="">
-                                    <span class="expert-review-sm"></span>23 expert reviews
-                                    <span class="bwmsprite right-arrow"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="" class="block">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" title="Honda Activa 4G" alt="Honda Activa 4G" data-src="https://imgd.aeplcdn.com//174x98//bw/models/honda-activa-4g.jpg?20170203094346&amp;q=70" src="">
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="target-link font12 text-truncate margin-bottom5">Honda Activa 4G</h3>
-                                        <p class="text-truncate text-light-grey font12 margin-bottom5">Ex-showroom, Mumbai</p>
-                                        <p class="text-default font18">
-                                            <span>₹</span>&nbsp;
-                                            <span class="text-bold">60,966</span>
-                                            <span class="font14 text-bold"> onwards</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <a class="more-review text-truncate" href="" title="">
-                                    <span class="expert-review-sm"></span>23 expert reviews
-                                    <span class="bwmsprite right-arrow"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="" class="block">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" title="Honda Activa 4G" alt="Honda Activa 4G" data-src="https://imgd.aeplcdn.com//174x98//bw/models/honda-activa-4g.jpg?20170203094346&amp;q=70" src="">
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="target-link font12 text-truncate margin-bottom5">Honda Activa 4G</h3>
-                                        <p class="text-truncate text-light-grey font12 margin-bottom5">Ex-showroom, Mumbai</p>
-                                        <p class="text-default font18">
-                                            <span>₹</span>&nbsp;
-                                            <span class="text-bold">60,966</span>
-                                            <span class="font14 text-bold"> onwards</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <a class="more-review text-truncate" href="" title="">
-                                    <span class="expert-review-sm"></span>23 expert reviews
-                                    <span class="bwmsprite right-arrow"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
+       
+        @if (Model.BikesWithExpertReviews != null)
+        {
+            <section>
+                @Html.Partial("~/views/UserReview/_PopularBikesWithExpertReviews_Mobile.cshtml", Model.BikesWithExpertReviews)
+            </section>
+        }
+
         <h2 class="font18 text-center margin-top20 margin-bottom10">Expert Advice for Popular Bikes</h2>
         <section>
 
