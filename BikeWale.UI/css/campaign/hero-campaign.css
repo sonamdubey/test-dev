@@ -31,7 +31,7 @@
 .text-bolder{
     font-weight: 700;
 }
-.campaign-btn {
+.campaign-arrow-btn {
     border: none;
     padding: 0;
     margin: 0;
@@ -39,13 +39,13 @@
     cursor: pointer;
     top: 36px;
 }
-.campaign-btn.left {
+.campaign-arrow-btn.left {
     left: 140px;
     background: url(https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/arrows.png) no-repeat -43px -48px;
     width: 30px;
     height: 40px;
 }
-.campaign-btn.right {
+.campaign-arrow-btn.right {
     right: 20px;
     background: url(https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/arrows.png) no-repeat -105px -48px;
     width: 30px;
