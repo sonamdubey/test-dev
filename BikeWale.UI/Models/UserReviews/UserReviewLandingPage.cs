@@ -61,7 +61,7 @@ namespace Bikewale.Models.UserReviews
                 objBikesWithExpertReviews.CityId = location.CityId;
                 objData.BikesWithExpertReviews = objBikesWithExpertReviews.GetData();
 
-                objData.ExpertReviews = new RecentExpertReviews(3, _articles).GetData();
+                objData.ExpertReviews = new RecentExpertReviews(9, _articles).GetData();
 
                 objData.Authors = _authors.GetAuthorsList(Convert.ToInt32(BWConfiguration.Instance.ApplicationId));
 

@@ -240,9 +240,9 @@
 
         @if (Model.BikesWithExpertReviews != null)
         {
-            <section>
+
                 @Html.Partial("~/views/UserReview/_PopularBikesWithExpertReviews_Mobile.cshtml", Model.BikesWithExpertReviews)
-            </section>
+
         }
 
         <h2 class="font18 text-center margin-top20 margin-bottom10">Recently uploaded reviews</h2>
@@ -274,13 +274,13 @@
                 @if (Model.Authors != null && Model.Authors.Any())
                 {
                     <div class="box-content">
-                        <h2 class="list-heading padding-left20 padding-top15">Other authors</h2>
+                        @*<h2 class="list-heading padding-left20 padding-top15">Other authors</h2>*@
                         @Html.Partial("~/Views/Author/_AuthorsListCarousel_Mobile.cshtml", Model.Authors)
                     </div>
                 }
             </div>
             <div class="read-user-review__banner margin-bottom20">
-                <a class="review__banner-link text-truncate" href="" title="">
+                <a class="review__banner-link text-truncate" href="~/m/expert-reviews/" title="View all expert reviews">
                     <span class="review-icon--white"></span>Read Reviews by our Experts
                     <span class="bwmsprite right-arrow"></span>
                 </a>
