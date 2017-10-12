@@ -22,6 +22,7 @@ using Bikewale.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -671,7 +672,7 @@ namespace Bikewale.Models
         {
             try
             {
-                uint[] topCityId = new uint[] { 1, 2, 10, 12, 105, 176, 198, 220 };
+                uint[] topCityId = BWConfiguration.Instance.PopularCitiesId.Split(',').Select(uint.Parse).ToArray();
                 objVM.PriceInTopCities = new PriceInTopCities(_objPQCache, modelId, 8).GetData();
                 if (objVM.HasPriceInTopCities)
                 {

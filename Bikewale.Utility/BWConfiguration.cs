@@ -106,7 +106,8 @@ namespace Bikewale.Utility
             _OtherBikesInMakeId = string.Empty,
         _CapitalFirstPincodeIndex = string.Empty,
             _InnovationBannerModels = String.Empty,
-            _UserReviewsReadInSessionCount = string.Empty;
+            _UserReviewsReadInSessionCount = string.Empty,
+            _PopularCitiesId =String.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -236,6 +237,7 @@ namespace Bikewale.Utility
             _InnovationBannerModels = Convert.ToString(ConfigurationManager.AppSettings["InnovationBannerModels"]);
             _UserReviewsReadInSessionCount = Convert.ToString(ConfigurationManager.AppSettings["UserReviewsReadInSessionCount"]);
             _KawasakiCampaignId = Convert.ToUInt32(ConfigurationManager.AppSettings["KawasakiCampaignId"]);
+            _PopularCitiesId = ConfigurationManager.AppSettings["PopularCitiesId"];
             _EditCMSModuleName = Convert.ToString(ConfigurationManager.AppSettings["EditCMSModuleName"]);
         }
 
@@ -400,6 +402,7 @@ namespace Bikewale.Utility
         public string InnovationBannerModels { get { return _InnovationBannerModels; } }
         public string UserReviewsReadInSessionCount { get { return _UserReviewsReadInSessionCount; } }
         public uint KawasakiCampaignId { get { return _KawasakiCampaignId; } }
+        public string PopularCitiesId { get { return _PopularCitiesId; } }
         public string EditCMSModuleName { get { return _EditCMSModuleName; } }
     }   // class
 }   // namespace
