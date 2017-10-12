@@ -465,11 +465,20 @@ namespace Bikewale.Controllers
             }
         }
 
-        /// <summary>
-        /// Created by : Aditi Srivastava on 19 Apr 2017
-        /// Summary    : To fetch review summary page
-        /// </summary>
-        [Route("m/user-reviews/review-summary/{reviewid}/")]
+     		// GET: Review
+       [Route("review/")]
+       public ActionResult Index()
+       {
+           ModelPageVM obj = new ModelPageVM();
+            return View(obj);
+       }
+
+
+    /// <summary>
+    /// Created by : Aditi Srivastava on 19 Apr 2017
+    /// Summary    : To fetch review summary page
+    /// </summary>
+    [Route("m/user-reviews/review-summary/{reviewid}/")]
         public ActionResult ReviewSummary_Mobile(uint reviewid, string q)
         {
             if (reviewid > 0)

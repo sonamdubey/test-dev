@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <ProjectName>BikeWaleOpr</ProjectName>
+  <ProjectLanguage>C#</ProjectLanguage>
+  <ProjectType>Product</ProjectType>
+  <ProjectGuid>c2c24276-4b4e-49b3-9a48-336a65339e3b</ProjectGuid>
+  <FullPath>D:\work\bikewaleweb\BikeWaleOpr.UI\BikeWaleOpr.csproj</FullPath>
+  <IsExcluded>false</IsExcluded>
+  <AnalysisResults>
+    <AnalysisResult Id="FilesToAnalyze" Location="D:\work\bikewaleweb\.sonarqube\out\\BikeWaleOpr_5344\FilesToAnalyze.txt" />
+  </AnalysisResults>
+  <AnalysisSettings>
+    <Property Name="sonar.cs.roslyn.reportFilePath">D:\work\bikewaleweb\BikeWaleOpr.UI\bin\BikewaleOpr.dll.RoslynCA.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPath">D:\work\bikewaleweb\.sonarqube\out\\BikeWaleOpr_5344</Property>
+    <Property Name="sonar.stylecop.projectFilePath">D:\work\bikewaleweb\BikeWaleOpr.UI\BikeWaleOpr.csproj</Property>
+  </AnalysisSettings>
+</ProjectInfo>
