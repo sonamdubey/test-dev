@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.UserReviews;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
 
 namespace Bikewale.Models.UserReviews
@@ -8,5 +9,7 @@ namespace Bikewale.Models.UserReviews
         public TopRatedBikesWidgetVM TopRatedBikesWidget { get; set; }
         public PopularBikesWithExpertReviewsWidgetVM BikesWithExpertReviews { get; set; }
         public IEnumerable<RecentReviewsWidget>  RecentUserReviewsList { get; set; }
+        public IEnumerable<BikeMakeEntityBase> Makes { get; set; }
+
     }
 }
