@@ -260,7 +260,7 @@
 
 //user-review__swiper
 
-.jcarousel-wrapper
+.user-review__swiper .jcarousel-wrapper
     position: relative
     width: 976px
 
@@ -306,17 +306,9 @@
     font-size: 11px
     margin-bottom: 10px
 
-
-//.user-reviews-type-carousel.inner-content-carousel,
-//.generic-carousel.inner-content-carousel
-//	.jcarousel
-//		li
-//			margin-right: 20px
-//#userReviewContent,
-//#expertReviewContent
-//	.jcarousel
-//		li
-//			margin-right: 20px
+.model-jcarousel-title
+    height: 40px
+    overflow: hidden
 
 .review-sm
 	display: inline-block
@@ -389,8 +381,6 @@
 	padding-top: 35px
 	z-index: 1
 	position: relative
-	//max-width: 360px
-	//margin: 0 auto
 
 .review-icon--white
 	display: inline-block
@@ -495,3 +485,103 @@
 		right: 20px
 	.bw-blackbg-tooltip
 		right: 10px
+
+
+//author-block
+.author-block
+	min-height: 470px
+	margin-bottom: 20px
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/m/expert-review-banner360x459.jpg') no-repeat center top
+	position: relative
+	overflow-x: hidden
+
+	&:before
+		content: ''
+		display: block
+		min-height: 470px
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		opacity: 0.8
+		background-image: -webkit-linear-gradient(top,#41B4C4 15%,#3799A7 100%)
+		background-image: -o-linear-gradient(bottom,#41B4C4 15%,#3799A7 100%)
+		background-image: -moz-linear-gradient(bottom,#41B4C4 15%,#3799A7 100%)
+		background-image: linear-gradient(to bottom,#41B4C4 15%,#3799A7 100%)
+
+.author-block__title
+	display: block
+	font-weight: 700
+	text-transform: uppercase
+	font-size: 18px
+	color: #fff
+	padding-top: 40px
+	text-align: center
+	position: relative
+
+.author-block__description
+	font-size: 13px
+	color: #fff
+	padding: 10px 27px 30px
+	text-align: center
+	position: relative
+
+#author__carousel
+	background: #fff
+	margin-left: 10px
+	margin-right: 10px
+	width: 956px
+	min-height: 305px
+	
+	.jcarousel
+		padding-bottom: 15px
+		width: 935px
+
+		li
+			box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50)
+			min-height: 253px
+			margin-right: 20px
+			
+
+.jcarousel-author-image
+	height: auto
+	margin: 0 auto
+	width: 205px
+	display: table
+	text-align: center
+	position: relative
+	padding: 25px 15px 0
+
+.detail-author__swiper-title
+	font-size: 14px
+	font-weight: 600
+	color: #2a2a2a
+	padding-top: 20px
+	padding-bottom: 20px
+	text-align: center
+	text-transform: capitalize
+	display: block
+
+.jcarousel-author-image img
+    width: 190px
+    height: auto
+
+.author__carousel-label
+    text-align: left
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+    color: #2a2a2a
+    font-weight: 600
+    display: block
+    margin-bottom: 5px
+    font-size: 15px
+
+.author__carousel-designation
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    color: #82888b
+    font-size: 14px
+#author__carousel .card-desc-block
+    padding: 15px 20px 20px

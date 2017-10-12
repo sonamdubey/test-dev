@@ -3098,6 +3098,7 @@
     <Content Include="src\photos\modelgallery.js" />
     <Content Include="src\popup\makemodelpopup.js" />
     <Content Include="src\priceincity.js" />
+    <Content Include="src\review\landing.js" />
     <Content Include="src\scooters.js" />
     <Content Include="src\service\landing.js" />
     <Content Include="src\service\location.js" />
@@ -3813,6 +3814,11 @@
     <Content Include="Views\UserReview\_SearchUserReviewExpertReviewModel_Mobile.cshtml" />
     <Content Include="Views\UserReview\_PopularBikesWithExpertReviews.cshtml" />
     <Content Include="Views\UserReview\_PopularBikesWithExpertReviews_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_SearchUserReviewExpertReviewModel.cshtml" />
+    <Content Include="Views\UserReview\Index.cshtml" />
+    <Content Include="Views\UserReview\_TopRatedBikes.cshtml" />
+    <Content Include="Views\UserReview\_RecentUploadedReviews.cshtml" />
+    <Content Include="Views\UserReview\_RecentUploadedReviews_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

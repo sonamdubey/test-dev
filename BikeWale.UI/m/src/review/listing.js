@@ -264,14 +264,14 @@ docReady(function () {
         if (e.target.getAttribute('data-tabs') == 'expertReviewContent') {
             $('#nonUpcomingBikes').attr('data-contentTab', "expertReview");
             $('#nonUpcomingBikes').val('');
+            triggerGA('Bike_Reviews', 'Toggle_ExpertReviews_Clicked', '');
         }
 
         if (e.target.getAttribute('data-tabs') == 'userReviewContent') {
             $('#nonUpcomingBikes').attr('data-contentTab', "userReview");
             $('#nonUpcomingBikes').val('');
+            triggerGA('Bike_Reviews', 'Toggle_UserReviews_Clicked', '');
         }
     });
-
-
 });
 

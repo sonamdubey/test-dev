@@ -1,4 +1,4 @@
-﻿@model Bikewale.Models.BikeModels.ModelPageVM
+﻿@model Bikewale.Models.UserReviews.UserReviewLandingVM
 
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/review/landing.css' inline>";
@@ -7,6 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.IsPageTypeLanding = true;
     Model.IsTransparentHeader = true;
+    Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/review/";
 }
 <div class="bw-tabs-panel">
     <div class="banner-review" data-bg-image="0">
@@ -18,22 +19,7 @@
                     <li data-tabs="expertReviewContent" class="">Expert Reviews</li>
                 </ul>
             </div>
-            <div class="bike-search-container position-rel">
-                <div class="bike-search new-bike-search position-rel">
-                    <input type="text" placeholder="Search your bike here, e.g. Bullet 350 " id="newBikeList" autocomplete="off" tabindex="1" class="ui-autocomplete-input blur">
-                    <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
-                </div>
-                <div class="findBtn">
-                    <input type="button" id="btnSearch" class="btn btn-orange btn-md font16" tabindex="2" value="Search">
-                </div>
-                <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide" style="display: none;">
-                    <li class="ui-menu-item" tabindex="-1">
-                        <span class="text-bold">Oops! No suggestions found</span><br>
-                        <span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
-                    </li>
-                </ul>
-                <ul id="new-global-recent-searches" class="recent-searches-dropdown"></ul>
-            </div>
+            @Html.Partial("~/views/UserReview/_SearchUserReviewExpertReviewModel.cshtml")
         </div>
     </div>
 
@@ -92,115 +78,15 @@
                     </div>
                 </div>
             </div>
- 
+
         </section>
-        <section>
-            <div class="container">
-                <div class="grid-12">
-                    <h2 class="text-bold text-center margin-bottom20 font22 margin-top30">Top rated by our Users</h2>
-                    <div class="jcarousel-wrapper inner-content-carousel user-reviews-type-carousel content-box-shadow padding-top20 padding-bottom20">
-                        <div class="jcarousel">
-                            <ul>
 
-                                <li class="jcarousel-card">
-                                    <a href="" title="" class="hover-no-underline">
-                                        <div class="model-jcarousel-image-preview">
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/mahindra-gusto-vx-777.jpg?20151209201815&amp;q=75" src="https://imgd.aeplcdn.com//310x174//bw/models/mahindra-gusto-vx-777.jpg?20151209201815&amp;q=75" alt="Mahindra Gusto" style="display: inline;">
-                                            <div class="rate-count-3 rating-block" data-rate-bg="3">
-                                                <span class="bwsprite star-icon star-size-15"></span>
-                                                <span class="rating-text-pos font14 text-bold">2.6</span>
-                                            </div>
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="font15 text-black margin-bottom10">Mahindra Gusto</h3>
-                                            <p class="font12 text-light-grey margin-bottom5">Ex-showroom price, Pune</p>
-                                            <p class="font18 text-default">
-                                                ₹
-
-
-                                                <span class="text-bold">
-                                                    53,627
-                                                </span>
-                                                <span class="font14">
-
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <a class="more-review text-truncate" href="" title="">
-                                            <span class="review-sm"></span>Read 23 reviews
-                                            <span class="bwsprite right-arrow"></span>
-                                        </a>
-                                </li>
-                                <li class="jcarousel-card">
-                                    <a href="" title="" class="hover-no-underline">
-                                        <div class="model-jcarousel-image-preview">
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/mahindra-gusto-vx-777.jpg?20151209201815&amp;q=75" src="https://imgd.aeplcdn.com//310x174//bw/models/mahindra-gusto-vx-777.jpg?20151209201815&amp;q=75" alt="Mahindra Gusto" style="display: inline;">
-                                            <div class="rate-count-3 rating-block" data-rate-bg="3">
-                                                <span class="bwsprite star-icon star-size-15"></span>
-                                                <span class="rating-text-pos font14 text-bold">2.6</span>
-                                            </div>
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="font15 text-black margin-bottom10">Mahindra Gusto</h3>
-                                            <p class="font12 text-light-grey margin-bottom5">Ex-showroom price, Pune</p>
-                                            <p class="font18 text-default">
-                                                ₹
-
-
-                                                <span class="text-bold">
-                                                    53,627
-                                                </span>
-                                                <span class="font14">
-
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <a class="more-review text-truncate" href="" title="">
-                                            <span class="review-sm"></span>Read 23 reviews
-                                            <span class="bwsprite right-arrow"></span>
-                                        </a>
-                                </li>
-                                <li class="jcarousel-card">
-                                    <a href="" title="" class="hover-no-underline">
-                                        <div class="model-jcarousel-image-preview">
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/mahindra-gusto-vx-777.jpg?20151209201815&amp;q=75" src="https://imgd.aeplcdn.com//310x174//bw/models/mahindra-gusto-vx-777.jpg?20151209201815&amp;q=75" alt="Mahindra Gusto" style="display: inline;">
-                                            <div class="rate-count-3 rating-block" data-rate-bg="3">
-                                                <span class="bwsprite star-icon star-size-15"></span>
-                                                <span class="rating-text-pos font14 text-bold">2.6</span>
-                                            </div>
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="font15 text-black margin-bottom10">Mahindra Gusto</h3>
-                                            <p class="font12 text-light-grey margin-bottom5">Ex-showroom price, Pune</p>
-                                            <p class="font18 text-default">
-                                                ₹
-
-
-                                                <span class="text-bold">
-                                                    53,627
-                                                </span>
-                                                <span class="font14">
-
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <a class="more-review text-truncate" href="" title="">
-                                            <span class="review-sm"></span>Read 23 reviews
-                                            <span class="bwsprite right-arrow"></span>
-                                        </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <span class="jcarousel-control-left">
-                            <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
-                        </span>
-                        <span class="jcarousel-control-right">
-                            <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </section>
+        @if (Model.TopRatedBikesWidget != null)
+        {
+            <section>
+                @Html.Partial("~/views/UserReview/_TopRatedBikes.cshtml", Model.TopRatedBikesWidget)
+            </section>
+        }
 
         <section class="container">
             <h2 class="text-bold text-center margin-bottom20 font22 margin-top30">Bike Review Contest</h2>
@@ -262,64 +148,15 @@
 
             </div>
             <div class="grid-12">
-
-                <h2 class="font22 text-center margin-bottom20 padding-top30 text-bold">Recently uploaded reviews</h2>
-                <div class="jcarousel-wrapper inner-content-carousel user-review__swiper section-bottom-margin content-box-shadow padding-bottom20 padding-top20">
-                    <div class="jcarousel">
-                        <ul>
-                            <li>
-                                <span class="review-card__author-circle"></span>
-                                <p class="review-card__author">Mayank Tripathi</p>
-                                <span class="rating-badge" data-rate-bg="5">
-                                    <span class="bwsprite star-white"></span>5
-                                </span>
-                                <p class="review-card__bike text-truncate" title="Bajaj Avenger 220 Cruise">Bajaj Avenger 220 Cruise</p>
-                                <p class="review-card__desc">Best bike in this price range , much better than other cruise...</p>
-                                <p class="review-card__date">1 month ago</p>
-                                <a href="" title="" class="font14">Read full review</a>
-                            </li>
-                            <li>
-                                <span class="review-card__author-circle"></span>
-                                <p class="review-card__author">Mayank Tripathi</p>
-                                <span class="rating-badge" data-rate-bg="5">
-                                    <span class="bwsprite star-white"></span>5
-                                </span>
-                                <p class="review-card__bike text-truncate" title="Bajaj Avenger 220 Cruise">Bajaj Avenger 220 Cruise</p>
-                                <p class="review-card__desc">Best bike in this price range , much better than other cruise...</p>
-                                <p class="review-card__date">1 month ago</p>
-                                <a href="" title="" class="font14">Read full review</a>
-                            </li>
-                            <li>
-                                <span class="review-card__author-circle"></span>
-                                <p class="review-card__author">Mayank Tripathi</p>
-                                <span class="rating-badge" data-rate-bg="5">
-                                    <span class="bwsprite star-white"></span>5
-                                </span>
-                                <p class="review-card__bike text-truncate" title="Bajaj Avenger 220 Cruise">Bajaj Avenger 220 Cruise</p>
-                                <p class="review-card__desc">Best bike in this price range , much better than other cruise...</p>
-                                <p class="review-card__date">1 month ago</p>
-                                <a href="" title="" class="font14">Read full review</a>
-                            </li>
-                            <li>
-                                <span class="review-card__author-circle"></span>
-                                <p class="review-card__author">Mayank Tripathi</p>
-                                <span class="rating-badge" data-rate-bg="5">
-                                    <span class="bwsprite star-white"></span>5
-                                </span>
-                                <p class="review-card__bike text-truncate" title="Bajaj Avenger 220 Cruise">Bajaj Avenger 220 Cruise</p>
-                                <p class="review-card__desc">Best bike in this price range , much better than other cruise...</p>
-                                <p class="review-card__date">1 month ago</p>
-                                <a href="" title="" class="font14">Read full review</a>
-                            </li>
-                        </ul>
+                @if (Model.RecentUserReviewsList != null)
+                {
+                    <h2 class="font22 text-center margin-bottom20 padding-top30 text-bold">Recently uploaded reviews</h2>
+                    <div class="jcarousel-wrapper inner-content-carousel user-review__swiper section-bottom-margin content-box-shadow padding-bottom20 padding-top20">
+                        @Html.Partial("~/views/UserReview/_RecentUploadedReviews.cshtml", Model.RecentUserReviewsList)
                     </div>
-                    <span class="jcarousel-control-left">
-                        <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
-                    </span>
-                    <span class="jcarousel-control-right">
-                        <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
-                    </span>
-                </div>
+                }
+
+
                 <div class="grid-12 omega alpha">
                     <div class="read-expert-review__banner margin-bottom20">
                         <a class="review__banner-link text-truncate" href="" title="">
@@ -494,96 +331,210 @@
 
 
 
-                    <h2 class="text-bold text-center margin-bottom20 font22 margin-top20 margin-top30">Recently uploaded reviews</h2>
-                    <div class="grid-12">
-                        <div class="content-box-shadow padding-bottom20">
+                <h2 class="text-bold text-center margin-bottom20 font22 margin-top20 margin-top30">Recently uploaded reviews</h2>
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-bottom20">
 
-                            <div class="jcarousel-wrapper inner-content-carousel generic-carousel padding-top20">
-                                <div class="jcarousel">
-                                    <ul>
-                                        <li id="allbikes">
-                                            <a href="/best-bikes-in-india/" title="Top 10 bikes in India" class="jcarousel-card">
-                                                <div class="model-jcarousel-image-preview">
-                                                    <div class="card-image-block">
-                                                        <img class="lazy" data-original="https://imgd.aeplcdn.com/310x174/bw/best-bikes/best-bikes-thumb.jpg?05042017&q=75" alt="Top 10 bikes in India" src="" />
-                                                    </div>
+                        <div class="jcarousel-wrapper inner-content-carousel generic-carousel padding-top20">
+                            <div class="jcarousel">
+                                <ul>
+                                    <li id="allbikes">
+                                        <a href="/best-bikes-in-india/" title="Top 10 bikes in India" class="jcarousel-card">
+                                            <div class="model-jcarousel-image-preview">
+                                                <div class="card-image-block">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/310x174/bw/best-bikes/best-bikes-thumb.jpg?05042017&q=75" alt="Top 10 bikes in India" src="" />
                                                 </div>
-                                                <div class="card-desc-block">
-                                                    <h3 class="margin-bottom5 text-truncate">Suzuki Gixxer SF Fi vs Yamaha FZ-SFI: Comparison Test</h3>
-                                                    <p class="font12 text-light-grey text-truncate">8 days ago by Prince guru</p>
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="model-jcarousel-title ">Suzuki Gixxer SF Fi vs Yamaha FZ-SFI: Comparison Test</h3>
+                                                <p class="font12 text-light-grey text-truncate">8 days ago by Prince guru</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li id="scooter">
+                                        <a href="/best-scooters-in-india/" title="Top 10 scooters in India" class="jcarousel-card">
+                                            <div class="model-jcarousel-image-preview">
+                                                <div class="card-image-block">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/310x174/bw/best-bikes/scooter-style-thumb.jpg?05042017&q=75" alt="Top 10 scooters in India" src="" />
                                                 </div>
-                                            </a>
-                                        </li>
-                                        @*@if (Model.CurrentPage!= null && Model.CurrentPage != Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter)
-                                {*@
-                                        <li id="scooter">
-                                            <a href="/best-scooters-in-india/" title="Top 10 scooters in India" class="jcarousel-card">
-                                                <div class="model-jcarousel-image-preview">
-                                                    <div class="card-image-block">
-                                                        <img class="lazy" data-original="https://imgd.aeplcdn.com/310x174/bw/best-bikes/scooter-style-thumb.jpg?05042017&q=75" alt="Top 10 scooters in India" src="" />
-                                                    </div>
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="model-jcarousel-title">Suzuki Gixxer SF Fi vs Yamaha FZ-SFI: Comparison Test</h3>
+                                                <p class="font12 text-light-grey text-truncate">8 days ago by Prince guru</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li id="mileage">
+                                        <a href="/best-mileage-bikes-in-india/" title="Top 10 mileage bikes in India" class="jcarousel-card">
+                                            <div class="model-jcarousel-image-preview">
+                                                <div class="card-image-block">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/310x174/bw/best-bikes/mileage-bikes-thumb.jpg?05042017&q=75" alt="Top 10 mileage bikes in India" src="" />
                                                 </div>
-                                                <div class="card-desc-block">
-                                                    <h3 class="margin-bottom5 text-truncate">Suzuki Gixxer SF Fi vs Yamaha FZ-SFI: Comparison Test</h3>        
-                                                    <p class="font12 text-light-grey text-truncate">8 days ago by Prince guru</p>
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="model-jcarousel-title">Suzuki Gixxer SF Fi vs Yamaha FZ-SFI: Comparison Test</h3>
+                                                <p class="font12 text-light-grey text-truncate">8 days ago by Prince guru</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li id="sports">
+                                        <a href="/best-sports-bikes-in-india/" title="Top 10 sports bikes in India" class="jcarousel-card">
+                                            <div class="model-jcarousel-image-preview">
+                                                <div class="card-image-block">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/310x174/bw/best-bikes/sports-style-thumb.jpg?05042017&q=75" alt="Top 10 sports bikes in India" src="" />
                                                 </div>
-                                            </a>
-                                        </li>
-                                        <li id="mileage">
-                                            <a href="/best-mileage-bikes-in-india/" title="Top 10 mileage bikes in India" class="jcarousel-card">
-                                                <div class="model-jcarousel-image-preview">
-                                                    <div class="card-image-block">
-                                                        <img class="lazy" data-original="https://imgd.aeplcdn.com/310x174/bw/best-bikes/mileage-bikes-thumb.jpg?05042017&q=75" alt="Top 10 mileage bikes in India" src="" />
-                                                    </div>
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="model-jcarousel-title">Top 10 sports bikes in India</h3>
+                                                <p class="font12 text-light-grey text-truncate">Suzuki Gixxer SF Fi vs Yamaha FZ-S</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li id="cruiser">
+                                        <a href="/best-cruiser-bikes-in-india/" title="Top 10 cruiser bikes in India" class="jcarousel-card">
+                                            <div class="model-jcarousel-image-preview">
+                                                <div class="card-image-block">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/310x174/bw/best-bikes/cruiser-style-thumb.jpg?05042017&q=75" alt="Top 10 cruiser bikes in India" src="" />
                                                 </div>
-                                                <div class="card-desc-block">
-                                                    <h3 class="margin-bottom5 text-truncate">Suzuki Gixxer SF Fi vs Yamaha FZ-SFI: Comparison Test</h3>
-                                                    <p class="font12 text-light-grey text-truncate">8 days ago by Prince guru</p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li id="sports">
-                                            <a href="/best-sports-bikes-in-india/" title="Top 10 sports bikes in India" class="jcarousel-card">
-                                                <div class="model-jcarousel-image-preview">
-                                                    <div class="card-image-block">
-                                                        <img class="lazy" data-original="https://imgd.aeplcdn.com/310x174/bw/best-bikes/sports-style-thumb.jpg?05042017&q=75" alt="Top 10 sports bikes in India" src="" />
-                                                    </div>
-                                                </div>
-                                                <div class="card-desc-block">
-                                                    <h3 class="margin-bottom5 text-truncate">Top 10 sports bikes in India</h3>
-                                                    <p class="font12 text-light-grey text-truncate">Suzuki Gixxer SF Fi vs Yamaha FZ-S</p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li id="cruiser">
-                                            <a href="/best-cruiser-bikes-in-india/" title="Top 10 cruiser bikes in India" class="jcarousel-card">
-                                                <div class="model-jcarousel-image-preview">
-                                                    <div class="card-image-block">
-                                                        <img class="lazy" data-original="https://imgd.aeplcdn.com/310x174/bw/best-bikes/cruiser-style-thumb.jpg?05042017&q=75" alt="Top 10 cruiser bikes in India" src="" />
-                                                    </div>
-                                                </div>
-                                                <div class="card-desc-block">
-                                                    <h3 class="margin-bottom5 text-truncate">Top 10 cruiser bikes in India</h3>
-                                                    <p class="font12 text-light-grey text-truncate">Suzuki Gixxer SF Fi vs Yamaha FZ-S</p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="model-jcarousel-title">Top 10 cruiser bikes in India</h3>
+                                                <p class="font12 text-light-grey text-truncate">Suzuki Gixxer SF Fi vs Yamaha FZ-S</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
-                    <div class="grid-12">
-                        <div class="read-user-review__banner margin-bottom20 margin-top20">
-                            <a class="review__banner-link text-truncate" href="" title="">
-                                <span class="review-icon--white"></span>Read Reviews by our Experts
-                                <span class="bwmsprite right-arrow"></span>
-                            </a>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
                     </div>
                 </div>
+
+                <h2 class="text-bold text-center margin-bottom20 font22 margin-top20 margin-top30">Know your Experts</h2>
+                <div class="grid-12">
+                    <div class="author-block">
+                        <span class="author-block__title">men of steel</span>
+                        <p class="author-block__description">Our best people who lean into corners, pop wheelies and ride their adrenaline out of the bike.</p>
+
+
+                        <div id="author__carousel" class="jcarousel-wrapper inner-content-carousel">
+                            <span class="detail-author__swiper-title">Our Arsenal</span>
+                            <div class="jcarousel padding-bottom20">
+                                <ul>
+                                    <li>
+                                        <a href="" title="" class="jcarousel-card">
+                                            <div class="jcarousel-author-image">
+                                                <img class="lazy" src="" data-original="https://imgd1.aeplcdn.com/400x300/cw/author/sagarbhanushali.jpg" alt="sagarbhanushali">
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="author__carousel-label">Ameya Dandekar</h3>
+                                                <p class="author__carousel-designation">Associate Editor</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="" class="jcarousel-card">
+                                            <div class="jcarousel-author-image">
+                                                <img class="lazy" src="" data-original="https://imgd1.aeplcdn.com/400x300/cw/author/sagarbhanushali.jpg" alt="sagarbhanushali" ">
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="author__carousel-label">Ameya Dandekar</h3>
+                                                <p class="author__carousel-designation">Associate Editor</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="" class="jcarousel-card">
+                                            <div class="jcarousel-author-image">
+                                                <img class="lazy" src="" data-original="https://imgd1.aeplcdn.com/400x300/cw/author/sagarbhanushali.jpg" alt="sagarbhanushali" ">
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="author__carousel-label">Ameya Dandekar</h3>
+                                                <p class="author__carousel-designation">Associate Editor</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="" class="jcarousel-card">
+                                            <div class="jcarousel-author-image">
+                                                <img class="lazy" src="" data-original="https://imgd1.aeplcdn.com/400x300/cw/author/sagarbhanushali.jpg" alt="sagarbhanushali" ">
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="author__carousel-label">Ameya Dandekar</h3>
+                                                <p class="author__carousel-designation">Associate Editor</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="" class="jcarousel-card">
+                                            <div class="jcarousel-author-image">
+                                                <img class="lazy" src="" data-original="https://imgd1.aeplcdn.com/400x300/cw/author/sagarbhanushali.jpg" alt="sagarbhanushali" ">
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="author__carousel-label">Ameya Dandekar</h3>
+                                                <p class="author__carousel-designation">Associate Editor</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="" class="jcarousel-card">
+                                            <div class="jcarousel-author-image">
+                                                <img class="lazy" src="" data-original="https://imgd1.aeplcdn.com/400x300/cw/author/sagarbhanushali.jpg" alt="sagarbhanushali">
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="author__carousel-label">Ameya Dandekar</h3>
+                                                <p class="author__carousel-designation">Associate Editor</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="" class="jcarousel-card">
+                                            <div class="jcarousel-author-image">
+                                                <img class="lazy" src="" data-original="https://imgd1.aeplcdn.com/400x300/cw/author/sagarbhanushali.jpg" alt="sagarbhanushali" ">
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="author__carousel-label">Ameya Dandekar</h3>
+                                                <p class="author__carousel-designation">Associate Editor</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="" class="jcarousel-card">
+                                            <div class="jcarousel-author-image">
+                                                <img class="lazy" src="" data-original="https://imgd1.aeplcdn.com/400x300/cw/author/sagarbhanushali.jpg" alt="sagarbhanushali" ">
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="author__carousel-label">Ameya Dandekar</h3>
+                                                <p class="author__carousel-designation">Associate Editor</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                        </div>
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+                <div class="grid-12">
+                    <div class="read-user-review__banner margin-bottom20 margin-top20">
+                        <a class="review__banner-link text-truncate" href="" title="">
+                            <span class="review-icon--white"></span>Read Reviews by our Experts
+                            <span class="bwmsprite right-arrow"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
         </section>
 
