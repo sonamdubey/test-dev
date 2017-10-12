@@ -1,7 +1,7 @@
 ﻿var reviewSelectModel, reviewSelectMake;
 
 docReady(function () {
-
+    $('#globalSearch').parent().hide();
     $('.bw-tabs li').click(function () {
         var dataTabs = $(this).attr('data-tabs');
         var bannerReveiw = $(this).closest('.banner-review')
@@ -75,5 +75,16 @@ docReady(function () {
         $("#reviewSelectModel_chosen .chosen-single.chosen-default span").text("No cities available");
     }
 
+    $(".tabs-type-switch").click(function (e) {
+        if (e.target.getAttribute('data-tabs') == 'expertReviewContent') {
+            $('#nonUpcomingBikes').attr('data-contentTab', "expertReview");
+            $('#nonUpcomingBikes').val('');
+        }
+
+        if (e.target.getAttribute('data-tabs') == 'userReviewContent') {
+            $('#nonUpcomingBikes').attr('data-contentTab', "userReview");
+            $('#nonUpcomingBikes').val('');
+        }
+    });
 });
 

@@ -18,22 +18,7 @@
                     <li data-tabs="expertReviewContent" class="">Expert Reviews</li>
                 </ul>
             </div>
-            <div class="bike-search-container position-rel">
-                <div class="bike-search new-bike-search position-rel">
-                    <input type="text" placeholder="Search your bike here, e.g. Bullet 350 " id="newBikeList" autocomplete="off" tabindex="1" class="ui-autocomplete-input blur">
-                    <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
-                </div>
-                <div class="findBtn">
-                    <input type="button" id="btnSearch" class="btn btn-orange btn-md font16" tabindex="2" value="Search">
-                </div>
-                <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide" style="display: none;">
-                    <li class="ui-menu-item" tabindex="-1">
-                        <span class="text-bold">Oops! No suggestions found</span><br>
-                        <span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
-                    </li>
-                </ul>
-                <ul id="new-global-recent-searches" class="recent-searches-dropdown"></ul>
-            </div>
+            @Html.Partial("~/views/UserReview/_SearchUserReviewExpertReviewModel.cshtml")
         </div>
     </div>
 
