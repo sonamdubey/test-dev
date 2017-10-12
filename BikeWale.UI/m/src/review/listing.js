@@ -259,5 +259,19 @@ docReady(function () {
             bikePopup.close();
         }
     });
+
+    $(".tabs-type-switch").click(function (e) {
+        if (e.target.getAttribute('data-tabs') == 'expertReviewContent') {
+            $('#nonUpcomingBikes').attr('data-contentTab', "expertReview");
+            $('#nonUpcomingBikes').val('');
+        }
+
+        if (e.target.getAttribute('data-tabs') == 'userReviewContent') {
+            $('#nonUpcomingBikes').attr('data-contentTab', "userReview");
+            $('#nonUpcomingBikes').val('');
+        }
+    });
+
+
 });
 

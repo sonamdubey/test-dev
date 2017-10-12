@@ -1,0 +1,170 @@
+﻿
+<div class="new-bikes-search position-rel margin-top5">
+    <input type="text" placeholder="Search bike e.g. Bajaj Dominar 400 " id="nonUpcomingBikes" data-contentTab="userReview" autocomplete="off" class="rounded-corner2 blur ui-autocomplete-input">
+    <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search" rel="nofollow"><span class="bwmsprite search-bold-icon"></span></a>
+    <span id="loaderMakeModel" class="fa-spinner position-abt pos-right45 pos-top15">
+    </span>
+</div>
+<ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
+    <li class="ui-menu-item" tabindex="-1">
+        <span class="text-bold">Oops! No suggestions found</span>
+        <br>
+        <span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
+    </li>
+</ul>
+<ul id="new-global-recent-searches" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
+
+<script type="text/javascript">
+    docReady(function () {
+        $('#nonUpcomingBikes').val('');
+        var category;
+        function reviewRedirection(items) {
+
+            var make = new Object();
+            make.maskingName = items.payload.makeMaskingName;
+            make.id = items.payload.makeId;
+            var model = null;
+            if (items.payload.modelId > 0) {
+                model = new Object();
+                model.maskingName = items.payload.modelMaskingName;
+                model.id = items.payload.modelId;
+                model.futuristic = items.payload.futuristic;
+                model.expertReviewCount = items.payload.expertReviewsCount;
+                model.ratingCount = items.payload.userRatingsCount;
+            }
+
+            if (model != null && model != undefined && ($('#nonUpcomingBikes').attr('data-contentTab') == "userReview") && model.ratingCount > 0) {
+                window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/reviews/";
+                return true;
+            }
+
+            if (model != null && model != undefined && ($('#nonUpcomingBikes').attr('data-contentTab') == "expertReview") && model.expertReviewCount > 0) {
+                window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/expert-reviews/";
+                return true;
+            }
+
+        }
+
+        var reviewSearch = function () {
+            var self = this;
+            self.init = function () {
+                try {
+                    $("#nonUpcomingBikes").bw_autocomplete({
+                        recordCount: 5,
+                        source: 7,
+                        onClear: function () {
+                            objBikes = new Object();
+                        },
+                        click: function (event, ui, orgTxt) {
+                            reviewRedirection(ui.item);
+                            // GA code
+                            var keywrd = ui.item.label + '_' + $('#nonUpcomingBikes').val();
+
+                            if ($('#nonUpcomingBikes').attr('data-contentTab') == "userReview") {
+                                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Bike_Reviews', 'act': 'Seach_Keyword_Present_in_AutoSuggest_UserReviews', 'lab': keywrd });
+                            }
+                            else if ($('#nonUpcomingBikes').attr('data-contentTab') == "expertReview") {
+                                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Bike_Reviews', 'act': 'Seach_Keyword_Present_in_AutoSuggest_ExpertReviews', 'lab': keywrd });
+                            }
+                        },
+
+                        open: function (result) {
+                            objBikes.result = result;
+                            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+                                $('.ui-autocomplete').off('menufocus hover mouseover');
+                            }
+                            $("ul.ui-menu").width($('#nonUpcomingBikes').innerWidth());
+                        },
+                        focusout: function () {
+                            $('#errNewBikeSearch').hide();
+                            focusedMakeModel = new Object();
+                            focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
+                        },
+                        afterfetch: function (result, searchtext) {
+                            if (result != undefined && result.length > 0 && searchtext.trim()) {
+                                $('#errNewBikeSearch').hide();
+                                NewBikeSearchResult = true;
+                            }
+                            else {
+                                focusedMakeModel = null; NewBikeSearchResult = false;
+                                if (searchtext.trim() != '') {
+                                    $('#errNewBikeSearch').show();
+                                }
+
+                                if ($('#nonUpcomingBikes').attr('data-contentTab') == "userReview") {
+                                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Bike_Reviews', 'act': 'Seach_Keyword_Not_Present_in_AutoSuggest_UserReviews', 'lab': searchtext });
+                                }
+                                else if ($('#nonUpcomingBikes').attr('data-contentTab') == "expertReview") {
+                                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Bike_Reviews', 'act': 'Seach_Keyword_Not_Present_in_AutoSuggest_ExpertReviews', 'lab': searchtext });
+                                }
+                            }
+                        },
+                        keyup: function () {
+                            if ($('li.ui-state-focus a:visible').text() != "") {
+                                $('#errNewBikeSearch').hide();
+                            } else {
+                                if ($('#nonUpcomingBikes').val().trim() == '') {
+                                    $('#errNewBikeSearch').hide();
+                                }
+                            }
+
+                            if ($('#nonUpcomingBikes').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                                if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                                    if ($('#nonUpcomingBikes').val().trim() != '') {
+                                        $('#errNewBikeSearch').show();
+                                    }
+
+                                    if ($('#nonUpcomingBikes').attr('data-contentTab') == "userReview") {
+                                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Bike_Reviews', 'act': 'Seach_Keyword_Not_Present_in_AutoSuggest_UserReviews', 'lab': $('#nonUpcomingBikes').val() });
+                                    }
+                                    else if ($('#nonUpcomingBikes').attr('data-contentTab') == "expertReview") {
+                                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Bike_Reviews', 'act': 'Seach_Keyword_Not_Present_in_AutoSuggest_ExpertReviews', 'lab': $('#nonUpcomingBikes').val() });
+                                    }
+
+                                }
+                                else {
+                                    $('#errNewBikeSearch').hide();
+                                }
+
+                            }
+                        }
+                    }).css({ 'width': '100%' });
+                }
+                catch (e) {
+
+                }
+            }();
+        };
+
+        function btnFindReviewNav() {
+            if (focusedMakeModel == undefined || focusedMakeModel == null) {
+                return false;
+            }
+
+            if ($('#nonUpcomingBikes').attr('data-contentTab') == "userReview") {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Bike_Reviews', 'act': 'Seach_Keyword_Present_in_AutoSuggest_UserReviews', 'lab': focusedMakeModel.label });
+            }
+            else if ($('#nonUpcomingBikes').attr('data-contentTab') == "expertReview") {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Bike_Reviews', 'act': 'Seach_Keyword_Present_in_AutoSuggest_ExpertReviews', 'lab': focusedMakeModel.label });
+            }
+
+            return reviewRedirection(focusedMakeModel);
+        }
+
+        $.fn.hint = bwHint;
+        $.fn.bw_autocomplete = bwAutoComplete;
+        var vmReviewSearch = new reviewSearch();
+
+        $('#btnSearch').on('click', function (e) {
+            var id = $('#nonUpcomingBikes');
+            var searchVal = id.val();
+            var placeHolder = id.attr('placeholder');
+            if (btnFindReviewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
+                return false;
+            } else {
+                return false;
+            }
+
+        });
+    });
+</script>

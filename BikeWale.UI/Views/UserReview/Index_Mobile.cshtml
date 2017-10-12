@@ -16,20 +16,7 @@
                     <li data-tabs="expertReviewContent" data-image="m_bikewale_reviewlanding_expert_banner" class="">Expert Reviews</li>
                 </ul>
             </div>
-            <div class="new-bikes-search position-rel margin-top5">
-                <input type="text" placeholder="Search bike e.g. Bajaj Dominar 400 " id="nonUpcomingBikes" data-contentTab="userReview" autocomplete="off" class="rounded-corner2 blur ui-autocomplete-input">
-                <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search" rel="nofollow"><span class="bwmsprite search-bold-icon"></span></a>
-                <span id="loaderMakeModel" class="fa-spinner position-abt pos-right45 pos-top15">
-                </span>
-            </div>
-            <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
-                <li class="ui-menu-item" tabindex="-1">
-                    <span class="text-bold">Oops! No suggestions found</span>
-                    <br>
-                    <span class="text-light-grey font12">Search by bike name e.g: Bullet 350</span>
-                </li>
-            </ul>
-            <ul id="new-global-recent-searches" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
+            @Html.Partial("~/views/UserReview/_SearchUserReviewExpertReviewModel_Mobile.cshtml")
         </div>
     </div>
 

@@ -242,6 +242,16 @@ var bwAutoComplete = function (options) {
             if (options.source == '5') {
                 ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.userRatingsCount + ' Ratings)</span>')
             }
+            if (options.source == '7' && $('#nonUpcomingBikes').attr('data-contentTab') == "userReview" && parseInt(item.payload.userRatingsCount) > 0) {
+                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.userRatingsCount + ' Ratings)</span>')
+            }
+            else if (options.source == '7' && $('#nonUpcomingBikes').attr('data-contentTab') == "expertReview" && parseInt(item.payload.expertReviewsCount) > 0) {
+                ulItem.append(' <a href="javascript:void(0)"  class="target-popup-link" rel="nofollow">Read review</a>')
+            }
+            else if (options.source == '7') {
+                ulItem.closest('li').addClass('event-none');
+                ulItem.append(' <span class="rightfloat margin-left10 font14 text-grey">Not reviewed yet</span>')
+            }
             if (options.source == '1') {
                 if (item.payload.modelId > 0) {
                     if (item.payload.futuristic == 'True') {
@@ -1057,14 +1067,16 @@ docReady(function () {
 
     $('#btnSearch').on('click', function (e) {
         var id = $('#newBikeList');
-        var searchVal = id.val().trim();
-        var placeHolder = id.attr('placeholder');
-        triggerGA('HP', 'Search_Not_Keyword_Present_in_Autosuggest', searchVal);
-        if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
-            $('#errNewBikeSearch').hide();
-            return false;
-        } else {
-            $('#errNewBikeSearch').show();
+        if (id.length > 0) {
+            var searchVal = id.val().trim();
+            var placeHolder = id.attr('placeholder');
+            triggerGA('HP', 'Search_Not_Keyword_Present_in_Autosuggest', searchVal);
+            if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
+                $('#errNewBikeSearch').hide();
+                return false;
+            } else {
+                $('#errNewBikeSearch').show();
+            }
         }
     });
 

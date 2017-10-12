@@ -59,7 +59,8 @@ namespace BikewaleAutoSuggest
                                     ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
                                     New = Convert.ToBoolean(dr["New"]),
                                     Futuristic = Convert.ToBoolean(dr["Futuristic"]),
-                                    UserRatingsCount = SqlReaderConvertor.ToInt32(dr["RatingsCount"])
+                                    UserRatingsCount = SqlReaderConvertor.ToInt32(dr["RatingsCount"]),
+                                    ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewsCount"])
                                 });
                             }
                             dr.Close();
@@ -101,8 +102,8 @@ namespace BikewaleAutoSuggest
                         ModelMaskingName = Convert.ToString(bikeItem.ModelMaskingName),
                         Futuristic = Convert.ToString(bikeItem.Futuristic),
                         IsNew = Convert.ToString(bikeItem.New),
-                        UserRatingsCount = Convert.ToString(bikeItem.UserRatingsCount)
-
+                        UserRatingsCount = Convert.ToString(bikeItem.UserRatingsCount),
+                        ExpertReviewsCount = Convert.ToString(bikeItem.ExpertReviewsCount)
                     };
 
                     ObjTemp.mm_suggest.Weight = count;
@@ -144,7 +145,7 @@ namespace BikewaleAutoSuggest
                     if (bikeItem.UserRatingsCount > 0)
                         ObjTemp.mm_suggest.contexts.types.Add("UserReviews");
 
-                    if (!bikeItem.Futuristic)
+                    if (!bikeItem.Futuristic && bikeItem.ModelId > 0)
                         ObjTemp.mm_suggest.contexts.types.Add("NonUpcomingBikes");
 
                     objSuggestList.Add(ObjTemp);
