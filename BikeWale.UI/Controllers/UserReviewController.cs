@@ -463,16 +463,7 @@ namespace Bikewale.Controllers
             {
                 return Redirect("/pageNotFound.aspx");
             }
-        }
-
-     		// GET: Review
-       [Route("review/")]
-       public ActionResult Index()
-       {
-           ModelPageVM obj = new ModelPageVM();
-            return View(obj);
-       }
-
+        }     		
 
     /// <summary>
     /// Created by : Aditi Srivastava on 19 Apr 2017
@@ -556,7 +547,15 @@ namespace Bikewale.Controllers
             return View(objVM);
         }
 
-		// GET: Review
+        // GET: Review
+        [Route("review/")]
+        public ActionResult Index()
+        {
+            ModelPageVM obj = new ModelPageVM();
+            return View(obj);
+        }
+
+        // GET: Review
         [Route("m/review/")]
         public ActionResult Index_Mobile()
         {
