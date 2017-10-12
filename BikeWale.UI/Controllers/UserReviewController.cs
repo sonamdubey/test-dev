@@ -551,8 +551,8 @@ namespace Bikewale.Controllers
         [Route("review/")]
         public ActionResult Index()
         {
-            ModelPageVM obj = new ModelPageVM();
-            return View(obj);
+            UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo);
+            return View(obj.GetData());
         }
 
         // GET: Review
