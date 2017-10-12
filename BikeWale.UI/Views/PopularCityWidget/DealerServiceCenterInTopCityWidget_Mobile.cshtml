@@ -1,0 +1,44 @@
+﻿@model Bikewale.Models.DealersServiceCentersIndiaWidgetVM
+@using Bikewale.Utility
+
+
+@if (Model != null && Model.DealerServiceCenters != null)
+{
+   
+    <div class="swiper-wrapper">
+       @foreach (var details in Model.DealerServiceCenters.DealerDetails)
+       {
+           if ((Model.IsServiceCenterPage && details.ServiceCenterCount > 0) || (!Model.IsServiceCenterPage && details.DealerCount > 0))
+           {
+            <div class="swiper-slide">
+                <div class="swiper-card">
+                    <a href="@string.Format("/m/{0}-{1}-{2}/", Model.MakeMaskingName,Model.CityCardLink, details.CityMaskingName)" title="@string.Format("{0}  {1} {2}", Model.MakeName,Model.CityCardTitle,  details.CityName)" class="card-target-link">
+                        <div class="swiper-image-preview">
+                            <span class="city-sprite @string.Format("c-{0}-icon",details.CityMaskingName)"></span>
+                        </div>
+                        <div class="swiper-details-block font12">
+                            <h3 class="font12 text-black margin-bottom5">@details.CityName</h3>
+                            @if (Model.IsServiceCenterPage)
+                            {
+                                <div class="text-default">
+                                    <span>  @details.ServiceCenterCount @Model.MakeName service @((details.ServiceCenterCount > 1) ? "centers" : "center")</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-default">
+                                    <span>
+                                        @details.DealerCount @Model.MakeName @((details.DealerCount > 1) ? "showrooms" : "showroom")
+                                    </span>
+                                </div>
+                            }
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+           }
+       }
+    </div>
+}

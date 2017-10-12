@@ -1,0 +1,40 @@
+﻿@mixin tabs-type-switch($color, $size)
+
+	// local variables	
+	$font-size: 12px
+	$padding: 6px 15px
+	$border-color: #ccc
+	$active-color: map-get($color-map, "teal")
+	$inactive-color: map-get($color-map, "light-grey")
+	$active-background: map-get($color-map, "white")
+	$background: map-get($color-map, "border-light")
+
+	.bw-tabs-content
+		font-size: 0
+		text-align: center
+
+	.tabs-type-switch
+		display: inline-block
+		margin: 15px auto
+		border: 1px solid $border-color
+		background: $border-color
+		overflow: hidden
+
+		li
+			font-size: $font-size
+			color: $inactive-color
+			padding: $padding
+			margin-left: 1px
+			display: inline-block
+			background: $background
+			cursor: pointer
+
+			&.active
+				color: $active-color
+				background: $active-background
+				pointer-events: none
+
+			&:first-child
+				margin-left: 0
+
+@import ../../base/variables

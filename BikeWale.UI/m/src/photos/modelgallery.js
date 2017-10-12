@@ -521,7 +521,6 @@ docReady(function () {
         ko.utils.arrayForEach(modelColorImages, function (item, index) {
             if (item.ColorId == colorImageId) { colorIndex = index; }
         });
-        colorIndex++;
         vmModelGallery.activeColorIndex(colorIndex);
         thumbnailSwiperEvents.focusGallery(colorGallerySwiper, colorIndex);
     }
