@@ -3,9 +3,6 @@ using Bikewale.Entities.Location;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models.UserReviews
 {
@@ -13,29 +10,29 @@ namespace Bikewale.Models.UserReviews
     {
         private readonly IUserReviewsCache _userReviewsCache = null;
 
-        private UserReviewLandingVM objUserReviewLanding = null;
+        private UserReviewLandingVM objData = null;
         public UserReviewLandingPage(IUserReviewsCache userReviewsCache)
         {
             _userReviewsCache = userReviewsCache;
         }
 
         public UserReviewLandingVM GetData()
-        {            
+        {
             try
             {
-                objUserReviewLanding = new UserReviewLandingVM();
+                objData = new UserReviewLandingVM();
 
-                BindWidgets();                
+                BindWidgets();
 
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "UserReviewLandingPage.GetData");
             }
-            return objUserReviewLanding;
+            return objData;
         }
 
-        public void BindWidgets ()
+        public void BindWidgets()
         {
             try
             {
@@ -45,7 +42,13 @@ namespace Bikewale.Models.UserReviews
                 objTopRatedBikesWidget.TopCount = 9;
                 objTopRatedBikesWidget.CityId = location.CityId;
 
-                objUserReviewLanding.TopRatedBikesWidget = objTopRatedBikesWidget.GetData();
+                objData.TopRatedBikesWidget = objTopRatedBikesWidget.GetData();
+
+
+                PopularBikesWithExpertReviewsWidget objBikesWithExpertReviews = new PopularBikesWithExpertReviewsWidget(_userReviewsCache, 9);
+                objBikesWithExpertReviews.CityId = location.CityId;
+                objData.BikesWithExpertReviews = objBikesWithExpertReviews.GetData();
+
             }
             catch (Exception ex)
             {

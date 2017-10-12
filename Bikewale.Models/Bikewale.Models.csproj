@@ -183,6 +183,7 @@
     <Compile Include="Survey\BajajSurveyVM.cs" />
     <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
     <Compile Include="Upcoming\UpcomingPageVM.cs" />
+    <Compile Include="UserReviews\PopularBikesWithExpertReviewsWidgetVM.cs" />
     <Compile Include="UserReviews\TopRatedBikesWidgetVM.cs" />
     <Compile Include="UserReviews\UserReviewLandingVM.cs" />
     <Compile Include="UserReviews\UserReviewSimilarBikesWidgetVM.cs" />

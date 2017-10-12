@@ -1049,7 +1049,8 @@ namespace Bikewale.DAL.UserReviews
                             objUserReviewSummary.Questions = objQuestions;
                         }
 
-                        dr.Close();
+                        if (dr != null)
+                            dr.Close();
                     }
                 }
             }
@@ -1083,11 +1084,8 @@ namespace Bikewale.DAL.UserReviews
                         if (dr != null && dr.Read())
                         {
                             isVerified = SqlReaderConvertor.ToBoolean(dr["status"]);
+                            dr.Close();
                         }
-
-
-
-                        dr.Close();
                     }
                 }
             }
@@ -1217,8 +1215,8 @@ namespace Bikewale.DAL.UserReviews
                                 NeutralReviews = SqlReaderConvertor.ToUInt32(dr["neutralreviews"])
                             };
                         }
-
-                        dr.Close();
+                        if (dr != null)
+                            dr.Close();
                     }
                 }
             }
@@ -1365,8 +1363,8 @@ namespace Bikewale.DAL.UserReviews
                             }
                             objBikeRatingReviewInfo.ObjQuestionValue.QuestionsList = objList;
                         }
-
-                        dr.Close();
+                        if (dr != null)
+                            dr.Close();
                     }
                 }
             }
@@ -1431,8 +1429,8 @@ namespace Bikewale.DAL.UserReviews
                                 if (!htResult.ContainsKey(dr["oldreviewid"]))
                                     htResult.Add(dr["oldreviewid"], dr["newReviewId"]);
                             }
+                            dr.Close();
                         }
-                        dr.Close();
                     }
                 }
             }
@@ -1620,19 +1618,19 @@ namespace Bikewale.DAL.UserReviews
                     }
                 }
 
-                if (objSummaryList != null && objQuestionList != null)
+                if (objQuestionList != null)
                 {
                     var groups = objQuestionList.GroupBy(x => x.ReviewId);
 
                     foreach (var group in groups)
                     {
-                        objSummaryList.Where(s => s.ReviewId == group.Key).FirstOrDefault().Questions = group.ToList();
+                        objSummaryList.FirstOrDefault(s => s.ReviewId == group.Key).Questions = group.ToList();
 
                         foreach (var ele in group)
                         {
                             if (ele.Type == UserReviewQuestionType.Rating)
                             {
-                                objSummaryList.Where(s => s.ReviewId == group.Key).FirstOrDefault().IsRatingQuestion = true;
+                                objSummaryList.FirstOrDefault(s => s.ReviewId == group.Key).IsRatingQuestion = true;
                                 break;
                             }
                         }
@@ -1688,7 +1686,7 @@ namespace Bikewale.DAL.UserReviews
                 {
                     connection.Open();
                     objReviewsWinnersList = connection.Query<RecentReviewsWidget>("getuserreviewswinners", commandType: CommandType.StoredProcedure);
-                    if (connection != null && connection.State == ConnectionState.Open)
+                    if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
@@ -1826,8 +1824,8 @@ namespace Bikewale.DAL.UserReviews
                                     Make = new BikeMakeEntityBase
                                     {
                                         MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
-                                        MakeName = Convert.ToString(dr["Make"]),
-                                        MaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                        MakeName = Convert.ToString(dr["make"]),
+                                        MaskingName = Convert.ToString(dr["makemaskingname"]),
                                     },
                                     Model = new BikeModelEntityBase
                                     {
@@ -1843,8 +1841,9 @@ namespace Bikewale.DAL.UserReviews
                                     },
                                     ExpertReviewCount = SqlReaderConvertor.ToUInt32(dr["expertreviewscount"]),
                                     Price = SqlReaderConvertor.ToUInt32(dr["price"]),
-                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
-                                    HostUrl = Convert.ToString(dr["hosturl"])
+                                    OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
+                                    HostUrl = Convert.ToString(dr["hosturl"]),
+                                    IsOnRoadPrice = SqlReaderConvertor.ToBoolean(dr["isonroadprice"]),
                                 });
 
                             }
