@@ -68,7 +68,7 @@
                     </a>
                     @if (Details.IsFeatured)
                     {
-                    <input data-leadsourceid="20" data-item-id="@Details.DealerId" data-item-type="@Details.DealerType" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" type="button" class="btn btn-white margin-top10 leadcapturebtn bw-ga margin-top20" c="Dealer_Locator" a="Get_Offers_Clicked" l="@Details.GetOffersGALabel" data-cityname="@Model.CityDetails.CityName" data-areaname="@Details.objArea.AreaName" data-eventcategory="Dealer_Locator" value="@Details.DisplayTextLarge" />
+                    <input data-leadsourceid="20" data-item-id="@Details.DealerId" data-item-type="@Details.DealerType" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" type="button" class="btn btn-white margin-top10 leadcapturebtn bw-ga margin-top20" data-cat="Dealer_Locator" data-act="Get_Offers_Clicked" data-lab="@Details.GetOffersGALabel" data-cityname="@Model.CityDetails.CityName" data-areaname="@Details.objArea.AreaName" data-eventcategory="Dealer_Locator" value="@Details.DisplayTextLarge" />
                     }
                    </li>
             }

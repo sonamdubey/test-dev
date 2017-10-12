@@ -67,7 +67,7 @@
         {
             <div class="padding-bottom20">
                 <div class="vertical-top">
-                    <a id="requestcallback" c="Model_Page" a="Request_Callback_Details_Clicked" v="bikeVersionLocation" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga leadcapturebtn">Request callback</a>
+                    <a id="requestcallback" data-cat="Model_Page" data-act="Request_Callback_Details_Clicked" data-var="bikeVersionLocation" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga leadcapturebtn">Request callback</a>
                 </div>
                 <p class="callback-label font11 line-height-1-7 text-xx-light vertical-top">Get EMI options, test rides other services from dealer</p>
             </div>
@@ -85,7 +85,7 @@
                     <p class="font14">One partner dealer near you</p>
                 </div>
             </div>
-            <a id="viewprimarydealer" onclick="secondarydealer_Click(@Model.DealerId);" c="Model_Page" a="View_Dealer_Details_Clicked" v="bikeVersionLocation" href="javascript:void(0)" class="btn btn-orange btn-sm-0 bw-ga">View dealer details</a>
+            <a id="viewprimarydealer" onclick="secondarydealer_Click(@Model.DealerId);" data-cat="Model_Page" data-act="View_Dealer_Details_Clicked" data-var="bikeVersionLocation" href="javascript:void(0)" class="btn btn-orange btn-sm-0 bw-ga">View dealer details</a>
         </div>
     }
     }

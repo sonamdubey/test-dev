@@ -107,7 +107,7 @@
                 @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
 
                 <div class="padding-left10 more-article-target view-all-btn-container">
-                    <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
+                    <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="Read_all_expert_reviews_link_cliked" data-var="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
                 </div>
 					<!-- expert review ends-->
             }
@@ -202,7 +202,7 @@
                 <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Videos</h2>
                 @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
                 <div class="padding-left10 more-article-target view-all-btn-container">
-                    <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="View_all_videos_link_cliked" v="@Model.BikeName">View all videos<span class="bwsprite teal-right"></span></a>
+                    <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="View_all_videos_link_cliked" data-var="@Model.BikeName">View all videos<span class="bwsprite teal-right"></span></a>
                 </div>
                 <!-- Video ends -->
             </div>
