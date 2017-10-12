@@ -23,7 +23,7 @@
             </div>
 
             <div class="banner-screen__content4 no-animate">
-                <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
+                <p class="expand-popup bw-ga" c="Innovation_Banner" a="Main_Know more_Festive Offer_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
             </div>
         </div>
         <div id="banner2" class="banner-screen" data-position="10">
@@ -38,7 +38,7 @@
             </div>
 
             <div class="banner-screen__content4 no-animate">
-                <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
+                <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know more_Features_Main_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
             </div>
         </div>
         <div id="banner3" class="banner-screen" data-position="10">
@@ -53,15 +53,15 @@
             </div>
 
             <div class="banner-screen__content4 no-animate">
-                <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
+                <p class="expand-popup bw-ga" c="Innovation_Banner" a="Know more_360 degree_Main_Clicked" l="@Model.InnovationBannerGALabel">Know More >></p>
             </div>
         </div>
 
-        <button class="arrow left"></button>
-        <button class="arrow right"></button>
+        <button class="arrow left bw-ga" c="Innovation_Banner" a="Main_Left Arrow_Clicked" l="@Model.InnovationBannerGALabel"></button>
+        <button class="arrow right bw-ga" c="Innovation_Banner" a="Main_Right Arrow_Clicked" l="@Model.InnovationBannerGALabel"></button>
     </div>
     <div class="banner-popup">
-        <span class="popup-close bwmsprite bw-ga" c="Innovation_Banner" a="Popup_Close_Clicked" l="@Model.InnovationBannerGALabel"></span>
+        <span class="popup-close bwmsprite bw-ga" c="Innovation_Banner" a="Close_Clicked" l="@Model.InnovationBannerGALabel"></span>
         <div class="banner1-popup" data-flag="0">
             <div class="popup-container">
                 <div class="banner-popup__top-block banner-element no-animate">
@@ -166,8 +166,8 @@
                     <a rel="nofollow noopener" target="_blank" href="https://bs.serving-sys.com/serving/adServer.bs?cn=trd&mc=click&pli=22699877&PluID=0&ord=@currentTimestamp" class="btn btn-orange banner__explore-more bw-ga" c="Innovation_Banner" a="Know_more_Clicked" l="@Model.InnovationBannerGALabel">Know more</a>
                 </div>
                 <div class="grid-12 alpha omega margin-top10 banner-element" data-animation="fadeIn">
-                    <a href="javascript:void(0)" class="view-prev-link prev-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel"><< Previous</a>
-                   <a href="javascript:void(0)" class="view-more-link next-popup bw-ga" c="Innovation_Banner" a="View_features_Clicked" l="@Model.InnovationBannerGALabel">View 360<sup class="font7">o</sup> >></a>
+                    <a href="javascript:void(0)" class="view-prev-link prev-popup bw-ga" c="Innovation_Banner" a="Previous_Clicked" l="@Model.InnovationBannerGALabel"><< Previous</a>
+                   <a href="javascript:void(0)" class="view-more-link next-popup bw-ga" c="Innovation_Banner" a="View 360_Clicked" l="@Model.InnovationBannerGALabel">View 360<sup class="font7">o</sup> >></a>
                 </div>
             </div>
 
@@ -180,7 +180,7 @@
                 </div>
                 <div class="banner-popup__360view banner-element no-animate">
                     <div class="threesixty-slider"></div>
-                    <div class="threesixty car">
+                    <div class="threesixty car bw-ga" c="Innovation_Banner" a="Interacted with 360 degree" l="@Model.InnovationBannerGALabel">
                         <div class="spinner">
                             <span>0%</span>
                         </div>
@@ -285,7 +285,7 @@
         } catch (e) {
             console.warn(e.message);
         }
-        
+
         $.fn.extend({
             animateCss: function (animationname, callback) {
                 var animationend = 'webkitanimationend mozanimationend msanimationend oanimationend animationend';
@@ -310,9 +310,11 @@
             slidesPerView: 'auto',
             preloadImages: false,
             lazyLoading: true,
-            lazyLoadingInPrevNextAmount: 1
+            lazyLoadingInPrevNextAmount: 1,            
+            onSlideChangeStart: function (swiper) {
+                triggerGA('Innovation_Banner', 'Photo_Swipe', '@Model.InnovationBannerGALabel');
+            }
         });
-
         function animateBannerContent(elemId) {
             var firstElem = $("#" + elemId + " .banner-screen__content1");
             recursiveAnimate(firstElem);
@@ -397,7 +399,7 @@
         });
 
         $('.next-popup').on('click', function () {
- 
+
             popupClose($(this));
             var popupContainer = $(this).closest('.popup-container');
 
@@ -426,7 +428,7 @@
                 });
             }
         });
-       
+
 
         $('.prev-popup').on('click', function () {
             var popupContainer = $(this).closest('.popup-container');
