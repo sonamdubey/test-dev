@@ -1,0 +1,450 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+.inline-block {
+    display: inline-block;
+    vertical-align: middle;
+}
+.dot-style {
+    width: 5px;
+    height: 5px;
+    background-color: #2a2a2a;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+.font15 {
+    font-size: 15px;
+}
+.font17 {
+    font-size: 17px;
+}
+.font19{
+    font-size: 19px;
+}
+.full-width {
+    width: 100%;
+}
+.margin-top70 {
+    margin-top: 70px;
+}
+.text-bolder{
+    font-weight: 700;
+}
+button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    cursor: pointer;
+    top: 36px;
+}
+button.left {
+    left: 140px;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/arrows.png) no-repeat -43px -48px;
+    width: 30px;
+    height: 40px;
+}
+button.right {
+    right: 20px;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/arrows.png) no-repeat -105px -48px;
+    width: 30px;
+    height: 40px;
+}
+.maestro-animation-container .no-animate {
+    display: block;
+}
+.container{
+    overflow: hidden;
+}
+
+.bg-animation {
+    position: relative;
+    width: 100%;
+    height: 118px;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/bg-animation.png') repeat-x;
+    animation: move_background 7s linear infinite;
+}
+.reverse .bg-animation {
+    animation-direction: reverse;
+}
+.reverse .vehicle-container {
+    -ms-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.vehicle-container__body {
+    width: 168px;
+    height: 109px;
+    display: inline-block;
+    position: absolute;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/duet-body.png') no-repeat;
+    top: 9px;
+    background-size: cover;
+}
+
+.vehicle-container__tyres {
+    display: inline-block;
+    position: absolute;
+    top: 70px;
+    left: 140px;
+}
+
+.tyre {
+    position: absolute;
+    width: 41px;
+    height: 41px;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/duet-tyre.png') no-repeat;
+    -webkit-animation: spin 0.5s linear infinite;
+    -moz-animation: spin 0.5s linear infinite;
+    animation: spin 0.5s linear infinite;
+    background-size: cover;
+}
+.front-tyre {
+    top: 10px;
+    left: -12px;
+}
+.rear-tyre {
+    top: 10px;
+    right: 87px;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+@keyframes move_background {
+    from {
+        background-position: 0 0;
+    } to {
+        background-position: -1136px 0;
+    }
+}
+.vehicle-container{
+    width: 168px;
+    height: 118px;
+    position: relative;
+    left: -20%;
+    top: -10px;
+}
+.banner-screen {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.banner-screen div {
+    position: absolute;
+    top: 0;
+    display: none;
+}
+.banner-popup {
+    position: relative;
+}
+.offer-unit {
+    width: 146px;
+    height: 100px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/offer-unit.png?20171006") no-repeat;
+    display: block;
+}
+.warranty-logo {
+    width: 85px;
+    height: 72px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/warranty-logo.png") no-repeat;
+    display: block;
+}
+.warranty-logo-inside {
+    position: absolute;
+    top: 480px;
+}
+.campaign-advance-features,
+.threesixty-view {
+    height: 100%;
+}
+.campaign-advance-features .warranty-logo-inside {
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+    top: auto;
+    left: auto;
+}
+.campaign-advance-features .hero-logo-inside,
+.threesixty-view .hero-logo-inside{
+    width: 400px;
+}
+.threesixty-view .color-container {
+    bottom: 90px;
+}
+.hero-logo {
+    width: 210px;
+    height: 107px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/popup-logo.png") no-repeat;
+    background-size: contain;
+    display: block;
+}
+.bike-collage{
+    width: 539px;
+    height: 322px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/bike-collage.png");
+    position: relative;
+    top: 30px;
+}
+.campaign-feature-list li {
+    list-style-type: disc;
+}
+#banner1 .banner-screen__content2 {
+    left: 29%;
+    top: 27px;
+}
+#banner1 .banner-screen__content3 {
+    left: 51%;
+    top: 12px;
+}
+#banner1 .banner-screen__content4 {
+    left: 67%;
+    top: 17px;
+}
+.banner-screen .banner-screen__content5 {
+    left: 80%;
+    top: 35px;
+}
+#banner2 .banner-screen__content1 {
+    
+}
+#banner2 .banner-screen__content2 {
+    left: 17%;
+    top: 13px;
+}
+#banner2 .banner-screen__content3 {
+    left: 51%;
+    top: 20px;
+}
+#banner2 .banner-screen__content4 {
+    left: 67%;
+    top: 16px;
+}
+
+#banner3 .banner-screen__content1 {
+}
+#banner3 .banner-screen__content2 {
+    left: 15%;
+    top: 12px;
+}
+#banner3 .banner-screen__content3 {
+    left: 67%;
+    top: 15px;
+}
+#banner3 .banner-screen__content4 {
+    left: 32%;
+    top: 37px;
+}
+
+.black-window-animation {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0, 0.9);
+    z-index: 5;
+}
+.modal-window{
+    position : absolute;
+    background-color: #fff;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/popup-bg.jpg") no-repeat #fff;
+    background-size: cover;
+}
+.auto-margin {
+    margin: 0 auto;
+}
+
+.popup-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    z-index: 10;
+    cursor: pointer;
+}
+.popup-close:hover {
+    opacity: 1;
+}
+.popup-close:before,
+.popup-close:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+}
+.popup-close:before {
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.popup-close:after {
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+.popup-content,
+.banner-popup {
+    display: none;
+}
+.group-of-slug {
+    height: 150px;
+    width: 610px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/group-of-slug.png") no-repeat;
+    top: -12px;
+    margin: 40px auto 0;
+    position: relative;
+}
+.codition-text {
+    position: absolute;
+    bottom: -5px;
+    color: #82888b;
+    font-size: 10px;
+    left: 143px;
+}
+.popup-make-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 212px;
+    height: 136px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/popup-logo.png") no-repeat;
+    display: block;
+}
+.bike-animation-carousel__li {
+    width: 534px !important;
+    margin: 0 14px !important;
+    box-shadow: none !important;
+}
+.bike-animation-carousel__li:before {
+    content: " ";
+    position:absolute;
+    width: 534px;
+    height: 283px;
+    top: 0px;
+    background-color: rgba(0,0,0,0.9);
+}
+.bike-animation-carousel .jcarousel-pagination a.active {
+    background: #000;
+}
+.bike-animation-carousel .jcarousel-pagination a {
+    height: 8px;
+    width: 8px;
+    background: #8f8f8f;
+    margin: 5px;
+}
+.bike-animation-carousel .jcarousel-control-right,
+.bike-animation-carousel .jcarousel-control-left {
+    top: 30% !important;
+}
+.transparent-patch:before,
+.feature-slide-title {
+    visibility: hidden;
+}
+.transparent-patch .feature-slide-title {
+    visibility: visible;
+}
+.campaign-fetaures {
+    top: 110px;
+}
+.campaign-advance-features .popup-content, 
+.threesixty-view .popup-content {
+    position: absolute;
+}
+.color-container {
+    background-color: #f6f6f6;
+}
+.campaign-bike-color {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 30px;
+}
+.color-style {
+    width: 85px;
+    height: 82px;
+}
+.color1 {
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color1.png");
+}
+.color2 {
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color2.png");
+}
+.color3 {
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color3.png");
+}
+.color4 {
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color4.png");
+}
+.color5 {
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color5.png");
+}
+.color6 {
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color6.png");
+}
+.color7 {
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color7.png");
+}
+.color8 {
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color8.png");
+}
+.color9 {
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/color9.png");
+}
+.three-sixty-container {
+    width: 100%;
+    top: 55px;
+}
+.no-bg{
+    background-image: none;
+}
+.threesixty-slider {
+    width: 100%;
+    height: 118px;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/d/desktop-slider-threesixty.png) no-repeat center;
+    position: absolute;
+    top: 157px;
+}
+.popup-navigation {
+    bottom: 20px;
+    width: 100%;
+}
+.popup-navigation__span {
+    color: #0288d1;
+    font-size: 14px;
+    cursor: pointer;
+}
+.popup-navigation__span-right {
+    float: right;
+    margin-right: 40px;
+}
+.popup-navigation__span-left {
+    float: left;
+    margin-left: 40px;
+}
+.animated{animation-duration:1s;animation-fill-mode:both}.animated.infinite{animation-iteration-count:infinite}.animated.hinge{animation-duration:2s}@keyframes fadeInRight{from{opacity:0;transform:translate3d(100%,0,0)}to{opacity:1;transform:none}}.fadeInRight{animation-name:fadeInRight}@keyframes zoomIn{from{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}.zoomIn{animation-name:zoomIn}@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}.fadeIn{animation-name:fadeIn;}
