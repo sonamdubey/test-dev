@@ -1,0 +1,475 @@
+﻿@keyframes move_background {
+    from {
+        background-position: 0 0;
+    } to {
+        background-position: -1136px 0;
+    }
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+.container{
+    overflow: hidden;
+    position: relative;
+}
+
+.bg-animation {
+    position: relative;
+    width: 100%;
+    height: 70px;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/bg-animation.png') repeat-x;
+    animation: move_background 8s linear infinite;
+}
+.vehicle-container {
+    width: 98px;
+    height: 70px;
+    position: relative;
+    left: -70px;
+}
+.vehicle-container__body {
+    width: 98px;
+    height: 70px;
+    display: inline-block;
+    position: absolute;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/bike-body.png') no-repeat;
+    top: 14px;
+    left: -14px;
+}
+.vehicle-container__tyres {
+    display: inline-block;
+    position: absolute;
+    top: 70px;
+    left: 98px;
+}
+.tyre {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/tyre-msite.png') no-repeat;
+    -webkit-animation: spin 0.5s linear infinite;
+    -moz-animation: spin 0.5s linear infinite;
+    animation: spin 0.5s linear infinite;
+}
+.front-tyre {
+    top: -22px;
+    right: 35px;
+}
+.rear-tyre {
+    top: -23px;
+    right: 90px;
+}
+
+/* arrow*/
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+}
+button.left {
+    left: 15px;
+    top: 36px;
+}
+button.right {
+    right: 15px;
+    top: 36px;
+}
+
+/*containers*/
+
+.banner-screen {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.banner-screen div{
+    position: absolute;
+    top: 0;
+    display: none;
+}
+
+.banner-screen .no-animate{
+    display: block;
+}
+
+.banner-screen .banner-screen__content2 {
+    left: 34%;
+    top: 31%;
+    height: auto;
+    width: 90px;
+    line-height: 120%;
+}
+.banner-screen .banner-screen__content3 {
+    width: 90px;
+    height: auto;
+    top: 17%;
+    left: 63%;
+    line-height: 120%;
+}
+.banner-screen .banner-screen__content1 {
+    height: 40px;
+    width: 60px;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/lb-logo.png');
+}
+.banner-screen .banner-screen__content4 {
+    top: 63%;
+    left: 63%;
+    color: #0288d1;
+    display: block;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+.capitalize {
+    text-transform: capitalize;
+}
+
+/*banner1*/
+
+.popup-container {
+    height: 100%;
+    max-width: 400px;
+    margin: auto;
+    position: relative;
+}
+.banner1-image {
+    height: 260px;
+    width: 100%;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/bike-collage.png') no-repeat center;
+}
+.banner-popup__make-icon {
+    width: 120px;
+    height: 74px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/popup-logo.png');
+    background-size: cover;
+}
+.benefit-list {
+    display: block;
+    height: auto;
+    padding: 0 20px 10px;
+}
+.benefit-list__head {
+    font-size: 13px;
+    font-weight: 600;
+    padding-bottom: 15px;
+}
+.benefit-list__ul {
+    margin: 0 15px 0;
+    list-style-type: disc;
+}
+.benefit-list__ul li {
+    margin-bottom: 10px;
+}
+.benefit-list__ul li:last-child {
+    margin-bottom: 0;
+}
+.warrantyunit-icon {
+    height: 50px;
+    width: 50px;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/warranty.png') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    vertical-align: middle;
+    width: 19%;
+}
+.banner__termscondition {
+    font-size: 9px;
+    color: #a1a1a1;
+    display: inline-block;
+    vertical-align: middle;
+    width: 79%;
+}
+.banner__explore-more {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+}
+.download-link {
+    text-align: center;
+    font-size: 14px;
+    display: block;
+    margin-top: 15px;
+}
+.view-more-link {
+    display: inline-block;
+    font-size: 14px;
+    float: right;
+    padding: 10px;
+}
+.view-prev-link {
+    display: inline-block;
+    font-size: 14px;
+    float: left;
+    padding: 10px;
+}
+.previous-link {
+    display: inline-block;
+    font-size: 14px;
+    float: left;
+}
+/*popup 2*/
+.banner-popup__top-block {
+    position: absolute;
+    width: 100%;
+}
+.banner-popup__top-head {
+    text-transform: uppercase;
+    font-size: 14px;
+    padding-left: 20px;
+    font-weight: 600;
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 5px;
+}
+.banner-popup__bottom-block {
+    clear: both;
+    padding: 15px 25px 15px;
+}
+.banner-element {
+    display: none;
+}
+/*popup*/
+.banner-popup {
+    display: none;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.banner1-popup,
+.banner2-popup,
+.banner3-popup {
+    height: 100%;
+    display: none;
+}
+/*close icon*/
+.popup-close {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	width: 18px;
+	height: 18px;
+    background-position: -36px -226px;
+	z-index: 10;	
+}
+/* swiper */
+.banner-popup__carousel {
+    padding-top: 75px;
+    padding-left: 5px;
+    margin-bottom: 5px;
+    position: relative;
+}
+.banner-photos-swiper.swiper-container {
+    text-align: center;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding-bottom: 50px;
+}
+.banner-photos-swiper .swiper-slide,
+.banner-photos-swiper .swiper-card {
+    width: 288px;
+    text-align: center;
+    margin-right: 5px;
+}
+.banner-photos-swiper .swiper-card {
+    margin-left: 0;
+    box-shadow: none;
+}
+.banner-photos-swiper .swiper-wrapper .swiper-slide:first-child {
+    margin-left: 0;
+}
+.banner-photos-swiper .swiper-image-preview {
+    height: 314px;
+    padding: 0;
+}
+.banner-photos-swiper img {
+    width: auto;
+    height: 314px;
+}
+.banner-photos-swiper.swiper-container-horizontal > .swiper-pagination {
+    bottom: 0;
+}
+.banner-photos-swiper .target-link {
+    text-align: center;
+}
+.banner-photos-swiper .swiper-pagination-bullet {
+    height: 8px;
+    width: 8px;
+}
+.banner-photos-swiper .swiper-card {
+    height: 315px;
+}
+
+/* Popup 3*/
+
+.font7 {
+    font-size: 7px;
+}
+.banner-popup__360view {
+    height: 300px;
+    padding-top: 80px;
+}
+.popup_varient-carousel {
+    height: 170px;
+    background: #f5f5f5;
+    text-align: center;
+    z-index: 2;
+}
+.popup_varient-carousel ul {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+}
+.popup_varient-carousel li {
+    width: 150px;
+    min-height: 95px;
+    display: table-cell;
+    width: 1%;
+    padding: 10px 15px;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #82888b;
+    cursor: pointer;
+}
+.varient-carousel__image-preview {
+
+}
+.varient-carousel__details-block {
+    font-size: 13px;
+    color: #a8afb3;
+    text-transform: capitalize;
+}
+/*buttons*/
+
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+}
+button.left {
+    height: 10px;
+    width: 10px;
+    border: solid black;
+    border-width: 0px 1px 1px 0px;
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    display: block;
+}
+button.right {
+    height: 10px;
+    width: 10px;
+    border: solid black;
+    border-width: 0px 1px 1px 0px;
+    -webkit-transform: rotate(320deg);
+    -moz-transform: rotate(320deg);
+    -o-transform: rotate(320deg);
+    display: block;
+}
+
+/*animate*/
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+    .animated.infinite {
+        animation-iteration-count: infinite;
+    }
+
+    .animated.hinge {
+        animation-duration: 2s;
+    }
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translate3d(100%,0,0);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.fadeInRight {
+    animation-name: fadeInRight;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale3d(.3,.3,.3);
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+    .zoomIn {
+        animation-name: zoomIn;
+    }
+
+
+
+.font8 {
+    font-size: 8px;
+}
+.no-animate {
+    display: block;
+}
+
+#banner-photos-swiper .swiper-slide:before {
+    content: " ";
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0;
+    background-color: rgba(0,0,0,0.9);
+    visibility: visible;
+    z-index: 2;
+}
+#banner-photos-swiper .swiper-slide-active.swiper-slide:before,
+.feature-slide-title {
+    visibility: hidden;
+}
+.threesixty-slider {
+    width: 100%;
+    height: 86px;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/es/html5-property/maestro/m/mobile-slider-threesixty.png") no-repeat center;
+    position: absolute;
+    top: 210px;
+}
