@@ -29,8 +29,7 @@ namespace Bikewale.Service.Controllers.Model
     /// </summary>
     public class ModelPageController : CompressionApiController//ApiController
     {
-        private readonly IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> _modelRepository = null;
-        private readonly IBikeModelsCacheRepository<int> _cache;
+   
         private readonly IDealerPriceQuoteDetail _dealers;
         private readonly IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> _modelBL = null;
         private readonly IUserReviews _userReviews = null;
@@ -46,8 +45,7 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="userReviews"></param>
         public ModelPageController(IManufacturerCampaign objManufacturerCampaign, IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> modelBL, IUserReviews userReviews)
         {
-            _modelRepository = modelRepository;
-            _cache = cache;
+            
             _dealers = dealers;
             _modelBL = modelBL;
             _userReviews = userReviews;
@@ -426,7 +424,7 @@ namespace Bikewale.Service.Controllers.Model
         }
 
 
-        [ResponseType(typeof(DTO.Model.v5.ModelPage)), Route("api/v5/model/details/")]
+        [ResponseType(typeof(DTO.Model.v5.ModelPage)), Route("api/v5/model/{modelId}/details/")]
         public IHttpActionResult GetV5(uint modelId, uint? cityId, int? areaId, string deviceId = null)
         {
 
@@ -447,7 +445,7 @@ namespace Bikewale.Service.Controllers.Model
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if (platformId == "3")
                         {
-                            objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
+                            
                             #region On road pricing for versions
                             PQByCityArea getPQ;
                             PQByCityAreaEntity pqEntity = null;
