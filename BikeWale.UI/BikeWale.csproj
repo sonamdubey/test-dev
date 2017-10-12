@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -2981,7 +2981,6 @@
     <Content Include="m\sass\new-launch\_year-swiper.sass" />
     <Content Include="m\sass\modules\_brand-collapsible.sass" />
     <Content Include="sass\modules\_loader.sass" />
-    <Content Include="src\review\landing.js" />
     <Content Include="sass\scooters\landing.sass" />
     <Content Include="sass\scooters\_landing-style.sass" />
     <Content Include="sass\modules\_main-comparison.sass" />
@@ -3042,7 +3041,6 @@
     <Content Include="sass\user-review\_swiper.sass" />
     <Content Include="m\sass\modules\_rating-circle.sass" />
     <Content Include="sass\partials\_rating.sass" />
-    <None Include="sass\review\landing.sass" />
     <Content Include="sass\base\_variables.sass" />
     <Content Include="sass\m\user-review\listing.sass" />
     <Content Include="sass\m\user-review\_listing-style.sass" />
@@ -3100,6 +3098,7 @@
     <Content Include="src\photos\modelgallery.js" />
     <Content Include="src\popup\makemodelpopup.js" />
     <Content Include="src\priceincity.js" />
+    <Content Include="src\review\landing.js" />
     <Content Include="src\scooters.js" />
     <Content Include="src\service\landing.js" />
     <Content Include="src\service\location.js" />
@@ -3812,7 +3811,6 @@
     <Content Include="Views\Photos\_PhotosBikeInfoCard.cshtml" />
     <Content Include="Views\Photos\_PhotosBikeInfoCard_Mobile.cshtml" />
     <Content Include="Views\UserReview\_TopRatedBikes_Mobile.cshtml" />
-    <Content Include="Views\UserReview\Index.cshtml" />
     <Content Include="Views\UserReview\_SearchUserReviewExpertReviewModel_Mobile.cshtml" />
     <Content Include="Views\UserReview\_PopularBikesWithExpertReviews.cshtml" />
     <Content Include="Views\UserReview\_PopularBikesWithExpertReviews_Mobile.cshtml" />
@@ -3842,7 +3840,6 @@
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
-    <Folder Include="sass\m\review\" />
     <Folder Include="Views\BikeInfo\" />
     <Folder Include="Views\Content\News\Amp\" />
     <Folder Include="Views\GenericBikeInfo\" />
