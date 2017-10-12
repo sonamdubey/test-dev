@@ -719,15 +719,15 @@ namespace Bikewale.Service.AutoMappers.Model
                             PopupHeading = campaigns.LeadCampaign.PopupHeading,
                             PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage,
                             ShowOnExshowroom = campaigns.LeadCampaign.ShowOnExshowroom,
-                            PQId = (uint)pqEntity.PqId,
+                            PQId = pqEntity!=null?(uint)pqEntity.PqId:0,
                             VersionId = objModelPage.ModelVersionSpecs.BikeVersionId,
                             PlatformId = 3,
                             BikeName = string.Format("{0} {1}", objModelPage.ModelDetails.MakeBase.MakeName, objModelPage.ModelDetails.ModelName),
                         };
-                        objDTOModelPage.Campaign = new DTO.Campaign.CampaignBaseDto();
-                        objDTOModelPage.Campaign.DetailsCampaign = new DTO.Campaign.DetailsDto();
-                        objDTOModelPage.Campaign.DetailsCampaign.EsCamapign = new DTO.Campaign.PreRenderCampaignBase();
-                        objDTOModelPage.Campaign.CampaignLeadSource = new DTO.Campaign.ESCampaignBase();
+                        objDTOModelPage.Campaign = new CampaignBaseDto();
+                        objDTOModelPage.Campaign.DetailsCampaign = new DetailsDto();
+                        objDTOModelPage.Campaign.DetailsCampaign.EsCamapign = new PreRenderCampaignBase();
+                        objDTOModelPage.Campaign.CampaignLeadSource = new ESCampaignBase();
                         objDTOModelPage.Campaign.DetailsCampaign.EsCamapign.TemplateHtml= Format.GetRenderedContent(String.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlDesktop, LeadCampaign);
                         objDTOModelPage.Campaign.CampaignLeadSource.FloatingBtnText = LeadCampaign.LeadsButtonTextMobile;
                         objDTOModelPage.Campaign.CampaignLeadSource.CaptionText = LeadCampaign.LeadsPropertyTextMobile;
