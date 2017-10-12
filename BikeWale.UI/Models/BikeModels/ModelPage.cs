@@ -1108,7 +1108,11 @@ namespace Bikewale.Models.BikeModels
                 }
                 else if(modelPg != null && modelPg.ModelVersions != null)
                 {
-                    _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
+                    BikeVersionMinSpecs objBikeVersionMinSpecs = modelPg.ModelVersions.FirstOrDefault();
+                    if (objBikeVersionMinSpecs != null)
+                    {
+                        _objData.VersionId = Convert.ToUInt32(objBikeVersionMinSpecs.VersionId);
+                    }
                 }
             }
             catch (Exception ex)
