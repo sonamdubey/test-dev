@@ -39,6 +39,7 @@ namespace Bikewale.New
         protected LeadCaptureControl ctrlLeadPopUp;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected bool IsScooter =false;
+        protected bool IsScooterOnly = false;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -62,6 +63,7 @@ namespace Bikewale.New
             dd.DetectDevice();
             ProcessQueryString();
             modelDetail = FetchModelPageDetails(modelId, versionId);
+            IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
             if (modelDetail != null)
             {
                 if (cityId > 0 && versionId > 0)

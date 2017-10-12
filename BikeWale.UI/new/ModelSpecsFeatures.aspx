@@ -40,7 +40,7 @@
                                 <a href="/<%= makeMaskingName %>-bikes/" itemprop="url"><span itemprop="title"><%= makeName %> Bikes</span></a>
                             </li>
 
-                              <% if(IsScooter)
+                              <% if(IsScooter && !IsScooterOnly)
                                 { %>
                               <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>

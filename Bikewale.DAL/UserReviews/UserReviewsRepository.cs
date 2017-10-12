@@ -1292,7 +1292,7 @@ namespace Bikewale.DAL.UserReviews
             BikeRatingsReviewsInfo objBikeRatingReviewInfo = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeratingsandreviewsinfo_10102017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeratingsandreviewsinfo_12102017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.UInt32, modelId));
@@ -1309,8 +1309,9 @@ namespace Bikewale.DAL.UserReviews
                                     {
                                         MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
                                         MaskingName = Convert.ToString(dr["makemasking"]),
-                                        MakeName = Convert.ToString(dr["makeName"])
-                                    },
+                                        MakeName = Convert.ToString(dr["makeName"]),
+                                        IsScooterOnly = SqlReaderConvertor.ToBoolean(dr["IsScooterOnly"])
+                        },
                                     Model = new BikeModelEntityBase()
                                     {
                                         ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),

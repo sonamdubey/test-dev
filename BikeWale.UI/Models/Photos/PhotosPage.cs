@@ -334,7 +334,6 @@ namespace Bikewale.Models.Photos
             if (IsMobile)
             {
                 bikeUrl += "m/";
-                scooterUrl += "m/";
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
@@ -347,8 +346,12 @@ namespace Bikewale.Models.Photos
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", _objData.Make.MakeName)));
             }
 
-            if (_objData.Model != null && _objData.BodyStyle.Equals((sbyte)EnumBikeBodyStyles.Scooter))
+            if (_objData.Model != null && _objData.BodyStyle.Equals((sbyte)EnumBikeBodyStyles.Scooter) && !(_objData.Make.IsScooterOnly))
             {
+                if (IsMobile)
+                {
+                    scooterUrl += "m/";
+                }
                 scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, _objData.Make.MaskingName);
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", _objData.Make.MakeName)));
