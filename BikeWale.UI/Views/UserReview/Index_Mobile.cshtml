@@ -245,117 +245,39 @@
             </section>
         }
 
-        <h2 class="font18 text-center margin-top20 margin-bottom10">Expert Advice for Popular Bikes</h2>
-        <section>
-
-            <div class="expert-review-list content-box-shadow card-bottom-margin">
-                <div class="swiper-container card-container article-type-carousel">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href=" " title=" " class="block">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//144x81//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&q=75" alt="" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="text-black">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200:</h3>
-                                        <div class="clear"></div>
-                                    </div>
-                                </a>
-                            </div>
+        <h2 class="font18 text-center margin-top20 margin-bottom10">Recently uploaded reviews</h2>
+        @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+            {
+            <section>
+                <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
+                    <div class="carousel-heading-content">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
                         </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href=" " title=" " class="block">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//144x81//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&q=75" alt="" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="text-black">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200:</h3>
-                                        <div class="clear"></div>
-                                    </div>
-                                </a>
-                            </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="/m@(Model.ExpertReviews.MoreExpertReviewUrl)" title="Expert Reviews" class="btn view-all-target-btn">View all</a>
                         </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href=" " title=" " class="block">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//144x81//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&q=75" alt="" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="text-black">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200:</h3>
-                                        <div class="clear"></div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                        <div class="clear"></div>
                     </div>
+
+                    @Html.Partial("~/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
+
                 </div>
-                <div class="view-all-btn-container">
-                    <a href="" title="" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
-                </div>
-            </div>
-        </section>
+            </section>
+        }
+
         <section>
             <h2 class="font18 text-center margin-top15 margin-bottom10">Know your Experts</h2>
             <div class="author-block">
                 <span class="author-block__title">men of steel</span>
                 <p class="author-block__description">Our best people who lean into corners, pop wheelies and ride their adrenaline out of the bike.</p>
-
-                <div class="swiper-container card-container">
-                    <span class="detail-author__swiper-title">Our Arsenal</span>
-                    <div class="swiper-wrapper detail-author__swiper">
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a class="block" href="" title="Charles Pennefather">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/400x300/cw/author/charles.jpg" title="Charles Pennefather" alt="Charles Pennefather" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="author__swiper-label">Charles Pennefather</h3>
-                                        <p class="author__swiper-designation">Assistant Editor</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a class="block" href="" title="Charles Pennefather">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/400x300/cw/author/sagarbhanushali.jpg" title="Abhishek Nigam" alt="Abhishek Nigam" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="author__swiper-label">Abhishek Nigam</h3>
-                                        <p class="author__swiper-designation">Asst. Editor News and Features</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a class="block" href="" title="Charles Pennefather">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/400x300/cw/author/ameyadandekar.jpg" title="Ameya Dandekar" alt="Ameya Dandekar" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="author__swiper-label">Ameya Dandekar</h3>
-                                        <p class="author__swiper-designation">Associate Editor</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                @if (Model.Authors != null && Model.Authors.Any())
+                {
+                    <div class="box-content">
+                        <h2 class="list-heading padding-left20 padding-top15">Other authors</h2>
+                        @Html.Partial("~/Views/Author/_AuthorsListCarousel_Mobile.cshtml", Model.Authors)
                     </div>
-                </div>
+                }
             </div>
             <div class="read-user-review__banner margin-bottom20">
                 <a class="review__banner-link text-truncate" href="" title="">
@@ -364,5 +286,8 @@
                 </a>
             </div>
         </section>
+
+        
+
     </div>
 </div>

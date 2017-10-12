@@ -1,6 +1,8 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Authors;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Utility;
 using System;
@@ -11,12 +13,18 @@ namespace Bikewale.Models.UserReviews
     {
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IBikeMakesCacheRepository<int> _makeRepository = null;
+        private readonly ICMSCacheContent _articles = null;
+        private readonly IAuthors _authors = null;
+        private UserReviewLandingVM objData = null;        
 
-        private UserReviewLandingVM objData = null;
-        public UserReviewLandingPage(IUserReviewsCache userReviewsCache, IBikeMakesCacheRepository<int> makeRepository)
+        public bool IsMobile { get; set; }
+
+        public UserReviewLandingPage(IUserReviewsCache userReviewsCache, ICMSCacheContent articles, IAuthors authors, IBikeMakesCacheRepository<int> makeRepository)
         {
             _userReviewsCache = userReviewsCache;
             _makeRepository = makeRepository;
+            _articles = articles;
+            _authors = authors;
         }
 
         public UserReviewLandingVM GetData()
@@ -52,6 +60,10 @@ namespace Bikewale.Models.UserReviews
                 PopularBikesWithExpertReviewsWidget objBikesWithExpertReviews = new PopularBikesWithExpertReviewsWidget(_userReviewsCache, 9);
                 objBikesWithExpertReviews.CityId = location.CityId;
                 objData.BikesWithExpertReviews = objBikesWithExpertReviews.GetData();
+
+                objData.ExpertReviews = new RecentExpertReviews(3, _articles).GetData();
+
+                objData.Authors = _authors.GetAuthorsList(Convert.ToInt32(BWConfiguration.Instance.ApplicationId));
 
             }
             catch (Exception ex)
