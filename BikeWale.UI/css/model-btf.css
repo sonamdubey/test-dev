@@ -935,6 +935,7 @@ li.offertxt:hover span {display:inline}
 .mumbai-icon,
 .pune-icon,
 .bangalore-icon,
+.newdelhi-icon,
 .delhi-icon,
 .chennai-icon,
 .hyderabad-icon,
@@ -956,6 +957,10 @@ li.offertxt:hover span {display:inline}
 .bangalore-icon {
     width: 136px;
     background-position: -336px 0;
+}
+.newdelhi-icon {
+    width: 70px;
+    background-position: -482px 0;
 }
 .delhi-icon {
     width: 70px;

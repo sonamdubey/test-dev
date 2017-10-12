@@ -165,26 +165,20 @@ namespace Bikewale.Controllers
             obj.EditorialTopCount = 2;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
 
-            ScootersMakePageVM objData = new ScootersMakePageVM();
-            if (obj != null)
+            ScootersMakePageVM objData;
+
+            if (obj.Status == StatusCodes.ContentFound)
             {
-                if (obj.Status == StatusCodes.ContentFound)
-                {
-                    objData = obj.GetData();
-                    return View(objData);
-                }
-                else if (obj.Status == StatusCodes.RedirectPermanent)
-                {
-                    return Redirect(obj.RedirectUrl);
-                }
-                else if (obj.Status == StatusCodes.RedirectTemporary)
-                {
-                    return Redirect(obj.RedirectUrl);
-                }
-                else
-                {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
+                objData = obj.GetData();
+                return View(objData);
+            }
+            else if (obj.Status == StatusCodes.RedirectPermanent)
+            {
+                return Redirect(obj.RedirectUrl);
+            }
+            else if (obj.Status == StatusCodes.RedirectTemporary)
+            {
+                return Redirect(obj.RedirectUrl);
             }
             else
             {
