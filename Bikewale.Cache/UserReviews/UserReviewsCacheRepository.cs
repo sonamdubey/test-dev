@@ -1,12 +1,10 @@
 ﻿using Bikewale.Entities.UserReviews;
-using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Bikewale.Cache.UserReviews
 {
@@ -18,7 +16,7 @@ namespace Bikewale.Cache.UserReviews
     public class UserReviewsCacheRepository : IUserReviewsCache
     {
         private readonly ICacheManager _cache;
-        private readonly IUserReviewsRepository _objUserReviews;      
+        private readonly IUserReviewsRepository _objUserReviews;
 
         /// <summary>
         /// Constructor
@@ -107,7 +105,7 @@ namespace Bikewale.Cache.UserReviews
         public BikeReviewsInfo GetBikeReviewsInfo(uint modelId)
         {
             BikeReviewsInfo reviews = null;
-            string key = "BW_BikeReviewsInfo_MO_" + modelId;            
+            string key = "BW_BikeReviewsInfo_MO_" + modelId;
 
             try
             {
@@ -143,7 +141,7 @@ namespace Bikewale.Cache.UserReviews
         }
 
         public BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId)
-        {            
+        {
             BikeRatingsReviewsInfo reviews = null;
             string key = "BW_BikeRatingsReviewsInfo_MO_V3_" + modelId;
             try
@@ -212,7 +210,7 @@ namespace Bikewale.Cache.UserReviews
                 string key = "BW_ReviewIdList_V1_" + modelId;
                 objReviewIdList = _cache.GetFromCache<BikeReviewIdListByCategory>(key, new TimeSpan(6, 0, 0), () => _objUserReviews.GetReviewsIdListByModel(modelId));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetReviewsIdListByModel {0}", modelId));
             }
@@ -226,23 +224,23 @@ namespace Bikewale.Cache.UserReviews
         /// <param name="modelId"></param>
         /// <returns></returns>
         public IEnumerable<UserReviewSummary> GetUserReviewSummaryList(IEnumerable<uint> reviewIdList)
-        {            
+        {
             IEnumerable<UserReviewSummary> objSummaryList = null;
             Dictionary<string, string> dictIdKeys = null;
             try
-            {                
+            {
                 dictIdKeys = new Dictionary<string, string>();
-                foreach(var id in reviewIdList)
+                foreach (var id in reviewIdList)
                 {
                     dictIdKeys.Add(id.ToString(), string.Format("BW_UserReviewDetails_V3_{0}", id));
-                }                
-                Func<string, IEnumerable<UserReviewSummary>> fnCallback =_objUserReviews.GetUserReviewSummaryList;
+                }
+                Func<string, IEnumerable<UserReviewSummary>> fnCallback = _objUserReviews.GetUserReviewSummaryList;
 
                 objSummaryList = _cache.GetListFromCache<UserReviewSummary>(dictIdKeys,
                     new TimeSpan(1, 0, 0),
-                    fnCallback);                
+                    fnCallback);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewSummaryList");
             }
@@ -282,7 +280,7 @@ namespace Bikewale.Cache.UserReviews
                 string key = "BW_UserReviewsWinners";
                 objReviewsWinnersList = _cache.GetFromCache<IEnumerable<RecentReviewsWidget>>(key, new TimeSpan(6, 0, 0, 0), () => _objUserReviews.GetUserReviewsWinners());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.UserReviews.UserReviewsCacheRepository.GetUserReviewsWinners");
             }
@@ -307,6 +305,52 @@ namespace Bikewale.Cache.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsCacheRepository.GetTopRatedBikes: topCount: {0}, CityId {1}", topCount, cityId));
+            }
+            return objTopRatedBikesWidget;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 11th Oct 2017
+        /// Description : To cache popular bikes with expert reviews count
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<PopularBikesWithExpertReviews> GetPopularBikesWithExpertReviews(ushort topCount)
+        {
+            IEnumerable<PopularBikesWithExpertReviews> objTopRatedBikesWidget = null;
+            string key = string.Empty;
+            try
+            {
+                key = "BW_PopularBikesWithExpertReviews_Cnt_" + topCount;
+                objTopRatedBikesWidget = _cache.GetFromCache<IEnumerable<PopularBikesWithExpertReviews>>(key, new TimeSpan(24, 0, 0), () => (IEnumerable<PopularBikesWithExpertReviews>)_objUserReviews.GetPopularBikesWithExpertReviews(topCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsCacheRepository.GetPopularBikesWithExpertReviews: topCount: {0}", topCount));
+            }
+            return objTopRatedBikesWidget;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 11th Oct 2017
+        /// Description : To cache popular bikes with expert reviews count by city
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<PopularBikesWithExpertReviews> GetPopularBikesWithExpertReviewsByCity(ushort topCount, uint cityId)
+        {
+            IEnumerable<PopularBikesWithExpertReviews> objTopRatedBikesWidget = null;
+            string key = string.Empty;
+            try
+            {
+                key = string.Format("BW_PopularBikesWithExpertReviews_Cnt_{0}_City_{1}", topCount, cityId);
+                objTopRatedBikesWidget = _cache.GetFromCache<IEnumerable<PopularBikesWithExpertReviews>>(key, new TimeSpan(6, 0, 0), () => (IEnumerable<PopularBikesWithExpertReviews>)_objUserReviews.GetPopularBikesWithExpertReviewsByCity(topCount, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsCacheRepository.GetPopularBikesWithExpertReviewsByCity: topCount: {0}, CityId {1}", topCount, cityId));
             }
             return objTopRatedBikesWidget;
         }
