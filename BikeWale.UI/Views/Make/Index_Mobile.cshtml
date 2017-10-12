@@ -232,7 +232,7 @@
                     </div>
                 </div>
             }
-            @if (Model.IsDealerServiceDataAvailable || (Model.IsDealerServiceDataInIndiaAvailable && Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0))
+            @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable )
             {
                 <div id="makeDealersContent" class="bw-model-tabs-data">
                     @if (Model.IsDealerAvailable)
@@ -251,10 +251,10 @@
                         </div>
                         <div class="border-solid-bottom"></div>
                     }
-                    else if (Model.IsDealerServiceDataInIndiaAvailable && Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0)
+                    else if (Model.IsDealerServiceDataInIndiaAvailable)
                     {
                         <div class="padding-bottom20 padding-top15 font14">
-                            <h2 class="padding-right20 padding-left20">@string.Format("{0} Showrooms", Model.MakeName) </h2>
+                            <h2 class="padding-right20 padding-left20">@Model.MakeName showrooms</h2>
                             @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia_Mobile.cshtml", Model.DealersServiceCenter)
                         </div>
                         <div class="border-solid-bottom"></div>

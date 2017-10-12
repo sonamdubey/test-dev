@@ -210,57 +210,30 @@
 
         @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
 
-        @if (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable || Model.IsDealersServiceCenterAvailable)
+        @if (Model.IsOtherDealersAvailable || Model.IsDealersServiceCenterAvailable)
         {
             <div id="dealerAndServiceContent" class="content-box-shadow card-bottom-margin padding-top20 carousel-heading-10">
-                @if (Model.CityId > 0)
+                @if (Model.CityId > 0 && Model.IsOtherDealersAvailable)
                 {
-                    <h2 class="h2-heading padding-left20 margin-bottom10">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName @((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) ? "Showrooms & Service Centers" : Model.IsOtherDealersAvailable ? "Showrooms" : "Service Centers")</h2>
-                    if (Model.IsOtherDealersAvailable)
-                    {
-                        <div id="makeDealersContent" class="font14">
-                            <div class="carousel-heading-content">
-                                <div class="swiper-heading-left-grid inline-block">
-                                    <h3 class="font-bold">Showrooms in @(Model.OtherDealers != null ? Model.OtherDealers.CityName : "India")</h3>
-                                </div>
-                                <div class="swiper-heading-right-grid inline-block text-right">
-                                    <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-dealer-showrooms-in-@Model.OtherDealers.CityMaskingName/" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.OtherDealers.CityName" class="btn view-all-target-btn">View all</a>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.OtherDealers)
-                        </div>
-                    }
-
-                    if (Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable && Model.CityId > 0)
-                    {
-                        <div class="margin-right20 margin-left20 border-solid-bottom"></div>
-                    }
-
-                    if (Model.IsServiceCentersAvailable && Model.CityId > 0)
-                    {
-                        <div class="carousel-heading-content padding-top20">
+                    <div id="makeDealersContent" class="font14">
+                        <div class="carousel-heading-content">
                             <div class="swiper-heading-left-grid inline-block">
-                                <h3 class="font-bold">@(string.Format("Service centers in {0}", (!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : "India")))</h3>
+                                <h2 class="font-bold">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @(Model.OtherDealers != null ? Model.OtherDealers.CityName : "India")</h2>
                             </div>
                             <div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="@string.Format("/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ServiceCenters.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, (!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : "India"))" class="btn view-all-target-btn">View all</a>
+                                <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-dealer-showrooms-in-@Model.OtherDealers.CityMaskingName/" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.OtherDealers.CityName" class="btn view-all-target-btn">View all</a>
                             </div>
+                            <div class="clear"></div>
                         </div>
-                                        <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
-                                            <div class="swiper-wrapper">
-                                                @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenters)
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                    }
+                        @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.OtherDealers)
+                    </div>
                 }
                 else
                 {
                     if (Model.IsDealersServiceCenterAvailable)
                     {
                         <div class="padding-bottom20">
-                            <h2 class="h2-heading padding-left20 margin-bottom20">@String.Format("{0} {1} {2} {3}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Showrooms" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "&" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "Service Centers" : ""))</h2>
+                            <h2 class="h2-heading padding-left20 margin-bottom20">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms</h2>
                             @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
                         </div>
                     }

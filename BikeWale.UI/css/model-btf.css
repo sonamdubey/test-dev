@@ -1407,3 +1407,6 @@ li.offertxt:hover span {display:inline}
     font-size: 11px;
 }
 
+.no-city-selection-carousel .jcarousel a:hover {
+    text-decoration: none;
+}

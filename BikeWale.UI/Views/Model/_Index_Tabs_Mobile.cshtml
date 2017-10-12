@@ -41,9 +41,9 @@
     {
         <li data-tabs="#videosAndServiceCenterContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Videos">Videos</li>
     }
-    else if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable || Model.IsDealersServiceCenterAvailable))
+    else if (Model.IsOtherDealersAvailable || Model.IsDealersServiceCenterAvailable)
     {
-        <li data-tabs="#videosAndServiceCenterContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;ServiceCenter"> Dealers & Service Centers</li>
+        <li data-tabs="#videosAndServiceCenterContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;ServiceCenter"> Dealers</li>
     }
     @if (Model.IsUsedBikesAvailable)
     {

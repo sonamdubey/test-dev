@@ -46,11 +46,9 @@ namespace Bikewale.Models
         public bool IsDealerServiceDataInIndiaAvailable { get; set; }
         public bool IsDealerServiceDataAvailable { get; set; }
         public bool IsDealerAvailable { get; set; }
-        public bool IsServiceDataAvailable { get; set; }
         public bool IsMakeTabsDataAvailable { get; set; }
 
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
-        public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
         public DealerCardVM Dealers { get; set; }
 
         public IEnumerable<BikeMakeEntityBase> OtherMakes { get; set; }

@@ -169,7 +169,7 @@
                             {
                                 <span class="navtab" data-href="#makeVideosContent" rel="nofollow">Videos</span>
                             }
-                            @if (Model.IsDealerServiceDataAvailable || (Model.IsDealerServiceDataInIndiaAvailable && Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0))
+                            @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
                             {
                                 <span class="navtab" data-href="#dealerAndServiceContent" rel="nofollow">Dealers</span>
                             }
@@ -239,7 +239,7 @@
                         </div>
                     </div>
                 }
-                @if (Model.IsDealerServiceDataAvailable || (Model.IsDealerServiceDataInIndiaAvailable && Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0))
+                @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
                 {
                     <div id="dealerAndServiceContent" class="bw-model-tabs-data">
                         @if (Model.IsDealerAvailable)
@@ -257,10 +257,10 @@
                                 @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.Dealers)
                             </div>
                         }
-                        else if (Model.IsDealerServiceDataInIndiaAvailable && Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0)
+                        else if (Model.IsDealerServiceDataInIndiaAvailable)
                         {
                             <div id="makeDealersContent" class="padding-top20 padding-bottom20 font14">
-                                <h2 class="padding-left20 padding-right20"> @string.Format("{0} Showrooms", Model.MakeName)</h2>
+                                <h2 class="padding-left20 padding-right20">@Model.MakeName showrooms</h2>
                                 @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
                             </div>
                         }
