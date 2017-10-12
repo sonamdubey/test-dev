@@ -44,7 +44,7 @@
 
                                         @if (Model.IsGalleryLoaded && Model.ModelGallery != null)
                                         {
-                                            <img id="imageTopCard" class="cur-pointer" src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" data-c="Price_in_City_Page" data-a="Image_GalleryClicked" data-l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName)"/>
+                                            <img id="imageTopCard" class="cur-pointer" src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" data-c="Price_in_City_Page" data-a="Image_Gallery_Clicked" data-l="@string.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName)"/>
                                         }
                                         else
                                         {
