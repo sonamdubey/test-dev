@@ -10,9 +10,9 @@ var setPageVariables = function () {
     eleGallery = $("#pageGallery");
 
     try {
-        if (eleGallery.data("images") != '')
+        if (eleGallery.length > 0 && eleGallery.data("images") != '')
         {
-            var imageList = JSON.parse(window.atob(eleGallery.data("images")));
+            var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
             modelImages = imageList;
             modelColorImages = filterColorImagesArray(imageList);
 
@@ -20,9 +20,9 @@ var setPageVariables = function () {
                 modelColorImageCount = modelColorImages.length;
         }
 
-        if(eleGallery.data("videos") != '')
+        if (eleGallery.length > 0 && eleGallery.data("videos") != '')
         {
-            videoList = JSON.parse(window.atob(eleGallery.data("videos")));
+            videoList = JSON.parse(Base64.decode(eleGallery.data("videos")));
         }
 
         photoCount = eleGallery.data("photoscount");
@@ -368,7 +368,10 @@ docReady(function () {
     setPageVariables();
 
     vmModelGallery = new modelGallery();
-    ko.applyBindings(vmModelGallery, document.getElementById('gallery-root'));
+
+    if (galleryRoot.length > 0) {
+        ko.applyBindings(vmModelGallery, galleryRoot[0]);
+    }
 
 
     // model gallery thumbnail events namespace
@@ -518,7 +521,6 @@ docReady(function () {
         ko.utils.arrayForEach(modelColorImages, function (item, index) {
             if (item.ColorId == colorImageId) { colorIndex = index; }
         });
-        colorIndex++;
         vmModelGallery.activeColorIndex(colorIndex);
         thumbnailSwiperEvents.focusGallery(colorGallerySwiper, colorIndex);
     }

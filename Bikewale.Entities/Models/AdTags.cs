@@ -32,6 +32,8 @@ namespace Bikewale.Models
 
         public bool Ad_292x399 { get; set; }
         public bool Ad_292x359 { get; set; }
+
+        public bool Ad_292x360 { get; set; }
         public bool ShowInnovationBannerDesktop { get; set; }
         #endregion
 
@@ -52,6 +54,8 @@ namespace Bikewale.Models
         public bool Ad_200x253 { get; set; }
 
         public bool Ad_200x216 { get; set; }
+        public bool Ad_200x211 { get; set; }
+
         public bool ShowInnovationBannerMobile { get; set; }
         #endregion
         public string InnovationBannerGALabel { get; set; }
