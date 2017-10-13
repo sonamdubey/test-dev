@@ -173,7 +173,7 @@
                                     <h2>@Model.Make.MakeName showrooms in @Model.Location</h2>
                                 </div>
                                 <div class="swiper-heading-right-grid inline-block text-right">
-                                    <a href="/m/@Model.Make.MaskingName-dealer-showrooms-in-@Model.LocationMasking/" title="@Model.Make.MakeName Showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
+                                    <a href="@string.Format("{0}/m/{1}-dealer-showrooms-in-{2}/",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.Make.MaskingName, Model.LocationMasking)" title="@Model.Make.MakeName Showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -190,7 +190,7 @@
                                     <h2>@Model.Make.MakeName service centers in @Model.Location</h2>
                                 </div>
                                 <div class="swiper-heading-right-grid inline-block text-right">
-                                    <a href="/m/@Model.Make.MaskingName-service-center-in-@Model.LocationMasking/" title="@Model.Make.MakeName Service Centers in @Model.Location" class="btn view-all-target-btn">View all</a>
+                                    <a href="@string.Format("{0}/m/{1}-service-center-in-{2}/",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.Make.MaskingName, Model.LocationMasking)" title="@Model.Make.MakeName Service Centers in @Model.Location" class="btn view-all-target-btn">View all</a>
                                 </div>
                                 <div class="clear"></div>
                             </div>
