@@ -143,7 +143,7 @@ namespace Bikewale.Cache.UserReviews
         public BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId)
         {
             BikeRatingsReviewsInfo reviews = null;
-            string key = "BW_BikeRatingsReviewsInfo_MO_V3_" + modelId;
+            string key = "BW_BikeRatingsReviewsInfo_MO_V4_" + modelId;
             try
             {
                 reviews = _cache.GetFromCache<BikeRatingsReviewsInfo>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetBikeRatingsReviewsInfo(modelId));

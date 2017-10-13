@@ -367,6 +367,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Added ratings count
         /// Modified by : Ashutosh Sharma on 30 Aug 2017 
         /// Description : Changed SP from 'getmodeldetails_new_28062017' to 'getmodeldetails_new_30082017', removed IsGstPrice flag
+        /// Modified By :Snehal Dange on 12 Oct 2017
+        /// Description : Changed Sp from 'getmodeldetails_new_30082017' to 'getmodeldetails_new_12102017' added IsScooterOnly flag
         /// </summary>
         /// <param name="id">Model Id should be a positive number.</param>
         /// <returns>Returns object containing the particular model's all details.</returns>
@@ -375,7 +377,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_27092017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_12102017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -392,6 +394,7 @@ namespace Bikewale.DAL.BikeData
                                 t.ModelName = Convert.ToString(dr["Name"]);
                                 t.MakeBase.MakeId = Convert.ToInt32(dr["BikeMakeId"]);
                                 t.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
+                                t.MakeBase.IsScooterOnly = SqlReaderConvertor.ToBoolean(dr["IsScooterOnly"]);
                                 t.Futuristic = Convert.ToBoolean(dr["Futuristic"]);
                                 t.New = Convert.ToBoolean(dr["New"]);
                                 t.Used = Convert.ToBoolean(dr["Used"]);
