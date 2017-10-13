@@ -522,6 +522,8 @@ namespace Bikewale.Models.BikeModels
         /// Summary : Added BindModelsBySeries
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Get emi details for avg ex-showroom price when bike price is zero.
+        /// Modified by : Vivek Singh Tomar on 12th Oct 2017 
+        /// Summary : Removed initialisation of service centers
         /// </summary>
         private void BindControls()
         {
@@ -547,7 +549,6 @@ namespace Bikewale.Models.BikeModels
                             var dealerData = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
                             dealerData.TopCount = 3;
                             _objData.OtherDealers = dealerData.GetData();
-                            _objData.ServiceCenters = new ServiceCentersCard(_objServiceCenter, 3, (uint)objMake.MakeId, _cityId).GetData();
                         }
                         else
                         {

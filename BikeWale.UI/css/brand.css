@@ -48,11 +48,12 @@
 .dealer-card-target:hover { text-decoration: none; }
 .dealer-jcarousel-image-preview { width:292px; height:114px; display:block; margin-bottom:15px; text-align:center; padding-top:10px; }
 .city-sprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?26Dec2016) no-repeat; display: inline-block; }
-.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon, .india-icon { height: 92px; }
+.mumbai-icon, .pune-icon, .bangalore-icon, .newdelhi-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon, .india-icon { height: 92px; }
 .mumbai-icon { width: 130px; background-position: 0 0; }
 .pune-icon { width: 186px; background-position: -140px 0; }
 .bangalore-icon { width: 136px; background-position: -336px 0; }
 .delhi-icon { width: 70px; background-position: -482px 0; }
+.newdelhi-icon { width: 70px; background-position: -482px 0; }
 .chennai-icon { width: 53px; background-position: -562px 0; }
 .hyderabad-icon { width: 65px; background-position: -625px 0; }
 .kolkata-icon { width: 182px; background-position: -700px 0; }
@@ -336,3 +337,7 @@
 .brand-23 {
   width: 125px;
   background-position: -3026px 0; }
+
+.no-city-selection-carousel .jcarousel a:hover {
+    text-decoration: none;
+}

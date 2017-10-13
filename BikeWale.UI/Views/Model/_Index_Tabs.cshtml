@@ -4,7 +4,7 @@
 
 <span  class="bw-ga navtab"  c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Overview" data-href="#modelSummaryContent" >Overview</span>
 
-@if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
+@if (Model.IsShowPriceTab)
 {
     <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Price"  data-href="#modelPricesContent">Price</span>
 }
@@ -48,9 +48,9 @@ else if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.
 {
     <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Videos" data-href="#videosAndServiceCenterContent">Videos</span>
 }
-else if (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable || Model.IsDealersServiceCenterAvailable)
+else if (Model.IsOtherDealersAvailable || Model.IsDealersServiceCenterAvailable)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;ServiceCenter" data-href="#videosAndServiceCenterContent"> Dealers & Service Centers </span>
+    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;ServiceCenter" data-href="#videosAndServiceCenterContent">Dealers</span>
 }
 @if (Model.IsUsedBikesAvailable)
 {
