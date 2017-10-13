@@ -8,7 +8,7 @@ using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Utility;
 using System.Collections.Generic;
 
-namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
+namespace Bikewale.Service.AutoMappers.pqEntity.ManufacturerCampaignManufacturerCampaign
 {
     public class ManufacturerCampaignMapper
     {

@@ -29,8 +29,7 @@ namespace Bikewale.Service.Controllers.Model
     /// </summary>
     public class ModelPageController : CompressionApiController//ApiController
     {
-        private readonly IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> _modelRepository = null;
-        private readonly IBikeModelsCacheRepository<int> _cache;
+   
         private readonly IDealerPriceQuoteDetail _dealers;
         private readonly IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> _modelBL = null;
         private readonly IUserReviews _userReviews = null;
@@ -46,8 +45,7 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="userReviews"></param>
         public ModelPageController(IManufacturerCampaign objManufacturerCampaign, IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> modelBL, IUserReviews userReviews)
         {
-            _modelRepository = modelRepository;
-            _cache = cache;
+            
             _dealers = dealers;
             _modelBL = modelBL;
             _userReviews = userReviews;
@@ -426,28 +424,27 @@ namespace Bikewale.Service.Controllers.Model
         }
 
 
-        [ResponseType(typeof(DTO.Model.v5.ModelPage)), Route("api/v5/model/details/")]
-        public IHttpActionResult GetV5(uint modelId, uint? cityId, int? areaId, string deviceId = null)
+        [ResponseType(typeof(DTO.Model.v5.ModelPage)), Route("api/v5/model/{modelId}/details/")]
+        public IHttpActionResult GetV5(uint modelId, uint? cityId=null, int? areaId=null, string deviceId = null)
         {
 
             DTO.Model.v5.ModelPage objDTOModelPage = null;
             try
             {
-                if (modelId <= 0 || cityId <= 0)
+                if (modelId <= 0)
                 {
                     return BadRequest();
                 }
                 BikeModelPageEntity objModelPage = null;
-                ManufacturerCampaignEntity campaigns = null;
                 objModelPage = _modelBL.GetModelPageDetails((int)modelId);
                 if (objModelPage != null)
                 {
                     if (Request.Headers.Contains("platformId"))
                     {
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
-                        if (platformId == "3")
+                        if (platformId == "3" && cityId.HasValue && cityId.Value>0)
                         {
-                            objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
+                            
                             #region On road pricing for versions
                             PQByCityArea getPQ;
                             PQByCityAreaEntity pqEntity = null;
@@ -484,29 +481,28 @@ namespace Bikewale.Service.Controllers.Model
 
                                     }
                                 }
-                                
-                                if (pqEntity != null && pqEntity.DealerId == 0)
-                                {
-                                     campaigns = _objManufacturerCampaign.GetCampaigns(modelId, cityId.Value, ManufacturerCampaignServingPages.Mobile_Model_Page);
-                                   
-                                    
-                                }
-
-
 
                                 if (pqEntity != null && pqEntity.IsExShowroomPrice)
-                                    objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, campaigns);
+                                    objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null);
                                 else
                                     objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity,
-                                    _dealers.GetDealerQuotationV2(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId, Convert.ToUInt32(areaId.HasValue ? areaId.Value : 0)),  campaigns);                                
+                                    _dealers.GetDealerQuotationV2(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId, Convert.ToUInt32(areaId.HasValue ? areaId.Value : 0)));                                
                             }
                             else
                             {
-                                objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, campaigns);
+                                objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null);
                             }
 
                             #endregion
                         }
+                        else
+                        {
+                            objDTOModelPage = ModelMapper.ConvertV5(objModelPage, null, null);
+                        }
+                    }
+                    else
+                    {
+                        objDTOModelPage = ModelMapper.ConvertV5(objModelPage, null, null);
                     }
 
 
