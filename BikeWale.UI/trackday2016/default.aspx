@@ -49,7 +49,7 @@
                         { %>
                             <li>
                                 <div class="review-image-wrapper">
-                                    <a href="<%= string.Format("{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString())) %>" title="<%=article.Title %>" c="bw_trackday" a="<%=article.Title %>-article-<%= article.BasicId.ToString() %>-image" l="bw_trackday" class="bw-ga block">
+                                    <a href="<%= string.Format("{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString())) %>" title="<%=article.Title %>" data-cat="bw_trackday" data-act="<%=article.Title %>-article-<%= article.BasicId.ToString() %>-image" data-lab="bw_trackday" class="bw-ga block">
                                         <div class="bg-loader-placeholder">
                                             <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl,article.HostUrl,Bikewale.Utility.ImageSize._642x361)  %>" alt="<%= article.Title %>" src="">
                                         </div>
@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="review-heading-wrapper">
                                     <h3>
-                                        <a href="<%= string.Format("{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString())) %>" class="article-target-link bw-ga" c="bw_trackday" a="<%=article.Title %>-article-<%= article.BasicId.ToString() %>-title" l="bw_trackday"><%= article.Title %></a>
+                                        <a href="<%= string.Format("{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString())) %>" class="article-target-link bw-ga" data-cat="bw_trackday" data-act="<%=article.Title %>-article-<%= article.BasicId.ToString() %>-title" data-lab="bw_trackday"><%= article.Title %></a>
                                     </h3>
                                     <div class="article-stats-left-grid">
                                         <span class="bwsprite calender-grey-sm-icon"></span>
@@ -71,7 +71,7 @@
                                 <div class="article-desc-wrapper margin-top15">
                                     <p class="font14 text-light-grey"><%= Bikewale.Utility.FormatDescription.TruncateDescription(article.Description,200) %></p>
                                 
-                                    <a href="<%= string.Format("{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString())) %>" c="bw_trackday" a="<%=article.Title %>-article-<%= article.BasicId.ToString() %>-link" l="bw_trackday" class="font14 bw-ga">Read full story</a>
+                                    <a href="<%= string.Format("{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString())) %>" data-cat="bw_trackday" data-act="<%=article.Title %>-article-<%= article.BasicId.ToString() %>-link" data-lab="bw_trackday" class="font14 bw-ga">Read full story</a>
                                 </div>
                             </li>
                         <%} %>
@@ -92,7 +92,7 @@
                         <div id="track-day-video" class="video-content">
                             <iframe id="td-iframe-video" width="976" height="549" src="https://www.youtube.com/embed/XuEp3JO6zCw" frameborder="0" allowfullscreen></iframe>
                             <div class="bg-loader-placeholder"></div>
-                            <div c="bw_trackday" a="Track day video" l="bw_trackday" class="video-overlay cur-pointer bw-ga"></div>
+                            <div data-cat="bw_trackday" data-act="Track day video" data-lab="bw_trackday" class="video-overlay cur-pointer bw-ga"></div>
                         </div>
                     </div>
                 </div>

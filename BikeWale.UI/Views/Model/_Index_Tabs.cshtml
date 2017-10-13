@@ -2,59 +2,59 @@
 
 @{ string bikeName = string.Format("{0}_{1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName);}
 
-<span  class="bw-ga navtab"  c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Overview" data-href="#modelSummaryContent" >Overview</span>
+<span  class="bw-ga navtab"  data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Overview" data-href="#modelSummaryContent" >Overview</span>
 
 @if (Model.IsShowPriceTab)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Price"  data-href="#modelPricesContent">Price</span>
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Price"  data-href="#modelPricesContent">Price</span>
 }
 @if (Model.IsModelColorsAvailable)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Colours"  data-href="#modelColorsContent">Colours</span>
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Colours"  data-href="#modelColorsContent">Colours</span>
 }
 
 @if (Model.IsSimilarBikesAvailable)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Similar Bikes"  data-href="#modelSimilarContent">Similar @Model.BodyStyleText </span>
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Similar Bikes"  data-href="#modelSimilarContent">Similar @Model.BodyStyleText </span>
 }
 else if (Model.IsPopularBodyStyleAvailable)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Popular @Model.BodyStyleName"  data-href="#modelPopularContent">Popular @Model.BodyStyleName</span>
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Popular @Model.BodyStyleName"  data-href="#modelPopularContent">Popular @Model.BodyStyleName</span>
 }
 @if (Model.IsVersionSpecsAvailable)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Specs"  data-href="#modelSpecsFeaturesAboutContent">Specs</span>
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Specs"  data-href="#modelSpecsFeaturesAboutContent">Specs</span>
 }
 else if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;About" data-href="#modelSpecsFeaturesAboutContent">About</span>
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;About" data-href="#modelSpecsFeaturesAboutContent">About</span>
 }
 
 @if (Model.IsReviewsAvailable)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;ExpertReviews" data-href="#modelExpertReviewsContent">Expert Reviews</span>
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;ExpertReviews" data-href="#modelExpertReviewsContent">Expert Reviews</span>
 }
 
 @if (Model.IsUserReviewsAvailable)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;UserReviews"  data-href="#modelReviewsContent">User Reviews</span>
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;UserReviews"  data-href="#modelReviewsContent">User Reviews</span>
 }
 
 @if (Model.IsNewsAvailable)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Dealers&News" data-href="#modelNewsContent">News</span>
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Dealers&News" data-href="#modelNewsContent">News</span>
 }
 @if (Model.IsVideosAvailable)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Videos" data-href="#videosAndServiceCenterContent">Videos</span>
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Videos" data-href="#videosAndServiceCenterContent">Videos</span>
 }
 else if (Model.IsOtherDealersAvailable || Model.IsDealersServiceCenterAvailable)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;ServiceCenter" data-href="#videosAndServiceCenterContent">Dealers</span>
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Dealers" data-href="#videosAndServiceCenterContent">Dealers</span>
 }
 @if (Model.IsUsedBikesAvailable)
 {
-    <span class="bw-ga navtab" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Used" data-href="#makeUsedBikeContent" >Used</span>
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Used" data-href="#makeUsedBikeContent" >Used</span>
 }
 
 
