@@ -607,3 +607,49 @@
     padding-top: 10px
     font-size: 15px
     color: #2a2a2a
+
+
+.review-card__winner
+  position: absolute
+  top: 0
+  left: 10px
+
+.vertical-ribbon
+  position: relative
+  width: 14px
+  height: 35px
+  display: inline-block
+  vertical-align: top
+  &:after
+    content: ''
+    position: absolute
+    top: 100%
+    left: 0
+    border-right: 7px solid #41B4C4
+    border-left: 7px solid #41B4C4
+    border-bottom: 7px solid transparent
+
+.bg-color--teal
+  background: #41B4C4
+
+.trophy-teal-10x12:before
+  content: ''
+  width: 22px
+  height: 22px
+  position: absolute
+  top: 4px
+  left: -4px
+  border: 1px solid #4d5057
+  -webkit-border-radius: 50%
+  -moz-border-radius: 50%
+  -o-border-radius: 50%
+  border-radius: 50%
+  background: #fff url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/trophy-10x12.png') no-repeat 50%
+
+.winner-tag__label
+  font-size: 10px
+  color: #82888b
+  padding-left: 5px
+  padding-top: 8px
+  display: inline-block
+  vertical-align: top

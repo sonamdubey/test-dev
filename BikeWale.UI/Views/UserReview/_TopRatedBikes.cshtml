@@ -34,7 +34,7 @@
                                             </span>
                                         </p>
                                     </div>
-                                    <a class="more-review text-truncate" href="@UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName)" title="@bikeName Reviews">
+                                    <a class="more-review text-truncate" href="@string.Format("{0}reviews/",  UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName Reviews">
                                         <span class="review-sm"></span>Read&nbsp;@bike.ReviewCount&nbsp;reviews
                                         <span class="bwsprite right-arrow"></span>
                                     </a>
