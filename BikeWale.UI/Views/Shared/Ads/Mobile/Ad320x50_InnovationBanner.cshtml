@@ -2,7 +2,6 @@
 @{
     var currentTimestamp = DateTime.Now.ToString("o");
 }
-<link href='/css/threesixty-slider.css' rel='stylesheet' type='text/css' />
 <div class="container">
     <div class="bg-animation" data-screen="1">
         <div class="vehicle-container">
@@ -495,4 +494,4 @@
     });
 
 </script>
-<script type="text/javascript" src="/src/threesixty-slider.js" defer></script>
+<script type="text/javascript" src="@String.Format("{0}/src/threesixty-slider.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" defer></script>
