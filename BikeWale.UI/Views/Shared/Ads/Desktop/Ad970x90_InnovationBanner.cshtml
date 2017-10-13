@@ -3,7 +3,6 @@
     var currentTimestamp = DateTime.Now.ToString("o");
 
 }
-<link href='/css/threesixty-slider.css' rel='stylesheet' type='text/css' />
 
 <div class="maestro-animation-container">
     <div class="black-window-animation hide"></div>
@@ -453,4 +452,4 @@ docReady(function () {
     bannerAnimation.registerEvents();    
 });
 </script>
-<script type="text/javascript" src="/src/threesixty-slider.js" defer></script>
+<script type="text/javascript" src="@String.Format("{0}/src/threesixty-slider.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)" defer></script>
