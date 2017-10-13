@@ -862,10 +862,10 @@ namespace Bikewale.BAL.BikeData
         /// <param name="requestType">request type</param>
         /// <param name="topCount">top count</param>
         /// <param name="makeId">make id</param>
-        /// <param name="cityId">cityid</param>
+        /// <param name="cityId">cityid</param> 
         /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId)
-        {
+        { 
             IEnumerable<MostPopularBikesBase> bikes = null;
             try
             {

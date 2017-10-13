@@ -73,14 +73,14 @@
                     <p class="text-slate-grey">We wish to credit this rating to you. We will never spam your inbox.</p>
                 </div>
 
-                <div class="input-box form-control-box margin-bottom15  bw-ga" c="Rate_Bike" a="Name_Field_Focus" l="@gaLabel" data-bind="css: userName().length > 0 ? 'not-empty' : ''">
+                <div class="input-box form-control-box margin-bottom15  bw-ga" data-cat="Rate_Bike" data-act="Name_Field_Focus" data-lab="@gaLabel" data-bind="css: userName().length > 0 ? 'not-empty' : ''">
                     <input type="text" id="txtUserName" name="userName" data-bind="textInput: userName" value="@(string.IsNullOrEmpty(Model.CustomerName) ? "" : Model.CustomerName)" />
                     <label for="getUserName">Name<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>
                 </div>
 
-                <div class="input-box form-control-box margin-bottom15   bw-ga" c="Rate_Bike" a="Email_Field_Focus" l="@gaLabel" data-bind="css: emailId().length > 0 ? 'not-empty' : ''">
+                <div class="input-box form-control-box margin-bottom15   bw-ga" data-cat="Rate_Bike" data-act="Email_Field_Focus" data-lab="@gaLabel" data-bind="css: emailId().length > 0 ? 'not-empty' : ''">
                     <input type="email" id="txtEmailID" name="emailId" data-bind="textInput: emailId" value="@(string.IsNullOrEmpty(Model.CustomerEmail) ? "" : Model.CustomerEmail)" />
                     <label for="getEmailID">Email ID<sup>*</sup></label>
                     <span class="boundary"></span>

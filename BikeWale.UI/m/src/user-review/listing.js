@@ -1,5 +1,6 @@
 
-var reviewId = 0,makeid, modelid, vmUserReviews, modelReviewsSection, categoryId = 1, pageNumber = 1, modelName, makeName;
+var reviewId = 0, makeid, modelid, vmUserReviews, modelReviewsSection, categoryId = 1
+var pageNumber = 1, modelName, makeName, vmModelExpertReviewsList, vmModelPopularBikes, vmModelPopularBikesBodyStyle, expertReviewCount;
 var reg = new RegExp('^[0-9]*$');
 var helpfulReviews = [];
 var expertReviewWidgetHtml;
@@ -9,7 +10,7 @@ var reviewCategory = {
     2: 'helpful',
     1: 'recent',
     5: 'positive',
-    6: 'negative',
+    6: 'critical',
     7: 'neutral'
 }
 
@@ -68,7 +69,7 @@ function logBhrighu(e, action) {
     cwTracking.trackUserReview(action, label);
 }
 
-function updateView(e) {    
+function updateView(e) {
     try {
         var reviewId = e.currentTarget.getAttribute("data-reviewid");
         $.ajax({
@@ -265,6 +266,7 @@ docReady(function () {
     else {
         makeid = $('#section-review-list').attr('data-makeid');
         modelid = $('#section-review-list').attr('data-modelId');
+        expertReviewCount = $('#section-review-list').attr('data-expertReviewCount');
     }
 
     var vote = bwcache.get("ReviewDetailPage_reviewVote_" + reviewId);
@@ -272,12 +274,10 @@ docReady(function () {
     if (vote != null && vote.vote) {
         if (vote.vote == "0") {
             $('#downvoteButton').addClass('active');
-            //$('#downvoteText').text("Disliked");
             $('#upvoteButton').attr('disabled', 'disabled');
         }
         else {
             $('#upvoteButton').addClass('active');
-            //$('#upvoteText').text("Liked");
             $('#downvoteButton').attr('disabled', 'disabled');
         }
     }
@@ -451,9 +451,9 @@ docReady(function () {
             },
 
             getReviews: function (element) {
-                 categoryId = Number(element.attr('data-category')),
-                    pageNumber = Number(element.attr('data-page-num') || 1),
-                    categoryCount = Number(element.attr('data-count'));
+                categoryId = Number(element.attr('data-category')),
+                   pageNumber = Number(element.attr('data-page-num') || 1),
+                   categoryCount = Number(element.attr('data-count'));
 
                 catTypes = element.attr('data-cattypes');
                 self.TotalReviews(categoryCount)
@@ -591,7 +591,7 @@ docReady(function () {
                         applyLikeDislikes();
 
                         if (self.firstReadMoreClick()) {
-                            var collpasibleContent = $(document).find('.read-more-target[data-reviewId=' + self.clickedReviewId() + ']').closest('.collapsible-content');                           
+                            var collpasibleContent = $(document).find('.read-more-target[data-reviewId=' + self.clickedReviewId() + ']').closest('.collapsible-content');
                             $('html, body').scrollTop(collpasibleContent.closest('.list-item').offset().top - $('#overallSpecsTab').height());
                             collpasibleContent.addClass('active');
                             self.firstReadMoreClick(false);
@@ -615,7 +615,7 @@ docReady(function () {
                     applyLikeDislikes();
 
                     if (self.firstReadMoreClick()) {
-                        var collpasibleContent = $(document).find('.read-more-target[data-reviewId=' + self.clickedReviewId() + ']').closest('.collapsible-content');                       
+                        var collpasibleContent = $(document).find('.read-more-target[data-reviewId=' + self.clickedReviewId() + ']').closest('.collapsible-content');
                         $('html, body').scrollTop(collpasibleContent.closest('.list-item').offset().top - $('#overallSpecsTab').height());
                         collpasibleContent.addClass('active');
                         self.firstReadMoreClick(false);
@@ -623,7 +623,7 @@ docReady(function () {
                 }
             }
 
-            self.PreviousQS(qs);            
+            self.PreviousQS(qs);
         };
 
         self.setPageFilters = function (e) {
@@ -659,7 +659,7 @@ docReady(function () {
             if ($('#modelReviewsListing').attr('data-readMoreCount') == (parseInt(reviewsReadPerSession) - 1)) {
                 $.ajax({
                     type: "GET",
-                    url: "/m/expertreviews/list/?makeId="+ makeid + "&modelId=" + modelid + "&topCount=12",
+                    url: "/m/expertreviews/list/?makeId=" + makeid + "&modelId=" + modelid + "&topCount=12",
                     success: function (response) {
                         expertReviewWidgetHtml = response;
                         if (parseInt($('#modelReviewsListing').attr('data-readMoreCount')) > (parseInt(reviewsReadPerSession) - 1)) {
@@ -675,13 +675,13 @@ docReady(function () {
                     $(this).addClass('sw-' + index);
                     $('.sw-' + index).swiper({
                         effect: 'slide',
-                        speed: 300,                        
+                        speed: 300,
                         nextButton: $(this).find('.swiper-button-next'),
                         prevButton: $(this).find('.swiper-button-prev'),
                         pagination: $(this).find('.swiper-pagination'),
                         slidesPerView: 'auto',
                         paginationClickable: true,
-                        spaceBetween: 10,                        
+                        spaceBetween: 10,
                         preloadImages: false,
                         lazyLoading: true,
                         lazyLoadingInPrevNext: true,
@@ -706,7 +706,7 @@ docReady(function () {
             ele.after(expertReviewWidgetHtml);
             $('.swiper-image-preview img.lazy').lazyload();
 
-            if (expertReviewWidgetHtml.trim()) {
+            if (expertReviewWidgetHtml && expertReviewWidgetHtml.trim()) {
                 triggerGA("User_Reviews", "ExpertReviews_CarouselLoaded", makeName + "_" + modelName);
             }
         };
@@ -715,11 +715,11 @@ docReady(function () {
     vmUserReviews = new modelUserReviews();
 
     $(document).on("click", ".read-more-target", function (e) {
-        if (!vmUserReviews.IsInitialized()) {         
+        if (!vmUserReviews.IsInitialized()) {
             vmUserReviews.clickedReviewId($(this).attr('data-reviewId'));
             vmUserReviews.firstReadMoreClick(true);
             vmUserReviews.init(e);
-            vmUserReviews.readMore(e);           
+            vmUserReviews.readMore(e);
         }
     });
 
@@ -735,8 +735,6 @@ docReady(function () {
             return false;
         }
     });
-
-
 
     $window = $(window);
     overallSpecsTabsContainer = $('#overallSpecsTopContent');
@@ -780,4 +778,186 @@ docReady(function () {
     if (checkedStar)
         document.getElementById('rate-star-' + parseInt(checkedStar)).checked = false;
 
+    var modelExpertReviewsList = function () {
+        var self = this;
+        self.IsInitialized = ko.observable(false);
+        self.expertReviewsList = ko.observableArray();
+
+        self.init = function () {
+            if (!self.IsInitialized()) {
+
+                self.IsInitialized(true);
+                ko.applyBindings(self, $(".article-list")[0]);
+
+                self.fetchExpertReviews();
+            }
+        };
+
+        self.fetchExpertReviews = function () {
+            $.ajax({
+                type: "GET",
+                url: "/api/cms/cat/V2/8/posts/12/make/" + makeid + "/?modelId=" + modelid,
+                success: function (response) {
+                    self.expertReviewsList(JSON.parse(response));
+                }
+            });
+        };
+    }
+
+    vmModelExpertReviewsList = new modelExpertReviewsList();
+
+    var modelPopularBikes = function () {
+        var self = this;
+        self.bikeList = ko.observableArray();
+        self.showCheckOnRoadCTA = ko.observable(false);
+        self.showPriceInCityCTA = ko.observable(false);
+        self.pageCatId = ko.observable();
+        self.pqSourceId = ko.observable();
+        self.IsInitialized = ko.observable(false);
+        self.IsLoading = ko.observable(true);
+
+        self.init = function () {
+            if (!self.IsInitialized()) {
+                self.IsInitialized(true);
+                ko.applyBindings(self, $("#popular-bikes-widget")[0]);
+                self.fetchPopularBikes();
+            }
+        };
+
+        self.fetchPopularBikes = function () {
+            $.ajax({
+                type: "GET",
+                url: "/api/popularbikesbymake/" + makeid + "/12/?cityId=" + globalCityId,
+                success: function (response) {
+                    self.bikeList(JSON.parse(response));
+                    $('#popular-bikes-widget .swiper-container:not(".noSwiper")').each(function (index, element) {
+                        $(this).addClass('sw-' + index);
+                        $('.sw-' + index).swiper({
+                            effect: 'slide',
+                            speed: 300,
+                            nextButton: $(this).find('.swiper-button-next'),
+                            prevButton: $(this).find('.swiper-button-prev'),
+                            pagination: $(this).find('.swiper-pagination'),
+                            slidesPerView: 'auto',
+                            spaceBetween: 10,
+                            preloadImages: false,
+                            lazyLoading: true,
+                            lazyLoadingInPrevNext: true,
+                            watchSlidesProgress: true,
+                            watchSlidesVisibility: true,
+                            onInit: function (swiper) {
+                                self.IsLoading(false);
+                            }
+                        });
+                    })
+                }
+            });
+        };
+    }
+
+    vmModelPopularBikes = new modelPopularBikes();
+
+    var modelPopularBikesBodyStyle = function () {
+        var self = this;
+        self.bikeList = ko.observableArray();
+        self.showCheckOnRoadCTA = ko.observable(false);
+        self.showPriceInCityCTA = ko.observable(false);
+        self.pageCatId = ko.observable();
+        self.pqSourceId = ko.observable();
+        self.IsInitialized = ko.observable(false);
+        self.IsLoading = ko.observable(true);
+
+        self.init = function () {
+            if (!self.IsInitialized()) {
+                self.IsInitialized(true);
+                ko.applyBindings(self, $("#popular-bodystyle-bikes-list")[0]);
+                self.fetchPopularBikesByBodyStyle();
+            }
+        };
+
+        self.fetchPopularBikesByBodyStyle = function () {
+            $.ajax({
+                type: "GET",
+                url: "/api/popularbikesbybodystyle/" + modelid + "/12/?cityId=" + globalCityId,
+                success: function (response) {
+                    self.bikeList(JSON.parse(response));
+                    $('#popular-bodystyle-bikes-list .swiper-container:not(".noSwiper")').each(function (index, element) {
+                        $(this).addClass('sw-' + index);
+                        $('.sw-' + index).swiper({
+                            effect: 'slide',
+                            speed: 300,
+                            nextButton: $(this).find('.swiper-button-next'),
+                            prevButton: $(this).find('.swiper-button-prev'),
+                            pagination: $(this).find('.swiper-pagination'),
+                            slidesPerView: 'auto',
+                            spaceBetween: 10,
+                            preloadImages: false,
+                            lazyLoading: true,
+                            lazyLoadingInPrevNext: true,
+                            watchSlidesProgress: true,
+                            watchSlidesVisibility: true,
+                            onInit: function (swiper) {
+                                self.IsLoading(false);
+                            }
+                        });
+                    })
+                }
+            });
+        };
+    }
+
+    vmModelPopularBikesBodyStyle = new modelPopularBikesBodyStyle();
+
+    var expertReviewsTemplate = bwcache.get("ExpertReviewsListTemplate")
+    if (expertReviewsTemplate) {
+        $("#expert-review-ul").html(expertReviewsTemplate);
+        vmModelExpertReviewsList.init();
+    }
+    else {
+        $("#expert-review-ul").load("/Templates/ExpertReviewsList_Mobile.html", function (responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success") {
+                bwcache.set("ExpertReviewsListTemplate", responseTxt, true);
+                vmModelExpertReviewsList.init();
+            }
+        });
+    }
+
+    $(".tabs-type-switch").click(function (e) {
+
+        if (e.target.getAttribute('data-tabs') == 'expertReviewContent') {
+            triggerGA("User_Reviews", "Clicked_Toggle_ExpertReviews", makeName + "_" + modelName);
+
+            var bikeReviewsListTemplate = bwcache.get("BikeReviewsListTemplate")
+            if (bikeReviewsListTemplate) {
+                $("#popular-bikes-widget").html(BikeReviewsListTemplate);
+                vmModelExpertReviewsList.init();
+                $("#popular-bodystyle-bikes-list").html(BikeReviewsListTemplate);
+                vmModelPopularBikesBodyStyle.init();
+            }
+            else {
+                if (vmModelPopularBikes.bikeList().length == 0) {
+                    $("#popular-bikes-widget").load("/Templates/BikesSwiperList_Mobile.html", function (responseTxt, statusTxt, xhr) {
+                        if (statusTxt == "success") {
+                            bwcache.set("BikeReviewsListTemplate", responseTxt, true);
+                            $("#popular-bodystyle-bikes-list").html(responseTxt);
+                            vmModelPopularBikes.init();
+                            vmModelPopularBikesBodyStyle.init();
+                        }
+                    });
+                }
+            }
+        }
+
+        if (e.target.getAttribute('data-tabs') == 'userReviewContent') {
+            triggerGA("User_Reviews", "Clicked_Toggle_UserReviews", makeName + "_" + modelName);
+        }
+    });
+
+    if (parseInt(expertReviewCount) > 0) {
+        triggerGA("User_Reviews", "Toggle_Appeared_on_PageLoad", makeName + "_" + modelName);
+    }
+
+    $(document).on("click", ".article-list", function (e) {
+        triggerGA("User_Reviews", "Clicked_ExpertReviews_List", makeName + "_" + modelName);
+    });
 });

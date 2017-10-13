@@ -66,7 +66,7 @@
                                     if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                     {
                                         <div class="padding-top5 padding-bottom5">
-                                            <span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@String.Format("{0}_Top Card", bikeName)" class="font14 bw-ga text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
+                                            <span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@String.Format("{0}_Top Card", bikeName)" class="font14 bw-ga text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
                                         </div>
                                     }
                                 }
@@ -97,7 +97,7 @@
                                 {
 
                                     <div class="padding-top5 padding-bottom5">
-                                        <span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_Floating Card", bikeName)" class="font14 bw-ga  text-link">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
+                                        <span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@string.Format("{0}_Floating Card", bikeName)" class="font14 bw-ga  text-link">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
                                     </div>
                                 }
                             </div>
@@ -110,7 +110,7 @@
                                 <li data-tabs="coloursTabContent">Colours</li>
                                 @if (Model.Compare.UserReviewData != null)
                                 {
-                                    <li data-tabs="reviewTabContent" class="bw-ga" c="Compare_Bikes" a="Floating_UserReview_Section" l="@Model.targetModels.Replace(",", "_")">Reviews</li>
+                                    <li data-tabs="reviewTabContent" class="bw-ga" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="@Model.targetModels.Replace(",", "_")">Reviews</li>
                                 }
                             </ul>
                             <div class="clear"></div>
@@ -130,7 +130,7 @@
                             </li>
                             @if (Model.Compare.UserReviewData != null)
                             {
-                                <li data-tabs="reviewTabContent" class="bw-ga" c="Compare_Bikes" a="Floating_UserReview_Section" l="@Model.targetModels.Replace(",", "_")">Reviews</li>
+                                <li data-tabs="reviewTabContent" class="bw-ga" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="@Model.targetModels.Replace(",", "_")">Reviews</li>
                             }
                         </ul>
                         <div class="clear"></div>
@@ -349,7 +349,7 @@
                                                         <p class="review-decription">
                                                             @review.ReviewDescription
                                                         </p>
-                                                        <a href=@string.Format("/m{0}",@review.ReviewListUrl) class="review-title review-link bw-ga" c="Compare_Bikes" a="Read_Reviews_Clicked" l="@Model.targetModels.Replace(",", "_")">All reviews</a>
+                                                        <a href=@string.Format("/m{0}",@review.ReviewListUrl) class="review-title review-link bw-ga" data-cat="Compare_Bikes" data-act="Read_Reviews_Clicked" data-lab="@Model.targetModels.Replace(",", "_")">All reviews</a>
                                                     }
                                                     else
                                                     {

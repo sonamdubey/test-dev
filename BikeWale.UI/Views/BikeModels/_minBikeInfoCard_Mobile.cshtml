@@ -13,12 +13,12 @@
                 <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                 }
             <div class="clear"></div>
-            <a href="@string.Format("/m{0}",Model.BikeUrl)" class="item-image-content vertical-top bw-ga" title="@Model.BikeName" c="@Model.Category" a="Clicked_Model_GenericSlug" l="@Model.BikeName">
+            <a href="@string.Format("/m{0}",Model.BikeUrl)" class="item-image-content vertical-top bw-ga" title="@Model.BikeName" data-cat="@Model.Category" data-act="Clicked_Model_GenericSlug" data-lab="@Model.BikeName">
                 <img class="lazy" data-original="@Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath, Model.BikeInfo.HostUrl, ImageSize._110x61, QualityFactor._70)" src="" alt="@Model.BikeName" />
             </a>
             <div class="bike-details-block vertical-top">
                 <a href="@string.Format("/m{0}",Model.BikeUrl)" class="block text-default margin-bottom5" title="@Model.BikeName">
-                    <h3 class="text-truncate bw-ga" c="@Model.Category" a="Clicked_Model_GenericSlug" l="@Model.BikeName">@Model.BikeName</h3>
+                    <h3 class="text-truncate bw-ga" data-cat="@Model.Category" data-act="Clicked_Model_GenericSlug" data-lab="@Model.BikeName">@Model.BikeName</h3>
                 </a>                
 
                 @if (Model.IsDiscontinued)
@@ -62,7 +62,7 @@
         </div>
         @if (Model.BikeInfo != null)
         {
-            <ul class="item-more-details-list bw-ga" c="@Model.Category" a="Clicked_OtherElements_GenericSlug" l="@Model.BikeName">
+            <ul class="item-more-details-list bw-ga" data-cat="@Model.Category" data-act="Clicked_OtherElements_GenericSlug" data-lab="@Model.BikeName">
                 @foreach (var Tabsdetails in Model.BikeInfo.Tabs)
                 {
                     <li>
