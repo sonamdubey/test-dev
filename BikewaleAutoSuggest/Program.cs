@@ -39,7 +39,7 @@ namespace BikewaleAutoSuggest
                     if (!client.IndexExists(indexName).Exists)
                     {
 
-                        var response = client.CreateIndex(indexName,
+                        client.CreateIndex(indexName,
                           ind => ind
                        .Settings(s => s.NumberOfShards(2)
                            .NumberOfReplicas(2)
@@ -70,7 +70,7 @@ namespace BikewaleAutoSuggest
                         .Query(qq => qq.MatchAll())
                         );
 
-                    var response2 = ElasticClientOperations.AddDocument<BikeList>(suggestionList.ToList(), indexName, obj => obj.Id);
+                   ElasticClientOperations.AddDocument<BikeList>(suggestionList.ToList(), indexName, obj => obj.Id);
                 
 
             }

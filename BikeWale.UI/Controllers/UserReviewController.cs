@@ -550,7 +550,7 @@ namespace Bikewale.Controllers
         }
 
         // GET: Review
-        [Route("review/")]
+        [Route("reviews/")]
         public ActionResult Index()
         {       
             UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors, _makesRepository);
@@ -558,7 +558,7 @@ namespace Bikewale.Controllers
         }
 
         // GET: Review
-        [Route("m/review/")]
+        [Route("m/reviews/")]
         public ActionResult Index_Mobile()
         {
               UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors, _makesRepository);
