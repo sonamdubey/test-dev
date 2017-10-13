@@ -1,10 +1,10 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-
 @if (!Model.IsUpcomingBike)
 {
 
     <div class="content-box-shadow card-bottom-margin padding-top15 padding-right20 padding-bottom20 padding-left20">
         <h2>@Model.BikeName Summary</h2>
+
         @if (Model.ModelPageEntity.ModelVersionSpecs != null)
         {
             <ul class="summary-specs-list text-center padding-bottom10">
@@ -14,7 +14,7 @@
                         @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement)
                         @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement).Equals("--"))
                         {
-                        <span>&nbsp;cc</span>
+                            <span>&nbsp;cc</span>
                         }
                     </p>
                 </li>
@@ -24,7 +24,7 @@
                         @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower)
                         @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower).Equals("--"))
                         {
-                        <span>&nbsp;bhp</span>
+                            <span>&nbsp;bhp</span>
                         }
                     </p>
                 </li>
@@ -34,7 +34,7 @@
                         @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall)
                         @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall).Equals("--"))
                         {
-                        <span>&nbsp;kmpl</span>
+                            <span>&nbsp;kmpl</span>
                         }
                     </p>
                 </li>
@@ -44,7 +44,7 @@
                         @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight)
                         @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight).Equals("--"))
                         {
-                        <span>&nbsp;kgs</span>
+                            <span>&nbsp;kgs</span>
                         }
                     </p>
                 </li>
@@ -52,11 +52,14 @@
             <div class="border-solid-bottom margin-bottom15"></div>
 
         }
-        @if (!string.IsNullOrEmpty(Model.ModelSummary))
+
+
+        @if (!string.IsNullOrEmpty(Model.ModelSummary) && Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null
+               && !Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
         {
             <p class="font14 text-light-grey line-height16 padding-bottom10">@Html.Raw(Model.ModelSummary)</p>
         }
-        
+
 
 
 
@@ -75,7 +78,6 @@
                             <td valign="top" width="36%"><strong class="text-unbold">Price</strong></td>
                             <td valign="top" width="64%">
                                 @Html.Raw("&#x20B9;")&nbsp;<strong class="text-bold">@(Model.BikePrice > 0 && Model.IsLocationSelected ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.SelectedVersion.AverageExShowroom.ToString()))</strong>
-
                             </td>
                         </tr>
                     }
@@ -110,5 +112,39 @@
                 </tbody>
             </table>
         </div>
+        @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                        && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null
+                        && Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
+        {
+            <div id="aboutContent" class="content-details-wrapper">
+                <h2>About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
+                <p class="font14 text-light-grey line-height17 inline">
+                    @if (!Model.IsUpcomingBike)
+                    {
+                        <span class="model-preview-main-content">
+                            @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+                        {
+                                @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                            }
+                            else
+                            {
+                                @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                            }
+                        </span>
+                        if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
+                        {
+                            <span class="model-preview-more-content hide">
+                                @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                            </span>
+                            <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
+                        }
+                    }
+                    else
+                    {
+                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                    }
+                </p>
+            </div>
+        }
     </div>
 }
