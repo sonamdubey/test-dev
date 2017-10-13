@@ -567,7 +567,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     if (objModelPage.ModelDetails.PhotosCount > 0)
                     {
                         objGalleryComponent.Add(
-                                new ModelGalleryComponent()
+                                new ModelGalleryComponent
                                 {
                                     CategoryId = 1,
                                     CategoryName = "Photos",
@@ -580,7 +580,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     if (objModelPage.ModelDetails.VideosCount > 0)
                     {
                         objGalleryComponent.Add(
-                                new ModelGalleryComponent()
+                                new ModelGalleryComponent
                                 {
                                     CategoryId = 2,
                                     CategoryName = "Videos",
@@ -593,7 +593,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     if (objModelPage.colorPhotos.Any())
                     {
                         objGalleryComponent.Add(
-                                new ModelGalleryComponent()
+                                new ModelGalleryComponent
                                 {
                                     CategoryId = 3,
                                     CategoryName = "Colours",
