@@ -11,7 +11,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
-using Bikewale.Service.AutoMappers.ManufacturerCampaign;
+using Bikewale.Service.AutoMappers.pqEntity.ManufacturerCampaignManufacturerCampaign;
 using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.Utilities;
 using Microsoft.Practices.Unity;
