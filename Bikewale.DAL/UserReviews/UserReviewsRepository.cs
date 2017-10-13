@@ -1287,6 +1287,12 @@ namespace Bikewale.DAL.UserReviews
             return objQuestionsList;
         }
 
+        /// <summary>
+        /// Modified By :Snehal Dange on 12 Oct 2017
+        /// Description : Changed Sp to getbikeratingsandreviewsinfo_12102017 .Added isScooterOnly parameter
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         public BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId)
         {
             BikeRatingsReviewsInfo objBikeRatingReviewInfo = null;
