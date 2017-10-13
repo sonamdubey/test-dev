@@ -1681,3 +1681,7 @@ input[type="number"] {
 .tooltip-top.tooltip--right .bw-tooltip-text:after {
 	left: 182px;
 }
+
+.event-none {
+    pointer-events: none;
+}

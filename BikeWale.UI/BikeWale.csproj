@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -1003,6 +1003,9 @@
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
+    <Compile Include="Models\UserReviews\PopularBikesWithExpertReviewsWidget.cs" />
+    <Compile Include="Models\UserReviews\TopRatedBikesWidget.cs" />
+    <Compile Include="Models\UserReviews\UserReviewLandingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewListingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewDetailsPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewOtherDetailsPage.cs" />
@@ -2908,6 +2911,7 @@
     <Content Include="m\src\photos\photos.js" />
     <Content Include="m\src\photos\modelgallery.js" />
     <Content Include="m\src\priceincity.js" />
+    <Content Include="m\src\review\listing.js" />
     <Content Include="m\src\scooters-by-make.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
@@ -2980,6 +2984,7 @@
     <Content Include="m\sass\new-launch\_year-swiper.sass" />
     <Content Include="m\sass\modules\_brand-collapsible.sass" />
     <Content Include="sass\modules\_loader.sass" />
+    <Content Include="sass\review\landing.css" />
     <Content Include="sass\scooters\landing.sass" />
     <Content Include="sass\scooters\_landing-style.sass" />
     <Content Include="sass\modules\_main-comparison.sass" />
@@ -3052,6 +3057,8 @@
     <Content Include="sass\partials\_overall-floating-tabs.sass" />
     <Content Include="sass\partials\_collapsible-content.sass" />
     <Content Include="sass\partials\_pagination.sass" />
+    <Content Include="sass\m\review\listing.sass" />
+    <Content Include="sass\review\landing.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3096,6 +3103,7 @@
     <Content Include="src\photos\modelgallery.js" />
     <Content Include="src\popup\makemodelpopup.js" />
     <Content Include="src\priceincity.js" />
+    <Content Include="src\review\landing.js" />
     <Content Include="src\scooters.js" />
     <Content Include="src\service\landing.js" />
     <Content Include="src\service\location.js" />
@@ -3752,6 +3760,7 @@
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\Model\_BestBikes.cshtml" />
     <Content Include="Views\Finance\CapitalFirst_Index_Mobile.cshtml" />
+    <Content Include="Views\UserReview\Index_Mobile.cshtml" />
     <Content Include="Views\Shared\_OtpScreen_Mobile.cshtml" />
     <Content Include="Views\Shared\_OtpScreen.cshtml" />
     <Content Include="Views\PriceInCity\Index_Mobile_Amp.cshtml" />
@@ -3806,6 +3815,15 @@
     <Content Include="Views\ExpertReviews\_ExpertReviewsModelWiseCard_Mobile.cshtml" />
     <Content Include="Views\Photos\_PhotosBikeInfoCard.cshtml" />
     <Content Include="Views\Photos\_PhotosBikeInfoCard_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_TopRatedBikes_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_SearchUserReviewExpertReviewModel_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_PopularBikesWithExpertReviews.cshtml" />
+    <Content Include="Views\UserReview\_PopularBikesWithExpertReviews_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_SearchUserReviewExpertReviewModel.cshtml" />
+    <Content Include="Views\UserReview\Index.cshtml" />
+    <Content Include="Views\UserReview\_TopRatedBikes.cshtml" />
+    <Content Include="Views\UserReview\_RecentUploadedReviews.cshtml" />
+    <Content Include="Views\UserReview\_RecentUploadedReviews_Mobile.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad292x360.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad200x211.cshtml" />
     <None Include="Web.Debug.config">

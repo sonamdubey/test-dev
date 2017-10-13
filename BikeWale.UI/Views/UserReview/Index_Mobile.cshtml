@@ -1,0 +1,293 @@
+﻿@model Bikewale.Models.UserReviews.UserReviewLandingVM
+
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/review/listing.css' inline>";
+    Model.Page_JS_Path = "/m/src/review/listing.js";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+<div class="bw-tabs-panel">
+    <div class="banner-review" data-bg-image="0">
+        <div class="container banner-container text-center top-campaign-banner-container">
+            <h1 class="banner-head">BIKE REVIEWS</h1>
+            <div class="bw-tabs-content">
+                <ul class="bw-tabs tabs-type-switch">
+                    <li data-tabs="userReviewContent" data-image="m_bikewale_reviewlanding_user_banner" class="active">User Reviews</li>
+                    <li data-tabs="expertReviewContent" data-image="m_bikewale_reviewlanding_expert_banner" class="">Expert Reviews</li>
+                </ul>
+            </div>
+            @Html.Partial("~/views/UserReview/_SearchUserReviewExpertReviewModel_Mobile.cshtml")
+        </div>
+    </div>
+
+    <div id="userReviewContent" class="bw-tabs-data user-review">
+        <section>
+            <div class="swiper-container card-container banner-swiper noSwiper content-box-shadow padding-bottom40">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="block">
+                                <div class="swiper-image-preview">
+                                    <span class="review-icon">
+                                    </span>
+                                </div>
+                                <div class="swiper-details-block font12">
+                                    <h3 class="margin-bottom10">5000+ user reviews</h3>
+                                    <div class="font14 text-slate-grey">
+                                        Verified, unbiased & detailed reviews from real owners
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="block">
+                                <div class="swiper-image-preview">
+                                    <span class="review-icon">
+                                    </span>
+                                </div>
+                                <div class="swiper-details-block font12">
+                                    <h3 class="margin-bottom10">Pros & cons</h3>
+                                    <div class="font14 text-slate-grey">
+                                        Pros and cons & maintenance tips from users
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="block">
+                                <div class="swiper-image-preview">
+                                    <span class="review-icon">
+                                    </span>
+                                </div>
+                                <div class="swiper-details-block font12">
+                                    <h3 class="margin-bottom10">200+ Bike Models</h3>
+                                    <div class="font14 text-slate-grey">
+                                        Reviews for over 200 models available on BikeWale
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        @if (Model.TopRatedBikesWidget != null)
+        {
+            <section>
+                @Html.Partial("~/views/UserReview/_TopRatedBikes_Mobile.cshtml", Model.TopRatedBikesWidget)
+            </section>
+        }
+
+        <section>
+            <h2 class="font18 text-center margin-top20 margin-bottom15">Bike Review Contest</h2>
+            <div class="contest-banner">
+                <span class="contest-banner__icon margin-bottom20"></span>
+                <p class="contest-banner__title">Help fellow bikers make the right choice</p>
+                <p class="contest-banner__subtitle">Stand a chance to win Amazon voucher worth &#x20b9;&nbsp;2,000</p>
+                <div id="bike-selection-form">
+                    <div id="form-make-field" class="form-control-box form-input-box margin-bottom20 margin-top20" data-bind="click: function (d, e) { openBikeSelection(); }" data-make-id="1">
+                        <span>Select model to participate</span>
+                        <span class="bwmsprite grey-right-icon"></span>
+                        <span class="bwmsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText"></div>
+                    </div>
+                    <div id="form-model-field" class="form-control-box form-input-box margin-bottom20" data-bind="click: function (d, e) { openModelSelection(); }">
+                        <span>Select model</span>
+                        <span class="bwmsprite grey-right-icon"></span>
+                        <span class="bwmsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText"></div>
+                    </div>
+                    <div id="select-bike-cover-popup" class="cover-window-popup text-left" data-bind="with: bikeSelection">
+
+
+                        <div class="ui-corner-top">
+                            <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="click: closeBikePopup">
+                                <span class="bwmsprite fa-angle-left"></span>
+                            </div>
+                            <div class="cover-popup-header leftfloat">Select bikes</div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="bike-banner"></div>
+
+
+                        <div class="cover-popup-body" data-bind="visible: currentStep() == 1">
+                            <div class="cover-popup-body-head">
+                                <p class="no-back-btn-label head-label inline-block">Select Make</p>
+                            </div>
+                            <ul class="cover-popup-list with-arrow">
+                                @foreach (var make in Model.Makes)
+                                {
+                                    <li data-bind="click: makeChanged">
+                                        <span data-masking="@make.MaskingName" data-id="@make.MakeId">@make.MakeName</span>
+                                </li>
+                                }
+                            </ul>
+                        </div>
+
+                        <div class="cover-popup-body" data-bind="visible: currentStep() == 2" style="display: none;">
+                            <div class="cover-popup-body-head">
+                                <div class="body-popup-back cur-pointer inline-block" data-bind="click: modelBackBtn">
+                                    <span class="bwmsprite back-long-arrow-left"></span>
+                                </div>
+                                <p class="head-label inline-block">Select Model</p>
+                            </div>
+                            <ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
+                                <li data-bind="click: $parent.modelChanged">
+                                    <span data-bind="text: modelName, attr: { 'data-id': modelId }"></span>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div class="cover-popup-loader-body" data-bind="visible: IsLoading()" style="display: none;">
+                            <div class="cover-popup-loader"></div>
+                            <div class="cover-popup-loader-text font14" data-bind="text: LoadingText()">Loading bike models...</div>
+                        </div>
+                    </div>
+                    <p class="btn btn-orange btn-180-40" data-bind="click: function (d, e) { openBikeSelection(); }">Write and win &#x20b9; 2,000<span class="bwsprite btn-white-arrow"></span></p>
+                </div>
+            </div>
+            <span id="querystring" data-query="v5EINN8tC9b114V0VycqiQ==">
+
+            </span>
+        </section>
+        @if (Model.RecentUserReviewsList != null)
+        {
+            <section>
+                <h2 class="font18 text-center margin-top20 margin-bottom15">Recently uploaded reviews</h2>
+                <div class="user-review-swiper bw-tabs-data content-box-shadow card-bottom-margin">
+                    <div class="swiper-container user-review__swiper">
+                        @Html.Partial("~/views/UserReview/_RecentUploadedReviews_Mobile.cshtml", Model.RecentUserReviewsList)
+                    </div>
+                </div>
+            </section>
+        }
+        <section>
+            <div class="read-expert-review__banner margin-bottom20">
+                <a class="review__banner-link text-truncate" href="/m/expert-reviews/" title="">
+                    <span class="expert-review-icon--white"></span>Read Reviews by our Experts
+                    <span class="bwmsprite right-arrow"></span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <div id="expertReviewContent" class="bw-tabs-data">
+        <section>
+            <div class="swiper-container card-container banner-swiper noSwiper content-box-shadow padding-bottom40">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="block">
+                                <div class="swiper-image-preview">
+                                    <span class="review-icon">
+                                    </span>
+                                </div>
+                                <div class="swiper-details-block font12">
+                                    <h3 class="margin-bottom10">500+ expert reviews</h3>
+                                    <div class="font14 text-slate-grey">
+                                        Unbiased & detailed reviews from BikeWale expert
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="block">
+                                <div class="swiper-image-preview">
+                                    <span class="review-icon">
+                                    </span>
+                                </div>
+                                <div class="swiper-details-block font12">
+                                    <h3 class="margin-bottom10">100+ comparison tests</h3>
+                                    <div class="font14 text-slate-grey">
+                                        Detailed comparison test of bikes on 10 parameters
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="block">
+                                <div class="swiper-image-preview">
+                                    <span class="review-icon">
+                                    </span>
+                                </div>
+                                <div class="swiper-details-block font12">
+                                    <h3 class="margin-bottom10">First ride reviews</h3>
+                                    <div class="font14 text-slate-grey">
+                                        Know the expert opinion on recently launched biked
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+
+        @if (Model.BikesWithExpertReviews != null)
+        {
+
+                @Html.Partial("~/views/UserReview/_PopularBikesWithExpertReviews_Mobile.cshtml", Model.BikesWithExpertReviews)
+
+        }
+
+        <h2 class="font18 text-center margin-top20 margin-bottom10">Recently uploaded reviews</h2>
+        @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+            {
+            <section>
+                <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
+                    <div class="carousel-heading-content">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="/m@(Model.ExpertReviews.MoreExpertReviewUrl)" title="Expert Reviews" class="btn view-all-target-btn">View all</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    @Html.Partial("~/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
+
+                </div>
+            </section>
+        }
+
+        <section>
+            <h2 class="font18 text-center margin-top15 margin-bottom10">Know your Experts</h2>
+            <div class="author-block">
+                <span class="author-block__title">men of steel</span>
+                <p class="author-block__description">Our best people who lean into corners, pop wheelies and ride their adrenaline out of the bike.</p>
+                @if (Model.Authors != null && Model.Authors.Any())
+                {
+                    <div class="box-content">
+                        @*<h2 class="list-heading padding-left20 padding-top15">Other authors</h2>*@
+                        @Html.Partial("~/Views/Author/_AuthorsListCarousel_Mobile.cshtml", Model.Authors)
+                    </div>
+                }
+            </div>
+            <div class="read-user-review__banner margin-bottom20">
+                <a class="review__banner-link text-truncate" href="~/m/expert-reviews/" title="View all expert reviews">
+                    <span class="review-icon--white"></span>Read Reviews by our Experts
+                    <span class="bwmsprite right-arrow"></span>
+                </a>
+            </div>
+        </section>
+
+        
+
+    </div>
+</div>

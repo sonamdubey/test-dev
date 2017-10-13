@@ -3047,6 +3047,6 @@ namespace Bikewale.DAL.BikeData
             }
             return popularBikesList;
 
-        }
+        }       
     }   // class
 }   // namespace

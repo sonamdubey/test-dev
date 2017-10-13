@@ -1,0 +1,47 @@
+﻿@model Bikewale.Models.UserReviews.TopRatedBikesWidgetVM
+@using Bikewale.Utility;
+
+@if (Model != null && Model.Bikes != null && Model.Bikes.Count() > 0)
+{
+
+    <h2 class="font18 text-center margin-top20 margin-bottom10">@Model.WidgetHeading</h2>
+        <div class="user-review-swiper content-box-shadow card-bottom-margin">
+            <div class="swiper-container card-container">
+                <div class="swiper-wrapper">
+
+                    @foreach (var bike in Model.Bikes)
+                    {
+                        var bikeName = String.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName" class="block">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" title="@bikeName" alt="@bikeName" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._174x98, QualityFactor._70)" src="">                                                
+                                        <span class="rate-count-@Math.Floor(bike.ReviewRate) rating-block">
+                                            <span class="bwmsprite star-icon"></span><span class="font16 text-bold  inline-block">
+                                                                                         @bike.ReviewRate.ToString("0.0")
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                                        <p class="text-truncate text-light-grey font11">Ex-showroom, @bike.City.CityName</p>
+                                        <p class="text-default font16">
+                                            <span>₹</span>&nbsp;
+                                            <span class="text-bold">@Format.FormatNumeric(Convert.ToString(bike.ExShowroomPrice))</span>
+                                            <span class="font14 text-bold">&nbsp;onwards</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <a class="more-review text-truncate" href="@string.Format("/m{0}reviews/",UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName Reviews">
+                                    <span class="review-sm"></span>@bike.ReviewCount&nbsp;user&nbsp;reviews
+                                    <span class="bwmsprite right-arrow"></span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+}

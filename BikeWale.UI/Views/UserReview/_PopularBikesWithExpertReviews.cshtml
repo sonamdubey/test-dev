@@ -1,0 +1,61 @@
+﻿@model Bikewale.Models.UserReviews.PopularBikesWithExpertReviewsWidgetVM
+@using Bikewale.Utility;
+
+@if (Model != null && Model.IsExpertReviewsAvailable)
+{
+    <section>
+        <div class="container">
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-bottom20 font22 margin-top30">Expert Advice for Popular Bikes</h2>
+                <div class="jcarousel-wrapper inner-content-carousel user-reviews-type-carousel content-box-shadow padding-top20 padding-bottom20">
+                    <div class="jcarousel">
+                        <ul>
+                            @foreach (var review in Model.ExpertReviews)
+                            {
+                                string bikeName = string.Format("{0} {1}", review.Make.MakeName, review.Model.ModelName);
+                                string bikeUrl = UrlFormatter.BikePageUrl(review.Make.MaskingName, review.Model.MaskingName);
+                                <li class="jcarousel-card">
+                                    <a href="@bikeUrl" title="@bikeName" class="hover-no-underline">
+                                        <div class="model-jcarousel-image-preview">
+                                            <img class="lazy" data-original="@Image.GetPathToShowImages(review.OriginalImagePath,review.HostUrl,ImageSize._310x174,QualityFactor._70)" src="" title="@bikeName" alt="@bikeName" style="display: inline;">
+                                        </div>
+                                        <div class="card-desc-block">
+                                            <h3 class="font15 text-black margin-bottom10">@bikeName</h3>
+                                            <p class="font12 text-light-grey margin-bottom5">@(review.IsOnRoadPrice ? "On-road price" : "Exshowroom"), @review.City.CityName</p>
+                                            <p class="text-default font18">
+                                                @if (review.Price > 0)
+                                                {
+                                                    <span>₹&nbsp;</span>
+                                                    <span class="text-bold">@Format.FormatPrice(review.Price.ToString())</span>
+                                                    if (review.IsOnRoadPrice)
+                                                    {
+                                                        <span class="font14 text-bold"> onwards</span>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-bold text-truncate">Price not available</span>
+                                                }
+                                            </p>
+
+                                        </div>
+                                        <a class="more-review text-truncate" href="@string.Format("{0}expert-reviews/",bikeUrl)" title="@bikeName Expert">
+                                            <span class="expert-review-sm"></span>@review.ExpertReviewCount expert reviews
+                                            <span class="bwsprite right-arrow"></span>
+                                        </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <span class="jcarousel-control-left">
+                        <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+                    </span>
+                    <span class="jcarousel-control-right">
+                        <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+}

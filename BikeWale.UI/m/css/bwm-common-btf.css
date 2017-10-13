@@ -1461,3 +1461,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .comparison-bike-2.tooltip-top .bw-tooltip-text:after {
 	left: 174px;
 }
+
+.event-none {
+    pointer-events: none;
+}

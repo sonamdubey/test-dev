@@ -23,6 +23,7 @@ namespace Bikewale.Models
         private readonly uint _modelId;
         private readonly string _modelName;
         private readonly string _modelMasking;
+        public bool IsScooter { get; set; }
 
         #region Constructor
         public RecentExpertReviews(uint totalRecords, ICMSCacheContent articles)
@@ -62,7 +63,7 @@ namespace Bikewale.Models
             Title = title;
         }
         #endregion
-        public bool IsScooter { get; set; }
+        
         #region Functions to get data
         /// <summary>
         /// Created by : Aditi Srivastava on 23 Mar 2017

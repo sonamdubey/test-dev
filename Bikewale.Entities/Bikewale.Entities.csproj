@@ -472,6 +472,7 @@
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\InputFilters.cs" />
     <Compile Include="UserReviews\InputRatingSaveEntity.cs" />
+    <Compile Include="UserReviews\PopularBikesWithExpertReviews.cs" />
     <Compile Include="UserReviews\ProcessedInputFilters.cs" />
     <Compile Include="UserReviews\QuestionRatingsValueEntity.cs" />
     <Compile Include="UserReviews\QuestionsRatingValueByModel.cs" />
@@ -489,6 +490,7 @@
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
     <Compile Include="UserReviews\SearchResult.cs" />
     <Compile Include="UserReviews\SortOrderEnum.cs" />
+    <Compile Include="UserReviews\TopRatedBikesWidget.cs" />
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
     <Compile Include="UserReviews\UserReviewPageSourceEnum.cs" />
     <Compile Include="UserReviews\UserReviewPriceRange.cs" />

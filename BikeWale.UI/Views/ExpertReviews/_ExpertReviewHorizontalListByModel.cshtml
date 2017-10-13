@@ -4,11 +4,14 @@
 @if (Model != null && Model.ArticlesList != null)
 {
     <div class="expert-review-list">
-        <h3 class="h2-heading">You may also like expert's reviews</h3>
-        <div class="jcarousel-wrapper inner-content-carousel article-type-carousel">
+        @if (!string.IsNullOrEmpty(Model.Title))
+        {
+            <h3 class="font16 padding-left20 padding-top20">@Model.Title</h3>
+        }        
+        <div class="jcarousel-wrapper inner-content-carousel article-type-carousel padding-top20 padding-bottom20">
             <div class="jcarousel">
                 <ul>
-                    @foreach (var article in @Model.ArticlesList)
+                    @foreach (var article in Model.ArticlesList)
                     {
                         <li class="jcarousel-card">
                             <a href="@string.Format("/expert-reviews/{0}-{1}.html", article.ArticleUrl, @article.BasicId)" title="@article.Title" class="jcarousel-card">
