@@ -44,25 +44,105 @@
 }
 .page-tabs {
     background: #F5F5F5;
+    margin-top: 10px;
+}
+
+.round-border {
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.personal-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/personal-17x20.png) center no-repeat;
+}
+
+.gray-bag-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/bag-18x18.png) center no-repeat;
+}
+
+.white-tick-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/tick-18x14.png) center no-repeat;
+}
+
+.white-bag-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bag-18x18.png') center no-repeat;
+}
+
+.contact-image-unit,
+.personal-image-unit,
+.employment-image-unit {
+    display: block;
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+    color: rgba(239,63,48,1);
+    background-color: #ef3f30;
+}
+
+.employment-details-container {
+    margin-top: 50px;
+    position: relative;
+}
+
+.personal__title,
+.employment__title {
+    width: 76px;
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.page-tabs ul {
+    font-size: 0;
+}
+
+.page-tabs__li.inactive h3 {
+    color: #787878;
+}
+
+.page-tabs__li.inactive span:nth-of-type(1) {
+    background-color: #e2e2e2;
 }
 
 .page-tabs__li {
     display: inline-block;
     vertical-align: middle;
-    width: 49%;
-    text-align: center;
-    height: 46px;
-    background-color: #F5F5F5;
-    color: #787878;
-    font-size: 14px;
+    width: 38%;
+    text-align: right;
+    height: 105px;
+    font-size: 12px;
     font-weight: 600;
     padding-top: 14px;
-    border: 1px solid #F5F5F5;
+    border: 1px solid #f5f5f5;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-tabs__li:nth-of-type(1) {
+    width: 72px;
 }
 
 .page-tabs__li.active {
-    background-color: #FFF;
-    color: #4D5057;
+    color: #4d5057;
+}
+
+.page-tabs__li-container {
+    display: inline-block;
+    text-align: center;
+}
+
+.page-tabs__li-container:before {
+    content: '';
+    display: block;
+    width: 100%;
+    position: absolute;
+    height: 1px;
+    background-color: #e2e2e2;
+    top: 30%;
+    right: 68px;
 }
 
 input[type=radio] {
