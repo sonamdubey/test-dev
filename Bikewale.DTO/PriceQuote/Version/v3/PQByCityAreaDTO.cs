@@ -7,14 +7,14 @@ namespace Bikewale.DTO.PriceQuote.Version.v3
 {
     public class PQByCityAreaDTO
     {
-        //[JsonProperty("isCityExists")]
-        //public bool IsCityExists { get; set; }
+        [JsonProperty("isCityExists")]
+        public bool IsCityExists { get; set; }
 
         [JsonProperty("isAreaExists")]
         public bool IsAreaExists { get; set; }
 
-        //[JsonProperty("isAreaSelected")]
-        //public bool IsAreaSelected { get; set; }
+        [JsonProperty("isAreaSelected")]
+        public bool IsAreaSelected { get; set; }
 
         [JsonProperty("isExShowroomPrice")]
         public bool IsExShowroomPrice { get; set; }
@@ -30,17 +30,5 @@ namespace Bikewale.DTO.PriceQuote.Version.v3
 
         [JsonProperty("campaign", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public CampaignBaseDto Campaign { get; set; }
-
-        //[JsonProperty("primaryDealer")]
-        //public DealerBase PrimaryDealer { get; set; }
-
-        //[JsonProperty("primaryDealerOffers")]
-        //public IEnumerable<DPQOffer> PrimaryDealerOffers { get; set; }
-
-        //[JsonProperty("isPremium")]
-        //public bool IsPremium { get; set; }
-
-        //[JsonProperty("secondaryDealerCount")]
-        //public int SecondaryDealerCount { get; set; }
     }
 }

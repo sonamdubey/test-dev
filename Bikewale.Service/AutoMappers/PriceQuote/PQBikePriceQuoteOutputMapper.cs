@@ -115,6 +115,98 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
             return output;
         }
 
+        /// <summary>
+        /// Converts the specified object dealer quotation.
+        /// Created by: Sangram Nandkhile on 13 Oct 2017
+        /// </summary>
+        /// <param name="objDealerQuotation">The object dealer quotation.</param>
+        /// <param name="varients">The varients.</param>
+        /// <returns></returns>
+        internal static DTO.PriceQuote.v3.DPQuotationOutput Convert(Entities.PriceQuote.v2.DetailedDealerQuotationEntity objDealerQuotation, IEnumerable<PQ_BikeVarient> varients)
+        {
+            DTO.PriceQuote.v3.DPQuotationOutput dealerPriceQuote = null;
+            if (objDealerQuotation != null)
+            {
+                dealerPriceQuote = new DTO.PriceQuote.v3.DPQuotationOutput();
+                dealerPriceQuote.emi = ConvertEMI(objDealerQuotation.PrimaryDealer.EMIDetails);
+                dealerPriceQuote.Versions = ConvertVersions(varients);
+
+                if (objDealerQuotation != null && objDealerQuotation.PrimaryDealer != null && objDealerQuotation.PrimaryDealer.DealerDetails != null && (objDealerQuotation.PrimaryDealer.IsPremiumDealer))
+                {
+                    dealerPriceQuote.Benefits = ConvertBenefits(objDealerQuotation.PrimaryDealer.Benefits);
+                }
+            }
+            #region foreach version list
+
+            foreach (var version in varients)
+            {
+                //For App if the Price Break up components are more than 4 
+                if (version.PriceList.Count > 4)
+                {
+                    IList<DTO.PriceQuote.v2.DPQ_Price> otherList = new List<DTO.PriceQuote.v2.DPQ_Price>();
+                    IList<DTO.PriceQuote.v2.DPQ_Price> mainList = new List<DTO.PriceQuote.v2.DPQ_Price>();
+                    foreach (var pl in version.PriceList)
+                    {
+                        switch (pl.CategoryId)
+                        {
+                            #region Ex-Showroom Components
+                            //Basic Cost
+                            case 1:
+                            //Ex-showroom
+                            case 3:
+                                mainList.Add(new DTO.PriceQuote.v2.DPQ_Price() { CategoryName = pl.CategoryName, Price = pl.Price });
+                                break;
+                            #endregion
+
+                            #region RTO Components
+                            //RTO
+                            case 5:
+                            //RTO Expense
+                            case 6:
+                            //RTO Tax. Registration & Handling Charges
+                            case 7:
+                            //RTO Tax. Registration + Smart Card & Handling Charges
+                            case 8:
+                            //R T O + Smart Card
+                            case 26:
+                            //Comprehensive Insurance, LTTAX & Reg. Fees
+                            case 45:
+                                mainList.Add(new DTO.PriceQuote.v2.DPQ_Price() { CategoryName = pl.CategoryName, Price = pl.Price });
+                                break;
+                            #endregion
+
+                            #region Insurance
+                            //Insurance (Only Bike)
+                            case 10:
+                            //Insurance (Comprehensive)
+                            case 11:
+                            //Insurance (Zero Depreciation)
+                            case 12:
+                            //Insurance (3 Years)
+                            case 43:
+                                mainList.Add(new DTO.PriceQuote.v2.DPQ_Price() { CategoryName = pl.CategoryName, Price = pl.Price });
+                                break;
+                            #endregion
+
+                            default:
+                                otherList.Add(new DTO.PriceQuote.v2.DPQ_Price() { CategoryName = pl.CategoryName, Price = pl.Price });
+                                break;
+                        }
+                    }
+                    dealerPriceQuote.Versions.SingleOrDefault(m => m.VersionId == version.objVersion.VersionId).OtherPriceList = otherList;
+                    dealerPriceQuote.Versions.SingleOrDefault(m => m.VersionId == version.objVersion.VersionId).PriceList = mainList;
+                    //Add Other into main price list
+                    if (otherList.Count > 0)
+                    {
+                        mainList.Add(new DTO.PriceQuote.v2.DPQ_Price() { CategoryName = "Other Charges", Price = System.Convert.ToUInt32(otherList.Sum(m => m.Price)) });
+                    }
+                }
+            }
+
+            #endregion
+            return dealerPriceQuote;
+        }
+
         private static IEnumerable<DTO.PriceQuote.v2.DPQVersionBase> ConvertVersions(IEnumerable<PQ_BikeVarient> varients)
         {
             Mapper.CreateMap<Entities.BikeBooking.PQ_Price, DTO.PriceQuote.v2.DPQ_Price>().ForMember(d => d.CategoryName, opt => opt.MapFrom(s => s.CategoryName));

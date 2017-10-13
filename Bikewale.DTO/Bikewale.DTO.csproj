@@ -321,6 +321,7 @@
     <Compile Include="PriceQuote\v2\PQOutput.cs" />
     <Compile Include="PriceQuote\v2\PQPrimaryDealer.cs" />
     <Compile Include="PriceQuote\v3\DPQDealerBase.cs" />
+    <Compile Include="PriceQuote\v3\DPQuotationOutput.cs" />
     <Compile Include="PriceQuote\v3\PQOnRoad.cs" />
     <Compile Include="PriceQuote\v4\PQOnRoad.cs" />
     <Compile Include="PriceQuote\VersionPrice.cs" />

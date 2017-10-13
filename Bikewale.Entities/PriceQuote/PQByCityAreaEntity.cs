@@ -21,7 +21,7 @@ namespace Bikewale.Entities.PriceQuote
         public DealerQuotationEntity PrimaryDealer { get; set; }
         public bool IsPremium { get; set; }
         public int SecondaryDealerCount { get; set; }
-
+        public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DealerEntity { get; set; }
         public ManufacturerCampaignEntity ManufacturerCampaign { get; set; }
     }
 }
