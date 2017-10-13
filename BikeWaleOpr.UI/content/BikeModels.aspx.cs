@@ -146,6 +146,7 @@ namespace BikeWaleOpr.Content
             Page.Validate();
             if (!Page.IsValid) return;
             uint _modelId = 0;
+            int seriesId = 0;
 
             try
             {
@@ -156,7 +157,8 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelmaskingname", DbType.String, 50, txtMaskingName.Text.Trim()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, cmbMakes.SelectedValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbType.Int32, ddlSegment.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, (Convert.ToInt32(ddlSeries.SelectedValue) > 0)?ddlSeries.SelectedValue:Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32,
+                        int.TryParse(ddlSeries.SelectedValue, out seriesId) && seriesId > 0 ? seriesId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbType.Boolean, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ParameterDirection.Output));
@@ -203,7 +205,8 @@ namespace BikeWaleOpr.Content
                         if (_mc.Get("BW_OldModelMaskingNames") != null)
                             _mc.Remove("BW_OldModelMaskingNames");
                     }
-                    BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId(Convert.ToUInt32(ddlSeries.SelectedValue));
+                    if (seriesId > 0)
+                        BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId((uint)seriesId);
                 }
 
             }
@@ -724,10 +727,10 @@ namespace BikeWaleOpr.Content
             IEnumerable<BikeSeriesEntityBase> SeriesList = null;
             try
             {
-                if(makeId > 0)
+                if (makeId > 0)
                 {
                     SeriesList = _series.GetSeriesByMake(makeId);
-                    if(SeriesList != null)
+                    if (SeriesList != null)
                     {
                         ListItem li = new ListItem("---Select Series---", "-1");
                         ddlSeries.DataSource = SeriesList;
@@ -744,7 +747,7 @@ namespace BikeWaleOpr.Content
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.Content.BikeModel: FillSeries");
             }
@@ -760,7 +763,7 @@ namespace BikeWaleOpr.Content
         /// <param name="e"></param>
         private void UpdateModelSeries(object sender, EventArgs e)
         {
-            
+
             try
             {
                 string ModelIdsList = hdnModelIdsListSeries.Value;
@@ -779,9 +782,9 @@ namespace BikeWaleOpr.Content
             {
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
             }
-          
+
         }
-        
+
         /// <summary>
         /// Created by : Ashutosh Sharma on 14-Sep-2017
         /// Description : Method to call DataBase update model series
