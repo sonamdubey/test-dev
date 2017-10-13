@@ -897,13 +897,28 @@ namespace Bikewale.Models.BikeModels
                 {
                     BindDescription();
 
+                    BikeVersionMinSpecs objAvgPriceVersion = null;
+                    if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersions.Any())
+                    {
+                        objAvgPriceVersion = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(x => x.AverageExShowroom > 0);
+                    }
+                    uint AvgPrice = objAvgPriceVersion != null ? objAvgPriceVersion.AverageExShowroom : 0;
+
+
                     if (_objData.ModelPageEntity.ModelDetails.Futuristic && _objData.ModelPageEntity.UpcomingBike != null)
                     {
                         _objData.PageMetaTags.Description = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & images at BikeWale.com. Launch date of {1} is around {4}", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, _objData.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(Convert.ToString(_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMin)), Bikewale.Utility.Format.FormatNumeric(Convert.ToString(_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMax)), _objData.ModelPageEntity.UpcomingBike.ExpectedLaunchDate);
                     }
                     else if (!_objData.ModelPageEntity.ModelDetails.New)
                     {
-                        _objData.PageMetaTags.Description = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & images at BikeWale.com", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, _objData.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(_objData.BikePrice.ToString()), _objData.ModelPageEntity.ModelDetails.UsedListingsCnt);
+                        if (BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
+                        {
+                            _objData.PageMetaTags.Description = _objData.ModelSummary;
+                        }
+                        else
+                        {
+                            _objData.PageMetaTags.Description = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & images at BikeWale.com", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, _objData.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric((_objData.BikePrice > 0 ? _objData.BikePrice : AvgPrice).ToString()), _objData.ModelPageEntity.ModelDetails.UsedListingsCnt);
+                        }
                     }
                     else
                     {
@@ -913,15 +928,7 @@ namespace Bikewale.Models.BikeModels
                         }
                         else
                         {
-                            BikeVersionMinSpecs objAvgPriceVersion = null;
-                            if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersions.Any())
-                            {
-                                objAvgPriceVersion = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(x => x.AverageExShowroom > 0);
-                            }
-
-                            uint AvgPrice = objAvgPriceVersion != null ? objAvgPriceVersion.AverageExShowroom : 0;
-
-                            _objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric(AvgPrice.ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
+                            _objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric((_objData.BikePrice > 0 ?  _objData.BikePrice : AvgPrice).ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
                         }
                     }
 
