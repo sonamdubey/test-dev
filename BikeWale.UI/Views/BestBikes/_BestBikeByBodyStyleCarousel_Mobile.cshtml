@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<Bikewale.Entities.GenericBikes.BestBikeEntityBase>
 @using Bikewale.Utility;
-<div class="swiper-container card-container swiper-small">
-    <div class="swiper-wrapper discover-bike-carousel">
+
         @foreach (var bike in Model)
         {
             var bikeName = String.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
@@ -38,5 +37,4 @@
                 </div>
             </div>
         }
-    </div>
-</div>
+    
