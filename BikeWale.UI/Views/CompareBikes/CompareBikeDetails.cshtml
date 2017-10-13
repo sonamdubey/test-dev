@@ -68,7 +68,8 @@
                                     <span class="error-text"></span>
                                     <p class="font-12 text-light-grey margin-bottom2">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
                                     <div class="margin-bottom5 font18 ">
-                                        @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="font-bold" data-bind="text: price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
+                                        @Html.Raw("<span>&#x20B9;</span>")&nbsp;
+                                        <span class="font-bold" data-bind="text: price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
                                     </div>
                                     @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                     {
@@ -78,7 +79,10 @@
                                     {
                                         if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                         {
-                                            <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@String.Format("{0}_Top Card", bikeName)" class="bw-ga know-more-target text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
+                                            <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@String.Format("{0}_Top Card", bikeName)" class="bw-ga know-more-target text-link know-more-btn-shown">
+                                                @Model.KnowMoreLinkText
+                                            <span class="bwsprite know-more-icon"></span>
+                                        </div>
                                         }
                                     }
 
@@ -138,7 +142,10 @@
                                         {
                                             if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                             {
-                                                <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_Floating Card", bikeName)" class="bw-ga know-more-target text-link">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
+                                                <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_Floating Card", bikeName)" class="bw-ga know-more-target text-link">
+                                                    @Model.KnowMoreLinkText
+                                                <span class="bwsprite know-more-icon"></span>
+                                            </div>
                                             }
                                         }
 
@@ -311,7 +318,7 @@
 
                 @if (Model.Compare.UserReviewData != null)
                 {
-                    var versionCount = Model.Compare.BasicInfo != null ? Model.Compare.BasicInfo.Count() : 0; 
+                    var versionCount = Model.Compare.BasicInfo != null ? Model.Compare.BasicInfo.Count() : 0;
                     <div id="reviewTabContent" class="review-tab bw-tabs-data font14 hide">
 
                         <ul>
@@ -329,7 +336,7 @@
                                             </tr>
 
                                             @{isFirstActiveTab = false;}
-                                            
+
                                             <tr class="row-type-data">
                                                 <td class="text-default">Overall rating</td>
 
@@ -484,7 +491,7 @@
                                                 }
                                                 @if (versionCount < 4)
                                                 {
-                                                <td></td>
+                                                    <td></td>
                                                 }
                                             </tr>
                                         </tbody>
@@ -497,6 +504,122 @@
                                                     }
 
                 <div id="comparison-footer"></div>
+            </div>
+            <div class="content-box-shadow card-bottom-margin padding-top15">
+                <h2 class="h2-heading padding-left20 margin-bottom20">Compare with similar bikes</h2>
+                <div class="jcarousel-wrapper inner-content-carousel padding-bottom20 compare-bike-carousel">
+                    <div class="jcarousel">
+                        <ul>
+                            <li>
+                                <a href="" title="" class="jcarousel-card">
+                                    <div class="model-jcarousel-image-preview">
+                                        <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" alt="KTM RC390" src="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" border="0" style="display: inline;">
+                                    </div>
+                                    <div class="card-desc-block">
+                                        <p class="bikeTitle">KTM RC390</p>
+                                    </div>
+                                </a>
+                                <div class="padding-left20 padding-right20 margin-bottom20">
+                                    <p class="font12 text-slate-grey margin-bottom15">Compare Dominar 400 bike with:</p>
+                                    <a href="" title="" class="compare-with-card margin-right5">
+                                        <div class="compare-card__image-preview">
+                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" alt="KTM RC390" src="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" border="0" style="display: inline;">
+                                        </div>
+                                        <p class="compare-card__title">Pulsar RS200</p>
+                                    </a>
+                                    <a href="" title="" class="compare-with-card margin-left5">
+                                        <div class="compare-card__image-preview">
+                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" alt="KTM RC390" src="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" border="0" style="display: inline;">
+                                        </div>
+                                        <p class="compare-card__title">Pulsar RS200</p>
+                                    </a>
+                                </div>
+                             </li>
+                            <li>
+                                <a href="" title="" class="jcarousel-card">
+                                    <div class="model-jcarousel-image-preview">
+                                        <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" alt="KTM RC390" src="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" border="0" style="display: inline;">
+                                    </div>
+                                    <div class="card-desc-block">
+                                        <p class="bikeTitle">KTM RC390</p>
+                                    </div>
+                                </a>
+                                <div class="padding-left20 padding-right20 margin-bottom20">
+                                    <p class="font12 text-slate-grey margin-bottom15">Compare Dominar 400 bike with:</p>
+                                    <a href="" title="" class="compare-with-card margin-right5">
+                                        <div class="compare-card__image-preview">
+                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" alt="KTM RC390" src="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" border="0" style="display: inline;">
+                                        </div>
+                                        <p class="compare-card__title">Pulsar RS200</p>
+                                    </a>
+                                    <a href="" title="" class="compare-with-card margin-left5">
+                                        <div class="compare-card__image-preview">
+                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" alt="KTM RC390" src="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" border="0" style="display: inline;">
+                                        </div>
+                                        <p class="compare-card__title">Pulsar RS200</p>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="" title="" class="jcarousel-card">
+                                    <div class="model-jcarousel-image-preview">
+                                        <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" alt="KTM RC390" src="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" border="0" style="display: inline;">
+                                    </div>
+                                    <div class="card-desc-block">
+                                        <p class="bikeTitle">KTM RC390</p>
+                                    </div>
+                                </a>
+                                <div class="padding-left20 padding-right20 margin-bottom20">
+                                    <p class="font12 text-slate-grey margin-bottom15">Compare Dominar 400 bike with:</p>
+                                    <a href="" title="" class="compare-with-card margin-right5">
+                                        <div class="compare-card__image-preview">
+                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" alt="KTM RC390" src="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" border="0" style="display: inline;">
+                                        </div>
+                                        <p class="compare-card__title">Pulsar RS200</p>
+                                    </a>
+                                    <a href="" title="" class="compare-with-card margin-left5">
+                                        <div class="compare-card__image-preview">
+                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" alt="KTM RC390" src="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" border="0" style="display: inline;">
+                                        </div>
+                                        <p class="compare-card__title">Pulsar RS200</p>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="" title="" class="jcarousel-card">
+                                    <div class="model-jcarousel-image-preview">
+                                        <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" alt="KTM RC390" src="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" border="0" style="display: inline;">
+                                    </div>
+                                    <div class="card-desc-block">
+                                        <p class="bikeTitle">KTM RC390</p>
+                                    </div>
+                                </a>
+                                <div class="padding-left20 padding-right20 margin-bottom20">
+                                    <p class="font12 text-slate-grey margin-bottom15">Compare Dominar 400 bike with:</p>
+                                    <a href="" title="" class="compare-with-card margin-right5">
+                                        <div class="compare-card__image-preview">
+                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" alt="KTM RC390" src="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" border="0" style="display: inline;">
+                                        </div>
+                                        <p class="compare-card__title">Pulsar RS200</p>
+                                    </a>
+                                    <a href="" title="" class="compare-with-card margin-left5">
+                                        <div class="compare-card__image-preview">
+                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" alt="KTM RC390" src="https://imgd.aeplcdn.com//310x174//bw/models/ktm-rc390-2017.jpg?20171801182615&amp;20171005160204&amp;q=75" border="0" style="display: inline;">
+                                        </div>
+                                        <p class="compare-card__title">Pulsar RS200</p>
+                                    </a>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <span class="jcarousel-control-left">
+                        <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow" ></a>
+                    </span>
+                    <span class="jcarousel-control-right">
+                        <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                    </span>
+                </div>
             </div>
             @if (Model.isUsedBikePresent)
             {
@@ -517,10 +640,11 @@
                                     <td>
                                         @if (bike.UsedBikeCount.BikeCount > 0)
                                         {
-                                            <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" )" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a><br />
-                                            <span>
-                                                Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
-                                            </span>}
+                                            <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" )" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a>
+                                                <br />
+                                                <span>
+                                                    Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
+                                                </span>}
                                         else
                                         {
                                             <span>--</span>
@@ -546,7 +670,8 @@
                 <div class="content-box-shadow content-inner-block-20">
                     <p class="h2-heading text-bold text-black margin-bottom20">Bike Comparison - @Model.templateSummaryTitle</p>
                     <div class="font14 text-slate-grey collapsible-content">
-                        <p class="main-content">@Html.Raw(Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 300))</p><p class="more-content">@Html.Raw(Model.compareSummaryText.Substring(300))</p>
+                        <p class="main-content">@Html.Raw(Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 300))</p>
+                        <p class="more-content">@Html.Raw(Model.compareSummaryText.Substring(300))</p>
                         <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                     </div>
                 </div>
