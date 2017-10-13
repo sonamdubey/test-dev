@@ -21,7 +21,7 @@
         {
     <meta property="og:title" content="@Model.PageMetaTags.Title" />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="@Model.PageMetaTags.Description" />
+    <meta property="og:description" content="@Html.Raw(Model.PageMetaTags.Description)" />
     <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
             if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
             {
@@ -334,18 +334,11 @@
 
     @if (Model.AdTags.Ad_970x90Bottom)
     {
-        <section>
-            <div class="bg-white ">
-                <div class="container">
-                    <div class="grid-12">
-                        <div id='div-gpt-ad-@Model.AdTags.AdId-5' class="margin-bottom20 text-center">
-                            <script type='text/javascript'>
-                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-5'); });
-                            </script>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
+        <section class="container">
+            <div id='div-gpt-ad-@Model.AdTags.AdId-5' class="margin-bottom20 text-center">
+                <script type='text/javascript'>
+                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-5'); });
+                </script>
             </div>
         </section>
     }
