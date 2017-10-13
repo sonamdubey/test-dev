@@ -150,6 +150,9 @@
                         return "googletag.defineSlot('/1017752/SimilarBikes_Desktop_292x399', [292, 399], 'div-gpt-ad-1505919734321-14').addService(googletag.pubads()); ";
                     case 15:
                         return "googletag.defineSlot('/1017752/Bikewale_Desktop_PQ_292x359', [292, 359], 'div-gpt-ad-1506343636197-15').addService(googletag.pubads()); ";
+                    case 16:
+                        return "googletag.defineSlot('/1017752/Bikewale_BestBikes_Widget_Desktop_292x360',[292, 360], 'div-gpt-ad-1507278280998-16').addService(googletag.pubads()); ";
+
                     default:
                         return "";
                 }
@@ -190,6 +193,8 @@
             @if(Model.AdTags.Ad_976x400_Middle){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if(Model.AdTags.Ad_292x399){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if(Model.AdTags.Ad_292x359){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            
             googletag.pubads().enableSingleRequest();
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
