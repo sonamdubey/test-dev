@@ -84,7 +84,7 @@
                             <% if (!String.IsNullOrEmpty(featuredBike))
                                 { %>
                             <div class="padding-top5 padding-bottom5">
-                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0}_Top Card",bike.Name) %>" class="font14 bw-ga text-link know-more-btn-shown"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
+                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="<%= String.Format("{0}_Top Card",bike.Name) %>" class="font14 bw-ga text-link know-more-btn-shown"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
                             </div>
                             <% } %>
                             <% } %>
@@ -113,7 +113,7 @@
                             <% if (!String.IsNullOrEmpty(featuredBike))
                                 { %>
                             <div class="padding-top5 padding-bottom5">
-                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0}_Floating Card",bike.Name) %>" class="font14 bw-ga  text-link"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
+                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="<%= String.Format("{0}_Floating Card",bike.Name) %>" class="font14 bw-ga  text-link"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
                             </div>
                             <% } %>
                             <% } %>
@@ -127,7 +127,7 @@
                                 <li data-tabs="coloursTabContent">Colours</li>
                                 <%if (vmCompare.UserReviewData != null)
                                     { %>
-                                <li id="li-reviewtab" data-tabs="reviewTabContent" class="bw-ga" c="Compare_Bikes" a="Floating_UserReview_Section" l="<%=TargetedModels.Replace(",", "_")%>">Reviews</li>
+                                <li id="li-reviewtab" data-tabs="reviewTabContent" class="bw-ga" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="<%=TargetedModels.Replace(",", "_")%>">Reviews</li>
                                 <%} %>
                             </ul>
                             <div class="clear"></div>
@@ -147,7 +147,7 @@
                             </li>
                             <%if (vmCompare.UserReviewData != null)
                                 { %>
-                            <li data-tabs="reviewTabContent" class="bw-ga" c="Compare_Bikes" a="Floating_UserReview_Section" l="<%=TargetedModels.Replace(",", "_")%>">
+                            <li data-tabs="reviewTabContent" class="bw-ga" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="<%=TargetedModels.Replace(",", "_")%>">
                                 <h3>Reviews</h3>
                                 <%} %>
                             </li>
@@ -365,7 +365,7 @@
                                         <p class="review-decription">
                                             <%=review.ReviewDescription%>
                                         </p>
-                                        <a href="/m<%=review.ReviewListUrl%>" class="review-title review-link bw-ga" c="Compare_Bikes" a="Read_Reviews_Clicked" l="<%=targetedModels.Replace(",", "_")%>">All reviews</a>
+                                        <a href="/m<%=review.ReviewListUrl%>" class="review-title review-link bw-ga" data-cat="Compare_Bikes" data-act="Read_Reviews_Clicked" data-lab="<%=targetedModels.Replace(",", "_")%>">All reviews</a>
                                     </td>
                                     <%} %>
                                     <td></td>

@@ -78,7 +78,7 @@
                                     {
                                         if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                         {
-                                            <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@String.Format("{0}_Top Card", bikeName)" class="bw-ga know-more-target text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
+                                            <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@String.Format("{0}_Top Card", bikeName)" class="bw-ga know-more-target text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
                                         }
                                     }
 
@@ -138,7 +138,7 @@
                                         {
                                             if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                             {
-                                                <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_Floating Card", bikeName)" class="bw-ga know-more-target text-link">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
+                                                <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@string.Format("{0}_Floating Card", bikeName)" class="bw-ga know-more-target text-link">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
                                             }
                                         }
 
@@ -156,7 +156,7 @@
                             <li data-tabs="coloursTabContent">Colours</li>
                             @if (Model.Compare.UserReviewData != null)
                             {
-                                <li data-tabs="reviewTabContent" class="bw-ga" c="Compare_Bikes" a="Floating_UserReview_Section" l="@Model.targetModels.Replace(",", "_")">Reviews</li>
+                                <li data-tabs="reviewTabContent" class="bw-ga" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="@Model.targetModels.Replace(",", "_")">Reviews</li>
                             }
                         </ul>
                     </div>
@@ -169,7 +169,7 @@
                         <li data-tabs="coloursTabContent">Colours</li>
                         @if (Model.Compare.UserReviewData != null)
                         {
-                            <li data-tabs="reviewTabContent" class="bw-ga" c="Compare_Bikes" a="Floating_UserReview_Section" l="@Model.targetModels.Replace(",", "_")">Reviews</li>
+                            <li data-tabs="reviewTabContent" class="bw-ga" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="@Model.targetModels.Replace(",", "_")">Reviews</li>
                         }
                     </ul>
                 </div>
@@ -474,7 +474,7 @@
                                                             <p class="review-decription">
                                                                 @review.ReviewDescription
                                                             </p>
-                                                            <a href="@review.ReviewListUrl" target="_blank" class="review-title review-link bw-ga" c="Compare_Bikes" a="Read_Reviews_Clicked" l="@Model.targetModels.Replace(",", "_")">All reviews</a>
+                                                            <a href="@review.ReviewListUrl" target="_blank" class="review-title review-link bw-ga" data-cat="Compare_Bikes" data-act="Read_Reviews_Clicked" data-lab="@Model.targetModels.Replace(",", "_")">All reviews</a>
                                                         }
                                                         else
                                                         {

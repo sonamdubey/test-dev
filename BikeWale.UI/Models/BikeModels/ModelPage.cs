@@ -522,6 +522,8 @@ namespace Bikewale.Models.BikeModels
         /// Summary : Added BindModelsBySeries
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Get emi details for avg ex-showroom price when bike price is zero.
+        /// Modified by : Vivek Singh Tomar on 12th Oct 2017 
+        /// Summary : Removed initialisation of service centers
         /// </summary>
         private void BindControls()
         {
@@ -547,7 +549,6 @@ namespace Bikewale.Models.BikeModels
                             var dealerData = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
                             dealerData.TopCount = 3;
                             _objData.OtherDealers = dealerData.GetData();
-                            _objData.ServiceCenters = new ServiceCentersCard(_objServiceCenter, 3, (uint)objMake.MakeId, _cityId).GetData();
                         }
                         else
                         {
@@ -1020,7 +1021,7 @@ namespace Bikewale.Models.BikeModels
                                 var selectVersion = _pqOnRoad.DPQOutput.Varients.FirstOrDefault(m => m.objVersion.VersionId == version.VersionId);
                                 if (selectVersion != null)
                                 {
-                                    version.Price = selectVersion.OnRoadPrice; break;
+                                    version.Price = selectVersion.OnRoadPrice;
                                 }
                             }
 
@@ -1032,17 +1033,18 @@ namespace Bikewale.Models.BikeModels
                         }//Bikewale Pricing
                         else if (_pqOnRoad.BPQOutput != null && _pqOnRoad.BPQOutput.Varients != null)
                         {
+                            bool isSelectedUpdated = false;
                             foreach (var version in modelPg.ModelVersions)
                             {
                                 var selected = _pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == version.VersionId);
                                 if (selected != null)
                                 {
                                     version.Price = !_objData.ShowOnRoadButton ? selected.OnRoadPrice : selected.Price;
-                                    if (modelPg.ModelVersions.Any() && version.Price == 0)
-                                    {
+                                    if (modelPg.ModelVersions.Any() && version.Price == 0 && !isSelectedUpdated)
+                                    { 
                                         _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(m => m.AverageExShowroom > 0 && m.VersionId == version.VersionId);
+                                        isSelectedUpdated = true;
                                     }
-                                    break;
                                 }
                             }
                             ///Choose the min price version of city level pricing
@@ -1208,10 +1210,9 @@ namespace Bikewale.Models.BikeModels
 
                     if (modelPg != null)
                     {
-                        if (modelPg.ModelVersions != null)
+                        if (modelPg.ModelVersions != null && _objData.VersionId > 0)
                         {
-                            if (_objData.VersionId > 0)
-                                _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(v => v.VersionId == _objData.VersionId);
+                            _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(v => v.VersionId == _objData.VersionId);
                         }
 
                         if (_objData.VersionId > 0 && _objData.SelectedVersion != null)

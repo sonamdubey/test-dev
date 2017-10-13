@@ -48,8 +48,7 @@ namespace Bikewale.Service.Controllers.Make
                     objMake = _bikeMakes.GetMakeDetails(makeId);
 
                     if (objMake != null)
-                    {
-                        objDTOMakeBase = new MakeBase();
+                    { 
                         objDTOMakeBase = MakeListMapper.Convert(objMake);
                         return Ok(objDTOMakeBase);
                     } 
