@@ -111,9 +111,10 @@ namespace Bikewale.Utility
         private string _StaticVendorFileVersion;
         private string _ServiceWorkerPath;
         private string _StaticCSSBTFPWAVersion;
-        private bool _DisablePWA;
+        private bool _EnablePWA;
         private string _AMPDomainForSW;
         private bool _logNewsUrl;
+        private int _minEnginePoolSize, _maxEnginePoolSize;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -206,11 +207,13 @@ namespace Bikewale.Utility
             _StaticAppFileVersion = ConfigurationManager.AppSettings["StaticAppFileVersion"];
             _StaticVendorFileVersion = ConfigurationManager.AppSettings["StaticVendorFileVersion"];
             _ServiceWorkerPath = ConfigurationManager.AppSettings["ServiceWorkerPath"];
-            _DisablePWA = string.IsNullOrEmpty(ConfigurationManager.AppSettings["DisablePWA"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["DisablePWA"]);
+            _EnablePWA = string.IsNullOrEmpty(ConfigurationManager.AppSettings["EnablePWA"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["EnablePWA"]);
             _StaticCSSBTFPWAVersion = ConfigurationManager.AppSettings["StaticCSSBTFPWAVersion"];
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
             _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];
             _logNewsUrl = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogNewsUrl"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["LogNewsUrl"]);
+            _minEnginePoolSize= string.IsNullOrEmpty(ConfigurationManager.AppSettings["MinEnginePoolSize"]) ? 3 : Convert.ToInt32(ConfigurationManager.AppSettings["MinEnginePoolSize"]);
+            _maxEnginePoolSize = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MaxEnginePoolSize"]) ? 15 : Convert.ToInt32(ConfigurationManager.AppSettings["MaxEnginePoolSize"]);
         }
 
         // Static method to provide access to instance
@@ -355,11 +358,15 @@ namespace Bikewale.Utility
         public string StaticVendorFileVersion { get { return _StaticVendorFileVersion; } }
         public string ServiceWorkerPath { get { return _ServiceWorkerPath; } }
         public string StaticCSSBTFPWAVersion { get { return _StaticCSSBTFPWAVersion; } }
-        public bool DisablePWA { get { return _DisablePWA; } }
+        public bool EnablePWA { get { return _EnablePWA; } }
         public string AMPDomainForSW { get { return _AMPDomainForSW; } }
 
         public string UserReviewIndexName { get { return _UserReviewIndexName; } }
 
         public bool LogNewsUrl { get { return _logNewsUrl; } }
+
+        public int MaxEnginePoolSize { get { return _maxEnginePoolSize; } }
+
+        public int MinEnginePoolSize { get { return _minEnginePoolSize; } }
     }   // class
 }   // namespace
