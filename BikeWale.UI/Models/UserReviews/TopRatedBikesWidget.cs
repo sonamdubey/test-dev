@@ -11,8 +11,8 @@ namespace Bikewale.Models.UserReviews
     {
         private readonly IUserReviewsCache _userReviewsCache = null;
 
-        public uint? TopCount { get; set;}
-        public uint? CityId { get; set; }
+        public uint TopCount { get; set;}
+        public uint CityId { get; set; }
             
         public TopRatedBikesWidget(IUserReviewsCache userReviewsCache)
         {
@@ -25,7 +25,12 @@ namespace Bikewale.Models.UserReviews
             try
             {
                 objTopRatedBikesWidget = new TopRatedBikesWidgetVM();
-                objTopRatedBikesWidget.Bikes = _userReviewsCache.GetTopRatedBikes(TopCount, CityId);
+
+                if(CityId > 0)
+                    objTopRatedBikesWidget.Bikes = _userReviewsCache.GetTopRatedBikes(TopCount, CityId);
+                else
+                    objTopRatedBikesWidget.Bikes = _userReviewsCache.GetTopRatedBikes(TopCount);
+
                 objTopRatedBikesWidget.WidgetHeading = "Top rated by our Users";
             }
             catch(Exception ex)

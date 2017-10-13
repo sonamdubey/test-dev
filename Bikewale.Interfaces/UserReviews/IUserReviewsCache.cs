@@ -32,7 +32,8 @@ namespace Bikewale.Interfaces.UserReviews
         QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
         IEnumerable<RecentReviewsWidget> GetRecentReviews();
         IEnumerable<RecentReviewsWidget> GetUserReviewsWinners();
-        IEnumerable<TopRatedBikes> GetTopRatedBikes(uint? topCount, uint? cityId);
+        IEnumerable<TopRatedBikes> GetTopRatedBikes(uint topCount);
+        IEnumerable<TopRatedBikes> GetTopRatedBikes(uint topCount, uint cityId);
         IEnumerable<PopularBikesWithExpertReviews> GetPopularBikesWithExpertReviews(ushort topCount);
         IEnumerable<PopularBikesWithExpertReviews> GetPopularBikesWithExpertReviewsByCity(ushort topCount, uint cityId);
     }

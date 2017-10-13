@@ -293,18 +293,34 @@ namespace Bikewale.Cache.UserReviews
         /// <param name="topCount"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public IEnumerable<TopRatedBikes> GetTopRatedBikes(uint? topCount, uint? cityId)
+        public IEnumerable<TopRatedBikes> GetTopRatedBikes(uint topCount, uint cityId)
         {
             IEnumerable<TopRatedBikes> objTopRatedBikesWidget = null;
             string key = string.Empty;
             try
             {
-                key = string.Format("BW_TopRatedBikes_topCount_{0}_city_{1}", topCount.HasValue ? topCount.Value : 12, cityId.HasValue ? cityId.Value : 1);
+                key = string.Format("BW_TopRatedBikes_topCount_{0}_city_{1}", topCount, cityId);
                 objTopRatedBikesWidget = _cache.GetFromCache<IEnumerable<TopRatedBikes>>(key, new TimeSpan(1, 0, 0), () => (IEnumerable<TopRatedBikes>)_objUserReviews.GetTopRatedBikes(topCount, cityId));
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsCacheRepository.GetTopRatedBikes: topCount: {0}, CityId {1}", topCount, cityId));
+            }
+            return objTopRatedBikesWidget;
+        }
+
+        public IEnumerable<TopRatedBikes> GetTopRatedBikes(uint topCount)
+        {
+            IEnumerable<TopRatedBikes> objTopRatedBikesWidget = null;
+            string key = string.Empty;
+            try
+            {
+                key = string.Format("BW_TopRatedBikes_topCount_{0}", topCount);
+                objTopRatedBikesWidget = _cache.GetFromCache<IEnumerable<TopRatedBikes>>(key, new TimeSpan(1, 0, 0), () => (IEnumerable<TopRatedBikes>)_objUserReviews.GetTopRatedBikes(topCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsCacheRepository.GetTopRatedBikes: topCount: {0}", topCount));
             }
             return objTopRatedBikesWidget;
         }
