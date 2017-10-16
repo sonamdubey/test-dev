@@ -574,7 +574,7 @@ namespace Bikewale.BAL.PriceQuote
                 if (cityId > 0 && versionID > 0 && pqOnRoad != null)
                 {
                     Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity detailedDealer = null;
-                    detailedDealer = objIPQ.GetDealerQuotationV2(Convert.ToUInt32(cityId), versionID, pqEntity.DealerId, areaId.HasValue && areaId.Value > 0 ?(uint)areaId.Value: 0);
+                    detailedDealer = objIPQ.GetDealerQuotationV2(Convert.ToUInt32(cityId), versionID, pqEntity.DealerId, areaId.HasValue && areaId.Value > 0 ? (uint)areaId.Value : 0);
                     pqEntity.DealerEntity = detailedDealer;
                     if (isAreaExistAndSelected || (!pqEntity.IsAreaExists))
                     {
@@ -591,11 +591,11 @@ namespace Bikewale.BAL.PriceQuote
                 // Fetch ES only when Primary dealer is absent for given model
                 // ES campaign should be shown even if the secondary dealers are found
                 // Updated by: Sangram Nandkhile on 13 Oct 2017
-                if(pqEntity.PrimaryDealer == null && _objManufacturerCampaign != null)
+                if (pqEntity.PrimaryDealer == null && _objManufacturerCampaign != null)
                 {
                     pqEntity.ManufacturerCampaign = _objManufacturerCampaign.GetCampaigns((uint)modelId, (uint)cityId, Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
 
-                    if (pqEntity.PqId == 0)
+                    if (pqEntity.PqId == 0 && cityId > 0)
                     {
                         PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
                         objPQEntity.CityId = Convert.ToUInt16(cityId);
@@ -610,7 +610,7 @@ namespace Bikewale.BAL.PriceQuote
                         objPQEntity.DeviceId = DeviceId;
                         pqEntity.PqId = (uint)objPq.RegisterPriceQuote(objPQEntity);
 
-                       
+
                     }
 
                     _objManufacturerCampaign.SaveManufacturerIdInPricequotes((uint)pqEntity.PqId, pqEntity.ManufacturerCampaign.LeadCampaign.DealerId);

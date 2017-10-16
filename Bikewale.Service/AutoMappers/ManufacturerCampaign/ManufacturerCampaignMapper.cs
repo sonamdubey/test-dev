@@ -27,7 +27,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 campaignResponse = new CampaignBaseDto();
                 campaignResponse.DetailsCampaign = new DetailsDto();
                 campaignResponse.DetailsCampaign.Dealer = new DealerCampaignBase();
-                if (dealers.PrimaryDealer != null)
+                if (dealers.PrimaryDealer != null && dealers.PrimaryDealer.DealerDetails != null)
                 {
                     var dealerOffer = new List<DPQOffer>();
                     foreach (var offer in dealers.PrimaryDealer.OfferList)
@@ -57,7 +57,9 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 campaignResponse.DetailsCampaign.Dealer.SecondaryDealerCount = (ushort)dealers.SecondaryDealerCount;
 
             }
-            else if (manufacturerCampaign != null && manufacturerCampaign.LeadCampaign != null)
+
+
+            if (manufacturerCampaign != null && manufacturerCampaign.LeadCampaign != null && (dealers == null || dealers.PrimaryDealer == null || dealers.PrimaryDealer.DealerDetails == null))
             {
                 ManufactureCampaignLeadEntity LeadCampaign = new ManufactureCampaignLeadEntity()
                 {

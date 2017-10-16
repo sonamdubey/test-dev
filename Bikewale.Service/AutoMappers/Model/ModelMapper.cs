@@ -658,7 +658,10 @@ namespace Bikewale.Service.AutoMappers.Model
                 }
                 if (dealers != null)
                 {
-                    if (dealers.PrimaryDealer != null)
+                    objDTOModelPage.Campaign = new CampaignBaseDto();
+                    objDTOModelPage.Campaign.DetailsCampaign = new DetailsDto();
+                    objDTOModelPage.Campaign.DetailsCampaign.Dealer = new DealerCampaignBase();
+                    if (dealers.PrimaryDealer != null && dealers.PrimaryDealer.DealerDetails != null)
                     {
                         var dealerOffer = new List<DPQOffer>();
                         foreach (var offer in dealers.PrimaryDealer.OfferList)
@@ -671,9 +674,6 @@ namespace Bikewale.Service.AutoMappers.Model
                             };
                             dealerOffer.Add(addOffer);
                         }
-                        objDTOModelPage.Campaign = new CampaignBaseDto();
-                        objDTOModelPage.Campaign.DetailsCampaign = new DetailsDto();
-                        objDTOModelPage.Campaign.DetailsCampaign.Dealer = new DealerCampaignBase();
                         objDTOModelPage.Campaign.DetailsCampaign.Dealer.Offers = dealerOffer;
                         if (dealers.PrimaryDealer.DealerDetails != null)
                         {
@@ -691,65 +691,60 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.Campaign.DetailsCampaign.Dealer.SecondaryDealerCount = (ushort)dealers.SecondaryDealerCount;
 
                 }
-                else
+                if (pqEntity != null && (dealers == null || dealers.PrimaryDealer == null || dealers.PrimaryDealer.DealerDetails == null) && pqEntity.ManufacturerCampaign != null && pqEntity.ManufacturerCampaign.LeadCampaign != null)
                 {
-                    if (pqEntity != null && pqEntity.ManufacturerCampaign != null && pqEntity.ManufacturerCampaign.LeadCampaign != null)
+                    ManufactureCampaignLeadEntity LeadCampaign = new ManufactureCampaignLeadEntity()
                     {
-                        ManufactureCampaignLeadEntity LeadCampaign = new ManufactureCampaignLeadEntity()
-                        {
-                            Area = GlobalCityArea.GetGlobalCityArea().Area,
-                            CampaignId = pqEntity.ManufacturerCampaign.LeadCampaign.CampaignId,
-                            DealerId = pqEntity.ManufacturerCampaign.LeadCampaign.DealerId,
-                            DealerRequired = pqEntity.ManufacturerCampaign.LeadCampaign.DealerRequired,
-                            EmailRequired = pqEntity.ManufacturerCampaign.LeadCampaign.EmailRequired,
-                            LeadsButtonTextDesktop = pqEntity.ManufacturerCampaign.LeadCampaign.LeadsButtonTextDesktop,
-                            LeadsButtonTextMobile = pqEntity.ManufacturerCampaign.LeadCampaign.LeadsButtonTextMobile,
-                            LeadSourceId = (int)LeadSourceEnum.Model_Mobile,
-                            PqSourceId = (int)PQSourceEnum.Mobile_ModelPage,
-                            LeadsHtmlDesktop = pqEntity.ManufacturerCampaign.LeadCampaign.LeadsHtmlDesktop,
-                            LeadsHtmlMobile = pqEntity.ManufacturerCampaign.LeadCampaign.LeadsHtmlMobile,
-                            LeadsPropertyTextDesktop = pqEntity.ManufacturerCampaign.LeadCampaign.LeadsPropertyTextDesktop,
-                            LeadsPropertyTextMobile = pqEntity.ManufacturerCampaign.LeadCampaign.LeadsPropertyTextMobile,
-                            MakeName = objModelPage.ModelDetails.MakeBase.MakeName,
-                            Organization = pqEntity.ManufacturerCampaign.LeadCampaign.Organization,
-                            MaskingNumber = pqEntity.ManufacturerCampaign.LeadCampaign.MaskingNumber,
-                            PincodeRequired = pqEntity.ManufacturerCampaign.LeadCampaign.PincodeRequired,
-                            PopupDescription = pqEntity.ManufacturerCampaign.LeadCampaign.PopupDescription,
-                            PopupHeading = pqEntity.ManufacturerCampaign.LeadCampaign.PopupHeading,
-                            PopupSuccessMessage = pqEntity.ManufacturerCampaign.LeadCampaign.PopupSuccessMessage,
-                            ShowOnExshowroom = pqEntity.ManufacturerCampaign.LeadCampaign.ShowOnExshowroom,
-                            PQId = (uint)pqEntity.PqId,
-                            VersionId = objModelPage.ModelVersionSpecs.BikeVersionId,
-                            PlatformId = 3,
-                            IsAmp = true,
+                        Area = GlobalCityArea.GetGlobalCityArea().Area,
+                        CampaignId = pqEntity.ManufacturerCampaign.LeadCampaign.CampaignId,
+                        DealerId = pqEntity.ManufacturerCampaign.LeadCampaign.DealerId,
+                        DealerRequired = pqEntity.ManufacturerCampaign.LeadCampaign.DealerRequired,
+                        EmailRequired = pqEntity.ManufacturerCampaign.LeadCampaign.EmailRequired,
+                        LeadsButtonTextDesktop = pqEntity.ManufacturerCampaign.LeadCampaign.LeadsButtonTextDesktop,
+                        LeadsButtonTextMobile = pqEntity.ManufacturerCampaign.LeadCampaign.LeadsButtonTextMobile,
+                        LeadSourceId = (int)LeadSourceEnum.Model_Mobile,
+                        PqSourceId = (int)PQSourceEnum.Mobile_ModelPage,
+                        LeadsHtmlDesktop = pqEntity.ManufacturerCampaign.LeadCampaign.LeadsHtmlDesktop,
+                        LeadsHtmlMobile = pqEntity.ManufacturerCampaign.LeadCampaign.LeadsHtmlMobile,
+                        LeadsPropertyTextDesktop = pqEntity.ManufacturerCampaign.LeadCampaign.LeadsPropertyTextDesktop,
+                        LeadsPropertyTextMobile = pqEntity.ManufacturerCampaign.LeadCampaign.LeadsPropertyTextMobile,
+                        MakeName = objModelPage.ModelDetails.MakeBase.MakeName,
+                        Organization = pqEntity.ManufacturerCampaign.LeadCampaign.Organization,
+                        MaskingNumber = pqEntity.ManufacturerCampaign.LeadCampaign.MaskingNumber,
+                        PincodeRequired = pqEntity.ManufacturerCampaign.LeadCampaign.PincodeRequired,
+                        PopupDescription = pqEntity.ManufacturerCampaign.LeadCampaign.PopupDescription,
+                        PopupHeading = pqEntity.ManufacturerCampaign.LeadCampaign.PopupHeading,
+                        PopupSuccessMessage = pqEntity.ManufacturerCampaign.LeadCampaign.PopupSuccessMessage,
+                        ShowOnExshowroom = pqEntity.ManufacturerCampaign.LeadCampaign.ShowOnExshowroom,
+                        PQId = (uint)pqEntity.PqId,
+                        VersionId = objModelPage.ModelVersionSpecs.BikeVersionId,
+                        PlatformId = 3,
+                        IsAmp = true,
 
-                            BikeName = string.Format("{0} {1}", objModelPage.ModelDetails.MakeBase.MakeName, objModelPage.ModelDetails.ModelName),
-                            LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionSpecs.BikeVersionId).Price) * 0.8)
-                        };
+                        BikeName = string.Format("{0} {1}", objModelPage.ModelDetails.MakeBase.MakeName, objModelPage.ModelDetails.ModelName),
+                        LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionSpecs.BikeVersionId).Price) * 0.8)
+                    };
 
 
-                        if (LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
-                        {
-                            LeadCampaign.PageUrl = String.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}", LeadCampaign.CampaignId, LeadCampaign.DealerId, pqEntity.PqId, LeadCampaign.LeadSourceId, pqEntity.VersionList.FirstOrDefault().VersionId, 3, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl);
-                        }
-                        else
-                        {
-                            LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", objModelPage.ModelDetails.ModelId, GlobalCityArea.GetGlobalCityArea().CityId, string.Empty, string.Format(LeadCampaign.BikeName), string.Empty, string.Empty, string.Empty, true, LeadCampaign.DealerId, String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization), LeadCampaign.Area, pqEntity.VersionList.FirstOrDefault().VersionId, LeadCampaign.LeadSourceId, LeadCampaign.PqSourceId, LeadCampaign.CampaignId, LeadCampaign.PQId, string.Empty, string.Empty, LeadCampaign.PopupHeading, String.Format(LeadCampaign.PopupSuccessMessage, LeadCampaign.Organization), LeadCampaign.PopupDescription, pqEntity.ManufacturerCampaign.LeadCampaign.PincodeRequired, pqEntity.ManufacturerCampaign.LeadCampaign.EmailRequired, pqEntity.ManufacturerCampaign.LeadCampaign.DealerRequired)));
-                        }
-
-                        objDTOModelPage.Campaign = new CampaignBaseDto();
-                        objDTOModelPage.Campaign.DetailsCampaign = new DetailsDto();
-                        objDTOModelPage.Campaign.DetailsCampaign.EsCamapign = new PreRenderCampaignBase();
-                        objDTOModelPage.Campaign.CampaignLeadSource = new ESCampaignBase();
-                        objDTOModelPage.Campaign.DetailsCampaign.EsCamapign.TemplateHtml = MvcHelper.GetRenderedContent(String.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
-                        objDTOModelPage.Campaign.CampaignLeadSource.FloatingBtnText = LeadCampaign.LeadsButtonTextMobile;
-                        objDTOModelPage.Campaign.CampaignLeadSource.CaptionText = String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization);
-                        objDTOModelPage.Campaign.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
-                        objDTOModelPage.Campaign.CampaignType = CampaignType.ES;
-                        objDTOModelPage.Campaign.CampaignLeadSource.LinkUrl = LeadCampaign.PageUrl;
+                    if (LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                    {
+                        LeadCampaign.PageUrl = String.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}", LeadCampaign.CampaignId, LeadCampaign.DealerId, pqEntity.PqId, LeadCampaign.LeadSourceId, pqEntity.VersionList.FirstOrDefault().VersionId, 3, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl);
+                    }
+                    else
+                    {
+                        LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", objModelPage.ModelDetails.ModelId, GlobalCityArea.GetGlobalCityArea().CityId, string.Empty, string.Format(LeadCampaign.BikeName), string.Empty, string.Empty, string.Empty, true, LeadCampaign.DealerId, String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization), LeadCampaign.Area, pqEntity.VersionList.FirstOrDefault().VersionId, LeadCampaign.LeadSourceId, LeadCampaign.PqSourceId, LeadCampaign.CampaignId, LeadCampaign.PQId, string.Empty, string.Empty, LeadCampaign.PopupHeading, String.Format(LeadCampaign.PopupSuccessMessage, LeadCampaign.Organization), LeadCampaign.PopupDescription, pqEntity.ManufacturerCampaign.LeadCampaign.PincodeRequired, pqEntity.ManufacturerCampaign.LeadCampaign.EmailRequired, pqEntity.ManufacturerCampaign.LeadCampaign.DealerRequired)));
                     }
 
-
+                    objDTOModelPage.Campaign = new CampaignBaseDto();
+                    objDTOModelPage.Campaign.DetailsCampaign = new DetailsDto();
+                    objDTOModelPage.Campaign.DetailsCampaign.EsCamapign = new PreRenderCampaignBase();
+                    objDTOModelPage.Campaign.CampaignLeadSource = new ESCampaignBase();
+                    objDTOModelPage.Campaign.DetailsCampaign.EsCamapign.TemplateHtml = MvcHelper.GetRenderedContent(String.Format("LeadCampaign_{0}", LeadCampaign.CampaignId), LeadCampaign.LeadsHtmlMobile, LeadCampaign);
+                    objDTOModelPage.Campaign.CampaignLeadSource.FloatingBtnText = LeadCampaign.LeadsButtonTextMobile;
+                    objDTOModelPage.Campaign.CampaignLeadSource.CaptionText = String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization);
+                    objDTOModelPage.Campaign.CampaignLeadSource.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
+                    objDTOModelPage.Campaign.CampaignType = CampaignType.ES;
+                    objDTOModelPage.Campaign.CampaignLeadSource.LinkUrl = LeadCampaign.PageUrl;
                 }
             }
             catch (System.Exception ex)
