@@ -120,7 +120,7 @@ namespace Bikewale.Utility
         private readonly string _StaticVendorFileVersion;
         private readonly string _ServiceWorkerPath;
         private readonly string _StaticCSSBTFPWAVersion;
-        private readonly bool _DisablePWA;
+        private readonly bool _EnablePWA;
         private readonly string _AMPDomainForSW;
         private readonly bool _logNewsUrl;
         private readonly string _capitalFirstConsumerQueue;
@@ -128,6 +128,7 @@ namespace Bikewale.Utility
         private readonly uint _CapitalFirstDealerId;
         private readonly string _CarTradeLeadUrl, _CarTradeLeadApiAction, _CarTradeLeadApiCode;
         private readonly string _EditCMSModuleName;
+        private readonly int _minEnginePoolSize, _maxEnginePoolSize;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -220,7 +221,7 @@ namespace Bikewale.Utility
             _StaticAppFileVersion = ConfigurationManager.AppSettings["StaticAppFileVersion"];
             _StaticVendorFileVersion = ConfigurationManager.AppSettings["StaticVendorFileVersion"];
             _ServiceWorkerPath = ConfigurationManager.AppSettings["ServiceWorkerPath"];
-            _DisablePWA = string.IsNullOrEmpty(ConfigurationManager.AppSettings["DisablePWA"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["DisablePWA"]);
+            _EnablePWA = string.IsNullOrEmpty(ConfigurationManager.AppSettings["EnablePWA"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["EnablePWA"]);
             _StaticCSSBTFPWAVersion = ConfigurationManager.AppSettings["StaticCSSBTFPWAVersion"];
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
             _CapitalFirstPincodeIndex = ConfigurationManager.AppSettings["CapitalFirstPincodeIndex"];
@@ -237,6 +238,9 @@ namespace Bikewale.Utility
             _UserReviewsReadInSessionCount = Convert.ToString(ConfigurationManager.AppSettings["UserReviewsReadInSessionCount"]);
             _KawasakiCampaignId = Convert.ToUInt32(ConfigurationManager.AppSettings["KawasakiCampaignId"]);
             _EditCMSModuleName = Convert.ToString(ConfigurationManager.AppSettings["EditCMSModuleName"]);
+            _minEnginePoolSize = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MinEnginePoolSize"]) ? 3 : Convert.ToInt32(ConfigurationManager.AppSettings["MinEnginePoolSize"]);
+            _maxEnginePoolSize = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MaxEnginePoolSize"]) ? 15 : Convert.ToInt32(ConfigurationManager.AppSettings["MaxEnginePoolSize"]);
+            
         }
 
         // Static method to provide access to instance
@@ -381,7 +385,7 @@ namespace Bikewale.Utility
         public string StaticVendorFileVersion { get { return _StaticVendorFileVersion; } }
         public string ServiceWorkerPath { get { return _ServiceWorkerPath; } }
         public string StaticCSSBTFPWAVersion { get { return _StaticCSSBTFPWAVersion; } }
-        public bool DisablePWA { get { return _DisablePWA; } }
+        public bool EnablePWA { get { return _EnablePWA; } }
         public string AMPDomainForSW { get { return _AMPDomainForSW; } }
 
         public string UserReviewIndexName { get { return _UserReviewIndexName; } }
@@ -401,5 +405,7 @@ namespace Bikewale.Utility
         public string UserReviewsReadInSessionCount { get { return _UserReviewsReadInSessionCount; } }
         public uint KawasakiCampaignId { get { return _KawasakiCampaignId; } }
         public string EditCMSModuleName { get { return _EditCMSModuleName; } }
+        public int MaxEnginePoolSize { get { return _maxEnginePoolSize; } }
+        public int MinEnginePoolSize { get { return _minEnginePoolSize; } }
     }   // class
 }   // namespace
