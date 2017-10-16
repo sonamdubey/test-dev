@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ModelSpecsFeatures" EnableViewState="false" %>
 <%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
-
 <!DOCTYPE html>
 
 <html>
@@ -16,10 +15,9 @@
         isAd970x90Shown = true;
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
-        
         AdId = "1442913773076";
         AdPath = "/1017752/Bikewale_NewBike_";
-          %>
+    %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%=  staticUrl  %>/css/specsandfeature.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     
@@ -54,7 +52,8 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <div>
+    </div>
         <section id="bikeModelHeading" class="container">
             <div class="grid-12">
                 <h1 class="content-box-shadow content-inner-block-1420 box-shadow"><%= bikeName %> Specifications and Features</h1>
@@ -345,25 +344,19 @@
                 <% if (similarBikes != null && similarBikes.Bikes != null && similarBikes.Bikes.Any())
                     { %>
                 <div id="modelSimilarContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin font14">
-                    <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15"><%= bodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter)? "Scooters" : "Bikes" %> similar to <%= modelPg.ModelDetails.ModelName %></h2>
+                    <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15"><%= bodyStyleText %> similar to <%= modelPg.ModelDetails.ModelName %></h2>
                     <div class="jcarousel-wrapper inner-content-carousel">
                         <div class="jcarousel">
                             <ul>
-                                <%--@if (Model.AdTags.Ad_292x399)
-                                {
-                                    { Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x399.cshtml", new { AdId = "1505919734321" }); }
-
-                                }
-                                @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)--%>
                                 <% foreach (var bike in similarBikes.Bikes)
                                     {  %>
                                 <li>
-                                    <a href="<%= Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName) %>" title="<%= bikeName %>" class="jcarousel-card">
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName) %>" title="<%= string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName) %>" class="jcarousel-card">
                                         <div class="model-jcarousel-image-preview">
-                                            <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174,Bikewale.Utility.QualityFactor._75) %>" alt="<%= bikeName %>" src="" border="0" />
+                                            <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174,Bikewale.Utility.QualityFactor._75) %>" alt="<%= string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName) %>" title="<%= string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName) %>" src="" border="0" />
                                         </div>
                                         <div class="card-desc-block">
-                                            <p class="bikeTitle"><%= bikeName %></p>
+                                            <p class="bikeTitle"><%= string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName) %></p>
                                             <p class="text-xt-light-grey margin-bottom10">
                                                 <%= Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Displacement), Convert.ToString(bike.FuelEfficiencyOverall), Convert.ToString(bike.MaxPower), Convert.ToString(bike.KerbWeight)) %>
                                             </p>
@@ -378,12 +371,12 @@
                                                 {
                                                     if (bike.VersionPrice > 0)
                                                     { %>
-                                            <p class="text-light-grey margin-bottom5"><%= string.Format("Ex-showroom, {0}", bike.CityName) %></p>
-                                            <% }
-                                                else
-                                                { %>
-                                            <p>
-                                                <span class="text-light-grey margin-bottom5 margin-right5">Avg. Ex-showroom price</span><span class="bwsprite info-icon tooltip-icon-target tooltip-top">
+                                                        <p class="text-light-grey margin-bottom5"><%= string.Format("Ex-showroom, {0}", bike.CityName) %></p>
+                                                     <% }
+                                                    else
+                                                    { %>
+                                                    <p>
+                                                    <span class="text-light-grey margin-bottom5 margin-right5">Avg. Ex-showroom price</span><span class="bwsprite info-icon tooltip-icon-target tooltip-top">
                                                     <span class="bw-tooltip info-tooltip">
                                                         <span class="bw-tooltip-text"><%= string.Format("Price is not available in {0}", bike.CityName) %></span>
                                                     </span>
@@ -417,7 +410,7 @@
                                 </li>
                                 <% } %>
                                 <li>
-                                    <a href="<%= ((similarBikes.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "/scooters/" : "/new-bikes-in-india/") %>" title="<%= (string.Format("Explore more {0}", (similarBikes.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "scooters" : "bikes")) %>" class="jcarousel-card bw-ga" c="<%=similarBikes.Page %>" a="Clicked_ExploreMore_Card" l="<%= similarBikes.Model.ModelName %>">
+                                    <a href="<%= ((bodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "/scooters/" : "/new-bikes-in-india/") %>" title="<%= (string.Format("Explore more {0}", (similarBikes.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "scooters" : "bikes")) %>" class="jcarousel-card bw-ga" c="<%=similarBikes.Page %>" a="Clicked_ExploreMore_Card" l="<%= similarBikes.Model.ModelName %>">
                                         <div class="model-jcarousel-image-preview">
                                             <div class="exploremore__imagebackground">
                                                 <div class="exploremore__icon-background">
@@ -427,13 +420,13 @@
                                         <div class="card-desc-block">
                                             <div class="exploremore-detailblock">
                                                 <p class="detailblock__title">Couldn’t find what you were looking for?</p>
-                                                <p class="detailblock__description"><%= (similarBikes.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "View 60+ scooters from over 10 brands" : " View 200+ bikes from over 30 brands") %></p>
+                                                <p class="detailblock__description"><%= (bodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "View 60+ scooters from over 10 brands" : " View 200+ bikes from over 30 brands") %></p>
                                             </div>
                                         </div>
                                         <% if (similarBikes.IsNew)
                                             { %>
                                         <div class="compare-with-target text-truncate">
-                                            <%= (string.Format("Explore more {0}", (similarBikes.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter)) ? "scooters" : "bikes")) %><span class="bwsprite next-grey-icon"></span>
+                                            <%= (string.Format("Explore more {0}", (bodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter)) ? "scooters" : "bikes")) %><span class="bwsprite next-grey-icon"></span>
                                         </div>
                                         <% } %>
                                     </a>
@@ -444,7 +437,80 @@
                         <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                     </div>
                 </div>
-                <% } %>
+                <% }
+                    else if ((popularBodyStyle != null && popularBodyStyle.PopularBikes != null && popularBodyStyle.PopularBikes.Any()) && (similarBikes.IsNew || similarBikes.IsUpcoming))
+                    { %>
+                <div id="modelPopularContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin padding-bottom15">
+                    <div class="carousel-heading-content padding-top20">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2 class="h2-heading">Other popular <%= popularBodyStyle.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter)? "scooters" : "bikes" %></h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="<%= Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(popularBodyStyle.BodyStyle) %>" title="Best <%= popularBodyStyle.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter)? "scooters" : "bikes" %> in India" class="btn view-all-target-btn">View all</a>
+                        </div>
+                    </div>
+                    <% if (popularBodyStyle != null && popularBodyStyle.PopularBikes != null && popularBodyStyle.PopularBikes.Count() > 0)
+                        { %>
+                    <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
+                        <div class="jcarousel">
+                            <ul>
+                                <% foreach (var bike in popularBodyStyle.PopularBikes)
+                                    { %>
+                                <li>
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName) %>" title="<%= string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName) %>" class="jcarousel-card">
+                                        <div class="model-jcarousel-image-preview">
+                                            <span class="card-image-block">
+                                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75) %>" alt="<%= string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName) %>" src="" border="0">
+                                            </span>
+                                        </div>
+                                        <div class="card-desc-block">
+                                            <h3 class="bikeTitle"><%= string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName) %></h3>
+                                            <% if (bike.VersionPrice == 0 && bike.AvgPrice == 0)
+                                                { %>
+                                            <span class="font16 text-default text-light-grey">Price not available</span>
+                                            <% }
+                                                else
+                                                {
+                                                    if (bike.VersionPrice > 0)
+                                                    { %>
+                                            <p class="font14 text-light-grey margin-bottom5"><%= string.Format("Ex-showroom, {0}", (!string.IsNullOrEmpty(bike.CityName) ? bike.CityName : Bikewale.Utility.BWConfiguration.Instance.GetDefaultCityName)) %></p>
+                                            <span class='font16 text-default'>&#x20B9;</span>
+                                            <span class="font16 text-bold text-default">&nbsp;<%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)) %></span>
+                                            <% }
+                                                else
+                                                { %>
+                                            <p class="font14 text-light-grey margin-bottom5">
+                                                <span class="margin-right5">Avg. Ex-showroom price</span>
+                                                <span class="bwsprite info-icon tooltip-icon-target tooltip-top">
+                                                    <span class="bw-tooltip info-tooltip">
+                                                        <span class="bw-tooltip-text"><%= string.Format("Price is not available in {0}", bike.CityName) %></span>
+                                                    </span>
+                                                </span>
+                                            </p>
+
+                                            <span class='font16 text-default'>&#x20B9;</span>
+                                            <span class="font16 text-bold text-default">&nbsp;<%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice))%></span>
+                                            <% }
+                                                }%>
+                                        </div>
+                                    </a>
+                                    <% if (popularBodyStyle.ShowCheckOnRoadCTA && (bike.AvgPrice > 0 || bike.VersionPrice > 0))
+                                        {%>
+                                    <div class="margin-left20 margin-bottom20">
+                                        <a href="javascript:void(0);" data-pqsourceid="<%= ((int)popularBodyStyle.PQSourceId) %>" data-makename="<%= bike.MakeName %>" data-modelname="<%= bike.objModel.ModelName %>" data-modelid="<%= bike.objModel.ModelId %>" class="btn btn-grey btn-sm font14 getquotation" rel="nofollow">Check on-road price</a>
+                                    </div>
+                                    <% } %>
+                                </li>
+                                <% } %>
+                            </ul>
+
+                        </div>
+                        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
+                        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                    </div>
+                    <% } %>
+            </div>
+            <% } %>
             </div>
             <div class="clear"></div>
         </section>

@@ -45,6 +45,7 @@ namespace Bikewale.New
         protected SimilarBikesWidgetVM similarBikes;
         protected PopularBodyStyleVM popularBodyStyle;
         protected EnumBikeBodyStyles bodyStyle;
+        protected string bodyStyleText; 
 
         protected override void OnInit(EventArgs e)
         {
@@ -141,6 +142,7 @@ namespace Bikewale.New
                                     price = Convert.ToUInt32(selectedVersion.Price);
                                     versionName = selectedVersion.VersionName;
                                     bodyStyle = selectedVersion.BodyStyle;
+                                    bodyStyleText = bodyStyle.Equals(EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes";
                                 }
                             }
                             // Added by Sangram on 21 Mar 2017 to fetch version id in case of discontinued bikes
@@ -348,7 +350,7 @@ namespace Bikewale.New
                     {
                         container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                                 .RegisterType<ICacheManager, MemcacheManager>()
-                                .RegisterType<IBikeModelsRepository<BikeModelEntity, int>>()
+                                .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                 .RegisterType<IPager, Pager>();
                         var objBestBikes = container.Resolve<IBikeModelsCacheRepository<int>>();
                         var modelPopularBikesByBodyStyle = new Models.BestBikes.PopularBikesByBodyStyle(objBestBikes);
