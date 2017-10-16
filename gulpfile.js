@@ -20,7 +20,8 @@ var paths = {
 };
 
 var pattern = {
-	CSS: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)inline(?:[^>]*)\/{0,1}>/ig
+	CSS_ATF: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)atf-css(?:[^>]*)\/{0,1}>/ig,
+	INLINE_CSS: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)inline(?:[^>]*)\/{0,1}>/ig
 };
 
 gulp.task('clean', function () {
@@ -116,71 +117,23 @@ var pageArray = [
 	}
 ];
 
-var mvcLayoutPages = [
-	{
-		folderName: 'Views/Shared/',
-		fileName: '_Layout.cshtml',
-		stylesheet: 'css/bw-common-atf.css'
-	},
-	{
-		folderName: 'Views/Shared/',
-		fileName: '_Layout_Mobile.cshtml',
-		stylesheet: 'm/css/bwm-common-atf.css'
-	}
-];
-
-var mvcPwaPageViews = [
-	{
-		folderName: 'Views/News/',
-		fileName: 'Index_Mobile_Pwa.cshtml',
-		stylesheet: '/m/css/content/app.css'
-	},
-	{
-		folderName: 'Views/News/',
-		fileName: 'Detail_Mobile.cshtml',
-		stylesheet: '/m/css/content/app.css'
-	},
-	{
-		folderName: 'm/news/',
-		fileName: 'offline.html',
-		stylesheet: '/m/css/content/app.css'
-	}
-];
-
-// replace css reference with internal css for MVC views
 gulp.task('replace-mvc-layout-css-reference', function () {
-	var pageLength = mvcLayoutPages.length;
+	return gulp.src([
+		app + 'Views/News/Index_Mobile_Pwa.cshtml',
+		app + 'Views/News/Detail_Mobile.cshtml',
+		app + 'm/news/offline.html',
+		app + 'Views/Shared/_Layout.cshtml',
+		app + 'Views/Shared/_Layout_Mobile.cshtml'], { base: app })
+		.pipe(replace(pattern.CSS_ATF, function (s, fileName) {
+			var style = fs.readFileSync(minifiedAssetsFolder + fileName, 'utf-8'),
+				style = style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "").replace(/[@]{1}/g, "@@"),
+				styleTag = "<style type='text/css'>" + style + "</style>";
 
-	for (var i = 0; i < pageLength; i++) {
-		var element = mvcLayoutPages[i],
-			style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
-			styleTag = "<style type='text/css'>" + style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "") + "</style>",
-			styleLink = "<link rel='stylesheet' type='text/css' href='/" + element.stylesheet + "' />";
-
-		gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
-			.pipe(replace(styleLink, styleTag))
-			.pipe(gulp.dest(buildFolder + element.folderName));
-	}
-
-	console.log('internal css reference replaced');
+			return styleTag;
+		}))
+		.pipe(gulp.dest(buildFolder));
 });
 
-gulp.task('replace-mvc-pwa-pageview-css-reference', function () {
-	var pageLength = mvcPwaPageViews.length;
-
-	for (var i = 0; i < pageLength; i++) {
-		var element = mvcPwaPageViews[i],
-			style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
-			styleTag = "<style type='text/css'>" + style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "").replace(/@/g, "@@") + "</style>",
-			styleLink = "<link rel='stylesheet' type='text/css' href='" + element.stylesheet + "' />";
-
-		gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
-			.pipe(replace(styleLink, styleTag))
-			.pipe(gulp.dest(buildFolder + element.folderName));
-	}
-
-	console.log('internal css reference replaced');
-});
 // replace css reference with internal css
 gulp.task('replace-css-reference', function () {
 	var pageLength = pageArray.length;
@@ -206,7 +159,7 @@ gulp.task('bw-framework-js', function () {
 
 gulp.task('replace-css-link-reference', function () {
 	return gulp.src(app + 'Views/**/*.cshtml', { base: app })
-		.pipe(replace(pattern.CSS, function (s, fileName) {
+		.pipe(replace(pattern.INLINE_CSS, function (s, fileName) {
 			var style = fs.readFileSync(minifiedAssetsFolder + fileName, 'utf-8'),
 				styleTag = "<style type='text/css'>" + style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "") + "</style>";
 
@@ -233,8 +186,7 @@ gulp.task('default',
 		'minify-css', 'minify-js', 'minify-sass-css',
 		'bw-framework-js',
 		'replace-css-reference',
-		'replace-mvc-layout-css-reference',
-		'replace-mvc-pwa-pageview-css-reference',
-		'replace-css-link-reference'
+		'replace-css-link-reference',
+		'replace-mvc-layout-css-reference'
 	)
 );
