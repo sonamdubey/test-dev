@@ -164,8 +164,8 @@ namespace Bikewale.DAL.BikeData
                         // Get model min specs
                         modelPage.ModelVersions = GetVersionMinSpecs(modelId, modelPage.ModelDetails.New);
                     }
-                    
-                    
+
+
 
                     // Get version all specs
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 && !modelPage.ModelDetails.Futuristic)
@@ -340,7 +340,7 @@ namespace Bikewale.DAL.BikeData
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_modelid", modelId);
 
-                    objMinSpecs =  connection.Query<BikeVersionMinSpecs>("getfuturisticversions", param: param, commandType: CommandType.StoredProcedure);
+                    objMinSpecs = connection.Query<BikeVersionMinSpecs>("getfuturisticversions", param: param, commandType: CommandType.StoredProcedure);
                 }
             }
             catch (Exception ex)
@@ -515,10 +515,7 @@ namespace Bikewale.DAL.BikeData
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmodelsynopsis"))
                 {
-                    // cmd.CommandText = "GetModelSynopsis";
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    // cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -556,10 +553,7 @@ namespace Bikewale.DAL.BikeData
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getupcomingbikedetails"))
                 {
-                    //cmd.CommandText = "getupcomingbikedetails";
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -724,12 +718,9 @@ namespace Bikewale.DAL.BikeData
                                 objModelList.Add(objModels);
 
                             }
-                            if (dr.NextResult())
+                            if (dr.NextResult() && dr.Read())
                             {
-                                if (dr.Read())
-                                {
-                                    recordCount = Convert.ToInt32(dr["RecordCount"]);
-                                }
+                                recordCount = Convert.ToInt32(dr["RecordCount"]);
                             }
                             dr.Close();
                             newLaunchedBikes.Models = objModelList;
@@ -930,12 +921,6 @@ namespace Bikewale.DAL.BikeData
                         }
                     }
                 }
-            }
-            catch (SqlException err)
-            {
-                HttpContext.Current.Trace.Warn("SQL Exception in GetModelsList", err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             catch (Exception err)
             {
@@ -3050,6 +3035,6 @@ namespace Bikewale.DAL.BikeData
             }
             return popularBikesList;
 
-        }       
+        }
     }   // class
 }   // namespace
