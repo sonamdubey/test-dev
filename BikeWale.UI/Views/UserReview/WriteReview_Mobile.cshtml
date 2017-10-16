@@ -105,6 +105,8 @@
                         </li>
                         <!-- /ko -->
                     </ul>
+                   
+
                     <div class="clear"></div>
 
                     <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
@@ -127,7 +129,13 @@
                     </div>
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="queryEncoded" value="@Model.EncodedWriteUrl" />
-                    <input id="submitReviewBtn" type="submit" class="btn btn-orange" value="Submit review" data-bind="click: submitReview" />
+
+                    <div data-bind="visible: ((detailedReview().length > 1) || (reviewTitle().length > 0 ) )" class="checkbox-container">
+                        <input type="checkbox" id="submitReviewCheckbox" class="margin-bottom15" checked>
+                        <label class="margin-left5 "> I certify that this review is based on my personal experience and is my genuine opinion on this bike. I have not copied it from anywhere on the web, and I understand that BikeWale has strict policy for fake reviews. If the review is found to be fake or copied, BikeWale reserve the right to remove it from its platform.</label>
+                        <span id="reviewCheckbox" class="block margin-bottom15"> </span>
+                    </div>
+                    <input id="submitReviewBtn" type="submit" class="btn btn-orange margin-top10" value="Submit review" data-bind="click: submitReview" />
                 </div>
             </div>
 
