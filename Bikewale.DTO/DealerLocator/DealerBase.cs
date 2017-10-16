@@ -1,10 +1,6 @@
 ﻿using Bikewale.DTO.PriceQuote;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.DealerLocator
 {
@@ -29,5 +25,8 @@ namespace Bikewale.DTO.DealerLocator
 
         [JsonProperty("dealerPackageType", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DealerPackageType DealerPkgType { get; set; }
+
+        [JsonProperty("captionText", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string CaptionText { get; set; }
     }
 }

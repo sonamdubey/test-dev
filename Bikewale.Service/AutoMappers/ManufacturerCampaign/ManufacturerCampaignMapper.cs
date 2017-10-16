@@ -51,6 +51,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                         campaignResponse.DetailsCampaign.Dealer.PrimaryDealer.DealerId = dealers.PrimaryDealer.DealerDetails.DealerId;
                         campaignResponse.DetailsCampaign.Dealer.PrimaryDealer.DealerPkgType = (DTO.PriceQuote.DealerPackageType)dealers.PrimaryDealer.DealerDetails.DealerPackageType;
                         campaignResponse.DetailsCampaign.Dealer.IsPremium = dealers.PrimaryDealer.IsPremiumDealer;
+                        campaignResponse.DetailsCampaign.Dealer.CaptionText = String.Format("Authorized dealer in {0}", dealers.PrimaryDealer.DealerDetails.objArea.AreaName);
                     }
 
                 }
