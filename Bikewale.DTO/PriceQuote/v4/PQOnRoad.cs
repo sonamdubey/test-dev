@@ -1,8 +1,8 @@
-﻿
-using Bikewale.DTO.ManufacturerCampaign;
+﻿using Bikewale.DTO.Campaign;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-namespace Bikewale.DTO.PriceQuote.v3
+
+namespace Bikewale.DTO.PriceQuote.v4
 {
     /// <summary>
     /// Created By : Sushil Kumar
@@ -20,9 +20,8 @@ namespace Bikewale.DTO.PriceQuote.v3
         [JsonProperty("version")]
         public IEnumerable<Bikewale.DTO.Version.VersionBase> Versions { get; set; }
 
-        [JsonProperty("manufacturerCampaign")]
-        public ManufacturerCampaignDTO ManufacturerCampaign { get; set; }
+        [JsonProperty("campaign", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public CampaignBaseDto Campaign { get; set; }
 
     }
 }
-
