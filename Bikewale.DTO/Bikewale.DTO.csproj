@@ -172,6 +172,13 @@
     <Compile Include="BikeData\Upcoming\UpcomingBikeResultDTO.cs" />
     <Compile Include="BikeData\v2\MinSpecs.cs" />
     <Compile Include="CMS\Articles\CMSArticleSummaryMin.cs" />
+    <Compile Include="Campaign\CampaignBaseDTO.cs" />
+    <Compile Include="Campaign\CampaignDetailsBase.cs" />
+    <Compile Include="Campaign\CampaignType.cs" />
+    <Compile Include="Campaign\DealerCampaignBase.cs" />
+    <Compile Include="Campaign\DetailsDto.cs" />
+    <Compile Include="Campaign\ESCampaignBase .cs" />
+    <Compile Include="Campaign\PreRenderCampaignBase.cs" />
     <Compile Include="Compare\BikeColorDTO.cs" />
     <Compile Include="BikeBooking\BikeCancellationCustomer.cs" />
     <Compile Include="Compare\BikeCompareDTO.cs" />
@@ -244,6 +251,9 @@
     <Compile Include="Make\NewBikeDealersMakeBase.cs" />
     <Compile Include="Make\NewBikedealersMakeList.cs" />
     <Compile Include="ManufacturerCampaign\ManufactureDealerDTO.cs" />
+    <Compile Include="ManufacturerCampaign\ManufacturerCampaignDTO.cs" />
+    <Compile Include="ManufacturerCampaign\ManufacturerCampaignEMIConfigurationDTO.cs" />
+    <Compile Include="ManufacturerCampaign\ManufacturerCampaignLeadConfigurationDTO.cs" />
     <Compile Include="Model\BikeModelContentDTO.cs" />
     <Compile Include="Model\BikeSpecs.cs" />
     <Compile Include="Model\Features.cs" />
@@ -271,6 +281,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\v4\ModelPage.cs" />
+    <Compile Include="Model\v5\ModelPage.cs" />
     <Compile Include="NewBikeSearch\Pager.cs" />
     <Compile Include="NewBikeSearch\SearchOutput.cs" />
     <Compile Include="NewBikeSearch\SearchOutputBase.cs" />
@@ -316,11 +327,14 @@
     <Compile Include="PriceQuote\v2\PQOutput.cs" />
     <Compile Include="PriceQuote\v2\PQPrimaryDealer.cs" />
     <Compile Include="PriceQuote\v3\DPQDealerBase.cs" />
+    <Compile Include="PriceQuote\v3\DPQuotationOutput.cs" />
     <Compile Include="PriceQuote\v3\PQOnRoad.cs" />
+    <Compile Include="PriceQuote\v4\PQOnRoad.cs" />
     <Compile Include="PriceQuote\VersionPrice.cs" />
     <Compile Include="PriceQuote\Version\PQByCityArea.cs" />
     <Compile Include="PriceQuote\Version\v2\PQByCityAreaV2.cs" />
     <Compile Include="App\SplashScreen.cs" />
+    <Compile Include="PriceQuote\Version\v3\PQByCityAreaDTO.cs" />
     <Compile Include="UsedBikes\BikeInterestDetailsDTO.cs" />
     <Compile Include="UsedBikes\PhotoRequestDTO.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
@@ -443,11 +457,16 @@
     <Compile Include="Widgets\v2\MostPopularBikes.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{EA0864E7-7715-4D93-80BE-3300BB542E42}</Project>
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

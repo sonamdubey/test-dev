@@ -201,9 +201,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmodelcolor_01032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.CommandText = "getmodelcolor_27012016";
-
-                    //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                   
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
 

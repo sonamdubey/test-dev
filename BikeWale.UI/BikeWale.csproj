@@ -2836,6 +2836,7 @@
     <Content Include="m\news\sw_installer.html" />
     <Content Include="m\news\sw.js" />
     <Content Include="m\new\photos\Default.aspx" />
+    <Content Include="m\sass\scooters\listing.css" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
     <Content Include="m\service\ServiceCenterInCountry.aspx" />
@@ -2982,6 +2983,7 @@
     <Content Include="m\sass\modules\_brand-collapsible.sass" />
     <Content Include="sass\modules\_loader.sass" />
     <Content Include="sass\scooters\landing.sass" />
+    <Content Include="sass\scooters\listing.css" />
     <Content Include="sass\scooters\_landing-style.sass" />
     <Content Include="sass\modules\_main-comparison.sass" />
     <Content Include="sass\modules\_budget.sass" />

@@ -171,7 +171,7 @@
                             }
                             @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
                             {
-                                <span class="navtab" data-href="#dealerAndServiceContent" rel="nofollow">@Model.DealerServiceTitle</span>
+                                <span class="navtab" data-href="#dealerAndServiceContent" rel="nofollow">Dealers</span>
                             }
                             @if (Model.IsUsedModelsBikeAvailable)
                             {
@@ -257,29 +257,10 @@
                                 @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.Dealers)
                             </div>
                         }
-                        @if (Model.IsServiceDataAvailable)
-                        {
-                            <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                            <div>
-                                <div class="carousel-heading-content padding-top20">
-                                    <div class="swiper-heading-left-grid inline-block">
-                                        <h2>@string.Format("{0} service centers in {1}", Model.MakeName, Model.Location)</h2>
-                                    </div><div class="swiper-heading-right-grid inline-block text-right">
-                                        <a href="@string.Format("/{0}-service-center-in-{1}/", Model.MakeMaskingName, Model.LocationMasking)" title="@string.Format("{0} Service Centers in {1}", Model.MakeName, Model.Location)" class="btn view-all-target-btn">View all</a>
-                                    </div>
-                                </div>
-                                <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
-                                    <div class="swiper-wrapper">
-                                        @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenters)
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                            </div>
-                        }
                         else if (Model.IsDealerServiceDataInIndiaAvailable)
                         {
                             <div id="makeDealersContent" class="padding-top20 padding-bottom20 font14">
-                                <h2 class="padding-left20 padding-right20"> @string.Format("{0} {1}", Model.MakeName, Model.DealerServiceTitle.Replace("Dealers", "Showrooms"))</h2>
+                                <h2 class="padding-left20 padding-right20">@Model.MakeName showrooms</h2>
                                 @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
                             </div>
                         }

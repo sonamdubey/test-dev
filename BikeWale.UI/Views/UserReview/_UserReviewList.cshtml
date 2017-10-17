@@ -78,7 +78,7 @@
 							<div class="clear"></div>
 
 						</div>
-						<span class="read-more-target bw-ga text-link" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" data-id="@i" data-bind="click: function (data, event) { return readMore(event);}" data-reviewId="@review.ReviewId">Read more</span>
+						<span class="read-more-target bw-ga text-link" data-cat="Model_Page" data-act="UserReview_ReadMoreClicked" data-lab="@Model.ReviewsInfo.Model.ModelName" data-id="@i" data-bind="click: function (data, event) { return readMore(event);}" data-reviewId="@review.ReviewId">Read more</span>
 					</div>
 
 				</div>
@@ -238,7 +238,7 @@
 						<div class="clear"></div>
 
 					</div>
-					<a href="javascript:void(0)" class="read-more-target bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" data-index="@i" data-bind="click: function (data, event) { return $parent.readMoreNew(event)}, css: 'read-more-target', visible : $data.description, attr: {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId }" rel="nofollow">Read more</a>
+					<a href="javascript:void(0)" class="read-more-target bw-ga" data-cat="Model_Page" data-act="UserReview_ReadMoreClicked" data-lab="@Model.ReviewsInfo.Model.ModelName" data-index="@i" data-bind="click: function (data, event) { return $parent.readMoreNew(event)}, css: 'read-more-target', visible : $data.description, attr: {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId }" rel="nofollow">Read more</a>
 				</div>
 
 			</div>
