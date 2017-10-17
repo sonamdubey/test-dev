@@ -422,7 +422,7 @@ docReady(function () {
 
     descReviewField = $('#reviewDesc');
     reviewTitleField = $('#getReviewTitle');
-    reviewCheckbox = $('#reviewCheckbox');
+   
     // write review
     writeReview = function () {
         var self = this,
@@ -437,7 +437,7 @@ docReady(function () {
         self.focusFormActive = ko.observable(false);
         self.bikeMileage = ko.observable('');
         self.reviewQuestions = ko.observableArray(reviewQuestion);
-
+        self.reviewCheckbox = ko.observable(true);
         self.descLength = ko.computed(function () {
 
             return self.detailedReview().replace(/\n|\r/g, "").length;
@@ -520,7 +520,7 @@ docReady(function () {
         self.validateReviewForm = function () {
             var isValidDesc = self.validate.detailedReview();
             var isValidTitle = self.validate.reviewTitle();
-            var isValidCheckbox = self.validate.reviewSubmitCheckbox();
+          
 
             reviewErrorFields = "";
             if (isValidTitle && !isValidDesc)
@@ -530,7 +530,7 @@ docReady(function () {
             else if (!isValidDesc && !isValidTitle)
                 reviewErrorFields = reviewErrorFields + '_' + 'Review_Title' + '_' + 'Review_Description';
            
-            var isValid = isValidDesc && isValidTitle && isValidCheckbox;
+            var isValid = isValidDesc && isValidTitle && self.reviewCheckbox();
             if (isValid) {
                 triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
             }
@@ -583,21 +583,9 @@ docReady(function () {
                 }
 
                 return isValid;
-            },
-
-            reviewSubmitCheckbox : function () {
-                var isChecked = ($('#submitReviewCheckbox').is(':checked'));
-                if (!isChecked) {
-                    reviewCheckbox.show();
-                    reviewCheckbox.addClass("error-text");
-                    reviewCheckbox.text("This is a compulsory field!");
-                }
-                else
-                {
-                    reviewCheckbox.hide();
-                }
-                return isChecked;
             }
+
+           
         };
 
         self.SaveToBwCache = function () {
