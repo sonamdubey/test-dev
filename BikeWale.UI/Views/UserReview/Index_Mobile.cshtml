@@ -1,8 +1,8 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewLandingVM
 
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/review/listing.css' inline>";
-    Model.Page_JS_Path = "/m/src/review/listing.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/review/landing.css' inline>";
+    Model.Page_JS_Path = "/m/src/review/landing.js";
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
@@ -26,50 +26,44 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="swiper-card">
-                            <a href="" title="" class="block">
-                                <div class="swiper-image-preview">
-                                    <span class="review-icon">
-                                    </span>
+                            <div class="swiper-image-preview">
+                                <span class="white-user-icon">
+                                </span>
+                            </div>
+                            <div class="swiper-details-block font12">
+                                <h3 class="margin-bottom10">5000+ user reviews</h3>
+                                <div class="font14 text-slate-grey">
+                                    Verified, unbiased & detailed reviews from real owners
                                 </div>
-                                <div class="swiper-details-block font12">
-                                    <h3 class="margin-bottom10">5000+ user reviews</h3>
-                                    <div class="font14 text-slate-grey">
-                                        Verified, unbiased & detailed reviews from real owners
-                                    </div>
-                                </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="swiper-card">
-                            <a href="" title="" class="block">
-                                <div class="swiper-image-preview">
-                                    <span class="review-icon">
-                                    </span>
+                            <div class="swiper-image-preview">
+                                <span class="white-like-disklike-icon">
+                                </span>
+                            </div>
+                            <div class="swiper-details-block font12">
+                                <h3 class="margin-bottom10">Pros & cons</h3>
+                                <div class="font14 text-slate-grey">
+                                    Pros and cons & maintenance tips from users
                                 </div>
-                                <div class="swiper-details-block font12">
-                                    <h3 class="margin-bottom10">Pros & cons</h3>
-                                    <div class="font14 text-slate-grey">
-                                        Pros and cons & maintenance tips from users
-                                    </div>
-                                </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="swiper-card">
-                            <a href="" title="" class="block">
-                                <div class="swiper-image-preview">
-                                    <span class="review-icon">
-                                    </span>
+                            <div class="swiper-image-preview">
+                                <span class="white-bike-icon">
+                                </span>
+                            </div>
+                            <div class="swiper-details-block font12">
+                                <h3 class="margin-bottom10">200+ Bike Models</h3>
+                                <div class="font14 text-slate-grey">
+                                    Reviews for over 200 models available on BikeWale
                                 </div>
-                                <div class="swiper-details-block font12">
-                                    <h3 class="margin-bottom10">200+ Bike Models</h3>
-                                    <div class="font14 text-slate-grey">
-                                        Reviews for over 200 models available on BikeWale
-                                    </div>
-                                </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
 
@@ -105,8 +99,6 @@
                         <div class="bw-blackbg-tooltip errorText"></div>
                     </div>
                     <div id="select-bike-cover-popup" class="cover-window-popup text-left" data-bind="with: bikeSelection">
-
-
                         <div class="ui-corner-top">
                             <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="click: closeBikePopup">
                                 <span class="bwmsprite fa-angle-left"></span>
@@ -115,8 +107,6 @@
                             <div class="clear"></div>
                         </div>
                         <div class="bike-banner"></div>
-
-
                         <div class="cover-popup-body" data-bind="visible: currentStep() == 1">
                             <div class="cover-popup-body-head">
                                 <p class="no-back-btn-label head-label inline-block">Select Make</p>
@@ -126,11 +116,10 @@
                                 {
                                     <li data-bind="click: makeChanged">
                                         <span data-masking="@make.MaskingName" data-id="@make.MakeId">@make.MakeName</span>
-                                </li>
+                                    </li>
                                 }
                             </ul>
                         </div>
-
                         <div class="cover-popup-body" data-bind="visible: currentStep() == 2" style="display: none;">
                             <div class="cover-popup-body-head">
                                 <div class="body-popup-back cur-pointer inline-block" data-bind="click: modelBackBtn">
@@ -143,9 +132,7 @@
                                     <span data-bind="text: modelName, attr: { 'data-id': modelId }"></span>
                                 </li>
                             </ul>
-
                         </div>
-
                         <div class="cover-popup-loader-body" data-bind="visible: IsLoading()" style="display: none;">
                             <div class="cover-popup-loader"></div>
                             <div class="cover-popup-loader-text font14" data-bind="text: LoadingText()">Loading bike models...</div>
@@ -155,7 +142,6 @@
                 </div>
             </div>
             <span id="querystring" data-query="v5EINN8tC9b114V0VycqiQ==">
-
             </span>
         </section>
 
@@ -170,14 +156,6 @@
                 </div>
             </section>
         }
-        <section>
-            <div class="read-expert-review__banner margin-bottom20">
-                <a class="review__banner-link text-truncate" href="/m/expert-reviews/" title="">
-                    <span class="expert-review-icon--white"></span>Read Reviews by our Experts
-                    <span class="bwmsprite right-arrow"></span>
-                </a>
-            </div>
-        </section>
     </div>
 
     <div id="expertReviewContent" class="bw-tabs-data">
@@ -186,50 +164,44 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="swiper-card">
-                            <a href="" title="" class="block">
-                                <div class="swiper-image-preview">
-                                    <span class="review-icon">
-                                    </span>
+                            <div class="swiper-image-preview">
+                                <span class="white-expert-icon">
+                                </span>
+                            </div>
+                            <div class="swiper-details-block font12">
+                                <h3 class="margin-bottom10">500+ expert reviews</h3>
+                                <div class="font14 text-slate-grey">
+                                    Unbiased & detailed reviews from BikeWale expert
                                 </div>
-                                <div class="swiper-details-block font12">
-                                    <h3 class="margin-bottom10">500+ expert reviews</h3>
-                                    <div class="font14 text-slate-grey">
-                                        Unbiased & detailed reviews from BikeWale expert
-                                    </div>
-                                </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="swiper-card">
-                            <a href="" title="" class="block">
-                                <div class="swiper-image-preview">
-                                    <span class="review-icon">
-                                    </span>
+                            <div class="swiper-image-preview">
+                                <span class="comparison-icon">
+                                </span>
+                            </div>
+                            <div class="swiper-details-block font12">
+                                <h3 class="margin-bottom10">100+ comparison tests</h3>
+                                <div class="font14 text-slate-grey">
+                                    Detailed comparison test of bikes on 10 parameters
                                 </div>
-                                <div class="swiper-details-block font12">
-                                    <h3 class="margin-bottom10">100+ comparison tests</h3>
-                                    <div class="font14 text-slate-grey">
-                                        Detailed comparison test of bikes on 10 parameters
-                                    </div>
-                                </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="swiper-card">
-                            <a href="" title="" class="block">
-                                <div class="swiper-image-preview">
-                                    <span class="review-icon">
-                                    </span>
+                            <div class="swiper-image-preview">
+                                <span class="white-first-ride-icon">
+                                </span>
+                            </div>
+                            <div class="swiper-details-block font12">
+                                <h3 class="margin-bottom10">First ride reviews</h3>
+                                <div class="font14 text-slate-grey">
+                                    Know the expert opinion on recently launched biked
                                 </div>
-                                <div class="swiper-details-block font12">
-                                    <h3 class="margin-bottom10">First ride reviews</h3>
-                                    <div class="font14 text-slate-grey">
-                                        Know the expert opinion on recently launched biked
-                                    </div>
-                                </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
 
@@ -238,12 +210,9 @@
             </div>
         </section>
 
-
         @if (Model.BikesWithExpertReviews != null)
         {
-
-                @Html.Partial("~/views/UserReview/_PopularBikesWithExpertReviews_Mobile.cshtml", Model.BikesWithExpertReviews)
-
+            @Html.Partial("~/views/UserReview/_PopularBikesWithExpertReviews_Mobile.cshtml", Model.BikesWithExpertReviews)
         }
 
         <h2 class="font18 text-center margin-top20 margin-bottom10">Recently added reviews</h2>
@@ -268,27 +237,17 @@
         }
 
         <section>
-            <h2 class="font18 text-center margin-top15 margin-bottom10">Know your Experts</h2>
+            <h2 class="font18 text-center margin-top15 margin-bottom10">Know our Experts</h2>
             <div class="author-block">
                 <span class="author-block__title">men of steel</span>
                 <p class="author-block__description">Our best people who lean into corners, pop wheelies and ride their adrenaline out of the bike.</p>
                 @if (Model.Authors != null && Model.Authors.Any())
                 {
                     <div class="box-content">
-                        @*<h2 class="list-heading padding-left20 padding-top15">Other authors</h2>*@
                         @Html.Partial("~/Views/Author/_AuthorsListCarousel_Mobile.cshtml", Model.Authors)
                     </div>
                 }
             </div>
-            <div class="read-user-review__banner margin-bottom20">
-                <a class="review__banner-link text-truncate" href="~/m/expert-reviews/" title="View all expert reviews">
-                    <span class="review-icon--white"></span>Read Reviews by our Experts
-                    <span class="bwmsprite right-arrow"></span>
-                </a>
-            </div>
         </section>
-
-        
-
     </div>
 </div>

@@ -33,7 +33,7 @@
                                 <li class="jcarousel-card">
 
                                     <div class="carousel-image-preview">
-                                        <span class="review-icon">
+                                        <span class="white-user-icon">
                                         </span>
                                     </div>
                                     <div class="carousel-details-block font12">
@@ -47,7 +47,7 @@
                                 <li class="jcarousel-card">
 
                                     <div class="carousel-image-preview">
-                                        <span class="review-icon">
+                                        <span class="white-like-disklike-icon">
                                         </span>
                                     </div>
                                     <div class="carousel-details-block font12">
@@ -61,7 +61,7 @@
                                 <li class="jcarousel-card">
 
                                     <div class="carousel-image-preview">
-                                        <span class="review-icon">
+                                        <span class="white-bike-icon">
                                         </span>
                                     </div>
                                     <div class="carousel-details-block font12">
@@ -96,7 +96,7 @@
                     <p class="font18 text-white text-bold margin-bottom10">Help fellow bikers make the right choice</p>
                     <p class="font13 text-white margin-top5 margin-bottom30">Stand a chance to win Amazon voucher worth Rs. 2,000</p>
                     <div class="locator-search-container">
-                        <div class="locator-search-brand form-control-box">
+                        <div class="locator-search-make form-control-box">
                             <select id="reviewSelectMake" class="form-control make-model-chosen chosen-select">
                                 <option value="0">Select a Make</option>
                                 @foreach (var make in Model.Makes)
@@ -108,7 +108,7 @@
                             <span class="bwsprite error-icon errorIcon hide"></span>
                             <div class="bw-blackbg-tooltip errorText hide"></div>
                         </div>
-                        <div class="locator-search-city form-control-box">
+                        <div class="locator-search-model form-control-box">
                             <select id="reviewSelectModel" class="make-model-chosen form-control  chosen-select">
                                 <option value="0">Select a Model</option>
                             </select>
@@ -116,7 +116,7 @@
                             <span class="bwsprite error-icon errorIcon hide"></span>
                             <div class="bw-blackbg-tooltip errorText hide"></div>
                         </div>
-                        <input type="button" id="applyFiltersBtn" class="btn btn-orange btn-lg locator-search-btn margin-bottom5" value="Search" />
+                        <input type="button" id="applyFiltersBtn" class="btn btn-orange btn-lg locator-search-btn margin-bottom5" value="Write and win &#x20b9; 2,000" />
                         <span id="querystring" data-query="v5EINN8tC9Z6yeYD2azFxQ==">
 
                             <input type="hidden" id="makeId" value="0">
@@ -134,22 +134,9 @@
                         @Html.Partial("~/views/UserReview/_RecentUploadedReviews.cshtml", Model.RecentUserReviewsList)
                     </div>
                 }
-
-
-                <div class="grid-12 omega alpha">
-                    <div class="read-expert-review__banner margin-bottom20">
-                        <a class="review__banner-link text-truncate" href="" title="">
-                            <span class="expert-review-icon--white"></span>Read Reviews by our Experts
-                            <span class="bwmsprite right-arrow"></span>
-                        </a>
-                    </div>
-
-                </div>
             </div>
         </section>
     </div>
-
-
 
     <div id="expertReviewContent" class="bw-tabs-data" style="display: none">
         <section class="content-box-shadow  padding-bottom20">
@@ -161,7 +148,7 @@
                                 <li class="jcarousel-card">
 
                                     <div class="carousel-image-preview">
-                                        <span class="review-icon">
+                                        <span class="white-expert-icon">
                                         </span>
                                     </div>
                                     <div class="carousel-details-block font12">
@@ -175,7 +162,7 @@
                                 <li class="jcarousel-card">
 
                                     <div class="carousel-image-preview">
-                                        <span class="review-icon">
+                                        <span class="comparison-icon">
                                         </span>
                                     </div>
                                     <div class="carousel-details-block font12">
@@ -189,7 +176,7 @@
                                 <li class="jcarousel-card">
 
                                     <div class="carousel-image-preview">
-                                        <span class="review-icon">
+                                        <span class="white-first-ride-icon">
                                         </span>
                                     </div>
                                     <div class="carousel-details-block font12">
@@ -228,34 +215,15 @@
 
         <section>
             <div class="container section-bottom-margin">
-                <h2 class="text-bold text-center margin-bottom20 font22 margin-top20 margin-top30">Know your Experts</h2>
+                <h2 class="text-bold text-center margin-bottom20 font22 margin-top20 margin-top30">Know our Experts</h2>
                 <div class="grid-12">
                     <div class="author-block">
                         <span class="author-block__title">MEN OF STEEL</span>
                         <p class="author-block__description">Our best people who lean into corners, pop wheelies and ride their adrenaline out of the bike.</p>
-
-                        <div id="author__carousel" class="jcarousel-wrapper inner-content-carousel">
-                            <span class="detail-author__swiper-title">Our Arsenal</span>
-                            @Html.Partial("~/Views/Author/_AuthorsListCarousel.cshtml", Model.Authors)
-                        </div>
-                    </div>
-                </div>
-                <div class="grid-12">
-                    <div class="read-user-review__banner margin-bottom20 margin-top20">
-                        <a class="review__banner-link text-truncate"  href="~/expert-reviews/" title="View all expert reviews">
-                            <span class="review-icon--white"></span>Read Reviews by our Experts
-                            <span class="bwmsprite right-arrow"></span>
-                        </a>
+                        @Html.Partial("~/Views/Author/_AuthorsListCarousel.cshtml", Model.Authors)
                     </div>
                 </div>
             </div>
-
         </section>
-
-
     </div>
-
-
-
-
 </div>
