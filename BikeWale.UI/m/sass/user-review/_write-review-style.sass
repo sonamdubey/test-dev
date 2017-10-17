@@ -677,3 +677,28 @@ body
     vertical-align: middle
 
 /*Rating circle Ends here
+
+// terms and condition
+.input-type-checkbox
+	display: none
+
+.checkbox-icon
+	width: 14px
+	height: 14px
+	background-position: -174px -415px
+	position: relative
+	top: 2px
+
+.checkbox-label
+	display: inline-block
+	vertical-align: top
+	width: 92%
+	padding-left: 5px
+	cursor: pointer
+
+.input-type-checkbox
+	&:checked
+		~ label
+			.checkbox-icon
+				background-position: -174px -430px
+
