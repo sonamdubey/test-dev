@@ -14,7 +14,7 @@
                                 <span class="swiper-lazy-preloader"></span>
                             </div>
                             <div class="swiper-details-block">
-                                <h3 class="text-black margin-bottom5">@article.Title.Truncate(45)</h3>
+                                <h3 class="text-black margin-bottom5">@Bikewale.Utility.FormatDescription.TruncateDescription(article.Title,45)</h3>
                                 <div class="grid-6 alpha padding-right5">
                                     <span class="bwmsprite calender-grey-sm-icon"></span>
                                     <span class="article-stats-content-no-truncate">@article.DisplayDate.ToString("dd MMM yyyy")</span>

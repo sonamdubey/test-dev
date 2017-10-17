@@ -158,11 +158,12 @@
 
             </span>
         </section>
+
         @if (Model.RecentUserReviewsList != null)
         {
             <section>
-                <h2 class="font18 text-center margin-top20 margin-bottom15">Recently uploaded reviews</h2>
-                <div class="user-review-swiper bw-tabs-data content-box-shadow card-bottom-margin">
+                <h2 class="font18 text-center margin-top20 margin-bottom15">Recently added reviews</h2>
+                <div class="user-review-swiper content-box-shadow card-bottom-margin">
                     <div class="swiper-container user-review__swiper">
                         @Html.Partial("~/views/UserReview/_RecentUploadedReviews_Mobile.cshtml", Model.RecentUserReviewsList)
                     </div>
@@ -245,7 +246,7 @@
 
         }
 
-        <h2 class="font18 text-center margin-top20 margin-bottom10">Recently uploaded reviews</h2>
+        <h2 class="font18 text-center margin-top20 margin-bottom10">Recently added reviews</h2>
         @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
             {
             <section>

@@ -14,7 +14,7 @@
                         string bikeUrl = UrlFormatter.BikePageUrl(review.Make.MaskingName, review.Model.MaskingName);
                         <div class="swiper-slide">
                             <div class="swiper-card">
-                                <a href="m@(bikeUrl)" title="" class="block">
+                                <a href="/m@(bikeUrl)" title="@bikeName" class="block">
                                     <div class="swiper-image-preview">
                                         <img class="swiper-lazy" title="@bikeName" alt="@bikeName" data-src="@Image.GetPathToShowImages(review.OriginalImagePath,review.HostUrl,ImageSize._174x98,QualityFactor._70)" src="">
                                     </div>
@@ -40,7 +40,7 @@
                                         </p>
                                     </div>
                                 </a>
-                                <a class="more-review text-truncate" href="m@(string.Format("{0}expert-reviews/",bikeUrl))" title="@bikeName Expert">
+                                <a class="more-review text-truncate" href="/m@(string.Format("{0}expert-reviews/",bikeUrl))" title="@bikeName Expert">
                                     <span class="expert-review-sm"></span>@review.ExpertReviewCount expert reviews
                                     <span class="bwmsprite right-arrow"></span>
                                 </a>
