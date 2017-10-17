@@ -24,10 +24,13 @@ namespace Bikewale.Controllers
         /// Summary: Indexes the lead capture.
         /// </summary>
         [Route("m/popup/leadcapture/")]
-        public ActionResult Index_LeadCapture(string q)
+        public ActionResult Index_LeadCapture(string q, ushort platformId = 0)
         {
             PopupLeadCaptureModel objLead = new PopupLeadCaptureModel(q);
             PopupLeadCaptureVM viewModel = objLead.GetData();
+            viewModel.LeadCapture.IsAmp = platformId <= 0;
+            viewModel.LeadCapture.IsApp = platformId == 3;
+            viewModel.LeadCapture.PlatformId = (ushort)(platformId > 0 ? platformId : 2);
             return View(viewModel);
         }
 

@@ -151,7 +151,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
         /// <param name="deviceId">The device identifier.</param>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO)), Route("api/v3/model/versionlistprice/")]
-        public IHttpActionResult GetV3(uint modelId, int? cityId = null, int? areaId = null, string deviceId = null)
+        public IHttpActionResult GetV3(uint modelId, uint? cityId = null, int? areaId = null, string deviceId = null)
         {
             if (cityId < 0 || modelId < 0)
             {
@@ -167,15 +167,15 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                 {
                     PQByCityArea pqByCityArea = new PQByCityArea();
                     string platformId = string.Empty;
-                    UInt16 platform;
+                    ushort platform;
                     if (Request.Headers.Contains("platformId"))
                     {
                         platformId = Request.Headers.GetValues("platformId").First().ToString();
                     }
-                    UInt16.TryParse(platformId, out platform);
-                    pqEntity = pqByCityArea.GetVersionListV2((int)modelId, objVersionsList, cityId, areaId, platform, null, null, deviceId);
+                    ushort.TryParse(platformId, out platform);
+                    pqEntity = pqByCityArea.GetVersionListV2((int)modelId, objVersionsList, (int)cityId, areaId, platform, null, null, deviceId);
                     objPQDTO = ModelMapper.ConvertV3(pqEntity);
-                    objPQDTO.Campaign = Bikewale.Service.AutoMappers.ManufacturerCampaign.ManufacturerCampaignMapper.Convert(pqEntity.PqId, modelId, (uint)pqEntity.VersionList.First().VersionId, pqEntity.DealerEntity, pqEntity.ManufacturerCampaign);
+                    objPQDTO.Campaign = Bikewale.Service.AutoMappers.ManufacturerCampaign.ManufacturerCampaignMapper.Convert(platform, pqEntity.PqId, modelId, (uint)pqEntity.VersionList.First().VersionId, cityId.Value, pqEntity.DealerEntity, pqEntity.ManufacturerCampaign, (uint)pqEntity.VersionList.First().Price, pqEntity.VersionList.First().ModelName, pqEntity.VersionList.First().ModelName);
                     return Ok(objPQDTO);
                 }
                 else
