@@ -39,8 +39,13 @@ namespace Bikewale.Models.PopUp
             try
             {
                 //string decodedQueryString = Utils.Utils.DecryptTripleDES(encodedQueryString);
-                uint _modelId, _cityId, _areaId;
-                string _bikeName, _location, _city, _area;
+                uint _modelId,
+                    _cityId,
+                    _areaId;
+                string _bikeName,
+                    _location,
+                    _city,
+                    _area;
                 bool _isManufacturerCampaign;
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(qs);
@@ -62,7 +67,7 @@ namespace Bikewale.Models.PopUp
 
                 bool.TryParse(queryCollection["isManufacturer"], out _isManufacturerCampaign);
                 viewModel.Url = queryCollection["url"];
-                viewModel.LeadCapture = new LeadCaptureEntity()
+                viewModel.LeadCapture = new LeadCaptureEntity
                 {
                     ModelId = _modelId,
                     Area = _area,

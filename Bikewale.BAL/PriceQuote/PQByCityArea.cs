@@ -612,9 +612,10 @@ namespace Bikewale.BAL.PriceQuote
 
                        
                     }
-
-                    _objManufacturerCampaign.SaveManufacturerIdInPricequotes((uint)pqEntity.PqId, pqEntity.ManufacturerCampaign.LeadCampaign.DealerId);
-
+                    if (pqEntity.ManufacturerCampaign != null && pqEntity.ManufacturerCampaign.LeadCampaign != null)
+                    {
+                        _objManufacturerCampaign.SaveManufacturerIdInPricequotes((uint)pqEntity.PqId, pqEntity.ManufacturerCampaign.LeadCampaign.DealerId);
+                    }
                 }
             }
             catch (Exception ex)
