@@ -30,7 +30,6 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.BikeSeries;
 using Bikewale.Models.PriceInCity;
-using Bikewale.Models.ServiceCenters;
 using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
@@ -224,7 +223,7 @@ namespace Bikewale.Models.BikeModels
                     product.Image = Bikewale.Utility.Image.GetPathToShowImages(_objData.ModelPageEntity.ModelDetails.OriginalImagePath, _objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._210x118);
                     product.Model = _objData.ModelPageEntity.ModelDetails.ModelName;
 
-                    product.Brand = new Brand()
+                    product.Brand = new Brand
                     {
                         Name = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
                         Url = string.Format("{0}/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName)
@@ -232,7 +231,7 @@ namespace Bikewale.Models.BikeModels
 
                     if (!_objData.IsUpcomingBike && _objData.ModelPageEntity.ModelDetails.RatingCount > 0)
                     {
-                        product.AggregateRating = new AggregateRating()
+                        product.AggregateRating = new AggregateRating
                         {
                             RatingCount = (uint)_objData.ModelPageEntity.ModelDetails.RatingCount,
                             RatingValue = Convert.ToDouble(_objData.ModelPageEntity.ModelDetails.ReviewUIRating),
@@ -247,7 +246,7 @@ namespace Bikewale.Models.BikeModels
                     }
                     if (_objData.IsUpcomingBike)
                     {
-                        product.AggregateOffer = new AggregateOffer()
+                        product.AggregateOffer = new AggregateOffer
                         {
                             LowPrice = (uint)_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMin,
                             HighPrice = (uint)_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMax
@@ -255,7 +254,7 @@ namespace Bikewale.Models.BikeModels
                     }
                     else
                     {
-                        product.AggregateOffer = new AggregateOffer()
+                        product.AggregateOffer = new AggregateOffer
                         {
                             LowPrice = (uint)_objData.ModelPageEntity.ModelDetails.MinPrice,
                             HighPrice = (uint)_objData.ModelPageEntity.ModelDetails.MaxPrice
@@ -280,7 +279,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ModelPage.SetPageJSONLDSchema => BikeName: {0}", _objData.BikeName));
+                new ErrorClass(ex, string.Format("Bikewale.ModelPage.SetPageJSONLDSchema => BikeName: {0}", _objData.BikeName));
             }
         }
 
@@ -329,7 +328,7 @@ namespace Bikewale.Models.BikeModels
                 {
                     if (_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
                     {
-                        property = new AdditionalProperty()
+                        property = new AdditionalProperty
                         {
                             Name = "Mileage",
                             Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall),
@@ -341,7 +340,7 @@ namespace Bikewale.Models.BikeModels
 
                     if (_objData.ModelPageEntity.ModelVersionSpecs.Displacement > 0)
                     {
-                        property = new AdditionalProperty()
+                        property = new AdditionalProperty
                         {
                             Name = "Displacement",
                             Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.Displacement),
@@ -353,7 +352,7 @@ namespace Bikewale.Models.BikeModels
 
                     if (_objData.ModelPageEntity.ModelVersionSpecs.MaxPower > 0)
                     {
-                        property = new AdditionalProperty()
+                        property = new AdditionalProperty
                         {
                             Name = "Max Power",
                             MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.MaxPower),
@@ -365,7 +364,7 @@ namespace Bikewale.Models.BikeModels
                     }
                     if (_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight > 0)
                     {
-                        property = new AdditionalProperty()
+                        property = new AdditionalProperty
                         {
                             Name = "Weight",
                             Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight),
@@ -377,7 +376,7 @@ namespace Bikewale.Models.BikeModels
 
                     if (_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
                     {
-                        property = new AdditionalProperty()
+                        property = new AdditionalProperty
                         {
                             Name = "Top speed",
                             MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed),
