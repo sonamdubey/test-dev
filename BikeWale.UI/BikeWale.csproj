@@ -2911,7 +2911,7 @@
     <Content Include="m\src\photos\photos.js" />
     <Content Include="m\src\photos\modelgallery.js" />
     <Content Include="m\src\priceincity.js" />
-    <Content Include="m\src\review\listing.js" />
+    <Content Include="m\src\review\landing.js" />
     <Content Include="m\src\scooters-by-make.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
@@ -3057,7 +3057,7 @@
     <Content Include="sass\partials\_overall-floating-tabs.sass" />
     <Content Include="sass\partials\_collapsible-content.sass" />
     <Content Include="sass\partials\_pagination.sass" />
-    <Content Include="sass\m\review\listing.sass" />
+    <Content Include="sass\m\review\landing.sass" />
     <Content Include="sass\review\landing.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />

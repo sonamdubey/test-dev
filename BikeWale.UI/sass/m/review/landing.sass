@@ -23,7 +23,6 @@
 
 .banner-review
     height: 200px
-    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/home-top-banner.jpg) center top no-repeat #161209
     background-size: cover
 
 .banner-head
@@ -104,7 +103,33 @@
 	-moz-border-radius: 30px
 	-webkit-border-radius: 30px
 	border-radius: 30px
-	background-image: linear-gradient(-180deg, #3799A7 0%, #41B4C4 100%)
+	background-color: #41B4C4
+	background-repeat: no-repeat
+	background-position: center
+
+.white-expert-icon
+	@extend .review-icon
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/expert-review-23x25.png')
+
+.comparison-icon
+	@extend .review-icon
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/comparison-24x25.png')
+
+.white-first-ride-icon
+	@extend .review-icon
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/first-ride-30x25.png')
+
+.white-user-icon
+	@extend .review-icon
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/user-review-24x24.png')
+
+.white-like-disklike-icon
+	@extend .review-icon
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/like-dislike-26x26.png')
+
+.white-bike-icon
+	@extend .review-icon
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bike-36x20.png')
 
 //expert-review-swiper 
 .expert-review-swiper 
@@ -119,7 +144,7 @@
 
 //carousel
 .user-review-swiper
-	margin-bottom: 10px
+	margin-bottom: 15px
 
 .user-review-swiper .swiper-card
 	width: 210px
@@ -133,8 +158,10 @@
 	width: 210px
 	min-height: 230px
 
-.swiper-container.card-container
-	padding-bottom: 10px
+.user-review-swiper
+	.swiper-container.card-container
+		padding-bottom: 15px
+		padding-top: 10px
 
 
 .user-review-swiper .swiper-image-preview
@@ -232,7 +259,6 @@
 		font-size: $font-size
 		font-weight: 700
 		color: $color
-		text-transform: uppercase
 		margin-bottom: 5px
 
 @mixin contest-banner__subtitle($font-size: 14px, $color: #e2e2e2)
@@ -267,6 +293,7 @@
 		z-index: 2
 #form-model-field
 	display: none
+
 //expert
 
 #expertReviewContent
@@ -278,7 +305,6 @@
 .user-review__swiper .swiper-slide,
 .user-review__swiper .swiper-card
 	width: 250px
-
 
 .user-review__swiper .swiper-card
 	width: 250px
@@ -387,69 +413,6 @@
     font-size: 10px
     margin-bottom: 10px
 
-.read-user-review__banner
-	height: 88px
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/expert-review-banner-976x88.jpg') no-repeat center
-	background-size: cover
-	position: relative
-
-	&:before
-		content: ' '
-		display: block
-		width: 100%
-		height: 88px
-		position: absolute
-		top: 0
-		left: 0
-		background-color: rgba(0, 0, 0, 0.6)
-.read-expert-review__banner
-	height: 88px
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/user-review-banner-976x88.jpg') no-repeat center
-	background-size: cover
-	position: relative
-
-	&:before
-		content: ' '
-		display: block
-		width: 100%
-		height: 88px
-		position: absolute
-		top: 0
-		left: 0
-		background-color: rgba(0, 0, 0, 0.6)
-
-.review__banner-link
-	color: white
-	font-size: 16px
-	font-weight: 600
-	display: block
-	padding-top: 35px
-	z-index: 1
-	position: relative
-	max-width: 360px
-	margin: 0 auto
-
-.review-icon--white
-	display: inline-block
-	vertical-align: middle
-	margin-left: 20px
-	margin-right: 15px
-	height: 22px
-	width: 22px
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/review-22x24.png')
-
-.advertise.margin-bottom20
-	margin-bottom: 20px
-
-.expert-review-icon--white
-	display: inline-block
-	vertical-align: middle
-	margin-left: 20px
-	margin-right: 15px
-	height: 22px
-	width: 22px
-	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/expert-review-22x24.png')
-
 //expert review carousel
 .expert-review-list
     padding-top: 5px
@@ -493,7 +456,7 @@
 //author block
 
 .author-block
-	height: 415px
+	height: 390px
 	margin-bottom: 20px
 	//background-color: #41B4C4
 	background: url('https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/m/expert-review-banner360x459.jpg') no-repeat center top
@@ -504,7 +467,7 @@
 	&:before
 		content: ''
 		display: block
-		height: 415px
+		height: 390px
 		position: absolute
 		top: 0
 		left: 0
@@ -517,7 +480,8 @@
 
 
 	.swiper-container.card-container
-		padding-bottom: 0;
+		padding-bottom: 0
+		padding-top: 15px
 
 .author-block__title
 	display: block
@@ -536,7 +500,7 @@
 	text-align: center
 	position: relative
 
-/* detail-author swiper */
+// detail-author swiper
 .author-block .swiper-container
     background: white
     margin-left: 10px
@@ -552,20 +516,22 @@
 	text-align: center
 	font-weight: 700
 
-.detail-author__swiper .swiper-image-preview
-    height: auto
-    width: 160px
-    padding: 15px 15px 10px
-    text-align: center
+.detail-author__swiper
+	.swiper-image-preview
+		height: auto
+		width: 160px
+		padding: 15px 15px 10px
+		text-align: center
+		min-height: 128px
 
-.detail-author__swiper .swiper-image-preview img
-    height: auto
-    width: 140px
-    max-width: 100%
+		img
+			height: auto
+			width: 140px
+			max-width: 100%
 
-.detail-author__swiper .swiper-details-block
-    padding-top: 5px
-    padding-bottom: 15px
+	.swiper-details-block
+		padding-top: 5px
+		padding-bottom: 15px
 
 .detail-author__swiper .swiper-card
     min-height: 190px
