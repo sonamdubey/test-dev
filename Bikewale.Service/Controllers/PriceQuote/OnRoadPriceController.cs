@@ -585,7 +585,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                 manufacturerCampaign = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
                             }
                         }
-                        onRoadPrice.Campaign = ManufacturerCampaignMapper.Convert(objPQ.PQId, modelId, objPQ.VersionId, objDealerQuotation, manufacturerCampaign);
+                        onRoadPrice.Campaign = ManufacturerCampaignMapper.Convert((ushort)sourceType, objPQ.PQId, modelId, objPQ.VersionId, cityId, objDealerQuotation, manufacturerCampaign, 0, bpqOutput.MakeName, bpqOutput.ModelName);
                     }
                     return Ok(onRoadPrice);
                 }
@@ -682,7 +682,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         dpQuotationOutput.PriceQuoteId = pqId;
 
                     manufactureCampaign = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
-                    dpQuotationOutput.Campaign = ManufacturerCampaignMapper.Convert(pqId, modelId, (uint)bwPQ.Varients.First().objVersion.VersionId, objDealerQuotation, manufactureCampaign);
+                    dpQuotationOutput.Campaign = ManufacturerCampaignMapper.Convert(platformId, pqId, modelId, (uint)bwPQ.Varients.First().objVersion.VersionId, cityId, objDealerQuotation, manufactureCampaign, bwPQ.Varients.FirstOrDefault().OnRoadPrice, bwPQ.Varients.FirstOrDefault().objMake.MakeName, bwPQ.Varients.FirstOrDefault().objModel.ModelName);
                     return Ok(dpQuotationOutput);
                 }
                 else

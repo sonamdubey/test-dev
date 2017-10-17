@@ -223,12 +223,14 @@ namespace Bikewale.BAL.PriceQuote
                     pqEntity.IsCityExists = selectedCity != null;
                     if (pqEntity.IsCityExists && cityList != null)
                     {
+                        pqEntity.City = selectedCity;
                         var areaList = GetAreaForCityAndModel(modelID, Convert.ToInt16(cityId));
                         pqEntity.IsAreaExists = (areaList != null && areaList.Any());
                         // If area is provided, check if area exists in list
-                        if (areaId > 0)
+                        if (areaId > 0 && pqEntity.IsAreaExists)
                         {
                             pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
+                            pqEntity.Area = areaList.FirstOrDefault(p => p.AreaId == areaId);
                         }
                         if (selectedCity.HasAreas && pqEntity.IsAreaSelected)
                         {
@@ -472,12 +474,14 @@ namespace Bikewale.BAL.PriceQuote
                     pqEntity.IsCityExists = selectedCity != null;
                     if (pqEntity.IsCityExists)
                     {
+                        pqEntity.City = selectedCity;
                         var areaList = GetAreaForCityAndModel(modelId, Convert.ToInt16(cityId));
                         pqEntity.IsAreaExists = (areaList != null && areaList.Any());
                         // If area is provided, check if area exists in list
-                        if (areaId > 0)
+                        if (areaId > 0 && pqEntity.IsAreaExists)
                         {
                             pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
+                            pqEntity.Area = areaList.FirstOrDefault(p => p.AreaId == areaId);
                         }
                         if (selectedCity != null && selectedCity.HasAreas)
                         {

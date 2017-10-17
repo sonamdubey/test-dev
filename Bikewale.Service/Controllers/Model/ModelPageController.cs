@@ -437,8 +437,8 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     if (Request.Headers.Contains("platformId"))
                     {
-                        string platformId = Request.Headers.GetValues("platformId").First().ToString();
-                        if (platformId == "3" && cityId.HasValue && cityId.Value > 0)
+                        ushort platformId;
+                        if (ushort.TryParse(Request.Headers.GetValues("platformId").First().ToString(), out platformId) && platformId == 3 && cityId.HasValue && cityId.Value > 0)
                         {
 
                             #region On road pricing for versions
@@ -479,21 +479,21 @@ namespace Bikewale.Service.Controllers.Model
                                 }
 
                                 if (pqEntity != null && pqEntity.IsExShowroomPrice)
-                                    objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null);
+                                    objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, platformId);
                                 else
                                     objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity,
-                                    _dealers.GetDealerQuotationV2(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId, Convert.ToUInt32(areaId.HasValue ? areaId.Value : 0)));
+                                    _dealers.GetDealerQuotationV2(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity != null ? pqEntity.DealerId : 0, Convert.ToUInt32(areaId.HasValue ? areaId.Value : 0)), platformId);
                             }
                             else
                             {
-                                objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null);
+                                objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, platformId);
                             }
 
                             #endregion
                         }
                         else
                         {
-                            objDTOModelPage = ModelMapper.ConvertV5(objModelPage, null, null);
+                            objDTOModelPage = ModelMapper.ConvertV5(objModelPage, null, null, platformId);
                         }
                     }
                     else

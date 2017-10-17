@@ -23,5 +23,7 @@ namespace Bikewale.Entities.PriceQuote
         public int SecondaryDealerCount { get; set; }
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DealerEntity { get; set; }
         public ManufacturerCampaignEntity ManufacturerCampaign { get; set; }
+        public Entities.Location.CityEntityBase City { get; set; }
+        public Entities.Location.AreaEntityBase Area { get; set; }
     }
 }
