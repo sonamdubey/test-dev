@@ -32,7 +32,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                     var dealerOffer = new List<DPQOffer>();
                     foreach (var offer in dealers.PrimaryDealer.OfferList)
                     {
-                        var addOffer = new DPQOffer()
+                        var addOffer = new DPQOffer
                         {
                             Id = (int)offer.OfferId,
                             OfferCategoryId = (int)offer.OfferCategoryId,
@@ -62,7 +62,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
 
             if (manufacturerCampaign != null && manufacturerCampaign.LeadCampaign != null && (dealers == null || dealers.PrimaryDealer == null || dealers.PrimaryDealer.DealerDetails == null))
             {
-                ManufactureCampaignLeadEntity LeadCampaign = new ManufactureCampaignLeadEntity()
+                ManufactureCampaignLeadEntity LeadCampaign = new ManufactureCampaignLeadEntity
                 {
                     Area = GlobalCityArea.GetGlobalCityArea().Area,
                     CampaignId = manufacturerCampaign.LeadCampaign.CampaignId,
@@ -103,7 +103,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 {
                     LeadCampaign.LoanAmount = (uint)(System.Convert.ToUInt32(price) * 0.8);
 
-                    LeadCampaign.PageUrl = String.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}", LeadCampaign.CampaignId, LeadCampaign.DealerId, pqId, LeadCampaign.LeadSourceId, versionId, 3, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl);
+                    LeadCampaign.PageUrl = string.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}", LeadCampaign.CampaignId, LeadCampaign.DealerId, pqId, LeadCampaign.LeadSourceId, versionId, 3, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl);
                 }
                 else
                 {
