@@ -579,10 +579,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                     versionPrice = (uint) selversion.OnRoadPrice;
                                 }
                             }
-                            //if(versionPrice == 0) // For fallback when version doesnt have a price
-                            //{
-                            //    versionPrice = (uint)bpqOutput.ExShowroomPrice;
-                            //}
                             onRoadPrice.Versions = PQBikePriceQuoteOutputMapper.Convert(bpqOutput.Varients);
                             if (onRoadPrice.SecondaryDealers == null)
                             {
