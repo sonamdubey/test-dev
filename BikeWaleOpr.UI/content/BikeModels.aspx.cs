@@ -757,7 +757,9 @@ namespace BikeWaleOpr.Content
         /// Created by : Ashutosh Sharma on 14th Sep 2017
         /// Description : Update series of selected model and log model and series mapping
         /// Modified by : Ashutosh Sharma on 28-Sep-2017
-        /// Description : Added call to ClearModelsBySeriesId 
+        /// Description : Added call to ClearModelsBySeriesId
+        /// Modified by : Ashutosh Sharma on 18 Oct 2019
+        /// Description : Added call to ClearVersionDetails
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -774,7 +776,14 @@ namespace BikeWaleOpr.Content
                 UpdateModelSeries(ddlUpdateSeries.SelectedValue, ModelIdsList);
 
                 BikewaleOpr.Cache.BwMemCache.ClearModelsBySeriesId(Convert.ToUInt32(ddlUpdateSeries.SelectedValue));
-
+                string[] ModelIdArray = ModelIdsList.Split(',');
+                foreach (var item in ModelIdArray)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        BikewaleOpr.Cache.BwMemCache.ClearVersionDetails(Convert.ToUInt32(item));
+                    }
+                }
                 BindGrid();
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Series Updated Successfully.');", true);
             }

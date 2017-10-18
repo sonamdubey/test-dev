@@ -23,7 +23,7 @@ namespace Bikewale.Controllers
     public class NewsController : Controller
     {
         static bool _logPWAStats = BWConfiguration.Instance.EnablePWALogging;
-        static bool _disablePWA = BWConfiguration.Instance.DisablePWA;
+        static bool _enablePWA = BWConfiguration.Instance.EnablePWA;
         static ILog _logger = LogManager.GetLogger("Pwa-Logger-NewsController");
         private readonly bool _logNewsUrl = BWConfiguration.Instance.LogNewsUrl;
 
@@ -149,14 +149,14 @@ namespace Bikewale.Controllers
                     return Redirect("/m/pagenotfound.aspx");
                 else
                 {
-                    if (_disablePWA)
+                    if (_enablePWA)
                     {
-                        objData = obj.GetData(9);
-                        return View("~/Views/News/Index_Mobile.cshtml", objData);
+                        return View(objData);
                     }
                     else
                     {
-                        return View(objData);
+                        objData = obj.GetData(9);
+                        return View("~/Views/News/Index_Mobile.cshtml", objData);                       
                     }
                 }
             }
@@ -234,13 +234,13 @@ namespace Bikewale.Controllers
                     return Redirect("/m/pagenotfound.aspx");
                 else
                 {
-                    if (_disablePWA)
+                    if (_enablePWA)
                     {
-                        return View("~/Views/News/Detail_Mobile_nopwa.cshtml", objData);
+                        return View(objData);                        
                     }
                     else
                     {
-                        return View(objData);
+                        return View("~/Views/News/Detail_Mobile_nopwa.cshtml", objData);
                     }
                 }
             }
