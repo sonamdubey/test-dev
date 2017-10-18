@@ -106,5 +106,20 @@ namespace Bikewale.Controllers
             }
 
         }
+        // GET: HomePage
+        [Route("m/make/amp/")]
+
+        public ActionResult Index_Mobile_AMP(string makeMaskingName)
+        {
+            MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService);
+            
+            MakePageVM objData = null;
+            
+            objData = obj.GetData();
+            return View(objData);
+        }
+
     }
+
+
 }
