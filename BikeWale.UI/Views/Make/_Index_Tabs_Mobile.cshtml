@@ -1,0 +1,44 @@
+﻿@model Bikewale.Models.MakePageVM
+<div id="makeOverallTabsWrapper">
+    <div id="overallSpecsTab" class="overall-specs-tabs-container">
+        <ul class="overall-specs-tabs-wrapper">
+            @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription.Length > 0)
+            {
+                <li data-tabs="#makeAboutContent" data-lab="@string.Format("{0}_About", Model.MakeName)">About @Model.MakeName</li>
+            }
+            @if (Model.Bikes != null && Model.Bikes.Count() > 0)
+            {
+                <li data-tabs="#bikeMakeList" data-lab="@string.Format("{0}_Models", Model.MakeName)">Bike Models</li>
+            }
+            @if (Model.IsUpComingBikesAvailable)
+            {
+                <li data-tabs="#bikeByMakesUpcoming" data-lab="@string.Format("{0}_UpcomingBikes", Model.MakeName)">Upcoming</li>
+            }
+            @if (Model.IsCompareBikesAvailable)
+            {
+                <li data-tabs="#popularComparison" data-lab="@string.Format("{0}_TopComparisons", Model.MakeName)">Top Comparisons</li>
+            }
+            @if (Model.IsNewsAvailable)
+            {
+                <li data-tabs="#makeNewsContent" data-lab="@string.Format("{0}_News", Model.MakeName)">News</li>
+            }
+            @if (Model.IsExpertReviewsAvailable)
+            {
+                <li data-tabs="#makeReviewsContent" data-lab="@string.Format("{0}_Reviews", Model.MakeName)">Reviews</li>
+            }
+            @if (Model.IsVideosAvailable)
+            {
+                <li data-tabs="#makeVideosContent" data-lab="@string.Format("{0}_Videos", Model.MakeName)">Videos</li>
+            }
+            @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
+            {
+                <li data-tabs="#makeDealersContent" data-lab="@string.Format("{0}_Showrooms", Model.MakeName)">Dealers</li>
+            }
+            @if (Model.IsUsedModelsBikeAvailable)
+            {
+                <li data-tabs="#makeUsedBikeContent" data-lab="@string.Format("{0}_UsedBikes", Model.MakeName)">Used Bikes</li>
+            }
+        </ul>
+    </div>
+</div>
+

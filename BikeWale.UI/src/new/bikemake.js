@@ -231,7 +231,7 @@ docReady(function () {
                 scrollTop: $(scrollSectionId).offset().top - 40
             },
           'slow');
-
+           triggerGA('Make_Page', 'Floating_Navigation_Clicked', $(this).data("lab"));
         }
         catch (e) {
             console.log(e);
