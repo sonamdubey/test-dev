@@ -228,6 +228,7 @@ docReady(function () {
         var target = $(this).attr('data-tabs');
         $('html, body').animate({ scrollTop: $(target).offset().top - overallSpecsTabsContainer.height() }, 1000);
         centerItVariableWidth($(this), '.overall-specs-tabs-container');
+        triggerGA('Make_Page', 'Floating_Navigation_Clicked', $(this).data("lab"));
         return false;
     });
 
