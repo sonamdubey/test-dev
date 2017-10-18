@@ -3810,6 +3810,8 @@
     <Content Include="Views\Photos\_PhotosBikeInfoCard_Mobile.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad292x360.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad200x211.cshtml" />
+    <Content Include="Views\Make\_Index_Tabs.cshtml" />
+    <Content Include="Views\Make\_Index_Tabs_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
