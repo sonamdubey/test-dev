@@ -81,6 +81,8 @@ noindex:-o-prefocus, .findBtn .btn-md { padding: 10px 20px; }
 footer ul li { display: block; }
 footer ul li a { display: block; color: #cfcfcf; padding: 10px 0; font-size: 16px; }
 footer ul li a:hover { text-decoration: underline; }
+footer ul.popularMakes li{ display: inline-block; }
+footer ul.popularMakes li a{ padding: 0px 50px;}
 
 .vs-circle-vert { position: relative; border-radius: 50%; background: #f2f2f2; border: 1px solid #e2e2e2; padding: 20px; display: block; font-size: 25px; margin: 110px auto 0 auto; width: 72px; height: 72px; }
 .vs-circle-vert-line { width: 1px; height: 265px; background:#e4e4e4; position: absolute; top: -90px; left: 70px; }
