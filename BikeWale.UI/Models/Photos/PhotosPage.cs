@@ -91,7 +91,7 @@ namespace Bikewale.Models.Photos
                 BindPhotos();
                 BindPageWidgets();
                 SetPageMetas();
-               
+
 
 
             }
@@ -207,11 +207,6 @@ namespace Bikewale.Models.Photos
 
                     _objData.Videos = new RecentVideos(1, 3, (uint)_objData.Make.MakeId, _objData.Make.MakeName, _objData.Make.MaskingName, (uint)_objData.Model.ModelId, _objData.Model.ModelName, _objData.Model.MaskingName, _objVideos).GetData();
 
-                    var similarBikes = new SimilarBikesWithPhotosWidget(_objModelMaskingCache, _modelId, _cityId);
-                    similarBikes.BikeName = _objData.BikeName;
-                    _objData.SimilarBikes = similarBikes.GetData();
-                    var firstModel = _objData.SimilarBikes.Bikes.First();
-                    _objData.BodyStyle = firstModel.BodyStyle;
                     if (_objData.PhotoGallery != null && _objData.PhotoGallery.ImageList != null)
                     {
                         var modelgallery = new ModelGalleryWidget(_objData.Make, _objData.Model, _objData.PhotoGallery.ImageList, _objData.ModelVideos, _objData.BikeInfo);
@@ -227,6 +222,16 @@ namespace Bikewale.Models.Photos
                             _objData.ModelGallery.IsDiscontinued = !_objData.objModel.Futuristic && !_objData.objModel.New;
                             _objData.ModelGallery.IsUpcoming = _objData.objModel.Futuristic;
                         }
+                    }
+
+                    var similarBikes = new SimilarBikesWithPhotosWidget(_objModelMaskingCache, _modelId, _cityId);
+                    similarBikes.BikeName = _objData.BikeName;
+                    _objData.SimilarBikes = similarBikes.GetData();
+
+                    if (_objData.SimilarBikes != null)
+                    {
+                        var firstModel = _objData.SimilarBikes.Bikes.First();
+                        _objData.BodyStyle = firstModel.BodyStyle;
                     }
                 }
             }
@@ -329,7 +334,7 @@ namespace Bikewale.Models.Photos
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
             string bikeUrl, scooterUrl;
-            bikeUrl  = scooterUrl  = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
             ushort position = 1;
             if (IsMobile)
             {
