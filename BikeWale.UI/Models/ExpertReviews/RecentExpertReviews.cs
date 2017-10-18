@@ -24,6 +24,7 @@ namespace Bikewale.Models
         private readonly string _modelName;
         private readonly string _modelMasking;
         public bool IsScooter { get; set; }
+        public bool IsViewAllLink { get; set; }
 
         #region Constructor
         public RecentExpertReviews(uint totalRecords, ICMSCacheContent articles)
@@ -132,6 +133,7 @@ namespace Bikewale.Models
                     }
                 }
                 recentReviews.Title = Title;
+                recentReviews.IsViewAllLink = IsViewAllLink;
             }
             catch (Exception ex)
             {

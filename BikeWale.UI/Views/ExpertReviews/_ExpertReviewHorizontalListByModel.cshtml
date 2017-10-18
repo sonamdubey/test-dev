@@ -14,7 +14,7 @@
                     @foreach (var article in Model.ArticlesList)
                     {
                         <li class="jcarousel-card">
-                            <a href="@string.Format("/expert-reviews/{0}-{1}.html", article.ArticleUrl, @article.BasicId)" title="@article.Title" class="jcarousel-card">
+                            <a href="@string.Format("/expert-reviews/{0}-{1}.html", article.ArticleUrl, article.BasicId)" title="@article.Title" class="jcarousel-card">
                                 <div class="jcarousel-image-preview">
                                     <img class="lazy" data-original="@Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" src="" alt=" " />
                                 </div>
@@ -34,5 +34,13 @@
             </div>
 
         </div>
+
+        @if (Model.IsViewAllLink)
+        {
+            <div class="padding-left10 more-article-target view-all-btn-container">
+                <a title="@Model.BikeName expert reviews" href="~/expert-reviews/" class="bw-ga btn view-all-target-btn" c="UserReviews" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
+            </div>
+        }
+        
     </div>
 }

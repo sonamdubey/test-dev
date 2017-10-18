@@ -224,14 +224,13 @@
                         <div class="swiper-heading-left-grid inline-block">
                             <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
                         </div>
-                        <div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="/m@(Model.ExpertReviews.MoreExpertReviewUrl)" title="Expert Reviews" class="btn view-all-target-btn">View all</a>
-                        </div>
-                        <div class="clear"></div>
                     </div>
 
                     @Html.Partial("~/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
 
+                    <div class="view-all-btn-container padding-top15 padding-bottom5 padding-left15">
+                        <a title="Expert Reviews" href="/m/expert-reviews/" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
+                    </div>
                 </div>
             </section>
         }
@@ -239,8 +238,8 @@
         <section>
             <h2 class="font18 text-center margin-top15 margin-bottom10">Know our Experts</h2>
             <div class="author-block">
-                <span class="author-block__title">men of steel</span>
-                <p class="author-block__description">Our best people who lean into corners, pop wheelies and ride their adrenaline out of the bike.</p>
+                <span class="author-block__title">WHO ARE THEY?</span>
+                <p class="author-block__description">A bunch of petrolheads with a never-ending appetite for mopeds, superbikes and everything in between.</p>
                 @if (Model.Authors != null && Model.Authors.Any())
                 {
                     <div class="box-content">

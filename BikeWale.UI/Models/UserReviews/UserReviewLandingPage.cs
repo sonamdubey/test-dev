@@ -1,7 +1,7 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.Location;
-using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Authors;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Utility;
@@ -15,7 +15,7 @@ namespace Bikewale.Models.UserReviews
         private readonly IBikeMakesCacheRepository<int> _makeRepository = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IAuthors _authors = null;
-        private UserReviewLandingVM objData = null;        
+        private UserReviewLandingVM objData = null;
 
         public bool IsMobile { get; set; }
 
@@ -61,7 +61,9 @@ namespace Bikewale.Models.UserReviews
                 objBikesWithExpertReviews.CityId = location.CityId;
                 objData.BikesWithExpertReviews = objBikesWithExpertReviews.GetData();
 
-                objData.ExpertReviews = new RecentExpertReviews(9, _articles).GetData();
+                var objExpertReviews = new RecentExpertReviews(9, _articles);
+                objExpertReviews.IsViewAllLink = true;
+                objData.ExpertReviews = objExpertReviews.GetData();
 
                 objData.Authors = _authors.GetAuthorsList(Convert.ToInt32(BWConfiguration.Instance.ApplicationId));
 
@@ -77,9 +79,9 @@ namespace Bikewale.Models.UserReviews
             try
             {
                 if (objData != null && objData.PageMetaTags != null)
-                {                   
+                {
                     objData.PageMetaTags.Title = "Bike Reviews | Reviews from Owners and Experts- BikeWale";
-                    objData.PageMetaTags.Description = "Read reviews about a bike from real owners and experts. Know pros, cons, and tips from real users and experts before buying a bike.";                    
+                    objData.PageMetaTags.Description = "Read reviews about a bike from real owners and experts. Know pros, cons, and tips from real users and experts before buying a bike.";
                     objData.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/review/";
                     objData.PageMetaTags.Keywords = "Reviews, Bike reviews, expert review, Bike expert review, Bike user review, owner review, bike owner review, user review, bike user review";
                 }
