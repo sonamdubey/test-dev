@@ -22,7 +22,7 @@ docReady(function () {
     $("#applyFiltersBtn").click(function () {
         if (!isNaN(reviewSelectMake.val()) && reviewSelectMake.val() != "0") {
             if (!isNaN(reviewSelectModel.val()) && reviewSelectModel.val() != "0") {
-                var returnUrl = $('#querystring').data('query');
+                var returnUrl = $(this).data('query');
                 window.location.href = "/rate-your-bike/" + Number(reviewSelectModel.val()) + "/?q=" + returnUrl;
 
             }

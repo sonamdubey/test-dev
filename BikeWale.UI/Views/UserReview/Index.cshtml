@@ -116,12 +116,10 @@
                             <span class="bwsprite error-icon errorIcon hide"></span>
                             <div class="bw-blackbg-tooltip errorText hide"></div>
                         </div>
-                        <input type="button" id="applyFiltersBtn" class="btn btn-orange btn-lg locator-search-btn margin-bottom5" value="Write and win &#x20b9; 2,000" />
-                        <span id="querystring" data-query="v5EINN8tC9Z6yeYD2azFxQ==">
+                        <input type="button" id="applyFiltersBtn" data-query="@Model.UserReviewsQueryString" class="btn btn-orange btn-lg locator-search-btn margin-bottom5" value="Write and win &#x20b9; 2,000" />
 
-                            <input type="hidden" id="makeId" value="0">
-                            <input type="hidden" id="modelId" value="0">
-                        </span>
+                        <input type="hidden" id="makeId" value="0">
+                        <input type="hidden" id="modelId" value="0">
                     </div>
                 </div>
 
@@ -129,7 +127,7 @@
             <div class="grid-12">
                 @if (Model.RecentUserReviewsList != null)
                 {
-                    <h2 class="font22 text-center margin-bottom20 padding-top30 text-bold">Recently uploaded reviews</h2>
+                    <h2 class="font22 text-center margin-bottom20 padding-top30 text-bold">Recently added reviews</h2>
                     <div class="jcarousel-wrapper inner-content-carousel user-review__swiper section-bottom-margin content-box-shadow padding-bottom20 padding-top20">
                         @Html.Partial("~/views/UserReview/_RecentUploadedReviews.cshtml", Model.RecentUserReviewsList)
                     </div>
@@ -204,7 +202,7 @@
         }
         <section>
             <div class="container section-bottom-margin">
-                <h2 class="text-bold text-center margin-bottom20 font22 margin-top20 margin-top30">Recently uploaded reviews</h2>
+                <h2 class="text-bold text-center margin-bottom20 font22 margin-top20 margin-top30">Recently added reviews</h2>
                 <div class="grid-12">
                     <div class="content-box-shadow padding-bottom20">
                         @Html.Partial("~/views/ExpertReviews/_ExpertReviewHorizontalListByModel.cshtml", Model.ExpertReviews)

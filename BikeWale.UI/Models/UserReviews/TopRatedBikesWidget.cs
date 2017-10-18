@@ -1,9 +1,6 @@
 ﻿using Bikewale.Common;
 using Bikewale.Interfaces.UserReviews;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models.UserReviews
 {
@@ -11,9 +8,9 @@ namespace Bikewale.Models.UserReviews
     {
         private readonly IUserReviewsCache _userReviewsCache = null;
 
-        public uint TopCount { get; set;}
+        public uint TopCount { get; set; }
         public uint CityId { get; set; }
-            
+
         public TopRatedBikesWidget(IUserReviewsCache userReviewsCache)
         {
             _userReviewsCache = userReviewsCache;
@@ -26,14 +23,14 @@ namespace Bikewale.Models.UserReviews
             {
                 objTopRatedBikesWidget = new TopRatedBikesWidgetVM();
 
-                if(CityId > 0)
+                if (CityId > 0)
                     objTopRatedBikesWidget.Bikes = _userReviewsCache.GetTopRatedBikes(TopCount, CityId);
                 else
                     objTopRatedBikesWidget.Bikes = _userReviewsCache.GetTopRatedBikes(TopCount);
 
-                objTopRatedBikesWidget.WidgetHeading = "Top rated by our Users";
+                objTopRatedBikesWidget.WidgetHeading = "Top rated bikes";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("TopRatedBikesWidget.GetData: topCount: {0}, CityId {1}", TopCount, CityId));
             }

@@ -141,8 +141,7 @@
                     <p class="btn btn-orange btn-180-40" data-bind="click: function (d, e) { openBikeSelection(); }">Write and win &#x20b9; 2,000<span class="bwsprite btn-white-arrow"></span></p>
                 </div>
             </div>
-            <span id="querystring" data-query="v5EINN8tC9b114V0VycqiQ==">
-            </span>
+            <span id="querystring" data-query="@Model.UserReviewsQueryString"></span>
         </section>
 
         @if (Model.RecentUserReviewsList != null)
@@ -228,7 +227,7 @@
 
                     @Html.Partial("~/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
 
-                    <div class="view-all-btn-container padding-top15 padding-bottom5 padding-left15">
+                    <div class="view-all-btn-container padding-top15 padding-bottom5 padding-left15 text-center">
                         <a title="Expert Reviews" href="/m/expert-reviews/" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
                     </div>
                 </div>

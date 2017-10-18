@@ -1,5 +1,6 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.Authors;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
@@ -82,8 +83,19 @@ namespace Bikewale.Models.UserReviews
                 {
                     objData.PageMetaTags.Title = "Bike Reviews | Reviews from Owners and Experts- BikeWale";
                     objData.PageMetaTags.Description = "Read reviews about a bike from real owners and experts. Know pros, cons, and tips from real users and experts before buying a bike.";
-                    objData.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/review/";
+                    objData.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/reviews/";
                     objData.PageMetaTags.Keywords = "Reviews, Bike reviews, expert review, Bike expert review, Bike user review, owner review, bike owner review, user review, bike user review";
+
+                    string returnUrl = string.Empty;
+                    if (IsMobile)
+                    {
+                        returnUrl = string.Format("returnUrl=/m/user-reviews/&sourceid={0}", UserReviewPageSourceEnum.Mobile_UserReview_Landing);
+                    }
+                    else
+                    {
+                        returnUrl = string.Format("returnUrl=/user-reviews/&sourceid={0}", UserReviewPageSourceEnum.Desktop_UserReview_Landing);
+                    }
+                    objData.UserReviewsQueryString = Utils.Utils.EncryptTripleDES(returnUrl);
                 }
             }
             catch (Exception ex)
