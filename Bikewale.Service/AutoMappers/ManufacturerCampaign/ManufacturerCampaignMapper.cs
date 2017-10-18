@@ -14,12 +14,23 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
     internal class ManufacturerCampaignMapper
     {
         /// <summary>
-        /// Converts the specified dealers.
+        /// Converts the specified platform identifier.
         /// </summary>
+        /// <param name="platformId">The platform identifier.</param>
+        /// <param name="pqId">The pq identifier.</param>
+        /// <param name="modelId">The model identifier.</param>
+        /// <param name="versionId">The version identifier.</param>
+        /// <param name="cityId">The city identifier.</param>
         /// <param name="dealers">The dealers.</param>
         /// <param name="manufacturerCampaign">The manufacturer campaign.</param>
+        /// <param name="price">The price.</param>
+        /// <param name="makeName">Name of the make.</param>
+        /// <param name="modelName">Name of the model.</param>
         /// <returns></returns>
-        internal static CampaignBaseDto Convert(ushort platformId, ulong pqId, uint modelId, uint versionId, uint cityId, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ManufacturerCampaignEntity manufacturerCampaign, uint price, string makeName, string modelName)
+        internal static CampaignBaseDto Convert(
+            ushort platformId, ulong pqId, uint modelId, uint versionId, uint cityId,
+            Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ManufacturerCampaignEntity manufacturerCampaign,
+            uint price, string makeName, string modelName)
         {
             CampaignBaseDto campaignResponse = null;
             if (dealers != null)

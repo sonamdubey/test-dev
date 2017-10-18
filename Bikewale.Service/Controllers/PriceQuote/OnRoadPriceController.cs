@@ -36,19 +36,21 @@ namespace Bikewale.Service.Controllers.PriceQuote
         private readonly IBikeModels<BikeModelEntity, int> _modelsRepository = null;
         private readonly IDealerPriceQuoteDetail _objDPQ = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
+        private readonly IPriceQuote _objPQ = null;
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="objIPQ"></param>
         /// <param name="objPriceQuote"></param>
         /// <param name="modelsRepository"></param>
-        public OnRoadPriceController(IDealerPriceQuote objIPQ, IPriceQuote objPriceQuote, IBikeModels<BikeModelEntity, int> modelsRepository, IDealerPriceQuoteDetail objDPQ, IManufacturerCampaign objManufacturerCampaign)
+        public OnRoadPriceController(IDealerPriceQuote objIPQ, IPriceQuote objPriceQuote, IBikeModels<BikeModelEntity, int> modelsRepository, IDealerPriceQuoteDetail objDPQ, IManufacturerCampaign objManufacturerCampaign, IPriceQuote objPq)
         {
             _objIPQ = objIPQ;
             _objPriceQuote = objPriceQuote;
             _modelsRepository = modelsRepository;
             _objDPQ = objDPQ;
             _objManufacturerCampaign = objManufacturerCampaign;
+            _objPQ = objPq;
         }
 
         /// <summary>
@@ -483,6 +485,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             Bikewale.DTO.PriceQuote.v4.PQOnRoad onRoadPrice = null;
             Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity objDealerQuotation = null;
             Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignEntity manufacturerCampaign = null;
+            uint versionPrice = 0;
             try
             {
                 PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity()
@@ -566,6 +569,20 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         }
                         else
                         {
+                            bool isArea = false;
+                            var bikePriceQuotationList = _objPQ.GetVersionPricesByModelId(modelId, cityId, out isArea);
+                            if(bikePriceQuotationList!= null && bikePriceQuotationList.Any())
+                            {
+                               var selversion = bikePriceQuotationList.FirstOrDefault(x => x.VersionId == objPQOutput.VersionId);
+                                if (selversion != null)
+                                {
+                                    versionPrice = (uint) selversion.OnRoadPrice;
+                                }
+                            }
+                            //if(versionPrice == 0) // For fallback when version doesnt have a price
+                            //{
+                            //    versionPrice = (uint)bpqOutput.ExShowroomPrice;
+                            //}
                             onRoadPrice.Versions = PQBikePriceQuoteOutputMapper.Convert(bpqOutput.Varients);
                             if (onRoadPrice.SecondaryDealers == null)
                             {
@@ -585,7 +602,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                 manufacturerCampaign = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
                             }
                         }
-                        onRoadPrice.Campaign = ManufacturerCampaignMapper.Convert((ushort)sourceType, objPQ.PQId, modelId, objPQ.VersionId, cityId, objDealerQuotation, manufacturerCampaign, 0, bpqOutput.MakeName, bpqOutput.ModelName);
+                        onRoadPrice.Campaign = ManufacturerCampaignMapper.Convert((ushort)sourceType, objPQ.PQId, modelId, objPQ.VersionId, cityId, objDealerQuotation, manufacturerCampaign, versionPrice, objPQ.MakeName, objPQ.ModelName);
                     }
                     return Ok(onRoadPrice);
                 }
