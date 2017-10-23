@@ -228,7 +228,7 @@ namespace Bikewale.Models.Photos
                     similarBikes.BikeName = _objData.BikeName;
                     _objData.SimilarBikes = similarBikes.GetData();
 
-                    if (_objData.SimilarBikes != null)
+                    if (_objData.SimilarBikes != null && _objData.SimilarBikes.Bikes != null)
                     {
                         var firstModel = _objData.SimilarBikes.Bikes.First();
                         _objData.BodyStyle = firstModel.BodyStyle;
