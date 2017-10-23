@@ -51,8 +51,6 @@
                         <div class="grid-8 alpha">
                             <h2 class="leftfloat text-x-black">@string.Format("{0} Bikes Prices in  India", Model.MakeName)</h2>
                         </div>
-                        @if (Model.Bikes != null && Model.Bikes.Count() > 0)
-                        {
                             <div class="grid-4 rightfloat omega font14" id="sortByContainer">
                                 <div class="leftfloat sort-by-text text-light-grey margin-left50">
                                     <p>Sort by:</p>
@@ -75,7 +73,6 @@
                                     </div>
                                 </div>
                             </div>
-                        }
                         <div class="clear"></div>
                     </div>
                     <div id="bikeMakeList" class="bw-model-tabs-data content-box-shadow padding-top25 padding-left20 rounded-corner2 inner-content-card">
