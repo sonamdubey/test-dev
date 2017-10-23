@@ -13,6 +13,7 @@ var bikeRating = {
 
 var ratingQuestion = [];
 var ratingError = false, questionError = false, userNameError = false, emailError = false;
+var reviewFlag = false;
 docReady(function () {
     
     bwcache.setScope('ReviewPage');
@@ -390,18 +391,15 @@ docReady(function () {
         self.detailedReviewFlag = ko.observable(false);
         self.detailedReviewError = ko.observable('');
         self.focusFormActive = ko.observable(false);
-
         self.reviewQuestions = ko.observableArray(reviewQuestion);
 
         self.descLength = ko.computed(function () {
             return self.detailedReview().replace(/\n|\r/g, "").length;
         });
-
+        self.reviewCheckbox = ko.observable(true);
         self.submitReview = function () {
-
             var array = new Array;
-
-            $(".list-item input[type='radio']:checked").each(function (i) {
+             $(".list-item input[type='radio']:checked").each(function (i) {
                 var r = $(this);
                 array[i] = (r.attr("questiontId") + ':' + r.val());
             });
@@ -421,6 +419,9 @@ docReady(function () {
                     formattedDescArray += "<p>" + descArray[i] + "</p>";
                 }
             }
+
+            
+
             // sentence case expression title and review
             // sentence case expression title and review
             if ($("#getReviewTitle").length > 0) {
@@ -466,24 +467,26 @@ docReady(function () {
         };
 
         self.validateReviewForm = function () {
-            var isValidDesc = true;
-            var isValidTitle = true;
-            isValidDesc = self.validate.detailedReview();
-            isValidTitle = self.validate.reviewTitle();
-            
-            var isValid = isValidDesc && isValidTitle;
 
+            var isValidDesc = self.validate.detailedReview();
+            var isValidTitle = self.validate.reviewTitle();
+           
+
+            reviewErrorFields = "";
+            if (isValidTitle && !isValidDesc)
+                reviewErrorFields = reviewErrorFields + '_' + 'Review_Description';
+            else if (!isValidTitle && isValidDesc)
+                reviewErrorFields = reviewErrorFields + '_' + 'Review_Title';
+            else if (!isValidDesc && !isValidTitle)
+                reviewErrorFields = reviewErrorFields + '_' + 'Review_Title' + '_' + 'Review_Description';
+
+            var isValid = isValidDesc && isValidTitle && self.reviewCheckbox();
+         
             if (isValid) {
                 triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSrc + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
             }
             else {
-                reviewErrorFields = "";
-                if (isValidTitle && !isValidDesc)
-                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Description';
-                else if (!isValidTitle && isValidDesc)
-                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Title';
-                else if (!isValidDesc && !isValidTitle)
-                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Title' + '_' + 'Review_Description';
+               
                 triggerGA('Write_Review', 'Review_Submit_Error', makeModelName + pageSrc + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length + reviewErrorFields);
             }
 
@@ -524,7 +527,7 @@ docReady(function () {
                 return isValid;
             }
          
-
+           
         };
 
         self.SaveToBwCache = function () {            

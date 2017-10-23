@@ -101,6 +101,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Utils">
+      <HintPath>..\Libs\Utils.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authors\AuthorDetailsPageVM.cs" />
@@ -186,6 +189,9 @@
     <Compile Include="Survey\BajajSurveyVM.cs" />
     <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
     <Compile Include="Upcoming\UpcomingPageVM.cs" />
+    <Compile Include="UserReviews\PopularBikesWithExpertReviewsWidgetVM.cs" />
+    <Compile Include="UserReviews\TopRatedBikesWidgetVM.cs" />
+    <Compile Include="UserReviews\UserReviewLandingVM.cs" />
     <Compile Include="UserReviews\UserReviewSimilarBikesWidgetVM.cs" />
     <Compile Include="UserReviews\UserReviewListingVM.cs" />
     <Compile Include="UserReviews\UserReviewDetailsVM.cs" />

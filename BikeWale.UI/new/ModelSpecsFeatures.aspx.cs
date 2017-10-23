@@ -42,11 +42,12 @@ namespace Bikewale.New
         protected BikeModelPageEntity modelPg;
         protected LeadCaptureControl ctrlLeadPopUp;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
+        protected bool IsScooter =false;
+        protected bool IsScooterOnly = false;
         protected SimilarBikesWidgetVM similarBikes;
         protected PopularBodyStyleVM popularBodyStyle;
         protected EnumBikeBodyStyles bodyStyle;
         protected string bodyStyleText; 
-
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -69,7 +70,8 @@ namespace Bikewale.New
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
             ProcessQueryString();
-            modelDetail = FetchModelPageDetails(modelId);
+            modelDetail = FetchModelPageDetails(modelId, versionId);
+            IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
             if (modelDetail != null)
             {
                 if (cityId > 0 && versionId > 0)
@@ -127,6 +129,7 @@ namespace Bikewale.New
                                 makeName = modelPg.ModelDetails.MakeBase.MakeName;
                                 makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
                             }
+                            IsScooter = (modelPg.ModelVersions.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter));
                             bikeName = string.Format("{0} {1}", makeName, modelName);
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                             {

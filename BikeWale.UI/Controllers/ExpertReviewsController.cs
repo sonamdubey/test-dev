@@ -194,6 +194,7 @@ namespace Bikewale.Controllers
 
             RecentExpertReviews obj = new RecentExpertReviews(topCount, makeId, modelId, _cmsCache);
             objData = obj.GetData();
+            objData.Title = "You may also like expert's reviews";
 
             return View("~/views/ExpertReviews/_ExpertReviewHorizontalListByModel.cshtml", objData);
         }
@@ -205,6 +206,7 @@ namespace Bikewale.Controllers
 
             RecentExpertReviews obj = new RecentExpertReviews(topCount, makeId, modelId, _cmsCache);
             objData = obj.GetData();
+            objData.Title = "You may also like expert's reviews";
 
             return View("~/views/ExpertReviews/_ExpertReviewHorizontalListByModel_Mobile.cshtml", objData);
         }

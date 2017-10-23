@@ -483,6 +483,7 @@
 			&:before
 				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bike-12x8.png) no-repeat 50% #e2e2e2
 
+
 .review-progress__text
 	width: 50px
 	font-size: 12px
@@ -492,65 +493,70 @@
 	top: 30px
 
 	.border-light-right
-  border-right: 1px solid #f5f5f5
+		border-right: 1px solid #f5f5f5
 
 /*Rating and star icon css Starts here
 
 .rate-count-5
-  color: #198D55
+	color: #198D55
 
 .rate-count-4
-  color: #13B65D
+	color: #13B65D
 
 .rate-count-3
-  color: #EFD700
+	color: #EFD700
 
 .rate-count-2
-  color: #FD971C
+	color: #FD971C
 
 .rate-count-1
-  color: #EF3F30
+	color: #EF3F30
 
 .rating-badge
-  &[data-rate-bg="5"]
-    background-color: #198D55
-  &[data-rate-bg="4"]
-    background-color: #13B65D
-  &[data-rate-bg="3"]
-    background-color: #EFD700
-  &[data-rate-bg="2"]
-    background-color: #FD971C
-  &[data-rate-bg="1"]
-    background-color: #EF3F30
+	&[data-rate-bg="5"]
+		background-color: #198D55
+		
+	&[data-rate-bg="4"]
+		background-color: #13B65D
+		
+	&[data-rate-bg="3"]
+		background-color: #EFD700
+		
+	&[data-rate-bg="2"]
+		background-color: #FD971C
+		
+	&[data-rate-bg="1"]
+		background-color: #EF3F30
 
 .bg-rate-5
-  background-color: #198D55
+	background-color: #198D55
 
 .bg-rate-4
-  background-color: #13B65D
+	background-color: #13B65D
 
 .bg-rate-3
-  background-color: #EFD700
+	background-color: #EFD700
 
 .bg-rate-2
-  background-color: #FD971C
+	background-color: #FD971C
 
 .bg-rate-1
-  background-color: #EF3F30
+	background-color: #EF3F30
 
 .star-icon
-  width: 26px
-  height: 25px
-  vertical-align: middle
-  -webkit-transform: scale(0.8)
-  -moz-transform: scale(0.8)
-  -o-transform: scale(0.8)
-  transform: scale(0.8)
-  &.star-size-16
-    -webkit-transform: scale(0.6)
-    -moz-transform: scale(0.6)
-    -o-transform: scale(0.6)
-    transform: scale(0.6)
+	width: 26px
+	height: 25px
+	vertical-align: middle
+	-webkit-transform: scale(0.8)
+	-moz-transform: scale(0.8)
+	-o-transform: scale(0.8)
+	transform: scale(0.8)
+	
+	&.star-size-16
+		-webkit-transform: scale(0.6)
+		-moz-transform: scale(0.6)
+		-o-transform: scale(0.6)
+		transform: scale(0.6)
 
 .rate-count-1 .star-icon
   background-position: 0 -790px
@@ -639,123 +645,133 @@
 /*Rating and star icon css Ends here
 
 /*Rating circle Starts here
-
 .rating-circle
-  width: 30px
-  height: 30px
-  position: relative
-  -webkit-border-radius: 50%
-  -moz-border-radius: 50%
-  -ms-border-radius: 50%
-  border-radius: 50%
-  background-color: #ccc
-  display: inline-block
-  vertical-align: middle
+	width: 30px
+	height: 30px
+	position: relative
+	-webkit-border-radius: 50%
+	-moz-border-radius: 50%
+	-ms-border-radius: 50%
+	border-radius: 50%
+	background-color: #ccc
+	display: inline-block
+	vertical-align: middle
 
 .circle-label
-  width: 24px
-  height: 24px
-  font-size: 12px
-  font-weight: 600
-  color: #787878
-  position: absolute
-  top: 3px
-  left: 3px
-  line-height: 24px
-  -webkit-border-radius: 50%
-  -moz-border-radius: 50%
-  -ms-border-radius: 50%
-  border-radius: 50%
-  background: #fff
-  text-align: center
-  z-index: 1
+	width: 24px
+	height: 24px
+	font-size: 12px
+	font-weight: 600
+	color: #787878
+	position: absolute
+	top: 3px
+	left: 3px
+	line-height: 24px
+	-webkit-border-radius: 50%
+	-moz-border-radius: 50%
+	-ms-border-radius: 50%
+	border-radius: 50%
+	background: #fff
+	text-align: center
+	z-index: 1
 
 .rating-progress
-  width: 30px
-  height: 30px
-  display: block
-  position: absolute
-  clip: rect(0, 30px, 30px, 15px)
-  &:before, &:after
-    content: ''
-    width: 30px
-    height: 30px
-    display: block
-    position: absolute
-    border-width: 3px
-    border-style: solid
-    -webkit-border-radius: 50%
-    -moz-border-radius: 50%
-    -ms-border-radius: 50%
-    border-radius: 50%
-    clip: rect(0, 15px, 30px, 0)
+	width: 30px
+	height: 30px
+	display: block
+	position: absolute
+	clip: rect(0, 30px, 30px, 15px)
+	
+	&:before,
+	&:after
+		content: ''
+		width: 30px
+		height: 30px
+		display: block
+		position: absolute
+		border-width: 3px
+		border-style: solid
+		-webkit-border-radius: 50%
+		-moz-border-radius: 50%
+		-ms-border-radius: 50%
+		border-radius: 50%
+		clip: rect(0, 15px, 30px, 0)
 
-.circle-rate-3 .rating-progress, .circle-rate-4 .rating-progress, .circle-rate-5 .rating-progress
-  clip: rect(auto, auto, auto, auto)
+.circle-rate-3 .rating-progress,
+.circle-rate-4 .rating-progress,
+.circle-rate-5 .rating-progress
+	clip: rect(auto, auto, auto, auto)
 
-.circle-rate-3 .rating-progress:after, .circle-rate-4 .rating-progress:after, .circle-rate-5 .rating-progress:after
-  -webkit-transform: rotate(180deg)
-  -moz-transform: rotate(180deg)
-  -o-transform: rotate(180deg)
-  transform: rotate(180deg)
+.circle-rate-3 .rating-progress:after,
+.circle-rate-4 .rating-progress:after,
+.circle-rate-5 .rating-progress:after
+	-webkit-transform: rotate(180deg)
+	-moz-transform: rotate(180deg)
+	-o-transform: rotate(180deg)
+	transform: rotate(180deg)
 
 .circle-rate-1 .rating-progress:before
-  border-color: #EF3F30
-  -webkit-transform: rotate(62deg)
-  -moz-transform: rotate(62deg)
-  -o-transform: rotate(62deg)
-  transform: rotate(62deg)
+	border-color: #EF3F30
+	-webkit-transform: rotate(62deg)
+	-moz-transform: rotate(62deg)
+	-o-transform: rotate(62deg)
+	transform: rotate(62deg)
 
 .circle-rate-2 .rating-progress:before
-  border-color: #FD971C
-  -webkit-transform: rotate(144deg)
-  -moz-transform: rotate(144deg)
-  -o-transform: rotate(144deg)
-  transform: rotate(144deg)
+	border-color: #FD971C
+	-webkit-transform: rotate(144deg)
+	-moz-transform: rotate(144deg)
+	-o-transform: rotate(144deg)
+	transform: rotate(144deg)
 
 .circle-rate-3 .rating-progress:before
-  -webkit-transform: rotate(216deg)
-  -moz-transform: rotate(216deg)
-  -o-transform: rotate(216deg)
-  transform: rotate(216deg)
+	-webkit-transform: rotate(216deg)
+	-moz-transform: rotate(216deg)
+	-o-transform: rotate(216deg)
+	transform: rotate(216deg)
 
 .circle-rate-4 .rating-progress:before
-  -webkit-transform: rotate(288deg)
-  -moz-transform: rotate(288deg)
-  -o-transform: rotate(288deg)
-  transform: rotate(288deg)
+	-webkit-transform: rotate(288deg)
+	-moz-transform: rotate(288deg)
+	-o-transform: rotate(288deg)
+	transform: rotate(288deg)
 
 .circle-rate-3 .rating-progress
-  &:before, &:after
-    border-color: #EFD700
+	&:before,
+	&:after
+		border-color: #EFD700
 
 .circle-rate-4 .rating-progress
-  &:before, &:after
-    border-color: #13B65D
+	&:before,
+	&:after
+		border-color: #13B65D
 
 .circle-rate-5 .rating-progress
-  &:before, &:after
-    border-color: #198D55
+	&:before,
+	&:after
+		border-color: #198D55
 
 .rating-circle-list
-  &:after
-    content: ''
-    display: block
-    clear: both
-  li
-    float: left
-    margin-right: 15px
-    margin-top: 10px
-    margin-bottom: 10px
-    &:last-child
-      margin-right: 0
-  .list-item-label
-    font-size: 14px
-    color: #787878
-    padding-left: 5px
-    display: inline-block
-    vertical-align: middle
+	&:after
+		content: ''
+		display: block
+		clear: both
+		
+	li
+		float: left
+		margin-right: 15px
+		margin-top: 10px
+		margin-bottom: 10px
+		
+		&:last-child
+			margin-right: 0
 
+	.list-item-label
+		font-size: 14px
+		color: #787878
+		padding-left: 5px
+		display: inline-block
+		vertical-align: middle
 /*Rating circle Ends here
 
 .text-slate-grey
@@ -763,3 +779,27 @@
 
 .font15
 	font-size: 15px
+
+// terms and condition
+.input-type-checkbox
+	display: none
+
+.checkbox-icon
+	width: 14px
+	height: 14px
+	background-position: -216px -120px
+	position: relative
+	top: 2px
+
+.checkbox-label
+	display: inline-block
+	vertical-align: top
+	width: 95%
+	padding-left: 5px
+	cursor: pointer
+
+.input-type-checkbox
+	&:checked
+		~ label
+			.checkbox-icon
+				background-position: -216px -135px

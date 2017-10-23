@@ -2,6 +2,7 @@
 using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Schema;
 using Bikewale.Entities.UserReviews;
@@ -273,33 +274,40 @@ namespace Bikewale.Models.UserReviews
         private void SetBreadcrumList(UserReviewListingVM objPage)
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            string bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            string scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
             ushort position = 1;
             if (IsMobile)
             {
-                url += "m/";
+                bikeUrl += "m/";
             }
 
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
 
             if (objPage.RatingsInfo != null && objPage.RatingsInfo.Make != null)
             {
-                url = string.Format("{0}{1}-bikes/", url, objPage.RatingsInfo.Make.MaskingName);
+                bikeUrl = string.Format("{0}{1}-bikes/", bikeUrl, objPage.RatingsInfo.Make.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objPage.RatingsInfo.Make.MakeName)));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objPage.RatingsInfo.Make.MakeName)));
+            }
+            if (objPage.RatingReviewData != null && objPage.RatingReviewData.RatingDetails != null && objPage.RatingReviewData.RatingDetails.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !(objPage.RatingsInfo.Make.IsScooterOnly))
+            {
+                if (IsMobile)
+                {
+                    scooterUrl += "m/";
+                }
+                scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objPage.RatingsInfo.Make.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.RatingsInfo.Make.MakeName)));
             }
 
             if (objPage.RatingsInfo != null && objPage.RatingsInfo.Model != null)
             {
-                url = string.Format("{0}{1}/", url, objPage.RatingsInfo.Model.MaskingName);
+                bikeUrl = string.Format("{0}{1}/", bikeUrl, objPage.RatingsInfo.Model.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objPage.RatingsInfo.Model.ModelName));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} {1}", objPage.RatingsInfo.Make.MakeName,objPage.RatingsInfo.Model.ModelName) ));
             }
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, "Reviews"));
-
-
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Reviews"));
             objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
 
         }
