@@ -308,7 +308,7 @@
                 <% if (similarBikes != null && similarBikes.Bikes != null && similarBikes.Bikes.Any())
                     { %>
                 <div id="similarContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin content-details-wrapper">
-                    <h2 class="padding-left20 padding-right20"><%= bodyStyleText %> similar to <%= modelDetail.ModelDetails.ModelName %></h2>
+                    <h2 class="padding-left20 padding-right20 font18"><%= bodyStyleText %> similar to <%= modelDetail.ModelDetails.ModelName %></h2>
                     <div class="swiper-container card-container swiper-type-similar">
                         <div class="swiper-wrapper">
                             <% if (similarBikes != null && similarBikes.Bikes != null && similarBikes.Bikes.Count() > 0)
