@@ -1,7 +1,6 @@
 import httplib2
 
-from oauth2client.client import SignedJwtAssertionCredentials
-
+from oauth2client.service_account import ServiceAccountCredentials
 from oauth2client import client
 from oauth2client import file
 from oauth2client import tools
@@ -13,24 +12,29 @@ import datetime
 
 import pika
 from elasticsearch import Elasticsearch
-
+import sys
+import os
 from array import array
 import subprocess
 import logging
 import elasticsearch.exceptions
 
-
 LOGGER_NAME = 'BWUpdatePageViewsLogger'
-LOG_FILE = 'BWUpdatePageViewsScript.log'
 PROFILE_ID = "110715270"
-QUEUE_NAME = "RabbitMq-BWAUTOSUGGEST-Queue"
-INDEX_NAME = "newbwsrckeywords"
-ELASTIC_SEARCH_IP = '192.168.1.200'
-ELASTIC_SEARCH_PORT = 9202
-RABBITMQ_IP_1 = '192.168.1.14'
-key_file_location = 'E:\work\bikewaleweb\ESIndexGA' + '\GoogleDFPProductionKey.p12'
-
-# RABBITMQ_IP_2 = '192.168.1.14'
+#INDEX_NAME = "bikewalekeywords"	#Live
+#ELASTIC_SEARCH_IP = '10.10.3.70'	#Live
+#ELASTIC_SEARCH_PORT = 9212			#Live
+#INDEX_NAME = "bikewalekeywordsstgv1"	#Staging
+#ELASTIC_SEARCH_IP = '10.10.3.70'		#Staging
+#ELASTIC_SEARCH_PORT = 9211				#Staging
+INDEX_NAME = "11bwsrckeywordsv1"	#Local
+ELASTIC_SEARCH_IP = '172.16.0.11'	#Local
+ELASTIC_SEARCH_PORT = 9201			#Local
+BW_HOSTURL = "https://www.bikewale.com"	#Live
+#BW_HOSTURL = "https://staging.bikewale.com"	#Staging
+#BW_HOSTURL = "http://webserver:9011"	#Local
+key_file_location = 'GoogleKey.p12' # + '/GoogleDFPProductionKey.p12'
+DOC_TYPE = 'bikelist'
 
 def get_Logger(loggerName,fileName): 
 	logger = logging.getLogger(loggerName)
@@ -41,18 +45,20 @@ def get_Logger(loggerName,fileName):
 	logger.addHandler(fh)
 	return logger
 
-logger = get_Logger(LOGGER_NAME,LOG_FILE) #'/home/cassuser/PageViewUpdatePythonScript/UpdatePageViewsScript.log')
+# logger = get_Logger(LOGGER_NAME,LOG_FILE) #'/home/cassuser/PageViewUpdatePythonScript/UpdatePageViewsScript.log')
+current_directory = sys.path[0] + "/"
+logger = get_Logger(LOGGER_NAME,current_directory+"BWUpdatePageViewsScript.log")
 
 
 def get_service(api_name, api_version, scope, key_file_location,
-                service_account_email):
+				service_account_email):
 
   f = open(key_file_location, 'rb')
   key = f.read()
   f.close()
 
-  credentials = SignedJwtAssertionCredentials(service_account_email, key,
-    scope=scope)
+  credentials = ServiceAccountCredentials._from_p12_keyfile_contents(service_account_email, key,
+	scopes=scope)
 
   http = credentials.authorize(httplib2.Http())
 
@@ -103,7 +109,7 @@ def getMobileData(service, profile_id, start_date, end_date, url):
 def main():
 	logger.info("started at " + str(datetime.date.today()))
 	# Queue Name
-	Queue_name = "RabbitMq-BWAUTOSUGGEST-Queue"
+	#Queue_name = "RabbitMq-BWAUTOSUGGEST-Queue"
 	# Define the Time Period 
 	startdate = str(datetime.date.today()-datetime.timedelta(7))
 	enddate = str(datetime.date.today()-datetime.timedelta(1))
@@ -114,15 +120,6 @@ def main():
     port=ELASTIC_SEARCH_PORT,
 	)
 
-	# # Define RabbitMQ connection and Channel
-	connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host=RABBITMQ_IP_1,port = 5672))
-	channel = connection.channel()
-
-
-	# # Define Values for service object
-	# current_dir = subprocess.check_output("pwd").rstrip('\n')	
-
 	service_account_email = '701834893970-6864575bc9csg290qv0142kt5e2n6asd@developer.gserviceaccount.com'
 	application_name = 'New Srevice Account'
 	scope='https://www.googleapis.com/auth/analytics.readonly'
@@ -131,9 +128,9 @@ def main():
 	service = get_service('analytics', 'v3', scope, key_file_location,service_account_email)
 
 	# Get make and model URLS
-	makeModelUrl = "http://www.bikewale.com/api/model/all/new/"
-	makeModelUrlUpcoming = "http://www.bikewale.com/api/model/all/upcoming"
-
+	makeModelUrl = BW_HOSTURL + "/api/model/all/new/"
+	makeModelUrlUpcoming = BW_HOSTURL + "/api/model/all/upcoming"
+	
 	MakeModels = getMakeModels(makeModelUrl) + getMakeModels(makeModelUrlUpcoming)
 
 	# # For each MakeModel 
@@ -163,30 +160,51 @@ def main():
 		
 		# Fetch from ES
 		Id = str(makeModel['MakeBase']['makeId']) +"_" + str(makeModel['ModelBase']['modelId'])
+		print Id
+		print url
+		print 
 		try:			
-			document = es.get(index=INDEX_NAME, doc_type="mm", id= Id)['_source']
+			document = es.get(index=INDEX_NAME, doc_type=DOC_TYPE, id= Id)['_source']
 			print "Before Update Weight " , document['id'] , document['mm_suggest']['weight']
 		# Update Document Weight
 			document['mm_suggest']['weight'] = data
 			print "After Update Weight " , document['id'] , document['mm_suggest']['weight']
-			doc = '{"OperationType" : "Create","docs" :' + str(document) + '}'
-			doc1 = doc.replace("u'","\"").replace("'","\"")
+			#doc = '{"OperationType" : "Create","docs" :' + str(document) + '}'
+
+			#print document
+
+			#doc1 = str(document).replace("u'","\"").replace("'","\"")
+
+			#print doc1
+			
+			#doc1 = "\"doc\" : \{\"mm_suggest\" : \{\"weight\" : 2001\}\}"
+			doc1 = {
+					    "doc" : {
+					        "mm_suggest" : {
+					            "weight" : data
+					        }
+					    }
+					}
+
+			print doc1
+
+			es.update(index=INDEX_NAME, doc_type=DOC_TYPE, id= Id, body = doc1)
 
 			# Push it into Queue
-			fields = {}
-			fields['content'] = 'json'
-			if roundrobinflag == 0:			
-				channel.basic_publish(exchange='',
-		                      routing_key=QUEUE_NAME,
-		                      body=doc1,
-		                      properties = pika.BasicProperties(headers = fields))
-				roundrobinflag = 1
-			else :
-				channel.basic_publish(exchange='',
-		                      routing_key=QUEUE_NAME,
-		                      body=doc1,
-		                      properties = pika.BasicProperties(headers = fields))
-				roundrobinflag = 0
+			#fields = {}
+			#fields['content'] = 'json'
+			#if roundrobinflag == 0:			
+			#	channel.basic_publish(exchange='',
+		    #                  routing_key=QUEUE_NAME,
+		    #                  body=doc1,
+		    #                  properties = pika.BasicProperties(headers = fields))
+			#	roundrobinflag = 1
+			#else :
+			#	channel.basic_publish(exchange='',
+		    #                  routing_key=QUEUE_NAME,
+		    #                  body=doc1,
+		    #                  properties = pika.BasicProperties(headers = fields))
+			#	roundrobinflag = 0
 			# print doc1
 			logger.info("Processed  ID " + Id)
 		except:
@@ -203,26 +221,49 @@ def main():
 		# Fetch from ES
 		Id = str(MakeId[i]) +"_0"
 		try:			
-			document = es.get(index=INDEX_NAME, doc_type="mm", id= Id)['_source']
+			document = es.get(index=INDEX_NAME, doc_type=DOC_TYPE, id= Id)['_source']
 		# Update Document Weight
 			document['mm_suggest']['weight'] = data
-			doc = '{"OperationType" : "Create","docs" :' + str(document) + '}'
-			doc1 = doc.replace("u'","\"").replace("'","\"")
+
+			#print document
+		
+			#doc = '{"OperationType" : "Create","docs" :' + str(document) + '}'
+			#doc1 = str(document).replace("u'","\"").replace("'","\"")
+
+			#print doc1
+
+			doc1 = {
+					    "doc" : {
+					        "mm_suggest" : {
+					            "weight" : data
+					        }
+					    }
+					}
+
+			print doc1
+			
+			es.update(index=INDEX_NAME, doc_type=DOC_TYPE, id= Id, body = doc1)
+
+			# Update the document from the script itself
+
+
+
 
 			# Push it into Queue
-			fields = {}
-			fields['content'] = 'json'
-			channel.basic_publish(exchange='',
-	                      routing_key=QUEUE_NAME,
-	                      body=doc1,
-	                      properties = pika.BasicProperties(headers = fields))
+			#fields = {}
+			#fields['content'] = 'json'
+			#channel.basic_publish(exchange='',
+	        #              routing_key=QUEUE_NAME,
+	        #              body=doc1,
+	        #              properties = pika.BasicProperties(headers = fields))
 			logger.info("Processed  ID " + Id)
 		except:
 			logger.error(Id + "Document Not Found in Index")
 
 	logger.info("Completed at " + str(datetime.date.today()))
-	print doc1
+	# print doc1
 
 
 if __name__ =='__main__':
 	main()
+

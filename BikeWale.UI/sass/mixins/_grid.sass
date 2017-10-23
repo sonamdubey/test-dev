@@ -1,0 +1,11 @@
+﻿$base-grid: 8.33333333
+
+@mixin grid-inline($size)
+	.grid-inline-container
+		font-size: 0
+
+	.grid-#{$size}-inline
+		width: ($size * $base-grid ) * 1%
+		display: inline-block
+		vertical-align: middle
+		font-size: 13px

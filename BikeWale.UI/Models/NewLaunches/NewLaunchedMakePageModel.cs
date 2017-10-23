@@ -75,7 +75,7 @@ namespace Bikewale.Models
                 };
                 objVM.NewLaunched = (new NewLaunchesBikesModel(_newLaunches, _filter, _pqSource)).GetData();
 
-                if (objVM.NewLaunched != null && objVM.NewLaunched.HasBikes)
+                if (objVM.NewLaunched != null && objVM.NewLaunched.Bikes != null && objVM.NewLaunched.HasBikes)
                 {
                     _totalPagesCount = (uint)(objVM.NewLaunched.Bikes.TotalCount / PageSize);
 

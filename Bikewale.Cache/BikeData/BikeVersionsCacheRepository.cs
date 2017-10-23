@@ -94,13 +94,15 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by  : Sushil Kumar on 28th June 2016
         /// Summary     : Gets the version details
+        /// Modified By: Snehal Dange on 13th Oct 2017
+        /// Description : - Versioned the cache key
         /// </summary>
         /// <param name="makeType">Type of make</param>
         /// <returns></returns>
         public T GetById(U versionId)
         {
             T versionDetails = default(T);
-            string key = String.Format("BW_VersionDetails_{0}", versionId);
+            string key = String.Format("BW_VersionDetails_{0}_V1", versionId);
             try
             {
                 versionDetails = _cache.GetFromCache<T>(key, new TimeSpan(1, 0, 0), () => _objVersions.GetById(versionId));

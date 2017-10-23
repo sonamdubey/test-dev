@@ -1,0 +1,45 @@
+﻿<div class="swiper-container card-container swiper-small">
+    <div class="swiper-wrapper discover-bike-carousel">
+
+        <!-- ko foreach: bikeList() -->
+        <div class="swiper-slide">
+            <div class="swiper-card" style="min-height: 185px;">
+                <a data-bind="attr: {'href': '/m/' + $data.objMake.maskingName + '-bikes/' + $data.objModel.maskingName + '/', 'title': $data.objMake.makeName + $data.objModel.modelName }">
+                    <div class="swiper-image-preview">
+                        <img class="swiper-lazy" data-bind="attr: {'data-src': 'https://imgd.aeplcdn.com//174x98/' + $data.OriginalImagePath, 'title': $data.objMake.makeName + $data.objModel.modelName}" src="" />
+                        <span class="swiper-lazy-preloader"></span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <h3 class="target-link font12 text-truncate margin-bottom5" data-bind="text: $data.objMake.makeName + ' ' + $data.objModel.modelName"></h3>
+                        <!-- ko if : $data.VersionPrice > 0 -->
+                        <p class="text-truncate text-light-grey font11" data-bind="text: 'Ex-showroom, ' + ($data.CityName.length > 0 ? $data.CityName : 'Mumbai')"></p>
+                        <p class="text-default font16">
+                            <span data-bind="html: '&#x20B9;'"></span>
+                            <span class="text-bold" data-bind="CurrencyText: $data.VersionPrice"></span>
+                            <span class="font14 text-bold">&nbsp;onwards</span>
+                        </p>
+                        <!-- /ko -->
+                        <!-- ko ifnot : $data.VersionPrice > 0 -->
+                        <p class="text-default">
+                            <span class="font14 text-light-grey">Price not available </span>
+                        </p>
+                        <!-- /ko -->
+                    </div>
+                </a>
+                <!-- ko if : $parent.showCheckOnRoadCTA() && $data.VersionPrice > 0 -->
+                <div class="swiper-btn-block">
+                    <a href="javascript:void(0)" data-bind="attr: {'data-pagecatid': pageCatId(), 'data-pqsourceid': pqSourceId(), 'data-makename': $data.objMake.makeName, 'data-modelname': $data.objModel.modelName, 'data-modelid': $data.objModel.modelId }" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
+                </div>
+                <!-- /ko -->
+                <!-- ko if : $parent.showPriceInCityCTA() && $data.VersionPrice > 0 -->
+                <div class="swiper-btn-block">
+                    <a data-bind="attr:{href: '/m/' + $data.objMake.maskingName + '-bikes/' + $data.objModel.maskingName + '/price-in-' + $data.CityMaskingName + '/', 'title': $data.objMake.makeName + ' ' + $data.objModel.modelName + ' price in ' + $data.CityName}, text: 'On-road price in ' + $data.CityName" class="btn btn-card btn-full-width btn-white font14 text-truncate" href="" rel="nofollow"></a>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
+
+<div class="section-spinner" data-bind="visible : IsLoading()"></div>

@@ -70,7 +70,7 @@ namespace BikewaleAutoSuggest
                         .Query(qq => qq.MatchAll())
                         );
 
-                     ElasticClientOperations.AddDocument(suggestionList.ToList(), indexName, obj => obj.Id);
+                   ElasticClientOperations.AddDocument<BikeList>(suggestionList.ToList(), indexName, obj => obj.Id);
                 
 
             }

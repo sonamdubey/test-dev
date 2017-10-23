@@ -120,6 +120,7 @@ namespace Bikewale.BAL.AutoComplete
                 case AutoSuggestEnum.AllMakeModel:
                 case AutoSuggestEnum.PriceQuoteMakeModel:
                 case AutoSuggestEnum.UserReviews:
+                case AutoSuggestEnum.NonUpcomingBikes:
                     indexName = Utility.BWConfiguration.Instance.MMindexName;
                     break;
                 case AutoSuggestEnum.AllCity:
@@ -152,6 +153,9 @@ namespace Bikewale.BAL.AutoComplete
                     break;
                 case AutoSuggestEnum.UserReviews:
                     indexName.Add("UserReviews");
+                    break;
+                case AutoSuggestEnum.NonUpcomingBikes:
+                    indexName.Add("NonUpcomingBikes");
                     break;
                 case AutoSuggestEnum.AllCity:
                     indexName.Add("AllCity");

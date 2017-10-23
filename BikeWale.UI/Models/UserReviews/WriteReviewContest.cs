@@ -15,7 +15,7 @@ namespace Bikewale.Models.UserReviews
     /// Modified by: Vivek Singh Tomar on 12th Aug 2017
     /// Summary: Added IUserReviewsCache to fetch list of winners of user reviews contest
     /// </summary>
-    public class WriteReviewContest
+    public class WriteReviewContest 
     {
         private bool _isMobile = false;
         private readonly IBikeMakesCacheRepository<int> _makeRepository = null;

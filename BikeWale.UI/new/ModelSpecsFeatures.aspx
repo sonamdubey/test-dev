@@ -39,6 +39,16 @@
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= makeMaskingName %>-bikes/" itemprop="url"><span itemprop="title"><%= makeName %> Bikes</span></a>
                             </li>
+
+                              <% if(IsScooter && !IsScooterOnly)
+                                { %>
+                              <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
+                                <a href="/<%= makeMaskingName %>-scooters/" itemprop="url"><span itemprop="title"><%= String.Format("{0} Scooters", makeName) %></span></a>
+                            </li>
+                              <%  }
+                                 %>
+
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url"><span itemprop="title"><%= String.Format("{0} {1}", makeName, modelName) %></span></a>
@@ -47,6 +57,7 @@
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <span>Specifications & Features</span>
                             </li>
+                          
                         </ul>
                         <div class="clear"></div>
                     </div>

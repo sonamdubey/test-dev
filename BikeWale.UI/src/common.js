@@ -652,6 +652,16 @@ var bwAutoComplete = function (options) {
             {
                 ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.userRatingsCount + ' Ratings)</span>')
             }
+            if (options.source == '7' && $('#nonUpcomingBikes').attr('data-contentTab') == "userReview" && parseInt(item.payload.userRatingsCount) > 0) {
+                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.userRatingsCount + ' Ratings)</span>')
+            }
+            else if (options.source == '7' && $('#nonUpcomingBikes').attr('data-contentTab') == "expertReview" && parseInt(item.payload.expertReviewsCount) > 0) {
+                ulItem.append(' <a href="javascript:void(0)"  class="target-popup-link" rel="nofollow">Read review</a>')
+            }
+            else if (options.source == '7') {
+                ulItem.closest('li').addClass('event-none');
+                ulItem.append(' <span class="rightfloat margin-left10 font14 text-grey">Not reviewed yet</span>')
+            }
             if (options.source == '1') {
                 if (item.payload.modelId > 0) {
                     if (item.payload.futuristic == 'True') {
