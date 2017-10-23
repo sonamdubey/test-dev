@@ -7,8 +7,8 @@
         @foreach (var obj in Model.ObjQuestionValue.QuestionsList)
         {
             <li>
-                <div class="rating-circle circle-rate-@(Math.Floor(obj.AverageRatingValue))">
-                    <p class="circle-label">@(obj.AverageRatingValue.ToString("0.0"))</p>
+                <div class="rating-circle circle-rate-@Math.Floor(obj.AverageRatingValue)">
+                    <p class="circle-label">@Math.Floor(obj.AverageRatingValue)</p>
                     <span class="rating-progress">
                     </span>
                 </div>
