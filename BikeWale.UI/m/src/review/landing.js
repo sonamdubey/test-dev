@@ -12,7 +12,8 @@ function bannerSwiper() {
                 slidesPerView: 'auto',
                 centeredSlides: true,
                 paginationClickable: true,
-                spaceBetween: 20
+				spaceBetween: 20,
+				initialSlide: 1
             });
         }
     }
