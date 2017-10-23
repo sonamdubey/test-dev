@@ -532,9 +532,9 @@
         <script type="text/javascript">
             var pageUrl = window.location.href;
             var clientIP = '<%= clientIP %>';
-            var bikename='<%= bikeName %>'
-            var bikeVersionName=bikename+'_'+'<%= versionName %>' 
-            var cityArea='<%=cityName%>'+'_'+'<%=areaName%>'
+            var bikename = '<%= bikeName %>';
+            var bikeVersionName = bikename + '_' + '<%= versionName %>'; 
+            var cityArea = '<%=cityName%>' + '_' + '<%=areaName%>';
             var BkCityArea=bikename+'_'+cityArea;
             ga_pg_id=15;
             $(document).ready(function () {

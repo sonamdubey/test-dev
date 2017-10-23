@@ -96,22 +96,39 @@ docReady(function () {
             }
         });
 
-        var scrollToTab = $('#makeTabsContentWrapper .bw-model-tabs-data:eq(3)');
-        if (scrollToTab.length != 0) {
-            if (windowScrollTop > scrollToTab.offset().top - 45) {
-                if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
-                    $('.overall-specs-tabs-container').addClass('scrolled-left');
-                    scrollHorizontal(300);
+        var makeTabsContentWrapper = $('#makeTabsContentWrapper');
+        var tabElementThird = makeTabsContentWrapper.find('.bw-model-tabs-data:eq(3)'),
+        tabElementSixth = makeTabsContentWrapper.find('.bw-model-tabs-data:eq(6)'),
+        tabElementNinth = makeTabsContentWrapper.find('.bw-model-tabs-data:eq(9)');
+
+        if (tabElementThird.length != 0) {
+            focusFloatingTab(tabElementThird, 250, 0);
+        }
+
+        if (tabElementSixth.length != 0) {
+            focusFloatingTab(tabElementSixth, 500, 250);
+        }
+
+        if (tabElementNinth.length != 0) {
+            focusFloatingTab(tabElementNinth, 750, 500);
+        }
+
+        function focusFloatingTab(element, startPosition, endPosition) {
+            if (windowScrollTop > element.offset().top - 45) {
+                if (!$('#overallSpecsTab').hasClass('scrolled-left-' + startPosition)) {
+                    $('.overall-specs-tabs-container').addClass('scrolled-left-' + startPosition);
+                    scrollHorizontal(startPosition);
                 }
             }
 
-            else if (windowScrollTop < scrollToTab.offset().top) {
-                if ($('#overallSpecsTab').hasClass('scrolled-left')) {
-                    $('.overall-specs-tabs-container').removeClass('scrolled-left');
-                    scrollHorizontal(0);
+            else if (windowScrollTop < element.offset().top) {
+                if ($('#overallSpecsTab').hasClass('scrolled-left-' + startPosition)) {
+                    $('.overall-specs-tabs-container').removeClass('scrolled-left-' + startPosition);
+                    scrollHorizontal(endPosition);
                 }
             }
-        }
+        };
+
     });
 
     $("#sort-btn").click(function () {
