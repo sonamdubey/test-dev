@@ -7,6 +7,10 @@ using System.Collections.Generic;
 
 namespace Bikewale.Models.Photos
 {
+    /// <summary>
+    /// Modified By:Snehal Dange on 9th Oct 2017
+    /// Description : Added bodystyle
+    /// </summary>
     public class PhotosPageVM : ModelBase
     {
         public ModelPhotoGalleryEntity PhotoGallery { get; set; }
@@ -29,7 +33,7 @@ namespace Bikewale.Models.Photos
 
         public string BikeName { get; set; }
         public bool IsPopupOpen { get; set; }
-
+        public sbyte BodyStyle { get; set; }
 
     }
 }

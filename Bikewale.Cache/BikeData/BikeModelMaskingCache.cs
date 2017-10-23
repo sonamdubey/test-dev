@@ -93,13 +93,15 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created By:-Subodh jain 9 jan 2017
         /// Description :- Added cache call for model helper
+        /// Modified By: Snehal Dange on 13thOct 2017
+        /// Description : - Versioned the cache key
         /// </summary>
         /// <param name="modelid"></param>
         /// <returns></returns>
         public T GetById(U modelid)
         {
             T objModel = default(T);
-            string key = string.Format("BW_GetModelById_{0}", modelid);
+            string key = string.Format("BW_GetModelById_{0}_V1", modelid);
             try
             {
                 objModel = _cache.GetFromCache<T>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetById(modelid));

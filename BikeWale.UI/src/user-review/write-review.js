@@ -10,6 +10,7 @@ var bikeRating = {
 
 var ratingQuestion = [];
 var ratingError = false, questionError = false, userNameError = false, emailError = false;
+ 
 
 docReady(function () {
     bwcache.setScope('ReviewPage');
@@ -421,7 +422,7 @@ docReady(function () {
 
     descReviewField = $('#reviewDesc');
     reviewTitleField = $('#getReviewTitle');
-
+   
     // write review
     writeReview = function () {
         var self = this,
@@ -436,12 +437,15 @@ docReady(function () {
         self.focusFormActive = ko.observable(false);
         self.bikeMileage = ko.observable('');
         self.reviewQuestions = ko.observableArray(reviewQuestion);
-
+        self.reviewCheckbox = ko.observable(true);
         self.descLength = ko.computed(function () {
 
             return self.detailedReview().replace(/\n|\r/g, "").length;
         });
-
+        self.isReviewPresent = function()
+        {
+            reviewFlag = self.detailedReview().trim().length()>1
+        }
         self.submitReview = function () {
             var array = new Array;
 
@@ -514,25 +518,25 @@ docReady(function () {
         };
 
         self.validateReviewForm = function () {
-            var isValidDesc = true;
-            var isValidTitle = true;
-            isValidDesc = self.validate.detailedReview();
-            isValidTitle = self.validate.reviewTitle();
-            var isValid = isValidDesc && isValidTitle;
+            var isValidDesc = self.validate.detailedReview();
+            var isValidTitle = self.validate.reviewTitle();
+          
+
+            reviewErrorFields = "";
+            if (isValidTitle && !isValidDesc)
+                reviewErrorFields = reviewErrorFields + '_' + 'Review_Description';
+            else if (!isValidTitle && isValidDesc)
+                reviewErrorFields = reviewErrorFields + '_' + 'Review_Title';
+            else if (!isValidDesc && !isValidTitle)
+                reviewErrorFields = reviewErrorFields + '_' + 'Review_Title' + '_' + 'Review_Description';
+           
+            var isValid = isValidDesc && isValidTitle && self.reviewCheckbox();
             if (isValid) {
                 triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
             }
             else {
-                reviewErrorFields = "";
-                if (isValidTitle && !isValidDesc)
-                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Description';
-                else if (!isValidTitle && isValidDesc)
-                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Title';
-                else if (!isValidDesc && !isValidTitle)
-                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Title' + '_' + 'Review_Description';
                 triggerGA('Write_Review', 'Review_Submit_Error', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length + reviewErrorFields);
             }
-
 
             self.focusFormActive(false);
             return isValid;
@@ -580,6 +584,8 @@ docReady(function () {
 
                 return isValid;
             }
+
+           
         };
 
         self.SaveToBwCache = function () {

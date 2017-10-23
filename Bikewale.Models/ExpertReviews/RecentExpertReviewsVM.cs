@@ -19,5 +19,6 @@ namespace Bikewale.Models
         public string MoreExpertReviewUrl { get; set; }
         public string BikeName { get; set; }
         public int FetchedCount { get; set; }
+        public bool IsViewAllLink { get; set; }
     }
 }

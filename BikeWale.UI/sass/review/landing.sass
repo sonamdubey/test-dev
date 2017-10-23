@@ -1,0 +1,627 @@
+﻿
+// Core variables and mixins
+@import ../components/variables
+@import ../components/mixins
+
+
+.bw-tabs-content
+    font-size: 0
+    text-align: center
+
+.tabs-type-switch
+    display: inline-block
+    margin: 25px auto
+    border: 1px solid #ccc
+    background: #ccc
+    overflow: hidden
+
+.tabs-type-switch li
+	font-size: 12px
+	padding: 6px 15px
+	display: inline-block
+	cursor: pointer
+	color: white
+	background: #2a2a2a
+	font-weight: 600
+	padding-left: 17px
+	padding-right: 17px
+
+.tabs-type-switch li.active
+    color: #41b4c4
+    background: #fff
+    pointer-events: none
+//tabs
+#form-tab-list
+	li
+		width: 33.33%
+		display: inline-block
+		vertical-align: middle
+		position: relative
+
+		&:before
+			content: ""
+			width: 60%
+			height: 1px
+			display: block
+			border-top: 1px solid $border-light
+			position: absolute
+			top: 15px
+			left: -30%
+
+		&:first-child:before
+			content: none
+
+	.tab-item
+		cursor: pointer
+
+		.tab-title
+			font-size: 12px
+
+.step-2-inactive,
+.step-3-inactive
+	cursor: not-allowed
+
+.step-2-inactive ~ .tab-title,
+.step-3-inactive ~ .tab-title
+	color: $text-light
+
+[data-bg-image="0"]
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/banner-user-review.jpg') center top no-repeat #161209
+
+[data-bg-image="1"]
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/banner-expert-review.jpg') center top no-repeat #161209
+
+.banner-review
+    height: 340px
+    background-size: cover
+
+.banner-head
+	font-size: 34px
+	text-transform: uppercase
+	color: #fff
+
+.banner-container
+    padding: 30px 20px 20px
+
+.top-campaign-banner-container
+	height: 100%
+	padding-top: 85px
+
+//review button
+
+.bike-search-container
+    margin: 0 auto
+    width: 585px
+
+.bike-search
+    width: 470px
+    float: left
+    background: #fff
+    border: 1px solid #cccccc
+    border-right: 0
+    border-radius: 2px 0 0 2px
+    height: 40px
+
+.new-bike-search input[type="text"]
+    width: 100%
+    padding: 11px 10px
+
+.findBtn
+    float: left
+
+.findBtn .btn-md
+    padding: 8px 20px
+    border-radius: 0 2px 2px 0
+
+//banner swiper
+.jcarousel-wrapper.banner-swiper
+	width: 100%
+
+.banner-swiper .jcarousel-card
+	min-height: 200px
+
+.banner-swiper .carousel-image-preview
+	height: 90px
+.banner-swiper .carousel-details-block
+	text-align: center
+	padding-left: 30px
+	padding-right: 30px
+
+.text-slate-grey
+	color: #787878
+
+.banner-swiper.card-container.padding-bottom40
+	background: #fff
+	padding-bottom: 40px
+	padding-top: 10px
+
+.banner-swiper .swiper-card
+	text-align: center
+	box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50)
+	-moz-border-radius: 2px
+	-webkit-border-radius: 2px
+	border-radius: 2px
+
+.banner-swiper.card-container > .swiper-pagination
+	bottom: 15px
+
+.banner-swiper.card-container > .swiper-pagination .swiper-pagination-bullet
+	width: 8px
+	height: 8px
+	margin: 0 3px
+
+.review-icon
+	margin: 15px auto
+	height: 60px
+	width: 60px
+	display: block
+	-moz-border-radius: 30px
+	-webkit-border-radius: 30px
+	border-radius: 30px
+	background-color: #41B4C4
+	background-repeat: no-repeat
+	background-position: center
+
+.white-expert-icon
+	@extend .review-icon
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/expert-review-23x25.png')
+
+.comparison-icon
+	@extend .review-icon
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/comparison-24x25.png')
+
+.white-first-ride-icon
+	@extend .review-icon
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/first-ride-30x25.png')
+
+.white-user-icon
+	@extend .review-icon
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/user-review-24x24.png')
+
+.white-like-disklike-icon
+	@extend .review-icon
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/like-dislike-26x26.png')
+
+.white-bike-icon
+	@extend .review-icon
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bike-36x20.png')
+
+//rating star
+.user-reviews-type-carousel .rating-block
+    z-index: 2
+    display: inline-block
+    position: absolute
+    top: 15px
+    right: 15px
+
+.user-reviews-type-carousel .rating-block span
+	display: inline-block
+	vertical-align: middle
+.star-icon
+	width: 26px
+	height: 25px
+	vertical-align: middle
+	-webkit-transform: scale(0.8)
+	-moz-transform: scale(0.8)
+	-o-transform: scale(0.8)
+	transform: scale(0.8)
+
+.star-icon.star-size-15
+    -webkit-transform: scale(0.6)
+    -moz-transform: scale(0.6)
+    -o-transform: scale(0.6)
+    transform: scale(0.6)
+
+.rate-count-1 .star-icon
+  background-position: 0 -790px
+
+.rate-count-2 .star-icon
+  background-position: -46px -790px
+
+.rate-count-3 .star-icon
+  background-position: 0 -757px
+
+.rate-count-4 .star-icon
+  background-position: -92px -790px
+
+.rate-count-5 .star-icon
+  background-position: -138px -790px
+
+.rate-count-5
+  color: #198D55
+
+.rate-count-4
+  color: #13B65D
+
+.rate-count-3
+  color: #EFD700
+
+.rate-count-2
+  color: #FD971C
+
+.rate-count-1
+  color: #EF3F30
+//rating badge
+.rating-badge
+    min-width: 40px
+    height: 20px
+    padding-right: 5px
+    padding-left: 5px
+    font-size: 14px
+    font-weight: 600
+    color: #fff
+    display: inline-block
+    vertical-align: middle
+    text-align: center
+    -webkit-border-radius: 2px
+    -moz-border-radius: 2px
+    -ms-border-radius: 2px
+    border-radius: 2px
+
+.rating-badge[data-rate-bg="5"]
+    background-color: #198D55
+
+.rating-badge[data-rate-bg="4"]
+    background-color: #13B65D
+
+.rating-badge[data-rate-bg="3"]
+    background-color: #EFD700
+
+.rating-badge[data-rate-bg="2"]
+    background-color: #FD971C
+
+.rating-badge[data-rate-bg="1"]
+    background-color: #EF3F30
+
+.star-white
+    width: 12px
+    height: 12px
+    background-position: -218px -103px
+    position: relative
+    top: 1px
+    margin-right: 4px
+
+//user-review__swiper
+
+.user-review__swiper .jcarousel-wrapper
+    position: relative
+    width: 976px
+
+.user-review__swiper.inner-content-carousel .jcarousel
+    padding-top: 20px
+
+.user-review__swiper.inner-content-carousel .jcarousel li
+    min-height: 225px
+    padding: 35px 20px 15px
+    position: relative
+    text-align: center
+
+.review-card__author-circle
+    width: 40px
+    height: 40px
+    background: #f5f5f5 url(https://imgd.aeplcdn.com/0x0/bw/static/icons/john-doe-30x36.png) no-repeat 50% bottom
+    position: absolute
+    top: -20px
+    left: 0
+    right: 0
+    margin: 0 auto
+    -webkit-border-radius: 50%
+    -moz-border-radius: 50%
+    -o-border-radius: 50%
+    border-radius: 50%
+
+.review-card__author
+    font-size: 12px
+    margin-bottom: 10px
+
+.user-review__swiper .rating-badge
+    margin-bottom: 10px
+
+.review-card__bike.text-truncate
+    text-align: center
+
+.review-card__bike
+    font-size: 15px
+    font-weight: 600
+    margin-bottom: 8px
+
+.review-card__desc
+    color: #787878
+    margin-bottom: 8px
+
+.review-card__date
+    color: #82888b
+    font-size: 11px
+    margin-bottom: 10px
+
+.model-jcarousel-title
+    height: 40px
+    overflow: hidden
+
+.review-sm
+	display: inline-block
+	vertical-align: middle
+	height: 16px
+	width: 16px
+	margin-right: 10px
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/review-16x17.png')
+
+.expert-review-sm
+	display: inline-block
+	vertical-align: middle
+	height: 16px
+	width: 16px
+	margin-right: 5px
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/expert_review16x17.png')
+
+.more-review
+	display: block
+	padding: 10px 35px 15px 15px
+	position: relative
+	font-size: 14px
+	color: #4d5057
+	&:before
+		content: ''
+		position: absolute
+		top: 0
+		left: 0
+		margin-left: 15px
+		margin-right: 15px
+		display: block
+		width: 88%
+		height: 1px
+		border-top: 1px solid #eee
+
+.more-review .right-arrow
+	width: 17px
+	height: 22px
+	background-position: -151px -400px
+	position: absolute
+	right: 18px
+	top: 14px
+	-webkit-transform: scale(0.8)
+	-moz-transform: scale(0.8)
+	-ms-transform: scale(0.8)
+	transform: scale(0.8)
+
+//user review
+
+#userReviewContent,
+#expertReviewContent
+	.grid-12
+		float: none
+
+//contest-banner
+
+.contest-banner
+	height: 215px
+	text-align: center
+	padding: 40px 0
+	background: rgba(46,49,146,1) url('https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/skyline976x103.png') repeat-x center bottom
+
+.locator-search-container
+	margin: 0 auto
+	width: 557px
+
+	.form-control
+		padding: 8px
+		border-radius: 0
+
+	.error-icon
+		right: 20px
+
+	.bw-blackbg-tooltip
+		right: 10px
+
+.locator-search-make,
+.locator-search-model
+	height: 40px
+	float: left
+
+.locator-search-make
+	width: 190px
+
+.locator-search-model
+	width: 190px
+
+.locator-search-make select
+	width: 100%
+	height: 38px
+	color: #555
+
+.locator-search-model
+	select
+		width: 100%
+		height: 38px
+		color: #555
+	.chosen-container
+		border-left: 0 !important
+
+.locator-search-make .chosen-container,
+.locator-search-model .chosen-container
+	border: 1px solid #e2e2e2 !important
+	@include border-radius(0)
+	padding: 10px 20px
+
+#applyFiltersBtn
+	position: relative
+	left: -1px
+
+.locator-search-btn.btn-lg
+	padding: 10px 19px 9px
+	font-size: 14px
+	
+//author-block
+.author-block
+	min-height: 435px
+	margin-bottom: 20px
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/expert-review-banner976x512.jpg') no-repeat center top
+	background-size: cover
+	position: relative
+	overflow-x: hidden
+
+	&:before
+		content: ''
+		display: block
+		min-height: 435px
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		opacity: 0.8
+		background-image: -webkit-linear-gradient(top,#41B4C4 15%,#3799A7 100%)
+		background-image: -o-linear-gradient(bottom,#41B4C4 15%,#3799A7 100%)
+		background-image: -moz-linear-gradient(bottom,#41B4C4 15%,#3799A7 100%)
+		background-image: linear-gradient(to bottom,#41B4C4 15%,#3799A7 100%)
+
+.author-block__title
+	display: block
+	font-weight: 700
+	text-transform: uppercase
+	font-size: 18px
+	color: #fff
+	padding-top: 40px
+	text-align: center
+	position: relative
+
+.author-block__description
+	font-size: 13px
+	color: #fff
+	padding: 10px 27px 30px
+	text-align: center
+	position: relative
+
+#author__carousel
+	background: #fff
+	margin-left: 10px
+	margin-right: 10px
+	width: 956px
+	min-height: 293px
+	padding-top: 15px
+	
+	.jcarousel
+		padding-bottom: 15px
+		width: 935px
+
+		li
+			box-shadow: 0 2px 4px 1px rgba(204,204,204,0.50)
+			min-height: 253px
+			margin-right: 20px
+			
+.jcarousel-author-image
+	height: auto
+	min-height: 172px
+	margin: 0 auto
+	width: 205px
+	display: table
+	text-align: center
+	position: relative
+	padding: 25px 15px 0
+
+.detail-author__swiper-title
+	font-size: 14px
+	font-weight: 600
+	color: #2a2a2a
+	padding-top: 20px
+	padding-bottom: 20px
+	text-align: center
+	text-transform: capitalize
+	display: block
+
+.jcarousel-author-image img
+    width: 190px
+    height: auto
+
+.author__carousel-label
+    text-align: left
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+    color: #2a2a2a
+    font-weight: 600
+    display: block
+    margin-bottom: 5px
+    font-size: 15px
+
+.author__carousel-designation
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    color: #82888b
+    font-size: 14px
+
+#author__carousel .card-desc-block
+    padding: 15px 20px 20px
+
+.expert-review-list
+  margin-top: 15px
+  padding-bottom: 15px
+
+  .h2-heading
+    font-size: 16px
+    padding: 20px 20px 15px
+
+.article-type-carousel
+	&.inner-content-carousel .jcarousel li
+		height: 240px
+
+	img
+		max-width: 100%
+		max-height: 164px
+		height: auto
+
+	.jcarousel-image-preview
+		height: 164px
+		text-align: center
+
+	.card-desc-block h3
+		padding-top: 10px
+		font-size: 15px
+		color: #2a2a2a
+
+.review-card__winner
+  position: absolute
+  top: 0
+  left: 10px
+
+.vertical-ribbon
+  position: relative
+  width: 14px
+  height: 35px
+  display: inline-block
+  vertical-align: top
+  &:after
+    content: ''
+    position: absolute
+    top: 100%
+    left: 0
+    border-right: 7px solid #41B4C4
+    border-left: 7px solid #41B4C4
+    border-bottom: 7px solid transparent
+
+.bg-color--teal
+  background: #41B4C4
+
+.trophy-teal-10x12:before
+  content: ''
+  width: 22px
+  height: 22px
+  position: absolute
+  top: 4px
+  left: -4px
+  border: 1px solid #4d5057
+  -webkit-border-radius: 50%
+  -moz-border-radius: 50%
+  -o-border-radius: 50%
+  border-radius: 50%
+  background: #fff url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/trophy-10x12.png') no-repeat 50%
+
+.winner-tag__label
+  font-size: 10px
+  color: #82888b
+  padding-left: 5px
+  padding-top: 8px
+  display: inline-block
+  vertical-align: top
+
+    

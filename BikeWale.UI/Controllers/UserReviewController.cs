@@ -2,6 +2,7 @@
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.Authors;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
@@ -31,6 +32,7 @@ namespace Bikewale.Controllers
         private readonly ICMSCacheContent _objArticles = null;
         private readonly IBikeMakesCacheRepository<int> _makesRepository;
         private readonly IUserReviewsCache _userReviewCache = null;
+        private readonly IAuthors _authors = null;
 
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
@@ -50,7 +52,7 @@ namespace Bikewale.Controllers
         /// <param name="userReviewCache"></param>
         public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo,
             IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel,
-                IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository<int> makesRepository, IUserReviewsCache userReviewCache)
+                IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository<int> makesRepository, IUserReviewsCache userReviewCache, IAuthors authors)
         {
 
             _userReviews = userReviews;
@@ -63,6 +65,8 @@ namespace Bikewale.Controllers
             _objArticles = objArticles;
             _makesRepository = makesRepository;
             _userReviewCache = userReviewCache;
+            _authors = authors;
+
         }
 
 
@@ -504,7 +508,7 @@ namespace Bikewale.Controllers
         {
             NameValueCollection queryCollection = HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(q));
             uint makeId = 0, modelId = 0;
-            int? csrc ;
+            int? csrc;
             string makeName, modelName, makeMaskingName, modelMaskingName;
 
             csrc = Convert.ToInt16(queryCollection["csrc"]);
@@ -512,10 +516,10 @@ namespace Bikewale.Controllers
             uint.TryParse(queryCollection["modelId"], out modelId);
             makeName = queryCollection["makeName"];
             modelName = queryCollection["modelName"];
-            makeMaskingName=queryCollection["makeMaskingName"];
-            modelMaskingName=queryCollection["modelMaskingName"];
-            
-            WriteReviewContest objData = new WriteReviewContest(true, _makesRepository, _userReviewCache, makeId , modelId ,makeName, modelName, makeMaskingName, modelMaskingName);
+            makeMaskingName = queryCollection["makeMaskingName"];
+            modelMaskingName = queryCollection["modelMaskingName"];
+
+            WriteReviewContest objData = new WriteReviewContest(true, _makesRepository, _userReviewCache, makeId, modelId, makeName, modelName, makeMaskingName, modelMaskingName);
             objData.IsMobile = true;
             objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
@@ -539,10 +543,27 @@ namespace Bikewale.Controllers
             makeMaskingName = queryCollection["makeMaskingName"];
             modelMaskingName = queryCollection["modelMaskingName"];
 
-            WriteReviewContest objData = new WriteReviewContest(false, _makesRepository, _userReviewCache, makeId , modelId , makeName, modelName, makeMaskingName, modelMaskingName);
+            WriteReviewContest objData = new WriteReviewContest(false, _makesRepository, _userReviewCache, makeId, modelId, makeName, modelName, makeMaskingName, modelMaskingName);
             objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
             return View(objVM);
+        }
+
+        // GET: Review
+        [Route("reviews/")]
+        public ActionResult Index()
+        {       
+            UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors, _makesRepository);
+            return View(obj.GetData());
+        }
+
+        // GET: Review
+        [Route("m/reviews/")]
+        public ActionResult Index_Mobile()
+        {
+              UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors, _makesRepository);
+            obj.IsMobile = true;
+            return View(obj.GetData());
         }
 
     }

@@ -2,6 +2,8 @@
 using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
+using Bikewale.DTO.Version;
+using Bikewale.DTO.Widgets;
 using Bikewale.Entities.BikeData;
 using System.Collections.Generic;
 
@@ -34,6 +36,16 @@ namespace Bikewale.Service.AutoMappers.BikeData
             Mapper.CreateMap<BikeVersionSegmentDetails, VersionSegmentDTO>();
             Mapper.CreateMap<BikeModelVersionsDetails, ModelSpecificationsDTO>();
             return Mapper.Map<IEnumerable<BikeModelVersionsDetails>, IEnumerable<ModelSpecificationsDTO>>(entity);
+        }
+
+        public static IEnumerable<MostPopularBikes> Convert(IEnumerable<MostPopularBikesBase> objModelList)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
+            Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
+            Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
+            return Mapper.Map<IEnumerable<MostPopularBikesBase>, IEnumerable<MostPopularBikes>>(objModelList);
         }
     }
 }

@@ -4,7 +4,10 @@
 @if (Model != null && Model.ArticlesList != null)
 {
     <div class="expert-review-list">
-        <h2>You may also like expert's reviews</h2>
+        @if (!string.IsNullOrEmpty(Model.Title))
+        {
+            <h2>@Model.Title</h2>
+        } 
         <div class="swiper-container card-container article-type-carousel">
             <div class="swiper-wrapper">
                 @foreach (var article in @Model.ArticlesList)
