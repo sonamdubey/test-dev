@@ -42,11 +42,12 @@ namespace Bikewale.New
         protected BikeModelPageEntity modelPg;
         protected LeadCaptureControl ctrlLeadPopUp;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
+        protected bool IsScooter = false;
+        protected bool IsScooterOnly = false;
         protected SimilarBikesWidgetVM similarBikes;
         protected PopularBodyStyleVM popularBodyStyle;
         protected EnumBikeBodyStyles bodyStyle;
-        protected string bodyStyleText; 
-
+        protected string bodyStyleText;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -70,28 +71,20 @@ namespace Bikewale.New
             dd.DetectDevice();
             ProcessQueryString();
             modelDetail = FetchModelPageDetails(modelId);
-            if (modelDetail != null)
+            if (modelDetail != null && modelDetail.ModelDetails != null)
             {
-                if (cityId > 0 && versionId > 0)
+                IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
+                if (versionId > 0)
                 {
-                    string PQLeadId = (PQSourceEnum.Desktop_SpecsAndFeaturePage_OnLoad).ToString();
-                    string UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : string.Empty;
-                    string UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : string.Empty;
-                    string DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : string.Empty;
-
+                    specs = FetchVariantDetails(versionId);
                 }
-
+                else
+                {
+                    specs = modelPg.ModelVersionSpecs;
+                }
+                BindWidget();
+                BindSimilarBikes();
             }
-            if (versionId > 0)
-            {
-                specs = FetchVariantDetails(versionId);
-            }
-            else
-            {
-                specs = modelPg.ModelVersionSpecs;
-            }
-            BindWidget();
-            BindSimilarBikes();
         }
 
         /// <summary>
@@ -102,7 +95,6 @@ namespace Bikewale.New
         /// </summary>
         private BikeModelPageEntity FetchModelPageDetails(uint modelID)
         {
-            modelPg = new BikeModelPageEntity();
             try
             {
                 if (modelID > 0)
@@ -127,6 +119,7 @@ namespace Bikewale.New
                                 makeName = modelPg.ModelDetails.MakeBase.MakeName;
                                 makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
                             }
+                            IsScooter = (modelPg.ModelVersions.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter));
                             bikeName = string.Format("{0} {1}", makeName, modelName);
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                             {

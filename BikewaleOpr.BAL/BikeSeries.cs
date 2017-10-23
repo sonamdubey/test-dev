@@ -156,11 +156,13 @@ namespace BikewaleOpr.BAL
             return IsDeleted;
         }
 
-        
+
 
         /// <summary>
         /// Created by : Ashutosh Sharma on 12-Sep-2017
         /// Description : BAL Method to delete bike series mapping with model
+        /// Modified by : Ashutosh Sharma on 18 Oct 2017
+        /// Description : Added call to ClearVersionDetails
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -175,6 +177,7 @@ namespace BikewaleOpr.BAL
                     if (seriesId != 0)
                     {
                         BwMemCache.ClearModelsBySeriesId(Convert.ToUInt32(seriesId));
+                        BwMemCache.ClearVersionDetails(modelId);
                     }
                 }
             }

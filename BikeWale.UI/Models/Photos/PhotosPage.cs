@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
@@ -82,13 +83,15 @@ namespace Bikewale.Models.Photos
 
                 _objData.GridSize = gridSize;
                 _objData.NoOfGrid = noOfGrid;
+                _objData.BodyStyle = 0;
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 _cityId = currentCityArea.CityId;
                 ProcessQueryStringVariables(qstr);
 
                 BindPhotos();
-                SetPageMetas();
                 BindPageWidgets();
+                SetPageMetas();
+
 
 
             }
@@ -204,10 +207,6 @@ namespace Bikewale.Models.Photos
 
                     _objData.Videos = new RecentVideos(1, 3, (uint)_objData.Make.MakeId, _objData.Make.MakeName, _objData.Make.MaskingName, (uint)_objData.Model.ModelId, _objData.Model.ModelName, _objData.Model.MaskingName, _objVideos).GetData();
 
-                    var similarBikes = new SimilarBikesWithPhotosWidget(_objModelMaskingCache, _modelId, _cityId);
-                    similarBikes.BikeName = _objData.BikeName;
-                    _objData.SimilarBikes = similarBikes.GetData();
-
                     if (_objData.PhotoGallery != null && _objData.PhotoGallery.ImageList != null)
                     {
                         var modelgallery = new ModelGalleryWidget(_objData.Make, _objData.Model, _objData.PhotoGallery.ImageList, _objData.ModelVideos, _objData.BikeInfo);
@@ -223,6 +222,16 @@ namespace Bikewale.Models.Photos
                             _objData.ModelGallery.IsDiscontinued = !_objData.objModel.Futuristic && !_objData.objModel.New;
                             _objData.ModelGallery.IsUpcoming = _objData.objModel.Futuristic;
                         }
+                    }
+
+                    var similarBikes = new SimilarBikesWithPhotosWidget(_objModelMaskingCache, _modelId, _cityId);
+                    similarBikes.BikeName = _objData.BikeName;
+                    _objData.SimilarBikes = similarBikes.GetData();
+
+                    if (_objData.SimilarBikes != null && _objData.SimilarBikes.Bikes != null)
+                    {
+                        var firstModel = _objData.SimilarBikes.Bikes.First();
+                        _objData.BodyStyle = firstModel.BodyStyle;
                     }
                 }
             }
@@ -324,31 +333,43 @@ namespace Bikewale.Models.Photos
         private void SetBreadcrumList()
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            string bikeUrl, scooterUrl;
+            bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
             ushort position = 1;
             if (IsMobile)
             {
-                url += "m/";
+                bikeUrl += "m/";
             }
 
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
 
 
             if (_objData.Make != null)
             {
-                url = string.Format("{0}{1}-bikes/", url, _objData.Make.MaskingName);
+                bikeUrl = string.Format("{0}{1}-bikes/", bikeUrl, _objData.Make.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", _objData.Make.MakeName)));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", _objData.Make.MakeName)));
+            }
+
+            if (_objData.Model != null && _objData.BodyStyle.Equals((sbyte)EnumBikeBodyStyles.Scooter) && !(_objData.Make.IsScooterOnly))
+            {
+                if (IsMobile)
+                {
+                    scooterUrl += "m/";
+                }
+                scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, _objData.Make.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", _objData.Make.MakeName)));
             }
 
             if (_objData.Model != null)
             {
-                url = string.Format("{0}{1}/", url, _objData.Model.MaskingName);
+                bikeUrl = string.Format("{0}{1}/", bikeUrl, _objData.Model.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, _objData.BikeName));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, _objData.BikeName));
             }
 
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, "Images"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Images"));
 
             _objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
 

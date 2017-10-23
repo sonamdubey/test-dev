@@ -925,8 +925,7 @@ docReady(function () {
     $(".tabs-type-switch").click(function (e) {
 
         if (e.target.getAttribute('data-tabs') == 'expertReviewContent') {
-            triggerGA("User_Reviews", "Clicked_Toggle_ExpertReviews", makeName + "_" + modelName);
-
+            triggerGA("User_Reviews", "Clicked_Toggle_ExpertReviews", makeName + "_" + modelName);           
             var bikeReviewsListTemplate = bwcache.get("BikeReviewsListTemplate")
             if (bikeReviewsListTemplate) {
                 $("#popular-bikes-widget").html(BikeReviewsListTemplate);
@@ -949,7 +948,7 @@ docReady(function () {
         }
 
         if (e.target.getAttribute('data-tabs') == 'userReviewContent') {
-            triggerGA("User_Reviews", "Clicked_Toggle_UserReviews", makeName + "_" + modelName);
+            triggerGA("User_Reviews", "Clicked_Toggle_UserReviews", makeName + "_" + modelName);           
         }
     });
 

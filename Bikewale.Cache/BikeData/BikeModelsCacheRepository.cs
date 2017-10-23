@@ -1455,7 +1455,5 @@ namespace Bikewale.Cache.BikeData
             }
             return popularBikesList;
         }
-
-
     }
 }
