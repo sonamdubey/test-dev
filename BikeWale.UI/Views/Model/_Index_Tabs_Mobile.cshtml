@@ -1,52 +1,52 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 <ul class="overall-specs-tabs-wrapper">
-    <li data-tabs="#overviewContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Overview">Overview</li>
+    <li data-tabs="#overviewContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Overview">Overview</li>
     @if (Model.IsShowPriceTab)
     {
-        <li data-tabs="#pricesContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Price">Price</li>
+        <li data-tabs="#pricesContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Price">Price</li>
     }
     @if (Model.IsModelColorsAvailable)
     {
-        <li data-tabs="#coloursContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Colours">Colours</li>
+        <li data-tabs="#coloursContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Colours">Colours</li>
     }
     @if (Model.IsSimilarBikesAvailable)
     {
-        <li data-tabs="#similarContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SimilarBikes">Similar @Model.BodyStyleText</li>
+        <li data-tabs="#similarContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;SimilarBikes">Similar @Model.BodyStyleText</li>
     }
     else if (Model.IsPopularBodyStyleAvailable)
     {
-        <li data-tabs="#popularContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;@Model.BodyStyleName">Popular @Model.BodyStyleName</li>
+        <li data-tabs="#popularContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;@Model.BodyStyleName">Popular @Model.BodyStyleName</li>
     }
     @if (Model.IsVersionSpecsAvailable)
     {
-        <li data-tabs="#specsFeaturesAndAboutContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;SpecsFeatures">Specs & Features</li>
+        <li data-tabs="#specsFeaturesAndAboutContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;SpecsFeatures">Specs & Features</li>
     }
     else if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
     {
-        <li data-tabs="#specsFeaturesAndAboutContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;About">About</li>
+        <li data-tabs="#specsFeaturesAndAboutContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;About">About</li>
     }
     @if (Model.IsReviewsAvailable)
     {
-        <li data-tabs="#expertReviewsContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;ExpertReviews">Expert Reviews</li>
+        <li data-tabs="#expertReviewsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;ExpertReviews">Expert Reviews</li>
     }
     @if (Model.IsUserReviewsAvailable)
     {
-        <li data-tabs="#reviewsContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;UserReviews">User Reviews</li>
+        <li data-tabs="#reviewsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;UserReviews">User Reviews</li>
     }    
     @if (Model.IsNewsAvailable)
     {
-        <li data-tabs="#newsContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;News">News</li>
+        <li data-tabs="#newsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;News">News</li>
     }
     @if (Model.IsVideosAvailable)
     {
-        <li data-tabs="#videosAndServiceCenterContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Videos">Videos</li>
+        <li data-tabs="#videosAndServiceCenterContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Videos">Videos</li>
     }
-    else if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable || Model.IsDealersServiceCenterAvailable))
+    else if (Model.IsOtherDealersAvailable || Model.IsDealersServiceCenterAvailable)
     {
-        <li data-tabs="#videosAndServiceCenterContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;ServiceCenter"> Dealers & Service Centers</li>
+        <li data-tabs="#videosAndServiceCenterContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Dealers">Dealers</li>
     }
     @if (Model.IsUsedBikesAvailable)
     {
-        <li data-tabs="#makeUsedBikeContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Used">Used</li>
+        <li data-tabs="#makeUsedBikeContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Used">Used</li>
     }
 </ul>

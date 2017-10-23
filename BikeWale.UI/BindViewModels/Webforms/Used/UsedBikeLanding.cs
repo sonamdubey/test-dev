@@ -63,7 +63,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Used.UsedBikeLandingPage.constructor");
+                new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Used.UsedBikeLandingPage.constructor");
             }
         }
 
@@ -87,7 +87,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : UsedBikeLandingPage.GetAllMakes");
+                new ErrorClass(ex, "Exception : UsedBikeLandingPage.GetAllMakes");
             }
         }
         /// <summary>
@@ -138,7 +138,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : UsedBikeLandingPage.GetAllCities - used-Default");
+                new ErrorClass(ex, "Exception : UsedBikeLandingPage.GetAllCities - used-Default");
             }
         }
 

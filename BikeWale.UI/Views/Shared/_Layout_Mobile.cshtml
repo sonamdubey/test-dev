@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
     @if (Model != null && Model.PageMetaTags != null)
     {
         Model.PageMetaTags.EnableOG = true;
@@ -15,7 +14,7 @@
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
         {
-            <meta name="description" content="@Model.PageMetaTags.Description" />
+            <meta name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
         {
@@ -25,7 +24,7 @@
         {
             <meta property="og:title" content="@Html.Raw(Model.PageMetaTags.Title)" />
             <meta property="og:type" content="website" />
-            <meta property="og:description" content="@Model.PageMetaTags.Description" />
+            <meta property="og:description" content="@Html.Raw(Model.PageMetaTags.Description)" />
             <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
             if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
             {
@@ -44,14 +43,13 @@
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.AmpUrl))
         {
-            <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> 
+            <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" />
         }
     }
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <meta name="theme-color" content="#2a2a2a" />
     <link rel='stylesheet' type='text/css' href='/m/css/bwm-common-atf.css' atf-css />
-
     <link href="//www.googletagservices.com" rel="dns-prefetch" />
     <link href="//ad.doubleclick.net" rel="dns-prefetch" />
     <link href="//www.googleadservices.com" rel="dns-prefetch" />
@@ -62,7 +60,6 @@
     <link href="//www.google-analytics.com" rel="dns-prefetch" />
     <link href="//bhrigu.bikewale.com" rel="dns-prefetch" />
     <link href="//tpc.googlesyndication.com" rel="dns-prefetch" />
-
     <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
     <script defer type="text/javascript" src="@String.Format("{0}/src/frameworks.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></script>
     <script defer type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
@@ -179,7 +176,6 @@
             googletag.enableServices();
         });
     </script>
-
     @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
     {
         <script type="application/ld+json">
@@ -192,10 +188,8 @@
             @(Html.Raw(Model.PageMetaTags.PageSchemaJSON))
         </script>
     }
-
 </head>
 <body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
-
     @if (Model.IsHeaderRequired)
     {
         <header>
@@ -203,7 +197,6 @@
                 <div class="header-fixed">
                     <!-- Fixed Header code starts here -->
                     <a href="/m/" id="bwheader-logo" title="BikeWale" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
-
                     <div class="leftfloat">
                         <span id="navbarBtn" class="navbarBtn bwmsprite nav-icon margin-right10"></span>
                         <span id="book-back" class="bwmsprite white-back-arrow margin-right10 leftfloat hide"></span>
@@ -244,13 +237,10 @@
     }
     else if (Model.AdTags.ShowInnovationBannerMobile)
     {
-        Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad320x50_InnovationBanner.cshtml",Model.AdTags);
+        Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad320x50_InnovationBanner.cshtml", Model.AdTags);
     }
-
     @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
-
     @RenderBody()
-
     @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
     {
         <section>
@@ -279,8 +269,7 @@
             </div>
             <div class="clear"></div>
         </section>
-                        }
-
+    }
     @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
     {
         <section>
@@ -363,9 +352,7 @@
             </li>
             @** Render login control here *@
             @Html.Partial("~/Views/m/Shared/_LoginControl.cshtml")
-
         </ul>
-
         <div id="nav-app-content">
             <p class="font12 text-bold inline-block">India’s #1 Bike Research Destination</p><a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank" rel="noopener nofollow" class="btn btn-orange nav-app-install-btn font12 text-bold inline-block">Install</a>
         </div>
@@ -391,7 +378,6 @@
         </div>
         <div class="clear"></div>
     </div>
-
     <script defer type="text/javascript" src="@String.Format("{0}/src/bwcache.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
     <!-- global-search-popup code starts here -->
     <div id="global-search-popup" class="global-search-popup" style="display:none">
@@ -412,7 +398,6 @@
             <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
         </div>
     </div> <!-- global-search-popup code ends here -->
-   
 
     <footer class="bg-footer padding-top30 padding-bottom15">
         <!-- Footer section code starts here -->
@@ -430,6 +415,14 @@
                 </div>
                 <div class="clear"></div>
             </div>
+            <div class="border-solid-top text-center padding-top10">
+                <p class="font13 text-white margin-bottom10">Popular Brands</p>
+                <ul>
+                    <li><a href="/m/honda-bikes/" title="Honda Bikes">Honda Bikes</a></li>
+                    <li><a href="/m/hero-bikes/" title="Hero Bikes">Hero Bikes</a></li>
+                    <li><a href="/m/suzuki-bikes/" title="Suzuki Bikes">Suzuki Bikes</a></li>
+                </ul>
+            </div>
             <div class="border-solid-top text-center">
                 <div class="margin-top15">
                     <ul>
@@ -437,7 +430,6 @@
                         <li><a href="/m/advertisewithus.aspx" rel="nofollow">Advertise with Us</a></li>
                     </ul>
                     <p class="font13 text-white margin-bottom10">Download Mobile App</p>
-
                     <div>
                         <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5"></a>
                     </div>
@@ -456,7 +448,6 @@
         </div>
         <div class="clear"></div>
     </footer> <!-- Ends here -->
-
     <noscript id="asynced-css">
         <link href="@String.Format("{0}/m/css/bwm-common-btf.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
         @if (!String.IsNullOrEmpty(Model.Page_BTF_CSS_Path))
@@ -472,10 +463,10 @@
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
     @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
     {
-            <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+        <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
     }
-    @if (Model.Page_JS_Paths!=null)
-    {   
+    @if (Model.Page_JS_Paths != null)
+    {
         foreach (var scriptLink in Model.Page_JS_Paths)
         {
             <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, scriptLink.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>

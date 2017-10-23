@@ -9,6 +9,8 @@ namespace Bikewale.Entities.PriceQuote
         public string Location { get; set; }
         public bool IsManufacturerCampaign { get; set; }
         public bool IsAmp { get; set; }
+        public bool IsApp { get; set; }
+        public ushort PlatformId { get; set; }
         public string ManufacturerLeadAdAMPConvertedContent { get; set; }
     }
 }

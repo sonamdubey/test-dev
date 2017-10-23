@@ -30,7 +30,6 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.BikeSeries;
 using Bikewale.Models.PriceInCity;
-using Bikewale.Models.ServiceCenters;
 using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
@@ -224,7 +223,7 @@ namespace Bikewale.Models.BikeModels
                     product.Image = Bikewale.Utility.Image.GetPathToShowImages(_objData.ModelPageEntity.ModelDetails.OriginalImagePath, _objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._210x118);
                     product.Model = _objData.ModelPageEntity.ModelDetails.ModelName;
 
-                    product.Brand = new Brand()
+                    product.Brand = new Brand
                     {
                         Name = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
                         Url = string.Format("{0}/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName)
@@ -232,7 +231,7 @@ namespace Bikewale.Models.BikeModels
 
                     if (!_objData.IsUpcomingBike && _objData.ModelPageEntity.ModelDetails.RatingCount > 0)
                     {
-                        product.AggregateRating = new AggregateRating()
+                        product.AggregateRating = new AggregateRating
                         {
                             RatingCount = (uint)_objData.ModelPageEntity.ModelDetails.RatingCount,
                             RatingValue = Convert.ToDouble(_objData.ModelPageEntity.ModelDetails.ReviewUIRating),
@@ -247,7 +246,7 @@ namespace Bikewale.Models.BikeModels
                     }
                     if (_objData.IsUpcomingBike)
                     {
-                        product.AggregateOffer = new AggregateOffer()
+                        product.AggregateOffer = new AggregateOffer
                         {
                             LowPrice = (uint)_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMin,
                             HighPrice = (uint)_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMax
@@ -255,7 +254,7 @@ namespace Bikewale.Models.BikeModels
                     }
                     else
                     {
-                        product.AggregateOffer = new AggregateOffer()
+                        product.AggregateOffer = new AggregateOffer
                         {
                             LowPrice = (uint)_objData.ModelPageEntity.ModelDetails.MinPrice,
                             HighPrice = (uint)_objData.ModelPageEntity.ModelDetails.MaxPrice
@@ -280,7 +279,7 @@ namespace Bikewale.Models.BikeModels
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ModelPage.SetPageJSONLDSchema => BikeName: {0}", _objData.BikeName));
+                new ErrorClass(ex, string.Format("Bikewale.ModelPage.SetPageJSONLDSchema => BikeName: {0}", _objData.BikeName));
             }
         }
 
@@ -340,7 +339,7 @@ namespace Bikewale.Models.BikeModels
                 {
                     if (_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
                     {
-                        property = new AdditionalProperty()
+                        property = new AdditionalProperty
                         {
                             Name = "Mileage",
                             Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall),
@@ -352,7 +351,7 @@ namespace Bikewale.Models.BikeModels
 
                     if (_objData.ModelPageEntity.ModelVersionSpecs.Displacement > 0)
                     {
-                        property = new AdditionalProperty()
+                        property = new AdditionalProperty
                         {
                             Name = "Displacement",
                             Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.Displacement),
@@ -364,7 +363,7 @@ namespace Bikewale.Models.BikeModels
 
                     if (_objData.ModelPageEntity.ModelVersionSpecs.MaxPower > 0)
                     {
-                        property = new AdditionalProperty()
+                        property = new AdditionalProperty
                         {
                             Name = "Max Power",
                             MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.MaxPower),
@@ -376,7 +375,7 @@ namespace Bikewale.Models.BikeModels
                     }
                     if (_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight > 0)
                     {
-                        property = new AdditionalProperty()
+                        property = new AdditionalProperty
                         {
                             Name = "Weight",
                             Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight),
@@ -388,7 +387,7 @@ namespace Bikewale.Models.BikeModels
 
                     if (_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
                     {
-                        property = new AdditionalProperty()
+                        property = new AdditionalProperty
                         {
                             Name = "Top speed",
                             MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed),
@@ -533,6 +532,8 @@ namespace Bikewale.Models.BikeModels
         /// Summary : Added BindModelsBySeries
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Get emi details for avg ex-showroom price when bike price is zero.
+        /// Modified by : Vivek Singh Tomar on 12th Oct 2017 
+        /// Summary : Removed initialisation of service centers
         /// </summary>
         private void BindControls()
         {
@@ -558,7 +559,6 @@ namespace Bikewale.Models.BikeModels
                             var dealerData = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
                             dealerData.TopCount = 3;
                             _objData.OtherDealers = dealerData.GetData();
-                            _objData.ServiceCenters = new ServiceCentersCard(_objServiceCenter, 3, (uint)objMake.MakeId, _cityId).GetData();
                         }
                         else
                         {
@@ -896,6 +896,8 @@ namespace Bikewale.Models.BikeModels
         /// Summary :- Added TargetModels and Target Make
         /// Modified by :- Ashutosh Sharma on 30 Aug 2017
         /// Description :- Removed GST from Title and Description 
+        /// Modified by : Ashutosh Sharma on 13 Oct 2017
+        /// Description : Meta Description replaced with ModelSummary for SynopsisSummaryMergeMakeIds in BWConfiguration.
         /// </summary>
         private void CreateMetas()
         {
@@ -903,22 +905,46 @@ namespace Bikewale.Models.BikeModels
             {
                 if (_objData.IsModelDetails)
                 {
+                    BindDescription();
+
+                    BikeVersionMinSpecs objAvgPriceVersion = null;
+                    if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersions.Any())
+                    {
+                        objAvgPriceVersion = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(x => x.AverageExShowroom > 0);
+                    }
+                    uint AvgPrice = objAvgPriceVersion != null ? objAvgPriceVersion.AverageExShowroom : 0;
+
+
                     if (_objData.ModelPageEntity.ModelDetails.Futuristic && _objData.ModelPageEntity.UpcomingBike != null)
                     {
                         _objData.PageMetaTags.Description = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & images at BikeWale.com. Launch date of {1} is around {4}", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, _objData.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(Convert.ToString(_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMin)), Bikewale.Utility.Format.FormatNumeric(Convert.ToString(_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMax)), _objData.ModelPageEntity.UpcomingBike.ExpectedLaunchDate);
                     }
                     else if (!_objData.ModelPageEntity.ModelDetails.New)
                     {
-                        _objData.PageMetaTags.Description = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & images at BikeWale.com", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, _objData.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(_objData.BikePrice.ToString()), _objData.ModelPageEntity.ModelDetails.UsedListingsCnt);
+                        if (BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
+                        {
+                            _objData.PageMetaTags.Description = _objData.ModelSummary;
+                        }
+                        else
+                        {
+                            _objData.PageMetaTags.Description = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & images at BikeWale.com", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, _objData.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric((_objData.BikePrice > 0 ? _objData.BikePrice : AvgPrice).ToString()), _objData.ModelPageEntity.ModelDetails.UsedListingsCnt);
+                        }
                     }
                     else
                     {
-                        _objData.PageMetaTags.Description = String.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric(_objData.BikePrice.ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
+                        if (BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
+                        {
+                            _objData.PageMetaTags.Description = _objData.ModelSummary;
+                        }
+                        else
+                        {
+                            _objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric((_objData.BikePrice > 0 ?  _objData.BikePrice : AvgPrice).ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
+                        }
                     }
 
-                    _objData.PageMetaTags.Title = String.Format("{0} Price, Images, Colours, Mileage & Reviews | BikeWale", _objData.BikeName);
+                    _objData.PageMetaTags.Title = string.Format("{0} Price, Images, Colours, Mileage & Reviews | BikeWale", _objData.BikeName);
 
-                    _objData.PageMetaTags.CanonicalUrl = String.Format("{0}/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName);
+                    _objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName);
 
                     _objData.AdTags.TargetedModel = _objData.ModelPageEntity.ModelDetails.ModelName;
                     _objData.PageMetaTags.AlternateUrl = BWConfiguration.Instance.BwHostUrl + "/m/" + _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName + "-bikes/" + _objData.ModelPageEntity.ModelDetails.MaskingName + "/";
@@ -927,7 +953,7 @@ namespace Bikewale.Models.BikeModels
                     _objData.PageMetaTags.OGImage = Bikewale.Utility.Image.GetPathToShowImages(_objData.ModelPageEntity.ModelDetails.OriginalImagePath, _objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
                     _objData.Page_H1 = _objData.BikeName;
 
-                    BindDescription();
+                    
 
                     CheckCustomPageMetas();
                 }
@@ -1012,7 +1038,7 @@ namespace Bikewale.Models.BikeModels
                                 var selectVersion = _pqOnRoad.DPQOutput.Varients.FirstOrDefault(m => m.objVersion.VersionId == version.VersionId);
                                 if (selectVersion != null)
                                 {
-                                    version.Price = selectVersion.OnRoadPrice; break;
+                                    version.Price = selectVersion.OnRoadPrice;
                                 }
                             }
 
@@ -1024,17 +1050,18 @@ namespace Bikewale.Models.BikeModels
                         }//Bikewale Pricing
                         else if (_pqOnRoad.BPQOutput != null && _pqOnRoad.BPQOutput.Varients != null)
                         {
+                            bool isSelectedUpdated = false;
                             foreach (var version in modelPg.ModelVersions)
                             {
                                 var selected = _pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == version.VersionId);
                                 if (selected != null)
                                 {
                                     version.Price = !_objData.ShowOnRoadButton ? selected.OnRoadPrice : selected.Price;
-                                    if (modelPg.ModelVersions.Any() && version.Price == 0)
-                                    {
+                                    if (modelPg.ModelVersions.Any() && version.Price == 0 && !isSelectedUpdated)
+                                    { 
                                         _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(m => m.AverageExShowroom > 0 && m.VersionId == version.VersionId);
+                                        isSelectedUpdated = true;
                                     }
-                                    break;
                                 }
                             }
                             ///Choose the min price version of city level pricing
@@ -1200,10 +1227,9 @@ namespace Bikewale.Models.BikeModels
 
                     if (modelPg != null)
                     {
-                        if (modelPg.ModelVersions != null)
+                        if (modelPg.ModelVersions != null && _objData.VersionId > 0)
                         {
-                            if (_objData.VersionId > 0)
-                                _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(v => v.VersionId == _objData.VersionId);
+                            _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(v => v.VersionId == _objData.VersionId);
                         }
 
                         if (_objData.VersionId > 0 && _objData.SelectedVersion != null)
