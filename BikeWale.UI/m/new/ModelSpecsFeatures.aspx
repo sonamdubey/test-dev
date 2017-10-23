@@ -14,243 +14,281 @@
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
-        @charset "utf-8";
-
         .content-inner-block-1420 {
-            padding: 14px 20px;
+	        padding: 14px 20px;
         }
 
         .content-inner-block-120 {
-            padding: 10px 20px 0;
+	        padding: 10px 20px 0;
         }
 
         .text-dark-black {
-            color: #1a1a1a;
+	        color: #1a1a1a;
         }
 
         .text-truncate {
-            width: 100%;
-            text-align: left;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
+	        width: 100%;
+	        text-align: left;
+	        text-overflow: ellipsis;
+	        white-space: nowrap;
+	        overflow: hidden;
         }
 
         .model-price-content {
-            width: 110px;
+	        width: 110px;
         }
 
         .model-area-content {
-            width: 60%;
-            position: relative;
-            top: 6px;
+	        width: 60%;
+	        position: relative;
+	        top: 6px;
         }
 
         .specs-features-wrapper {
-            height: 44px;
+	        height: 44px;
         }
 
         #specsFeaturesTabsWrapper {
-            width: 100%;
-            background: #fff;
-            z-index: 3;
-            display: block;
-            border-bottom: 1px solid #e2e2e2;
-            overflow-x: auto;
+	        width: 100%;
+	        background: #fff;
+	        z-index: 3;
+	        display: block;
+	        border-bottom: 1px solid #e2e2e2;
+	        overflow-x: auto;
         }
 
         .model-specs-features-tabs-wrapper {
-            display: table;
-            background: #fff;
+	        display: table;
+	        background: #fff;
         }
 
-            .model-specs-features-tabs-wrapper li {
-                padding: 10px 20px;
-                display: table-cell;
-                text-align: center;
-                white-space: nowrap;
-                font-size: 14px;
-                color: #82888b;
-            }
+        .model-specs-features-tabs-wrapper li {
+	        padding: 10px 20px;
+	        display: table-cell;
+	        text-align: center;
+	        white-space: nowrap;
+	        font-size: 14px;
+	        color: #82888b;
+        }
 
-                .model-specs-features-tabs-wrapper li.active {
-                    border-bottom: 3px solid #ef3f30;
-                    font-weight: bold;
-                    color: #4d5057;
-                }
+        .model-specs-features-tabs-wrapper li.active {
+	        border-bottom: 3px solid #ef3f30;
+	        font-weight: bold;
+	        color: #4d5057;
+        }
 
         .border-divider {
-            border-top: 1px solid #e2e2e2;
+	        border-top: 1px solid #e2e2e2;
         }
 
         .specs-features-list {
-            overflow: hidden;
+	        overflow: hidden;
         }
 
-            .specs-features-list li {
-                margin-bottom: 20px;
-            }
+        .specs-features-list li {
+	        margin-bottom: 20px;
+        }
 
-            .specs-features-list p {
-                width: 50%;
-                float: left;
-                text-align: left;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-            }
+        .specs-features-list p {
+	        width: 50%;
+	        float: left;
+	        text-align: left;
+	        text-overflow: ellipsis;
+	        white-space: nowrap;
+	        overflow: hidden;
+        }
 
         .specs-features-label {
-            color: #82888b;
+	        color: #82888b;
         }
 
         .specs-features-value {
-            padding-left: 20px;
-            font-weight: bold;
+	        padding-left: 20px;
+	        font-weight: bold;
         }
 
         .fixed-topNav {
-            position: fixed;
-            top: 0;
-            left: 0;
+	        position: fixed;
+	        top: 0;
+	        left: 0;
         }
 
         .float-button {
-            background-color: #fff;
-            padding: 10px;
+	        background-color: #fff;
+	        padding: 10px;
         }
 
-            .float-button.float-fixed {
-                position: fixed;
-                bottom: 0;
-                z-index: 8;
-                left: 0;
-                right: 0;
-                background: #f5f5f5;
-            }
+        .float-button.float-fixed {
+	        position: fixed;
+	        bottom: 0;
+	        z-index: 8;
+	        left: 0;
+	        right: 0;
+	        background: #f5f5f5;
+        }
 
         .star-span {
-            position: relative;
-            top: -2px;
-            transform: scale(.9);
+	        position: relative;
+	        top: -2px;
+	        transform: scale(.9);
         }
 
         .border-light-left {
-            border-left: 1px solid #ededed;
+	        border-left: 1px solid #ededed;
         }
 
         .star-icon {
-            width: 26px;
-            height: 25px;
-            vertical-align: middle;
-            -webkit-transform: scale(.8);
-            -moz-transform: scale(.8);
-            -o-transform: scale(.8);
-            transform: scale(.8);
+	        width: 26px;
+	        height: 25px;
+	        vertical-align: middle;
+	        -webkit-transform: scale(.8);
+	        -moz-transform: scale(.8);
+	        -o-transform: scale(.8);
+	        transform: scale(.8);
         }
 
-            .star-icon.star-size-16 {
-                -webkit-transform: scale(.6);
-                -moz-transform: scale(.6);
-                -o-transform: scale(.6);
-                transform: scale(.6);
-            }
+        .star-icon.star-size-16 {
+	        -webkit-transform: scale(.6);
+	        -moz-transform: scale(.6);
+	        -o-transform: scale(.6);
+	        transform: scale(.6);
+        }
 
         .rate-count-1 .star-icon {
-            background-position: 0 -667px;
+	        background-position: 0 -667px;
         }
 
         .rate-count-2 .star-icon {
-            background-position: -38px -667px;
+	        background-position: -38px -667px;
         }
 
         .rate-count-3 .star-icon {
-            background-position: 0 -278px;
+	        background-position: 0 -278px;
         }
 
         .rate-count-4 .star-icon {
-            background-position: -74px -667px;
+	        background-position: -74px -667px;
         }
 
         .rate-count-5 .star-icon {
-            background-position: -110px -667px;
+	        background-position: -110px -667px;
         }
 
         .rate-count-5 {
-            color: #198D55;
+	        color: #198D55;
         }
 
         .rate-count-4 {
-            color: #13B65D;
+	        color: #13B65D;
         }
 
         .rate-count-3 {
-            color: #EFD700;
+	        color: #EFD700;
         }
 
         .rate-count-2 {
-            color: #FD971C;
+	        color: #FD971C;
         }
 
         .rate-count-1 {
-            color: #EF3F30;
+	        color: #EF3F30;
         }
 
         .review-left-divider {
-            position: relative;
-            margin-left: 15px;
-            padding-left: 15px;
+	        position: relative;
+	        margin-left: 15px;
+	        padding-left: 15px;
         }
 
-            .review-left-divider:before {
-                content: "";
-                position: absolute;
-                top: 4px;
-                left: 0;
-                width: 1px;
-                height: 12px;
-                border-left: 1px solid #e2e2e2;
-            }
+        .review-left-divider:before {
+	        content: "";
+	        position: absolute;
+	        top: 4px;
+	        left: 0;
+	        width: 1px;
+	        height: 12px;
+	        border-left: 1px solid #e2e2e2;
+        }
 
         .breadcrumb {
-            margin: 10px;
-            padding: 10px;
-            background: #eee;
+	        margin: 10px;
+	        padding: 10px;
+	        background: #eee;
         }
 
         .breadcrumb-title {
-            display: block;
-            font-size: 12px;
-            color: #82888B;
-            padding-bottom: 5px;
+	        display: block;
+	        font-size: 12px;
+	        color: #82888B;
+	        padding-bottom: 5px;
         }
 
         .breadcrumb li {
-            position: relative;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 5px;
-            margin-bottom: 10px;
+	        position: relative;
+	        display: inline-block;
+	        vertical-align: middle;
+	        margin-right: 5px;
+	        margin-bottom: 10px;
         }
 
         .breadcrumb-link::after {
-            content: '';
-            height: 5px;
-            width: 5px;
-            border: solid grey;
-            border-width: 0px 1px 1px 0px;
-            -webkit-transform: rotate(320deg);
-            -moz-transform: rotate(45deg);
-            -o-transform: rotate(45deg);
-            transform: rotate(45deg);
-            display: inline-block;
-            position: absolute;
-            top: 7px;
-            right: 0px;
+	        content: '';
+	        height: 5px;
+	        width: 5px;
+	        border: solid grey;
+	        border-width: 0px 1px 1px 0px;
+	        -webkit-transform: rotate(-45deg);
+	        -moz-transform: rotate(-45deg);
+	        -o-transform: rotate(-45deg);
+	        transform: rotate(-45deg);
+	        display: inline-block;
+	        position: absolute;
+	        top: 7px;
+	        right: 0px;
         }
 
         .breadcrumb-link__label {
-            padding-right: 12px;
+	        padding-right: 12px;
+        }
+
+        /* similar bikes */
+        .swiper-type-similar .swiper-btn-block {
+	        padding-bottom: 15px;
+        }
+        .swiper-type-similar .right-arrow {
+	        width: 8px;
+	        height: 12px;
+	        background-position: -182px -394px;
+	        position: absolute;
+	        right: 18px;
+	        top: 13px;
+	        transform: scale(0.8);
+        }
+
+        .compare-with-target {
+	        display: block;
+	        padding: 10px 35px 10px 15px;
+	        position: relative;
+	        font-size: 12px;
+	        color: #4d5057;    
+        }
+        .compare-with-target:before {
+	        content: '';
+	        position: absolute;
+	        left: 8%;
+	        top: 0;
+	        width: 168px;
+	        height: 1px;
+	        border-top: 1px solid #e2e2e2;
+        }
+
+        .compare-sm {
+	        width: 17px;
+	        height: 12px;
+	        background-position: -173px -596px;
+	        position: relative;
+	        top: 1px;
+	        margin-right: 5px;
         }
     </style>
 
