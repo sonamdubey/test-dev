@@ -29,12 +29,12 @@
                     <div class="grid-12">
                         <p class="font14 text-light-grey line-height17">
                             <span class="preview-main-content">
-                                @Bikewale.Utility.FormatDescription.TruncateDescription(Model.BikeDescription.FullDescription, 415)
+                                @Bikewale.Utility.FormatDescription.TruncateDescription(Model.BikeDescription.FullDescription, 400)
                             </span>
                             <span class="preview-more-content hide" style="display: none;">
                                 @Html.Raw(Model.BikeDescription.FullDescription)
                             </span>
-                            @if (Model.BikeDescription.FullDescription.Length > 415)
+                            @if (Model.BikeDescription.FullDescription.Length > 400)
                             {
                                 <a href="javascript:void(0)" class="read-more-bike-preview" rel="nofollow">Read more</a>
                             }

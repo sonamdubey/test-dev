@@ -9,7 +9,7 @@
         
         <div class="grid-8 alpha">
             @if (!string.IsNullOrEmpty(Model.ModelSummary) && Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null
-                      && !Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
+                      && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds) && !Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
             {
                 <p class="font14 text-slate-grey line-height17">@Html.Raw(Model.ModelSummary)</p>
             }
@@ -102,6 +102,7 @@
 
         @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)
               && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null
+              && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds)
               && Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
         {
             
