@@ -111,10 +111,30 @@ namespace Bikewale.Service.Controllers.CMS
             return NotFound();
         }  //get 
 
+        [ResponseType(typeof(IEnumerable<CMSArticleSummary>)), Route("api/cms/cat/V2/{categoryId}/posts/{posts}/make/{makeId}/")]
+        public IHttpActionResult GetV2(EnumCMSContentType categoryId, uint posts, string makeId, string modelId = null)
+        {
+            try
+            {
+                IEnumerable<ArticleSummary> objRecentArticles = _objCMSContent.GetMostRecentArticlesByIdList(Convert.ToString((int)categoryId), posts, Convert.ToUInt32(makeId), Convert.ToUInt32(modelId));
 
+                if (objRecentArticles != null && objRecentArticles.Any())
+                {
+                    List<CMSArticleSummaryMin> objCMSRArticles;
+                    objCMSRArticles = CMSMapper.ConvertV2(objRecentArticles);                                      
+                    return Ok(objCMSRArticles);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController.GetV2");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+            return NotFound();
+        }
 
         #endregion
-
 
         #region List Category Content
         /// <summary>

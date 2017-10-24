@@ -3,7 +3,7 @@
 @using Bikewale.Common;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new/modelprice-in-city.css' inline />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new/modelprice-in-city.css' inline /> <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline />";
     Model.Page_JS_Path = "/src/priceincity.js";
     Model.AdTags.Ad_300x250 = true;
     Model.AdTags.Ad_970x90 = !Model.AdTags.ShowInnovationBannerDesktop;
@@ -197,7 +197,7 @@
                                         {
                                         @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                                         <div id="adBlocker" class="adBlocker-grid grid-4 text-left alpha omega  hide">
-                                            <a href="https://www.bikewale.com/user-reviews/#selectBike" target="_blank" rel="noopener" title="Write a review" style="width: 300px; height: 250px;display:block">
+                                            <a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewContestUrl(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_PriceInCityPage_AdPlaceholder,false)" target="_blank" rel="noopener" title="Write a review" style="width: 300px; height: 250px;display:block">
                                                 <img src="https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/review-contest-300x250.jpg" alt="write a review" class="inline-block margin" />
                                             </a>
                                         </div>

@@ -8,6 +8,7 @@
     Model.AdTags.AdId = "1450262275060";
     Model.AdTags.Ad320x150_Top = true;
     Model.AdTags.Ad320x150_Bottom = true;
+    Model.AdTags.Ad_200x211 = true;
     Model.IsTransparentHeader = true;
 }
 
@@ -31,7 +32,7 @@
             <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
             @if (Model.Banner != null)
             {
-               	@Html.Raw(Model.Banner.Html);
+                @Html.Raw(Model.Banner.Html);
                 @Html.Raw(Model.Banner.Css);
                 @Html.Raw(Model.Banner.JS);
             }
@@ -312,231 +313,252 @@
 
 @if (Model.IsComparePopularBikesAvailable)
 {
-<section>
-	<h2 class="font18 margin-bottom10 margin-top20 text-center">Compare Bikes</h2>
-	<div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
-		@Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.ComparePopularBikes)
-		<div class="view-all-btn-container margin-bottom5 margin-top15 text-center">
-			<a href="/m/comparebikes/" title="New Bike Comparisons in India" class="btn view-all-target-btn">View all comparisons<span class="bwmsprite teal-right"></span></a>
-		</div>
-	</div>
-</section>
-}
-@*<section>
-    @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
-</section>*@
-@if (Model.BestBikes != null)
-{
     <section>
-        <div class="container card-bottom-margin">
-            <h2 class="font18 font-bold text-center margin-top20 margin-bottom10">@string.Format("Best bikes of {0}", string.Format("{0} {1}", DateTime.Now.AddMonths(-1).ToString("MMMM"), DateTime.Now.AddMonths(-1).Year))</h2>
-            <div class="bw-tabs-panel content-box-shadow padding-bottom10">
-                <div class="bw-tabs bw-tabs-flex margin-bottom10">
-                    <ul>
-                        @if (Model.BestBikes.objBestScootersList != null && Model.BestBikes.objBestScootersList.Count() > 0)
-                        {
-
-                            <li class="active" data-tabs="compareTypeBike">Scooters</li>}
-                        @if (Model.BestBikes.objBestMileageBikesList != null && Model.BestBikes.objBestMileageBikesList.Count() > 0)
-                        {
-                            <li data-tabs="compareTypeScooter">Mileage Bikes</li>}
-                        @if (Model.BestBikes.objBestSportsBikeList != null && Model.BestBikes.objBestSportsBikeList.Count() > 0)
-                        {
-                            <li data-tabs="compareTypeCruiser">Sports</li>}
-                        @if (Model.BestBikes.objBestCruiserBikesList != null && Model.BestBikes.objBestCruiserBikesList.Count() > 0)
-                        {
-                            <li data-tabs="compareTypeSport">Cruisers</li>}
-                    </ul>
-                </div>
-                @if (Model.BestBikes.objBestScootersList != null && Model.BestBikes.objBestScootersList.Count() > 0)
-                {
-                    <div id="compareTypeBike" class="bw-tabs-data">
-                        @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestScootersList)
-                        <div class="padding-left10 view-all-btn-container margin-top10">
-                            <a href="/m/best-scooters-in-india/" title="Best Scooters" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
-                        </div>
-                    </div>
-                }
-                @if (Model.BestBikes.objBestMileageBikesList != null && Model.BestBikes.objBestMileageBikesList.Count() > 0)
-                {
-                    <div id="compareTypeScooter" class="bw-tabs-data hide">
-                        @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestMileageBikesList)
-                        <div class="padding-left10 view-all-btn-container margin-top10">
-                            <a href="/m/best-mileage-bikes-in-india/" title="Best Mileage Bikes" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
-                        </div>
-                    </div>
-                }
-                @if (Model.BestBikes.objBestSportsBikeList != null && Model.BestBikes.objBestSportsBikeList.Count() > 0)
-                {
-                    <div id="compareTypeCruiser" class="bw-tabs-data hide">
-                        @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestSportsBikeList)
-                        <div class="padding-left10 view-all-btn-container margin-top10">
-                            <a href="/m/best-sports-bikes-in-india/" title="Best Sports Bikes" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
-                        </div>
-                    </div>
-                }
-                @if (Model.BestBikes.objBestCruiserBikesList != null && Model.BestBikes.objBestCruiserBikesList.Count() > 0)
-                {
-                    <div id="compareTypeSport" class="bw-tabs-data hide">
-                        @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestCruiserBikesList)
-                        <div class="padding-left10 view-all-btn-container margin-top10">
-                            <a href="/m/best-cruiser-bikes-in-india/" title="Best Cruisers" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
-                        </div>
-                    </div>
-                }
+        <h2 class="font18 margin-bottom10 margin-top20 text-center">Compare Bikes</h2>
+        <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
+            @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.ComparePopularBikes)
+            <div class="view-all-btn-container margin-bottom5 margin-top15 text-center">
+                <a href="/m/comparebikes/" title="New Bike Comparisons in India" class="btn view-all-target-btn">View all comparisons<span class="bwmsprite teal-right"></span></a>
             </div>
         </div>
     </section>
 }
+    @*<section>
+            @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
+        </section>*@
+    @if (Model.BestBikes != null)
+    {
+        <section>
+            <div class="container card-bottom-margin">
+                <h2 class="font18 font-bold text-center margin-top20 margin-bottom10">@string.Format("Best bikes of {0}", string.Format("{0} {1}", DateTime.Now.AddMonths(-1).ToString("MMMM"), DateTime.Now.AddMonths(-1).Year))</h2>
+                <div class="bw-tabs-panel content-box-shadow padding-bottom10">
+                    <div class="bw-tabs bw-tabs-flex margin-bottom10">
+                        <ul>
+                            @if (Model.BestBikes.objBestScootersList != null && Model.BestBikes.objBestScootersList.Count() > 0)
+                            {
 
-
-<section>
-    <div class="container margin-bottom20">
-        <h2 class="font18 text-center margin-top20 margin-bottom10">Find second-hand bikes</h2>
-        <div class="bw-tabs-panel content-box-shadow">
-            <div class="bw-tabs bw-tabs-flex tabs-bottom15">
-                <ul>
-                    @if (Model.IsUsedModelsAvailable)
+                                <li class="active" data-tabs="compareTypeBike">Scooters</li>}
+                            @if (Model.BestBikes.objBestMileageBikesList != null && Model.BestBikes.objBestMileageBikesList.Count() > 0)
+                            {
+                                <li data-tabs="compareTypeScooter">Mileage Bikes</li>}
+                            @if (Model.BestBikes.objBestSportsBikeList != null && Model.BestBikes.objBestSportsBikeList.Count() > 0)
+                            {
+                                <li data-tabs="compareTypeCruiser">Sports</li>}
+                            @if (Model.BestBikes.objBestCruiserBikesList != null && Model.BestBikes.objBestCruiserBikesList.Count() > 0)
+                            {
+                                <li data-tabs="compareTypeSport">Cruisers</li>}
+                        </ul>
+                    </div>
+                    @if (Model.BestBikes.objBestScootersList != null && Model.BestBikes.objBestScootersList.Count() > 0)
+                {
+                        <div id="compareTypeBike" class="bw-tabs-data">
+                            <div class="swiper-container card-container swiper-small">
+                                <div class="swiper-wrapper discover-bike-carousel">
+                                    @if (Model.AdTags.Ad_200x211)
+                                    {
+                                            {Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad200x211.cshtml", new { AdId = "1507278280998" });}
+                                      
+                                                }
+                                    @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestScootersList)
+                                </div>
+                            </div>
+                            <div class="padding-left10 view-all-btn-container margin-top10">
+                                <a href="/m/best-scooters-in-india/" title="Best Scooters" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                                                }
+                    @if (Model.BestBikes.objBestMileageBikesList != null && Model.BestBikes.objBestMileageBikesList.Count() > 0)
                     {
-                        <li class="active" data-tabs="usedByModel">Model</li>
+                        <div id="compareTypeScooter" class="bw-tabs-data hide">
+                            <div class="swiper-container card-container swiper-small">
+                                <div class="swiper-wrapper discover-bike-carousel">
+                                    @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestMileageBikesList)
+                                </div>
+                            </div>
+                            <div class="padding-left10 view-all-btn-container margin-top10">
+                                <a href="/m/best-mileage-bikes-in-india/" title="Best Mileage Bikes" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+                            </div>
+                        </div>
                     }
-                    @if (Model.IsUsedBikeCitiesAvailable)
+                    @if (Model.BestBikes.objBestSportsBikeList != null && Model.BestBikes.objBestSportsBikeList.Count() > 0)
                     {
-                        <li class="@(Model.IsUsedModelsAvailable ? "" : "active")" data-tabs="usedByCity">City</li>
+                        <div id="compareTypeCruiser" class="bw-tabs-data hide">
+                            <div class="swiper-container card-container swiper-small">
+                                <div class="swiper-wrapper discover-bike-carousel">
+                                    @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestSportsBikeList)
+                                </div>
+                            </div>
+                            <div class="padding-left10 view-all-btn-container margin-top10">
+                                <a href="/m/best-sports-bikes-in-india/" title="Best Sports Bikes" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+                            </div>
+                        </div>
                     }
-                    <li data-tabs="usedByBudget">Budget</li>
-                </ul>
+                    @if (Model.BestBikes.objBestCruiserBikesList != null && Model.BestBikes.objBestCruiserBikesList.Count() > 0)
+                    {
+                        <div id="compareTypeSport" class="bw-tabs-data hide">
+                            <div class="swiper-container card-container swiper-small">
+                                <div class="swiper-wrapper discover-bike-carousel">
+                                    @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestCruiserBikesList)
+                                </div>
+                            </div>
+                            <div class="padding-left10 view-all-btn-container margin-top10">
+                                <a href="/m/best-cruiser-bikes-in-india/" title="Best Cruisers" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
-            @if (Model.IsUsedModelsAvailable)
+        </section>
+                                                }
+
+
+    <section>
+        <div class="container margin-bottom20">
+            <h2 class="font18 text-center margin-top20 margin-bottom10">Find second-hand bikes</h2>
+            <div class="bw-tabs-panel content-box-shadow">
+                <div class="bw-tabs bw-tabs-flex tabs-bottom15">
+                    <ul>
+                        @if (Model.IsUsedModelsAvailable)
+                        {
+                            <li class="active" data-tabs="usedByModel">Model</li>
+                        }
+                        @if (Model.IsUsedBikeCitiesAvailable)
+                        {
+                            <li class="@(Model.IsUsedModelsAvailable ? "" : "active")" data-tabs="usedByCity">City</li>
+                        }
+                        <li data-tabs="usedByBudget">Budget</li>
+                    </ul>
+                </div>
+                @if (Model.IsUsedModelsAvailable)
             {
-                <div class="bw-tabs-data" id="usedByModel">
-                    @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedModels)
+                    <div class="bw-tabs-data" id="usedByModel">
+                        @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedModels)
+                        <div class="padding-left10 view-all-btn-container margin-top15 padding-bottom20">
+                            <a href="/m/used/bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
+                        </div>
+                    </div>
+                }
+                @if (Model.IsUsedBikeCitiesAvailable)
+            {
+                    <div id="usedByCity" class="bw-tabs-data @(Model.IsUsedModelsAvailable ? "hide" : "")">
+                        @Html.Partial("~/Views/UsedBikes/_usedBikesCities_Mobile.cshtml", Model.UsedBikeCities)
+                    </div>
+                }
+                <div id="usedByBudget" class="bw-tabs-data hide">
+                    <ul class="elevated-card-list padding-top5">
+                        <li>
+                            <a href="/m/used/bikes-in-india/#budget=0+35000" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwmsprite budget-one"></span>
+                                    </div>
+                                    <span class="key-size-14">Upto</span><br />
+                                    @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">35K</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/used/bikes-in-india/#budget=35000+80000" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwmsprite budget-two"></span>
+                                    </div>
+                                    <span class="key-size-14">Between</span><br />
+                                    @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">35K -</span>
+                                    @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">80K</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/used/bikes-in-india/#budget=80000+200000" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwmsprite budget-three"></span>
+                                    </div>
+                                    <span class="key-size-14">Above</span><br />
+                                    @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">80K</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                     <div class="padding-left10 view-all-btn-container margin-top15 padding-bottom20">
                         <a href="/m/used/bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
                     </div>
                 </div>
-            }
-            @if (Model.IsUsedBikeCitiesAvailable)
-            {
-                <div id="usedByCity" class="bw-tabs-data @(Model.IsUsedModelsAvailable ? "hide" : "")">
-                    @Html.Partial("~/Views/UsedBikes/_usedBikesCities_Mobile.cshtml", Model.UsedBikeCities)
-                </div>
-            }
-            <div id="usedByBudget" class="bw-tabs-data hide">
-                <ul class="elevated-card-list padding-top5">
-                    <li>
-                        <a href="/m/used/bikes-in-india/#budget=0+35000" rel="nofollow">
-                            <div class="table-middle">
-                                <div class="tab-icon-container">
-                                    <span class="bwmsprite budget-one"></span>
-                                </div>
-                                <span class="key-size-14">Upto</span><br />
-                                @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">35K</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/m/used/bikes-in-india/#budget=35000+80000" rel="nofollow">
-                            <div class="table-middle">
-                                <div class="tab-icon-container">
-                                    <span class="bwmsprite budget-two"></span>
-                                </div>
-                                <span class="key-size-14">Between</span><br />
-                                @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">35K -</span>
-                                @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">80K</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/m/used/bikes-in-india/#budget=80000+200000" rel="nofollow">
-                            <div class="table-middle">
-                                <div class="tab-icon-container">
-                                    <span class="bwmsprite budget-three"></span>
-                                </div>
-                                <span class="key-size-14">Above</span><br />
-                                @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">80K</span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <div class="padding-left10 view-all-btn-container margin-top15 padding-bottom20">
-                    <a href="/m/used/bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
-                </div>
             </div>
+
         </div>
-
-    </div>
-</section>
+    </section>
 
 
 
 
 
-@if (Model.TabCount > 0)
-{
-    <section>
-        <!--  News, reviews and videos code starts here -->
-        <div class="container margin-bottom20">
-			<h2 class="font18 text-center margin-top20 margin-bottom10">Latest updates</h2>
-            <div class="grid-12 alpha omega">
-                <div class="content-box-shadow">
-                    <div class="bw-tabs-panel article-control padding-bottom20">
-                        <div class="bw-tabs">
-                            <div class="@string.Format("text-center {0}", Model.TabCount > 2 ? string.Empty : Model.TabCount > 1 ? "margin-top30 margin-bottom30" : "margin-top10")">
-                                <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", Model.TabCount > 2 ? "bw-tabs-flex" : Model.TabCount > 1 ? "home-tabs" : "hide")">
-                                    <ul>
-                                        @if (Model.News.FetchedCount > 0)
-                                        {
-                                            <li data-tabs="ctrlNews" class="@string.Format("{0}", Model.IsNewsActive ? "active" : "hide")">News</li>
-                                        }
-                                        @if (Model.ExpertReviews.FetchedCount > 0)
-                                        {
-                                            <li data-tabs="ctrlExpertReviews" class="@string.Format("{0}", Model.IsExpertReviewActive ? "active" : "hide")">Expert Reviews</li>
-                                        }
-                                        @if (Model.Videos.FetchedCount > 0)
-                                        {
-                                            <li data-tabs="ctrlVideos" class="@string.Format("{0}", Model.IsVideoActive ? "active" : "hide")">Videos</li>
-                                        }
-                                    </ul>
+    @if (Model.TabCount > 0)
+    {
+        <section>
+            <!--  News, reviews and videos code starts here -->
+            <div class="container margin-bottom20">
+                <h2 class="font18 text-center margin-top20 margin-bottom10">Latest updates</h2>
+                <div class="grid-12 alpha omega">
+                    <div class="content-box-shadow">
+                        <div class="bw-tabs-panel article-control padding-bottom20">
+                            <div class="bw-tabs">
+                                <div class="@string.Format("text-center {0}", Model.TabCount > 2 ? string.Empty : Model.TabCount > 1 ? "margin-top30 margin-bottom30" : "margin-top10")">
+                                    <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", Model.TabCount > 2 ? "bw-tabs-flex" : Model.TabCount > 1 ? "home-tabs" : "hide")">
+                                        <ul>
+                                            @if (Model.News.FetchedCount > 0)
+                                            {
+                                                <li data-tabs="ctrlNews" class="@string.Format("{0}", Model.IsNewsActive ? "active" : "hide")">News</li>
+                                            }
+                                            @if (Model.ExpertReviews.FetchedCount > 0)
+                                            {
+                                                <li data-tabs="ctrlExpertReviews" class="@string.Format("{0}", Model.IsExpertReviewActive ? "active" : "hide")">Expert Reviews</li>
+                                            }
+                                            @if (Model.Videos.FetchedCount > 0)
+                                            {
+                                                <li data-tabs="ctrlVideos" class="@string.Format("{0}", Model.IsVideoActive ? "active" : "hide")">Videos</li>
+                                            }
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="bw-tabs-data margin-right20 margin-left20" id="ctrlNews">
-                            @if (Model.News.FetchedCount > 0)
-                            {
-                                @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
-                                <div class="view-all-btn-container">
-                                    <a href="@string.Format("/m{0}",UrlFormatter.FormatNewsUrl(Model.News.MakeMasking,Model.News.ModelMasking))" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName):!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News",Model.News.MakeName):"Bikes News")" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
-                                </div>
-                                <div class="bw-tabs-data" id="ctrlNews">
-                                </div>
-                            }
-                        </div>
-                        <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlExpertReviews">
-                            @if (Model.ExpertReviews.FetchedCount > 0)
-                            {
-                                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
-                                <div class="view-all-btn-container">
-                                    <a title="@Model.ExpertReviews.LinkTitle" href="@string.Format("/m{0}",Model.ExpertReviews.MoreExpertReviewUrl)" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
-                                </div>
-                            }
-                        </div>
-                        <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlVideos">
-                            @if (Model.Videos.FetchedCount > 0)
-                            {
-                                @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
-                                <div class="view-all-btn-container">
-                                    <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
-                                </div>
-                            }
+                            <div class="bw-tabs-data margin-right20 margin-left20" id="ctrlNews">
+                                @if (Model.News.FetchedCount > 0)
+                                {
+                                    @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                                    <div class="view-all-btn-container">
+                                        <a href="@string.Format("/m{0}",UrlFormatter.FormatNewsUrl(Model.News.MakeMasking,Model.News.ModelMasking))" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName):!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News",Model.News.MakeName):"Bikes News")" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
+                                    </div>
+                                    <div class="bw-tabs-data" id="ctrlNews">
+                                    </div>
+                                }
+                            </div>
+                            <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlExpertReviews">
+                                @if (Model.ExpertReviews.FetchedCount > 0)
+                                {
+                                    @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                                    <div class="view-all-btn-container">
+                                        <a title="@Model.ExpertReviews.LinkTitle" href="@string.Format("/m{0}",Model.ExpertReviews.MoreExpertReviewUrl)" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
+                                    </div>
+                                }
+                            </div>
+                            <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlVideos">
+                                @if (Model.Videos.FetchedCount > 0)
+                                {
+                                    @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+                                    <div class="view-all-btn-container">
+                                        <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-        </div>
-       
-    </section>
-}
-<input type="hidden" id="source" value="@Model.Source" />
-<span id="jsvalues" data-clientip='@Bikewale.Common.CommonOpn.GetClientIP()'></span>
+
+        </section>
+    }
+    <input type="hidden" id="source" value="@Model.Source" />
+    <span id="jsvalues" data-clientip='@Bikewale.Common.CommonOpn.GetClientIP()'></span>

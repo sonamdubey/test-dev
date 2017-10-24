@@ -210,7 +210,7 @@ namespace Bikewale.BAL.GrpcFiles
 
         public static ArticleDetails ConvertFromGrpcToBikeWale(GrpcArticleDetails grpcAtricleDet)
         {
-            if (grpcAtricleDet != null)
+            if (grpcAtricleDet != null && grpcAtricleDet.ArticleSummary != null)
             {
                 try
                 {

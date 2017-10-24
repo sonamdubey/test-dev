@@ -182,37 +182,50 @@ namespace Bikewale.Models.UserReviews
         private void SetBreadcrumList(UserReviewDetailsVM objPage)
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            string bikeUrl, scooterUrl;
+            bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
             ushort position = 1;
             if (IsMobile)
             {
-                url += "m/";
+                bikeUrl += "m/";
+
             }
 
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
 
 
             if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null)
             {
-                url = string.Format("{0}{1}-bikes/", url, objPage.UserReviewDetailsObj.Make.MaskingName);
+                bikeUrl = string.Format("{0}{1}-bikes/", bikeUrl, objPage.UserReviewDetailsObj.Make.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objPage.UserReviewDetailsObj.Make.MakeName)));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objPage.UserReviewDetailsObj.Make.MakeName)));
+            }
+
+            if (objPage.GenericBikeWidgetData != null && objPage.GenericBikeWidgetData.BikeInfo!=null && objPage.GenericBikeWidgetData.BikeInfo.BodyStyleId.Equals((sbyte)EnumBikeBodyStyles.Scooter) && !(objPage.UserReviewDetailsObj.Make.IsScooterOnly))
+            {
+                if(IsMobile)
+                {
+                    scooterUrl += "m/";
+                }
+                scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, objPage.UserReviewDetailsObj.Make.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.UserReviewDetailsObj.Make.MakeName)));
             }
 
             if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
             {
-                url = string.Format("{0}{1}/", url, objPage.UserReviewDetailsObj.Model.MaskingName);
+                bikeUrl = string.Format("{0}{1}/", bikeUrl, objPage.UserReviewDetailsObj.Model.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, objPage.UserReviewDetailsObj.Model.ModelName));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, objPage.UserReviewDetailsObj.Model.ModelName));
             }
 
             if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null && objPage.UserReviewDetailsObj.Model != null)
             {
-                url += "user-reviews/";
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "User Reviews"));
+                bikeUrl += "user-reviews/";
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "User Reviews"));
             }
 
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPage.Page_H1));
 
 
             objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;

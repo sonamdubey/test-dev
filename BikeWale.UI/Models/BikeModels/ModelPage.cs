@@ -291,23 +291,34 @@ namespace Bikewale.Models.BikeModels
         private void SetBreadcrumList()
         {
             IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            string bikeUrl, scooterUrl;
+            bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
             ushort position = 1;
             if (IsMobile)
             {
-                url += "m/";
+                bikeUrl += "m/";
             }
 
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
 
 
             if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
             {
-                url = string.Format("{0}{1}-bikes/", url, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName);
+                bikeUrl = string.Format("{0}{1}-bikes/", bikeUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
             }
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, _objData.Page_H1));
+            if(_objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) &&  !(_objData.ModelPageEntity.ModelDetails.MakeBase.IsScooterOnly) && _objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
+            {
+                if (IsMobile)
+                {
+                    scooterUrl += "m/";
+                }
+                scooterUrl = string.Format("{0}{1}-scooters/", scooterUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters ", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
+            }
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, _objData.Page_H1));
 
 
             _objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
@@ -1108,7 +1119,11 @@ namespace Bikewale.Models.BikeModels
                 }
                 else if(modelPg != null && modelPg.ModelVersions != null)
                 {
-                    _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
+                    BikeVersionMinSpecs objBikeVersionMinSpecs = modelPg.ModelVersions.FirstOrDefault();
+                    if (objBikeVersionMinSpecs != null)
+                    {
+                        _objData.VersionId = Convert.ToUInt32(objBikeVersionMinSpecs.VersionId);
+                    }
                 }
             }
             catch (Exception ex)

@@ -5,6 +5,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.HomePage;
@@ -15,7 +16,6 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
 using System;
 using System.Linq;
-using Bikewale.Interfaces.BikeData.UpComing;
 
 namespace Bikewale.Models
 {
@@ -40,7 +40,6 @@ namespace Bikewale.Models
         private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
-        private readonly ICMSCacheContent _expertReviews = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IUpcoming _upcoming = null;
         #endregion
@@ -51,12 +50,11 @@ namespace Bikewale.Models
         public ushort UpcomingRecordCount { get; private set; }
         public bool IsMobile { get; set; }
         public CompareSources CompareSource { get; set; }
-        public string redirectUrl;
 
 
         #endregion
 
-        public HomePageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
+        public HomePageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
 
         {
             TopCount = topCount;
@@ -72,7 +70,6 @@ namespace Bikewale.Models
             _cachedBikeDetails = cachedBikeDetails;
             _videos = videos;
             _articles = articles;
-            _expertReviews = expertReviews;
             _userReviewsCache = userReviewsCache;
             _upcoming = upcoming;
         }
@@ -124,7 +121,7 @@ namespace Bikewale.Models
 
             BindPageMetas(objVM.PageMetaTags);
             BindAdTags(objVM.AdTags);
-            objVM.Banner = _cachedBanner.GetHomePageBanner(IsMobile?(uint) 2:1);
+            objVM.Banner = _cachedBanner.GetHomePageBanner(IsMobile ? (uint)2 : 1);
             objVM.Brands = new BrandWidgetModel(TopCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.New);
             var popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false);
             popularBikes.TopCount = 9;
@@ -162,7 +159,7 @@ namespace Bikewale.Models
 
             objVM.Videos = new RecentVideos(1, 3, _videos).GetData();
 
-            objVM.ExpertReviews = new RecentExpertReviews(3, _expertReviews).GetData();
+            objVM.ExpertReviews = new RecentExpertReviews(3, _articles).GetData();
 
             SetFlags(objVM);
 

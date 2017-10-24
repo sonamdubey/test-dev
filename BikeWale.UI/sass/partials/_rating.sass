@@ -1,0 +1,238 @@
+﻿@mixin rate-count($count)
+	@if map-has-key($rating-colors, $count)
+		.rate-count-#{$count}
+			color: map-get($rating-colors, $count)
+
+	@else
+		@warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin."
+
+
+@import ../../base/variables
+@import ../mixins/icons
+@import ../mixins/mixins
+
+
+// rating badge
+@mixin rating-badge($count)
+	@if map-has-key($rating-colors, $count)
+		.rating-badge
+			min-width: 40px
+			height: 20px
+			padding-right: 5px
+			padding-left: 5px
+			font-size: 14px
+			font-weight: 600
+			color: #fff
+			display: inline-block
+			vertical-align: middle
+			margin-right: 6px
+			text-align: center
+			@include vendor-prefix("border-radius", 2px)
+
+		.rating-badge[data-rate-bg="#{$count}"]
+			background-color: map-get($rating-colors, $count)
+
+	@else
+		@warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin."
+
+
+// rating background
+@mixin rating-background($count)
+	@if map-has-key($rating-colors, $count)
+		.bg-rate-#{$count}
+			background-color: map-get($rating-colors, $count)
+
+	@else
+		@warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin."
+
+
+// rating star icon
+@mixin rate-star-icon($count, $dimension: big)
+	@if map-has-key($star-icon-map, $count)
+		.rate-count-#{$count}
+			.star-icon
+				background-position: map-get($star-icon-map, $count)
+				width: 26px
+				height: 25px
+				vertical-align: middle
+				@if $dimension == 'big'
+					-webkit-transform: scale(0.8)
+					-moz-transform: scale(0.8)
+					-ms-transform: scale(0.8)
+					transform: scale(0.8)
+				@else if $dimension == 'normal'
+					-webkit-transform: scale(0.6)
+					-moz-transform: scale(0.6)
+					-ms-transform: scale(0.6)
+					transform: scale(0.6)
+	@else
+		@warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $star-icon-map mixin."
+
+
+// rating circle
+@mixin rating-circle()
+	$circle-dimension: 30px
+	$rating-progress-width: 3px
+
+	.rating-circle
+		width: $circle-dimension
+		height: $circle-dimension
+		position: relative
+		@include vendor-prefix("border-radius", 50%)
+		background-color: #ccc
+		display: inline-block
+		vertical-align: middle
+
+	.circle-label
+		width: $circle-dimension - ($rating-progress-width * 2)
+		height: $circle-dimension - ($rating-progress-width * 2)
+		font-size: 12px
+		font-weight: $font-semibold
+		color: map-get($color-map, "slate-grey")
+		position: absolute
+		top: $rating-progress-width
+		left: $rating-progress-width
+		line-height: $circle-dimension - ($rating-progress-width * 2)
+		@include vendor-prefix("border-radius", 50%)
+		background: map-get($color-map, "white")
+		text-align: center
+		z-index: 1
+
+	.rating-progress
+		width: $circle-dimension
+		height: $circle-dimension + 3
+		display: block
+		position: absolute
+		clip: rect(0, $circle-dimension, $circle-dimension, $circle-dimension/2)
+
+	.rating-progress:before,
+	.rating-progress:after
+		content: ''
+		width: $circle-dimension
+		height: $circle-dimension
+		display: block
+		position: absolute
+		border-width: $rating-progress-width
+		border-style: solid
+		@include vendor-prefix("border-radius", 50%)
+		clip: rect(0, $circle-dimension/2, $circle-dimension, 0)
+
+	.circle-rate-3,
+	.circle-rate-4,
+	.circle-rate-5
+		.rating-progress
+			clip: rect(auto, auto, auto, auto)
+
+			&:after
+				@include vendor-prefix("transform", rotate(180deg))
+
+	.circle-rate-1
+		.rating-progress
+			&:before
+				border-color: map-get($rating-colors, 1)
+				@include vendor-prefix("transform", rotate(62deg))
+
+	.circle-rate-2
+		.rating-progress
+			&:before
+				border-color: map-get($rating-colors, 2)
+				@include vendor-prefix("transform", rotate(144deg))
+
+	.circle-rate-3
+		.rating-progress
+			&:before
+				@include vendor-prefix("transform", rotate(216deg))
+
+	.circle-rate-4
+		.rating-progress
+			&:before
+				@include vendor-prefix("transform", rotate(288deg))
+
+	.circle-rate-3
+		.rating-progress
+			&:before,
+			&:after
+				border-color: map-get($rating-colors, 3)
+
+	.circle-rate-4
+		.rating-progress
+			&:before,
+			&:after
+				border-color: map-get($rating-colors, 4)
+
+	.circle-rate-5
+		.rating-progress
+			&:before,
+			&:after
+				border-color: map-get($rating-colors, 5)
+
+
+// rating circle list
+@mixin rating-circle-list($label-alignment)
+
+	$alignment: inline-block
+
+	@if $label-alignment == "vertical-label"
+		$alignment: block
+
+	.rating-overflow-container
+		width: 100%
+		display: block
+		overflow-x: auto
+		overflow-y: hidden
+
+		&::-webkit-scrollbar
+			width: 0
+			height: 0
+			display: none
+
+	.rating-circle-list-title
+		font-size: 14px
+		margin-left: 20px
+		margin-right: 20px
+
+	.rating-circle-list
+		display: table
+		width: 100%
+
+		li
+			text-align: center
+			margin-right: 10px
+			padding-right: 10px
+			width: auto
+			display: table-cell
+			float: none
+
+			&:last-child
+				margin-right: 0
+
+		&:after 
+			content: ''
+			display: block
+			clear: both
+
+		.list-item-label 
+			font-size: 14px
+			color: map-get($color-map, "slate-grey")
+			padding-left: 5px
+			display: $alignment
+			vertical-align: middle
+
+		.list-item-sublabel
+			font-size: 12px
+			color: map-get($color-map, "light-grey")
+
+	.rating-overflow-container
+		.rating-circle-list
+			table-layout: fixed
+			
+			li
+				width: 105px
+				padding-right: 5px
+				padding-left: 5px
+
+			.list-item-label
+				padding-left: 0
+				margin-top: 10px
+
+	@include rating-circle()

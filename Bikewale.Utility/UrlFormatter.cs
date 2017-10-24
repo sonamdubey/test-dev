@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.UserReviews;
 using System;
 using System.Text.RegularExpressions;
 
@@ -536,6 +537,35 @@ namespace Bikewale.Utility
             {
                 url = "/authors/";
             }
+            return url;
+        }
+
+        /// <summary>
+        /// Created by : Sushil Kumar on 23rd Oct 2017
+        /// Summary : Create url for review contest page
+        /// </summary>
+        /// <param name="authorName"></param>
+        /// <returns></returns>
+        public static string FormatUserReviewContestUrl(UserReviewPageSourceEnum source, bool isMobile)
+        {
+            string returnUrl = string.Empty, url = "/bike-review-contest/";
+
+
+            if (isMobile)
+            {
+                returnUrl = string.Format("returnUrl=/m/user-reviews/&sourceid={0}", UserReviewPageSourceEnum.Mobile_UserReview_Landing);
+            }
+            else
+            {
+                returnUrl = string.Format("returnUrl=/user-reviews/&sourceid={0}", UserReviewPageSourceEnum.Desktop_UserReview_Landing);
+            }
+
+            returnUrl = Utils.Utils.EncryptTripleDES(returnUrl);
+
+
+            url = string.Format("{0}?q={1}", url, returnUrl);
+
+
             return url;
         }
     }

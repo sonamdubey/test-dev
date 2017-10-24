@@ -7,6 +7,7 @@
     Model.AdTags.AdId = "1395985604192";
     Model.AdTags.Ad_976x400First = true;
     Model.AdTags.Ad_976x400Second = true;
+    Model.AdTags.Ad_292x360 = true;
     Model.IsTransparentHeader = true;
     Model.IsPageTypeLanding = true;
 }
@@ -313,7 +314,7 @@
                         <p class="contest-banner__subtitle">Write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20b9;&nbsp;2,000.</p>
                     </div>
                     @{
-                        string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}",(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_HomePage));
+                        string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_HomePage));
                     }
 
                     <a href="@string.Format("/bike-review-contest/?q={0}",q)" class="btn btn-orange btn-180-40">Participate &amp; win<span class="bwsprite btn-white-arrow"></span></a>
@@ -368,16 +369,38 @@
                     @if (Model.BestBikes.objBestScootersList != null && Model.BestBikes.objBestScootersList.Count() > 0)
                     {
                         <div id="compareTypeBike" class="bw-tabs-data">
-                            @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel.cshtml", Model.BestBikes.objBestScootersList)
+                            <div class="jcarousel-wrapper inner-content-carousel carousel-height-360">
+                                <div class="jcarousel">
+                                    <ul>
+                                        @if (Model.AdTags.Ad_292x360)
+                                        {
+                                            { Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x360.cshtml", new { AdId = "1507278280998" }); }
+
+                                        }
+                                        @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel.cshtml", Model.BestBikes.objBestScootersList)
+                                    </ul>
+                                </div>
+                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                            </div>
                             <div class="view-all-btn-container padding-top15">
                                 <a href="/best-scooters-in-india/" class="btn view-all-target-btn" title="Best Scooters"> View complete list<span class="bwsprite teal-right"></span></a>
                             </div>
+
                         </div>
                     }
                     @if (Model.BestBikes.objBestMileageBikesList != null && Model.BestBikes.objBestMileageBikesList.Count() > 0)
                     {
                         <div id="compareTypeScooter" class="bw-tabs-data hide">
-                            @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel.cshtml", Model.BestBikes.objBestMileageBikesList)
+                            <div class="jcarousel-wrapper inner-content-carousel carousel-height-360">
+                                <div class="jcarousel">
+                                    <ul>
+                                        @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel.cshtml", Model.BestBikes.objBestMileageBikesList)
+                                    </ul>
+                                </div>
+                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                            </div>
                             <div class="view-all-btn-container padding-top15">
                                 <a href="/best-mileage-bikes-in-india/" class="btn view-all-target-btn" title="Best Mileage Bikes"> View complete list<span class="bwsprite teal-right"></span></a>
                             </div>
@@ -386,7 +409,15 @@
                     @if (Model.BestBikes.objBestSportsBikeList != null && Model.BestBikes.objBestSportsBikeList.Count() > 0)
                     {
                         <div id="compareTypeCruiser" class="bw-tabs-data hide">
-                            @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel.cshtml", Model.BestBikes.objBestSportsBikeList)
+                            <div class="jcarousel-wrapper inner-content-carousel carousel-height-360">
+                                <div class="jcarousel">
+                                    <ul>
+                                        @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel.cshtml", Model.BestBikes.objBestSportsBikeList)
+                                    </ul>
+                                </div>
+                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                            </div>
                             <div class="view-all-btn-container padding-top15">
                                 <a href="/best-sports-bikes-in-india/" class="btn view-all-target-btn" title="Best Sports Bikes"> View complete list<span class="bwsprite teal-right"></span></a>
                             </div>
@@ -395,7 +426,15 @@
                     @if (Model.BestBikes.objBestCruiserBikesList != null && Model.BestBikes.objBestCruiserBikesList.Count() > 0)
                     {
                         <div id="compareTypeSport" class="bw-tabs-data hide">
-                            @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel.cshtml", Model.BestBikes.objBestCruiserBikesList)
+                            <div class="jcarousel-wrapper inner-content-carousel carousel-height-360">
+                                <div class="jcarousel">
+                                    <ul>
+                                        @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel.cshtml", Model.BestBikes.objBestCruiserBikesList)
+                                    </ul>
+                                </div>
+                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                            </div>
                             <div class="view-all-btn-container padding-top15">
                                 <a href="/best-cruiser-bikes-in-india/" class="btn view-all-target-btn" title="Best Cruisers"> View complete list<span class="bwsprite teal-right"></span></a>
                             </div>
@@ -573,3 +612,4 @@
     <!-- Ends here -->
     <input type="hidden" id="source" value="@Model.Source" />
 </body>
+<script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
