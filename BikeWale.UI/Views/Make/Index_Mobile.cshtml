@@ -38,17 +38,16 @@
                 <div id="listItemsFooter"></div>
                 @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription.Length > 0)
                 {
-                    <div id="makeAboutContent" class="bw-model-tabs-data  bg-white padding-top15 padding-bottom15 border-solid-bottom margin-bottom20">
+                    <div id="makeAboutContent" class="bw-model-tabs-data  bg-white padding-top15 border-solid-bottom margin-bottom20">
                         <div class="margin-bottom20 padding-right20 padding-left20">
-                            <h2 class="text-bold">About @Model.MakeName</h2>
                             <p class="font14 text-light-grey line-height17 margin-bottom15">
                                 <span class="model-preview-main-content">
-                                    @Bikewale.Utility.FormatDescription.TruncateDescription(Model.BikeDescription.FullDescription, 700)
+                                    @Bikewale.Utility.FormatDescription.TruncateDescription(Model.BikeDescription.FullDescription, 200)
                                 </span>
                                 <span class="model-preview-more-content">
                                     @Html.Raw(Model.BikeDescription.FullDescription)
                                 </span>
-                                @if (Model.BikeDescription.FullDescription.Length > 700)
+                                @if (Model.BikeDescription.FullDescription.Length > 200)
                                 {
                                     <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
                                 }

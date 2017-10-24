@@ -921,7 +921,7 @@ namespace Bikewale.Models.BikeModels
                     }
                     else if (!_objData.ModelPageEntity.ModelDetails.New)
                     {
-                        if (BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
+                        if (!string.IsNullOrEmpty(BWConfiguration.Instance.SynopsisSummaryMergeMakeIds) && BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
                         {
                             _objData.PageMetaTags.Description = _objData.ModelSummary;
                         }
@@ -932,7 +932,7 @@ namespace Bikewale.Models.BikeModels
                     }
                     else
                     {
-                        if (BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
+                        if (!string.IsNullOrEmpty(BWConfiguration.Instance.SynopsisSummaryMergeMakeIds) && BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
                         {
                             _objData.PageMetaTags.Description = _objData.ModelSummary;
                         }

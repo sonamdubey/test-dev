@@ -72,9 +72,9 @@
          <div class="border-solid-top text-center padding-top10">
                 <p class="font13 text-white margin-bottom10">Popular Brands</p>
                 <ul>
-                    <li><a href="/m/honda-bikes/" title="Honda Bikes">Honda Bikes</a></li>
-                    <li><a href="/m/hero-bikes/" title="Hero Bikes">Hero Bikes</a></li>
-                    <li><a href="/m/suzuki-bikes/" title="Suzuki Bikes">Suzuki Bikes</a></li>
+                    <li><a href="/m/yamaha-bikes/" title="Yamaha Bikes">Yamaha Bikes</a></li>
+                    <li><a href="/m/bajaj-bikes/" title="Bajaj Bikes">Bajaj Bikes</a></li>
+                    <li><a href="/m/royalenfield-bikes/" title="Royal Enfield Bikes">Royal Enfield Bikes</a></li>
                 </ul>
             </div>
         <div class="border-solid-top text-center">
