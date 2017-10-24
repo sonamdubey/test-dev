@@ -40,7 +40,7 @@
             </ul>
         </li>
         <li>
-            <a href="/m/user-reviews/">
+            <a href="/m/reviews/">
                 <span class="bwmsprite reviews-icon"></span>
                 <span class="navbarTitle">Reviews</span>
             </a>
@@ -48,7 +48,7 @@
         <li>
             <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwmsprite reviews-icon"></span>
-                <span class="navbarTitle">Reviews, News & Videos</span>
+                <span class="navbarTitle">News, Videos &amp; Tips</span>
                 <span class="nav-drop bwmsprite fa-angle-down"></span>
             </a>
             <ul class="nestedUL">
