@@ -4,7 +4,7 @@
         <ul class="overall-specs-tabs-wrapper">
             @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription.Length > 0)
             {
-                <li data-tabs="#makeAboutContent" data-lab="@string.Format("{0}_About", Model.MakeName)">About @Model.MakeName</li>
+                <li data-tabs="#makeAboutContent" data-lab="@string.Format("{0}_About", Model.MakeName)">About</li>
             }
             @if (Model.Bikes != null && Model.Bikes.Count() > 0)
             {

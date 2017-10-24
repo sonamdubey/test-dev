@@ -4,7 +4,7 @@
         <div class="overall-specs-tabs-wrapper">
             @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription.Length > 0)
             {   
-                <span class="navtab" data-href="#makeAboutContent" data-lab="@string.Format("{0}_About", Model.MakeName)" rel="nofollow">About @Model.MakeName</span>
+                <span class="navtab" data-href="#makeAboutContent" data-lab="@string.Format("{0}_About", Model.MakeName)" rel="nofollow">About</span>
             }
             @if (Model.Bikes != null && Model.Bikes.Count() > 0)
             {
