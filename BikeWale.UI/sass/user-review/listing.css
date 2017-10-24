@@ -245,18 +245,20 @@
   margin-top: 20px;
   padding-right: 10px;
   padding-left: 10px; }
+  .rating-parameters-content .rating-circle-list li {
+    margin-right: 30px; }
 
 .rating-circle-list-title {
   font-size: 14px;
   padding-top: 15px;
   border-top: 1px solid #eee; }
 
-  .review-list-wrapper .list-left-grid {
+.review-list-wrapper .list-left-grid {
   padding-left: 20px; }
 
 .review-list-wrapper .list-right-grid {
   padding-right: 20px; }
-  
+
 .user-review-list {
   min-height: 190px; }
   .user-review-list .list-item {
@@ -570,6 +572,8 @@
   background-position: -122px -773px; }
 
 .expert-review-list {
+  margin-top: 15px;
+  padding-bottom: 15px;
   background-color: #fafafa; }
   .expert-review-list .h2-heading {
     font-size: 16px;

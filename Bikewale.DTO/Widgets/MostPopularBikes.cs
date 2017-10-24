@@ -24,6 +24,8 @@ namespace Bikewale.DTO.Widgets
         public Int64 VersionPrice { get; set; }
         public MinSpecs Specs { get; set; } 
         [JsonProperty("popularityIndex")]
-        public ushort BikePopularityIndex { get; set; }  
+        public ushort BikePopularityIndex { get; set; }
+        public string CityName { get; set; }
+        public string CityMaskingName { get; set; }
     }
 }

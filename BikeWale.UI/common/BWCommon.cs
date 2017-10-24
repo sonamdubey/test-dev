@@ -822,6 +822,9 @@ namespace Bikewale.Common
 
             //return isSaved;
         }//End of SaveEMIAssistaneRequest
-
+        public static void dummyFunction()
+        {
+            gelf4net.Appender.GelfUdpAppender.GenerateMessageId();
+        }
     }//class
 }//namespace

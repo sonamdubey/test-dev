@@ -50,7 +50,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <meta name="theme-color" content="#2a2a2a" />
-    <link rel='stylesheet' type='text/css' href='/m/css/bwm-common-atf.css' inline />
+    <link rel='stylesheet' type='text/css' href='/m/css/bwm-common-atf.css' atf-css />
 
     <link href="//www.googletagservices.com" rel="dns-prefetch" />
     <link href="//ad.doubleclick.net" rel="dns-prefetch" />
@@ -130,6 +130,8 @@
                         return "googletag.defineSlot('/1017752/SimilarBikes_Mobile_200x253', [200, 253], 'div-gpt-ad-1505919734321-11').addService(googletag.pubads()); ";
                     case 12:
                         return "googletag.defineSlot('/1017752/Bikewale_Mobile_PQ_200x216', [200, 216], 'div-gpt-ad-1506343636197-12').addService(googletag.pubads()); ";
+                    case 13:
+                        return "googletag.defineSlot('/1017752/Bikewale_BestBikes_Widget_Mobile_200x211', [200, 211], 'div-gpt-ad-1507278280998-13').addService(googletag.pubads()); ";
                     default:
                         return "";
                 }
@@ -167,6 +169,7 @@
             @if (Model.AdTags.Ad_320x400_Middle) { @Html.Raw(GetAdSlot(10, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if(Model.AdTags.Ad_200x253){ @Html.Raw(GetAdSlot(11, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if(Model.AdTags.Ad_200x216){ @Html.Raw(GetAdSlot(12, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_200x211){ @Html.Raw(GetAdSlot(13, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}

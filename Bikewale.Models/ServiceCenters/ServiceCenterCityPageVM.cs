@@ -2,8 +2,14 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.ServiceCenters;
+using Bikewale.Models.PopUp;
+
 namespace Bikewale.Models.ServiceCenters
 {
+    /// <summary>
+    /// Modified by: Snehal Dange on 29th Sep 2017
+    /// Description: Added DealersServiceCentersIndiaWidgetVM   
+    /// </summary>
     public class ServiceCenterCityPageVM : ModelBase
     {
         public ServiceCenterData ServiceCentersListObject { get; set; }
@@ -14,5 +20,7 @@ namespace Bikewale.Models.ServiceCenters
         public UsedBikeModelsWidgetVM UsedBikesByMakeList { get; set; }
         public DealerCardVM DealersWidgetData { get; set; }
         public BrandCityPopupVM BrandCityPopupWidget { get; set; }
+        public DealersServiceCentersIndiaWidgetVM DealersServiceCenterPopularCities { get; set; }
+        public BikeCityPopup BikeCityPopup { get; set; }
     }
 }

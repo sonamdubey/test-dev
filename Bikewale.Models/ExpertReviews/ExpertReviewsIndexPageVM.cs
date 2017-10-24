@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Pager;
 using System.Collections.Generic;
 
@@ -25,6 +26,7 @@ namespace Bikewale.Models
         public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
         public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
+        public EnumBikeBodyStyles BodyStyle  { get; set; }
     }
 
 

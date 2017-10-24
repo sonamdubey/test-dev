@@ -4,6 +4,15 @@ var selectedModel = 0, pageId, onRoadcity, onRoadArea, onRoadMakeModel, viewMode
 var onCookieObj = {}, mname = "";
 
 docReady(function () {
+
+    if (window.canRunAds === undefined) {
+        callFallBackWriteReview();
+    }
+
+    function callFallBackWriteReview() {
+        $('.sponsored-card').hide();
+    };
+
     $('#globalSearch').parent().hide();
         
     $('.comparison-type-carousel').jcarousel();

@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -1003,6 +1003,9 @@
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
+    <Compile Include="Models\UserReviews\PopularBikesWithExpertReviewsWidget.cs" />
+    <Compile Include="Models\UserReviews\TopRatedBikesWidget.cs" />
+    <Compile Include="Models\UserReviews\UserReviewLandingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewListingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewDetailsPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewOtherDetailsPage.cs" />
@@ -2221,6 +2224,7 @@
     <Content Include="css\bw-common-style.css" />
     <Content Include="css\bw-pq-new.css" />
     <Content Include="css\bw-pq.css" />
+    <Content Include="css\campaign\hero-campaign.css" />
     <Content Include="css\cancellation.css" />
     <Content Include="css\chosen.min.css" />
     <Content Include="css\compare\details.css" />
@@ -2233,8 +2237,10 @@
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
+    <Content Include="css\threesixty-slider.css" />
     <Content Include="css\PopUp\PopUpCityArea.css" />
     <Content Include="css\finance\capital-first.css" />
+    <Content Include="m\css\campaign\hero-campaign.css" />
     <Content Include="m\css\finance\capital-first.css" />
     <Content Include="css\survey\bajaj-survey.css" />
     <Content Include="m\css\amp\bwm-modelprice-in-city-amp.css" />
@@ -2905,6 +2911,7 @@
     <Content Include="m\src\photos\photos.js" />
     <Content Include="m\src\photos\modelgallery.js" />
     <Content Include="m\src\priceincity.js" />
+    <Content Include="m\src\review\landing.js" />
     <Content Include="m\src\scooters-by-make.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
@@ -2977,6 +2984,7 @@
     <Content Include="m\sass\new-launch\_year-swiper.sass" />
     <Content Include="m\sass\modules\_brand-collapsible.sass" />
     <Content Include="sass\modules\_loader.sass" />
+    <Content Include="sass\review\landing.css" />
     <Content Include="sass\scooters\landing.sass" />
     <Content Include="sass\scooters\_landing-style.sass" />
     <Content Include="sass\modules\_main-comparison.sass" />
@@ -3036,6 +3044,21 @@
     <Content Include="sass\user-review\_review-swiper-3d.sass" />
     <Content Include="sass\user-review\_swiper.sass" />
     <Content Include="m\sass\modules\_rating-circle.sass" />
+    <Content Include="sass\partials\_rating.sass" />
+    <Content Include="sass\base\_variables.sass" />
+    <Content Include="sass\m\user-review\listing.sass" />
+    <Content Include="sass\m\user-review\_listing-style.sass" />
+    <Content Include="sass\mixins\_mixins.sass" />
+    <Content Include="sass\mixins\_grid.sass" />
+    <Content Include="sass\mixins\_icons.sass" />
+    <Content Include="sass\partials\_review-contest-slug.sass" />
+    <Content Include="sass\partials\_tabs.sass" />
+    <Content Include="sass\partials\_article-list.sass" />
+    <Content Include="sass\partials\_overall-floating-tabs.sass" />
+    <Content Include="sass\partials\_collapsible-content.sass" />
+    <Content Include="sass\partials\_pagination.sass" />
+    <Content Include="sass\m\review\landing.sass" />
+    <Content Include="sass\review\landing.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3080,6 +3103,7 @@
     <Content Include="src\photos\modelgallery.js" />
     <Content Include="src\popup\makemodelpopup.js" />
     <Content Include="src\priceincity.js" />
+    <Content Include="src\review\landing.js" />
     <Content Include="src\scooters.js" />
     <Content Include="src\service\landing.js" />
     <Content Include="src\service\location.js" />
@@ -3172,6 +3196,8 @@
     <Content Include="src\zebra-datepicker.js" />
     <Content Include="staticHtml\premium.html" />
     <Content Include="staticHtml\standard.html" />
+    <Content Include="Templates\BikesSwiperList_Mobile.html" />
+    <Content Include="Templates\ExpertReviewsList_Mobile.html" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="Thankyou.aspx" />
     <Content Include="trackday2016\css\track-day.css" />
@@ -3734,6 +3760,7 @@
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\Model\_BestBikes.cshtml" />
     <Content Include="Views\Finance\CapitalFirst_Index_Mobile.cshtml" />
+    <Content Include="Views\UserReview\Index_Mobile.cshtml" />
     <Content Include="Views\Shared\_OtpScreen_Mobile.cshtml" />
     <Content Include="Views\Shared\_OtpScreen.cshtml" />
     <Content Include="Views\PriceInCity\Index_Mobile_Amp.cshtml" />
@@ -3774,6 +3801,10 @@
     <Content Include="Views\Shared\Ads\Desktop\Ad292x359.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad200x216.cshtml" />
     <Content Include="Views\Price\_PriceInCityPopUp.cshtml" />
+    <Content Include="Views\PopUp\BikeCityPopup.cshtml" />
+    <Content Include="Views\PopularCityWidget\DealerServiceCenterInTopCityWidget.cshtml" />
+    <Content Include="Views\PopularCityWidget\DealerServiceCenterInTopCityWidget_Mobile.cshtml" />
+    <Content Include="Views\PopUp\BikeCityPopup_Mobile.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad970x90_InnovationBanner.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_InnovationBanner.cshtml" />
     <Content Include="Views\BikeSeries\_BikeModelsBySeries.cshtml" />
@@ -3784,6 +3815,17 @@
     <Content Include="Views\ExpertReviews\_ExpertReviewsModelWiseCard_Mobile.cshtml" />
     <Content Include="Views\Photos\_PhotosBikeInfoCard.cshtml" />
     <Content Include="Views\Photos\_PhotosBikeInfoCard_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_TopRatedBikes_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_SearchUserReviewExpertReviewModel_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_PopularBikesWithExpertReviews.cshtml" />
+    <Content Include="Views\UserReview\_PopularBikesWithExpertReviews_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_SearchUserReviewExpertReviewModel.cshtml" />
+    <Content Include="Views\UserReview\Index.cshtml" />
+    <Content Include="Views\UserReview\_TopRatedBikes.cshtml" />
+    <Content Include="Views\UserReview\_RecentUploadedReviews.cshtml" />
+    <Content Include="Views\UserReview\_RecentUploadedReviews_Mobile.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad292x360.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad200x211.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

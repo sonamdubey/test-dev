@@ -10,20 +10,21 @@ namespace Bikewale
     {
         public static void Configure()
         {
-            if (!Bikewale.Utility.BWConfiguration.Instance.DisablePWA)
+            int minSize = Bikewale.Utility.BWConfiguration.Instance.MinEnginePoolSize;
+            int maxSize = Bikewale.Utility.BWConfiguration.Instance.MaxEnginePoolSize;
+
+            if (Bikewale.Utility.BWConfiguration.Instance.EnablePWA)
             {
                 JsEngineSwitcher.Instance.EngineFactories.AddV8();
-                IJsEngine engine = JsEngineSwitcher.Instance.CreateEngine(V8JsEngine.EngineName);
             }
 
             ReactSiteConfiguration.Configuration
               .SetLoadBabel(false)
               .SetUseDebugReact(false)
               .AddScriptWithoutTransform("~/Scripts/server.bundle.js")
-              .SetStartEngines(25)
-              .SetMaxEngines(100)
+              .SetStartEngines(minSize)
+              .SetMaxEngines(maxSize)
               .SetReuseJavaScriptEngines(true)
-              //.SetAllowMsieEngine(false);
               ;
 
         }

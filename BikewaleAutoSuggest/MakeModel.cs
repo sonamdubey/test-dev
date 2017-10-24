@@ -31,6 +31,7 @@ namespace BikewaleAutoSuggest
         public string Futuristic { get; set; }
         public string IsNew { get; set; }
         public string UserRatingsCount { get; set; }
+        public string ExpertReviewsCount { get; set; }
     }
 
     public class TempList
@@ -45,5 +46,6 @@ namespace BikewaleAutoSuggest
         public bool Futuristic { get; set; }
 
         public int UserRatingsCount { get; set; }
-    }
+        public uint ExpertReviewsCount { get; set; }      
+  }
 }

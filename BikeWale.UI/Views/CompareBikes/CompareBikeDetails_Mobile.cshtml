@@ -328,7 +328,7 @@
                                             }
                                         }
                                     }
-                                   @if (Model.Compare.UserReviewData.MostHelpfulReviews != null)
+                                    @if (Model.Compare.UserReviewData.MostHelpfulReviews != null)
                                     {
                                         <tr class="row-type-heading ">
                                             <td colspan="2">Reviews</td>
@@ -375,10 +375,10 @@
                     <div class="container bg-white box-shadow margin-bottom15 content-inner-block-20">
                         <p class="text-bold font16 line-height17 inline">Bike Comparison - @Model.templateSummaryTitle</p>
                         <span class="model-preview-main-content">
-                            <p class="font14 text-light-grey line-height17 inline padding-top10">@Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 200)   ... </p>
+                            <p class="font14 text-light-grey line-height17 inline padding-top10">@Html.Raw(Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 200))   ... </p>
                         </span>
                         <span class="model-preview-more-content hide">
-                            <p class="font14 text-light-grey line-height17 inline padding-top10">@Model.compareSummaryText</p>
+                            <p class="font14 text-light-grey line-height17 inline padding-top10">@Html.Raw(Model.compareSummaryText)</p>
                         </span>
                         <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
                     </div>

@@ -45,9 +45,9 @@ namespace Bikewale.Utility
                 }
                 return text;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("FormatDescription.TruncateDescription() => {0}",text));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("FormatDescription.TruncateDescription() => {0}", text));
                 return string.Empty;
             }
 

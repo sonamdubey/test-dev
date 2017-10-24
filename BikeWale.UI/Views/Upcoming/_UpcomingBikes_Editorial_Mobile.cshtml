@@ -9,7 +9,7 @@
                 string bikeName = string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName);
                 <div class="swiper-slide">
                     <div class="swiper-card">
-                        <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName))" title="@bikeName">
+                        <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName))" title="@bikeName" class="block">
                             <div class="swiper-image-preview position-rel">
                                 <img class="swiper-lazy" alt="@bikeName" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._174x98,QualityFactor._70)" title="@bikeName">
                             </div>

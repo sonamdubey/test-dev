@@ -26,7 +26,7 @@ namespace Bikewale
                         
             ConfigureWurfl();
 
-            if (!BWConfiguration.Instance.DisablePWA)
+            if (BWConfiguration.Instance.EnablePWA)
                 AssemblyRegistration.Container.Resolve<IReactEnvironment>();
         }
 

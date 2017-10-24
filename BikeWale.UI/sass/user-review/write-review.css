@@ -661,10 +661,14 @@ h1,
     border-radius: 50%;
     clip: rect(0, 15px, 30px, 0); }
 
-.circle-rate-3 .rating-progress, .circle-rate-4 .rating-progress, .circle-rate-5 .rating-progress {
+.circle-rate-3 .rating-progress,
+.circle-rate-4 .rating-progress,
+.circle-rate-5 .rating-progress {
   clip: rect(auto, auto, auto, auto); }
 
-.circle-rate-3 .rating-progress:after, .circle-rate-4 .rating-progress:after, .circle-rate-5 .rating-progress:after {
+.circle-rate-3 .rating-progress:after,
+.circle-rate-4 .rating-progress:after,
+.circle-rate-5 .rating-progress:after {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -o-transform: rotate(180deg);
@@ -731,3 +735,23 @@ h1,
 
 .font15 {
   font-size: 15px; }
+
+.input-type-checkbox {
+  display: none; }
+
+.checkbox-icon {
+  width: 14px;
+  height: 14px;
+  background-position: -216px -120px;
+  position: relative;
+  top: 2px; }
+
+.checkbox-label {
+  display: inline-block;
+  vertical-align: top;
+  width: 95%;
+  padding-left: 5px;
+  cursor: pointer; }
+
+.input-type-checkbox:checked ~ label .checkbox-icon {
+  background-position: -216px -135px; }
