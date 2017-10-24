@@ -66,24 +66,6 @@
                 <span class="navbarTitle">Track Day 2016</span>
             </a>
         </li>
-        <%--<li>
-            <a href="javascript:void(0)">
-                <span class="bwmsprite newBikes-icon"></span>
-                <span class="navbarTitle">Bike Booking</span>
-                <span class="nav-drop bwmsprite fa-angle-down"></span>
-            </a>
-            <ul class="nestedUL">
-                <li><a href="/m/bikebooking/">Book Your Bike</a></li>
-                <li><a href="/m/pricequote/rsaofferclaim.aspx">Claim Your Offer</a></li>
-                <li><a href="/m/bikebooking/cancellation.aspx">Cancel Your Booking</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="/m/insurance/">
-                <span class="bwmsprite insurance-icon"></span>
-                <span class="navbarTitle">Insurance</span>
-            </a>
-        </li>--%>
         <BW:Login ID="ctrlLogin" runat="server" />
     </ul>
 
