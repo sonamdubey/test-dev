@@ -34,24 +34,24 @@
             <ul class="nestedUL">
                 <li><a href="/used/">Find Used Bikes</a></li>
                 <li><a href="/used/bikes-in-india/">All Used Bikes</a></li>
+                <li><a href="/used/sell/">Sell Your Bike</a></li>
             </ul>
         </li>
         <li>
-            <a href="/used/sell/">
-                <span class="bwsprite sellBikes-icon"></span>
-                <span class="navbarTitle">Sell Your Bike</span>
+            <a href="/used/reviews/">
+                <span class="bwsprite reviews-icon"></span>
+                <span class="navbarTitle">Reviews</span>
             </a>
         </li>
         <li>
             <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwsprite reviews-icon"></span>
-                <span class="navbarTitle">Reviews, News &amp; Videos</span>
+                <span class="navbarTitle">News, Videos &amp; Tips</span>
                 <span class="nav-drop fa-angle-down"></span>
             </a>
             <ul class="nestedUL">
                 <li><a href="/news/">News</a></li>
                 <li><a href="/expert-reviews/">Expert Reviews</a></li>
-                <li><a href="/user-reviews/">User Reviews</a></li>
                 <li><a href="/features/">Features</a></li>
                 <li><a href="/bike-care/">Bike Care</a></li>
                 <li><a href="/bike-videos/">Videos</a></li>
@@ -63,35 +63,22 @@
                 <span class="navbarTitle">Track Day 2016</span>
             </a>
         </li>
-        <%--<li>
-            <a href="/insurance/">
-                <span class="bwsprite insurance-icon"></span>
-                <span class="navbarTitle">Insurance</span>
-            </a>
-        </li>--%>
         <li>
             <a href="/bike-loan-emi-calculator/">
                 <span class="bwsprite forum-icon"></span>
                 <span class="navbarTitle">Tools</span>
             </a>
-		</li>
-		<%--<li>
-			<a href="/bike-review-contest/?csrc=<%= ((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_Hamburger)%>">
-				<span class="teal-trophy-circle"></span>
-				<span class="navbarTitle inline-block">Bike Review Contest</span>
-				<span class="bwsprite nav-right-arrow"></span>
-			</a>
-		</li>--%>
+        </li>
         <li>
             <a href="/mybikewale/">
                 <span class="bwsprite myBikeWale-icon"></span>
                 <span class="navbarTitle">My BikeWale</span>
             </a>
         </li>
-        
+
     </ul>
     <div class="margin-top40 margin-bottom40 margin-left20">
-        <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DDrawer%26utm_campaign%3DBikeWale%2520Desktopsite%2520Drawer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5" ></a>
+        <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DDrawer%26utm_campaign%3DBikeWale%2520Desktopsite%2520Drawer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5"></a>
         <%--<a href="https://itunes.apple.com/in/app/bikewale/id910137745?mt=8" target="_blank" rel="noopener" class="bwsprite app-store-icon"></a>--%>
     </div>
 </nav>
