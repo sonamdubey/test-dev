@@ -15,14 +15,30 @@
     <div class="card-inner-padding font14 text-light-grey collapsible-content padding-15-20">
         <p class="main-content"> Get upto 80% of vehicle’s value as loan! Fill in your personal and employment details and get an instant loan approval from one of our finance partners.</p>
     </div>
-    <div id="form-tabs-content" class="page-tabs margin-top10">
-        <ul>
-            <li class="page-tabs__li active" data-id="personal-detail-tab">Personal Details</li>
-            <li class="page-tabs__li" data-id="employment-detail-tab">Employment Details</li>
+    <div id="form-tabs-content" class="page-tabs">
+        <ul class="padding-left10 padding-right10">
+            <li class="page-tabs__li active" data-id="contact-detail-tab">
+                <div class="page-tabs__li-container">
+                    <span class="contact-image-unit round-border personal-icon"></span>
+                    <h3 class="personal__title">Contact details</h3>
+                </div>
+            </li>
+            <li class="page-tabs__li inactive" data-id="personal-detail-tab">
+                <div class="page-tabs__li-container">
+                    <span class="personal-image-unit personal-icon round-border"></span>
+                    <h3 class="personal__title">Personal details</h3>
+                </div>
+            </li>
+            <li class="page-tabs__li inactive" data-id="employment-detail-tab">
+                <div class="page-tabs__li-container">
+                    <span class="employment-image-unit gray-bag-icon round-border"></span>
+                    <h3 class="employment__title">Employment details</h3>
+                </div>
+            </li>
         </ul>
     </div>
     <div class="page-tabs-data padding-15-20">
-        <div id="personal-detail-tab" class="personal-details__form">
+        <div id="contact-detail-tab" class="contact-details__form">
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfFName" type="text" min="1" maxlength="26" autocomplete="off">
@@ -56,6 +72,24 @@
                     <span class="error-text" style="display: none;"></span>
                 </div>
             </div>
+            <div class="margin-bottom5 position-rel">
+                <div class="input-box form-control-box">
+                    <input id="cfPincode" type="tel" min="1" maxlength="6" autocomplete="off">
+                    <label for="cfPincode">Pincode<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text" style="display: none;"></span>
+                </div>
+                <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide no-suggestion-item">
+                    <li class="ui-menu-item" tabindex="-1">
+                        <span class="text-bold">Oops! No suggestions found</span><br>
+                        <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
+                    </li>
+                </ul>
+            </div>
+            <input type="button" id="contact-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Save &amp; Continue">
+        </div>
+        <div id="personal-detail-tab" class="personal-details__form hide">
+
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">
                     <input id="cfDOB" type="text" autocomplete="off">
@@ -111,20 +145,6 @@
                     <span class="boundary"></span>
                     <span class="error-text" style="display: none;"></span>
                 </div>
-            </div>
-            <div class="margin-bottom5 position-rel">
-                <div class="input-box form-control-box">
-                    <input id="cfPincode" type="tel" min="1" maxlength="6" autocomplete="off">
-                    <label for="cfPincode">Pincode<sup>*</sup></label>
-                    <span class="boundary"></span>
-                    <span class="error-text" style="display: none;"></span>
-                </div>
-                <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide no-suggestion-item">
-                    <li class="ui-menu-item" tabindex="-1">
-                        <span class="text-bold">Oops! No suggestions found</span><br>
-                        <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
-                    </li>
-                </ul>
             </div>
             <div class="margin-bottom5">
                 <div class="input-box form-control-box">

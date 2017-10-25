@@ -11,7 +11,9 @@ var validate,
     otpContainerContent,
     otpContainerContentHeight,
     employmentDeatilTab,
-        bikeName;
+    personalDetailTab,
+        bikeName,
+        formTabsContainer;
 var objPinCodes = new Object();
 docReady(function () {
 
@@ -24,7 +26,9 @@ docReady(function () {
     blackWindowElem = $(".otp-black-window"),
     otpContainerContent = $(".otp-container__content"),
     employmentDeatilTab = $("#employment-detail-tab");
+    personalDetailTab = $("#personal-detail-tab");
     bikeName = $('#hdnBikeName').val();
+    formTabsContainer = $('#form-tabs-content');
     validate = {
         setError: function (element, message) {
             var elementLength = element.val().length,
@@ -130,6 +134,9 @@ docReady(function () {
             var offsetTop = $(this).offset();
             scrollTop(offsetTop);
         }
+    });
+    $("#contact-detail-submit").on('click', function () {
+        validateContactInfo();
     });
 
     $("#personal-detail-submit").on('click', function () {
@@ -254,35 +261,71 @@ function scrollTopError() {
     scrollTop(elem);
 }
 
+function validateContactInfo() {
+    $('#screenLoader').show();
+    var isValid = validateUserName($("#cfFName"));
+    isValid &= validateUserName($("#cfLName"));
+    isValid &= validatePhoneNumber($("#cfNum"));
+    isValid &= validateEmailId($("#cfEmail"));
+    isValid &= validatePinCode($("#cfPincode"));
+
+    if (isValid) {
+        $("#contact-detail-tab").addClass("hide");
+        $(personalDetailTab).removeClass("hide");
+
+        $(".contact-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
+        if (isDesktop.length) {
+            scrollTop($(personalDetailTab).offset());
+            $(".personal__title").removeClass("inactive");
+            $(".personal-details-container").addClass("visible");
+        }
+        else {
+            scrollTop(formTabsContainer.offset());
+            formTabsContainer.find('.page-tabs__li.active').removeClass('active');
+            formTabsContainer.find('.page-tabs__li[data-id=personal-detail-tab]').removeClass("inactive").addClass('active');
+        }
+    }
+    else {
+        scrollTopError();
+    }
+
+    $('#screenLoader').hide();
+
+}
 function validatePersonalInfo() {
 	$('#screenLoader').show();
 
     var isValid = false;
 
-    isValid = validateUserName($("#cfFName"));
-    isValid &= validateUserName($("#cfLName"));
-    isValid &= validatePhoneNumber($("#cfNum"));
-    isValid &= validateEmailId($("#cfEmail"));
-    isValid &= validateAddress($("#cfAddress1"));
+    //isValid = validateUserName($("#cfFName"));
+    //isValid &= validateUserName($("#cfLName"));
+    //isValid &= validatePhoneNumber($("#cfNum"));
+    //isValid &= validateEmailId($("#cfEmail"));
+    isValid = validateAddress($("#cfAddress1"));
     isValid &= validateAddress($("#cfAddress2"));
-    isValid &= validatePinCode($("#cfPincode"));
-    isValid &= validatePanNumber($("#cfPan"));
+    //isValid &= validatePinCode($("#cfPincode"));
+    //isValid &= validatePanNumber($("#cfPan"));
     isValid &= validateRadioButtons("gender");
     isValid &= validateRadioButtons("marital");
     isValid &= validateDOB($("#cfDOB"));
 
     if (isValid) {
-        savePersonalDetails();
-        if (isDesktop.length) {
-            $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
-            $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
-            $(".employment__title").removeClass("inactive");
-            $(".employment-details-container").addClass("visible");
+        //savePersonalDetails();
 
-		}
-		else {
-			$('#form-tabs-content').find('.page-tabs__li.active').removeClass('active');
-			$('#form-tabs-content').find('.page-tabs__li[data-id=employment-detail-tab]').addClass('active');
+        $("#personal-detail-tab").addClass("hide");
+        $(employmentDeatilTab).removeClass("hide");
+
+        $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
+        $(".personal-image-unit").removeClass('bg-gray').addClass('bg-red');
+        $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
+        if (isDesktop.length) {
+            scrollTop($(employmentDeatilTab).offset());
+            $(".employment__title").removeClass("inactive");
+            $(".employment-details-container").addClass("visible");		}
+        else {
+            scrollTop(formTabsContainer.offset());
+            formTabsContainer.find('.page-tabs__li.active').removeClass('active');
+            formTabsContainer.find('.page-tabs__li[data-id=employment-detail-tab]').removeClass('inactive').addClass('active');
 		}
 	}
 	else {
@@ -292,8 +335,7 @@ function validatePersonalInfo() {
 	$('#screenLoader').hide();
 }
 
-
-
+/*
 function savePersonalDetails() {
     var personDetails = {
         "objLeadJson": $("#objLead").val(),
@@ -355,6 +397,7 @@ function savePersonalDetails() {
 
 
 }
+*/
 
 function validateEmploymentInfo() {
     var isValid = false;
@@ -436,7 +479,7 @@ function saveEmployeDetails() {
 }
 
 function validateUserName(elem) {
-
+    var isValid;
     var nameRegex = /^[a-zA-Z]{2,255}$/,
         value = $(elem)[0].value.trim();
     if (value.length == 0) {
@@ -455,6 +498,7 @@ function validateUserName(elem) {
 }
 
 function validatePhoneNumber(inputMobile) {
+    var isValid;
     var regMob = new RegExp('^((7)|(8)|(9))[0-9]{9}$', 'i'),
         value = $(inputMobile).val();
     if (value.length == 0) {
@@ -510,7 +554,7 @@ function validateAddress(inputAddress) {
 
 
 function checkPinCode(pinCode, inputPincode) {
-    isValid = false;
+    var isValid = false;
     $.ajax({
         async: false,
         type: "GET",
@@ -617,9 +661,9 @@ function validateDOB(inputAge) {
 }
 
 function scrollTop(offsetElem) {
-    var offsetTop = 40;
+    var offsetTop = 25;
     if (isDesktop.length) {
-        offsetTop = 170;
+        offsetTop = 130;
 
     }
     $("html, body").animate({
