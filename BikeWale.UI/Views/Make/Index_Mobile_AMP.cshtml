@@ -1,0 +1,1697 @@
+﻿@model Bikewale.Models.MakePageVM
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile_AMP.cshtml";
+    Model.Amp_Page_CSS = @"html{font-size:13px;padding:0;margin:0;background:#f5f5f5;box-sizing:border-box;font-family:'Open Sans',sans-serif,Arial;color:#4d5057;line-height:1.42857143}*{margin: 0;padding: 0;box-sizing: border-box;}h1{margin:0;padding:0;font-size:18px;font-weight:700;color:#2a2a2a}h2{font-size:16px;font-weight:600;color:#2a2a2a}h3{font-size:14px;font-weight:600;color:#4d5057}.omega{padding-right:0}.alpha{padding-left:0}.grid-12{width:100%}.grid-9{width:75%}.grid-8{width:66.66666667%}.grid-7{width:58.33333333%}.grid-5{width:41.66666667%}.grid-4{width:33.33333333%}.grid-3{width:25%}.grid-1,.grid-10,.grid-11,.grid-12,.grid-2,.grid-3,.grid-4,.grid-5,.grid-6,.grid-7,.grid-8,.grid-9{float:left;position:relative;min-height:1px;padding-right:10px;padding-left:10px}.padding-top10{padding-top:10px}.padding-top15{padding-top:15px}.padding-top20{padding-top:20px}.orpContent-block.padding-top40{padding-top:40px;}.padding-left5{padding-left:5px}.padding-left10{padding-left:10px}.padding-left15{padding-left:15px}.padding-left20{padding-left:20px}.padding-right20{padding-right:20px}.padding-bottom5{padding-bottom:5px}.padding-bottom10{padding-bottom:10px}.padding-bottom15{padding-bottom:15px}.padding-bottom20{padding-bottom:20px}.padding-15-20{padding:15px 20px}.text-right{text-align:right}.text-default{color:#4d5057}.text-center{text-align:center}.text-slate-grey{color:#787878}.text-xx-light{color:#a2a2a2}.margin-right5{margin-right:5px}.margin-right10{margin-right:10px}.margin-right20{margin-right:20px}.margin-left20{margin-left:20px}.margin-top5{margin-top:5px}.margin-top15{margin-top:15px}.margin-bottom20{margin-bottom:20px}.margin-bottom15{margin-bottom:15px}.margin-bottom16{margin-bottom:16px}.margin-bottom10{margin-bottom:10px}.margin-bottom5{margin-bottom:5px}.font11{font-size:11px}.font12{font-size:12px}.font14{font-size:14px}.font20{font-size:20px}.font15{font-size:15px}.alpha{padding-left:0}.omega{padding-right:0}.text-light-grey{color:#82888b}.font-bold{font-weight:600}.text-unbold{font-weight:400}.text-bold{font-weight:700}.line-height16{line-height:1.6}.clear{clear:both}.border-solid-top{border-top:1px solid #e2e2e2}.border-solid-bottom{border-bottom:1px solid #e2e2e2}.review-left-divider{position:relative;margin-left:15px;padding-left:15px;padding-right:5px}.divider-bottom{border-bottom:1px solid #eee}a{color:#0288d1;text-decoration:none}.hide{display:none}.inline-block{display:inline-block;vertical-align:middle}.vertical-top{display:inline-block;vertical-align:top}.block{display:block}.position-rel{position:relative}.pos-top2{top:2px}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.target-link{color:#2a2a2a;font-weight:600;display:block}.btn{display:inline-block;padding:8px 42px;font-size:16px;line-height:1.42857143;text-align:center;white-space:nowrap;border:1px solid transparent;border-radius:2px;outline:0;text-decoration:none;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;-webkit-appearance:none}.city-sprite {background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;display: inline-block;}.btn-teal{background:#41b4c4;color:#fff;border:1px solid #41b4c4}.btn-orange{background:#ef3030;color:#fff}.btn-white{background:#fff;color:#e42029;border:1px solid #e42029}.btn-180-34{font-size:14px;width:180px;padding:6px}.btn-red-arrow{width:6px;height:10px;background-position:-204px -35px;margin-left:5px;position:relative;top:1px}.btn-inv-teal,.view-all-target-btn{background:0 0;color:#3799a7;border:1px solid #3799a7}.btn-card{font-size:14px;padding:5px;overflow:hidden;text-overflow:ellipsis}.btn-170-32{width:170px;font-size:14px;padding:5px}.btn-160-32{min-width:160px;padding:5px;font-size:14px}.btn-full-width{display:block;width:100%}.campaign__floating-btn{position:fixed;bottom:0;right:0;left:0;z-index:8;padding:10px;background:#fff;-moz-box-shadow:0 0 7px #ccc;-webkit-box-shadow:0 0 7px #ccc;-o-box-shadow:0 0 7px #ccc;box-shadow:0 0 7px #ccc}.clearfix{clear:both}.btn__left-label{color:#82888b;position:relative;top:6px}.btn.btn-full-32{width:100%;padding:5px;font-size:14px;border-radius:2px}.btn-orange{background:#ef3030;color:#fff}ol,ul{list-style:none}.campaign__powered-key{font-size:12px;color:#a2a2a2}.campaign__powered-value{font-size:13px;color:#82888b}.item-more-details-list li{float:left;margin-bottom:8px;margin-right:8px}.container{width:100%;margin:0 auto;clear:both}.price-in-city__head{padding:10px 20px 0;font-size:20px;background:#fff}#modelOverallSpecsTopContent{height:44px}#overallSpecsTab{width:100%;display:block;background:#fff;overflow-x:auto;z-index:3;-webkit-overflow-scrolling:touch;position:absolute;top:0;-moz-box-shadow:0 4px 5px -2px #d5d5d5;-webkit-box-shadow:0 4px 5px -2px #d5d5d5;-o-box-shadow:0 4px 5px -2px #d5d5d5;-ms-box-shadow:0 4px 5px -2px #d5d5d5;box-shadow:0 4px 5px -2px #d5d5d5}.overall-specs-tabs-wrapper{width:100%;display:table}.overall-specs-tabs-wrapper li{display:table-cell;width:1%;padding:10px 15px;text-align:center;white-space:nowrap;font-size:14px;color:#82888b;cursor:pointer}.overall-specs-tabs-wrapper li a{color:#82888b}.overall-specs-tabs-wrapper li.active{border-bottom:3px solid #ef3f30;color:#4d5057;font-weight:600}.overall-specs-tabs-wrapper li.active a{color:#4d5057}#overallSpecsTab::-webkit-scrollbar{width:0;height:0;display:none}.card-bottom-margin,.section-bottom-margin{margin-bottom:20px}.content-box-shadow{background:#fff;-moz-box-shadow:2px 2px 2px #dcdcdc;-webkit-box-shadow:2px 2px 2px #dcdcdc;-o-box-shadow:2px 2px 2px #dcdcdc;-ms-box-shadow:2px 2px 2px #dcdcdc;box-shadow:2px 2px 2px #dcdcdc;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.content-inner-block-20{padding:20px}.model-image{width:96px;height:53px;display:inline-block;vertical-align:top}.model-image a{display:inline-block;height:48px;width:86px}.model-version-block{width:60%;padding-left:0;display:inline-block;padding-left:15px;position:relative;font-size:14px}.version-block__title{color:#82888b;font-size:12px}.dropdown-select-wrapper{display:inline-block;min-width:125px;max-width:185px;font-size:14px;position:relative;display:inline-block;vertical-align:middle;color:#4d5057}.dropdown-select-wrapper p{cursor:pointer;border-bottom:1px solid #82888b;padding-right:30px;font-size:14px;padding-top:5px;padding-bottom:5px;max-width:185px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dropdown-select-wrapper p:after{display:block;position:absolute;right:5px;top:10px;content:'';width:10px;height:5px;background:transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%}.dropdown-select-wrapper p:focus{border-bottom:1px solid #82888b}.select-wrapper__list{position:absolute;top:35px;background:#fff}.select-wrapper__list[selected]{border-bottom:1px solid #82888b}#select-option{min-width:150px;max-width:250px;-moz-box-shadow:0 1px 1px 1px #d5d5d5;-webkit-box-shadow:0 1px 1px 1px #d5d5d5;-o-box-shadow:0 1px 1px 1px #d5d5d5;-ms-box-shadow:0 1px 1px 1px #d5d5d5;box-shadow:0 1px 1px 1px #d5d5d5}#select-option div{padding:5px 10px;cursor:pointer}.model-version-block amp-selector [option][selected]{cursor:auto;outline:0}.price-table__heading{padding-bottom:15px;color:#4d5057;font-size:14px;text-align:left}.model-version_price-table{width:100%} .model-version_price-table td{font-size:14px}.info-grey-14{width:14px;height:15px;background-position:-173px -613px;position:relative;top:2px;margin-right:2px;cursor:pointer}.position--left-neg-5{left:-5px}.rate-count-1 .star-icon{background-position:0 -667px}.rate-count-2 .star-icon{background-position:-38px -667px}.rate-count-3 .star-icon{background-position:0 -278px}.rate-count-4 .star-icon{background-position:-74px -667px}.rate-count-5 .star-icon{background-position:-110px -667px}.rate-count-5{color:#198d55}.rate-count-4{color:#13b65d}.rate-count-3{color:#efd700}.rate-count-2{color:#fd971c}.rate-count-1{color:#ef3f30}.star-icon.star-size-16{-webkit-transform:scale(.6);-moz-transform:scale(.6);-o-transform:scale(.6);transform:scale(.6)}.star-icon{width:26px;height:25px;vertical-align:middle;-webkit-transform:scale(.8);-moz-transform:scale(.8);-o-transform:scale(.8);transform:scale(.8)}.review-left-divider:before{content:'';position:absolute;top:4px;left:0;width:1px;height:12px;border-left:1px solid #e2e2e2}.model-more-info-section .item-image-content{width:100px;height:56px;display:inline-block;vertical-align:top;background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center}.item-image-content img{width:100%}.model-more-info-section .bike-details-block{width:62%;vertical-align:top;display:inline-block;padding-left:10px}.price-label-size-12{font-size:12px;color:#82888b}.price-value-size-18{font-size:18px;font-weight:700}.item-more-details-list a{display:block;padding:1px 8px 5px;color:#787878;background:rgba(245,245,245,.9);-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.photos-sm{background-position:0 -477px}.photos-sm,.videos-sm{width:14px;height:14px;vertical-align:middle;margin-right:3px}.item-more-details-list .icon-label{font-size:13px;display:inline-block;vertical-align:middle;line-height:13px}.dealers-sm{background-position:-31px -476px;}.specs-sm{background-position:-141px -555px}.dealers-sm,.news-sm,.reviews-sm,.specs-sm,.user-reviews-sm{width:14px;height:14px;vertical-align:middle;margin-right:3px}.videos-sm{background-position:-16px -476px}.model-more-info-section .used-target-label{width:94%}.next-grey-icon{width:8px;height:13px;background-position:-182px -393px;vertical-align:middle}.carousel-heading-content{margin-bottom:10px;padding-right:15px;padding-left:20px}.swiper-heading-left-grid{width:77%;margin-right:-4px}.swiper-heading-right-grid{width:23%}.view-all-target-btn{padding:5px 6px;font-size:14px}.dealer-horizontal-swiper .swiper-slide{width:253px}.swiper-slide:first-child{margin-left:5px}.swiper-card{vertical-align:top;width:253px;margin:2px 3px 2px 5px;padding:15px 15px 10px;min-height:170px;background:#fff;-webkit-box-shadow:0 1px 4px rgba(0,0,0,.2);-moz-box-shadow:0 1px 4px rgba(0,0,0,.2);-ms-box-shadow:0 1px 4px rgba(0,0,0,.2);box-shadow:0 1px 4px rgba(0,0,0,.2);-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.dealership-loc-icon{width:12px;height:15px;background-position:-40px -435px;position:relative;top:4px}.dealership-address{color:#82888b;width:92%;font-size:14px;display:inline-block;vertical-align:top;white-space:normal;text-align:left}.tel-sm-grey-icon{width:15px;height:15px;background-position:0 -435px;position:relative;top:2px}.dealer-horizontal-swiper::-webkit-scrollbar{width:0;height:0;display:none}.service-center-grey{width:28px;height:25px;background-position:0 -636px;vertical-align:middle}.grid-11-inline{display:inline-block;vertical-align:middle;width:88.66666667%}.card-h2-heading{font-size:18px}.teal-right{background-position:-69px -437px}.blue-right-arrow-icon,.teal-right{width:6px;height:10px;position:relative;top:1px;margin-left:6px}.emi-slider-box-right-section{text-align:right}#emiContent .inr-xxsm-icon{width:8px}.inr-xxsm-icon{width:11px;height:10px;background-position:-54px -94px}#versionContent td a{font-size:14px}#viewmore{color:#0288d1}.view-cities-link:before{content:'';width:100%;height:20px;position:absolute;top:-40px;left:0;z-index:1;background:-moz-linear-gradient(to bottom,rgba(255,255,255,0) 0,#fff 100%);background:-o-linear-gradient(to bottom,rgba(255,255,255,0) 0,#fff 100%);background:linear-gradient(to bottom,rgba(255,255,255,0) 0,#fff 100%)}#similarContent .swiper-card{margin-left:8px;padding:5px;width:200px;min-height:210px}#popularContent .swiper-card{margin-left:8px;padding:5px;width:200px;min-height:210px}.swiper-card:first-child{margin-left:8px}.swiper-card:last-child{margin-right:8px}.carousel-image-preview{height:95px;padding:5px 5px 0;position:relative}.carousel-slide img{max-width:100%}.carousel-image-preview img{height:90px}#similarContent .swiper-details-block{padding:5px 15px 0}#similarContent .swiper-btn-block{padding:10px 15px 15px}.compare-with-target{display:block;padding:10px 35px 0 15px;position:relative;font-size:12px;color:#4d5057;top:-1px}.compare-with-target:before{content:'';position:absolute;left:8%;top:0;width:168px;height:1px;border-top:1px solid #e2e2e2}.compare-sm{width:17px;height:12px;background-position:-173px -596px;position:relative;top:1px;margin-right:5px}.swiper-type-similar .right-arrow{right:18px;top:13px;transform:scale(.8)}.right-arrow{width:8px;height:12px;background-position:-182px -394px;position:absolute;right:20px;top:41%}#swiper-city .swiper-card{width:200px;margin-left:8px}#swiper-city .swiper-image-preview{height:100px;padding:25px 0 10px;border-bottom:1px solid #eee;text-align:center}.c-bangalore-icon,.c-chennai-icon,.c-hyderabad-icon,.c-kolkata-icon,.c-lucknow-icon,.c-mumbai-icon,.c-newdelhi-icon,.c-pune-icon{height:48px}.c-mumbai-icon{width:78px;background-position:0 0}.c-pune-icon{width:112px;background-position:-84px 0}.c-bangalore-icon{width:82px;background-position:-202px 0}.c-newdelhi-icon{width:38px;background-position:-290px 0}.c-chennai-icon{width:33px;background-position:-334px 0}.c-hyderabad-icon{width:34px;background-position:-373px 0}.c-kolkata-icon{width:110px;background-position:-413px 0}.c-lucknow-icon{width:106px;background-position:-529px 0}#swiper-city .swiper-details-block{padding-top:10px}.graph-rank-grey{width:28px;height:25px;background-position:-62px -637px;vertical-align:middle}.text-white{color:#fff}@media screen and (-webkit-min-device-pixel-ratio:0){input[type=range]{overflow:hidden;width:100%;-webkit-appearance:none;background-color:#e2e2e2}input[type=range]::-webkit-slider-runnable-track{height:10px;-webkit-appearance:none;color:#ef3030;margin-top:1px}input[type=range]::-webkit-slider-thumb{width:10px;border-radius:50%;border:1px solid #930202;-webkit-appearance:none;height:10px;cursor:ew-resize;background:#ef3030;box-shadow:-605px 10px 0 600px #ef3030}}input[type=range]{overflow:hidden;width:100%;-webkit-appearance:none}input[type=range]:focus{outline:0}input[type=range]::-moz-range-thumb{border-radius:10px;-moz-box-shadow:inset 0 0 6px #fff;background:#ef3030;color:#00f}input[type=range]::-moz-range-progress{background-color:#ef3030}input[type=range]::-moz-range-track{background-color:#bababa}input[type=range]::-ms-track{width:100%;height:5px;background:0 0;border-color:transparent;border-width:6px 0;color:transparent}input[type=range]::-ms-fill-lower{background:#ef3030;border-radius:10px}input[type=range]::-ms-fill-upper{background:#bababa;border-radius:10px}input[type=range]::-ms-thumb{border:none;height:16px;width:16px;border-radius:50%;background:#ef3030}input[type=range]:focus::-ms-fill-lower{background:#ef3030}input[type=range]:focus::-ms-fill-upper{background:#bababa}div::-webkit-scrollbar{display:none;width:0;height:0}#select-box:focus{outline:0}.orpContent-block{padding:20px;margin-bottom:20px;background:#fff;-moz-box-shadow:2px 2px 2px #dcdcdc;-webkit-box-shadow:2px 2px 2px #dcdcdc;-o-box-shadow:2px 2px 2px #dcdcdc;-ms-box-shadow:2px 2px 2px #dcdcdc;box-shadow:2px 2px 2px #dcdcdc;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.version-table__head tr{font-weight:400;color:#82888b;font-size:12px}.version-table__head th{padding-bottom:10px;border-bottom:1px solid #e2e2e2}.version-table__body td{border-bottom:1px solid #eee;font-size:14px;color:#787878;padding-bottom:10px;padding-top:10px}.price-table__body td:first-child{color:#787878}.price-table__body td{padding-bottom:15px}.price-table__body tr:last-child td{padding-bottom:5px;padding-top:15px;border-top:1px solid #e2e2e2;font-size:14px;color:#4d5057}.dealer-name{color:#2a2a2a;font-weight:600;display:block;width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;font-size:15px;margin-bottom:10px}.dealer-contact{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;font-weight:600;font-size:14px;color:#4d5057}.swiper-block__title{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;color:#2a2a2a;font-weight:600;display:block;margin-bottom:5px;font-size:12px}.city-area-banner{width:100%;height:109px;background:#f5f5f5 url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/city-area-banner.png) repeat-x center bottom}.city-sprite{background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png?26Dec2016) no-repeat;display:inline-block}.mumbai-icon,.pune-icon,.bangalore-icon,.delhi-icon,.chennai-icon,.hyderabad-icon,.kolkata-icon,.ahmedabad-icon,.chandigarh-icon,.lucknow-icon,.india-icon{height:70px}.mumbai-icon{width:98px;background-position:0 0}.pune-icon{width:140px;background-position:-108px 0}.bangalore-icon{width:102px;background-position:-258px 0}.delhi-icon{width:54px;background-position:-370px 0}.chennai-icon{width:41px;background-position:-434px 0}.hyderabad-icon{width:49px;background-position:-485px 0}.kolkata-icon{width:138px;background-position:-544px 0}.lucknow-icon{width:132px;background-position:-692px 0}.ahmedabad-icon{width:0px;background-position:0 0}.chandigarh-icon{width:0px;background-position:0 0}.india-icon{width:61px;background-position:-834px 0}.font16{font-size:16px}.inline{display:inline}.margin-top10{margin-top:10px}.margin-top40{margin-top:40px}.margin-bottom20{margin-bottom:20px}.margin-bottom30{margin-bottom:30px}.content-inner-block-10{padding:10px}.border-top1{border-top:1px solid #e2e2e2}.box-shadow{-moz-box-shadow:2px 2px 2px #dcdcdc;-webkit-box-shadow:2px 2px 2px #dcdcdc;-o-box-shadow:2px 2px 2px #dcdcdc;-ms-box-shadow:2px 2px 2px #dcdcdc;box-shadow:2px 2px 2px #dcdcdc}.text-teal{color:#0288d1}.text-black{color:#2a2a2a}.text-x-light{color:#a8afb3}.font18{font-size:18px}.contentWrapper,.formWrapper{position:relative;overflow:hidden;background:#fff;backface-visibility:hidden;-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;-o-backface-visibility:hidden}.imageWrapper{display:table;width:100%;height:174px;overflow:hidden;text-align:center;position:relative}.imageWrapper a{display:table-cell;vertical-align:middle}.bikeDescWrapper{padding:15px;background:#fff}.bikeTitle a{color:#2a2a2a;font-size:16px;display:block}.btn-sm{padding:8px 25px}.swiper-card{width:200px;padding:5px}.swiper-details-block{padding:5px 10px 0}.btn-size-1{font-size:14px;padding:6px 42px}.comparison-swiper .swiper-card{width:310px;min-height:220px;border:1px solid #e2e2e2;padding:0}.comparison-swiper .swiper-card a{padding-top:15px;padding-bottom:20px}.model-comparison-list h3 + .grid-6{position:relative;border-right:1px solid #f5f5f5}.model-img-content{width:126px;height:71px;margin-bottom:5px}.model-comparison-list h3 + .grid-6:after{content:'';position:absolute;right:-11px;top:45px;width:22px;height:21px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;display:block}.content-details-wrapper h2{margin-bottom:13px}.review-image-wrapper{width:120px;height:68px;border:1px solid #e2e2e2;display:inline-block;vertical-align:top;margin-right:10px}.news-image-wrapper a,.review-image-wrapper a{width:100%;display:block}.review-heading-wrapper{width:52%;display:inline-block;vertical-align:top}.calender-grey-sm-icon,.author-grey-sm-icon{width:10px;height:10px;margin-right:2px;vertical-align:middle}.calender-grey-sm-icon{background-position:-48px -486px}.article-stats-content{font-size:12px;color:#82888b;width:70%;display:inline-block;vertical-align:middle;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.author-grey-sm-icon{background-position:-66px -486px}.content-details-wrapper h3{margin-bottom:12px}.video-image-thumbnail{position:relative;height:68px}.play-icon-wrapper,.black-overlay{width:100%;height:100%;display:block;position:absolute;top:0;left:0;margin:0 auto;text-align:center;padding-top:20%;background:rgba(0,0,0,0.4);z-index:1}.video-play-icon{width:24px;height:24px;background-position:-107px -486px}no-city-selection-carousel .swiper-container.card-container{padding-right:15px}.dealer-horizontal-swiper.no-city-selection-carousel .swiper-card{min-height:177px}.dealer-horizontal-swiper .swiper-card{width:253px;padding:15px 20px 10px}.dealer-horizontal-swiper .swiper-details-block{padding:0}.dealer-city-image-preview{min-height:75px;display:block;text-align:center;margin-bottom:10px}.used-swiper .swiper-card{min-height:210px}.brand-type-carousel .swiper-card{width:200px;min-height:110px}.brand-type-carousel .brand-logo-image{width:100%;height:50px;line-height:0;display:table;text-align:center}.brand-type-carousel .brand-type{display:table-cell;vertical-align:middle}.brandlogosprite{background-image:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?22Sep20171506080390741);background-repeat:no-repeat;display:inline-block}.brandlogosprite{background-image:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?22Sep20171506080390741);background-repeat:no-repeat;display:inline-block}.brand-2,.brand-1,.brand-40,.brand-3,.brand-4,.brand-11,.brand-20,.brand-5,.brand-39,.brand-6,.brand-7,.brand-8,.brand-34,.brand-17,.brand-9,.brand-19,.brand-10,.brand-12,.brand-22,.brand-15,.brand-16,.brand-13,.brand-14,.brand-41,.brand-42,.brand-81,.brand-71,.brand-21,.brand-38,.brand-23{height:30px}.brand-2{width:52px;background-position:0 0}.brand-7{width:34px;background-position:-58px 0}.brand-1{width:53px;background-position:-97px 0}.brand-8{width:60px;background-position:-156px 0}.brand-12{width:40px;background-position:-222px 0}.brand-40{width:75px;background-position:-268px 0}.brand-34{width:73px;background-position:-349px 0}.brand-22{width:73px;background-position:-428px 0}.brand-3{width:26px;background-position:-507px 0}.brand-17{width:52px;background-position:-539px 0}.brand-15{width:71px;background-position:-597px 0}.brand-4{width:26px;background-position:-674px 0}.brand-9{width:59px;background-position:-706px 0}.brand-16{width:70px;background-position:-771px 0}.brand-5{width:35px;background-position:-847px 0}.brand-19{width:73px;background-position:-889px 0}.brand-13{width:73px;background-position:-968px 0}.brand-6{width:38px;background-position:-1047px 0}.brand-10{width:61px;background-position:-1091px 0}.brand-14{width:76px;background-position:-1159px 0}.brand-39{width:53px;background-position:-1242px 0}.brand-20{width:49px;background-position:-1300px 0}.brand-11{width:74px;background-position:-1354px 0}.brand-41{width:40px;background-position:-1432px 0}.brand-42{width:38px;background-position:-1481px 0}.brand-81{width:38px;background-position:-1529px 0}.brand-71{width:23px;background-position:-1577px 0}.brand-21{width:57px;background-position:-1737px 0}.brand-38{width:25px;background-position:-1804px 0}.brand-23{width:70px;background-position:-1839px 0}.brand-type-carousel .swiper-details-block{padding-bottom:12px}.breadcrumb{margin:10px;padding:10px;background:#eee}.breadcrumb-title{display:block;font-size:12px;color:#82888B;padding-bottom:5px}.breadcrumb li{position:relative;display:inline-block;vertical-align:middle;margin-right:5px;margin-bottom:10px}.breadcrumb-link__label{padding-right:12px}.breadcrumb-link::after{content:'';height:5px;width:5px;border:solid grey;border-width:0px 1px 1px 0px;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-o-transform:rotate(-45deg);transform:rotate(-45deg);display:inline-block;position:absolute;top:7px;right:0px}.content-inner-block-1520{padding:15px 20px}.pos-top3{top:3px}.search-bike-item{background:#fff}.front,.back{height:330px;background:#fff;overflow:hidden;display:inline-block;border-radius:2px;box-shadow:0 2px 2px 0 #cacaca;-webkit-box-shadow:0 2px 2px 0 #cacaca;-moz-box-shadow:0 2px 2px 0 #cacaca;-ms-box-shadow:0 2px 2px 0 #cacaca;-o-box-shadow:0 2px 2px 0 #cacaca;-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;backface-visibility:hidden;width:100%}.search-bike-item .front{height:auto;border-radius:0;box-shadow:none;-moz-box-shadow:none;-ms-box-shadow:none;border:0 none}.search-bike-item li:first-child .border-top1{display:none}#listitems .bikeDescWrapper{padding-right:20px;padding-left:20px}.bg-white{background:#fff}";
+
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Make";
+    Model.AdTags.AdId = "1444028878952";
+    Model.AdTags.Ad_320x50 = false;
+    Model.AdTags.Ad_300x250 = false;
+}
+
+<section>
+    <div id="bikeByMakesListing" class="container bg-white margin-bottom20">
+        <div>
+
+            <div class="bg-white box-shadow content-inner-block-1520">
+                <h1>Honda Bikes</h1>
+            </div>
+            <div class="search-bike-container position-rel pos-top3 box-shadow">
+                <div class="search-bike-item">
+                    <ul id="listitems" class="listitems">
+                        <li class="front" data-price="43055" data-mileage="0" data-popularity="2">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/navi/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-navi.jpg?20161403150711&amp;q=75" title="Honda Navi" alt="Navi"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda Navi" href="/m/honda-bikes/navi/">Honda Navi</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>109.19 cc</span>,
+                                        <span>7.72 bhp</span>,
+                                        <span>101 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">43,055</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="Navi" data-modelid="691" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="47042" data-mileage="65" data-popularity="4">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/cd110dream/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cd110dream.jpg?20171404185700&amp;q=75" title="Honda CD 110 Dream" alt="CD 110 Dream"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda CD 110 Dream" href="/m/honda-bikes/cd110dream/">Honda CD 110 Dream</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>109.19 cc</span>,
+                                        <span>65 kmpl</span>,
+                                        <span>8.31 bhp</span>,
+                                        <span>109 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">47,042</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="CD 110 Dream" data-modelid="581" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="49933" data-mileage="66" data-popularity="3">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/activai/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-activai.jpg?20172604170206&amp;q=75" title="Honda Activa-i" alt="Activa-i"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda Activa-i" href="/m/honda-bikes/activai/">Honda Activa-i</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>109.19 cc</span>,
+                                        <span>66 kmpl</span>,
+                                        <span>8 bhp</span>,
+                                        <span>103 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">49,933</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="Activa-i" data-modelid="349" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="51071" data-mileage="84" data-popularity="17">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/dreamneo/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-dreamneo.jpg?20170205130605&amp;q=75" title="Honda Dream Neo" alt="Dream Neo"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda Dream Neo" href="/m/honda-bikes/dreamneo/">Honda Dream Neo</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>110 cc</span>,
+                                        <span>84 kmpl</span>,
+                                        <span>8.25 bhp</span>,
+                                        <span>105 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">51,071</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="Dream Neo" data-modelid="340" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="51151" data-mileage="0" data-popularity="5">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/dio/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-dio.jpg?20172703162658&amp;q=75" title="Honda Dio" alt="Dio"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda Dio" href="/m/honda-bikes/dio/">Honda Dio</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>109 cc</span>,
+                                        <span>6 bhp</span>,
+                                        <span>105 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">51,151</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="Dio" data-modelid="55" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="52762" data-mileage="0" data-popularity="1">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/activa/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-activa-4g.jpg?20170203094346&amp;q=75" title="Honda Activa 4G" alt="Activa 4G"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda Activa 4G" href="/m/honda-bikes/activa/">Honda Activa 4G</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>109.2 cc</span>,
+                                        <span>8 bhp</span>,
+                                        <span>108 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">52,762</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="Activa 4G" data-modelid="1044" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="53808" data-mileage="84" data-popularity="7">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/dreamyuga/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-dream-yuga-kick/non-alloy-108.jpg?20151209184821&amp;q=75" title="Honda Dream Yuga" alt="Dream Yuga"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda Dream Yuga" href="/m/honda-bikes/dreamyuga/">Honda Dream Yuga</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>109 cc</span>,
+                                        <span>84 kmpl</span>,
+                                        <span>8 bhp</span>,
+                                        <span>108 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">53,808</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="Dream Yuga" data-modelid="58" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="54115" data-mileage="66" data-popularity="10">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/aviator/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-aviator.jpg?20173103111314&amp;q=75" title="Honda Aviator" alt="Aviator"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda Aviator" href="/m/honda-bikes/aviator/">Honda Aviator</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>109.19 cc</span>,
+                                        <span>66 kmpl</span>,
+                                        <span>8 bhp</span>,
+                                        <span>109 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">54,115</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="Aviator" data-modelid="56" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="56316" data-mileage="63" data-popularity="16">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/livo/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-livo-self-drum-alloy-828.jpg?20151209184857&amp;q=75" title="Honda Livo" alt="Livo"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda Livo" href="/m/honda-bikes/livo/">Honda Livo</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>109.19 cc</span>,
+                                        <span>63 kmpl</span>,
+                                        <span>8.2 bhp</span>,
+                                        <span>111 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">56,316</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="Livo" data-modelid="630" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="57912" data-mileage="65" data-popularity="6">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/shine/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-shine.jpg?20173103132015&amp;q=75" title="Honda CB Shine" alt="CB Shine"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda CB Shine" href="/m/honda-bikes/shine/">Honda CB Shine</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>125 cc</span>,
+                                        <span>65 kmpl</span>,
+                                        <span>10 bhp</span>,
+                                        <span>120 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">57,912</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="CB Shine" data-modelid="59" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="59011" data-mileage="54" data-popularity="20">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/activa125/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-activa125.jpg?20172802150252&amp;q=75" title="Honda Activa 125" alt="Activa 125"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda Activa 125" href="/m/honda-bikes/activa125/">Honda Activa 125</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>124 cc</span>,
+                                        <span>54 kmpl</span>,
+                                        <span>8.5 bhp</span>,
+                                        <span>111 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">59,011</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="Activa 125" data-modelid="354" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="62322" data-mileage="65" data-popularity="13">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/cb-shinesp/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-shinesp.jpg?20173103115606&amp;q=75" title="Honda CB ShineSP" alt="CB ShineSP"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda CB ShineSP" href="/m/honda-bikes/cb-shinesp/">Honda CB ShineSP</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>124.73 cc</span>,
+                                        <span>65 kmpl</span>,
+                                        <span>10.57 bhp</span>,
+                                        <span>124 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">62,322</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="CB ShineSP" data-modelid="652" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="72207" data-mileage="60" data-popularity="11">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/unicorn/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-unicorn-150.jpg?20161002103054&amp;q=75" title="Honda CB Unicorn 150" alt="CB Unicorn 150"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda CB Unicorn 150" href="/m/honda-bikes/unicorn/">Honda CB Unicorn 150</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>149.1 cc</span>,
+                                        <span>60 kmpl</span>,
+                                        <span>13.14 bhp</span>,
+                                        <span>146 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">72,207</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="CB Unicorn 150" data-modelid="693" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="75505" data-mileage="62" data-popularity="9">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/unicorn-160/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-unicorn-160.jpg?20173103114242&amp;q=75" title="Honda CB Unicorn 160" alt="CB Unicorn 160"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda CB Unicorn 160" href="/m/honda-bikes/unicorn-160/">Honda CB Unicorn 160</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>162.71 cc</span>,
+                                        <span>62 kmpl</span>,
+                                        <span>14.5 bhp</span>,
+                                        <span>134 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">75,505</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="CB Unicorn 160" data-modelid="603" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="83607" data-mileage="50" data-popularity="18">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/hornet/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20161209185003&amp;q=75" title="Honda CB Hornet 160R" alt="CB Hornet 160R"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda CB Hornet 160R" href="/m/honda-bikes/hornet/">Honda CB Hornet 160R</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>162.71 cc</span>,
+                                        <span>50 kmpl</span>,
+                                        <span>15.44 bhp</span>,
+                                        <span>140 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">83,607</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="CB Hornet 160R" data-modelid="631" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="672273" data-mileage="20" data-popularity="19">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/cbr650f/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cbr650f-standard-549.jpg?20151209184709&amp;q=75" title="Honda CBR650F" alt="CBR650F"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda CBR650F" href="/m/honda-bikes/cbr650f/">Honda CBR650F</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>648.72 cc</span>,
+                                        <span>20 kmpl</span>,
+                                        <span>84.11 bhp</span>,
+                                        <span>215 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">6,72,273</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="CBR650F" data-modelid="470" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="1238660" data-mileage="16" data-popularity="14">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/cb1000r/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cb1000r-standard-124.jpg?20151209184528&amp;q=75" title="Honda CB1000R" alt="CB1000R"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda CB1000R" href="/m/honda-bikes/cb1000r/">Honda CB1000R</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>999 cc</span>,
+                                        <span>16 kmpl</span>,
+                                        <span>129 bhp</span>,
+                                        <span>217 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">12,38,660</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="CB1000R" data-modelid="65" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="1332694" data-mileage="0" data-popularity="12">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/africa-twin/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-africa-twin.jpg?20161002174331&amp;q=75" title="Honda Africa Twin" alt="Africa Twin"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda Africa Twin" href="/m/honda-bikes/africa-twin/">Honda Africa Twin</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>998 cc</span>,
+                                        <span>85.9 bhp</span>,
+                                        <span>231 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">13,32,694</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="Africa Twin" data-modelid="696" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="1848896" data-mileage="0" data-popularity="8">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/cbr1000rr/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-cbr1000rr.jpg?20171904183342&amp;q=75" title="Honda CBR1000RR Fireblade" alt="CBR1000RR Fireblade"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda CBR1000RR Fireblade" href="/m/honda-bikes/cbr1000rr/">Honda CBR1000RR Fireblade</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>999 cc</span>,
+                                        <span>186.3 bhp</span>,
+                                        <span>195 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">18,48,896</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="CBR1000RR Fireblade" data-modelid="1050" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="front" data-price="3126852" data-mileage="0" data-popularity="15">
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a class="modelurl" href="/m/honda-bikes/gold-wing-gl1800/">
+                                        <amp-img width="292" height="163" src="https://imgd.aeplcdn.com//310x174//bw/models/honda-gold-wing-gl1800-standard-790.jpg?20151209184841&amp;q=75" title="Honda Gold Wing GL1800" alt="Gold Wing GL1800"></amp-img>
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3>
+                                            <a class="modelurl text-bold" title="Honda Gold Wing GL1800" href="/m/honda-bikes/gold-wing-gl1800/">Honda Gold Wing GL1800</a>
+                                        </h3>
+                                    </div>
+                                    <div class="font14 text-x-light margin-bottom10">
+                                        <span>1832 cc</span>,
+                                        <span>118 bhp</span>,
+                                        <span>363 kgs</span>
+                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, Mumbai</div>
+                                    <div class="margin-bottom5">
+                                        <span class="font18"> ₹</span>
+                                        <span class="text-bold font18">31,26,852</span>
+                                    </div>
+                                    <a href="" data-makename="Honda" data-modelname="Gold Wing GL1800" data-modelid="604" data-pagecatid="1" data-pqsourceid="21" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div id="listItemsFooter"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="bikeByMakesUpcoming" class="bg-white margin-bottom20">
+    <div class="container box-shadow padding-top20 padding-bottom20">
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <h2>Upcoming Honda bikes</h2>
+            </div>
+            <div class="swiper-heading-right-grid inline-block text-right">
+                <a href="/m/honda-bikes/upcoming/" title="Upcoming Honda Bikes in India" class="btn view-all-target-btn">View all</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <amp-carousel height="220"
+                      layout="fixed-height"
+                      type="carousel">
+            <div class="swiper-card">
+                <a href="/m/honda-bikes/cb500x/" title="Honda CB500X" class="block">
+                    <div class="swiper-image-preview position-rel">
+                        <amp-img title="Honda Cliq" alt="Honda Cliq" src="https://imgd.aeplcdn.com//210x118//bw/models/honda-cliq.jpg?20172206110043&amp;q=70" width="160" height="90"></amp-img>
+                    </div>
+                    <div class="swiper-details-block">
+                        <h3 class="target-link font12 text-truncate margin-bottom5">Honda CB500X</h3>
+                        <div class="text-light-grey margin-bottom5">
+                            <p class="font11 text-light-grey">Expected launch</p>
+                            <p class="font16 text-bold text-default">November 2017</p>
+                        </div>
+                        <div>
+                            <div class="font11 text-light-grey">Expected Price</div>
+                            <div class="text-default text-bold">
+                                <span class="font16"> ₹</span>
+                                &nbsp;
+                                <span class="font16">4,50,000</span>
+                                <span class="font14">onwards</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="swiper-card">
+                <a href="/m/honda-bikes/cb500x/" title="Honda CB500X" class="block">
+                    <div class="swiper-image-preview position-rel">
+                        <amp-img title="Honda Cliq" alt="Honda Cliq" src="https://imgd.aeplcdn.com//210x118//bw/models/honda-cliq.jpg?20172206110043&amp;q=70" width="160" height="90"></amp-img>
+                    </div>
+                    <div class="swiper-details-block">
+                        <h3 class="target-link font12 text-truncate margin-bottom5">Honda CB500X</h3>
+                        <div class="text-light-grey margin-bottom5">
+                            <p class="font11 text-light-grey">Expected launch</p>
+                            <p class="font16 text-bold text-default">November 2017</p>
+                        </div>
+                        <div>
+                            <div class="font11 text-light-grey">Expected Price</div>
+                            <div class="text-default text-bold">
+                                <span class="font16"> ₹</span>
+                                &nbsp;
+                                <span class="font16">4,50,000</span>
+                                <span class="font14">onwards</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="swiper-card">
+                <a href="/m/honda-bikes/cb500x/" title="Honda CB500X" class="block">
+                    <div class="swiper-image-preview position-rel">
+                        <amp-img title="Honda Cliq" alt="Honda Cliq" src="https://imgd.aeplcdn.com//210x118//bw/models/honda-cliq.jpg?20172206110043&amp;q=70" width="160" height="90"></amp-img>
+                    </div>
+                    <div class="swiper-details-block">
+                        <h3 class="target-link font12 text-truncate margin-bottom5">Honda CB500X</h3>
+                        <div class="text-light-grey margin-bottom5">
+                            <p class="font11 text-light-grey">Expected launch</p>
+                            <p class="font16 text-bold text-default">November 2017</p>
+                        </div>
+                        <div>
+                            <div class="font11 text-light-grey">Expected Price</div>
+                            <div class="text-default text-bold">
+                                <span class="font16"> ₹</span>
+                                &nbsp;
+                                <span class="font16">4,50,000</span>
+                                <span class="font14">onwards</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="swiper-card">
+                <a href="/m/honda-bikes/cb500x/" title="Honda CB500X" class="block">
+                    <div class="swiper-image-preview position-rel">
+                        <amp-img title="Honda Cliq" alt="Honda Cliq" src="https://imgd.aeplcdn.com//210x118//bw/models/honda-cliq.jpg?20172206110043&amp;q=70" width="160" height="90"></amp-img>
+                    </div>
+                    <div class="swiper-details-block">
+                        <h3 class="target-link font12 text-truncate margin-bottom5">Honda CB500X</h3>
+                        <div class="text-light-grey margin-bottom5">
+                            <p class="font11 text-light-grey">Expected launch</p>
+                            <p class="font16 text-bold text-default">November 2017</p>
+                        </div>
+                        <div>
+                            <div class="font11 text-light-grey">Expected Price</div>
+                            <div class="text-default text-bold">
+                                <span class="font16"> ₹</span>
+                                &nbsp;
+                                <span class="font16">4,50,000</span>
+                                <span class="font14">onwards</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </amp-carousel>
+    </div>
+</section>
+<section>
+    <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <h2>Popular Comparison of Honda Bikes</h2>
+            </div>
+            <div class="swiper-heading-right-grid inline-block text-right">
+                <a href="/m/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div id="ctrlCompareBikes" class="comparison-swiper">
+            <amp-carousel height="230"
+                          layout="fixed-height"
+                          type="carousel"
+                          id="comparisonSwiper">
+                <div class="swiper-card">
+                    <a href="/m/comparebikes/honda-dio-vs-honda-activa/?bike1=4566&amp;bike2=4569&amp;source=1" title="Honda Activa 4G vs Honda Dio" class="block">
+                        <span class="text-light-grey position-abt pos-top0 pos-right0 font10"></span>
+                        <h3 class="font12 text-black text-center margin-bottom10">Activa 4G vs Dio</h3>
+                        <div class="grid-6">
+                            <div class="model-img-content">
+                                <amp-img width="126" height="70" alt="Honda Activa 4G" title="Honda Activa 4G" src="https://imgd.aeplcdn.com//144x81//bw/models/honda-activa-4g.jpg?20170203094346&amp;q=60"></amp-img>
+                            </div>
+                            <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                            <span class="font16 text-default"> ₹</span>&nbsp;
+                            <span class="font16 text-default text-bold">52,762</span>
+                        </div>
+                        <div class="grid-6">
+                            <div class="model-img-content">
+                                <amp-img width="126" height="70" alt="Honda Dio" title="Honda Dio" src="https://imgd.aeplcdn.com//144x81//bw/models/honda-dio.jpg?20172703162658&amp;q=60"></amp-img>
+                            </div>
+                            <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                            <span class="font16 text-default"> ₹</span>&nbsp;
+                            <span class="font16 text-default text-bold">51,151</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="margin-top15 text-center">
+                            <span class="btn btn-white btn-size-1">Compare now</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-card">
+                    <a href="/m/comparebikes/honda-dio-vs-honda-activa/?bike1=4566&amp;bike2=4569&amp;source=1" title="Honda Activa 4G vs Honda Dio" class="block">
+                        <span class="text-light-grey position-abt pos-top0 pos-right0 font10"></span>
+                        <h3 class="font12 text-black text-center margin-bottom10">Activa 4G vs Dio</h3>
+                        <div class="grid-6">
+                            <div class="model-img-content">
+                                <amp-img width="126" height="70" alt="Honda Activa 4G" title="Honda Activa 4G" src="https://imgd.aeplcdn.com//144x81//bw/models/honda-activa-4g.jpg?20170203094346&amp;q=60"></amp-img>
+                            </div>
+                            <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                            <span class="font16 text-default"> ₹</span>&nbsp;
+                            <span class="font16 text-default text-bold">52,762</span>
+                        </div>
+                        <div class="grid-6">
+                            <div class="model-img-content">
+                                <amp-img width="126" height="70" alt="Honda Dio" title="Honda Dio" src="https://imgd.aeplcdn.com//144x81//bw/models/honda-dio.jpg?20172703162658&amp;q=60"></amp-img>
+                            </div>
+                            <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                            <span class="font16 text-default"> ₹</span>&nbsp;
+                            <span class="font16 text-default text-bold">51,151</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="margin-top15 text-center">
+                            <span class="btn btn-white btn-size-1">Compare now</span>
+                        </div>
+                    </a>
+                </div>
+            </amp-carousel>
+        </div>
+    </div>
+</section>
+<section>
+    <div id="makeTabsContentWrapper" class="container bg-white clearfix margin-bottom20 content-details-wrapper content-box-shadow">
+        <div id="makeOverallTabsWrapper" class="position-rel">
+            <div id="overallSpecsTab" class="overall-specs-tabs-container">
+                <ul class="overall-specs-tabs-wrapper">
+                    <li data-tabs="#makeAboutContent" class="active">About</li>
+                    <li data-tabs="#makeNewsContent" class="">News</li>
+                    <li data-tabs="#makeReviewsContent" class="">Reviews</li>
+                    <li data-tabs="#makeVideosContent" class="">Videos</li>
+                    <li data-tabs="#makeDealersContent" class="">
+                        Dealers &amp; Service Centers
+                    </li>
+                    <li data-tabs="#makeUsedBikeContent" class="">Used</li>
+                </ul>
+            </div>
+        </div>
+        <div id="makeAboutContent" class="bw-model-tabs-data padding-top15 padding-bottom15 border-solid-bottom active">
+            <div class="margin-bottom20 padding-right20 padding-left20 margin-top40">
+                <h2 class="text-bold">About Honda</h2>
+                <p class="font14 text-light-grey line-height17 margin-bottom15">
+                    <span id="makeAboutContentMainContent" class="model-preview-main-content">
+                        Honda Motorcycle &amp; Scooter India is a 100 per cent Indian subsidiary of Honda Motor Company. Founded in 1999, Honda was the erstwhile partner of Hero MotoCorp before both companies parted ways.Known for pioneering the scooter segment in India through Activa range of scooters, Honda manufactures a wide range of two-wheelers in India. Honda currently has four production facilities – Manesar in Gurgaon, Tapukara in Rajasthan, Narsapura in Karnataka and the new Vithalapur unit in Gujarat. Other than manufacturing bikes and scooters, the Japanese manufacturer also assembles its big bike – the CBR 650F in India.Honda is the second largest two-wheeler company in India after Hero MotoCorp....
+                    </span>
+                    <span id="makeAboutContentMoreContent" class="model-preview-more-content" hidden>
+                        Honda Motorcycle &amp; Scooter India is a 100 per cent Indian subsidiary of Honda Motor Company. Founded in 1999, Honda was the erstwhile partner of Hero MotoCorp before both companies parted ways.<br><br>Known for pioneering the scooter segment in India through Activa range of scooters, Honda manufactures a wide range of two-wheelers in India. Honda currently has four production facilities – Manesar in Gurgaon, Tapukara in Rajasthan, Narsapura in Karnataka and the new Vithalapur unit in Gujarat. Other than manufacturing bikes and scooters, the Japanese manufacturer also assembles its big bike – the CBR 650F in India.<br><br>Honda is the second largest two-wheeler company in India after Hero MotoCorp. This was possible for the company by creating a huge line of products under its portfolio at the same time, increase its sales and service reach in rural areas. Honda is currently present in the 110-125cc scooter segment, 110-180cc mass market motorcycles, 250cc and above premium motorcycle segment. <br>
+                    </span>
+                    <span tabindex="0" role="option" id="makeAboutContentReadMore" class="read-more-model-preview text-teal block" on="tap: makeAboutContentMoreContent.show, makeAboutContentMainContent.hide, makeAboutContentReadMore.hide">Read more</span>
+                </p>
+            </div>
+        </div>
+        <div id="makeNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
+            <h2 class="text-bold">Honda News</h2>
+            <ul>
+                <li class="margin-bottom20">
+                    <div class="review-image-wrapper">
+                        <a href="/m/news/30431-honda-activa-4g-launched-in-matte-grey-colour.html">
+                            <amp-img width="118" height="66" class="lazy" data-original="https://imgd.aeplcdn.com//144x81//bw/ec/30431/Honda-Activa-4G-Action-104362.jpg?wm=0&amp;q=70" title="Honda Activa 4G launched in matte grey colour" alt="Honda Activa 4G launched in matte grey colour" src="https://imgd.aeplcdn.com//144x81//bw/ec/30431/Honda-Activa-4G-Action-104362.jpg?wm=0&amp;q=70"></amp-img>
+                        </a>
+                    </div>
+                    <div class="review-heading-wrapper">
+                        <a href="/m/news/30431-honda-activa-4g-launched-in-matte-grey-colour.html" title="Honda Activa 4G launched in matte grey colour" class="target-link">Honda Activa 4G launched in matte grey...</a>
+                        <div class="grid-7 alpha padding-right5">
+                            <span class="bwmsprite calender-grey-sm-icon"></span>
+                            <span class="article-stats-content">09 Aug 2017</span>
+                        </div>
+                        <div class="grid-5 alpha omega">
+                            <span class="bwmsprite author-grey-sm-icon"></span>
+                            <span class="article-stats-content">Neil Nair</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <p class="margin-top10">
+                        India’s highest selling scooter gets a new paint job.&nbsp;
+                    </p>
+                    <a href="/m/news/30431-honda-activa-4g-launched-in-matte-grey-colour.html" title="Honda Activa 4G launched in matte grey colour" rel="nofollow">Read more</a>
+                </li>
+                <li class="margin-bottom20">
+                    <div class="review-image-wrapper">
+                        <a href="/m/news/30429-honda-cb190x-launched-in-china.html">
+                            <amp-img width="118" height="66" class="lazy" data-original="https://imgd.aeplcdn.com//144x81//bw/ec/30429/Honda-CB-Hornet-160R-Action-104358.jpg?wm=0&amp;q=70" title="Honda CB190X launched in China" alt="Honda CB190X launched in China" src="https://imgd.aeplcdn.com//144x81//bw/ec/30429/Honda-CB-Hornet-160R-Action-104358.jpg?wm=0&amp;q=70"> </amp-img>
+                        </a>
+                    </div>
+                    <div class="review-heading-wrapper">
+                        <a href="/m/news/30429-honda-cb190x-launched-in-china.html" title="Honda CB190X launched in China" class="target-link">Honda CB190X launched in China</a>
+                        <div class="grid-7 alpha padding-right5">
+                            <span class="bwmsprite calender-grey-sm-icon"></span>
+                            <span class="article-stats-content">09 Aug 2017</span>
+                        </div>
+                        <div class="grid-5 alpha omega">
+                            <span class="bwmsprite author-grey-sm-icon"></span>
+                            <span class="article-stats-content">Neil Nair</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <p class="margin-top10">
+                        The bike is a downsized adventure motorcycle based on the CB190R.
+                    </p>
+                    <a href="/m/news/30429-honda-cb190x-launched-in-china.html" title="Honda CB190X launched in China" rel="nofollow">Read more</a>
+                </li>
+            </ul>
+            <div class="view-all-btn-container">
+                <a href="/m/honda-bikes/news/" title="Honda News" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
+            </div>
+            <div class="bw-tabs-data" id="ctrlNews">
+            </div>
+        </div>
+        <div id="makeReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14 active">
+            <h2 class="text-bold">Honda Reviews</h2>
+            <h3 class="model-section-subtitle">Expert Reviews</h3>
+            <ul>
+                <li class="margin-bottom20">
+                    <div class="review-image-wrapper">
+                        <a href="/m/expert-reviews/honda-africa-twin-first-ride-review-30286.html">
+                            <amp-img width="118" height="66" class="lazy" alt="Honda Africa Twin First Ride Review" title="Honda Africa Twin First Ride Review" data-original="https://imgd.aeplcdn.com//144x81//bw/ec/30286/Honda-Africa-Twin-First-Ride-Review-103832.jpg?wm=2&amp;q=70" src="https://imgd.aeplcdn.com//144x81//bw/ec/30286/Honda-Africa-Twin-First-Ride-Review-103832.jpg?wm=2&amp;q=70"></amp-img>
+                        </a>
+                    </div>
+                    <div class="review-heading-wrapper">
+                        <a href="/m/expert-reviews/honda-africa-twin-first-ride-review-30286.html" title="Honda Africa Twin First Ride Review" class="font14 target-link">Honda Africa Twin First Ride Review</a>
+                        <div class="grid-7 alpha padding-right5">
+                            <span class="bwmsprite calender-grey-sm-icon"></span>
+                            <span class="article-stats-content">31 Jul 2017</span>
+                        </div>
+                        <div class="grid-5 alpha omega">
+                            <span class="bwmsprite author-grey-sm-icon"></span>
+                            <span class="article-stats-content">Pratheek Kunder</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <p class="margin-top10">
+                        The Africa Twin is a litre class go-anywhere motorcycle from Honda that landed on Indian shores two months ago. It has come at a time when there has been a good growth in the...
+                    </p>
+                    <a title="Honda Africa Twin First Ride Review" href="/m/expert-reviews/honda-africa-twin-first-ride-review-30286.html" rel="nofollow">Read more</a>
+                </li>
+                <li class="margin-bottom20">
+                    <div class="review-image-wrapper">
+                        <a href="/m/expert-reviews/honda-cliq-launch-ride-review-29675.html">
+                            <amp-img width="118" height="66" class="lazy" alt="Honda Cliq Launch Ride Review" title="Honda Cliq Launch Ride Review" data-original="https://imgd.aeplcdn.com//144x81//bw/ec/29675/Honda-Cliq-Action-99998.jpg?wm=2&amp;q=70" src="https://imgd.aeplcdn.com//144x81//bw/ec/29675/Honda-Cliq-Action-99998.jpg?wm=2&amp;q=70"></amp-img>
+                        </a>
+                    </div>
+                    <div class="review-heading-wrapper">
+                        <a href="/m/expert-reviews/honda-cliq-launch-ride-review-29675.html" title="Honda Cliq Launch Ride Review" class="font14 target-link">Honda Cliq Launch Ride Review</a>
+                        <div class="grid-7 alpha padding-right5">
+                            <span class="bwmsprite calender-grey-sm-icon"></span>
+                            <span class="article-stats-content">22 Jun 2017</span>
+                        </div>
+                        <div class="grid-5 alpha omega">
+                            <span class="bwmsprite author-grey-sm-icon"></span>
+                            <span class="article-stats-content">Charles Pennefather</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <p class="margin-top10">
+                        The Cliq is aimed toward the rural market but is a trendy scooter. Will it work? How does it ride?&nbsp;
+                    </p>
+
+                    <a title="Honda Cliq Launch Ride Review" href="/m/expert-reviews/honda-cliq-launch-ride-review-29675.html" rel="nofollow">Read more</a>
+                </li>
+            </ul>
+            <div class="view-all-btn-container">
+                <a title="Honda Expert Reviews" href="/m/honda-bikes/expert-reviews/" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
+            </div>
+        </div>
+        <div id="makeVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14 active">
+            <h2 class="text-bold">Honda Videos</h2>
+            <ul>
+                <li class="margin-bottom20">
+                    <div class="review-image-wrapper">
+                        <a href="/m/bike-videos/honda-cb-hornet-160r-review-powerdrift-24795/" class="video-image-thumbnail">
+                            <amp-img width="118" height="66" class="lazy" data-original="https://img.youtube.com/vi/WDSI_AyYCtA/mqdefault.jpg" alt="Honda CB Hornet 160R : Review : PowerDrift" title="Honda CB Hornet 160R : Review : PowerDrift" src="https://img.youtube.com/vi/WDSI_AyYCtA/mqdefault.jpg"></amp-img>
+                            <span class="play-icon-wrapper">
+                                <span class="bwmsprite video-play-icon"></span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="review-heading-wrapper">
+                        <a href="/m/bike-videos/honda-cb-hornet-160r-review-powerdrift-24795/" class="font14 target-link" title="Honda CB Hornet 160R : Review : PowerDrift">Honda CB Hornet 160R : Review : PowerDrift</a>
+                        <div class="grid-7 alpha padding-right5">
+                            <span class="bwmsprite calender-grey-sm-icon"></span>
+                            <span class="article-stats-content">04 Sep 2016</span>
+                        </div>
+                        <div class="grid-5 alpha omega">
+                            <span class="bwmsprite views-grey-sm-icon"></span>
+                            <span class="article-stats-content video-view-count">25,023</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <p class="margin-top10">
+                        The CB Hornet 160R is a premium 160cc motorcycle from the Japanese two-wheeler giant, Honda. Based on the CB Unicorn 160, this one is a lot more muscular &amp; stylish. How well...
+                    </p>
+                </li>
+                <li class="margin-bottom20">
+                    <div class="review-image-wrapper">
+                        <a href="/m/bike-videos/honda-navi-first-impression-powerdrift-23032/" class="video-image-thumbnail">
+                            <amp-img width="118" height="66" class="lazy" data-original="https://img.youtube.com/vi/h399XRm-OcA/mqdefault.jpg" alt="Honda Navi : First Impression : PowerDrift" title="Honda Navi : First Impression : PowerDrift" src="https://img.youtube.com/vi/h399XRm-OcA/mqdefault.jpg"></amp-img>
+                            <span class="play-icon-wrapper">
+                                <span class="bwmsprite video-play-icon"></span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="review-heading-wrapper">
+                        <a href="/m/bike-videos/honda-navi-first-impression-powerdrift-23032/" class="font14 target-link" title="Honda Navi : First Impression : PowerDrift">Honda Navi : First Impression : PowerDrift</a>
+                        <div class="grid-7 alpha padding-right5">
+                            <span class="bwmsprite calender-grey-sm-icon"></span>
+                            <span class="article-stats-content">16 Apr 2016</span>
+                        </div>
+                        <div class="grid-5 alpha omega">
+                            <span class="bwmsprite views-grey-sm-icon"></span>
+                            <span class="article-stats-content video-view-count">29,348</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <p class="margin-top10">
+                        The Honda Navi is a small little riddle that the motoring community has been trying to solve. A bike, a scooter or a mix of both worlds? This time on PowerDrift, our...
+                    </p>
+                </li>
+            </ul>
+            <div class="view-all-btn-container">
+                <a title="Honda Videos" href="/m/honda-bikes/videos/" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
+            </div>
+        </div>
+        <div id="makeDealersContent" class="bw-model-tabs-data active">
+            <div class="padding-bottom20 padding-top15 font14">
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2>Honda showrooms in Pune</h2>
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="/m/honda-dealer-showrooms-in-mumbai/" title="Honda Showrooms in Mumbai" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <amp-carousel class="dealer-horizontal-swiper" height="180" layout="fixed-height" type="carousel">
+                    <div class="swiper-card" title="Pashankar Honda - Shivajinagar">
+                        <div class="block">
+                            <div class="dealer-name">Pashankar Honda - Shivajinagar</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">364, 365/2, Jangli Maharaj Road, Near Standard Chartered Bank</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>8087331113</span>
+                    </div>
+                    <div class="swiper-card" title="Rohan Automotive">
+                        <div class="block">
+                            <div class="dealer-name">Rohan Automotive</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">33A, Mumbai Pune Road,  Opp.CME College</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>9552582729</span>
+                    </div>
+                    <div class="swiper-card" title="My Wings Honda - Sinhagad">
+                        <div class="block">
+                            <div class="dealer-name">My Wings Honda - Sinhagad</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Near Jyoti Petroleum, Opp. Deshpande Garden</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>7755983260</span>
+                    </div>
+                    <div class="swiper-card" title="Pashankar Auto Pvt. Ltd. - Aundh">
+                        <div class="block">
+                            <div class="dealer-name">Pashankar Auto Pvt. Ltd. - Aundh</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Bhakti Plaza, C.T.S. No.2549, Opp. Aundh Police Station</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>8087331113</span>
+                    </div>
+                    <div class="swiper-card" title="My Wings Honda - Kothrud">
+                        <div class="block">
+                            <div class="dealer-name">My Wings Honda - Kothrud</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Bhusari Colony, Paud Road</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>7755983260</span>
+                    </div>
+                    <div class="swiper-card" title="My Wings Honda - Bhor">
+                        <div class="block">
+                            <div class="dealer-name">My Wings Honda - Bhor</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Rambaug, Bhor-Shrival Road</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>7755983260</span>
+                    </div>
+                    <div class="swiper-card" title="My Wings Honda - Shivane">
+                        <div class="block">
+                            <div class="dealer-name">My Wings Honda - Shivane</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Near More Petrol Pump, Opp. Aashirvad mangal Karyalaya, NDA Road</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>7755983260</span>
+                    </div>
+                    <div class="swiper-card" title="My Wings Honda - Veer">
+                        <div class="block">
+                            <div class="dealer-name">My Wings Honda - Veer</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Shrinath Maksoba Petrol Pump</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>7755983260</span>
+                    </div>
+                    <div class="swiper-card" title="Om Wheels Honda">
+                        <div class="block">
+                            <div class="dealer-name">Om Wheels Honda</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Om House,Plot No.1, S. no. 623, Rao Colony, Talegaon Dabhade, Mawal</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>9765789999</span>
+                    </div>
+                </amp-carousel>
+            </div>
+            <div class="border-solid-bottom"></div>
+            <div class="padding-bottom20 padding-top15 font14">
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2>Honda service centers in Pune</h2>
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="/m/honda-dealer-showrooms-in-mumbai/" title="Honda Showrooms in Mumbai" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <amp-carousel class="dealer-horizontal-swiper" height="180" layout="fixed-height" type="carousel">
+                    <div class="swiper-card" title="Pashankar Honda - Shivajinagar">
+                        <div class="block">
+                            <div class="dealer-name">Pashankar Honda - Shivajinagar</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">364, 365/2, Jangli Maharaj Road, Near Standard Chartered Bank</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>8087331113</span>
+                    </div>
+                    <div class="swiper-card" title="Rohan Automotive">
+                        <div class="block">
+                            <div class="dealer-name">Rohan Automotive</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">33A, Mumbai Pune Road,  Opp.CME College</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>9552582729</span>
+                    </div>
+                    <div class="swiper-card" title="My Wings Honda - Sinhagad">
+                        <div class="block">
+                            <div class="dealer-name">My Wings Honda - Sinhagad</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Near Jyoti Petroleum, Opp. Deshpande Garden</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>7755983260</span>
+                    </div>
+                    <div class="swiper-card" title="Pashankar Auto Pvt. Ltd. - Aundh">
+                        <div class="block">
+                            <div class="dealer-name">Pashankar Auto Pvt. Ltd. - Aundh</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Bhakti Plaza, C.T.S. No.2549, Opp. Aundh Police Station</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>8087331113</span>
+                    </div>
+                    <div class="swiper-card" title="My Wings Honda - Kothrud">
+                        <div class="block">
+                            <div class="dealer-name">My Wings Honda - Kothrud</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Bhusari Colony, Paud Road</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>7755983260</span>
+                    </div>
+                    <div class="swiper-card" title="My Wings Honda - Bhor">
+                        <div class="block">
+                            <div class="dealer-name">My Wings Honda - Bhor</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Rambaug, Bhor-Shrival Road</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>7755983260</span>
+                    </div>
+                    <div class="swiper-card" title="My Wings Honda - Shivane">
+                        <div class="block">
+                            <div class="dealer-name">My Wings Honda - Shivane</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Near More Petrol Pump, Opp. Aashirvad mangal Karyalaya, NDA Road</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>7755983260</span>
+                    </div>
+                    <div class="swiper-card" title="My Wings Honda - Veer">
+                        <div class="block">
+                            <div class="dealer-name">My Wings Honda - Veer</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Shrinath Maksoba Petrol Pump</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>7755983260</span>
+                    </div>
+                    <div class="swiper-card" title="Om Wheels Honda">
+                        <div class="block">
+                            <div class="dealer-name">Om Wheels Honda</div>
+                            <p class="margin-bottom10 text-light-grey ">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="dealership-address">Om House,Plot No.1, S. no. 623, Rao Colony, Talegaon Dabhade, Mawal</span>
+                            </p>
+                        </div>
+                        <span class="dealer-contact block"><span class="bwmsprite tel-sm-grey-icon"></span>9765789999</span>
+                    </div>
+                </amp-carousel>
+            </div>
+            <div class="border-solid-bottom"></div>
+            <div class="padding-bottom20 padding-top15 font14">
+                <h2 class="padding-right20 padding-left20">Honda Showrooms &amp; Service Centers </h2>
+                <amp-carousel height="185" layout="fixed-height" type="carousel" class="dealer-horizontal-swiper no-city-selection-carousel">
+                    <div class="swiper-card">
+                        <a href="https://www.bikewale.com/m/honda-bikes/navi/price-in-bangalore/" title="Honda Navi price in Bangalore" class="target-link">
+                            <div class="dealer-city-image-preview">
+                                <span class="city-sprite bangalore-icon"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="text-default text-bold margin-bottom5">Honda outlets in Bangalore</h3>
+                                <a href="/m/honda-dealer-showrooms-in-bangalore/" title="Honda showroom in Bangalore" class="block">37 showrooms</a>
+                                <a href="/m/honda-service-center-in-bangalore/" title="Honda service center in Bangalore" class="block">44 service centers</a>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="swiper-card">
+                        <a href="https://www.bikewale.com/m/honda-bikes/navi/price-in-mumbai/" title="Honda Navi price in Mumbai" class="target-link">
+                            <div class="dealer-city-image-preview">
+                                <span class="city-sprite mumbai-icon"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="text-default text-bold margin-bottom5">Honda outlets in Mumbai</h3>
+                                <a href="/m/honda-dealer-showrooms-in-bangalore/" title="Honda showroom in Bangalore" class="block">37 showrooms</a>
+                                <a href="/m/honda-service-center-in-bangalore/" title="Honda service center in Bangalore" class="block">44 service centers</a>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="swiper-card">
+                        <a href="https://www.bikewale.com/m/honda-bikes/navi/price-in-newdelhi/" title="Honda Navi price in New Delhi" class="target-link">
+                            <div class="dealer-city-image-preview">
+                                <span class="city-sprite delhi-icon"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="text-default text-bold margin-bottom5">Honda outlets in New Delhi</h3>
+                                <a href="/m/honda-dealer-showrooms-in-bangalore/" title="Honda showroom in Bangalore" class="block">37 showrooms</a>
+                                <a href="/m/honda-service-center-in-bangalore/" title="Honda service center in Bangalore" class="block">44 service centers</a>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="swiper-card">
+                        <a href="https://www.bikewale.com/m/honda-bikes/navi/price-in-chennai/" title="Honda Navi price in Chennai" class="target-link">
+                            <div class="dealer-city-image-preview">
+                                <span class="city-sprite chennai-icon"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="text-default text-bold margin-bottom5">Honda outlets in Chennai</h3>
+                                <a href="/m/honda-dealer-showrooms-in-bangalore/" title="Honda showroom in Bangalore" class="block">37 showrooms</a>
+                                <a href="/m/honda-service-center-in-bangalore/" title="Honda service center in Bangalore" class="block">44 service centers</a>
+
+                            </div>
+                        </a>
+                    </div>
+                    <div class="swiper-card">
+                        <a href="https://www.bikewale.com/m/honda-bikes/navi/price-in-kolkata/" title="Honda Navi price in Kolkata" class="target-link">
+                            <div class="dealer-city-image-preview">
+                                <span class="city-sprite kolkata-icon"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="text-default text-bold margin-bottom5">Honda outlets in Kolkata</h3>
+                                <a href="/m/honda-dealer-showrooms-in-bangalore/" title="Honda showroom in Bangalore" class="block">37 showrooms</a>
+                                <a href="/m/honda-service-center-in-bangalore/" title="Honda service center in Bangalore" class="block">44 service centers</a>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="swiper-card">
+                        <a href="https://www.bikewale.com/m/honda-bikes/navi/price-in-hyderabad/" title="Honda Navi price in Hyderabad" class="target-link">
+                            <div class="dealer-city-image-preview">
+                                <span class="city-sprite hyderabad-icon"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="text-default text-bold margin-bottom5">Honda outlets in Hyderabad</h3>
+                                <a href="/m/honda-dealer-showrooms-in-bangalore/" title="Honda showroom in Bangalore" class="block">37 showrooms</a>
+                                <a href="/m/honda-service-center-in-bangalore/" title="Honda service center in Bangalore" class="block">44 service centers</a>
+                            </div>
+                        </a>
+                    </div>
+                </amp-carousel>
+            </div>
+            <div class="border-solid-bottom"></div>
+        </div>
+        <div id="makeUsedBikeContent" class="bw-model-tabs-data  padding-top15 active">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>Second-hand Honda bikes in India</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="/m/used/honda-bikes-in-india/" title="Second-hand Honda Bikes in India" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <amp-carousel height="225" layout="fixed-height" type="carousel" class="used-swiper">
+                <div class="swiper-card">
+                    <a href="/m/used/honda-shine-bikes-in-india/" title="Used Honda CB Shine bikes in India">
+                        <div class="swiper-image-preview">
+                            <div class="image-thumbnail">
+                                <amp-img width="160" height="90" alt="Used Honda CB Shine bikes in India" src="https://imgd.aeplcdn.com//174x98//n/bw/used/modelimages/honda-cb-shine-1490035926326.jpg?q=70"></amp-img>
+                            </div>
+                        </div>
+                        <div class="swiper-details-block">
+                            <h3 class="target-link font12 margin-bottom5 text-truncate">Used Honda CB Shine</h3>
+                            <p class="font13 text-light-grey">
+                                136 Used bikes available
+                            </p>
+                            <div class="margin-bottom5 text-default">
+                                <span class="font16"> ₹</span>&nbsp;
+                                <span class="font16 text-bold">
+                                    15,000
+                                </span>&nbsp;
+                                <span class="font12">onwards</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-card">
+                    <a href="/m/used/honda-activa-2000-2015-bikes-in-india/" title="Used Honda Activa [2000-2015] bikes in India">
+                        <div class="swiper-image-preview">
+                            <div class="image-thumbnail">
+                                <amp-img width="160" height="90" alt="Used Honda Activa [2000-2015] bikes in India" src="https://imgd.aeplcdn.com//174x98//n/bw/used/modelimages/honda-activa-20002015-1490036033090.jpg?q=70"></amp-img>
+                            </div>
+                        </div>
+                        <div class="swiper-details-block">
+                            <h3 class="target-link font12 margin-bottom5 text-truncate">Used Honda Activa [2000-2015]</h3>
+                            <p class="font13 text-light-grey">
+                                101 Used bikes available
+                            </p>
+                            <div class="margin-bottom5 text-default">
+                                <span class="font16"> ₹</span>&nbsp;
+                                <span class="font16 text-bold">
+                                    10,000
+                                </span>&nbsp;
+                                <span class="font12">onwards</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-card">
+                    <a href="/m/used/honda-unicorn-bikes-in-india/" title="Used Honda CB Unicorn 150 bikes in India">
+                        <div class="swiper-image-preview">
+                            <div class="image-thumbnail">
+                                <amp-img width="160" height="90" alt="Used Honda CB Unicorn 150 bikes in India" src="https://imgd.aeplcdn.com//174x98//n/bw/used/modelimages/honda-cb-unicorn-150-1490037018576.jpg?q=70"></amp-img>
+
+                            </div>
+                        </div>
+                        <div class="swiper-details-block">
+                            <h3 class="target-link font12 margin-bottom5 text-truncate">Used Honda CB Unicorn 150</h3>
+                            <p class="font13 text-light-grey">
+                                94 Used bikes available
+                            </p>
+                            <div class="margin-bottom5 text-default">
+                                <span class="font16"> ₹</span>&nbsp;
+                                <span class="font16 text-bold">
+                                    20,000
+                                </span>&nbsp;
+                                <span class="font12">onwards</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-card">
+                    <a href="/m/used/honda-activa-3g-bikes-in-india/" title="Used Honda Activa 3G bikes in India">
+                        <div class="swiper-image-preview">
+                            <div class="image-thumbnail">
+                                <amp-img width="160" height="90" alt="Used Honda Activa 3G bikes in India" src="https://imgd.aeplcdn.com//174x98//n/bw/used/modelimages/honda-activa-3g-1490335815043.jpg?q=70"></amp-img>
+
+                            </div>
+                        </div>
+                        <div class="swiper-details-block">
+                            <h3 class="target-link font12 margin-bottom5 text-truncate">Used Honda Activa 3G</h3>
+                            <p class="font13 text-light-grey">
+                                67 Used bikes available
+                            </p>
+                            <div class="margin-bottom5 text-default">
+                                <span class="font16"> ₹</span>&nbsp;
+                                <span class="font16 text-bold">
+                                    20,000
+                                </span>&nbsp;
+                                <span class="font12">onwards</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-card">
+                    <a href="/m/used/honda-cbfstunner-bikes-in-india/" title="Used Honda CBF Stunner bikes in India">
+                        <div class="swiper-image-preview">
+                            <div class="image-thumbnail">
+                                <amp-img width="160" height="90" alt="Used Honda CBF Stunner bikes in India" src="https://imgd.aeplcdn.com//174x98//n/bw/used/modelimages/honda-cbf-stunner-1490038684873.jpg?q=70"></amp-img>
+
+                            </div>
+                        </div>
+                        <div class="swiper-details-block">
+                            <h3 class="target-link font12 margin-bottom5 text-truncate">Used Honda CBF Stunner</h3>
+                            <p class="font13 text-light-grey">
+                                63 Used bikes available
+                            </p>
+                            <div class="margin-bottom5 text-default">
+                                <span class="font16"> ₹</span>&nbsp;
+                                <span class="font16 text-bold">
+                                    15,000
+                                </span>&nbsp;
+                                <span class="font12">onwards</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-card">
+                    <a href="/m/used/honda-cbr250-bikes-in-india/" title="Used Honda CBR250R bikes in India">
+                        <div class="swiper-image-preview">
+                            <div class="image-thumbnail">
+                                <amp-img width="160" height="90" alt="Used Honda CBR250R bikes in India" src="https://imgd.aeplcdn.com//174x98//n/bw/used/modelimages/honda-cbr250r-1492261661285.jpg?q=70"></amp-img>
+
+                            </div>
+                        </div>
+                        <div class="swiper-details-block">
+                            <h3 class="target-link font12 margin-bottom5 text-truncate">Used Honda CBR250R</h3>
+                            <p class="font13 text-light-grey">
+                                50 Used bikes available
+                            </p>
+                            <div class="margin-bottom5 text-default">
+                                <span class="font16"> ₹</span>&nbsp;
+                                <span class="font16 text-bold">
+                                    60,000
+                                </span>&nbsp;
+                                <span class="font12">onwards</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-card">
+                    <a href="/m/used/honda-cbtwister-bikes-in-india/" title="Used Honda CB Twister bikes in India">
+                        <div class="swiper-image-preview">
+                            <div class="image-thumbnail">
+                                <amp-img width="160" height="90" alt="Used Honda CB Twister bikes in India" src="https://imgd.aeplcdn.com//174x98//n/bw/used/modelimages/honda-cb-twister-1490336104034.jpg?q=70"></amp-img>
+                            </div>
+                        </div>
+                        <div class="swiper-details-block">
+                            <h3 class="target-link font12 margin-bottom5 text-truncate">Used Honda CB Twister</h3>
+                            <p class="font13 text-light-grey">
+                                48 Used bikes available
+                            </p>
+                            <div class="margin-bottom5 text-default">
+                                <span class="font16"> ₹</span>&nbsp;
+                                <span class="font16 text-bold">
+                                    14,500
+                                </span>&nbsp;
+                                <span class="font12">onwards</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-card">
+                    <a href="/m/used/honda-cbunicorn-bikes-in-india/" title="Used Honda CB Unicorn bikes in India">
+                        <div class="swiper-image-preview">
+                            <div class="image-thumbnail">
+                                <amp-img width="160" height="90" alt="Used Honda CB Unicorn bikes in India" src="https://imgd.aeplcdn.com//174x98//n/bw/used/modelimages/honda-cb-unicorn-1492261655006.jpg?q=70"></amp-img>
+
+                            </div>
+                        </div>
+                        <div class="swiper-details-block">
+                            <h3 class="target-link font12 margin-bottom5 text-truncate">Used Honda CB Unicorn</h3>
+                            <p class="font13 text-light-grey">
+                                45 Used bikes available
+                            </p>
+                            <div class="margin-bottom5 text-default">
+                                <span class="font16"> ₹</span>&nbsp;
+                                <span class="font16 text-bold">
+                                    14,000
+                                </span>&nbsp;
+                                <span class="font12">onwards</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-card">
+                    <a href="/m/used/honda-dio-bikes-in-india/" title="Used Honda Dio bikes in India">
+                        <div class="swiper-image-preview">
+                            <div class="image-thumbnail">
+                                <amp-img width="160" height="90" alt="Used Honda Dio bikes in India" src="https://imgd.aeplcdn.com//174x98//n/bw/used/modelimages/honda-dio-1491498544823.jpg?q=70"></amp-img>
+                            </div>
+                        </div>
+                        <div class="swiper-details-block">
+                            <h3 class="target-link font12 margin-bottom5 text-truncate">Used Honda Dio</h3>
+                            <p class="font13 text-light-grey">
+                                38 Used bikes available
+                            </p>
+                            <div class="margin-bottom5 text-default">
+                                <span class="font16"> ₹</span>&nbsp;
+                                <span class="font16 text-bold">
+                                    11,000
+                                </span>&nbsp;
+                                <span class="font12">onwards</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </amp-carousel>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container bg-white box-shadow padding-top15 padding-bottom10 card-bottom-margin">
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <span class="font16 text-semibold text-black">Other popular brands</span>
+            </div>
+            <div class="swiper-heading-right-grid inline-block text-right">
+                <a href="/m/new-bikes-in-india/" title="New Bikes" class="btn view-all-target-btn">View all</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <amp-carousel height="130" layout="fixed-height" type="carousel" class="brand-type-carousel">
+            <div class="swiper-card">
+                <a href="/m/bajaj-bikes/" title="Bajaj bikes">
+                    <div class="brand-logo-image">
+                        <span class="brand-type">
+                            <span class="brandlogosprite brand-1"></span>
+                        </span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Bajaj</p>
+                        <h3 class="text-unbold text-light-grey font11">17 bikes</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="swiper-card">
+                <a href="/m/hero-bikes/" title="Hero bikes">
+                    <div class="brand-logo-image">
+                        <span class="brand-type">
+                            <span class="brandlogosprite brand-6"></span>
+                        </span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Hero</p>
+                        <h3 class="text-unbold text-light-grey font11">24 bikes</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="swiper-card">
+                <a href="/m/tvs-bikes/" title="TVS bikes">
+                    <div class="brand-logo-image">
+                        <span class="brand-type">
+                            <span class="brandlogosprite brand-15"></span>
+                        </span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">TVS</p>
+                        <h3 class="text-unbold text-light-grey font11">14 bikes</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="swiper-card">
+                <a href="/m/royalenfield-bikes/" title="Royal Enfield bikes">
+                    <div class="brand-logo-image">
+                        <span class="brand-type">
+                            <span class="brandlogosprite brand-11"></span>
+                        </span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Royal Enfield</p>
+                        <h3 class="text-unbold text-light-grey font11">11 bikes</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="swiper-card">
+                <a href="/m/yamaha-bikes/" title="Yamaha bikes">
+                    <div class="brand-logo-image">
+                        <span class="brand-type">
+                            <span class="brandlogosprite brand-13"></span>
+                        </span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Yamaha</p>
+                        <h3 class="text-unbold text-light-grey font11">18 bikes</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="swiper-card">
+                <a href="/m/suzuki-bikes/" title="Suzuki bikes">
+                    <div class="brand-logo-image">
+                        <span class="brand-type">
+                            <span class="brandlogosprite brand-12"></span>
+                        </span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Suzuki</p>
+                        <h3 class="text-unbold text-light-grey font11">15 bikes</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="swiper-card">
+                <a href="/m/ktm-bikes/" title="KTM1 bikes">
+                    <div class="brand-logo-image">
+                        <span class="brand-type">
+                            <span class="brandlogosprite brand-9"></span>
+                        </span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">KTM1</p>
+                        <h3 class="text-unbold text-light-grey font11">6 bikes</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="swiper-card">
+                <a href="/m/mahindra-bikes/" title="Mahindra bikes">
+                    <div class="brand-logo-image">
+                        <span class="brand-type">
+                            <span class="brandlogosprite brand-10"></span>
+                        </span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Mahindra</p>
+                        <h3 class="text-unbold text-light-grey font11">6 bikes</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="swiper-card">
+                <a href="/m/harleydavidson-bikes/" title="Harley Davidson bikes">
+                    <div class="brand-logo-image">
+                        <span class="brand-type">
+                            <span class="brandlogosprite brand-5"></span>
+                        </span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Harley Davidson</p>
+                        <h3 class="text-unbold text-light-grey font11">24 bikes</h3>
+                    </div>
+                </a>
+            </div>
+        </amp-carousel>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="content-inner-block-10 margin-bottom30">
+            <div id="discontinuedModels">
+                <div id="discontinuedLess">
+                    Discontinued Honda models: -
+                    <div id="spnContent" class="inline">
+                        <a title="Honda Activa [2000-2015]" href="/m/honda-bikes/activa-2000-2015/">Honda Activa [2000-2015]</a>,
+                        <a title="Honda CB Twister" href="/m/honda-bikes/cbtwister/">Honda CB Twister</a>,
+                        <a title="Honda CBF Stunner" href="/m/honda-bikes/cbfstunner/">Honda CBF Stunner</a>,
+                        <a title="Honda CB Unicorn" href="/m/honda-bikes/cbunicorn/">Honda CB Unicorn</a>...
+                        <span tabindex="1" role="option" class="f-small text-teal inline-block" id="viewall" on="tap:discontinuedLess.hide, discontinuedMore.show">View All</span>
+                    </div>
+                </div>
+                <div id="discontinuedMore" hidden>
+                    Discontinued Honda models: -
+                    <a title="Honda Activa [2000-2015]" href="/m/honda-bikes/activa-2000-2015/">Honda Activa [2000-2015]</a>
+                    <a title="Honda CB Twister" href="/m/honda-bikes/cbtwister/">Honda CB Twister</a>
+                    <a title="Honda CBF Stunner" href="/m/honda-bikes/cbfstunner/">Honda CBF Stunner</a>
+                    <a title="Honda CB Unicorn" href="/m/honda-bikes/cbunicorn/">Honda CB Unicorn</a>
+                    <a title="Honda CB Unicorn Dazzler" href="/m/honda-bikes/cbunicorndazzler/">Honda CB Unicorn Dazzler</a>
+                    <a title="Honda CBR150 R" href="/m/honda-bikes/cbr150/">Honda CBR150 R</a>
+                    <a title="Honda CBR250R" href="/m/honda-bikes/cbr250/">Honda CBR250R</a>
+                    <a title="Honda CBR1000RR Fireblade [2014]" href="/m/honda-bikes/cbr1000rrfireblade/">Honda CBR1000RR Fireblade [2014]</a>
+                    <a title="Honda VFR1200F" href="/m/honda-bikes/vfr1200/">Honda VFR1200F</a>
+                    <a title="Honda CB Trigger" href="/m/honda-bikes/cbtrigger/">Honda CB Trigger</a>
+                    <a title="Honda CBR Fireblade" href="/m/honda-bikes/cbrfireblade/">Honda CBR Fireblade</a>
+                    <a title="Honda CBR 400RR" href="/m/honda-bikes/cbr400rr/">Honda CBR 400RR</a>
+                    <a title="Honda CBR 600RR" href="/m/honda-bikes/cbr600rr/">Honda CBR 600RR</a>
+                    <a title="Honda CBR 900RR" href="/m/honda-bikes/cbr900rr/">Honda CBR 900RR</a>
+                    <a title="Honda CBR 954RR" href="/m/honda-bikes/cbr954rr/">Honda CBR 954RR</a>
+                    <a title="Honda CB 250N" href="/m/honda-bikes/cb250n/">Honda CB 250N</a>
+                    <a title="Honda CB 400" href="/m/honda-bikes/cb400/">Honda CB 400</a>
+                    <a title="Honda CBR 600F2" href="/m/honda-bikes/cbr600f2/">Honda CBR 600F2</a>
+                    <a title="Honda CBX" href="/m/honda-bikes/cbx/">Honda CBX</a>
+                    <a title="Honda CR" href="/m/honda-bikes/cr/">Honda CR</a>
+                    <a title="Honda CRM" href="/m/honda-bikes/crm/">Honda CRM</a>
+                    <a title="Honda Eterno" href="/m/honda-bikes/eterno/">Honda Eterno</a>
+                    <a title="Honda NSR" href="/m/honda-bikes/nsr/">Honda NSR</a>
+                    <a title="Honda VTR100" href="/m/honda-bikes/vtr100/">Honda VTR100</a>
+                    <a title="Honda S65" href="/m/honda-bikes/s65/">Honda S65</a>
+                    <a title="Honda Super Magna" href="/m/honda-bikes/supermagna/">Honda Super Magna</a>
+                    <a title="Honda Valkyrie" href="/m/honda-bikes/valkyrie/">Honda Valkyrie</a>
+                    <a title="Honda VFR" href="/m/honda-bikes/vfr/">Honda VFR</a>
+                    <a title="Honda XL" href="/m/honda-bikes/xl/">Honda XL</a>
+                    <a title="Honda VT 1300CX" href="/m/honda-bikes/fury/">Honda VT 1300CX</a>
+                    <a title="Honda Activa 3G" href="/m/honda-bikes/activa-3g/">Honda Activa 3G</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="breadcrumb">
+        <span class="breadcrumb-title">You are here:</span>
+        <ul>
+            <li>
+                <a class="breadcrumb-link" href="http://webserver:9011/m/" title="Home">
+                    <span class="breadcrumb-link__label" itemprop="name">Home</span>
+                </a>
+            </li>
+            <li>
+                <span class="breadcrumb-link__label">Honda Bikes</span>
+            </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</section>
