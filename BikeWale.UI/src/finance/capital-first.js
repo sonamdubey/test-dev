@@ -270,20 +270,10 @@ function validateContactInfo() {
     isValid &= validatePinCode($("#cfPincode"));
 
     if (isValid) {
-        $("#contact-detail-tab").addClass("hide");
-        $(personalDetailTab).removeClass("hide");
 
-        $(".contact-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
-        if (isDesktop.length) {
-            scrollTop($(personalDetailTab).offset());
-            $(".personal__title").removeClass("inactive");
-            $(".personal-details-container").addClass("visible");
-        }
-        else {
-            scrollTop(formTabsContainer.offset());
-            formTabsContainer.find('.page-tabs__li.active').removeClass('active');
-            formTabsContainer.find('.page-tabs__li[data-id=personal-detail-tab]').removeClass("inactive").addClass('active');
-        }
+        saveContactDetails();
+
+        
     }
     else {
         scrollTopError();
@@ -292,41 +282,88 @@ function validateContactInfo() {
     $('#screenLoader').hide();
 
 }
+
+function saveContactDetails()
+{
+    var contactDetails = {
+        "objLeadJson": $("#objLead").val(),
+        "firstName": $('#cfFName').val(),
+        "lastName": $('#cfLName').val(),
+        "mobileNumber": $('#cfNum').val(),
+        "emailId": $('#cfEmail').val(),
+        "pincode": $("#cfPincode").val().substring(0, 6)
+
+    };
+    $.ajax({
+        type: "POST",
+        url: "/api/finance/savepersonaldetails/?source=" + $("#hdnPlatform").val(),
+        contentType: "application/json",
+        data: ko.toJSON(contactDetails),
+        beforeSend: function () {
+            $('#otpLoader').show();
+        },
+        success: function (response) {
+            if (response) {
+                if (response != null) {
+                    triggerGA('Loan_Application', 'Step_1_Filled', bikeName + '_' + $('#cfNum').val());
+                    switch (response.status) {
+
+                        case 1:
+                        case 2:
+                            $("#contact-detail-tab").addClass("hide");
+                            $(personalDetailTab).removeClass("hide");
+
+                            $(".contact-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
+                            if (isDesktop.length) {
+                                scrollTop($(personalDetailTab).offset());
+                                $(".personal__title").removeClass("inactive");
+                                $(".personal-details-container").addClass("visible");
+                            }
+                            else {
+                                scrollTop(formTabsContainer.offset());
+                                formTabsContainer.find('.page-tabs__li.active').removeClass('active');
+                                formTabsContainer.find('.page-tabs__li[data-id=personal-detail-tab]').removeClass("inactive").addClass('active');
+                            }
+                            $("#cpId").val(response.cpId);
+                            $("#ctLeadId").val(response.ctLeadId);
+                            $("#leadId").val(response.leadId);                                                      
+                            break;
+                        default:
+                            var obj = {
+                                message: response.message,
+                                isYesButtonActive: true,
+                                yesButtonText: "Okay",
+                                yesButtonLink: "javascript:void(0)"
+                            };
+                            modalPopup.showModal(templates.modalPopupTemplate(obj));
+                    }
+                }
+            }
+        },
+        complete: function () {
+            $('#otpLoader').hide();
+        }
+    });
+
+
+}
+
+
 function validatePersonalInfo() {
 	$('#screenLoader').show();
 
-    var isValid = false;
-
-    //isValid = validateUserName($("#cfFName"));
-    //isValid &= validateUserName($("#cfLName"));
-    //isValid &= validatePhoneNumber($("#cfNum"));
-    //isValid &= validateEmailId($("#cfEmail"));
-    isValid = validateAddress($("#cfAddress1"));
+    
+  var  isValid = validateAddress($("#cfAddress1"));
     isValid &= validateAddress($("#cfAddress2"));
-    //isValid &= validatePinCode($("#cfPincode"));
-    //isValid &= validatePanNumber($("#cfPan"));
+    isValid &= validatePanNumber($("#cfPan"));
     isValid &= validateRadioButtons("gender");
     isValid &= validateRadioButtons("marital");
     isValid &= validateDOB($("#cfDOB"));
 
     if (isValid) {
-        //savePersonalDetails();
+        savePersonalDetails();
 
-        $("#personal-detail-tab").addClass("hide");
-        $(employmentDeatilTab).removeClass("hide");
-
-        $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
-        $(".personal-image-unit").removeClass('bg-gray').addClass('bg-red');
-        $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
-        if (isDesktop.length) {
-            scrollTop($(employmentDeatilTab).offset());
-            $(".employment__title").removeClass("inactive");
-            $(".employment-details-container").addClass("visible");		}
-        else {
-            scrollTop(formTabsContainer.offset());
-            formTabsContainer.find('.page-tabs__li.active').removeClass('active');
-            formTabsContainer.find('.page-tabs__li[data-id=employment-detail-tab]').removeClass('inactive').addClass('active');
-		}
+       
 	}
 	else {
 		scrollTopError();
@@ -335,14 +372,13 @@ function validatePersonalInfo() {
 	$('#screenLoader').hide();
 }
 
-/*
+
 function savePersonalDetails() {
     var personDetails = {
-        "objLeadJson": $("#objLead").val(),
-        "firstName": $('#cfFName').val(),
-        "lastName": $('#cfLName').val(),
-        "mobileNumber": $('#cfNum').val(),
-        "emailId": $('#cfEmail').val(),
+        "id": $("#cpId").val(),
+        "ctLeadId": $("#ctLeadId").val(),
+        "leadId": $("#leadId").val(),
+         "objLeadJson": $("#objLead").val(),
         "dateOfBirth": $('#cfDOB').val(),
         "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
         "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
@@ -365,17 +401,31 @@ function savePersonalDetails() {
         success: function (response) {
             if (response) {
                 if (response != null) {
-                    triggerGA('Loan_Application', 'Step_1_Filled', bikeName + '_' + $('#cfNum').val());
+                    triggerGA('Loan_Application', 'Step_2_Filled', bikeName + '_' + $('#cfNum').val());
                     switch (response.status) {
 
                         case 1:
                         case 2:
                             $("#personal-detail-tab").addClass("hide");
                             $(employmentDeatilTab).removeClass("hide");
+
+                            $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
+                            $(".personal-image-unit").removeClass('bg-gray').addClass('bg-red');
+                            $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
+                            if (isDesktop.length) {
+                                scrollTop($(employmentDeatilTab).offset());
+                                $(".employment__title").removeClass("inactive");
+                                $(".employment-details-container").addClass("visible");
+                            }
+                            else {
+                                scrollTop(formTabsContainer.offset());
+                                formTabsContainer.find('.page-tabs__li.active').removeClass('active');
+                                formTabsContainer.find('.page-tabs__li[data-id=employment-detail-tab]').removeClass('inactive').addClass('active');
+                            }
                             $("#cpId").val(response.cpId);
                             $("#ctLeadId").val(response.ctLeadId);
                             $("#leadId").val(response.leadId);
-                            scrollTop($(employmentDeatilTab).offset());
+                           
                             $('#cfCompPincode').val("");
                             break;
                         default:
@@ -397,7 +447,7 @@ function savePersonalDetails() {
 
 
 }
-*/
+
 
 function validateEmploymentInfo() {
     var isValid = false;
@@ -454,7 +504,7 @@ function saveEmployeDetails() {
 			$('#otpLoader').show();
 		},
         success: function (response) {
-			triggerGA('Loan_Application', 'Step_2_Filled', bikeName + '_' + $('#cfNum').val());
+			triggerGA('Loan_Application', 'Step_3_Filled', bikeName + '_' + $('#cfNum').val());
 			
 			if (response) {
                 otpScreen.openOtp();
@@ -684,7 +734,7 @@ var templates = {
 		var template = '';
 
 		template += '<span class="modal__close bwsprite bwmsprite cross-default-15x16"></span>';
-		if (obj.message.length > 0) {
+		if (obj.message!=null && obj.message.length > 0) {
 			template += '<p class="modal__description">' + obj.message + '</p>';
 		}
 		if (obj.isYesButtonActive) {
