@@ -299,6 +299,7 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, {0} Images, new {0} Bikes", objData.MakeName);
                 objData.AdTags.TargetedMakes = objData.MakeName;
                 objData.Page_H1 = string.Format("{0} Bikes", objData.MakeName);
+                objData.ReturlUrl = string.Format("/m/{0}-bikes/", objData.MakeMaskingName);
 
                 SetBreadcrumList(ref objData);
 

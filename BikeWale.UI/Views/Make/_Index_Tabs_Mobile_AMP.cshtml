@@ -5,33 +5,60 @@
     <div id="makeOverallTabsWrapper" class="position-rel">
         <div id="overallSpecsTab" class="overall-specs-tabs-container">
             <ul class="overall-specs-tabs-wrapper">
-                <li class="active">
-                    <a href="@string.Format("{0}#makeAboutContent", mobileUrl)">About</a>
-                </li>
-                <li>
-                    <a href="@string.Format("{0}#bikeMakeList", mobileUrl)">Bike Models</a>
-                </li>
-                <li>
-                    <a href="@string.Format("{0}#bikeByMakesUpcoming", mobileUrl)">Upcoming</a>
-                </li>
-                <li>
-                    <a href="@string.Format("{0}#popularComparison", mobileUrl)">Top Comparisions</a>
-                </li>
-                <li>
-                    <a href="@string.Format("{0}#makeNewsContent", mobileUrl)">News</a>
-                </li>
-                <li>
-                    <a href="@string.Format("{0}#makeReviewsContent", mobileUrl)">Reviews</a>
-                </li>
-                <li>
-                    <a href="@string.Format("{0}#makeVideosContent", mobileUrl)">Videos</a>
-                </li>
-                <li>
-                    <a href="@string.Format("{0}#makeDealersContent", mobileUrl)">Dealers</a>
-                </li>
-                <li>
-                    <a href="@string.Format("{0}#makeUsedBikeContent", mobileUrl)">Used Bikes</a>
-                </li>
+                @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription.Length > 0)
+                {
+                    <li class="bw-makepage-tabs-ga active">
+                        <a href="@string.Format("{0}#makeAboutContent", mobileUrl)">About</a>
+                    </li>
+                }
+                @if (Model.Bikes != null && Model.Bikes.Any())
+                {
+                    <li class="bw-makepage-tabs-ga">
+                        <a href="@string.Format("{0}#bikeMakeList", mobileUrl)">Bike Models</a>
+                    </li>
+                }
+                @if (Model.IsUpComingBikesAvailable)
+                {
+                    <li class="bw-makepage-tabs-ga">
+                        <a href="@string.Format("{0}#bikeByMakesUpcoming", mobileUrl)">Upcoming</a>
+                    </li>
+                }
+                @if (Model.IsCompareBikesAvailable)
+                {
+                    <li class="bw-makepage-tabs-ga">
+                        <a href="@string.Format("{0}#popularComparison", mobileUrl)">Top Comparisions</a>
+                    </li>
+                }
+                @if (Model.IsNewsAvailable)
+                {
+                    <li class="bw-makepage-tabs-ga">
+                        <a href="@string.Format("{0}#makeNewsContent", mobileUrl)">News</a>
+                    </li>
+                }
+                @if (Model.IsExpertReviewsAvailable)
+                {
+                    <li class="bw-makepage-tabs-ga">
+                        <a href="@string.Format("{0}#makeReviewsContent", mobileUrl)">Reviews</a>
+                    </li>
+                }
+                @if (Model.IsVideosAvailable)
+                {
+                    <li class="bw-makepage-tabs-ga">
+                        <a href="@string.Format("{0}#makeVideosContent", mobileUrl)">Videos</a>
+                    </li>
+                }
+                @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
+                {
+                    <li class="bw-makepage-tabs-ga">
+                        <a href="@string.Format("{0}#makeDealersContent", mobileUrl)">Dealers</a>
+                    </li>
+                }
+                @if (Model.IsUsedModelsBikeAvailable)
+                {
+                    <li class="bw-makepage-tabs-ga">
+                        <a href="@string.Format("{0}#makeUsedBikeContent", mobileUrl)">Used Bikes</a>
+                    </li>
+                }
             </ul>
         </div>
     </div>
