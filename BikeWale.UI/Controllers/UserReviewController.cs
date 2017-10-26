@@ -554,6 +554,7 @@ namespace Bikewale.Controllers
         public ActionResult Index()
         {       
             UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors, _makesRepository);
+            obj.BrandsSkipCount = 10;
             return View(obj.GetData());
         }
 
@@ -563,6 +564,7 @@ namespace Bikewale.Controllers
         {
               UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors, _makesRepository);
             obj.IsMobile = true;
+            obj.BrandsSkipCount = 6;
             return View(obj.GetData());
         }
 

@@ -546,18 +546,18 @@ namespace Bikewale.Utility
         /// </summary>
         /// <param name="authorName"></param>
         /// <returns></returns>
-        public static string FormatUserReviewContestUrl(UserReviewPageSourceEnum source, bool isMobile)
+        public static string FormatUserReviewRateUrl(UserReviewPageSourceEnum source, bool isMobile)
         {
             string returnUrl = string.Empty, url = "/bike-review-contest/";
 
 
             if (isMobile)
             {
-                returnUrl = string.Format("returnUrl=/m/user-reviews/&sourceid={0}", UserReviewPageSourceEnum.Mobile_UserReview_Landing);
+                returnUrl = string.Format("returnUrl=/m/reviews/&sourceid={0}", UserReviewPageSourceEnum.Mobile_UserReview_Landing);
             }
             else
             {
-                returnUrl = string.Format("returnUrl=/user-reviews/&sourceid={0}", UserReviewPageSourceEnum.Desktop_UserReview_Landing);
+                returnUrl = string.Format("returnUrl=/reviews/&sourceid={0}", UserReviewPageSourceEnum.Desktop_UserReview_Landing);
             }
 
             returnUrl = Utils.Utils.EncryptTripleDES(returnUrl);
@@ -567,6 +567,19 @@ namespace Bikewale.Utility
 
 
             return url;
+        }
+
+
+
+        /// <summary>
+        /// Created by : Sushil Kumar on 23rd Oct 2017
+        /// Summary : Create url for review contest page
+        /// </summary>
+        /// <param name="authorName"></param>
+        /// <returns></returns>
+        public static string FormatUserReviewContestUrl(UserReviewPageSourceEnum source)
+        {
+            return "/bike-review-contest/?q=" + Utils.Utils.EncryptTripleDES(string.Format("csrc={0}", (int)source));
         }
     }
 }

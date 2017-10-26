@@ -19,6 +19,7 @@ namespace Bikewale.Models.UserReviews
         private UserReviewLandingVM objData = null;
 
         public bool IsMobile { get; set; }
+        public ushort BrandsSkipCount { get; set; }
 
         public UserReviewLandingPage(IUserReviewsCache userReviewsCache, ICMSCacheContent articles, IAuthors authors, IBikeMakesCacheRepository bikeMakes)
         {
@@ -68,7 +69,7 @@ namespace Bikewale.Models.UserReviews
 
                 objData.Authors = _authors.GetAuthorsList(Convert.ToInt32(BWConfiguration.Instance.ApplicationId));
 
-                objData.Brands = new BrandWidgetModel(9, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.UserReviews);
+                objData.Brands = new BrandWidgetModel(BrandsSkipCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.UserReviews);
 
             }
             catch (Exception ex)
