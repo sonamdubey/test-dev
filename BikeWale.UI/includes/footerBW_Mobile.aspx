@@ -69,6 +69,14 @@
             </div>
             <div class="clear"></div>
         </div>
+         <div class="border-solid-top text-center padding-top10">
+                <p class="font13 text-white margin-bottom10">Popular Brands</p>
+                <ul>
+                    <li><a href="/m/yamaha-bikes/" title="Yamaha Bikes">Yamaha Bikes</a></li>
+                    <li><a href="/m/bajaj-bikes/" title="Bajaj Bikes">Bajaj Bikes</a></li>
+                    <li><a href="/m/royalenfield-bikes/" title="Royal Enfield Bikes">Royal Enfield Bikes</a></li>
+                </ul>
+            </div>
         <div class="border-solid-top text-center">
             <div class="margin-top15">
                 <ul>

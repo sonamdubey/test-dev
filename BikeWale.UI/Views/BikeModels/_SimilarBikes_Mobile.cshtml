@@ -66,7 +66,7 @@
     }
     <div class="swiper-slide">
         <div class="swiper-card">
-            <a href="@string.Format("/m{0}",(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "/scooters/" : "/new-bikes-in-india/")" title="@(string.Format("Explore more {0}", (Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "scooters" : "bikes"))" class="bw-ga" c="@Model.Page" a="Clicked_ExploreMore_Card" l="@Model.Model.ModelName">
+            <a href="@string.Format("/m{0}",(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "/scooters/" : "/new-bikes-in-india/")" title="@(string.Format("Explore more {0}", (Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "scooters" : "bikes"))" class="bw-ga" data-cat="@Model.Page" data-act="Clicked_ExploreMore_Card" data-lab="@Model.Model.ModelName">
                 <div class="swiper-image-preview">
                     <div class="exploremore__imagebackground">
                         <div class="exploremore__icon-background">

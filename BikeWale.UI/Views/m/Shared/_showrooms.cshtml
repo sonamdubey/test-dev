@@ -53,7 +53,7 @@ else
                             <span class="dealer-city-image-preview">
                                 <span class="city-sprite @details.CityMaskingName-icon"></span>
                             </span>
-                            <p class="text-default text-bold margin-bottom5">@ViewBag.MakeName outlets in @details.CityName</p>
+                            <p class="text-default text-bold margin-bottom5">@ViewBag.MakeName @(details.DealerCount > 1 ? "showrooms" : "showroom" ) in @details.CityName</p>
                             @if (details.DealerCount>0) {
                             <a href="/m/@ViewBag.MakeMaskingName-dealer-showrooms-in-@details.CityMaskingName/" title="@ViewBag.MakeName showroom in @details.CityName" class="block">@details.DealerCount @(details.DealerCount > 1 ? "showrooms" : "showroom" )</a>
                             }
@@ -69,7 +69,7 @@ else
                             <span class="dealer-city-image-preview">
                                 <span class="city-sprite india-icon"></span>
                             </span>
-                            <p class="text-default text-bold margin-bottom5">@ViewBag.MakeName outlets in India</p>
+                            <p class="text-default text-bold margin-bottom5">@ViewBag.MakeName @(Model.dealerServiceCenter.TotalDealerCount > 1 ? "showrooms" : "showroom") in India</p>
                             @if (Model.dealerServiceCenter.TotalDealerCount > 0) {
                             <a href="/m/@ViewBag.MakeMaskingName-dealer-showrooms-in-india/" title="@ViewBag.MakeName showroom in India" class="block">@Model.dealerServiceCenter.TotalDealerCount @(Model.dealerServiceCenter.TotalDealerCount > 1 ? "showrooms" : "showroom")</a>
                             }

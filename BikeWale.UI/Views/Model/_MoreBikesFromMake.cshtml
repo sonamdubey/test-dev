@@ -5,7 +5,7 @@
             @foreach (var Bike in Model.BestBikes)
             {
                 <li class="swiper-card margin-bottom15">
-                    <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName)" title="@Bike.Make.MakeName @Bike.Model.ModelName" class="bw-ga card-target" l="@Bike.BikeName" c="Model_Page" a="Clicked_SameBrandBikes_widget">
+                    <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName)" title="@Bike.Make.MakeName @Bike.Model.ModelName" class="bw-ga card-target" data-lab="@Bike.BikeName" data-cat="Model_Page" data-act="Clicked_SameBrandBikes_widget">
                         <div class="item-image-block vertical-top">
                             <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" src="" alt="@Bike.Make.MakeName @Bike.Model.ModelName" />
                         </div>

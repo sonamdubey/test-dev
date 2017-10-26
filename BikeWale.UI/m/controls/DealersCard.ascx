@@ -55,7 +55,7 @@
                         <span class="dealer-city-image-preview">
                             <span class="city-sprite <%=details.CityMaskingName %>-icon"></span>
                         </span>
-                        <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in <%=details.CityName %></p>
+                        <p class="text-default text-bold margin-bottom5"><%= makeName %> <%=(details.DealerCount > 1 )? " showrooms" : " showroom" %> in <%=details.CityName %></p>
                         <%if (details.DealerCount>0) {%>
                         <a href="/m/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" title="<%=makeName%> showroom in <%=details.CityName%>" class="block"><%=details.DealerCount %><%=(details.DealerCount > 1 )? " showrooms" : " showroom" %></a>
                         <%} %>
@@ -71,7 +71,7 @@
                         <span class="dealer-city-image-preview">
                             <span class="city-sprite india-icon"></span>
                         </span>
-                        <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in India</p>
+                        <p class="text-default text-bold margin-bottom5"><%= makeName %> <%=(cityDealers.TotalDealerCount > 1 )? " showrooms" : " showroom" %> in India</p>
                         <%if (cityDealers.TotalDealerCount > 0) {%>
                         <a href="/m/<%=makeMaskingName%>-dealer-showrooms-in-india/" title="<%=makeName%> showroom in India" class="block"><%=cityDealers.TotalDealerCount %><%=(cityDealers.TotalDealerCount > 1 )? " showrooms" : " showroom" %></a>
                         <%} %>

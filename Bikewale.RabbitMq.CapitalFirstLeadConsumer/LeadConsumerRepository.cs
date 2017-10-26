@@ -30,10 +30,10 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
                                 lead.AgentName = Convert.ToString(dr["AgentName"]);
                                 lead.AgentNumber = Convert.ToString(dr["AgentNumber"]);
                                 lead.BikeName = Convert.ToString(dr["BikeName"]);
-                                lead.CTLeadId = ctLeadId;
+                                lead.CtLeadId = ctLeadId;
                                 lead.EmailId = Convert.ToString(dr["EmailId"]);
                                 lead.Exshowroom = SqlReaderConvertor.ToUInt32(dr["Exshowroom"]);
-                                lead.RTO = SqlReaderConvertor.ToUInt32(dr["RTO"]);
+                                lead.Rto = SqlReaderConvertor.ToUInt32(dr["RTO"]);
                                 lead.Insurance = SqlReaderConvertor.ToUInt32(dr["Insurance"]);
                                 lead.FirstName = Convert.ToString(dr["FirstName"]);
                                 lead.LastName = Convert.ToString(dr["LastName"]);

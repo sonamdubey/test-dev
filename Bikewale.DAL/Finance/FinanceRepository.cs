@@ -26,7 +26,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                     var param = new DynamicParameters();
                     param.Add("par_id", objDetails.Id, DbType.Int32, ParameterDirection.InputOutput);
                     param.Add("par_leadid", objDetails.LeadId);
-                    param.Add("par_ctleadid", objDetails.CTLeadId);
+                    param.Add("par_ctleadid", objDetails.CtLeadId);
                     param.Add("par_firstname", objDetails.FirstName);
                     param.Add("par_lastname", objDetails.LastName);
                     param.Add("par_mobilenumber", objDetails.MobileNumber);

@@ -4,7 +4,6 @@ using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
-using System.Web.Script.Serialization;
 
 namespace Bikewale.Models.PopUp
 {
@@ -38,14 +37,19 @@ namespace Bikewale.Models.PopUp
             string qs = Utils.Utils.DecryptTripleDES(queryString);
             try
             {
-                //string decodedQueryString = Utils.Utils.DecryptTripleDES(encodedQueryString);
-                uint _modelId, _cityId, _areaId;
-                string _bikeName, _location, _city, _area;
+                uint _modelId,
+                    _cityId,
+                    _areaId;
+                string _bikeName,
+                    _location,
+                    _city,
+                    _area;
+
                 bool _isManufacturerCampaign;
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(qs);
                 var dict = HttpUtility.ParseQueryString(qs);
-                viewModel.PopupJson = Utility.EncodingDecodingHelper.EncodeTo64( Newtonsoft.Json.JsonConvert.SerializeObject(
+                viewModel.PopupJson = Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(
                     dict.AllKeys.ToDictionary(k => k, k => dict[k])
                 ));
 
@@ -62,7 +66,7 @@ namespace Bikewale.Models.PopUp
 
                 bool.TryParse(queryCollection["isManufacturer"], out _isManufacturerCampaign);
                 viewModel.Url = queryCollection["url"];
-                viewModel.LeadCapture = new LeadCaptureEntity()
+                viewModel.LeadCapture = new LeadCaptureEntity
                 {
                     ModelId = _modelId,
                     Area = _area,

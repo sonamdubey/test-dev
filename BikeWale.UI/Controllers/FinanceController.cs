@@ -30,9 +30,11 @@ namespace Bikewale.Controllers
         {
 
             string q = Request.Url.Query;
+            ushort platformId = 0;            
             CapitalFirstVM viewModel = new CapitalFirstVM();
             viewModel.ObjLead = new ManufacturerLeadEntity();
             NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
+                        
             viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
             viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
             viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
@@ -41,7 +43,7 @@ namespace Bikewale.Controllers
             viewModel.PageUrl = queryCollection["url"];
             viewModel.BikeName = queryCollection["bike"];
             viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
-            viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Mobile;
+            viewModel.PlatformId = ushort.TryParse(queryCollection["platformid"], out platformId) ? platformId :(ushort)DTO.PriceQuote.PQSources.Mobile;
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
                 viewModel.ObjLead.CityId = location.CityId;

@@ -2811,6 +2811,7 @@
     <Content Include="m\css\leadcapture.css" />
     <Content Include="m\css\photos.css" />
     <Content Include="m\css\finance\capital-first.css" />
+    <Content Include="m\css\specsandfeature.css" />
     <Content Include="m\css\used\landing.css" />
     <Content Include="m\css\mobile-rsa.css" />
     <Content Include="m\css\model-gallery.css" />
@@ -2838,6 +2839,7 @@
     <Content Include="m\news\sw_installer.html" />
     <Content Include="m\news\sw.js" />
     <Content Include="m\new\photos\Default.aspx" />
+    <Content Include="m\sass\scooters\listing.css" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
     <Content Include="m\service\ServiceCenterInCountry.aspx" />
@@ -2986,6 +2988,7 @@
     <Content Include="sass\modules\_loader.sass" />
     <Content Include="sass\review\landing.css" />
     <Content Include="sass\scooters\landing.sass" />
+    <Content Include="sass\scooters\listing.css" />
     <Content Include="sass\scooters\_landing-style.sass" />
     <Content Include="sass\modules\_main-comparison.sass" />
     <Content Include="sass\modules\_budget.sass" />
@@ -3826,6 +3829,8 @@
     <Content Include="Views\UserReview\_RecentUploadedReviews_Mobile.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad292x360.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad200x211.cshtml" />
+    <Content Include="Views\Make\_Index_Tabs.cshtml" />
+    <Content Include="Views\Make\_Index_Tabs_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

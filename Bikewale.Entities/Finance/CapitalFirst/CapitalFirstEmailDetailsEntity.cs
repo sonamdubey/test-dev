@@ -9,7 +9,7 @@ namespace Bikewale.Entities.Finance.CapitalFirst
     /// </summary>
     public class CapitalFirstLeadEntity
     {
-        public string CTLeadId { get; set; }
+        public string CtLeadId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName { get; set; }
@@ -17,7 +17,7 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         public string EmailId { get; set; }
         public string BikeName { get; set; }
         public uint Exshowroom { get; set; }
-        public uint RTO { get; set; }
+        public uint Rto { get; set; }
         public uint Insurance { get; set; }
         public string VoucherNumber { get; set; }
         public DateTime VoucherExpiryDate { get; set; }

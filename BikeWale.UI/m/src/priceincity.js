@@ -61,6 +61,30 @@ docReady(function () {
 				$(floatingButton).show();
 		}
 
+        //Gallery open and close
+		$("#imageTopCard").click(function () {
+		    try {
+		        if (photoCount > 0 || videoCount > 0) {
+		            galleryRoot.find('.gallery-loader-placeholder').show();
+		            popupGallery.bindGallery(0);
+		            galleryRoot.find('.gallery-loader-placeholder').hide();
+		        }
+		        
+		        triggerGA($(this).data("c"), $(this).data("a"), $(this).data("l"));
+		    } catch (e) {
+		        console.warn(e);
+		    }
+		});
+
+
+		$("#gallery-close-btn").click(function () {
+		    try {
+		        popupGallery.close();
+		    } catch (e) {
+		        console.warn(e);
+		    }
+		});
+
         // dropdown
         dropdown = {
             setDropdown: function () {
@@ -488,3 +512,4 @@ docReady(function () {
     });
 
 });
+
