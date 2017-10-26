@@ -281,12 +281,12 @@
             </p>
            <blockquote>
                <p>
-	            i. bikewale.com strongly advises you not to test the  Site with false purchases request, as it will put you at substantial personal legal risk. 
+	            (i) bikewale.com strongly advises you not to test the  Site with false purchases request, as it will put you at substantial personal legal risk. 
 	            It is a crime to use a false name, other false personal information to buy. Willfully entering erroneous or fictitious purchase request may 
 	            result in prosecution by bikewale.com. Please be aware that even if you do not give bikewale.com your real name, your  web browser transmits a 
 	            unique address to us, which can be used by law enforcement officials to identify you.</p>
-               <p>ii. Used bikes listed on BikeWale.com for sale may be purchased by individuals for own use only. These bikes may not be purchased by dealers, brokers, or any other business entity and such a purchase would constitute a violation of the terms and conditions of BikeWale. Dealers and brokers may contact contact@bikewale.com for paid packages for purchasing vehicles.</p>
-               <p>iii. It is not permitted to submit a lead or to enquire against a used bike listing on BikeWale.com for any other purpose than contacting the seller with the intent of purchasing the vehicle for own use by individuals. Amongst others, it is not permitted to submit a lead or to enquire against a used bike listing on BikeWale.com by any type of user, including but not limited to individuals, dealers, brokers, or other business entities, for purposes of data gathering, data mining, relisting on another site, brokering, match-making with other buyers, or purchase for resale.</p>
+               <p>(ii) Used bikes listed on BikeWale.com for sale may be purchased by individuals for own use only. These bikes may not be purchased by dealers, brokers, or any other business entity and such a purchase would constitute a violation of the terms and conditions of BikeWale. Dealers and brokers may contact contact@bikewale.com for paid packages for purchasing vehicles.</p>
+               <p>(iii) It is not permitted to submit a lead or to enquire against a used bike listing on BikeWale.com for any other purpose than contacting the seller with the intent of purchasing the vehicle for own use by individuals. Amongst others, it is not permitted to submit a lead or to enquire against a used bike listing on BikeWale.com by any type of user, including but not limited to individuals, dealers, brokers, or other business entities, for purposes of data gathering, data mining, relisting on another site, brokering, match-making with other buyers, or purchase for resale.</p>
             </blockquote>
 
             <p>
