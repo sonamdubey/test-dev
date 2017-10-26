@@ -1,0 +1,56 @@
+﻿
+@model Bikewale.Models.PopularComparisonsVM
+@if (Model != null && Model.IsDataAvailable)
+{
+    <div id="ctrlCompareBikes" class="comparison-swiper">
+        <amp-carousel height="230" layout="fixed-height" type="carousel" id="comparisonSwiper">
+            @foreach (var bike in Model.CompareBikes)
+            {
+                string bike1 = string.Format("{0} {1}", bike.Make1, bike.Model1);
+                string bike2 = string.Format("{0} {1}", bike.Make2, bike.Model2);
+                <div class="swiper-card">
+                    <a href="@string.Format("{0}/m/{1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMasking1, bike.ModelMasking1, bike.MakeMasking2, bike.ModelMasking2, Convert.ToString(bike.VersionId1), Convert.ToString(bike.VersionId2),bike.ModelId1,bike.ModelId2, Model.CompareSource))" title="@bike1 vs @bike2" class="block">
+                        <span class="text-light-grey position-abt pos-top0 pos-right0 font10"></span>
+                        <h3 class="font12 text-black text-center margin-bottom10">@string.Format("{0} vs {1}", bike.Model1, bike.Model2)</h3>
+                        <div class="grid-6">
+                            <div class="model-img-content">
+                                <amp-img width="126" height="70" alt="@bike1" title="@bike1" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1, bike.HostUrl1, Bikewale.Utility.ImageSize._144x81,Bikewale.Utility.QualityFactor._60)"></amp-img>
+                            </div>
+                            <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                            <span class="font16 text-default"> &#x20B9;</span>&nbsp;
+                            <span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1 > 0 ? bike.Price1 : bike.AvgPrice1))</span>
+                        </div>
+                        <div class="grid-6">
+                            <div class="model-img-content">
+                                <amp-img width="126" height="70" alt="@bike2" title="@bike2" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2, bike.HostUrl2, Bikewale.Utility.ImageSize._144x81,Bikewale.Utility.QualityFactor._60)"></amp-img>
+                            </div>
+                            <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                            <span class="font16 text-default"> &#x20B9;</span>&nbsp;
+                            <span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2 > 0 ? bike.Price2 : bike.AvgPrice2))</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="margin-top15 text-center">
+                            <span class="btn btn-white btn-size-1">Compare now</span>
+                        </div>
+                    </a>
+                    @if (bike.Price1 == 0)
+                    {
+                        <span class="info-icon tooltip-icon-target tooltip-top tooltip--right">
+                            <span class="bw-tooltip info-tooltip">
+                                <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", bike.City1)</span>
+                            </span>
+                        </span>
+                    }
+                    @if (bike.Price2 == 0)
+                    {
+                        <span class="info-icon tooltip-icon-target tooltip-top comparison-bike-2">
+                            <span class="bw-tooltip info-tooltip">
+                                <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", bike.City2)</span>
+                            </span>
+                        </span>
+                    }
+                </div>
+            }
+        </amp-carousel>
+    </div>
+}
