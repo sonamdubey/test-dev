@@ -43,7 +43,7 @@
 					<div class="main-content">
 						<div class="font14 text-slate-grey margin-bottom10">
 							<p>@review.SanitizedDescription</p>
-							<a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-id="@i" data-reviewId="@review.ReviewId" data-bind="click: function (data, event) { return readMore(event);}">Read more</a>
+							<a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" data-cat="Model_Page" data-act="UserReview_ReadMoreClicked" data-lab="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-id="@i" data-reviewId="@review.ReviewId" data-bind="click: function (data, event) { return readMore(event);}">Read more</a>
 						</div>
 					</div>
 					<div class="more-content">
@@ -141,7 +141,7 @@
 				<div class="main-content">
 					<div class="font14 text-slate-grey">
 						<p data-bind="truncateDesc: $data.description"></p>
-						<a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" c="Model_Page" a="UserReview_ReadMoreClicked" l="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-index="@i" data-bind="click: function (data, event) { return $parent.readMoreNew(event)}, attr: {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId }">Read more</a>
+						<a href="javascript:void(0)" class="read-more-target upvoteListButton bw-ga" data-cat="Model_Page" data-act="UserReview_ReadMoreClicked" data-lab="@Model.ReviewsInfo.Model.ModelName" rel="nofollow" data-index="@i" data-bind="click: function (data, event) { return $parent.readMoreNew(event)}, attr: {'data-index' : $index() + @i, 'data-reviewId': $data.reviewId }">Read more</a>
 					</div>
 				</div>
 				<div class="more-content">

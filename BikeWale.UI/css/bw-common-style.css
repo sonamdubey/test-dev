@@ -205,6 +205,8 @@ noindex:-o-prefocus, .findBtn .btn-md { padding: 10px 20px; }
 
 /* footer classes */
 footer ul li { display: block; }
+footer ul.popularMakes li { display: inline-block; }
+footer ul.popularMakes li a{ padding: 0px 50px;}
 footer ul li a { display: block; color: #cfcfcf; padding: 10px 0; font-size: 16px; }
 footer ul li a:hover { text-decoration: underline; }
 /* autocomplete class */

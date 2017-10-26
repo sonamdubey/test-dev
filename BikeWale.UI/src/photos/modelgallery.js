@@ -37,7 +37,7 @@ var popupGallery = {
         gallerySwiper.update(true);
         thumbnailSwiperEvents.focusGallery(gallerySwiper, imageIndex);
 
-        if (returnUrl && returnUrl.length <= 0) {
+        if (returnUrl.length <= 0) {
             window.location.hash = 'photosGallery';
         }
     }
@@ -241,8 +241,8 @@ var setPageVariables = function () {
     eleGallery = $("#pageGallery");
 
     try {
-        if (eleGallery.data("images") != '') {
-            var imageList = JSON.parse(window.atob(eleGallery.data("images")));
+        if (eleGallery.length > 0 && eleGallery.data("images") != '') {
+            var imageList = JSON.parse(Base64.decode(eleGallery.data("images")));
             modelImages = imageList;
             modelColorImages = filterColorImagesArray(imageList);
 
@@ -250,8 +250,8 @@ var setPageVariables = function () {
                 modelColorImageCount = modelColorImages.length;
         }
 
-        if (eleGallery.data("videos") != '') {
-            videoList = JSON.parse(window.atob(eleGallery.data("videos")));
+        if (eleGallery.length > 0 && eleGallery.data("videos") != '') {
+            videoList = JSON.parse(Base64.decode(eleGallery.data("videos")));
         }
 
         photoCount = eleGallery.data("photoscount");
@@ -273,7 +273,10 @@ docReady(function () {
 
 
     vmModelGallery = new modelGallery();
-    ko.applyBindings(vmModelGallery, document.getElementById('gallery-root'));
+    var eleGalleryRoot = $("#gallery-root");
+    if (eleGalleryRoot.length > 0) {
+        ko.applyBindings(vmModelGallery, eleGalleryRoot[0]);
+    }
 
 
     // model gallery thumbnail events namespace

@@ -19,6 +19,8 @@ namespace Bikewale.Models.BikeModels
     /// Modified By :- Subodh Jain added objUpcomingBikes
     /// Modified by : Ashutosh Sharma on 30 Aug 2017 
     /// Description : Removed IsGstPrice property
+    /// Modified by : Vivek Singh Tomar on 12th Oct 2017
+    /// Summary : Removed service center property
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -78,7 +80,6 @@ namespace Bikewale.Models.BikeModels
         public RecentVideosVM Videos { get; set; }
         public SimilarBikesWidgetVM SimilarBikes { get; set; }
         public DealerCardVM OtherDealers { get; set; }
-        public ServiceCenters.ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
         public PriceInCity.PriceInTopCitiesWidgetVM PriceInTopCities { get; set; }
         public System.Collections.Generic.ICollection<SimilarCompareBikeEntity> PopularComparisions { get; set; }
@@ -91,10 +92,9 @@ namespace Bikewale.Models.BikeModels
         public bool IsVideosAvailable { get { return (Videos != null && Videos.VideosList != null && Videos.FetchedCount > 0 && Videos.VideosList.Any()); } }
         public bool IsSimilarBikesAvailable { get { return (SimilarBikes != null && SimilarBikes.Bikes != null && SimilarBikes.Bikes.Any()); } }
         public bool IsOtherDealersAvailable { get { return (OtherDealers != null && OtherDealers.Dealers != null && OtherDealers.Dealers.Any()); } }
-        public bool IsServiceCentersAvailable { get { return (ServiceCenters != null && ServiceCenters.ServiceCentersList != null && ServiceCenters.ServiceCentersList.Any()); } }
         public bool IsPopularComparisionsAvailable { get { return (PopularComparisions != null && PopularComparisions.Any()); } }
         public bool IsPriceInTopCitiesAvailable { get { return (PriceInTopCities != null && PriceInTopCities.PriceQuoteList != null && PriceInTopCities.PriceQuoteList.Any()); } }
-        public bool IsDealersServiceCenterAvailable { get { return (DealersServiceCenter != null && DealersServiceCenter.DealerServiceCenters != null && (DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 || DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0)); } }
+        public bool IsDealersServiceCenterAvailable { get { return (DealersServiceCenter != null && DealersServiceCenter.DealerServiceCenters != null && DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0); } }
         public bool IsVersionSpecsAvailable { get { return (ModelPageEntity != null && ModelPageEntity.ModelVersionSpecs != null); } }
         public bool IsModelDescriptionAvailable { get { return (this.IsVersionSpecsAvailable || (this.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(this.ModelPageEntity.ModelDesc.SmallDescription))); } }
         public bool IsModelColorsAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.ModelColors != null && this.ModelPageEntity.ModelColors.Any()); } }

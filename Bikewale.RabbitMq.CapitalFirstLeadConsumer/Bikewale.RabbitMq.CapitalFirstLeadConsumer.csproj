@@ -76,7 +76,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CapitalFirstLeadEntity.cs" />
     <Compile Include="CarTradeVoucher.cs" />
     <Compile Include="CreatePDF.cs" />
     <Compile Include="PdfAttachment.cs" />

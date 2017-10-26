@@ -10,7 +10,7 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         public uint LeadId { get; set; }
 
         [JsonProperty("ctLeadId")]
-        public uint CTLeadId { get; set; }
+        public uint CtLeadId { get; set; }
 
         [JsonProperty("firstName")]
         public string FirstName { get; set; }

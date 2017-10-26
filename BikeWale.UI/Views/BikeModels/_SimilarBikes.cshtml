@@ -64,7 +64,7 @@
     </li>
 }
 <li>
-    <a href="@((Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "/scooters/" : "/new-bikes-in-india/")" title="@(string.Format("Explore more {0}", (Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "scooters" : "bikes"))" class="jcarousel-card bw-ga" c="@Model.Page" a="Clicked_ExploreMore_Card" l="@Model.Model.ModelName">
+    <a href="@((Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "/scooters/" : "/new-bikes-in-india/")" title="@(string.Format("Explore more {0}", (Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "scooters" : "bikes"))" class="jcarousel-card bw-ga" data-cat="@Model.Page" data-act="Clicked_ExploreMore_Card" data-lab="@Model.Model.ModelName">
         <div class="model-jcarousel-image-preview">
             <div class="exploremore__imagebackground">
                 <div class="exploremore__icon-background">

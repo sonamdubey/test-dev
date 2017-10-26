@@ -18,6 +18,8 @@ namespace Bikewale.Utility
     /// Summary     :   Added BestBikesMakes property
     /// Modified by :   Sumit Kate on 28 Sep 2017
     /// Description :   Added InnovationBannerModels
+    /// Modified by : Ashutosh Sharma on 13 Oct 2017
+    /// Description : Added SynopsisSummaryMergedMakeIds
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -107,7 +109,8 @@ namespace Bikewale.Utility
         _CapitalFirstPincodeIndex = string.Empty,
             _InnovationBannerModels = String.Empty,
             _UserReviewsReadInSessionCount = string.Empty,
-            _PopularCitiesId =String.Empty;
+            _PopularCitiesId = String.Empty,
+            _SynopsisSummaryMergeMakeIds = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -242,7 +245,7 @@ namespace Bikewale.Utility
             _EditCMSModuleName = Convert.ToString(ConfigurationManager.AppSettings["EditCMSModuleName"]);
             _minEnginePoolSize = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MinEnginePoolSize"]) ? 3 : Convert.ToInt32(ConfigurationManager.AppSettings["MinEnginePoolSize"]);
             _maxEnginePoolSize = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MaxEnginePoolSize"]) ? 15 : Convert.ToInt32(ConfigurationManager.AppSettings["MaxEnginePoolSize"]);
-            
+            _SynopsisSummaryMergeMakeIds = ConfigurationManager.AppSettings["SynopsisSummaryMergeMakeIds"];
         }
 
         // Static method to provide access to instance
@@ -410,5 +413,6 @@ namespace Bikewale.Utility
         public string EditCMSModuleName { get { return _EditCMSModuleName; } }
         public int MaxEnginePoolSize { get { return _maxEnginePoolSize; } }
         public int MinEnginePoolSize { get { return _minEnginePoolSize; } }
+        public string SynopsisSummaryMergeMakeIds { get { return _SynopsisSummaryMergeMakeIds; } }
     }   // class
 }   // namespace
