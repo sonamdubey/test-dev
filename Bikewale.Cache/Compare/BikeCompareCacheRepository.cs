@@ -15,6 +15,8 @@ namespace Bikewale.Cache.Compare
     /// Description :   Implemented the newly added method of IBikeCompareCacheRepository
     /// Modified By :   Sushil Kumar on 2nd Feb 2017
     /// Description :   Implemented the newly added method of BikeCompareEntity DoCompare(string versions, uint cityId)
+    /// Modified By :Snehal Dange on 25th Oct 2017
+    /// Description : Added method GetSimilarBikesForComparisions()
     /// </summary>
     public class BikeCompareCacheRepository : IBikeCompareCacheRepository
     {
@@ -213,6 +215,30 @@ namespace Bikewale.Cache.Compare
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetScooterCompareList- CityId : {0}",cityId));
             }
             return compareBikeList;
+        }
+
+        /// <summary>
+        /// Created By : Snehal Dange on 24th Oct 2017.
+        /// Decsription : Cache method created for similar bikes for comparison on compare bikes page.
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public SimilarBikeComparison GetSimilarBikesForComparisions(string versionList, ushort topCount)
+        {
+            SimilarBikeComparison similarbikecomparison = null;
+            string key = string.Empty;
+            try
+            {
+              key = string.Format("BW_SimilarCompareBikes_{0}_Cnt_{1}", versionList.Replace(',', '_'), versionList, topCount);
+              similarbikecomparison = _cache.GetFromCache<SimilarBikeComparison>(key, new TimeSpan(1, 0, 0), () => _compareRepository.GetSimilarBikesForComparisions(versionList, topCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository_GetSimilarBikesForComparisions_{0}_Cnt_{1}", versionList, topCount));
+
+            }
+            return similarbikecomparison;
         }
     }
 }

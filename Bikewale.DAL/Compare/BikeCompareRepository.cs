@@ -1031,5 +1031,70 @@ namespace Bikewale.DAL.Compare
             return topBikes;
         }
 
+
+        /// <summary>
+        /// Created by:Snehal Dange on 24th Oct 2017
+        /// Description : Get similar bikes for bike comparison
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityid"></param>
+        /// <returns></returns>
+        public SimilarBikeComparison GetSimilarBikesForComparisions(string versionList, ushort topCount)
+        {
+            SimilarBikeComparison similarBikeComparison = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getsimilarcomparebikeslist_03102017";
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 100, versionList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (reader != null)
+                        {
+                            similarBikeComparison = new SimilarBikeComparison();
+                            IList<NewBikeEntityBase> comparedBikes = new List<NewBikeEntityBase>();
+                            NewBikeEntityBase similarBikesObj = new NewBikeEntityBase();
+                            while (reader.Read())
+                            {
+                                NewBikeEntityBase obj = new NewBikeEntityBase();
+                                obj.SimilarBikeId = SqlReaderConvertor.ToInt32(reader["ID"]);
+                                obj.CompareBike1 = SqlReaderConvertor.ToInt32(reader["ID"]);
+                                obj.CompareBike2 = SqlReaderConvertor.ToInt32(reader["ID"]);
+                                comparedBikes.Add(obj);
+
+
+                            }
+                            if (reader.NextResult())
+                            {
+
+                                while (reader.Read())
+                                {
+
+                                    similarBikesObj.Id = SqlReaderConvertor.ToInt32(reader["ID"]);
+                                    // all other details
+
+
+                                }
+
+                            }
+                            similarBikeComparison.ComparedBikes = comparedBikes;
+                            similarBikeComparison.SimilarBike = similarBikesObj;
+                            reader.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository_GetSimilarBikesForComparisions_{0}_Cnt_{1}", versionList, topCount));
+            }
+
+            return similarBikeComparison;
+        }
+
     }
 }

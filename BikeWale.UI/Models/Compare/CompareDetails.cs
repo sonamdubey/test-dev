@@ -146,6 +146,7 @@ namespace Bikewale.Models
                     }
 
                     obj.PQSourceId = PQSourceEnum.Desktop_CompareBike;
+                    SimilarBikesComparisionWidget(obj);
                 }
                 else
                 {
@@ -424,6 +425,28 @@ namespace Bikewale.Models
                     status = StatusCodes.RedirectTemporary;
                 }
             }
+        }
+
+        /// <summary>
+        /// Created By:Snehal Dange on 25th Oct 2017
+        /// Description : Function for similar bikes comparison
+        /// </summary>
+        /// <param name="obj"></param>
+        private void SimilarBikesComparisionWidget(CompareDetailsVM obj)
+        {
+            try
+            {
+                if(_objCompareCache!=null && _versionsList.Split(',').Count() > 1)
+                {
+                    ushort topCount = 12;
+                    obj.SimilarBikeComparisons.similarBikesCompares = _objCompareCache.GetSimilarBikesForComparisions(_versionsList, topCount);                    
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex,"Bikewale.Models.CompareDetails.SimilarBikesComparisionWidget()");
+            }
+
         }
     }
 }

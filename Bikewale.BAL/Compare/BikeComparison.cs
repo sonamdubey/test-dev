@@ -1290,5 +1290,35 @@ namespace Bikewale.BAL.Compare
             }
             return compareScooters;
         }
+
+        /// <summary>
+        /// Created By:Snehal Dange on 24th Oct 2017
+        /// Description :Get list of similar bikes for comparision on compare bike page
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public ICollection<SimilarBikeComparisions> GetSimilarBikesForComparisions(string versionList, ushort topCount)
+        {
+
+            try
+            {
+                IList<SimilarBikeComparisions> similarBikeList = null;
+                SimilarBikeCompareMainGroup similarBikeComparison = null;
+                similarBikeComparison = _objCompare.GetSimilarBikesForComparisions(versionList, topCount);
+                if (similarBikeComparison != null)
+                {
+                    similarBikeList = new List<SimilarBikeComparisions>
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.Compare.BikeComparison.GetSimilarBikesForComparisions()");
+            }
+
+        }
     }
 }

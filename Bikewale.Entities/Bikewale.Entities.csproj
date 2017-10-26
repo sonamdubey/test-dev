@@ -209,6 +209,7 @@
     <Compile Include="BikeData\Overview.cs" />
     <Compile Include="BikeData\PriceAndCityEntityBase.cs" />
     <Compile Include="BikeData\PriceEntityBase.cs" />
+    <Compile Include="BikeData\SimilarBikeComparisions .cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
     <Compile Include="BikeData\BikeSeriesModels.cs" />
     <Compile Include="BikeData\SimilarBikesWithPhotos.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Compare\CompareSubCategory.cs" />
     <Compile Include="Compare\CompareSpecificationEntity.cs" />
     <Compile Include="Compare\MostHelpfulReviewObject.cs" />
+    <Compile Include="Compare\SimilarBikeComparison.cs" />
     <Compile Include="Compare\TopBikeCompareBase.cs" />
     <Compile Include="Compare\UserReviewComparisonObject.cs" />
     <Compile Include="Customer\CancelledBikeCustomer.cs" />
