@@ -12,7 +12,7 @@
                         if (bike.BikeMake != null && bike.BikeModel != null)
                         {
                             <li>
-                                <a href=@string.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)) title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" class="horizontal-swiper__target bw-ga" c="@Model.Page" a="Series_WidgetClicked" l="@string.Format("{0} {1}", bike.BikeMake.MakeName, Model.SeriesBase.SeriesName)">
+                                <a href=@string.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)) title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" class="horizontal-swiper__target bw-ga" data-cat="@Model.Page" data-act="Series_WidgetClicked" data-lab="@string.Format("{0} {1}", bike.BikeMake.MakeName, Model.SeriesBase.SeriesName)">
                                     @if (bike.BikeImage != null)
                                     {
                                         <div class="horizontal-swiper__image inline-block">
@@ -51,7 +51,7 @@
                         if (bike.BikeMake != null && bike.BikeModel != null)
                         {
                             <li>
-                                <a href=@string.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)) title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" class="horizontal-swiper__target bw-ga" c="@Model.Page" a="Series_WidgetClicked" l="@string.Format("{0} {1}", bike.BikeMake.MakeName, Model.SeriesBase.SeriesName)">
+                                <a href=@string.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)) title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" class="horizontal-swiper__target bw-ga" data-cat="@Model.Page" data-act="Series_WidgetClicked" data-lab="@string.Format("{0} {1}", bike.BikeMake.MakeName, Model.SeriesBase.SeriesName)">
                                     <span class="horizontal-swiper__tag">Upcoming</span>
                                     @if (bike.BikeImage != null)
                                     {

@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.DTO.ManufacturerCampaign;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 namespace Bikewale.DTO.PriceQuote.v3
@@ -18,6 +19,10 @@ namespace Bikewale.DTO.PriceQuote.v3
 
         [JsonProperty("version")]
         public IEnumerable<Bikewale.DTO.Version.VersionBase> Versions { get; set; }
+
+        [JsonProperty("manufacturerCampaign")]
+        public ManufacturerCampaignDTO ManufacturerCampaign { get; set; }
+
     }
 }
 

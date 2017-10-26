@@ -67,7 +67,7 @@
                                         </div>
 
                                         <div class="grid-6 alpha">
-                                            <div class="input-box bw-ga" c="Rate_Bike" a="Name_Field_Focus" l="@gaLabel" data-bind="css: userName().length > 0 ? 'not-empty' : ''">
+                                            <div class="input-box bw-ga" data-cat="Rate_Bike" data-act="Name_Field_Focus" data-lab="@gaLabel" data-bind="css: userName().length > 0 ? 'not-empty' : ''">
                                                 <input type="text" id="txtUserName" name="userName" maxlength="45" data-bind="textInput: userName" value="@(string.IsNullOrEmpty(Model.CustomerName) ? "" : Model.CustomerName)" />
                                                 <label for="getUserName">Name<sup>*</sup></label>
                                                 <span class="boundary"></span>
@@ -75,7 +75,7 @@
                                             </div>
                                         </div>
                                         <div class="grid-6 omega">
-                                            <div class="input-box  bw-ga" c="Rate_Bike" a="Email_Field_Focus" l="@gaLabel" data-bind="css: emailId().length > 0 ? 'not-empty' : ''">
+                                            <div class="input-box  bw-ga" data-cat="Rate_Bike" data-act="Email_Field_Focus" data-lab="@gaLabel" data-bind="css: emailId().length > 0 ? 'not-empty' : ''">
                                                 <input type="email" id="txtEmailID" name="emailId" maxlength="95" data-bind="textInput: emailId" value="@(string.IsNullOrEmpty(Model.CustomerEmail) ? "" : Model.CustomerEmail)" />
                                                 <label for="getEmailID">Email ID<sup>*</sup></label>
                                                 <span class="boundary"></span>

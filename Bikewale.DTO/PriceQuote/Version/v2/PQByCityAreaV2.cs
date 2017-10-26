@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.DTO.Campaign;
 using Bikewale.DTO.DealerLocator;
 using Bikewale.DTO.Model.v3;
 using Bikewale.DTO.PriceQuote.v2;
@@ -43,5 +44,10 @@ namespace Bikewale.DTO.PriceQuote.Version.v2
 
         [JsonProperty("secondaryDealerCount")]
         public int SecondaryDealerCount { get; set; }
+
+        // Updated by: Sangram Nandkhile on 13 Oct 2017
+        // Added Campaign base DTO
+        [JsonProperty("campaign")]
+        public CampaignBaseDto Campaign { get; set; }
     }
 }

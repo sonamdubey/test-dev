@@ -165,12 +165,10 @@ namespace Bikewale.Models
 
                 objData.IsScooterDataAvailable = objData.Scooters != null && objData.Scooters.Any();
                 objData.IsCompareDataAvailable = objData.SimilarCompareScooters != null && objData.SimilarCompareScooters.CompareBikes != null && objData.SimilarCompareScooters.CompareBikes.Any();
-                objData.IsUpComingBikesAvailable = objData.UpcomingScooters != null && objData.UpcomingScooters != null && objData.UpcomingScooters.UpcomingBikes != null && objData.UpcomingScooters.UpcomingBikes.Any();
+                objData.IsUpComingBikesAvailable = objData.UpcomingScooters != null && objData.UpcomingScooters.UpcomingBikes != null && objData.UpcomingScooters.UpcomingBikes.Any();
                 objData.IsDealerAvailable = objData.Dealers != null && objData.Dealers.Dealers != null && objData.Dealers.Dealers.Any();
-                objData.IsServiceDataAvailable = objData.ServiceCenters != null && objData.ServiceCenters.ServiceCentersList != null && objData.ServiceCenters.ServiceCentersList.Any();
-                objData.IsDealerServiceDataAvailable = cityId > 0 && (objData.IsDealerAvailable || objData.IsServiceDataAvailable);
+                objData.IsDealerServiceDataAvailable = cityId > 0 && objData.IsDealerAvailable;
                 objData.IsDealerServiceDataInIndiaAvailable = cityId == 0 && objData.DealersServiceCenter != null && objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails.Any();
-                objData.DealerServiceTitle = (cityId == 0 ? "Dealers & Service Centers" : (((objData.IsDealerAvailable && objData.IsServiceDataAvailable) ? "Dealers & Service Centers" : (objData.IsDealerAvailable ? "Dealers" : (objData.IsServiceDataAvailable ? "Service Centers" : "")))));
                 objData.IsNewsAvailable = objData.News != null && objData.News.ArticlesList != null && objData.News.ArticlesList.Any();
                 objData.IsExpertReviewsAvailable = objData.News != null && objData.ExpertReviews.ArticlesList != null && objData.ExpertReviews.ArticlesList.Any();
                 objData.IsVideosAvailable = objData.Videos != null && objData.Videos.VideosList != null && objData.Videos.VideosList.Any();
@@ -181,6 +179,8 @@ namespace Bikewale.Models
 
         /// <summary>
         /// Binds the dealers service centers.
+        /// Modified by : Vivek Singh Tomar on 12th Oct 2017
+        /// Summary : Removed initialization of service centers 
         /// </summary>
         /// <param name="objVM">The object vm.</param>
         /// <param name="cityEntity">The city entity.</param>
@@ -193,7 +193,6 @@ namespace Bikewale.Models
                     var dealerData = new DealerCardWidget(_objDealerCache, cityEntity.CityId, _makeId);
                     dealerData.TopCount = 3;
                     objVM.Dealers = dealerData.GetData();
-                    objVM.ServiceCenters = new ServiceCentersCard(_objService, 3, _makeId, cityEntity.CityId).GetData();
                 }
                 else
                 {

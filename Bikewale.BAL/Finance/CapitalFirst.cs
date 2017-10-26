@@ -144,7 +144,7 @@ namespace Bikewale.BAL.Finance
                     response.Message = _leadStatusCollection[13];
                     response.Status = 13;
                     response.CpId = objDetails.Id;
-                    response.CTleadId = objDetails.CTLeadId;
+                    response.CTleadId = objDetails.CtLeadId;
                     MobileVerificationEntity mobileVer = null;
                     mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
                     SMSTypes st = new SMSTypes();
@@ -178,7 +178,7 @@ namespace Bikewale.BAL.Finance
                 objId.LeadId = objDetails.LeadId;
                 if (ctResponse != null)
                 {
-                    objId.CTleadId = objDetails.CTLeadId = ctResponse.LeadId;
+                    objId.CTleadId = objDetails.CtLeadId = ctResponse.LeadId;
                     objId.Status = ctResponse.Status;
                     objId.Message = _leadStatusCollection[ctResponse.Status];
                     _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
@@ -224,7 +224,7 @@ namespace Bikewale.BAL.Finance
                         formData.Add(new KeyValuePair<string, string>("gender", objDetails.Gender == 1 ? "Male" : "Female"));
                         formData.Add(new KeyValuePair<string, string>("gross_income", objDetails.AnnualIncome.ToString()));
                         formData.Add(new KeyValuePair<string, string>("amount_needed", objDetails.LoanAmount.ToString()));
-                        formData.Add(new KeyValuePair<string, string>("lead_id", objDetails.CTLeadId.ToString()));
+                        formData.Add(new KeyValuePair<string, string>("lead_id", objDetails.CtLeadId.ToString()));
                         formData.Add(new KeyValuePair<string, string>("lname", objDetails.LastName));
                         formData.Add(new KeyValuePair<string, string>("make", bikemapping.MakeBase.Make));
                         formData.Add(new KeyValuePair<string, string>("model", bikemapping.ModelBase.ModelNo));
@@ -366,7 +366,7 @@ namespace Bikewale.BAL.Finance
 
                 if (ctResponse != null)
                 {
-                    response.CTleadId = objDetails.CTLeadId = ctResponse.LeadId;
+                    response.CTleadId = objDetails.CtLeadId = ctResponse.LeadId;
                     response.Status = ctResponse.Status;
                     response.Message = _leadStatusCollection[ctResponse.Status];
                     _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);

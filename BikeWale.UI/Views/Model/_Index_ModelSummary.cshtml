@@ -1,14 +1,19 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-
+@using System.Linq
 
 @if (!Model.IsUpcomingBike)
 {
 
     <div class="content-box-shadow content-inner-block-20 card-bottom-margin">
         <h2 class="h2-heading padding-bottom10">@Model.BikeName Summary</h2>
+        
         <div class="grid-8 alpha">
-           
-            <p class="font14 text-slate-grey line-height17">@Html.Raw(Model.ModelSummary)</p>
+            @if (!string.IsNullOrEmpty(Model.ModelSummary) && Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null
+                      && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds) && !Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
+            {
+                <p class="font14 text-slate-grey line-height17">@Html.Raw(Model.ModelSummary)</p>
+            }
+            
             <div class="margin-top10">
                 <table id="model-key-highlights" cellspacing="0" cellpadding="0" width="100%" border="0" class="font14 text-left">
                     <thead>
@@ -23,7 +28,7 @@
                                 <td width="36%"><strong class="text-unbold">Price</strong></td>
                                 <td width="64%">
                                     @Html.Raw("&#x20B9;")
-                                    <strong class="text-bold">@(Model.BikePrice > 0  ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.SelectedVersion.AverageExShowroom.ToString()))</strong>
+                                    <strong class="text-bold">@(Model.BikePrice > 0 ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.SelectedVersion.AverageExShowroom.ToString()))</strong>
                                 </td>
                             </tr>
                         }
@@ -63,7 +68,6 @@
             <div class="text-left alpha">
                 @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
             </div>
-
             <div id="adBlocker" class="adBlocker-grid text-left alpha hide">
                 <a href="https://www.bikewale.com/user-reviews/#selectBike" target="_blank" rel="noopener" title="Write a review" style="font-family: 'Open Sans', sans-serif, Arial; font-size: 14px; width: 300px; height: 250px; display: block; padding: 20px; margin: 0 auto; border: 1px solid #e2e2e2; background: #fff; box-sizing: border-box; color: #4d5057; text-decoration: none;">
                     <img src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/write-icon.png" alt="write a review" width="30" height="32" class="inline-block" style="margin-right: 10px" />
@@ -95,10 +99,47 @@
 
             }
         </div>
+
+        @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)
+              && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null
+              && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds)
+              && Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
+        {
+            
+                <div class="grid-12 font14 margin-top20 border-divider">
+                    <h2 class="h2-heading margin-bottom15 margin-top10 ">About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
+                    <div class="text-slate-grey line-height17">
+                        @if (!Model.IsUpcomingBike)
+                        {
+                            <p id="main-preview-content" class="inline">
+                                @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+                                {
+                                    @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                                }
+                                else
+                                {
+                                    @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                                }
+                            </p>
+                            if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
+                            {
+                                <p id="more-preview-content" class="hide">
+                                    @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                                </p>
+                                <a href="javascript:void(0)" id="read-more-preview" rel="nofollow">Read more</a>
+                            }
+                        }
+                        else
+                        {
+                            @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                        }
+                    </div>
+                </div>
+                <div class="clear"></div>
+            
+        }
         <div class="clear"></div>
 
 
-
-
     </div>
-                    }
+}

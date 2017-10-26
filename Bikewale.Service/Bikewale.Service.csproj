@@ -177,6 +177,10 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Utils.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Bikewale.Service.XML">
@@ -246,6 +250,7 @@
     <Compile Include="AutoMappers\Finance\FinanceMapper.cs" />
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="AutoMappers\Make\MakePageEntityMapper.cs" />
+    <Compile Include="AutoMappers\ManufacturerCampaign\ManufacturerCampaignMapper.cs" />
     <Compile Include="AutoMappers\MobileAppAlert\FCMNotificationMapper.cs" />
     <Compile Include="AutoMappers\NewBikeSearch\SearchOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Area\PQAreaListMapper.cs" />
@@ -446,6 +451,10 @@
     <ProjectReference Include="..\Bikewale.Interfaces\Bikewale.Interfaces.csproj">
       <Project>{12b0edcd-aa9e-41bb-bdc9-cef75952fd49}</Project>
       <Name>Bikewale.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.BAL\Bikewale.ManufacturerCampaign.BAL.csproj">
+      <Project>{5d58150b-55aa-4220-be98-5aca515ced8c}</Project>
+      <Name>Bikewale.ManufacturerCampaign.BAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.DAL\Bikewale.ManufacturerCampaign.DAL.csproj">
       <Project>{f3148a79-9fec-4a19-9977-0fa6163c9e77}</Project>

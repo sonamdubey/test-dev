@@ -18,9 +18,9 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
                 pdfBytes = document.GeneratePdf(htmlContent);
                 return pdfBytes;
             }
-            catch (System.Exception)
+            catch
             {
-                Logs.WriteErrorLog(string.Format("Error occured while processing Lead: ConvertToBytes()"));
+                Logs.WriteErrorLog("Error occured while processing Lead: ConvertToBytes()");
             }
 
             return pdfBytes;

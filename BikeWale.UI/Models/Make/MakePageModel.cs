@@ -69,6 +69,8 @@ namespace Bikewale.Models
         /// Gets the data for homepage
         /// Modified by : Ashutosh Sharma on 05 Oct 2017
         /// Description : Replaced call to method 'GetMostPopularBikesByMake' with 'GetMostPopularBikesByMakeWithCityPrice' to get city price when city is selected.
+        /// Modified by : Vivek Singh Tomar on 11th Oct 2017
+        /// Summary : Removed unnecessary arguments from BindDealerSserviceData which was required for fetchin service center details
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
@@ -120,7 +122,7 @@ namespace Bikewale.Models
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindUpcomingBikes(objData);
                 BindCompareBikes(objData, CompareSource, cityId);
-                BindDealerServiceData(objData, cityId, makeBase, cityBase);
+                BindDealerServiceData(objData, cityId);
                 BindCMSContent(objData);
                 objData.UsedModels = BindUsedBikeByModel(_makeId, cityId);
                 BindDiscontinuedBikes(objData);
@@ -136,23 +138,11 @@ namespace Bikewale.Models
                     objData.IsUsedModelsBikeAvailable = objData.UsedModels != null && objData.UsedModels.UsedBikeModelList != null && objData.UsedModels.UsedBikeModelList.Any();
 
                     objData.IsDealerAvailable = objData.Dealers != null && objData.Dealers.Dealers != null && objData.Dealers.Dealers.Any();
-                    objData.IsServiceDataAvailable = objData.ServiceCenters != null && objData.ServiceCenters.ServiceCentersList != null && objData.ServiceCenters.ServiceCentersList.Any();
-                    objData.IsDealerServiceDataAvailable = cityId > 0 && (objData.IsDealerAvailable || objData.IsServiceDataAvailable);
+                    objData.IsDealerServiceDataAvailable = cityId > 0 && objData.IsDealerAvailable;
                     objData.IsDealerServiceDataInIndiaAvailable = cityId == 0 && objData.DealersServiceCenter != null && objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails.Any();
 
                     objData.IsMakeTabsDataAvailable = (objData.BikeDescription != null && objData.BikeDescription.FullDescription.Length > 0 || objData.IsNewsAvailable ||
                         objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
-                    if (cityId == 0 && objData.IsDealerServiceDataInIndiaAvailable)
-                    {
-                        bool isDealeData = objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0;
-                        bool isService = objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0;
-                        objData.DealerServiceTitle = string.Format("{0}{1}{2}", isDealeData ? "Dealers" : "", (isDealeData && isService) ? " & " : string.Empty, isService ? "Service Centers" : "");
-
-                    }
-                    else
-                    {
-                        objData.DealerServiceTitle = string.Format("{0}{1}{2}", objData.IsDealerAvailable ? "Dealers" : string.Empty, (objData.IsDealerAvailable && objData.IsServiceDataAvailable) ? " & " : string.Empty, objData.IsServiceDataAvailable ? "Service Centers" : string.Empty);
-                    }
                 }
                 #endregion
             }
@@ -208,14 +198,19 @@ namespace Bikewale.Models
 
         }
 
-        private void BindDealerServiceData(MakePageVM objData, uint cityId, BikeMakeEntityBase makeBase, CityEntityBase cityBase)
+        /// <summary>
+        /// Modified by : Vivek Singh Tomar on 11th Oct 2017
+        /// Summary : Removed call for getting service centers details
+        /// </summary>
+        /// <param name="objData"></param>
+        /// <param name="cityId"></param>
+        private void BindDealerServiceData(MakePageVM objData, uint cityId)
         {
             if (cityId > 0)
             {
                 var dealerData = new DealerCardWidget(_cacheDealers, cityId, _makeId);
                 dealerData.TopCount = 3;
                 objData.Dealers = dealerData.GetData();
-                objData.ServiceCenters = new ServiceCentersCard(_objSC, 3, (uint)makeBase.MakeId, cityBase.CityId).GetData();
             }
             else
             {

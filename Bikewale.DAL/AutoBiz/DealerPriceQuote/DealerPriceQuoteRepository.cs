@@ -128,7 +128,7 @@ namespace Bikewale.DAL.AutoBiz
                                 }
                             }
 
-                            if ((varients != null && varients.Count > 0) && (priceSplits != null && priceSplits.Count > 0))
+                            if (varients.Count > 0 && (priceSplits != null && priceSplits.Count > 0))
                             {
                                 varients.ForEach(
                                     varient => varient.PriceList =
