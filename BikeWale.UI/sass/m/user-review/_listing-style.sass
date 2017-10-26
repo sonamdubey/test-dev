@@ -44,16 +44,10 @@
 	@include rate-count($i)
 	@include rating-badge($i)
 	@include rating-background($i)
-	@include rate-star-icon($i)
+	@include rate-star-icon($i, normal)
 
-.star-icon
-	width: 26px
-	height: 25px
-	vertical-align: middle
-	@include vendor-prefix("transform", scale(0.8))
-
-	&.star-size-14
-        @include vendor-prefix("transform", scale(0.5))
+	.overall-rating-box
+		@include rate-star-icon($i)
 
 // horizontal-rating-graph
 .margin-neg5
@@ -633,7 +627,7 @@
 .rating-text-pos
     position: relative
     left: -5px
-    top: 1px
+    top: 2px
 
 .next-grey-icon-listing
     width: 8px

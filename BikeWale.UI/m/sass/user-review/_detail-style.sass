@@ -105,64 +105,13 @@ $graph-bg: #eee
     @else
         @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined."
 
+@import ../../../sass/partials/rating
 
-@include rating-count(5)
-@include rating-count(4)
-@include rating-count(3)
-@include rating-count(2)
-@include rating-count(1)
-
-@include rating-background(5)
-@include rating-background(4)
-@include rating-background(3)
-@include rating-background(2)
-@include rating-background(1)
-
-
-.bg-rate-5
-	background-color: #198D55
-
-.bg-rate-4
-	background-color: #13B65D
-
-.bg-rate-3
-	background-color: #EFD700
-
-.bg-rate-2
-	background-color: #FD971C
-
-.bg-rate-1
-	background-color: #EF3F30
-
-// rating icons
-.star-icon
-    width: 26px
-    height: 25px
-    vertical-align: middle
-    @include transform(scale(0.8))
-
-    &.star-size-14
-        @include transform(scale(0.5))
-
-.rate-count-1
-    .star-icon
-        background-position: 0 -667px
-
-.rate-count-2
-    .star-icon
-        background-position: -38px -667px
-
-.rate-count-3
-    .star-icon
-        background-position: 0 -278px
-
-.rate-count-4
-    .star-icon
-        background-position: -74px -667px
-
-.rate-count-5
-    .star-icon
-        background-position: -110px -667px
+@for $i from 1 through 5
+	@include rate-count($i)
+	@include rate-star-icon($i, normal)
+	@include rating-badge($i)
+	@include rating-background($i)
 
 // horizontal-rating-graph
 .margin-neg5
@@ -414,7 +363,6 @@ $graph-bg: #eee
 
 	.star-icon
 		margin-right: -4px
-		@include transform(scale(0.55))
 
 .review-left-divider
 	position: relative
@@ -469,9 +417,8 @@ $graph-bg: #eee
         li
             width: ( 100 / $count ) * 1%
 
-@include grid-item-count(3)
-@include grid-item-count(2)
-@include grid-item-count(1)
+@for $i from 1 through 3
+	@include grid-item-count($i)
 
 // about list icons
 .questionId-2,
@@ -585,7 +532,7 @@ $graph-bg: #eee
 .rating-text-pos
     position: relative
     left: -5px
-    top: 1px
+    top: 2px
 
 .next-grey-icon-listing
     width: 8px
