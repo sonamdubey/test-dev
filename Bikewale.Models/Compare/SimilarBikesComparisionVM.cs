@@ -11,7 +11,7 @@ namespace Bikewale.Models.Compare
    public class SimilarBikesComparisionVM
     {
 
-        public SimilarBikeComparison similarBikesCompares { get; set; }
+        public SimilarBikeComparisonWrapper similarBikesCompares { get; set; }
 
     }
 }

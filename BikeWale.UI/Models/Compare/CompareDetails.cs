@@ -30,6 +30,7 @@ namespace Bikewale.Models
         private readonly IBikeCompare _objCompare = null;
         private readonly ICMSCacheContent _compareTest = null;
         private readonly ISponsoredComparison _objSponsored = null;
+        private string modelList;
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         public string redirectionUrl { get; set; }
@@ -343,7 +344,7 @@ namespace Bikewale.Models
                 if (String.IsNullOrEmpty(_originalUrl))
                     _originalUrl = request.ServerVariables["URL"];
 
-                string modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
+                modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
 
                 string[] queryArr = _originalUrl.Split('?');
                 if (queryArr.Length > 1)
@@ -436,11 +437,8 @@ namespace Bikewale.Models
         {
             try
             {
-                if(_objCompareCache!=null && _versionsList.Split(',').Count() > 1)
-                {
-                    ushort topCount = 12;
-                    obj.SimilarBikeComparisons.similarBikesCompares = _objCompareCache.GetSimilarBikesForComparisions(_versionsList, topCount);                    
-                }
+                ushort topCount = 10;
+                obj.SimilarBikeComparisons.similarBikesCompares = _objCompareCache.GetSimilarBikes(modelList, topCount);
             }
             catch (Exception ex)
             {

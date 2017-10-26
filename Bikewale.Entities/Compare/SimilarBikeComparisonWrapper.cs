@@ -7,12 +7,9 @@ namespace Bikewale.Entities.Compare
     /// Created By:Snehal Dange on 26th Oct 2017
     /// Description :  Entity created for similar bike comparison widget on Compare bikes
     /// </summary>
-    public class SimilarBikeComparison
+    public class SimilarBikeComparisonWrapper
     {
-        public IEnumerable<NewBikeEntityBase>  ComparedBikes{ get; set; }
-        public NewBikeEntityBase SimilarBike { get; set; }
-        public  sbyte BikeOrder1 { get; set; }
-        public sbyte BikeOrder2 { get; set; }
-
+        public IEnumerable<SimilarBikeComparisonData> SimilarBikes { get; set; }
+        public IEnumerable<BasicBikeEntityBase> BikeList { get; set; }        
     }
 }

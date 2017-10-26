@@ -224,19 +224,18 @@ namespace Bikewale.Cache.Compare
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>
         /// <returns></returns>
-        public SimilarBikeComparison GetSimilarBikesForComparisions(string versionList, ushort topCount)
+        public SimilarBikeComparisonWrapper GetSimilarBikes(string modelList, ushort topCount)
         {
-            SimilarBikeComparison similarbikecomparison = null;
+            SimilarBikeComparisonWrapper similarbikecomparison = null;
             string key = string.Empty;
             try
             {
-              key = string.Format("BW_SimilarCompareBikes_{0}_Cnt_{1}", versionList.Replace(',', '_'), versionList, topCount);
-              similarbikecomparison = _cache.GetFromCache<SimilarBikeComparison>(key, new TimeSpan(1, 0, 0), () => _compareRepository.GetSimilarBikesForComparisions(versionList, topCount));
+              key = string.Format("BW_SimilarCompareBikes_{0}_Cnt_{1}", modelList.Replace(',', '_'), modelList, topCount);
+              similarbikecomparison = _cache.GetFromCache<SimilarBikeComparisonWrapper>(key, new TimeSpan(1, 0, 0), () => _compareRepository.GetSimilarBikes(modelList, topCount));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository_GetSimilarBikesForComparisions_{0}_Cnt_{1}", versionList, topCount));
-
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetSimilarBikes_{0}_Cnt_{1}", modelList, topCount));
             }
             return similarbikecomparison;
         }

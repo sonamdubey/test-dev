@@ -1040,49 +1040,77 @@ namespace Bikewale.DAL.Compare
         /// <param name="topCount"></param>
         /// <param name="cityid"></param>
         /// <returns></returns>
-        public SimilarBikeComparison GetSimilarBikesForComparisions(string versionList, ushort topCount)
+        public SimilarBikeComparisonWrapper GetSimilarBikes(string modelList, ushort topCount)
         {
-            SimilarBikeComparison similarBikeComparison = null;
+            SimilarBikeComparisonWrapper similarBikeComparison = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarcomparebikeslist_03102017";
+                    cmd.CommandText = "GetSimilarBikes";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 100, versionList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelidlist", DbType.String, 20, modelList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {
-                            similarBikeComparison = new SimilarBikeComparison();
-                            IList<NewBikeEntityBase> comparedBikes = new List<NewBikeEntityBase>();
-                            NewBikeEntityBase similarBikesObj = new NewBikeEntityBase();
+                            similarBikeComparison = new SimilarBikeComparisonWrapper();
+
+                            IList<SimilarBikeComparisonData> similarBikeList = new List<SimilarBikeComparisonData>();
+
                             while (reader.Read())
                             {
-                                NewBikeEntityBase obj = new NewBikeEntityBase();
-                                obj.SimilarBikeId = SqlReaderConvertor.ToInt32(reader["ID"]);
-                                obj.CompareBike1 = SqlReaderConvertor.ToInt32(reader["ID"]);
-                                obj.CompareBike2 = SqlReaderConvertor.ToInt32(reader["ID"]);
-                                comparedBikes.Add(obj);
-
-
+                                similarBikeList.Add(new SimilarBikeComparisonData()
+                                {
+                                    BikeMake = new BikeMakeBase()
+                                    {
+                                        MakeMaskingName = Convert.ToString(reader["MakeMakingName"]),
+                                        MakeName = Convert.ToString(reader["MakeName"])
+                                    },
+                                    BikeModel = new BikeModelEntityBase()
+                                    {
+                                        ModelId = SqlReaderConvertor.ToInt32(reader["similarModelId"]),
+                                        MaskingName = Convert.ToString(reader["modelmaskingname"]),
+                                        ModelName = Convert.ToString(reader["modelname"])
+                                    },                                    
+                                    HostUrl = Convert.ToString(reader["HostUrl"]),
+                                    OriginalImagePath = Convert.ToString(reader["OriginalImagePath"]),
+                                    ModelId1 = SqlReaderConvertor.ToUInt32(reader["bike1"]),
+                                    ModelId2 = SqlReaderConvertor.ToUInt32(reader["bike2"]),
+                                });                                
                             }
+
+                            similarBikeComparison.SimilarBikes = similarBikeList;
+
+                            IList<BasicBikeEntityBase> BikeList = new List<BasicBikeEntityBase>();
+
                             if (reader.NextResult())
                             {
-
                                 while (reader.Read())
                                 {
-
-                                    similarBikesObj.Id = SqlReaderConvertor.ToInt32(reader["ID"]);
-                                    // all other details
-
-
+                                    BikeList.Add(new BasicBikeEntityBase()
+                                    {
+                                        Make = new BikeMakeEntityBase()
+                                        {
+                                            MaskingName = Convert.ToString(reader["MakeMakingName"]),
+                                            MakeName = Convert.ToString(reader["MakeName"])
+                                        },
+                                        Model = new BikeModelEntityBase()
+                                        {
+                                            ModelId = SqlReaderConvertor.ToInt32(reader["similarModelId"]),
+                                            MaskingName = Convert.ToString(reader["modelmaskingname"]),
+                                            ModelName = Convert.ToString(reader["modelname"])
+                                        },
+                                        HostUrl = Convert.ToString(reader["HostUrl"]),
+                                        OriginalImagePath = Convert.ToString(reader["OriginalImagePath"])                                        
+                                    });
                                 }
 
                             }
-                            similarBikeComparison.ComparedBikes = comparedBikes;
-                            similarBikeComparison.SimilarBike = similarBikesObj;
+
+                            similarBikeComparison.BikeList = BikeList;
+
                             reader.Close();
                         }
                     }
@@ -1090,7 +1118,7 @@ namespace Bikewale.DAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository_GetSimilarBikesForComparisions_{0}_Cnt_{1}", versionList, topCount));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository_GetSimilarBikesForComparisions_{0}_Cnt_{1}", modelList, topCount));
             }
 
             return similarBikeComparison;
