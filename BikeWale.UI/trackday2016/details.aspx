@@ -140,7 +140,7 @@
                                     <% foreach (var article in objTrackDayArticles.Articles)
                                        { %>
                                     <li>
-                                        <a href="<%= string.Format("{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString())) %>" c="bw_trackday" a="<%= article.Title %>-related-article" l="bw_trackday" title="<%= article.Title %>" class="bw-ga"><%= article.Title %></a>
+                                        <a href="<%= string.Format("{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString())) %>" data-cat="bw_trackday" data-act="<%= article.Title %>-related-article" data-lab="bw_trackday" title="<%= article.Title %>" class="bw-ga"><%= article.Title %></a>
                                     </li>
                                     <% } %>
                                 </ul>

@@ -53,14 +53,14 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
 
                 #region calculate loan variables
 
-                lead.OnRoadPrice = lead.Exshowroom + lead.Insurance + lead.RTO;
+                lead.OnRoadPrice = lead.Exshowroom + lead.Insurance + lead.Rto;
                 // Loan amount should be 80% of Bike On Road Price
                 lead.LoanAmount = Convert.ToUInt32(Math.Round(lead.OnRoadPrice * 0.8));
                 lead.LoanAmountStr = Bikewale.Utility.Format.FormatPrice(lead.LoanAmount.ToString());
                 lead.Downpayment = Bikewale.Utility.Format.FormatPrice((lead.OnRoadPrice - lead.LoanAmount).ToString());
                 double interestRate = 23;
                 int months = 36;
-                int emiValue = CalculateEMI(interestRate, months, lead.LoanAmount);
+                int emiValue = CalculateEmi(interestRate, months, lead.LoanAmount);
                 lead.Emi = Bikewale.Utility.Format.FormatPrice(emiValue.ToString());
 
                 #endregion
@@ -88,7 +88,7 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
            P = 80% of Bike On Road Price
         
         */
-        private int CalculateEMI(double interestRate, int months, double loanAmount)
+        private int CalculateEmi(double interestRate, int months, double loanAmount)
         {
             double payment = 0;
             int perMonth = 0;
@@ -187,7 +187,7 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
             }
             catch
             {
-                Logs.WriteErrorLog(string.Format("Error occured while processing Lead:SendEmail() LeadId: {0}", lead.CTLeadId));
+                Logs.WriteErrorLog(string.Format("Error occured while processing Lead:SendEmail() LeadId: {0}", lead.CtLeadId));
             }
         }
 
@@ -205,12 +205,12 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
                 {
                     case CarTradeVoucherStatus.Pre_Approved:
                         smsTemplate = string.Format("Congratulations! Your bike loan has been pre-approved by Capital First. Your loan voucher code is {0}. For further steps, please get in touch with Capital First Executive {1} - {2}.", lead.VoucherNumber, lead.AgentName, lead.AgentNumber);
-                        newSms.CapitalFirstLoanSMS(lead.MobileNo, "", EnumSMSServiceType.SMSforCapitalFirstSuccess, smsTemplate);
+                        newSms.CapitalFirstLoanSms(lead.MobileNo, "", EnumSMSServiceType.SMSforCapitalFirstSuccess, smsTemplate);
                         break;
                     case CarTradeVoucherStatus.Rejected:
                     case CarTradeVoucherStatus.Credit_Refer:
                         smsTemplate = "Your bike loan application could not be approved online based on your credit profile. Thank you for visiting BikeWale.";
-                        newSms.CapitalFirstLoanSMS(lead.MobileNo, "", EnumSMSServiceType.SMSforCapitalFirstFailure, smsTemplate);
+                        newSms.CapitalFirstLoanSms(lead.MobileNo, "", EnumSMSServiceType.SMSforCapitalFirstFailure, smsTemplate);
                         break;
                     default:
                         break;
@@ -218,7 +218,7 @@ namespace Bikewale.RabbitMq.CapitalFirstLeadConsumer
             }
             catch
             {
-                Logs.WriteErrorLog(string.Format("Error occured while processing Lead:SendSMS() LeadId: {0}", lead.CTLeadId));
+                Logs.WriteErrorLog(string.Format("Error occured while processing Lead:SendSMS() LeadId: {0}", lead.CtLeadId));
             }
         }
 

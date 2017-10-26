@@ -19,3 +19,4 @@ Bikewale.DataSync/DataSync/bin
 Bikewale.DataSync/DataSync/obj
 Bikewale.ReleaseManagement/copyfiles/bin
 Bikewale.ReleaseManagement/copyfiles/obj
+*.sh

@@ -15,6 +15,8 @@ namespace Bikewale.Models
     /// Summary     : Added editorial widgets (news, expert reviews, videos)
     /// Modified by : Snehal Dange on 21 August 2017
     /// Summary     : Added ScooterNewsUrl
+    /// Modified by : Vivek Singh Tomar on 12th Oct 2017
+    /// Summary : removed service center widget
     /// </author>
     public class ScootersMakePageVM : ModelBase
     {
@@ -24,13 +26,11 @@ namespace Bikewale.Models
         public UpcomingBikesWidgetVM UpcomingScooters { get; set; }
         public PopularComparisonsVM SimilarCompareScooters { get; set; }
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
-        public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
         public DealerCardVM Dealers { get; set; }
         public IEnumerable<BikeMakeEntityBase> OtherBrands { get; set; }
         public RecentNewsVM News { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }
         public RecentVideosVM Videos { get; set; }
-        public string DealerServiceTitle { get; set; }
         public string LocationMasking { get; set; }
         public string Location { get; set; }
         public ushort PageCatId { get; set; }
@@ -43,7 +43,6 @@ namespace Bikewale.Models
         public bool IsDealerServiceDataInIndiaAvailable { get; set; }
         public bool IsDealerServiceDataAvailable { get; set; }
         public bool IsDealerAvailable { get; set; }
-        public bool IsServiceDataAvailable { get; set; }
         public bool IsMakeTabsDataAvailable { get; set; }
 
         public string ScooterNewsUrl { get; set; }

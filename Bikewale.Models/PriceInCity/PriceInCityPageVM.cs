@@ -2,7 +2,9 @@
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.manufacturecampaign;
+using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Models.Gallery;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Models.ServiceCenters;
 using System;
@@ -15,6 +17,8 @@ namespace Bikewale.Models
     /// Description :   Price In city page view model
     /// Modified by: Vivek Singh Tomar on 30th Aug 2017
     /// Summary: Added property to hold city list for given model id
+    /// Modified by : Ashutosh Sharma on 05 Oct 2017
+    /// Description : Added PhotoGallery, IsGalleryLoaded and ModelGallery.
     /// </summary>
     public class PriceInCityPageVM : ModelBase
     {
@@ -85,8 +89,10 @@ namespace Bikewale.Models
         public PopularBodyStyleVM PopularBodyStyle { get; set; }
         public IEnumerable<CityEntityBase> Cities { get; set; }
         public bool IsPopularBodyStyleAvailable { get { return (PopularBodyStyle != null && PopularBodyStyle.PopularBikes != null && PopularBodyStyle.PopularBikes.Any()); } }
-
         public string ReturnUrl { get; set; }
+        public bool IsGalleryLoaded { get; set; }
+        public ModelGalleryVM ModelGallery { get; set; }
+        public ModelPhotoGalleryEntity PhotoGallery { get; set; }
     }
 
 }

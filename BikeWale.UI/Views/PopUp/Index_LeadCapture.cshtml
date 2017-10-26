@@ -6,7 +6,6 @@
 
 @if (Model.LeadCapture != null)
 {
-    Model.LeadCapture.IsAmp = true;
     @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 
 }

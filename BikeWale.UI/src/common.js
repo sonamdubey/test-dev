@@ -1279,17 +1279,22 @@ docReady(function () {
 
     });
    
-        $(document).on("click", ".bw-ga", function () {
+    $(document).on("click", ".bw-ga", function () {
         try {
             var obj = $(this);
-            if (obj.attr('l') !== undefined) {
-                triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+            var category = obj.attr("data-cat") || obj.attr("c");
+            var action = obj.attr("data-act") || obj.attr("a");
+            var label = obj.attr("data-lab") || obj.attr("l");
+            var variable = obj.attr("data-var") || obj.attr("v");
+            var funct = obj.attr("data-func") || obj.attr("f");
+            if (label !== undefined) {
+                triggerGA(category, action, label);
             }
-            else if (obj.attr('v') !== undefined) {
-                triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+            else if (variable !== undefined) {
+                triggerGA(category, action, window[variable]);
             }
             else if (obj.attr('f') !== undefined) {
-                triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+                triggerGA(category, action, eval(funct + '()'));
             }
         }
         catch (e) {

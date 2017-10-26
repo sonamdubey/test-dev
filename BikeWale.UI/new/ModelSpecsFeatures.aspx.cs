@@ -8,10 +8,12 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Models;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -24,13 +26,15 @@ namespace Bikewale.New
     /// <summary>
     /// Created By : Lucky Rathore on 03 June 2016
     /// Description : class handle Binding of specification and Feature and other logics.
+    /// Modified by : Vivek Singh Tomar on 12th Oct 2017
+    /// Summary : Added SimilarBikeWidgetVM and IBikeVersionCacheRepository
     /// </summary>
     public class ModelSpecsFeatures : PageBase
     {
         protected uint cityId, areaId, modelId, versionId, dealerId, price = 0;
         protected string cityName, areaName, makeName, modelName, modelImage, bikeName, versionName, makeMaskingName, modelMaskingName, clientIP = CommonOpn.GetClientIP();
         protected IEnumerable<CityEntityBase> objCityList = null;
-        protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
+        protected IEnumerable<AreaEntityBase> objAreaList = null;
         protected bool isDiscontinued, IsExShowroomPrice = true;
         protected BikeSpecificationEntity specs;
         protected BikeModelPageEntity modelDetail;
@@ -38,8 +42,12 @@ namespace Bikewale.New
         protected BikeModelPageEntity modelPg;
         protected LeadCaptureControl ctrlLeadPopUp;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
-        protected bool IsScooter =false;
+        protected bool IsScooter = false;
         protected bool IsScooterOnly = false;
+        protected SimilarBikesWidgetVM similarBikes;
+        protected PopularBodyStyleVM popularBodyStyle;
+        protected EnumBikeBodyStyles bodyStyle;
+        protected string bodyStyleText;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -62,29 +70,21 @@ namespace Bikewale.New
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
             ProcessQueryString();
-            modelDetail = FetchModelPageDetails(modelId, versionId);
-            IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
-            if (modelDetail != null)
+            modelDetail = FetchModelPageDetails(modelId);
+            if (modelDetail != null && modelDetail.ModelDetails != null)
             {
-                if (cityId > 0 && versionId > 0)
+                IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
+                if (versionId > 0)
                 {
-                    string PQLeadId = (PQSourceEnum.Desktop_SpecsAndFeaturePage_OnLoad).ToString();
-                    string UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : string.Empty;
-                    string UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : string.Empty;
-                    string DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : string.Empty;
-
+                    specs = FetchVariantDetails(versionId);
                 }
-
+                else
+                {
+                    specs = modelPg.ModelVersionSpecs;
+                }
+                BindWidget();
+                BindSimilarBikes();
             }
-            if (versionId > 0)
-            {
-                specs = FetchVariantDetails(versionId);
-            }
-            else
-            {
-                specs = modelPg.ModelVersionSpecs;
-            }
-            BindWidget();
         }
 
         /// <summary>
@@ -93,9 +93,8 @@ namespace Bikewale.New
         /// Modified by : Sajal gupta on 28-02-2017
         /// Description :" Fetch modelPage data from calling BAL function instead of cache function.
         /// </summary>
-        private BikeModelPageEntity FetchModelPageDetails(uint modelID, uint versionId)
+        private BikeModelPageEntity FetchModelPageDetails(uint modelID)
         {
-            modelPg = new BikeModelPageEntity();
             try
             {
                 if (modelID > 0)
@@ -135,6 +134,8 @@ namespace Bikewale.New
                                 {
                                     price = Convert.ToUInt32(selectedVersion.Price);
                                     versionName = selectedVersion.VersionName;
+                                    bodyStyle = selectedVersion.BodyStyle;
+                                    bodyStyleText = bodyStyle.Equals(EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes";
                                 }
                             }
                             // Added by Sangram on 21 Mar 2017 to fetch version id in case of discontinued bikes
@@ -277,6 +278,88 @@ namespace Bikewale.New
                 ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
                 ctrlGenericBikeInfo.TabCount = 4;
                 ctrlGenericBikeInfo.PageId = BikeInfoTabType.Specs;
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 12th Oct 2017
+        /// Summary : Bind similar bikes
+        /// </summary>
+        private void BindSimilarBikes()
+        {
+            try
+            {
+                if (modelId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
+                                .RegisterType<ICacheManager, MemcacheManager>()
+                                .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
+                        var objVersionCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, uint>>();
+                        var objSimilarBikes = new SimilarBikesWidget(objVersionCache, versionId, PQSourceEnum.Desktop_DPQ_Alternative);
+
+                        objSimilarBikes.TopCount = 9;
+                        objSimilarBikes.CityId = cityId;
+                        objSimilarBikes.IsNew = modelPg.ModelDetails.New;
+                        objSimilarBikes.IsUpcoming = modelPg.ModelDetails.Futuristic;
+                        objSimilarBikes.IsDiscontinued = !modelPg.ModelDetails.New && modelPg.ModelDetails.Used;
+                        similarBikes = objSimilarBikes.GetData();
+                        if (similarBikes != null && similarBikes.Bikes != null && similarBikes.Bikes.Any())
+                        {
+                            similarBikes.Make = modelPg.ModelDetails.MakeBase;
+                            similarBikes.Model = modelPg.ModelDetails;
+                            similarBikes.VersionId = versionId;
+                            similarBikes.BodyStyle = bodyStyle;
+                            similarBikes.Page = GAPages.Model_Page;
+                        }
+                        else
+                        {
+                            if (objSimilarBikes.IsNew || objSimilarBikes.IsUpcoming)
+                            {
+                                BindPopularBodyStyle();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.New.ModelSpecsFeatures.BindSimilarBikes({0})", modelId));
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 13th Oct 2017
+        /// Summary : Bind Popular Body Style
+        /// </summary>
+        private void BindPopularBodyStyle()
+        {
+            try
+            {
+                if (modelId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                                .RegisterType<ICacheManager, MemcacheManager>()
+                                .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                .RegisterType<IPager, Pager>();
+                        var objBestBikes = container.Resolve<IBikeModelsCacheRepository<int>>();
+                        var modelPopularBikesByBodyStyle = new Models.BestBikes.PopularBikesByBodyStyle(objBestBikes);
+                        modelPopularBikesByBodyStyle.CityId = cityId;
+                        modelPopularBikesByBodyStyle.ModelId = modelId;
+                        modelPopularBikesByBodyStyle.TopCount = 9;
+
+                        popularBodyStyle = modelPopularBikesByBodyStyle.GetData();
+                        popularBodyStyle.PQSourceId = PQSourceEnum.Desktop_ModelPage;
+                        popularBodyStyle.ShowCheckOnRoadCTA = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.New.ModelSpecsFeatures.BindPopularBodyStyle({0})", modelId));
             }
         }
 
