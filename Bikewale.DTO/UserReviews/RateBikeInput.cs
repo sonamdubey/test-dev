@@ -34,7 +34,7 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("isFake")]
         public bool IsFake { get; set; }
 
-        [Required]
+       
         [JsonProperty("returnUrl")]
         public string ReturnUrl { get; set; }
 
