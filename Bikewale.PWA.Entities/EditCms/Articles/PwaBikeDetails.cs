@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Bikewale.Entities.PWA.Articles
 {
     [Serializable, DataContract]
-    public class PwaBikeDetails
+    public class PwaBikeDetails: PwaCMSDetails
     {
         [DataMember]
         public string Name { get; set; }

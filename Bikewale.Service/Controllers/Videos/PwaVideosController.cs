@@ -25,7 +25,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
     /// Modified by :   Sumit Kate on 18 May 2016
     /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class PwaVideosController : CompressionApiController//ApiController
+    public class PwaVideosController : CompressionApiController
     {
         static readonly ILog _logger = LogManager.GetLogger(typeof(PwaVideosController));
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelCache = null;

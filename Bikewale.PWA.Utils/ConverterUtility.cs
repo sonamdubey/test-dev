@@ -215,6 +215,14 @@ namespace Bikewale.PWA.Utils
                 outBikeInfo.ModelDetailUrl = string.Format("/m{0}", UrlFormatter.BikePageUrl(inpBikeInfo.Make.MaskingName, inpBikeInfo.Model.MaskingName));
                 outBikeInfo.ImageUrl = Image.GetPathToShowImages(inpBikeInfo.OriginalImagePath, inpBikeInfo.HostUrl, ImageSize._110x61, QualityFactor._70);
 
+                var bikeRatings = new PwaBikeRating();
+                bikeRatings.Rating = inpBikeInfo.Rating;
+                bikeRatings.Count = inpBikeInfo.RatingCount;
+                bikeRatings.ReviewCount = inpBikeInfo.UserReviewCount;
+                bikeRatings.ReviewUrl= string.Format("/m{0}", UrlFormatter.FormatUserReviewUrl(inpBikeInfo.Make.MaskingName, inpBikeInfo.Model.MaskingName));
+                outBikeInfo.Rating = bikeRatings;
+
+
                 if (isDiscontinued)
                 {
                     outBikeInfo.PriceDescription = "Last known Ex-showroom price";
