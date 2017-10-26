@@ -109,11 +109,14 @@
     <Compile Include="EditCms\Articles\PwaArticleDetails.cs" />
     <Compile Include="EditCms\Articles\PwaArticleBase.cs" />
     <Compile Include="EditCms\Articles\PwaArticleListData.cs" />
+    <Compile Include="EditCms\Articles\PwaBikeCms.cs" />
     <Compile Include="EditCms\Articles\PwaBikeDetails.cs" />
     <Compile Include="EditCms\Articles\PwaBikeInfo.cs" />
     <Compile Include="EditCms\Articles\PwaBikeMakeEntityBase.cs" />
     <Compile Include="EditCms\Articles\PwaBikeNews.cs" />
+    <Compile Include="EditCms\Articles\PwaBikeVideoDetails.cs" />
     <Compile Include="EditCms\Articles\PwaBikeVideoEntity.cs" />
+    <Compile Include="EditCms\Articles\PwaBikeVideos.cs" />
     <Compile Include="EditCms\Articles\PwaBrandsInfo.cs" />
     <Compile Include="EditCms\Articles\PwaVideosBySubcategory.cs" />
     <Compile Include="EditCms\Articles\PwaVideosLandingPage.cs" />

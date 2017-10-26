@@ -5,6 +5,7 @@ using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models;
 using Bikewale.Models.Videos;
 using Bikewale.Notifications;
 using Bikewale.Service.Utilities;
@@ -35,7 +36,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             _videos = videos;
             _objModelCache = objModelCache;
         }
-        #region Videos List
+        #region Top Videos List
         /// <summary>
         ///  Modified By : Ashish G. Kamble
         ///  Summary : API to get the list of videos for the specified video subcategory.
@@ -223,19 +224,35 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
         }  //get  Categorized Videos 
 
 
-        [ResponseType(typeof(PwaBikeVideoEntity)), Route("api/pwa/videodet/{basicId}/")]
+        [ResponseType(typeof(PwaBikeVideoDetails)), Route("api/pwa/videodet/{basicId}/")]
         public IHttpActionResult Get(uint basicID)
         {
             try
             {
-                var videDet = _videos.GetVideoDetails(basicID);
-                if (videDet != null)
+                PwaBikeVideoDetails outObj = new PwaBikeVideoDetails();
+                var vidDet = _videos.GetVideoDetails(basicID);
+                if (vidDet != null)
                 {
-                    var output = Convert(videDet, true);
-                    if (output != null)
+                    outObj.VideoInfo = Convert(vidDet, true);
+
+                    var relatedInfoList = new List<PwaBikeVideoRelatedInfo>();
+                    var relatedInfo = new PwaBikeVideoRelatedInfo();
+
+                    var modelMaskingName = vidDet.MaskingName;
+
+                    uint modelId = 0;
+                    if (!string.IsNullOrEmpty(modelMaskingName))
                     {
-                        return Ok(output);
+                        var model = _objModelCache.GetModelMaskingResponse(modelMaskingName);
+                        modelId = model.ModelId;
                     }
+
+                    relatedInfo.Type = PwaRelatedInfoType.Video;
+                    relatedInfo.Url = string.Format("api/pwa/similarvideos/{0}/modelid/{1}",basicID, modelId);
+                    relatedInfoList.Add(relatedInfo);
+
+                    outObj.RelatedInfoApi = relatedInfoList;
+                    return Ok(outObj);
                 }
                 return null;
 
@@ -248,6 +265,62 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
 
         }  //get  Categorized Videos 
 
+
+        [ResponseType(typeof(PwaBikeVideos)), Route("api/pwa/similarvideos/{basicId}/modelid/{modelId}")]
+        public IHttpActionResult Get(uint basicId, uint modelId)
+        {
+            try
+            {
+                PwaBikeVideos outObj = new PwaBikeVideos();
+                var similarVidList = GetSimilarVideos(modelId,basicId);
+                if (similarVidList != null)
+                {
+                    var videosList = Convert(similarVidList.Videos);
+                    if(videosList!=null)
+                        outObj.VideosList = videosList.ToList();
+                    outObj.CompleteListUrl = similarVidList.ViewAllLinkUrl;
+                    outObj.CompleteListUrlAlternateLabel = similarVidList.ViewAllLinkTitle;
+                    outObj.Heading = "More related videos";
+                    outObj.CompleteListUrlLabel = similarVidList.ViewAllLinkText;
+                    return Ok(outObj);
+                }
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                return InternalServerError();
+            }
+
+        }  //get  Categorized Videos 
+
+
+        private SimilarVideoModelsVM GetSimilarVideos(uint modelId,uint videoId)
+        {
+            SimilarVideoModelsVM similarVideosModel = null;
+            if (modelId > 0)
+            {
+                try
+                {
+                    similarVideosModel = new SimilarVideoModelsVM();
+                    similarVideosModel.Videos = _videos.GetSimilarModelsVideos(videoId, modelId, 9);
+                    similarVideosModel.ModelId = modelId;
+                    BikeModelEntity objModel = _objModelCache.GetById((int)modelId);
+                    if (objModel != null)
+                    {
+                        similarVideosModel.ViewAllLinkText = "View all";
+                        similarVideosModel.ViewAllLinkUrl = String.Format("/{0}-bikes/{1}/videos/", objModel.MakeBase.MaskingName, objModel.MaskingName);
+                        similarVideosModel.ViewAllLinkTitle = String.Format("{0} {1} Videos", objModel.MakeBase.MakeName, objModel.ModelName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("PwaVideosController.GetSimilarVideos(ModelId {0}  Videoid {1})", modelId,videoId));
+                }
+            }
+            return similarVideosModel;
+        }
 
         private PwaBrandsInfo GetBrandsInfo(int topCount)
         {
