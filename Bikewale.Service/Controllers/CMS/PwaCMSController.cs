@@ -36,7 +36,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         private readonly ICMSCacheContent _CMSCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModelEntity = null;
         private readonly IUpcoming _upcoming = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesEntity;
+        private readonly IBikeMakesCacheRepository _bikeMakesEntity;
         private readonly IBikeModelsCacheRepository<int> _objModelCache;
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _cityCacheRepository;
@@ -50,7 +50,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             IBikeModelsCacheRepository<int> objModelCache,
             IBikeModels<BikeModelEntity, int> bikeModelEntity,
             IUpcoming upcoming,
-            IBikeMakesCacheRepository<int> bikeMakesEntity,
+            IBikeMakesCacheRepository bikeMakesEntity,
             IBikeInfo bikeInfo,
             ICityCacheRepository cityCacheRepository)
         {

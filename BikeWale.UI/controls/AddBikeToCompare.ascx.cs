@@ -71,9 +71,9 @@ namespace Bikewale.Controls
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakes<BikeMakeEntity, int>>()
-                       .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                       .RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                        .RegisterType<ICacheManager, MemcacheManager>();
-                    var objMake = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    var objMake = container.Resolve<IBikeMakesCacheRepository>();
 
                     makeList = objMake.GetMakesByType(EnumBikeType.NewBikeSpecification).ToList();
 

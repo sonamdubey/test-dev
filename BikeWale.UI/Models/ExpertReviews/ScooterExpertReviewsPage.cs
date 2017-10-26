@@ -25,7 +25,7 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _cmsCache = null;
         private readonly IPager _pager;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCacheRepository = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
         #endregion
 
         #region Page level variables
@@ -49,7 +49,7 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public ScooterExpertReviewsPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IBikeMakesCacheRepository<int> bikeMakesCacheRepository)
+        public ScooterExpertReviewsPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IBikeMakesCacheRepository bikeMakesCacheRepository)
         {
             _cmsCache = cmsCache;
             _pager = pager;

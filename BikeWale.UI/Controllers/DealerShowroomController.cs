@@ -1,5 +1,4 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -20,17 +19,16 @@ namespace Bikewale.Controllers
     public class DealerShowroomController : Controller
     {
         private readonly IDealerCacheRepository _objDealerCache = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
         private readonly IStateCacheRepository _objStateCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IServiceCenter _objSC = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         //Constructor for dealer locator
-        public DealerShowroomController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache)
+        public DealerShowroomController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
@@ -40,7 +38,6 @@ namespace Bikewale.Controllers
             _bikeModels = bikeModels;
             _newLaunches = newLaunches;
             _objSC = objSC;
-            _bikeMakes = bikeMakes;
             _objBestBikes = objBestBikes;
 
         }
@@ -56,7 +53,7 @@ namespace Bikewale.Controllers
 
         public ActionResult Index()
         {
-            DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_objBestBikes, _bikeMakes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 10);
+            DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_objBestBikes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 10);
 
             IndexVM objDealerIndexVM = objDealerIndex.GetData();
             if (objDealerIndexVM != null)
@@ -74,7 +71,7 @@ namespace Bikewale.Controllers
         [Route("m/dealershowroom/Index/")]
         public ActionResult Index_Mobile()
         {
-            DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_objBestBikes, _bikeMakes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 6);
+            DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_objBestBikes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 6);
 
             IndexVM objDealerIndexVM = objDealerIndex.GetData();
             if (objDealerIndexVM != null)

@@ -62,11 +62,11 @@ namespace Bikewale.Common
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                        container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                                          .RegisterType<ICacheManager, MemcacheManager>()
                                          .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                                         ;
-                        var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                        var objCache = container.Resolve<IBikeMakesCacheRepository>();
                         makes = objCache.GetMakesByType(_requestType);
 
 
@@ -107,11 +107,11 @@ namespace Bikewale.Common
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                    container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                                      .RegisterType<ICacheManager, MemcacheManager>()
                                      .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                                     ;
-                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    var objCache = container.Resolve<IBikeMakesCacheRepository>();
                     makes = objCache.GetMakesByType(requestType);
 
 

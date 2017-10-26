@@ -20,30 +20,28 @@ namespace Bikewale.Controllers
     public class ServiceCentersController : Controller
     {
         #region Private variables
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly IServiceCenterCacheRepository _objSCCache = null;
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IServiceCenter _objSC = null;
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IUpcoming _upcoming = null;
         private readonly ICityCacheRepository _ICityCache = null;
         #endregion
 
         #region Constructor
-        public ServiceCentersController(ICityCacheRepository ICityCache, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IBikeMakes<BikeMakeEntity, int> bikeMakes, IDealerCacheRepository objDealerCache, IBikeModels<BikeModelEntity, int> bikeModels, ICMSCacheContent articles, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository<int> bikeMakesCache, IServiceCenterCacheRepository objSCCache, IServiceCenter objSC)
+        public ServiceCentersController(ICityCacheRepository ICityCache, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IDealerCacheRepository objDealerCache, IBikeModels<BikeModelEntity, int> bikeModels, ICMSCacheContent articles, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository bikeMakesCache, IServiceCenterCacheRepository objSCCache, IServiceCenter objSC)
         {
             _objUsedCache = objUsedCache;
-            _bikeMakesCache = bikeMakesCache;
+            _bikeMakes = bikeMakesCache;
             _objSCCache = objSCCache;
             _bikeModels = bikeModels;
             _articles = articles;
             _objSC = objSC;
             _objDealerCache = objDealerCache;
-            _bikeMakes = bikeMakes;
             _upcoming = upcoming;
             _newLaunches = newLaunches;
             _ICityCache = ICityCache;
@@ -62,7 +60,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                ServiceCenterLandingPage modelObj = new ServiceCenterLandingPage(_ICityCache, _objUsedCache, _upcoming, _newLaunches, _bikeModels, _articles, _bikeMakesCache, _bikeMakes);
+                ServiceCenterLandingPage modelObj = new ServiceCenterLandingPage(_ICityCache, _objUsedCache, _upcoming, _newLaunches, _bikeModels, _articles, _bikeMakes);
                 if (modelObj != null)
                 {
                     modelObj.BrandWidgetTopCount = 10;
@@ -96,7 +94,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                ServiceCenterLandingPage modelObj = new ServiceCenterLandingPage(_ICityCache, _objUsedCache, _upcoming, _newLaunches, _bikeModels, _articles, _bikeMakesCache, _bikeMakes);
+                ServiceCenterLandingPage modelObj = new ServiceCenterLandingPage(_ICityCache, _objUsedCache, _upcoming, _newLaunches, _bikeModels, _articles, _bikeMakes);
                 if (modelObj != null)
                 {
                     modelObj.BrandWidgetTopCount = 6;
@@ -132,7 +130,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                ServiceCenterIndiaPage modelObj = new ServiceCenterIndiaPage(_articles, _objUsedCache, _bikeMakesCache, _objSCCache, makeMaskingName);
+                ServiceCenterIndiaPage modelObj = new ServiceCenterIndiaPage(_articles, _objUsedCache, _bikeMakes, _objSCCache, makeMaskingName);
 
                 if (modelObj != null)
                 {
@@ -178,7 +176,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                ServiceCenterIndiaPage modelObj = new ServiceCenterIndiaPage(_articles, _objUsedCache, _bikeMakesCache, _objSCCache, makeMaskingName);
+                ServiceCenterIndiaPage modelObj = new ServiceCenterIndiaPage(_articles, _objUsedCache, _bikeMakes, _objSCCache, makeMaskingName);
 
                 if (modelObj != null)
                 {
@@ -225,7 +223,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                ServiceCenterCityPage modelObj = new ServiceCenterCityPage(_objDealerCache, _objUsedCache, _bikeModels, _objSCCache, _objSC, _bikeMakesCache, cityMaskingName, makeMaskingName);
+                ServiceCenterCityPage modelObj = new ServiceCenterCityPage(_objDealerCache, _objUsedCache, _bikeModels, _objSCCache, _objSC, _bikeMakes, cityMaskingName, makeMaskingName);
 
                 if (modelObj != null)
                 {
@@ -269,7 +267,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                ServiceCenterCityPage modelObj = new ServiceCenterCityPage(_objDealerCache, _objUsedCache, _bikeModels, _objSCCache, _objSC, _bikeMakesCache, cityMaskingName, makeMaskingName);
+                ServiceCenterCityPage modelObj = new ServiceCenterCityPage(_objDealerCache, _objUsedCache, _bikeModels, _objSCCache, _objSC, _bikeMakes, cityMaskingName, makeMaskingName);
 
                 if (modelObj != null)
                 {
@@ -314,7 +312,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                ServiceCenterDetailsPage modelObj = new ServiceCenterDetailsPage(_bikeModels, _objUsedCache, _objDealerCache, _objSC, _bikeMakesCache, makeMaskingName, serviceCenterId);
+                ServiceCenterDetailsPage modelObj = new ServiceCenterDetailsPage(_bikeModels, _objUsedCache, _objDealerCache, _objSC, _bikeMakes, makeMaskingName, serviceCenterId);
 
                 if (modelObj != null)
                 {
@@ -360,7 +358,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                ServiceCenterDetailsPage modelObj = new ServiceCenterDetailsPage(_bikeModels, _objUsedCache, _objDealerCache, _objSC, _bikeMakesCache, makeMaskingName, serviceCenterId);
+                ServiceCenterDetailsPage modelObj = new ServiceCenterDetailsPage(_bikeModels, _objUsedCache, _objDealerCache, _objSC, _bikeMakes, makeMaskingName, serviceCenterId);
 
                 if (modelObj != null)
                 {

@@ -161,7 +161,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<Bikewale.Interfaces.PriceQuote.IDealerPriceQuoteDetail, Bikewale.BAL.PriceQuote.DealerPriceQuoteDetail>();
             container.RegisterType<Bikewale.Interfaces.Dealer.IDealerCacheRepository, Bikewale.Cache.DealersLocator.DealerCacheRepository>();
             container.RegisterType<ILeadNofitication, LeadNotificationBL>();
-            container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
+            container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
             container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
             container.RegisterType<IArticles, Articles>();

@@ -204,11 +204,11 @@ namespace Bikewale.Mobile.New
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                    container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                              .RegisterType<ICacheManager, MemcacheManager>()
                              .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                             ;
-                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    var objCache = container.Resolve<IBikeMakesCacheRepository>();
                     _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
                     if (_makes != null && _makes.Any())
                     {
@@ -293,11 +293,11 @@ namespace Bikewale.Mobile.New
                 {
                     using (IUnityContainer containerInner = new UnityContainer())
                     {
-                        containerInner.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                        containerInner.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                               .RegisterType<ICacheManager, MemcacheManager>()
                               .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                              ;
-                        var objCache = containerInner.Resolve<IBikeMakesCacheRepository<int>>();
+                        var objCache = containerInner.Resolve<IBikeMakesCacheRepository>();
 
                         objMakeResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
                     }

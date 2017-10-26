@@ -16,10 +16,10 @@ namespace Bikewale.Controllers
     {
         private IUpcoming _upcoming = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
 
-        public UpcomingController(IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels)
+        public UpcomingController(IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels)
         {
             _upcoming = upcoming;
             _newLaunches = newLaunches;
