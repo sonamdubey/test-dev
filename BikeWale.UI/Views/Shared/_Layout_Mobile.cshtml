@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.ModelBase
 <!doctype html>
 <html lang="en">
-<head>
+<head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#":"")>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     @if (Model != null && Model.PageMetaTags != null)

@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.ModelBase
 <!doctype html>
 <html amp lang="en">
-    <head>
+    <head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#":"")>
         <meta charset="utf-8">
         @if (Model != null && Model.PageMetaTags != null)
         {
@@ -13,7 +13,7 @@
             }
             if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
             {
-                <meta itemprop="description" name="description" content="@Model.PageMetaTags.Description" />
+                <meta itemprop="description" name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
             }
             if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
             {
@@ -28,7 +28,7 @@
         {
             <meta property="og:title" content="@Html.Raw(Model.PageMetaTags.Title)" />
             <meta property="og:type" content="website" />
-            <meta property="og:description" content="@Model.PageMetaTags.Description" />
+            <meta property="og:description" content="@Html.Raw(Model.PageMetaTags.Description)" />
             <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
             if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
             {

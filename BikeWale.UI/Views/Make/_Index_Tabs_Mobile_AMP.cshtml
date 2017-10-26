@@ -1,0 +1,38 @@
+﻿@model Bikewale.Models.MakePageVM
+@if (Model != null)
+{
+    string mobileUrl = string.Format("{0}/m/{1}-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.MakeMaskingName);
+    <div id="makeOverallTabsWrapper" class="position-rel">
+        <div id="overallSpecsTab" class="overall-specs-tabs-container">
+            <ul class="overall-specs-tabs-wrapper">
+                <li class="active">
+                    <a href="@string.Format("{0}#makeAboutContent", mobileUrl)">About</a>
+                </li>
+                <li>
+                    <a href="@string.Format("{0}#bikeMakeList", mobileUrl)">Bike Models</a>
+                </li>
+                <li>
+                    <a href="@string.Format("{0}#bikeByMakesUpcoming", mobileUrl)">Upcoming</a>
+                </li>
+                <li>
+                    <a href="@string.Format("{0}#popularComparison", mobileUrl)">Top Comparisions</a>
+                </li>
+                <li>
+                    <a href="@string.Format("{0}#makeNewsContent", mobileUrl)">News</a>
+                </li>
+                <li>
+                    <a href="@string.Format("{0}#makeReviewsContent", mobileUrl)">Reviews</a>
+                </li>
+                <li>
+                    <a href="@string.Format("{0}#makeVideosContent", mobileUrl)">Videos</a>
+                </li>
+                <li>
+                    <a href="@string.Format("{0}#makeDealersContent", mobileUrl)">Dealers</a>
+                </li>
+                <li>
+                    <a href="@string.Format("{0}#makeUsedBikeContent", mobileUrl)">Used Bikes</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+}
