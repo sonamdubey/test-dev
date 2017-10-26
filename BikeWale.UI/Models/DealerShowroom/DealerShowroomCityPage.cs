@@ -27,7 +27,7 @@ namespace Bikewale.Models.DealerShowroom
     public class DealerShowroomCityPage
     {
         private readonly IDealerCacheRepository _objDealerCache = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
         private readonly IServiceCenter _objSC = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
@@ -41,7 +41,7 @@ namespace Bikewale.Models.DealerShowroom
         public bool IsMobile { get; internal set; }
 
         //Constructor
-        public DealerShowroomCityPage(IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository<int> bikeMakesCache, string makeMaskingName, string cityMaskingName, uint topCount)
+        public DealerShowroomCityPage(IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository bikeMakesCache, string makeMaskingName, string cityMaskingName, uint topCount)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
@@ -349,11 +349,11 @@ namespace Bikewale.Models.DealerShowroom
 
         }
 
-         //<summary>
-         //Created By : Snehal Dange on 3rd Oct 2017
-         //Description : Method for showrooms in popular cities widget 
-         //</summary>
-         //<param name = "objVM" ></ param >
+        //<summary>
+        //Created By : Snehal Dange on 3rd Oct 2017
+        //Description : Method for showrooms in popular cities widget 
+        //</summary>
+        //<param name = "objVM" ></ param >
         private void BindShowroomPopularCityWidget(DealerShowroomCityPageVM objDealerDetails)
         {
             DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();

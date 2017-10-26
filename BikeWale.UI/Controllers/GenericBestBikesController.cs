@@ -1,5 +1,4 @@
 ﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Models;
 using System.Web.Mvc;
@@ -13,8 +12,8 @@ namespace Bikewale.Controllers
     public class GenericBestBikesController : Controller
     {
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
-        public GenericBestBikesController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes)
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
+        public GenericBestBikesController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakesCacheRepository bikeMakes)
         {
             _objBestBikes = objBestBikes;
             _bikeMakes = bikeMakes;
@@ -73,7 +72,7 @@ namespace Bikewale.Controllers
                 {
                     objBestBikes.IsMobile = true;
                     objBestBikes.makeTopCount = 6;
-                    IndexBestBikesVM obj = new IndexBestBikesVM();                    
+                    IndexBestBikesVM obj = new IndexBestBikesVM();
                     obj = objBestBikes.GetData();
                     if (obj != null)
                         return View(obj);

@@ -21,8 +21,8 @@ namespace Bikewale.Models.ServiceCenters
     /// </summary>
     public class ServiceCenterLandingPage
     {
-        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
@@ -37,9 +37,8 @@ namespace Bikewale.Models.ServiceCenters
         public ushort UpcomingBikesWidgetData { get; set; }
         public ushort UsedBikeModelWidgetTopCount { get; set; }
 
-        public ServiceCenterLandingPage(ICityCacheRepository ICityCache, IUsedBikeDetailsCacheRepository objUsedCache, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICMSCacheContent articles, IBikeMakesCacheRepository<int> objMakeCache, IBikeMakes<BikeMakeEntity, int> bikeMakes)
+        public ServiceCenterLandingPage(ICityCacheRepository ICityCache, IUsedBikeDetailsCacheRepository objUsedCache, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICMSCacheContent articles, IBikeMakesCacheRepository bikeMakes)
         {
-            _objMakeCache = objMakeCache;
             _bikeMakes = bikeMakes;
             _articles = articles;
             _bikeModels = bikeModels;

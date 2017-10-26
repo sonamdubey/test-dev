@@ -15,7 +15,7 @@ namespace Bikewale.BAL.MVC.UI
     /// </summary>
     public class ScooterBrands
     {
-        public BrandWidget GetScooterBrands(IBikeMakesCacheRepository<int> IScooters, ushort topBrandCount)
+        public BrandWidget GetScooterBrands(IBikeMakesCacheRepository IScooters, ushort topBrandCount)
         {
             BrandWidget objBrand = null;
             try
@@ -35,7 +35,7 @@ namespace Bikewale.BAL.MVC.UI
             return objBrand;
         }
 
-        public IEnumerable<BikeMakeEntityBase> GetOtherScooterBrands(IBikeMakesCacheRepository<int> IScooters, uint MakeId, ushort topCount)
+        public IEnumerable<BikeMakeEntityBase> GetOtherScooterBrands(IBikeMakesCacheRepository IScooters, uint MakeId, ushort topCount)
         {
             IEnumerable<BikeMakeEntityBase> scooterBrand = null;
             try

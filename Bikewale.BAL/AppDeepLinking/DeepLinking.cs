@@ -18,9 +18,9 @@ namespace Bikewale.BAL.AppDeepLinking
     /// </summary>
     public class DeepLinking : IDeepLinking
     {
-        private readonly IBikeMakesCacheRepository<int> _makeCache;
+        private readonly IBikeMakesCacheRepository _makeCache;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _modelCache;
-        public DeepLinking(IBikeMakesCacheRepository<int> makeCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelCache)
+        public DeepLinking(IBikeMakesCacheRepository makeCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelCache)
         {
             _makeCache = makeCache;
             _modelCache = modelCache;

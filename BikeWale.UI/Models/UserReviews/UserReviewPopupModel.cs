@@ -11,9 +11,9 @@ namespace Bikewale.Models.UserReviews
     public class UserReviewPopupModel
     {
         private IEnumerable<BikeMakeEntityBase> _popupMakesList = null;
-        private readonly IBikeMakesCacheRepository<int> _makeRepository = null;
+        private readonly IBikeMakesCacheRepository _makeRepository = null;
 
-        public UserReviewPopupModel(IBikeMakesCacheRepository<int> makeRepository, IEnumerable<BikeMakeEntityBase> makesList)
+        public UserReviewPopupModel(IBikeMakesCacheRepository makeRepository, IEnumerable<BikeMakeEntityBase> makesList)
         {
             if (makesList != null)
                 _popupMakesList = makesList;

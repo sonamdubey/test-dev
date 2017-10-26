@@ -16,7 +16,7 @@ namespace Bikewale.Models
     public class NewLaunchedIndexModel
     {
         private readonly INewBikeLaunchesBL _newLaunches = null;
-        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IUpcoming _upcoming = null;
         private readonly InputFilter _filter = null;
         private readonly PQSourceEnum _pqSource;
@@ -25,7 +25,7 @@ namespace Bikewale.Models
         public int PageSize { get; set; }
         public string BaseUrl { get; set; }
         public ushort MakeTopCount { get; set; }
-        public NewLaunchedIndexModel(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache, IUpcoming upcoming, InputFilter filter, PQSourceEnum pqSource, ushort? pageNumber)
+        public NewLaunchedIndexModel(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming, InputFilter filter, PQSourceEnum pqSource, ushort? pageNumber)
         {
             _newLaunches = newLaunches;
             _objMakeCache = objMakeCache;
