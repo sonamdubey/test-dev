@@ -68,7 +68,6 @@ namespace Bikewale.Models.UserReviews
                 objData.ExpertReviews = objExpertReviews.GetData();
 
                 objData.Authors = _authors.GetAuthorsList(Convert.ToInt32(BWConfiguration.Instance.ApplicationId));
-
                 objData.Brands = new BrandWidgetModel(BrandsSkipCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.UserReviews);
 
             }
