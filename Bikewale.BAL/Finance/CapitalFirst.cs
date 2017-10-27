@@ -166,16 +166,16 @@ namespace Bikewale.BAL.Finance
 
             try
             {
-                objDetails.LeadId = SubmitLead(objDetails, Utmz, Utma);
+                if (objDetails.LeadId == 0)
+                {
+                    objDetails.LeadId = SubmitLead(objDetails, Utmz, Utma);
+                }
 
                 #region Do not change the sequence
                 var ctResponse = SendCustomerDetailsToCarTrade(objDetails, leadSource);
 
-                objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
 
                 objId = new LeadResponseMessage();
-                objId.CpId = objDetails.Id;
-                objId.LeadId = objDetails.LeadId;
                 if (ctResponse != null)
                 {
                     objId.CTleadId = objDetails.CtLeadId = ctResponse.LeadId;
@@ -183,6 +183,13 @@ namespace Bikewale.BAL.Finance
                     objId.Message = _leadStatusCollection[ctResponse.Status];
                     _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
                 }
+                objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
+
+              
+                objId.CpId = objDetails.Id;
+                objId.LeadId = objDetails.LeadId;
+
+               
                 #endregion
 
 

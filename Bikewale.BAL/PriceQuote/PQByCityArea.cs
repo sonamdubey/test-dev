@@ -554,7 +554,7 @@ namespace Bikewale.BAL.PriceQuote
                     }
 
                 }
-                else if (cityId == null)
+                else if (cityId == null || cityId.Value == 0)
                 {
                     pqEntity.IsExShowroomPrice = true;
                 }

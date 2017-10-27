@@ -34,7 +34,7 @@ namespace Bikewale.DTO.Model.v5
         public bool IsUpcoming { get; set; }
 
         [JsonProperty("isExShowroomPrice")]
-        public bool IsExShowroomPrice { get; set; }
+        public bool IsExShowroomPrice { get; set; } = true;
 
         [JsonIgnore]
         [JsonProperty("isCityExists")]

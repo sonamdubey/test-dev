@@ -356,7 +356,7 @@
                 <% if (similarBikes != null && similarBikes.Bikes != null && similarBikes.Bikes.Any())
                     { %>
                 <div id="modelSimilarContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin font14">
-                    <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15"><%= bodyStyleText %> similar to <%= modelPg.ModelDetails.ModelName %></h2>
+                    <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15 font18"><%= bodyStyleText %> similar to <%= modelPg.ModelDetails.ModelName %></h2>
                     <div class="jcarousel-wrapper inner-content-carousel">
                         <div class="jcarousel">
                             <ul>

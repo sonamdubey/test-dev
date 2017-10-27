@@ -133,11 +133,10 @@
                                 || (Model.IsModelDescriptionAvailable))
         {
             <div class="bw-model-tabs-data">
-                @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
-                {
-                    <div class="grid-12">
-                        @Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
-                    </div>
+                @if (Model.IsModelDescriptionAvailable)
+                {   <div class="grid-12">
+                    @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
+                </div>
                 }
                 @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
                 {
@@ -146,10 +145,11 @@
                         @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries.cshtml", Model.ModelsBySeries)
                     </div>
                 }
-                @if (Model.IsModelDescriptionAvailable)
-                {   <div class="grid-12">
-                    @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
-                </div>
+                @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
+                {
+                    <div class="grid-12">
+                        @Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
+                    </div>
                 }
                 <div class="clear"></div>
             </div>

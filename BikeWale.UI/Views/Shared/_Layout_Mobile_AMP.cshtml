@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.ModelBase
 <!doctype html>
 <html amp lang="en">
-    <head>
+    <head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#":"")>
         <meta charset="utf-8">
         @if (Model != null && Model.PageMetaTags != null)
         {
@@ -13,7 +13,7 @@
             }
             if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
             {
-                <meta itemprop="description" name="description" content="@Model.PageMetaTags.Description" />
+                <meta itemprop="description" name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
             }
             if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
             {
@@ -28,7 +28,7 @@
         {
             <meta property="og:title" content="@Html.Raw(Model.PageMetaTags.Title)" />
             <meta property="og:type" content="website" />
-            <meta property="og:description" content="@Model.PageMetaTags.Description" />
+            <meta property="og:description" content="@Html.Raw(Model.PageMetaTags.Description)" />
             <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
             if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
             {
@@ -446,110 +446,5 @@ amp-accordion > section[expanded] .fa-angle-down {
                 <div class="clear"></div>
             </div>
         </footer>
-
-        <amp-analytics type="googleanalytics">
-            <script type="application/json">
-            {
-                "vars": {
-                    "account": "UA-34771801-1"
-                },
-                "extraUrlParams": {
-                    "pageSourceType": "AMP"
-                },
-                "triggers": {
-                    "trackPageview": {
-                        "on": "visible",
-                        "request": "pageview",
-                        "vars": {
-                            "title": "@Model.PageMetaTags.Title"
-                        }
-                    },
-                    "trackEvent": {
-                        "selector": ".bw-price-in-city-ga",
-                        "on": "click",
-                        "request": "event",
-                        "vars": {
-                            "eventCategory": "Price_in_City_Page",
-                            "eventAction": "Floating_Navigation_Clicked"
-                        }
-                    }
-                }
-            }
-            </script>
-        </amp-analytics>
-
-
-        <amp-analytics type="googleanalytics">
-            <script type="application/json">
-                {
-                    "vars": {
-                    "account": "UA-34771801-1"
-                    },
-                    "extraUrlParams": {
-                    "pageSourceType": "AMP"
-                    },
-                    "triggers": {
-                        "trackEvent": {
-                            "selector": "#exploreMoreCard",
-                            "on": "click",
-                            "request": "event",
-                            "vars": {
-                                "eventCategory": "Price_in_City_Page",
-                                "eventAction": "Clicked_ExploreMore_Card"
-                            }
-                        }
-                    }
-                }
-            </script>
-        </amp-analytics>
-
-        <amp-analytics type="googleanalytics">
-            <script type="application/json">
-                {
-                    "vars": {
-                    "account": "UA-34771801-1"
-                    },
-                    "extraUrlParams": {
-                    "pageSourceType": "AMP"
-                    },
-                    "triggers": {
-                        "trackEvent": {
-                            "selector": ".coverfox-link-clicked",
-                            "on": "click",
-                            "request": "event",
-                            "vars": {
-                                "eventCategory": "Price_in_City_Page",
-                                "eventAction": "CoverFox_Link_Clicked"
-                            }
-                        }
-                    }
-                }
-            </script>
-        </amp-analytics>
-
-        <amp-analytics type="googleanalytics">
-            <script type="application/json">
-                {
-                    "vars": {
-                    "account": "UA-34771801-1"
-                    },
-                    "extraUrlParams": {
-                    "pageSourceType": "AMP"
-                    },
-                    "triggers": {
-                        "trackEvent": {
-                            "selector": ".view-dealer-details-clicked",
-                            "on": "click",
-                            "request": "event",
-                            "vars": {
-                                "eventCategory": "Price_in_City_Page",
-                                "eventAction": "View_dealer_details_Clicked"
-                            }
-                        }
-                    }
-                }
-            </script>
-        </amp-analytics>
-        
     </body>
 </html>

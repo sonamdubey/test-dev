@@ -4,39 +4,39 @@
         <div class="overall-specs-tabs-wrapper">
             @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription.Length > 0)
             {   
-                <span class="navtab" data-href="#makeAboutContent" data-lab="@string.Format("{0}_About", Model.MakeName)" rel="nofollow">About @Model.MakeName</span>
+                <span class="navtab" data-href="#makeAboutContent" data-lab="@string.Format("{0}_About", Model.MakeName)">About</span>
             }
             @if (Model.Bikes != null && Model.Bikes.Count() > 0)
             {
-                <span class="navtab" data-href="#bikeMakeList" data-lab="@string.Format("{0}_Models", Model.MakeName)" rel="nofollow">Bike Models</span>
+                <span class="navtab" data-href="#bikeMakeList" data-lab="@string.Format("{0}_Models", Model.MakeName)">Bike Models</span>
             }
             @if (Model.IsUpComingBikesAvailable)
             {
-                <span class="navtab" data-href="#makeUpcomingBikesContent" data-lab="@string.Format("{0}_UpcomingBikes", Model.MakeName)" rel="nofollow">Upcoming</span>
+                <span class="navtab" data-href="#makeUpcomingBikesContent" data-lab="@string.Format("{0}_UpcomingBikes", Model.MakeName)">Upcoming</span>
             }
             @if (Model.IsCompareBikesAvailable)
             {
-                <span class="navtab" data-href="#popularComparison" data-lab="@string.Format("{0}_TopComparisons", Model.MakeName)" rel="nofollow">Top Comparisons</span>
+                <span class="navtab" data-href="#popularComparison" data-lab="@string.Format("{0}_TopComparisons", Model.MakeName)">Top Comparisons</span>
             }
             @if (Model.IsNewsAvailable)
             {
-                <span class="navtab" data-href="#modelNewsContent" data-lab="@string.Format("{0}_News", Model.MakeName)" rel="nofollow">News</span>
+                <span class="navtab" data-href="#modelNewsContent" data-lab="@string.Format("{0}_News", Model.MakeName)">News</span>
             }
             @if (Model.IsExpertReviewsAvailable)
             {
-                <span class="navtab" data-href="#makeReviewsContent" data-lab="@string.Format("{0}_Reviews", Model.MakeName)" rel="nofollow">Reviews</span>
+                <span class="navtab" data-href="#makeReviewsContent" data-lab="@string.Format("{0}_Reviews", Model.MakeName)" >Reviews</span>
             }
             @if (Model.IsVideosAvailable)
             {
-                <span class="navtab" data-href="#makeVideosContent" data-lab="@string.Format("{0}_Videos", Model.MakeName)" rel="nofollow">Videos</span>
+                <span class="navtab" data-href="#makeVideosContent" data-lab="@string.Format("{0}_Videos", Model.MakeName)" >Videos</span>
             }
             @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
             {
-                <span class="navtab" data-href="#dealerAndServiceContent" data-lab="@string.Format("{0}_Showrooms", Model.MakeName)" rel="nofollow">Dealers</span>
+                <span class="navtab" data-href="#dealerAndServiceContent" data-lab="@string.Format("{0}_Showrooms", Model.MakeName)" >Dealers</span>
             }
             @if (Model.IsUsedModelsBikeAvailable)
             {
-                <span class="navtab" data-href="#makeUsedBikeContent" data-lab="@string.Format("{0}_UsedBikes", Model.MakeName)" rel="nofollow">Used Bikes</span>
+                <span class="navtab" data-href="#makeUsedBikeContent" data-lab="@string.Format("{0}_UsedBikes", Model.MakeName)" >Used Bikes</span>
             }
         </div>
     </div>

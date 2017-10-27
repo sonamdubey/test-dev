@@ -27,17 +27,16 @@
             {
                 <div id="makeAboutContent" class="content-box-shadow bw-model-tabs-data  content-inner-block-2010 border-solid-bottom margin-bottom20">
                     <div class="grid-12">
-                        <h2>@Model.MakeName Summary</h2>
                         <p class="font14 text-light-grey line-height17">
                             <span class="preview-main-content">
-                                @Bikewale.Utility.FormatDescription.TruncateDescription(Model.BikeDescription.FullDescription, 700)
+                                @Bikewale.Utility.FormatDescription.TruncateDescription(Model.BikeDescription.FullDescription, 400)
                             </span>
                             <span class="preview-more-content hide" style="display: none;">
                                 @Html.Raw(Model.BikeDescription.FullDescription)
                             </span>
-                            @if (Model.BikeDescription.FullDescription.Length > 700)
+                            @if (Model.BikeDescription.FullDescription.Length > 400)
                             {
-                        <a href="javascript:void(0)" class="read-more-bike-preview" rel="nofollow">Read more</a>
+                                <a href="javascript:void(0)" class="read-more-bike-preview" rel="nofollow">Read more</a>
                             }
                         </p>
                     </div>
@@ -46,13 +45,11 @@
             }
             @if (Model.Bikes != null && Model.Bikes.Count() > 0)
             {
-                <section>
-                    <div class="content-box-shadow content-inner-block-1420">
+                <section id="bikeMakeList" class="bw-model-tabs-data">
+                    <div  class="content-box-shadow content-inner-block-1420">
                         <div class="grid-8 alpha">
                             <h2 class="leftfloat text-x-black">@string.Format("{0} Bikes Prices in  India", Model.MakeName)</h2>
                         </div>
-                        @if (Model.Bikes != null && Model.Bikes.Count() > 0)
-                        {
                             <div class="grid-4 rightfloat omega font14" id="sortByContainer">
                                 <div class="leftfloat sort-by-text text-light-grey margin-left50">
                                     <p>Sort by:</p>
@@ -75,10 +72,9 @@
                                     </div>
                                 </div>
                             </div>
-                        }
                         <div class="clear"></div>
                     </div>
-                    <div id="bikeMakeList" class="bw-model-tabs-data content-box-shadow padding-top25 padding-left20 rounded-corner2 inner-content-card">
+                    <div  class="content-box-shadow padding-top25 padding-left20 rounded-corner2 inner-content-card">
 
                         @if (Model.Bikes != null && Model.Bikes.Count() > 0)
                         {

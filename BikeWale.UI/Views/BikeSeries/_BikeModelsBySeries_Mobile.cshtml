@@ -17,13 +17,13 @@
                                     @if (bike.BikeImage != null)
                                     { 
                                         <div class="horizontal-swiper__image inline-block">
-                                            <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._110x61, QualityFactor._70)) alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="">
+                                            <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._110x61, QualityFactor._70)) alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="">
                                         </div> 
                                     }
                                     else
                                     {
                                         <div class="horizontal-swiper__image inline-block">
-                                            <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(string.Empty, string.Empty, ImageSize._110x61)) alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="">
+                                            <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(string.Empty, string.Empty, ImageSize._110x61)) alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="">
                                         </div>
                                     }
                                     @if (bike.MinSpecs != null)
@@ -59,13 +59,13 @@
                                     @if (bike.BikeImage != null)
                                     {
                                         <div class="horizontal-swiper__image inline-block">
-                                            <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._110x61, QualityFactor._70)) alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="">
+                                            <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._110x61, QualityFactor._70)) alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="">
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="horizontal-swiper__image inline-block">
-                                            <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(string.Empty, string.Empty, ImageSize._110x61)) alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="">
+                                            <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(string.Empty, string.Empty, ImageSize._110x61)) alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="">
                                         </div>
                                     }
                                     <div class="horizontal-swiper__details inline-block">

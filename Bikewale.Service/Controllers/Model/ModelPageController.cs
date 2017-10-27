@@ -437,20 +437,19 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     if (Request.Headers.Contains("platformId"))
                     {
+                        PQByCityArea getPQ = new PQByCityArea();
+                        PQByCityAreaEntity pqEntity = null;
                         ushort platformId;
+
+                        if (!objModelPage.ModelDetails.Futuristic)
+                        {
+                            pqEntity = getPQ.GetVersionListV2((int)modelId, objModelPage.ModelVersions, (int)(cityId.HasValue ? cityId.Value : 0), areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
+                        }
+
                         if (ushort.TryParse(Request.Headers.GetValues("platformId").First().ToString(), out platformId) && platformId == 3 && cityId.HasValue && cityId.Value > 0)
                         {
 
-                            #region On road pricing for versions
-                            PQByCityArea getPQ;
-                            PQByCityAreaEntity pqEntity = null;
-                            if (!objModelPage.ModelDetails.Futuristic)
-                            {
-
-                                getPQ = new PQByCityArea();
-                                pqEntity = getPQ.GetVersionListV2((int)modelId, objModelPage.ModelVersions, (int)cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
-                            }
-
+                            #region On road pricing for versions                            
                             if (cityId != null && cityId.Value > 0 && !objModelPage.ModelDetails.Futuristic)
                             {
                                 int versionId = 0;
@@ -493,7 +492,7 @@ namespace Bikewale.Service.Controllers.Model
                         }
                         else
                         {
-                            objDTOModelPage = ModelMapper.ConvertV5(objModelPage, null, null, platformId);
+                            objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, platformId);
                         }
                     }
                     else
