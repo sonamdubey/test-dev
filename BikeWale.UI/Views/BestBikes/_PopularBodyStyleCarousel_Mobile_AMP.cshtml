@@ -5,7 +5,7 @@
         {
             string bikeName = string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName);
                 <div class="swiper-card">
-                    <a class="block" href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName))" title="@bikeName">
+                    <a class="block" href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName))" title="@bikeName">
                         <div class="swiper-image-preview">
                             <amp-img alt="@bikeName" src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98, QualityFactor._70)" title="@bikeName" width="160" height="90">
                         </div>
@@ -29,7 +29,8 @@
                     @if (Model.ShowCheckOnRoadCTA)
                     {
                         <div class="swiper-btn-block">
-                            <a href="#" data-pqsourceid="@((int)Model.PQSourceId)" data-modelid="@bike.objModel.ModelId" class="btn btn-card btn-full-width btn-white getquotation" rel="nofollow">Check on-road price</a>
+                            <a href="@string.Format(" {0}/m/popup/?queryString={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}{4}", (int)Model.PQSourceId, "", bike.objModel.ModelId, BWConfiguration.Instance.BwHostUrl, "/m/honda-bikes/")))" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                            @*<a href="#" data-pqsourceid="@((int)Model.PQSourceId)" data-modelid="@bike.objModel.ModelId" class="btn btn-card btn-full-width btn-white getquotation" rel="nofollow">Check on-road price</a>*@
                         </div>
                     }
                 </div>

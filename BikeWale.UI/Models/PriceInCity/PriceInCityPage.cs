@@ -842,6 +842,8 @@ namespace Bikewale.Models
         /// Description :   Bind Similar Bikes
         /// Modified by: Vivek Singh Tomar on 23 Aug 2017
         /// Summary: Added page enum to similar bike widget
+        /// Modified by : Vivek Singh Tomar on 27th Oct 2017
+        /// Description: Add city and return url details for redirection from amp to bikewale pages on check on road CTA popup
         /// </summary>
         /// <param name="objVM"></param>
         private void BindSimilarBikes(PriceInCityPageVM objVM)
@@ -859,6 +861,7 @@ namespace Bikewale.Models
                     similarBikesVM.Make = objVM.Make;
                     similarBikesVM.Model = objVM.BikeModel;
                     similarBikesVM.VersionId = firstVersion.VersionId;
+                    //similarBikesVM.ReturnUrlForAmpPages = string.Format("{0}/m/price-in-{1}", BWConfiguration.Instance.BwHostUrl, "");
                     objVM.AlternateBikes = similarBikesVM;
                     objVM.AlternateBikes.Page = Entities.Pages.GAPages.PriceInCity_Page;
                 }
