@@ -579,7 +579,7 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string FormatUserReviewContestUrl(UserReviewPageSourceEnum source)
         {
-            return "/bike-review-contest/?q=" + Utils.Utils.EncryptTripleDES(string.Format("csrc={0}", (int)source));
+            return "/bike-review-contest/?q=" + EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)source));
         }
     }
 }

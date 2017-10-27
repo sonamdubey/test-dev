@@ -282,8 +282,8 @@ namespace Bikewale.Models.UserReviews
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, "/reviews/", "Reviews"));
+            bikeUrl = string.Format("{0}reviews/", bikeUrl);
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Reviews"));
 
             if (objPage.RatingsInfo != null && objPage.RatingsInfo.Make != null)
             {

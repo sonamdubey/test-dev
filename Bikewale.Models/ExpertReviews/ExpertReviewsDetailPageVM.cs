@@ -23,5 +23,6 @@ namespace Bikewale.Models
         public BikeModelEntityBase Model { get; set; }
         public StringBuilder BikeTested { get; set; }
         public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
+        public IEnumerable<VehicleTag> TaggedBikes { get; set; }
     }
 }
