@@ -257,7 +257,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
 
                     relatedInfo = new PwaBikeVideoRelatedInfo();
                     relatedInfo.Type = PwaRelatedInfoType.Bike;
-                    relatedInfo.Url =  string.Format("api/pwa/popularbodystyle/modelid/{1}/count/9", modelId);
+                    relatedInfo.Url =  string.Format("api/pwa/popularbodystyle/modelid/{0}/count/9", modelId);
                     relatedInfoList.Add(relatedInfo);
                     outObj.RelatedInfoApi = relatedInfoList;
                     return Ok(outObj);
