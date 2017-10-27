@@ -405,7 +405,7 @@ docReady(function () {
                         $('#modelDetailsContainer .bw-model-tabs-data').removeClass('active');
 
                         $(this).addClass('active');
-                        topNavBar.find('span[data-href="#' + $(this).attr('id') + '"]').addClass('active');
+                        topNavBar.find('span[data-href="#' + $(this).attr('data-id') + '"]').addClass('active');
 
                     }
                 }
