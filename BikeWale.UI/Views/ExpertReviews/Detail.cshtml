@@ -69,7 +69,7 @@
                     </div>
                     <div class="section-inner-padding">
                         <div id="topNav" class="margin-bottom10">
-                            @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Count() > 0)
+                            @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Any())
                             {
                                 <ul>
                                     @foreach (var page in Model.ArticleDetails.PageList)
@@ -85,7 +85,7 @@
                             }
                         </div>
                         <div class="clear"></div>
-                        @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Count() > 0)
+                        @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Any())
                         {
                             foreach (var page in Model.ArticleDetails.PageList)
                             {
@@ -129,7 +129,7 @@
                 </div>
             </div>
             <div class="grid-4 omega">
-                @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
+                @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Any())
                 {
                     <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                         <h2>@Model.MostPopularBikes.WidgetHeading</h2>
@@ -144,7 +144,7 @@
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                 </div>
 
-                @if (Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0)
+                @if (Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Any())
                 {
                     <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                         <h2>Popular scooter brands</h2>
@@ -158,7 +158,7 @@
                 }
                 else if (Model.Model != null && Model.Model.ModelId > 0)
                 {
-                    if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Count() > 0)
+                    if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Any())
                     {
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                             <h2>@Model.PopularBodyStyle.WidgetHeading</h2>
@@ -171,7 +171,7 @@
                 }
                 else
                 {
-                    if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
+                    if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Any())
                     {
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                             <h2>@Model.UpcomingBikes.WidgetHeading</h2>
