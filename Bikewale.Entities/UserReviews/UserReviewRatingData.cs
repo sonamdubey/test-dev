@@ -1,10 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
-using Bikewale.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.UserReviews
 {
@@ -12,7 +7,7 @@ namespace Bikewale.Entities.UserReviews
     /// Created by : Snehal Dange on 1st Sep 2017
     /// Summary     : Entity for Rate bike page (1st page)
     /// </summary>
-    public class UserReviewRatingData 
+    public class UserReviewRatingData
     {
         public BikeModelEntity ObjModelEntity { get; set; }
 
@@ -24,7 +19,6 @@ namespace Bikewale.Entities.UserReviews
 
         public string ErrorMessage { get; set; }
         public ushort PriceRangeId { get; set; }
-    
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public uint ReviewId { get; set; }
