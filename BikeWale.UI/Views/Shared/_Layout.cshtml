@@ -1,50 +1,50 @@
 ﻿@model Bikewale.Models.ModelBase
 <!doctype html>
 <html lang="en">
-<head>
+<head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#":"")>
     @if (Model != null && Model.PageMetaTags != null)
     {
         Model.PageMetaTags.EnableOG = true;
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
         {
-    <title >@Html.Raw(Model.PageMetaTags.Title)</title>
+            <title>@Html.Raw(Model.PageMetaTags.Title)</title>
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
         {
-    <meta name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
+            <meta name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
         {
-    <meta name="keywords" content="@Model.PageMetaTags.Keywords" />
+            <meta name="keywords" content="@Model.PageMetaTags.Keywords" />
         }
         if (Model.PageMetaTags.EnableOG)
         {
-    <meta property="og:title" content="@Model.PageMetaTags.Title" />
-    <meta property="og:type" content="website" />
-    <meta property="og:description" content="@Html.Raw(Model.PageMetaTags.Description)" />
-    <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+            <meta property="og:title" content="@Model.PageMetaTags.Title" />
+            <meta property="og:type" content="website" />
+            <meta property="og:description" content="@Html.Raw(Model.PageMetaTags.Description)" />
+            <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
             if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
             {
-    <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
+                <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
             }
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.AlternateUrl))
         {
-    <link rel="alternate" type="text/html" media="handheld" href="@Model.PageMetaTags.AlternateUrl" title="Mobile/PDA" />
+            <link rel="alternate" type="text/html" media="handheld" href="@Model.PageMetaTags.AlternateUrl" title="Mobile/PDA" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
         {
-    <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
+            <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
         if (!String.IsNullOrEmpty(Model.PageMetaTags.PreviousPageUrl))
         {
-    <link rel="prev" href="@Model.PageMetaTags.PreviousPageUrl" /> }
+            <link rel="prev" href="@Model.PageMetaTags.PreviousPageUrl" /> }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
         {
-    <link rel="next" href="@Model.PageMetaTags.NextPageUrl" />
+            <link rel="next" href="@Model.PageMetaTags.NextPageUrl" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.AmpUrl))
         {
-    <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" />
+            <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" />
         }
     }
     <meta charset="utf-8" />
@@ -52,7 +52,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <link rel='stylesheet' type='text/css' href='/css/bw-common-atf.css' atf-css />
-
     <link href="//www.googletagservices.com" rel="dns-prefetch" />
     <link href="//ad.doubleclick.net" rel="dns-prefetch" />
     <link href="//www.googleadservices.com" rel="dns-prefetch" />
@@ -63,7 +62,6 @@
     <link href="//www.google-analytics.com" rel="dns-prefetch" />
     <link href="//bhrigu.bikewale.com" rel="dns-prefetch" />
     <link href="//tpc.googlesyndication.com" rel="dns-prefetch" />
-
     <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
     <script defer type="text/javascript" src="@String.Format("{0}/src/frameworks.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></script>
     <noscript>
@@ -74,7 +72,7 @@
         @if (!String.IsNullOrEmpty(Model.Page_BTF_CSS_Path))
         {
 
-        <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_BTF_CSS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
+            <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_BTF_CSS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
         }
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     </noscript>
@@ -194,7 +192,7 @@
             @if(Model.AdTags.Ad_292x399){ @Html.Raw(GetAdSlot(14, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if(Model.AdTags.Ad_292x359){ @Html.Raw(GetAdSlot(15, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if(Model.AdTags.Ad_292x360){ @Html.Raw(GetAdSlot(16, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            
+
             googletag.pubads().enableSingleRequest();
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
@@ -206,14 +204,12 @@
             googletag.enableServices();
         });
     </script>
-
     @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
     {
-    <script type="application/ld+json">
-        @(Html.Raw(Model.PageMetaTags.SchemaJSON))
-    </script>
+        <script type="application/ld+json">
+            @(Html.Raw(Model.PageMetaTags.SchemaJSON))
+        </script>
     }
-
     @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.PageSchemaJSON))
     {
         <script type="application/ld+json">
@@ -222,7 +218,6 @@
     }
 </head>
 <body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" @string.Format("{0}", Model.ExcludeContestSlug ? "data-contestslug='true'" : "") data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
-
     <div id="header" class='@(Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
         <!-- Fixed Header code starts here -->
         <div class="leftfloat">
@@ -249,7 +244,6 @@
                     </div>
                 </div>
             </div>
-
             @Html.Partial("~/Views/Shared/_LoginStatus.cshtml")
             <div class="changecity-blackout-window"></div>
             <div class="clear"></div>
@@ -280,7 +274,6 @@
             <div class="container">
                 <div class="grid-12">
                     <div>
-
                         <div id='div-gpt-ad-@string.Format("{0}-10", Model.AdTags.AdId)' class="margin-bottom15 margin-top10 text-center">
                             <script type='text/javascript'>
                                 googletag.cmd.push(function () { googletag.display('div-gpt-ad-@string.Format("{0}-10", Model.AdTags.AdId)'); });
@@ -291,11 +284,11 @@
                 <div class="clear"></div>
             </div>
         </div>
-    }else if (Model.AdTags.ShowInnovationBannerDesktop)
-    {
-        Html.RenderPartial("~/Views/Shared/Ads/Desktop/Ad970x90_InnovationBanner.cshtml",Model.AdTags);
     }
-
+    else if (Model.AdTags.ShowInnovationBannerDesktop)
+    {
+        Html.RenderPartial("~/Views/Shared/Ads/Desktop/Ad970x90_InnovationBanner.cshtml", Model.AdTags);
+    }
 
     @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
     {
@@ -327,11 +320,8 @@
             <div class="clear"></div>
         </section>
     }
-
     @RenderBody()
-
     @Html.Partial("~/Views/Shared/_PopupWidget.cshtml")
-
     @if (Model.AdTags.Ad_970x90Bottom)
     {
         <section class="container">
@@ -342,7 +332,6 @@
             </div>
         </section>
     }
-
     <div class="blackOut-window"></div>
     <nav id="nav">
         <ul class="navUL">
@@ -352,7 +341,6 @@
                     <span class="navbarTitle">Home</span>
                 </a>
             </li>
-
             <li>
                 <a href="javascript:void(0)" rel="nofollow">
                     <span class="bwsprite newBikes-icon"></span>
@@ -421,13 +409,11 @@
                     <span class="navbarTitle">My BikeWale</span>
                 </a>
             </li>
-
         </ul>
         <div class="margin-top40 margin-bottom40 margin-left20">
             <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DDrawer%26utm_campaign%3DBikeWale%2520Desktopsite%2520Drawer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5"></a>
         </div>
     </nav>
-
     <div class="globalcity-popup rounded-corner2 hide" id="globalcity-popup">
         <!-- global city pop up code starts here -->
         <div class="globalcity-popup-data text-center">
@@ -454,7 +440,6 @@
         </div>
         <div class="clear"></div>
     </div>
-
     <footer class="bg-footer padding-top40 padding-bottom20" id="bg-footer">
         <!-- Footer section code starts here -->
         <div class="container">
@@ -525,11 +510,8 @@
         </div>
     </footer><!-- Ends here -->
 
-
     @Html.Partial("~/Views/Shared/_LoginControl.cshtml")
-
     <script defer type="text/javascript" src="@String.Format("{0}/src/bwcache.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
-
     <script>
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
     </script>
@@ -537,17 +519,17 @@
     <script defer type="text/javascript" src="@String.Format("{0}/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
     @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
     {
-            <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+        <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
     }
-    
-    @if (Model.Page_JS_Paths !=null)
+
+    @if (Model.Page_JS_Paths != null)
     {
         foreach (var scriptLink in Model.Page_JS_Paths)
         {
             <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, scriptLink.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
         }
     }
-    
+
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" defer></script>
     <noscript>
         <div style="display:inline;">

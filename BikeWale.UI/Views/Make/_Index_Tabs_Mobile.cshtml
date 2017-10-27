@@ -6,7 +6,7 @@
             {
                 <li data-tabs="#makeAboutContent" data-lab="@string.Format("{0}_About", Model.MakeName)">About</li>
             }
-            @if (Model.Bikes != null && Model.Bikes.Count() > 0)
+            @if (Model.Bikes != null && Model.Bikes.Any())
             {
                 <li data-tabs="#bikeMakeList" data-lab="@string.Format("{0}_Models", Model.MakeName)">Bike Models</li>
             }

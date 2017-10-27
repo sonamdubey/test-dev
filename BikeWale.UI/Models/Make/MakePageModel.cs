@@ -295,9 +295,11 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1} - Rs. {2}. Check out {0} on road price, reviews, mileage, versions, news & images at Bikewale.", objData.MakeName, Bikewale.Utility.Format.FormatPrice(minPrice.ToString()), Bikewale.Utility.Format.FormatPrice(MaxPrice.ToString()));
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
+                objData.PageMetaTags.AmpUrl = string.Format("{0}/m/{1}-bikes/amp/", BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
                 objData.PageMetaTags.Keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, {0} Images, new {0} Bikes", objData.MakeName);
                 objData.AdTags.TargetedMakes = objData.MakeName;
                 objData.Page_H1 = string.Format("{0} Bikes", objData.MakeName);
+                objData.ReturlUrl = string.Format("/m/{0}-bikes/", objData.MakeMaskingName);
 
                 SetBreadcrumList(ref objData);
 
