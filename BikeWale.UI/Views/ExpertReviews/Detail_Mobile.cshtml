@@ -91,25 +91,21 @@
             }
         </div>
 
-        @if (Model.ArticleDetails != null && Model.ArticleDetails.VehiclTagsList != null && Model.ArticleDetails.VehiclTagsList.Any())
+        @if (Model.TaggedBikes != null && Model.TaggedBikes.Any())
         {
-            var bikes = Model.ArticleDetails.VehiclTagsList.Where(bike => !string.IsNullOrEmpty(bike.MakeBase.MaskingName) && !string.IsNullOrEmpty(bike.ModelBase.MaskingName));
-            if (bikes != null && bikes.Any())
-            {
                 <div class="padding-top20 padding-left20 padding-right20 padding-bottom20 bg-read-more-articles">
                     <h2 class="list-heading">More expert reviews</h2>
                     <ul class="disk-list">
-                    @foreach (var bike in bikes)
+                    @foreach (var bike in Model.TaggedBikes)
                     {
                         string bikeName = string.Format("{0} {1}", bike.MakeBase.MakeName, bike.MakeBase.MakeName);
                             <li data-cat="Expert_Reviews" data-lab="@bikeName" data-act="Clicked_ModelExpertReviews_Link">
-                                <a href="@string.Format("/{0}-bikes/{1}/expert-reviews/",bike.MakeBase.MaskingName,bike.ModelBase.MaskingName)" title="@bikeName Expert Reviews">Read more @bikeName Reviews</a>
+                                <a href="@string.Format("/m/{0}-bikes/{1}/expert-reviews/",bike.MakeBase.MaskingName,bike.ModelBase.MaskingName)" title="@bikeName Expert Reviews">Read more @bikeName Reviews</a>
                             </li>
 
                         }
                     </ul>
                 </div>
-            }
         }
     </div>
 </section>

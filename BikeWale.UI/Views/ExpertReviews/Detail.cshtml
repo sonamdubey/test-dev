@@ -61,43 +61,70 @@
                                 </a>
                             }
                             <span class="font12 inline-block text-light-grey">
-                                @if(Model.BikeTested!=null && !string.IsNullOrEmpty(Model.BikeTested.ToString())){
+                                @if (Model.BikeTested != null && !string.IsNullOrEmpty(Model.BikeTested.ToString()))
+                                {
                                     @Html.Raw(Model.BikeTested)}
                             </span>
                         </div>
                     </div>
                     <div class="section-inner-padding">
                         <div id="topNav" class="margin-bottom10">
-                            @if(Model.ArticleDetails.PageList!=null && Model.ArticleDetails.PageList.Count()>0){
+                            @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Count() > 0)
+                            {
                                 <ul>
-                                    @foreach (var page in Model.ArticleDetails.PageList) {
+                                    @foreach (var page in Model.ArticleDetails.PageList)
+                                    {
                                         <li>
                                             <a href="#@page.pageId">@page.PageName</a>
                                         </li>
-                                       }
+                                    }
                                     <li>
                                         <a href="#divPhotos">Images</a>
                                     </li>
                                 </ul>
-                                      }
+                            }
                         </div>
                         <div class="clear"></div>
-                        @if(Model.ArticleDetails.PageList!=null && Model.ArticleDetails.PageList.Count()>0){
-                           foreach (var page in Model.ArticleDetails.PageList) {
-                            <div class="margin-top10 margin-bottom10">
-                                <h3 class="article-content-title">@page.PageName</h3>
-                                <div id='@page.pageId' class="margin-top10 article-content">
-                                    @Html.Raw(page.Content)
+                        @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Count() > 0)
+                        {
+                            foreach (var page in Model.ArticleDetails.PageList)
+                            {
+                                <div class="margin-top10 margin-bottom10">
+                                    <h3 class="article-content-title">@page.PageName</h3>
+                                    <div id='@page.pageId' class="margin-top10 article-content">
+                                        @Html.Raw(page.Content)
+                                    </div>
                                 </div>
-                            </div>
-                            }}
+                            }
+                        }
 
-                        @if (Model.PhotoGallery!=null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
+                        @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
                         {
                             <div id="divPhotos">
-                                @Html.Partial("~/Views/Shared/_EditCMSPhotoGallery.cshtml",Model.PhotoGallery.Images)
+                                @Html.Partial("~/Views/Shared/_EditCMSPhotoGallery.cshtml", Model.PhotoGallery.Images)
                             </div>
                         }
+
+
+                        @if (Model.TaggedBikes != null && Model.TaggedBikes.Any())
+                        {
+
+                            <div class="padding-top20 padding-left20 padding-right20 padding-bottom20 bg-read-more-articles">
+                                <h2 class="list-head">More expert reviews</h2>
+                                <ul class="disk-list">
+                                    @foreach (var bike in Model.TaggedBikes)
+                                    {
+                                        string bikeName = string.Format("{0} {1}", bike.MakeBase.MakeName, bike.MakeBase.MakeName);
+                                        <li data-cat="Expert_Reviews" data-lab="@bikeName" data-act="Clicked_ModelExpertReviews_Link">
+                                            <a href="@string.Format("/{0}-bikes/{1}/expert-reviews/", bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bikeName Expert Reviews">Read more @bikeName Reviews</a>
+                                        </li>
+
+                                    }
+                                </ul>
+                            </div>
+
+                        }
+
                     </div>
                 </div>
             </div>
@@ -117,7 +144,7 @@
                     @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                 </div>
 
-                @if ( Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0)
+                @if (Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0)
                 {
                     <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                         <h2>Popular scooter brands</h2>
@@ -162,7 +189,7 @@
     </div>
 </section>
 <div class="back-to-top" id="back-to-top"></div>
-@if (Model.PhotoGallery!=null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
+@if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
 {
     <section>
         <div class="model-gallery-container">
