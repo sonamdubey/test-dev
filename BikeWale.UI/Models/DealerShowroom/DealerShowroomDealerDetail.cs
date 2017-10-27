@@ -417,7 +417,7 @@ namespace Bikewale.Models
                 if(status.Equals(StatusCodes.ContentFound) && dealerId > 0)
                 {
                     objDealerDetails.DealerDetails = BindDealersData();
-                    if(objDealerDetails.DealerDetails != null && !objDealerDetails.DealerDetails.DealerDetails.IsFeatured)
+                    if (objDealerDetails.DealerDetails != null && (objDealerDetails.DealerDetails.DealerDetails == null || !objDealerDetails.DealerDetails.DealerDetails.IsFeatured))
                     {
                         status = StatusCodes.RedirectPermanent;
                         objDealerDetails.RedirectUrl = string.Format("{0}/{1}{2}-dealer-showrooms-in-{3}/", BWConfiguration.Instance.BwHostUrl, IsMobile?"m/":"", makeMaskingName, cityMaskingName);
