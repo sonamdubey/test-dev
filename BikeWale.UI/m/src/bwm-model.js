@@ -234,7 +234,7 @@ docReady(function () {
 
                 $(this).addClass('active');
 
-                var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('id') + '"]');
+                var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('data-id') + '"]');
                 overallSpecsTabsContainer.find(currentActiveTab).addClass('active');
             }
         });

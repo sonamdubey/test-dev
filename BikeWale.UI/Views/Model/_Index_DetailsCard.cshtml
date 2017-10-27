@@ -12,7 +12,7 @@
                 }
     @if (Model.IsSimilarBikesAvailable)
     {
-        <div id="modelSimilarContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin font14">
+        <div id="modelSimilarContent" data-id="modelSimilarContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin font14">
             <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15">@Model.BodyStyleText Similar to @Model.ModelPageEntity.ModelDetails.ModelName</h2>
             <div class="jcarousel-wrapper inner-content-carousel">
                 <div class="jcarousel">
@@ -32,7 +32,7 @@
     }
     else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomingBike))
     {
-        <div id="modelPopularContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin padding-bottom15">
+        <div id="modelPopularContent" data-id="modelPopularContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin padding-bottom15">
             <div class="carousel-heading-content padding-top20">
                 <div class="swiper-heading-left-grid inline-block">
                     <h2 class="h2-heading">Other popular @Model.BodyStyleText</h2>
@@ -46,7 +46,7 @@
     }
     @if (Model.ModelPageEntity.ModelVersionSpecs != null || (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)))
     {
-        <div id="modelSpecsFeaturesAboutContent" class="bw-model-tabs-data">
+        <div id="modelSpecsFeaturesAboutContent" data-id="modelSpecsFeaturesAboutContent" class="bw-model-tabs-data">
             @if (Model.ModelPageEntity.ModelVersionSpecs != null)
             {
                 <div id="modelSpecsFeaturesContent" class="content-box-shadow card-bottom-margin font14">
@@ -98,7 +98,7 @@
                             }
     @if (Model.IsReviewsAvailable)
     {
-        <div id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin bw-model-tabs-data active">
+        <div id="modelExpertReviewsContent" data-id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin bw-model-tabs-data active">
             @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
             {
 					<!-- expert review starts-->
@@ -120,7 +120,7 @@
     @if (Model.IsUserReviewsAvailable)
     {
 
-        <div id="modelReviewsContent" class="bw-model-tabs-data font14">
+        <div id="modelReviewsContent" data-id="modelReviewsContent" class="bw-model-tabs-data font14">
             <div class="card-bottom-margin">
                 <div class="content-box-shadow content-inner-block-20">
                     <div class="leftfloat">
@@ -179,7 +179,7 @@
 
 
 
-        <div id="modelNewsContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20 card-bottom-margin font14">
+        <div id="modelNewsContent" data-id="modelNewsContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20 card-bottom-margin font14">
             <h2 class="h2-heading margin-bottom20">@Model.BikeName News</h2>
             @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
             <div class="more-article-target view-all-btn-container">
@@ -189,7 +189,7 @@
         </div>
 	<!-- News widget ends -->
      }
-    <div id="videosAndServiceCenterContent" class="bw-model-tabs-data">
+    <div id="videosAndServiceCenterContent" data-id="videosAndServiceCenterContent" class="bw-model-tabs-data">
         @if (Model.IsVideosAvailable)
         {
             <div id="modelVideosContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
@@ -237,7 +237,7 @@
     <!-- Used bikes widget -->
     @if (Model.IsUsedBikesAvailable)
     {
-        <div id="makeUsedBikeContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
+        <div id="makeUsedBikeContent" data-id="makeUsedBikeContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
             <h2 class="h2-heading padding-left10 padding-right10 margin-bottom20">Used @Model.BikeName bikes in @(Model.City != null ? Model.City.CityName : "India")</h2>
             @Html.Partial("~/Views/Used/_UsedBikesByModelCity.cshtml", Model.UsedModels)
             <div class="clear"></div>
