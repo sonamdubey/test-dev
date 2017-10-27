@@ -25,8 +25,8 @@ namespace Bikewale.Entities.PWA.Articles
     [DataContract, Serializable]
     public enum PwaRelatedInfoType
     {
-        Bike=0,
-        Video=1,
-        News=2
+        Bike = 0,
+        Video = 1,
+        News = 2
     }
 }

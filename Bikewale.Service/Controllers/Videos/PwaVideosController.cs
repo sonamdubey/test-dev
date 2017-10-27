@@ -8,6 +8,7 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
 using Bikewale.Models.Videos;
 using Bikewale.Notifications;
+using Bikewale.PWA.Utils;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using Grpc.CMS;
@@ -29,12 +30,15 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
     public class PwaVideosController : CompressionApiController
     {
         static readonly ILog _logger = LogManager.GetLogger(typeof(PwaVideosController));
-        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelCache = null;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objMaskingCache = null;
         private readonly IVideos _videos = null;
-        public PwaVideosController(IVideos videos, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
+        private readonly IBikeModelsCacheRepository<int> _modelCache = null;
+
+        public PwaVideosController(IVideos videos, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache, IBikeModelsCacheRepository<int> modelCache )
         {
             _videos = videos;
-            _objModelCache = objModelCache;
+            _objMaskingCache = objModelCache;
+            _modelCache = modelCache;
         }
         #region Top Videos List
         /// <summary>
@@ -236,21 +240,25 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                     outObj.VideoInfo = Convert(vidDet, true);
 
                     var relatedInfoList = new List<PwaBikeVideoRelatedInfo>();
-                    var relatedInfo = new PwaBikeVideoRelatedInfo();
-
+                    
                     var modelMaskingName = vidDet.MaskingName;
 
-                    uint modelId = 0;
+                    uint modelId = 0;                    
                     if (!string.IsNullOrEmpty(modelMaskingName))
                     {
-                        var model = _objModelCache.GetModelMaskingResponse(modelMaskingName);
-                        modelId = model.ModelId;
+                        var model = _objMaskingCache.GetModelMaskingResponse(modelMaskingName);
+                        modelId = model.ModelId;                        
                     }
 
+                    var relatedInfo = new PwaBikeVideoRelatedInfo();
                     relatedInfo.Type = PwaRelatedInfoType.Video;
                     relatedInfo.Url = string.Format("api/pwa/similarvideos/{0}/modelid/{1}",basicID, modelId);
                     relatedInfoList.Add(relatedInfo);
 
+                    relatedInfo = new PwaBikeVideoRelatedInfo();
+                    relatedInfo.Type = PwaRelatedInfoType.Bike;
+                    relatedInfo.Url =  string.Format("api/pwa/popularbodystyle/modelid/{1}/count/9", modelId);
+                    relatedInfoList.Add(relatedInfo);
                     outObj.RelatedInfoApi = relatedInfoList;
                     return Ok(outObj);
                 }
@@ -295,6 +303,31 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
 
         }  //get  Categorized Videos 
 
+        [ResponseType(typeof(PwaBikeNews)), Route("api/pwa/popularbodystyle/modelid/{modelId}/count/{count}")]
+        public IHttpActionResult Get(int modelId,uint count)
+        {
+            try
+            {
+                var cityArea = GlobalCityArea.GetGlobalCityArea();
+                uint cityId = cityArea.CityId;
+                cityId = cityId == 0 ? System.Convert.ToUInt32(BWConfiguration.Instance.DefaultCity) : cityId;
+                IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetMostPopularBikesByModelBodyStyle(modelId, 9, cityId);
+                PwaBikeNews outBikeData = new PwaBikeNews();
+                outBikeData.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objPopularBodyStyle, cityArea.City);
+                outBikeData.Heading = "Popular bikes";
+                outBikeData.CompleteListUrl = "/m/best-bikes-in-india/";
+                outBikeData.CompleteListUrlAlternateLabel = "Best Bikes in India";
+                outBikeData.CompleteListUrlLabel = "View all";
+                return Ok(outBikeData);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                return InternalServerError();
+            }
+
+        }
+
 
         private SimilarVideoModelsVM GetSimilarVideos(uint modelId,uint videoId)
         {
@@ -306,7 +339,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                     similarVideosModel = new SimilarVideoModelsVM();
                     similarVideosModel.Videos = _videos.GetSimilarModelsVideos(videoId, modelId, 9);
                     similarVideosModel.ModelId = modelId;
-                    BikeModelEntity objModel = _objModelCache.GetById((int)modelId);
+                    BikeModelEntity objModel = _objMaskingCache.GetById((int)modelId);
                     if (objModel != null)
                     {
                         similarVideosModel.ViewAllLinkText = "View all";
@@ -324,7 +357,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
 
         private PwaBrandsInfo GetBrandsInfo(int topCount)
         {
-            var brands = _objModelCache.GetMakeIfVideo();
+            var brands = _objMaskingCache.GetMakeIfVideo();
             int count = 0;
             PwaBrandsInfo outData = new PwaBrandsInfo();
             var topBrands = new List<PwaBikeMakeEntityBase>();
