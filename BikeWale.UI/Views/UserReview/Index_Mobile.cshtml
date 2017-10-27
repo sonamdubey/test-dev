@@ -114,9 +114,9 @@
                             <ul class="cover-popup-list with-arrow">
                                 @foreach (var make in Model.Makes)
                                 {
-                                    <li data-bind="click: makeChanged">
-                                        <span data-masking="@make.MaskingName" data-id="@make.MakeId">@make.MakeName</span>
-                                    </li>
+                                <li data-bind="click: makeChanged">
+                                    <span data-masking="@make.MaskingName" data-id="@make.MakeId">@make.MakeName</span>
+                                </li>
                                 }
                             </ul>
                         </div>
@@ -151,6 +151,18 @@
                 <div class="user-review-swiper content-box-shadow card-bottom-margin">
                     <div class="swiper-container user-review__swiper">
                         @Html.Partial("~/views/UserReview/_RecentUploadedReviews_Mobile.cshtml", Model.RecentUserReviewsList)
+                    </div>
+                </div>
+            </section>
+        }
+
+        @if (Model.Brands != null)
+        {
+            <section>
+                <h2 class="font18 text-center margin-top20 margin-bottom15">Explore showroom by brand</h2>
+                <div class="content-box-shadow card-bottom-margin">
+                    <div class="content-box-shadow padding-top25 padding-bottom20 collapsible-brand-content text-center">
+                        @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
                     </div>
                 </div>
             </section>

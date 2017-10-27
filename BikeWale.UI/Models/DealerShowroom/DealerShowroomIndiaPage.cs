@@ -28,7 +28,7 @@ namespace Bikewale.Models
         private readonly IUpcoming _upcoming = null;
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
         private readonly IStateCacheRepository _objStateCache = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
 
         private uint makeId, cityId;
@@ -42,7 +42,7 @@ namespace Bikewale.Models
         public ushort TopCount { get; internal set; }
 
         //Constructor
-        public DealerShowroomIndiaPage(INewBikeLaunchesBL newLaunches, IDealerCacheRepository objDealerCache, IUpcoming upcoming, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache, IBikeMakesCacheRepository<int> bikeMakesCache, string makeMaskingName)
+        public DealerShowroomIndiaPage(INewBikeLaunchesBL newLaunches, IDealerCacheRepository objDealerCache, IUpcoming upcoming, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache, IBikeMakesCacheRepository bikeMakesCache, string makeMaskingName)
         {
             _objDealerCache = objDealerCache;
             _upcoming = upcoming;

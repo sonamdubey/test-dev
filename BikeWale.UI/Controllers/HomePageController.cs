@@ -26,7 +26,7 @@ namespace Bikewale.Controllers
     /// </summary>
     public class HomePageController : Controller
     {
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly ICityCacheRepository _usedBikeCities = null;
@@ -37,9 +37,9 @@ namespace Bikewale.Controllers
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
-        private readonly IUpcoming _upcoming = null; 
+        private readonly IUpcoming _upcoming = null;
 
-        public HomePageController(IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCities, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare compare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
+        public HomePageController(IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCities, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare compare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
         {
             _bikeMakes = bikeMakes;
             _bikeModels = bikeModels;
@@ -63,7 +63,7 @@ namespace Bikewale.Controllers
         [DeviceDetection]
         public ActionResult Index()
         {
-            HomePageVM objData = null;            HomePageModel obj = new HomePageModel(10, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _upcoming, _userReviewsCache);
+            HomePageVM objData = null; HomePageModel obj = new HomePageModel(10, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _upcoming, _userReviewsCache);
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
             objData = obj.GetData();
             return View(objData);
@@ -74,7 +74,7 @@ namespace Bikewale.Controllers
         [Route("m/homepage/")]
         public ActionResult Index_Mobile()
         {
-            HomePageVM objData = null;            HomePageModel obj = new HomePageModel(6, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _upcoming, _userReviewsCache);
+            HomePageVM objData = null; HomePageModel obj = new HomePageModel(6, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _upcoming, _userReviewsCache);
             obj.IsMobile = true;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             objData = obj.GetData();

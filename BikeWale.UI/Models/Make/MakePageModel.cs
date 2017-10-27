@@ -34,7 +34,7 @@ namespace Bikewale.Models
         private readonly string _makeMaskingName;
         private uint _makeId;
         private readonly IBikeModelsCacheRepository<int> _bikeModelsCache;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache;
         private readonly ICMSCacheContent _articles = null;
         private readonly ICMSCacheContent _expertReviews = null;
         private readonly IVideos _videos = null;
@@ -49,7 +49,7 @@ namespace Bikewale.Models
         public CompareSources CompareSource { get; set; }
         public bool IsMobile { get; set; }
 
-        public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC)
+        public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC)
         {
             this._makeMaskingName = makeMaskingName;
             this._bikeModelsCache = bikeModelsCache;
@@ -113,7 +113,7 @@ namespace Bikewale.Models
 
                 objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
                 BikeMakeEntityBase makeBase = _bikeMakesCache.GetMakeDetails(_makeId);
-                objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
+                objData.BikeDescription = _bikeMakesCache.GetMakeDescription(_makeId);
                 if (makeBase != null)
                 {
                     objData.MakeMaskingName = makeBase.MaskingName;

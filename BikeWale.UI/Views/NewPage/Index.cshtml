@@ -272,10 +272,7 @@
                     <p class="contest-banner__title">Bike Review Contest</p>
                     <p class="contest-banner__subtitle">Write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20b9;&nbsp;2,000.</p>
                 </div>
-                @{
-                    string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_NewBikePage));
-                }
-                <a href="@string.Format("/bike-review-contest/?q={0}",q)" class="btn btn-orange btn-180-40">Participate &amp; win<span class="bwsprite btn-white-arrow"></span></a>
+                <a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewContestUrl(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_NewBikePage)" class="btn btn-orange btn-180-40">Participate &amp; win<span class="bwsprite btn-white-arrow"></span></a>
             </div>
         </div>
         <div class="clear"></div>

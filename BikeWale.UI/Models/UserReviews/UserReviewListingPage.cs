@@ -6,7 +6,6 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Schema;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.UserReviews;
@@ -129,7 +128,7 @@ namespace Bikewale.Models.UserReviews
                         BasicDetails = true
                     }
                 };
-                
+
                 if (objData.RatingsInfo != null)
                 {
                     var objUserReviews = new UserReviewsSearchWidget(_modelId, objFilter, _objUserReviewCache, _userReviewsSearch);
@@ -283,6 +282,8 @@ namespace Bikewale.Models.UserReviews
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+            bikeUrl = string.Format("{0}reviews/", bikeUrl);
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Reviews"));
 
             if (objPage.RatingsInfo != null && objPage.RatingsInfo.Make != null)
             {
@@ -305,7 +306,7 @@ namespace Bikewale.Models.UserReviews
             {
                 bikeUrl = string.Format("{0}{1}/", bikeUrl, objPage.RatingsInfo.Model.MaskingName);
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} {1}", objPage.RatingsInfo.Make.MakeName,objPage.RatingsInfo.Model.ModelName) ));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} {1}", objPage.RatingsInfo.Make.MakeName, objPage.RatingsInfo.Model.ModelName)));
             }
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Reviews"));
             objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;

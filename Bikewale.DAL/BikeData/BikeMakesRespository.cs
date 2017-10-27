@@ -39,7 +39,7 @@ namespace Bikewale.DAL.BikeData
         /// </summary>
         /// <param name="makeType">Type of bike data</param>
         /// <returns>Returns list of type BikeMakeEntityBase</returns>
-        public List<BikeMakeEntityBase> GetMakesByType(EnumBikeType makeType)
+        public List<BikeMakeEntityBase> GetMakesByType(EnumBikeType requestType)
         {
             List<BikeMakeEntityBase> objMakesList = null;
 
@@ -49,7 +49,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_24082017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, makeType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, requestType));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {

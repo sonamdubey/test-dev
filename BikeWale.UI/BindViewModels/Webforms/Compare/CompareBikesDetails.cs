@@ -32,7 +32,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
     /// </summary>
     public class CompareBikesDetails
     {
-        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache = null;
         private readonly IBikeCompareCacheRepository _objCompareCache = null;
         private readonly IBikeCompare _objCompare = null;
@@ -71,7 +71,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                         .RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>()
                         .RegisterType<IBikeCompare, BikeCompareRepository>()
                         .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakes<BikeMakeEntity, int>>()
-                        .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                        .RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IBikeCompare, Bikewale.BAL.Compare.BikeComparison>()
                         .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
@@ -81,7 +81,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                     _objModelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
                     _objCompareCache = container.Resolve<IBikeCompareCacheRepository>();
                     _objCompare = container.Resolve<IBikeCompare>();
-                    _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    _objMakeCache = container.Resolve<IBikeMakesCacheRepository>();
                     _objSponsored = container.Resolve<ISponsoredComparison>();
                 }
             }

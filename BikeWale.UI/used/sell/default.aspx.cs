@@ -36,7 +36,7 @@ namespace Bikewale.Used.Sell
     public class Default : System.Web.UI.Page
     {
         protected IEnumerable<Bikewale.Entities.BikeData.BikeMakeEntityBase> objMakeList = null;
-        private IBikeMakesCacheRepository<int> _makesRepository;
+        private IBikeMakesCacheRepository _makesRepository;
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected string userId = null;
         protected bool isEdit = false;
@@ -95,11 +95,11 @@ namespace Bikewale.Used.Sell
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                    container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                              .RegisterType<ICacheManager, MemcacheManager>()
                              .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                             ;
-                    _makesRepository = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    _makesRepository = container.Resolve<IBikeMakesCacheRepository>();
                     objMakeList = _makesRepository.GetMakesByType(EnumBikeType.Used);
                 }
             }

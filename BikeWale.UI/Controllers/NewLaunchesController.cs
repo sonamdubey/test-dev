@@ -15,11 +15,11 @@ namespace Bikewale.Controllers
     public class NewLaunchesController : Controller
     {
         private readonly INewBikeLaunchesBL _newLaunches = null;
-        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IUpcoming _upcoming = null;
         private GlobalCityAreaEntity _objLocation = GlobalCityArea.GetGlobalCityArea();
 
-        public NewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache, IUpcoming upcoming)
+        public NewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming)
         {
             _newLaunches = newLaunches;
             _objMakeCache = objMakeCache;

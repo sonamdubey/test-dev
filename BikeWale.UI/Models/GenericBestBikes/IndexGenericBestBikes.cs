@@ -1,6 +1,5 @@
 ﻿
 using Bikewale.Entities;
-using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -23,14 +22,14 @@ namespace Bikewale.Models
     public class IndexGenericBestBikes
     {
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
 
 
         public ushort makeTopCount { get; set; }
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         private EnumBikeBodyStyles BodyStyleType = EnumBikeBodyStyles.AllBikes;
-        public IndexGenericBestBikes(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes)
+        public IndexGenericBestBikes(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakesCacheRepository bikeMakes)
         {
             _objBestBikes = objBestBikes;
             _bikeMakes = bikeMakes;

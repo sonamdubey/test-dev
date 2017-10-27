@@ -23,7 +23,7 @@ namespace Bikewale.Models.ServiceCenters
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IServiceCenter _objSC = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache;
 
         public MakeMaskingResponse objResponse;
         public StatusCodes status;
@@ -33,7 +33,7 @@ namespace Bikewale.Models.ServiceCenters
         public uint BikeShowroomWidgetTopCount { get; set; }
         public uint OtherServiceCenterWidgetTopCount { get; set; }
 
-        public ServiceCenterDetailsPage(IBikeModels<BikeModelEntity, int> bikeModels, IUsedBikeDetailsCacheRepository objUsedCache, IDealerCacheRepository objDealerCache, IServiceCenter objSC, IBikeMakesCacheRepository<int> bikeMakesCache, string makeMaskingName, uint serviceCenterId)
+        public ServiceCenterDetailsPage(IBikeModels<BikeModelEntity, int> bikeModels, IUsedBikeDetailsCacheRepository objUsedCache, IDealerCacheRepository objDealerCache, IServiceCenter objSC, IBikeMakesCacheRepository bikeMakesCache, string makeMaskingName, uint serviceCenterId)
         {
             _bikeModels = bikeModels;
             _objUsedCache = objUsedCache;

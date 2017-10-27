@@ -30,7 +30,7 @@ namespace Bikewale.Controllers
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
         private readonly ICMSCacheContent _objArticles = null;
-        private readonly IBikeMakesCacheRepository<int> _makesRepository;
+        private readonly IBikeMakesCacheRepository _makesRepository;
         private readonly IUserReviewsCache _userReviewCache = null;
         private readonly IAuthors _authors = null;
 
@@ -52,7 +52,7 @@ namespace Bikewale.Controllers
         /// <param name="userReviewCache"></param>
         public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo,
             IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel,
-                IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository<int> makesRepository, IUserReviewsCache userReviewCache, IAuthors authors)
+                IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository makesRepository, IUserReviewsCache userReviewCache, IAuthors authors)
         {
 
             _userReviews = userReviews;
@@ -554,6 +554,7 @@ namespace Bikewale.Controllers
         public ActionResult Index()
         {       
             UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors, _makesRepository);
+            obj.BrandsSkipCount = 10;
             return View(obj.GetData());
         }
 
@@ -563,6 +564,7 @@ namespace Bikewale.Controllers
         {
               UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors, _makesRepository);
             obj.IsMobile = true;
+            obj.BrandsSkipCount = 6;
             return View(obj.GetData());
         }
 

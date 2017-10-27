@@ -24,7 +24,7 @@ namespace Bikewale.Models
     /// </summary>
     public class CompareDetails
     {
-        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache = null;
         private readonly IBikeCompareCacheRepository _objCompareCache = null;
         private readonly IBikeCompare _objCompare = null;
@@ -39,7 +39,7 @@ namespace Bikewale.Models
         private uint _sponsoredBikeVersionId, _cityId;
         private ushort bikeComparisions;
 
-        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository<int> objMakeCache, ISponsoredComparison objSponsored, uint maxComparisons)
+        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository objMakeCache, ISponsoredComparison objSponsored, uint maxComparisons)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objCompareCache = objCompareCache;
