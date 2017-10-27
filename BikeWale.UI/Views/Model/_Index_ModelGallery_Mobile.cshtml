@@ -17,17 +17,27 @@
                 string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
 
                 <div class="swiper-slide">
-                    <a href="@String.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.AlternateUrl)))" class="bw-ga" data-cat="Model_Page" data-act="Main_Image_Clicked" data-lab="@Model.BikeName">
-                        @if (imageIndex < 2)
+                    @if (imageIndex == 0)
+                    {
+                        <a href="@String.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.AlternateUrl)))" class="bw-ga" data-cat="Model_Page" data-act="Main_Image_Clicked" data-lab="@Model.BikeName">
+                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._360x202, "85")" alt="@imageProperty" title="@imageProperty" border="0" />
+                        </a>
+                    }
+                    else
+                    {
+                        <span onclick="location='@String.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))'" class="bw-ga" data-cat="Model_Page" data-act="Main_Image_Clicked" data-lab="@Model.BikeName">
+                            @if (imageIndex < 2)
                         {
-                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._360x202,"85")" alt="@imageProperty" title="@imageProperty" border="0" />
-                        }
-                        else
-                        {
-                            <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,"85")" alt="@imageProperty" src="" title="@imageProperty" border="0" />
+                                <img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._360x202,"85")" alt="@imageProperty" title="@imageProperty" border="0" />
+                            }
+                            else
+                            {
+                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,"85")" alt="@imageProperty" src="" title="@imageProperty" border="0" />
 
-                        }
-                    </a>
+                            }
+                        </span>
+                    }
+
                 </div>
 
                 imageIndex++;
@@ -39,18 +49,18 @@
         <div class="swiper-button-prev gallery-type-prev">
             <span id="prev-btn" class="bwmsprite prev-arrow-btn"></span>
         </div>
-    }
-    else
-    {
-        <div class="model-thumbnail-image">
-            <a>
-                <div class="bg-light-grey">
-                    <span class="bwmsprite no-image-icon margin-bottom15"></span>
-                    <p class="font12 text-bold text-light-grey">Image not available</p>
-                </div>
-            </a>
-        </div>
-    }
+                }
+                else
+                {
+                    <div class="model-thumbnail-image">
+                        <a>
+                            <div class="bg-light-grey">
+                                <span class="bwmsprite no-image-icon margin-bottom15"></span>
+                                <p class="font12 text-bold text-light-grey">Image not available</p>
+                            </div>
+                        </a>
+                    </div>
+                }
 </div>
 
 <!-- media links start -->
