@@ -80,6 +80,7 @@ namespace Bikewale.Models
                 obj.BestBikes = new BestBikeWidgetModel(null, _objBestBikes).GetData();
                 obj.BestBikes.CurrentPage = BodyStyleType;
                 obj.Brands = new BrandWidgetModel(makeTopCount, _bikeMakes).GetData(BodyStyleType == EnumBikeBodyStyles.Scooter ? Entities.BikeData.EnumBikeType.Scooters : Entities.BikeData.EnumBikeType.New);
+
                 SetPageJSONLDSchema(obj);
             }
             catch (Exception ex)
