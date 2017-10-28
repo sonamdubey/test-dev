@@ -568,5 +568,20 @@ namespace Bikewale.Controllers
             return View(obj.GetData());
         }
 
+        // GET: Review
+        [Route("make/reviews/")]
+        public ActionResult ReviewByMake()
+        {
+            UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles, _authors, _makesRepository);
+            return View(obj.GetData());
+        }
+
+        // GET: Review
+        [Route("m/make/reviews/")]
+        public ActionResult ReviewByMake_Mobile()
+        {
+            UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles, _authors, _makesRepository);
+            return View(obj.GetData());
+        }
     }
 }

@@ -7,7 +7,7 @@
 		@warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin."
 
 
-@import ../../base/variables
+@import ../base/variables
 @import ../mixins/icons
 @import ../mixins/mixins
 
@@ -35,7 +35,7 @@
 	@else
 		@warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin."
 
-
+		
 // rating background
 @mixin rating-background($count)
 	@if map-has-key($rating-colors, $count)
@@ -51,20 +51,24 @@
 	@if map-has-key($star-icon-map, $count)
 		.rate-count-#{$count}
 			.star-icon
-				background-position: map-get($star-icon-map, $count)
-				width: 26px
-				height: 25px
+				//background-position: map-get($star-icon-map, $count)
+				display: inline-block
+				background: url(map-get($star-icon-map, $count)) no-repeat center
 				vertical-align: middle
 				@if $dimension == 'big'
+					width: 25px
+					height: 25px
 					-webkit-transform: scale(0.8)
 					-moz-transform: scale(0.8)
 					-ms-transform: scale(0.8)
 					transform: scale(0.8)
 				@else if $dimension == 'normal'
-					-webkit-transform: scale(0.6)
-					-moz-transform: scale(0.6)
-					-ms-transform: scale(0.6)
-					transform: scale(0.6)
+					width: 23px
+					height: 22px
+					-webkit-transform: scale(0.5)
+					-moz-transform: scale(0.5)
+					-ms-transform: scale(0.5)
+					transform: scale(0.5)
 	@else
 		@warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $star-icon-map mixin."
 
