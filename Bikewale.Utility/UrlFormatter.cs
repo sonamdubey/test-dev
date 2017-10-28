@@ -377,7 +377,7 @@ namespace Bikewale.Utility
             string url = string.Empty;
             if (String.IsNullOrEmpty(makeMaskingName) && String.IsNullOrEmpty(modelMaskingName))
             {
-                url = "/user-reviews/";
+                url = "/reviews/";
             }
             else
             {

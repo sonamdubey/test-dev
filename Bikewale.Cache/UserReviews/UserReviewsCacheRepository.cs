@@ -299,7 +299,7 @@ namespace Bikewale.Cache.UserReviews
             string key = string.Empty;
             try
             {
-                key = string.Format("BW_TopRatedBikes_topCount_{0}_city_{1}", topCount, cityId);
+                key = string.Format("BW_TopRatedBikes_Cnt_{0}_city_{1}", topCount, cityId);
                 objTopRatedBikesWidget = _cache.GetFromCache<IEnumerable<TopRatedBikes>>(key, new TimeSpan(1, 0, 0), () => (IEnumerable<TopRatedBikes>)_objUserReviews.GetTopRatedBikes(topCount, cityId));
             }
             catch (Exception ex)
@@ -315,7 +315,7 @@ namespace Bikewale.Cache.UserReviews
             string key = string.Empty;
             try
             {
-                key = string.Format("BW_TopRatedBikes_topCount_{0}", topCount);
+                key = string.Format("BW_TopRatedBikes_Cnt_{0}", topCount);
                 objTopRatedBikesWidget = _cache.GetFromCache<IEnumerable<TopRatedBikes>>(key, new TimeSpan(1, 0, 0), () => (IEnumerable<TopRatedBikes>)_objUserReviews.GetTopRatedBikes(topCount));
             }
             catch (Exception ex)
@@ -338,7 +338,7 @@ namespace Bikewale.Cache.UserReviews
             string key = string.Empty;
             try
             {
-                key = "BW_PopularBikesWithExpertReviews_Cnt_" + topCount;
+                key = "BW_PopularBikesWithExpertReviews_V1_Cnt_" + topCount;
                 objTopRatedBikesWidget = _cache.GetFromCache<IEnumerable<PopularBikesWithExpertReviews>>(key, new TimeSpan(24, 0, 0), () => (IEnumerable<PopularBikesWithExpertReviews>)_objUserReviews.GetPopularBikesWithExpertReviews(topCount));
             }
             catch (Exception ex)
@@ -361,7 +361,7 @@ namespace Bikewale.Cache.UserReviews
             string key = string.Empty;
             try
             {
-                key = string.Format("BW_PopularBikesWithExpertReviews_Cnt_{0}_City_{1}", topCount, cityId);
+                key = string.Format("BW_PopularBikesWithExpertReviews_V1_Cnt_{0}_City_{1}", topCount, cityId);
                 objTopRatedBikesWidget = _cache.GetFromCache<IEnumerable<PopularBikesWithExpertReviews>>(key, new TimeSpan(6, 0, 0), () => (IEnumerable<PopularBikesWithExpertReviews>)_objUserReviews.GetPopularBikesWithExpertReviewsByCity(topCount, cityId));
             }
             catch (Exception ex)
@@ -369,6 +369,29 @@ namespace Bikewale.Cache.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsCacheRepository.GetPopularBikesWithExpertReviewsByCity: topCount: {0}, CityId {1}", topCount, cityId));
             }
             return objTopRatedBikesWidget;
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 11th Oct 2017
+        /// Description : To cache popular bikes with expert reviews count by city
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<PopularBikesWithUserReviews> GetPopularBikesWithUserReviewsByMake(uint makeId)
+        {
+            IEnumerable<PopularBikesWithUserReviews> objBikes = null;
+            try
+            {
+                string key = string.Format("BW_PopularBikesWithUserReviews_Make_{0}", makeId);
+                objBikes = _cache.GetFromCache<IEnumerable<PopularBikesWithUserReviews>>(key, new TimeSpan(24, 0, 0), () => (IEnumerable<PopularBikesWithUserReviews>)_objUserReviews.GetPopularBikesWithUserReviewsByMake(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsCacheRepository.GetPopularBikesWithUserReviewsByMake: Make: {0}", makeId));
+            }
+            return objBikes;
         }
     }
 }
