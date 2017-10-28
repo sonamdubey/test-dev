@@ -1005,6 +1005,7 @@
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\UserReviews\PopularBikesWithExpertReviewsWidget.cs" />
     <Compile Include="Models\UserReviews\TopRatedBikesWidget.cs" />
+    <Compile Include="Models\UserReviews\UserReviewByMakePage.cs" />
     <Compile Include="Models\UserReviews\UserReviewLandingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewListingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewDetailsPage.cs" />
@@ -3832,6 +3833,8 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad200x211.cshtml" />
     <Content Include="Views\Make\_Index_Tabs.cshtml" />
     <Content Include="Views\Make\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\UserReview\UserReviewsByMake.cshtml" />
+    <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
