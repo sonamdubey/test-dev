@@ -1,49 +1,46 @@
 ﻿@model Bikewale.Models.ModelBase
 <!doctype html>
 <html amp lang="en">
-    <head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#":"")>
-        <meta charset="utf-8">
-        @if (Model != null && Model.PageMetaTags != null)
-        {
-            Model.PageMetaTags.EnableOG = true;
+<head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#" : "")>
+    <meta charset="utf-8">
+    @if (Model != null && Model.PageMetaTags != null)
+    {
+        Model.PageMetaTags.EnableOG = true;
 
-            if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
-            {
-                <title itemprop="name">@Html.Raw(Model.PageMetaTags.Title)</title>
-            }
-            if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
-            {
-                <meta itemprop="description" name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
-            }
-            if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
-            {
-                <meta name="keywords" content="@Model.PageMetaTags.Keywords" />
-            }
-            if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
-            {
-                <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
-            
-        }
-        @if (Model.PageMetaTags.EnableOG)
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
         {
-            <meta property="og:title" content="@Html.Raw(Model.PageMetaTags.Title)" />
+            <title itemprop="name">@Html.Raw(Model.PageMetaTags.Title)</title>
+        }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
+        {
+            <meta itemprop="description" name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
+        }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
+        {
+            <meta name="keywords" content="@Model.PageMetaTags.Keywords" />
+        }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+        {
+            <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
+
+    }
+    @if (Model.PageMetaTags.EnableOG)
+    {
+        <meta property="og:title" content="@Html.Raw(Model.PageMetaTags.Title)" />
             <meta property="og:type" content="website" />
             <meta property="og:description" content="@Html.Raw(Model.PageMetaTags.Description)" />
             <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
-            if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
-            {
-                <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
-            }
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+        {
+            <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
         }
-        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-        <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
+    }
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+ 
 
-        <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
-        <noscript>
-            <style amp-boilerplate> body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none} </style>
-        </noscript>
-
-        <style amp-custom>
+    <style amp-custom>
             body {
                 font-family: 'Open Sans',Serif;
                 font-size: 13px;
@@ -284,167 +281,200 @@ amp-accordion > section[expanded] .fa-angle-down {
 }
 
         @Html.Raw(Model.Amp_Page_CSS)
-        </style>
-        @if (!string.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
-        {
-            <script type="application/ld+json">
-                @Html.Raw(Model.PageMetaTags.SchemaJSON)
+    </style>
+    @if (!string.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
+    {
+        <script type="application/ld+json">
+            @Html.Raw(Model.PageMetaTags.SchemaJSON)
             "articleBody" : "@ViewBag.SanitizedNewsContent",
-            </script>
-        }     
-        <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-        <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
-        <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
-        <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
-        <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
-        <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
-        <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-        <script async src="https://cdn.ampproject.org/v0.js"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-        <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-        <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
-    </head>
-    <body>
-        <amp-sidebar id="nav" layout="nodisplay" side="left">
-            <ul class="navUL">
+        </script>
+    }
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    @if (Model.AmpJsTags != null)
+    {
+        if (Model.AmpJsTags.IsAnalytics)
+        {
+            <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsSidebar)
+        {
+            <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsAccordion)
+        {
+            <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsIframe)
+        {
+            <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsAd)
+        {
+            <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsSocialShare)
+        {
+            <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsCarousel)
+        {
+            <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsBind)
+        {
+            <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsSelector)
+        {
+            <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+        }
+
+    }
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
+
+</head>
+<body>
+    <amp-sidebar id="nav" layout="nodisplay" side="left">
+        <ul class="navUL">
+            <li>
+                <h2>
+                    <a href="https://www.bikewale.com/m/" target="_top">
+                        <span class="bwmsprite home-icon"></span>
+                        <span class="vertical-middle">Home</span>
+                    </a>
+                </h2>
+            </li>
+            <li>
+                <amp-accordion>
+                    <section>
+                        <h2 class="nav-accordion-header">
+                            <span class="bwmsprite newBikes-icon"></span>
+                            <span class="vertical-middle">New Bikes</span>
+                            <span class="bwmsprite fa-angle-down"></span>
+                        </h2>
+                        <ul class="nestedUL">
+                            <li><a href="https://www.bikewale.com/m/new-bikes-in-india/" target="_top">Find New Bikes</a></li>
+                            <li><a href="https://www.bikewale.com/m/comparebikes/" target="_top">Compare Bikes</a></li>
+                            <li><a href="https://www.bikewale.com/m/pricequote/" target="_top">Check On-Road Price</a></li>
+                            <li><a href="https://www.bikewale.com/m/dealer-showroom-locator/" target="_top">Locate Dealer</a></li>
+                            <li><a href="https://www.bikewale.com/m/bike-service-center/" target="_top">Locate Service Center</a></li>
+                            <li><a href="https://www.bikewale.com/m/upcoming-bikes/" target="_top">Upcoming Bikes</a></li>
+                            <li><a href="https://www.bikewale.com/m/new-bike-launches/" target="_top">New Launches</a></li>
+                            <li><a href="https://www.bikewale.com/m/bikebooking/" target="_top">Book Your Bike</a></li>
+                        </ul>
+                    </section>
+                </amp-accordion>
+            </li>
+            <li>
+                <amp-accordion>
+                    <section>
+                        <h2 class="nav-accordion-header">
+                            <span class="bwmsprite usedBikes-icon"></span>
+                            <span class="vertical-middle">Used Bikes</span>
+                            <span class="bwmsprite fa-angle-down"></span>
+                        </h2>
+                        <ul class="nestedUL">
+                            <li><a href="https://www.bikewale.com/m/used/" target="_top">Find Used Bikes</a></li>
+                            <li><a href="https://www.bikewale.com/m/used/bikes-in-india/" target="_top">All Used Bikes</a></li>
+                        </ul>
+                    </section>
+                </amp-accordion>
+            </li>
+            <li>
+                <h2>
+                    <a href="https://www.bikewale.com/m/used/sell/" target="_top">
+                        <span class="bwmsprite sellBikes-icon"></span>
+                        <span class="vertical-middle">Sell Your Bike</span>
+                    </a>
+                </h2>
+            </li>
+            <li>
+                <amp-accordion>
+                    <section>
+                        <h2 class="nav-accordion-header">
+                            <span class="bwmsprite reviews-icon"></span>
+                            <span class="vertical-middle">Reviews, News &amp; Videos</span>
+                            <span class="bwmsprite fa-angle-down"></span>
+                        </h2>
+                        <ul class="nestedUL">
+                            <li><a href="https://www.bikewale.com/m/news/" target="_top">News</a></li>
+                            <li><a href="https://www.bikewale.com/m/expert-reviews/" target="_top">Expert Reviews</a></li>
+                            <li><a href="https://www.bikewale.com/m/user-reviews/" target="_top">User Reviews</a></li>
+                            <li><a href="https://www.bikewale.com/m/features/" target="_top">Features</a></li>
+                            <li><a href="https://www.bikewale.com/m/bike-care/" target="_top">Bike Care</a></li>
+                            <li><a href="https://www.bikewale.com/m/bike-videos/" target="_top">Videos</a></li>
+                        </ul>
+                    </section>
+                </amp-accordion>
+            </li>
+            <li>
+                <h2>
+                    <a href="https://www.bikewale.com/m/trackday2016/" target="_top">
+                        <span class="bwmsprite track-day"></span>
+                        <span class="vertical-middle">Track Day 2016</span>
+                    </a>
+                </h2>
+            </li>
+
+        </ul>
+    </amp-sidebar>
+
+    <header>
+        <button class="bwmsprite nav-icon" on="tap:nav.open"></button>
+        <a href="https://www.bikewale.com/m/" target="_top" title="BikeWale" class="bwmsprite bw-logo"></a>
+    </header>
+    @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
+    {
+        <div class="margin-bottom10 margin-top15">
+            <amp-ad width=320 height=50 type="doubleclick" layout=responsive data-slot="/1017752/Bikewale_Mobile_NewBikes_Top_320x50"></amp-ad>
+        </div>
+    }
+
+
+    @RenderBody()
+
+
+    @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
+    {
+        <div class="margin-bottom10 margin-top15">
+            <amp-ad width=320 height=50 type="doubleclick" layout=responsive data-slot="/1017752/Bikewale_Mobile_NewBikes_Bottom_320x50"></amp-ad>
+        </div>
+    }
+
+    <footer>
+        <div class="footer-top">
+            <ul>
                 <li>
-                    <h2>
-                        <a href="https://www.bikewale.com/m/" target="_top">
-                            <span class="bwmsprite home-icon"></span>
-                            <span class="vertical-middle">Home</span>
-                        </a>
-                    </h2>
+                    <a href="https://www.bikewale.com/m/" target="_top" title="BikeWale" class="bwmsprite bw-footer-icon"></a>
                 </li>
                 <li>
-                    <amp-accordion>
-                        <section>
-                            <h2 class="nav-accordion-header">
-                                <span class="bwmsprite newBikes-icon"></span>
-                                <span class="vertical-middle">New Bikes</span>
-                                <span class="bwmsprite fa-angle-down"></span>
-                            </h2>
-                            <ul class="nestedUL">
-                                <li><a href="https://www.bikewale.com/m/new-bikes-in-india/" target="_top">Find New Bikes</a></li>
-                                <li><a href="https://www.bikewale.com/m/comparebikes/" target="_top">Compare Bikes</a></li>
-                                <li><a href="https://www.bikewale.com/m/pricequote/" target="_top">Check On-Road Price</a></li>
-                                <li><a href="https://www.bikewale.com/m/dealer-showroom-locator/" target="_top">Locate Dealer</a></li>
-                                <li><a href="https://www.bikewale.com/m/bike-service-center/" target="_top">Locate Service Center</a></li>
-                                <li><a href="https://www.bikewale.com/m/upcoming-bikes/" target="_top">Upcoming Bikes</a></li>
-                                <li><a href="https://www.bikewale.com/m/new-bike-launches/" target="_top">New Launches</a></li>
-                                <li><a href="https://www.bikewale.com/m/bikebooking/" target="_top">Book Your Bike</a></li>
-                            </ul>
-                        </section>
-                    </amp-accordion>
+                    <a href="https://www.carwale.com/m/" target="_top" title="CarWale" class="bwmsprite cw-footer-icon"></a>
+                    <p class="cw-logo-label">ask the experts</p>
                 </li>
                 <li>
-                    <amp-accordion>
-                        <section>
-                            <h2 class="nav-accordion-header">
-                                <span class="bwmsprite usedBikes-icon"></span>
-                                <span class="vertical-middle">Used Bikes</span>
-                                <span class="bwmsprite fa-angle-down"></span>
-                            </h2>
-                            <ul class="nestedUL">
-                                <li><a href="https://www.bikewale.com/m/used/" target="_top">Find Used Bikes</a></li>
-                                <li><a href="https://www.bikewale.com/m/used/bikes-in-india/" target="_top">All Used Bikes</a></li>
-                            </ul>
-                        </section>
-                    </amp-accordion>
+                    <a href="https://m.cartrade.com/" target="_top" title="CarTrade" class="bwmsprite ct-footer-icon"></a>
                 </li>
-                <li>
-                    <h2>
-                        <a href="https://www.bikewale.com/m/used/sell/" target="_top">
-                            <span class="bwmsprite sellBikes-icon"></span>
-                            <span class="vertical-middle">Sell Your Bike</span>
-                        </a>
-                    </h2>
-                </li>
-                <li>
-                    <amp-accordion>
-                        <section>
-                            <h2 class="nav-accordion-header">
-                                <span class="bwmsprite reviews-icon"></span>
-                                <span class="vertical-middle">Reviews, News &amp; Videos</span>
-                                <span class="bwmsprite fa-angle-down"></span>
-                            </h2>
-                            <ul class="nestedUL">
-                                <li><a href="https://www.bikewale.com/m/news/" target="_top">News</a></li>
-                                <li><a href="https://www.bikewale.com/m/expert-reviews/" target="_top">Expert Reviews</a></li>
-                                <li><a href="https://www.bikewale.com/m/user-reviews/" target="_top">User Reviews</a></li>
-                                <li><a href="https://www.bikewale.com/m/features/" target="_top">Features</a></li>
-                                <li><a href="https://www.bikewale.com/m/bike-care/" target="_top">Bike Care</a></li>
-                                <li><a href="https://www.bikewale.com/m/bike-videos/" target="_top">Videos</a></li>
-                            </ul>
-                        </section>
-                    </amp-accordion>
-                </li>
-                <li>
-                    <h2>
-                        <a href="https://www.bikewale.com/m/trackday2016/" target="_top">
-                            <span class="bwmsprite track-day"></span>
-                            <span class="vertical-middle">Track Day 2016</span>
-                        </a>
-                    </h2>
-                </li>
-                
             </ul>
-        </amp-sidebar>
-
-        <header>
-            <button class="bwmsprite nav-icon" on="tap:nav.open"></button>
-            <a href="https://www.bikewale.com/m/" target="_top" title="BikeWale" class="bwmsprite bw-logo"></a>
-        </header>
-        @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
-        {
-            <div class="margin-bottom10 margin-top15">
-                <amp-ad width=320 height=50 type="doubleclick" layout=responsive data-slot="/1017752/Bikewale_Mobile_NewBikes_Top_320x50"></amp-ad>
+        </div>
+        <div class="footer-middle">
+            <ul>
+                <li><a href="https://www.bikewale.com/m/contactus.aspx" target="_top" rel="nofollow">Contact Us</a></li>
+                <li><a href="https://www.bikewale.com/m/advertisewithus.aspx" target="_top" rel="nofollow">Advertise with Us</a></li>
+            </ul>
+            <p class="font13 text-white margin-bottom10">Download Mobile App</p>
+            <a class="bwmsprite google-play-logo block margin-center" href="https://play.google.com/store/apps/details?id=com.bikewale.app&amp;referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" rel="nofollow">
+            </a>
+            <a href="#" target="_top" class="block">View Mobile Site</a>
+        </div>
+        <div class="footer-bottom font11">
+            <div class="left-float">&copy; BikeWale India</div>
+            <div class="right-float">
+                <a href="https://www.bikewale.com/visitoragreement.aspx" target="_top" rel="nofollow">Visitor Agreement</a> &amp;
+                <a href="https://www.bikewale.com/privacypolicy.aspx" target="_top" rel="nofollow">Privacy Policy</a>
             </div>
-        }
-       
-        
-        @RenderBody()
-
-
-        @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
-        {
-            <div class="margin-bottom10 margin-top15">
-                <amp-ad width=320 height=50 type="doubleclick" layout=responsive data-slot="/1017752/Bikewale_Mobile_NewBikes_Bottom_320x50"></amp-ad>
-            </div>
-        }
-
-        <footer>
-            <div class="footer-top">
-                <ul>
-                    <li>
-                        <a href="https://www.bikewale.com/m/" target="_top" title="BikeWale" class="bwmsprite bw-footer-icon"></a>
-                    </li>
-                    <li>
-                        <a href="https://www.carwale.com/m/" target="_top" title="CarWale" class="bwmsprite cw-footer-icon"></a>
-                        <p class="cw-logo-label">ask the experts</p>
-                    </li>
-                    <li>
-                        <a href="https://m.cartrade.com/" target="_top" title="CarTrade" class="bwmsprite ct-footer-icon"></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="footer-middle">
-                <ul>
-                    <li><a href="https://www.bikewale.com/m/contactus.aspx" target="_top" rel="nofollow">Contact Us</a></li>
-                    <li><a href="https://www.bikewale.com/m/advertisewithus.aspx" target="_top" rel="nofollow">Advertise with Us</a></li>
-                </ul>
-                <p class="font13 text-white margin-bottom10">Download Mobile App</p>
-                <a class="bwmsprite google-play-logo block margin-center" href="https://play.google.com/store/apps/details?id=com.bikewale.app&amp;referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" rel="nofollow">
-                </a>
-                <a href="#" target="_top" class="block">View Mobile Site</a>
-            </div>
-            <div class="footer-bottom font11">
-                <div class="left-float">&copy; BikeWale India</div>
-                <div class="right-float">
-                    <a href="https://www.bikewale.com/visitoragreement.aspx" target="_top" rel="nofollow">Visitor Agreement</a> &amp;
-                    <a href="https://www.bikewale.com/privacypolicy.aspx" target="_top" rel="nofollow">Privacy Policy</a>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </footer>
-    </body>
+            <div class="clear"></div>
+        </div>
+    </footer>
+</body>
 </html>

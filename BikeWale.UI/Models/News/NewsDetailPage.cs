@@ -150,6 +150,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 29 Mar 2017
         /// Summary    : Get entire data for news details page
+        /// Modified by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Added call to BindAmpJsTags.
         /// </summary>
         public NewsDetailPageVM GetData(int widgetTopCount)
         {
@@ -168,7 +170,10 @@ namespace Bikewale.Models
 
                     if (objData.Model != null && ModelId != 0 && objData.Model.ModelId != ModelId)
                         objData.Model.ModelId = (int)ModelId;
-
+                    if (IsAMPPage)
+                    {
+                        BindAmpJsTags(objData);
+                    }
                 }
                 else
                     status = StatusCodes.ContentNotFound;
@@ -178,6 +183,29 @@ namespace Bikewale.Models
                 ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.NewsDetailPage.GetData");
             }
             return objData;
+        }
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Method to bind required JS for AMP page.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindAmpJsTags(NewsDetailPageVM objData)
+        {
+            try
+            {
+                objData.AmpJsTags = new Entities.Models.AmpJsTags();
+                objData.AmpJsTags.IsAccordion = true;
+                objData.AmpJsTags.IsAd = true;
+                objData.AmpJsTags.IsBind = true;
+                objData.AmpJsTags.IsCarousel = true;
+                objData.AmpJsTags.IsSidebar = true;
+                objData.AmpJsTags.IsSocialShare = true;
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objData));
+            }
         }
 
 

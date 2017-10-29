@@ -15,6 +15,10 @@ using System.Linq;
 using System.Web;
 namespace Bikewale.Models.Features
 {
+    /// <summary>
+    /// Modified by : Ashutosh Sharma on 28 Oct 2017
+    /// Description : Added IsAMPPage
+    /// </summary>
     public class DetailPage
     {
         #region Variables for dependency injection and constructor
@@ -31,6 +35,7 @@ namespace Bikewale.Models.Features
         public StatusCodes status;
         public string mappedCWId;
         public string redirectUrl;
+        public bool IsAMPPage { get; set; }
         #endregion
 
         #region Constructor
@@ -50,6 +55,8 @@ namespace Bikewale.Models.Features
         /// <summary>
         /// Created by : Subodh Jain  on 30 March 2017
         /// Summary    : Get all feature details
+        /// Modified by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Added call to BindAmpJsTags.
         /// </summary>
         public DetailFeatureVM GetData(int widgetTopCount)
         {
@@ -66,6 +73,10 @@ namespace Bikewale.Models.Features
                     BindPageMetas(objDetailsVM);
                     GetWidgetData(objDetailsVM, widgetTopCount);
                     PopulatePhotoGallery(objDetailsVM);
+                    if (IsAMPPage)
+                    {
+                        BindAmpJsTags(objDetailsVM);
+                    }
                 }
                 else
                 {
@@ -78,6 +89,31 @@ namespace Bikewale.Models.Features
             }
             return objDetailsVM;
         }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Method to bind required JS for AMP page.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindAmpJsTags(DetailFeatureVM objData)
+        {
+            try
+            {
+                objData.AmpJsTags = new Entities.Models.AmpJsTags();
+                objData.AmpJsTags.IsAccordion = true;
+                objData.AmpJsTags.IsAd = true;
+                objData.AmpJsTags.IsBind = true;
+                objData.AmpJsTags.IsCarousel = true;
+                objData.AmpJsTags.IsSidebar = true;
+                objData.AmpJsTags.IsSocialShare = true;
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objData));
+            }
+        }
+
         /// <summary>
         /// Modified By Sajal Gupta on 25-04-20187
         /// Descrition : Call most popular bike widget by body type
