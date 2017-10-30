@@ -65,7 +65,7 @@
 }
 
 .gray-personal-icon {
-    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/personal-17x20.png) center no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/personal-17x20.png) center no-repeat;
     background-size: 60%;
 }
 
@@ -597,4 +597,10 @@ input:focus ~ .input-number-prefix{
     .text-note {
         font-size: 11px;
     }
+}
+.dp_yearpicker td,
+.dp_monthpicker td {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+
 }
