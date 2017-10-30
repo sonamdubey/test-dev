@@ -23,9 +23,9 @@ namespace Bikewale.Models
         public string compareSummaryText { get; set; }
         public IEnumerable<SimilarCompareBikeEntity> topBikeCompares { get; set; }
         public string templateSummaryTitle { get; set; }
-        public IEnumerable<ArticleSummary> ArticlesList { get; set; }
+        public RecentExpertReviewsVM ArticlesList { get; set; }
         public PQSourceEnum PQSourceId { get; set; }
         public Bikewale.Comparison.Entities.SponsoredVersionEntityBase SponsoredBike { get; set; }
-        public string KnowMoreLinkText { get; set; }       
+        public string KnowMoreLinkText { get; set; }        
     }
 }

@@ -420,7 +420,7 @@ namespace Grpc.CMS
                                     ApplicationId = 2,
                                     ContentTypes = contenTypes,
                                     TotalRecords = (uint)totalRecords,
-                                    //ModelIds = String.IsNullOrEmpty(modelIds) ? string.Empty : modelIds,
+                                    ModelIds = String.IsNullOrEmpty(modelIds) ? string.Empty : modelIds,
                                 },
                                  null, GetForwardTime(m_ChanelWaitTime));
                         }

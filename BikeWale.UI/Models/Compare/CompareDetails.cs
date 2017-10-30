@@ -16,6 +16,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Bikewale.Interfaces.EditCMS;
+using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
+
 namespace Bikewale.Models
 {
     /// <summary>
@@ -30,16 +34,17 @@ namespace Bikewale.Models
         private readonly IBikeCompare _objCompare = null;
         private readonly ICMSCacheContent _compareTest = null;
         private readonly ISponsoredComparison _objSponsored = null;
+        private readonly IArticles _objArticles = null;
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         public string redirectionUrl { get; set; }
-        private string _originalUrl, _compareUrl;
+        private string _originalUrl, _compareUrl, modelIdList, _modelNameList;
         private readonly uint _maxComparisons;
         private string _bikeQueryString = string.Empty, _versionsList = string.Empty;
         private uint _sponsoredBikeVersionId, _cityId;
         private ushort bikeComparisions;
 
-        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository objMakeCache, ISponsoredComparison objSponsored, uint maxComparisons)
+        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository objMakeCache, ISponsoredComparison objSponsored, IArticles objArticles, uint maxComparisons)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objCompareCache = objCompareCache;
@@ -48,6 +53,7 @@ namespace Bikewale.Models
             _compareTest = compareTest;
             _objSponsored = objSponsored;
             _maxComparisons = maxComparisons;
+            _objArticles = objArticles;
 
             ProcessQueryString();
         }
@@ -72,6 +78,8 @@ namespace Bikewale.Models
                 if (status != StatusCodes.RedirectPermanent)
                 {
                     BindSimilarBikes(obj);
+
+                    BindExpertReviewsWidget(obj);
                 }
             }
             catch (Exception ex)
@@ -99,6 +107,21 @@ namespace Bikewale.Models
             {
 
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.BindSimilarBikes()");
+            }
+        }
+
+        private void BindExpertReviewsWidget(CompareDetailsVM obj)
+        {
+            try
+            {
+                obj.ArticlesList = new RecentExpertReviewsVM();
+                obj.ArticlesList.ArticlesList = _objArticles.GetMostRecentArticlesByIdList("8", 5, 0, modelIdList);
+                obj.ArticlesList.Title = string.Format(" More from experts on {0}", _modelNameList);
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.BindExpertReviewsWidget()");
             }
         }
 
@@ -167,13 +190,13 @@ namespace Bikewale.Models
         /// <returns></returns>
         private void GetComparisionTextAndMetas(CompareDetailsVM obj)
         {
-            IList<string> bikeList = null, bikeMaskingList = null, bikeModels = null;
+            IList<string> bikeList = null, bikeMaskingList = null, bikeModels = null, bikeIdList = null;
             try
             {
                 if (obj.Compare != null && obj.Compare.BasicInfo != null)
                 {
                     bikeList = new List<string>(); bikeMaskingList = new List<string>(); bikeModels = new List<string>();
-
+                    bikeIdList = new List<string>();
 
                     foreach (var bike in obj.Compare.BasicInfo)
                     {
@@ -182,7 +205,7 @@ namespace Bikewale.Models
                             bikeList.Add(string.Format("{0} {1}", bike.Make, bike.Model));
                             bikeMaskingList.Add(string.Format("{0}-{1}", bike.MakeMaskingName, bike.ModelMaskingName));
                             bikeModels.Add(bike.Model);
-
+                            bikeIdList.Add(bike.ModelId.ToString());
                         }
                     }
 
@@ -190,6 +213,11 @@ namespace Bikewale.Models
                     obj.comparisionText = string.Join(" vs ", bikeList);
                     obj.templateSummaryTitle = string.Join(" vs ", bikeModels);
                     obj.targetModels = string.Join(",", bikeModels);
+                    modelIdList = string.Join(",", bikeIdList);
+                   
+                    _modelNameList = string.Join(", ", bikeModels);
+                    int Place = _modelNameList.LastIndexOf(",");
+                    _modelNameList = _modelNameList.Remove(Place, 1).Insert(Place, " &");
 
                     if (bikeList.Count() == 2)
                     {
