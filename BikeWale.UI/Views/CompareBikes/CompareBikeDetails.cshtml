@@ -68,7 +68,8 @@
                                     <span class="error-text"></span>
                                     <p class="font-12 text-light-grey margin-bottom2">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
                                     <div class="margin-bottom5 font18 ">
-                                        @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="font-bold" data-bind="text: price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
+                                        @Html.Raw("<span>&#x20B9;</span>")&nbsp;
+                                        <span class="font-bold" data-bind="text: price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
                                     </div>
                                     @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                     {
@@ -79,6 +80,9 @@
                                         if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                         {
                                             <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@String.Format("{0}_Top Card", bikeName)" class="bw-ga know-more-target text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
+                                                @Model.KnowMoreLinkText
+                                            <span class="bwsprite know-more-icon"></span>
+                                        </div>
                                         }
                                     }
 
@@ -139,6 +143,9 @@
                                             if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                             {
                                                 <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@string.Format("{0}_Floating Card", bikeName)" class="bw-ga know-more-target text-link">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
+                                                    @Model.KnowMoreLinkText
+                                                <span class="bwsprite know-more-icon"></span>
+                                            </div>
                                             }
                                         }
 
@@ -311,7 +318,7 @@
 
                 @if (Model.Compare.UserReviewData != null)
                 {
-                    var versionCount = Model.Compare.BasicInfo != null ? Model.Compare.BasicInfo.Count() : 0; 
+                    var versionCount = Model.Compare.BasicInfo != null ? Model.Compare.BasicInfo.Count() : 0;
                     <div id="reviewTabContent" class="review-tab bw-tabs-data font14 hide">
 
                         <ul>
@@ -329,7 +336,7 @@
                                             </tr>
 
                                             @{isFirstActiveTab = false;}
-                                            
+
                                             <tr class="row-type-data">
                                                 <td class="text-default">Overall rating</td>
 
@@ -484,7 +491,7 @@
                                                 }
                                                 @if (versionCount < 4)
                                                 {
-                                                <td></td>
+                                                    <td></td>
                                                 }
                                             </tr>
                                         </tbody>
@@ -498,6 +505,14 @@
 
                 <div id="comparison-footer"></div>
             </div>
+          
+            <!--  similar bike comparison start-->
+            @if (Model.SimilarBikeWidget != null)
+            {
+                @Html.Partial("~/Views/CompareBikes/SimilarBikeComparison.cshtml", Model.SimilarBikeWidget)
+            }
+           <!-- Similar bike comparison end-->
+
             @if (Model.isUsedBikePresent)
             {
                 <div id="used-bikes-container" class="content-box-shadow font14">
@@ -517,10 +532,11 @@
                                     <td>
                                         @if (bike.UsedBikeCount.BikeCount > 0)
                                         {
-                                            <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" )" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a><br />
-                                            <span>
-                                                Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
-                                            </span>}
+                                            <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" )" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a>
+                                                <br />
+                                                <span>
+                                                    Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
+                                                </span>}
                                         else
                                         {
                                             <span>--</span>
@@ -546,7 +562,8 @@
                 <div class="content-box-shadow content-inner-block-20">
                     <p class="h2-heading text-bold text-black margin-bottom20">Bike Comparison - @Model.templateSummaryTitle</p>
                     <div class="font14 text-slate-grey collapsible-content">
-                        <p class="main-content">@Html.Raw(Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 300))</p><p class="more-content">@Html.Raw(Model.compareSummaryText.Substring(300))</p>
+                        <p class="main-content">@Html.Raw(Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 300))</p>
+                        <p class="more-content">@Html.Raw(Model.compareSummaryText.Substring(300))</p>
                         <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                     </div>
                 </div>

@@ -383,6 +383,16 @@
                         <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
                     </div>
                 </section>
+
+                @if (Model.SimilarBikeWidget != null)
+                {
+                    <!-- Similar bikes comparison start-->
+                    <section>
+                        @Html.Partial("~/Views/CompareBikes/SimilarBikeComparison_Mobile.cshtml", Model.SimilarBikeWidget);
+                    </section>
+                   <!-- Similar bike comparison end-->
+                }
+                
                 @if (Model.isUsedBikePresent)
                 {
                     <div id="used-bikes-container" class="container box-shadow bg-white card-bottom-margin">

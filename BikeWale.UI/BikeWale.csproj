@@ -3833,6 +3833,8 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad200x211.cshtml" />
     <Content Include="Views\Make\_Index_Tabs.cshtml" />
     <Content Include="Views\Make\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\CompareBikes\SimilarBikeComparison.cshtml" />
+    <Content Include="Views\CompareBikes\SimilarBikeComparison_Mobile.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
     <None Include="Web.Debug.config">
