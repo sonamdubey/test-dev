@@ -1293,7 +1293,7 @@ namespace Bikewale.BAL.Compare
 
         public SimilarBikeComparisonWrapper GetSimilarBikes(string modelList, ushort topCount)
         {
-            return _objCache.GetSimilarBikes(modelList, topCount);
+                return _objCompare.GetSimilarBikes(modelList, topCount);
         }
     }
 

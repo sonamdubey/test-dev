@@ -31,6 +31,6 @@ namespace Bikewale.Models
         public Bikewale.Comparison.Entities.SponsoredVersionEntityBase SponsoredBike { get; set; }
         public string KnowMoreLinkText { get; set; }
       
-        public SimilarBikesComparisionVM SimilarBikeComparisons { get; set; }
+        public SimilarBikesComparisionVM SimilarBikeWidget { get; set; }
     }
 }

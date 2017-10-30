@@ -10,6 +10,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Memcache;
+using Bikewale.Models.Compare;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
@@ -30,7 +31,8 @@ namespace Bikewale.Models
         private readonly IBikeCompare _objCompare = null;
         private readonly ICMSCacheContent _compareTest = null;
         private readonly ISponsoredComparison _objSponsored = null;
-        private string modelList;
+        private string modelList,modelIdList;
+        private string compareModelId1, compareModelId2;
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         public string redirectionUrl { get; set; }
@@ -169,12 +171,12 @@ namespace Bikewale.Models
         /// <returns></returns>
         private void GetComparisionTextAndMetas(CompareDetailsVM obj)
         {
-            IList<string> bikeList = null, bikeMaskingList = null, bikeModels = null;
+            IList<string> bikeList = null, bikeMaskingList = null, bikeModels = null , bikeIdList = null;
             try
             {
                 if (obj.Compare != null && obj.Compare.BasicInfo != null)
                 {
-                    bikeList = new List<string>(); bikeMaskingList = new List<string>(); bikeModels = new List<string>();
+                    bikeList = new List<string>(); bikeMaskingList = new List<string>(); bikeModels = new List<string>(); bikeIdList = new List<string>();
 
 
                     foreach (var bike in obj.Compare.BasicInfo)
@@ -184,7 +186,7 @@ namespace Bikewale.Models
                             bikeList.Add(string.Format("{0} {1}", bike.Make, bike.Model));
                             bikeMaskingList.Add(string.Format("{0}-{1}", bike.MakeMaskingName, bike.ModelMaskingName));
                             bikeModels.Add(bike.Model);
-
+                            bikeIdList.Add(bike.ModelId.ToString());
                         }
                     }
 
@@ -192,7 +194,7 @@ namespace Bikewale.Models
                     obj.comparisionText = string.Join(" vs ", bikeList);
                     obj.templateSummaryTitle = string.Join(" vs ", bikeModels);
                     obj.targetModels = string.Join(",", bikeModels);
-
+                    modelIdList = string.Join(",", bikeIdList);
                     if (bikeList.Count() == 2)
                     {
                         string reverseComparisonText = string.Join(" vs ", bikeModels.Reverse());
@@ -345,7 +347,6 @@ namespace Bikewale.Models
                     _originalUrl = request.ServerVariables["URL"];
 
                 modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
-
                 string[] queryArr = _originalUrl.Split('?');
                 if (queryArr.Length > 1)
                 {
@@ -438,7 +439,35 @@ namespace Bikewale.Models
             try
             {
                 ushort topCount = 10;
-                obj.SimilarBikeComparisons.similarBikesCompares = _objCompareCache.GetSimilarBikes(modelList, topCount);
+                SimilarBikeComparisonWrapper similarComparisons = null;
+                obj.SimilarBikeWidget = new SimilarBikesComparisionVM();
+                if (_objCompareCache!=null)
+                {
+                   
+                    similarComparisons = _objCompareCache.GetSimilarBikes(modelIdList, topCount);
+                    if(similarComparisons.BikeList.Any() && similarComparisons.SimilarBikes.Any())
+                    {
+                        IList<SimilarBikeComparisonWidget> comparisonList = new List<SimilarBikeComparisonWidget>();
+                        foreach (var similarBikeObj in similarComparisons.SimilarBikes)
+                        {
+                            comparisonList.Add(new SimilarBikeComparisonWidget()
+                            {
+                                BikeMake = similarBikeObj.BikeMake,
+                                BikeModel = similarBikeObj.BikeModel,
+                                OriginalImagePath = similarBikeObj.OriginalImagePath,
+                                HostUrl = similarBikeObj.HostUrl,
+                                CompareBike1 = similarComparisons.BikeList.FirstOrDefault(l => l.Model.ModelId == similarBikeObj.ModelId1),
+                                CompareBike2 = similarComparisons.BikeList.FirstOrDefault(l => l.Model.ModelId == similarBikeObj.ModelId2),
+                                
+                            });
+                        }
+                        if (obj.SimilarBikeWidget!=null)
+                        {
+                            obj.SimilarBikeWidget.SimilarBikeComparison = comparisonList;
+                        }
+                       
+                    }
+                }
             }
             catch (Exception ex)
             {

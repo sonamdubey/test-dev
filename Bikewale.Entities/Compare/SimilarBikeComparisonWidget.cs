@@ -27,5 +27,7 @@ namespace Bikewale.Entities.Compare
         public BasicBikeEntityBase CompareBike1 { get; set; }
         [DataMember]
         public BasicBikeEntityBase CompareBike2 { get; set; }
+        public string CompareUrl1 { get; set; }
+        public string CompareUrl2 { get; set; }
     }
 }

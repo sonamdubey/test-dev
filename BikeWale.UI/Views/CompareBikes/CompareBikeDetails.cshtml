@@ -507,9 +507,9 @@
             </div>
           
             <!--  similar bike comparison start-->
-            @if (Model.SimilarBikeComparisons != null)
+            @if (Model.SimilarBikeWidget != null)
             {
-                @Html.Partial("~/Views/CompareBikes/SimilarBikeComparison.cshtml", Model.SimilarBikeComparisons)
+                @Html.Partial("~/Views/CompareBikes/SimilarBikeComparison.cshtml", Model.SimilarBikeWidget)
             }
            <!-- Similar bike comparison end-->
 

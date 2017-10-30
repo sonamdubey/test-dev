@@ -1,5 +1,4 @@
-﻿using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Compare;
+﻿using Bikewale.Entities.Compare;
 using System.Collections.Generic;
 
 namespace Bikewale.Models.Compare
@@ -10,8 +9,6 @@ namespace Bikewale.Models.Compare
     /// </summary>
    public class SimilarBikesComparisionVM
     {
-
-        public SimilarBikeComparisonWrapper similarBikesCompares { get; set; }
-
+        public IEnumerable<SimilarBikeComparisonWidget> SimilarBikeComparison { get; set; }
     }
 }

@@ -1045,9 +1045,8 @@ namespace Bikewale.DAL.Compare
             SimilarBikeComparisonWrapper similarBikeComparison = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getsimilarbikes"))
                 {
-                    cmd.CommandText = "GetSimilarBikes";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelidlist", DbType.String, 20, modelList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
@@ -1065,7 +1064,7 @@ namespace Bikewale.DAL.Compare
                                 {
                                     BikeMake = new BikeMakeBase()
                                     {
-                                        MakeMaskingName = Convert.ToString(reader["MakeMakingName"]),
+                                        MakeMaskingName = Convert.ToString(reader["MakeMaskingName"]),
                                         MakeName = Convert.ToString(reader["MakeName"])
                                     },
                                     BikeModel = new BikeModelEntityBase()
@@ -1093,12 +1092,12 @@ namespace Bikewale.DAL.Compare
                                     {
                                         Make = new BikeMakeEntityBase()
                                         {
-                                            MaskingName = Convert.ToString(reader["MakeMakingName"]),
+                                            MaskingName = Convert.ToString(reader["MakeMaskingName"]),
                                             MakeName = Convert.ToString(reader["MakeName"])
                                         },
                                         Model = new BikeModelEntityBase()
                                         {
-                                            ModelId = SqlReaderConvertor.ToInt32(reader["similarModelId"]),
+                                            ModelId = SqlReaderConvertor.ToInt32(reader["modelId"]),
                                             MaskingName = Convert.ToString(reader["modelmaskingname"]),
                                             ModelName = Convert.ToString(reader["modelname"])
                                         },
