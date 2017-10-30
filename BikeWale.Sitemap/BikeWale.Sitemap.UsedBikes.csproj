@@ -7,8 +7,8 @@
     <ProjectGuid>{86942D61-0DBE-43BD-8467-436B96B5A14A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SiteMapUsedBikes</RootNamespace>
-    <AssemblyName>SiteMapUsedBikes</AssemblyName>
+    <RootNamespace>Bikewale.Sitemap.UsedBikes</RootNamespace>
+    <AssemblyName>Bikewale.Sitemap.UsedBikes</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
