@@ -8,7 +8,7 @@
     <div class="container card-bottom-margin">
 
         <div class="grid-12 content-box-shadow margin-bottom20 omega alpha">
-            <h1 class="padding-15-20">Browse @Model.Make bike reviews</h1>
+            <h1 class="padding-15-20">@Model.Page_H1</h1>
 
             <div class="padding-left10 padding-right10">
                 <h2 class="padding-left10 font14 text-default">Popular models</h2>
@@ -28,7 +28,7 @@
                                             <span class="star-icon star-size-14"></span>
                                             <span class="font14 inline-block">@bike.OverallRating.ToString("0.0").TrimEnd('0', '.')</span>
                                         </div>
-                                        <div class="font12 text-default review-left-divider">@bike.ReviewCount reviews</div>
+                                        <div class="font12 text-default review-left-divider">@string.Format("{0} review{1}", bike.ReviewCount, bike.ReviewCount > 0 ? "s" : "")</div>
                                     </div>
                                 </div>
                             </a>
