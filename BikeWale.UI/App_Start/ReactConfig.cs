@@ -1,6 +1,8 @@
 using JavaScriptEngineSwitcher.Core;
 using JavaScriptEngineSwitcher.V8;
+using JavaScriptEngineSwitcher.ChakraCore;
 using React;
+using Bikewale.Utility;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Bikewale.ReactConfig), "Configure")]
 
@@ -10,12 +12,15 @@ namespace Bikewale
     {
         public static void Configure()
         {
-            int minSize = Bikewale.Utility.BWConfiguration.Instance.MinEnginePoolSize;
-            int maxSize = Bikewale.Utility.BWConfiguration.Instance.MaxEnginePoolSize;
+            int minSize = BWConfiguration.Instance.MinEnginePoolSize;
+            int maxSize = BWConfiguration.Instance.MaxEnginePoolSize;
 
-            if (Bikewale.Utility.BWConfiguration.Instance.EnablePWA)
+            if (BWConfiguration.Instance.EnablePWA)
             {
-                JsEngineSwitcher.Instance.EngineFactories.AddV8();
+                if(BWConfiguration.Instance.UseV8Engine)
+                    JsEngineSwitcher.Instance.EngineFactories.AddV8();
+                else
+                    JsEngineSwitcher.Instance.EngineFactories.AddChakraCore();
             }
 
             ReactSiteConfiguration.Configuration
