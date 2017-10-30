@@ -488,3 +488,13 @@
     </section>
 }
     
+@if (Model.ArticlesList != null && Model.ArticlesList.ArticlesList != null && Model.ArticlesList.ArticlesList.Count() > 0)
+{
+    <section>
+        <div class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+            <h2>@Model.ArticlesList.Title</h2>
+            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ArticlesList)
+        </div>
+    </section>
+}
+
