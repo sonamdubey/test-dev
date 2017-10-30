@@ -155,8 +155,8 @@ docReady(function () {
                 if (imageUrl == "") {
                     imageUrl = "https://imgd.aeplcdn.com/393x221/bikewaleimg/images/noimage.png?q=85";
                 }
-                $('#colourCarousel a img').attr("src", imageUrl);
-                $('#colourCarousel a').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical));
+                $('#colourCarousel span img').attr("src", imageUrl);
+                $('#colourCarousel span').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical));
             }
         }
         colorElements.removeClass('active');

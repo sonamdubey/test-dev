@@ -21,9 +21,9 @@
         </div>
         <div class="bw-tabs-data hide" id="colourCarousel">
             <div class="carousel-type-color">
-                <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/@Model.ModelPageEntity.ModelDetails.MaskingName/images/?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))" class="carousel-img-container">
+                <span onclick="location='/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/@Model.ModelPageEntity.ModelDetails.MaskingName/images/?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))'" class="carousel-img-container">
                     <img class="bw-ga" data-lab="@bikeName" data-act="Main_Image_Clicked" data-cat="Model_Page" src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" title="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" border="0">
-                </a>
+                </span>
             </div>
 
             @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null)
