@@ -45,12 +45,12 @@ namespace Bikewale.BindViewModels.Controls
         /// <param name="modelId"></param>
         /// <param name="totalcount"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalcount)
+        public IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalcount,uint cityid)
         {
             IEnumerable<SimilarBikeWithVideo> objSimilarVideo = null;
             try
             {
-                objSimilarVideo = _objCache.GetSimilarBikesVideos(modelId, totalcount);
+                objSimilarVideo = _objCache.GetSimilarBikesVideos(modelId, totalcount, cityid);
 
             }
             catch (Exception ex)

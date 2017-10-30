@@ -35,11 +35,11 @@ namespace Bikewale.Controls
                 BindSimilarBikeVideos objVideos = new BindSimilarBikeVideos();
                 if (objVideos != null)
                 {
-                    SimilarBikeVideoList = objVideos.GetSimilarBikesVideos(ModelId, TotalCount);
-                    if (SimilarBikeVideoList != null)
-                    {
-                        FetchCount = (uint)SimilarBikeVideoList.Count();
-                    }
+                    //SimilarBikeVideoList = objVideos.GetSimilarBikesVideos(ModelId, TotalCount);
+                    //if (SimilarBikeVideoList != null)
+                    //{
+                    //    FetchCount = (uint)SimilarBikeVideoList.Count();
+                    //}
                 }
             }
             catch (Exception ex)
