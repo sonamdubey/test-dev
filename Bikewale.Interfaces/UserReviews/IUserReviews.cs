@@ -10,6 +10,8 @@ namespace Bikewale.Interfaces.UserReviews
     /// Description :   Added GetUserReviews
     /// Modified by :   Snehal Dange on 01 Sep 2017
     /// Description :   Added GetRateBikeData
+    /// Modified by :   Sajal Gupta on 27-10-2017
+    /// Description:    Added GetRatingAppScreenData
     /// </summary>
     public interface IUserReviews
     {
@@ -20,10 +22,7 @@ namespace Bikewale.Interfaces.UserReviews
         UserReviewRatingObject SaveUserRatings(InputRatingSaveEntity objInputRating);
         WriteReviewPageSubmitResponse SaveUserReviews(ReviewSubmitData objReviewData);
         ReviewListBase GetUserReviews(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter);
-
         UserReviewRatingData GetRateBikeData(RateBikeInput objRateBike);
-
-    
-
+        IEnumerable<UserReviewQuestion> GetRatingAppScreenData(ushort priceRangeId);
     }
 }

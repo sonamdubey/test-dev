@@ -41,7 +41,7 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("reviewId")]
         public uint ReviewId { get; set; }
 
-        [Required]
+       
         [JsonProperty("returnUrl")]
         public string ReturnUrl { get; set; }
 

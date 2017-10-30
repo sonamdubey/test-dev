@@ -8,14 +8,14 @@
     <div class="container card-bottom-margin">
 
         <div class="grid-12 content-box-shadow margin-bottom20 omega alpha">
-            <h1 class="padding-15-20">Browse @Model.Make bike reviews</h1>
+            <h1 class="padding-15-20">@Model.Page_H1</h1>
 
             <div class="padding-left10 padding-right10">
                 <h2 class="padding-left10 font14 text-default">Popular models</h2>
                 <ul class="card-container">
                     @foreach (var bike in Model.PopularBikes)
                     {
-                        string bikeName = string.Format("{0} Reviews", bike.Model.ModelName);
+                        string bikeName = string.Format("{0} Review{1}", bike.Model.ModelName, bike.ReviewCount > 1 ? "s" : "");
                         <li class="model-card">
                             <a href="/m@(Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName" class="block">
                                 <div class="model-card__image-preview">
@@ -28,7 +28,7 @@
                                             <span class="star-icon star-size-14"></span>
                                             <span class="font14 inline-block">@bike.OverallRating.ToString("0.0").TrimEnd('0', '.')</span>
                                         </div>
-                                        <div class="font12 text-default review-left-divider">@bike.ReviewCount reviews</div>
+                                        <div class="font12 text-default review-left-divider">@string.Format("{0} review{1}", bike.ReviewCount, bike.ReviewCount > 1 ? "s" : "")</div>
                                     </div>
                                 </div>
                             </a>
@@ -45,9 +45,9 @@
                     <ul class="other-model-list">
                         @foreach (var bike in Model.OtherBikes)
                         {
-                            string bikeName = string.Format("{0} Reviews", bike.Model.ModelName);
+                            string bikeName = string.Format("{0} Review{1}", bike.Model.ModelName, bike.ReviewCount > 1 ? "s" : "");
                             <li>
-                                <a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bike.Make.MaskingName, bike.Model.MaskingName)" title="@bikeName">
+                                <a href="/m@(Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bike.Make.MaskingName, bike.Model.MaskingName))" title="@bikeName">
                                     @bikeName (@bike.ReviewCount)
                                 </a>
                             </li>

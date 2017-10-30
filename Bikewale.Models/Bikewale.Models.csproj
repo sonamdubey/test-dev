@@ -118,6 +118,7 @@
     <Compile Include="Compare\CompareDetailsVM.cs" />
     <Compile Include="Compare\CompareVM.cs" />
     <Compile Include="Compare\ComparisonWidgetVM.cs" />
+    <Compile Include="Compare\SimilarBikesComparisionVM.cs" />
     <Compile Include="ComparisonTests\ComparisonTestIndexPageVM.cs" />
     <Compile Include="DealerShowroom\DealerCardVM.cs" />
     <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />
