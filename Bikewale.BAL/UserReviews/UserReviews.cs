@@ -592,5 +592,29 @@ namespace Bikewale.BAL.UserReviews
             return objUserReviewRatingData;
         }
 
+        public IEnumerable<UserReviewQuestion> GetRatingAppScreenData(ushort priceRangeId)
+        {
+            IEnumerable<UserReviewQuestion> questions = null;
+            try
+            {
+                UserReviewsData objUserReviewData = _userReviewsCache.GetUserReviewsData();
+                if (objUserReviewData != null && objUserReviewData.Questions != null)
+                {
+                    UserReviewsInputEntity filter = new UserReviewsInputEntity()
+                    {
+                        Type = Entities.UserReviews.UserReviewQuestionType.Review,
+                        PriceRangeId = priceRangeId
+                    };
+                    questions = GetUserReviewQuestions(filter, objUserReviewData);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.GetRatingAppScreenData({0})", priceRangeId));
+            }
+            return questions;
+        }
+
+
     }   // Class
 }   // Namespace

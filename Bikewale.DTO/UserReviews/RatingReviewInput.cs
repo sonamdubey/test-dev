@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Bikewale.DTO.UserReviews
 {
@@ -8,6 +9,8 @@ namespace Bikewale.DTO.UserReviews
     /// </summary>
     public class RatingReviewInput
     {
+        [JsonProperty("questions")]
+        public IEnumerable<UserReviewQuestionDto> Questions { get; set; }
         [JsonProperty("overAllrating")]
         public string OverAllrating { get; set; }
 

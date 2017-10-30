@@ -65,7 +65,7 @@ namespace Bikewale.Cache.UserReviews
         {
             UserReviewsData reviewsRatings = null;
 
-            string key = "BW_UserReviewsRatings";
+            string key = "BW_UserReviewsRatings_V1";
             try
             {
                 reviewsRatings = _cache.GetFromCache<UserReviewsData>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetUserReviewsData());

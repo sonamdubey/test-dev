@@ -29,8 +29,7 @@ namespace Bikewale.DTO.UserReviews
         [Required]
         [JsonProperty("selectedRating")]
         public ushort SelectedRating { get; set; }
-
-        [Required]
+       
         [JsonProperty("isFake")]
         public bool IsFake { get; set; }
 

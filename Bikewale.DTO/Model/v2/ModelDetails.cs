@@ -39,5 +39,11 @@ namespace Bikewale.DTO.Model.v2
 
         [JsonProperty("reviewCount")]
         public int ReviewCount { get; set; }
+        [JsonProperty("modelId")]
+        public int ModelId { get; set; }
+        [JsonProperty("modelName")]
+        public string ModelName { get; set; }
+        [JsonProperty("modelMaskingName")]
+        public string MaskingName { get; set; }
     }
 }

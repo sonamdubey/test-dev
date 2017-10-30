@@ -759,7 +759,9 @@ namespace Bikewale.DAL.UserReviews
                                         Value = SqlReaderConvertor.ToUInt16(dr["rating"]),
                                         Heading = Convert.ToString(dr["heading"]),
                                         Description = Convert.ToString(dr["Description"]),
-                                        ResponseHeading = Convert.ToString(dr["ResponseHeading"])
+                                        ResponseHeading = Convert.ToString(dr["ResponseHeading"]),
+                                        OriginalImagePath = Convert.ToString(dr["OriginalIImagePath"]),
+                                        HostUrl = Convert.ToString(dr["hosturl"])
                                     });
                             }
                             objData.OverallRating = overallRating;
