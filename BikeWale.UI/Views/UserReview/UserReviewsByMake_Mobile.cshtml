@@ -15,7 +15,7 @@
                 <ul class="card-container">
                     @foreach (var bike in Model.PopularBikes)
                     {
-                        string bikeName = string.Format("{0} Review{1}", bike.Model.ModelName, bike.ReviewCount > 0 ? "s" : "");
+                        string bikeName = string.Format("{0} Review{1}", bike.Model.ModelName, bike.ReviewCount > 1 ? "s" : "");
                         <li class="model-card">
                             <a href="/m@(Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName" class="block">
                                 <div class="model-card__image-preview">
@@ -28,7 +28,7 @@
                                             <span class="star-icon star-size-14"></span>
                                             <span class="font14 inline-block">@bike.OverallRating.ToString("0.0").TrimEnd('0', '.')</span>
                                         </div>
-                                        <div class="font12 text-default review-left-divider">@string.Format("{0} review{1}", bike.ReviewCount, bike.ReviewCount > 0 ? "s" : "")</div>
+                                        <div class="font12 text-default review-left-divider">@string.Format("{0} review{1}", bike.ReviewCount, bike.ReviewCount > 1 ? "s" : "")</div>
                                     </div>
                                 </div>
                             </a>
@@ -45,7 +45,7 @@
                     <ul class="other-model-list">
                         @foreach (var bike in Model.OtherBikes)
                         {
-                            string bikeName = string.Format("{0} Review{1}", bike.Model.ModelName, bike.ReviewCount > 0 ? "s" : "");
+                            string bikeName = string.Format("{0} Review{1}", bike.Model.ModelName, bike.ReviewCount > 1 ? "s" : "");
                             <li>
                                 <a href="/m@(Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bike.Make.MaskingName, bike.Model.MaskingName))" title="@bikeName">
                                     @bikeName (@bike.ReviewCount)
