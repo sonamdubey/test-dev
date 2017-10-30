@@ -7,6 +7,8 @@ namespace Bikewale.DTO.Model.v2
     /// <summary>
     /// Created By : Sushil Kumar on 12th Sep 2017
     /// Description : Removed unused properties from previous version
+    /// Modified by sajal Gupta on 30-10-2017
+    /// Desxcriptiomn : added ModelId, ModelName , MaskingName 
     /// </summary>
     public class ModelDetails
     {

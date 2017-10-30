@@ -592,6 +592,12 @@ namespace Bikewale.BAL.UserReviews
             return objUserReviewRatingData;
         }
 
+        /// <summary>
+        /// Created by sajal gupta on 30-10-2017
+        /// descriptiion : function to get rating app screen data
+        /// </summary>
+        /// <param name="priceRangeId"></param>
+        /// <returns></returns>
         public IEnumerable<UserReviewQuestion> GetRatingAppScreenData(ushort priceRangeId)
         {
             IEnumerable<UserReviewQuestion> questions = null;

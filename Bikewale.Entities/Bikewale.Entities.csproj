@@ -476,7 +476,6 @@
     <Compile Include="UserReviews\ProcessedInputFilters.cs" />
     <Compile Include="UserReviews\QuestionRatingsValueEntity.cs" />
     <Compile Include="UserReviews\QuestionsRatingValueByModel.cs" />
-    <Compile Include="UserReviews\RatingSaveAppOutput.cs" />
     <Compile Include="UserReviews\RecentReviewsWidget.cs" />
     <Compile Include="UserReviews\ReviewDataCombinedFilter.cs" />
     <Compile Include="UserReviews\ReviewDataFilter.cs" />

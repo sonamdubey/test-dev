@@ -6,6 +6,8 @@ namespace Bikewale.DTO.UserReviews
     /// <summary>
     /// Created by: Snehal Dange on 01-09-2017
     /// Description: DTO created as input for Review screen input
+    /// Modified by Sajal Gupta on 30-10-2017\
+    /// Description Added questions
     /// </summary>
     public class RatingReviewInput
     {
