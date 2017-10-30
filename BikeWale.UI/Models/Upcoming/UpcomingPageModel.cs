@@ -1,11 +1,15 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bikewale.Models
@@ -24,6 +28,7 @@ namespace Bikewale.Models
         private readonly ushort _pageNumber;
         private uint _totalPagesCount;
         private UpcomingBikesListInputEntity _filters;
+        private readonly ICMSCacheContent _objArticles = null;
 
         #endregion
 
@@ -38,7 +43,7 @@ namespace Bikewale.Models
 
         #region Constructor
 
-        public UpcomingPageModel(uint topbrandCount, ushort? pageNumber, int pageSize, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, string baseUrl)
+        public UpcomingPageModel(uint topbrandCount, ushort? pageNumber, int pageSize, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, string baseUrl, ICMSCacheContent objArticles)
         {
             _upcoming = upcoming;
 
@@ -57,6 +62,8 @@ namespace Bikewale.Models
             SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
             BaseUrl = baseUrl;
             PageSize = pageSize;
+            _objArticles = objArticles; 
+      
         }
         #endregion
 
@@ -90,6 +97,7 @@ namespace Bikewale.Models
                 objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Any());
                 objUpcoming.YearsList = _upcoming.GetYearList();
                 objUpcoming.MakesList = _upcoming.GetMakeList();
+                BindCMSContent(objUpcoming);
                 CreatePager(objUpcoming, objUpcoming.PageMetaTags);
 
             }
@@ -161,6 +169,32 @@ namespace Bikewale.Models
             }
         }
 
+        /// <summary>
+        /// Created By :Snehal Dange on 30th Oct 2017
+        /// Description: Upcoming bikes news widget
+        /// </summary>
+        /// <param name="objUpcoming"></param>
+        private void BindCMSContent(UpcomingPageVM objUpcoming)
+        {
+            try
+            {
+                if (objUpcoming != null && objUpcoming.UpcomingBikeModels.Any())
+                {
+
+                    IList<int> modelIdList = new List<int>();
+                    foreach(var obj in objUpcoming.UpcomingBikeModels)
+                    {
+                        modelIdList.Add(obj.ModelBase.ModelId);
+                    }
+                    objUpcoming.News = new RecentNews(5, 0 , modelIdList.ToString() , _objArticles).GetData();
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.BindCMSContent()");
+            }
+
+        }
         #endregion
     }
 }

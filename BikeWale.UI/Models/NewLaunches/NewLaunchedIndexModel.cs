@@ -4,8 +4,10 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
@@ -22,10 +24,11 @@ namespace Bikewale.Models
         private readonly PQSourceEnum _pqSource;
         private readonly ushort? _pageNumber;
         private uint _totalPagesCount;
+        private readonly ICMSCacheContent _objArticles = null;
         public int PageSize { get; set; }
         public string BaseUrl { get; set; }
         public ushort MakeTopCount { get; set; }
-        public NewLaunchedIndexModel(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming, InputFilter filter, PQSourceEnum pqSource, ushort? pageNumber)
+        public NewLaunchedIndexModel(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming, InputFilter filter, PQSourceEnum pqSource, ushort? pageNumber, ICMSCacheContent objArticles)
         {
             _newLaunches = newLaunches;
             _objMakeCache = objMakeCache;
@@ -33,6 +36,7 @@ namespace Bikewale.Models
             _filter = filter;
             _pageNumber = pageNumber;
             _pqSource = pqSource;
+            _objArticles = objArticles;
         }
 
         /// <summary>
@@ -62,6 +66,7 @@ namespace Bikewale.Models
                     CreatePager(objVM.NewLaunched, objVM.PageMetaTags);
                 }
                 CreateMeta(objVM.PageMetaTags);
+                BindCMSContent(objVM);
             }
             catch (Exception ex)
             {
@@ -146,9 +151,35 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedIndexModel.CreateMeta()");
+                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "NewLaunchedIndexModel.CreateMeta()");
             }
         }
 
+        /// <summary>
+        /// Created By :Snehal Dange on 30th Oct 2017
+        /// Description: New launched page news widget
+        /// </summary>
+        /// <param name="objUpcoming"></param>
+        private void BindCMSContent(NewLaunchedIndexVM objNewLaunches)
+        {
+            try
+            {
+                if (objNewLaunches != null)
+                {
+
+                    IList<int> modelIdList = new List<int>();
+                    foreach (var obj in objNewLaunches.NewLaunched.Bikes.Bikes)
+                    {
+                        modelIdList.Add(obj.Model.ModelId);
+                    }
+                    objNewLaunches.News = new RecentNews(5, 0, modelIdList.ToString(), _objArticles).GetData();
+                }
+            }
+            catch (Exception ex)
+            {
+               Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "NewLaunchedIndexModel.BindCMSContent()");
+            }
+
+        }
     }
 }
