@@ -36,5 +36,6 @@ namespace Bikewale.Interfaces.UserReviews
         IEnumerable<TopRatedBikes> GetTopRatedBikes(uint topCount, uint cityId);
         IEnumerable<PopularBikesWithExpertReviews> GetPopularBikesWithExpertReviews(ushort topCount);
         IEnumerable<PopularBikesWithExpertReviews> GetPopularBikesWithExpertReviewsByCity(ushort topCount, uint cityId);
+        IEnumerable<PopularBikesWithUserReviews> GetPopularBikesWithUserReviewsByMake(uint makeId);
     }
 }

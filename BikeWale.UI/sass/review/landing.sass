@@ -194,84 +194,20 @@
     top: 15px
     right: 15px
 
-.user-reviews-type-carousel .rating-block span
-	display: inline-block
-	vertical-align: middle
-.star-icon
-	width: 26px
-	height: 25px
-	vertical-align: middle
-	-webkit-transform: scale(0.8)
-	-moz-transform: scale(0.8)
-	-o-transform: scale(0.8)
-	transform: scale(0.8)
 
-.star-icon.star-size-15
-    -webkit-transform: scale(0.6)
-    -moz-transform: scale(0.6)
-    -o-transform: scale(0.6)
-    transform: scale(0.6)
+@import ../partials/rating
 
-.rate-count-1 .star-icon
-  background-position: 0 -790px
-
-.rate-count-2 .star-icon
-  background-position: -46px -790px
-
-.rate-count-3 .star-icon
-  background-position: 0 -757px
-
-.rate-count-4 .star-icon
-  background-position: -92px -790px
-
-.rate-count-5 .star-icon
-  background-position: -138px -790px
-
-.rate-count-5
-  color: #198D55
-
-.rate-count-4
-  color: #13B65D
-
-.rate-count-3
-  color: #EFD700
-
-.rate-count-2
-  color: #FD971C
-
-.rate-count-1
-  color: #EF3F30
-//rating badge
-.rating-badge
-    min-width: 40px
-    height: 20px
-    padding-right: 5px
-    padding-left: 5px
-    font-size: 14px
-    font-weight: 600
-    color: #fff
-    display: inline-block
-    vertical-align: middle
-    text-align: center
-    -webkit-border-radius: 2px
-    -moz-border-radius: 2px
-    -ms-border-radius: 2px
-    border-radius: 2px
-
-.rating-badge[data-rate-bg="5"]
-    background-color: #198D55
-
-.rating-badge[data-rate-bg="4"]
-    background-color: #13B65D
-
-.rating-badge[data-rate-bg="3"]
-    background-color: #EFD700
-
-.rating-badge[data-rate-bg="2"]
-    background-color: #FD971C
-
-.rating-badge[data-rate-bg="1"]
-    background-color: #EF3F30
+@for $i from 1 through 5
+	@include rate-count($i)
+	@include rate-star-icon($i, normal)
+	@include rating-badge($i)
+	
+.rating-text-pos
+	position: relative
+	left: -5px
+	top: 2px
+	
+//white star
 
 .star-white
     width: 12px
@@ -776,6 +712,14 @@
 .brand-71
   width: 39px
   background-position: -2616px 0
+
+.brand-37
+  width: 119px
+  background-position: -2665px 0
+
+.brand-18
+  width: 63px
+  background-position: -2794px 0
 
 .brand-23
   width: 125px

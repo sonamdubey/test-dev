@@ -215,18 +215,15 @@
 	right: 15px
 	z-index: 2
 
-
-@include rate-count(1)
-@include rate-count(2)
-@include rate-count(3)
-@include rate-count(4)
-@include rate-count(5)
-@include rate-star-icon(1, normal)
-@include rate-star-icon(2, normal)
-@include rate-star-icon(3, normal)
-@include rate-star-icon(4, normal)
-@include rate-star-icon(5, normal)
-
+@for $i from 1 through 5
+	@include rate-count($i)
+	@include rate-star-icon($i, normal)
+	@include rating-badge($i)
+	
+.rating-text-pos
+	position: relative
+	left: -5px
+	
 .review-sm
 	display: inline-block
 	vertical-align: middle
@@ -317,12 +314,6 @@
     position: absolute
     top: 0
     left: 10px
-
-@include rating-badge(1)
-@include rating-badge(2)
-@include rating-badge(3)
-@include rating-badge(4)
-@include rating-badge(5)
 
 .star-white
     width: 12px
@@ -621,11 +612,13 @@
     border-top: 1px solid #f5f5f5
     cursor: pointer
 
-.brandlogosprite
-  background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?22Sep20171506080390741)
-  background-repeat: no-repeat
-  display: inline-block
 
+@media only screen and (max-width: 360px)
+	.author-block
+		height: 410px
+
+		&:before
+			height: 410px
 .brand-type-container
   li
     display: inline-block
@@ -645,9 +638,12 @@
   display: block
   text-transform: capitalize
 
-/* brands
 
-.brand-2, .brand-1, .brand-40, .brand-3, .brand-4, .brand-11, .brand-20, .brand-5, .brand-39, .brand-6, .brand-7, .brand-8, .brand-34, .brand-17, .brand-9, .brand-19, .brand-10, .brand-12, .brand-22, .brand-15, .brand-16, .brand-13, .brand-14, .brand-41, .brand-42, .brand-81, .brand-71, .brand-23
+.brandlogosprite
+  background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?22Sep20171506080390741') no-repeat
+  display: inline-block
+
+.brand-2, .brand-1, .brand-40, .brand-3, .brand-4, .brand-11, .brand-20, .brand-5, .brand-39, .brand-6, .brand-7, .brand-8, .brand-34, .brand-17, .brand-9, .brand-19, .brand-10, .brand-12, .brand-22, .brand-15, .brand-16, .brand-13, .brand-14, .brand-41, .brand-42, .brand-81, .brand-71, .brand-37, .brand-18, .brand-23
   height: 30px
 
 .brand-2
@@ -757,6 +753,14 @@
 .brand-71
   width: 23px
   background-position: -1577px 0
+
+.brand-37
+  width: 70px
+  background-position: -1610px 0
+
+.brand-18
+  width: 37px
+  background-position: -1690px 0
 
 .brand-23
   width: 70px
