@@ -26,7 +26,7 @@ namespace Bikewale.Models.ServiceCenters
         private string _makeMaskingName;
         private uint _makeId, _cityId;
         private readonly IDealerCacheRepository _objDealerCache = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache;
         private readonly IServiceCenter _objSC;
         private readonly IServiceCenterCacheRepository _objSCCache;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels;
@@ -39,7 +39,7 @@ namespace Bikewale.Models.ServiceCenters
         public uint UsedBikeWidgetTopCount { get; set; }
         public uint BikeShowroomWidgetTopCount { get; set; }
 
-        public ServiceCenterCityPage(IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenterCacheRepository objSCCache, IServiceCenter objSC, IBikeMakesCacheRepository<int> bikeMakesCache, string cityMaskingName, string makeMaskingName)
+        public ServiceCenterCityPage(IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenterCacheRepository objSCCache, IServiceCenter objSC, IBikeMakesCacheRepository bikeMakesCache, string cityMaskingName, string makeMaskingName)
         {
             _objSC = objSC;
             _objSCCache = objSCCache;
@@ -202,18 +202,18 @@ namespace Bikewale.Models.ServiceCenters
                 objVM.DealersServiceCenterPopularCities = objData;
                 if (objData.DealerServiceCenters.DealerDetails.Any())
                 {
-                    objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails= objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(_cityId)).ToList();
+                    objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails = objVM.DealersServiceCenterPopularCities.DealerServiceCenters.DealerDetails.Where(m => !m.CityId.Equals(_cityId)).ToList();
                 }
-               
+
             }
             catch (System.Exception ex)
             {
 
                 ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindServiceCenterPopularCityWidget");
             }
-         
+
         }
 
-            
+
     }
 }

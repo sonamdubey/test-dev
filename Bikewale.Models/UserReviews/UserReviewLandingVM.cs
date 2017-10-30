@@ -14,6 +14,6 @@ namespace Bikewale.Models.UserReviews
         public IEnumerable<AuthorEntityBase> Authors { get; set; }
         public IEnumerable<BikeMakeEntityBase> Makes { get; set; }
         public string UserReviewsQueryString { get; set; }
-
+        public BrandWidgetVM Brands { get; set; }
     }
 }

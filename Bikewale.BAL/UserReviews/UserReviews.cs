@@ -491,67 +491,68 @@ namespace Bikewale.BAL.UserReviews
             {
                 Entities.UserReviews.UserReviewsData objReviewData = null;
                 objReviewData = GetUserReviewsData();
-                if (objUserReviewRatingData.ReviewId == 0)
+                if (objReviewData != null)
                 {
-
-                    if (objReviewData != null && objReviewData.Questions != null)
+                    if (objUserReviewRatingData.ReviewId == 0)
                     {
 
-                        UserReviewsInputEntity filter = new UserReviewsInputEntity()
+                        if (objReviewData.Questions != null)
                         {
-                            Type = Entities.UserReviews.UserReviewQuestionType.Rating
-                        };
-                        var objQuestions = GetUserReviewQuestions(filter, objReviewData);
-                        if (objQuestions != null)
+
+                            UserReviewsInputEntity filter = new UserReviewsInputEntity()
+                            {
+                                Type = Entities.UserReviews.UserReviewQuestionType.Rating
+                            };
+                            var objQuestions = GetUserReviewQuestions(filter, objReviewData);
+                            if (objQuestions != null)
+                            {
+                                objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
+                                objQuestions.FirstOrDefault(x => x.Id == 3).Visibility = false;
+                                objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
+                                objUserReviewRatingData.Questions = objQuestions;
+                            }
+
+                        }
+                        if (objReviewData.OverallRating != null)
                         {
-                            objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
-                            objQuestions.FirstOrDefault(x => x.Id == 3).Visibility = false;
-                            objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
-                            objUserReviewRatingData.Questions = objQuestions;
+                            objUserReviewRatingData.OverallRating = objReviewData.OverallRating;
+                        }
+
+
+                    }
+                    else
+                    {
+                        UserReviewSummary objUserReviewDataReview = GetUserReviewSummary(objUserReviewRatingData.ReviewId);
+
+                        if (objReviewData.OverallRating != null)
+                        {
+                            objUserReviewRatingData.OverallRating = objReviewData.OverallRating;
+                        }
+
+                        if (objUserReviewDataReview != null)
+                        {
+                            objUserReviewRatingData.ReviewsOverAllrating = objUserReviewDataReview.OverallRatingId.ToString();
+                            objUserReviewRatingData.Questions = objUserReviewDataReview.Questions;
+                            objUserReviewRatingData.CustomerEmail = objUserReviewDataReview.CustomerEmail;
+                            objUserReviewRatingData.CustomerName = objUserReviewDataReview.CustomerName;
+                        }
+                    }
+
+                    var objLastPrice = objReviewData.PriceRange.Last();
+                    if (objUserReviewRatingData.ObjModelEntity != null && objUserReviewRatingData.ObjModelEntity.MinPrice >= objLastPrice.MaxPrice)
+                    {
+                        objUserReviewRatingData.PriceRangeId = (ushort)objLastPrice.RangeId;
+                    }
+                    else
+                    {
+                        var objFirstPriceRange = objReviewData.PriceRange.First(x => x.MinPrice <= objUserReviewRatingData.ObjModelEntity.MinPrice && x.MaxPrice >= objUserReviewRatingData.ObjModelEntity.MinPrice);
+                        if (objFirstPriceRange != null)
+                        {
+                            objUserReviewRatingData.PriceRangeId = (ushort)objFirstPriceRange.RangeId;
                         }
 
                     }
-                    if (objReviewData != null && objReviewData.OverallRating != null)
-                    {
-                        objUserReviewRatingData.OverallRating = objReviewData.OverallRating;
-                    }
-
-
                 }
-                else
-                {
-                    UserReviewSummary objUserReviewDataReview = GetUserReviewSummary(objUserReviewRatingData.ReviewId);
-
-                    if (objReviewData.OverallRating != null)
-                    {
-                        objUserReviewRatingData.OverallRating = objReviewData.OverallRating;
-                    }
-
-                    if (objUserReviewDataReview != null)
-                    {
-                        objUserReviewRatingData.ReviewsOverAllrating = objUserReviewDataReview.OverallRatingId.ToString();
-                        objUserReviewRatingData.Questions = objUserReviewDataReview.Questions;
-                        objUserReviewRatingData.CustomerEmail = objUserReviewDataReview.CustomerEmail;
-                        objUserReviewRatingData.CustomerName = objUserReviewDataReview.CustomerName;
-                    }
-                }
-
-                var objLastPrice = objReviewData.PriceRange.Last();
-                if (objUserReviewRatingData.ObjModelEntity != null && objUserReviewRatingData.ObjModelEntity.MinPrice >= objLastPrice.MaxPrice)
-                {
-                    objUserReviewRatingData.PriceRangeId = (ushort)objLastPrice.RangeId;
-                }
-                else
-                {
-                    var objFirstPriceRange = objReviewData.PriceRange.First(x => x.MinPrice <= objUserReviewRatingData.ObjModelEntity.MinPrice && x.MaxPrice >= objUserReviewRatingData.ObjModelEntity.MinPrice);
-                    if (objFirstPriceRange != null)
-                    {
-                        objUserReviewRatingData.PriceRangeId = (ushort)objFirstPriceRange.RangeId;
-                    }
-
-                }
-                objUserReviewRatingData.IsFake = objUserReviewRatingData.IsFake;
-                objUserReviewRatingData.ReviewId = objUserReviewRatingData.ReviewId;
             }
 
             catch (Exception ex)

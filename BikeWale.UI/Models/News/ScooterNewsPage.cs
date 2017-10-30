@@ -31,7 +31,7 @@ namespace Bikewale.Models.News
         private readonly IBikeModelsCacheRepository<int> _models = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCacheRepository = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
 
         #endregion
 
@@ -59,7 +59,7 @@ namespace Bikewale.Models.News
         #endregion
 
         #region Constructor
-        public ScooterNewsPage(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository<int> bikeMakesCacheRepository, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles)
+        public ScooterNewsPage(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles)
         {
             _articles = articles;
             _pager = pager;

@@ -15,18 +15,18 @@ namespace Bikewale.Models
     {
         private IEnumerable<BikeMakeEntityBase> _brands = null;
         public ushort TopCount { get; private set; }
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        private readonly IBikeMakesCacheRepository _makeCacheRepo = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelCache = null;
-        public BrandWidgetModel(ushort topCount, IBikeMakes<BikeMakeEntity, int> bikeMakes)
+        public BrandWidgetModel(ushort topCount, IBikeMakesCacheRepository bikeMakes)
         {
-            _bikeMakes = bikeMakes;
+            _makeCacheRepo = bikeMakes;
             TopCount = topCount;
         }
 
-        public BrandWidgetModel(ushort topCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
+        public BrandWidgetModel(ushort topCount, IBikeMakesCacheRepository bikeMakes, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
         {
-            _bikeMakes = bikeMakes;
+            _makeCacheRepo = bikeMakes;
             TopCount = topCount;
             _objModelCache = objModelCache;
         }
@@ -51,7 +51,7 @@ namespace Bikewale.Models
             {
 
                 case EnumBikeType.New:
-                    _brands = _bikeMakes.GetMakesByType(page);
+                    _brands = _makeCacheRepo.GetMakesByType(page);
                     foreach (var make in _brands)
                     {
                         make.Href = String.Format("/{0}-bikes/", make.MaskingName);
@@ -61,7 +61,7 @@ namespace Bikewale.Models
                 case EnumBikeType.Used:
                     break;
                 case EnumBikeType.Dealer:
-                    _brands = _bikeMakes.GetMakesByType(page);
+                    _brands = _makeCacheRepo.GetMakesByType(page);
                     foreach (var make in _brands)
                     {
                         make.Href = String.Format("/{0}-dealer-showrooms-in-india/", make.MaskingName);
@@ -69,7 +69,7 @@ namespace Bikewale.Models
                     }
                     break;
                 case EnumBikeType.ServiceCenter:
-                    _brands = _bikeMakes.GetMakesByType(page);
+                    _brands = _makeCacheRepo.GetMakesByType(page);
                     foreach (var make in _brands)
                     {
                         make.Href = String.Format("/{0}-service-center-in-india/", make.MaskingName);
@@ -77,7 +77,7 @@ namespace Bikewale.Models
                     }
                     break;
                 case EnumBikeType.Scooters:
-                    _brands = _bikeMakes.GetScooterMakes();
+                    _brands = _makeCacheRepo.GetScooterMakes();
                     foreach (var make in _brands)
                     {
                         make.Href = String.Format("/{0}-{1}/", make.MaskingName, !make.IsScooterOnly ? "scooters" : "bikes");
@@ -101,6 +101,14 @@ namespace Bikewale.Models
                     {
                         make.Href = String.Format("/{0}-bikes/videos/", make.MaskingName);
                         make.Title = String.Format("{0} bikes videos", make.MakeName);
+                    }
+                    break;
+                case EnumBikeType.UserReviews:
+                    _brands = _makeCacheRepo.GetMakesByType(page);
+                    foreach (var make in _brands)
+                    {
+                        make.Href = String.Format("/{0}-bikes/reviews/", make.MaskingName);
+                        make.Title = String.Format("{0} bikes reviews", make.MakeName);
                     }
                     break;
                 default:

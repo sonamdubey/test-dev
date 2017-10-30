@@ -27,7 +27,7 @@ namespace Bikewale.Models
     public class DealerShowroomDealerDetail
     {
         private readonly IDealerCacheRepository _objDealerCache = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IServiceCenter _objSC = null;
         private uint cityId, makeId, dealerId, TopCount;
@@ -48,7 +48,7 @@ namespace Bikewale.Models
         /// <param name="bikeModels"></param>
         /// <param name="makeMaskingName"></param>
         /// <param name="dealerId"></param>
-        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount, bool isMobile)
+        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount, bool isMobile)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
@@ -74,7 +74,7 @@ namespace Bikewale.Models
             try
             {
                 objMake = _bikeMakesCache.GetMakeDetails(makeId);
-                
+
                 if (objMake != null)
                     objDealerDetails.Make = objMake;
                 if (objDealerDetails.DealerDetails != null && objDealerDetails.DealerDetails.DealerDetails != null)
@@ -414,13 +414,13 @@ namespace Bikewale.Models
                     status = StatusCodes.ContentNotFound;
                 }
 
-                if(status.Equals(StatusCodes.ContentFound) && dealerId > 0)
+                if (status.Equals(StatusCodes.ContentFound) && dealerId > 0)
                 {
                     objDealerDetails.DealerDetails = BindDealersData();
-                    if(objDealerDetails.DealerDetails != null && !objDealerDetails.DealerDetails.DealerDetails.IsFeatured)
+                    if (objDealerDetails.DealerDetails != null && (objDealerDetails.DealerDetails.DealerDetails == null || !objDealerDetails.DealerDetails.DealerDetails.IsFeatured))
                     {
                         status = StatusCodes.RedirectPermanent;
-                        objDealerDetails.RedirectUrl = string.Format("{0}/{1}{2}-dealer-showrooms-in-{3}/", BWConfiguration.Instance.BwHostUrl, IsMobile?"m/":"", makeMaskingName, cityMaskingName);
+                        objDealerDetails.RedirectUrl = string.Format("{0}/{1}{2}-dealer-showrooms-in-{3}/", BWConfiguration.Instance.BwHostUrl, IsMobile ? "m/" : "", makeMaskingName, cityMaskingName);
                     }
                 }
             }
@@ -429,6 +429,6 @@ namespace Bikewale.Models
                 status = StatusCodes.ContentNotFound;
             }
         }
-        
+
     }
 }

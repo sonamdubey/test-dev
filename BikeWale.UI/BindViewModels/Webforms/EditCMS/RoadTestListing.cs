@@ -44,7 +44,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         private ICMSCacheContent _cache;
         private IPager _objPager;
         private IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeMaskingObjCache;
-        private IBikeMakesCacheRepository<int> _bikeMakesObjCache;
+        private IBikeMakesCacheRepository _bikeMakesObjCache;
         private IBikeModels<BikeModelEntity, int> _objClient;
 
         public RoadTestListing()
@@ -56,13 +56,13 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                             .RegisterType<ICacheManager, MemcacheManager>()
                             .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                            .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                            .RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                             .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                             .RegisterType<IPager, Pager>();
 
                 _objClient = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-                _bikeMakesObjCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                _bikeMakesObjCache = container.Resolve<IBikeMakesCacheRepository>();
                 _bikeMaskingObjCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
                 _cache = container.Resolve<ICMSCacheContent>();
                 _objPager = container.Resolve<IPager>();

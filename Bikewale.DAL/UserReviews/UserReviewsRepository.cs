@@ -1318,7 +1318,7 @@ namespace Bikewale.DAL.UserReviews
                                         MaskingName = Convert.ToString(dr["makemasking"]),
                                         MakeName = Convert.ToString(dr["makeName"]),
                                         IsScooterOnly = SqlReaderConvertor.ToBoolean(dr["IsScooterOnly"])
-                        },
+                                    },
                                     Model = new BikeModelEntityBase()
                                     {
                                         ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),
@@ -1725,13 +1725,13 @@ namespace Bikewale.DAL.UserReviews
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topCount", DbType.Int32, topCount));
-                    
+
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
                             objTopRatedBikes = PopulateTopRatedBikesWidget(dr);
-                            dr.Close();                            
+                            dr.Close();
                         }
                     }
                 }
@@ -1810,7 +1810,7 @@ namespace Bikewale.DAL.UserReviews
                     ExShowroomPrice = SqlReaderConvertor.ToUInt32(dr["price"]),
                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                     HostUrl = Convert.ToString(dr["hosturl"])
-                });                
+                });
             }
             return objTopRatedBikes;
         }
@@ -1906,6 +1906,67 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.UserReviews.UserReviewsRepository.FetchPopularBikesWithExpertReviews_topcount_{0}_cityid_{1}_spName_{2}", topCount, cityId, spName));
             }
             return objBikesWithExpertReviews;
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 11th Oct 2017
+        /// Description : To fetch popular bikes with expert reviews count
+        /// </summary>
+        /// <param name="spName"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<PopularBikesWithUserReviews> GetPopularBikesWithUserReviewsByMake(uint makeId)
+        {
+            IList<PopularBikesWithUserReviews> objBikesWithUserReviews = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getpopularbikeswithuserreviewsbymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.UInt32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objBikesWithUserReviews = new List<PopularBikesWithUserReviews>();
+
+                            while (dr.Read())
+                            {
+                                objBikesWithUserReviews.Add(new PopularBikesWithUserReviews()
+                                {
+                                    Make = new BikeMakeEntityBase
+                                    {
+                                        MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                        MakeName = Convert.ToString(dr["makename"]),
+                                        MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                    },
+                                    Model = new BikeModelEntityBase
+                                    {
+                                        ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                        ModelName = Convert.ToString(dr["modelname"]),
+                                        MaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                    },
+                                    ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
+                                    RatingsCount = SqlReaderConvertor.ToUInt32(dr["ratingcount"]),
+                                    OverallRating = SqlReaderConvertor.ToFloat(dr["reviewrate"]),
+                                    OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
+                                    HostUrl = Convert.ToString(dr["hosturl"])
+                                });
+
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.UserReviews.UserReviewsRepository.GetPopularBikesWithUserReviewsBy_Make_{0}", makeId));
+            }
+            return objBikesWithUserReviews;
         }
 
     }// class end

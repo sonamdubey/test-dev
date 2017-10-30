@@ -32,7 +32,7 @@ namespace Bikewale.Controllers
         private readonly IArticles _articles = null;
         private readonly IPager _pager = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
-        private readonly IBikeMakesCacheRepository<int> _makes = null;
+        private readonly IBikeMakesCacheRepository _makes = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeInfo _bikeInfo = null;
@@ -43,7 +43,7 @@ namespace Bikewale.Controllers
         #endregion
 
         #region Constructor
-        public NewsController(ICMSCacheContent cacheContent, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository<int> makes, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles)
+        public NewsController(ICMSCacheContent cacheContent, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository makes, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles)
         {
             _cacheContent = cacheContent;
             _pager = pager;

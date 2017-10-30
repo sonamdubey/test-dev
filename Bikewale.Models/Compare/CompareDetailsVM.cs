@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Models.Compare;
 using System;
 using System.Collections.Generic;
 namespace Bikewale.Models
@@ -10,6 +11,10 @@ namespace Bikewale.Models
     /// <summary>
     /// Created By :- Subodh Jain 23 May 2017
     /// Summary :- Compare Bike CompareDetailsVM
+    /// Created By :Snehal Dange  on 25th Oct 2017
+    /// Description : Added 
+    /// Modified by sajal Gupta on 30-10-2017
+    /// description : added ArticlesList
     /// </summary>
     public class CompareDetailsVM : ModelBase
     {
@@ -23,9 +28,11 @@ namespace Bikewale.Models
         public string compareSummaryText { get; set; }
         public IEnumerable<SimilarCompareBikeEntity> topBikeCompares { get; set; }
         public string templateSummaryTitle { get; set; }
-        public IEnumerable<ArticleSummary> ArticlesList { get; set; }
+        public RecentExpertReviewsVM ArticlesList { get; set; }
         public PQSourceEnum PQSourceId { get; set; }
         public Bikewale.Comparison.Entities.SponsoredVersionEntityBase SponsoredBike { get; set; }
-        public string KnowMoreLinkText { get; set; }       
+        public string KnowMoreLinkText { get; set; }        
+      
+        public SimilarBikesComparisionVM SimilarBikeWidget { get; set; }
     }
 }

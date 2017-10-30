@@ -174,11 +174,11 @@ namespace Bikewale.Mobile.Service
                 {
                     using (IUnityContainer containerInner = new UnityContainer())
                     {
-                        containerInner.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                        containerInner.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                               .RegisterType<ICacheManager, MemcacheManager>()
                               .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                              ;
-                        var objCache = containerInner.Resolve<IBikeMakesCacheRepository<int>>();
+                        var objCache = containerInner.Resolve<IBikeMakesCacheRepository>();
 
                         objMakeResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
                     }

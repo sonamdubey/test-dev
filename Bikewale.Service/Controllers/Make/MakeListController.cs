@@ -23,13 +23,13 @@ namespace Bikewale.Service.Controllers.Make
     public class MakeListController : CompressionApiController//ApiController
     {
         //private readonly IBikeMakes<BikeMakeEntity, int> _makesRepository;
-        private readonly IBikeMakesCacheRepository<int> _makesRepository;
+        private readonly IBikeMakesCacheRepository _makesRepository;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="makesRepository"></param>
-        public MakeListController(IBikeMakesCacheRepository<int> makesRepository)
+        public MakeListController(IBikeMakesCacheRepository makesRepository)
         {
             _makesRepository = makesRepository;
         }

@@ -14,7 +14,7 @@ namespace Bikewale.Entities.UserReviews
     /// Summary     : Entity for Rate bike page (1st page)
     /// </summary>
     [Serializable, DataContract]
-    public class UserReviewRatingData 
+    public class UserReviewRatingData
     {
         public BikeModelEntity ObjModelEntity { get; set; }
 
@@ -26,7 +26,6 @@ namespace Bikewale.Entities.UserReviews
 
         public string ErrorMessage { get; set; }
         public ushort PriceRangeId { get; set; }
-    
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public uint ReviewId { get; set; }
