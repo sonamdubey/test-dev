@@ -123,6 +123,7 @@ namespace Bikewale.Controllers
             
             if (obj.Status == StatusCodes.ContentFound)
             {
+                obj.IsAmpPage = true;
                 objData = obj.GetData();
                 return View(objData);
             }

@@ -495,6 +495,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Ashutosh Sharma on 06-Sep-2017
         /// Description : Get data for PriceInCity AMP page
+        /// Modified by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Added call to BindAmpJsTags.
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageAMPVM GetDataAMP()
@@ -642,6 +644,7 @@ namespace Bikewale.Models
                         }
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
+                    BindAmpJsTags(objVM);
                 }
             }
             catch (Exception ex)
@@ -649,6 +652,29 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetDataAMP({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
+        }
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Method to bind required JS for AMP page.
+        /// </summary>
+        /// <param name="objVM"></param>
+        private void BindAmpJsTags(PriceInCityPageAMPVM objVM)
+        {
+            try
+            {
+                objVM.AmpJsTags = new Entities.Models.AmpJsTags();
+                objVM.AmpJsTags.IsAccordion = true;
+                objVM.AmpJsTags.IsAd = true;
+                objVM.AmpJsTags.IsAnalytics = true;
+                objVM.AmpJsTags.IsBind = true;
+                objVM.AmpJsTags.IsCarousel = true;
+                objVM.AmpJsTags.IsSelector = (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Count(v => v.IsVersionNew) > 1);
+                objVM.AmpJsTags.IsSidebar = true;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objVM));
+            }
         }
 
         /// <summary>

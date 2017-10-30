@@ -21,7 +21,8 @@
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
         {
-            <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
+            <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />
+        }
 
     }
     @if (Model.PageMetaTags.EnableOG)
@@ -37,7 +38,7 @@
     }
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
-
+      
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     
     <style amp-custom>
@@ -300,17 +301,51 @@ amp-accordion > section[expanded] .fa-angle-down {
             "articleBody" : "@ViewBag.SanitizedNewsContent",
         </script>
     }
-    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
-    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
-    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
-    <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
-    <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
-    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+
     <script async src="https://cdn.ampproject.org/v0.js"></script>
+    @if (Model.AmpJsTags != null)
+    {
+        if (Model.AmpJsTags.IsAnalytics)
+        {
+            <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsSidebar)
+        {
+            <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsAccordion)
+        {
+            <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsIframe)
+        {
+            <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsAd)
+        {
+            <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsSocialShare)
+        {
+            <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsCarousel)
+        {
+            <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsBind)
+        {
+            <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsSelector)
+        {
+            <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+        }
+
+    }
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+
+    
 </head>
 <body>
     <amp-sidebar id="nav" layout="nodisplay" side="left">
