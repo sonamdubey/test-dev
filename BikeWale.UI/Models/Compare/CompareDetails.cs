@@ -110,12 +110,17 @@ namespace Bikewale.Models
             }
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 30-10-2017
+        /// Description: code to Bind Expert Reviews Widget
+        /// </summary>
+        /// <param name="obj"></param>
         private void BindExpertReviewsWidget(CompareDetailsVM obj)
         {
             try
             {
                 obj.ArticlesList = new RecentExpertReviewsVM();
-                obj.ArticlesList.ArticlesList = _objArticles.GetMostRecentArticlesByIdList("8", 5, 0, modelIdList);
+                obj.ArticlesList.ArticlesList = _objArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.RoadTest), 5, 0, modelIdList);
                 obj.ArticlesList.Title = string.Format(" More from experts on {0}", _modelNameList);
             }
             catch (Exception ex)

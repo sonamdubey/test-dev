@@ -10,6 +10,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created By :- Subodh Jain 23 May 2017
     /// Summary :- Compare Bike CompareDetailsVM
+    /// Modified by sajal Gupta on 30-10-2017
+    /// description : added ArticlesList
     /// </summary>
     public class CompareDetailsVM : ModelBase
     {
