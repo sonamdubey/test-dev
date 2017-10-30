@@ -51,7 +51,7 @@
 
     if (Model.BikeInfoWidgetData != null)
     {
-        <section >
+        <section>
             <div class="container bg-white box-shadow section-bottom-margin margin-bottom10">
                 @Html.Partial("~/Views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfoWidgetData)
             </div>
@@ -62,7 +62,7 @@
     {
         <div class="container content-box-shadow margin-bottom10 padding-bottom20">
             <div class="padding-top20 font14">
-                <h2 class="padding-left20 padding-right20 margin-bottom15">Videos of similar bikes</h2>
+                <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes similar to @string.Format("{0} {1}",Model.Make.MakeName,Model.Model.ModelName)</h2>
                 <div class="swiper-container card-container alternate-bikes-photo-swiper overlay-carousel">
                     <div class="swiper-wrapper">
                         @foreach (var BikeInfo in Model.SimilarBikeVideoList)
@@ -71,20 +71,39 @@
                             if (BikeInfo.Make != null && BikeInfo.Model != null) { bikeName = string.Format("{0} {1}", BikeInfo.Make.MakeName, BikeInfo.Model.ModelName); }
                             <div class="swiper-slide">
                                 <div class="swiper-card">
-                                    <a href="@string.Format("/m{0}", UrlFormatter.FormatVideoPageUrl(BikeInfo.Make.MaskingName, BikeInfo.Model.MaskingName))" title="@bikeName videos" class="block swiper-card-target">
+                                    <a href="/m@(Bikewale.Utility.UrlFormatter.BikePageUrl(BikeInfo.Make.MaskingName,BikeInfo.Model.MaskingName))" title="@bikeName" class="block swiper-card-target">
                                         <div class="swiper-image-preview">
-                                            <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(BikeInfo.OriginalImagePath, BikeInfo.HostUrl, Bikewale.Utility.ImageSize._160x89, Bikewale.Utility.QualityFactor._60)" alt="@bikeName videos" src="" />
-                                            <span class="swiper-lazy-preloader"></span>
-                                            <span class="black-overlay">
-                                                <span class="bwmsprite video-play-icon"></span>
-                                            </span>
+                                            <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(BikeInfo.OriginalImagePath,BikeInfo.HostUrl,Bikewale.Utility.ImageSize._160x89,Bikewale.Utility.QualityFactor._70)" alt="@bikeName images" src="" />
                                         </div>
                                         <div class="swiper-details-block">
-                                            <h3 class="margin-bottom5 text-truncate">@bikeName</h3>
-                                            <p class="font14 text-default text-truncate">@String.Format("{0} {1}", BikeInfo.VideoCount, (BikeInfo.VideoCount > 1 ? "Videos" : "Video"))</p>
+                                            <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                                            <p class="text-truncate text-light-grey font11">
+                                                @if (BikeInfo.OnRoadPriceInCity > 0)
+                                                {
+                                                    string.Format("On-Road Price, {0}", Model.BikeInfoWidgetData.CityDetails.CityName);
+                                                }
+                                                else
+                                                {
+                                                    string.Format("Ex-showroom price, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName);
+                                                }
+                                            </p>
+                                            <p class="text-default font16 margin-bottom15">
+                                                &#x20b9;&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(BikeInfo.OnRoadPriceInCity > 0 ? BikeInfo.OnRoadPriceInCity : BikeInfo.ExShowRoomPriceMumbai))</span>
+
+                                                @if (BikeInfo.OnRoadPriceInCity > 0)
+                                                {
+                                                    <span class="font14">&nbsp;onwards</span>
+                                                }
+                                            </p>
                                         </div>
                                     </a>
+                                    <a href="@string.Format("/m{0}videos",Bikewale.Utility.UrlFormatter.BikePageUrl(BikeInfo.Make.MaskingName,BikeInfo.Model.MaskingName))" title="@bikeName videos" class="compare-with-target text-truncate">
+                                        <span class="bwmsprite photos-sm"></span><span class="margin-left5 font12 text-default">View all&nbsp;@BikeInfo.VideoCount &nbsp;@(BikeInfo.VideoCount > 1 ? "videos" : "video") </span><span class="bwmsprite right-arrow"></span>
+                                    </a>
+                                   
                                 </div>
+
+
                             </div>
                         }
                     </div>
@@ -96,12 +115,12 @@
     { Html.RenderAction("PopularBodyStyleMobile", "PopularBikes", new { modelId = Model.Model.ModelId, topCount = 9, cityId = Model.CityId }); }
 }
 <script type="text/javascript">
-   
+
     docReady(function () {
         $("#backBtn").on('click', function () {
             window.history.back();
         });
     });
 
-    
+
 </script>

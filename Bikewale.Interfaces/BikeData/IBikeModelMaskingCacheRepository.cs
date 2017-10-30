@@ -32,7 +32,7 @@ namespace Bikewale.Interfaces.BikeData
         ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId);
         ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed);
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
-        IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalcount);
+        IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalcount,uint cityid);
         IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviews(uint modelId, uint cityId, uint totalRecords);
         T GetById(U id);
     }
