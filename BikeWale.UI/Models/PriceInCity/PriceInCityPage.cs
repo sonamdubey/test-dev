@@ -23,7 +23,6 @@ using Bikewale.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -397,8 +396,8 @@ namespace Bikewale.Models
                         }
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
-
-                    CheckGallaryLoad(objVM);
+                    if (firstVersion != null)
+                        CheckGallaryLoad(objVM);
                 }
             }
             catch (Exception ex)
@@ -417,7 +416,7 @@ namespace Bikewale.Models
         {
             try
             {
-                int[] MakeIdList = new int[2] {6,7}; //For Hero and Honda
+                int[] MakeIdList = new int[2] { 6, 7 }; //For Hero and Honda
                 if (MakeIdList.Contains<int>(Convert.ToInt32(firstVersion.MakeId)))
                 {
                     objVM.IsGalleryLoaded = true;
@@ -460,7 +459,7 @@ namespace Bikewale.Models
                         }
                     }
                 }
-                 
+
             }
             catch (Exception ex)
             {
@@ -468,7 +467,7 @@ namespace Bikewale.Models
             }
         }
 
-        
+
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Sep 2017
         /// Description :   To Show Innovation Banner
@@ -1240,7 +1239,7 @@ namespace Bikewale.Models
                             LoanAmount = Convert.ToUInt32((objData.FirstVersion.OnRoadPrice) * 0.8)
                         };
 
-                        
+
 
                         objData.IsManufacturerLeadAdShown = true;
                         objData.LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", objData.BikeModel.ModelId, objData.CityEntity.CityId, string.Empty, string.Format(objData.BikeName), string.Empty, string.Empty, string.Empty, objData.IsManufacturerLeadAdShown, objData.LeadCampaign.DealerId, String.Format(objData.LeadCampaign.LeadsPropertyTextMobile, objData.LeadCampaign.Organization), objData.LeadCampaign.Area, objData.VersionId, objData.LeadCampaign.LeadSourceId, objData.LeadCampaign.PqSourceId, objData.LeadCampaign.CampaignId, objData.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), objData.LeadCampaign.PopupHeading, String.Format(objData.LeadCampaign.PopupSuccessMessage, objData.LeadCampaign.Organization), objData.LeadCampaign.PopupDescription, objData.LeadCampaign.PincodeRequired, objData.LeadCampaign.EmailRequired, objData.LeadCampaign.DealerRequired)));
