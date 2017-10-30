@@ -121,6 +121,8 @@ namespace BikeWaleOpr.Content
         /// </summary>
         /// Modified By : Vivek Singh Tomar on 31st July 2017
         /// Description : Clear Memcache when new version added
+        /// Modified by : Ashutosh Sharma on 23 Oct 2017
+        /// Description : Replaced sp from 'con_savebikeversion14092017' to 'con_savebikeversion_23102017'.
         /// <param name="id"></param>
         /// <returns></returns>
         string SaveData(string id)
@@ -128,7 +130,7 @@ namespace BikeWaleOpr.Content
             string currentId = "-1";
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("con_savebikeversion14092017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("con_savebikeversion_23102017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, id));
