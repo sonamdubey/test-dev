@@ -15,7 +15,7 @@
                 <ul class="card-container">
                     @foreach (var bike in Model.PopularBikes)
                     {
-                        string bikeName = string.Format("{0} Reviews",bike.Model.ModelName);
+                        string bikeName = string.Format("{0} Review{1}",bike.Model.ModelName, bike.ReviewCount > 0 ? "s" : "");
                         <li class="model-card">
                             <a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName)" title="@bikeName" class="block">
                                 <div class="model-card__image-preview">
@@ -47,7 +47,7 @@
                     <ul class="card-container">
                         @foreach (var bike in Model.OtherBikes)
                         {
-                            string bikeName = string.Format("{0} Reviews",bike.Model.ModelName);
+                            string bikeName = string.Format("{0} Review{1}",bike.Model.ModelName, bike.ReviewCount > 0 ? "s" : "");
                             <li>
                                 <a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName)" title="@bikeName">
                                     @bikeName (@bike.ReviewCount)
