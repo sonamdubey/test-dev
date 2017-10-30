@@ -47,7 +47,7 @@
                         {
                             string bikeName = string.Format("{0} Reviews", bike.Model.ModelName);
                             <li>
-                                <a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bike.Make.MaskingName, bike.Model.MaskingName)" title="@bikeName">
+                                <a href="m/@(Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bike.Make.MaskingName, bike.Model.MaskingName))" title="@bikeName">
                                     @bikeName (@bike.ReviewCount)
                                 </a>
                             </li>
