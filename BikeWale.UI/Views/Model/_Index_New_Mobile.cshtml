@@ -24,7 +24,7 @@
                     @Html.Partial("~/Views/Model/_Index_Tabs_Mobile.cshtml", Model)
                 </div>
             </div>
-            <div id="overviewContent" class="bw-model-tabs-data card-bottom-margin content-details-wrapper">
+            <div id="overviewContent" data-id="overviewContent" class="bw-model-tabs-data card-bottom-margin content-details-wrapper">
                 <div class="content-box-shadow card-bottom-margin">
                     @Html.Partial("~/Views/Model/_Index_ModelGallery_Mobile.cshtml", Model)
                     <div class="elevated-shadow-top">
@@ -122,7 +122,7 @@
                     }
                     @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
                     {
-                        <div id="modelsBySeriesWidget" class="margin-bottom15 bw-ga" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
+                        <div id="modelsBySeriesWidget" data-id="overviewContent" class="bw-model-tabs-data margin-bottom15 bw-ga" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
                             <h2 class="horizontal-swiper__title">Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
                             @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
                         </div>

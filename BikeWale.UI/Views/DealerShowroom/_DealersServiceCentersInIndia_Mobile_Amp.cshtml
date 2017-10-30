@@ -8,7 +8,7 @@
                 <span class="dealer-city-image-preview">
                     <span class="city-sprite @details.CityMaskingName-icon"></span>
                 </span>
-                <p class="text-default text-bold margin-bottom5">@Model.MakeName @(details.DealerCount > 1 ? "showrooms" : "showroom") in @details.CityName</p>
+                <p class="dealer-text text-default text-bold margin-bottom5">@Model.MakeName @(details.DealerCount > 1 ? "showrooms" : "showroom") in @details.CityName</p>
                 @if (details.DealerCount > 0)
                 {
                     <span>@details.DealerCount @(details.DealerCount > 1 ? "showrooms" : "showroom")</span>

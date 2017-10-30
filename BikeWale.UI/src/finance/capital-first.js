@@ -291,8 +291,8 @@ function saveContactDetails()
         "lastName": $('#cfLName').val(),
         "mobileNumber": $('#cfNum').val(),
         "emailId": $('#cfEmail').val(),
-        "pincode": $("#cfPincode").val().substring(0, 6)
-
+        "pincode": $("#cfPincode").val().substring(0, 6),
+        "loanAmount": $('#loanAmount').val()
     };
     $.ajax({
         type: "POST",
@@ -342,6 +342,15 @@ function saveContactDetails()
         },
         complete: function () {
             $('#otpLoader').hide();
+        },
+        error: function () {
+            var obj = {
+                message: navigator.onLine ? "Some error has occured." : "You're offline. Please check your internet connection.",
+                isYesButtonActive: true,
+                yesButtonText: "Okay",
+                yesButtonLink: "javascript:void(0)"
+            };
+            modalPopup.showModal(templates.modalPopupTemplate(obj));
         }
     });
 
@@ -378,13 +387,17 @@ function savePersonalDetails() {
         "id": $("#cpId").val(),
         "ctLeadId": $("#ctLeadId").val(),
         "leadId": $("#leadId").val(),
-         "objLeadJson": $("#objLead").val(),
+        "objLeadJson": $("#objLead").val(),
+        "firstName": $('#cfFName').val(),
+        "lastName": $('#cfLName').val(),
+        "mobileNumber": $('#cfNum').val(),
+        "emailId": $('#cfEmail').val(),
+        "pincode": $("#cfPincode").val().substring(0, 6),
         "dateOfBirth": $('#cfDOB').val(),
         "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
         "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
         "addressLine1": $("#cfAddress1").val(),
         "addressLine2": $('#cfAddress2').val(),
-        "pincode": $("#cfPincode").val().substring(0, 6),
         "pancard": $("#cfPan").val(),
         "loanAmount": $('#loanAmount').val()
 
@@ -442,7 +455,17 @@ function savePersonalDetails() {
         },
         complete: function(){
         $('#otpLoader').hide();
-    }
+        }
+        ,
+        error: function () {
+            var obj = {
+                message: navigator.onLine ? "Some error has occured." : "You're offline. Please check your internet connection.",
+                isYesButtonActive: true,
+                yesButtonText: "Okay",
+                yesButtonLink: "javascript:void(0)"
+            };
+            modalPopup.showModal(templates.modalPopupTemplate(obj));
+        }
     });
 
 
@@ -522,6 +545,15 @@ function saveEmployeDetails() {
         },
         complete: function(){
             $('#otpLoader').hide();
+        },
+        error: function () {
+            var obj = {
+                message: navigator.onLine ? "Some error has occured." : "You're offline. Please check your internet connection.",
+                isYesButtonActive: true,
+                yesButtonText: "Okay",
+                yesButtonLink: "javascript:void(0)"
+            };
+            modalPopup.showModal(templates.modalPopupTemplate(obj));
         }
     });
 
