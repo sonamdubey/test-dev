@@ -2,7 +2,7 @@
 @if (Model != null)
 {
     string mobileUrl = string.Format("{0}/m/{1}-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.MakeMaskingName);
-    <div id="makeOverallTabsWrapper" class="position-rel">
+    
         <div id="overallSpecsTab" class="overall-specs-tabs-container">
             <ul class="overall-specs-tabs-wrapper">
                 @{
@@ -73,5 +73,5 @@
                 }
             </ul>
         </div>
-    </div>
+    
 }
