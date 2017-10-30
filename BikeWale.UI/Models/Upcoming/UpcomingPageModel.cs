@@ -186,7 +186,8 @@ namespace Bikewale.Models
                     {
                         modelIdList.Add(obj.ModelBase.ModelId);
                     }
-                    objUpcoming.News = new RecentNews(5, 0 , modelIdList.ToString() , _objArticles).GetData();
+                    string modelId = string.Join(",", modelIdList);
+                    objUpcoming.News = new RecentNews(5, 0 , modelId, _objArticles).GetData();
                 }
             }
             catch (Exception ex)

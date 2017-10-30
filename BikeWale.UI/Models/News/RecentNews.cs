@@ -97,14 +97,19 @@ namespace Bikewale.Models
                 {
                     recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelIdList);
                 }
-                if (IsScooter)
-                {
-                    string bodyStyleId = "5";
-                    recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords,bodyStyleId, _makeId, _modelId);
-                }
                 else
-                    recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelId);
-                
+                {
+                    if (IsScooter)
+                    {
+                        string bodyStyleId = "5";
+                        recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, bodyStyleId, _makeId, _modelId);
+                    }
+                    else
+                        recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelId);
+
+                }
+
+
                 if (_makeId > 0)
                 {
                     recentNews.MakeName = _makeName;
