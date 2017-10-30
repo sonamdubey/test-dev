@@ -9,6 +9,7 @@ using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using Bikewale.Utility.StringExtention;
 using System;
+using System.Collections.Generic;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Net;
@@ -452,11 +453,11 @@ namespace Bikewale.Service.Controllers.UserReviews
                     {
                         objRating = _userReviews.SaveUserRatings(objSaveRatingEntity);
                     }
-
+                    IEnumerable<UserReviewQuestion> questions = _userReviews.GetRatingAppScreenData(objSaveInputRating.PriceRangeId); 
                     objRatingReviewInput = UserReviewsMapper.Convert(objRating, objSaveInputRating);
+                    objRatingReviewInput.Questions = UserReviewsMapper.Convert(questions);
                     return Ok(objRatingReviewInput);
                 }
-
                 else
                 {
                     return BadRequest();

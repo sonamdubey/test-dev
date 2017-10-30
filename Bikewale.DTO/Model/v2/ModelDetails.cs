@@ -7,6 +7,8 @@ namespace Bikewale.DTO.Model.v2
     /// <summary>
     /// Created By : Sushil Kumar on 12th Sep 2017
     /// Description : Removed unused properties from previous version
+    /// Modified by sajal Gupta on 30-10-2017
+    /// Desxcriptiomn : added ModelId, ModelName , MaskingName 
     /// </summary>
     public class ModelDetails
     {
@@ -39,5 +41,11 @@ namespace Bikewale.DTO.Model.v2
 
         [JsonProperty("reviewCount")]
         public int ReviewCount { get; set; }
+        [JsonProperty("modelId")]
+        public int ModelId { get; set; }
+        [JsonProperty("modelName")]
+        public string ModelName { get; set; }
+        [JsonProperty("modelMaskingName")]
+        public string MaskingName { get; set; }
     }
 }
