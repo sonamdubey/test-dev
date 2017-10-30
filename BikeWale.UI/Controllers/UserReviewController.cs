@@ -550,7 +550,7 @@ namespace Bikewale.Controllers
         }
 
         // GET: Review
-        [Route("reviews/")]
+        [Route("reviews/"), Filters.DeviceDetection()]
         public ActionResult Index()
         {
             UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles, _authors, _makesCache);
@@ -569,12 +569,27 @@ namespace Bikewale.Controllers
         }
 
         // GET: Review
-        [Route("reviews/{makeMasking}-bikes/")]
+        [Route("reviews/{makeMasking}-bikes/"), Filters.DeviceDetection()]
         public ActionResult UserReviewsByMake(string makeMasking)
         {
             UserReviewByMakePage obj = new UserReviewByMakePage(_userReviewsCacheRepo, _makesCache, makeMasking);
-            obj.PopularBikesCount = 6;
-            return View(obj.GetData());
+
+            if (obj.Status == Entities.StatusCodes.ContentFound)
+            {
+                obj.PopularBikesCount = 6;
+                return View(obj.GetData());
+            }
+            else
+            {
+                if (obj.Status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(obj.RedirectUrl);
+                }
+                else
+                {
+                    return Redirect("/pageNotFound.aspx");
+                }
+            }
         }
 
         // GET: Review
@@ -582,9 +597,24 @@ namespace Bikewale.Controllers
         public ActionResult UserReviewsByMake_Mobile(string makeMasking)
         {
             UserReviewByMakePage obj = new UserReviewByMakePage(_userReviewsCacheRepo, _makesCache, makeMasking);
-            obj.PopularBikesCount = 6;
-            obj.IsMobile = true;
-            return View(obj.GetData());
+
+            if (obj.Status == Entities.StatusCodes.ContentFound)
+            {
+                obj.PopularBikesCount = 6;
+                obj.IsMobile = true;
+                return View(obj.GetData());
+            }
+            else
+            {
+                if (obj.Status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(obj.RedirectUrl);
+                }
+                else
+                {
+                    return Redirect("/m/pageNotFound.aspx");
+                }
+            }
         }
     }
 }
