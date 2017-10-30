@@ -115,7 +115,7 @@ docReady(function () {
 	var pickerEndDate = startDate.getFullYear() + '-' + startMonth + '-' + startDate.getDate();
 	
     $("#cfDOB").Zebra_DatePicker({
-		container: $("#cfDOB").closest(".input-box"),
+        container: $("#cfDOB").closest(".input-box"),
 		view: 'years',
 		start_date: pickerEndDate,
 		direction: ['1900-01-01', pickerEndDate]
@@ -313,7 +313,8 @@ function saveContactDetails()
                             $("#contact-detail-tab").addClass("hide");
                             $(personalDetailTab).removeClass("hide");
 
-                            $(".contact-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
+                            $(".contact-image-unit").removeClass('contact-icon').addClass('white-tick-icon');
+                            $(".personal-image-unit").removeClass('gray-personal-icon').addClass('white-personal-icon');
                             if (isDesktop.length) {
                                 scrollTop($(personalDetailTab).offset());
                                 $(".personal__title").removeClass("inactive");
