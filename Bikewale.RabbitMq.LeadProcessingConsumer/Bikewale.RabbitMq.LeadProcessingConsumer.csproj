@@ -144,21 +144,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoBizServiceRef.cs" />
-    <Compile Include="BajajFinanceLeadEntity.cs" />
-    <Compile Include="BajajFinanceLeadHandler.cs" />
-    <Compile Include="BikeQuotationEntity.cs" />
-    <Compile Include="BWConfiguration.cs" />
-    <Compile Include="DefaultManufacturerLeadHandler.cs" />
-    <Compile Include="HondaManufacturerLeadHandler.cs" />
+    <Compile Include="Entities\BajajFinanceLeadEntity.cs" />
+    <Compile Include="LeadHandlers\BajajFinanceLeadHandler.cs" />
+    <Compile Include="Entities\BikeQuotationEntity.cs" />
+    <Compile Include="LeadHandlers\DefaultManufacturerLeadHandler.cs" />
+    <Compile Include="LeadHandlers\HondaManufacturerLeadHandler.cs" />
     <Compile Include="IManufacturerLeadHandler.cs" />
-    <Compile Include="ManufacturerLeadEntityBase.cs" />
+    <Compile Include="Entities\ManufacturerLeadEntityBase.cs" />
+    <Compile Include="LeadHandlers\TVSManufacturerLeadHandler.cs" />
     <Compile Include="LeadProcessingRepository.cs" />
     <Compile Include="LeadProcessor.cs" />
-    <Compile Include="LeadTypes.cs" />
-    <Compile Include="ManufacturerLeadEntity.cs" />
+    <Compile Include="Entities\LeadTypes.cs" />
+    <Compile Include="Entities\ManufacturerLeadEntity.cs" />
     <Compile Include="ManufacturerLeadProcessor.cs" />
-    <Compile Include="OtherVersionInfoEntity.cs" />
-    <Compile Include="PriceQuoteParametersEntity.cs" />
+    <Compile Include="Entities\OtherVersionInfoEntity.cs" />
+    <Compile Include="Entities\PriceQuoteParametersEntity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -166,10 +166,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="RoyalEnfieldDealer.cs" />
-    <Compile Include="RoyalEnfieldLeadHandler.cs" />
-    <Compile Include="TataCapitalInputEntity.cs" />
-    <Compile Include="TataCapitalLeadHandler.cs" />
+    <Compile Include="Entities\RoyalEnfieldDealer.cs" />
+    <Compile Include="LeadHandlers\RoyalEnfieldLeadHandler.cs" />
+    <Compile Include="Entities\TataCapitalInputEntity.cs" />
+    <Compile Include="LeadHandlers\TataCapitalLeadHandler.cs" />
     <Compile Include="Web References\RoyalEnfieldWebAPI\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
