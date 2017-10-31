@@ -34,8 +34,8 @@ namespace Bikewale.Service.Controllers
         {
             try
             {
-                string Utmz = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
-                string Utma = Request.Headers.Contains("_bwutmz") ? Request.Headers.GetValues("_bwutmz").FirstOrDefault() : String.Empty;
+                string Utma = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
+                string Utmz = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
                 objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
 
                 var leadResponse = _objICapitalFirst.SavePersonalDetails(objDetails, Utmz, Utma, (ushort)source);
@@ -63,8 +63,8 @@ namespace Bikewale.Service.Controllers
             try
             {
                 objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
-                string Utmz = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
-                string Utma = Request.Headers.Contains("_bwutmz") ? Request.Headers.GetValues("_bwutmz").FirstOrDefault() : String.Empty;
+                string Utma = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
+                string Utmz = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
 
                 var leadResponse = _objICapitalFirst.SaveEmployeDetails(objDetails, Utmz, Utma, (ushort)source);
                 var dto = FinanceMapper.Convert(leadResponse);
