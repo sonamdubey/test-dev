@@ -22,7 +22,7 @@
                                     <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174,Bikewale.Utility.QualityFactor._75)" title="@bikeName" alt="@bikeName">
                                 </div>
                                 <div class="card-desc-block">
-                                    <h3 class="font12 text-black margin-bottom5 text-truncate">@bikeName</h3>
+                                    <h3 class="font12 text-black margin-bottom5 text-truncate">@bike.Model.ModelName</h3>
                                     <div class="rating-container">
                                         <div class="rate-count-@Math.Round(bike.OverallRating)" data-rate-bg="@Math.Round(bike.OverallRating)">
                                             <span class="star-icon star-size-14"></span>

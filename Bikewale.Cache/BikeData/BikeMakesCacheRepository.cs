@@ -39,7 +39,7 @@ namespace Bikewale.Cache.BikeData
             string key = String.Format("BW_Makes_{0}", makeType.ToString());
             try
             {
-                makes = _cache.GetFromCache<IEnumerable<Entities.BikeData.BikeMakeEntityBase>>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetMakesByType(makeType));
+                makes = _cache.GetFromCache<IEnumerable<Entities.BikeData.BikeMakeEntityBase>>(key, new TimeSpan(1, 0, 0, 0), () => _objMakes.GetMakesByType(makeType));
             }
             catch (Exception ex)
             {
