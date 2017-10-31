@@ -50,6 +50,8 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <summary>
         /// Created by : Vivek Singh Tomar on 12th Sep 2017
         /// Summary : Add new bike series
+        /// Modified by : Ashutosh Sharma on 23 Oct 2017
+        /// Description : Replaced sp from 'addbikeseries' to 'addbikeseries_23102017'.
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <param name="UpdatedBy"></param>
@@ -70,7 +72,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_seriesid", dbType: DbType.UInt32, direction: ParameterDirection.Output);
                     param.Add("par_createdon", dbType: DbType.Date, direction: ParameterDirection.Output);
                     connection.Open();
-                    connection.Execute("addbikeseries", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("addbikeseries_23102017", param: param, commandType: CommandType.StoredProcedure);
                     bikeSeries.SeriesId = param.Get<uint>("par_seriesid");
                     if(bikeSeries.SeriesId != 0)
                     {
@@ -123,6 +125,8 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <summary>
         /// Created by : Ashutosh Sharma on 12-Sep-2017
         /// Description : DAL Method to edit bike series
+        /// Modified by : Ashutosh Sharma on 23 Oct 2017
+        /// Description : Replaced sp from 'editbikeseries' to 'editbikeseries_23102017'.
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <param name="updatedBy"></param>
@@ -140,14 +144,10 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_isseriespageurl", bikeSeries.IsSeriesPageUrl);
                     param.Add("par_updatedby", updatedBy);
                     param.Add("par_seriesid", bikeSeries.SeriesId);
-                    param.Add("par_rowsAffected", dbType:DbType.Int32, direction: ParameterDirection.Output);
 
                     connection.Open();
 
-                    connection.Execute("editbikeseries", param: param, commandType: CommandType.StoredProcedure);
-                    rowsAffected = param.Get<int>("par_rowsAffected");
-
-
+                    rowsAffected = connection.Execute("editbikeseries_23102017", param: param, commandType: CommandType.StoredProcedure);
 
 
                     if (connection.State == ConnectionState.Open)
@@ -166,6 +166,8 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <summary>
         /// Created by : Ashutosh Sharma on 12-Sep-2017
         /// Description : DAL Method to delete bike series
+        /// Modified by : Ashutosh Sharma on 23 Oct 2017
+        /// Description : Replaced sp from 'deletebikeseries' to 'deletebikeseries_23102017'.
         /// </summary>
         /// <param name="bikeSeriesId"></param>
         /// <returns></returns>
@@ -183,7 +185,7 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     connection.Open();
 
-                    connection.Execute("deletebikeseries", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("deletebikeseries_23102017", param: param, commandType: CommandType.StoredProcedure);
                     rowsAffected = param.Get<int>("par_rowsAffected");
 
                     if (connection.State == ConnectionState.Open)
@@ -202,6 +204,8 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <summary>
         /// Created by : Ashutosh Sharma on 12-Sep-2017
         /// Description : DAL Method to delete bike series mapping with model
+        /// Modified by : Ashutosh Sharma on 23 Oct 2017
+        /// Description : Replaced sp from 'deletemappingofmodelseries' to 'deletemappingofmodelseries_23102017'.
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -215,13 +219,11 @@ namespace BikewaleOpr.DALs.Bikedata
                 {
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_modelid", modelId);
-                    param.Add("par_rowsAffected", dbType: DbType.Int32, direction: ParameterDirection.Output);
                     param.Add("par_seriesId", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
                     connection.Open();
 
-                    connection.Execute("deletemappingofmodelseries", param: param, commandType: CommandType.StoredProcedure);
-                    rowsAffected = param.Get<int>("par_rowsAffected");
+                    rowsAffected = connection.Execute("deletemappingofmodelseries_23102017", param: param, commandType: CommandType.StoredProcedure);
 
                     if (rowsAffected > 0)
                         seriesId = param.Get<int>("par_seriesId");

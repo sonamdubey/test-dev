@@ -367,6 +367,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Changed SP from 'getmodeldetails_new_28062017' to 'getmodeldetails_new_30082017', removed IsGstPrice flag
         /// Modified By :Snehal Dange on 12 Oct 2017
         /// Description : Changed Sp from 'getmodeldetails_new_30082017' to 'getmodeldetails_new_12102017' added IsScooterOnly flag
+        /// Modified by : Ashutosh Sharma on 23 Oct 2017 
+        /// Description : Changed SP from 'getmodeldetails_new_12102017' to 'getmodeldetails_new_23102017'
         /// </summary>
         /// <param name="id">Model Id should be a positive number.</param>
         /// <returns>Returns object containing the particular model's all details.</returns>
@@ -375,7 +377,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_12102017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_23102017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -2447,7 +2449,7 @@ namespace Bikewale.DAL.BikeData
         /// <param name="modelId"></param>
         /// <param name="totalRecords"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords)
+        public IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords,uint cityid)
         {
             IList<SimilarBikeWithVideo> SimilarBikeInfoList = null;
             try
@@ -2456,8 +2458,12 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getalternativebikeswithvideoscount";
+                    cmd.CommandText = "getalternativebikeswithvideoscount_27102017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    if (cityid > 0) {
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
+                    }
+                    
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -2468,8 +2474,8 @@ namespace Bikewale.DAL.BikeData
                             while (dr.Read())
                             {
                                 var bikeInfo = new SimilarBikeWithVideo();
-                                bikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
-                                bikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
+                                bikeInfo.Make = new BikeMakeEntityBase();
+                                bikeInfo.Model = new BikeModelEntityBase();
                                 bikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
                                 bikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
                                 bikeInfo.VideoCount = SqlReaderConvertor.ToUInt32(dr["VideosCount"]);
@@ -2477,6 +2483,8 @@ namespace Bikewale.DAL.BikeData
                                 bikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
                                 bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
                                 bikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
+                                bikeInfo.ExShowRoomPriceMumbai= SqlReaderConvertor.ToUInt32(dr["exshowroompricemumbai"]);
+                                bikeInfo.OnRoadPriceInCity = SqlReaderConvertor.ToUInt32(dr["onroadpriceincity"]);
                                 SimilarBikeInfoList.Add(bikeInfo);
 
                             }

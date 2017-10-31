@@ -11,7 +11,9 @@ var validate,
     otpContainerContent,
     otpContainerContentHeight,
     employmentDeatilTab,
-        bikeName;
+    personalDetailTab,
+        bikeName,
+        formTabsContainer;
 var objPinCodes = new Object();
 docReady(function () {
 
@@ -24,7 +26,9 @@ docReady(function () {
     blackWindowElem = $(".otp-black-window"),
     otpContainerContent = $(".otp-container__content"),
     employmentDeatilTab = $("#employment-detail-tab");
+    personalDetailTab = $("#personal-detail-tab");
     bikeName = $('#hdnBikeName').val();
+    formTabsContainer = $('#form-tabs-content');
     validate = {
         setError: function (element, message) {
             var elementLength = element.val().length,
@@ -111,7 +115,7 @@ docReady(function () {
 	var pickerEndDate = startDate.getFullYear() + '-' + startMonth + '-' + startDate.getDate();
 	
     $("#cfDOB").Zebra_DatePicker({
-		container: $("#cfDOB").closest(".input-box"),
+        container: $("#cfDOB").closest(".input-box"),
 		view: 'years',
 		start_date: pickerEndDate,
 		direction: ['1900-01-01', pickerEndDate]
@@ -130,6 +134,9 @@ docReady(function () {
             var offsetTop = $(this).offset();
             scrollTop(offsetTop);
         }
+    });
+    $("#contact-detail-submit").on('click', function () {
+        validateContactInfo();
     });
 
     $("#personal-detail-submit").on('click', function () {
@@ -254,18 +261,110 @@ function scrollTopError() {
     scrollTop(elem);
 }
 
-function validatePersonalInfo() {
-	$('#screenLoader').show();
-
-    var isValid = false;
-
-    isValid = validateUserName($("#cfFName"));
+function validateContactInfo() {
+    $('#screenLoader').show();
+    var isValid = validateUserName($("#cfFName"));
     isValid &= validateUserName($("#cfLName"));
     isValid &= validatePhoneNumber($("#cfNum"));
     isValid &= validateEmailId($("#cfEmail"));
-    isValid &= validateAddress($("#cfAddress1"));
-    isValid &= validateAddress($("#cfAddress2"));
     isValid &= validatePinCode($("#cfPincode"));
+
+    if (isValid) {
+
+        saveContactDetails();
+
+        
+    }
+    else {
+        scrollTopError();
+    }
+
+    $('#screenLoader').hide();
+
+}
+
+function saveContactDetails()
+{
+    var contactDetails = {
+        "objLeadJson": $("#objLead").val(),
+        "firstName": $('#cfFName').val(),
+        "lastName": $('#cfLName').val(),
+        "mobileNumber": $('#cfNum').val(),
+        "emailId": $('#cfEmail').val(),
+        "pincode": $("#cfPincode").val().substring(0, 6),
+        "loanAmount": $('#loanAmount').val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/api/finance/savepersonaldetails/?source=" + $("#hdnPlatform").val(),
+        contentType: "application/json",
+        data: ko.toJSON(contactDetails),
+        beforeSend: function () {
+            $('#otpLoader').show();
+        },
+        success: function (response) {
+            if (response) {
+                if (response != null) {
+                    triggerGA('Loan_Application', 'Step_1_Filled', bikeName + '_' + $('#cfNum').val());
+                    switch (response.status) {
+
+                        case 1:
+                        case 2:
+                            $("#contact-detail-tab").addClass("hide");
+                            $(personalDetailTab).removeClass("hide");
+
+                            $(".contact-image-unit").removeClass('contact-icon').addClass('white-tick-icon');
+                            $(".personal-image-unit").removeClass('gray-personal-icon').addClass('white-personal-icon');
+                            if (isDesktop.length) {
+                                scrollTop($(personalDetailTab).offset());
+                                $(".personal__title").removeClass("inactive");
+                                $(".personal-details-container").addClass("visible");
+                            }
+                            else {
+                                scrollTop(formTabsContainer.offset());
+                                formTabsContainer.find('.page-tabs__li.active').removeClass('active');
+                                formTabsContainer.find('.page-tabs__li[data-id=personal-detail-tab]').removeClass("inactive").addClass('active');
+                            }
+                            $("#cpId").val(response.cpId);
+                            $("#ctLeadId").val(response.ctLeadId);
+                            $("#leadId").val(response.leadId);                                                      
+                            break;
+                        default:
+                            var obj = {
+                                message: response.message,
+                                isYesButtonActive: true,
+                                yesButtonText: "Okay",
+                                yesButtonLink: "javascript:void(0)"
+                            };
+                            modalPopup.showModal(templates.modalPopupTemplate(obj));
+                    }
+                }
+            }
+        },
+        complete: function () {
+            $('#otpLoader').hide();
+        },
+        error: function () {
+            var obj = {
+                message: navigator.onLine ? "Some error has occured." : "You're offline. Please check your internet connection.",
+                isYesButtonActive: true,
+                yesButtonText: "Okay",
+                yesButtonLink: "javascript:void(0)"
+            };
+            modalPopup.showModal(templates.modalPopupTemplate(obj));
+        }
+    });
+
+
+}
+
+
+function validatePersonalInfo() {
+	$('#screenLoader').show();
+
+    
+  var  isValid = validateAddress($("#cfAddress1"));
+    isValid &= validateAddress($("#cfAddress2"));
     isValid &= validatePanNumber($("#cfPan"));
     isValid &= validateRadioButtons("gender");
     isValid &= validateRadioButtons("marital");
@@ -273,17 +372,8 @@ function validatePersonalInfo() {
 
     if (isValid) {
         savePersonalDetails();
-        if (isDesktop.length) {
-            $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
-            $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
-            $(".employment__title").removeClass("inactive");
-            $(".employment-details-container").addClass("visible");
 
-		}
-		else {
-			$('#form-tabs-content').find('.page-tabs__li.active').removeClass('active');
-			$('#form-tabs-content').find('.page-tabs__li[data-id=employment-detail-tab]').addClass('active');
-		}
+       
 	}
 	else {
 		scrollTopError();
@@ -293,20 +383,22 @@ function validatePersonalInfo() {
 }
 
 
-
 function savePersonalDetails() {
     var personDetails = {
+        "id": $("#cpId").val(),
+        "ctLeadId": $("#ctLeadId").val(),
+        "leadId": $("#leadId").val(),
         "objLeadJson": $("#objLead").val(),
         "firstName": $('#cfFName').val(),
         "lastName": $('#cfLName').val(),
         "mobileNumber": $('#cfNum').val(),
         "emailId": $('#cfEmail').val(),
+        "pincode": $("#cfPincode").val().substring(0, 6),
         "dateOfBirth": $('#cfDOB').val(),
         "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
         "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
         "addressLine1": $("#cfAddress1").val(),
         "addressLine2": $('#cfAddress2').val(),
-        "pincode": $("#cfPincode").val().substring(0, 6),
         "pancard": $("#cfPan").val(),
         "loanAmount": $('#loanAmount').val()
 
@@ -323,17 +415,31 @@ function savePersonalDetails() {
         success: function (response) {
             if (response) {
                 if (response != null) {
-                    triggerGA('Loan_Application', 'Step_1_Filled', bikeName + '_' + $('#cfNum').val());
+                    triggerGA('Loan_Application', 'Step_2_Filled', bikeName + '_' + $('#cfNum').val());
                     switch (response.status) {
 
                         case 1:
                         case 2:
                             $("#personal-detail-tab").addClass("hide");
                             $(employmentDeatilTab).removeClass("hide");
+
+                            $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
+                            $(".personal-image-unit").removeClass('bg-gray').addClass('bg-red');
+                            $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
+                            if (isDesktop.length) {
+                                scrollTop($(employmentDeatilTab).offset());
+                                $(".employment__title").removeClass("inactive");
+                                $(".employment-details-container").addClass("visible");
+                            }
+                            else {
+                                scrollTop(formTabsContainer.offset());
+                                formTabsContainer.find('.page-tabs__li.active').removeClass('active');
+                                formTabsContainer.find('.page-tabs__li[data-id=employment-detail-tab]').removeClass('inactive').addClass('active');
+                            }
                             $("#cpId").val(response.cpId);
                             $("#ctLeadId").val(response.ctLeadId);
                             $("#leadId").val(response.leadId);
-                            scrollTop($(employmentDeatilTab).offset());
+                           
                             $('#cfCompPincode').val("");
                             break;
                         default:
@@ -350,11 +456,22 @@ function savePersonalDetails() {
         },
         complete: function(){
         $('#otpLoader').hide();
-    }
+        }
+        ,
+        error: function () {
+            var obj = {
+                message: navigator.onLine ? "Some error has occured." : "You're offline. Please check your internet connection.",
+                isYesButtonActive: true,
+                yesButtonText: "Okay",
+                yesButtonLink: "javascript:void(0)"
+            };
+            modalPopup.showModal(templates.modalPopupTemplate(obj));
+        }
     });
 
 
 }
+
 
 function validateEmploymentInfo() {
     var isValid = false;
@@ -411,7 +528,7 @@ function saveEmployeDetails() {
 			$('#otpLoader').show();
 		},
         success: function (response) {
-			triggerGA('Loan_Application', 'Step_2_Filled', bikeName + '_' + $('#cfNum').val());
+			triggerGA('Loan_Application', 'Step_3_Filled', bikeName + '_' + $('#cfNum').val());
 			
 			if (response) {
                 otpScreen.openOtp();
@@ -429,6 +546,15 @@ function saveEmployeDetails() {
         },
         complete: function(){
             $('#otpLoader').hide();
+        },
+        error: function () {
+            var obj = {
+                message: navigator.onLine ? "Some error has occured." : "You're offline. Please check your internet connection.",
+                isYesButtonActive: true,
+                yesButtonText: "Okay",
+                yesButtonLink: "javascript:void(0)"
+            };
+            modalPopup.showModal(templates.modalPopupTemplate(obj));
         }
     });
 
@@ -436,7 +562,7 @@ function saveEmployeDetails() {
 }
 
 function validateUserName(elem) {
-
+    var isValid;
     var nameRegex = /^[a-zA-Z]{2,255}$/,
         value = $(elem)[0].value.trim();
     if (value.length == 0) {
@@ -455,6 +581,7 @@ function validateUserName(elem) {
 }
 
 function validatePhoneNumber(inputMobile) {
+    var isValid;
     var regMob = new RegExp('^((7)|(8)|(9))[0-9]{9}$', 'i'),
         value = $(inputMobile).val();
     if (value.length == 0) {
@@ -510,7 +637,7 @@ function validateAddress(inputAddress) {
 
 
 function checkPinCode(pinCode, inputPincode) {
-    isValid = false;
+    var isValid = false;
     $.ajax({
         async: false,
         type: "GET",
@@ -617,9 +744,9 @@ function validateDOB(inputAge) {
 }
 
 function scrollTop(offsetElem) {
-    var offsetTop = 40;
+    var offsetTop = 25;
     if (isDesktop.length) {
-        offsetTop = 170;
+        offsetTop = 130;
 
     }
     $("html, body").animate({
@@ -640,7 +767,7 @@ var templates = {
 		var template = '';
 
 		template += '<span class="modal__close bwsprite bwmsprite cross-default-15x16"></span>';
-		if (obj.message.length > 0) {
+		if (obj.message!=null && obj.message.length > 0) {
 			template += '<p class="modal__description">' + obj.message + '</p>';
 		}
 		if (obj.isYesButtonActive) {

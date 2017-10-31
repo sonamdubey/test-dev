@@ -1417,6 +1417,7 @@ namespace Bikewale.Models.BikeModels
                         _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
                         _objData.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
 
+
                         if (_objData.PQId == 0 && _cityId != 0)
                         {
                             PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
@@ -1586,6 +1587,15 @@ namespace Bikewale.Models.BikeModels
                             _objData.ShowOnRoadButton = selectedCity.HasAreas && _areaId <= 0;
                             _objData.IsAreaSelected = selectedCity.HasAreas && _areaId > 0;
                             if (!_objData.IsAreaSelected) _areaId = 0;
+                        }
+                        else
+                        {
+                            _objData.City = new Entities.Location.CityEntityBase {
+                                CityId = _cityId,
+                                CityName = _objData.LocationCookie.City
+                            };
+                         
+
                         }
                     }
                 }

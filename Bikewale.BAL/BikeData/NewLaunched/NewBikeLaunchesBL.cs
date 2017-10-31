@@ -85,11 +85,11 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                         years = grpYear
                                 .Select(
                                 m => new BikesCountByYearEntityBase()
-                                        {
-                                            Year = m.Key,
-                                            BikeCount = m.Count(),
-                                            Bikes = m.Select(b => (b.bikeName)).Take(3)
-                                        })
+                                {
+                                    Year = m.Key,
+                                    BikeCount = m.Count(),
+                                    Bikes = m.Select(b => (b.bikeName)).Take(3)
+                                })
                                 .OrderByDescending(m => m.Year);
                     }
                 }

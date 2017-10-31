@@ -34,7 +34,7 @@ namespace Bikewale.Videos
         protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, metaDescription = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, canonicalUrl = string.Empty, metaKeywords = string.Empty;
         protected ushort makeId = 0;
         protected uint? modelId;
-        protected SimilarBikeVideos ctrlSimilarBikeVideos;
+        
         protected PopularBikeByBodyStyleCarousal ctrlBikesByBodyStyle;
         private GlobalCityAreaEntity _currentCityArea;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
@@ -66,11 +66,7 @@ namespace Bikewale.Videos
             try
             {
                 _currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                if (ctrlSimilarBikeVideos != null)
-                {
-                    ctrlSimilarBikeVideos.ModelId = (uint)(modelId ?? 0);
-                    ctrlSimilarBikeVideos.TotalCount = 9;
-                }
+              
                 if (ctrlBikesByBodyStyle != null)
                 {
                     ctrlBikesByBodyStyle.ModelId = (modelId ?? 0);

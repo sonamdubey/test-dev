@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.Pages;
+﻿using Bikewale.Entities.Models;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.Schema;
 
 namespace Bikewale.Models
@@ -14,6 +15,8 @@ namespace Bikewale.Models
     /// Description : Added IsHeaderRequired, IsAppBannerNeeded
     /// Modified by: Vivek Singh Tomar on 23 Aug 2017
     /// Summary: Added page property to hold page id and name for GA
+    /// Modified By : Ashutosh Sharma on 27 Oct 2017
+    /// Description : Added AmpJsTags.
     /// </summary>
     public class ModelBase
     {
@@ -49,6 +52,8 @@ namespace Bikewale.Models
 
         public bool ExcludeContestSlug { get; set; }
         public GAPages Page { get; set; }
+        public AmpJsTags AmpJsTags { get; set; }
         public string Amp_Page_CSS { get; set; }
+        
     }
 }

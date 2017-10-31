@@ -362,7 +362,6 @@
     <Compile Include="BindViewModels\Controls\BindServiceSchedule.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesWithPhotos.cs" />
-    <Compile Include="BindViewModels\Controls\BindSimilarBikeVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarUsedBikes.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
@@ -785,10 +784,6 @@
       <DependentUpon>SimilarBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\SimilarBikeVideos.ascx.cs">
-      <DependentUpon>SimilarBikeVideos.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\SimilarBikeWithPhotos.ascx.cs">
       <DependentUpon>SimilarBikeWithPhotos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1192,10 +1187,6 @@
     </Compile>
     <Compile Include="m\controls\ServiceCentersByBrand.ascx.cs">
       <DependentUpon>ServiceCentersByBrand.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\controls\SimilarBikeVideos.ascx.cs">
-      <DependentUpon>SimilarBikeVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\SimilarBikeWithPhotos.ascx.cs">
@@ -2182,7 +2173,6 @@
     <Content Include="controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="controls\serviceschedule.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
-    <Content Include="controls\SimilarBikeVideos.ascx" />
     <Content Include="controls\SimilarBikeWithPhotos.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
     <Content Include="controls\SimilarUsedBikes.ascx" />
@@ -2731,7 +2721,6 @@
     <Content Include="m\controls\PopularBikesMin.ascx" />
     <Content Include="m\controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="m\controls\ServiceCentersByBrand.ascx" />
-    <Content Include="m\controls\SimilarBikeVideos.ascx" />
     <Content Include="m\controls\SimilarBikeWithPhotos.ascx" />
     <Content Include="m\controls\UpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />

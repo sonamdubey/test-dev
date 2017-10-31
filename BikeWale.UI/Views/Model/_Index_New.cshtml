@@ -2,7 +2,7 @@
 @using Bikewale.Utility;
 <section>
     <div class="container" id="modelDetailsContainer">
-        <div id="modelSummaryContent" class="bw-model-tabs-data">
+        <div id="modelSummaryContent" data-id="modelSummaryContent" class="bw-model-tabs-data">
             <div class="grid-12 card-bottom-margin">
                 <div class="content-box-shadow">
                     <div class="padding-top15 padding-left20">
@@ -132,7 +132,7 @@
         @if ((Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
                                 || (Model.IsModelDescriptionAvailable))
         {
-            <div class="bw-model-tabs-data">
+            <div>
                 @if (Model.IsModelDescriptionAvailable)
                 {   <div class="grid-12">
                     @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
@@ -140,7 +140,7 @@
                 }
                 @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
                 {
-                    <div id="modelsBySeriesWidget" class="card-bottom-margin bw-ga" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
+                    <div id="modelsBySeriesWidget" data-id="modelSummaryContent" class="card-bottom-margin bw-ga bw-model-tabs-data" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
                         <h2 class="horizontal-swiper__title">Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
                         @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries.cshtml", Model.ModelsBySeries)
                     </div>

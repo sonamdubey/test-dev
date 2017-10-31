@@ -83,7 +83,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile(string makeMaskingName)
         {
             MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService);
-            obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
+            obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             MakePageVM objData = null;
 
             if (obj.Status == StatusCodes.ContentFound)
@@ -106,5 +106,42 @@ namespace Bikewale.Controllers
             }
 
         }
+        // GET: Makes
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 25 Oct 2017
+        /// Description : Action method for Make AMP page.
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <returns></returns>
+        [Route("m/makepage/{makeMaskingName}/amp/")]
+        public ActionResult Index_Mobile_AMP(string makeMaskingName)
+        {
+            MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService);
+            obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
+            MakePageVM objData = null;
+            
+            if (obj.Status == StatusCodes.ContentFound)
+            {
+                obj.IsAmpPage = true;
+                objData = obj.GetData();
+                return View(objData);
+            }
+            else if (obj.Status == StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.RedirectUrl);
+            }
+            else if (obj.Status == StatusCodes.RedirectTemporary)
+            {
+                return Redirect(obj.RedirectUrl);
+            }
+            else
+            {
+                return Redirect("/pageNotFound.aspx");
+            }
+        }
+
     }
+
+
 }
