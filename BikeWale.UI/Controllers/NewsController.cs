@@ -14,7 +14,6 @@ using System.Web.Mvc;
 namespace Bikewale.Controllers
 {
     using Common;
-    using Entities.CMS.Articles;
     using Interfaces.EditCMS;
     using Interfaces.PWA.CMS;
     using Models.News;
@@ -262,7 +261,6 @@ namespace Bikewale.Controllers
                 NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache);
                 obj.IsMobile = true;
                 obj.IsAMPPage = true;
-                ArticleDetails objNews = _cacheContent.GetNewsDetails(Convert.ToUInt32(basicid));
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                 {
                     return Redirect("/m/pagenotfound.aspx");

@@ -3819,17 +3819,10 @@
     <Content Include="Views\Shared\Ads\Desktop\Ad292x360.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad200x211.cshtml" />
     <Content Include="Views\Make\_Index_Tabs.cshtml" />
-    <Content Include="Views\Make\Index_Mobile_AMP.cshtml" />
     <Content Include="Views\Make\_Index_Tabs_Mobile.cshtml" />
-    <Content Include="Views\Upcoming\_UpcomingBikes_Mobile_Amp.cshtml" />
-    <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_Amp.cshtml" />
-    <Content Include="Views\Make\_Index_Tabs_Mobile_AMP.cshtml" />
-    <Content Include="Views\Make\_BrandsModelCount_Mobile_AMP.cshtml" />
-    <Content Include="Views\News\_RecentNews_Mobile_Amp.cshtml" />
-    <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile_Amp.cshtml" />
-    <Content Include="Views\Videos\_RecentVideos_Mobile_Amp.cshtml" />
-    <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile_Amp.cshtml" />
-    <Content Include="Views\Used\_UsedBikesByModel_Mobile_Amp.cshtml" />
+    <Content Include="Views\BikeModels\_MostPopularBikes_Mobile_Amp.cshtml" />
+    <Content Include="Views\m\Shared\_OtherBrands_Amp.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikes_Editorial_Mobile_Amp.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4098,20 +4091,12 @@
 
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\runtimes\win7-x64\native\*" "$(ProjectDir)bin\x64\"
-	<!-- xcopy /Y "$(ProjectDir)..\Libs\PWA\x64\*" "$(ProjectDir)bin\x64\" --><!-- xcopy /Y "$(ProjectDir)..\Libs\PWA\x86\*" "$(ProjectDir)bin\x86\" -->
-	xcopy /Y "$(ProjectDir)..\Libs\PWA\ru-ru\*" "$(ProjectDir)bin\ru-ru\"
-	xcopy /Y "$(ProjectDir)..\Libs\PWA\x86\*" "$(ProjectDir)bin\x86\"
-	xcopy /Y "$(ProjectDir)..\Libs\PWA\x64\*" "$(ProjectDir)bin\x64\"
 	xcopy /Y "$(ProjectDir)..\Libs\System.Web.Http.Cors.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\System.Web.Cors.dll" "$(ProjectDir)bin\"
 	<!--xcopy /Y "$(ProjectDir)..\Libs\System.Runtime.dll" "$(ProjectDir)bin\"-->
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x64.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x86.dll" "$(ProjectDir)bin\"
 	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

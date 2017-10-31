@@ -21,5 +21,7 @@ namespace Bikewale.Models
         public string WidgetHref { get; set; }
         public string WidgetLinkTitle { get; set; }
         public string CtaText { get; set; }
+        public uint CityId { get; set; }
+        public string ReturnUrlForAmpPages { get; set; }
     }
 }

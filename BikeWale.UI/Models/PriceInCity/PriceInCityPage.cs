@@ -867,6 +867,8 @@ namespace Bikewale.Models
         /// Description :   Bind Similar Bikes
         /// Modified by: Vivek Singh Tomar on 23 Aug 2017
         /// Summary: Added page enum to similar bike widget
+        /// Modified by : Vivek Singh Tomar on 27th Oct 2017
+        /// Description: Add city and return url details for redirection from amp to bikewale pages on check on road CTA popup
         /// </summary>
         /// <param name="objVM"></param>
         private void BindSimilarBikes(PriceInCityPageVM objVM)
@@ -884,6 +886,8 @@ namespace Bikewale.Models
                     similarBikesVM.Make = objVM.Make;
                     similarBikesVM.Model = objVM.BikeModel;
                     similarBikesVM.VersionId = firstVersion.VersionId;
+                    similarBikesVM.ReturnUrlForAmpPages = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}", BWConfiguration.Instance.BwHostUrl, objVM.Make.MaskingName, objVM.BikeModel.MaskingName, objVM.CityEntity.CityMaskingName);
+                    similarBikesVM.CityId = objVM.CityEntity.CityId;
                     objVM.AlternateBikes = similarBikesVM;
                     objVM.AlternateBikes.Page = Entities.Pages.GAPages.PriceInCity_Page;
                 }
@@ -917,6 +921,8 @@ namespace Bikewale.Models
                     objData.PopularBodyStyle = modelPopularBikesByBodyStyle.GetData();
                     objData.PopularBodyStyle.PQSourceId = PQSource;
                     objData.PopularBodyStyle.ShowCheckOnRoadCTA = true;
+                    objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}", BWConfiguration.Instance.BwHostUrl, objData.Make.MaskingName, objData.BikeModel.MaskingName, objData.CityEntity.CityMaskingName);
+                    objData.PopularBodyStyle.CityId = objData.CityEntity.CityId;
                     objData.BodyStyle = objData.PopularBodyStyle.BodyStyle;
                     objData.BodyStyleText = objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                 }

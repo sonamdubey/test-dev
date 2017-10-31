@@ -340,6 +340,8 @@ namespace Bikewale.Models
                             objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
                             objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
                             objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
+                            objData.PopularBodyStyle.CityId = CityId;
+                            objData.PopularBodyStyle.ReturnUrlForAmpPages = objData.ArticleDetails.ArticleUrl;
                             bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
                         }
                     }
@@ -374,9 +376,12 @@ namespace Bikewale.Models
                 objPopularBikes.TopCount = topCount;
                 objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
-
+                if(objData.MostPopularBikes != null)
+                {
+                    objData.MostPopularBikes.CityId = CityId;
+                    objData.MostPopularBikes.ReturnUrlForAmpPages = objData.ArticleDetails.ArticleUrl;
+                }
                 MostPopularBikeWidgetVM PopularBikesWidget = objData.MostPopularBikes;
-
                 if (MakeId > 0 && objData.Make != null)
                 {
                     if (bikeType == EnumBikeType.Scooters)
