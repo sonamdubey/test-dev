@@ -7,6 +7,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Create by: Sangram Nandkhile on 12-Apr-2017
     /// Summary:  View Model for upcoming page
+    /// Modified by :Snehal Dange on 30th Oct 2017
+    /// Description : Added RecentNewsVM widget for recent news 
     /// </summary>
     public class UpcomingPageVM : ModelBase
     {
@@ -22,5 +24,7 @@ namespace Bikewale.Models
         public IEnumerable<BikeMakeEntityBase> MakesList { get; set; }
         public PagerEntity Pager { get; set; }
         public bool HasPages { get { return (Pager != null && Pager.TotalResults > 0); } }
+
+        public RecentNewsVM News { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace Bikewale.Models
         private readonly uint _totalRecords;
         private readonly uint _makeId;
         private readonly uint _modelId;
-        private readonly string _title, _makeName, _makeMasking, _modelName, _modelMasking;
+        private readonly string _title, _makeName, _makeMasking, _modelName, _modelMasking,_modelIdList;
 
         #region Constructor
 
@@ -71,6 +71,16 @@ namespace Bikewale.Models
 
         }
 
+        public RecentNews(uint totalRecords, uint makeId, string modelId,ICMSCacheContent articles)
+        {
+            _totalRecords = totalRecords;
+            _makeId = makeId;
+            _modelIdList = modelId;
+            _articles = articles;
+
+
+
+        }
         #endregion
         public bool IsScooter { get; set; }
         #region Functions to get data
@@ -83,13 +93,23 @@ namespace Bikewale.Models
             RecentNewsVM recentNews = new RecentNewsVM();
             try
             {
-                if (IsScooter)
+                if(_modelIdList.Trim().Length>0)
                 {
-                    string bodyStyleId = "5";
-                    recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords,bodyStyleId, _makeId, _modelId);
+                    recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelIdList);
                 }
                 else
-                    recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelId);
+                {
+                    if (IsScooter)
+                    {
+                        string bodyStyleId = "5";
+                        recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, bodyStyleId, _makeId, _modelId);
+                    }
+                    else
+                        recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelId);
+
+                }
+
+
                 if (_makeId > 0)
                 {
                     recentNews.MakeName = _makeName;
