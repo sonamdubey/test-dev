@@ -29,5 +29,6 @@ namespace Bikewale.Interfaces.EditCMS
         CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, string bodyStyleId, int makeId);
         CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex);
         PwaContentBase GetArticlesByCategoryListPwa(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId);
+        IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords, uint makeId, string modelIds);
     }
 }

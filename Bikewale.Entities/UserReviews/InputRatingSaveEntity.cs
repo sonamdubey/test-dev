@@ -2,16 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Bikewale.Entities.UserReviews
 {
-   
+
     /// <summary>
     /// Created By :Snehal Dange
     /// Description :  Entity to save submitted rating on rating-review page
     /// </summary>
+    [Serializable, DataContract]
     public class InputRatingSaveEntity
     {
         [JsonProperty("overAllrating")]

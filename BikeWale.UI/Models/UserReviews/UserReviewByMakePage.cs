@@ -15,10 +15,10 @@ namespace Bikewale.Models.UserReviews
     {
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCache;
+        private readonly uint _makeId;
+        private readonly string _makeMaskingName;
 
         private UserReviewByMakeVM objData = null;
-
-        private uint _makeId;
 
         public bool IsMobile { get; set; }
         public StatusCodes Status { get; set; }
@@ -29,7 +29,8 @@ namespace Bikewale.Models.UserReviews
         {
             _userReviewsCache = userReviewsCache;
             _bikeMakesCache = bikeMakesCache;
-            ProcessQueryString(makeMasking);
+            _makeMaskingName = makeMasking;
+            _makeId = ProcessQueryString();
 
         }
 
@@ -44,7 +45,7 @@ namespace Bikewale.Models.UserReviews
                     objData.PopularBikes = objBikes.Take(PopularBikesCount);
                     objData.OtherBikes = objBikes.Skip(PopularBikesCount);
 
-                    objData.Make = objData.PopularBikes.First().Make.MakeName;
+                    objData.Make = objData.PopularBikes.First().Make;
                 }
                 BindPageMetas();
             }
@@ -61,11 +62,12 @@ namespace Bikewale.Models.UserReviews
             {
                 if (objData != null)
                 {
-                    objData.PageMetaTags.Title = "Bike Reviews | Reviews from Owners and Experts- BikeWale";
-                    objData.PageMetaTags.Description = "Read reviews about a bike from real owners and experts. Know pros, cons, and tips from real users and experts before buying a bike.";
-                    objData.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/reviews/";
-                    objData.PageMetaTags.Keywords = "Reviews, Bike reviews, expert review, Bike expert review, Bike user review, owner review, bike owner review, user review, bike user review";
-                    objData.Page_H1 = string.Format("Browse {0} bike reviews", objData.Make);
+                    objData.PageMetaTags.Title = string.Format("{0} Bikes Reviews | Reviews of {0} Models- BikeWale", objData.Make.MakeName);
+                    objData.PageMetaTags.Description = string.Format("Explore reviews of all models of {0} Bikes. Read 5000+ unbiased and verified reviews from real owners on BikeWale", objData.Make.MakeName);
+                    objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/reviews/", BWConfiguration.Instance.BwHostUrl, objData.Make.MaskingName);
+                    objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/reviews/", BWConfiguration.Instance.BwHostUrl, objData.Make.MaskingName);
+                    objData.PageMetaTags.Keywords = string.Format("{0} reviews, {0} bike reviews, {0} expert review, {0} bike expert review, {0} Bike user review, {0} owner review, {0} bike owner review, {0} user review, {0} bike user review", objData.Make.MakeName.ToLower());
+                    objData.Page_H1 = string.Format("Reviews on bikes from {0}", objData.Make.MakeName);
 
                     SetBreadcrumList();
                 }
@@ -100,21 +102,22 @@ namespace Bikewale.Models.UserReviews
         }
 
 
-        private void ProcessQueryString(string makeMaskingName)
+        private uint ProcessQueryString()
         {
+            uint makeId = 0;
             try
             {
-                MakeMaskingResponse objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
+                MakeMaskingResponse objResponse = _bikeMakesCache.GetMakeMaskingResponse(_makeMaskingName);
                 if (objResponse != null)
                 {
                     Status = (StatusCodes)objResponse.StatusCode;
                     if (objResponse.StatusCode == 200)
                     {
-                        _makeId = objResponse.MakeId;
+                        makeId = objResponse.MakeId;
                     }
                     else if (objResponse.StatusCode == 301)
                     {
-                        RedirectUrl = System.Web.HttpContext.Current.Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName);
+                        RedirectUrl = System.Web.HttpContext.Current.Request.RawUrl.Replace(_makeMaskingName, objResponse.MaskingName);
                         Status = StatusCodes.RedirectPermanent;
                     }
                     else
@@ -129,8 +132,9 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.ProcessQuery() makeMaskingName:{0}", makeMaskingName));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.ProcessQuery() makeMaskingName:{0}", _makeMaskingName));
             }
+            return makeId;
         }
     }
 }
