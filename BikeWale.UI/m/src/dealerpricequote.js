@@ -242,11 +242,11 @@ docReady(function () {
                 "pinCodeRequired": ele.attr("data-ispincodrequired"),
                 "emailRequired": ele.attr("data-isemailrequired"),
                 "dealersRequired": ele.attr("data-dealersrequired"),
-                "eventcategory"  : ele.attr("c"),
+                "eventcategory"  : ele.attr("data-cat"),
                 "gaobject": {
-                    cat: ele.attr("c"),
-                    act: ele.attr("a"),
-                    lab: ele.attr("v")
+                    cat: ele.attr("data-cat"),
+                    act: ele.attr("data-act"),
+                    lab: ele.attr("data-var")
                 }
             };
 
@@ -387,13 +387,13 @@ docReady(function () {
                 try {
                     var obj = $("#" + element.id);
                     if (obj.attr('l') !== undefined) {
-                        triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+                        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), obj.attr("data-lab"));
                     }
                     else if (obj.attr('v') !== undefined) {
-                        triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+                        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), window[obj.attr("data-var")]);
                     }
                     else if (obj.attr('f') !== undefined) {
-                        triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+                        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), eval(obj.attr("data-func") + '()'));
                     }
                 }
                 catch (e) {
@@ -419,13 +419,13 @@ docReady(function () {
                 try {
                     var obj = $("#" + element.id);
                     if (obj.attr('l') !== undefined) {
-                        triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+                        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), obj.attr("data-lab"));
                     }
                     else if (obj.attr('v') !== undefined) {
-                        triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+                        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), window[obj.attr("data-var")]);
                     }
                     else if (obj.attr('f') !== undefined) {
-                        triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+                        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), eval(obj.attr("data-func") + '()'));
                     }
                 }
                 catch (e) {
