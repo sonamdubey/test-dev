@@ -496,6 +496,7 @@ namespace Bikewale.Models
                         if (obj.SimilarBikeWidget!=null)
                         {
                             obj.SimilarBikeWidget.SimilarBikeComparison = comparisonList;
+                            obj.SimilarBikeWidget.modelComparisionText = obj.comparisionText;
                         }
                        
                     }
