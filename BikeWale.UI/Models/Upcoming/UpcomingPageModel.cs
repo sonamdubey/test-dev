@@ -178,15 +178,13 @@ namespace Bikewale.Models
         {
             try
             {
-                if (objUpcoming != null && objUpcoming.UpcomingBikeModels.Any())
+                if (objUpcoming != null && objUpcoming.UpcomingBikeModels!=null)
                 {
-
-                    IList<int> modelIdList = new List<int>();
-                    foreach(var obj in objUpcoming.UpcomingBikeModels)
+                    string modelId = string.Empty;
+                    foreach (var obj in objUpcoming.UpcomingBikeModels)
                     {
-                        modelIdList.Add(obj.ModelBase.ModelId);
+                        modelId = string.IsNullOrEmpty(modelId) ? Convert.ToString(obj.ModelBase.ModelId) : string.Format("{0},{1}", modelId, obj.ModelBase.ModelId);
                     }
-                    string modelId = string.Join(",", modelIdList);
                     objUpcoming.News = new RecentNews(5, 0 , modelId, _objArticles).GetData();
                 }
             }

@@ -164,15 +164,13 @@ namespace Bikewale.Models
         {
             try
             {
-                if (objNewLaunches != null)
+                if (objNewLaunches != null && objNewLaunches.NewLaunched!=null && objNewLaunches.NewLaunched.Bikes!=null)
                 {
-
-                    IList<int> modelIdList = new List<int>();
+                    string modelId = string.Empty;
                     foreach (var obj in objNewLaunches.NewLaunched.Bikes.Bikes)
                     {
-                        modelIdList.Add(obj.Model.ModelId);
+                        modelId = string.IsNullOrEmpty(modelId) ? Convert.ToString(obj.Model.ModelId) : string.Format("{0},{1}", modelId, obj.Model.ModelId); 
                     }
-                    string modelId = string.Join(",", modelIdList);
                     objNewLaunches.News = new RecentNews(5, 0, modelId, _objArticles).GetData();
                 }
             }
