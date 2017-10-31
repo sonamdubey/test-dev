@@ -3833,6 +3833,7 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_MostPopularBikes_Mobile_Amp.cshtml" />
     <Content Include="Views\m\Shared\_OtherBrands_Amp.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikes_Editorial_Mobile_Amp.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

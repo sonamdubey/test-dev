@@ -28,7 +28,7 @@ namespace Bikewale.Models
         public bool IsNew { get; set; }
         public bool IsUpcoming { get; set; }
         public bool IsDiscontinued { get; set; }
-        public CityEntityBase City { get; set; }
+        public uint CityId { get; set; }
         public string ReturnUrlForAmpPages { get; set; }
     }
 }

@@ -861,7 +861,8 @@ namespace Bikewale.Models
                     similarBikesVM.Make = objVM.Make;
                     similarBikesVM.Model = objVM.BikeModel;
                     similarBikesVM.VersionId = firstVersion.VersionId;
-                    //similarBikesVM.ReturnUrlForAmpPages = string.Format("{0}/m/price-in-{1}", BWConfiguration.Instance.BwHostUrl, "");
+                    similarBikesVM.ReturnUrlForAmpPages = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}", BWConfiguration.Instance.BwHostUrl, objVM.Make.MaskingName, objVM.BikeModel.MaskingName, objVM.CityEntity.CityMaskingName);
+                    similarBikesVM.CityId = objVM.CityEntity.CityId;
                     objVM.AlternateBikes = similarBikesVM;
                     objVM.AlternateBikes.Page = Entities.Pages.GAPages.PriceInCity_Page;
                 }
@@ -895,6 +896,8 @@ namespace Bikewale.Models
                     objData.PopularBodyStyle = modelPopularBikesByBodyStyle.GetData();
                     objData.PopularBodyStyle.PQSourceId = PQSource;
                     objData.PopularBodyStyle.ShowCheckOnRoadCTA = true;
+                    objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}", BWConfiguration.Instance.BwHostUrl, objData.Make.MaskingName, objData.BikeModel.MaskingName, objData.CityEntity.CityMaskingName);
+                    objData.PopularBodyStyle.CityId = objData.CityEntity.CityId;
                     objData.BodyStyle = objData.PopularBodyStyle.BodyStyle;
                     objData.BodyStyleText = objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                 }
