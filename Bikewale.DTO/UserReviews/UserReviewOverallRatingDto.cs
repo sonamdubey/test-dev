@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Bikewale.DTO.UserReviews
 {
     [Serializable, DataContract]
-    public class UserReviewOverallRatingDto
+    public class UserReviewOverallRatingDto 
     {
         [JsonProperty("id"), DataMember]
         public uint Id { get; set; }
@@ -17,7 +17,10 @@ namespace Bikewale.DTO.UserReviews
         public string Heading { get; set; }
         [JsonProperty("responseHeading"), DataMember]
         public string ResponseHeading { get; set; }
-
+        [JsonProperty("originalImagePath"), DataMember]
+        public string OriginalImagePath { get; set; }
+        [JsonProperty("hostUrl"), DataMember]
+        public string HostUrl { get; set; }
     }
 
     public enum UserReviewQuestionType
