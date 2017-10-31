@@ -1,14 +1,11 @@
 ﻿using Bikewale.DAL.CoreDAL;
+using Bikewale.Notifications;
 using BikewaleOpr.Entity;
 using BikewaleOpr.Interface.AdSlot;
 using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Bikewale.Notifications;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.DALs.AdSlot
 {
@@ -47,7 +44,7 @@ namespace BikewaleOpr.DALs.AdSlot
         /// <param name="AdId"></param>
         /// <param name="UserId"></param>
         /// <returns></returns>
-        public bool ChangeStatus(uint AdId, uint UserId)
+        public bool ChangeStatus(uint AdId, int UserId)
         {
             int rowsAffected = 0;
             try

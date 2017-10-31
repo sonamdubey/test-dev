@@ -111,6 +111,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdSlot\AdSlotCacheRepository.cs" />
     <Compile Include="App\AppVersionCacheRepository.cs" />
     <Compile Include="App\SplashScreenCacheRepository.cs" />
     <Compile Include="Authors\AuthorsCacheRepository.cs" />

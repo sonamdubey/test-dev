@@ -12,6 +12,7 @@ using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.AdSlot;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -70,6 +71,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IBikeSeries _bikeSeries = null;
+        private readonly IAdSlot _adSlot = null;
 
         private uint _modelId, _cityId, _areaId;
 
@@ -89,7 +91,11 @@ namespace Bikewale.Models.BikeModels
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         public string CurrentPageUrl { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries)
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added IAdSlot.
+        /// </summary>
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -111,13 +117,19 @@ namespace Bikewale.Models.BikeModels
             _userReviewsSearch = userReviewsSearch;
             _userReviewsCache = userReviewsCache;
             _bikeSeries = bikeSeries;
+            _adSlot = adSlot;
             ParseQueryString(modelMasking);
         }
 
         #endregion Global Variables
 
         #region Methods
-
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added call to BindAdSlotTags.
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
         public ModelPageVM GetData(uint? versionId)
         {
             try
@@ -164,6 +176,7 @@ namespace Bikewale.Models.BikeModels
                     SetBreadcrumList();
                     SetPageJSONLDSchema();
                     ShowInnovationBanner(_modelId);
+                    BindAdSlotTags();
                     #endregion Do Not change the sequence
                 }
             }
@@ -173,6 +186,26 @@ namespace Bikewale.Models.BikeModels
             }
 
             return _objData;
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Bind ad slot to adtags.
+        /// </summary>
+        private void BindAdSlotTags()
+        {
+            try
+            {
+                if (_objData.AdTags != null)
+                {
+                    _objData.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399"); //For similar bikes widget desktop
+                    _objData.AdTags.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
+                }
+            }
+            catch (Exception ex)
+            {
+                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "ModelPage.BindAdSlotTags");
+            }
         }
 
         /// <summary>

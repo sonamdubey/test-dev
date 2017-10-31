@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.AdSlot;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
@@ -15,6 +16,8 @@ namespace Bikewale.Controllers
     /// <summary>
     /// Created By : Sushil Kumar on 23rd March 2017
     /// Description : To manage methods and pages related to price and quotation
+    /// Modified by : Ashutosh Sharma on 31 Oct 2017
+    /// Description : Added IAdSlot.
     /// </summary>
     public class PriceController : Controller
     {
@@ -27,9 +30,12 @@ namespace Bikewale.Controllers
         private readonly IPriceQuote _objPQ = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
+        private readonly IAdSlot _adSlot = null;
         /// <summary>
         /// Created By : Sushil Kumar on 23rd March 2017
         /// Resolve unity containers
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added IAdSlot.
         /// </summary>
         /// <param name="objDealerPQDetails"></param>
         /// <param name="objDealerPQ"></param>
@@ -38,7 +44,7 @@ namespace Bikewale.Controllers
         /// <param name="objCityCache"></param>
         /// <param name="objPQ"></param>
         /// <param name="objDealerCache"></param>
-        public PriceController(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign)
+        public PriceController(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign, IAdSlot adSlot)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
@@ -48,7 +54,7 @@ namespace Bikewale.Controllers
             _objPQ = objPQ;
             _objDealerCache = objDealerCache;
             _objManufacturerCampaign = objManufacturerCampaign;
-
+            _adSlot = adSlot;
         }
 
         /// <summary>
@@ -66,12 +72,14 @@ namespace Bikewale.Controllers
         /// Description  : Controller method to call desktop dealerpricequote page with mpq 
         /// Modified by :   Sumit Kate on 19 May 2017
         /// Description :   Pass the lead source id
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added _adSlot in DealerPriceQuotePage object creation.
         /// </summary>
         /// <returns></returns>
         [Route("pricequote/dealer/")]
         public ActionResult Details()
         {
-            DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objManufacturerCampaign);
+            DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objManufacturerCampaign, _adSlot);
             obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Desktop;
             obj.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Desktop_DealerPriceQuote;
             obj.CurrentPageUrl = Request.RawUrl;
@@ -103,12 +111,14 @@ namespace Bikewale.Controllers
         /// Description  : Controller method to call mobile dealerpricequote page with mpq 
         /// Modified by :   Sumit Kate on 19 May 2017
         /// Description :   Pass the lead source id
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added _adSlot in DealerPriceQuotePage object creation.
         /// </summary>
         /// <returns></returns>
         [Route("m/pricequote/dealer/")]
         public ActionResult Details_Mobile()
         {
-            DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objManufacturerCampaign);
+            DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objManufacturerCampaign, _adSlot);
             obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
             obj.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_DealerPriceQuote;
             obj.CurrentPageUrl = Request.RawUrl;

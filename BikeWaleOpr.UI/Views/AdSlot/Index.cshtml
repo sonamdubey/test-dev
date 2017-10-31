@@ -44,6 +44,10 @@
                     </table>
                 </div>
             }
+            else
+            {
+                <div>No Ad slots data available in Database OR Something went wrong.</div>
+            }
         </div>          
     </div>
     <div class="preloader-wrapper big" style="position:relative; top: 50%; left: 50%;">
@@ -66,7 +70,7 @@
             var adid = $(this).data("adid");
             $.ajax({
                 type: "POST",
-                url: "/api/adslot/change/" + adid + "/?UserId=" + userid,
+                url: "/api/adslot/change/" + adid + "/" + userid +"/",
                 datatype: "json",
                 beforeSend: function () {
                     $(".preloader-wrapper").addClass("active");
@@ -89,5 +93,9 @@
         })
         
     </script>
+}
+else
+{
+    <div>Something went wrong</div>
 }
 

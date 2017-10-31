@@ -1,9 +1,5 @@
 ﻿using BikewaleOpr.Entity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.Interface.AdSlot
 {
@@ -14,6 +10,6 @@ namespace BikewaleOpr.Interface.AdSlot
     public interface IAdSlotRepository
     {
         IEnumerable<AdSlotEntity> GetAdSlots();
-        bool ChangeStatus(uint AdId, uint UserId);
+        bool ChangeStatus(uint AdId, int UserId);
     }
 }

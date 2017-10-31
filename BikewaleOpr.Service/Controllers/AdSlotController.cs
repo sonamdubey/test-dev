@@ -1,10 +1,6 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.Interface.AdSlot;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers
@@ -16,10 +12,10 @@ namespace BikewaleOpr.Service.Controllers
     public class AdSlotController : ApiController
     {
 
-        private readonly IAdSlotRepository _AdSlotRepository = null;
-        public AdSlotController(IAdSlotRepository AdSlotRepository)
+        private readonly IAdSlot _adSlot = null;
+        public AdSlotController(IAdSlot adSlot)
         {
-            _AdSlotRepository = AdSlotRepository;
+            _adSlot = adSlot;
         }
 
         /// <summary>
@@ -29,12 +25,12 @@ namespace BikewaleOpr.Service.Controllers
         /// <param name="AdId">Id of Ad slot that need to be changed.</param>
         /// <param name="UserId">Id of User who is making changes.</param>
         /// <returns></returns>
-        [HttpPost, Route("api/adslot/change/{AdId}")]
-        public IHttpActionResult ChangeStatusAdSlot(uint AdId, uint UserId)
+        [HttpPost, Route("api/adslot/change/{AdId}/{UserId}/")]
+        public IHttpActionResult ChangeStatusAdSlot(uint AdId, int UserId)
         {
             try
             {
-                bool IsChanged = _AdSlotRepository.ChangeStatus(AdId, UserId);
+                bool IsChanged = _adSlot.ChangeStatus(AdId, UserId);
                 return Ok(IsChanged);
             }
             catch (Exception ex)

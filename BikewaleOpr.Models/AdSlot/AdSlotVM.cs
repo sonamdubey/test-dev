@@ -9,7 +9,7 @@ namespace BikewaleOpr.Models.AdSlot
     /// </summary>
     public class AdSlotVM
     {
-        public uint UserId { get; set; }
+        public int UserId { get; set; }
         public IEnumerable<AdSlotEntity> AdSlotList{ get; set; }
     }
 }

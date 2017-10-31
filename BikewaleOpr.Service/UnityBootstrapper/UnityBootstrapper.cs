@@ -101,6 +101,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IPageMetasRepository, PageMetasRepository>();
             container.RegisterType<IPageMetas, PageMetas>();
             container.RegisterType<IAdSlotRepository, AdSlot>();
+            container.RegisterType<IAdSlot, BAL.AdSlot.AdSlot>();
 
             return container;
         }
