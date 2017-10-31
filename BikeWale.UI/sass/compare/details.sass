@@ -17,3 +17,56 @@
 @import ../components/select-box-atf
 @import ../modules/collapsible-content
 @import ../modules/comparison-type-carousel
+
+// Compare with similar bikes swiper
+
+.compare-bike-carousel
+	.card-desc-block
+		margin-bottom: 15px
+		padding-bottom: 0
+
+.compare-bike-carousel
+	.card-desc-block:after
+		content: ''
+		display: block
+		height: 1px
+		margin-top: 15px
+		background-color: #e2e2e2
+
+.compare-with-card
+	display: inline-block
+	vertical-align: middle
+	text-align: center
+	width: 118px
+	min-height: 100px
+	padding-bottom: 10px
+	border: 1px solid #e2e2e2
+	-webkit-border-radius: 4px
+	-moz-border-radius: 4px
+	border-radius: 4px
+
+@media only screen and (max-width: 1024px)
+	.compare-with-card
+		width: 113px
+
+.compare-card__title
+    padding: 5px 5px 0
+    white-space: nowrap
+    width: 100%
+    color: #4d5057
+    font-size: 12px
+    overflow: hidden
+    text-overflow: ellipsis
+
+.compare-with-card:hover
+	border: 1px solid #a2a2a2
+	text-decoration: none
+
+.compare-card__image-preview
+	height: 65px
+	padding: 5px
+	text-align: center
+
+	img
+		width: 100px
+		height: auto

@@ -1,0 +1,55 @@
+﻿@model Bikewale.Models.Compare.SimilarBikesComparisionVM
+@using Bikewale.Entities.Compare
+<div class="content-box-shadow card-bottom-margin padding-top15">
+    <h2 class="h2-heading padding-left20 margin-bottom20">Compare with similar bikes</h2>
+    <div class="jcarousel-wrapper inner-content-carousel padding-bottom20 compare-bike-carousel">
+        <div class="jcarousel">
+            <ul>
+                @foreach (var similarObj in Model.SimilarBikeComparison)
+                {
+                    <li>
+                        @{
+                            var bikeName = string.Format("{0} {1}", similarObj.BikeMake.MakeName, similarObj.BikeModel.ModelName);
+                            var imageUrl = string.Format("{0}/310x174/{1}", similarObj.HostUrl, similarObj.OriginalImagePath);
+                            var compareImageUrl1 = string.Format("{0}/110x61/{1}", similarObj.CompareBike1.HostUrl, similarObj.CompareBike1.OriginalImagePath);
+                            var compareImageUrl2 = string.Format("{0}/110x61/{1}", similarObj.CompareBike2.HostUrl, similarObj.CompareBike2.OriginalImagePath);
+                            var compareUrl1 = string.Format("/comparebikes/{0}-{1}-vs-{2}-{3}/?source={4}", similarObj.CompareBike1.Make.MaskingName, similarObj.CompareBike1.Model.MaskingName, similarObj.BikeMake.MakeMaskingName, similarObj.BikeModel.MaskingName, (uint)CompareSources.Desktop_SimilarComparisonWidget);
+                            var compareUrl2 = string.Format("/comparebikes/{0}-{1}-vs-{2}-{3}/?source={4}", similarObj.CompareBike2.Make.MaskingName, similarObj.CompareBike2.Model.MaskingName, similarObj.BikeMake.MakeMaskingName, similarObj.BikeModel.MaskingName, (uint)CompareSources.Desktop_SimilarComparisonWidget);
+
+                        }
+                        <a href="@string.Format("/{0}-bikes/{1}/",similarObj.BikeMake.MakeMaskingName,similarObj.BikeModel.MaskingName)" title="@bikeName" class="jcarousel-card bw-ga" data-cat="Compare_Bikes" data-act="Clicked_on_SimilarModel" data-lab="@string.Format("{0}_Card_{1}", similarObj.BikeModel.ModelName,Model.modelComparisionText)" >
+                            <div class="model-jcarousel-image-preview">
+                                <img class="lazy" data-original="@imageUrl" alt="@bikeName" src="@imageUrl" border="0" style="display: inline;">
+                            </div>
+                            <div class="card-desc-block">
+                                <p class="bikeTitle">@bikeName</p>
+                            </div>
+                        </a>
+                        <div class="padding-left20 padding-right20 margin-bottom20 bw-ga" data-cat="Compare_Bikes" data-act="Clicked_on_CompareCard" data-lab="@string.Format("{0}_{1}", similarObj.BikeModel.ModelName,Model.modelComparisionText)" >
+                            <p class="font12 text-slate-grey margin-bottom15">@string.Format("Compare {0} bike with:", similarObj.BikeModel.ModelName)</p>
+                            <a href="@compareUrl1" title="@string.Format("{0} vs {1}", similarObj.CompareBike1.Model.ModelName, similarObj.BikeModel.ModelName )" class="compare-with-card margin-right5">
+                                <div class="compare-card__image-preview">
+                                    <img class="lazy" data-original="@compareImageUrl1" alt="@similarObj.CompareBike1.Model.ModelName" src="@compareImageUrl1" border="0" style="display: inline;">
+                                </div>
+                                <p class="compare-card__title">@similarObj.CompareBike1.Model.ModelName</p>
+                            </a>
+                            <a href="@compareUrl2" title="@string.Format("{0} vs {1}", similarObj.CompareBike2.Model.ModelName, similarObj.BikeModel.ModelName )" class="compare-with-card margin-left5">
+                                <div class="compare-card__image-preview">
+                                    <img class="lazy" data-original="@compareImageUrl2" alt="@similarObj.CompareBike2.Model.ModelName" src="@compareImageUrl2" border="0" style="display: inline;">
+                                </div>
+                                <p class="compare-card__title">@similarObj.CompareBike2.Model.ModelName</p>
+                            </a>
+                        </div>
+                    </li>
+                            }
+
+            </ul>
+        </div>
+        <span class="jcarousel-control-left">
+            <a href="#" class="bwsprite jcarousel-control-prev bw-ga" data-cat="Compare_Bikes" data-act="Clicked_on_carousel" data-lab="@Model.modelComparisionText" rel="nofollow"></a>
+        </span>
+        <span class="jcarousel-control-right">
+            <a href="#" class="bwsprite jcarousel-control-next bw-ga" data-cat="Compare_Bikes" data-act="Clicked_on_carousel" data-lab="@Model.modelComparisionText" rel="nofollow"></a>
+        </span>
+    </div>
+</div>

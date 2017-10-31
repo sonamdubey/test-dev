@@ -66,7 +66,7 @@
     if (Model.Brands != null)
     {
         <section>
-            <div class="container section-container padding-bottom20">
+            <div class="container section-container">
                 <div class="grid-12">
                     <h2 class="section-heading">Upcoming bikes by brand</h2>
                     <div class="content-box-shadow padding-top20">
@@ -77,4 +77,24 @@
             </div>
         </section>
     }
+
+    <!--Upcoming bikes news widget start-->
+    if (Model.News != null)
+    {
+        <section>
+            <div class="container section-container padding-bottom20">
+                <div class="grid-12">
+                    <h2 class="section-heading"> More about upcoming bikes</h2>
+                    <div class="content-box-shadow content-inner-block-20 card-bottom-margin font14">
+                        @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+      
+    }
+    <!--Upcoming bikes news widget end-->
+
 }

@@ -158,11 +158,12 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 }
 
 /* nav classes */
-.home-icon, .newBikes-icon, .usedBikes-icon, .reviews-icon, .sellBikes-icon, .forum-icon, .myBikeWale-icon, .inquiry-icon, .newsletter-icon { width: 24px; height: 22px; margin-right: 10px; top:4px; position: relative; }
+.home-icon, .newBikes-icon, .usedBikes-icon, .reviews-icon, .news-icon, .sellBikes-icon, .forum-icon, .myBikeWale-icon, .inquiry-icon, .newsletter-icon { width: 24px; height: 22px; margin-right: 10px; top:4px; position: relative; }
 .home-icon { background-position: 0 -52px; }
 .newBikes-icon { background-position: 0 -121px; top: 5px; }
 .usedBikes-icon { background-position: 0 -189px; }
-.reviews-icon { background-position: 0 -143px; }
+.reviews-icon { background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/review-24x16.png') no-repeat center; display: inline-block; }
+.news-icon { background-position: 0 -143px; }
 .sellBikes-icon { background-position: 0 -167px; }
 .forum-icon { background-position: 0 -282px; }
 .myBikeWale-icon { background-position: 0 -98px; }
@@ -259,7 +260,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 /* News-Reviews-Videos New Bikes */
 .newBikes-latest-updates-container .grid-4 { padding-left:10px !important; }
 .newBikes-latest-updates-container .grid-8 { padding-right:10px !important; }
-.article-target-link { font-size: 15px; font-weight: 600; color:#2a2a2a; display:block; }
+.article-target-link { font-size: 15px; font-weight: 600; color:#2a2a2a; display:block; margin-bottom: 8px; }
 .article-target-link:hover { text-decoration:underline; }
 .article-stats-left-grid, .article-stats-right-grid { display:inline-block; vertical-align:top; min-width: 110px; padding-right: 10px; }
 .article-stats-content { font-size:12px; color: #82888b; display:inline-block; vertical-align:middle; }

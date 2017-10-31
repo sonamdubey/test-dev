@@ -6,6 +6,7 @@
     Model.Page_JS_Path = "/m/src/upcoming-bikes.js";
     Model.IsTransparentHeader = true;
     Model.IsPageTypeLanding = true;
+    
 }
 
 @if (Model != null)
@@ -63,5 +64,19 @@
                 @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
             </div>
         </section>
-    }    
+    }
+
+    if (Model.News != null)
+    {
+        <section>
+            <h2 class="section-heading">More about upcoming bikes</h2>
+            <div id="newsContent" class="padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+               
+                @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+              
+            </div>
+        </section>
+    }
+
+
 }
