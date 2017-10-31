@@ -771,4 +771,8 @@ docReady(function () {
         ko.applyBindings(vmBikeSelection, $('#select-bike-cover-popup')[0]);
     }
 
+    var gallerySwiper = new Swiper('#similar-bikes-swiper', {
+        onSlideChangeStart: triggerGA("Compare_Bikes", "Clicked_on_carousel", "Label")
+    });
+
 });
