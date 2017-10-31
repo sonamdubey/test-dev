@@ -10,5 +10,7 @@ namespace Bikewale.Models.Compare
    public class SimilarBikesComparisionVM
     {
         public IEnumerable<SimilarBikeComparisonWidget> SimilarBikeComparison { get; set; }
+        public string modelComparisionText { get; set; }
+
     }
 }
