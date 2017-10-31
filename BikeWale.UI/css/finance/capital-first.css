@@ -238,11 +238,15 @@ input[type=radio] {
     color: rgba(239,63,48,1);
     vertical-align: middle;
 }
-
-.personal-icon {
+.contact-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/contact-24x18.png') center no-repeat;
+}
+.white-personal-icon {
     background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/personal-17x20.png') center no-repeat;
 }
-
+.gray-personal-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/personal-17x20.png') center no-repeat;
+}
 .white-tick-icon {
     background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/tick-18x14.png') center no-repeat;
 }
@@ -567,4 +571,11 @@ input[type=radio] {
 }
 .input-box input#cfPan:focus ~ .text-note{
     display: block;
+}
+
+.dp_yearpicker td,
+.dp_monthpicker td {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+
 }
