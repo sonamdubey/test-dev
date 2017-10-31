@@ -2974,6 +2974,13 @@
     <Content Include="m\sass\modules\_key-specs.sass" />
     <Content Include="m\sass\modules\_button.sass" />
     <Content Include="m\sass\new-launch\_media-query.sass" />
+    <Content Include="pwa\app-btf.css" />
+    <Content Include="pwa\app.bundle.js" />
+    <Content Include="pwa\app.css" />
+    <Content Include="pwa\appshell.html" />
+    <Content Include="pwa\peripheralComponents.bundle.js" />
+    <Content Include="pwa\sw-toolbox.js" />
+    <Content Include="pwa\vendor.bundle.js" />
     <Content Include="sass\new-launch\new-launch.sass" />
     <Content Include="sass\new-launch\_new-launch-style.sass" />
     <Content Include="sass\modules\_collapsible-content.sass" />
@@ -4051,7 +4058,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
