@@ -154,6 +154,9 @@
 .content-inner-block-2010 {
   padding: 20px 10px; }
 
+.no-city-selection-carousel .jcarousel a:hover {
+  text-decoration: none; }
+
 .comparison-type-carousel.inner-content-carousel .jcarousel {
   left: 17px !important; }
   .comparison-type-carousel.inner-content-carousel .jcarousel li {
@@ -341,6 +344,7 @@
 .mumbai-icon,
 .pune-icon,
 .bangalore-icon,
+.newdelhi-icon,
 .delhi-icon,
 .chennai-icon,
 .hyderabad-icon,
@@ -362,6 +366,10 @@
 .bangalore-icon {
   width: 136px;
   background-position: -336px 0; }
+
+.newdelhi-icon {
+  width: 70px;
+  background-position: -482px 0; }
 
 .delhi-icon {
   width: 70px;
