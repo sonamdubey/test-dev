@@ -25,6 +25,24 @@ namespace BikewaleOpr.Cache
             }
             return cacheKeyClearStatus;
         }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Clear cache for Ad slots.
+        /// </summary>
+        public static void ClearAdSlotsCache()
+        {
+            try
+            {
+                string key = "BW_AdSlots";
+                MemCachedUtil.Remove(key);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Cache.BwMemCache.ClearAdSlotsCache");
+            }
+        }
+
         /// <summary>
         /// Created By : Aditi Srivastava on 12 Jan 2016
         /// Description: Clear cache for upcoming bikes with the necessary keys

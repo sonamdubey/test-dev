@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Filters;
+using Bikewale.Interfaces.AdSlot;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -23,6 +24,8 @@ namespace Bikewale.Controllers
     /// Summary     : Added BL instance for comparison list
     /// Modified by : Vivek Singh Tomar on 31st July 2017
     /// Summary : Added IUpcoming for filling upcoming bike list
+    /// Modified by : Ashutosh Sharma on 31 Oct 2017
+    /// Description : Added IAdSlot.
     /// </summary>
     public class HomePageController : Controller
     {
@@ -37,9 +40,14 @@ namespace Bikewale.Controllers
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
-        private readonly IUpcoming _upcoming = null; 
+        private readonly IUpcoming _upcoming = null;
+        private readonly IAdSlot _adSlot = null;
 
-        public HomePageController(IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCities, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare compare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added IAdSlot.
+        /// </summary>
+        public HomePageController(IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCities, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare compare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache, IAdSlot adSlot)
         {
             _bikeMakes = bikeMakes;
             _bikeModels = bikeModels;
@@ -53,17 +61,20 @@ namespace Bikewale.Controllers
             _articles = articles;
             _userReviewsCache = userReviewsCache;
             _upcoming = upcoming;
+            _adSlot = adSlot;
         }
         // GET: HomePage
         //[Route("homepage/")]
         /// <summary>
         /// Modified by : Aditi Srivastava on 6 June 2017
         /// Summary     : Added compare source
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added _adSlot in HomePageModel object creation.
         /// </summary>
         [DeviceDetection]
         public ActionResult Index()
         {
-            HomePageVM objData = null;            HomePageModel obj = new HomePageModel(10, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _upcoming, _userReviewsCache);
+            HomePageVM objData = null;            HomePageModel obj = new HomePageModel(10, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _upcoming, _userReviewsCache, _adSlot);
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
             objData = obj.GetData();
             return View(objData);
@@ -71,10 +82,15 @@ namespace Bikewale.Controllers
         }
 
         // GET: HomePage
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added _adSlot in HomePageModel object creation.
+        /// </summary>
+        /// <returns></returns>
         [Route("m/homepage/")]
         public ActionResult Index_Mobile()
         {
-            HomePageVM objData = null;            HomePageModel obj = new HomePageModel(6, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _upcoming, _userReviewsCache);
+            HomePageVM objData = null;            HomePageModel obj = new HomePageModel(6, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _upcoming, _userReviewsCache, _adSlot);
             obj.IsMobile = true;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             objData = obj.GetData();
