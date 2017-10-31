@@ -23,7 +23,7 @@ docReady(function () {
             if (photoCount > 0 || videoCount > 0) {
                 popupGallery.bindGallery(0);
             }
-            triggerGA($(this).data("c"), $(this).data("a"), $(this).data("l"));
+            triggerGA($(this).data("cat"), $(this).data("act"), $(this).data("lab"));
         } catch (e) {
             console.warn(e);
         }
@@ -103,7 +103,7 @@ docReady(function () {
     $('#version-dropdown').chosen().change(function () {
         var obj = $(this);
         vmVersionTable.getVersionObject(obj.val());
-        triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), obj.attr("data-lab"));
     });
 
     $window = $(window),
@@ -168,13 +168,13 @@ docReady(function () {
                 try{
                     var obj = $("#" + element.id);
                     if (obj.attr('l') !== undefined) {
-                        triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+                        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), obj.attr("data-lab"));
                     }
                     else if (obj.attr('v') !== undefined) {
-                        triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+                        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), window[obj.attr("data-var")]);
                     }
                     else if (obj.attr('f') !== undefined) {
-                        triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+                        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), eval(obj.attr("data-func") + '()'));
                     }
                 }
                 catch(e){
@@ -364,9 +364,9 @@ docReady(function () {
                 "emailRequired": ele.attr("data-isemailrequired"),
                 "dealersRequired": ele.attr("data-dealersrequired"),
                 "gaobject": {
-                    cat: ele.attr("c"),
-                    act: ele.attr("a"),
-                    lab: ele.attr("v")
+                    cat: ele.attr("data-cat"),
+                    act: ele.attr("data-act"),
+                    lab: ele.attr("data-var")
                 }
             };
             
