@@ -367,6 +367,8 @@ namespace Bikewale.Utility
         /// <summary>
         /// Created by : Vivek Singh Tomar on 29th Sep 2017
         /// Summary : Get min specs as text without html tags
+        /// Modified by : Ashutosh Sharam on 31 Oct 2017
+        /// Description : Replaced 'return str.Substring(1)' with 'return str'.
         /// </summary>
         /// <param name="displacement"></param>
         /// <param name="fuelEffecient"></param>
@@ -393,7 +395,7 @@ namespace Bikewale.Utility
 
                 if (!string.IsNullOrEmpty(str))
                 {
-                    return str.Substring(1);
+                    return str;
                 }
                 else
                 {

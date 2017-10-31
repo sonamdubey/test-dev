@@ -14,7 +14,6 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
-using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
