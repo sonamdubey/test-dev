@@ -106,7 +106,7 @@
               && Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
         {
             
-                <div class="grid-12 font14 margin-top20 border-divider">
+                <div id="modelAboutContent" class="grid-12 font14 margin-top20 border-divider">
                     <h2 class="h2-heading margin-bottom15 margin-top10 ">About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
                     <div class="text-slate-grey line-height17">
                         @if (!Model.IsUpcomingBike)
