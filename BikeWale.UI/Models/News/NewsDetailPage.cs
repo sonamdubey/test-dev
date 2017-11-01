@@ -459,7 +459,7 @@ namespace Bikewale.Models
                 if (objData.MostPopularBikes != null)
                 {
                     objData.MostPopularBikes.CityId = CityId;
-                    objData.MostPopularBikes.ReturnUrlForAmpPages = objData.ArticleDetails.ArticleUrl;
+                    objData.MostPopularBikes.ReturnUrlForAmpPages = string.Format("{0}/m/news/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);
                 }
                 MostPopularBikeWidgetVM PopularBikesWidget = objData.MostPopularBikes;
 
@@ -512,7 +512,7 @@ namespace Bikewale.Models
                     objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
                     objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
                     objData.PopularBodyStyle.CityId = CityId;
-                    objData.PopularBodyStyle.ReturnUrlForAmpPages = objData.ArticleDetails.ArticleUrl;
+                    objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/news/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);
                     bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
                 }
             }
