@@ -246,10 +246,10 @@ namespace Bikewale.DAL.Compare
         /// <param name="versions"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public Entities.Compare.BikeCompareEntity DoCompare(string versions, uint cityId)
+        public BikeCompareEntity DoCompare(string versions, uint cityId)
         {
 
-            Entities.Compare.BikeCompareEntity compare = null;
+            BikeCompareEntity compare = null;
             IList<BikeEntityBase> basicInfos = null;
             IList<BikeSpecification> specs = null;
             IList<BikeFeature> features = null;
@@ -261,7 +261,7 @@ namespace Bikewale.DAL.Compare
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_11092017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_01092017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbType.String, versions));
@@ -296,7 +296,7 @@ namespace Bikewale.DAL.Compare
         /// <param name="cmd"></param>
         private static BikeCompareEntity GetCompareDataFromReader(ref IList<BikeEntityBase> basicInfos, ref IList<BikeSpecification> specs, ref IList<BikeFeature> features, ref IList<BikeColor> color, ref IList<Entities.Compare.BikeModelColor> hexCodes, ref IList<BikeReview> userReviews, ref IList<QuestionRatingsValueEntity> userReviewQuestionList, ref IList<BikeVersionCompareEntity> versionsList, DbCommand cmd)
         {
-            BikeCompareEntity compare = new Entities.Compare.BikeCompareEntity();
+            BikeCompareEntity compare = new BikeCompareEntity();
             using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
             {
                 if (reader != null)
@@ -342,6 +342,9 @@ namespace Bikewale.DAL.Compare
                             ExpectedLaunch = SqlReaderConvertor.ToDateTime(reader["ExpectedLaunch"]),
                             EstimatedPriceMin = SqlReaderConvertor.ToUInt32(reader["EstimatedPriceMin"]),
                             EstimatedPriceMax = SqlReaderConvertor.ToUInt32(reader["EstimatedPriceMax"]),
+                            IsNew = SqlReaderConvertor.ToBoolean(reader["new"]),
+                            IsUpcoming = SqlReaderConvertor.ToBoolean(reader["futuristic"]),
+                            IsDiscontinued = SqlReaderConvertor.ToBoolean(reader["used"]) && !SqlReaderConvertor.ToBoolean(reader["new"]),
                             UsedBikeCount = new Entities.Used.UsedBikesCountInCity()
                             {
                                 BikeCount = SqlReaderConvertor.ToUInt32(reader["bikeCount"]),
@@ -523,9 +526,10 @@ namespace Bikewale.DAL.Compare
                     }
 
                 }
-
-                reader.Close();
-
+                if(reader != null)
+                {
+                    reader.Close();
+                }
                 #endregion
 
                 compare.BasicInfo = basicInfos;
