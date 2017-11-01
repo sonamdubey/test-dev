@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Consumer;
+using System;
 
 namespace Bikewale.Sitemap.MainSitemap
 {
@@ -10,6 +7,21 @@ namespace Bikewale.Sitemap.MainSitemap
     {
         static void Main(string[] args)
         {
+            log4net.Config.XmlConfigurator.Configure();
+            try
+            {
+                Logs.WriteInfoLog("Program Started.");
+                Sitemap s = new Sitemap();
+                s.Generate();
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog("Error Occured", ex);
+            }
+            finally
+            {
+                Logs.WriteInfoLog("Program Ended.");
+            }
         }
     }
 }
