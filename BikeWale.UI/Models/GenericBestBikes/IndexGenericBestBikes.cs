@@ -31,6 +31,14 @@ namespace Bikewale.Models
         public StatusCodes status { get; set; }
         private EnumBikeBodyStyles BodyStyleType = EnumBikeBodyStyles.AllBikes;
         private string _modelIdList = string.Empty;
+
+        /// <summary>
+        /// Modified by sajal Gupta on 1-11-2017
+        /// Description : Added objArticles
+        /// </summary>
+        /// <param name="objBestBikes"></param>
+        /// <param name="bikeMakes"></param>
+        /// <param name="objArticles"></param>
         public IndexGenericBestBikes(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakesCacheRepository bikeMakes, ICMSCacheContent objArticles)
         {
             _objBestBikes = objBestBikes;
@@ -67,7 +75,11 @@ namespace Bikewale.Models
         }
         /// <summary>
         /// Created By :- Subodh Jain 18 May 2017
-        /// Summary :- Generic Bike Model GetData;
+        /// Summary :- Generic Bike Model GetData;        
+        /// Modified By :Sajal Gupta on 1-11-2017
+        /// Description: Gneric bikes news widget
+        /// </summary>
+        /// <param name="objUpcoming"></param>
         /// </summary>
         public IndexBestBikesVM GetData()
         {
@@ -85,7 +97,7 @@ namespace Bikewale.Models
                 obj.Brands = new BrandWidgetModel(makeTopCount, _bikeMakes).GetData(BodyStyleType == EnumBikeBodyStyles.Scooter ? Entities.BikeData.EnumBikeType.Scooters : Entities.BikeData.EnumBikeType.New);
 
                 SetPageJSONLDSchema(obj);
-                BindCMSContent(obj);
+                obj.News = new RecentNews(5, 0, _modelIdList, _objArticles).GetData();
             }
             catch (Exception ex)
             {
@@ -257,25 +269,6 @@ namespace Bikewale.Models
             }
 
         }
-
-        /// <summary>
-        /// Created By :Sajal Gupta on 1-11-2017
-        /// Description: Gneric bikes news widget
-        /// </summary>
-        /// <param name="objUpcoming"></param>
-        private void BindCMSContent(IndexBestBikesVM objGenericBikes)
-        {
-            try
-            {
-                objGenericBikes.News = new RecentNews(5, 0, _modelIdList, _objArticles).GetData();
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.IndexGenericBestBikes.BindCMSContent()");
-            }
-
-        }
-
 
     }
 }
