@@ -31,9 +31,9 @@ namespace Bikewale.Common
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
                     container.RegisterType<ICacheManager, MemcacheManager>();
-                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
+                    container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>();
 
-                    var makesCacheRepo = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    var makesCacheRepo = container.Resolve<IBikeMakesCacheRepository>();
                     objBikeMakeEntityBase = makesCacheRepo.GetMakeDetails(makeId);
                 }
             }
@@ -57,11 +57,11 @@ namespace Bikewale.Common
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                    container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                           .RegisterType<ICacheManager, MemcacheManager>()
                           .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                          ;
-                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    var objCache = container.Resolve<IBikeMakesCacheRepository>();
                     objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
                 }
             }

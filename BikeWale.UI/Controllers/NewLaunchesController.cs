@@ -3,6 +3,7 @@ using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Models;
 using Bikewale.Utility;
 using System;
@@ -13,16 +14,18 @@ namespace Bikewale.Controllers
     public class NewLaunchesController : Controller
     {
         private readonly INewBikeLaunchesBL _newLaunches = null;
-        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IUpcoming _upcoming = null;
 
         private const string URL_404 = "/pagenotfound.aspx";
+        private ICMSCacheContent _objArticles;
 
-        public NewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache, IUpcoming upcoming)
+        public NewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming, ICMSCacheContent objArticles)
         {
             _newLaunches = newLaunches;
             _objMakeCache = objMakeCache;
             _upcoming = upcoming;
+            _objArticles = objArticles;
         }
         /// <summary>
         /// Modified By :- Subodh Jain 15 Feb 2017
@@ -41,7 +44,7 @@ namespace Bikewale.Controllers
                 CityId = GlobalCityArea.GetGlobalCityArea().CityId,
                 PageSize = 15
             };
-            NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters, Entities.PriceQuote.PQSourceEnum.Desktop_NewLaunchLanding, pageNumber);
+            NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters, Entities.PriceQuote.PQSourceEnum.Desktop_NewLaunchLanding, pageNumber, _objArticles);
             model.BaseUrl = "/new-bike-launches/";
             model.PageSize = 15;
             model.MakeTopCount = 10;
@@ -65,7 +68,7 @@ namespace Bikewale.Controllers
                 CityId = GlobalCityArea.GetGlobalCityArea().CityId,
                 PageSize = 10
             };
-            NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters, Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding, pageNumber);
+            NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters, Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding, pageNumber, _objArticles);
             model.BaseUrl = "/m/new-bike-launches/";
             model.PageSize = 10;
             model.MakeTopCount = 6;

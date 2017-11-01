@@ -1,0 +1,92 @@
+﻿.text-xt-light
+	color: #a2a2a2
+
+.font15
+	font-size: 15px
+
+@import ../partials/rating
+
+.model-card
+	min-height: 200px
+	text-align: left
+	border: 1px solid #f6f6f6
+	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,.2)
+	-moz-box-shadow: 0 1px 4px rgba(0,0,0,.2)
+	-ms-box-shadow: 0 1px 4px rgba(0,0,0,.2)
+	box-shadow: 0 1px 4px rgba(0,0,0,.2)
+
+	a
+		color: #4d5057
+		text-decoration: none
+		
+		&:hover		
+			h3
+				text-decoration: underline
+				color: #4d5057
+		
+.model-card__image-preview
+	margin: 5px
+	height: 115px
+	
+	img
+		width: auto
+		height: 110px
+
+.rating-container
+	position: relative
+	left: -7px
+
+.grid-6-inline 
+	width: 49%
+	display: inline-block
+	vertical-align: middle
+
+@for $i from 1 through 5
+	@include rate-count($i)
+	@include rate-star-icon($i, normal)
+
+.divider-left:before
+	content: ''
+	width: 1px
+	height: 15px
+	border-left: 1px solid #eee
+	padding-left: 10px
+	
+.next-grey-icon-listing
+	right: 0px
+	position: absolute
+	top: 7px
+	width: 8px
+	height: 12px
+	background-position: -222px -187px
+
+.other-model-block
+	padding: 10px 15px 15px
+	
+	&:before
+		content: ''
+		display: block
+		margin-top: 5px
+		margin-bottom: 15px
+		border-top: 1px solid #eee
+	
+.other-model-list
+	li
+		font-size: 14px
+
+.card-container
+	padding: 10px 5px 0
+	font-size: 0
+
+	li
+		margin: 13px
+		width: 300px
+		font-size: 14px
+		display: inline-block
+		vertical-align: middle
+
+		&:nth-of-type(3n+1)
+			margin-left: 0
+
+		&:nth-of-type(3n)
+			margin-right: 0

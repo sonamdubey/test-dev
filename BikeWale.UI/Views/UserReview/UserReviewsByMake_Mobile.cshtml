@@ -1,0 +1,61 @@
+﻿@model Bikewale.Models.UserReviews.UserReviewByMakeVM
+
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/review/make.css' inline>";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+<section>
+    <div class="container card-bottom-margin">
+
+        <div class="grid-12 content-box-shadow margin-bottom20 omega alpha">
+            <h1 class="padding-15-20">@Model.Page_H1</h1>
+
+            <div class="padding-left10 padding-right10">
+                <h2 class="padding-left10 font14 text-default">Popular models</h2>
+                <ul class="card-container">
+                    @foreach (var bike in Model.PopularBikes)
+                    {
+                        string bikeName = string.Format("{0} Review{1}", bike.Model.ModelName, bike.ReviewCount > 1 ? "s" : "");
+                        <li class="model-card">
+                            <a href="/m@(Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName" class="block">
+                                <div class="model-card__image-preview">
+                                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174,Bikewale.Utility.QualityFactor._75)" title="@bikeName" alt="@bikeName">
+                                </div>
+                                <div class="card-desc-block">
+                                    <h3 class="font12 text-black margin-bottom5 text-truncate">@bike.Model.ModelName</h3>
+                                    <div class="rating-container">
+                                        <div class="rate-count-@Math.Round(bike.OverallRating)" data-rate-bg="@Math.Round(bike.OverallRating)">
+                                            <span class="star-icon star-size-14"></span>
+                                            <span class="font14 inline-block">@bike.OverallRating.ToString("0.0").TrimEnd('0', '.')</span>
+                                        </div>
+                                        <div class="font12 text-default review-left-divider">@string.Format("{0} review{1}", bike.ReviewCount, bike.ReviewCount > 1 ? "s" : "")</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+
+                </ul>
+
+            </div>
+            @if (Model.OtherBikes != null && Model.OtherBikes.Any())
+            {
+                <div class="other-model-block padding-left10 padding-right10">
+                    <h2 class="padding-left10 font14 text-default padding-bottom5">Other models</h2>
+                    <ul class="other-model-list">
+                        @foreach (var bike in Model.OtherBikes)
+                        {
+                            string bikeName = string.Format("{0} Review{1}", bike.Model.ModelName, bike.ReviewCount > 1 ? "s" : "");
+                            <li>
+                                <a href="/m@(Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bike.Make.MaskingName, bike.Model.MaskingName))" title="@bikeName">
+                                    @bikeName (@bike.ReviewCount)
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>

@@ -21,7 +21,7 @@ namespace Bikewale.Models.ServiceCenters
     {
         private readonly string _makeMaskingName;
         private readonly IServiceCenterCacheRepository _objCache = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
         private readonly ICMSCacheContent _articles = null;
 
@@ -36,7 +36,7 @@ namespace Bikewale.Models.ServiceCenters
         private uint _usedBikesTopCount = 9;
         private uint _bikeCareRecordsCount = 3;
 
-        public ServiceCenterIndiaPage(ICMSCacheContent articles, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository<int> bikeMakesCache, IServiceCenterCacheRepository objCache, string makemaskingName)
+        public ServiceCenterIndiaPage(ICMSCacheContent articles, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository bikeMakesCache, IServiceCenterCacheRepository objCache, string makemaskingName)
         {
             _objUsedCache = objUsedCache;
             _bikeMakesCache = bikeMakesCache;

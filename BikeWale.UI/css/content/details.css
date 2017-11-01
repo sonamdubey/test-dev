@@ -610,3 +610,20 @@
     width: 70px;
     background-position: -1839px 0;
 }
+
+.bg-read-more-articles { background-color:#eee }
+
+.disk-list {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.list-head {
+    font-size: 18px;
+    padding-bottom: 5px;
+}
+
+.disk-list li {
+    margin-top: 15px;
+    font-size: 14px;
+}

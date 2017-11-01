@@ -245,7 +245,6 @@
     <Compile Include="Used\SearchQuery.cs" />
     <Compile Include="UserReviews\ProcessSearchFilters.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
-    <Compile Include="UserReviews\UserReviewsInputEntity.cs" />
     <Compile Include="Videos\Videos.cs" />
   </ItemGroup>
   <ItemGroup>

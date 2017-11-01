@@ -70,7 +70,7 @@ docReady(function () {
 		            galleryRoot.find('.gallery-loader-placeholder').hide();
 		        }
 		        
-		        triggerGA($(this).data("c"), $(this).data("a"), $(this).data("l"));
+		        triggerGA($(this).data("cat"), $(this).data("act"), $(this).data("lab"));
 		    } catch (e) {
 		        console.warn(e);
 		    }

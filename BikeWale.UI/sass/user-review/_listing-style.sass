@@ -45,63 +45,17 @@ $graph-bg: #eee
     @else
         @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined."
 
+@import ../partials/rating
 
-@include rating-count(5)
-@include rating-count(4)
-@include rating-count(3)
-@include rating-count(2)
-@include rating-count(1)
+@for $i from 1 through 5
+	@include rate-count($i)
+	@include rating-badge($i)
+	@include rating-background($i)
+	@include rate-star-icon($i, normal)
+	
+	.overall-rating-box
+		@include rate-star-icon($i)
 
-@include rating-background(5)
-@include rating-background(4)
-@include rating-background(3)
-@include rating-background(2)
-@include rating-background(1)
-
-.bg-rate-5
-	background-color: #198D55
-
-.bg-rate-4
-	background-color: #13B65D
-
-.bg-rate-3
-	background-color: #EFD700
-
-.bg-rate-2
-	background-color: #FD971C
-
-.bg-rate-1
-	background-color: #EF3F30
-
-// rating icons
-.star-icon
-	width: 26px
-	height: 25px
-	vertical-align: middle
-	@include transform(scale(0.8))
-
-	&.star-size-14
-		@include transform(scale(0.5))
-
-.rate-count-1
-    .star-icon
-        background-position: 0 -790px
-
-.rate-count-2
-    .star-icon
-        background-position: -46px -790px
-
-.rate-count-3
-    .star-icon
-        background-position: 0 -757px
-
-.rate-count-4
-    .star-icon
-        background-position: -92px -790px
-
-.rate-count-5
-    .star-icon
-        background-position: -138px -790px
 
 // top card
 // inline grid
@@ -397,20 +351,6 @@ $grid-base-size: 8.33333333
     background-position: -24px -825px
 
 // rating badges
-.rating-badge
-    min-width: 40px
-    height: 20px
-    padding-right: 5px
-    padding-left: 5px
-    font-size: 14px
-    font-weight: 600
-    color: #fff
-    display: inline-block
-    vertical-align: middle
-    margin-right: 8px
-    text-align: center
-    @include border-radius(2px)
-
 .star-white
     width: 12px
     height: 12px
@@ -525,7 +465,7 @@ $grid-base-size: 8.33333333
 .rating-text-pos
     position: relative
     left: -5px
-    top: 1px
+    top: 2px
 
 .next-grey-icon-listing
     right: 0px

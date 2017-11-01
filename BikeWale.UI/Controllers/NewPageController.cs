@@ -30,7 +30,7 @@ namespace Bikewale.Controllers
     /// </author>
     public class NewPageController : Controller
     {
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly ICityCacheRepository _usedBikeCities = null;
@@ -45,8 +45,8 @@ namespace Bikewale.Controllers
 
         NewPageVM objData = null;
 
-        public NewPageController(IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCities, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare compare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
-        
+        public NewPageController(IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCities, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare compare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
+
         {
             _bikeMakes = bikeMakes;
             _bikeModels = bikeModels;
@@ -70,7 +70,7 @@ namespace Bikewale.Controllers
         [DeviceDetection]
         public ActionResult Index()
         {
-            NewPageModel obj = new NewPageModel(10, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedModels, _compare, _videos, _articles, _expertReviews, _upcoming, _userReviewsCache);
+            NewPageModel obj = new NewPageModel(10, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _cachedModels, _compare, _videos, _articles, _expertReviews, _upcoming, _userReviewsCache);
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
             objData = obj.GetData();
             return View(objData);
@@ -80,7 +80,7 @@ namespace Bikewale.Controllers
         [Route("m/newpage/")]
         public ActionResult Index_Mobile()
         {
-            NewPageModel obj = new NewPageModel(6, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedModels, _compare, _videos, _articles, _expertReviews, _upcoming, _userReviewsCache);
+            NewPageModel obj = new NewPageModel(6, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _cachedModels, _compare, _videos, _articles, _expertReviews, _upcoming, _userReviewsCache);
 
             obj.IsMobile = true;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;

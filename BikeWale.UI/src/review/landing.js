@@ -2,6 +2,7 @@
 
 docReady(function () {
     $('#globalSearch').parent().hide();
+    $('#discoverBrand').removeClass('bw-tabs-data'); // to avoid hidind of brands widget on user reviews
     $('.bw-tabs li').click(function () {
         var dataTabs = $(this).attr('data-tabs');
         var bannerReveiw = $(this).closest('.banner-review')

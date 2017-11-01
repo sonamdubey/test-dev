@@ -18,17 +18,15 @@ namespace Bikewale.Controllers.Desktop.Videos
     {
         private readonly IVideosCacheRepository _videos = null;
         private readonly IVideos _video = null;
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelCache = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
         private readonly ICityCacheRepository _cityCacheRepo = null;
         private readonly IBikeInfo _bikeInfo = null;
 
-        public VideosController(ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IBikeMakesCacheRepository<int> bikeMakesCache, IVideosCacheRepository videos, IVideos video, IBikeMakes<BikeMakeEntity, int> bikeMakes, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
+        public VideosController(ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCache, IVideosCacheRepository videos, IVideos video, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
         {
             _videos = videos;
             _video = video;
-            _bikeMakes = bikeMakes;
             _objModelCache = objModelCache;
             _bikeMakesCache = bikeMakesCache;
             _cityCacheRepo = cityCacheRepo;
@@ -46,7 +44,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         {
             try
             {
-                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakes, _objModelCache);
+                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache);
                 modelObj.LandingVideosTopCount = 5;
                 modelObj.ExpertReviewsTopCount = 2;
                 modelObj.FirstRideWidgetTopCount = 6;
@@ -80,7 +78,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         {
             try
             {
-                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakes, _objModelCache);
+                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache);
                 modelObj.LandingVideosTopCount = 5;
                 modelObj.ExpertReviewsTopCount = 2;
                 modelObj.FirstRideWidgetTopCount = 6;

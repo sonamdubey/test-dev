@@ -18,7 +18,7 @@ namespace Bikewale.Models.UserReviews
     public class WriteReviewContest 
     {
         private bool _isMobile = false;
-        private readonly IBikeMakesCacheRepository<int> _makeRepository = null;
+        private readonly IBikeMakesCacheRepository _makeRepository = null;
         private readonly IUserReviewsCache _userReviewCache = null;
         private readonly uint? _makeId =0;
         private readonly uint? _modelId = 0;
@@ -27,7 +27,7 @@ namespace Bikewale.Models.UserReviews
         private readonly string _makeMasking = null;
         private readonly string _modelMasking = null;
 
-        public WriteReviewContest(bool IsMobile, IBikeMakesCacheRepository<int> makeRepository, IUserReviewsCache userReviewCache , uint? makeId ,uint? modelId, string makeName, string modelName, string makeMaskingName, string modelMaskingName)
+        public WriteReviewContest(bool IsMobile, IBikeMakesCacheRepository makeRepository, IUserReviewsCache userReviewCache , uint? makeId ,uint? modelId, string makeName, string modelName, string makeMaskingName, string modelMaskingName)
         {
             _makeRepository = makeRepository;
             _isMobile = IsMobile;

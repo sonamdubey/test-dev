@@ -396,8 +396,11 @@ namespace Bikewale.Models
                         }
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
+
                     if (firstVersion != null)
+                    {
                         CheckGallaryLoad(objVM);
+                    }
                 }
             }
             catch (Exception ex)

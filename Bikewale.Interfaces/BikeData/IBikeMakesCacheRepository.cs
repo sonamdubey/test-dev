@@ -15,11 +15,11 @@ namespace Bikewale.Interfaces.BikeData
     /// Modified by :   Aditi Srivastava on 15 Mar 2017
     /// Summary     :   Added new function GetScooterMakeDescription
     /// </summary>
-    public interface IBikeMakesCacheRepository<U>
+    public interface IBikeMakesCacheRepository
     {
         IEnumerable<BikeMakeEntityBase> GetMakesByType(EnumBikeType makeType);
         IEnumerable<BikeVersionEntity> GetDiscontinuedBikeModelsByMake(uint makeId);
-        BikeDescriptionEntity GetMakeDescription(U makeId);
+        BikeDescriptionEntity GetMakeDescription(uint makeId);
         BikeMakeEntityBase GetMakeDetails(uint makeId);
         IEnumerable<BikeMakeModelBase> GetAllMakeModels();
         MakeMaskingResponse GetMakeMaskingResponse(string maskingName);

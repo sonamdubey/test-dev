@@ -152,11 +152,18 @@ namespace Bikewale.Service.AutoMappers.UserReviews
         /// Created by : Snehal Dange on 7st Sep 2017
         /// Summary     : Map input rating DTO to Entity
         /// </summary>
-        public static InputRatingSaveEntity Convert(InputRatingSave objSaveInputRating)
+        public static InputRatingSaveEntity Convert(InputRatingSave objSaveInputRating) 
         {
 
             Mapper.CreateMap<InputRatingSave, InputRatingSaveEntity>();
             return Mapper.Map<InputRatingSave, InputRatingSaveEntity>(objSaveInputRating);
+        }
+
+        internal static IEnumerable<UserReviewQuestionDto> Convert(IEnumerable<UserReviewQuestion> objUserReview)
+        {
+            Mapper.CreateMap<UserReviewQuestion, UserReviewQuestionDto>();
+            Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
+            return Mapper.Map<IEnumerable<UserReviewQuestion>, IEnumerable<UserReviewQuestionDto>>(objUserReview);
         }
 
         /// <summary>

@@ -27,10 +27,10 @@
                             <span class="bwsprite author-grey-sm-icon"></span>
                             <span class="article-stats-content">@news.AuthorName</span>
                         </div>
-                        <p class="line-height17 margin-top10">
+                        <p class="line-height17 margin-top10 font14">
                             @FormatDescription.TruncateDescription(news.Description, 280)
                         </p>
-                        <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId),news.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))" title="@news.Title" rel="nofollow">Read more</a>
+                        <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId),news.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))" title="@news.Title" class="font14" rel="nofollow">Read more</a>
                     </div>
                     <div class="clear"></div>
                 </article>

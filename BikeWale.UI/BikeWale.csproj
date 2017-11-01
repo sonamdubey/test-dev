@@ -1000,6 +1000,7 @@
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\UserReviews\PopularBikesWithExpertReviewsWidget.cs" />
     <Compile Include="Models\UserReviews\TopRatedBikesWidget.cs" />
+    <Compile Include="Models\UserReviews\UserReviewByMakePage.cs" />
     <Compile Include="Models\UserReviews\UserReviewLandingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewListingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewDetailsPage.cs" />
@@ -2994,7 +2995,7 @@
     <Content Include="m\sass\modules\_comparison-carousel.sass" />
     <Content Include="m\sass\modules\_city-icons.sass" />
     <Content Include="m\sass\user-review\listing.sass" />
-    <Content Include="m\sass\user-review\_listing-style.sass" />
+    <Content Include="m\sass\user-review\_detail-style.sass" />
     <Content Include="sass\compare\landing.sass" />
     <Content Include="sass\compare\_landing-style.sass" />
     <Content Include="sass\components\_select-box-atf.sass" />
@@ -3035,7 +3036,6 @@
     <Content Include="sass\modules\_collapsible-list.sass" />
     <Content Include="sass\user-review\_review-swiper-3d.sass" />
     <Content Include="sass\user-review\_swiper.sass" />
-    <Content Include="m\sass\modules\_rating-circle.sass" />
     <Content Include="sass\partials\_rating.sass" />
     <Content Include="sass\base\_variables.sass" />
     <Content Include="sass\m\user-review\listing.sass" />
@@ -3051,6 +3051,8 @@
     <Content Include="sass\partials\_pagination.sass" />
     <Content Include="sass\m\review\landing.sass" />
     <Content Include="sass\review\landing.sass" />
+    <Content Include="sass\review\make.sass" />
+    <Content Include="sass\m\review\make.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3823,6 +3825,10 @@
     <Content Include="Views\BikeModels\_MostPopularBikes_Mobile_Amp.cshtml" />
     <Content Include="Views\m\Shared\_OtherBrands_Amp.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes_Editorial_Mobile_Amp.cshtml" />
+    <Content Include="Views\CompareBikes\SimilarBikeComparison.cshtml" />
+    <Content Include="Views\CompareBikes\SimilarBikeComparison_Mobile.cshtml" />
+    <Content Include="Views\UserReview\UserReviewsByMake.cshtml" />
+    <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4087,10 +4093,13 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent Condition="'$(Configuration)' != 'Debug'">
-
+    <PostBuildEvent>
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\runtimes\win7-x64\native\*" "$(ProjectDir)bin\x64\"
+	<!-- xcopy /Y "$(ProjectDir)..\Libs\PWA\x64\*" "$(ProjectDir)bin\x64\" --><!-- xcopy /Y "$(ProjectDir)..\Libs\PWA\x86\*" "$(ProjectDir)bin\x86\" -->
+	xcopy /Y "$(ProjectDir)..\Libs\PWA\ru-ru\*" "$(ProjectDir)bin\ru-ru\"
+	xcopy /Y "$(ProjectDir)..\Libs\PWA\x86\*" "$(ProjectDir)bin\x86\"
+	xcopy /Y "$(ProjectDir)..\Libs\PWA\x64\*" "$(ProjectDir)bin\x64\"
 	xcopy /Y "$(ProjectDir)..\Libs\System.Web.Http.Cors.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\System.Web.Cors.dll" "$(ProjectDir)bin\"
 	<!--xcopy /Y "$(ProjectDir)..\Libs\System.Runtime.dll" "$(ProjectDir)bin\"-->
