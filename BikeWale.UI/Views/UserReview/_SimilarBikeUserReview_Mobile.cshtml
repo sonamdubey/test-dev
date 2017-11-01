@@ -1,5 +1,5 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewSimilarBikesWidgetVM
-<div class="swiper-container card-container user-reviews-type-carousel">
+<div class="swiper-container card-container user-reviews-type-carousel noSwiper" id="similar-bikes-swiper">
     <ul class="swiper-wrapper">
         @foreach (var bike in Model.SimilarBikes)
         {
