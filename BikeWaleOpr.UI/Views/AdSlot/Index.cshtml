@@ -6,27 +6,27 @@
 @if (Model != null)
 {
     <div id="adslot" class="row" style="margin-top:5px;" data-userid="@Model.UserId">
-        <div class="col m10">
+        <div class="col m12">
             @if (Model.AdSlotList != null)
             {
-                <div>
-                    <table class="bordered highlight z-depth-3 centered responsive-table">
-                       
-                            <tr>
-                                <th>AdId</th>
-                                <th>Name</th>
-                                <th>Status</th>
-                                <th>Updated By</th>
-                                <th>Updated On</th>
-                            </tr>
-                        
+                <div class="container">
+                    <table class="centered bordered highlight z-depth-3 centered responsive-table">
+                       <thead>
+                           <tr>
+                               <th>AdId</th>
+                               <th>Name</th>
+                               <th>Status</th>
+                               <th>Updated By</th>
+                               <th>Updated On</th>
+                           </tr>
+                       </thead>
                         <tbody>
                             @foreach (var ad in Model.AdSlotList)
                             {
                                 <tr>
-                                    <th>@ad.AdId</th>
-                                    <th>@ad.Name</th>
-                                    <th>
+                                    <td>@ad.AdId</td>
+                                    <td>@ad.Name</td>
+                                    <td>
                                         <div class="switch">
                                             <label>
                                                 Off
@@ -35,9 +35,9 @@
                                                 On
                                             </label>
                                         </div>
-                                    </th>
-                                    <th>@ad.UpdatedBy</th>
-                                    <th>@ad.UpdatedOn</th>
+                                    </td>
+                                    <td>@ad.UpdatedBy</td>
+                                    <td>@ad.UpdatedOn</td>
                                 </tr>
                             }
                         </tbody>
@@ -50,7 +50,7 @@
             }
         </div>          
     </div>
-    <div class="preloader-wrapper big" style="position:relative; top: 50%; left: 50%;">
+    <div class="preloader-wrapper big" style="position:absolute; top: 50%; left: 50%;">
         <div class="spinner-layer spinner-green-only">
             <div class="circle-clipper left">
                 <div class="circle"></div>
