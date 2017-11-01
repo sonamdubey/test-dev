@@ -602,13 +602,13 @@ docReady(function () {
         if (!$(this).hasClass('open')) {
             $('#main-preview-content').hide();
             $('#more-preview-content').show();
-            $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
+            $(this).text('Collapse');
             $(this).addClass("open");
         }
         else if ($(this).hasClass('open')) {
             $('#main-preview-content').show();
             $('#more-preview-content').hide();
-            $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
+            $(this).text('Read more');
             $(this).removeClass('open');
             $('html, body').animate({ scrollTop: $('#modelAboutContent').offset().top - floatingTabsHeight }, 500);
         }

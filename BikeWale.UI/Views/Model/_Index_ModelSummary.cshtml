@@ -63,6 +63,44 @@
                     </tbody>
                 </table>
             </div>
+            @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                  && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null
+                  && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds)
+                  && Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
+            {
+
+                <div id="modelAboutContent" class="font14 margin-top20 border-divider">
+                    <h2 class="h2-heading margin-bottom15 margin-top10 ">About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
+                    <div class="text-slate-grey line-height17">
+                        @if (!Model.IsUpcomingBike)
+                        {
+                            <p id="main-preview-content" class="inline">
+                                @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+                                {
+                                    @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                                }
+                                else
+                                {
+                                    @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                                }
+                            </p>
+                            if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
+                            {
+                                <p id="more-preview-content" class="hide">
+                                    @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                                </p>
+                                <a href="javascript:void(0)" id="read-more-preview" rel="nofollow">Read more</a>
+                            }
+                        }
+                        else
+                        {
+                            @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                        }
+                    </div>
+                </div>
+                <div class="clear"></div>
+
+            }
         </div>
         <div class="grid-4 omega">
             <div class="text-left alpha">
@@ -100,44 +138,7 @@
             }
         </div>
 
-        @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)
-              && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null
-              && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds)
-              && Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
-        {
-            
-                <div id="modelAboutContent" class="grid-12 font14 margin-top20 border-divider">
-                    <h2 class="h2-heading margin-bottom15 margin-top10 ">About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
-                    <div class="text-slate-grey line-height17">
-                        @if (!Model.IsUpcomingBike)
-                        {
-                            <p id="main-preview-content" class="inline">
-                                @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
-                                {
-                                    @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
-                                }
-                                else
-                                {
-                                    @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                                }
-                            </p>
-                            if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
-                            {
-                                <p id="more-preview-content" class="hide">
-                                    @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                                </p>
-                                <a href="javascript:void(0)" id="read-more-preview" rel="nofollow">Read more</a>
-                            }
-                        }
-                        else
-                        {
-                            @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                        }
-                    </div>
-                </div>
-                <div class="clear"></div>
-            
-        }
+        
         <div class="clear"></div>
 
 
