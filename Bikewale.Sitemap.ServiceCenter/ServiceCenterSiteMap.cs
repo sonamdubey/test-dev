@@ -36,7 +36,7 @@ namespace Bikewale.Sitemap.ServiceCenter
                         {
 
                             //create xml and write urls
-                            using (XmlWriter writer = XmlWriter.Create(string.Format("{0}new-bike-prices-{1}.xml ", ServiceCenterSitemapLoc, count), settings))
+                            using (XmlWriter writer = XmlWriter.Create(string.Format("{0}Service-Center-Locator-{1}.xml ", ServiceCenterSitemapLoc, count), settings))
                             {
                                 writer.WriteStartDocument();
                                 writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
