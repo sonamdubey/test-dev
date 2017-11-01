@@ -1,10 +1,11 @@
 ﻿@model Bikewale.Models.Compare.SimilarBikesComparisionVM
 @using Bikewale.Entities.Compare
+@using Bikewale.Utility
 <div class="container card-bottom-margin">
     <div class="grid-12 alpha omega">
         <div class="content-box-shadow padding-top20">
             <h2 class="h2-heading padding-left20 margin-bottom15">Compare with similar bikes</h2>
-            <div class="swiper-container card-container swiper-container-horizontal compare-bike-swiper">
+            <div class="swiper-container card-container swiper-container-horizontal compare-bike-swiper noSwiper" id="similar-bikes-swiper"> 
                 <div class="swiper-wrapper">
                     @foreach (var similarObj in Model.SimilarBikeComparison)
                     {
@@ -12,16 +13,13 @@
                             <div class="swiper-card">
                                 @{
                                     var bikeName = string.Format("{0} {1}", similarObj.BikeMake.MakeName, similarObj.BikeModel.ModelName);
-                                    var imageUrl = string.Format("{0}/174x98/{1}", similarObj.HostUrl, similarObj.OriginalImagePath);
-                                    var compareImageUrl1 = string.Format("{0}/144x81/{1}", similarObj.CompareBike1.HostUrl, similarObj.CompareBike1.OriginalImagePath);
-                                    var compareImageUrl2 = string.Format("{0}/144x81/{1}", similarObj.CompareBike2.HostUrl, similarObj.CompareBike2.OriginalImagePath);
                                     var compareUrl1 = string.Format("/m/comparebikes/{0}-{1}-vs-{2}-{3}/?source={4}", similarObj.CompareBike1.Make.MaskingName, similarObj.CompareBike1.Model.MaskingName, similarObj.BikeMake.MakeMaskingName, similarObj.BikeModel.MaskingName, (uint)CompareSources.Desktop_SimilarComparisonWidget);
                                     var compareUrl2 = string.Format("/m/comparebikes/{0}-{1}-vs-{2}-{3}/?source={4}", similarObj.CompareBike2.Make.MaskingName, similarObj.CompareBike2.Model.MaskingName, similarObj.BikeMake.MakeMaskingName, similarObj.BikeModel.MaskingName, (uint)CompareSources.Desktop_SimilarComparisonWidget);
 
                                      }
                                 <a href="@string.Format("/m/{0}-bikes/{1}/",similarObj.BikeMake.MakeMaskingName,similarObj.BikeModel.MaskingName)" title="@bikeName" class="block bw-ga" data-cat="Compare_Bikes" data-act="Clicked_on_SimilarModel" data-lab="@string.Format("{0}_Card_{1}", similarObj.BikeModel.ModelName,Model.modelComparisionText)">
                                     <div class="swiper-image-preview">
-                                        <img class="swiper-lazy swiper-lazy-loaded" title="@bikeName" alt="@bikeName" src="@imageUrl">
+                                        <img class="swiper-lazy" title="@bikeName" alt="@bikeName" data-src="@Image.GetPathToShowImages( similarObj.OriginalImagePath,similarObj.HostUrl,ImageSize._174x98,"70")" src="">
                                     </div>
                                     <div class="swiper-details-block">
                                         <h3 class="target-link font12 text-truncate margin-bottom10 padding-top5">@bikeName</h3>
@@ -30,14 +28,14 @@
                                 <div class="compare-similar-bike bw-ga" data-cat="Compare_Bikes" data-act="Clicked_on_CompareCard" data-lab="@string.Format("{0}_{1}", similarObj.BikeModel.ModelName,Model.modelComparisionText)">
                                     <p class="font10 text-slate-grey margin-bottom10">@string.Format("Compare {0} bike with:", similarObj.BikeModel.ModelName)</p>
                                     <a href="@compareUrl1" title="@string.Format("{0} vs {1}", similarObj.CompareBike1.Model.ModelName, similarObj.BikeModel.ModelName )" class="compare-with-card margin-right5">
-                                        <div class="compare-card__image-preview">
-                                            <img class="swiper-lazy swiper-lazy-loaded" alt="@similarObj.CompareBike1.Model.ModelName" src="@compareImageUrl1">
+                                        <div class="compare-card__image-preview" >
+                                            <img class="swiper-lazy" alt="@similarObj.CompareBike1.Model.ModelName" data-src="@Image.GetPathToShowImages(similarObj.CompareBike1.OriginalImagePath,similarObj.CompareBike1.HostUrl, ImageSize._144x81, "70")" src="">
                                         </div>
                                         <p class="compare-card__title">@similarObj.CompareBike1.Model.ModelName</p>
                                     </a>
                                     <a href="@compareUrl2" title="@string.Format("{0} vs {1}", similarObj.CompareBike2.Model.ModelName, similarObj.BikeModel.ModelName )" class="compare-with-card margin-left5">
                                         <div class="compare-card__image-preview">
-                                            <img class="swiper-lazy swiper-lazy-loaded" alt="@similarObj.CompareBike2.Model.ModelName" src="@compareImageUrl2">
+                                            <img class="swiper-lazy" alt="@similarObj.CompareBike2.Model.ModelName" data-src="@Image.GetPathToShowImages(similarObj.CompareBike2.OriginalImagePath, similarObj.CompareBike2.HostUrl,ImageSize._144x81, "70")" src="">
                                         </div>
                                         <p class="compare-card__title">@similarObj.CompareBike2.Model.ModelName</p>
                                     </a>
@@ -49,6 +47,7 @@
               
                 </div>
             </div>
+            <input type="hidden" id="comparisonText" value="@Model.modelComparisionText" />
         </div>
     </div>
     <div class="clear"></div>
