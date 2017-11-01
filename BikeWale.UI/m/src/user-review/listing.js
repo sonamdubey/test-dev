@@ -962,7 +962,7 @@ docReady(function () {
         triggerGA("User_Reviews", "Clicked_ExpertReviews_List", makeName + "_" + modelName);
     });
 
-    var gallerySwiper = new Swiper('#similar-bikes-swiper', {
+    var similarBikesSwiper = new Swiper('#similar-bikes-swiper', {
         effect: 'slide',
         speed: 300,
         slidesPerView: 'auto',
