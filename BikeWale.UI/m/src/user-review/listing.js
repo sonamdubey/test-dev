@@ -697,6 +697,8 @@ docReady(function () {
             updateView(event);
             logBhrighu(event, 'ReadMoreClick');
 
+            triggerGA("User_Reviews", "Clicked_On_Read_More", makeName + "_" + modelName + "_" + (reviewId > 0 ? "Details" : "List"));
+
             return true;
         };
 
@@ -958,5 +960,20 @@ docReady(function () {
 
     $(document).on("click", ".article-list", function (e) {
         triggerGA("User_Reviews", "Clicked_ExpertReviews_List", makeName + "_" + modelName);
+    });
+
+    var similarBikesSwiper = new Swiper('#similar-bikes-swiper', {
+        effect: 'slide',
+        speed: 300,
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        preloadImages: false,
+        lazyLoading: true,
+        lazyLoadingInPrevNext: true,
+        watchSlidesProgress: true,
+        watchSlidesVisibility: true,
+        onSlideChangeStart: function (swiper, event) {
+            triggerGA("User_Reviews", "Clicked_On_SimilarBikes_Carousel", makeName + "_" + modelName + "_" + (reviewId > 0 ? "Details" : "List"));
+        }
     });
 });
