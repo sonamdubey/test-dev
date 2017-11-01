@@ -1,5 +1,6 @@
 ﻿using Bikewale.CoreDAL;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Models;
 using System.Web.Mvc;
 
@@ -13,10 +14,13 @@ namespace Bikewale.Controllers
     {
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         private readonly IBikeMakesCacheRepository _bikeMakes = null;
-        public GenericBestBikesController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakesCacheRepository bikeMakes)
+        private readonly ICMSCacheContent _objArticles = null;
+
+        public GenericBestBikesController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakesCacheRepository bikeMakes, ICMSCacheContent objArticles)
         {
             _objBestBikes = objBestBikes;
             _bikeMakes = bikeMakes;
+            _objArticles = objArticles;
         }
         /// <summary>
         /// Created By :- Subodh Jain 18 May 2017
@@ -26,7 +30,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes);
+            IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes, _objArticles);
 
             if (objBestBikes != null)
             {
@@ -63,7 +67,7 @@ namespace Bikewale.Controllers
         [Route("m/bestbikes/")]
         public ActionResult Index_Mobile()
         {
-            IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes);
+            IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes, _objArticles);
 
             if (objBestBikes != null)
             {
