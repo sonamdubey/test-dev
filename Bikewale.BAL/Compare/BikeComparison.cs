@@ -6,16 +6,13 @@ using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data;
-using System.Data.Common;
-using Bikewale.Utility.StringExtention;
-using Bikewale.Utility;
+using System.Linq;
 
 namespace Bikewale.BAL.Compare
 {
@@ -1209,9 +1206,9 @@ namespace Bikewale.BAL.Compare
         /// <param name="versions"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public Entities.Compare.BikeCompareEntity DoCompare(string versions, uint cityId)
+        public BikeCompareEntity DoCompare(string versions, uint cityId)
         {
-            Entities.Compare.BikeCompareEntity compareEntity = null;
+            BikeCompareEntity compareEntity = null;
             try
             {
                 if (!string.IsNullOrEmpty(versions))
@@ -1219,9 +1216,12 @@ namespace Bikewale.BAL.Compare
                     compareEntity = _objCompare.DoCompare(versions, cityId);
                     TransposeCompareBikeData(ref compareEntity, versions);
                 }
-                compareEntity.Features = null;
-                compareEntity.Specifications = null;
-                compareEntity.Color = null;
+                if (compareEntity != null)
+                {
+                    compareEntity.Features = null;
+                    compareEntity.Specifications = null;
+                    compareEntity.Color = null;
+                }
             }
             catch (Exception ex)
             {

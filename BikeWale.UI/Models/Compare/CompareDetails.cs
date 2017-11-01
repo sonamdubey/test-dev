@@ -334,7 +334,7 @@ namespace Bikewale.Models
         /// <returns></returns>
         private void ProcessQueryString()
         {
-
+            bool isPermanentRedirection = false;
             try
             {
                 var request = HttpContext.Current.Request;
@@ -396,6 +396,7 @@ namespace Bikewale.Models
                         else if (objResponse != null && objResponse.StatusCode == 301)
                         {
                             status = StatusCodes.RedirectPermanent;
+                            isPermanentRedirection = true;
                             if (String.IsNullOrEmpty(redirectionUrl))
                                 redirectionUrl = request.RawUrl.Replace(models[iTmp].ToLower(), objResponse.MaskingName);
                             else
@@ -415,7 +416,11 @@ namespace Bikewale.Models
             }
             finally
             {
-                if (!string.IsNullOrEmpty(_versionsList) && bikeComparisions >= 2)
+                if (isPermanentRedirection)
+                {
+                    status = StatusCodes.RedirectPermanent;
+                }
+                else if (!string.IsNullOrEmpty(_versionsList) && bikeComparisions >= 2)
                 {
                     _versionsList = _versionsList.Substring(1);
                 }
