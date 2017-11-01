@@ -169,5 +169,12 @@
     top: 13px;
     transform: scale(0.8);
 }
-  .sprite-video-m { background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/play-14x14.png);position: absolute;
-    top: 12px;display:inline-block; height:14px;width:14px; }
+
+.sprite-video-m {
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/play-14x14.png');
+	position: absolute;
+	top: 11px;
+	display: inline-block;
+	height: 14px;
+	width: 14px;
+}
