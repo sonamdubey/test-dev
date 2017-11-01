@@ -14,9 +14,9 @@
             {
                 <li data-tabs="#bikeByMakesUpcoming" data-lab="@string.Format("{0}_UpcomingBikes", Model.MakeName)">Upcoming</li>
             }
-            @if (Model.IsCompareBikesAvailable)
-            {
-                <li data-tabs="#popularComparison" data-lab="@string.Format("{0}_TopComparisons", Model.MakeName)">Top Comparisons</li>
+           @if (Model.IsCompareBikesAvailable || Model.OtherMakes != null)
+           {
+                <li data-tabs="#popularComparisonAndOtherBrands" data-lab="@string.Format("{0}_TopComparisons", Model.MakeName)">Top Comparisons</li>
             }
             @if (Model.IsNewsAvailable)
             {
