@@ -2,6 +2,7 @@
 // Core variables and mixins
 @import ../components/variables
 @import ../components/mixins
+@import ../mixins/mixins
 
 
 .bw-tabs-content
@@ -187,12 +188,16 @@
 	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bike-36x20.png')
 
 //rating star
-.user-reviews-type-carousel .rating-block
-    z-index: 2
-    display: inline-block
-    position: absolute
-    top: 15px
-    right: 15px
+.user-reviews-type-carousel
+	.rating-block
+		z-index: 2
+		display: inline-block
+		position: absolute
+		top: 15px
+		right: 15px
+
+	.star-icon
+		@include vendor-prefix("transform", scale(0.6) !important)
 
 
 @import ../partials/rating
@@ -204,7 +209,7 @@
 	
 .rating-text-pos
 	position: relative
-	left: -5px
+	left: -3px
 	top: 2px
 	
 //white star
