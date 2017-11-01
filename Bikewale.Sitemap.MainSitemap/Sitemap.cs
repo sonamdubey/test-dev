@@ -60,7 +60,7 @@ namespace Bikewale.Sitemap.MainSitemap
                 {
                     foreach (var item in data)
                     {
-                        Logs.WriteInfoLog(String.Format("{0} - {1}", item.Key, item.Value.Values.Count));
+                        Logs.WriteInfoLog(String.Format("{0} - {1}", item.Key, ((item.Value != null && item.Value.Values != null && item.Value.Values.Any()) ? item.Value.Values.Count : 0)));
                     }
                     //call function to create urls
                     IEnumerable<string> urlList = CreateSitemapUrls(data);
