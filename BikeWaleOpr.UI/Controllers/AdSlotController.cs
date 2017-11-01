@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
 {
+    [Authorize]
     /// <summary>
     /// Created by : Ashutosh Sharma on 30 Oct 2017
     /// Description : Controller for AdSlot page.
