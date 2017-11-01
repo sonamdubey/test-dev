@@ -409,7 +409,7 @@
                                     <h2 class="card-h2-heading margin-bottom20">@Model.BikeName price in @Model.CityEntity.CityName</h2>
                                     @*<h3 class="margin-bottom10">@Model.BikeName price in @Model.CityEntity.CityName (variants)</h3>*@
                                     <div id="version-prices-grid" class="grid-12 alpha">
-                                        <h3 class="padding-bottom10">Price by versions</h3>
+                                        <h3 class="padding-bottom10">Price by variants</h3>
                                         <table class="version-price-table">
                                             <thead>
                                                 <tr>
@@ -422,7 +422,7 @@
                                                 @foreach (var bikeversion in Model.VersionSpecs)
                                                     {
                                                     <tr>
-                                                        <td class="font14">@bikeversion.VersionName</td>
+                                                        <td class="font14">@string.Format("{0} {1}", bikeversion.ModelName, bikeversion.VersionName)</td>
                                                         <td class="font13">
                                                             @Html.Raw("&#x20B9;")<span class="text-bold">&nbsp; @Format.FormatPrice(Convert.ToString(bikeversion.Price))</span>
                                                             &nbsp;<span class="font12">(On-road, @Model.CityEntity.CityName)</span>
