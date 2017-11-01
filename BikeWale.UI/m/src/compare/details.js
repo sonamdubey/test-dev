@@ -781,7 +781,9 @@ docReady(function () {
         lazyLoadingInPrevNext: true,
         watchSlidesProgress: true,
         watchSlidesVisibility: true,
-        onSlideChangeStart: triggerGA("Compare_Bikes", "Clicked_on_carousel", "Label")
+        onSlideChangeStart: function (swiper, event) {
+            triggerGA("Compare_Bikes", "Clicked_on_carousel", $("#comparisonText").val());
+        }           
     });
     
 });
