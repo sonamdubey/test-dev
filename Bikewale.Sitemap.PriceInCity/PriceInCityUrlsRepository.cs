@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Sitemap.PriceInCity
 {
@@ -35,7 +32,7 @@ namespace Bikewale.Sitemap.PriceInCity
                                 {
                                     MakeMaskingName = dr["MakeMaskingName"].ToString(),
                                     ModelMaskingName = dr["MaskingName"].ToString(),
-                                    CityMaskingName = dr["citymaskingname"].ToString(),
+                                    CityMaskingName = dr["citymaskingname"].ToString()
                                 });
 
                             }
