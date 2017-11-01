@@ -7,8 +7,10 @@ namespace Bikewale.Sitemap.PriceInCity
     {
         static void Main(string[] args)
         {
+            log4net.Config.XmlConfigurator.Configure();
             PriceInCitySiteMap objMap = new PriceInCitySiteMap();
-            try {
+            try
+            {
                 objMap.GenerateSiteMap();
             }
             catch (Exception ex)

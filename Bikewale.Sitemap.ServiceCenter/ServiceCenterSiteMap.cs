@@ -4,32 +4,31 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Xml;
-
-namespace Bikewale.Sitemap.PriceInCity
+namespace Bikewale.Sitemap.ServiceCenter
 {
-    class PriceInCitySiteMap
+    class ServiceCenterSiteMap
     {
         public void GenerateSiteMap()
         {
-            string domain = ConfigurationManager.AppSettings["PriceInCitySiteMapDomain"];
-            string PriceInCitySitemapLoc = ConfigurationManager.AppSettings["PriceInCitySitemapLoc"];
-            IEnumerable<PriceInCityEnitity> SitemapList = null;
+            string domain = ConfigurationManager.AppSettings["ServiceCenterSiteMapDomain"];
+            string ServiceCenterSitemapLoc = ConfigurationManager.AppSettings["ServiceCenterSitemapLoc"];
+            IEnumerable<ServiceCenterEnitity> SitemapList = null;
 
             if (domain != null)
                 try
                 {
                     // get data from database
-                    PriceInCityUrlsRepository urlObj = new PriceInCityUrlsRepository();
-                    SitemapList = urlObj.GetPriceInCityUrls();
-                    Logs.WriteInfoLog("All Price In City List : " + SitemapList.Count());
+                    ServiceCenterUrlsRepository urlObj = new ServiceCenterUrlsRepository();
+                    SitemapList = urlObj.GetServiceCenterUrls();
+                    Logs.WriteInfoLog("All Service center List : " + SitemapList.Count());
                     // create directory if not exists
-                    if (PriceInCitySitemapLoc != null)
+                    if (ServiceCenterSitemapLoc != null)
                     {
-                        System.IO.Directory.CreateDirectory(PriceInCitySitemapLoc);
+                        System.IO.Directory.CreateDirectory(ServiceCenterSitemapLoc);
 
                         //call function to create urls
-                        IEnumerable<string> urlList = CreatePriceInCityUrls(SitemapList);
-                        Logs.WriteInfoLog("All Price In City Urls  List : " + urlList.Count());
+                        IEnumerable<string> urlList = CreateServiceCenterUrls(SitemapList);
+                        Logs.WriteInfoLog("All Service center Urls List : " + urlList.Count());
                         XmlWriterSettings settings = new XmlWriterSettings();
                         settings.Indent = true;
                         int count = 1;
@@ -37,7 +36,7 @@ namespace Bikewale.Sitemap.PriceInCity
                         {
 
                             //create xml and write urls
-                            using (XmlWriter writer = XmlWriter.Create(string.Format("{0}new-bike-prices-{1}.xml ", PriceInCitySitemapLoc, count), settings))
+                            using (XmlWriter writer = XmlWriter.Create(string.Format("{0}new-bike-prices-{1}.xml ", ServiceCenterSitemapLoc, count), settings))
                             {
                                 writer.WriteStartDocument();
                                 writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
@@ -73,24 +72,23 @@ namespace Bikewale.Sitemap.PriceInCity
                     Logs.WriteErrorLog("GenerateSiteMap: Exception " + ex.Message);
                 }
         }
-
-        public IEnumerable<string> CreatePriceInCityUrls(IEnumerable<PriceInCityEnitity> SitemapList)
+        public IEnumerable<string> CreateServiceCenterUrls(IEnumerable<ServiceCenterEnitity> SitemapList)
         {
             IList<string> urlList = new List<string>();
             try
             {
                 foreach (var value in SitemapList)
                 {
-                    urlList.Add(string.Format("{0}-bikes/{1}/price-in-{2}/", value.MakeMaskingName, value.ModelMaskingName, value.CityMaskingName));
+                    urlList.Add(string.Format("{0}-service-center-in-{1}/", value.MakeMaskingName, value.CityMaskingName));
                 }
+                Logs.WriteInfoLog("All Service center Urls List Completed");
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog("CreatePriceInCityUrls: Exception " + ex.Message);
+                Logs.WriteErrorLog("CreateServiceCenterUrls: Exception " + ex.Message);
             }
 
             return urlList;
         }
-
     }
 }
