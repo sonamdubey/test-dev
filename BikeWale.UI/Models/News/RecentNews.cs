@@ -110,7 +110,6 @@ namespace Bikewale.Models
 
                 }
 
-
                 if (_makeId > 0)
                 {
                     recentNews.MakeName = _makeName;

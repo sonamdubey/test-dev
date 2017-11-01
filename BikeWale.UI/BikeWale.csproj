@@ -3845,6 +3845,7 @@
     </None>
     <None Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <Content Include="wkhtmltopdf\include\wkhtmltox\dllbegin.inc" />
     <Content Include="wkhtmltopdf\include\wkhtmltox\dllend.inc" />
@@ -4101,8 +4102,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent Condition="'$(Configuration)' != 'Debug'">
-
+    <PostBuildEvent>
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\runtimes\win7-x64\native\*" "$(ProjectDir)bin\x64\"
 	<!-- xcopy /Y "$(ProjectDir)..\Libs\PWA\x64\*" "$(ProjectDir)bin\x64\" --><!-- xcopy /Y "$(ProjectDir)..\Libs\PWA\x86\*" "$(ProjectDir)bin\x86\" -->
@@ -4117,8 +4117,6 @@
 	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
