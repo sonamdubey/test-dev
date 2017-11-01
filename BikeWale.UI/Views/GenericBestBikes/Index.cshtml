@@ -471,7 +471,6 @@
     </section>
                         }
 
-
 <section>
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Best bikes in other categories</h2>
@@ -483,6 +482,22 @@
         <div class="clear"></div>
     </div>
 </section>
+
+<!--news widget start-->
+@if (Model.News != null)
+{
+    <section>
+        <div class="container section-container padding-bottom20">
+            <div class="grid-12">
+                <h2 class="section-heading">More news about top 10 @Model.PageName.ToLower()</h2>
+                <div class="content-box-shadow content-inner-block-20 card-bottom-margin font14">
+                    @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
 
 <script type="text/javascript">
     var descWrapper;

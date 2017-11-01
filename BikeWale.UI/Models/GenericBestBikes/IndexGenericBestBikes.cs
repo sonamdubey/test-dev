@@ -5,6 +5,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Bikewale.Utility.GenericBikes;
@@ -23,16 +24,18 @@ namespace Bikewale.Models
     {
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         private readonly IBikeMakesCacheRepository _bikeMakes = null;
-
+        private readonly ICMSCacheContent _objArticles = null;
 
         public ushort makeTopCount { get; set; }
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         private EnumBikeBodyStyles BodyStyleType = EnumBikeBodyStyles.AllBikes;
-        public IndexGenericBestBikes(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakesCacheRepository bikeMakes)
+        private string _modelIdList = string.Empty;
+        public IndexGenericBestBikes(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakesCacheRepository bikeMakes, ICMSCacheContent objArticles)
         {
             _objBestBikes = objBestBikes;
             _bikeMakes = bikeMakes;
+            _objArticles = objArticles;
             ParseQueryString();
         }
 
@@ -82,6 +85,7 @@ namespace Bikewale.Models
                 obj.Brands = new BrandWidgetModel(makeTopCount, _bikeMakes).GetData(BodyStyleType == EnumBikeBodyStyles.Scooter ? Entities.BikeData.EnumBikeType.Scooters : Entities.BikeData.EnumBikeType.New);
 
                 SetPageJSONLDSchema(obj);
+                BindCMSContent(obj);
             }
             catch (Exception ex)
             {
@@ -133,6 +137,8 @@ namespace Bikewale.Models
                             Position = itemNo,
                             Item = product
                         });
+
+                        _modelIdList = string.IsNullOrEmpty(_modelIdList) ? Convert.ToString(bike.Model.ModelId) : string.Format("{0},{1}", _modelIdList, bike.Model.ModelId);
 
                         itemNo--;
                     }
@@ -248,6 +254,24 @@ namespace Bikewale.Models
             {
 
                 ErrorClass objErr = new ErrorClass(ex, string.Format("SetPageMetas{0} ", BodyStyleType));
+            }
+
+        }
+
+        /// <summary>
+        /// Created By :Sajal Gupta on 1-11-2017
+        /// Description: Gneric bikes news widget
+        /// </summary>
+        /// <param name="objUpcoming"></param>
+        private void BindCMSContent(IndexBestBikesVM objGenericBikes)
+        {
+            try
+            {
+                objGenericBikes.News = new RecentNews(5, 0, _modelIdList, _objArticles).GetData();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.IndexGenericBestBikes.BindCMSContent()");
             }
 
         }
