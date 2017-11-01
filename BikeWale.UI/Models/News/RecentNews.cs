@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.CMS;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Notifications;
 using System;
@@ -16,7 +17,7 @@ namespace Bikewale.Models
         private readonly uint _totalRecords;
         private readonly uint _makeId;
         private readonly uint _modelId;
-        private readonly string _title, _makeName, _makeMasking, _modelName, _modelMasking,_modelIdList;
+        private readonly string _title, _makeName, _makeMasking, _modelName, _modelMasking, _modelIdList;
 
         #region Constructor
 
@@ -71,7 +72,7 @@ namespace Bikewale.Models
 
         }
 
-        public RecentNews(uint totalRecords, uint makeId, string modelId,ICMSCacheContent articles)
+        public RecentNews(uint totalRecords, uint makeId, string modelId, ICMSCacheContent articles)
         {
             _totalRecords = totalRecords;
             _makeId = makeId;
@@ -93,7 +94,7 @@ namespace Bikewale.Models
             RecentNewsVM recentNews = new RecentNewsVM();
             try
             {
-                if(_modelIdList.Trim().Length>0)
+                if (!string.IsNullOrEmpty(_modelIdList))
                 {
                     recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelIdList);
                 }
@@ -101,7 +102,7 @@ namespace Bikewale.Models
                 {
                     if (IsScooter)
                     {
-                        string bodyStyleId = "5";
+                        string bodyStyleId = ((int)EnumBikeBodyStyles.Scooter).ToString();
                         recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, bodyStyleId, _makeId, _modelId);
                     }
                     else
