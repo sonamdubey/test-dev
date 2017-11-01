@@ -84,19 +84,6 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
         </div>
     }
 </div>
-@if (Model.IsReviewsAvailable)
-{
-    <div id="expertReviewsContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
-        <h2>@Model.BikeName Expert Reviews</h2>
-        @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
-        {
-            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
-            <div class="view-all-btn-container">
-                <a title="@String.Format("{0} Expert Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="Read_all_user_reviews_link_cliked" data-var="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
-            </div>
-        }
-    </div>
-}
 @if (Model.IsUserReviewsAvailable && !Model.IsUpcomingBike)
 {
     <div id="reviewsContent" class="bw-model-tabs-data" data-readmore="0">
@@ -122,6 +109,19 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
                 <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="btn view-all-target-btn">Read all user reviews<span class="bwmsprite teal-right"></span></a>
             </div>
         </div>
+    </div>
+}
+@if (Model.IsReviewsAvailable)
+{
+    <div id="expertReviewsContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+        <h2>@Model.BikeName Expert Reviews</h2>
+        @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+        {
+            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+            <div class="view-all-btn-container">
+                <a title="@String.Format("{0} Expert Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="Read_all_user_reviews_link_cliked" data-var="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
+            </div>
+        }
     </div>
 }
 @if (Model.IsNewsAvailable)

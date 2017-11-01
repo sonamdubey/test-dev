@@ -594,6 +594,8 @@ docReady(function () {
             updateView(event);
             logBhrighu(event, 'ReadMoreClick');
 
+            triggerGA("User_Reviews", "Clicked_On_Read_More", makeName + "_" + modelName + "_" + (reviewId > 0 ? "Details" : "List"));
+
             return true;
         };
 
@@ -644,6 +646,14 @@ docReady(function () {
 
     $(document).on("click", ".expert-review-list .jcarousel-card a", function (e) {
         triggerGA("User_Reviews", "ExpertReviews_CarouselCard_Clicked", makeName + "_" + modelName);
+    });
+
+    $(document).on("click", "#similar-bike-list .jcarousel-control-next", function (e) {
+        triggerGA("User_Reviews", "Clicked_On_SimilarBikes_Carousel", makeName + "_" + modelName + "_" + (reviewId > 0 ? "Details" : "List"));
+    });
+
+    $(document).on("click", "#similar-bike-list .jcarousel-control-prev", function (e) {
+        triggerGA("User_Reviews", "Clicked_On_SimilarBikes_Carousel", makeName + "_" + modelName + "_" + (reviewId > 0 ? "Details" : "List"));
     });
 
     $(document).on("click", "#pagination-list-content ul li, .pagination-control-prev a, .pagination-control-next a,#overallSpecsTab .overall-specs-tabs-wrapper a", function (e) {
