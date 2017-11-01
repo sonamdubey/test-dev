@@ -44,7 +44,7 @@
                 @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.MaskingNumber))
                 {
                     <div class="margin-bottom10">
-                        <a href="tel:= dealerDetails.MaskingNumber " class="text-default text-bold maskingNumber">
+                        <a href="@string.Format("tel:={0}", Model.DealerDetails.DealerDetails.MaskingNumber)" class="text-default text-bold maskingNumber">
                             <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
                             <span class="vertical-top text-bold dealership-details">@Model.DealerDetails.DealerDetails.MaskingNumber </span>
                         </a>
@@ -53,7 +53,7 @@
                 @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.EMail))
                 {
                     <div class="margin-bottom10">
-                        <a href="mailto:= dealerDetails.EMail " class="text-light-grey">
+                        <a href="@string.Format("mailto:={0}", Model.DealerDetails.DealerDetails.EMail)" class="text-light-grey">
                             <span class="bwmsprite mail-grey-icon vertical-top"></span>
                             <span class="vertical-top dealership-details text-light-grey">@Model.DealerDetails.DealerDetails.EMail </span>
                         </a>
@@ -95,7 +95,7 @@
                                data-item-id="@Model.DealerDetails.DealerDetails.DealerId" data-cityname="@Model.CityDetails.CityName" data-eventcategory="Dealer_Locator_Detail" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn bw-ga" data-act="Get_Offers_Clicked" data-cat="Dealer_Locator_Detail" data-lab="@Model.GALabel" href="javascript:void(0);" rel="nofollow">@Model.DealerDetails.DealerDetails.DisplayTextSmall</a>
                         </div>
                         <div class="grid-6 omega padding-left5">
-                            <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:= dealerDetails.MaskingNumber ">
+                            <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:=@Model.DealerDetails.DealerDetails.MaskingNumber">
                                 <span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer
                             </a>
                         </div>
