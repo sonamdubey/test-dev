@@ -2838,7 +2838,6 @@
     <Content Include="m\google863c8bc3ae47cfff.html" />
     <Content Include="m\news\offline.html" />
     <Content Include="m\news\sw_installer.html" />
-    <Content Include="m\news\sw.js" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\sass\scooters\listing.css" />
     <Content Include="m\service\Default.aspx" />
@@ -2950,6 +2949,7 @@
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
+    <Content Include="m\sw.js" />
     <Content Include="m\trackday2016\css\track-day.css" />
     <Content Include="m\trackday2016\default.aspx" />
     <Content Include="m\trackday2016\details.aspx" />
@@ -3067,6 +3067,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
+    <Content Include="Scripts\appshell.html" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
     <Content Include="Scripts\vendor.bundle.js" />
@@ -4058,7 +4059,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
