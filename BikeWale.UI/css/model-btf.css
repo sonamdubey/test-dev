@@ -1410,3 +1410,63 @@ li.offertxt:hover span {display:inline}
 .no-city-selection-carousel .jcarousel a:hover {
     text-decoration: none;
 }
+
+/* Mileage section*/
+.mileage-box-list {
+    font-size:0;
+    position: relative;
+}
+.mileage-box-list:after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    margin-left: 20px;
+    margin-right: 20px;
+    bottom: 0;
+    font-size: 0;
+    border-bottom: 1px solid #e2e2e2;
+    width: 95%;
+}
+.mileage-box-list li {
+    width: 25%;
+    display: inline-block;
+    vertical-align: top;
+    padding-left:20px;
+    padding-right: 20px;
+    min-height: 45px;
+    border-left: 1px solid #eee;
+}
+.mileage-box-list > li:first-child {
+    border-left-style: none;
+}
+.mileage-box-list li:nth-of-type(4) > div{
+    width: 62%;
+}
+.arai-icon, .users-icon {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: grey;
+    vertical-align: middle;
+}
+.grey-bike-icon {
+    display: inline-block;
+    vertical-align: middle;
+    background: lightgrey;
+    width: 35px;
+    height: 20px;
+}
+/* Model mileage carousel */
+.model-mileage-carousel .model-jcarousel-image-preview {
+    padding: 15px 15px 0 15px;
+    text-align: left;
+    height: 110px;
+}
+.model-mileage-carousel .model-jcarousel-image-preview img {
+    height: auto;
+    width: 199px;
+    max-width: 100%;
+}
+.text-teal {
+    color: #3799A7;
+}
