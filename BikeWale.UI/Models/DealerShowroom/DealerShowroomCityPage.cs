@@ -213,29 +213,43 @@ namespace Bikewale.Models.DealerShowroom
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by :Snehal Dange on 2th Nov 2017
+        /// Description : Added makename in breadcrum
         /// </summary>
         private void SetBreadcrumList(DealerShowroomCityPageVM objPage)
         {
-            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
-            ushort position = 1;
-            if (IsMobile)
+
+            try
             {
-                url += "m/";
+                if(objPage!=null)
+                {
+                    IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                    string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                    ushort position = 1;
+                    if (IsMobile)
+                    {
+                        url += "m/";
+                    }
+
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+                    if (objPage.Make != null)
+                    {
+                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName), string.Format("{0} Bikes", objPage.Make.MakeName)));
+                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-dealer-showrooms-in-india/", url, objPage.Make.MaskingName), objPage.Make.MakeName + " Showrooms in India"));
+                    }
+
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPage.Page_H1));
+
+                    objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                }
+               
             }
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}", url, "dealer-showroom-locator/"), "Showroom Locator"));
-
-            if (objDealerVM != null && objDealerVM.Make != null)
+            catch (Exception ex)
             {
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-dealer-showrooms-in-india/", url, objDealerVM.Make.MaskingName), objDealerVM.Make.MakeName + " Showrooms"));
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.SetBreadcrumList()");
             }
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, null, objPage.Page_H1));
-
-            objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
 
         }
 
