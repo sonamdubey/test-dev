@@ -141,7 +141,7 @@ namespace DataSync
 
                                     _model.BasicReject(deliverEventArgs.DeliveryTag, false);
 
-                                    Logs.WriteErrorLog("RabbitMQExecution: Database Error: " + ex.Message);
+                                    Logs.WriteErrorLog(string.Format("RabbitMQExecution: Database Error: {0} - SP : {1} - DB - {2}", ex.Message, spName, dBName));
                                     SendMail.HandleException(ex, "BWDataSyncConsumer/Database Error: " + ex.Message);
                                 }
                             }

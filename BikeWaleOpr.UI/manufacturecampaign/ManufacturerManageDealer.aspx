@@ -298,9 +298,9 @@
                     leadBtn.attr("data-item-area", "{4}");
                     leadBtn.attr("data-leadsourceid", "{5}");
                     leadBtn.attr("data-pqsourceid", "{6}");
-                    leadBtn.attr("a", "{7}");
-                    leadBtn.attr("c", "{8}");
-                    leadBtn.attr("l", "{9}");
+                    leadBtn.attr("data-act", "{7}");
+                    leadBtn.attr("data-cat", "{8}");
+                    leadBtn.attr("data-lab", "{9}");
                     leadBtn.attr("data-item-heading", "{11}");
                     leadBtn.attr("data-item-description","{12}");
                     leadBtn.attr("data-item-message", "{13}");

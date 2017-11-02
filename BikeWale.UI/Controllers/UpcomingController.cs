@@ -2,6 +2,7 @@
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Models;
 using Bikewale.Models.Upcoming;
 using System.Web.Mvc;
@@ -16,15 +17,16 @@ namespace Bikewale.Controllers
     {
         private IUpcoming _upcoming = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-
-        public UpcomingController(IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels)
+        private readonly ICMSCacheContent _objArticles = null;
+        public UpcomingController(IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, ICMSCacheContent objArticles)
         {
             _upcoming = upcoming;
             _newLaunches = newLaunches;
             _bikeMakesCache = bikeMakesCache;
             _bikeModels = bikeModels;
+            _objArticles = objArticles;
         }
 
         /// <summary>
@@ -36,7 +38,7 @@ namespace Bikewale.Controllers
         public ActionResult Index(ushort? pageNumber, EnumUpcomingBikesFilter? sort)
         {
             UpcomingPageModel objData = null;
-            objData = new UpcomingPageModel(10, pageNumber, 15, _upcoming, _newLaunches, "/upcoming-bikes/");
+            objData = new UpcomingPageModel(10, pageNumber, 15, _upcoming, _newLaunches, "/upcoming-bikes/", _objArticles);
 
             if (sort.HasValue)
                 objData.SortBy = sort.Value;
@@ -54,7 +56,7 @@ namespace Bikewale.Controllers
         {
             UpcomingPageModel objData = null;
 
-            objData = new UpcomingPageModel(9, pageNumber, 10, _upcoming, _newLaunches, "/m/upcoming-bikes/");
+            objData = new UpcomingPageModel(9, pageNumber, 10, _upcoming, _newLaunches, "/m/upcoming-bikes/", _objArticles);
 
             if (sort.HasValue)
                 objData.SortBy = sort.Value;

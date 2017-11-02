@@ -23,7 +23,7 @@ docReady(function () {
             if (photoCount > 0 || videoCount > 0) {
                 popupGallery.bindGallery(0);
             }
-            triggerGA($(this).data("c"), $(this).data("a"), $(this).data("l"));
+            triggerGA($(this).data("cat"), $(this).data("act"), $(this).data("lab"));
         } catch (e) {
             console.warn(e);
         }

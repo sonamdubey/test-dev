@@ -1,6 +1,6 @@
 ﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Models;
 using System.Web.Mvc;
 
@@ -13,11 +13,14 @@ namespace Bikewale.Controllers
     public class GenericBestBikesController : Controller
     {
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
-        public GenericBestBikesController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes)
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
+        private readonly ICMSCacheContent _objArticles = null;
+
+        public GenericBestBikesController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakesCacheRepository bikeMakes, ICMSCacheContent objArticles)
         {
             _objBestBikes = objBestBikes;
             _bikeMakes = bikeMakes;
+            _objArticles = objArticles;
         }
         /// <summary>
         /// Created By :- Subodh Jain 18 May 2017
@@ -27,7 +30,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes);
+            IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes, _objArticles);
 
             if (objBestBikes != null)
             {
@@ -64,7 +67,7 @@ namespace Bikewale.Controllers
         [Route("m/bestbikes/")]
         public ActionResult Index_Mobile()
         {
-            IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes);
+            IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes, _objArticles);
 
             if (objBestBikes != null)
             {
@@ -73,7 +76,7 @@ namespace Bikewale.Controllers
                 {
                     objBestBikes.IsMobile = true;
                     objBestBikes.makeTopCount = 6;
-                    IndexBestBikesVM obj = new IndexBestBikesVM();                    
+                    IndexBestBikesVM obj = new IndexBestBikesVM();
                     obj = objBestBikes.GetData();
                     if (obj != null)
                         return View(obj);

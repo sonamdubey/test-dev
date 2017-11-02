@@ -26,7 +26,7 @@ namespace Bikewale.Controllers
     public class MakeController : Controller
     {
         private readonly IBikeModelsCacheRepository<int> _bikeModelsCache;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache;
         private readonly ICMSCacheContent _articles = null;
         private readonly ICMSCacheContent _expertReviews = null;
         private readonly IVideos _videos = null;
@@ -36,7 +36,7 @@ namespace Bikewale.Controllers
         private readonly IBikeCompare _compareBikes;
         private readonly IServiceCenter _objService;
 
-        public MakeController(IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objService)
+        public MakeController(IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objService)
         {
             _bikeModelsCache = bikeModelsCache;
             _bikeMakesCache = bikeMakesCache;

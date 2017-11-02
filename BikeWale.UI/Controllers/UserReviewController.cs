@@ -30,7 +30,7 @@ namespace Bikewale.Controllers
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
         private readonly ICMSCacheContent _objArticles = null;
-        private readonly IBikeMakesCacheRepository<int> _makesRepository;
+        private readonly IBikeMakesCacheRepository _makesCache;
         private readonly IUserReviewsCache _userReviewCache = null;
         private readonly IAuthors _authors = null;
 
@@ -52,7 +52,7 @@ namespace Bikewale.Controllers
         /// <param name="userReviewCache"></param>
         public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo,
             IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel,
-                IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository<int> makesRepository, IUserReviewsCache userReviewCache, IAuthors authors)
+                IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository makesRepository, IUserReviewsCache userReviewCache, IAuthors authors)
         {
 
             _userReviews = userReviews;
@@ -63,7 +63,7 @@ namespace Bikewale.Controllers
             _userReviewsCacheRepo = userReviewsCacheRepo;
             _userReviewsSearch = userReviewsSearch;
             _objArticles = objArticles;
-            _makesRepository = makesRepository;
+            _makesCache = makesRepository;
             _userReviewCache = userReviewCache;
             _authors = authors;
 
@@ -519,7 +519,7 @@ namespace Bikewale.Controllers
             makeMaskingName = queryCollection["makeMaskingName"];
             modelMaskingName = queryCollection["modelMaskingName"];
 
-            WriteReviewContest objData = new WriteReviewContest(true, _makesRepository, _userReviewCache, makeId, modelId, makeName, modelName, makeMaskingName, modelMaskingName);
+            WriteReviewContest objData = new WriteReviewContest(true, _makesCache, _userReviewCache, makeId, modelId, makeName, modelName, makeMaskingName, modelMaskingName);
             objData.IsMobile = true;
             objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
@@ -543,17 +543,18 @@ namespace Bikewale.Controllers
             makeMaskingName = queryCollection["makeMaskingName"];
             modelMaskingName = queryCollection["modelMaskingName"];
 
-            WriteReviewContest objData = new WriteReviewContest(false, _makesRepository, _userReviewCache, makeId, modelId, makeName, modelName, makeMaskingName, modelMaskingName);
+            WriteReviewContest objData = new WriteReviewContest(false, _makesCache, _userReviewCache, makeId, modelId, makeName, modelName, makeMaskingName, modelMaskingName);
             objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
             return View(objVM);
         }
 
         // GET: Review
-        [Route("reviews/")]
+        [Route("reviews/"), Filters.DeviceDetection()]
         public ActionResult Index()
-        {       
-            UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors, _makesRepository);
+        {
+            UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles, _authors, _makesCache);
+            obj.BrandsSkipCount = 10;
             return View(obj.GetData());
         }
 
@@ -561,10 +562,59 @@ namespace Bikewale.Controllers
         [Route("m/reviews/")]
         public ActionResult Index_Mobile()
         {
-              UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles,_authors, _makesRepository);
+            UserReviewLandingPage obj = new UserReviewLandingPage(_userReviewsCacheRepo, _objArticles, _authors, _makesCache);
             obj.IsMobile = true;
+            obj.BrandsSkipCount = 6;
             return View(obj.GetData());
         }
 
+        // GET: Review
+        [Route("reviews/{makeMasking}-bikes/"), Filters.DeviceDetection()]
+        public ActionResult UserReviewsByMake(string makeMasking)
+        {
+            UserReviewByMakePage obj = new UserReviewByMakePage(_userReviewsCacheRepo, _makesCache, makeMasking);
+
+            if (obj.Status == Entities.StatusCodes.ContentFound)
+            {
+                obj.PopularBikesCount = 6;
+                return View(obj.GetData());
+            }
+            else
+            {
+                if (obj.Status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(obj.RedirectUrl);
+                }
+                else
+                {
+                    return Redirect("/pageNotFound.aspx");
+                }
+            }
+        }
+
+        // GET: Review
+        [Route("m/reviews/{makeMasking}-bikes/")]
+        public ActionResult UserReviewsByMake_Mobile(string makeMasking)
+        {
+            UserReviewByMakePage obj = new UserReviewByMakePage(_userReviewsCacheRepo, _makesCache, makeMasking);
+
+            if (obj.Status == Entities.StatusCodes.ContentFound)
+            {
+                obj.PopularBikesCount = 6;
+                obj.IsMobile = true;
+                return View(obj.GetData());
+            }
+            else
+            {
+                if (obj.Status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(obj.RedirectUrl);
+                }
+                else
+                {
+                    return Redirect("/m/pageNotFound.aspx");
+                }
+            }
+        }
     }
 }

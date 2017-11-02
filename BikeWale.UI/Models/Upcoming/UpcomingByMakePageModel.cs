@@ -23,7 +23,7 @@ namespace Bikewale.Models.Upcoming
         private readonly ushort _pageNumber;
         private uint _totalPagesCount;
         private readonly string _makeMaskingName;
-        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
 
         #endregion
 
@@ -41,7 +41,7 @@ namespace Bikewale.Models.Upcoming
 
         #region Constructor
 
-        public UpcomingByMakePageModel(string makeMaskingName, IUpcoming upcoming, ushort? pageNumber, int pageSize, IBikeModels<BikeModelEntity, int> bikeModels, string baseUrl, IBikeMakesCacheRepository<int> bikeMakesCache)
+        public UpcomingByMakePageModel(string makeMaskingName, IUpcoming upcoming, ushort? pageNumber, int pageSize, IBikeModels<BikeModelEntity, int> bikeModels, string baseUrl, IBikeMakesCacheRepository bikeMakesCache)
         {
             _upcoming = upcoming;
 

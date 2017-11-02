@@ -24,79 +24,245 @@
   display: inline-block;
   vertical-align: middle; }
 
-.rate-count-5 {
-  color: #198D55; }
-
-.rate-count-4 {
-  color: #13B65D; }
-
-.rate-count-3 {
-  color: #EFD700; }
-
-.rate-count-2 {
-  color: #FD971C; }
-
 .rate-count-1 {
-  color: #EF3F30; }
+  color: #ef3f30; }
 
-.rating-badge[data-rate-bg="5"] {
-  background-color: #198D55; }
-
-.rating-badge[data-rate-bg="4"] {
-  background-color: #13B65D; }
-
-.rating-badge[data-rate-bg="3"] {
-  background-color: #EFD700; }
-
-.rating-badge[data-rate-bg="2"] {
-  background-color: #FD971C; }
+.rating-badge {
+  min-width: 40px;
+  height: 20px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  text-align: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px; }
 
 .rating-badge[data-rate-bg="1"] {
-  background-color: #EF3F30; }
-
-.bg-rate-5 {
-  background-color: #198D55; }
-
-.bg-rate-4 {
-  background-color: #13B65D; }
-
-.bg-rate-3 {
-  background-color: #EFD700; }
-
-.bg-rate-2 {
-  background-color: #FD971C; }
+  background-color: #ef3f30; }
 
 .bg-rate-1 {
-  background-color: #EF3F30; }
-
-.star-icon {
-  width: 26px;
-  height: 25px;
-  vertical-align: middle;
-  -webkit-transform: scale(0.8);
-  -moz-transform: scale(0.8);
-  -o-transform: scale(0.8);
-  transform: scale(0.8); }
-  .star-icon.star-size-14 {
-    -webkit-transform: scale(0.5);
-    -moz-transform: scale(0.5);
-    -o-transform: scale(0.5);
-    transform: scale(0.5); }
+  background-color: #ef3f30; }
 
 .rate-count-1 .star-icon {
-  background-position: 0 -790px; }
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-1-26x25.png") no-repeat center;
+  vertical-align: middle;
+  width: 23px;
+  height: 22px;
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5); }
+
+.overall-rating-box .rate-count-1 .star-icon {
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-1-26x25.png") no-repeat center;
+  vertical-align: middle;
+  width: 25px;
+  height: 25px;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8); }
+
+.rate-count-2 {
+  color: #fd971c; }
+
+.rating-badge {
+  min-width: 40px;
+  height: 20px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  text-align: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px; }
+
+.rating-badge[data-rate-bg="2"] {
+  background-color: #fd971c; }
+
+.bg-rate-2 {
+  background-color: #fd971c; }
 
 .rate-count-2 .star-icon {
-  background-position: -46px -790px; }
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-2-26x25.png") no-repeat center;
+  vertical-align: middle;
+  width: 23px;
+  height: 22px;
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5); }
+
+.overall-rating-box .rate-count-2 .star-icon {
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-2-26x25.png") no-repeat center;
+  vertical-align: middle;
+  width: 25px;
+  height: 25px;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8); }
+
+.rate-count-3 {
+  color: #efd700; }
+
+.rating-badge {
+  min-width: 40px;
+  height: 20px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  text-align: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px; }
+
+.rating-badge[data-rate-bg="3"] {
+  background-color: #efd700; }
+
+.bg-rate-3 {
+  background-color: #efd700; }
 
 .rate-count-3 .star-icon {
-  background-position: 0 -757px; }
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-3-26x25.png") no-repeat center;
+  vertical-align: middle;
+  width: 23px;
+  height: 22px;
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5); }
+
+.overall-rating-box .rate-count-3 .star-icon {
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-3-26x25.png") no-repeat center;
+  vertical-align: middle;
+  width: 25px;
+  height: 25px;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8); }
+
+.rate-count-4 {
+  color: #13b65d; }
+
+.rating-badge {
+  min-width: 40px;
+  height: 20px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  text-align: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px; }
+
+.rating-badge[data-rate-bg="4"] {
+  background-color: #13b65d; }
+
+.bg-rate-4 {
+  background-color: #13b65d; }
 
 .rate-count-4 .star-icon {
-  background-position: -92px -790px; }
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-4-26x25.png") no-repeat center;
+  vertical-align: middle;
+  width: 23px;
+  height: 22px;
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5); }
+
+.overall-rating-box .rate-count-4 .star-icon {
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-4-26x25.png") no-repeat center;
+  vertical-align: middle;
+  width: 25px;
+  height: 25px;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8); }
+
+.rate-count-5 {
+  color: #198d55; }
+
+.rating-badge {
+  min-width: 40px;
+  height: 20px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  text-align: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px; }
+
+.rating-badge[data-rate-bg="5"] {
+  background-color: #198d55; }
+
+.bg-rate-5 {
+  background-color: #198d55; }
 
 .rate-count-5 .star-icon {
-  background-position: -138px -790px; }
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-5-26x25.png") no-repeat center;
+  vertical-align: middle;
+  width: 23px;
+  height: 22px;
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5); }
+
+.overall-rating-box .rate-count-5 .star-icon {
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-5-26x25.png") no-repeat center;
+  vertical-align: middle;
+  width: 25px;
+  height: 25px;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8); }
 
 .grid-7-inline {
   width: 58.33333%;
@@ -367,23 +533,6 @@
 .questionId-3 {
   background-position: -24px -825px; }
 
-.rating-badge {
-  min-width: 40px;
-  height: 20px;
-  padding-right: 5px;
-  padding-left: 5px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 8px;
-  text-align: center;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  border-radius: 2px; }
-
 .star-white {
   width: 12px;
   height: 12px;
@@ -495,7 +644,7 @@
 .rating-text-pos {
   position: relative;
   left: -5px;
-  top: 1px; }
+  top: 2px; }
 
 .next-grey-icon-listing {
   right: 0px;
@@ -575,8 +724,7 @@
   margin-top: 15px;
   padding-bottom: 15px;
   background-color: #fafafa; }
-
-.expert-review-list .h2-heading {
+  .expert-review-list .h2-heading {
     font-size: 16px;
     padding: 20px 20px 15px; }
 

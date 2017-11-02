@@ -925,13 +925,13 @@ namespace Bikewale.BAL.Compare
                             {
                                 mileage.CompareSpec.Add(new CompareBikeData() { Value = FormatMinSpecs.ShowAvailable(reviewsObj.ModelReview.Mileage), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(reviewsObj.ModelReview.Mileage) });
 
-                                if(reviewsObj.ModelReview.Mileage > 0)
+                                if (reviewsObj.ModelReview.Mileage > 0)
                                     valuesCount++;
                             }
                             else
                                 mileage.CompareSpec.Add(new CompareBikeData() { Value = FormatMinSpecs.ShowAvailable(""), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable("") });
                         }
-                        if(valuesCount > 1)
+                        if (valuesCount > 1)
                             ratings.SpecCategory.Add(mileage);
                         #endregion
                         compareEntity.UserReviewData.CompareReviews.Spec.Add(ratings);
@@ -954,7 +954,7 @@ namespace Bikewale.BAL.Compare
                             {
                                 visualAppeal.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
 
-                                if(objQuestion.AverageRatingValue > 0)
+                                if (objQuestion.AverageRatingValue > 0)
                                     valuesCount++;
                             }
                             else
@@ -976,7 +976,7 @@ namespace Bikewale.BAL.Compare
                             {
                                 reliability.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
 
-                                if(objQuestion.AverageRatingValue > 0)
+                                if (objQuestion.AverageRatingValue > 0)
                                     valuesCount++;
                             }
                             else
@@ -993,7 +993,7 @@ namespace Bikewale.BAL.Compare
                         foreach (var version in arrVersion)
                         {
                             var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
-                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ?  firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 6) : null;
+                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 6) : null;
                             if (firstRow != null && objQuestion != null)
                             {
                                 performance.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
@@ -1037,7 +1037,7 @@ namespace Bikewale.BAL.Compare
                         foreach (var version in arrVersion)
                         {
                             var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
-                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ?  firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 8) : null;
+                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 8) : null;
                             if (firstRow != null && objQuestion != null)
                             {
                                 serviceExperience.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
@@ -1081,7 +1081,7 @@ namespace Bikewale.BAL.Compare
                         foreach (var version in arrVersion)
                         {
                             var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
-                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ?  firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 10) : null;                        
+                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 10) : null;
                             if (firstRow != null && objQuestion != null)
                             {
                                 valueForMoney.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
@@ -1103,7 +1103,7 @@ namespace Bikewale.BAL.Compare
                         foreach (var version in arrVersion)
                         {
                             var firstRow = compareEntity.Reviews.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version));
-                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ?  firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 11) : null;
+                            var objQuestion = firstRow != null && firstRow.ModelReview.Questions != null ? firstRow.ModelReview.Questions.FirstOrDefault(m => m.QuestionId == 11) : null;
                             if (firstRow != null && objQuestion != null)
                             {
                                 extraFeatures.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objQuestion.AverageRatingValue.ToString()) });
@@ -1119,7 +1119,7 @@ namespace Bikewale.BAL.Compare
                         #endregion
 
                         if (performanceParameters.SpecCategory.Any())
-                         compareEntity.UserReviewData.CompareReviews.Spec.Add(performanceParameters);
+                            compareEntity.UserReviewData.CompareReviews.Spec.Add(performanceParameters);
                         #region Reviews
                         CompareSubMainCategory reviews = new CompareSubMainCategory();
                         reviews.Text = "Reviews";
@@ -1290,5 +1290,12 @@ namespace Bikewale.BAL.Compare
             }
             return compareScooters;
         }
+
+        public SimilarBikeComparisonWrapper GetSimilarBikes(string modelList, ushort topCount)
+        {
+                return _objCompare.GetSimilarBikes(modelList, topCount);
+        }
     }
+
 }
+
