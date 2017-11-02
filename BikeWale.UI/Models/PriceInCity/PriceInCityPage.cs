@@ -808,7 +808,7 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.Make = new BikeMakeEntityBase() { MakeName = firstVersion.MakeName, MaskingName = firstVersion.MakeMaskingName, MakeId = (int)firstVersion.MakeId };
+                objVM.Make = new BikeMakeEntityBase() { MakeName = firstVersion.MakeName, MaskingName = firstVersion.MakeMaskingName, MakeId = (int)firstVersion.MakeId, IsScooterOnly = firstVersion.IsScooterOnly };
                 objVM.BikeModel = new BikeModelEntityBase() { ModelId = (int)modelId, ModelName = firstVersion.ModelName, MaskingName = firstVersion.ModelMaskingName };
                 objVM.ModelImage = objVM.PageMetaTags.OGImage = Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, ImageSize._310x174, QualityFactor._75);
                 objVM.CityEntity = new CityEntityBase() { CityId = cityId, CityMaskingName = cityMaskingName, CityName = firstVersion.City };
@@ -1111,6 +1111,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by Sajal Gupta on 02-11-2017
+        /// Descriptition : Changed breadcrumb for scooter
         /// </summary>
         private void SetBreadcrumList(PriceInCityPageVM objPage)
         {
@@ -1130,6 +1132,16 @@ namespace Bikewale.Models
                 url = string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName);
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
+            }
+
+            if (objPage.Make != null && objPage.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !objPage.Make.IsScooterOnly)
+            {
+                if (IsMobile)
+                    url = string.Format("/m/{0}-scooters/", objPage.Make.MaskingName);
+                else
+                    url = string.Format("/{0}-scooters/", objPage.Make.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Scooters", objPage.Make.MakeName)));
             }
 
             if (objPage.Make != null && objPage.BikeModel != null)
