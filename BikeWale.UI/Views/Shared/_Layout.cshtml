@@ -305,7 +305,7 @@
                     <ul>
                         @foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
                         {
-                            if (!string.IsNullOrEmpty(item.Item.Url))
+                            if (item.Item!=null && !string.IsNullOrEmpty(item.Item.Url))
                             {
                                 <li>
                                     <a class="breadcrumb-link" href="@item.Item.Url" title="@item.Item.Name">
