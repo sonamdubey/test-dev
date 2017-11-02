@@ -13,11 +13,11 @@
                         {
                             var bikeName = String.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
                             <li class="jcarousel-card">
-                                <a href="@UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName)" title="@bikeName" class="hover-no-underline">
+                                <a href="@UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName)" title="@bikeName" class="hover-no-underline block">
                                     <div class="model-jcarousel-image-preview">
                                         <img class="lazy" title="@bikeName" alt="@bikeName" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._310x174, QualityFactor._75)" src=""  style="display: inline;">
                                         <div class="rate-count-@Math.Floor(bike.ReviewRate) rating-block" data-rate-bg="@Math.Floor(bike.ReviewRate)">
-                                            <span class="bwsprite star-icon star-size-15"></span>
+                                            <span class="star-icon"></span>
                                             <span class="rating-text-pos font14 text-bold">@bike.ReviewRate.ToString("0.0")</span>
                                         </div>
                                     </div>
@@ -34,10 +34,11 @@
                                             </span>
                                         </p>
                                     </div>
-                                    <a class="more-review text-truncate" href="@string.Format("{0}reviews/",  UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName Reviews">
-                                        <span class="review-sm"></span>Read&nbsp;@bike.ReviewCount&nbsp;reviews
-                                        <span class="bwsprite right-arrow"></span>
-                                    </a>
+                                </a>
+                                <a class="more-review text-truncate" href="@string.Format("{0}reviews/",  UrlFormatter.BikePageUrl(bike.Make.MaskingName,bike.Model.MaskingName))" title="@bikeName Reviews">
+                                    <span class="review-sm"></span>Read&nbsp;@bike.ReviewCount&nbsp;reviews
+                                    <span class="bwsprite right-arrow"></span>
+                                </a>
                             </li>
                         }
                     </ul>

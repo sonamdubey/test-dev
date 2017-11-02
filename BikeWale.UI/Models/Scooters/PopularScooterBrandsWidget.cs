@@ -13,11 +13,11 @@ namespace Bikewale.Models.Scooters
     /// </summary>
     public class PopularScooterBrandsWidget
     {
-        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
         public uint SkipMakeId { get; set; }
         public uint TopCount { get; set; }
 
-        public PopularScooterBrandsWidget(IBikeMakesCacheRepository<int> objMakeCache)
+        public PopularScooterBrandsWidget(IBikeMakesCacheRepository objMakeCache)
         {
             _objMakeCache = objMakeCache;
         }

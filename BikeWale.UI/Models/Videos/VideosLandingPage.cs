@@ -18,7 +18,7 @@ namespace Bikewale.Models.Videos
     {
         private readonly IVideosCacheRepository _videosCache = null;
         private readonly IVideos _videos = null;
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelCache = null;
 
         public ushort LandingVideosTopCount { get; set; }
@@ -35,7 +35,7 @@ namespace Bikewale.Models.Videos
 
         private ushort _pageNo = 1;
 
-        public VideosLandingPage(IVideos videos, IVideosCacheRepository videosCache, IBikeMakes<BikeMakeEntity, int> bikeMakes, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
+        public VideosLandingPage(IVideos videos, IVideosCacheRepository videosCache, IBikeMakesCacheRepository bikeMakes, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
         {
             _videos = videos;
             _videosCache = videosCache;

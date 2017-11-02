@@ -19,7 +19,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
     /// </summary>
     public class CompareBikes
     {
-        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
 
         public bool isPageNotFound;
         public PageMetaTags PageMetas = null;
@@ -36,10 +36,10 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakes<BikeMakeEntity, int>>()
-                    .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                    .RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                     .RegisterType<ICacheManager, MemcacheManager>();
 
-                    _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    _objMakeCache = container.Resolve<IBikeMakesCacheRepository>();
 
                 }
             }

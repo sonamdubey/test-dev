@@ -1,21 +1,19 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
-using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
-using Bikewale.Models.CompareBikes;
 using Bikewale.Utility;
 using System;
 using System.Linq;
-using Bikewale.Interfaces.UserReviews;
-using Bikewale.Interfaces.BikeData.UpComing;
 
 namespace Bikewale.Models
 {
@@ -30,10 +28,9 @@ namespace Bikewale.Models
     public class NewPageModel
     {
         #region Variables for dependency injection
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private readonly ICityCacheRepository _IUsedBikesCache = null;
         private readonly IBikeModelsCacheRepository<int> _cachedModels = null;
         private readonly IBikeCompare _objCompare = null;
         private readonly ICMSCacheContent _articles = null;
@@ -54,7 +51,7 @@ namespace Bikewale.Models
 
         #endregion
 
-        public NewPageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
+        public NewPageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -62,7 +59,6 @@ namespace Bikewale.Models
             _bikeMakes = bikeMakes;
             _newLaunches = newLaunches;
             _bikeModels = bikeModels;
-            _IUsedBikesCache = usedBikeCache;
             _cachedModels = cachedModels;
             _objCompare = objCompare;
             _videos = videos;

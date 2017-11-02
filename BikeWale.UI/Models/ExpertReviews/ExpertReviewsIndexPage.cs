@@ -33,7 +33,7 @@ namespace Bikewale.Models
         private readonly IBikeModelsCacheRepository<int> _models = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
         #endregion
 
@@ -62,7 +62,7 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository<int> objMakeCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
+        public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository objMakeCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
         {
             _cmsCache = cmsCache;
             _pager = pager;

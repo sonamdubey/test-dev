@@ -24,9 +24,9 @@ namespace Bikewale.Service.Controllers.Make
     public class MakeController : ApiController
     {
 
-        private readonly IBikeMakesCacheRepository<int> _bikeMakes = null;
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
 
-        public MakeController(IBikeMakesCacheRepository<int> bikeMakes)
+        public MakeController(IBikeMakesCacheRepository bikeMakes)
         {
             _bikeMakes = bikeMakes;
         }

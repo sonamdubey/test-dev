@@ -30,7 +30,6 @@ namespace Bikewale.Models
     public class HomePageModel
     {
         #region Variables for dependency injection
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly ICityCacheRepository _IUsedBikesCache = null;
@@ -42,6 +41,7 @@ namespace Bikewale.Models
         private readonly IVideos _videos = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IUpcoming _upcoming = null;
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
         #endregion
 
         #region Page level variables
@@ -54,7 +54,7 @@ namespace Bikewale.Models
 
         #endregion
 
-        public HomePageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
+        public HomePageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
 
         {
             TopCount = topCount;

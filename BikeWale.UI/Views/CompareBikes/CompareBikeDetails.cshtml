@@ -11,9 +11,6 @@
     Model.AdTags.Ad_970x90 = true;
 
 }
-<script type="text/javascript">
-    var slideCountTwo = 2;
-</script>
 
 <section>
     <div id="bike-comparison-container" class="container card-bottom-margin" data-column-count="@(Model.Compare.BasicInfo.Count()<4?Model.Compare.BasicInfo.Count()+1:4)">
@@ -68,7 +65,8 @@
                                     <span class="error-text"></span>
                                     <p class="font-12 text-light-grey margin-bottom2">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
                                     <div class="margin-bottom5 font18 ">
-                                        @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="font-bold" data-bind="text: price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
+                                        @Html.Raw("<span>&#x20B9;</span>")&nbsp;
+                                        <span class="font-bold" data-bind="text: price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
                                     </div>
                                     @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                     {
@@ -79,6 +77,8 @@
                                         if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                         {
                                             <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@String.Format("{0}_Top Card", bikeName)" class="bw-ga know-more-target text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
+                                            @Model.KnowMoreLinkText
+                                            <span class="bwsprite know-more-icon"></span>
                                         }
                                     }
 
@@ -139,6 +139,8 @@
                                             if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                             {
                                                 <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@string.Format("{0}_Floating Card", bikeName)" class="bw-ga know-more-target text-link">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
+                                                @Model.KnowMoreLinkText
+                                                <span class="bwsprite know-more-icon"></span>
                                             }
                                         }
 
@@ -311,7 +313,7 @@
 
                 @if (Model.Compare.UserReviewData != null)
                 {
-                    var versionCount = Model.Compare.BasicInfo != null ? Model.Compare.BasicInfo.Count() : 0; 
+                    var versionCount = Model.Compare.BasicInfo != null ? Model.Compare.BasicInfo.Count() : 0;
                     <div id="reviewTabContent" class="review-tab bw-tabs-data font14 hide">
 
                         <ul>
@@ -329,7 +331,7 @@
                                             </tr>
 
                                             @{isFirstActiveTab = false;}
-                                            
+
                                             <tr class="row-type-data">
                                                 <td class="text-default">Overall rating</td>
 
@@ -484,7 +486,7 @@
                                                 }
                                                 @if (versionCount < 4)
                                                 {
-                                                <td></td>
+                                                    <td></td>
                                                 }
                                             </tr>
                                         </tbody>
@@ -498,6 +500,7 @@
 
                 <div id="comparison-footer"></div>
             </div>
+
             @if (Model.isUsedBikePresent)
             {
                 <div id="used-bikes-container" class="content-box-shadow font14">
@@ -517,7 +520,8 @@
                                     <td>
                                         @if (bike.UsedBikeCount.BikeCount > 0)
                                         {
-                                            <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" )" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a><br />
+                                            <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" )" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a>
+                                            <br />
                                             <span>
                                                 Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
                                             </span>}
@@ -538,6 +542,9 @@
     </div>
 </section>
 
+
+
+
 @if (Model.compareSummaryText != null)
 {
     <section>
@@ -546,7 +553,8 @@
                 <div class="content-box-shadow content-inner-block-20">
                     <p class="h2-heading text-bold text-black margin-bottom20">Bike Comparison - @Model.templateSummaryTitle</p>
                     <div class="font14 text-slate-grey collapsible-content">
-                        <p class="main-content">@Html.Raw(Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 300))</p><p class="more-content">@Html.Raw(Model.compareSummaryText.Substring(300))</p>
+                        <p class="main-content">@Html.Raw(Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 300))</p>
+                        <p class="more-content">@Html.Raw(Model.compareSummaryText.Substring(300))</p>
                         <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                     </div>
                 </div>
@@ -556,15 +564,34 @@
     </section>
 }
 
+<!--  similar bike comparison start-->
+@if (Model.SimilarBikeWidget != null)
 
-<section>
-    <div class="container card-bottom-margin">
-        <div class="grid-12">
-            <div class="content-box-shadow padding-top20">
-                <h2 class="h2-heading padding-left20 margin-bottom20">People who compared above bikes also compared</h2>
-                @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle.cshtml", Model.topBikeCompares)
+{
+    <section>
+        <div class="container card-bottom-margin">
+            <div class="grid-12">
+                @Html.Partial("~/Views/CompareBikes/SimilarBikeComparison.cshtml", Model.SimilarBikeWidget)
             </div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-    </div>
-</section>
+    </section>
+}
+<!-- Similar bike comparison end-->
+
+
+
+@if (Model.ArticlesList != null && Model.ArticlesList.ArticlesList != null && Model.ArticlesList.ArticlesList.Count() > 0)
+{
+    <section>
+        <div class="container card-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow padding-top20 padding-bottom20">
+                    <h2 class="h2-heading padding-left10 margin-bottom20">@Model.ArticlesList.Title</h2>
+                    @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ArticlesList)
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
