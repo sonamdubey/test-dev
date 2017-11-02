@@ -185,10 +185,10 @@ docReady(function () {
             "pinCodeRequired": ele.attr("data-ispincodrequired"),
             "dealersRequired": ele.attr("data-dealersrequired"),
             "emailRequired": ele.attr("data-isemailrequired"),
-            "eventcategory": ele.attr("c"),
+            "eventcategory": ele.attr("data-cat"),
             "gaobject": {
-                cat: ele.attr("c"),
-                act: ele.attr("a"),
+                cat: ele.attr("data-cat"),
+                act: ele.attr("data-act"),
                 lab: bikeVersionLocation
             }
         };
@@ -685,8 +685,8 @@ docReady(function () {
 
     if (document.getElementById("modelsBySeriesWidget")) {
         try {
-            var testingObject = $("#modelsBySeriesWidget");
-            triggerNonInteractiveGA(testingObject.attr("c"), testingObject.attr("a"), testingObject.attr("l"));
+            var seriesEle = $("#modelsBySeriesWidget");
+            triggerNonInteractiveGA(seriesEle.attr("data-cat"), seriesEle.attr("data-act"), seriesEle.attr("data-lab"));
         } catch (e) {
 
         }

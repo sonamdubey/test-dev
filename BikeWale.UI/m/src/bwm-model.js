@@ -162,9 +162,9 @@ docReady(function () {
                 "dealersRequired": ele.attr("data-dealersrequired"),
                 "eventcategory": "Model_Page",
                 "gaobject": {
-                    cat: ele.attr("c"),
-                    act: ele.attr("a"),
-                    lab: ele.attr("v")
+                    cat: ele.attr("data-cat"),
+                    act: ele.attr("data-act"),
+                    lab: ele.attr("data-var")
                 }
             };
 
@@ -752,8 +752,8 @@ docReady(function () {
 
     if (document.getElementById("modelsBySeriesWidget")) {
         try {
-            var testingObject = $("#modelsBySeriesWidget");
-            triggerNonInteractiveGA(testingObject.attr("c"), testingObject.attr("a"), testingObject.attr("l"));
+            var seriesEle = $("#modelsBySeriesWidget");
+            triggerNonInteractiveGA(seriesEle.attr("data-cat"), seriesEle.attr("data-act"), seriesEle.attr("data-lab"));
         } catch (e) {
 
         }

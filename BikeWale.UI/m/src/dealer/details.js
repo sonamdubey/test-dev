@@ -57,9 +57,9 @@ docReady(function () {
             "dealercityname": ele.attr('data-cityname'),
             "eventcategory": ele.attr('data-eventcategory'),
             "gaobject": {
-                cat: ele.attr('c'),
-                act: ele.attr('a'),
-                lab: ele.attr('l')
+                cat: ele.attr("data-cat"),
+                act: ele.attr("data-act"),
+                lab: ele.attr("data-lab")
             }
         };
         dleadvm.setOptions(leadOptions);
