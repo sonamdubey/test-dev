@@ -3825,6 +3825,7 @@
     <Content Include="Views\BikeModels\_MostPopularBikes_Mobile_Amp.cshtml" />
     <Content Include="Views\m\Shared\_OtherBrands_Amp.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes_Editorial_Mobile_Amp.cshtml" />
+    <Content Include="Views\Make\Index_Mobile_AMP.cshtml" />
     <Content Include="Views\CompareBikes\SimilarBikeComparison.cshtml" />
     <Content Include="Views\CompareBikes\SimilarBikeComparison_Mobile.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake.cshtml" />
