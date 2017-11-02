@@ -10,12 +10,8 @@ namespace Bikewale.Entities.UserReviews
     /// Created by Sajal Gupta on 10-10-2017 to hold data of top rated bikes
     /// </summary>
     [Serializable, DataContract]
-    public class TopRatedBikes
+    public class TopRatedBikes : BasicBikeEntityBase
     {
-        [DataMember]
-        public BikeMakeEntityBase Make { get; set; }
-        [DataMember]
-        public BikeModelEntityBase Model { get; set; }
         [DataMember]
         public CityEntityBase City { get; set; }
         [DataMember]
@@ -26,9 +22,5 @@ namespace Bikewale.Entities.UserReviews
         public float ReviewRate { get; set; }
         [DataMember]
         public uint ExShowroomPrice { get; set; }
-        [DataMember]
-        public string OriginalImagePath { get; set; }
-        [DataMember]
-        public string HostUrl { get; set; }
     }
 }

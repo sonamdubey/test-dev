@@ -16,13 +16,13 @@ namespace Bikewale.Service.Controllers.BikeData
     /// </summary>
     public class MakeModelsController : CompressionApiController
     {
-        private readonly IBikeMakesCacheRepository<int> _makesRepository;        
+        private readonly IBikeMakesCacheRepository _makesRepository;        
         private readonly IBikeModelsCacheRepository<int> _bikeMakeCache = null;
         /// <summary>
         /// Constructor to Initialize cache layer
         /// </summary>
         /// <param name="makesRepository"></param>
-        public MakeModelsController(IBikeMakesCacheRepository<int> makesRepository, IBikeModelsCacheRepository<int> bikeMakeCache)
+        public MakeModelsController(IBikeMakesCacheRepository makesRepository, IBikeModelsCacheRepository<int> bikeMakeCache)
         {
             _makesRepository = makesRepository;
             _bikeMakeCache = bikeMakeCache;

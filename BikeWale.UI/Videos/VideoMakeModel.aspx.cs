@@ -136,7 +136,7 @@ namespace Bikewale.Videos
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                    container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                         .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
@@ -146,7 +146,7 @@ namespace Bikewale.Videos
                     if (!String.IsNullOrEmpty(makeMaskingName))
                     {
 
-                        var objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                        var objMakeCache = container.Resolve<IBikeMakesCacheRepository>();
 
                         objMakeResponse = objMakeCache.GetMakeMaskingResponse(makeMaskingName);
 

@@ -17,6 +17,10 @@ namespace Bikewale.Entities.UserReviews
         public string Heading { get; set; }
         [JsonProperty("responseHeading"), DataMember]
         public string ResponseHeading { get; set; }
+        [JsonProperty("originalImagePath"), DataMember]
+        public string OriginalImagePath { get; set; }
+        [JsonProperty("hostUrl"), DataMember]
+        public string HostUrl { get; set; }
 
     }
 

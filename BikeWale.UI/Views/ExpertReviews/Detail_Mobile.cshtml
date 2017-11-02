@@ -90,10 +90,29 @@
                 </div>
             }
         </div>
+
+        @if (Model.TaggedBikes != null && Model.TaggedBikes.Any())
+        {
+                <div class="padding-top20 padding-left20 padding-right20 padding-bottom20 bg-read-more-articles">
+                    <h2 class="list-heading">More expert reviews</h2>
+                    <ul class="disk-list">
+                    @foreach (var bike in Model.TaggedBikes)
+                    {
+                        string bikeName = string.Format("{0} {1}", bike.MakeBase.MakeName, bike.MakeBase.MakeName);
+                            <li data-cat="Expert_Reviews" data-lab="@bikeName" data-act="Clicked_ModelExpertReviews_Link">
+                                <a href="@string.Format("/m/{0}-bikes/{1}/expert-reviews/",bike.MakeBase.MaskingName,bike.ModelBase.MaskingName)" title="@bikeName Expert Reviews">Read more @bikeName Reviews</a>
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+        }
     </div>
 </section>
 
-@if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
+
+
+@if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Any())
 {
     <section>
         <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
@@ -111,7 +130,7 @@
     </section>
 }
 
-@if (Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0)
+@if (Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Any())
 {
     <section>
         <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
@@ -130,7 +149,7 @@
 }
 else if (Model.Model != null && Model.Model.ModelId > 0)
 {
-    if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Count() > 0)
+    if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Any())
     {
         <section>
             <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
@@ -150,7 +169,7 @@ else if (Model.Model != null && Model.Model.ModelId > 0)
 }
 else
 {
-    if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
+    if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Any())
     {
         <section>
             <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
@@ -179,4 +198,5 @@ else
         </div>
     </section>
 }
+
 <div class="back-to-top" id="back-to-top"></div>

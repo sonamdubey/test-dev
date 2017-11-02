@@ -30,7 +30,7 @@ namespace Bikewale.PinCodesAutosuggest
                     IEnumerable<PinCodeList> suggestionList = GetPinCodeListDb.GetSuggestList(objList);
 
                     CreateIndex(suggestionList);
-                  
+
                     Logs.WriteInfoLog("All PinCode Index Created successfully");
 
                 }
@@ -56,7 +56,7 @@ namespace Bikewale.PinCodesAutosuggest
                 else
                 {
                     Logs.WriteInfoLog("No pincodes returned. Failed to create pincodes Index");
-                } 
+                }
                 #endregion
 
             }
@@ -82,7 +82,7 @@ namespace Bikewale.PinCodesAutosuggest
             {
                 bool isUpdateOperation = Boolean.Parse(ConfigurationManager.AppSettings["isUpdate"]);
                 string NewIndexName = ConfigurationManager.AppSettings["NewIndexName"];
-                
+
 
                 if (isUpdateOperation)
                 {
@@ -96,33 +96,33 @@ namespace Bikewale.PinCodesAutosuggest
 
 
                     ElasticClient client = ElasticClientOperations.GetElasticClient();
-                   
-                        var response = client.CreateIndex(NewIndexName,
-                          ind => ind
-                       .Settings(s => s.NumberOfShards(2)
-                           .NumberOfReplicas(2)
-                       )
-                      .Mappings(m => m
-                          .Map<PinCodeList>(type => type.AutoMap()
-                              .Properties(prop => prop
-                              .Nested<PinCodeSuggestion>(n =>
-                                      n.Name(c => c.mm_suggest)
-                                      .AutoMap()
-                                      .Properties(prop2 => prop2
-                                          .Nested<PayLoad>(n2 =>
-                                              n2.Name(c2 =>
-                                                  c2.input).AutoMap())))
-                                  .Completion(c => c
-                                  .Name(pN => pN.mm_suggest)
-                                   .Contexts(cont => cont
-                                        .Category(cate => cate
-                                            .Name("types").Path(s => s.mm_suggest.contexts.types)
-                                            ))
-                                  .Analyzer("standard")
-                                  .SearchAnalyzer("standard")
-                                  .PreserveSeparators(false))))));
 
-                    
+                    var response = client.CreateIndex(NewIndexName,
+                      ind => ind
+                   .Settings(s => s.NumberOfShards(2)
+                       .NumberOfReplicas(2)
+                   )
+                  .Mappings(m => m
+                      .Map<PinCodeList>(type => type.AutoMap()
+                          .Properties(prop => prop
+                          .Nested<PinCodeSuggestion>(n =>
+                                  n.Name(c => c.mm_suggest)
+                                  .AutoMap()
+                                  .Properties(prop2 => prop2
+                                      .Nested<PayLoad>(n2 =>
+                                          n2.Name(c2 =>
+                                              c2.input).AutoMap())))
+                              .Completion(c => c
+                              .Name(pN => pN.mm_suggest)
+                               .Contexts(cont => cont
+                                    .Category(cate => cate
+                                        .Name("types").Path(s => s.mm_suggest.contexts.types)
+                                        ))
+                              .Analyzer("standard")
+                              .SearchAnalyzer("standard")
+                              .PreserveSeparators(false))))));
+
+
 
 
                     ElasticClientOperations.AddDocument<PinCodeList>(suggestionList.ToList(), NewIndexName, s => s.Id);
@@ -151,7 +151,7 @@ namespace Bikewale.PinCodesAutosuggest
                 if (!client.IndexExists(indexName).Exists)
                 {
 
-                    var response = client.CreateIndex(indexName,
+                    client.CreateIndex(indexName,
                       ind => ind
                    .Settings(s => s.NumberOfShards(2)
                        .NumberOfReplicas(2)
@@ -182,7 +182,7 @@ namespace Bikewale.PinCodesAutosuggest
                     .Query(qq => qq.MatchAll())
                     );
 
-                var response2 = ElasticClientOperations.AddDocument<PinCodeList>(suggestionList.ToList(), indexName, obj => obj.Id);
+                ElasticClientOperations.AddDocument<PinCodeList>(suggestionList.ToList(), indexName, obj => obj.Id);
 
 
             }
@@ -193,6 +193,6 @@ namespace Bikewale.PinCodesAutosuggest
             }
 
 
-}
+        }
     }
 }

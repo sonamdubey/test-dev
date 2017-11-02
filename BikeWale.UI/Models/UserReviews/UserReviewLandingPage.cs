@@ -13,17 +13,18 @@ namespace Bikewale.Models.UserReviews
     public class UserReviewLandingPage
     {
         private readonly IUserReviewsCache _userReviewsCache = null;
-        private readonly IBikeMakesCacheRepository<int> _makeRepository = null;
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IAuthors _authors = null;
         private UserReviewLandingVM objData = null;
 
         public bool IsMobile { get; set; }
+        public ushort BrandsSkipCount { get; set; }
 
-        public UserReviewLandingPage(IUserReviewsCache userReviewsCache, ICMSCacheContent articles, IAuthors authors, IBikeMakesCacheRepository<int> makeRepository)
+        public UserReviewLandingPage(IUserReviewsCache userReviewsCache, ICMSCacheContent articles, IAuthors authors, IBikeMakesCacheRepository bikeMakes)
         {
             _userReviewsCache = userReviewsCache;
-            _makeRepository = makeRepository;
+            _bikeMakes = bikeMakes;
             _articles = articles;
             _authors = authors;
         }
@@ -33,7 +34,7 @@ namespace Bikewale.Models.UserReviews
             try
             {
                 objData = new UserReviewLandingVM();
-                objData.Makes = _makeRepository.GetMakesByType(Entities.BikeData.EnumBikeType.UserReviews);
+                objData.Makes = _bikeMakes.GetMakesByType(Entities.BikeData.EnumBikeType.UserReviews);
                 BindWidgets();
                 BindPageMetas();
             }
@@ -67,6 +68,7 @@ namespace Bikewale.Models.UserReviews
                 objData.ExpertReviews = objExpertReviews.GetData();
 
                 objData.Authors = _authors.GetAuthorsList(Convert.ToInt32(BWConfiguration.Instance.ApplicationId));
+                objData.Brands = new BrandWidgetModel(BrandsSkipCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.UserReviews);
 
             }
             catch (Exception ex)

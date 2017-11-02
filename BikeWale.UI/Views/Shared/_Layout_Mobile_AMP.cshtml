@@ -190,98 +190,113 @@
                 box-shadow: -3px 0 10px 0 #191818;
             }
             .navUL .nav-accordion-header, .navUL li a {
-    color: #1a1a1a;
-    font-size: 14px;
-    text-decoration: none;
-    display: block;
-    padding: 13px 0 13px 15px;
-    font-weight: 400;
-    position: relative;
-}
+			color: #1a1a1a;
+			font-size: 14px;
+			text-decoration: none;
+			display: block;
+			padding: 13px 0 13px 15px;
+			font-weight: 400;
+			position: relative;
+		}
 
-.nav-accordion-header {
-    background: #fff;
-    border: none;
-    padding: 0;
-}
+		.nav-accordion-header {
+			background: #fff;
+			border: none;
+			padding: 0;
+		}
 
-#nav .nestedUL {
-    border-top: 1px solid #ebecec;
-    border-bottom: 1px solid #ebecec;
-    background: #f6f7f7;
-}
+		#nav .nestedUL {
+			border-top: 1px solid #ebecec;
+			border-bottom: 1px solid #ebecec;
+			background: #f6f7f7;
+		}
 
-.navUL .nestedUL a {
-    padding-left: 51px;
-    border-left: 4px solid transparent;
-}
+		.navUL .nestedUL a {
+			padding-left: 51px;
+			border-left: 4px solid transparent;
+		}
 
-.nestedUL a:hover {
-    border-left: 4px solid #ef3030;
-    background: #fff;
-    font-weight: 700;
-}
+		.nestedUL a:hover {
+			border-left: 4px solid #ef3030;
+			background: #fff;
+			font-weight: 700;
+		}
 
-amp-accordion > section[expanded] .nav-accordion-header {
-    font-weight: 700;
-}
+		amp-accordion > section[expanded] .nav-accordion-header {
+			font-weight: 700;
+		}
 
-amp-accordion > section[expanded] .fa-angle-down {
-    transform: rotateZ(180deg);
-}
+		amp-accordion > section[expanded] .fa-angle-down {
+			transform: rotateZ(180deg);
+		}
 
-.home-icon, .newBikes-icon, .reviews-icon, .sellBikes-icon, .usedBikes-icon {
-    width: 24px;
-    height: 22px;
-    margin-right: 10px;
-    vertical-align: middle;
-}
+		.home-icon, .newBikes-icon, .reviews-icon, .news-icon, .sellBikes-icon, .usedBikes-icon {
+			width: 24px;
+			height: 22px;
+			margin-right: 10px;
+			vertical-align: middle;
+		}
 
-.home-icon {
-    background-position: 0 -40px;
-}
+		.home-icon {
+			background-position: 0 -40px;
+		}
 
-.newBikes-icon {
-    background-position: 0 -109px;
-}
+		.newBikes-icon {
+			background-position: 0 -109px;
+		}
 
-.usedBikes-icon {
-    background-position: 0 -178px;
-}
+		.usedBikes-icon {
+			background-position: 0 -178px;
+		}
 
-.sellBikes-icon {
-    background-position: 0 -155px;
-}
+		.sellBikes-icon {
+			background-position: 0 -155px;
+		}
 
-.reviews-icon {
-    background-position: 0 -132px;
-}
+		.reviews-icon {
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/review-24x16.png') no-repeat center;
+			display: inline-block;
+		}
 
-.track-day {
-    width: 24px;
-    height: 22px;
-    background-position: -188px -498px;
-    position: relative;
-    top: 4px;
-    margin-right: 10px;
-}
+		.news-icon {
+			background-position: 0 -132px;
+		}
 
-.fa-angle-down {
-    width: 12px;
-    height: 7px;
-    background-position: -155px -87px;
-    position: absolute;
-    top: 22px;
-    right: 10px;
-    transition: transform .3s;
-}
-.google-play-logo {
-    background-position: 0 -344px;
-    width: 114px;
-    height: 42px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+		.track-day {
+			width: 24px;
+			height: 22px;
+			background-position: -188px -498px;
+			position: relative;
+			top: 4px;
+			margin-right: 10px;
+		}
+
+		.fa-angle-down {
+			width: 12px;
+			height: 7px;
+			background-position: -155px -87px;
+			position: absolute;
+			top: 22px;
+			right: 10px;
+			transition: transform .3s;
+		}
+		.google-play-logo {
+			background-position: 0 -344px;
+			width: 114px;
+			height: 42px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		
+		.new-flag {
+			width: 34px;
+			height: 16px;
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/new-flag.png') no-repeat;
+			display: inline-block;
+			position: relative;
+			top: 5px;
+			margin-left: 5px;
+		}
 
         @Html.Raw(Model.Amp_Page_CSS)
         </style>
@@ -347,15 +362,17 @@ amp-accordion > section[expanded] .fa-angle-down {
                             <ul class="nestedUL">
                                 <li><a href="https://www.bikewale.com/m/used/" target="_top">Find Used Bikes</a></li>
                                 <li><a href="https://www.bikewale.com/m/used/bikes-in-india/" target="_top">All Used Bikes</a></li>
+                                <li><a href="https://www.bikewale.com/m/used/sell/" target="_top">Sell Your Bike</a></li>
                             </ul>
                         </section>
                     </amp-accordion>
                 </li>
                 <li>
                     <h2>
-                        <a href="https://www.bikewale.com/m/used/sell/" target="_top">
-                            <span class="bwmsprite sellBikes-icon"></span>
-                            <span class="vertical-middle">Sell Your Bike</span>
+                        <a href="https://www.bikewale.com/m/reviews/" target="_top">
+                            <span class="reviews-icon"></span>
+                            <span class="vertical-middle">Reviews</span>
+                            <span class="new-flag"></span>
                         </a>
                     </h2>
                 </li>
@@ -363,14 +380,13 @@ amp-accordion > section[expanded] .fa-angle-down {
                     <amp-accordion>
                         <section>
                             <h2 class="nav-accordion-header">
-                                <span class="bwmsprite reviews-icon"></span>
-                                <span class="vertical-middle">Reviews, News &amp; Videos</span>
+                                <span class="bwmsprite news-icon"></span>
+                                <span class="vertical-middle">News, Videos &amp; Tips</span>
                                 <span class="bwmsprite fa-angle-down"></span>
                             </h2>
                             <ul class="nestedUL">
                                 <li><a href="https://www.bikewale.com/m/news/" target="_top">News</a></li>
                                 <li><a href="https://www.bikewale.com/m/expert-reviews/" target="_top">Expert Reviews</a></li>
-                                <li><a href="https://www.bikewale.com/m/user-reviews/" target="_top">User Reviews</a></li>
                                 <li><a href="https://www.bikewale.com/m/features/" target="_top">Features</a></li>
                                 <li><a href="https://www.bikewale.com/m/bike-care/" target="_top">Bike Care</a></li>
                                 <li><a href="https://www.bikewale.com/m/bike-videos/" target="_top">Videos</a></li>

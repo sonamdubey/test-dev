@@ -15,6 +15,8 @@ namespace Bikewale.Cache.Compare
     /// Description :   Implemented the newly added method of IBikeCompareCacheRepository
     /// Modified By :   Sushil Kumar on 2nd Feb 2017
     /// Description :   Implemented the newly added method of BikeCompareEntity DoCompare(string versions, uint cityId)
+    /// Modified By :Snehal Dange on 25th Oct 2017
+    /// Description : Added method GetSimilarBikesForComparisions()
     /// </summary>
     public class BikeCompareCacheRepository : IBikeCompareCacheRepository
     {
@@ -166,7 +168,7 @@ namespace Bikewale.Cache.Compare
             try
             {
                 key = string.Format("BW_Compare_Bikes_v3_{0}_City_{1}", versions.Replace(',', '_'), cityId);
-               compareEntity = _cache.GetFromCache<BikeCompareEntity>(key, new TimeSpan(1, 0, 0), () => _compareRepository.DoCompare(versions, cityId));
+                compareEntity = _cache.GetFromCache<BikeCompareEntity>(key, new TimeSpan(1, 0, 0), () => _compareRepository.DoCompare(versions, cityId));
             }
             catch (Exception ex)
             {
@@ -210,9 +212,37 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetScooterCompareList- CityId : {0}",cityId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetScooterCompareList- CityId : {0}", cityId));
             }
             return compareBikeList;
+        }
+
+        /// <summary>
+        /// Created By : Snehal Dange on 24th Oct 2017.
+        /// Decsription : Cache method created for similar bikes for comparison on compare bikes page.
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public SimilarBikeComparisonWrapper GetSimilarBikes(string modelList, ushort topCount)
+        {
+            SimilarBikeComparisonWrapper similarbikecomparison = null;
+            string key = string.Empty;
+            try
+            {
+
+                if (!string.IsNullOrEmpty(modelList))
+                {
+                    key = string.Format("BW_SimilarCompareBikes_{0}_Cnt_{1}", modelList.Replace(',', '_'), topCount);
+                    similarbikecomparison = _cache.GetFromCache<SimilarBikeComparisonWrapper>(key, new TimeSpan(3, 0, 0), () => _compareRepository.GetSimilarBikes(modelList, topCount));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetSimilarBikes_{0}_Cnt_{1}", modelList, topCount));
+            }
+            return similarbikecomparison;
         }
     }
 }

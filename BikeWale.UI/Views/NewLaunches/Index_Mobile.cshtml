@@ -48,3 +48,12 @@
     </div>
 </section>
 }
+@if (Model.News!=null)
+{
+    <section>
+        <h2 class="section-heading">More about newly launched bikes</h2>
+        <div id="newsContent" class="padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14 ">
+            @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+        </div>
+    </section>
+}

@@ -131,13 +131,13 @@
                 try {
                     var obj = $(this);
                     if (obj.attr('l') !== undefined) {
-                        triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+                        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), obj.attr("data-lab"));
                     }
                     else if (obj.attr('v') !== undefined) {
-                        triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+                        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), window[obj.attr("data-var")]);
                     }
                     else if (obj.attr('f') !== undefined) {
-                        triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+                        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), eval(obj.attr("data-func") + '()'));
                     }
                 }
                 catch (e) {

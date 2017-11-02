@@ -55,7 +55,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     objPQEntity.ModelId = input.ModelId;
                     objPQEntity.VersionId = input.VersionId;
                     objPQEntity.UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
-                    objPQEntity.UTMZ = Request.Headers.Contains("_bwutmz") ? Request.Headers.GetValues("_bwutmz").FirstOrDefault() : String.Empty;
+                    objPQEntity.UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
                     objPQEntity.DeviceId = input.DeviceId;
                     objPQEntity.PQLeadId = input.PQLeadId;
                     objPQEntity.VersionId = input.VersionId;

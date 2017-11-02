@@ -22,6 +22,7 @@
             Ad_320x50 = true;
             Ad_Bot_320x50 = true;
             ShowSellBikeLink = true;
+
         %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
