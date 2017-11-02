@@ -168,7 +168,7 @@ namespace Bikewale.Cache.Compare
             try
             {
                 key = string.Format("BW_Compare_Bikes_v3_{0}_City_{1}", versions.Replace(',', '_'), cityId);
-               compareEntity = _cache.GetFromCache<BikeCompareEntity>(key, new TimeSpan(1, 0, 0), () => _compareRepository.DoCompare(versions, cityId));
+                compareEntity = _cache.GetFromCache<BikeCompareEntity>(key, new TimeSpan(1, 0, 0), () => _compareRepository.DoCompare(versions, cityId));
             }
             catch (Exception ex)
             {
@@ -212,7 +212,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetScooterCompareList- CityId : {0}",cityId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetScooterCompareList- CityId : {0}", cityId));
             }
             return compareBikeList;
         }
@@ -231,8 +231,12 @@ namespace Bikewale.Cache.Compare
             try
             {
 
-              key = string.Format("BW_SimilarCompareBikes_{0}_Cnt_{1}", modelList.Replace(',', '_'), topCount);
-              similarbikecomparison = _cache.GetFromCache<SimilarBikeComparisonWrapper>(key, new TimeSpan(3, 0, 0), () => _compareRepository.GetSimilarBikes(modelList, topCount));
+                if (!string.IsNullOrEmpty(modelList))
+                {
+                    key = string.Format("BW_SimilarCompareBikes_{0}_Cnt_{1}", modelList.Replace(',', '_'), topCount);
+                    similarbikecomparison = _cache.GetFromCache<SimilarBikeComparisonWrapper>(key, new TimeSpan(3, 0, 0), () => _compareRepository.GetSimilarBikes(modelList, topCount));
+                }
+
             }
             catch (Exception ex)
             {

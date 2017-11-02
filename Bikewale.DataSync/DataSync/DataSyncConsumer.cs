@@ -2,7 +2,6 @@
 using Dapper;
 using MySql.Data.MySqlClient;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
 using RabbitMqPublishing;
 using System;
 using System.Collections.Specialized;
@@ -24,7 +23,7 @@ namespace DataSync
     internal class DataSyncConsumer
     {
         private string _queueName, _hostName;
-        private readonly string _applicationName, _retryCount, _RabbitMsgTTL,_BWConnectionString,_CWConnectionString;
+        private readonly string _applicationName, _retryCount, _RabbitMsgTTL, _BWConnectionString, _CWConnectionString;
         private IConnection _connetionRabbitMq;
         private IModel _model;
         private QueueingBasicConsumer consumer;
@@ -133,7 +132,7 @@ namespace DataSync
                                     SqlMapper.Execute(dbConnection1, spName, (object)dynamicParameters1, (IDbTransaction)null, new int?(), new CommandType?(CommandType.StoredProcedure));
 
                                     _model.BasicAck(deliverEventArgs.DeliveryTag, false);
-                                    Logs.WriteInfoLog(string.Format("RabbitMQExecution : The job with Database -> {0} :  Stored Procedure {1} executed successfully", dBName,spName));
+                                    Logs.WriteInfoLog(string.Format("RabbitMQExecution : The job with Database -> {0} :  Stored Procedure {1} executed successfully", dBName, spName));
                                 }
                                 catch (Exception ex)
                                 {
@@ -142,7 +141,7 @@ namespace DataSync
 
                                     _model.BasicReject(deliverEventArgs.DeliveryTag, false);
 
-                                    Logs.WriteErrorLog("RabbitMQExecution: Database Error: " + ex.Message);
+                                    Logs.WriteErrorLog(string.Format("RabbitMQExecution: Database Error: {0} - SP : {1} - DB - {2}", ex.Message, spName, dBName));
                                     SendMail.HandleException(ex, "BWDataSyncConsumer/Database Error: " + ex.Message);
                                 }
                             }
@@ -150,17 +149,17 @@ namespace DataSync
                         else
                         {
                             _model.BasicReject(deliverEventArgs.DeliveryTag, false);
-                        }     
+                        }
                     }
                     else
                     {
                         _model.BasicReject(deliverEventArgs.DeliveryTag, false);
                         Logs.WriteErrorLog("Incorrect input paramters");
-                        SendMail.HandleException(new Exception("Incorrect Input paramters provided"), String.Format("Message rejected fro paramters - DbName : {0}, Storedprocedure : {1}",dBName,spName));
+                        SendMail.HandleException(new Exception("Incorrect Input paramters provided"), String.Format("Message rejected fro paramters - DbName : {0}, Storedprocedure : {1}", dBName, spName));
                     }
                 }
                 catch (Exception ex)
-                {                   
+                {
                     Logs.WriteErrorLog("RabbitMQExecution: Consumer was Closed: " + ex.Message);
                     SendMail.HandleException(ex, "BWDataSyncConsumer/RabbitMQExecution:- Consumer Closed");
                 }
@@ -203,7 +202,7 @@ namespace DataSync
         private void DeadLetterPublish(NameValueCollection nvc, string queueName)
         {
             RabbitMqPublish rabbitMqPublish = new RabbitMqPublish();
-            rabbitMqPublish.UseDeadLetterExchange =true;
+            rabbitMqPublish.UseDeadLetterExchange = true;
             rabbitMqPublish.MessageTTL = int.Parse(_RabbitMsgTTL);
             int num = nvc["iteration"] == null ? 1 : (int)short.Parse(nvc["iteration"]) + 1;
             nvc.Set("iteration", num.ToString());

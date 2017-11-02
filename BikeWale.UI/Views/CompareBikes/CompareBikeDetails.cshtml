@@ -77,7 +77,7 @@
                                         if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                         {
                                             <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@String.Format("{0}_Top Card", bikeName)" class="bw-ga know-more-target text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
-                                                @Model.KnowMoreLinkText
+                                            @Model.KnowMoreLinkText
                                             <span class="bwsprite know-more-icon"></span>
                                         }
                                     }
@@ -139,7 +139,7 @@
                                             if (!String.IsNullOrEmpty(Model.KnowMoreLinkUrl))
                                             {
                                                 <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@string.Format("{0}_Floating Card", bikeName)" class="bw-ga know-more-target text-link">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
-                                                    @Model.KnowMoreLinkText
+                                                @Model.KnowMoreLinkText
                                                 <span class="bwsprite know-more-icon"></span>
                                             }
                                         }
@@ -500,13 +500,6 @@
 
                 <div id="comparison-footer"></div>
             </div>
-          
-            <!--  similar bike comparison start-->
-            @if (Model.SimilarBikeWidget != null)
-            {
-                @Html.Partial("~/Views/CompareBikes/SimilarBikeComparison.cshtml", Model.SimilarBikeWidget)
-            }
-           <!-- Similar bike comparison end-->
 
             @if (Model.isUsedBikePresent)
             {
@@ -528,10 +521,10 @@
                                         @if (bike.UsedBikeCount.BikeCount > 0)
                                         {
                                             <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" )" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a>
-                                                <br />
-                                                <span>
-                                                    Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
-                                                </span>}
+                                            <br />
+                                            <span>
+                                                Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
+                                            </span>}
                                         else
                                         {
                                             <span>--</span>
@@ -548,6 +541,9 @@
         <div class="clear"></div>
     </div>
 </section>
+
+
+
 
 @if (Model.compareSummaryText != null)
 {
@@ -567,6 +563,22 @@
         </div>
     </section>
 }
+
+<!--  similar bike comparison start-->
+@if (Model.SimilarBikeWidget != null)
+
+{
+    <section>
+        <div class="container card-bottom-margin">
+            <div class="grid-12">
+                @Html.Partial("~/Views/CompareBikes/SimilarBikeComparison.cshtml", Model.SimilarBikeWidget)
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+<!-- Similar bike comparison end-->
+
 
 
 @if (Model.ArticlesList != null && Model.ArticlesList.ArticlesList != null && Model.ArticlesList.ArticlesList.Count() > 0)
