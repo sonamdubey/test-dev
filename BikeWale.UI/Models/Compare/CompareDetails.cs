@@ -2,6 +2,7 @@
 using Bikewale.Comparison.Interface;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -9,6 +10,7 @@ using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
 using Bikewale.Models.Compare;
 using Bikewale.Notifications;
@@ -17,9 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.Entities.CMS;
-using Bikewale.Entities.CMS.Articles;
 
 namespace Bikewale.Models
 {
@@ -36,7 +35,7 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _compareTest = null;
         private readonly ISponsoredComparison _objSponsored = null;
         private readonly IArticles _objArticles = null;
-        private string modelList,modelIdList;
+        private string modelList, modelIdList;
         private string compareModelId1, compareModelId2;
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
@@ -177,7 +176,11 @@ namespace Bikewale.Models
                     }
 
                     obj.PQSourceId = PQSourceEnum.Desktop_CompareBike;
-                    SimilarBikesComparisionWidget(obj);
+
+                    if (!string.IsNullOrEmpty(modelIdList))
+                    {
+                        SimilarBikesComparisionWidget(obj);
+                    }
                 }
                 else
                 {
@@ -223,10 +226,18 @@ namespace Bikewale.Models
                     obj.templateSummaryTitle = string.Join(" vs ", bikeModels);
                     obj.targetModels = string.Join(",", bikeModels);
                     modelIdList = string.Join(",", bikeIdList);
-                   
+
                     _modelNameList = string.Join(", ", bikeModels);
-                    int Place = _modelNameList.LastIndexOf(",");
-                    _modelNameList = _modelNameList.Remove(Place, 1).Insert(Place, " &");
+                    if (!string.IsNullOrEmpty(_modelNameList))
+                    {
+                        int place = _modelNameList.LastIndexOf(",");
+                        if (place > 1)
+                        {
+                            _modelNameList = _modelNameList.Remove(place, 1).Insert(place, " &");
+                        }
+                    }
+
+
                     if (bikeList.Count() == 2)
                     {
                         string reverseComparisonText = string.Join(" vs ", bikeModels.Reverse());
@@ -473,11 +484,11 @@ namespace Bikewale.Models
                 ushort topCount = 10;
                 SimilarBikeComparisonWrapper similarComparisons = null;
                 obj.SimilarBikeWidget = new SimilarBikesComparisionVM();
-                if (_objCompareCache!=null)
+                if (_objCompareCache != null)
                 {
-                   
+
                     similarComparisons = _objCompareCache.GetSimilarBikes(modelIdList, topCount);
-                    if(similarComparisons.BikeList.Any() && similarComparisons.SimilarBikes.Any())
+                    if (similarComparisons != null && similarComparisons.BikeList.Any() && similarComparisons.SimilarBikes.Any())
                     {
                         IList<SimilarBikeComparisonWidget> comparisonList = new List<SimilarBikeComparisonWidget>();
                         foreach (var similarBikeObj in similarComparisons.SimilarBikes)
@@ -490,21 +501,21 @@ namespace Bikewale.Models
                                 HostUrl = similarBikeObj.HostUrl,
                                 CompareBike1 = similarComparisons.BikeList.FirstOrDefault(l => l.Model.ModelId == similarBikeObj.ModelId1),
                                 CompareBike2 = similarComparisons.BikeList.FirstOrDefault(l => l.Model.ModelId == similarBikeObj.ModelId2),
-                                
+
                             });
                         }
-                        if (obj.SimilarBikeWidget!=null)
+                        if (obj.SimilarBikeWidget != null)
                         {
                             obj.SimilarBikeWidget.SimilarBikeComparison = comparisonList;
                             obj.SimilarBikeWidget.modelComparisionText = obj.comparisionText;
                         }
-                       
+
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex,"Bikewale.Models.CompareDetails.SimilarBikesComparisionWidget()");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.SimilarBikesComparisionWidget()");
             }
 
         }

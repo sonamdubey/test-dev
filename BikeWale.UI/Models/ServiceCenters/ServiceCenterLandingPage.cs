@@ -21,7 +21,6 @@ namespace Bikewale.Models.ServiceCenters
     /// </summary>
     public class ServiceCenterLandingPage
     {
-        private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
@@ -54,7 +53,7 @@ namespace Bikewale.Models.ServiceCenters
             try
             {
                 objVM = new ServiceCenterLandingPageVM();
-                objVM.MakesList = _objMakeCache.GetMakesByType(EnumBikeType.Dealer);
+                objVM.MakesList = _bikeMakes.GetMakesByType(EnumBikeType.Dealer);
                 objVM.Brands = new BrandWidgetModel(BrandWidgetTopCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.ServiceCenter);
                 objVM.BikeCareWidgetVM = new RecentBikeCare(_articles).GetData(BikeCareRecordsCount, 0, 0);
 
