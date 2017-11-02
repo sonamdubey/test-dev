@@ -564,7 +564,7 @@ namespace Bikewale.Models
 
                             foreach (var version in objVM.VersionSpecs)
                             {
-                                var versionPrice = objVM.FormatedBikeVersionPrices.FirstOrDefault(m => m.BikeQuotationEntity.VersionId.Equals(version.VersionId));
+                                var versionPrice = objVM.FormatedBikeVersionPrices.FirstOrDefault(m => m.BikeQuotationEntity.VersionId == version.VersionId);
                                 if (versionPrice != null)
                                 {
                                     version.Price = Convert.ToUInt64(versionPrice.BikeQuotationEntity.OnRoadPrice);
