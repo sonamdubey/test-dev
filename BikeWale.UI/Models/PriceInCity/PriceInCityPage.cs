@@ -23,7 +23,6 @@ using Bikewale.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -417,7 +416,7 @@ namespace Bikewale.Models
         {
             try
             {
-                int[] MakeIdList = new int[2] {6,7}; //For Hero and Honda
+                int[] MakeIdList = new int[2] { 6, 7 }; //For Hero and Honda
                 if (MakeIdList.Contains<int>(Convert.ToInt32(firstVersion.MakeId)))
                 {
                     objVM.IsGalleryLoaded = true;
@@ -460,7 +459,7 @@ namespace Bikewale.Models
                         }
                     }
                 }
-                 
+
             }
             catch (Exception ex)
             {
@@ -468,7 +467,7 @@ namespace Bikewale.Models
             }
         }
 
-        
+
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Sep 2017
         /// Description :   To Show Innovation Banner
@@ -806,7 +805,7 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.Make = new BikeMakeEntityBase() { MakeName = firstVersion.MakeName, MaskingName = firstVersion.MakeMaskingName, MakeId = (int)firstVersion.MakeId };
+                objVM.Make = new BikeMakeEntityBase() { MakeName = firstVersion.MakeName, MaskingName = firstVersion.MakeMaskingName, MakeId = (int)firstVersion.MakeId, IsScooterOnly = firstVersion.IsScooterOnly };
                 objVM.BikeModel = new BikeModelEntityBase() { ModelId = (int)modelId, ModelName = firstVersion.ModelName, MaskingName = firstVersion.ModelMaskingName };
                 objVM.ModelImage = objVM.PageMetaTags.OGImage = Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, ImageSize._310x174, QualityFactor._75);
                 objVM.CityEntity = new CityEntityBase() { CityId = cityId, CityMaskingName = cityMaskingName, CityName = firstVersion.City };
@@ -1109,6 +1108,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by Sajal Gupta on 02-11-2017
+        /// Descriptition : Changed breadcrumb for scooter
         /// </summary>
         private void SetBreadcrumList(PriceInCityPageVM objPage)
         {
@@ -1128,6 +1129,16 @@ namespace Bikewale.Models
                 url = string.Format("{0}{1}-bikes/", url, objPage.Make.MaskingName);
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Bikes", objPage.Make.MakeName)));
+            }
+
+            if (objPage.Make != null && objPage.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !objPage.Make.IsScooterOnly)
+            {
+                if (IsMobile)
+                    url = string.Format("/m/{0}-scooters/", objPage.Make.MaskingName);
+                else
+                    url = string.Format("/{0}-scooters/", objPage.Make.MaskingName);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, string.Format("{0} Scooters", objPage.Make.MakeName)));
             }
 
             if (objPage.Make != null && objPage.BikeModel != null)
@@ -1240,7 +1251,7 @@ namespace Bikewale.Models
                             LoanAmount = Convert.ToUInt32((objData.FirstVersion.OnRoadPrice) * 0.8)
                         };
 
-                        
+
 
                         objData.IsManufacturerLeadAdShown = true;
                         objData.LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", objData.BikeModel.ModelId, objData.CityEntity.CityId, string.Empty, string.Format(objData.BikeName), string.Empty, string.Empty, string.Empty, objData.IsManufacturerLeadAdShown, objData.LeadCampaign.DealerId, String.Format(objData.LeadCampaign.LeadsPropertyTextMobile, objData.LeadCampaign.Organization), objData.LeadCampaign.Area, objData.VersionId, objData.LeadCampaign.LeadSourceId, objData.LeadCampaign.PqSourceId, objData.LeadCampaign.CampaignId, objData.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), objData.LeadCampaign.PopupHeading, String.Format(objData.LeadCampaign.PopupSuccessMessage, objData.LeadCampaign.Organization), objData.LeadCampaign.PopupDescription, objData.LeadCampaign.PincodeRequired, objData.LeadCampaign.EmailRequired, objData.LeadCampaign.DealerRequired)));
