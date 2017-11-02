@@ -16,6 +16,36 @@ docReady(function () {
     bwcache.setScope('ReviewPage');
     window.history.pushState('ReviewPage', '', '');
 
+
+
+    $('#submitReviewBtn').on('click', function () {
+        var currentQuestion = $('#bike-review-questions').find('.list-item[data-completed="1"]');
+        //alert(a.length);
+
+        var nextQuestion = currentQuestion.next('.list-item');
+        if (nextQuestion.length) {
+            currentQuestion.hide();
+            currentQuestion.attr('data-completed', '0');
+            nextQuestion.toggle()
+            nextQuestion.attr('data-completed', '1');
+        }
+
+    });
+
+
+
+    $('.edit-link').on('click', function () {
+
+        if (page == "writeReview" && $("#previousPageUrl") && $("#previousPageUrl").length) {
+            window.location.href = $('#previousPageUrl').text();
+        }
+        else if (page == "otherDetails" && $("#returnUrl") && $("#returnUrl").length) {
+            window.location.href = $('#returnUrl').text();
+        }
+        else if (page == "reviewSummary" && $("#pageSource") && $("#pageSource").length) {
+            window.location.href = $("#pageSource").val();
+        }
+    });
     $(window).on('popstate', function (event) {                
 
         if (page == "writeReview" && $("#previousPageUrl") && $("#previousPageUrl").length) {            
