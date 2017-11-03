@@ -237,7 +237,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                 var vidDet = _videos.GetVideoDetails(basicID);
                 if (vidDet != null)
                 {
-                    outObj.VideoInfo = Convert(vidDet, true);
+                    outObj.VideoInfo = ConverterUtility.PwaConvert(vidDet, true);
 
                     var relatedInfoList = new List<PwaBikeVideoRelatedInfo>();
                     
@@ -283,7 +283,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                 var similarVidList = GetSimilarVideos(modelId,basicId);
                 if (similarVidList != null)
                 {
-                    var videosList = Convert(similarVidList.Videos);
+                    var videosList = ConverterUtility.PwaConvert(similarVidList.Videos);
                     if(videosList!=null)
                         outObj.VideosList = videosList.ToList();
                     outObj.CompleteListUrl = similarVidList.ViewAllLinkUrl;
@@ -316,7 +316,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                 outBikeData.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objPopularBodyStyle, cityArea.City);
                 outBikeData.Heading = "Popular bikes";
                 outBikeData.CompleteListUrl = "/m/best-bikes-in-india/";
-                outBikeData.CompleteListUrlAlternateLabel = "Best Bikes in India";
+                outBikeData.CompleteListUrlAlternateLabel = "Best {0} in India";
                 outBikeData.CompleteListUrlLabel = "View all";
                 return Ok(outBikeData);
             }
@@ -367,11 +367,11 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             {
                 if (count < topCount)
                 {
-                    topBrands.Add(Convert(make));
+                    topBrands.Add(ConverterUtility.PwaConvert(make));
                 }
                 else
                 {
-                    otherBrands.Add(Convert(make));
+                    otherBrands.Add(ConverterUtility.PwaConvert(make));
                 }
                 count++;
             }
@@ -381,26 +381,14 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             return outData;
         }
 
-        private PwaBikeMakeEntityBase Convert(BikeMakeEntityBase inp)
-        {
-            PwaBikeMakeEntityBase outEntity = null;
-            if (inp!=null)
-            {
-                outEntity = new PwaBikeMakeEntityBase();
-                outEntity.MakeId = inp.MakeId;
-                outEntity.MakeName = inp.MakeName;
-                outEntity.Href = String.Format("/{0}-bikes/videos/", inp.MaskingName);
-                outEntity.Title = String.Format("{0} bikes videos", inp.MakeName);
-            }
-            return outEntity;
-        }
 
+     
         private IEnumerable<PwaBikeVideoEntity> GetVideosFromCacheForCategory(EnumVideosCategory vidCat, ushort count)
         {
             try
             {
                 var objLandingVideosList = _videos.GetVideosByCategory(vidCat, count);
-                return Convert(objLandingVideosList);
+                return ConverterUtility.PwaConvert(objLandingVideosList);
             }
             catch (Exception ex)
             {
@@ -416,7 +404,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             {
                 BikeVideosListEntity objLandingVideosList = _videos.GetVideosBySubCategory(vidCat.ToString(), 1,(ushort)(1+count));
                 if (objLandingVideosList.Videos != null)
-                    return Convert(objLandingVideosList.Videos);
+                    return ConverterUtility.PwaConvert(objLandingVideosList.Videos);
                 else
                     return null;
             }
@@ -427,48 +415,6 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             return null;
         }
 
-
-        private IEnumerable<PwaBikeVideoEntity> Convert(IEnumerable<BikeVideoEntity> inpList)
-        {
-            List<PwaBikeVideoEntity> outList = null;
-            PwaBikeVideoEntity tempData;
-            if (inpList != null && inpList.Count() > 0)
-            {
-                outList = new List<PwaBikeVideoEntity>();
-                foreach (var inp in inpList)
-                {
-                    tempData = Convert(inp);
-                    if (tempData != null)
-                        outList.Add(tempData);
-                }
-            }
-            return outList;
-        }
-
-        private PwaBikeVideoEntity Convert(BikeVideoEntity inpEntity, bool addShortDesc=false)
-        {
-            PwaBikeVideoEntity outEntity=null;
-            if(inpEntity!=null)
-            {
-                outEntity = new PwaBikeVideoEntity();
-                outEntity.BasicId = inpEntity.BasicId;
-                if (addShortDesc)
-                { 
-                    outEntity.Description = FormatDescription.SanitizeHtml(inpEntity.Description);
-                    outEntity.ShortDescription = outEntity.Description.Length > 200? StrinHtmlHelpers.TruncateHtml(outEntity.Description, 200, " ..") : "";
-                }
-                outEntity.DisplayDate = inpEntity.DisplayDate;
-                outEntity.Likes = inpEntity.Likes;
-                outEntity.VideoId = inpEntity.VideoId;
-                outEntity.VideoTitle = inpEntity.VideoTitle;
-                outEntity.VideoTitleUrl = inpEntity.VideoTitleUrl;
-                outEntity.VideoUrl= inpEntity.VideoUrl;
-                outEntity.Views = inpEntity.Views;
-                outEntity.DisplayImageUrl = inpEntity.ImagePath;        
-            }
-            return outEntity;
-
-        }
 
         /// <summary>
         ///  Modified By : Ashish G. Kamble

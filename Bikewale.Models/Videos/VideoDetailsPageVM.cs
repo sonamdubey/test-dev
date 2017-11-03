@@ -1,5 +1,8 @@
 ﻿
+using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Videos;
+using System.Web;
+
 namespace Bikewale.Models
 {
     /// <summary>
@@ -18,5 +21,8 @@ namespace Bikewale.Models
         public uint CityId { get; set; }
         public string SmallDescription { get; set; }
         public bool IsSmallDescription { get { return Video.Description.Length > 200; } }
+        public PwaReduxStore Store { get; set; }
+        public IHtmlString ServerRouterWrapper { get; set; }
+        public string WindowState { get; set; }
     }
 }

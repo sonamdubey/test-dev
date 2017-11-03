@@ -4,10 +4,12 @@ using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PWA.Articles;
+using Bikewale.Entities.Videos;
 using Bikewale.Models;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -436,5 +438,87 @@ namespace Bikewale.PWA.Utils
             // Return the hexadecimal string.
             return sBuilder.ToString();
         }
+
+        public static IEnumerable<PwaBikeVideoEntity> PwaConvert(IEnumerable<BikeVideoEntity> inpList)
+        {
+            List<PwaBikeVideoEntity> outList = new List<PwaBikeVideoEntity>();
+            
+            if (inpList != null && inpList.Count() > 0)
+            {
+                PwaCovertAndAppend(outList, inpList);
+            }
+            return outList;
+        }
+
+        public static void PwaCovertAndAppend(List<PwaBikeVideoEntity> outList, IEnumerable<BikeVideoEntity> inpList)
+        {
+            
+            PwaBikeVideoEntity tempData;
+            if (outList!=null && inpList != null && inpList.Count() > 0)
+            {
+                foreach (var inp in inpList)
+                {
+                    tempData = PwaConvert(inp);
+                    if (tempData != null)
+                        outList.Add(tempData);
+                }
+            }
+            
+        }
+
+        public static PwaBikeVideoEntity PwaConvert(BikeVideoEntity inpEntity, bool addShortDesc = false)
+        {
+            PwaBikeVideoEntity outEntity = null;
+            if (inpEntity != null)
+            {
+                outEntity = new PwaBikeVideoEntity();
+                outEntity.BasicId = inpEntity.BasicId;
+                if (addShortDesc)
+                {
+                    outEntity.Description = FormatDescription.SanitizeHtml(inpEntity.Description);
+                    outEntity.ShortDescription = outEntity.Description.Length > 200 ? StrinHtmlHelpers.TruncateHtml(outEntity.Description, 200, " ..") : "";
+                }
+                outEntity.DisplayDate = inpEntity.DisplayDate;
+                outEntity.Likes = inpEntity.Likes;
+                outEntity.VideoId = inpEntity.VideoId;
+                outEntity.VideoTitle = inpEntity.VideoTitle;
+                outEntity.VideoTitleUrl = inpEntity.VideoTitleUrl;
+                outEntity.VideoUrl = inpEntity.VideoUrl;
+                outEntity.Views = inpEntity.Views;
+                outEntity.DisplayImageUrl = inpEntity.ImagePath;
+            }
+            return outEntity;
+
+        }
+
+        public static IEnumerable<PwaBikeMakeEntityBase> PwaConvert(IEnumerable<BikeMakeEntityBase> inpList)
+        {
+            List<PwaBikeMakeEntityBase> outList = null;
+            if (inpList != null)
+            {
+                outList = new List<PwaBikeMakeEntityBase>();
+                foreach (var make in inpList)
+                {
+                    outList.Add(PwaConvert(make));
+                }
+            }
+            return outList;
+        }
+
+
+        public static PwaBikeMakeEntityBase PwaConvert(BikeMakeEntityBase inp)
+        {
+            PwaBikeMakeEntityBase outEntity = null;
+            if (inp != null)
+            {
+                outEntity = new PwaBikeMakeEntityBase();
+                outEntity.MakeId = inp.MakeId;
+                outEntity.MakeName = inp.MakeName;
+                outEntity.Href = String.Format("/{0}-bikes/videos/", inp.MaskingName);
+                outEntity.Title = String.Format("{0} bikes videos", inp.MakeName);
+            }
+            return outEntity;
+        }
+
     }
 }
