@@ -728,6 +728,8 @@ namespace Bikewale.DAL.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 16th April 2017
         /// Description : get all user reiews data for user reviews section
+        /// Modified by Sajal Gupta on 3-11-20017
+        /// Desc :  Added subquestionid in question options
         /// </summary>
         /// <returns></returns>
         public UserReviewsData GetUserReviewsData()
@@ -796,7 +798,8 @@ namespace Bikewale.DAL.UserReviews
                                         Id = SqlReaderConvertor.ToUInt32(dr["RatingId"]),
                                         QuestionId = SqlReaderConvertor.ToUInt32(dr["QuestionId"]),
                                         Text = Convert.ToString(dr["RatingText"]),
-                                        Value = Convert.ToString(dr["RatingValue"])
+                                        Value = Convert.ToString(dr["RatingValue"]),
+                                        SubQuestionId = SqlReaderConvertor.ToUInt32(dr["SubQuestionId"])
                                     });
                                 }
                             }
