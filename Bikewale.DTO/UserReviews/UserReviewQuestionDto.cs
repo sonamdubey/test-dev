@@ -22,7 +22,7 @@ namespace Bikewale.DTO.UserReviews
         public string MinHeading { get; set; }
 
         [JsonProperty("description"), DataMember]
-        public string Description { get; set; }       
+        public string Description { get; set; }
 
         [JsonProperty("selectedRatingId"), DataMember]
         public uint SelectedRatingId { get; set; }
@@ -74,5 +74,7 @@ namespace Bikewale.DTO.UserReviews
         public string Text { get; set; }
         [JsonProperty("qId"), JsonIgnore, DataMember]
         public uint QuestionId { get; set; }
+        [JsonProperty("subQuestionId"), DataMember]
+        public uint SubQuestionId { get; set; }
     }
 }

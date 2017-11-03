@@ -53,7 +53,7 @@ namespace Bikewale.Entities.UserReviews
         public uint SubQuestionId { get; set; }
 
         public uint ReviewId { get; set; }
-       
+
     }
 
     [Serializable]
@@ -74,6 +74,7 @@ namespace Bikewale.Entities.UserReviews
         public string Text { get; set; }
         [JsonProperty("qId"), JsonIgnore, DataMember]
         public uint QuestionId { get; set; }
+        public uint SubQuestionId { get; set; }
     }
 
 
