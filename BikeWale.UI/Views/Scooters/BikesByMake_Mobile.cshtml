@@ -10,138 +10,118 @@
     Model.Page_JS_Path = "/m/src/scooters-by-make.js";
 }
 
-<section>
-    <div class="container content-box-shadow card-bottom-margin">
-        <h1 class="padding-15-20 content-box-shadow">@Model.Make.MakeName Scooters</h1>
-        @if (Model.IsScooterDataAvailable)
-        { <ul class="bike-listing">
-            @foreach (var bikedetails in Model.Scooters)
-            {
-                <li class="list-item">
-                    <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.objMake.MaskingName, bikedetails.objModel.MaskingName))" title="@bikedetails.BikeName" class="block">
-                        <div class="item-image-content">
-                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostURL, Bikewale.Utility.ImageSize._310x174)" alt="@bikedetails.BikeName" src="" />
-                        </div>
-                        <h2 class="margin-bottom10">@bikedetails.BikeName</h2>
-                        @if (bikedetails.Specs != null)
-                        { <div class="font14 text-x-light margin-bottom10">
-                            @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bikedetails.Specs.Displacement), Convert.ToString(bikedetails.Specs.FuelEfficiencyOverall), Convert.ToString(bikedetails.Specs.MaxPower), Convert.ToString(bikedetails.Specs.KerbWeight)))
-                        </div>
-                        }
-                        <p class="key-size-14 margin-bottom5">Ex-showroom price, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
-                        @Html.Raw("<span class='value-size-18'> &#x20B9;</span>")
-                        &nbsp;<span class="value-size-18">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.VersionPrice))</span>
-                        <span class="value-size-14"> onwards</span>
-                    </a>
-                    <div class="margin-top15">
-                        <a href="javascript:void(0)" data-pagecatid="@ViewBag.PageCatId" data-makename="@bikedetails.objMake.MakeName" data-modelname="@bikedetails.objModel.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price)" data-modelid="@bikedetails.objModel.ModelId" class="btn btn-white btn-180-32 getquotation" rel="nofollow">Check on-road price</a>
+<section id="makeTabsContentWrapper">
+    <section>
+        <div class="container content-box-shadow">
+            <h1 class="padding-15-20 content-box-shadow">@Model.Make.MakeName Scooters</h1>
+        </div>
+        @Html.Partial("~/Views/Scooters/_Index_Tabs_Mobile.cshtml", Model)
+        @if (Model.Description != null && Model.Description.FullDescription.Length > 0)
+        {
+            <div id="makeAboutContent" class="content-box-shadow bw-model-tabs-data padding-top15 padding-bottom15 margin-bottom20 active">
+                <div class="padding-right20 padding-left20">
+                    <h2 class="text-bold">About @Model.Make.MakeName Scooters</h2>
+                    <div class="font14 text-light-grey collapsible-content">
+                        <p class="main-content">@Html.Raw(FormatDescription.TruncateDescription(Model.Description.FullDescription, 200))</p>
+                        <p class="more-content hide">@Html.Raw(Model.Description.FullDescription)</p>
+                        @if (Model.Description.FullDescription.Length > 200)
+                        {
+                            <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>}
+
                     </div>
-                </li>
-            }
-        </ul>
+                </div>
+            </div>
+            <div class="margin-right20 margin-left20 border-solid-bottom"></div>
         }
-    </div>
-</section>
-@if (Model.IsCompareDataAvailable)
-{
-    <section>
-        <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
-            <div class="carousel-heading-content">
-                <div class="swiper-heading-left-grid inline-block">
-                    <h2>Popular Comparison of @Model.Make.MakeName Scooters</h2>
-                </div>
-                <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="/m/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
-                </div>
-                <div class="clear"></div>
+        @if (Model.IsScooterDataAvailable)
+        { 
+            <div id="bikeMakeList" class="content-box-shadow bw-model-tabs-data padding-top15 padding-bottom20 card-bottom-margin">
+                <h2 class="text-bold padding-left20">@string.Format("{0} Scooters Prices in  India", Model.Make.MakeName)</h2>
+                <ul class="bike-listing">
+                    @foreach (var bikedetails in Model.Scooters)
+                    {
+                        <li class="list-item">
+                            <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.objMake.MaskingName, bikedetails.objModel.MaskingName))" title="@bikedetails.BikeName" class="block">
+                                <div class="item-image-content">
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostURL, Bikewale.Utility.ImageSize._310x174)" alt="@bikedetails.BikeName" src="" />
+                                </div>
+                                <h2 class="margin-bottom10">@bikedetails.BikeName</h2>
+                                @if (bikedetails.Specs != null)
+                                { <div class="font14 text-x-light margin-bottom10">
+                                @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bikedetails.Specs.Displacement), Convert.ToString(bikedetails.Specs.FuelEfficiencyOverall), Convert.ToString(bikedetails.Specs.MaxPower), Convert.ToString(bikedetails.Specs.KerbWeight)))
+                            </div>
+                                }
+                                <p class="key-size-14 margin-bottom5">Ex-showroom price, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                                @Html.Raw("<span class='value-size-18'> &#x20B9;</span>")
+                                &nbsp;<span class="value-size-18">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.VersionPrice))</span>
+                                <span class="value-size-14"> onwards</span>
+                            </a>
+                            <div class="margin-top15">
+                                <a href="javascript:void(0)" data-pagecatid="@ViewBag.PageCatId" data-makename="@bikedetails.objMake.MakeName" data-modelname="@bikedetails.objModel.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price)" data-modelid="@bikedetails.objModel.ModelId" class="btn btn-white btn-180-32 getquotation" rel="nofollow">Check on-road price</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
             </div>
-            @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.SimilarCompareScooters)
-        </div>
+        }
+       
     </section>
-}
-<section>
-    <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-        <div class="carousel-heading-content">
-            <div class="swiper-heading-left-grid inline-block">
-                <h2>Scooters of Other Brands</h2>
-            </div>
-            <div class="swiper-heading-right-grid inline-block text-right">
-                <a href="/m/scooters/" title="Scooters in India" class="btn view-all-target-btn">View all</a>
-            </div>
-            <div class="clear"></div>
-        </div>
-        @Html.Partial("~/views/m/shared/_otherbrands.cshtml", Model.OtherBrands)
-    </div>
-</section>
-
-@if (Model.IsUpComingBikesAvailable)
-{
-
-    <section>
-        <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-            <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming Scooters</h2>
-            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingScooters)
-        </div>
-    </section>
-}
-
-@if (Model.IsMakeTabsDataAvailable)
-{
-    <section>
-        <div id="makeTabsContentWrapper" class="container content-box-shadow card-bottom-margin">
-            <div id="makeOverallTabsWrapper">
-                <div class="overall-specs-tabs-container">
-                    <ul class="overall-specs-tabs-wrapper">
-                        @if (Model.Description != null && Model.Description.FullDescription.Length > 0)
-                        {
-                            <li class="active" data-tabs="#makeAboutContent">About</li>
-                        }
-                        @if (Model.IsNewsAvailable)
-                        {
-                            <li data-tabs="#makeNewsContent">News</li>
-                        }
-                        @if (Model.IsExpertReviewsAvailable)
-                        {
-                            <li data-tabs="#makeReviewsContent">Reviews</li>
-                        }
-                        @if (Model.IsVideosAvailable)
-                        {
-                            <li data-tabs="#makeVideosContent">Videos</li>
-                        }
-                        @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
-                        {
-                            <li data-tabs="#dealerAndServiceContent">Dealers </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-            @if (Model.Description != null && Model.Description.FullDescription.Length > 0)
-            {
-                <div id="makeAboutContent" class="bw-model-tabs-data padding-top15 padding-bottom15 active">
-                    <div class="padding-right20 padding-left20">
-                        <h2 class="text-bold">About @Model.Make.MakeName Scooters</h2>
-                        <div class="font14 text-light-grey collapsible-content">
-                            <p class="main-content">@Html.Raw(FormatDescription.TruncateDescription(Model.Description.FullDescription, 700))</p>
-                            <p class="more-content hide">@Html.Raw(Model.Description.FullDescription)</p>
-                            @if (Model.Description.FullDescription.Length > 700)
-                            {
-                                <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>}
-
-                        </div>
+    @if (Model.IsCompareDataAvailable)
+    {
+        <section id="popularComparisions" class="bw-model-tabs-data">
+            <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2>Popular Comparison of @Model.Make.MakeName Scooters</h2>
                     </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="/m/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+                @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.SimilarCompareScooters)
+            </div>
+            @if (Model.OtherBrands != null)
+            {
+                <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+                    <div class="carousel-heading-content">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2>Scooters of Other Brands</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="/m/scooters/" title="Scooters in India" class="btn view-all-target-btn">View all</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    @Html.Partial("~/views/m/shared/_otherbrands.cshtml", Model.OtherBrands)
+                </div>
             }
+        </section>
+    }
+    @if (Model.IsUpComingBikesAvailable)
+    {
+
+        <section id="upcomingBikeList" class="bw-model-tabs-data">
+            <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+                <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming Scooters</h2>
+                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingScooters)
+            </div>
+        </section>
+    }
+
+    @if (Model.IsMakeTabsDataAvailable)
+    {
+        <section class="container content-box-shadow card-bottom-margin">
             @if (Model.IsNewsAvailable)
             {
-                <div id="makeNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
+                <div id="modelNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
                     <h2 class="text-bold">News about @Model.Make.MakeName Scooters</h2>
                     @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
                     <div class="view-all-btn-container">
                         <a href="@string.Format("/m{0}",Model.ScooterNewsUrl)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName):!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News",Model.News.MakeName):"Scooters News")" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
                     </div>
                 </div>
-               
+
 
             }
             @if (Model.IsExpertReviewsAvailable)
@@ -166,7 +146,7 @@
             {
                 <div id="dealerAndServiceContent" class="bw-model-tabs-data">
                     @if (Model.IsDealerAvailable)
-                    {
+                {
                         <div class="padding-bottom20 padding-top15 font14">
                             <div class="carousel-heading-content">
                                 <div class="swiper-heading-left-grid inline-block">
@@ -191,6 +171,6 @@
                 </div>
             }
             <div id="makeSpecsFooter"></div>
-        </div>
-    </section>
-}
+        </section>
+    }
+</section>
