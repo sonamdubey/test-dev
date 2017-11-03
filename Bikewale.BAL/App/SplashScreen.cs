@@ -37,6 +37,10 @@ namespace Bikewale.BAL.App
                     {
                         result = objChachedData.Skip(new Random().Next(0, count)).First();
                     }
+                    else
+                    {
+                        //
+                    }
                 }
             }
             catch (Exception ex)
