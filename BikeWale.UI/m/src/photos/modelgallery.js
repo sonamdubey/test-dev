@@ -470,6 +470,7 @@ docReady(function () {
         },
         onSlideChangeStart: function (swiper) {
             thumbnailSwiperEvents.setPhotoDetails(swiper);
+            swiper.lazy.load();
         }
     });
 
