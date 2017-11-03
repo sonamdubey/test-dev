@@ -447,6 +447,7 @@ docReady(function () {
         spaceBetween: 0,
         preloadImages: false,
         lazyLoading: true,
+        obeserver: true,
         lazyLoadingInPrevNext: true,
         nextButton: '.gallery-type-next',
         prevButton: '.gallery-type-prev',
@@ -470,6 +471,7 @@ docReady(function () {
         },
         onSlideChangeStart: function (swiper) {
             thumbnailSwiperEvents.setPhotoDetails(swiper);
+            swiper.lazy.load();
         }
     });
 
