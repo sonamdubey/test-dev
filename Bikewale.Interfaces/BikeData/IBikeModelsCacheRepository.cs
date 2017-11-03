@@ -42,8 +42,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added GetPopularBikesByBodyStyle and changed old "GetPopularBikesByBodyStyle" to GetPopularBikesByBodyStyleViaModel
     /// Modified by : Ashutosh Sharma on 18-Aug-2017
     /// Description : Added 'GetMostPopularBikesByMakeWithCityPrice' to get most popular bikes by make wity city price if city is selected.
-
-
+    /// Modified By:Snehal Dange on 3rd Nov 2017
+    /// Description: Added GetMileageDetails to get mileage info for model
     /// <typeparam name="U"></typeparam>
     /// </summary>
     public interface IBikeModelsCacheRepository<U>
@@ -75,7 +75,9 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
+        BikeMileageEntity GetMileageDetails(uint modelId);
 
-    
+
+
     }
 }

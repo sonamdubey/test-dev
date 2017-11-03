@@ -1455,5 +1455,31 @@ namespace Bikewale.Cache.BikeData
             }
             return popularBikesList;
         }
+
+        /// <summary>
+        /// Created By:Snehal Dange on 3rd Nov 2017
+        /// Description: Cache method to get mileage info for a bike
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeMileageEntity GetMileageDetails(uint modelId)
+        {
+            BikeMileageEntity mileageInfo = null;
+            string key = string.Empty;
+            try
+            {
+                if(modelId>0)
+                {
+                    key = "BW_BikesByMileage";
+                    mileageInfo = _cache.GetFromCache<BikeMileageEntity>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMileageForModel(modelId));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetMileageDetails: ModelId: {0}",modelId));
+
+            }
+            return mileageInfo;
+        }
     }
 }

@@ -25,6 +25,7 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models.BikeModels;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Grpc.CMS;
@@ -890,5 +891,38 @@ namespace Bikewale.BAL.BikeData
             }
             return bikes;
         }
+
+        /// <summary>
+        /// Created By:Snehal Dange on 3rd Nov 2017
+        /// Descrption: Get mileage details and similar bikes by mileage 
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public ModelMileageWidgetVM GetMileageDetails(uint modelId)
+        {
+            ModelMileageWidgetVM mileageObj = null;
+            try
+            {
+                if(modelId>0)
+                {
+                    BikeMileageEntity obj = null;
+                    obj = _modelCacheRepository.GetMileageDetails(modelId);
+                    if(obj!=null)
+                    {
+                        mileageObj = new ModelMileageWidgetVM();
+
+
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BikeModels.GetMileageDetails()_ModelId: {0}",modelId));
+            }
+            return mileageObj;
+        }
+
     }   // Class
 }   // namespace

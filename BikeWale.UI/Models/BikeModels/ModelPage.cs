@@ -150,6 +150,7 @@ namespace Bikewale.Models.BikeModels
                     BindControls();
 
                     BindColorString();
+                    BindMileageWidget(_objData);
 
                     CreateMetas();
 
@@ -1683,6 +1684,26 @@ namespace Bikewale.Models.BikeModels
             }
         }
 
+        /// <summary>
+        /// Created By:Snehal Dange on 3rd Nov 20127
+        /// Description :  Get Mileagedetails for a particular model
+        /// </summary>
+        /// <param name="_objData"></param>
+        private void BindMileageWidget(ModelPageVM _objData)
+        {
+            try
+            {
+                if(_objData!=null && _objModel!=null && _modelId>0)
+                {
+                    _objData.Mileage = _objModel.GetMileageDetails(_modelId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.BindMileageWidget ModelId: {0}", _modelId));
+            }
+
+        }
         #endregion Methods
     }
 }

@@ -163,6 +163,7 @@
     <Compile Include="BikeData\BikeMakeModelBase.cs" />
     <Compile Include="BikeData\BikeMakeModelEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
+    <Compile Include="BikeData\BikeMileageEntity.cs" />
     <Compile Include="BikeData\BikeModelColor.cs" />
     <Compile Include="BikeData\BikeDescriptionEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntity.cs" />
@@ -188,12 +189,14 @@
     <Compile Include="BikeData\BikeVersionSegmentDetails.cs" />
     <Compile Include="BikeData\BikeVersionsListEntity.cs" />
     <Compile Include="BikeData\BikeVersionsSegment.cs" />
+    <Compile Include="BikeData\BikeWithMileageInfo.cs" />
     <Compile Include="BikeData\CompareMakeModelEntity.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
     <Compile Include="BikeData\FeaturedBikeEntity.cs" />
     <Compile Include="BikeData\Features.cs" />
     <Compile Include="BikeData\MakeMaskingResponse.cs" />
+    <Compile Include="BikeData\MileageInfoByBodyStyle.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="BikeData\ModelMaskingResponse.cs" />
     <Compile Include="BikeData\MostPopularBikesBase.cs" />
@@ -212,6 +215,7 @@
     <Compile Include="BikeData\SimilarBikeComparisions .cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
     <Compile Include="BikeData\BikeSeriesModels.cs" />
+    <Compile Include="BikeData\SimilarBikesByMileage.cs" />
     <Compile Include="BikeData\SimilarBikesWithPhotos.cs" />
     <Compile Include="BikeData\SimilarBikeUserReview.cs" />
     <Compile Include="BikeData\SimilarBikeWithVideo.cs" />

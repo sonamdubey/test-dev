@@ -130,6 +130,7 @@ namespace Bikewale.Models.BikeModels
         public PopularBodyStyleVM PopularBodyStyle { get; set; }
         public bool IsPopularBodyStyleAvailable { get { return (PopularBodyStyle != null && PopularBodyStyle.PopularBikes != null && PopularBodyStyle.PopularBikes.Any()); } }
         public BikeSeriesModelsVM ModelsBySeries { get; set; }
+        public ModelMileageWidgetVM Mileage { get; set; }
     }
 
 }
