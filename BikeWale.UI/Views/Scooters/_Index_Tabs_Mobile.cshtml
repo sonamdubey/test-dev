@@ -1,0 +1,39 @@
+﻿@model Bikewale.Models.ScootersMakePageVM
+<div id="makeOverallTabsWrapper">
+    <div id="overallSpecsTab" class="overall-specs-tabs-container">
+        <ul class="overall-specs-tabs-wrapper">
+            @if (Model.Description != null && Model.Description.FullDescription.Length > 0)
+            {
+                <li data-tabs="#makeAboutContent"  class="active">About</li>
+            }
+            @if (Model.IsScooterDataAvailable)
+            {
+                <li data-tabs="#bikeMakeList" >@Model.Make.MakeName Scooters</li>
+            }
+            @if (Model.IsCompareDataAvailable)
+            {
+                <li data-tabs="#popularComparisions" >Top Comparisions</li>
+            }
+            @if (Model.IsUpComingBikesAvailable)
+            {
+                <li data-tabs="#upcomingBikeList" >Upcoming</li>
+            }
+            @if (Model.IsNewsAvailable)
+            {
+                <li data-tabs="#modelNewsContent" >News</li>
+            }
+            @if (Model.IsExpertReviewsAvailable)
+            {
+                <li data-tabs="#makeReviewsContent" >Reviews</li>
+            }
+            @if (Model.IsVideosAvailable)
+            {
+                <li data-tabs="#makeVideosContent" >Videos</li>
+            }
+            @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
+            {
+                <li data-tabs="#dealerAndServiceContent" >Dealers</li>
+            }
+        </ul>
+    </div>
+</div>
