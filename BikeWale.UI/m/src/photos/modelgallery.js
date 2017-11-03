@@ -447,7 +447,6 @@ docReady(function () {
         spaceBetween: 0,
         preloadImages: false,
         lazyLoading: true,
-        obeserver: true,
         lazyLoadingInPrevNext: true,
         nextButton: '.gallery-type-next',
         prevButton: '.gallery-type-prev',
