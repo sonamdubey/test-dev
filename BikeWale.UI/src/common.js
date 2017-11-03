@@ -607,9 +607,8 @@ var bwAutoComplete = function (options) {
                                     if (jsonData[i].payload.expertReviewsCount == 0)
                                         arr.push(jsonData[i])
                                 }
-                            }
-
-                            jsonData = arr;
+                                jsonData = arr;
+                            }                            
 
                             cache[reqTerm + '_' + year] = $.map(jsonData, function (item) {
                                 return { label: item.text, payload: item.payload }
