@@ -87,7 +87,7 @@
                                 }
                                 <span class="font10 text-light-grey text-truncate">@bike.Make  </span>
                                 <a href="@string.Format("/m/{0}-bikes/{1}/", bike.MakeMaskingName, bike.ModelMaskingName)" title="@bikeName" class="font12 text-truncate bike-title-target">@bike.Model</a>
-                                @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl))
+                                @if (((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl)) && bike.IsNew)
                                 {
                                     <div>
                                         <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" rel="nofollow">On-road price</a>

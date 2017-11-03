@@ -332,8 +332,8 @@ namespace Bikewale.Models
                         string price = Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bike.Price));
                         int colorCount = colors.bikes[i].bikeColors.Count;
                         bikeNames += bikeName + (i < count - 1 ? ", " : " and ");
-                        bikePrice += string.Format(" {0} is   &#x20B9; {1} {2}", bikeName, price, (i < count - 1 ? ", " : " and "));
-                        variants += string.Format(" {0} is available in {1} {4} and {2} {5}{3}", bikeName, colorCount, versionCount, (i < count - 1 ? ", " : " and "), colorCount > 1 ? "colours" : "colour", versionCount > 1 ? "variants" : "variant");
+                        bikePrice += string.Format(" {0} is &#x20B9; {1} {2}", bikeName, price, (i < count - 1 ? ", " : " and "));
+                        variants += string.Format(" {0} is available in {1} {4}{2}{3}", bikeName, colorCount, (versionCount > 0? string.Format(" and {0} {1}", versionCount, versionCount > 1 ? "variants" : "variant") : ""), (i < count - 1 ? ", " : " and "), colorCount > 1 ? "colours" : "colour");
                         i++;
                     }
                 }
