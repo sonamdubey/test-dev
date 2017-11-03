@@ -41,6 +41,8 @@ namespace Bikewale.Cache.PWA.CMS
             return outStr;
         }
 
+       
+
         /// <summary>
         /// Created By : Prasad Gawde on 25 May 2017
         /// Description : Caching for News Detail Rendered Data
@@ -54,6 +56,48 @@ namespace Bikewale.Cache.PWA.CMS
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "PWACMSCacheRepository.GetNewsDetails");
+            }
+            return outStr;
+        }
+
+        public IHtmlString GetVideoListDetails(string key, PwaAllVideos reducer, string url, string containerId, string componentName)
+        {
+            IHtmlString outStr = null;
+            try
+            {
+                outStr = new HtmlString(_cache.GetFromCache<String>(key, new TimeSpan(0, 24, 0, 0), () => Convert.ToString(_objPWACmsContents.GetVideoListDetails(reducer, url, containerId, componentName))));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "PWACMSCacheRepository.GetNewsListDetails");
+            }
+            return outStr;
+        }
+
+        public IHtmlString GetVideoBySubCategoryListDetails(string key, PwaVideosBySubcategory reducer, string url, string containerId, string componentName)
+        {
+            IHtmlString outStr = null;
+            try
+            {
+                outStr = new HtmlString(_cache.GetFromCache<String>(key, new TimeSpan(0, 24, 0, 0), () => Convert.ToString(_objPWACmsContents.GetVideoBySubCategoryListDetails(reducer, url, containerId, componentName))));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "PWACMSCacheRepository.GetVideoBySubCategoryListDetails");
+            }
+            return outStr;
+        }
+
+        public IHtmlString GetVideoDetails(string key, PwaVideoDetailReducer reducer, string url, string containerId, string componentName)
+        {
+            IHtmlString outStr = null;
+            try
+            {
+                outStr = new HtmlString(_cache.GetFromCache<String>(key, new TimeSpan(0, 24, 0, 0), () => Convert.ToString(_objPWACmsContents.GetVideoDetails(reducer, url, containerId, componentName))));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "PWACMSCacheRepository.GetVideoDetails");
             }
             return outStr;
         }

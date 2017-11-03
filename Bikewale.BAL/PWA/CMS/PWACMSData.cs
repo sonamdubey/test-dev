@@ -152,5 +152,104 @@ namespace Bikewale.BAL.PWA.CMS
             }
             return renderedHtml;
         }
+
+        public IHtmlString GetVideoListDetails(PwaAllVideos reducer, string url, string containerId, string componentName)
+        {
+
+            Stopwatch sw = null;
+            if (_logPWAStats)
+                sw = Stopwatch.StartNew();
+
+            IHtmlString renderedHtml = null;
+            try
+            {
+                renderedHtml = React(componentName, new
+                {
+                    Url = url,
+                    TopVideos = reducer.TopVideos,
+                    OtherVideos = reducer.OtherVideos
+
+                }, containerId: containerId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+            }
+
+            if (_logPWAStats)
+            {
+                sw.Stop();
+                ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                ThreadContext.Properties["PageName"] = "Video List";
+                _logger.Error(sw.ElapsedMilliseconds);
+            }
+            return renderedHtml;
+        }
+
+        public IHtmlString GetVideoBySubCategoryListDetails(PwaVideosBySubcategory reducer, string url, string containerId, string componentName)
+        {
+
+            Stopwatch sw = null;
+            if (_logPWAStats)
+                sw = Stopwatch.StartNew();
+
+            IHtmlString renderedHtml = null;
+            try
+            {
+                renderedHtml = React(componentName, new
+                {
+                    Url = url,
+                    VideosByCategory = reducer
+
+                }, containerId: containerId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+            }
+
+            if (_logPWAStats)
+            {
+                sw.Stop();
+                ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                ThreadContext.Properties["PageName"] = "Video Subcategory List";
+                _logger.Error(sw.ElapsedMilliseconds);
+            }
+            return renderedHtml;
+        }
+
+        public IHtmlString GetVideoDetails(PwaVideoDetailReducer reducer, string url, string containerId, string componentName)
+        {
+
+            Stopwatch sw = null;
+            if (_logPWAStats)
+                sw = Stopwatch.StartNew();
+
+            IHtmlString renderedHtml = null;
+            try
+            {
+                renderedHtml = React(componentName, new
+                {
+                    Url = url,
+                    ModelInfo = reducer.ModelInfo,
+                    RelatedInfo = reducer.RelatedInfo,
+                    VideoInfo = reducer.VideoInfo
+
+                }, containerId: containerId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+            }
+
+            if (_logPWAStats)
+            {
+                sw.Stop();
+                ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                ThreadContext.Properties["PageName"] = "GetVideoDetails";
+                _logger.Error(sw.ElapsedMilliseconds);
+            }
+            return renderedHtml;
+        }
     }
 }

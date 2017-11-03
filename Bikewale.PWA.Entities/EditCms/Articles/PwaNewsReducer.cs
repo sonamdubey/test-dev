@@ -2,17 +2,6 @@
 
 namespace Bikewale.Entities.PWA.Articles
 {
-    public class PwaReduxStore
-    {
-        public PwaNewsReducer NewsReducer { get; private set; }
-
-        public PwaReduxStore()
-        {
-            NewsReducer = new PwaNewsReducer();
-        }
-
-    }
-
     public class PwaNewsReducer
     {
         public PwaNewsArticleListReducer NewsArticleListReducer { get; private set; }

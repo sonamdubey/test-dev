@@ -1,13 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PWA.Articles
 {
     [Serializable, DataContract]
-    public class PwaBikeNews:PwaBikeCms
+    public class PwaCMSDetails
     {
         [DataMember]
-        public List<PwaBikeDetails> BikesList { get; set; }
+        public CmsType Type { get; set; }        
+    }
+
+    public enum CmsType
+    {
+        News=0,
+        Videos=1,
     }
 }

@@ -27,6 +27,8 @@ namespace Bikewale.Entities.PWA.Articles
         public List<PwaBikeInfoExtraDetails> MoreDetailsList { get; set; }
         [DataMember]
         public PwaBikeInfoUsedBikeDetails UsedBikesLink { get; set; }
+        [DataMember]
+        public PwaBikeRating Rating { get; set; }
     }
 
     [Serializable, DataContract]
@@ -51,5 +53,18 @@ namespace Bikewale.Entities.PWA.Articles
         public string Price { get; set; }
         [DataMember]
         public string UsedBikesLinkUrl { get; set; }
+    }
+
+    [Serializable, DataContract]
+    public class PwaBikeRating
+    {
+        [DataMember]
+        public UInt16 ReviewCount { get; set; }
+        [DataMember]
+        public float Rating { get; set; }
+        [DataMember]
+        public UInt16 Count { get; set; }
+        [DataMember]
+        public string ReviewUrl { get; set; }
     }
 }

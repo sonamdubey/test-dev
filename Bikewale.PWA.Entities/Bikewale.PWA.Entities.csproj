@@ -94,6 +94,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -108,10 +112,22 @@
   <ItemGroup>
     <Compile Include="EditCms\Articles\PwaArticleDetails.cs" />
     <Compile Include="EditCms\Articles\PwaArticleBase.cs" />
-    <Compile Include="EditCms\Articles\PwaArticleListData.cs" />
+    <Compile Include="EditCms\Articles\PwaNewsReducer.cs" />
+    <Compile Include="EditCms\Articles\PwaBikeCms.cs" />
     <Compile Include="EditCms\Articles\PwaBikeDetails.cs" />
     <Compile Include="EditCms\Articles\PwaBikeInfo.cs" />
+    <Compile Include="EditCms\Articles\PwaBikeMakeEntityBase.cs" />
     <Compile Include="EditCms\Articles\PwaBikeNews.cs" />
+    <Compile Include="EditCms\Articles\PwaBikeVideoDetails.cs" />
+    <Compile Include="EditCms\Articles\PwaBikeVideoEntity.cs" />
+    <Compile Include="EditCms\Articles\PwaBikeVideos.cs" />
+    <Compile Include="EditCms\Articles\PwaBrandsInfo.cs" />
+    <Compile Include="EditCms\Articles\PwaReduxStore.cs" />
+    <Compile Include="EditCms\Articles\PwaVideosBySubcategory.cs" />
+    <Compile Include="EditCms\Articles\PwaVideosLandingPage.cs" />
+    <Compile Include="EditCms\Articles\PwaAllVideos.cs" />
+    <Compile Include="EditCms\Articles\PwaAllVideosWrapper.cs" />
+    <Compile Include="EditCms\Articles\PwaVideosReducer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EditCms\Articles\PwaArticleSummary.cs" />
     <Compile Include="EditCms\Articles\PwaContentBase.cs" />
@@ -121,6 +137,9 @@
       <Project>{8223A4B8-DB14-4658-9897-257D872AE8D9}</Project>
       <Name>Bikewale.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EditCms\Articles\PwaVideoDetailReducer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
