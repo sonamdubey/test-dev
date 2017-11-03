@@ -130,7 +130,7 @@
                                             <p class="font12 text-black">@bike.Make</p>
                                             <p class="font14 text-bold text-black margin-bottom5 text-truncate">@bike.Model</p>
                                         </a>
-                                        @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl))
+                                        @if (((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl)) && bike.IsNew)
                                         {
                                             <a href="javascript:void(0)" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" class="btn btn-white btn-160-32 getquotation">Check on-road price</a>
                                         }
