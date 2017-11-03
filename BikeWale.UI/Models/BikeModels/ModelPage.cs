@@ -807,7 +807,7 @@ namespace Bikewale.Models.BikeModels
         /// Created By:- Subodh Jain 23 March 2017
         /// Summary:- Binding data for upcoming bike widget
         /// Modified by : Ashutosh Sharma on 03 Nov 2017
-        /// Description : Added filters for bodystyle and deviated price.
+        /// Description : Removed filters and and added conditions for bodystyle and deviated price.
         /// </summary>
         /// <returns></returns>
         private UpcomingBikesWidgetVM BindUpCompingBikesWidget()
@@ -818,20 +818,29 @@ namespace Bikewale.Models.BikeModels
                 UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
                 ulong avgExpectedPrice = _objData.ModelPageEntity != null && _objData.ModelPageEntity.UpcomingBike != null ? (_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMin + _objData.ModelPageEntity.UpcomingBike.EstimatedPriceMax) / 2 : 0;
                 byte percentDeviation = 15;
-                objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
-                {
-                    PageSize = 10,
-                    PageNo = 1,
-                    BodyStyleId = (uint)_objData.BodyStyle,
-                    DeviatedPriceMin = avgExpectedPrice - (avgExpectedPrice * percentDeviation) / 100,
-                    DeviatedPriceMax = avgExpectedPrice + (avgExpectedPrice * percentDeviation) / 100
-                };
+                ulong deviatedPriceMin = avgExpectedPrice - (avgExpectedPrice * percentDeviation) / 100;
+                ulong deviatedPriceMax = avgExpectedPrice + (avgExpectedPrice * percentDeviation) / 100;
+             
+
                 objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
                 objUpcomingBikes = objUpcoming.GetData();
+                
                 if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
+                {
+                    if (objUpcomingBikes.UpcomingBikes.Count(m => m.BodyStyleId == (uint)_objData.BodyStyle && (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 >= deviatedPriceMin && (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 <= deviatedPriceMax) >= 9)
+                    {
+                        objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(m => m.BodyStyleId == (uint)_objData.BodyStyle);
+                        objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(m => (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 >= deviatedPriceMin && (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 <= deviatedPriceMax);
+                    }
+                    else
+                    {
+                        objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(m => (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 >= deviatedPriceMin && (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 <= deviatedPriceMax);
+                    }
                     objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(x => x.ModelBase.ModelId != _modelId);
-                if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
                     objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Take(9);
+                }
+                    
+                    
             }
             catch (Exception ex)
             {

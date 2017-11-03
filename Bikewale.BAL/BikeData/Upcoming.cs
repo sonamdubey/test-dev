@@ -90,10 +90,6 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                 {
                     filterExpression = filterExpression.And(m => m.ExpectedLaunchedDate.Year == filters.Year);
                 }
-                if (filters.DeviatedPriceMin > 0 && filters.DeviatedPriceMax > 0)
-                {
-                    filterExpression = filterExpression.And(m => (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 >= filters.DeviatedPriceMin && (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 <= filters.DeviatedPriceMax);
-                }
             }
             return filterExpression.Compile();
         }
@@ -241,19 +237,13 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                 if (objUpcomingList != null && objUpcomingList.Any())
                 {
                     objUpcomingList = objUpcomingList.Sort(ProcessOrderBy(sortBy, out isAsc), isAsc);
-                    objUpcomingList = objUpcomingList.Where(ProcessInputFilter(inputParams));
-                    //if (objUpcomingList.Count() >= 9)
-                    //{
-                        objUpcomingList = objUpcomingList.Where(m => m.BodyStyleId == inputParams.BodyStyleId);
-                    //}
-
-                    if (objUpcomingList != null && objUpcomingList.Any())
+                    if (inputParams != null)
                     {
+                        objUpcomingList = objUpcomingList.Where(ProcessInputFilter(inputParams));
                         objUpcomingList = objUpcomingList.Page(inputParams.PageNo, inputParams.PageSize);
                     }
-
+                    
                 }
-
             }
             catch (Exception ex)
             {
