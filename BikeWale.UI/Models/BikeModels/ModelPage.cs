@@ -567,6 +567,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Get emi details for avg ex-showroom price when bike price is zero.
         /// Modified by : Vivek Singh Tomar on 12th Oct 2017 
         /// Summary : Removed initialisation of service centers
+        /// Modified by : Ashutosh Sharma on 03 Nov 2017
+        /// Description : Changed order of bind upcoming bikes wiget to get bodystyle.
         /// </summary>
         private void BindControls()
         {
@@ -642,12 +644,7 @@ namespace Bikewale.Models.BikeModels
                             }
                         }
                     }
-
-                    if (_objData.IsUpcomingBike)
-                    {
-                        _objData.objUpcomingBikes = BindUpCompingBikesWidget();
-                    }
-
+                    
                     // Set body style
                     if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Count > 0)
                     {
@@ -658,6 +655,10 @@ namespace Bikewale.Models.BikeModels
                             _objData.BodyStyleText = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                             _objData.BodyStyleTextSingular = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
                         }
+                    }
+                    if (_objData.IsUpcomingBike)
+                    {
+                        _objData.objUpcomingBikes = BindUpCompingBikesWidget();
                     }
                     BindSimilarBikes(_objData);
                     BindModelsBySeriesId(_objData);
@@ -805,6 +806,8 @@ namespace Bikewale.Models.BikeModels
         /// <summary>
         /// Created By:- Subodh Jain 23 March 2017
         /// Summary:- Binding data for upcoming bike widget
+        /// Modified by : Ashutosh Sharma on 03 Nov 2017
+        /// Description : Added filters for bodystyle and deviated price.
         /// </summary>
         /// <returns></returns>
         private UpcomingBikesWidgetVM BindUpCompingBikesWidget()
@@ -813,11 +816,15 @@ namespace Bikewale.Models.BikeModels
             try
             {
                 UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
-
+                ulong avgExpectedPrice = _objData.ModelPageEntity != null && _objData.ModelPageEntity.UpcomingBike != null ? (_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMin + _objData.ModelPageEntity.UpcomingBike.EstimatedPriceMax) / 2 : 0;
+                byte percentDeviation = 15;
                 objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
                 {
                     PageSize = 10,
                     PageNo = 1,
+                    BodyStyleId = (uint)_objData.BodyStyle,
+                    DeviatedPriceMin = avgExpectedPrice - (avgExpectedPrice * percentDeviation) / 100,
+                    DeviatedPriceMax = avgExpectedPrice + (avgExpectedPrice * percentDeviation) / 100
                 };
                 objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
                 objUpcomingBikes = objUpcoming.GetData();

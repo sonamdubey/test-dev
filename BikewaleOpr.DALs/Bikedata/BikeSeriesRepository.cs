@@ -1,12 +1,12 @@
 ﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
+using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Dapper;
-using BikewaleOpr.Entities.BikeData;
 
 namespace BikewaleOpr.DALs.Bikedata
 {
@@ -50,8 +50,6 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <summary>
         /// Created by : Vivek Singh Tomar on 12th Sep 2017
         /// Summary : Add new bike series
-        /// Modified by : Ashutosh Sharma on 23 Oct 2017
-        /// Description : Replaced sp from 'addbikeseries' to 'addbikeseries_23102017'.
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <param name="UpdatedBy"></param>
@@ -64,7 +62,7 @@ namespace BikewaleOpr.DALs.Bikedata
                 {
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_name", bikeSeries.SeriesName);
-                    param.Add("par_maskingname", bikeSeries.SeriesMaskingName);
+                    param.Add("par_msakingname", bikeSeries.SeriesMaskingName);
                     param.Add("par_makeid", bikeSeries.BikeMake.MakeId);
                     param.Add("par_isseriespageurl", bikeSeries.IsSeriesPageUrl);
                     param.Add("par_userid", updatedBy);
@@ -72,7 +70,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_seriesid", dbType: DbType.UInt32, direction: ParameterDirection.Output);
                     param.Add("par_createdon", dbType: DbType.Date, direction: ParameterDirection.Output);
                     connection.Open();
-                    connection.Execute("addbikeseries_23102017", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("addbikeseries", param: param, commandType: CommandType.StoredProcedure);
                     bikeSeries.SeriesId = param.Get<uint>("par_seriesid");
                     if(bikeSeries.SeriesId != 0)
                     {

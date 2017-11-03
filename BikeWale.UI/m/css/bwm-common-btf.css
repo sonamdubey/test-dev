@@ -250,8 +250,16 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
     margin-right: -4px;
 }
 
+.swiper-heading-left-grid-50 {
+    width: 50%;
+    margin-right: -4px;
+}
+
 .swiper-heading-right-grid {
     width: 23%;
+}
+.swiper-heading-right-grid-50 {
+    width: 50%;
 }
 
 .content-details-wrapper .carousel-heading-content h2 {
