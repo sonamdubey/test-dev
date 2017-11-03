@@ -3,9 +3,9 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Models;
 using System.Web.Mvc;
-using Bikewale.Interfaces.EditCMS;
 
 namespace Bikewale.Controllers
 {
