@@ -37,7 +37,7 @@ namespace BikewaleOpr.Service.Controllers
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.SaveBannerBasicDetails");
+                ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.SaveBannerBasicDetails");
 
                 return InternalServerError();
             }
@@ -57,7 +57,7 @@ namespace BikewaleOpr.Service.Controllers
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.StopBanner");
+                ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.StopBanner");
                 return InternalServerError();
             }           
         }
@@ -81,7 +81,7 @@ namespace BikewaleOpr.Service.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.SaveBanner");
+                    ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.SaveBanner");
 
                     return InternalServerError();
                 }

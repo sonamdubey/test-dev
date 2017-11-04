@@ -31,8 +31,8 @@ namespace Bikewale.Memcache
             }
             catch (Exception ex)
             {
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return cityId;
         }

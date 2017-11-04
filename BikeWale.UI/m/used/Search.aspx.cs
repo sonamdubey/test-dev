@@ -123,7 +123,7 @@ namespace Bikewale.Mobile.Used
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.Used.Search.BindWigets");
+                ErrorClass.LogError(ex, "Bikewale.Mobile.Used.Search.BindWigets");
             }
 
         }

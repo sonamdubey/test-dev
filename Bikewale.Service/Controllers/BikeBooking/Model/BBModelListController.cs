@@ -1,17 +1,12 @@
-﻿using AutoMapper;
-using Bikewale.DAL.BikeBooking;
-using Bikewale.DTO.BikeBooking.Model;
+﻿using Bikewale.DTO.BikeBooking.Model;
 using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Bikebooking.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.Interfaces.BikeData;
 
 namespace Bikewale.Service.Controllers.BikeBooking.Model
 {
@@ -60,8 +55,8 @@ namespace Bikewale.Service.Controllers.BikeBooking.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BikeBooking.Model.BBModelListController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.BikeBooking.Model.BBModelListController.Get");
+               
                 return InternalServerError();
             }
         }

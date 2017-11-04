@@ -1,7 +1,6 @@
 ﻿
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
-using Bikewale.Models.ServiceCenters;
 using System.Collections.Generic;
 namespace Bikewale.Models
 {

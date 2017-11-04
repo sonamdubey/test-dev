@@ -79,8 +79,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_BindPopularCompareBikes_{1}_Cnt_{2}", HttpContext.Current.Request.ServerVariables["URL"], versionList, count));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("{0}_BindPopularCompareBikes_{1}_Cnt_{2}", HttpContext.Current.Request.ServerVariables["URL"], versionList, count));
+                
             }
 
             return objSimilarBikes;

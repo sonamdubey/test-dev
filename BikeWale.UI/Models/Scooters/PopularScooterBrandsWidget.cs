@@ -42,7 +42,7 @@ namespace Bikewale.Models.Scooters
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "PopularScooterWidget.GetData()");
+                ErrorClass.LogError(ex, "PopularScooterWidget.GetData()");
             }
             return bikeList;
         }

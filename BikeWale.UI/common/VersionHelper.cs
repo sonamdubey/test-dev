@@ -33,8 +33,8 @@ namespace Bikewale.common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("VersionHelper.GetVersionDetailsById() : VersionId:-{0} ", versionId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("VersionHelper.GetVersionDetailsById() : VersionId:-{0} ", versionId));
+                
             }
             return bikeVersionEntity;
         }

@@ -1,17 +1,13 @@
-﻿using Bikewale.Interfaces.BikeData;
-using BikewaleOpr.Entities;
+﻿using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ServiceCenter;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ServiceCenter;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.BAL.ServiceCenter
 {
-       /// <summary>		
+    /// <summary>		
     /// Created By:-Snehal Dange 28 July 2017		
     /// Summary:- For service center related operations		
     /// </summary>		

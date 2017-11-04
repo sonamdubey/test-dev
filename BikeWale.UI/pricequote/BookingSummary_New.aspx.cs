@@ -105,7 +105,7 @@ namespace Bikewale.BikeBooking
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             finally
             {
@@ -145,7 +145,7 @@ namespace Bikewale.BikeBooking
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
 
         }
@@ -273,7 +273,7 @@ namespace Bikewale.BikeBooking
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
         }
         #endregion
@@ -418,7 +418,6 @@ namespace Bikewale.BikeBooking
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass err = new Bikewale.Notifications.ErrorClass(ex, "BookingSummary_New.BeginTransaction : " + PriceQuoteQueryString.QueryString + " " + Newtonsoft.Json.JsonConvert.SerializeObject(transaction));
-                err.SendMail();
             }
         }
         #endregion
@@ -468,7 +467,6 @@ namespace Bikewale.BikeBooking
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass err = new Bikewale.Notifications.ErrorClass(ex, "BookingSummary_New.ProcessCookie : " + Request.Url.PathAndQuery);
-                err.SendMail();
             }
         }
         #endregion

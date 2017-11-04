@@ -1,9 +1,6 @@
 ﻿using BikewaleOpr.Entity.ConfigurePageMetas;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Notifications.MailTemplates
 {
@@ -56,7 +53,7 @@ namespace Bikewale.Notifications.MailTemplates
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Notification.PageMetasChangeTemplate.PageMetasChangeTemplate");
+                ErrorClass.LogError(ex, "Bikewale.Notification.PageMetasChangeTemplate.PageMetasChangeTemplate");
             }
 
         }

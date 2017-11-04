@@ -43,7 +43,7 @@ namespace BikewaleOpr.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("NewBikeDealerEMIController.Index_{0}", dealerId));
+                ErrorClass.LogError(ex, string.Format("NewBikeDealerEMIController.Index_{0}", dealerId));
             }
             return View(dealerEmiPageInfo);
         }

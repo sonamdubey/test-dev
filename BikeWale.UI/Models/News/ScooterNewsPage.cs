@@ -138,7 +138,7 @@ namespace Bikewale.Models.News
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.Models.News.ProcessMakeMaskingName Request:{0} Make:{1}", request, make));
+                ErrorClass.LogError(err, string.Format("Bikewale.Models.News.ProcessMakeMaskingName Request:{0} Make:{1}", request, make));
             }
         }
 

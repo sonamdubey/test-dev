@@ -45,7 +45,7 @@ namespace Bikewale.Controls
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Controls.BindVideoDetails modelid: {0}", ModelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Controls.BindVideoDetails modelid: {0}", ModelId));
             }
         }
     }

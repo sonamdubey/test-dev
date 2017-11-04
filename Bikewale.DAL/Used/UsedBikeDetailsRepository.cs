@@ -146,7 +146,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_GetProfileDetails_InquiryId :  {1}", HttpContext.Current.Request.ServerVariables["URL"], inquiryId));
+                ErrorClass.LogError(ex, string.Format("{0}_GetProfileDetails_InquiryId :  {1}", HttpContext.Current.Request.ServerVariables["URL"], inquiryId));
             }
 
             return _objInquiryDetails;
@@ -204,7 +204,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_GetSimilarBikes_InquiryId_{1}_ModelId_{2}_CityId_{3}", HttpContext.Current.Request.ServerVariables["URL"], inquiryId, modelId, cityId));
+                ErrorClass.LogError(ex, string.Format("{0}_GetSimilarBikes_InquiryId_{1}_ModelId_{2}_CityId_{3}", HttpContext.Current.Request.ServerVariables["URL"], inquiryId, modelId, cityId));
             }
 
             return similarBikeDetails;
@@ -265,7 +265,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_GetOtherBikesByCityId_InquiryId_{1}_CityId_{2}", HttpContext.Current.Request.ServerVariables["URL"], inquiryId, cityId));
+                ErrorClass.LogError(ex, string.Format("{0}_GetOtherBikesByCityId_InquiryId_{1}_CityId_{2}", HttpContext.Current.Request.ServerVariables["URL"], inquiryId, cityId));
             }
             return similarBikeDetails;
         }
@@ -322,7 +322,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetRecentUsedBikesInIndia");
+                ErrorClass.LogError(ex, "GetRecentUsedBikesInIndia");
             }
             return recentBikes;
         }
@@ -360,7 +360,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in DAL function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}", profileId, customerId));
+                ErrorClass.LogError(ex, string.Format("Exception in DAL function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}", profileId, customerId));
             }
             return objInquiryDetails;
         }
@@ -404,7 +404,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("GetBikePhotos({0},{1})", inquiryId, isApproved));
+                ErrorClass.LogError(ex, string.Format("GetBikePhotos({0},{1})", inquiryId, isApproved));
             }
             return photos;
         }
@@ -465,7 +465,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesRepository.GetUsedBikeByModelCountInCity_makeId:{0}_cityid:{1}", makeid, cityid));
+                ErrorClass.LogError(ex, string.Format("UsedBikesRepository.GetUsedBikeByModelCountInCity_makeId:{0}_cityid:{1}", makeid, cityid));
             }
             return objUsedBikesList;
         }//end of GetUsedBikeByModelCountInCity
@@ -519,7 +519,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesRepository.GetPopularUsedModelsByMake: Make:{0}", makeid));
+                ErrorClass.LogError(ex, string.Format("UsedBikesRepository.GetPopularUsedModelsByMake: Make:{0}", makeid));
             }
             return objUsedBikesList;
         }//end of GetUsedBikeByModelCountInCity
@@ -576,7 +576,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesRepository.GetUsedBikeCountInCity:_cityid:{0}", cityid));
+                ErrorClass.LogError(ex, string.Format("UsedBikesRepository.GetUsedBikeCountInCity:_cityid:{0}", cityid));
             }
             return objUsedBikesList;
         }
@@ -628,7 +628,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesRepository.GetUsedBike:topcount:{0}", topcount));
+                ErrorClass.LogError(ex, string.Format("UsedBikesRepository.GetUsedBike:topcount:{0}", topcount));
             }
             return objUsedBikesList;
         }
@@ -670,7 +670,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikeDetailsRepository.GetUsedBikeInCityCountByMake({0} {1})", makeId, topCount));
+                ErrorClass.LogError(ex, string.Format("UsedBikeDetailsRepository.GetUsedBikeInCityCountByMake({0} {1})", makeId, topCount));
             }
             return bikesCountList;
         }
@@ -713,7 +713,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikeDetailsRepository.GetUsedBikeInCityCountByModel({0}, {1})", modelId, topCount));
+                ErrorClass.LogError(ex, string.Format("UsedBikeDetailsRepository.GetUsedBikeInCityCountByModel({0}, {1})", modelId, topCount));
             }
             return bikesCountList;
         }//end of GetUsedBikeCountInCity

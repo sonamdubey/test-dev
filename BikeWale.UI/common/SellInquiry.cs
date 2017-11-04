@@ -140,16 +140,16 @@ namespace Bikewale.Common
             {
                 _status = "Sell Inquiry sql err : " + err.Message;
                 HttpContext.Current.Trace.Warn("Sell Inquiry Control : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 throw;
             } // catch Exception
             catch (Exception err)
             {
                 _status = "Sell Inquiry err : " + err.Message;
                 HttpContext.Current.Trace.Warn("Sell Inquiry Control : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 throw;
             } // catch Exception
 
@@ -520,8 +520,8 @@ namespace Bikewale.Common
 
         public string GetAveragePrice(string monthMake, string yearMake, string bikeVersionId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SellInquiry.GetAveragePrice");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "SellInquiry.GetAveragePrice");
+            
             return null;
 
 
@@ -565,8 +565,8 @@ namespace Bikewale.Common
             //catch( Exception err )
             //{
             //    HttpContext.Current.Trace.Warn( "Sell Inquiry Average Price : " + err.Message );	
-            //    ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //finally
             //{
@@ -621,8 +621,8 @@ namespace Bikewale.Common
             bikeName = "";
             versionId = "";
 
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SellInquiry.GetSellInquiryDetails");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "SellInquiry.GetSellInquiryDetails");
+            
 
             //string sql = "";
             //SqlDataReader dr = null;
@@ -650,8 +650,8 @@ namespace Bikewale.Common
             //catch (Exception err)
             //{
             //    HttpContext.Current.Trace.Warn(err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, "SellInquiryDetails.GetSellInquiryDetails()");
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, "SellInquiryDetails.GetSellInquiryDetails()");
+            //    
             //}
             //finally
             //{
@@ -702,14 +702,14 @@ namespace Bikewale.Common
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return dt;
         }

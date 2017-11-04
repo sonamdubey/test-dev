@@ -1,6 +1,5 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.DTO.BikeData;
-using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Service.AutoMappers.BikeData;
@@ -44,7 +43,7 @@ namespace BikewaleOpr.Service.Controllers.Content
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Service.Controllers.SeriesController: Add");
+                    ErrorClass.LogError(ex, "BikewalwOpr.Service.Controllers.SeriesController: Add");
                 }
                 return Ok(objBikeSeriesDTO);
             }
@@ -80,7 +79,7 @@ namespace BikewaleOpr.Service.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("SeriesController.Edit_{0}_{1}_{2}", seriesId, seriesName, seriesMaskingName, updatedBy));
+                ErrorClass.LogError(ex, string.Format("SeriesController.Edit_{0}_{1}_{2}", seriesId, seriesName, seriesMaskingName, updatedBy));
                 return InternalServerError();
             }
         }
@@ -118,7 +117,7 @@ namespace BikewaleOpr.Service.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("SeriesController.Delete_{0}", seriesId));
+                ErrorClass.LogError(ex, string.Format("SeriesController.Delete_{0}", seriesId));
                 return InternalServerError();
             }
         }
@@ -157,7 +156,7 @@ namespace BikewaleOpr.Service.Controllers.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("SeriesController.Delete_{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("SeriesController.Delete_{0}", modelId));
                 return InternalServerError();
             }
         }

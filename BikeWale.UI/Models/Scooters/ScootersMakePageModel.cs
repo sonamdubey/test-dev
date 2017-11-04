@@ -201,7 +201,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersMakePageModel.BindDealersServiceCenters()");
+                ErrorClass.LogError(ex, "ScootersMakePageModel.BindDealersServiceCenters()");
             }
 
         }
@@ -223,7 +223,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersMakePageModel.BindPageMetaTags()");
+                ErrorClass.LogError(ex, "ScootersMakePageModel.BindPageMetaTags()");
             }
         }
 

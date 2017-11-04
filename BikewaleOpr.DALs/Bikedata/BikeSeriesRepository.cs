@@ -1,12 +1,12 @@
 ﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
+using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Dapper;
-using BikewaleOpr.Entities.BikeData;
 
 namespace BikewaleOpr.DALs.Bikedata
 {
@@ -42,7 +42,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BikeSeriesRepository: GetSeries");
+                ErrorClass.LogError(ex, "BikewaleOpr.BikeSeriesRepository: GetSeries");
             }
             return objBikeSeries;
         }
@@ -86,7 +86,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: AddSeries_{0}_{1}", bikeSeries, updatedBy));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: AddSeries_{0}_{1}", bikeSeries, updatedBy));
             }
         }
 
@@ -115,7 +115,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: GetSeriesByMake_{0}", makeId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: GetSeriesByMake_{0}", makeId));
             }
             return objBikeSeriesList;
         }
@@ -158,7 +158,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: EditSeries_{0}_{1}", bikeSeries, updatedBy));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: EditSeries_{0}_{1}", bikeSeries, updatedBy));
             }
             return rowsAffected > 0;
         }
@@ -194,7 +194,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: DeleteSeries_{0}_{1}", bikeSeriesId, deletedBy));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: DeleteSeries_{0}_{1}", bikeSeriesId, deletedBy));
             }
             return rowsAffected > 0;
         }
@@ -234,7 +234,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: DeleteMappingOfModelSeries{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: DeleteMappingOfModelSeries{0}", modelId));
             }
             return seriesId;
         }

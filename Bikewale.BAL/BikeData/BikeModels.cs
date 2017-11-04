@@ -259,7 +259,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPageDetails");
+                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.GetModelPageDetails");
             }
 
             return objModelPage;
@@ -285,7 +285,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetModelPageDetails() => modelid {0}, versionId: {1}", modelId, versionId));
+                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetModelPageDetails() => modelid {0}, versionId: {1}", modelId, versionId));
             }
 
             return objModelPage;
@@ -354,7 +354,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPhotoGalleryWithMainImage");
+                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.GetModelPhotoGalleryWithMainImage");
             }
             return modelImages;
         }
@@ -443,7 +443,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetRecentModelArticles({0})", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetRecentModelArticles({0})", modelId));
             }
 
             return objModelArticles;
@@ -494,7 +494,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetRecentModelArticles({0})", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetRecentModelArticles({0})", modelId));
             }
 
             return objModelArticles;
@@ -563,7 +563,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetPhotoGalleryData : modelId{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetPhotoGalleryData : modelId{0}", modelId));
             }
             return objModelPhotoGalleryData;
         }
@@ -640,7 +640,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.CreateAllPhotoList() : ModelId => {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.CreateAllPhotoList() : ModelId => {0}", modelId));
             }
             return allPhotos;
         }
@@ -733,7 +733,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.CreateAllPhotoList() : ModelId => {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.CreateAllPhotoList() : ModelId => {0}", modelId));
             }
         }
 
@@ -803,7 +803,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.CreateAllBikePhotosList() : ModelId => {0}", (modelDetails != null ? modelDetails.ModelId : 0)));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.CreateAllBikePhotosList() : ModelId => {0}", (modelDetails != null ? modelDetails.ModelId : 0)));
             }
 
             return allPhotos;
@@ -822,7 +822,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.Getmodelcolorphotos ==> ModelId: {0}", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.Getmodelcolorphotos ==> ModelId: {0}", modelId));
             }
             return objColorImages;
         }
@@ -841,7 +841,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModels.GetMostPopularScooters() => topCount {0}, cityId: {1}", topCount, cityId));
+                ErrorClass.LogError(ex, string.Format("BikeModels.GetMostPopularScooters() => topCount {0}, cityId: {1}", topCount, cityId));
             }
             return popularScooters;
         }
@@ -886,7 +886,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetMostPopularBikes({0},{1},{2},{3})", requestType, topCount, makeId, cityId));
+                ErrorClass.LogError(ex, String.Format("GetMostPopularBikes({0},{1},{2},{3})", requestType, topCount, makeId, cityId));
             }
             return bikes;
         }

@@ -1,5 +1,4 @@
-﻿using BikewaleOpr.Entities;
-using System;
+﻿using System;
 using System.Runtime.Serialization;
 
 namespace BikewaleOpr.Entities.BikeData

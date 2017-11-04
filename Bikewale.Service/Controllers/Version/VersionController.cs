@@ -68,8 +68,8 @@ namespace Bikewale.Service.Controllers.Version
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Version.VersionController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Version.VersionController");
+               
                 return InternalServerError();
             }
 
@@ -112,8 +112,8 @@ namespace Bikewale.Service.Controllers.Version
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Version.VersionController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Version.VersionController");
+               
                 return InternalServerError();
             }
 
@@ -148,8 +148,8 @@ namespace Bikewale.Service.Controllers.Version
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Version.VersionController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Version.VersionController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -180,8 +180,8 @@ namespace Bikewale.Service.Controllers.Version
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Service.Version.VersionController.GetVersionColor(VersionId={0}", versionId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Version.VersionController.GetVersionColor(VersionId={0}", versionId));
+               
                 return InternalServerError();
             }
             return NotFound();

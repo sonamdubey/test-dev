@@ -68,7 +68,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesListing.ProcessQueryString");
+                ErrorClass.LogError(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesListing.ProcessQueryString");
             }
         }
 
@@ -103,7 +103,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesListing.GetFeaturesList");
+                ErrorClass.LogError(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesListing.GetFeaturesList");
             }
         }
 

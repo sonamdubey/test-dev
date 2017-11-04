@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
-using FreeTextBoxControls;
+﻿using BikewaleOpr.common;
 using BikeWaleOpr.Common;
-using BikewaleOpr.common;
+using FreeTextBoxControls;
+using System;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.content
 {
@@ -15,7 +10,7 @@ namespace BikeWaleOpr.content
     /// Created : Ashwini Todkar on 20 Feb 2014
     /// Summary : Class to add make synopsis
     /// </summary>
-   
+
     public class MakeSynopsis : System.Web.UI.Page
     {
         protected string makeId = String.Empty, make = string.Empty;

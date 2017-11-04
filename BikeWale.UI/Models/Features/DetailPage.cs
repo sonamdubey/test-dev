@@ -74,7 +74,7 @@ namespace Bikewale.Models.Features
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.Features.DetailPage.GetData");
+                ErrorClass.LogError(err, "Bikewale.Models.Features.DetailPage.GetData");
             }
             return objDetailsVM;
         }
@@ -177,7 +177,7 @@ namespace Bikewale.Models.Features
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.GetWidgetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.Features.DetailPage.GetWidgetData");
             }
         }
         /// <summary>
@@ -201,7 +201,7 @@ namespace Bikewale.Models.Features
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.BindPageMetas");
+                ErrorClass.LogError(ex, "Bikewale.Models.Features.DetailPage.BindPageMetas");
             }
         }
 
@@ -265,7 +265,7 @@ namespace Bikewale.Models.Features
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.Features.DetailPage.GetTaggedBikeListByMake");
+                ErrorClass.LogError(err, "Bikewale.Models.Features.DetailPage.GetTaggedBikeListByMake");
 
             }
         }
@@ -285,7 +285,7 @@ namespace Bikewale.Models.Features
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.PopulatePhotoGallery");
+                ErrorClass.LogError(ex, "Bikewale.Models.Features.DetailPage.PopulatePhotoGallery");
             }
         }
 
@@ -317,7 +317,7 @@ namespace Bikewale.Models.Features
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.GetTaggedBikeListByModel");
+                ErrorClass.LogError(ex, "Bikewale.Models.Features.DetailPage.GetTaggedBikeListByModel");
             }
         }
 
@@ -345,7 +345,7 @@ namespace Bikewale.Models.Features
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.ProcessQueryString");
+                ErrorClass.LogError(ex, "Bikewale.Models.Features.DetailPage.ProcessQueryString");
             }
         }
         #endregion

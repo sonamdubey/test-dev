@@ -260,7 +260,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Bikewale.News.NewsListing.BindLinkPager");
-                objErr.SendMail();
+                
             }
         }
 
@@ -335,7 +335,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Desktop.News.Default.GetContentCategory");
-                objErr.SendMail();
+                
             }
             return _category;
         }

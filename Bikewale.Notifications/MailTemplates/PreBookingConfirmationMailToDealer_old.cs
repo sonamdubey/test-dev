@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.BikeBooking;
-using System.Web;
+﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Bikewale.Notifications.MailTemplates
 {
@@ -144,7 +141,6 @@ namespace Bikewale.Notifications.MailTemplates
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Notification.PreBookingConfirmationMailToDealer.ComposeBody");
-                objErr.SendMail();
             }
             return sb.ToString();
         }

@@ -4,10 +4,10 @@ using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Make;
 using Bikewale.Service.Utilities;
 using System;
+using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Results;
-using System.Linq;
 namespace Bikewale.Service.Controllers
 {
     /// <summary>
@@ -56,7 +56,7 @@ namespace Bikewale.Service.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controller.SplashScreenController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controller.SplashScreenController");
                 return InternalServerError();
             }
         }

@@ -67,7 +67,7 @@ namespace Bikewale.BAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.UserReviews.UserReviews.GetUserReviewQuestions(inputParams) ");
+                ErrorClass.LogError(ex, "Bikewale.BAL.UserReviews.UserReviews.GetUserReviewQuestions(inputParams) ");
             }
 
             return objQuestions;
@@ -96,7 +96,7 @@ namespace Bikewale.BAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.UserReviews.UserReviews.GetUserReviewQuestions(inputParams,objUserReviewQuestions)");
+                ErrorClass.LogError(ex, "Bikewale.BAL.UserReviews.UserReviews.GetUserReviewQuestions(inputParams,objUserReviewQuestions)");
             }
             return objQuestions;
         }
@@ -171,7 +171,7 @@ namespace Bikewale.BAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.UserReviews.SaveUserRatings({0},{1})", objInputRating.ModelId, objInputRating.EmailId));
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.UserReviews.UserReviews.SaveUserRatings({0},{1})", objInputRating.ModelId, objInputRating.EmailId));
             }
             return objRating;
         }
@@ -250,7 +250,7 @@ namespace Bikewale.BAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.UserReviews.UserReviews.GetUserReviewSummary({0})", reviewId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.UserReviews.UserReviews.GetUserReviewSummary({0})", reviewId));
             }
 
             return objSummary;
@@ -290,7 +290,7 @@ namespace Bikewale.BAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("ProcessUserCookie({0})", Newtonsoft.Json.JsonConvert.SerializeObject(customer)));
+                ErrorClass.LogError(ex, String.Format("ProcessUserCookie({0})", Newtonsoft.Json.JsonConvert.SerializeObject(customer)));
             }
             return customer;
         }
@@ -324,7 +324,7 @@ namespace Bikewale.BAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("RegisterBuyer({0})", Newtonsoft.Json.JsonConvert.SerializeObject(customer)));
+                ErrorClass.LogError(ex, String.Format("RegisterBuyer({0})", Newtonsoft.Json.JsonConvert.SerializeObject(customer)));
             }
         }
 
@@ -390,7 +390,7 @@ namespace Bikewale.BAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SaveUserReviews");
+                ErrorClass.LogError(ex, "SaveUserReviews");
             }
             return objResponse;
         }
@@ -428,7 +428,7 @@ namespace Bikewale.BAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("GetUserReviews({0},{1},{2},{3},{4})", startIndex, endIndex, modelId, versionId, filter));
+                ErrorClass.LogError(ex, String.Format("GetUserReviews({0},{1},{2},{3},{4})", startIndex, endIndex, modelId, versionId, filter));
             }
             return filteredReviews;
         }
@@ -557,7 +557,7 @@ namespace Bikewale.BAL.UserReviews
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.GetUserRatings({0})", objUserReviewRatingData.ReviewId));
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.UserReviews.GetUserRatings({0})", objUserReviewRatingData.ReviewId));
             }
 
         }
@@ -588,7 +588,7 @@ namespace Bikewale.BAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.GetRateBikeData({0},{1},{2},{3},{4},{5},{6})", objRateBike.ModelId, objRateBike.ReviewId, objRateBike.CustomerId, objRateBike.SourceId, objRateBike.SelectedRating, objRateBike.ReturnUrl, objRateBike.Contestsrc));
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.UserReviews.GetRateBikeData({0},{1},{2},{3},{4},{5},{6})", objRateBike.ModelId, objRateBike.ReviewId, objRateBike.CustomerId, objRateBike.SourceId, objRateBike.SelectedRating, objRateBike.ReturnUrl, objRateBike.Contestsrc));
             }
             return objUserReviewRatingData;
         }
@@ -617,7 +617,7 @@ namespace Bikewale.BAL.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.GetRatingAppScreenData({0})", priceRangeId));
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.UserReviews.GetRatingAppScreenData({0})", priceRangeId));
             }
             return questions;
         }

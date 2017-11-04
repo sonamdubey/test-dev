@@ -94,7 +94,7 @@ namespace Bikewale.BAL.AppDeepLinking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetParameters()");
+                ErrorClass.LogError(ex, "GetParameters()");
             }
 
             return deepLinking;
@@ -119,7 +119,7 @@ namespace Bikewale.BAL.AppDeepLinking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.AndroidApp.GetModelId");
+                ErrorClass.LogError(ex, "Bikewale.BAL.AndroidApp.GetModelId");
             }
             finally
             {

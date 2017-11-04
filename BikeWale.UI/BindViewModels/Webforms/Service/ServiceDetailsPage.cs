@@ -65,7 +65,7 @@ namespace Bikewale.BindViewModels.Webforms.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("BindServiceCenterData for serviceCenterId : {0} ", serviceCenterId));
-                objErr.SendMail();
+                
             }
             return isDataReturned;
         }
@@ -95,7 +95,7 @@ namespace Bikewale.BindViewModels.Webforms.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceDetailsPage.GetMakeNameByMakeId()");
-                objErr.SendMail();
+                
             }
             return curMakename;
         }
@@ -124,7 +124,7 @@ namespace Bikewale.BindViewModels.Webforms.Service
             {
 
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("ServiceDetailsPage.GetMakeResponse()- MakeMaskingName: {0}", makeMaskingName));
-                objErr.SendMail();
+                
             }
             return response;
         }

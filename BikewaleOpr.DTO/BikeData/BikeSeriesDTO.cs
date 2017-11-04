@@ -1,6 +1,5 @@
 ﻿using BikewaleOpr.DTO.Make;
 using Newtonsoft.Json;
-using System;
 
 namespace BikewaleOpr.DTO.BikeData
 {

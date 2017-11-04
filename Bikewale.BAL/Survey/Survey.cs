@@ -1,11 +1,7 @@
 ﻿using Bikewale.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Bikewale.Models.Survey;
 using Bikewale.Notifications;
+using System;
 
 namespace Bikewale.BAL
 {
@@ -30,7 +26,7 @@ namespace Bikewale.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "Survey.InsertBajajSurveyResponse()");
+                ErrorClass.LogError(ex, "Survey.InsertBajajSurveyResponse()");
             }
         }
     }

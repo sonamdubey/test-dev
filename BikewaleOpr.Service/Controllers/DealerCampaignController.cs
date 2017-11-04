@@ -60,7 +60,7 @@ namespace BikewaleOpr.Service.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignController.MakesByDealerCity({0})", cityId));
+                ErrorClass.LogError(ex, String.Format("DealerCampaignController.MakesByDealerCity({0})", cityId));
                 return InternalServerError();
             }
         }
@@ -95,7 +95,7 @@ namespace BikewaleOpr.Service.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignController.DealersByMakeCity({0},{1},{2})", cityId, makeId, activecontract));
+                ErrorClass.LogError(ex, String.Format("DealerCampaignController.DealersByMakeCity({0},{1},{2})", cityId, makeId, activecontract));
                 return InternalServerError();
             }
         }
@@ -125,7 +125,7 @@ namespace BikewaleOpr.Service.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignController.DealerCampaigns({0},{1})", dealerId, activecontract));
+                ErrorClass.LogError(ex, String.Format("DealerCampaignController.DealerCampaigns({0},{1})", dealerId, activecontract));
                 return InternalServerError();
             }
         }

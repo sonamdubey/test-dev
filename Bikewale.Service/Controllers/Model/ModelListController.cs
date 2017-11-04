@@ -69,8 +69,8 @@ namespace Bikewale.Service.Controllers.Model
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelListController");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelListController");
+                   
                     return InternalServerError();
                 }
 
@@ -107,8 +107,8 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelListController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelListController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -144,8 +144,8 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelListController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelListController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -180,8 +180,8 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.AllModels");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.AllModels");
+               
                 return InternalServerError();
             }
             return NotFound();

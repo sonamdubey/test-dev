@@ -87,7 +87,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.GetData()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.GetData()");
             }
 
             return obj;
@@ -108,7 +108,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.BindSimilarBikes()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.BindSimilarBikes()");
             }
         }
 
@@ -128,7 +128,7 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.BindExpertReviewsWidget()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.BindExpertReviewsWidget()");
             }
         }
 
@@ -189,7 +189,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.GetComparedBikeDetails()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.GetComparedBikeDetails()");
                 status = StatusCodes.ContentNotFound;
             }
         }
@@ -264,7 +264,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.GetComparisionTextAndMetas");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.GetComparisionTextAndMetas");
             }
         }
 
@@ -345,7 +345,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.CreateCompareSummary()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.CreateCompareSummary()");
             }
         }
 
@@ -362,7 +362,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.CreateCanonicalUrl()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.CreateCanonicalUrl()");
             }
             finally
             {
@@ -457,7 +457,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.CompareDetails.ProcessQueryString({0})", _originalUrl));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.CompareDetails.ProcessQueryString({0})", _originalUrl));
             }
             finally
             {
@@ -515,7 +515,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.SimilarBikesComparisionWidget()");
+                ErrorClass.LogError(ex, "Bikewale.Models.CompareDetails.SimilarBikesComparisionWidget()");
             }
 
         }

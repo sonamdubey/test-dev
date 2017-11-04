@@ -51,8 +51,8 @@ namespace Bikewale.Common
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             } // catch Exception
 
             return retVal;
@@ -65,8 +65,8 @@ namespace Bikewale.Common
         */
         public bool DoDealerLogin(string loginId, string passwdEnter, bool rememberMe)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "CustomersLogin.DoDealerLogin");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "CustomersLogin.DoDealerLogin");
+            
             return false;
 
             //bool retVal = false;
@@ -148,16 +148,16 @@ namespace Bikewale.Common
             //{
             //    //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
             //    HttpContext.Current.Trace.Warn(err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
 
 
             //} // catch SqlException
             //catch(Exception err)
             //{
             //    HttpContext.Current.Trace.Warn(err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //} // catch Exception
             //finally
             //{

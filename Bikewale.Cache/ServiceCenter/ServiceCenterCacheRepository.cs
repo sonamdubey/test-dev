@@ -46,8 +46,8 @@ namespace Bikewale.Cache.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CityCacheRepository.GetServiceCenterList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CityCacheRepository.GetServiceCenterList");
+                
             }
 
 
@@ -71,8 +71,8 @@ namespace Bikewale.Cache.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CityCacheRepository.GetServiceCenterList");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "CityCacheRepository.GetServiceCenterList");
+                
             }
 
 
@@ -92,8 +92,8 @@ namespace Bikewale.Cache.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersCacheRepository.GetServiceCentersByCity");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ServiceCentersCacheRepository.GetServiceCentersByCity");
+                
             }
             return null;
         }
@@ -107,8 +107,8 @@ namespace Bikewale.Cache.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersCacheRepository.GetServiceCentersByCity");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "ServiceCentersCacheRepository.GetServiceCentersByCity");
+                
             }
             return null;
         }
@@ -126,8 +126,8 @@ namespace Bikewale.Cache.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCentersCacheRepository.GetServiceCenterDataById for parameters serviceCenterId : {0}", serviceCenterId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Error in ServiceCentersCacheRepository.GetServiceCenterDataById for parameters serviceCenterId : {0}", serviceCenterId));
+                
             }
             return null;
         }
@@ -146,8 +146,8 @@ namespace Bikewale.Cache.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Error in ServiceCentersCacheRepository.GetAllServiceCentersByBrand");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Error in ServiceCentersCacheRepository.GetAllServiceCentersByBrand");
+                
                 return null;
             }
 
@@ -167,8 +167,8 @@ namespace Bikewale.Cache.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Error in ServiceCentersCacheRepository.GetServiceCentersNearbyCitiesByBrand; parameters: cityId : {0},makeId : {1},topcount : {2}", cityId, makeId, topCount));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("Error in ServiceCentersCacheRepository.GetServiceCentersNearbyCitiesByBrand; parameters: cityId : {0},makeId : {1},topcount : {2}", cityId, makeId, topCount));
+                
                 return null;
             }
 

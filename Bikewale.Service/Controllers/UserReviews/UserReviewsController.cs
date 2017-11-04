@@ -9,8 +9,8 @@ using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using Bikewale.Utility.StringExtention;
 using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
@@ -87,8 +87,8 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -114,7 +114,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.UpdateUserReviewViews");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.UpdateUserReviewViews");
                 return InternalServerError();
             }
         }
@@ -146,8 +146,8 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -175,8 +175,8 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+               
                 return InternalServerError();
             }
 
@@ -206,8 +206,8 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+               
                 return InternalServerError();
             }
             return (IHttpActionResult)Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
@@ -237,8 +237,8 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+               
                 return InternalServerError();
             }
             return (IHttpActionResult)Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
@@ -271,7 +271,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
                 return InternalServerError();
             }
             return NotFound();
@@ -317,7 +317,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
                 return InternalServerError();
             }
         }   // Get review details
@@ -351,7 +351,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.VoteUserReview");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.VoteUserReview");
                 return InternalServerError();
             }
         }
@@ -381,7 +381,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.SaveUserReviewAbuse");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.SaveUserReviewAbuse");
                 return InternalServerError();
             }
         }
@@ -423,7 +423,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.RateBike");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.RateBike");
                 return InternalServerError();
             }
             return NotFound();
@@ -466,7 +466,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.SubmitRating");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.SubmitRating");
                 return InternalServerError();
             }
 

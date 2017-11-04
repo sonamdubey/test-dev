@@ -1,13 +1,12 @@
 ﻿using Bikewale.Notifications;
-using System;
-using System.Collections;
 using Enyim.Caching;
 using Enyim.Caching.Memcached;
-using System.Data;
-using System.Data.SqlClient;
-using Bikewale.CoreDAL;
-using System.Data.Common;
 using MySql.CoreDAL;
+using System;
+using System.Collections;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 
 namespace Bikewale.Cache.Memcache
 {
@@ -64,10 +63,10 @@ namespace Bikewale.Cache.Memcache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Memcache.BWMemcache.FetchDSfromDb"
+                ErrorClass.LogError(ex, "Bikewale.Cache.Memcache.BWMemcache.FetchDSfromDb"
                     + "\r\nMemcacheKey : " + key
                     + "\r\nMemcache Object Type : " + (_mc.Get(key) == null ? "null" : _mc.Get(key).GetType().ToString()));
-                objErr.SendMail();
+                
             }
             return ds;
         }   // End of FetchDSfromDb
@@ -90,10 +89,10 @@ namespace Bikewale.Cache.Memcache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Memcache.BWMemcache.FetchDSfromDb"
+                ErrorClass.LogError(ex, "Bikewale.Cache.Memcache.BWMemcache.FetchDSfromDb"
                     + "\r\nMemcacheKey : " + key
                     + "\r\nMemcache Object Type : " + (_mc.Get(key) == null ? "null" : _mc.Get(key).GetType().ToString()));
-                objErr.SendMail();
+                
             }
             return ds;
         }   // End of FetchDSfromDb
@@ -127,13 +126,13 @@ namespace Bikewale.Cache.Memcache
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Memcache.BWMemcache.FetchDataFromDatabase");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Cache.Memcache.BWMemcache.FetchDataFromDatabase");
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Memcache.BWMemcache.FetchDataFromDatabase");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Cache.Memcache.BWMemcache.FetchDataFromDatabase");
+                
             }
             return ds;
         }   // End of FetchDataFromDatabase
@@ -176,10 +175,10 @@ namespace Bikewale.Cache.Memcache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Memcache.BWMemcache.GetDataSet"
+                ErrorClass.LogError(ex, "Bikewale.Cache.Memcache.BWMemcache.GetDataSet"
                     + "\r\nMemcacheKey : " + key
                     + "\r\nMemcache Object Type : " + (_mc.Get(key) == null ? "null" : _mc.Get(key).GetType().ToString()));
-                objErr.SendMail();
+                
             }
             finally
             {
@@ -230,10 +229,10 @@ namespace Bikewale.Cache.Memcache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Memcache.BWMemcache.GetDataSet"//HttpContext.Current.Request.ServerVariables["URL"]
+                ErrorClass.LogError(ex, "Bikewale.Cache.Memcache.BWMemcache.GetDataSet"//HttpContext.Current.Request.ServerVariables["URL"]
                     + "\r\nMemcacheKey : " + key
                     + "\r\nMemcache Object Type : " + (_mc.Get(key) == null ? "null" : _mc.Get(key).GetType().ToString()));
-                objErr.SendMail();
+                
             }
             finally
             {
@@ -385,10 +384,10 @@ namespace Bikewale.Cache.Memcache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Memcache.BWMemcache.GetDataSet.FeatureHTfromDB"
+                ErrorClass.LogError(ex, "Bikewale.Cache.Memcache.BWMemcache.GetDataSet.FeatureHTfromDB"
                     + "\r\nMemcacheKey : " + key
                     + "\r\nMemcache Object Type : " + (_mc.Get(key) == null ? "null" : _mc.Get(key).GetType().ToString()));
-                objErr.SendMail();
+                
             }
             return ht;
         }   // End of FetchDSfromDb        
@@ -434,11 +433,11 @@ namespace Bikewale.Cache.Memcache
             }
             catch (Exception ex)
             {                
-                ErrorClass objErr = new ErrorClass(ex, ""
+                ErrorClass.LogError(ex, ""
                     + "\r\nMemcacheKey : " + key
                     + "\r\nMemcache Object Type : " + (_mc.Get(key) == null ? "null" : _mc.Get(key).GetType().ToString())
                     );
-                objErr.SendMail();
+                
             }
             finally
             {

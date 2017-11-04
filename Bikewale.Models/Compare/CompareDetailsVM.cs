@@ -1,6 +1,5 @@
 ﻿
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Models.Compare;

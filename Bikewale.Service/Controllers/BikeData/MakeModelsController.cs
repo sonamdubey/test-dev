@@ -43,8 +43,8 @@ namespace Bikewale.Service.Controllers.BikeData
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakeModelsController.Get");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "MakeModelsController.Get");
+               
                 InternalServerError();
             }
             return Ok(makeModels);
@@ -61,7 +61,7 @@ namespace Bikewale.Service.Controllers.BikeData
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakeModelsController.GetPopularBikesByBodyStyle");               
+                ErrorClass.LogError(ex, "MakeModelsController.GetPopularBikesByBodyStyle");               
                 InternalServerError();
             }
             return Ok(makeModels);
@@ -79,7 +79,7 @@ namespace Bikewale.Service.Controllers.BikeData
             }
             catch (System.Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakeModelsController.GetPopularBikesByMake");                
+                ErrorClass.LogError(ex, "MakeModelsController.GetPopularBikesByMake");                
                 InternalServerError();
             }
             return Ok(makeModels);

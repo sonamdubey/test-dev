@@ -86,7 +86,7 @@ namespace BikewaleOpr.Models.DealerEMI
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex,
+                ErrorClass.LogError(ex,
                     string.Format("GetDealerEmiInfo dealerId={0} cityId={1} makeId={2}", dealerId, cityId, makeId));
             }
 

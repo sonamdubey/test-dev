@@ -33,7 +33,7 @@ namespace Bikewale.BAL.AutoComplete
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.ElasticSearchManger.GetAutoSuggestResult");
+                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.ElasticSearchManger.GetAutoSuggestResult");
             }
             return suggestionList;
 
@@ -105,7 +105,7 @@ namespace Bikewale.BAL.AutoComplete
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.ElasticSearchManger.GetSuggestionList");
+                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.ElasticSearchManger.GetSuggestionList");
             }
 
             return suggestionList;

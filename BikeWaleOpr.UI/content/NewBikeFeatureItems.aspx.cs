@@ -1,20 +1,16 @@
 /*******************************************************************************************************
 IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
-using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
-using BikeWaleOpr.Controls;
+using System;
+using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
-	public class NewBikeFeatureItems : Page
+    public class NewBikeFeatureItems : Page
 	{
 		protected HtmlGenericControl spnError;
 		protected DropDownList cmbCategories, cmbMake;
@@ -85,14 +81,14 @@ namespace BikeWaleOpr.Content
 				catch ( SqlException ex )
 				{
 					Trace.Warn(ex.Message + ex.Source);
-					ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
-					objErr.SendMail();
+					ErrorClass.LogError(ex,Request.ServerVariables["URL"]);
+					
 				}
                 catch (Exception ex)
                 {
                     Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                    
                 }
 
 				SortDirection = "";
@@ -133,8 +129,8 @@ namespace BikeWaleOpr.Content
             //    catch( SqlException ex )	
             //    {
             //        Trace.Warn(ex.Message + ex.Source);
-            //        ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
-            //        objErr.SendMail();
+            //        ErrorClass.LogError(ex,Request.ServerVariables["URL"]);
+            //        
             //    }
             //}
 			
@@ -171,8 +167,8 @@ namespace BikeWaleOpr.Content
 			catch(Exception err)
 			{
 				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
+				ErrorClass.LogError(err,Request.ServerVariables["URL"]);
+				
 			}
 			
 		}
@@ -210,8 +206,8 @@ namespace BikeWaleOpr.Content
             //catch( SqlException ex )	
             //{
             //    Trace.Warn(ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex,Request.ServerVariables["URL"]);
+            //    
             //}
             //dtgrdMembers.EditItemIndex = -1;
             //btnSave.Enabled = true;
@@ -245,8 +241,8 @@ namespace BikeWaleOpr.Content
             //catch( SqlException ex )	
             //{
             //    Trace.Warn(ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex,Request.ServerVariables["URL"]);
+            //    
             //}
             //BindGrid();
 		}

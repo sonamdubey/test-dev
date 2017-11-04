@@ -184,7 +184,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterDetailsPage.BindDealersWidget()");
+                ErrorClass.LogError(ex, "ServiceCenterDetailsPage.BindDealersWidget()");
             }
         }
 
@@ -215,7 +215,7 @@ namespace Bikewale.Models.ServiceCenters
             catch (System.Exception ex)
             {
 
-                ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindServiceCenterPopularCityWidget");
+                ErrorClass.LogError(ex, "ServiceCenterDetailsPage.BindServiceCenterPopularCityWidget");
             }
 
         }
@@ -253,7 +253,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch(Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ServiceCenterCityPage.SetBreadcrumList");
+                ErrorClass.LogError(ex, "ServiceCenterCityPage.SetBreadcrumList");
             }
 
         }

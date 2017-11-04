@@ -84,8 +84,8 @@ namespace Bikewale.BAL.Pager
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Pager Class Error. GetPager");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Pager Class Error. GetPager");
+                
             }
 
             t.PagesDetail = results;
@@ -163,8 +163,8 @@ namespace Bikewale.BAL.Pager
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Pager Class Error. GetPager");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Pager Class Error. GetPager");
+                
             }
 
             t.PagesDetail = results;

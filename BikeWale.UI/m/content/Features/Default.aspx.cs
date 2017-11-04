@@ -96,7 +96,7 @@ namespace Bikewale.Mobile.Content
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.Features.GetFeaturesList");
+                ErrorClass.LogError(err, "Bikewale.Mobile.Content.Features.GetFeaturesList");
             }
             finally
             {

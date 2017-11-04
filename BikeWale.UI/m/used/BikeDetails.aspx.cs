@@ -148,8 +148,8 @@ namespace Bikewale.Mobile.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " BindUserControls");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + " BindUserControls");
+                
             }
         }
 
@@ -188,8 +188,8 @@ namespace Bikewale.Mobile.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Mobile.Used.BikeDetails.BindProfileDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Mobile.Used.BikeDetails.BindProfileDetails");
+                
             }
         }
     }

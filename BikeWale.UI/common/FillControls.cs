@@ -41,8 +41,8 @@ namespace Bikewale.Common
             catch (SqlException err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             } // catch Exception
         }
     }

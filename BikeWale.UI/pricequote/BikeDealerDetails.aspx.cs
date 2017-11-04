@@ -98,7 +98,7 @@ namespace Bikewale.Pricequote
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             finally
             {
@@ -152,7 +152,7 @@ namespace Bikewale.Pricequote
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
 
         }
@@ -264,7 +264,7 @@ namespace Bikewale.Pricequote
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
         }
         #endregion
@@ -376,7 +376,7 @@ namespace Bikewale.Pricequote
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("{0} {1}", Request.ServerVariables["URL"], "CheckCityCookie"));
-                objErr.SendMail();
+                
             }
         }
         #endregion

@@ -21,7 +21,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey {0}, {1}", topCount, makeId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey {0}, {1}", topCount, makeId));
             }
             return cacheKeyClearStatus;
         }
@@ -50,7 +50,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearUpcomingBikesCacheKey {0}, {1}" + (makeId.HasValue ? String.Format(", {0}", makeId.Value) : "") + (modelId.HasValue ? String.Format(", {0}", modelId.Value) : ""), pageSize, sortBy));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearUpcomingBikesCacheKey {0}, {1}" + (makeId.HasValue ? String.Format(", {0}", makeId.Value) : "") + (modelId.HasValue ? String.Format(", {0}", modelId.Value) : ""), pageSize, sortBy));
             }
             return cacheKeyClearStatus;
         }
@@ -71,7 +71,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearNewLaunchesBikes({0}", cityId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearNewLaunchesBikes({0}", cityId));
             }
             return cacheKeyClearStatus;
         }
@@ -85,7 +85,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearVersionPrice({0},{1})", city, model));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearVersionPrice({0},{1})", city, model));
             }
         }
 
@@ -101,7 +101,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ClearUserReviewsCache");
+                ErrorClass.LogError(ex, "ClearUserReviewsCache");
             }
         }
 
@@ -118,7 +118,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearPriceQuoteCity");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearPriceQuoteCity");
             }
         }
 
@@ -137,7 +137,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearVersionDetails");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearVersionDetails");
             }
         }
 
@@ -154,7 +154,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearPopularBikesByMakes");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearPopularBikesByMakes");
             }
         }
 
@@ -170,7 +170,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearUpcomingBikes");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearUpcomingBikes");
             }
         }
 
@@ -190,7 +190,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearVersionByType");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearVersionByType");
             }
         }
 
@@ -207,7 +207,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearPopularBikesByBodyStyle");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearPopularBikesByBodyStyle");
             }
         }
 
@@ -224,7 +224,7 @@ namespace BikewaleOpr.Cache
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewalwOpr.Cache.BwMemCache.ClearGetModelsBySeriesId");
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearGetModelsBySeriesId");
             }
         }
 

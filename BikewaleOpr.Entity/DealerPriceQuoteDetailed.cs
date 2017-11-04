@@ -1,5 +1,4 @@
-﻿using BikewaleOpr.Entities;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace BikewaleOpr.Entities

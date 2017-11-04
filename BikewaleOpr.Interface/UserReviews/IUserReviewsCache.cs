@@ -1,9 +1,5 @@
-﻿using System;
+﻿using BikewaleOpr.Entity.UserReviews;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BikewaleOpr.Entity.UserReviews;
 
 namespace BikewaleOpr.Interface.UserReviews
 {

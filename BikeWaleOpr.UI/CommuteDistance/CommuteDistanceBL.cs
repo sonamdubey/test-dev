@@ -1,14 +1,12 @@
 ﻿using BikewaleOpr.Entities;
+using BikewaleOpr.Entity.DealerCampaign;
+using BikewaleOpr.Interface;
+using BikewaleOpr.Interface.ContractCampaign;
 using BikeWaleOpr.Common;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using BikewaleOpr.Interface.ContractCampaign;
-using BikewaleOpr.Entity.DealerCampaign;
-using BikewaleOpr.Interface;
 
 namespace BikewaleOpr.CommuteDistance
 {
@@ -54,8 +52,8 @@ namespace BikewaleOpr.CommuteDistance
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SaveCampaignAreas");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "SaveCampaignAreas");
+                
             }
 
             return isUpdated;
@@ -85,8 +83,8 @@ namespace BikewaleOpr.CommuteDistance
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "SaveAdditionalCampaignAreas");
-                objErr.SendMail();                
+                ErrorClass.LogError(ex, "SaveAdditionalCampaignAreas");
+                                
             }
 
             return isUpdated;
@@ -141,8 +139,8 @@ namespace BikewaleOpr.CommuteDistance
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UpdateCommuteDistance");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "UpdateCommuteDistance");
+                
                 return false;
             }
 

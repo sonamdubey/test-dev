@@ -46,8 +46,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.DeleteRules");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.DeleteRules");
+                
             }
         }
 
@@ -77,8 +77,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.SaveRules");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.SaveRules");
+                
             }
         }
 
@@ -122,8 +122,8 @@ namespace BikewaleOpr.Campaign
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.FillMakes");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.FillMakes");
+                
             }
         }
          
@@ -165,8 +165,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ParseQueryString");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ParseQueryString");
+                
             }
         }
 
@@ -188,8 +188,8 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.BindRules");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.BindRules");
+                
             }
         }
         #endregion

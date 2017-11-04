@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.DTO.Make;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.DAL.BikeData;
-using Bikewale.DTO.Make;
-using AutoMapper;
-using System.Web.Http.Description;
-using Bikewale.Service.AutoMappers.Make;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Make;
+using System;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Make
 {
-     /// <summary>
+    /// <summary>
     /// To Get Make Details 
     /// Author : Sushil Kumar
     /// Created On : 24th August 2015
@@ -60,8 +53,8 @@ namespace Bikewale.Service.Controllers.Make
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Make.MakeController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Make.MakeController");
+               
                 return InternalServerError();
             }
             return NotFound();

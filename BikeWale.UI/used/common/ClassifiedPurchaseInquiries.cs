@@ -118,8 +118,8 @@ namespace Bikewale.Used
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : ProcessUsedBikePurchaseInquiry");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : ProcessUsedBikePurchaseInquiry");
+                
             }
             return sb.ToString();
         }
@@ -155,8 +155,8 @@ namespace Bikewale.Used
         //    {
         //        //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
         //        HttpContext.Current.Trace.Warn(ex.Message);
-        //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : SendAlertsDealerSeller");
-        //        objErr.SendMail();
+        //        ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : SendAlertsDealerSeller");
+        //        
         //    }
         //}
 
@@ -201,8 +201,8 @@ namespace Bikewale.Used
                 msg = "SendAlertsIndividualSeller ex.Message : " + ex.Message;
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : SendAlertsIndividualSeller");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : SendAlertsIndividualSeller");
+                
             }
             return msg;
         }   // End of SendAlertsIndividualSeller method
@@ -254,16 +254,16 @@ namespace Bikewale.Used
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
 
 
             } // catch SqlException
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             } // catch Exception
 
             return inqId;

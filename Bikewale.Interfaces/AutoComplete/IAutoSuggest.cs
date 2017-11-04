@@ -1,6 +1,4 @@
-﻿using Bikewale.DTO.AutoComplete;
-using Bikewale.Entities.AutoComplete;
-using Nest;
+﻿using Bikewale.Entities.AutoComplete;
 using System.Collections.Generic;
 
 

@@ -1,6 +1,6 @@
-﻿using BikewaleOpr.Entity.DealerCampaign;
+﻿using BikewaleOpr.Entities;
+using BikewaleOpr.Entity.DealerCampaign;
 using System.Collections.Generic;
-using BikewaleOpr.Entities;
 
 namespace BikewaleOpr.Models.DealerCampaign
 {

@@ -57,8 +57,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.Used.UsedBikeDetailsPage.BindUsedBikeDetailsPage");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.Used.UsedBikeDetailsPage.BindUsedBikeDetailsPage");
+                
             }
 
         }
@@ -108,7 +108,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetProfileDetails");
-                objErr.SendMail();
+                
             }
         }
 
@@ -134,7 +134,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "IsValidProfileId");
-                objErr.SendMail();
+                
             }
         }
 

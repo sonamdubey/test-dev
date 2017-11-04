@@ -146,8 +146,8 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeDealerDetails.BindUserControl");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BikeDealerDetails.BindUserControl");
+                
             }
 
         }
@@ -210,8 +210,8 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "GetDealerDetails");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "GetDealerDetails");
+                
             }
         }
 
@@ -266,8 +266,8 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 Trace.Warn("ProcessQueryString Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, currentReq.ServerVariables["URL"]);
+                
             }
             finally
             {

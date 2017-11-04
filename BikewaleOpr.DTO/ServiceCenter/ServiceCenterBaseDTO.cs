@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BikewaleOpr.DTO.ServiceCenter
+﻿namespace BikewaleOpr.DTO.ServiceCenter
 {
     /// <summary>		
     /// Created By : Snehal Dange		
     /// Created On  : 29 July 2017		
     /// Description : Service center Details Dto.		
     /// </summary>		
-    
+
     public class ServiceCenterBaseDTO
     {
         public uint Id { get; set; }		

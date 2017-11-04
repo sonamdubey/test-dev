@@ -98,8 +98,8 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -120,8 +120,8 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+                
             }
 
             drpCities.Items.Insert(0, new ListItem("--Select--", "-1"));
@@ -197,14 +197,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }
@@ -295,14 +295,14 @@ namespace BikeWaleOpr.Content
             catch (SqlException err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
             return ds;
         }
@@ -557,8 +557,8 @@ namespace BikeWaleOpr.Content
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }
 

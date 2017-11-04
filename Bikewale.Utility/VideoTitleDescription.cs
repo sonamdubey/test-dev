@@ -1,6 +1,4 @@
-﻿
-using Bikewale.Entities.Videos;
-using System;
+﻿using System;
 namespace Bikewale.Utility
 {
     /// <summary>

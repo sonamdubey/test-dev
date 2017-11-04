@@ -1,8 +1,8 @@
-﻿using Bikewale.ManufacturerCampaign.Entities;
-using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
+using Bikewale.ManufacturerCampaign.Entities;
 using BikewaleOpr.DTO.BikeData;
 using BikewaleOpr.Entities.BikeData;
+using System.Collections.Generic;
 
 namespace BikewaleOpr.Service.AutoMappers.BikeData
 {

@@ -29,7 +29,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: GetSeries");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeSeries: GetSeries");
             }
             return objBikeSeriesList;
         }
@@ -64,7 +64,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: AddSeries");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeSeries: AddSeries");
             }
             return null;
         }
@@ -87,7 +87,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.BikeSeries: GetSeriesByMake");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeSeries: GetSeriesByMake");
             }
             return objBikeSeriesList;
         }
@@ -124,7 +124,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: EditSeries_{0}_{1}", seriesId, updatedBy));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeSeries: EditSeries_{0}_{1}", seriesId, updatedBy));
             }
             return IsEdited;
         }
@@ -151,7 +151,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteSeries_{0}", bikeSeriesId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteSeries_{0}", bikeSeriesId));
             }
             return IsDeleted;
         }
@@ -183,7 +183,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteMappingOfModelSeries_{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeSeries: DeleteMappingOfModelSeries_{0}", modelId));
             }
             return seriesId > 0;
         }

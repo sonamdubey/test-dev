@@ -53,7 +53,7 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.ModelColorWiseImage()");
+                ErrorClass.LogError(ex, "ModelColorWiseImage.ModelColorWiseImage()");
             }
         }
 
@@ -118,7 +118,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.BindMakeModel()");
+                ErrorClass.LogError(ex, "ModelColorWiseImage.BindMakeModel()");
             }
 
         }
@@ -140,7 +140,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.BindModelColorImagesRepeater()");
+                ErrorClass.LogError(ex, "ModelColorWiseImage.BindModelColorImagesRepeater()");
             }
         }
 
@@ -161,7 +161,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.ShowModelColorImage");
+                ErrorClass.LogError(ex, "ModelColorWiseImage.ShowModelColorImage");
             }
         }
 
@@ -178,7 +178,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.ProcessQueryString");
+                ErrorClass.LogError(ex, "ModelColorWiseImage.ProcessQueryString");
             }
         }
 
@@ -210,7 +210,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.BindModelDropdown");
+                ErrorClass.LogError(ex, "ModelColorWiseImage.BindModelDropdown");
             }
         }
 

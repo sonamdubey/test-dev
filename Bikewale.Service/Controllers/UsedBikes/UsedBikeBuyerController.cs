@@ -63,8 +63,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("RequestPhotos({0})", Newtonsoft.Json.JsonConvert.SerializeObject(request)));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("RequestPhotos({0})", Newtonsoft.Json.JsonConvert.SerializeObject(request)));
+               
                 return InternalServerError();
             }
         }
@@ -100,8 +100,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("ShownInterestInThisBike({0},{1})", profileId, isDealer));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("ShownInterestInThisBike({0},{1})", profileId, isDealer));
+               
                 return InternalServerError();
             }
         }
@@ -148,8 +148,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("PurchaseInquiry({0},{1})", profileId, pageUrl));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("PurchaseInquiry({0},{1})", profileId, pageUrl));
+               
                 return InternalServerError();
             }
         }
@@ -193,8 +193,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in API function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}", profileId, customerId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Exception in API function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}", profileId, customerId));
+               
                 return InternalServerError();
             }
         }

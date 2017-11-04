@@ -1,24 +1,15 @@
 // C# Document
+using BikeWaleOpr.Common;
+using MySql.CoreDAL;
 using System;
-using System.Text;
-using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.IO;
-using System.Drawing;
-using System.Drawing.Imaging;
-using BikeWaleOpr.Common;
-using FreeTextBoxControls;
-using Ajax;
-using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
-	public class PriceMonitoring : Page
+    public class PriceMonitoring : Page
 	{
 		protected DropDownList drpMake, drpModel;
 		protected Repeater rptModelVersion, rptCity;
@@ -107,8 +98,8 @@ namespace BikeWaleOpr.Content
 			catch( SqlException err )
 			{
 				Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
+				ErrorClass.LogError(err,Request.ServerVariables["URL"]);
+				
 			} // catch Exception
 			
 			ListItem item = new ListItem( "--Select--", "0" );
@@ -173,8 +164,8 @@ namespace BikeWaleOpr.Content
 			catch(Exception err)
 			{
 				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
+				ErrorClass.LogError(err,Request.ServerVariables["URL"]);
+				
 			}
 		}
 		

@@ -54,7 +54,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "FinanceRepository.SavePersonalDetails");
+                ErrorClass.LogError(ex, "FinanceRepository.SavePersonalDetails");
             }
             return id;
         }
@@ -83,7 +83,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("FinanceRepository.IsValidLead({0})", leadId));
+                ErrorClass.LogError(ex, String.Format("FinanceRepository.IsValidLead({0})", leadId));
             }
             return isValid;
         }
@@ -109,7 +109,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("FinanceRepository.SaveVaoucherDetails({0},{1})", leadIdCarTrade, Newtonsoft.Json.JsonConvert.SerializeObject(voucherDetails)));
+                ErrorClass.LogError(ex, String.Format("FinanceRepository.SaveVaoucherDetails({0},{1})", leadIdCarTrade, Newtonsoft.Json.JsonConvert.SerializeObject(voucherDetails)));
             }
             return isSaved;
         }
@@ -141,7 +141,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("FinanceRepository.GetCapitalFirstBikeMapping({0})", versionId));
+                ErrorClass.LogError(ex, String.Format("FinanceRepository.GetCapitalFirstBikeMapping({0})", versionId));
             }
             return bike;
         }
@@ -173,7 +173,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("FinanceRepository.SaveVaoucherDetails({0},{1})", leadId, responseText));
+                ErrorClass.LogError(ex, String.Format("FinanceRepository.SaveVaoucherDetails({0},{1})", leadId, responseText));
             }
             return isSaved;
         }

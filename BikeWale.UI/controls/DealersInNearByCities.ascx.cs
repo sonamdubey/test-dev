@@ -46,7 +46,7 @@ namespace Bikewale.Controls
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealersInNearByCities.BindDealerCountNearByCity");
-                objErr.SendMail();
+                
             }
         }
     }

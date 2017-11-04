@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.ManufacturerCampaign.Entities
+﻿namespace Bikewale.ManufacturerCampaign.Entities
 {
     /// <summary>
     /// created by sajal gupta on 22-06-2017

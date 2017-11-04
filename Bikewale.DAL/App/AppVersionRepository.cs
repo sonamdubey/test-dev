@@ -51,8 +51,7 @@ namespace Bikewale.DAL.App
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "CheckVersionStatus");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "CheckVersionStatus");
             }
             finally
             {

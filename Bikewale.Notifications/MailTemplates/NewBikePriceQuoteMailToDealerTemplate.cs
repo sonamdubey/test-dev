@@ -94,7 +94,7 @@ namespace Bikewale.Notifications.MailTemplates
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Notification.NewBikePriceQuoteMailToDealerTemplate.ComposeBody");
-                objErr.SendMail();
+                
             }
             MailHTML = mail.ToString();
         }

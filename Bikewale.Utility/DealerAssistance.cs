@@ -1,11 +1,7 @@
-﻿using RabbitMqPublishing.Common;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Utility
 {
@@ -43,8 +39,7 @@ namespace Bikewale.Utility
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.DealerAssistance.IsDealerAssistance)"));
-                    objErr.SendMail();
+                    return false;
                 }
             }
             return false;

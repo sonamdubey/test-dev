@@ -106,7 +106,7 @@ namespace Bikewale.News
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.News.BindNewsDetails");
-                objErr.SendMail();
+                
             }
             finally
             {
@@ -184,7 +184,7 @@ namespace Bikewale.News
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.News.BindPageWidgets");
+                ErrorClass.LogError(ex, "Bikewale.News.BindPageWidgets");
 
             }
 

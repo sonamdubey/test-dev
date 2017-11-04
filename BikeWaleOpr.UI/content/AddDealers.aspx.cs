@@ -88,8 +88,8 @@ namespace BikeWaleOpr.Content
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             } // catch Exception
         }
 
@@ -110,8 +110,8 @@ namespace BikeWaleOpr.Content
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             }
         }
 
@@ -129,8 +129,8 @@ namespace BikeWaleOpr.Content
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+                
             } // catch Exception
         }
 
@@ -250,16 +250,16 @@ namespace BikeWaleOpr.Content
             {
                 errM = err.Message;
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
-                ErrorClass objErr = new ErrorClass(err, "Vspl.Masters.NCDCommon");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Vspl.Masters.NCDCommon");
+                
                 isCompleted = false;
                 //throw;
             } // catch SqlException
             catch (Exception err)
             {
                 errM += err.Message;
-                ErrorClass objErr = new ErrorClass(err, "Vspl.Masters.NCDCommon");
-                objErr.SendMail();
+                ErrorClass.LogError(err, "Vspl.Masters.NCDCommon");
+                
 
                 isCompleted = false;
                 //throw;

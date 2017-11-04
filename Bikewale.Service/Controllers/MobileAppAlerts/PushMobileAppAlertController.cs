@@ -70,8 +70,8 @@ namespace Bikewale.Service.Controllers.MobileAppAlerts
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.MobileAppAlerts.PushMobileAppAlertController : " + Request.RequestUri.Query);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.MobileAppAlerts.PushMobileAppAlertController : " + Request.RequestUri.Query);
+               
                 return InternalServerError();
             }
 

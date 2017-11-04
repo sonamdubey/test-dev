@@ -107,8 +107,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -268,8 +268,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -301,7 +301,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Pwa.Bikewale.Models.NewsDetailPage.GetTaggedBikeListByMake");
+                ErrorClass.LogError(ex, "Pwa.Bikewale.Models.NewsDetailPage.GetTaggedBikeListByMake");
             }
             return null;
         }
@@ -334,7 +334,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Pwa.Bikewale.Models.NewsDetailPage.GetTaggedBikeListByModel");
+                ErrorClass.LogError(ex, "Pwa.Bikewale.Models.NewsDetailPage.GetTaggedBikeListByModel");
             }
             return 0;
         }
@@ -402,8 +402,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+               
                 return InternalServerError();
             }
             return NotFound();
@@ -507,7 +507,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "VideoDetailsHelper.BindInfoWidgetDatas");
+                ErrorClass.LogError(ex, "VideoDetailsHelper.BindInfoWidgetDatas");
             }
             return tabs;
         }

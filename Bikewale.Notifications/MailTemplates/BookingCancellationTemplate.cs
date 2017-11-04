@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Notifications.MailTemplates
 {
@@ -82,8 +79,8 @@ namespace Bikewale.Notifications.MailTemplates
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception in BookingCancellationTemplate");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception in BookingCancellationTemplate");
+                
             }
             return sb.ToString();
         }

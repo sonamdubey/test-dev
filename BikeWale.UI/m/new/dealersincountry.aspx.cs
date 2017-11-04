@@ -103,7 +103,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerInCountry.Bindwidget");
+                ErrorClass.LogError(ex, "DealerInCountry.Bindwidget");
             }
         }
         private void BindStatesCities()
@@ -147,7 +147,7 @@ namespace Bikewale.Mobile.New
                 catch (Exception ex)
                 {
                     Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
-                    objErr.SendMail();
+                    
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
@@ -236,8 +236,8 @@ namespace Bikewale.Mobile.New
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "checkDealersForMakeCity");
-                    objErr.SendMail();
+                    ErrorClass.LogError(ex, "checkDealersForMakeCity");
+                    
                 }
             }
             return false;

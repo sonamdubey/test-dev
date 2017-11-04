@@ -95,7 +95,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.GetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeCareDetailPage.GetData");
             }
             return objData;
         }
@@ -119,7 +119,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.SetPageMetas");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeCareDetailPage.SetPageMetas");
             }
         }
 
@@ -182,7 +182,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.GetTaggedBikeListByMake");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeCareDetailPage.GetTaggedBikeListByMake");
             }
         }
 
@@ -214,7 +214,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.GetTaggedBikeListByModel");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeCareDetailPage.GetTaggedBikeListByModel");
             }
         }
         /// <summary>
@@ -309,7 +309,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.GetWidgetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeCareDetailPage.GetWidgetData");
             }
         }
 
@@ -330,7 +330,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.PopulatePhotoGallery");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeCareDetailPage.PopulatePhotoGallery");
             }
         }
 

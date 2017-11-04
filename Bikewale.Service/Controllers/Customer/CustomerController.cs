@@ -80,8 +80,8 @@ namespace Bikewale.Service.Controllers.Customer
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.CustomerController.POST");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.CustomerController.POST");
+               
                 return InternalServerError();
             }
         }   // POST

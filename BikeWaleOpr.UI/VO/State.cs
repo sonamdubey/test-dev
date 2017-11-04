@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-
-
-
-namespace BikeWaleOpr.VO
+﻿namespace BikeWaleOpr.VO
 {
     /// <summary>
     /// written By : Ashwini Todkar written on 1 Jan 2014

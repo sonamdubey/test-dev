@@ -47,8 +47,8 @@ namespace Bikewale.Cache.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception in Bikewale.Cache.UsedBikes.GetUsedBikes parametres makeId : {0}, modelId : {1}, cityId : {2}, totalCount : {3}", makeId, modelId, cityId, totalCount));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("Exception in Bikewale.Cache.UsedBikes.GetUsedBikes parametres makeId : {0}, modelId : {1}, cityId : {2}, totalCount : {3}", makeId, modelId, cityId, totalCount));
+                
             }
             return objUsedBikes;
 
@@ -69,8 +69,8 @@ namespace Bikewale.Cache.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception in Bikewale.Cache.UsedBikes.GetUsedBikeMakesWithCount");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Exception in Bikewale.Cache.UsedBikes.GetUsedBikeMakesWithCount");
+                
             }
             return objUsedBikes;
         }

@@ -121,7 +121,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareIndexPage.GetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeCareIndexPage.GetData");
             }
             return objData;
         }
@@ -144,7 +144,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareIndexPage.BindLinkPager");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeCareIndexPage.BindLinkPager");
             }
         }
 
@@ -170,7 +170,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareIndexPage.SetPageMetas");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeCareIndexPage.SetPageMetas");
             }
         }
 
@@ -208,7 +208,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareIndexPage.CreatePrevNextUrl");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeCareIndexPage.CreatePrevNextUrl");
             }
         }
 
@@ -245,7 +245,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareIndexPage.GetWidgetData");
+                ErrorClass.LogError(ex, "Bikewale.Models.BikeCareIndexPage.GetWidgetData");
             }
         }
         #endregion

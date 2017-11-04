@@ -185,7 +185,7 @@ namespace Bikewale.Mobile.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterDetails.GetMakeNameByMakeId");
-                objErr.SendMail();
+                
             }
         }
 
@@ -216,8 +216,8 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, currentReq.ServerVariables["URL"]);
+                
                 isSucess = false;
             }
             return isSucess;

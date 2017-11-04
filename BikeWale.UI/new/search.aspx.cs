@@ -67,7 +67,7 @@ namespace Bikewale.New
             {
                 Trace.Warn(ex.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindRepeaters");
-                objErr.SendMail();
+                
             }
         }
     }

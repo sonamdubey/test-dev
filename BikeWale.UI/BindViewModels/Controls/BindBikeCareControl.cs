@@ -53,8 +53,8 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindMaintainanceTipsControl.MaintainanceTips");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "BindMaintainanceTipsControl.MaintainanceTips");
+                
             }
             return objArticleList;
         }

@@ -69,14 +69,14 @@ namespace Bikewale.RabbitMQ
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 url = "sql exception" + ex.Message;
             } // catch Exception
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
                 url = "exception" + ex.Message;
             } // catch Exception
             return url;
@@ -109,8 +109,8 @@ namespace Bikewale.RabbitMQ
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             } // catch Exception
 
             return ds;

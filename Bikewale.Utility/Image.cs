@@ -4,7 +4,7 @@ using System.Web;
 
 namespace Bikewale.Utility
 {
-    public class Image
+    public static class Image
     {
         public static string GetPathToShowImages(string originalImagePath, string hostUrl, string size)
         {
@@ -94,7 +94,7 @@ namespace Bikewale.Utility
 
     }
 
-    public class ImageSize
+    public static class ImageSize
     {
         //For 1024 resolution
         //(when grid has a width of 996 px, 10 px margin on left and right, 12 columns)
@@ -131,7 +131,7 @@ namespace Bikewale.Utility
     }
 
 
-    public class QualityFactor
+    public static class QualityFactor
     {
         public const string _60 = "60";
         public const string _65 = "65";

@@ -92,7 +92,7 @@ namespace Bikewale.Mobile.Service
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterInCountry.BindWidget");
+                ErrorClass.LogError(ex, "ServiceCenterInCountry.BindWidget");
             }
         }
         private bool checkServiceCenterForMakeCity(ushort _makeId)
@@ -129,7 +129,7 @@ namespace Bikewale.Mobile.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "ServiceCenterInCountry.checkDealersForMakeCity");
+                    ErrorClass.LogError(ex, "ServiceCenterInCountry.checkDealersForMakeCity");
                 }
             }
             return true;
@@ -156,7 +156,7 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterInCountry.BindCities");
+                ErrorClass.LogError(ex, "ServiceCenterInCountry.BindCities");
             }
         }
 
@@ -186,7 +186,7 @@ namespace Bikewale.Mobile.Service
                 catch (Exception ex)
                 {
                     Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
-                    objErr.SendMail();
+                    
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;

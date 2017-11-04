@@ -92,7 +92,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateUserReviewsStatus");
+                ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateUserReviewsStatus");
 
                 return InternalServerError();
             }
@@ -128,7 +128,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
                 return InternalServerError();
             }
             return NotFound();
@@ -171,7 +171,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateRatingStatus");
+                ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateRatingStatus");
                 return InternalServerError();
             }
             return Ok(updateStatus);
@@ -201,7 +201,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateRatingStatus");
+                ErrorClass.LogError(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateRatingStatus");
                 return InternalServerError();
             }
             return Ok(updateStatus);

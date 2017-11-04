@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
-using Bikewale.DTO.Make;
 
 
 namespace Bikewale.DTO.CMS.Articles

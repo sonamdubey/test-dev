@@ -69,8 +69,8 @@ namespace Bikewale.DAL.Images
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("ImageRepository.Add({0})", Newtonsoft.Json.JsonConvert.SerializeObject(t)));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, String.Format("ImageRepository.Add({0})", Newtonsoft.Json.JsonConvert.SerializeObject(t)));
+                
             }
             return id;
         }

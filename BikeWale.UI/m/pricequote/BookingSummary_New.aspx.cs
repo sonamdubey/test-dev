@@ -104,7 +104,7 @@ namespace Bikewale.Mobile.PriceQuote
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
             finally
             {
@@ -144,7 +144,7 @@ namespace Bikewale.Mobile.PriceQuote
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
 
         }
@@ -272,7 +272,7 @@ namespace Bikewale.Mobile.PriceQuote
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
         }
         #endregion

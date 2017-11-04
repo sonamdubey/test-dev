@@ -53,8 +53,8 @@ namespace Bikewale.Used
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             } // catch Exception
             return photoId;
         }   // End of savebikephotos method
@@ -80,8 +80,8 @@ namespace Bikewale.Used
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             } // catch Exception
 
             return isRemoved;
@@ -108,8 +108,8 @@ namespace Bikewale.Used
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             } // catch Exception
 
             return isMain;
@@ -136,8 +136,8 @@ namespace Bikewale.Used
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             } // catch Exception
 
             return isAdded;
@@ -165,14 +165,14 @@ namespace Bikewale.Used
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("UpdateIsVerifiedCustomer sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("UpdateIsVerifiedCustomer ex: " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
         }

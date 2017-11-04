@@ -6,16 +6,13 @@ using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data;
-using System.Data.Common;
-using Bikewale.Utility.StringExtention;
-using Bikewale.Utility;
+using System.Linq;
 
 namespace Bikewale.BAL.Compare
 {
@@ -66,8 +63,8 @@ namespace Bikewale.BAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DoCompare");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "DoCompare");
+                
             }
             return compareEntity;
         }
@@ -1156,7 +1153,7 @@ namespace Bikewale.BAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.TransposeCompareBikeData - {0}", versions));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.TransposeCompareBikeData - {0}", versions));
             }
         }
 
@@ -1225,7 +1222,7 @@ namespace Bikewale.BAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.DoCompare - {0} - {1}", versions, cityId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.DoCompare - {0} - {1}", versions, cityId));
             }
             return compareEntity;
         }
@@ -1260,7 +1257,7 @@ namespace Bikewale.BAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.GetPopularCompareList - CityId: {0}", cityId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.GetPopularCompareList - CityId: {0}", cityId));
             }
             return compareBikes;
         }
@@ -1286,7 +1283,7 @@ namespace Bikewale.BAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.GetScooterCompareList - CityId: {0}", cityId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.GetScooterCompareList - CityId: {0}", cityId));
             }
             return compareScooters;
         }

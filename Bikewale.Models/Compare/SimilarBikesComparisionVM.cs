@@ -7,7 +7,7 @@ namespace Bikewale.Models.Compare
     /// Created By :Snehal Dange on 25th Oct 2017
     /// Description :View model for similar bikes comparison in compare bike page
     /// </summary>
-   public class SimilarBikesComparisionVM
+    public class SimilarBikesComparisionVM
     {
         public IEnumerable<SimilarBikeComparisonWidget> SimilarBikeComparison { get; set; }
         public string modelComparisionText { get; set; }

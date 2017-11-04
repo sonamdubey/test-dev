@@ -56,7 +56,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetMakes_" + RequestType);
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.GetMakes_" + RequestType);
             }
             return _objBikeMakes;
         }
@@ -84,7 +84,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetMakesList");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.GetMakesList");
             }
 
             return objMakes;
@@ -137,7 +137,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.AddMake");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.AddMake");
             }
         }
 
@@ -185,7 +185,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.UpdateMake");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.UpdateMake");
             }
         }
 
@@ -226,7 +226,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.DeleteMake");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.DeleteMake");
             }
         }
 
@@ -264,7 +264,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.Getsynopsis");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.Getsynopsis");
             }
 
             return objSynopsis;
@@ -305,7 +305,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.UpdateSynopsis");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.Bikedata.UpdateSynopsis");
             }
         }
 
@@ -337,7 +337,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetMakes_{0}", requestType));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetMakes_{0}", requestType));
             }
 
             return objMakes;
@@ -373,7 +373,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetModelsByMake_{0}_{1}", requestType, makeId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.UserReviews.GetModelsByMake_{0}_{1}", requestType, makeId));
             }
             return objBikeModelEntityBaseList;
         }

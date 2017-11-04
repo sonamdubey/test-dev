@@ -312,7 +312,7 @@ namespace Bikewale.Ajax
             catch (Exception ex)
             {
                 Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "AjaxCommon.SaveCustomerFeedback");
-                objErr.SendMail();
+                
             }
 
             return isSaved;
@@ -369,7 +369,7 @@ namespace Bikewale.Ajax
         //    catch (Exception ex)
         //    {
         //        Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "AjaxCommon.GetBikeModelsBySeriesId");
-        //        objErr.SendMail();
+        //        
         //    }
 
         //    return models;
@@ -412,7 +412,7 @@ namespace Bikewale.Ajax
             catch (Exception ex)
             {
                 Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "AjaxCommon.GetModelsNew");
-                objErr.SendMail();
+                
             }
 
             return models;

@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
 namespace BikewaleAutoSuggest
 {
     public class GetBikeListDb

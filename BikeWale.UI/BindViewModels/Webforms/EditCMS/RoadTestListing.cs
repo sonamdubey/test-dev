@@ -98,7 +98,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.GetRoadTestList");
+                ErrorClass.LogError(err, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.GetRoadTestList");
             }
         }
 

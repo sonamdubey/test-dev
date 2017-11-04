@@ -23,8 +23,8 @@ namespace Bikewale.NoPhotoListingsCommunication
             catch (Exception ex)
             {
                 Logs.WriteErrorLog("Exception in Main NoPhotoListingsCommunication.Program: ");
-                ErrorClass objErr = new ErrorClass(ex, "NoPhotoListingsCommunication.Program");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "NoPhotoListingsCommunication.Program");
+                
             }
             Logs.WriteInfoLog("Ended  NoPhotoUpload SMS and Email Job Succefully");
 

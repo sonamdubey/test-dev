@@ -40,14 +40,14 @@ namespace Bikewale.Common
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return dt;
         }   // End of GetStates method
@@ -83,14 +83,14 @@ namespace Bikewale.Common
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return dt;
         }   // End of GetCities method
@@ -127,14 +127,14 @@ namespace Bikewale.Common
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             return dt;
         }   // End of GetCities method
@@ -171,14 +171,14 @@ namespace Bikewale.Common
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                
             }
 
             return dt;
@@ -192,8 +192,8 @@ namespace Bikewale.Common
         /// <returns></returns>
         public DataTable GetPriceQuoteCities(string modelId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SateCity.GetPriceQuoteCities");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "SateCity.GetPriceQuoteCities");
+            
             return null;
 
             //Database db = null;
@@ -213,14 +213,14 @@ namespace Bikewale.Common
             //    catch (SqlException ex)
             //    {
             //        HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-            //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //        objErr.SendMail();
+            //        ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //        
             //    }
             //    catch (Exception ex)
             //    {
             //        HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-            //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //        objErr.SendMail();
+            //        ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //        
             //    }
             //}
             //return dt;
@@ -234,8 +234,8 @@ namespace Bikewale.Common
         /// <returns>Function returns the Cities object in which city's details data is stored.</returns>
         public Cities GetCityDetails(string cityId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SateCity.GetCityDetails");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "SateCity.GetCityDetails");
+            
             return null;
 
             //Database db = null;
@@ -271,14 +271,14 @@ namespace Bikewale.Common
             //    catch (SqlException ex)
             //    {
             //        HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-            //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //        objErr.SendMail();
+            //        ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //        
             //    }
             //    catch (Exception ex)
             //    {
             //        HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-            //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //        objErr.SendMail();
+            //        ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //        
             //    }
             //    finally
             //    {
@@ -300,8 +300,8 @@ namespace Bikewale.Common
         /// <returns></returns>
         public DataTable GetAreas(string cityId)
         {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SateCity.GetAreas");
-            objErr.SendMail();
+            ErrorClass.LogError(new Exception("Method not used/commented"), "SateCity.GetAreas");
+            
             return null;
 
             //Database db = null;
@@ -321,14 +321,14 @@ namespace Bikewale.Common
             //catch (SqlException ex)
             //{
             //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //catch (Exception ex)
             //{
             //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //return dt;
         }   // End of GetAreas method

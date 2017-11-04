@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-namespace BikeWale.DTO.AutoBiz
+﻿namespace BikeWale.DTO.AutoBiz
 {
     /// <summary>
     /// Created By : Sadhana Upadhyay on 6 Nov 2014

@@ -112,13 +112,13 @@ namespace Bikewale.New
             //}
             //catch (SqlException err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //catch (Exception err)
             //{
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    
             //}
             //finally
             //{
@@ -172,13 +172,13 @@ namespace Bikewale.New
             //catch (SqlException ex)
             //{
 
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"].ToString());
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"].ToString());
+            //    
             //}
             //catch (Exception ex)
             //{
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"].ToString());
-            //    objErr.SendMail();
+            //    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"].ToString());
+            //    
             //}
             //finally
             //{

@@ -89,7 +89,7 @@ namespace Bikewale.Content
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Content.Features.GetFeaturesList");
+                ErrorClass.LogError(err, "Bikewale.Content.Features.GetFeaturesList");
             }
             finally
             {
@@ -124,8 +124,8 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.Features.BindPageWidgets");
-                objErr.SendMail();
+                ErrorClass.LogError(ex, "Bikewale.Content.Features.BindPageWidgets");
+                
             }
         }
     }

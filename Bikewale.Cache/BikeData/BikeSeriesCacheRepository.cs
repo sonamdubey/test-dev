@@ -32,8 +32,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Cache.BikeData.BikeSeries.GetModelsListBySeries SeriesId = {0}", seriesId));
-                objErr.SendMail();
+                ErrorClass.LogError(ex, string.Format("Cache.BikeData.BikeSeries.GetModelsListBySeries SeriesId = {0}", seriesId));
+                
             }
             return objModels;
 

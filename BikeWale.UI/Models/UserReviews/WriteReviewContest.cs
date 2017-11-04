@@ -87,7 +87,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass errCls = new ErrorClass(ex, "GetData");
+                ErrorClass.LogError(ex, "GetData");
             }
 
             return viewModel;

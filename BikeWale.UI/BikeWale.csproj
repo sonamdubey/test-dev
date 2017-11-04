@@ -1691,7 +1691,6 @@
     <Compile Include="used\common\ClassifiedPurchaseInquiries.cs" />
     <Compile Include="used\common\ClassifiedSellerDetails.cs" />
     <Compile Include="used\common\MetaKeywordsUsed.cs" />
-    <Compile Include="used\common\ParseSearchCriteria.cs" />
     <Compile Include="used\common\SearchCommon.cs" />
     <Compile Include="used\common\SellBikeCommon.cs" />
     <Compile Include="used\Default20102016.aspx.cs">

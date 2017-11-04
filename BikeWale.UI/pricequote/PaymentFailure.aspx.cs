@@ -99,8 +99,8 @@ namespace Bikewale.PriceQuote
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                Bikewale.Notifications.ErrorClass.LogError(err, Request.ServerVariables["URL"]);
+
             }
             finally
             {
@@ -200,33 +200,6 @@ namespace Bikewale.PriceQuote
             {
                 HttpContext.Current.Response.Redirect("https://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/bookingsummary_new.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString));
                 Trace.Warn("fail");
-            }
-        }
-
-        /// <summary>
-        /// created By : Sangram Nandkhile 8 Oct 2015
-        /// Function to to Push Payment Failure to AutoBiz
-        /// </summary>
-        private void PushBikeBookingFailure()
-        {
-            try
-            {
-                BookingRequest request = new BookingRequest();
-                request.BranchId = Convert.ToUInt32(PriceQuoteQueryString.DealerId);
-                request.InquiryId = Convert.ToUInt32(PriceQuoteQueryString.PQId);
-
-                // HTTP PUT Request
-                string _apiUrl = "/webapi/booking/";
-
-                using (Bikewale.Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    string response = objClient.PutSync<BookingRequest, string>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
         }
     }

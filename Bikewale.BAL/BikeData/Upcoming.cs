@@ -139,7 +139,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.BindUpcomingMakes()");
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.Upcoming.BindUpcomingMakes()");
             }
             return brands;
         }
@@ -169,7 +169,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.GetYearList");
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.Upcoming.GetYearList");
             }
             return years;
         }
@@ -192,7 +192,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.Upcoming.GetYearList {0}", makeId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.Upcoming.GetYearList {0}", makeId));
             }
             return years;
         }
@@ -215,7 +215,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.GetMakeList");
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.Upcoming.GetMakeList");
             }
             return makes;
         }
@@ -247,7 +247,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.GetModels");
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.Upcoming.GetModels");
             }
             return objUpcomingList;
         }
@@ -283,7 +283,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.GetBikes");
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.Upcoming.GetBikes");
             }
             return objBikes;
         }
@@ -319,7 +319,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.OtherMakes");
+                ErrorClass.LogError(ex, "NewBikeLaunchesBL.OtherMakes");
             }
             return makes;
         }

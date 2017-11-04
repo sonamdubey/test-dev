@@ -140,7 +140,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomDealerDetail.BindMostPopularBikes()");
+                ErrorClass.LogError(ex, "DealerShowroomDealerDetail.BindMostPopularBikes()");
             }
             return objPopularBikes;
         }
@@ -161,7 +161,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomDealerDetail.BindServiceCenterWidget()");
+                ErrorClass.LogError(ex, "DealerShowroomDealerDetail.BindServiceCenterWidget()");
             }
 
             return ServiceCenterVM;
@@ -390,7 +390,7 @@ namespace Bikewale.Models.DealerShowroom
             catch (System.Exception ex)
             {
 
-                ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindShowroomPopularCityWidget");
+                ErrorClass.LogError(ex, "ServiceCenterDetailsPage.BindShowroomPopularCityWidget");
             }
 
         }

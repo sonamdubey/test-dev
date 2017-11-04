@@ -82,7 +82,7 @@ namespace Bikewale.Mobile.bikebooking
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
         }
 
@@ -121,7 +121,7 @@ namespace Bikewale.Mobile.bikebooking
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
         }
 
