@@ -36,7 +36,7 @@ namespace Bikewale.Models.News
         #endregion
 
         #region Page level variables
-        private uint MakeId, ModelId = 0, pageCatId = 0, CityId;
+        private uint MakeId,pageCatId = 0, CityId;
         private const int _pageSize = 10, _pagerSlotSize = 5;
         private int _curPageNo = 1;
         private uint _totalPagesCount;

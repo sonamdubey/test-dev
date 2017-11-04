@@ -558,4 +558,11 @@ docReady(function() {
         $('html, body').animate({ scrollTop: overallSpecsTabs.offset().top - floatingCardHeight }, 500); // 44px accordion tab height
     });
 
+    $(".floating-add-compare-btn").on('click', function () {
+        var bikeNo = $(this).closest("li").attr("data-value");
+        var liBike = $(".add-compare-btn").closest("li[data-value=" + bikeNo + "]");
+        liBike.find(".add-compare-btn").click();
+        $('html, body').animate({ scrollTop: 0 }, 500);
+    });
+
 });
