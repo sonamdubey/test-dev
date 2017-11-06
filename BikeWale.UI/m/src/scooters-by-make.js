@@ -91,6 +91,7 @@ $(document).ready(function () {
         var target = $(this).attr('data-tabs');
         $('html, body').animate({ scrollTop: $(target).offset().top - overallSpecsTabsContainer.height() }, 1000);
         centerItVariableWidth($(this), '.overall-specs-tabs-container');
+        triggerGA('Make_Scooters', 'Floating_NavigationClicked', $(this).data("lab"));
         return false;
     });
 
