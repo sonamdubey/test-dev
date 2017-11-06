@@ -1,4 +1,4 @@
-var version = '6Nov2017v5';
+var version = '6Nov2017v6';
 var baseUrl = 'https://stb.aeplcdn.com/staging/bikewale/pwa/';
 var APPSHELL = baseUrl + 'appshell.html?' + version;
 var SW_TOOLBOX_JS = baseUrl + 'sw-toolbox.js?' + version;
