@@ -2964,6 +2964,13 @@
     <Content Include="m\sass\modules\_key-specs.sass" />
     <Content Include="m\sass\modules\_button.sass" />
     <Content Include="m\sass\new-launch\_media-query.sass" />
+    <Content Include="pwa\app-btf.css" />
+    <Content Include="pwa\app.bundle.js" />
+    <Content Include="pwa\app.css" />
+    <Content Include="pwa\appshell.html" />
+    <Content Include="pwa\peripheralComponents.bundle.js" />
+    <Content Include="pwa\sw-toolbox.js" />
+    <Content Include="pwa\vendor.bundle.js" />
     <Content Include="sass\new-launch\new-launch.sass" />
     <Content Include="sass\new-launch\_new-launch-style.sass" />
     <Content Include="sass\modules\_collapsible-content.sass" />
@@ -4052,7 +4059,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
@@ -4096,7 +4103,8 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>
+
+  <PostBuildEvent>
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\runtimes\win7-x64\native\*" "$(ProjectDir)bin\x64\"
 	<!-- xcopy /Y "$(ProjectDir)..\Libs\PWA\x64\*" "$(ProjectDir)bin\x64\" --><!-- xcopy /Y "$(ProjectDir)..\Libs\PWA\x86\*" "$(ProjectDir)bin\x86\" -->
@@ -4108,7 +4116,8 @@
 	<!--xcopy /Y "$(ProjectDir)..\Libs\System.Runtime.dll" "$(ProjectDir)bin\"-->
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x64.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x86.dll" "$(ProjectDir)bin\"
-	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
+	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"-->
+	</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

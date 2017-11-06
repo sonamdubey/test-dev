@@ -1,10 +1,10 @@
 var version = '9Aug2017v1';
-var baseUrl = 'https://stb.aeplcdn.com/bikewale/pwa/build/';
-var APPSHELL = baseUrl + 'appshell.html?' + version;
-var VENDOR_JS = baseUrl + 'vendor.bundle.js?' + version;
-var APP_JS = baseUrl + 'app.bundle.js?' + version;
-var APP_BTF_CSS = baseUrl + 'app-btf.css?' + version;
-var SW_TOOLBOX_JS = baseUrl + 'sw-toolbox.js?' + version;
+var baseUrl = 'https://stb.aeplcdn.com/bikewale';
+var APPSHELL = baseUrl + '/pwa/appshell.html?' + version;
+var VENDOR_JS = baseUrl + '/pwa/vendor.bundle.js?' + version;
+var APP_JS = baseUrl + '/pwa/app.bundle.js?' + version;
+var APP_BTF_CSS = baseUrl + '/m/css/content/app-btf.css?' + version;
+var SW_TOOLBOX_JS = baseUrl + '/pwa/sw-toolbox.js?' + version;
 var IMAGE_EXPIRATION_TIME = 864000;
 var IMAGE_CDN_REGEX_PATTERN = /^https:\/\/imgd(\d)?.aeplcdn.com/;
 var ST_CDN_REGEX_PATTERN = /^https:\/\/stb.aeplcdn.com/;

@@ -160,7 +160,7 @@ namespace CopyFiles
                         File.Copy(fileName, targetPath + Path.GetFileName(fileName), true);
                     }
 
-                    if (fileExtension.Equals(".js") || fileExtension.Equals(".css"))
+                    if (fileExtension.Equals(".js") || fileExtension.Equals(".css") || Path.GetFileName(fileName).Equals("appshell.html") )
                     {
                         string newTargetPath = targetPath.Replace(@"\website\", @"\cdn\");
                         if (!Directory.Exists(newTargetPath))
