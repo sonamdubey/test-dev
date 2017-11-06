@@ -342,9 +342,9 @@ namespace Bikewale.DAL.Compare
                             ExpectedLaunch = SqlReaderConvertor.ToDateTime(reader["ExpectedLaunch"]),
                             EstimatedPriceMin = SqlReaderConvertor.ToUInt32(reader["EstimatedPriceMin"]),
                             EstimatedPriceMax = SqlReaderConvertor.ToUInt32(reader["EstimatedPriceMax"]),
-                            IsNew = SqlReaderConvertor.ToBoolean(reader["isnew"]),
+                            IsNew = SqlReaderConvertor.ToBoolean(reader["isnewmodel"]),
                             IsUpcoming = SqlReaderConvertor.ToBoolean(reader["futuristic"]),
-                            IsDiscontinued = SqlReaderConvertor.ToBoolean(reader["used"]) && !SqlReaderConvertor.ToBoolean(reader["isnew"]),
+                            IsDiscontinued = SqlReaderConvertor.ToBoolean(reader["isusedmodel"]) && !SqlReaderConvertor.ToBoolean(reader["isnewmodel"]),
                             UsedBikeCount = new Entities.Used.UsedBikesCountInCity()
                             {
                                 BikeCount = SqlReaderConvertor.ToUInt32(reader["bikeCount"]),
