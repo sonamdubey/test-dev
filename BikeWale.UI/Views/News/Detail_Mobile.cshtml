@@ -167,27 +167,28 @@
     window.addEventListener('DOMContentLoaded', function() {
         if('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistration('/m/news/').then(function(reg) {
-                reg.unregister().then(function() {
-                    navigator.serviceWorker.register("@Url.Content(Bikewale.Utility.BWConfiguration.Instance.ServiceWorkerPath)").then(function(registration) {
-                        registration.addEventListener('updatefound', function () {
-                            var newWorker = registration.installing;
-                            newWorker.addEventListener('statechange', function () {
-                                if (newWorker.state == 'redundant') {
-                                    triggerData('ServiceWorker', 'Registration', 'status=redundant');
-                                }
-                                else if (newWorker.state == 'activated') {
-                                    triggerData('ServiceWorker', 'Registration', 'status=successful');
-                                }
-                            })
-                        });
-                    
-                    
-                    }).catch(function(err) {
-                        triggerData('ServiceWorker','Registration','status=unsuccessful|err='+err);
-                        console.log(err);
-                    })
-                })
+                if(reg) {
+                    reg.unregister();
+                }
             });
+            navigator.serviceWorker.register("@Url.Content(Bikewale.Utility.BWConfiguration.Instance.ServiceWorkerPath)").then(function(registration) {
+                registration.addEventListener('updatefound', function () {
+                    var newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', function () {
+                        if (newWorker.state == 'redundant') {
+                            triggerData('ServiceWorker', 'Registration', 'status=redundant');
+                        }
+                        else if (newWorker.state == 'activated') {
+                            triggerData('ServiceWorker', 'Registration', 'status=successful');
+                        }
+                    })
+                });
+            }).catch(function(err) {
+                triggerData('ServiceWorker','Registration','status=unsuccessful|err='+err);
+                console.log(err);
+            });
+                
+           
                
         }
         else {
