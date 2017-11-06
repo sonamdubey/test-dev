@@ -126,6 +126,8 @@ namespace Bikewale.Models
                 objData.UsedModels = BindUsedBikeByModel(_makeId, cityId);
                 BindDiscontinuedBikes(objData);
                 BindOtherMakes(objData);
+
+
                 #region Set Visible flags
 
                 if (objData != null)
@@ -302,7 +304,7 @@ namespace Bikewale.Models
 
                 CheckCustomPageMetas(objData, objMakeBase);
 
-                SetPageJSONLDSchema(objData);
+                SetPageJSONLDSchema(objData, objMakeBase);
             }
             catch (Exception ex)
             {
@@ -312,16 +314,24 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Created By  : Sushil Kumar on 6th Nov Sep 2017
         /// Description : Added breadcrum and webpage schema and added brand schema
         /// </summary>
-        private void SetPageJSONLDSchema(MakePageVM objPageMeta)
+        private void SetPageJSONLDSchema(MakePageVM objPageMeta, BikeMakeEntityBase objMakeBase)
         {
-            //set webpage schema for the model page
             WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
 
             if (webpage != null)
             {
+                if (objMakeBase != null)
+                {
+                    Brand brand = new Brand();
+                    brand.Logo = Image.GetPathToShowImages(objMakeBase.LogoUrl, objMakeBase.HostUrl, "0x0");
+                    brand.Url = string.Format("{0}/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, objMakeBase.MaskingName);
+                    brand.Name = objMakeBase.MakeName;
+                    brand.Description = objPageMeta.BikeDescription != null ? objPageMeta.BikeDescription.SmallDescription : objPageMeta.PageMetaTags.Description;
+                    objPageMeta.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(brand);
+                }
                 objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
             }
         }
