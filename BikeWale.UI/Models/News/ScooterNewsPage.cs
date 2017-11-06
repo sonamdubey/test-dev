@@ -36,7 +36,7 @@ namespace Bikewale.Models.News
         #endregion
 
         #region Page level variables
-        private uint MakeId,pageCatId = 0, CityId;
+        private uint MakeId, pageCatId = 0, CityId;
         private const int _pageSize = 10, _pagerSlotSize = 5;
         private int _curPageNo = 1;
         private uint _totalPagesCount;
@@ -114,8 +114,6 @@ namespace Bikewale.Models.News
                 MakeMaskingResponse makeResponse = null;
                 if (!string.IsNullOrEmpty(make))
                 {
-                    makeResponse = new MakeMaskingResponse();
-
                     makeResponse = _bikeMakesCacheRepository.GetMakeMaskingResponse(make);
                 }
                 if (makeResponse != null)
@@ -189,8 +187,8 @@ namespace Bikewale.Models.News
                     objData.PageMetaTags.Title = "Scooter News | Latest news about scooters - BikeWale";
                     objData.PageMetaTags.Description = "Read the latest news about scooters. Know more about scooter new launch updates, and much more from two wheeler industry.";
                     objData.PageMetaTags.Keywords = "scooter news, scooty news, auto news, scooter launch, Indian scooter news";
-                    objData.PageH1 = string.Format("Scooter News");
-                    objData.PageH2 = string.Format(" Latest News and Views about Scooters");
+                    objData.PageH1 = "Scooter News";
+                    objData.PageH2 = "Latest News and Views about Scooters";
                 }
 
                 if (_curPageNo > 1)
@@ -317,7 +315,6 @@ namespace Bikewale.Models.News
                 string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
 
                 categorList.Clear();
-                categorList = null;
                 if (_objMake != null)
                     objData.Make = _objMake;
                 if (_objModel != null)
