@@ -560,7 +560,7 @@ namespace Bikewale.Models
                                 var firstVersionTemp = objVM.VersionSpecs.FirstOrDefault();
                                 if (firstVersionTemp != null)
                                 {
-                                    objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
+                                    objVM.BodyStyle = firstVersionTemp.BodyStyle;
 
                                 }
                             }
