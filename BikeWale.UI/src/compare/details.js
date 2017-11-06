@@ -128,7 +128,7 @@ docReady(function() {
         var listItem = $(this).closest('.list-item');
         $(this).hide();
         compareBox.setDropdown(listItem[0]);
-        var bikeNo = listItem.attr("data-value"),  liFloatingBike = $(".floating-add-compare-btn").closest("li[data-value=" + bikeNo + "]"),
+        var bikeNo = listItem.attr("data-add-value"), liFloatingBike = $(".floating-add-compare-btn").closest("li[data-add-value=" + bikeNo + "]"),
         floatingBtn = liFloatingBike.find(".floating-add-compare-btn");
         floatingBtn.attr("data-selection-done", 1);
         floatingBtn.text("Choose bikes");
@@ -563,7 +563,7 @@ docReady(function() {
 
     $(".floating-add-compare-btn").on('click', function () {
         var ele = $(this), isSelectionDone = ele.attr("data-selection-done");
-        var bikeNo = ele.closest("li.list-item").attr("data-value"), liBike = $(".add-compare-btn").closest("li[data-value=" + bikeNo + "]");
+        var bikeNo = ele.closest("li.list-item").attr("data-add-value"), liBike = $(".add-compare-btn").closest("li[data-add-value=" + bikeNo + "]");
         $('html, body').animate({ scrollTop: 0 }, 500);
         if (!isSelectionDone)
         {
