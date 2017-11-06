@@ -57,15 +57,15 @@
                                 <div class="rightfloat">
                                     <div class="sort-div rounded-corner2">
                                         <div class="sort-by-title" id="sort-by-container">
-                                            <span class="leftfloat sort-select-btn text-truncate">Price: Low to High</span>
+                                            <span class="leftfloat sort-select-btn text-truncate">@Model.SelectedSortingText</span>
                                             <span class="clear"></span>
                                         </div>
                                         <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                     </div>
                                     <div class="sort-selection-div sort-list-items hide">
                                         <ul id="sortbike">
-                                            <li id="0" class="selected">Price: Low to High</li>
-                                            <li id="1">Popular</li>
+                                            <li id="0" class="@(Model.SelectedSortingId == 0 ? "selected" : "")">Price: Low to High</li>
+                                            <li id="1" class="@(Model.SelectedSortingId == 1 ? "selected" : "")">Popular</li>
                                             <li id="2">Price: High to Low</li>
                                             <li id="3">Mileage: High to Low</li>
                                         </ul>

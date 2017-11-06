@@ -70,6 +70,8 @@ namespace Bikewale.Models
         /// Description : Replaced call to method 'GetMostPopularBikesByMake' with 'GetMostPopularBikesByMakeWithCityPrice' to get city price when city is selected.
         /// Modified by : Vivek Singh Tomar on 11th Oct 2017
         /// Summary : Removed unnecessary arguments from BindDealerSserviceData which was required for fetchin service center details
+        /// Modified by sajal Gupta on 06-11-2017
+        /// Descriptition :  Chaged default sorting of bikes on page for particuaklar makes
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
@@ -113,11 +115,22 @@ namespace Bikewale.Models
                 objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
                 BikeMakeEntityBase makeBase = _bikeMakesCache.GetMakeDetails(_makeId);
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription(_makeId);
+                objData.SelectedSortingId = 0;
+                objData.SelectedSortingText = "Price: Low to High";
+
                 if (makeBase != null)
                 {
                     objData.MakeMaskingName = makeBase.MaskingName;
                     objData.MakeName = makeBase.MakeName;
                 }
+
+                if (!string.IsNullOrEmpty(BWConfiguration.Instance.PopularityOrderForMake) && BWConfiguration.Instance.PopularityOrderForMake.Split(',').Contains(_makeId.ToString()))
+                {
+                    objData.Bikes = objData.Bikes.OrderBy(x => x.BikePopularityIndex);
+                    objData.SelectedSortingId = 1;
+                    objData.SelectedSortingText = "Popular";
+                }
+
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindUpcomingBikes(objData);
                 BindCompareBikes(objData, CompareSource, cityId);
