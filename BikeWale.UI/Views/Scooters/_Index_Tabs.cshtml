@@ -4,35 +4,35 @@
         <div class="overall-specs-tabs-wrapper">
             @if (Model.Description != null && Model.Description.FullDescription.Length > 0)
             {
-                <a href="#makeAboutContent" rel="nofollow" class="active">About</a>
+                <a href="#makeAboutContent" rel="nofollow" class="active nav-tab" data-lab="@string.Format("{0}_About",Model.Make.MakeName)">About</a>
             }
             @if (Model.IsScooterDataAvailable)
             {
-                <a href="#bikeMakeList" rel="nofollow">@Model.Make.MakeName Scooters</a>
+                <a href="#bikeMakeList" rel="nofollow" class="nav-tab" data-lab="@string.Format("{0}_Scooters",Model.Make.MakeName)">@Model.Make.MakeName Scooters</a>
             }
             @if (Model.IsCompareDataAvailable)
             {
-                <a href="#popularComparisions" rel="nofollow">Top Comparisions</a>
+                <a href="#popularComparisions" rel="nofollow" class="nav-tab" data-lab="@string.Format("{0}_TopComparisions",Model.Make.MakeName)">Top Comparisions</a>
             }
             @if(Model.IsUpComingBikesAvailable)
             {
-                <a href="#upcomingBikeList" rel="nofollow">Upcoming</a>
+                <a href="#upcomingBikeList" rel="nofollow" class="nav-tab" data-lab="@string.Format("{0}_UpcomingBikes",Model.Make.MakeName)">Upcoming</a>
             }
             @if (Model.IsNewsAvailable)
             {
-                <a href="#modelNewsContent" rel="nofollow">News</a>
+                <a href="#modelNewsContent" rel="nofollow" class="nav-tab" data-lab="@string.Format("{0}_News",Model.Make.MakeName)">News</a>
             }
             @if (Model.IsExpertReviewsAvailable)
             {
-                <a href="#makeReviewsContent" rel="nofollow">Reviews</a>
+                <a href="#makeReviewsContent" rel="nofollow" class="nav-tab" data-lab="@string.Format("{0}_Reviews",Model.Make.MakeName)">Reviews</a>
             }
             @if (Model.IsVideosAvailable)
             {
-                <a href="#makeVideosContent" rel="nofollow">Videos</a>
+                <a href="#makeVideosContent" rel="nofollow" class="nav-tab" data-lab="@string.Format("{0}_Videos",Model.Make.MakeName)">Videos</a>
             }
             @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
             {
-                <a href="#dealerAndServiceContent" rel="nofollow">Dealers</a>
+                <a href="#dealerAndServiceContent" rel="nofollow" class="nav-tab" data-lab="@string.Format("{0}_Showrooms",Model.Make.MakeName)">Dealers</a>
             }
         </div>
     </div>

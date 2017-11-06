@@ -4,35 +4,35 @@
         <ul class="overall-specs-tabs-wrapper">
             @if (Model.Description != null && Model.Description.FullDescription.Length > 0)
             {
-                <li data-tabs="#makeAboutContent"  class="active">About</li>
+                <li data-tabs="#makeAboutContent"  class="active" data-lab="@string.Format("{0}_About",Model.Make.MakeName)">About</li>
             }
             @if (Model.IsScooterDataAvailable)
             {
-                <li data-tabs="#bikeMakeList" >@Model.Make.MakeName Scooters</li>
+                <li data-tabs="#bikeMakeList" data-lab="@string.Format("{0}_Scooters",Model.Make.MakeName)">@Model.Make.MakeName Scooters</li>
             }
             @if (Model.IsCompareDataAvailable)
             {
-                <li data-tabs="#popularComparisions" >Top Comparisions</li>
+                <li data-tabs="#popularComparisions" data-lab="@string.Format("{0}_TopComparisions",Model.Make.MakeName)">Top Comparisions</li>
             }
             @if (Model.IsUpComingBikesAvailable)
             {
-                <li data-tabs="#upcomingBikeList" >Upcoming</li>
+                <li data-tabs="#upcomingBikeList" data-lab="@string.Format("{0}_UpcomingBikes",Model.Make.MakeName)">Upcoming</li>
             }
             @if (Model.IsNewsAvailable)
             {
-                <li data-tabs="#modelNewsContent" >News</li>
+                <li data-tabs="#modelNewsContent" data-lab="@string.Format("{0}_News",Model.Make.MakeName)">News</li>
             }
             @if (Model.IsExpertReviewsAvailable)
             {
-                <li data-tabs="#makeReviewsContent" >Reviews</li>
+                <li data-tabs="#makeReviewsContent" data-lab="@string.Format("{0}_Reviews",Model.Make.MakeName)">Reviews</li>
             }
             @if (Model.IsVideosAvailable)
             {
-                <li data-tabs="#makeVideosContent" >Videos</li>
+                <li data-tabs="#makeVideosContent" data-lab="@string.Format("{0}_Videos",Model.Make.MakeName)">Videos</li>
             }
             @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
             {
-                <li data-tabs="#dealerAndServiceContent" >Dealers</li>
+                <li data-tabs="#dealerAndServiceContent" data-lab="@string.Format("{0}_Showrooms",Model.Make.MakeName)">Dealers</li>
             }
         </ul>
     </div>
