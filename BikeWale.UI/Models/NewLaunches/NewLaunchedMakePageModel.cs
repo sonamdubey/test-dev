@@ -3,11 +3,13 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 namespace Bikewale.Models
@@ -33,6 +35,7 @@ namespace Bikewale.Models
         public StatusCodes Status { get; private set; }
         public String RedirectUrl { get; private set; }
         public uint MakeId { get; private set; }
+        public bool IsMobile { get; set; }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -176,11 +179,55 @@ namespace Bikewale.Models
                 objVM.PageMetaTags.Keywords = string.Format("new {2} bikes {0}, new {2} bike launches in {1}, just launched {2} bikes, new {2} bike arrivals, {2} bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year, objVM.Make.MakeName.ToLower());
                 objVM.PageMetaTags.CanonicalUrl = string.Format("{0}/new-{1}-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, objVM.Make.MaskingName);
                 objVM.PageMetaTags.AlternateUrl = string.Format("{0}/m/new-{1}-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, objVM.Make.MaskingName);
+
+                objVM.Page_H1 = string.Format("Upcoming {0} bikes", objVM.Make.MakeName);
+
+                SetBreadcrumList(objVM);
+                SetPageJSONLDSchema(objVM);
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedMakePageModel.CreateMeta()");
             }
+        }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema
+        /// </summary>
+        private void SetPageJSONLDSchema(NewLaunchedMakeVM objData)
+        {
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(NewLaunchedMakeVM objData)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            url += "upcoming-bikes/";
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "Upcoming bikes"));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
+
+            objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
-﻿using Bikewale.Entities.BikeData;
-using Bikewale.Entities.BikeData.NewLaunched;
+﻿using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.Location;
 using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData;
@@ -45,7 +44,7 @@ namespace Bikewale.Controllers
                 CityId = _objLocation.CityId,
                 PageSize = 15
             };
-            NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters, Entities.PriceQuote.PQSourceEnum.Desktop_NewLaunchLanding, pageNumber,_objArticles);
+            NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters, Entities.PriceQuote.PQSourceEnum.Desktop_NewLaunchLanding, pageNumber, _objArticles);
             model.BaseUrl = "/new-bike-launches/";
             model.PageSize = 15;
             model.MakeTopCount = 10;
@@ -69,7 +68,7 @@ namespace Bikewale.Controllers
                 CityId = _objLocation.CityId,
                 PageSize = 10
             };
-            NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters, Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding, pageNumber,_objArticles);
+            NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters, Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding, pageNumber, _objArticles);
             model.BaseUrl = "/m/new-bike-launches/";
             model.PageSize = 10;
             model.MakeTopCount = 6;
@@ -141,6 +140,7 @@ namespace Bikewale.Controllers
                 model.BaseUrl = String.Format("/m/new-{0}-bike-launches/", maskingName);
                 model.PageSize = 10;
                 model.MakeTopCount = 9;
+                model.IsMobile = true;
                 return View(model.GetData());
             }
             else if (model.Status == Entities.StatusCodes.RedirectPermanent)

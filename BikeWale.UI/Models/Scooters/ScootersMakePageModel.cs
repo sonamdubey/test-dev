@@ -4,6 +4,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -12,9 +13,9 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
-using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
@@ -36,6 +37,7 @@ namespace Bikewale.Models
         private readonly IServiceCenter _objService = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
+        private ScootersMakePageVM objData = null;
 
 
         public StatusCodes Status { get; set; }
@@ -44,6 +46,7 @@ namespace Bikewale.Models
         private string _makeName;
         private readonly string _makeMaskingName;
         public string RedirectUrl { get; set; }
+        public bool IsMobile { get; set; }
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Constructor to initialize the member variables
@@ -85,46 +88,49 @@ namespace Bikewale.Models
         /// <returns></returns>
         public ScootersMakePageVM GetData()
         {
-            ScootersMakePageVM objViewModel = null;
             try
             {
-                objViewModel = new ScootersMakePageVM();
+                objData = new ScootersMakePageVM();
                 CityEntityBase cityEntity = null;
                 var cityBase = GlobalCityArea.GetGlobalCityArea();
                 if (cityBase != null && cityBase.CityId > 0)
                 {
                     cityEntity = new CityHelper().GetCityById(cityBase.CityId);
-                    objViewModel.Location = cityEntity.CityName;
-                    objViewModel.LocationMasking = cityEntity.CityMaskingName;
+                    objData.Location = cityEntity.CityName;
+                    objData.LocationMasking = cityEntity.CityMaskingName;
                 }
                 else
                 {
-                    objViewModel.Location = "India";
-                    objViewModel.LocationMasking = "india";
+                    objData.Location = "India";
+                    objData.LocationMasking = "india";
                 }
-                objViewModel.PageCatId = 8;
+                objData.PageCatId = 8;
 
-                objViewModel.Make = _objMakeCache.GetMakeDetails(_makeId);
-                if (objViewModel.Make != null)
+                objData.Make = _objMakeCache.GetMakeDetails(_makeId);
+                objData.Description = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);
+                objData.Scooters = _bikeModels.GetMostPopularScooters(_makeId);
+
+                if (objData.Make != null)
                 {
-                    _makeName = objViewModel.Make.MakeName;
+                    _makeName = objData.Make.MakeName;
                 }
-                BindPageMetaTags(objViewModel.PageMetaTags, objViewModel.Make);
-                objViewModel.Description = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);
-                objViewModel.Scooters = _bikeModels.GetMostPopularScooters(_makeId);
-                BindUpcomingBikes(objViewModel);
-                BindDealersServiceCenters(objViewModel, cityEntity);
-                BindOtherScooterBrands(objViewModel, _makeId, 9);
-                BindCompareScootes(objViewModel, CompareSource);
-                BindEditorialWidget(objViewModel);
-                SetFlags(objViewModel, CityId);
-                objViewModel.ScooterNewsUrl = UrlFormatter.FormatScootersNewsUrl(objViewModel.News.MakeMasking, objViewModel.News.ModelMasking);
+
+                BindUpcomingBikes();
+                BindDealersServiceCenters(cityEntity);
+                BindOtherScooterBrands(_makeId, 9);
+                BindCompareScootes(CompareSource);
+                BindEditorialWidget();
+                SetFlags(CityId);
+                objData.ScooterNewsUrl = UrlFormatter.FormatScootersNewsUrl(objData.News.MakeMasking, objData.News.ModelMasking);
+
+                BindPageMetaTags();
+
             }
             catch (Exception ex)
             {
                 Notifications.ErrorClass er = new Notifications.ErrorClass(ex, "ScootersIndexPageModel.GetData()");
             }
-            return objViewModel;
+            return objData;
         }
 
         /// <summary>
@@ -133,14 +139,14 @@ namespace Bikewale.Models
         /// Modified by : Aditi Srivastava on 27 Apr 2017
         /// Summary  : Added source for comparisons
         /// </summary>
-        private void BindCompareScootes(ScootersMakePageVM objViewModel, CompareSources CompareSource)
+        private void BindCompareScootes(CompareSources CompareSource)
         {
             try
             {
-                string versionList = string.Join(",", objViewModel.Scooters.Select(m => m.objVersion.VersionId));
+                string versionList = string.Join(",", objData.Scooters.Select(m => m.objVersion.VersionId));
                 PopularModelCompareWidget objCompare = new PopularModelCompareWidget(_compareScooters, 1, CityId, versionList);
-                objViewModel.SimilarCompareScooters = objCompare.GetData();
-                objViewModel.SimilarCompareScooters.CompareSource = CompareSource;
+                objData.SimilarCompareScooters = objCompare.GetData();
+                objData.SimilarCompareScooters.CompareSource = CompareSource;
             }
             catch (Exception ex)
             {
@@ -148,17 +154,17 @@ namespace Bikewale.Models
             }
         }
 
-        private void BindOtherScooterBrands(ScootersMakePageVM objViewModel, uint _makeId, int topCount)
+        private void BindOtherScooterBrands(uint _makeId, int topCount)
         {
             var scooterBrand = _objMakeCache.GetScooterMakes();
-            objViewModel.OtherBrands = scooterBrand.Where(x => x.MakeId != _makeId).Take(topCount);
+            objData.OtherBrands = scooterBrand.Where(x => x.MakeId != _makeId).Take(topCount);
         }
 
         /// <summary>
         /// Modified by : Aditi Srivastava on 15 June 2017
         /// Summary     : Added flags for editorial section (News, expert reviews and videos)
         /// </summary>
-        private void SetFlags(ScootersMakePageVM objData, uint cityId)
+        private void SetFlags(uint cityId)
         {
             if (objData != null)
             {
@@ -184,7 +190,7 @@ namespace Bikewale.Models
         /// </summary>
         /// <param name="objVM">The object vm.</param>
         /// <param name="cityEntity">The city entity.</param>
-        private void BindDealersServiceCenters(ScootersMakePageVM objVM, CityEntityBase cityEntity)
+        private void BindDealersServiceCenters(CityEntityBase cityEntity)
         {
             try
             {
@@ -192,11 +198,11 @@ namespace Bikewale.Models
                 {
                     var dealerData = new DealerCardWidget(_objDealerCache, cityEntity.CityId, _makeId);
                     dealerData.TopCount = 3;
-                    objVM.Dealers = dealerData.GetData();
+                    objData.Dealers = dealerData.GetData();
                 }
                 else
                 {
-                    objVM.DealersServiceCenter = new DealersServiceCentersIndiaWidgetModel(_makeId, _makeName, _makeMaskingName, _objDealerCache).GetData();
+                    objData.DealersServiceCenter = new DealersServiceCentersIndiaWidgetModel(_makeId, _makeName, _makeMaskingName, _objDealerCache).GetData();
                 }
             }
             catch (Exception ex)
@@ -211,20 +217,61 @@ namespace Bikewale.Models
         /// </summary>
         /// <param name="pageMetaTags">The page meta tags.</param>
         /// <param name="make">The make.</param>
-        private void BindPageMetaTags(PageMetaTags pageMetaTags, BikeMakeEntityBase make)
+        private void BindPageMetaTags()
         {
             try
             {
-                pageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-scooters/", make.MaskingName);
-                pageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-scooters/", make.MaskingName);
-                pageMetaTags.Keywords = string.Format("{0} Scooter, {0} Scooty, Scooter {0}, Scooty {0}, Scooters, Scooty", make.MakeName);
-                pageMetaTags.Description = string.Format("Check {0} Scooty prices in India. Know more about new and upcoming {0} scooters, their prices, performance and mileage.", make.MakeName);
-                pageMetaTags.Title = string.Format("{0} Scooters in India | Scooty Prices, Mileage & Images - BikeWale", make.MakeName);
+                objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-scooters/", objData.Make.MaskingName);
+                objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-scooters/", objData.Make.MaskingName);
+                objData.PageMetaTags.Keywords = string.Format("{0} Scooter, {0} Scooty, Scooter {0}, Scooty {0}, Scooters, Scooty", objData.Make.MakeName);
+                objData.PageMetaTags.Description = string.Format("Check {0} Scooty prices in India. Know more about new and upcoming {0} scooters, their prices, performance and mileage.", objData.Make.MakeName);
+                objData.PageMetaTags.Title = string.Format("{0} Scooters in India | Scooty Prices, Mileage & Images - BikeWale", objData.Make.MakeName);
+                objData.Page_H1 = string.Format("{0} Scooters", objData.Make.MakeName);
+
+                SetBreadcrumList();
+                SetPageJSONLDSchema();
             }
             catch (Exception ex)
             {
                 ErrorClass er = new ErrorClass(ex, "ScootersMakePageModel.BindPageMetaTags()");
             }
+        }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema
+        /// </summary>
+        private void SetPageJSONLDSchema()
+        {
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList()
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
+
+            objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
         }
 
         /// <summary>
@@ -269,7 +316,7 @@ namespace Bikewale.Models
         /// Binds the upcoming bikes.
         /// </summary>
         /// <param name="objData">The object data.</param>
-        private void BindUpcomingBikes(ScootersMakePageVM objData)
+        private void BindUpcomingBikes()
         {
             UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
             objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
@@ -285,7 +332,7 @@ namespace Bikewale.Models
         /// Created by : Aditi Srivastava on 15 June 2017
         /// Summary    : Bind make scooter related editorial content
         /// </summary>
-        private void BindEditorialWidget(ScootersMakePageVM objData)
+        private void BindEditorialWidget()
         {
             RecentNews objNews = new RecentNews(EditorialTopCount, _makeId, _makeName, _makeMaskingName, string.Format("News about {0} Scooters", _makeName), _articles);
             objNews.IsScooter = true;
