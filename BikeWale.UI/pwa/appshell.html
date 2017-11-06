@@ -58,7 +58,7 @@
         }catch(err){}
         
     </script>
-    <link rel='stylesheet' type='text/css' href="https://stb.aeplcdn.com/staging/bikewale/pwa/app-btf.css?6Nov2017v4" /> 
+    <link rel='stylesheet' type='text/css' href="https://stb.aeplcdn.com/staging/bikewale/pwa/app-btf.css?6Nov2017v5" /> 
 </head>
 <body>
 
@@ -79,9 +79,9 @@
             <span class="loader"></span>
         </div>
     </div>
-    <script defer src="https://stb.aeplcdn.com/staging/bikewale/pwa/vendor.bundle.js?6Nov2017v4"></script>
-    <script defer src="https://stb.aeplcdn.com/staging/bikewale/pwa/app.bundle.js?6Nov2017v4"></script>
-    <script defer src="https://stb.aeplcdn.com/staging/bikewale/src/bwcache.js?6Nov2017v4"></script>
+    <script defer src="https://stb.aeplcdn.com/staging/bikewale/pwa/vendor.bundle.js?6Nov2017v5"></script>
+    <script defer src="https://stb.aeplcdn.com/staging/bikewale/pwa/app.bundle.js?6Nov2017v5"></script>
+    <script defer src="https://stb.aeplcdn.com/staging/bikewale/src/bwcache.js?6Nov2017v5"></script>
     <script defer type="text/javascript">
         function triggerData(cat, act, lbl) {
             if (typeof triggerDataToBhrigu == 'function') {
@@ -102,7 +102,7 @@
         window.addEventListener('DOMContentLoaded', function () {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.getRegistration('/m/news/').then(function (reg) {
-                    if (reg) {
+                    if (reg && reg.active && reg.active.scriptURL == window.location.origin + '/m/news/sw.js') {
                         reg.unregister();
                     }
                 });

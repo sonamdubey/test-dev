@@ -167,7 +167,7 @@
     window.addEventListener('DOMContentLoaded', function() {
         if('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistration('/m/news/').then(function(reg) {
-                if(reg) {
+                if(reg && reg.active && reg.active.scriptURL == window.location.origin + '/m/news/sw.js') {
                     reg.unregister();
                 }
             });
