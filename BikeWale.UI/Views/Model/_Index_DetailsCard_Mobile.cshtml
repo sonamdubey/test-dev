@@ -84,6 +84,20 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
         </div>
     }
 </div>
+@if (Model.IsUpcomingBike && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
+{
+    <div class="container bg-white box-shadow padding-top10 padding-bottom20 card-bottom-margin">
+        <div class="carousel-heading-content padding-top15">
+            <div class="swiper-heading-left-grid-50 inline-block">
+                <h2>Similar upcoming bikes</h2>
+            </div><div class="swiper-heading-right-grid-50 inline-block text-right">
+                <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">All upcoming bikes</a>
+            </div>
+        </div>
+        @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.objUpcomingBikes)
+        <div class="clear"></div>
+    </div>
+}
 @if (Model.IsReviewsAvailable)
 {
     <div id="expertReviewsContent" data-id="expertReviewsContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
@@ -190,17 +204,4 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 
 }
 <div id="modelSpecsFooter"></div>
-@if (Model.IsUpcomingBike && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
-{
-    <div class="container bg-white box-shadow padding-top10 padding-bottom20 card-bottom-margin">
-        <div class="carousel-heading-content padding-top15">
-            <div class="swiper-heading-left-grid inline-block">
-                <h2>More upcoming bikes</h2>
-            </div><div class="swiper-heading-right-grid inline-block text-right">
-                <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
-            </div>
-        </div>
-        @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.objUpcomingBikes)
-        <div class="clear"></div>
-    </div>
-}
+

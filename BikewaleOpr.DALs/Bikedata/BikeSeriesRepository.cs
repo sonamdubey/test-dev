@@ -50,8 +50,6 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <summary>
         /// Created by : Vivek Singh Tomar on 12th Sep 2017
         /// Summary : Add new bike series
-        /// Modified by : Ashutosh Sharma on 23 Oct 2017
-        /// Description : Replaced sp from 'addbikeseries' to 'addbikeseries_23102017'.
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <param name="UpdatedBy"></param>
