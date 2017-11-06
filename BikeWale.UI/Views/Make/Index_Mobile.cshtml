@@ -15,12 +15,12 @@
                 <div class="hide" id="sort-by-div">
                     <div class="filter-sort-div font14 bg-white">
                         <div sc="1" so="">
-                            <a data-title="sort" class="price-sort position-rel text-bold">
-                                Price <span class="hide" so="0" class="sort-text ">: Low</span>
+                            <a data-title="sort" class='price-sort position-rel @(Model.SelectedSortingId == 0 ? "text-bold" : "")'>
+                                Price <span so="0" class="sort-text hide">: Low</span>
                             </a>
                         </div>
-                        <div sc="" class="border-solid-left">
-                            <a data-title="sort" class="position-rel">
+                        <div sc="" class='border-solid-left'>
+                            <a data-title="sort" class='position-rel @(Model.SelectedSortingId == 1 ? "text-bold" : "")''>
                                 Popularity
                             </a>
                         </div>
