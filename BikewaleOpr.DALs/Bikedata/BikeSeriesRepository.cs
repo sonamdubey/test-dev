@@ -1,12 +1,12 @@
 ﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
+using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Dapper;
-using BikewaleOpr.Entities.BikeData;
 
 namespace BikewaleOpr.DALs.Bikedata
 {
@@ -72,7 +72,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_seriesid", dbType: DbType.UInt32, direction: ParameterDirection.Output);
                     param.Add("par_createdon", dbType: DbType.Date, direction: ParameterDirection.Output);
                     connection.Open();
-                    connection.Execute("addbikeseries_23102017", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("addbikeseries", param: param, commandType: CommandType.StoredProcedure);
                     bikeSeries.SeriesId = param.Get<uint>("par_seriesid");
                     if(bikeSeries.SeriesId != 0)
                     {
