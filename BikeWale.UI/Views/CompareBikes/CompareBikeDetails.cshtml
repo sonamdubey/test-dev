@@ -84,7 +84,7 @@
 
                                 </div>
                             </li>
-                                }
+    }
                         @if (Model.Compare.BasicInfo.Count() < 4 && !Model.isSponsoredBike)
                         {
                             <li class="list-item" data-value="@i">
@@ -148,14 +148,12 @@
                                 </li>
                             }
 
-                            @if (Model.Compare!=null && Model.Compare.BasicInfo!=null && Model.Compare.BasicInfo.Count() < 4 && !Model.isSponsoredBike)
+                            @if (Model.Compare != null && Model.Compare.BasicInfo != null && Model.Compare.BasicInfo.Count() < 4 && !Model.isSponsoredBike)
                             {
                                 <li class="list-item" data-value="@i">
                                     <p class="font15 text-bold margin-bottom20">Add bike to compare</p>
                                     <div class="bike-details-block">
-                                        <div class="text-center">
-                                            <button type="button" class="floating-add-compare-btn btn btn-white btn-160-32">Add another bike</button>
-                                        </div>
+                                        <a href="javascript:void(0)" rel="nofollow" class="floating-add-compare-btn btn btn-white btn-160-32">Add another bike</a>
                                     </div>
                                 </li>
                             }
