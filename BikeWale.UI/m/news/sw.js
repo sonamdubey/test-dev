@@ -1,5 +1,5 @@
-var version = '6Nov2017v7';
-var baseUrl = 'https://stb.aeplcdn.com/staging/bikewale/pwa/';
+var version = '6Nov2017v1';
+var baseUrl = 'https://stb.aeplcdn.com/bikewale/pwa/';
 var APPSHELL = baseUrl + 'appshell.html?' + version;
 var SW_TOOLBOX_JS = baseUrl + 'sw-toolbox.js?' + version;
 var IMAGE_EXPIRATION_TIME = 864000;
