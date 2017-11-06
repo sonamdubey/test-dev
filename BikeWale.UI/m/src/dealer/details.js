@@ -75,7 +75,7 @@ docReady(function () {
         var cityName = btnDpq.data("cityname");
         var areaName = btnDpq.data("areaname");
         var dealerid = btnDpq.data("dealerid");
-        checkCookies();
+        vmquotation.CheckCookies();
         $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
         $('#popupWrapper').addClass('loader-active');
         $('#popupWrapper,#popupContent').show();
