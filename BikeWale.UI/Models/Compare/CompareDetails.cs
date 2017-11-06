@@ -36,7 +36,6 @@ namespace Bikewale.Models
         private readonly ISponsoredComparison _objSponsored = null;
         private readonly IArticles _objArticles = null;
         private string modelList, modelIdList;
-        private string compareModelId1, compareModelId2;
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         public string redirectionUrl { get; set; }

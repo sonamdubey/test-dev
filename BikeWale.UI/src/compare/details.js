@@ -126,9 +126,12 @@ docReady(function() {
     }
     $('.compare-bike-list').on('click', '.add-bike-form', function () {
         var listItem = $(this).closest('.list-item');
-
         $(this).hide();
         compareBox.setDropdown(listItem[0]);
+        var bikeNo = listItem.attr("data-value"),  liFloatingBike = $(".floating-add-compare-btn").closest("li[data-value=" + bikeNo + "]"),
+        floatingBtn = liFloatingBike.find(".floating-add-compare-btn");
+        floatingBtn.attr("data-selection-done", 1);
+        floatingBtn.text("Choose bikes");
     });
 
     $('.compare-bike-list').on('change', '.select-box select', function () {
@@ -556,6 +559,19 @@ docReady(function() {
         panel.find('.bw-tabs-data').removeClass('active').hide();
         $('#' + tabId).addClass('active').show();
         $('html, body').animate({ scrollTop: overallSpecsTabs.offset().top - floatingCardHeight }, 500); // 44px accordion tab height
+    });
+
+    $(".floating-add-compare-btn").on('click', function () {
+        var ele = $(this), isSelectionDone = ele.attr("data-selection-done");
+        var bikeNo = ele.closest("li.list-item").attr("data-value"), liBike = $(".add-compare-btn").closest("li[data-value=" + bikeNo + "]");
+        $('html, body').animate({ scrollTop: 0 }, 500);
+        if (!isSelectionDone)
+        {
+            liBike.find(".add-compare-btn").click();
+            ele.attr("data-selection-done", 1);
+            ele.text("Choose bikes");
+        }
+       
     });
 
 });
