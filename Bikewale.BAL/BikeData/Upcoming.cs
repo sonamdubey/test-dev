@@ -240,7 +240,10 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                     if (inputParams != null)
                     {
                         objUpcomingList = objUpcomingList.Where(ProcessInputFilter(inputParams));
-                        objUpcomingList = objUpcomingList.Page(inputParams.PageNo, inputParams.PageSize);
+                        if (objUpcomingList != null && objUpcomingList.Any())
+                        {
+                            objUpcomingList = objUpcomingList.Page(inputParams.PageNo, inputParams.PageSize);
+                        }
                     }
                     
                 }
