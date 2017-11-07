@@ -10,11 +10,13 @@
         }
         <ul class="mileage-box-list padding-bottom20">
             <li>
-                <span class="arai-icon"></span>
-                <div class="inline-block margin-left10">
-                    <p class="font14"><span class="font18 text-default text-bold">@Model.MileageInfo.ARAIMileage</span> kmpl</p>
+                <div class="mileage-box__arai-block">
+                    <p class="font14">
+                        <span class="font18 text-bold">@Model.MileageInfo.ARAIMileage</span> 
+                        kmpl
+                    </p>
                     <p>
-                        <span class="text-light-grey margin-bottom5 margin-right5 font11">ARAI certified</span>
+                        <span class="mileage-box__subtitle">ARAI certified</span>
                         <span class="info-icon tooltip-icon-target tooltip-top tooltip--right =">
                             <span class="bw-tooltip info-tooltip">
                                 <span class="bw-tooltip-text">ARAI is a</span>
@@ -24,11 +26,13 @@
                 </div>
             </li>
             <li>
-                <span class="users-icon"></span>
-                <div class="inline-block margin-left10">
-                    <p class="font14"><span class="font18 text-default text-bold">@Model.MileageInfo.MileageByUserReviews</span> kmpl</p>
+                <div class="mileage-box__users-block">
+                    <p class="font14">
+                        <span class="font18 text-default text-bold">@Model.MileageInfo.MileageByUserReviews</span>
+                         kmpl
+                    </p>
                     <p>
-                        <span class="text-light-grey margin-bottom5 margin-right5 font11">Reported by users</span>
+                        <span class="mileage-box__subtitle">Reported by users</span>
                     </p>
                 </div>
             </li>
@@ -36,15 +40,18 @@
         <h3 class="text-bold padding-bottom5 padding-left20 padding-right20">How does it fare against competition? </h3>
         <ul class="mileage-box-list padding-bottom20">
             <li>
-                <p class="text-slate-grey font12 margin-bottom5">Average mileage among commuters</p>
+                <p class="mileage-box__desc margin-bottom5">Average mileage among commuters</p>
                 <div class="inline-block">
                     <span class="grey-bike-icon"></span>
-                    <p class="inline-block font12 padding-left10"><span class="font14 text-light-grey font-bold">@Math.Round(Model.AvgBodyStyleMileageByUserReviews,2) </span> kmpl</p>
+                    <p class="inline-block font12 padding-left10">
+                        <span class="font14 text-light-grey font-bold">@Math.Round(Model.AvgBodyStyleMileageByUserReviews,2) </span> 
+                        kmpl
+                    </p>
                 </div>
             </li>
             <li>
                 <p class="inline-block font30 text-teal font-bold">@Math.Round(Model.MileageInfo.Percentile)%</p>
-                <p class="inline-block font12 text-slate-grey">
+                <p class="mileage-box__desc">
                     Activa 4G is better than @Math.Round(Model.MileageInfo.Percentile)% scooters 
                 </p>
             </li>

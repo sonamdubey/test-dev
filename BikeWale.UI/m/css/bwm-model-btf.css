@@ -1218,19 +1218,6 @@ h2.text-bold { font-weight: bold; }
 .mileage-box-list > li:last-child {
     padding-left: 10px;
 }
-.arai-icon, .users-icon {
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    vertical-align: middle;
-}
-.arai-icon {
-    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41B4C4/arai-40x40.png') no-repeat;
-}
-.users-icon {
-    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41B4C4/users-36x24.png') no-repeat;
-    height: 28px;
-}
 
 .mileage-box-list .tooltip-icon-target.info-icon {
     left: -8px;
@@ -1241,28 +1228,58 @@ h2.text-bold { font-weight: bold; }
     display: inline-block;
     vertical-align: middle;
     background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/82888b/bike-36x20.png') no-repeat;
-    width: 35px;
+    width: 36px;
     height: 20px;
 }
+.mileage-box__arai-block,
+.mileage-box__users-block {
+    padding-left: 50px;
+}
+
+.mileage-box__arai-block {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41B4C4/arai-40x40.png') no-repeat left;
+}
+
+.mileage-box__users-block {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41B4C4/users-36x24.png') no-repeat left;
+}
+
+.mileage-box__subtitle {
+    margin-bottom: 5px;
+    margin-right: 5px;
+    font-size: 11px;
+    color: #787878;
+}
+
+.mileage-box__desc {
+    color: #787878;
+    font-size: 12px;
+}
+
 .top-grey-divider {
     padding-top: 20px;
     margin-left:20px;
     margin-right: 20px;
     border-top: 1px solid #e2e2e2;
 }
+
 .model-mileage-carousel .swiper-card {
     min-height: 155px;
     margin-left: 0;
 }
+
 .model-mileage-carousel .swiper-slide:last-child {
     margin-right: 20px;
 }
+
 .model-mileage-carousel .swiper-details-block h3 {
     margin-bottom: 5px;
 }
+
 .text-teal {
     color: #3799A7;
 }
+
 @media only screen and (max-width: 320px) {
     .mileage-box-list li .arai-icon,
     .mileage-box-list li .users-icon {
