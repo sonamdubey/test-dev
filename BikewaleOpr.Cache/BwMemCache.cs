@@ -9,6 +9,29 @@ namespace BikewaleOpr.Cache
     /// </summary>
     public class BwMemCache
     {
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 07 Nov 2017
+        /// Description : Clear cache for most popular bikes by make with city price
+        /// </summary>
+        /// <param name="makeId"></param>
+        public static void ClearPopularBikesByMakeWithCityPriceCacheKey(uint makeId)
+        {
+            try
+            {
+                string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V1_{0}_", makeId);
+                string temp = string.Empty;
+                for (int i = 0; i < 1500; i++)
+                {
+                    temp = key + i;
+                    MemCachedUtil.Remove(temp);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Cache.BwMemCache.ClearPopularBikesByMakeWithCityPriceCacheKey_{0}", makeId));
+            }
+        }
         public static bool ClearPopularBikesCacheKey(uint? topCount = null, uint? makeId = null)
         {
             bool cacheKeyClearStatus = false;
