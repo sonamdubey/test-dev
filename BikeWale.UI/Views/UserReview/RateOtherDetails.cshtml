@@ -161,27 +161,27 @@
                             <p class="font22 text-black text-bold inline-block">Write a review for @Model.Make.MakeName @Model.Model.ModelName</p>
                         </div>
 
-                        <div class="padding-15-20">
-                            <div class="padding-15-20 main-container">
 
-                                <div class="grid-12 alpha omega">
-                                    <div class="font14 padding-top10 padding-bottom10">
+                                <div class="grid-12 alpha omega ">
+                                    <div class="other-review-block">
+                                    <div class="other-review__title">
                                         <span class="margin-left20 thumb-icon"></span>
                                         <span class="margin-left15 text-bold">Thank you, Sumanth!</span>
                                         <span class="margin-left10 text-light-grey">Your review has been recorded. We will inform you once it is published.</span>
                                     </div>
-                                    <p class="text-center fotn14 text-slate-grey">So far so good! Tell us more about your bike.</p>
+                                    <p class="text-center fotn14 text-slate-grey padding-top30">So far so good! Tell us more about your bike.</p>
 
                                     @if (Model.QuestionsList != null && Model.QuestionsList.Count() > 0)
                                     {
                                         var j = 0;
-                                        <ul id="bike-review-questions" data-make-model="@string.Format("{0}_{1}_", Model.Make.MakeName, Model.Model.ModelName)" class="review-question-list margin-bottom5">
+                                        <ul id="bike-review-questions" data-make-model="@string.Format("{0}_{1}_", Model.Make.MakeName, Model.Model.ModelName)" class="other-review-question review-question-list margin-bottom5">
                                             @foreach (var ques in Model.QuestionsList)
                                             {
 
-                                                <li class="list-item question-type-text @(@j+1)" data-completed="0">
+                                                <li class="list-item question-type-text @(@j+1)" data-active= @(@j==0 ? "1" : "0")>
                                                     <p class="item-title">@ques.Heading</p>
-                                                    <p class="item-subtitle">@ques.Description</p>
+                                                    @*<p class="item-subtitle">@ques.Description</p>*@
+                                                    <p class="font12 text-light-grey margin-bottom20">(@(j+1) of 5)</p>
                                                     <div>
                                                         @if (ques.Rating != null && ques.Rating.Count() > 0)
                                                         {
@@ -189,11 +189,14 @@
                                                             foreach (var rating in ques.Rating)
                                                             {
 
-                                                                <div class="answer-radio-list inline-block">
+                                                                <div class="other-review__answer-list">
                                                                     <input type="radio" ratingid="review-@ques.Id-@i" questiontId="@ques.Id" id="review-@j-@i" name="review-q-@j" value="@i" data-type="text" />
-                                                                    <div class="answer-radio-block" data-number="@i">
-                                                                        <label for="review-@j-@i" name="review-q-@j" data-value="@i">@rating.Text</label>
-                                                                    </div>
+                                                                    @*<div class="answer-radio-block" data-number="@i">*@
+                                                                        <label for="review-@j-@i" name="review-q-@j" data-value="@i">
+                                                                            <span></span>
+                                                                            <span class="">@rating.Text</span>
+                                                                        </label>
+                                                                    @*</div>*@
 
                                                                 </div>
                                                                 i++;
@@ -209,7 +212,7 @@
                                     }
 
                                     <div class="clear"></div>
-                                    <a href="javascript:void(0)" id="submitReviewBtn" class="btn btn-orange btn-220-40">Next</a>
+                                    <a href="javascript:void(0)" id="submitReviewBtn" class="btn btn-orange">Next</a>
                                     @*<input type="hidden" id="reviewQuestion" name="reviewQuestion" />
                                     <input type="hidden" name="reviewDescription" value="" />
                                     <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
@@ -238,9 +241,9 @@
                                     @*<input id="submitReviewBtn" type="submit" class="btn btn-orange btn-220-40" value="Submit review" data-bind="click: submitReview" />*@
 
                                 </div>
+                                </div>
                                 <div class="clear"></div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <div class="clear"></div>

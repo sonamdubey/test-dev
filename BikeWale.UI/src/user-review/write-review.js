@@ -19,15 +19,15 @@ docReady(function () {
 
 
     $('#submitReviewBtn').on('click', function () {
-        var currentQuestion = $('#bike-review-questions').find('.list-item[data-completed="1"]');
+        var currentQuestion = $('#bike-review-questions').find('.list-item[data-active="1"]');
         //alert(a.length);
 
         var nextQuestion = currentQuestion.next('.list-item');
         if (nextQuestion.length) {
             currentQuestion.hide();
-            currentQuestion.attr('data-completed', '0');
+            currentQuestion.attr('data-active', '0');
             nextQuestion.toggle()
-            nextQuestion.attr('data-completed', '1');
+            nextQuestion.attr('data-active', '1');
         }
 
     });
