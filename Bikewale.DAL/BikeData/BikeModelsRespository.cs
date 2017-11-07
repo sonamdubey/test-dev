@@ -2961,7 +2961,7 @@ namespace Bikewale.DAL.BikeData
                                        CityName = Convert.ToString(dr["cityname"]),
                                        CityMaskingName = Convert.ToString(dr["citymasking"])
                                    }
-                                  );
+                  );
                             }
                             dr.Close();
                         }
@@ -3049,11 +3049,9 @@ namespace Bikewale.DAL.BikeData
                 if(modelId>0)
                 {
                     mileageDetails = new BikeMileageEntity();
-                    using (DbCommand cmd = DbFactory.GetDBCommand(""))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getbikesdatawithmileage"))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
-
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (dr != null)
@@ -3062,33 +3060,47 @@ namespace Bikewale.DAL.BikeData
                                 IList<MileageInfoByBodyStyle> bodyStyleMileage = new List<MileageInfoByBodyStyle>();
                                 while (dr.Read())
                                 {
-                                    var bikesObj = new BikeWithMileageInfo();
-                                    //bikesObj.ModelId = Convert.ToInt32(cmd.Parameters["par_modelid"].Value);
-                                    //bikesObj.ModelName = Convert.ToString(dr["Name"]);
-                                    //bikesObj.MakeBase.MakeId = Convert.ToInt32(dr["BikeMakeId"]);
+                                    bikes.Add(
+                                   new BikeWithMileageInfo()
+                                   {
+                                       Make = new BikeMakeEntityBase()
+                                       {
+                                           MakeId = Convert.ToInt32(dr["makeid"]), 
+                                           MakeName = Convert.ToString(dr["make"]),
+                                           MaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                      },
+                                       Model = new BikeModelEntityBase()
+                                       {
+                                           ModelId = Convert.ToInt32(dr["ModelId"]),
+                                            ModelName = Convert.ToString(dr["Model"]),
+                                            MaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                      },
+                                        HostUrl = Convert.ToString(dr["HostUrl"]),
+                                        OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                        BodyStyleId = Convert.ToUInt16(dr["BodyStyleId"]),
+                                        ARAIMileage = SqlReaderConvertor.ToFloat(dr["mileagebyarai"]),
+                                        MileageByUserReviews = SqlReaderConvertor.ToFloat(dr["mileagebyuserreview"]),
+                                        Rank = Convert.ToUInt16(dr["rank"]),
+                                        Percentile = SqlReaderConvertor.ToFloat(dr["percentilescore"])
+                                   });
                                    
-
-                                    bikes.Add(bikesObj);
                                 }
 
                                 if (dr.NextResult())
                                 {
-                                   
                                     while (dr.Read())
                                     {
-                                        var bodyStyleMileageobj = new MileageInfoByBodyStyle();
-                                        //meta.PageId = SqlReaderConvertor.ToUInt32(dr["pageid"]);
-                                        //meta.Title = Convert.ToString(dr["title"]);
-                                        //meta.Description = Convert.ToString(dr["description"]);
-                                        //meta.Keywords = Convert.ToString(dr["keywords"]);
-                                        //meta.Heading = Convert.ToString(dr["heading"]);
-                                        //meta.Summary = Convert.ToString(dr["summary"]);
-                                        //meta.ModelId = (uint)t.ModelId;
+                                        MileageInfoByBodyStyle bodyStyleMileageobj = new MileageInfoByBodyStyle();
+                                        bodyStyleMileageobj.BodyStyleId = Convert.ToUInt16(dr["bodystyleid"]);
+                                        bodyStyleMileageobj.TotalBikesInBodyStyle = Convert.ToUInt16(dr["totalBikes"]);
+                                        bodyStyleMileageobj.AvgBodyStyleMileageByUserReviews = SqlReaderConvertor.ToFloat(dr["avgmileagebyuserreview"]);
+                                        bodyStyleMileageobj.AvgMileageByARAI = SqlReaderConvertor.ToFloat(dr["avgmileagebyarai"]);
+
                                         bodyStyleMileage.Add(bodyStyleMileageobj);
                                     }
                                    
                                 }
-                                if (mileageDetails != null && bikes != null && bikes.Count()>0 && bodyStyleMileage!=null && bodyStyleMileage.Count()>0)
+                                if (mileageDetails != null && bikes.Any() && bodyStyleMileage.Any())
                                 {
                                     mileageDetails.Bikes = bikes;
                                     mileageDetails.BodyStyleMileage = bodyStyleMileage;
@@ -3102,7 +3114,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetMileage_ModelId: {0}", modelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetMileageForModel_ModelId: {0}", modelId));
             }
             return mileageDetails;
         }

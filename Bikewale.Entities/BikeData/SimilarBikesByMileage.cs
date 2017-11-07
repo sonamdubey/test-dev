@@ -11,7 +11,7 @@ namespace Bikewale.Entities.BikeData
     public class SimilarBikesByMileage
     {
         public BasicBikeEntityBase SimilarMileageBikes { get; set; }
-        public float AvgMileageByUsers { get; set; }
+       
        
     }
 }

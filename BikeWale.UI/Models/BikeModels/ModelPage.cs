@@ -38,6 +38,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Linq.Expressions;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -46,6 +47,8 @@ namespace Bikewale.Models.BikeModels
     /// Description : Removed unncessary functions
     /// Modified by : Ashutosh Sharma on 30 Aug 2017
     /// Description : Removed GST related code (revert GST related changes)
+    /// Modified by :Snehal Dange on 3rd Nov 2017
+    /// Description: Added Mileage widget
     /// </summary>
     public class ModelPage
     {
@@ -150,7 +153,11 @@ namespace Bikewale.Models.BikeModels
                     BindControls();
 
                     BindColorString();
-                    BindMileageWidget(_objData);
+                    if(_modelId>0)
+                    {
+                        BindMileageWidget(_objData);
+                    }
+                   
 
                     CreateMetas();
 
@@ -1693,7 +1700,7 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-                if(_objData!=null && _objModel!=null && _modelId>0)
+                if(_objData!=null && _objModel!=null)
                 {
                     _objData.Mileage = _objModel.GetMileageDetails(_modelId);
                 }

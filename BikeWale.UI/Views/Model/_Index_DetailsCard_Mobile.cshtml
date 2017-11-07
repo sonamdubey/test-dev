@@ -10,94 +10,11 @@
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x400_Middle.cshtml", new { AdId = "1495092203328" });}
     </section>
 }
-<div class="bw-model-tabs-data content-box-shadow padding-top15 padding-bottom20 card-bottom-margin content-details-wrapper bg-white">
-    <h2 class="padding-left20 padding-right20">@Model.BikeName Mileage</h2>
-    <ul class="mileage-box-list padding-bottom20">
-        <li>
-            <span class="arai-icon"></span>
-            <div class="inline-block margin-left10">
-                <p class="font14"><span class="font18 text-default text-bold">22.40</span> kmpl</p>
-                <p>
-                    <span class="text-light-grey margin-bottom5 margin-right5 font11">ARAI certified</span>
-                    <span class="info-icon tooltip-icon-target tooltip-top tooltip--right =">
-                        <span class="bw-tooltip info-tooltip">
-                            <span class="bw-tooltip-text">ARAI is a</span>
-                        </span>
-                    </span>
-                </p>
-            </div>
-        </li>
-        <li>
-            <span class="users-icon"></span>
-            <div class="inline-block margin-left10">
-                <p class="font14"><span class="font18 text-default text-bold">22.40</span> kmpl</p>
-                <p>
-                    <span class="text-light-grey margin-bottom5 margin-right5 font11">Reported by users</span>
-                </p>
-            </div>
-        </li>
-    </ul>
-    <h3 class="text-bold padding-bottom5 padding-left20 padding-right20">How does it fare against competition? </h3>
-    <ul class="mileage-box-list padding-bottom20">
-        <li>
-            <p class="text-slate-grey font12 margin-bottom5">Average mileage among commuters</p>
-            <div class="inline-block">
-                <span class="grey-bike-icon"></span>
-                <p class="inline-block font12 padding-left10"><span class="font14 text-light-grey font-bold">22.40</span> kmpl</p>
-            </div>
-        </li>
-        <li>
-            <p class="inline-block font30 text-teal font-bold">70%</p>
-            <p class="inline-block font12 text-slate-grey">
-                Activa 4G is better than 70% scooters
-            </p>
-        </li>
-    </ul>
-    <h3 class="text-bold top-grey-divider">Bikes with better mileage </h3>
-    <div class="model-mileage-carousel swiper-container card-container padding-bottom20">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="" title="" class="block">
-                        <div class="swiper-image-preview">
-                            <img class="swiper-lazy" title="" alt="" data-src="https://imgd.aeplcdn.com//174x98//bw/models/ktm-390-duke.jpg?20161611164142&amp;q=70" src="">
-                        </div>
-                        <div class="swiper-details-block">
-                            <h3 class="target-link font12 text-truncate">KTM1 390 Duke</h3>
-                            <p class="text-truncate text-light-grey font12">21.6 kmpl</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="" title="" class="block">
-                        <div class="swiper-image-preview">
-                            <img class="swiper-lazy" title="" alt="" data-src="https://imgd.aeplcdn.com//174x98//bw/models/ktm-390-duke.jpg?20161611164142&amp;q=70" src="">
-                        </div>
-                        <div class="swiper-details-block">
-                            <h3 class="target-link font12 text-truncate">KTM1 390 Duke</h3>
-                            <p class="text-truncate text-light-grey font12">21.6 kmpl</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="" title="" class="block">
-                        <div class="swiper-image-preview">
-                            <img class="swiper-lazy" title="" alt="" data-src="https://imgd.aeplcdn.com//174x98//bw/models/ktm-390-duke.jpg?20161611164142&amp;q=70" src="">
-                        </div>
-                        <div class="swiper-details-block">
-                            <h3 class="target-link font12 text-truncate">KTM1 390 Duke</h3>
-                            <p class="text-truncate text-light-grey font12">21.6 kmpl</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+ @if (Model.Mileage != null)
+ {
+    @Html.Partial("~/Views/Model/_Index_MileageDetails_Mobile.cshtml", Model.Mileage)
+ }
+
 
 @if (Model.IsSimilarBikesAvailable)
 {

@@ -1471,7 +1471,7 @@ namespace Bikewale.Cache.BikeData
                 if(modelId>0)
                 {
                     key = "BW_BikesByMileage";
-                    mileageInfo = _cache.GetFromCache<BikeMileageEntity>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMileageForModel(modelId));
+                    mileageInfo = _cache.GetFromCache<BikeMileageEntity>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetMileageForModel(modelId));
                 }
             }
             catch (Exception ex)

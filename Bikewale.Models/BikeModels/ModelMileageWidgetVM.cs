@@ -13,8 +13,9 @@ namespace Bikewale.Models.BikeModels
     /// </summary>
     public class ModelMileageWidgetVM
     {
-        public IEnumerable<SimilarBikesByMileage> SimilarBikeList { get; set; }
+        public IEnumerable<BikeWithMileageInfo> SimilarBikeList { get; set; }
         public BikeWithMileageInfo MileageInfo { get; set; }
         public float AvgBodyStyleMileageByUserReviews { get; set; }
+        public string WidgetHeading { get; set; }
     }
 }
