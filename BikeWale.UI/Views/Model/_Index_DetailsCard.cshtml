@@ -10,6 +10,16 @@
             @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Middle.cshtml", new { AdId = "1495092203328" });}
         </section>
                 }
+
+    @if(Model.IsMileageByUsersAvailable)
+    {
+        <section>
+            @Html.Partial("~/Views/Model/_Index_MileageDetails.cshtml", Model.Mileage)
+        </section>
+    }
+    
+
+
     @if (Model.IsSimilarBikesAvailable)
     {
         <div id="modelSimilarContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin font14">

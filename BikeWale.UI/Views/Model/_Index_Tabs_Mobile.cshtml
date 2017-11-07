@@ -9,6 +9,10 @@
     {
         <li data-tabs="#coloursContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Colours">Colours</li>
     }
+    @if (Model.Mileage != null)
+    {
+        <li data-tabs="#mileageContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Mileage">Mileage</li>
+    }
     @if (Model.IsSimilarBikesAvailable)
     {
         <li data-tabs="#similarContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;SimilarBikes">Similar @Model.BodyStyleText</li>
