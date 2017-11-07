@@ -121,6 +121,6 @@ namespace Bikewale.Interfaces.BikeData
 
         IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotos(U modelId, ushort totalRecords);
         IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotosInCity(U modelId, ushort totalRecords, uint cityId);
-        BikeMileageEntity GetMileageForModel(uint modelId);
+        BikeMileageEntity GetMileageForModel();
     }
 }

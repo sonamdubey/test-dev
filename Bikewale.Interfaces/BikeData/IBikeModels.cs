@@ -56,6 +56,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId);
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
-        ModelMileageWidgetVM GetMileageDetails(uint modelId);
+        BikeMileageEntity GetMileageDetails(uint modelId);
     }
 }

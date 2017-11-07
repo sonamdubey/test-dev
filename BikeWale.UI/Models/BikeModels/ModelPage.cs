@@ -153,11 +153,11 @@ namespace Bikewale.Models.BikeModels
                     BindControls();
 
                     BindColorString();
-                    if(_modelId>0)
+                    if (_modelId > 0)
                     {
                         BindMileageWidget(_objData);
                     }
-                   
+
 
                     CreateMetas();
 
@@ -315,7 +315,7 @@ namespace Bikewale.Models.BikeModels
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
             }
-            if(_objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) &&  !(_objData.ModelPageEntity.ModelDetails.MakeBase.IsScooterOnly) && _objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
+            if (_objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && !(_objData.ModelPageEntity.ModelDetails.MakeBase.IsScooterOnly) && _objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
             {
                 if (IsMobile)
                 {
@@ -611,7 +611,7 @@ namespace Bikewale.Models.BikeModels
                             {
                                 _objData.EMIDetails = setDefaultEMIDetails(_objData.BikePrice);
                             }
-                            else if(_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0)
+                            else if (_objData.SelectedVersion != null && _objData.SelectedVersion.AverageExShowroom > 0)
                             {
                                 _objData.EMIDetails = setDefaultEMIDetails(_objData.SelectedVersion.AverageExShowroom);
                             }
@@ -946,7 +946,7 @@ namespace Bikewale.Models.BikeModels
                         }
                         else
                         {
-                            _objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric((_objData.BikePrice > 0 ?  _objData.BikePrice : AvgPrice).ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
+                            _objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric((_objData.BikePrice > 0 ? _objData.BikePrice : AvgPrice).ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
                         }
                     }
 
@@ -961,7 +961,7 @@ namespace Bikewale.Models.BikeModels
                     _objData.PageMetaTags.OGImage = Bikewale.Utility.Image.GetPathToShowImages(_objData.ModelPageEntity.ModelDetails.OriginalImagePath, _objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
                     _objData.Page_H1 = _objData.BikeName;
 
-                    
+
 
                     CheckCustomPageMetas();
                 }
@@ -1066,7 +1066,7 @@ namespace Bikewale.Models.BikeModels
                                 {
                                     version.Price = !_objData.ShowOnRoadButton ? selected.OnRoadPrice : selected.Price;
                                     if (modelPg.ModelVersions.Any() && version.Price == 0 && !isSelectedUpdated)
-                                    { 
+                                    {
                                         _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(m => m.AverageExShowroom > 0 && m.VersionId == version.VersionId);
                                         isSelectedUpdated = true;
                                     }
@@ -1152,7 +1152,7 @@ namespace Bikewale.Models.BikeModels
                             _objData.VersionName = firstVer.VersionName;
                     }
                 }
-                else if(modelPg != null && modelPg.ModelVersions != null)
+                else if (modelPg != null && modelPg.ModelVersions != null)
                 {
                     BikeVersionMinSpecs objBikeVersionMinSpecs = modelPg.ModelVersions.FirstOrDefault();
                     if (objBikeVersionMinSpecs != null)
@@ -1674,11 +1674,11 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-                if(_modelId > 0)
+                if (_modelId > 0)
                 {
                     BikeModelsBySeriesPage objModelsBySeries = new BikeModelsBySeriesPage(_bikeSeries);
                     objData.ModelsBySeries = objModelsBySeries.GetData(_modelId, objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId);
-                    if(objData.ModelsBySeries != null && objData.ModelsBySeries.SeriesModels != null)
+                    if (objData.ModelsBySeries != null && objData.ModelsBySeries.SeriesModels != null)
                     {
                         objData.ModelsBySeries.Page = GAPages.Model_Page;
                         objData.ModelsBySeries.SeriesBase = objData.ModelPageEntity.ModelDetails.ModelSeries;
@@ -1700,9 +1700,31 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-                if(_objData!=null && _objModel!=null)
+                BikeMileageEntity obj = null;
+                ModelMileageWidgetVM mileageWidgetObj = null;
+                if (_modelId > 0 && _objData != null && _objModel != null)
                 {
-                    _objData.Mileage = _objModel.GetMileageDetails(_modelId);
+
+                    obj = _objModel.GetMileageDetails(_modelId);
+
+                    if (obj != null)
+                    {
+                        mileageWidgetObj = new ModelMileageWidgetVM();
+                        mileageWidgetObj.MileageInfo = obj.Bikes.FirstOrDefault(m => m.Model.ModelId == _modelId);
+                        mileageWidgetObj.AvgBodyStyleMileageByUserReviews = obj.BodyStyleMileage.FirstOrDefault().AvgBodyStyleMileageByUserReviews;
+                        mileageWidgetObj.SimilarBikeList = obj.Bikes;
+                        if (mileageWidgetObj.MileageInfo.Rank <= 3)
+                        {
+                            mileageWidgetObj.WidgetHeading = string.Format("{0} with similar mileage", (mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes"));
+                        }
+                        else
+                        {
+                            mileageWidgetObj.WidgetHeading = string.Format("{0} with better mileage", (mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes"));
+                        }
+                        _objData.Mileage = mileageWidgetObj;
+                        _objData.IsMileageByUsersAvailable = (mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) || mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.SemiFaired) || mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Street)) && (mileageWidgetObj.MileageInfo.MileageByUserReviews >= 0);
+                    }
+
                 }
             }
             catch (Exception ex)

@@ -1462,21 +1462,19 @@ namespace Bikewale.Cache.BikeData
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public BikeMileageEntity GetMileageDetails(uint modelId)
+        public BikeMileageEntity GetMileageDetails()
         {
             BikeMileageEntity mileageInfo = null;
             string key = string.Empty;
             try
             {
-                if(modelId>0)
-                {
                     key = "BW_BikesByMileage";
-                    mileageInfo = _cache.GetFromCache<BikeMileageEntity>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetMileageForModel(modelId));
-                }
+                    mileageInfo = _cache.GetFromCache<BikeMileageEntity>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetMileageForModel());
+                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetMileageDetails: ModelId: {0}",modelId));
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMileageDetails");
 
             }
             return mileageInfo;

@@ -3041,15 +3041,12 @@ namespace Bikewale.DAL.BikeData
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public BikeMileageEntity GetMileageForModel(uint modelId)
+        public BikeMileageEntity GetMileageForModel()
         {
-            BikeMileageEntity mileageDetails = null;
+            BikeMileageEntity mileageDetails = new BikeMileageEntity();
             try
             {
-                if(modelId>0)
-                {
-                    mileageDetails = new BikeMileageEntity();
-                    using (DbCommand cmd = DbFactory.GetDBCommand("getbikesdatawithmileage"))
+               using (DbCommand cmd = DbFactory.GetDBCommand("getbikesdatawithmileage"))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -3110,11 +3107,11 @@ namespace Bikewale.DAL.BikeData
                             }
                         }
                     }
-                }
+                
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetMileageForModel_ModelId: {0}", modelId));
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMileageForModel");
             }
             return mileageDetails;
         }

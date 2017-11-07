@@ -10,7 +10,7 @@
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x400_Middle.cshtml", new { AdId = "1495092203328" });}
     </section>
 }
- @if (Model.Mileage != null)
+ @if (Model.IsMileageByUsersAvailable)
  {
     @Html.Partial("~/Views/Model/_Index_MileageDetails_Mobile.cshtml", Model.Mileage)
  }

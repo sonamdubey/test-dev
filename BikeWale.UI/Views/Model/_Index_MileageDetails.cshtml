@@ -1,5 +1,6 @@
 ﻿@model Bikewale.Models.BikeModels.ModelMileageWidgetVM
-@using Bikewale.Utility 
+@using Bikewale.Utility
+@using Bikewale.Entities.GenericBikes
 
 @if (Model != null)
 {
@@ -11,12 +12,12 @@
                 <div class="mileage-box__arai-block">
                     <p class="font14">
                         <span class="font18 font-bold">@Model.MileageInfo.ARAIMileage</span>
-                         kmpl
+                        kmpl
                     </p>
                     <span class="mileage-box__subtitle">ARAI certified</span>
                     <span class="bwsprite info-icon tooltip-icon-target tooltip-top">
                         <span class="bw-tooltip info-tooltip">
-                            <span class="bw-tooltip-text">ARAI is a</span>
+                            <span class="bw-tooltip-text">ARAI is a research association under GOI responsible for verifying mileage data for every bike sold in India.</span>
                         </span>
                     </span>
                 </div>
@@ -24,7 +25,7 @@
             <li>
                 <div class="mileage-box__users-block">
                     <p class="font14">
-                        <span class="font18 font-bold">@Model.MileageInfo.MileageByUserReviews</span> 
+                        <span class="font18 font-bold">@Model.MileageInfo.MileageByUserReviews</span>
                         kmpl
                     </p>
                     <p>
@@ -37,7 +38,7 @@
                 <div class="inline-block">
                     <span class="grey-bike-icon"></span>
                     <p class="inline-block font12 padding-left10 text-light-grey">
-                        <span class="font14 font-bold">@Math.Round(Model.AvgBodyStyleMileageByUserReviews, 2)</span> 
+                        <span class="font14 font-bold">@Math.Round(Model.AvgBodyStyleMileageByUserReviews, 2)</span>
                         kmpl
                     </p>
                 </div>
@@ -46,7 +47,7 @@
                 <div class="mileage-box__better-block">
                     <span class="inline-block font30 text-teal font-bold">@Math.Round(Model.MileageInfo.Percentile)%</span>
                     <div class="mileage-box__desc inline-block margin-left5">
-                        Activa 4G is better than @Math.Round(Model.MileageInfo.Percentile)% scooters
+                        @string.Format("{0} is better than {1}% {2}", currentBike, Math.Round(Model.MileageInfo.Percentile), (Model.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "scooters" : "bikes"))
                     </div>
                 </div>
             </li>
@@ -60,19 +61,19 @@
                         var bikeName = string.Format("{0} {1}", similarObj.Make.MakeName, similarObj.Model.ModelName);
                         <li>
                             <a href="@UrlFormatter.BikePageUrl(similarObj.Make.MaskingName, similarObj.Model.MaskingName)" title="@bikeName" class="jcarousel-card bw-ga" data-cat="Model_Page" data-act="Clicked_On_SimilarMileage_Card" data-lab="@bikeName">
-                                <div class="model-jcarousel-image-preview" >
+                                <div class="model-jcarousel-image-preview">
                                     <img class="lazy" data-original="@Image.GetPathToShowImages(similarObj.OriginalImagePath, similarObj.HostUrl, ImageSize._310x174, "75")" alt="@bikeName" src="" border="0" />
                                 </div>
                                 <div class="card-desc-block">
                                     <p class="bikeTitle">@bikeName</p>
                                     <p class=" text-light-grey">
-                                       @similarObj.MileageByUserReviews kmpl
+                                        @similarObj.MileageByUserReviews kmpl
                                     </p>
                                 </div>
                             </a>
                         </li>
                     }
-                   
+
                 </ul>
             </div>
             <span class="jcarousel-control-left">

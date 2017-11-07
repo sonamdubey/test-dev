@@ -869,7 +869,7 @@ namespace Bikewale.BAL.BikeData
         /// <param name="cityId">cityid</param> 
         /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId)
-        { 
+        {
             IEnumerable<MostPopularBikesBase> bikes = null;
             try
             {
@@ -901,66 +901,57 @@ namespace Bikewale.BAL.BikeData
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public ModelMileageWidgetVM GetMileageDetails(uint modelId)
+        public BikeMileageEntity GetMileageDetails(uint modelId)
         {
-            ModelMileageWidgetVM mileageWidgetObj = null;
+            BikeMileageEntity mileageWidgetObj = null;
             try
             {
-                if(modelId>0)
+                if (modelId > 0)
                 {
                     BikeMileageEntity obj = null;
 
-                    obj = _modelCacheRepository.GetMileageDetails(modelId);
-                    if(obj!=null)
+                    obj = _modelCacheRepository.GetMileageDetails();
+                    if (obj != null)
                     {
-                        MileageInfoByBodyStyle bodyStyleMileage = null;
-                        BikeWithMileageInfo currentModel = new BikeWithMileageInfo();
-                        ICollection<BikeWithMileageInfo> bikeList = new Collection<BikeWithMileageInfo>();
-                        float tolerance = 0;
-                        mileageWidgetObj = new ModelMileageWidgetVM();
-                        currentModel = obj.Bikes.FirstOrDefault(m => m.Model.ModelId == modelId); 
-                        if(currentModel!=null)
-                        {
-                            bodyStyleMileage = obj.BodyStyleMileage.FirstOrDefault(m => m.BodyStyleId == currentModel.BodyStyleId);
 
-                            if (currentModel.Rank <=3)
+                        BikeWithMileageInfo currentModel = null;
+                        ICollection<BikeWithMileageInfo> bikeList = null;
+                        float tolerance = 0;
+                        mileageWidgetObj = new BikeMileageEntity();
+                        currentModel = obj.Bikes.FirstOrDefault(m => m.Model.ModelId == modelId);
+                        if (currentModel != null)
+                        {
+                            mileageWidgetObj.BodyStyleMileage = obj.BodyStyleMileage.Where(m => m.BodyStyleId == currentModel.BodyStyleId);
+                            if (currentModel.Rank <= 3)
                             {
                                 tolerance = ((currentModel.MileageByUserReviews) / 10);
                             }
-                            foreach(var listObj in obj.Bikes)
-                            {
-                                if (listObj != null && listObj.Model!=null && (listObj.Model.ModelId!=modelId) && (listObj.BodyStyleId == currentModel.BodyStyleId) && bikeList!=null)
-                                {
-                                    if (listObj.Rank < currentModel.Rank)
-                                    {
-                                        bikeList.Add(listObj);
-                                    }
-                                    else if(currentModel.Rank<=3 && (listObj.MileageByUserReviews >= (currentModel.MileageByUserReviews- tolerance)))
-                                    {
-                                        bikeList.Add(listObj);
-                                    }
-                                }
-                            }
-                            if(bikeList!=null)
-                            {
-                                bikeList= bikeList.Take(9).ToList();
-                            }
-                           
 
-                            if(mileageWidgetObj!=null && bodyStyleMileage != null )
+                            bikeList = obj.Bikes.Where(m => m.BodyStyleId == currentModel.BodyStyleId).ToList();
+                            IList<BikeWithMileageInfo> mileageList = new List<BikeWithMileageInfo>();
+                            foreach (var listObj in bikeList)
                             {
-                                mileageWidgetObj.MileageInfo = currentModel;
-                                mileageWidgetObj.AvgBodyStyleMileageByUserReviews = bodyStyleMileage.AvgBodyStyleMileageByUserReviews;
-                                mileageWidgetObj.SimilarBikeList = bikeList;
-                                if(currentModel.Rank <=3)
+                                if (mileageList.Count() != 9)
                                 {
-                                    mileageWidgetObj.WidgetHeading = string.Format("{0} with similar mileage", (currentModel.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes"));
+                                    if (listObj != null && listObj.Model != null && (listObj.Model.ModelId != modelId))
+                                    {
+                                        if (listObj.Rank < currentModel.Rank)
+                                        {
+                                            mileageList.Add(listObj);
+                                        }
+                                        else if (currentModel.Rank <= 3 && (listObj.MileageByUserReviews >= (currentModel.MileageByUserReviews - tolerance)))
+                                        {
+                                            mileageList.Add(listObj);
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    mileageWidgetObj.WidgetHeading = string.Format("{0} with better mileage", (currentModel.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes"));
+                                    break;
                                 }
                             }
+                            mileageList.Add(currentModel);
+                            mileageWidgetObj.Bikes = mileageList;
                         }
 
                     }
@@ -970,7 +961,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BikeModels.GetMileageDetails()_ModelId: {0}",modelId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BikeModels.GetMileageDetails()_ModelId: {0}", modelId));
             }
             return mileageWidgetObj;
         }
