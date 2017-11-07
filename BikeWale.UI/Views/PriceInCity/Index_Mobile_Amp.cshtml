@@ -506,7 +506,7 @@
                         <div class="finance-emi-container font14">
                             <div class="emi-slider-box">
                                 <div class="emi-slider-box-left-section">
-                                    <p class="grid-8 alpha text-slate-grey font14">Down payment</p>
+                                    <label for="downPaymentSlider" class="grid-8 alpha text-slate-grey font14">Down payment</label>
                                     <div class="emi-slider-box-right-section grid-4 omega">
                                         <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="downPayment" class="font14 text-bold">@Format.FormatPrice(Convert.ToString(Model.EMISliderAMP.DownPayment))</span>
                                         <span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')-5 <=1? EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-7, 2)+','">0,</span>
@@ -514,13 +514,14 @@
                                         <span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')>3? ',' + EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-3,3) : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-3,3)">0</span>
                                     </div>
                                     <div class="clear"></div>
+                                    
                                     <input id="downPaymentSlider" class="margin-bottom20" type="range" min="@Model.EMI.MinDownPayment" max="@Model.EMI.MaxDownPayment" step="1" value="@Model.EMISliderAMP.DownPayment" [value]="EmiSlider.downPayment" on="change:downPayment.hide, AMP.setState({EmiSlider:{downPayment:event.value, formatedDownPayment: (event.value) + '.', loanAmount:EmiSlider.bikePrice-event.value, totalAmount:(EmiSlider.bikePrice)+(((EmiSlider.bikePrice-event.value) * EmiSlider.tenure * EmiSlider.interest) / 1200)}}); input-debounced:AMP.setState({EmiSlider:{emi: round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure )+ '.', formatedLoanAmount:EmiSlider.bikePrice-event.value+'.', formatedTotalAmount:round(EmiSlider.totalAmount) + '.'} }), totalemi.hide, totalAmount.hide, loanAmount.hide" />
                                 </div>
                                 <div class="clear"></div>
                             </div>
                             <div class="emi-slider-box font14">
                                 <div class="emi-slider-box-left-section">
-                                    <p class="grid-8 alpha text-slate-grey font14">Loan amount</p>
+                                    <label for="loanAmountSlider" class="grid-8 alpha text-slate-grey font14">Loan amount</label>
                                     <div class="emi-slider-box-right-section grid-4 omega">
                                         <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="loanAmount" class="text-bold font14">@Format.FormatPrice(Convert.ToString(Model.EMISliderAMP.LoanAmount))</span>
                                         <span class="hide" [class]="((EmiSlider.formatedLoanAmount.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedLoanAmount.lastIndexOf('.')-5 <=1? EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-7, 2)+','">0,</span>
@@ -534,7 +535,7 @@
                             </div>
                             <div class="emi-slider-box">
                                 <div class="emi-slider-box-left-section">
-                                    <p class="grid-8 alpha text-slate-grey font14">Tenure</p>
+                                    <label for="tenureSlider" class="grid-8 alpha text-slate-grey font14">Tenure</label>
                                     <div class="emi-slider-box-right-section grid-4 omega text-bold">
                                         <span id="tenurePeriod" [text]="EmiSlider.tenure ">@Format.FormatPrice(Convert.ToString(Model.EMI.Tenure))</span>&nbsp;Months
                                     </div>
@@ -545,7 +546,7 @@
                             </div>
                             <div class="emi-slider-box">
                                 <div class="emi-slider-box-left-section">
-                                    <p class="grid-8 alpha text-slate-grey font14">Interest</p>
+                                    <label for="rateOfInterestSlider" class="grid-8 alpha text-slate-grey font14">Interest</label>
                                     <div class="emi-slider-box-right-section grid-4 omega text-bold ">
                                         <span id="rateOfInterestPercentage" [text]="EmiSlider.interest">@Model.EMI.RateOfInterest</span>&nbsp;%
                                     </div>

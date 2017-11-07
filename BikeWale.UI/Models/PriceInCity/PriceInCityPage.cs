@@ -560,7 +560,7 @@ namespace Bikewale.Models
                                 var firstVersionTemp = objVM.VersionSpecs.FirstOrDefault();
                                 if (firstVersionTemp != null)
                                 {
-                                    objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
+                                    objVM.BodyStyle = firstVersionTemp.BodyStyle;
 
                                 }
                             }
@@ -739,8 +739,8 @@ namespace Bikewale.Models
                 double loanAmount = Math.Round(objVM.FirstVersion.OnRoadPrice * .7);
                 int downPayment = Convert.ToInt32(bikePrice - loanAmount);
 
-                float minDnPay = (10 * bikePrice) / 100;
-                float maxDnPay = (40 * bikePrice) / 100;
+                float minDnPay = (float)(10 * bikePrice) / 100;
+                float maxDnPay = (float)(40 * bikePrice) / 100;
 
                 ushort minTenure = 12;
                 ushort maxTenure = 48;
