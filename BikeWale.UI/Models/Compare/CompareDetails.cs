@@ -116,6 +116,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 09 May 2017
         /// Summary :- Function for GetComparedBikeDetails
+        /// Modified by Sajal Gupta  on 07-11-2017
+        /// Description : Chenged logic to show similar bikews widget
         /// </summary>
         /// <returns></returns>
         private void GetComparedBikeDetails(CompareDetailsVM obj)
@@ -179,6 +181,11 @@ namespace Bikewale.Models
             }
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on  07-11-2017
+        /// Description : Added similar bikes widget
+        /// </summary>
+        /// <param name="obj"></param>
         private void BindSimilarBikes(CompareDetailsVM obj)
         {
             try

@@ -12,6 +12,8 @@ namespace Bikewale.Controllers
     /// <summary>
     /// Created By :- Subodh Jain 10 May 2017
     /// Summary :- Compare Bike controller
+    /// Modified by sajal Gupta on 07-11-2017
+    /// Description : Added _objVersionCache;
     /// </summary>
     public class CompareBikesController : Controller
     {

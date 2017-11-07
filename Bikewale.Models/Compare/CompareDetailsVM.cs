@@ -14,6 +14,8 @@ namespace Bikewale.Models
     /// Description : Added 
     /// Modified by sajal Gupta on 30-10-2017
     /// description : added ArticlesList
+    /// Modified by sajal Gupta on 07-11-20177
+    /// description : added SimilarBikes , SimilarBikesCompareWidgetText 
     /// </summary>
     public class CompareDetailsVM : ModelBase
     {
