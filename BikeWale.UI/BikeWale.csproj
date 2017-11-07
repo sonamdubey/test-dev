@@ -2826,8 +2826,8 @@
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
     <Content Include="m\news\offline.html" />
-    <Content Include="m\news\sw_installer.html" />
     <Content Include="m\news\sw.js" />
+    <Content Include="m\news\sw_installer.html" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\sass\scooters\listing.css" />
     <Content Include="m\service\Default.aspx" />
@@ -2939,6 +2939,7 @@
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
+    <Content Include="m\sw.js" />
     <Content Include="m\trackday2016\css\track-day.css" />
     <Content Include="m\trackday2016\default.aspx" />
     <Content Include="m\trackday2016\details.aspx" />
@@ -3063,6 +3064,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
+    <Content Include="Scripts\appshell.html" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
     <Content Include="Scripts\vendor.bundle.js" />
@@ -3844,6 +3846,7 @@
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -4103,8 +4106,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-
-  <PostBuildEvent>
+    <PostBuildEvent>
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\runtimes\win7-x64\native\*" "$(ProjectDir)bin\x64\"
 	<!-- xcopy /Y "$(ProjectDir)..\Libs\PWA\x64\*" "$(ProjectDir)bin\x64\" --><!-- xcopy /Y "$(ProjectDir)..\Libs\PWA\x86\*" "$(ProjectDir)bin\x86\" -->
@@ -4116,8 +4118,7 @@
 	<!--xcopy /Y "$(ProjectDir)..\Libs\System.Runtime.dll" "$(ProjectDir)bin\"-->
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x64.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x86.dll" "$(ProjectDir)bin\"
-	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"-->
-	</PostBuildEvent>
+	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
