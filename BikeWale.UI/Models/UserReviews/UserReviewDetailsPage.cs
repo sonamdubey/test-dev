@@ -252,7 +252,7 @@ namespace Bikewale.Models.UserReviews
             try
             {               
                 // Set default category to be loaded here
-                FilterBy activeReviewCateory = FilterBy.MostHelpful;
+                FilterBy activeReviewCateory = FilterBy.MostRecent;
 
                 ReviewDataCombinedFilter objFilter = new ReviewDataCombinedFilter()
                 {

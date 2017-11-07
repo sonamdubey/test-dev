@@ -346,7 +346,7 @@ docReady(function () {
         self.firstReadMoreClick = ko.observable(false);
         self.clickedReviewId = ko.observable();
 
-        self.Filters = ko.observable({ pn: 1, ps: 10, model: modelid, so: reviewId > 0 ? 2 : 1, skipreviewid: reviewId });
+        self.Filters = ko.observable({ pn: 1, ps: 10, model: modelid, so: reviewId > 0 ? 1 : 2, skipreviewid: reviewId });
         self.QueryString = ko.computed(function () {
             var qs = "";
             $.each(self.Filters(), function (i, val) {
@@ -523,7 +523,7 @@ docReady(function () {
 
                         if (self.firstReadMoreClick()) {
                             var collpasibleContent = $(document).find('.read-more-target[data-reviewId=' + self.clickedReviewId() + ']').closest('.collapsible-content');
-                            $('html, body').scrollTop(collpasibleContent.closest('.list-item').offset().top - $('#overallSpecsTab').height());
+                            $('html, body').scrollTop(collpasibleContent.closest('.list-item').offset() ? (collpasibleContent.closest('.list-item').offset().top - $('#overallSpecsTab').height()) : "0");
                             collpasibleContent.addClass('active');
                             self.firstReadMoreClick(false);
                         }
