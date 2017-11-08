@@ -90,42 +90,12 @@
 
 // questions and answers
 
-
-
-//.animated
-//	-webkit-animation-duration: 10s
-//	-webkit-animation: myfirst 5s infinite
-//    -webkit-animation-direction: left
-//    animation: myfirst 5s left
-//    animation-direction: alternate
-//	animation-duration: 10s
-//	-webkit-animation-fill-mode: both
-//	animation-fill-mode: both
-
-//@-webkit-keyframes fadeInRight
-//	0%
-//		opacity: 0
-//		-webkit-transform: translateX(20px)
-//
-//	100%
-//		opacity: 1
-//		-webkit-transform: translateX(0)
-//
-//         
-//@keyframes fadeInRight 
-//	0%
-//		opacity: 0
-//		transform: translateX(20px)
-//
-//	100%
-//		opacity: 1
-//		transform: translateX(0)
-//
-//.fadeInRight
-//	-webkit-animation-name: fadeInRight
-//	animation-name: fadeInRight
-//
-
+.edit-icon
+	display: inline-block
+	vertical-align: middle
+	width: 14px
+	height: 14px
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/edit-14x14.png') no-repeat
 
 .question-field
 	margin-bottom: 20px
@@ -163,104 +133,70 @@
 				cursor: default
 				pointer-events: none
 
-.other-review-question
-	~ .btn 
-		display: block
-		margin: 0 auto
-		width: 160px
-	.other-review__answer-list
-		display: inline-block
+.other-review__button-block
+	text-align: center
 
-		> input
-			display: none
+	.btn-size-2
+		width: 120px
+		margin-right: 20px
 
-		> label
+
+
+//slider
+.mileage-slider-box
+	width: 500px
+	margin: 0 auto 30px
+
+	.ui-slider
+		position: relative
+		text-align: left
+
+		.ui-slider-range
+			border: none
 			display: block
-			border: 1px solid #e2e2e2
-			background-color: #fff
+			position: absolute
+			z-index: 1
+
+		.ui-slider-handle
+			background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat
 			cursor: pointer
-			@include border-radius(1px)
-			height: 80px
-			min-width: 85px
-			margin-right: 5px
-			position: relative
+			height: 28px
+			width: 28px
+			display: block
+			margin-left: -9px
+			position: absolute
+			outline: none
+			top: -13px
+			z-index: 2
+			background-position: 3px 3px
 
-//			&:before
-//				content: ''
-//				display: block
-//				width: 34px
-//				height: 34px
-//				border-radius: 30px
-//				border: 1px solid #e2e2e2
-//				margin: auto
-//				position: relative
-//				top: 10px
+	.ui-widget-header
+		background: #ef3030
+		height: 2px
 
-			> span:nth-of-type(1)
-				display: block
-				position: absolute
-				bottom: 0
-				margin: 0 auto
+	.ui-widget-content
+		background: #bababa
+		height: 2px
+		margin-top: 15px
+		width: 97%
+		cursor: pointer
 
-//	.answer-radio-list
-//		>label
-//			
-//		.answer-radio-block
-//			display: block
-//			border: 1px solid #e2e2e2
-//			background-color: #fff
-//			cursor: pointer
-//			@include border-radius(1px)
-//			height: 80px
-//			min-width: 85px
-//			margin-right: 5px
-//		
-//			&:before
-//				content: ''
-//				display: block
-//				width: 34px
-//				height: 34px
-//				border-radius: 30px
-//				border: 1px solid #e2e2e2
-//				margin: auto
-//				position: relative
-//				top: 10px
+.ui-slider__text
+	display: block
+	position: absolute
+	min-width: 70px
+	top: 30px
+	left: -10px
+	font-weight: 700
 
-//			label
-//
-//				color: $text-light
-//				cursor: pointer
-//				@include border-radius(2px)
-//				height: 100%
-//				width: 100%
-//				position: relative
-//				top: -34px
-//				display: block
-//				padding: 53px 5px 0
-//
-//			&:hover
-//				background: #f5f5f5
-		& > input
-			&:checked
-				+ .answer-radio-block
-					color: $white
-					cursor: default
-					pointer-events: none
+.slider-text__left
+	float: left
+	color: #a2a2a2
 
-					&[data-number='1']
-						border-color: #EF3F30
-								
-					&[data-number='2']
-						border-color: #FD971C
-						
-					&[data-number='3']
-						border-color: #EFD700
-								
-					&[data-number='4']
-						border-color: #13B65D
-						
-					&[data-number='5']
-						border-color: #198D55
+.slider-text__right
+	float: right
+	margin-right: 15px
+	color: #a2a2a2
 
 .review-progress__form
 	.btn
@@ -329,7 +265,7 @@
 		//border-bottom: 1px solid #eee
 		display: none
 
-		&:first-child
+		&[data-active='1']
 			display: block
 
 	.item-title
@@ -558,8 +494,7 @@
 	vertical-align: middle
 	border-radius: 30px
 	border: 1px solid #4d5057
-	background-color: light-grey
-
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/thumbsup-22x25.png') no-repeat center
 
 .review-progress__container
 	width: 100%
@@ -570,11 +505,11 @@
 
 	&.active
 		.review-progress__rate-bike		
-			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star-10x10.png) no-repeat 50% #41b4c4
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star-16x16.png') no-repeat 50% #41b4c4
 			background-size: 15px
 
 		.review-progress__write-review
-			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/edit-9x10.png) no-repeat 50% #41b4c4
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/edit-15x16.png') no-repeat 50% #41b4c4
 			background-size: 15px
 				
 		.review-progress__text
@@ -582,21 +517,21 @@
 
 	&.incomplete
 		.review-progress__rate-bike	
-			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/star-10x10.png) no-repeat 50% #e2e2e2
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/star-10x10.png') no-repeat 50% #e2e2e2
 			background-size: 15px	
 
 		.review-progress__write-review
-			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/edit-9x10.png) no-repeat 50% #e2e2e2
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/edit-9x10.png') no-repeat 50% #e2e2e2
 			background-size: 15px	
 	
 
 	.review-progress__write-review
-			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/edit-9x10.png) no-repeat 50% #e2e2e2
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/edit-15x16.png') no-repeat 50% #e2e2e2
 			background-size: 15px	
 	
 	&.completed
 		.review-progress__icon
-			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/edit-9x10.png) no-repeat 50% #e2e2e2
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/checked-16x13.png') no-repeat 54% #fff
 			border: 1px solid #41b4c4
 			background-size: 15px	
 
@@ -607,7 +542,6 @@
 		padding: 10px 35px
 		position: relative
 		//background-color: #f5f5f5
-
 		
 	.review-progress__icon
 		display: inline-block		
@@ -615,7 +549,6 @@
 		width: 40px
 		height: 40px
 		border-radius: 30px
-
 
 	.review-progress__text
 		display: inline-block		
@@ -645,12 +578,20 @@
 #rate-bike-form,
 #write-review-form
 	.contest-slug-sm
-		//background: #E8FAFF url('/images/skyline-976x103.png')
-		background: rgba(206,245,255,0.5) url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/m/cityskyline.png) repeat-x center bottom;
+		background: rgba(206,245,255,0.5) url('https://imgd.aeplcdn.com/0x0/bw/static/icons/skyline-936x49.png') repeat-x center bottom
 		min-height: 80px
 		margin: 10px 20px 5px
 		padding: 10px 35px
+		position: relative
 
+	.banner__pen-icon
+		height: 77px
+		display: block
+		width: 126px
+		position: absolute
+		right: 30px
+		top: 0
+		background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/pen-126x77.png') no-repeat		
 .contest-banner__icon
 	width: 80px
 	height: 60px
@@ -666,102 +607,14 @@
 		top: -1px
 
 .other-review-block
-	margin: 10px 20px
+	margin: 10px 20px 30px
 
 .other-review__title
 	font-size: 14px
 	padding-top: 10px
 	padding-bottom: 10px
 	background-color: #fafafa
-//.review-progress
-//	li
-//		width: 100px
-//		height: 100px
-//		border-radius: 8px
-//		margin-bottom: 20px
-//		background-color: #f5f5f5
-//		cursor: default
-//
-//		&:before
-//			content: ""
-//			display: block
-//			width: 20px
-//			height: 20px
-//			border-radius: 50%
-//			margin: auto
-//			position: relative
-//			top: 20px
-//
-//		&.active
-//			border: 1px solid #41b4c4
-//			box-shadow: 0px 2px 5px #ccc
-//			background-color: #fff
-//			cursor: pointer
-//			pointer-events: none
-//
-//		&.completed
-//			border: 1px solid #E2E2E2
-//			background-color: #fff			
-//
-//			&:before
-//				background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/tick-filled-20x20.png)
-//				background-color: transparent
-//
-//		&.incomplete
-//			border: 1px solid #E2E2E2
-//			background-color: #fff
-//			cursor: pointer
-//			pointer-events: none
-//
-//	.review-progress__rate-bike
-//		&:before
-//			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/star-10x10.png) no-repeat 50% #e2e2e2
-//
-//		&.active
-//			&:before
-//				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star-10x10.png) no-repeat 50% #41b4c4
-//
-//		&.incomplete
-//			&:before
-//				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/star-10x10.png) no-repeat 50% #e2e2e2
-//
-//
-//	.review-progress__write-review
-//		&:before
-//			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/edit-9x10.png) no-repeat 50% #e2e2e2
-//
-//		&.active
-//			&:before
-//				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/edit-9x10.png) no-repeat 50% #41b4c4
-//
-//		&.incomplete
-//			&:before
-//				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/edit-9x10.png) no-repeat 50% #e2e2e2
-//
-//	.review-progress__other-details
-//		&:before
-//			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/bike-12x8.png) no-repeat 50% #e2e2e2
-//
-//		&.active
-//			&:before
-//				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bike-12x8.png) no-repeat 50% #41b4c4
-//
-//		&.incomplete
-//			&:before
-//				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bike-12x8.png) no-repeat 50% #e2e2e2
-//
-//
-//.review-progress__text
-//	width: 50px
-//	font-size: 12px
-//	margin: auto
-//	text-align: center
-//	position: relative
-//	top: 30px
-//
-//	.border-light-right
-//		border-right: 1px solid #f5f5f5
-//
+
 /*Rating and star icon css Starts here
 @import ../partials/rating
 
@@ -770,57 +623,13 @@
 	@include rate-star-icon($i, normal)
 	@include rate-count($i)
 
+@include rating-face-list()
+
 .rating-text-pos
 	position: relative
 	left: -6px
 	top: 2px
 
-//.rate-count-5
-//	color: #198D55
-//
-//.rate-count-4
-//	color: #13B65D
-//
-//.rate-count-3
-//	color: #EFD700
-//
-//.rate-count-2
-//	color: #FD971C
-//
-//.rate-count-1
-//	color: #EF3F30
-
-//.rating-badge
-//	&[data-rate-bg="5"]
-//		background-color: #198D55
-//		
-//	&[data-rate-bg="4"]
-//		background-color: #13B65D
-//		
-//	&[data-rate-bg="3"]
-//		background-color: #EFD700
-//		
-//	&[data-rate-bg="2"]
-//		background-color: #FD971C
-//		
-//	&[data-rate-bg="1"]
-//		background-color: #EF3F30
-
-//.bg-rate-5
-//	background-color: #198D55
-//
-//.bg-rate-4
-//	background-color: #13B65D
-//
-//.bg-rate-3
-//	background-color: #EFD700
-//
-//.bg-rate-2
-//	background-color: #FD971C
-//
-//.bg-rate-1
-//	background-color: #EF3F30
-//
 .star-icon
 	width: 26px
 	height: 25px

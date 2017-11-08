@@ -16,23 +16,44 @@ docReady(function () {
     bwcache.setScope('ReviewPage');
     window.history.pushState('ReviewPage', '', '');
 
-
-
-    $('#submitReviewBtn').on('click', function () {
-        var currentQuestion = $('#bike-review-questions').find('.list-item[data-active="1"]');
-        //alert(a.length);
-
-        var nextQuestion = currentQuestion.next('.list-item');
-        if (nextQuestion.length) {
-            currentQuestion.hide();
-            currentQuestion.attr('data-active', '0');
-            nextQuestion.toggle()
-            nextQuestion.attr('data-active', '1');
-        }
-
+    //mileage slider
+    $( function() {
+        $("#mileageSlider").slider({
+            range: "min",
+            value: 50,
+            min: 1,
+            max: 150,
+            slide: function( event, ui ) {
+                $("#mileage-slider__text").text(ui.value + "  kmpl");
+            }
+        });
+        $("#mileage-slider__text").text($("#mileageSlider").slider("value") + "  kmpl");
     });
 
+    //rating-face
+    $('#skipButton').on('click', function () {
+        var currentQuestion = $('#bike-review-questions').find('.list-item[data-active="1"]');
+        var nextQuestion = currentQuestion.next('.list-item');
+        if (nextQuestion.length) {
 
+            setTimeout(function () {
+                currentQuestion.attr('data-active', '0');
+                nextQuestion.attr('data-active', '1');
+            }, 500);
+
+        }
+        else {
+            window.location.href = $('#returnUrl').text();
+        }
+    });
+
+    $('#submitReviewBtn').on('click', function () {
+        var activeQuestion = $('#bike-review-questions .list-item[data-active="1"');
+        var activeList = activeQuestion.find('.rating-face-list input:checked');
+        if (activeList.length>0) {
+            $("#skipButton").trigger("click");
+        }
+    });
 
     $('.edit-link').on('click', function () {
 
