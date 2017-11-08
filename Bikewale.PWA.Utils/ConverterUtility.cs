@@ -18,18 +18,21 @@ namespace Bikewale.PWA.Utils
 {
     public static class ConverterUtility
     {
-        static string _defaultCityName = BWConfiguration.Instance.GetDefaultCityName;
-        static ILog _logger = LogManager.GetLogger("ConverterUtility");
-        static readonly bool _logNewsUrl = BWConfiguration.Instance.LogNewsUrl;
+        static string _defaultCityName = BWConfiguration.Instance.GetDefaultCityName;   
 
+        /// <summary>
+        /// Converts ArticleSummary to PwaArticleSummary
+        /// </summary>
+        /// <param name="inpSum"></param>
+        /// <returns></returns>
         public static PwaArticleSummary MapArticleSummaryToPwaArticleSummary(ArticleSummary inpSum)
         {
             PwaArticleSummary outSummary = null;
             if (inpSum != null && inpSum.BasicId > 0)
             {
                 outSummary = new PwaArticleSummary();
-                string catName = GetContentCategory(inpSum.CategoryId);
-                outSummary.ArticleUrl = GetArticleUrl(inpSum.CategoryId, inpSum.ArticleUrl, (int)inpSum.BasicId);
+                string catName = PwaCmsHelper.GetContentCategory(inpSum.CategoryId);
+                outSummary.ArticleUrl = PwaCmsHelper.GetArticleUrl(inpSum.CategoryId, inpSum.ArticleUrl, (int)inpSum.BasicId);
                 outSummary.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", inpSum.BasicId);
                 outSummary.AuthorName = inpSum.AuthorName;
                 outSummary.Description = inpSum.Description;
@@ -45,13 +48,17 @@ namespace Bikewale.PWA.Utils
             }
             return outSummary;
         }
-
+        /// <summary>
+        ///  Converts ArticleDetails to PwaArticleDetails
+        /// </summary>
+        /// <param name="inpDet"></param>
+        /// <returns></returns>
         public static PwaArticleDetails MapArticleDetailsToPwaArticleDetails(ArticleDetails inpDet)
         {
             var outDetails = new PwaArticleDetails();
             if (inpDet != null && inpDet.BasicId > 0)
             {
-                outDetails.ArticleUrl = GetArticleUrl(inpDet.CategoryId, inpDet.ArticleUrl, (int)inpDet.BasicId);
+                outDetails.ArticleUrl = PwaCmsHelper.GetArticleUrl(inpDet.CategoryId, inpDet.ArticleUrl, (int)inpDet.BasicId);
                 outDetails.BasicId = inpDet.BasicId;
                 outDetails.Title = inpDet.Title;
                 outDetails.AuthorName = inpDet.AuthorName;
@@ -63,111 +70,21 @@ namespace Bikewale.PWA.Utils
                 outDetails.PrevArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.PrevArticle);
                 outDetails.NextArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.NextArticle);
                 outDetails.CategoryId = inpDet.CategoryId;
-                outDetails.CategoryName = GetContentCategory(inpDet.CategoryId);
+                outDetails.CategoryName = PwaCmsHelper.GetContentCategory(inpDet.CategoryId);
                 outDetails.LargePicUrl = inpDet.LargePicUrl;
                 outDetails.SmallPicUrl = inpDet.SmallPicUrl;
                 outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", inpDet.BasicId);
-                outDetails.ShareUrl = ReturnShareUrl(inpDet);
+                outDetails.ShareUrl = PwaCmsHelper.ReturnShareUrl(inpDet);
             }
             return outDetails;
         }
 
-        private static string ReturnShareUrl(ArticleDetails articleSummary)
-        {
-            string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
-            EnumCMSContentType contentType = (EnumCMSContentType)articleSummary.CategoryId;
-            string shareUrl = string.Empty;
-            try
-            {
-                switch (contentType)
-                {
-                    case EnumCMSContentType.News:
-                    case EnumCMSContentType.AutoExpo2016:
-                        shareUrl = string.Format("{0}/news/{1}-{2}.html", _bwHostUrl, articleSummary.BasicId, articleSummary.ArticleUrl);
-                        break;
-                    case EnumCMSContentType.Features:
-                        shareUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
-                        break;
-                    case EnumCMSContentType.RoadTest:
-                        shareUrl = string.Format("{0}/expert-reviews/{1}-{2}.html", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
-                        break;
-                    case EnumCMSContentType.SpecialFeature:
-                        shareUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            finally
-            {
-                if (_logNewsUrl && shareUrl.EndsWith(@".html.html"))
-                {
-                    ThreadContext.Properties["ShareUrl"] = shareUrl;
-                    _logger.Error("ConverterUtility.ReturnShareUrl");
-                }
-
-            }
-            return shareUrl;
-        }
-
-        private static string GetContentCategory(int contentType)
-        {
-            string _category = string.Empty;
-            EnumCMSContentType _contentType = (EnumCMSContentType)contentType;
-
-            switch (_contentType)
-            {
-                case EnumCMSContentType.AutoExpo2016:
-                case EnumCMSContentType.News:
-                    _category = "NEWS";
-                    break;
-                case EnumCMSContentType.Features:
-                case EnumCMSContentType.SpecialFeature:
-                    _category = "FEATURES";
-                    break;
-                case EnumCMSContentType.ComparisonTests:
-                case EnumCMSContentType.RoadTest:
-                    _category = "EXPERT REVIEWS";
-                    break;
-                case EnumCMSContentType.TipsAndAdvices:
-                    _category = "Bike Care";
-                    break;
-                default:
-                    break;
-            }
-            return _category;
-        }
-
-        private static string GetArticleUrl(int contentType, string url, int basicid)
-        {
-            string articleUrl = string.Empty;
-            EnumCMSContentType _contentType = (EnumCMSContentType)contentType;
-            switch (_contentType)
-            {
-                case EnumCMSContentType.AutoExpo2016:
-                case EnumCMSContentType.News:
-                    articleUrl = string.Format("/m/news/{0}-{1}.html", basicid, url);
-                    break;
-                case EnumCMSContentType.Features:
-                case EnumCMSContentType.SpecialFeature:
-                    articleUrl = string.Format("/m/features/{0}-{1}/", url, basicid);
-                    break;
-                case EnumCMSContentType.ComparisonTests:
-                case EnumCMSContentType.RoadTest:
-                    articleUrl = string.Format("/m/expert-reviews/{0}-{1}.html", url, basicid);
-                    break;
-                case EnumCMSContentType.TipsAndAdvices:
-                    articleUrl = string.Format("/m/bike-care/{0}-{1}.html", url, basicid);
-                    break;
-                case EnumCMSContentType.Videos:
-                    articleUrl = string.Format("/m/videos/{0}-{1}/", url, basicid);
-                    break;
-                default:
-                    break;
-            }
-            return articleUrl;
-        }
-
+        /// <summary>
+        /// Converts MostPopularBikes to PwaBikeDetails for the specified City
+        /// </summary>
+        /// <param name="inpList"></param>
+        /// <param name="cityName"></param>
+        /// <returns></returns>
         public static List<PwaBikeDetails> MapMostPopularBikesBaseToPwaBikeDetails(IEnumerable<MostPopularBikesBase> inpList, string cityName)
         {
             List<PwaBikeDetails> outList = new List<PwaBikeDetails>();
@@ -193,7 +110,12 @@ namespace Bikewale.PWA.Utils
             }
             return outList;
         }
-
+        /// <summary>
+        /// Converts the list of upcoming bikes to the list of PwaBikeDetails for the given city
+        /// </summary>
+        /// <param name="inpList"></param>
+        /// <param name="cityName"></param>
+        /// <returns></returns>
         public static List<PwaBikeDetails> MapUpcomingBikeEntityToPwaBikeDetails(IEnumerable<UpcomingBikeEntity> inpList, string cityName)
         {
             List<PwaBikeDetails> outList = new List<PwaBikeDetails>();
@@ -214,7 +136,12 @@ namespace Bikewale.PWA.Utils
             }
             return outList;
         }
-
+        /// <summary>
+        /// Converts the GenericBikeInfo to PwaBikeInfo for the given city
+        /// </summary>
+        /// <param name="inpBikeInfo"></param>
+        /// <param name="cityDetails"></param>
+        /// <returns></returns>
         public static PwaBikeInfo MapGenericBikeInfoToPwaBikeInfo(GenericBikeInfo inpBikeInfo, CityEntityBase cityDetails)
         {
             PwaBikeInfo outBikeInfo = null;
@@ -295,7 +222,12 @@ namespace Bikewale.PWA.Utils
             }
             return outBikeInfo;
         }
-
+        /// <summary>
+        /// Converts the NewBikeList to PwaNewBikeList for the given city
+        /// </summary>
+        /// <param name="objData"></param>
+        /// <param name="city"></param>
+        /// <returns></returns>
         public static List<PwaBikeNews> MapNewBikeListToPwaNewBikeList(NewsDetailPageVM objData, string city)
         {
             List<PwaBikeNews> outData = new List<PwaBikeNews>();
@@ -342,7 +274,11 @@ namespace Bikewale.PWA.Utils
 
             return outData;
         }
-
+        /// <summary>
+        /// Converts the BikeInfo to the PWABikeInfo
+        /// </summary>
+        /// <param name="objData"></param>
+        /// <returns></returns>
         public static PwaBikeInfo MapGenericBikeInfoToPwaBikeInfo(BikeInfoVM objData)
         {
             PwaBikeInfo outBikeInfo = null;
@@ -418,7 +354,11 @@ namespace Bikewale.PWA.Utils
             }
             return outBikeInfo;
         }
-
+        /// <summary>
+        /// Converts the list of ArticleSummary to PwaArticleSummary list
+        /// </summary>
+        /// <param name="inpSumList"></param>
+        /// <returns></returns>
         public static List<PwaArticleSummary> MapArticleSummaryListToPwaArticleSummaryList(IEnumerable<ArticleSummary> inpSumList)
         {
 
@@ -431,27 +371,11 @@ namespace Bikewale.PWA.Utils
             return pwaArticleSummaryList;
         }
 
-        public static string GetSha256Hash(string input)
-        {
-            SHA256 shaHash = new SHA256Managed();
-            // Convert the input string to a byte array and compute the hash.
-            byte[] data = shaHash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
-            // Create a new Stringbuilder to collect the bytes
-            // and create a string.
-            StringBuilder sBuilder = new StringBuilder();
-
-            // Loop through each byte of the hashed data 
-            // and format each one as a hexadecimal string.
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-
-            // Return the hexadecimal string.
-            return sBuilder.ToString();
-        }
-
+        /// <summary>
+        /// Converts BikeVideoEntity to PwaVikeVideoEntity
+        /// </summary>
+        /// <param name="inpList"></param>
+        /// <returns></returns>
         public static IEnumerable<PwaBikeVideoEntity> PwaConvert(IEnumerable<BikeVideoEntity> inpList)
         {
             List<PwaBikeVideoEntity> outList = new List<PwaBikeVideoEntity>();
@@ -462,7 +386,11 @@ namespace Bikewale.PWA.Utils
             }
             return outList;
         }
-
+        /// <summary>
+        /// Converts the items from inpList to PwaBikeVideoEntity and adds them to outList
+        /// </summary>
+        /// <param name="outList"></param>
+        /// <param name="inpList"></param>
         public static void PwaCovertAndAppend(List<PwaBikeVideoEntity> outList, IEnumerable<BikeVideoEntity> inpList)
         {
             
@@ -478,7 +406,12 @@ namespace Bikewale.PWA.Utils
             }
             
         }
-
+        /// <summary>
+        /// Converts BikeVideoEntity to PwaBikeVideoEntity
+        /// </summary>
+        /// <param name="inpEntity"></param>
+        /// <param name="addShortDesc">Decides whether to add the Short Description and Description to the Converted Entity. By default it's false i.e. don't add</param>
+        /// <returns></returns>
         public static PwaBikeVideoEntity PwaConvert(BikeVideoEntity inpEntity, bool addShortDesc = false)
         {
             PwaBikeVideoEntity outEntity = null;
@@ -503,7 +436,11 @@ namespace Bikewale.PWA.Utils
             return outEntity;
 
         }
-
+        /// <summary>
+        /// Converts the list of BikeMakeEntityBase to the list of PwaBikeMakeEntityBase
+        /// </summary>
+        /// <param name="inpList"></param>
+        /// <returns></returns>
         public static IEnumerable<PwaBikeMakeEntityBase> PwaConvert(IEnumerable<BikeMakeEntityBase> inpList)
         {
             List<PwaBikeMakeEntityBase> outList = null;
@@ -518,7 +455,11 @@ namespace Bikewale.PWA.Utils
             return outList;
         }
 
-
+        /// <summary>
+        /// Converts BikeMakeEntityBase to PwaBikeMakeEntityBase
+        /// </summary>
+        /// <param name="inp"></param>
+        /// <returns></returns>
         public static PwaBikeMakeEntityBase PwaConvert(BikeMakeEntityBase inp)
         {
             PwaBikeMakeEntityBase outEntity = null;

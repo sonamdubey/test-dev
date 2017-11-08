@@ -5,6 +5,9 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PWA.Articles
 {
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     [Serializable, DataContract]
     public class PwaVideoDetailReducer
     {
@@ -22,6 +25,9 @@ namespace Bikewale.Entities.PWA.Articles
         }
     }
 
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     [Serializable, DataContract]
     public class PwaVideoDetailVideoBikeList
     {

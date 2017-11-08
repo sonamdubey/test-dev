@@ -134,6 +134,8 @@ namespace Bikewale.Utility
         private readonly string _EditCMSModuleName;
         private readonly int _minEnginePoolSize, _maxEnginePoolSize;
         private readonly bool _useV8Engine;
+        private readonly int _pwaRenderedHtmlCacheLimitMins;
+
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
         {
@@ -247,6 +249,7 @@ namespace Bikewale.Utility
             _maxEnginePoolSize = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MaxEnginePoolSize"]) ? 15 : Convert.ToInt32(ConfigurationManager.AppSettings["MaxEnginePoolSize"]);
             _SynopsisSummaryMergeMakeIds = ConfigurationManager.AppSettings["SynopsisSummaryMergeMakeIds"];
             _useV8Engine= string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? true : Convert.ToBoolean(ConfigurationManager.AppSettings["UseV8Engine"]);
+            _pwaRenderedHtmlCacheLimitMins= string.IsNullOrEmpty(ConfigurationManager.AppSettings["UseV8Engine"]) ? 60 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaRenderedHtmlCacheLimitMins"]);
         }
 
         // Static method to provide access to instance
@@ -416,6 +419,6 @@ namespace Bikewale.Utility
         public int MinEnginePoolSize { get { return _minEnginePoolSize; } }
         public string SynopsisSummaryMergeMakeIds { get { return _SynopsisSummaryMergeMakeIds; } }
         public bool UseV8Engine { get { return _useV8Engine; } }
-        
+        public int PwaRenderedHtmlCacheLimitMins { get { return _pwaRenderedHtmlCacheLimitMins; } }
     }   // class
 }   // namespace

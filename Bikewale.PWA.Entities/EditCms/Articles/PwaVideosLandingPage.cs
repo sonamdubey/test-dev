@@ -4,7 +4,9 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PWA.Articles
 {
-
+    /// <summary>
+    /// Created By: Prasad Gawde 
+    /// </summary>
     [DataContract, Serializable]
     public class PwaVideosByCategory
     {
@@ -15,7 +17,9 @@ namespace Bikewale.Entities.PWA.Articles
         public string SectionTitle { get; set; }
     }
 
-
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     [DataContract, Serializable]
     public class PwaVideosLandingPageTopVideos
     {
@@ -26,6 +30,9 @@ namespace Bikewale.Entities.PWA.Articles
         public PwaVideosBySubcategory ExpertReviews { get; set; }        
     }
 
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     [DataContract, Serializable]
     public class PwaVideosLandingPageOtherVideos
     {

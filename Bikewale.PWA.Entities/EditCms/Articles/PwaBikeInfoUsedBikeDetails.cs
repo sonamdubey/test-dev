@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PWA.Articles
@@ -8,16 +7,15 @@ namespace Bikewale.Entities.PWA.Articles
     ///  Created By: Prasad Gawde
     /// </summary>
     [Serializable, DataContract]
-    public class PwaBikeCms
+    public class PwaBikeInfoUsedBikeDetails
     {
         [DataMember]
-        public string Heading { get; set; }
+        public string DescriptionLabel { get; set; }
         [DataMember]
-        public string CompleteListUrl { get; set; }
+        public string PricePrefix { get; set; }
         [DataMember]
-        public string CompleteListUrlLabel { get; set; }
+        public string Price { get; set; }
         [DataMember]
-        public string CompleteListUrlAlternateLabel { get; set; }
-
+        public string UsedBikesLinkUrl { get; set; }
     }
 }

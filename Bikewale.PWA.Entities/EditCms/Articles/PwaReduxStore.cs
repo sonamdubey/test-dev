@@ -2,6 +2,9 @@
 
 namespace Bikewale.Entities.PWA.Articles
 {
+    /// <summary>
+    /// Created By: Prasad Gawde
+    /// </summary>
     public class PwaReduxStore
     {
         public PwaNewsReducer News { get; private set; }

@@ -221,7 +221,7 @@ namespace Bikewale.Models
 
                             var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
 
-                            objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(ConverterUtility.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsArticleListReducer,
+                            objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsArticleListReducer,
                                 "/m/news/", "root", "ServerRouterWrapper");
                             objData.WindowState = storeJson;
                         }
