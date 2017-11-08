@@ -5,6 +5,7 @@
 @if (Model != null)
 {
     var currentBike = string.Format("{0} {1}", Model.MileageInfo.Make.MakeName, Model.MileageInfo.Model.ModelName);
+    var bodyType = (Model.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "scooters" : "commuters");
     <div id="modelMileageContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin">
         <h2 class="h2-heading content-inner-block-20">@currentBike Mileage</h2>
         <ul class="mileage-box-list padding-bottom20">
@@ -29,12 +30,12 @@
                         kmpl
                     </p>
                     <p>
-                        <span class="mileage-box__subtitle">Reported by users</span>
+                        <span class="mileage-box__subtitle">Reported by owners</span>
                     </p>
                 </div>
             </li>
             <li>
-                <p class="mileage-box__desc margin-bottom5">Average mileage in commuters</p>
+                <p class="mileage-box__desc margin-bottom5">@string.Format("Average mileage among {0}", bodyType) </p>
                 <div class="inline-block">
                     <span class="grey-bike-icon"></span>
                     <p class="inline-block font12 padding-left10 text-light-grey">
@@ -47,7 +48,7 @@
                 <div class="mileage-box__better-block">
                     <span class="inline-block font30 text-teal font-bold">@Math.Round(Model.MileageInfo.Percentile)%</span>
                     <div class="mileage-box__desc inline-block margin-left5">
-                        @string.Format("{0} is better than {1}% {2}", currentBike, Math.Round(Model.MileageInfo.Percentile), (Model.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "scooters" : "bikes"))
+                        @string.Format("{0} is better than {1}% {2}", currentBike, Math.Round(Model.MileageInfo.Percentile), bodyType)
                     </div>
                 </div>
             </li>
@@ -66,7 +67,7 @@
                                 </div>
                                 <div class="card-desc-block">
                                     <p class="bikeTitle">@bikeName</p>
-                                    <p class=" text-light-grey">
+                                    <p class="text-light-grey">
                                         @similarObj.MileageByUserReviews kmpl
                                     </p>
                                 </div>
