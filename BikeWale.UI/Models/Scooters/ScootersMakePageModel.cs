@@ -267,6 +267,8 @@ namespace Bikewale.Models
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            url += "scooters/";
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "Scooters"));
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
 
