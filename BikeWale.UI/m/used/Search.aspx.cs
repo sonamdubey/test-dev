@@ -24,6 +24,7 @@ namespace Bikewale.Mobile.Used
         protected IEnumerable<UsedBikeBase> usedBikesList = null;
         protected IEnumerable<CityEntityBase> citiesList = null;
         protected IEnumerable<BikeMakeModelBase> makeModelsList = null;
+        protected BikeMakeEntityBase objMake = null;
         public LinkPagerControl ctrlPager;
         protected ushort makeId;
         protected uint modelId, cityId, totalListing, PageIdentifier;
@@ -163,6 +164,7 @@ namespace Bikewale.Mobile.Used
                 _startIndex = objUsedBikesPage.startIndex;
                 _endIndex = objUsedBikesPage.endIndex;
                 objCity = objUsedBikesPage.SelectedCity;
+                objMake = objUsedBikesPage.SelectedMake;
                 makeModelsList = objUsedBikesPage.MakeModels;
                 usedBikesList = objUsedBikesPage.UsedBikes.Result;
                 currentQueryString = objUsedBikesPage.CurrentQS;
