@@ -187,5 +187,54 @@ namespace BikewaleOpr.BAL
             }
             return seriesId > 0;
         }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 7th Nov 2017
+        /// Summary : BAL function for get synopsis
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <returns></returns>
+        public SynopsisData Getsynopsis(int seriesId)
+        {
+            SynopsisData objSynopsis = null;
+            try
+            {
+                if(seriesId > 0)
+                {
+                    objSynopsis = _seriesRepo.Getsynopsis(seriesId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.BikeSeriesRepotory.Getsynopsis");
+            }
+
+            return objSynopsis;
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 7th Nov 2017
+        /// Summary : BAL function for update synopsis
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <param name="updatedBy"></param>
+        /// <param name="objSynopsis"></param>
+        /// <returns></returns>
+        public bool UpdateSynopsis(int seriesId, int updatedBy, SynopsisData objSynopsis)
+        {
+            bool isUpdated = false;
+            try
+            {
+                if (seriesId > 0 && updatedBy > 0 && objSynopsis != null)
+                {
+                    isUpdated = _seriesRepo.UpdateSynopsis(seriesId, updatedBy, objSynopsis);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.BikeSeriesRepository.UpdateSynopsis");
+            }
+            return isUpdated;
+        }
     }
 }

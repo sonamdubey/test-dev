@@ -31,7 +31,7 @@
     });
     self.deleteSeriesId = ko.observable(null);
     self.isSeriesURL = ko.observable(false);
-
+    self.seriesSynopsis = ko.observable(null);
     self.validateSubmit = function () {
         try {
             var isValid = true;
@@ -179,6 +179,17 @@
         catch (e) {
             console.warn(e.message);
         }
+    }
+
+    self.getSeriesSynopsis = function (event) {
+        try{
+            var targetedRow = $(event.target).closest("tr");
+            self.selectedSeriesId($(targetedRow).data("seriesid"));
+            self.selectedSeriesName($(targetedRow).find("td:eq(1)").text());
+        }catch(e){
+            console.warn(e.message);
+        }
+
     }
 }
 

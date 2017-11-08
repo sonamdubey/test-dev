@@ -17,5 +17,7 @@ namespace BikewaleOpr.Interface.BikeData
         bool EditSeries(uint seriesId, string seriesName, string seriesMaskingName, int updatedBy, bool isSeriesPageUrl);
         bool DeleteSeries(uint bikeSeriesId, uint deletedBy);
         bool DeleteMappingOfModelSeries(uint modelId);
+        SynopsisData Getsynopsis(int seriesId);
+        bool UpdateSynopsis(int seriesId, int updatedBy, SynopsisData objSynopsis);
     }
 }
