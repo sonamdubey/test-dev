@@ -5,7 +5,6 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Schema;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
@@ -201,9 +200,9 @@ namespace Bikewale.Models.UserReviews
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objPage.UserReviewDetailsObj.Make.MakeName)));
             }
 
-            if (objPage.GenericBikeWidgetData != null && objPage.GenericBikeWidgetData.BikeInfo!=null && objPage.GenericBikeWidgetData.BikeInfo.BodyStyleId.Equals((sbyte)EnumBikeBodyStyles.Scooter) && !(objPage.UserReviewDetailsObj.Make.IsScooterOnly))
+            if (objPage.GenericBikeWidgetData != null && objPage.GenericBikeWidgetData.BikeInfo != null && objPage.GenericBikeWidgetData.BikeInfo.BodyStyleId.Equals((sbyte)EnumBikeBodyStyles.Scooter) && !(objPage.UserReviewDetailsObj.Make.IsScooterOnly))
             {
-                if(IsMobile)
+                if (IsMobile)
                 {
                     scooterUrl += "m/";
                 }
@@ -250,7 +249,7 @@ namespace Bikewale.Models.UserReviews
         public void BindUserReviewSWidget(UserReviewDetailsVM objPage)
         {
             try
-            {               
+            {
                 // Set default category to be loaded here
                 FilterBy activeReviewCateory = FilterBy.MostRecent;
 
@@ -273,7 +272,7 @@ namespace Bikewale.Models.UserReviews
                         SanitizedReviewLength = (uint)(IsMobile ? 150 : 270),
                         BasicDetails = true
                     }
-                };                
+                };
 
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, objFilter, _userReviewsCache, _userReviewsSearch);
                 objUserReviews.IsDesktop = !IsMobile;
@@ -295,17 +294,13 @@ namespace Bikewale.Models.UserReviews
                         objPage.UserReviews.ReviewsInfo.MostRecentReviews = objPage.UserReviews.ReviewsInfo.MostRecentReviews - 1;
                         objPage.UserReviews.ReviewsInfo.MostHelpfulReviews = objPage.UserReviews.ReviewsInfo.MostHelpfulReviews - 1;
 
-                        if (objPage.UserReviewDetailsObj.OverallRating.Value == 3)
+                        if (objPage.UserReviewDetailsObj.OverallRating.Value <= 3)
                         {
-                            objPage.UserReviews.ReviewsInfo.NeutralReviews = objPage.UserReviews.ReviewsInfo.NeutralReviews - 1;
-                        }
-                        else if (objPage.UserReviewDetailsObj.OverallRating.Value > 3)
-                        {
-                            objPage.UserReviews.ReviewsInfo.PostiveReviews = objPage.UserReviews.ReviewsInfo.PostiveReviews - 1;
+                            objPage.UserReviews.ReviewsInfo.NegativeReviews = objPage.UserReviews.ReviewsInfo.NegativeReviews - 1;
                         }
                         else
                         {
-                            objPage.UserReviews.ReviewsInfo.NegativeReviews = objPage.UserReviews.ReviewsInfo.NegativeReviews - 1;
+                            objPage.UserReviews.ReviewsInfo.PostiveReviews = objPage.UserReviews.ReviewsInfo.PostiveReviews - 1;
                         }
                     }
                 }
