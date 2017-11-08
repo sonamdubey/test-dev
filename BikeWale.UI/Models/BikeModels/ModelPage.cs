@@ -1712,7 +1712,7 @@ namespace Bikewale.Models.BikeModels
                         mileageWidgetObj = new ModelMileageWidgetVM();
                         mileageWidgetObj.MileageInfo = obj.Bikes.FirstOrDefault(m => m.Model.ModelId == _modelId);
                         mileageWidgetObj.AvgBodyStyleMileageByUserReviews = obj.BodyStyleMileage.FirstOrDefault().AvgBodyStyleMileageByUserReviews;
-                        mileageWidgetObj.SimilarBikeList = obj.Bikes;
+                        mileageWidgetObj.SimilarBikeList= obj.Bikes.Where(u => u.Model.ModelId != _modelId);
                         if (mileageWidgetObj.MileageInfo.Rank <= 3)
                         {
                             mileageWidgetObj.WidgetHeading = string.Format("{0} with similar mileage", (mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes"));
@@ -1722,7 +1722,7 @@ namespace Bikewale.Models.BikeModels
                             mileageWidgetObj.WidgetHeading = string.Format("{0} with better mileage", (mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes"));
                         }
                         _objData.Mileage = mileageWidgetObj;
-                        _objData.IsMileageByUsersAvailable = (mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) || mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.SemiFaired) || mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Street)) && (mileageWidgetObj.MileageInfo.MileageByUserReviews >= 0);
+                        _objData.IsMileageByUsersAvailable = (mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) || mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.SemiFaired) || mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Street)) && (mileageWidgetObj.MileageInfo.MileageByUserReviews > 0);
                     }
 
                 }
