@@ -110,7 +110,7 @@ namespace Bikewale.Models.UserReviews
                 objPage.RatingQuestions = new Collection<UserReviewQuestion>();
                 objPage.ReviewQuestions = new Collection<UserReviewQuestion>();
 
-                if (objPage.UserReviewDetailsObj != null)
+                if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Questions != null)
                 {
                     foreach (UserReviewQuestion ques in objPage.UserReviewDetailsObj.Questions)
                     {
