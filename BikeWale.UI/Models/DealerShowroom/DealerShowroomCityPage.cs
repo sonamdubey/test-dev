@@ -33,7 +33,7 @@ namespace Bikewale.Models.DealerShowroom
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private DealerShowroomCityPageVM objDealerVM;
         public MakeMaskingResponse objResponse;
-        public uint cityId, makeId, TopCount;
+        public uint cityId, makeId, topCount;
         public StatusCodes status;
         public BikeMakeEntityBase objMake;
         public CityEntityBase CityDetails;
@@ -41,14 +41,14 @@ namespace Bikewale.Models.DealerShowroom
         public bool IsMobile { get; internal set; }
 
         //Constructor
-        public DealerShowroomCityPage(IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository bikeMakesCache, string makeMaskingName, string cityMaskingName, uint topCount)
+        public DealerShowroomCityPage(IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository bikeMakesCache, string makeMaskingName, string cityMaskingName, uint count)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
             _objUsedCache = objUsedCache;
             _objSC = objSC;
             _bikeModels = bikeModels;
-            TopCount = topCount;
+            topCount = count;
             ProcessQuery(makeMaskingName, cityMaskingName);
         }
         /// <summary>
@@ -155,7 +155,7 @@ namespace Bikewale.Models.DealerShowroom
             try
             {
 
-                ServiceCentersCard objServcieCenter = new ServiceCentersCard(_objSC, TopCount, (uint)objMake.MakeId, CityDetails.CityId);
+                ServiceCentersCard objServcieCenter = new ServiceCentersCard(_objSC, topCount, (uint)objMake.MakeId, CityDetails.CityId);
                 ServiceCenterVM = objServcieCenter.GetData();
             }
             catch (System.Exception ex)
@@ -331,8 +331,7 @@ namespace Bikewale.Models.DealerShowroom
             UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
             try
             {
-
-                UsedBikeModelsWidgetModel objUsedBike = new UsedBikeModelsWidgetModel(TopCount, _objUsedCache);
+                UsedBikeModelsWidgetModel objUsedBike = new UsedBikeModelsWidgetModel(9, _objUsedCache);
                 if (makeId > 0)
                     objUsedBike.makeId = makeId;
                 if (cityId > 0)

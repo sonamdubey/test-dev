@@ -344,7 +344,9 @@
     <Compile Include="MobileAppAlert\MobileAppNotificationBase.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotifications.cs" />
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
+    <Compile Include="Models\AdSlotEntity.cs" />
     <Compile Include="Models\AdTags.cs" />
+    <Compile Include="Models\AmpJsTags.cs" />
     <Compile Include="Models\BreadCrumb.cs" />
     <Compile Include="Models\BreadCrumbsList.cs" />
     <Compile Include="Models\ModelBase.cs" />

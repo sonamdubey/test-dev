@@ -22,6 +22,15 @@ function changeHeaderBackground() {
 
 
 $(document).ready(function () {
+    $(".nav-tab").click(function () {
+
+        try {
+            triggerGA('Make_Scooters', 'Floating_NavigationClicked', $(this).data("lab"));
+        }
+        catch (e) {
+            console.log(e);
+        }
+    });
     var comparisonCarousel = $("#comparisonCarousel");
     comparisonCarousel.find(".jcarousel").jcarousel();
 
@@ -64,7 +73,6 @@ $(document).ready(function () {
         .jcarouselControl({
             target: '+=2'
         });
-
 });
 
 // floating tabs

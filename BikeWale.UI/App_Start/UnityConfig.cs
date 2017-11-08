@@ -1,3 +1,4 @@
+using Bikewale.BAL.AdSlot;
 using Bikewale.BAL.Authors;
 using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
@@ -13,6 +14,7 @@ using Bikewale.BAL.ServiceCenter;
 using Bikewale.BAL.UsedBikes;
 using Bikewale.BAL.UserReviews;
 using Bikewale.BAL.UserReviews.Search;
+using Bikewale.Cache.AdSlot;
 using Bikewale.Cache.Authors;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
@@ -48,6 +50,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.service;
 using Bikewale.Interfaces;
+using Bikewale.Interfaces.AdSlot;
 using Bikewale.Interfaces.Authors;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
@@ -83,6 +86,8 @@ namespace Bikewale
     /// Description :   Register Manufacturer campaign interfaces
     /// Modified by : Vivek Singh Tomar on 27th Sep 2017
     /// Description : Added IBikeSeriesRepository
+    /// Modified by : Ashutosh Sharma on 31 Oct 2017
+    /// Description : Added IAdSlot, IAdSlotCacheRepository, IAdSlotRepository.
     /// </summary>
     public static class UnityConfig
     {
@@ -162,6 +167,9 @@ namespace Bikewale
             container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>();
             container.RegisterType<IBikeSeries, BikeSeries>();
             container.RegisterType<IBikeSeriesCacheRepository, BikeSeriesCacheRepository>();
+            container.RegisterType<IAdSlot, AdSlot>();
+            container.RegisterType<IAdSlotCacheRepository, AdSlotCacheRepository>();
+            container.RegisterType<IAdSlotRepository, DAL.AdSlot.AdSlot>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

@@ -1,4 +1,4 @@
-﻿.padding-bottom5 {
+﻿.model-photos-swiper.padding-bottom5 {
     padding-bottom: 5px;
 }
 .padding-15-20-20 {
@@ -98,7 +98,8 @@
 
 .model-photos-swiper .swiper-slide {
     width: 100%;
-    text-align: center;
+	text-align: center;
+	cursor: pointer;
 }
 
 .model-photos-swiper img {
