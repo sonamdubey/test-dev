@@ -201,7 +201,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmodelcolor_01032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                   
+
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
 
@@ -2449,7 +2449,7 @@ namespace Bikewale.DAL.BikeData
         /// <param name="modelId"></param>
         /// <param name="totalRecords"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords,uint cityid)
+        public IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords, uint cityid)
         {
             IList<SimilarBikeWithVideo> SimilarBikeInfoList = null;
             try
@@ -2460,10 +2460,10 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getalternativebikeswithvideoscount_27102017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
-                    if (cityid > 0) {
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
-                    }
-                    
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
+
+
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -2483,7 +2483,7 @@ namespace Bikewale.DAL.BikeData
                                 bikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
                                 bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
                                 bikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
-                                bikeInfo.ExShowRoomPriceMumbai= SqlReaderConvertor.ToUInt32(dr["exshowroompricemumbai"]);
+                                bikeInfo.ExShowRoomPriceMumbai = SqlReaderConvertor.ToUInt32(dr["exshowroompricemumbai"]);
                                 bikeInfo.OnRoadPriceInCity = SqlReaderConvertor.ToUInt32(dr["onroadpriceincity"]);
                                 SimilarBikeInfoList.Add(bikeInfo);
 
