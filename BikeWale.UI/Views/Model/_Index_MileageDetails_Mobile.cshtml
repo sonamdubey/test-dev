@@ -5,6 +5,7 @@
 @if (Model != null && Model.MileageInfo!=null && Model.SimilarBikeList.Any())
 {
     var currentBike = string.Format("{0} {1}", Model.MileageInfo.Make.MakeName, Model.MileageInfo.Model.ModelName);
+    var bodyType = (Model.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "scooters" : "commuters");
     <div id="mileageContent" class="bw-model-tabs-data content-box-shadow padding-top15 padding-bottom20 card-bottom-margin content-details-wrapper bg-white">
         @if (Model.MileageInfo.Make != null && Model.MileageInfo.Model != null)
         {
@@ -34,15 +35,15 @@
                          kmpl
                     </p>
                     <p>
-                        <span class="mileage-box__subtitle">Reported by users</span>
+                        <span class="mileage-box__subtitle">Reported by owners</span>
                     </p>
                 </div>
             </li>
         </ul>
-        <h3 class="text-bold padding-bottom5 padding-left20 padding-right20">How does it fare against competition? </h3>
+        <h3 class="text-bold padding-bottom5 padding-left20 padding-right20">@string.Format("Where does {0} stand among {1}?", currentBike, bodyType)</h3>
         <ul class="mileage-box-list padding-bottom20">
             <li>
-                <p class="mileage-box__desc margin-bottom5">Average mileage among commuters</p>
+                <p class="mileage-box__desc margin-bottom5">@string.Format("Average mileage among {0}", bodyType)</p>
                 <div class="inline-block">
                     <span class="grey-bike-icon"></span>
                     <p class="inline-block font12 padding-left10">
@@ -54,7 +55,7 @@
             <li>
                 <p class="inline-block font30 text-teal font-bold">@Math.Round(Model.MileageInfo.Percentile)%</p>
                 <p class="mileage-box__desc">
-                  @string.Format("{0} is better than {1}% {2}", currentBike, Math.Round(Model.MileageInfo.Percentile), (Model.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "scooters" : "bikes")) 
+                  @string.Format("{0} is better than {1}% {2}", currentBike, Math.Round(Model.MileageInfo.Percentile), bodyType) 
                 </p>
             </li>
         </ul>
