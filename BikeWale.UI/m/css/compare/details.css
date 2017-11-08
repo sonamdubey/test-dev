@@ -1173,3 +1173,12 @@ section .same-version-toast{
     color: #A2A2A2;
 }
 /*explore more card ends here*/
+
+.right-arrow {
+    width: 8px;
+    height: 12px;
+    background-position: -182px -394px;
+    position: absolute;
+    right: 20px;
+    top: 41%;
+}
