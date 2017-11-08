@@ -59,7 +59,7 @@
                         <div class="collapsible-body">
                             <div class="container">
                                 <div class="input-field row m12">
-                                    <select id = "selectMake" name="MakeId" data-bind="value: selectedMakeId">
+                                    <select id ="selectMake" name="MakeId" data-bind="value: selectedMakeId">
                                         <option value = "" disabled selected>Select Make</option>
                                             @if (Model.BikeMakesList != null)
                                             {
@@ -79,7 +79,7 @@
                                     <label id = "txtSeriesMaskingLabel" for="txtSeriesMaskingName" data-error="" data-bind="attr:{'data-error':seriesMaskingMsg}, css:seriesMaskingMsg()!=''?'active':''">Series Masking Name</label>
                                 </div>
                                 <div class="input-field row s12">
-                                    <input type="checkbox" id="chkSeriesURL" name="isSeriesPageUrl" class="with-gap" value="true" checked/>
+                                    <input type="checkbox" id="chkSeriesURL" name="isSeriesPageUrl" class="with-gap" value="false"/>
                                     <label for="chkSeriesURL">Form Series URL</label>
                                 </div>
                                 <div class="input-field row m12">

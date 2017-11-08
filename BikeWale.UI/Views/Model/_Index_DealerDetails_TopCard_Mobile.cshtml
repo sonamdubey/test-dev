@@ -1,96 +1,98 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-@if (Model.IsDealerDetailsExists) { 
-<div id="model-dealer-card">
-    @if (Model.IsPremiumDealer)
-    {
-        <div class="dealer-details margin-bottom10">
-            <div class="dealership-icon-wrapper inline-block margin-right5">
-                <span class="offers-sprite dealership-icon"></span>
-            </div>
-            <div class="dealership-title inline-block">
-                <h2 id="dealername" class="text-default">@Model.DealerDetails.Organization</h2>
-                <p class="font14 text-light-grey">@(!Model.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ")@Model.DealerArea</p>
-            </div>
-            @if (Model.DealerDetails.IsDSA)
-            {
-                <div class="bw-tooltip multi-brand-tooltip tooltip-bottom slideUp-tooltip">
-                    <p class="bw-tooltip-text position-rel font14">
-                        This dealer sells bikes of multiple brands.<br />
-                        Above price is not final and may vary at the dealership.
-                    </p>
-                    <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
-                </div>
-            }
-        </div>
-    }
-    @if (Model.IsPrimaryDealer && Model.DetailedDealer.PrimaryDealer.HasOffers)
-    {
-        <div class="dealer-offers-content margin-bottom10">
-            <p class="offers-content-label">Offers available:</p>
-            <ul id="dealer-offers-list">
-                @{ var offersToShow = Model.DetailedDealer.PrimaryDealer.OfferList.Take(2); int offersCount = (Model.DetailedDealer.PrimaryDealer.OfferList.Count() - 2); }
-                @foreach (var offer in offersToShow)
-                {
-                    <li>
-                        <p class="margin-bottom5">
-                            <span class="offers-sprite @(string.Format(" offerIcon_{0}", offer.OfferCategoryId))_sm"></span>
-                        </p>
-                        <p class="offertext">
-                            @offer.OfferText
-                        </p>
-                    </li>
-                }
-                @if (offersCount > 3)
-                {
-                    <li class="more-offers-card">
-                        <p class="font18 text-bold text-light-grey margin-top5 margin-bottom7">+@offersCount </p>
-                        <p>more offers</p>
-                    </li>
-                }
-            </ul>
-        </div>
-    }
-    @if (Model.IsPremiumDealer)
-    {
-        if (Model.DetailedDealer.PrimaryDealer.IsBookingAvailable)
+@if (Model.IsDealerDetailsExists)
+{
+    <div id="model-dealer-card">
+        @if (Model.IsPremiumDealer)
         {
-            <div class="margin-bottom20">
-                <div class="vertical-top">
-                    <a rel="nofollow" href="/m/pricequote/bookingsummary_new.aspx?MPQ=@Model.MPQString" class="btn btn-teal btn-sm-0">Book now</a>
-                </div>
-                <p class="booknow-label font11 line-height-1-7 text-xx-light vertical-top">
-                    Pay <span class="bwmsprite inr-grey-xxxsm-icon"></span>@Bikewale.Utility.Format.FormatPrice(Model.DetailedDealer.PrimaryDealer.BookingAmount.ToString()) to book online and <br />balance of <span class="bwmsprite inr-grey-xxxsm-icon"></span>@Bikewale.Utility.Format.FormatPrice((Model.BikePrice - Model.DetailedDealer.PrimaryDealer.BookingAmount).ToString()) at dealership.
-                </p>
-            </div>
-        }
-        else
-        {
-            <div class="padding-bottom20">
-                <div class="vertical-top">
-                    <a id="requestcallback" data-cat="Model_Page" data-act="Request_Callback_Details_Clicked" data-var="bikeVersionLocation" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga leadcapturebtn">Request callback</a>
-                </div>
-                <p class="callback-label font11 line-height-1-7 text-xx-light vertical-top">Get EMI options, test rides other services from dealer</p>
-            </div>
-        }
-    }
-    else
-    {
-        if (Model.IsDealerDetailsExists && !Model.IsPremiumDealer) { 
-        <div class="padding-bottom20">
-            <div class="inline-block nearby-partner-left-col">
+            <div class="dealer-details margin-bottom10">
                 <div class="dealership-icon-wrapper inline-block margin-right5">
                     <span class="offers-sprite dealership-icon"></span>
                 </div>
-                <div class="inline-block nearby-partner-label">
-                    <p class="font14">One partner dealer near you</p>
+                <div class="dealership-title inline-block">
+                    <h2 id="dealername" class="text-default">@Model.DealerDetails.Organization</h2>
+                    <p class="font14 text-light-grey">@(!Model.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ")@Model.DealerArea</p>
                 </div>
+                @if (Model.DealerDetails.IsDSA)
+                {
+                    <div class="bw-tooltip multi-brand-tooltip tooltip-bottom slideUp-tooltip">
+                        <p class="bw-tooltip-text position-rel font14">
+                            This dealer sells bikes of multiple brands.<br />
+                            Above price is not final and may vary at the dealership.
+                        </p>
+                        <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
+                    </div>
+                }
             </div>
-            <a id="viewprimarydealer" onclick="secondarydealer_Click(@Model.DealerId);" data-cat="Model_Page" data-act="View_Dealer_Details_Clicked" data-var="bikeVersionLocation" href="javascript:void(0)" class="btn btn-orange btn-sm-0 bw-ga">View dealer details</a>
-        </div>
-    }
-    }
-</div>
-}
+        }
+        @if (Model.IsPrimaryDealer && Model.DetailedDealer.PrimaryDealer.HasOffers)
+        {
+            <div class="dealer-offers-content margin-bottom10">
+                <p class="offers-content-label">Offers available:</p>
+                <ul id="dealer-offers-list">
+                    @{ var offersToShow = Model.DetailedDealer.PrimaryDealer.OfferList.Take(2); int offersCount = (Model.DetailedDealer.PrimaryDealer.OfferList.Count() - 2); }
+                    @foreach (var offer in offersToShow)
+                    {
+                        <li>
+                            <p class="margin-bottom5">
+                                <span class="offers-sprite @(string.Format(" offerIcon_{0}", offer.OfferCategoryId))_sm"></span>
+                            </p>
+                            <p class="offertext">
+                                @offer.OfferText
+                            </p>
+                        </li>
+                    }
+                    @if (offersCount > 3)
+                    {
+                        <li class="more-offers-card">
+                            <p class="font18 text-bold text-light-grey margin-top5 margin-bottom7">+@offersCount </p>
+                            <p>more offers</p>
+                        </li>
+                    }
+                </ul>
+            </div>
+                        }
+        @if (Model.IsPremiumDealer)
+        {
+            if (Model.DetailedDealer.PrimaryDealer.IsBookingAvailable)
+            {
+                <div class="margin-bottom20">
+                    <div class="vertical-top">
+                        <a rel="nofollow" href="/m/pricequote/bookingsummary_new.aspx?MPQ=@Model.MPQString" class="btn btn-teal btn-sm-0">Book now</a>
+                    </div>
+                    <p class="booknow-label font11 line-height-1-7 text-xx-light vertical-top">
+                        Pay <span class="bwmsprite inr-grey-xxxsm-icon"></span>@Bikewale.Utility.Format.FormatPrice(Model.DetailedDealer.PrimaryDealer.BookingAmount.ToString()) to book online and <br />balance of <span class="bwmsprite inr-grey-xxxsm-icon"></span>@Bikewale.Utility.Format.FormatPrice((Model.BikePrice - Model.DetailedDealer.PrimaryDealer.BookingAmount).ToString()) at dealership.
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="padding-bottom20">
+                    <div class="vertical-top">
+                        <a id="requestcallback" data-cat="Model_Page" data-act="Request_Callback_Details_Clicked" data-var="bikeVersionLocation" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga leadcapturebtn">Request callback</a>
+                    </div>
+                    <p class="callback-label font11 line-height-1-7 text-xx-light vertical-top">Get EMI options, test rides other services from dealer</p>
+                </div>
+            }
+        }
+        else
+        {
+            if (Model.IsDealerDetailsExists && !Model.IsPremiumDealer)
+            {
+                <div class="padding-bottom20">
+                    <div class="inline-block nearby-partner-left-col">
+                        <div class="dealership-icon-wrapper inline-block margin-right5">
+                            <span class="offers-sprite dealership-icon"></span>
+                        </div>
+                        <div class="inline-block nearby-partner-label">
+                            <p class="font14">One partner dealer near you</p>
+                        </div>
+                    </div>
+                    <a id="viewprimarydealer" onclick="secondarydealer_Click(@Model.DealerId);" data-cat="Model_Page" data-act="View_Dealer_Details_Clicked" data-var="bikeVersionLocation" href="javascript:void(0)" class="btn btn-orange btn-sm-0 bw-ga">View dealer details</a>
+                </div>
+            }
+        }
+    </div>
+                        }
 @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && !(Model.IsManufacturerEMIAdShown || Model.IsManufacturerLeadAdShown))
 {
     <div class="padding-15-20 border-solid-top font16">
@@ -139,20 +141,28 @@
         </ul>
     </div>
 }
-
 @if (Model.IsDealerDetailsExists)
 {
     <div class="floating-btn clearfix">
-        <div class="grid-6 alpha omega">
-            <a class="btn btn-orange btn-full-width leadcapturebtn" href="javascript:void(0);" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea">@Model.LeadBtnShortText</a>
-        </div>
-        <div class="grid-6 alpha omega">
-            <a class="btn btn-green btn-full-width" href="tel:+91@(String.IsNullOrEmpty(Model.DealerDetails.MaskingNumber) ? Model.DealerDetails.MobileNo : Model.DealerDetails.MaskingNumber)"><span class="bwmsprite tel-white-icon margin-right10"></span>Call dealer</a>
-        </div>
+
+        @if (String.IsNullOrEmpty(Model.DealerDetails.MaskingNumber))
+        {
+            <div class="grid-12 alpha omega">
+                <a class="btn btn-orange btn-full-width leadcapturebtn" href="javascript:void(0);" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea">@Model.LeadBtnShortText</a>
+            </div>
+        }
+        else
+        {
+            <div class="grid-6 alpha omega">
+                <a class="btn btn-orange btn-full-width leadcapturebtn" href="javascript:void(0);" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea">@Model.LeadBtnShortText</a>
+            </div>
+            <div class="grid-6 alpha omega">
+                <a class="btn btn-green btn-full-width" href="@string.Format("tel:+91{0}", Model.DealerDetails.MaskingNumber)"><span class="bwmsprite tel-white-icon margin-right10"></span>Call dealer</a>
+            </div>
+        }
         <div class="clear"></div>
     </div>
 }
-
 
 @if (Model.DetailedDealer.PrimaryDealer.HasOffers)
 {
@@ -176,7 +186,6 @@
                             <span class="tnc font9 margin-left5" id="@offer.OfferId">View terms</span>
                         }
                     </span>
-
                 </li>
             }
         </ul>

@@ -133,7 +133,7 @@ namespace Bikewale.BAL.Finance
                     response.CpId = 0;
                     response.CTleadId = 0;
                 }
-               
+
                 response.LeadId = objDetails.LeadId;
                 if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber), objDetails.EmailId))
                 {
@@ -166,23 +166,27 @@ namespace Bikewale.BAL.Finance
 
             try
             {
-                objDetails.LeadId = SubmitLead(objDetails, Utmz, Utma);
+                if (objDetails.LeadId == 0)
+                {
+                    objDetails.LeadId = SubmitLead(objDetails, Utmz, Utma);
+                }
 
                 #region Do not change the sequence
-                var ctResponse = SendCustomerDetailsToCarTrade(objDetails, leadSource);
-
+                //Save Lead Details to Bikewale Capital First Lead Table
                 objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
-
+                //Sent Details to CT API
+                var ctResponse = SendCustomerDetailsToCarTrade(objDetails, leadSource);
                 objId = new LeadResponseMessage();
-                objId.CpId = objDetails.Id;
-                objId.LeadId = objDetails.LeadId;
                 if (ctResponse != null)
                 {
                     objId.CTleadId = objDetails.CtLeadId = ctResponse.LeadId;
                     objId.Status = ctResponse.Status;
                     objId.Message = _leadStatusCollection[ctResponse.Status];
+                    //Update ct api response
                     _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
                 }
+                objId.CpId = objDetails.Id;
+                objId.LeadId = objDetails.LeadId;
                 #endregion
 
 
@@ -199,6 +203,7 @@ namespace Bikewale.BAL.Finance
         private CTFormResponse SendCustomerDetailsToCarTrade(PersonalDetails objDetails, ushort leadSource)
         {
             CTFormResponse ctResp = null;
+            string response = string.Empty;
             try
             {
                 if (objDetails != null)
@@ -241,7 +246,6 @@ namespace Bikewale.BAL.Finance
 
 
                         _httpClient = new HttpClient();
-                        string response = string.Empty;
                         using (HttpResponseMessage _response = _httpClient.PostAsync(CTApiUrl, httpContent).Result)
                         {
                             if (_response.IsSuccessStatusCode && _response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -260,7 +264,14 @@ namespace Bikewale.BAL.Finance
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SendCustomerDetailsToCarTrade({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
+                ErrorClass err = new ErrorClass(ex, String.Format("CapitalFirst.SendCustomerDetailsToCarTrade({0},{1})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails), response));
+            }
+            finally
+            {
+                if (ctResp == null)
+                {
+                    ctResp = new CTFormResponse();
+                }
             }
             return ctResp;
         }

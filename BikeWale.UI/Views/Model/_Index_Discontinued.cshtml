@@ -2,7 +2,7 @@
 
 <section>
     <div class="container" id="modelDetailsContainer">
-        <div id="modelSummaryContent" class="bw-model-tabs-data">
+        <div id="modelSummaryContent" data-id="modelSummaryContent" class="bw-model-tabs-data">
             <div class="grid-12 margin-bottom20">
                 <div class="content-box-shadow">
                     <div class="padding-top15 padding-left20">
@@ -59,17 +59,17 @@
             @if ((Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
                 || (Model.IsModelDescriptionAvailable))
             {
-                <div id="modelPricesContent" class="bw-model-tabs-data">
+                <div class="bw-model-tabs-data">
+                    @if (Model.IsModelDescriptionAvailable)
+                {   <div class="grid-12">
+                        @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
+                    </div>
+                    }
                     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
                 {
                         <div class="grid-12">
                             @Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
                         </div>
-                    }
-                    @if (Model.IsModelDescriptionAvailable)
-                {   <div class="grid-12">
-                    @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
-                </div>
                     }
                     <div class="clear"></div>
                 </div>

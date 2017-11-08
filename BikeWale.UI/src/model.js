@@ -155,8 +155,8 @@ docReady(function () {
                 if (imageUrl == "") {
                     imageUrl = "https://imgd.aeplcdn.com/393x221/bikewaleimg/images/noimage.png?q=85";
                 }
-                $('#colourCarousel a img').attr("src", imageUrl);
-                $('#colourCarousel a').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical));
+                $('#colourCarousel span img').attr("src", imageUrl);
+                $('#colourCarousel span').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical));
             }
         }
         colorElements.removeClass('active');
@@ -405,7 +405,7 @@ docReady(function () {
                         $('#modelDetailsContainer .bw-model-tabs-data').removeClass('active');
 
                         $(this).addClass('active');
-                        topNavBar.find('span[data-href="#' + $(this).attr('id') + '"]').addClass('active');
+                        topNavBar.find('span[data-href="#' + $(this).attr('data-id') + '"]').addClass('active');
 
                     }
                 }
@@ -602,15 +602,15 @@ docReady(function () {
         if (!$(this).hasClass('open')) {
             $('#main-preview-content').hide();
             $('#more-preview-content').show();
-            $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
+            $(this).text('Collapse');
             $(this).addClass("open");
         }
         else if ($(this).hasClass('open')) {
             $('#main-preview-content').show();
             $('#more-preview-content').hide();
-            $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
+            $(this).text('Read more');
             $(this).removeClass('open');
-            $('html, body').animate({ scrollTop: $('#model-overview-content').offset().top - floatingTabsHeight }, 500);
+            $('html, body').animate({ scrollTop: $('#modelAboutContent').offset().top - floatingTabsHeight }, 500);
         }
 
     });
@@ -685,8 +685,8 @@ docReady(function () {
 
     if (document.getElementById("modelsBySeriesWidget")) {
         try {
-            var testingObject = $("#modelsBySeriesWidget");
-            triggerNonInteractiveGA(testingObject.attr("data-cat"), testingObject.attr("data-act"), testingObject.attr("data-lab"));
+            var seriesEle = $("#modelsBySeriesWidget");
+            triggerNonInteractiveGA(seriesEle.attr("data-cat"), seriesEle.attr("data-act"), seriesEle.attr("data-lab"));
         } catch (e) {
 
         }

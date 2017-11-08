@@ -45,18 +45,21 @@ namespace Bikewale.Utility
         {
             string _mainUrl = String.Format("{0}{1}page/", BWConfiguration.Instance.BwHostUrlForJs, baseUrl);
 
-            if (pageNumber == 1)    //if page is first page
+            if (totalPages > 1)
             {
-                nextPageUrl = string.Format("{0}2/", _mainUrl);
-            }
-            else if (pageNumber == totalPages)    //if page is last page
-            {
-                prevPageUrl = string.Format("{0}{1}/", _mainUrl, pageNumber - 1);
-            }
-            else
-            {          //for middle pages
-                prevPageUrl = string.Format("{0}{1}/", _mainUrl, pageNumber - 1);
-                nextPageUrl = string.Format("{0}{1}/", _mainUrl, pageNumber + 1);
+                if (pageNumber == 1)    //if page is first page
+                {
+                    nextPageUrl = string.Format("{0}2/", _mainUrl);
+                }
+                else if (pageNumber == totalPages)    //if page is last page
+                {
+                    prevPageUrl = string.Format("{0}{1}/", _mainUrl, pageNumber - 1);
+                }
+                else
+                {          //for middle pages
+                    prevPageUrl = string.Format("{0}{1}/", _mainUrl, pageNumber - 1);
+                    nextPageUrl = string.Format("{0}{1}/", _mainUrl, pageNumber + 1);
+                }
             }
         }
     }

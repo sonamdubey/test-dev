@@ -109,6 +109,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdSlotEntity.cs" />
     <Compile Include="AppEnum.cs" />
     <Compile Include="AppVersionEntity.cs" />
     <Compile Include="AreaEntityBase.cs" />

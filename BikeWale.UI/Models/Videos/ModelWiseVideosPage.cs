@@ -74,7 +74,7 @@ namespace Bikewale.Models.Videos
 
                 objVM.BikeInfoWidgetData = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, _modelId, _cookieCityId, 4, BikeInfoTabType.Videos).GetData();
 
-                objVM.SimilarBikeVideoList = _bikeModelsCache.GetSimilarBikesVideos(_modelId, SimilarBikeWidgetTopCount);
+                objVM.SimilarBikeVideoList = _bikeModelsCache.GetSimilarBikesVideos(_modelId, SimilarBikeWidgetTopCount, _cookieCityId);
 
                 BindPageMetas(objVM);
             }

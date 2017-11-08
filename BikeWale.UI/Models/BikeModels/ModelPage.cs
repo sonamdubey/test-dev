@@ -12,6 +12,7 @@ using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.AdSlot;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -70,6 +71,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IBikeSeries _bikeSeries = null;
+        private readonly IAdSlot _adSlot = null;
 
         private uint _modelId, _cityId, _areaId;
 
@@ -89,7 +91,11 @@ namespace Bikewale.Models.BikeModels
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         public string CurrentPageUrl { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries)
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added IAdSlot.
+        /// </summary>
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -111,13 +117,19 @@ namespace Bikewale.Models.BikeModels
             _userReviewsSearch = userReviewsSearch;
             _userReviewsCache = userReviewsCache;
             _bikeSeries = bikeSeries;
+            _adSlot = adSlot;
             ParseQueryString(modelMasking);
         }
 
         #endregion Global Variables
 
         #region Methods
-
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added call to BindAdSlotTags.
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
         public ModelPageVM GetData(uint? versionId)
         {
             try
@@ -164,6 +176,7 @@ namespace Bikewale.Models.BikeModels
                     SetBreadcrumList();
                     SetPageJSONLDSchema();
                     ShowInnovationBanner(_modelId);
+                    BindAdSlotTags();
                     #endregion Do Not change the sequence
                 }
             }
@@ -173,6 +186,26 @@ namespace Bikewale.Models.BikeModels
             }
 
             return _objData;
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Bind ad slot to adtags.
+        /// </summary>
+        private void BindAdSlotTags()
+        {
+            try
+            {
+                if (_objData.AdTags != null)
+                {
+                    _objData.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399"); //For similar bikes widget desktop
+                    _objData.AdTags.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
+                }
+            }
+            catch (Exception ex)
+            {
+                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "ModelPage.BindAdSlotTags");
+            }
         }
 
         /// <summary>
@@ -534,6 +567,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Get emi details for avg ex-showroom price when bike price is zero.
         /// Modified by : Vivek Singh Tomar on 12th Oct 2017 
         /// Summary : Removed initialisation of service centers
+        /// Modified by : Ashutosh Sharma on 03 Nov 2017
+        /// Description : Changed order of bind upcoming bikes wiget to get bodystyle.
         /// </summary>
         private void BindControls()
         {
@@ -609,12 +644,7 @@ namespace Bikewale.Models.BikeModels
                             }
                         }
                     }
-
-                    if (_objData.IsUpcomingBike)
-                    {
-                        _objData.objUpcomingBikes = BindUpCompingBikesWidget();
-                    }
-
+                    
                     // Set body style
                     if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Count > 0)
                     {
@@ -625,6 +655,10 @@ namespace Bikewale.Models.BikeModels
                             _objData.BodyStyleText = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                             _objData.BodyStyleTextSingular = _objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
                         }
+                    }
+                    if (_objData.IsUpcomingBike)
+                    {
+                        _objData.objUpcomingBikes = BindUpCompingBikesWidget();
                     }
                     BindSimilarBikes(_objData);
                     BindModelsBySeriesId(_objData);
@@ -772,6 +806,8 @@ namespace Bikewale.Models.BikeModels
         /// <summary>
         /// Created By:- Subodh Jain 23 March 2017
         /// Summary:- Binding data for upcoming bike widget
+        /// Modified by : Ashutosh Sharma on 03 Nov 2017
+        /// Description : Removed filters and and added conditions for bodystyle and deviated price.
         /// </summary>
         /// <returns></returns>
         private UpcomingBikesWidgetVM BindUpCompingBikesWidget()
@@ -780,18 +816,36 @@ namespace Bikewale.Models.BikeModels
             try
             {
                 UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
+                ulong avgExpectedPrice = _objData.ModelPageEntity != null && _objData.ModelPageEntity.UpcomingBike != null ? (_objData.ModelPageEntity.UpcomingBike.EstimatedPriceMin + _objData.ModelPageEntity.UpcomingBike.EstimatedPriceMax) / 2 : 0;
+                byte percentDeviation = 15;
+                ulong deviatedPriceMin = avgExpectedPrice - (avgExpectedPrice * percentDeviation) / 100;
+                ulong deviatedPriceMax = avgExpectedPrice + (avgExpectedPrice * percentDeviation) / 100;
+             
 
-                objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
-                {
-                    PageSize = 10,
-                    PageNo = 1,
-                };
                 objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
                 objUpcomingBikes = objUpcoming.GetData();
+                
                 if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
-                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(x => x.ModelBase.ModelId != _modelId);
-                if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
-                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Take(9);
+                {
+                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes
+                        .OrderByDescending(
+                            m => m.BodyStyleId == (uint)_objData.BodyStyle &&
+                            ((deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) 
+                            || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax))
+                        )
+                        .ThenByDescending(
+                            m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) ||
+                            (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)
+                        )
+                        .Where(x => x.ModelBase.ModelId != _modelId)
+                        .Take(9)
+                        .TakeWhile(m => 
+                            (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)).Take(10).TakeWhile(m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) 
+                            || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)
+                        );                                        
+                }
+                    
+                    
             }
             catch (Exception ex)
             {
@@ -1417,6 +1471,7 @@ namespace Bikewale.Models.BikeModels
                         _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
                         _objData.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
 
+
                         if (_objData.PQId == 0 && _cityId != 0)
                         {
                             PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
@@ -1586,6 +1641,15 @@ namespace Bikewale.Models.BikeModels
                             _objData.ShowOnRoadButton = selectedCity.HasAreas && _areaId <= 0;
                             _objData.IsAreaSelected = selectedCity.HasAreas && _areaId > 0;
                             if (!_objData.IsAreaSelected) _areaId = 0;
+                        }
+                        else
+                        {
+                            _objData.City = new Entities.Location.CityEntityBase {
+                                CityId = _cityId,
+                                CityName = _objData.LocationCookie.City
+                            };
+                         
+
                         }
                     }
                 }
