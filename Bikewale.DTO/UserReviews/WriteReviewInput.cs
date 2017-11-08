@@ -9,9 +9,9 @@ namespace Bikewale.DTO.UserReviews
     /// </summary>
     public class WriteReviewInput
     {
-        [Required, JsonProperty("reviewDescription")]
+        [JsonProperty("reviewDescription")]
         public string ReviewDescription { get; set; }
-        [Required, JsonProperty("reviewTitle")]
+        [JsonProperty("reviewTitle")]
         public string ReviewTitle { get; set; }
         [JsonProperty("reviewQuestion")]
         public string ReviewQuestion { get; set; }
