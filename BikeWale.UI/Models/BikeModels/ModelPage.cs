@@ -827,17 +827,22 @@ namespace Bikewale.Models.BikeModels
                 
                 if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
                 {
-                    if (objUpcomingBikes.UpcomingBikes.Count(m => m.BodyStyleId == (uint)_objData.BodyStyle && (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 >= deviatedPriceMin && (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 <= deviatedPriceMax) >= 9)
-                    {
-                        objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(m => m.BodyStyleId == (uint)_objData.BodyStyle);
-                        objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(m => (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 >= deviatedPriceMin && (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 <= deviatedPriceMax);
-                    }
-                    else
-                    {
-                        objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(m => (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 >= deviatedPriceMin && (m.EstimatedPriceMin + m.EstimatedPriceMax) / 2 <= deviatedPriceMax);
-                    }
-                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(x => x.ModelBase.ModelId != _modelId);
-                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Take(9);
+                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes
+                        .OrderByDescending(
+                            m => m.BodyStyleId == (uint)_objData.BodyStyle &&
+                            ((deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) 
+                            || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax))
+                        )
+                        .ThenByDescending(
+                            m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) ||
+                            (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)
+                        )
+                        .Where(x => x.ModelBase.ModelId != _modelId)
+                        .Take(9)
+                        .TakeWhile(m => 
+                            (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)).Take(10).TakeWhile(m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) 
+                            || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)
+                        );                                        
                 }
                     
                     
