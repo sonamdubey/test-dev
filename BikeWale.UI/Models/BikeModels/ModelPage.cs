@@ -827,14 +827,9 @@ namespace Bikewale.Models.BikeModels
                 
                 if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
                 {
-                    IEnumerable<UpcomingBikeEntity> upcomingBikeList = objUpcomingBikes.UpcomingBikes.Where(m => m.BodyStyleId == (uint)_objData.BodyStyle && ((deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)));
-                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(m => !(m.BodyStyleId == (uint)_objData.BodyStyle && ((deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax))));
-                    if (upcomingBikeList.Count() < 10)
-                    {
-                        objUpcomingBikes.UpcomingBikes = upcomingBikeList.Concat(objUpcomingBikes.UpcomingBikes.Where(m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)));
-                    }
+                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.OrderByDescending(m => m.BodyStyleId == (uint)_objData.BodyStyle && ((deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax))).ThenByDescending(m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax));
+                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Take(10).TakeWhile(m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax));
                     objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(x => x.ModelBase.ModelId != _modelId);
-                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Take(9);
                 }
                     
                     
