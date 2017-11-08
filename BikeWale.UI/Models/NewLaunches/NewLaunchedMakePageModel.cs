@@ -180,7 +180,7 @@ namespace Bikewale.Models
                 objVM.PageMetaTags.CanonicalUrl = string.Format("{0}/new-{1}-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, objVM.Make.MaskingName);
                 objVM.PageMetaTags.AlternateUrl = string.Format("{0}/m/new-{1}-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, objVM.Make.MaskingName);
 
-                objVM.Page_H1 = string.Format("Upcoming {0} bikes", objVM.Make.MakeName);
+                objVM.Page_H1 = string.Format("New {0} Bike Launches", objVM.Make.MakeName);
 
                 SetBreadcrumList(objVM);
                 SetPageJSONLDSchema(objVM);
@@ -221,8 +221,8 @@ namespace Bikewale.Models
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-            url += "upcoming-bikes/";
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "Upcoming bikes"));
+            url += "new-bike-launches/";
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "New bike launches"));
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
 
