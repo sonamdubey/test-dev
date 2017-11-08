@@ -487,6 +487,18 @@
     </section>
                    <!-- Similar bike comparison end-->
 }
+
+@if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null && Model.SimilarBikes.Bikes.Any())
+{
+    <div id="similarContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin content-details-wrapper">
+        <h2 class="padding-left20 padding-right20">@Model.SimilarBikesCompareWidgetText</h2>
+        <div class="swiper-container card-container swiper-type-similar">
+            <div class="swiper-wrapper">                
+                @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikes)
+            </div>
+        </div>
+    </div>
+}
     
 @if (Model.ArticlesList != null && Model.ArticlesList.ArticlesList != null && Model.ArticlesList.ArticlesList.Count() > 0)
 {

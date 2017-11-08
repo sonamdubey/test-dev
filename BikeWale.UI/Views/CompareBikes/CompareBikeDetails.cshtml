@@ -590,10 +590,31 @@
 }
 <!-- Similar bike comparison end-->
 
+@if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null && Model.SimilarBikes.Bikes.Any())
+{
+    <section>
+        <div class="container card-bottom-margin">
+            <div class="grid-12">
+                <div id="modelSimilarContent" class="content-box-shadow padding-bottom20 card-bottom-margin font14">
+                    <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15">@Model.SimilarBikesCompareWidgetText</h2>
+                    <div class="jcarousel-wrapper inner-content-carousel">
+                        <div class="jcarousel">
+                            <ul>
+                                @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
+                            </ul>
+                        </div>
+                        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </section>
+}
 
 
 @if (Model.ArticlesList != null && Model.ArticlesList.ArticlesList != null && Model.ArticlesList.ArticlesList.Count() > 0)
-{
+            {
     <section>
         <div class="container card-bottom-margin">
             <div class="grid-12">
