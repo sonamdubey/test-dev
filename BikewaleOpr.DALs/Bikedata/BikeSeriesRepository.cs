@@ -254,16 +254,13 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    objSynopsis = new SynopsisData();
                     connection.Open();
 
                     var param = new DynamicParameters();
 
                     param.Add("par_seriesid", seriesId);
 
-                    dynamic temp = connection.Query<dynamic>("getseriessynopsis", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
-
-                    objSynopsis.BikeDescription = ReferenceEquals(null, temp) ? string.Empty : temp.description;
+                    objSynopsis = connection.Query<SynopsisData>("getseriessynopsis", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
 
                     if (connection.State == ConnectionState.Open)
                     {
@@ -304,7 +301,9 @@ namespace BikewaleOpr.DALs.Bikedata
                     rowsAffected = connection.Execute("manageseriessynopsis", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
+                    {
                         connection.Close();
+                    }
                 }
             }
             catch (Exception ex)

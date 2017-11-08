@@ -63,6 +63,7 @@
                                 + "<td>" + response.seriesMaskingName + "</td>"
                                 + "<td><i class='material-icons " + (response.isSeriesPageUrl ? 'icon-green' : 'icon-red') + "'>" + (response.isSeriesPageUrl? 'done' : 'close') + "</i></td>"
                                 + "<td>" + $("#selectMake option[value=" + response.make.makeId + "]").text() + "</td>"
+                                + "<td><a href='#!' data-target='modal-series-synopsis' data-bind='event : {click : function(d,e) { getSeriesSynopsis(e) }}'><i class='material-icons icon-green'>add_circle</i></a></td>"
                                 + "<td><a href='#series-edit-update' class='tooltipped' href='javascript:void(0)' data-delay='100' data-tooltip='Edit Series' rel='nofollow' data-bind='event: {click: function(d, e) { editSeriesClick(e) }}'><i class='material-icons icon-blue'>mode_edit</i></a></td>"
                                 + "<td><a class='tooltipped' href='javascript:void(0)' data-delay='100' data-tooltip='Delete Series' rel='nofollow' data-target='delete-confirm-modal' data-bind='event:{click: function(d, e){ deleteEvent(e)}}'><i class='material-icons icon-red'>delete</i></a></td>"
                                 + "<td>" + response.createdOn + "</td>"
@@ -186,10 +187,60 @@
             var targetedRow = $(event.target).closest("tr");
             self.selectedSeriesId($(targetedRow).data("seriesid"));
             self.selectedSeriesName($(targetedRow).find("td:eq(1)").text());
+            if (self.selectedSeriesId()) {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/series/" + self.selectedSeriesId() + "/synopsis/",
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response != null) {
+                            self.seriesSynopsis(response.bikeDescription);
+                            Materialize.updateTextFields();
+                        }
+                    },
+                    complete: function (xhr) {
+                        if (xhr.status != 200) {
+                            self.makeSynopsis("");
+                        }
+                    }
+                });
+            }
         }catch(e){
             console.warn(e.message);
         }
 
+    }
+
+    self.updateSeriesSynopsis = function () {
+        try{
+            if (self.selectedSeriesId()) {
+                var synopsisData = {
+                    "bikeDescription": self.seriesSynopsis()
+                }
+                $.ajax({
+                    type: "POST",
+                    dataType: 'json',
+                    url: "/api/series/" + self.selectedSeriesId() + "/synopsis/",
+                    contentType: "application/json",
+                    data: ko.toJSON(synopsisData),
+                    complete: function (xhr) {
+                        if (xhr.status == 200) {
+                            Materialize.toast(self.selectedSeriesName() + " synopsis updated successfully", 5000);
+                        }
+                        else if (xhr.status == 400) {
+                            Materialize.toast("Please enter valid data", 5000);
+                        } else {
+                            Materialize.toast("Something went wrong while updating synopsis. Please try again.", 5000);
+                        }
+                    }
+                });
+            } else {
+                Materialize.toast("Please enter valid data", 5000);
+            }
+        }catch(e){
+            console.warn(e.message);
+        }
     }
 }
 

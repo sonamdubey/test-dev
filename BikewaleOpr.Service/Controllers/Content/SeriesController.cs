@@ -204,7 +204,7 @@ namespace BikewaleOpr.Service.Controllers.Content
         public IHttpActionResult SaveSynopsis(int seriesId, [FromBody] SynopsisDataDto objSynopsisDto)
         {
             SynopsisData objSynopsis = BikeDataMapper.Convert(objSynopsisDto);
-
+            bool isUpdated = false;
             if (seriesId > 0)
             {
                 try
@@ -212,7 +212,11 @@ namespace BikewaleOpr.Service.Controllers.Content
                     int userId = 0;
                     int.TryParse(Bikewale.Utility.OprUser.Id, out userId);
 
-                    _series.UpdateSynopsis(seriesId, userId, objSynopsis);
+                    isUpdated = _series.UpdateSynopsis(seriesId, userId, objSynopsis);
+                    if (!isUpdated)
+                    {
+                        return InternalServerError();
+                    }
                 }
                 catch (Exception ex)
                 {
