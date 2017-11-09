@@ -11,7 +11,7 @@
         </section>
                 }
 
-    @if(Model.IsMileageByUsersAvailable)
+    @if(Model.IsNewBike && Model.IsMileageByUsersAvailable)
     {
         <section>
             @Html.Partial("~/Views/Model/_Index_MileageDetails.cshtml", Model.Mileage)
@@ -179,7 +179,7 @@
                             }
     @if (Model.IsReviewsAvailable)
     {
-        <div id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin bw-model-tabs-data active">
+        <div id="modelExpertReviewsContent" data-id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin bw-model-tabs-data active">
             @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
             {
 					<!-- expert review starts-->

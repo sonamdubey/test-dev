@@ -10,7 +10,7 @@
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x400_Middle.cshtml", new { AdId = "1495092203328" });}
     </section>
 }
- @if (Model.IsMileageByUsersAvailable)
+ @if (Model.IsNewBike && Model.IsMileageByUsersAvailable)
  {
     @Html.Partial("~/Views/Model/_Index_MileageDetails_Mobile.cshtml", Model.Mileage)
  }
@@ -133,7 +133,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 }
 @if (Model.IsReviewsAvailable)
 {
-    <div id="expertReviewsContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+    <div id="expertReviewsContent" data-id="expertReviewsContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
         <h2>@Model.BikeName Expert Reviews</h2>
         @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
         {
