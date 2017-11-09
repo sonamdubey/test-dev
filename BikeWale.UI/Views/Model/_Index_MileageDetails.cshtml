@@ -52,7 +52,7 @@
                 <div class="mileage-box__better-block">
                     <span class="inline-block font30 text-teal font-bold">@Math.Round(Model.MileageInfo.Percentile)%</span>
                     <div class="mileage-box__desc inline-block margin-left5">
-                        @string.Format("{0} is better than {1}% {2}", currentBike, Math.Round(Model.MileageInfo.Percentile), bodyType)
+                        @string.Format("{0} has better mileage than {1}% of {2}", Model.MileageInfo.Model !=null ? Model.MileageInfo.Model.ModelName : currentBike, Math.Round(Model.MileageInfo.Percentile), bodyType)
                     </div>
                 </div>
             </li>

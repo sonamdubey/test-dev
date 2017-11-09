@@ -44,7 +44,7 @@
                 </div>
             </li>
         </ul>
-        <h3 class="text-bold padding-bottom5 padding-left20 padding-right20">@string.Format("Where does {0} stand among {1}?", currentBike, bodyType)</h3>
+        <h3 class="text-bold padding-bottom5 padding-left20 padding-right20">@string.Format("Where does {0} stand among {1}?", Model.MileageInfo.Model != null ? Model.MileageInfo.Model.ModelName : currentBike, bodyType)</h3>
         <ul class="mileage-box-list padding-bottom20">
             <li>
                 <p class="mileage-box__desc margin-bottom5">@string.Format("Average mileage among {0}", bodyType)</p>
@@ -59,7 +59,7 @@
             <li>
                 <p class="inline-block font30 text-teal font-bold">@Math.Round(Model.MileageInfo.Percentile)%</p>
                 <p class="mileage-box__desc">
-                    @string.Format("{0} is better than {1}% {2}", currentBike, Math.Round(Model.MileageInfo.Percentile), bodyType)
+                    @string.Format("{0} has better mileage than {1}% of {2}", Model.MileageInfo.Model != null ? Model.MileageInfo.Model.ModelName : currentBike, Math.Round(Model.MileageInfo.Percentile), bodyType)
                 </p>
             </li>
         </ul>
