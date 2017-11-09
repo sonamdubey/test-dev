@@ -249,26 +249,35 @@ namespace Bikewale.Models.Features
 
         }
         /// <summary>
-        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Created By : Snehal Dange on 8th nOV 2017
         /// Description : Function to create page level schema for breadcrum
         /// </summary>
         private void SetBreadcrumList(DetailFeatureVM objData)
         {
-            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
-            ushort position = 1;
-            if (IsMobile)
+            try
             {
-                url += "m/";
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    url += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+                url += "features/";
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "Features"));
+
+                if (objData.objFeature != null)
+                {
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.objFeature.Title));
+                }
+                objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
             }
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
-            url += "news/";
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "Bike News"));
-
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
-
-            objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.SetBreadcrumList");
+            }
 
         }
 

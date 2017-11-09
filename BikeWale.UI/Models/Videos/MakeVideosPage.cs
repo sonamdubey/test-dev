@@ -1,9 +1,11 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 namespace Bikewale.Models
@@ -19,7 +21,7 @@ namespace Bikewale.Models
         private uint _makeId;
         public StatusCodes Status { get; private set; }
         public String RedirectUrl { get; private set; }
-
+        public bool IsMobile { get; set; }
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Mar 2017
         /// Description :   Constructor to initialize the member variables
@@ -75,6 +77,7 @@ namespace Bikewale.Models
                 objVM.PageMetaTags.Title = string.Format("{0} Bike Videos - BikeWale", objVM.Make.MakeName);
                 objVM.PageMetaTags.Description = string.Format("Check latest {0} bikes videos, watch BikeWale expert's take on {0} bikes - features, performance, price, fuel economy, handling and more.", objVM.Make.MakeName);
                 objVM.PageMetaTags.Keywords = string.Format("{0},{0} bikes,{0} videos", objVM.Make.MakeName);
+                SetBreadcrumList(objVM);
             }
             catch (Exception ex)
             {
@@ -125,6 +128,45 @@ namespace Bikewale.Models
                 }
             }
         }
+        /// <summary>
+        /// Created By :Snehal Dange on 8th Nov 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(MakeVideosPageVM objVM)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string bikeUrl;
+                bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    bikeUrl += "m/";
+                }
 
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+
+                if (objVM.Make != null)
+                {
+                    bikeUrl += string.Format("{0}-bikes/", objVM.Make.MaskingName);
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, string.Format("{0} Bikes", objVM.Make.MakeName)));
+                }
+
+
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, string.Format("{0} bike videos", objVM.Make.MakeName)));
+
+                objVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "MakeVideosPage.SetBreadcrumList");
+            }
+
+        }
     }
+
 }
+

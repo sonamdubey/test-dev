@@ -165,6 +165,7 @@ namespace Bikewale.Models
                     objData.PageMetaTags.Description = "Learn about the trending stories related to bike and bike products. Know more about features, do's and dont's of different bike products exclusively on BikeWale";
 
                 SetPageJSONSchema(objData);
+                SetBreadcrumList(objData);
             }
             catch (Exception ex)
             {
@@ -524,7 +525,40 @@ namespace Bikewale.Models
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ExpertReviewsDetailPage.InsertBikeInfoWidgetIntoContent");
             }
         }
+        /// <summary>
+        /// Created By : Snehal Dange on 8th NOV 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(ExpertReviewsDetailPageVM objData)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    url += "m/";
+                }
 
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+                url += "expert-reviews/";
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "Expert Reviews"));
+
+                if (objData.ArticleDetails != null)
+                {
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.ArticleDetails.Title));
+                }
+
+
+                objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ExpertReviewsDetailPage.SetBreadcrumList");
+            }
+
+        }
 
         #endregion
     }

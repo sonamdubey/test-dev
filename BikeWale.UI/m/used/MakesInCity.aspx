@@ -77,6 +77,33 @@
 
             </div>
         </section>
+        <section>
+            <div class="breadcrumb">
+                <span class="breadcrumb-title">You are here:</span>
+                <ul>
+                    <li>
+                        <a class="breadcrumb-link" href="/m/">
+                            <span class="breadcrumb-link__label" itemprop="name">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="breadcrumb-link" href="/m/used/">
+                            <span class="breadcrumb-link__label" itemprop="name">Used Bikes</span>
+                        </a>
+                    </li>
+                     <li>
+                        <a class="breadcrumb-link" href="/used/bikes-in-india/">
+                            <span class="breadcrumb-link__label" itemprop="name">Search</span>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="breadcrumb-link__label">Bikes in City</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </section>
         <%} %>
 
         <script type="text/javascript" src="<%= staticUrl %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>

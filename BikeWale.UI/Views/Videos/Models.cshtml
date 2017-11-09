@@ -10,22 +10,6 @@
 
 @if (Model != null && Model.Make != null && Model.Model != null)
 {
-    <section>
-        <div class="container">
-            <div class="grid-12">
-                <div class="breadcrumb margin-top15 margin-bottom10">
-                    <ul>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title" title="BikeWale">Home</span></a></li>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/@Model.Make.MaskingName-bikes/" title="@Model.Make.MakeName bikes"><span itemprop="title">@Model.Make.MakeName Bikes</span></a></li>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/@Model.Make.MaskingName-bikes/@Model.Model.MaskingName/" title="@String.Format("{0} {1} bikes", Model.Make.MakeName, Model.Model.ModelName)"><span itemprop="title">@String.Format("{0} {1}", Model.Make.MakeName, Model.Model.ModelName)</span></a></li>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span itemprop="title">Videos</span></li>
-                    </ul>
-                </div>
-                <h1 class="font26 margin-bottom5">@String.Format("{0} {1} Videos", @Model.Make.MakeName, @Model.Model.ModelName)</h1>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
 
     if (Model.VideosList != null)
     {

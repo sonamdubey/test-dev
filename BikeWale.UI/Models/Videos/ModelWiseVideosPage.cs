@@ -3,11 +3,14 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Models.Videos
 {
@@ -37,6 +40,7 @@ namespace Bikewale.Models.Videos
         public StatusCodes modelStatus;
 
         public ushort SimilarBikeWidgetTopCount { get; set; }
+        public bool IsMobile { get; set; }
 
         public ModelWiseVideosPage(string makeMaskingName, string modelMaskingName, ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IVideosCacheRepository objVideosCache, IBikeMakesCacheRepository bikeMakesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache)
         {
@@ -94,6 +98,7 @@ namespace Bikewale.Models.Videos
                     objPageVM.PageMetaTags.Title = String.Format("{0} {1} Videos - BikeWale", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
                     objPageVM.PageMetaTags.Keywords = string.Format("{0},{1},{0} {1},{0} {1} videos", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
                     objPageVM.PageMetaTags.Description = string.Format("Check latest {0} {1} videos, watch BikeWale expert's take on {0} {1} - features, performance, price, fuel economy, handling and more.", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
+                    SetBreadcrumList(objPageVM);
                 }
             }
             catch (Exception ex)
@@ -151,6 +156,47 @@ namespace Bikewale.Models.Videos
                     modelStatus = StatusCodes.ContentNotFound;
                 }
             }
+        }
+
+        /// <summary>
+        /// Created By :Snehal Dange on 8th Nov 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(ModelWiseVideoPageVM objVM)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string bikeUrl;
+                bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    bikeUrl += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+
+                if (objVM.Make != null)
+                {
+                    bikeUrl += string.Format("{0}-bikes/", objVM.Make.MaskingName);
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, string.Format("{0} Bikes", objVM.Make.MakeName)));
+                }
+                if(objVM.Model!=null)
+                {
+                    bikeUrl += objVM.Model.MaskingName;
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, string.Format("{0} {1}", objVM.Make.MakeName, objVM.Model.ModelName)));
+
+                }
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Videos"));
+
+                objVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ModelWiseVideosPage.SetBreadcrumList");
+            }
+
         }
     }
 }
