@@ -136,7 +136,7 @@ namespace Bikewale.Utility
 
                 foreach (var tag in tagList)
                 {
-                    var original = tag.OuterHtml;
+                    var original =System.Net.WebUtility.HtmlDecode(tag.OuterHtml);
                     var replacement = tag.Clone();
                     if (tag.Name.Equals("iframe"))
                     {
