@@ -215,7 +215,7 @@ namespace BikewaleOpr.Service.Controllers.Content
                     isUpdated = _series.UpdateSynopsis(seriesId, userId, objSynopsis);
                     if (!isUpdated)
                     {
-                        return InternalServerError();
+                        return Ok(false);
                     }
                 }
                 catch (Exception ex)
@@ -227,7 +227,7 @@ namespace BikewaleOpr.Service.Controllers.Content
             else
                 return BadRequest("Invalid inputs");
 
-            return Ok();
+            return Ok(true);
         }
 
     }

@@ -225,7 +225,7 @@
                     contentType: "application/json",
                     data: ko.toJSON(synopsisData),
                     complete: function (xhr) {
-                        if (xhr.status == 200) {
+                        if (xhr.status == 200 && xhr.responseJSON) {
                             Materialize.toast(self.selectedSeriesName() + " synopsis updated successfully", 5000);
                         }
                         else if (xhr.status == 400) {
