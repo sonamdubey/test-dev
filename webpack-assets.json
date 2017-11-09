@@ -1,0 +1,23 @@
+{
+  "videosBundle": {
+    "js": "/pwa/videosBundle.bundle.js",
+    "css": "/pwa/css/video/video.css"
+  },
+  "newsBundle": {
+    "js": "/pwa/newsBundle.bundle.js",
+    "css": "/pwa/css/news/news.css"
+  },
+  "peripheralComponents": {
+    "js": "/pwa/peripheralComponents.bundle.js"
+  },
+  "vendor": {
+    "js": "/pwa/vendor.bundle.js"
+  },
+  "app": {
+    "js": "/pwa/app.bundle.js",
+    "css": "/pwa/css/app.css"
+  },
+  "manifest": {
+    "js": "/pwa/manifest.bundle.js"
+  }
+}
