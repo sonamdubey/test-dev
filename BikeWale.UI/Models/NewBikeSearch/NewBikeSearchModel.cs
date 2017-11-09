@@ -1,6 +1,11 @@
-﻿using Bikewale.Interfaces.CMS;
+﻿using Bikewale.Entities.NewBikeSearch;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Videos;
+using Newtonsoft.Json;
 using System;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models.NewBikeSearch
 {
@@ -15,19 +20,61 @@ namespace Bikewale.Models.NewBikeSearch
         public uint EditorialTopCount { get; set; }
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
+        private readonly ISearchResult _searchResult = null;
+        private readonly IProcessFilter _processFilter = null;
+        private string _queryString;
 
-        public NewBikeSearchModel(string queryString, ICMSCacheContent objArticles, IVideos objVideos)
+        public NewBikeSearchModel(string queryString, ICMSCacheContent objArticles, IVideos objVideos, ISearchResult searchResult, IProcessFilter processFilter)
         {
+            _queryString = queryString;
             _articles = objArticles;
             _videos = objVideos;
+            _searchResult = searchResult;
+            _processFilter = processFilter;
         }
 
         public NewBikeSearchVM GetData()
         {
             NewBikeSearchVM viewModel = new NewBikeSearchVM();
+            viewModel.Bikes = BindBikes();
             BindPageMetas(viewModel.PageMetaTags);
             viewModel.News = new RecentNews(5, 0, _modelIdList, _articles).GetData();
             return viewModel;
+        }
+
+        private SearchOutputEntity BindBikes()
+        {
+            SearchOutputEntity objResult = null;
+            InputBaseEntity input = MapQueryString(_queryString);
+            if (null != input)
+            {
+                FilterInput filterInputs = _processFilter.ProcessFilters(input);
+                objResult = _searchResult.GetSearchResult(filterInputs, input);
+            }
+            return objResult;
+        }
+
+        /// <summary>
+        /// Maps the query string into an object
+        /// </summary>
+        /// <param name="qs">The qs.</param>
+        /// <returns></returns>
+        private InputBaseEntity MapQueryString(string qs)
+        {
+            InputBaseEntity input = null;
+            try
+            {
+                var dict = HttpUtility.ParseQueryString(qs);
+                string jsonStr = JsonConvert.SerializeObject(
+                    dict.AllKeys.ToDictionary(k => k, k => dict[k])
+                );
+                input =  JsonConvert.DeserializeObject<InputBaseEntity>(jsonStr);
+            }
+            catch (Exception ex)
+            {
+                new Notifications.ErrorClass(ex, "NewBikeSearchModel.MapQueryString()");
+            }
+            return input;
         }
 
         /// <summary>
