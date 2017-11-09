@@ -23,10 +23,11 @@ namespace Bikewale.Models.NewBikeSearch
         private readonly ISearchResult _searchResult = null;
         private readonly IProcessFilter _processFilter = null;
         private string _queryString;
-
-        public NewBikeSearchModel(string queryString, ICMSCacheContent objArticles, IVideos objVideos, ISearchResult searchResult, IProcessFilter processFilter)
+        private HttpRequestBase _request;
+        public NewBikeSearchModel(HttpRequestBase Request, ICMSCacheContent objArticles, IVideos objVideos, ISearchResult searchResult, IProcessFilter processFilter)
         {
-            _queryString = queryString;
+            _request = Request;
+            _queryString = Request.Url.Query;
             _articles = objArticles;
             _videos = objVideos;
             _searchResult = searchResult;
@@ -89,7 +90,7 @@ namespace Bikewale.Models.NewBikeSearch
                 objPage.Title = "";
                 objPage.Keywords = "";
                 objPage.Description = "";
-                objPage.CanonicalUrl = "";
+                objPage.CanonicalUrl = string.Format("/{0}", _request.Url.AbsoluteUri);
                 objPage.AlternateUrl = "";
 
             }
