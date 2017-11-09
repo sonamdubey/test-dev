@@ -1,6 +1,5 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.DTO.BikeData;
-using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Service.AutoMappers.BikeData;
@@ -160,6 +159,75 @@ namespace BikewaleOpr.Service.Controllers.Content
                 ErrorClass objErr = new ErrorClass(ex, string.Format("SeriesController.Delete_{0}", modelId));
                 return InternalServerError();
             }
+        }
+
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 7th Nov 2017
+        ///  Summary : API for get synopsis 
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        [HttpGet, Route("api/series/{seriesid}/synopsis/")]
+        public IHttpActionResult GetSynopsis(int seriesId)
+        {
+            if (seriesId > 0)
+            {
+                SynopsisData objSynopsis = null;
+
+                try
+                {
+                    objSynopsis = _series.Getsynopsis(seriesId);
+                    if (objSynopsis != null)
+                        return Ok(BikeDataMapper.Convert(objSynopsis));
+                    else
+                        return NotFound();
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "GetSynopsis : Series");
+                    return InternalServerError();
+                }
+            }
+            else
+                return BadRequest();
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 7th Nov 2017
+        /// Summary : API for updating synopsis
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <param name="objSynopsisDto"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/series/{seriesid}/synopsis/")]
+        public IHttpActionResult SaveSynopsis(int seriesId, [FromBody] SynopsisDataDto objSynopsisDto)
+        {
+            SynopsisData objSynopsis = BikeDataMapper.Convert(objSynopsisDto);
+            bool isUpdated = false;
+            if (seriesId > 0)
+            {
+                try
+                {
+                    int userId = 0;
+                    int.TryParse(Bikewale.Utility.OprUser.Id, out userId);
+
+                    isUpdated = _series.UpdateSynopsis(seriesId, userId, objSynopsis);
+                    if (!isUpdated)
+                    {
+                        return Ok(false);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "SaveSynopsis");
+                    return InternalServerError();
+                }
+            }
+            else
+                return BadRequest("Invalid inputs");
+
+            return Ok(true);
         }
 
     }
