@@ -151,11 +151,9 @@ namespace Bikewale.Models
                 {
                     bikeUrl += string.Format("{0}-bikes/", objVM.Make.MaskingName);
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, string.Format("{0} Bikes", objVM.Make.MakeName)));
+
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, string.Format("{0} bike videos", objVM.Make.MakeName)));
                 }
-
-
-
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, string.Format("{0} bike videos", objVM.Make.MakeName)));
 
                 objVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
             }
