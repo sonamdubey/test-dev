@@ -3097,7 +3097,7 @@ namespace Bikewale.DAL.BikeData
                                     }
                                    
                                 }
-                                if (mileageDetails != null && bikes.Any() && bodyStyleMileage.Any())
+                                if (bikes.Any() && bodyStyleMileage.Any())
                                 {
                                     mileageDetails.Bikes = bikes;
                                     mileageDetails.BodyStyleMileage = bodyStyleMileage;

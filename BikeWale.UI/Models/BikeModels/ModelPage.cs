@@ -1710,10 +1710,14 @@ namespace Bikewale.Models.BikeModels
                     if (obj != null)
                     {
                         mileageWidgetObj = new ModelMileageWidgetVM();
-                        mileageWidgetObj.MileageInfo = obj.Bikes.FirstOrDefault(m => m.Model.ModelId == _modelId);
-                        mileageWidgetObj.AvgBodyStyleMileageByUserReviews = obj.BodyStyleMileage.FirstOrDefault().AvgBodyStyleMileageByUserReviews;
-                        mileageWidgetObj.SimilarBikeList= obj.Bikes.Where(u => u.Model.ModelId != _modelId);
-                        if (mileageWidgetObj.MileageInfo.Rank <= 3)
+                        if(obj.Bikes!=null && obj.BodyStyleMileage!=null )
+                        {
+                            mileageWidgetObj.MileageInfo = obj.Bikes.FirstOrDefault(m => m.Model.ModelId == _modelId);
+                            mileageWidgetObj.AvgBodyStyleMileageByUserReviews = obj.BodyStyleMileage.FirstOrDefault().AvgBodyStyleMileageByUserReviews;
+                            mileageWidgetObj.SimilarBikeList = obj.Bikes.Where(u => u.Model.ModelId != _modelId);
+                        }
+                       
+                        if (mileageWidgetObj.MileageInfo!=null && mileageWidgetObj.MileageInfo.Rank <= 3)
                         {
                             mileageWidgetObj.WidgetHeading = string.Format("{0} with similar mileage", (mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes"));
                         }

@@ -918,7 +918,10 @@ namespace Bikewale.BAL.BikeData
                         ICollection<BikeWithMileageInfo> bikeList = null;
                         float tolerance = 0;
                         mileageWidgetObj = new BikeMileageEntity();
-                        currentModel = obj.Bikes.FirstOrDefault(m => m.Model.ModelId == modelId);
+                        if (obj.Bikes != null)
+                        {
+                            currentModel = obj.Bikes.FirstOrDefault(m => m.Model.ModelId == modelId);
+                        }
                         if (currentModel != null)
                         {
                             mileageWidgetObj.BodyStyleMileage = obj.BodyStyleMileage.Where(m => m.BodyStyleId == currentModel.BodyStyleId);
@@ -926,30 +929,32 @@ namespace Bikewale.BAL.BikeData
                             {
                                 tolerance = ((currentModel.MileageByUserReviews) / 10);
                             }
-
-                            bikeList = obj.Bikes.Where(m => m.BodyStyleId == currentModel.BodyStyleId).ToList();
-                            IList<BikeWithMileageInfo> mileageList = new List<BikeWithMileageInfo>();
-                            foreach (var listObj in bikeList)
+                            if (obj.Bikes != null)
                             {
-                                if (mileageList.Count() != 9)
+                                bikeList = obj.Bikes.Where(m => m.BodyStyleId == currentModel.BodyStyleId).ToList();
+                            }
+                            IList<BikeWithMileageInfo> mileageList = new List<BikeWithMileageInfo>();
+                            if (bikeList != null)
+                            {
+                                byte i = 0;
+                                foreach (var listObj in bikeList)
                                 {
                                     if (listObj != null && listObj.Model != null && (listObj.Model.ModelId != modelId))
                                     {
-                                        if (listObj.Rank < currentModel.Rank)
+                                        if ((listObj.Rank < currentModel.Rank) || (currentModel.Rank <= 3 && (listObj.MileageByUserReviews >= (currentModel.MileageByUserReviews - tolerance))))
                                         {
                                             mileageList.Add(listObj);
+                                            if (++i == 9)
+                                            {
+                                                break;
+                                            }
                                         }
-                                        else if (currentModel.Rank <= 3 && (listObj.MileageByUserReviews >= (currentModel.MileageByUserReviews - tolerance)))
-                                        {
-                                            mileageList.Add(listObj);
-                                        }
+
                                     }
-                                }
-                                else
-                                {
-                                    break;
+
                                 }
                             }
+
                             mileageList.Add(currentModel);
                             mileageWidgetObj.Bikes = mileageList;
                         }
