@@ -64,6 +64,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.HomePage;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.PWA.CMS;
@@ -170,6 +171,8 @@ namespace Bikewale
             container.RegisterType<IAdSlot, AdSlot>();
             container.RegisterType<IAdSlotCacheRepository, AdSlotCacheRepository>();
             container.RegisterType<IAdSlotRepository, DAL.AdSlot.AdSlot>();
+            container.RegisterType<ISearchResult, DAL.NewBikeSearch.SearchResult>();
+            container.RegisterType<IProcessFilter, DAL.NewBikeSearch.ProcessFilter>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

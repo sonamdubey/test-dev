@@ -1,5 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using System.Collections.Generic;
+using Bikewale.Entities.NewBikeSearch;
+
 
 namespace Bikewale.Models.NewBikeSearch
 {
@@ -11,6 +13,7 @@ namespace Bikewale.Models.NewBikeSearch
     public class NewBikeSearchVM : ModelBase
     {
         public IEnumerable<BikeMakeEntityBase> PopularBrands { get; set; }
+        public SearchOutputEntity Bikes { get; set; }
         public IEnumerable<BikeMakeEntityBase> OtherBrands { get; set; }
         public RecentNewsVM News { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }

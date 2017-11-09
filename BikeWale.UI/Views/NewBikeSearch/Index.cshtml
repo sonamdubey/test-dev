@@ -1,8 +1,8 @@
 ﻿@model Bikewale.Models.NewBikeSearch.NewBikeSearchVM
 
-@if(Model != null)
+@if (Model != null)
 {
-    
+
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new/search.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/chosen.min.css";
     Model.Page_JS_Path = "/src/new/search.js";
@@ -11,7 +11,7 @@
     Model.AdTags.Ad_970x90 = true;
     Model.AdTags.Ad_970x90Bottom = true;
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
 
 
     <!-- #include file="/includes/headscript.aspx" -->
@@ -61,7 +61,7 @@
                                         {
                                             foreach (var item in Model.PopularBrands)
                                             {
-                                                <li class="uncheck" filterid="<%=item.MakeId%>"><span><%=item.MakeName%></span></li>
+                                                <li class="uncheck" filterid="@item.MakeId"><span>@item.MakeName</span></li>
                                             }
                                         }
                                     </ul>
@@ -72,7 +72,7 @@
                                         {
                                             foreach (var item in Model.OtherBrands)
                                             {
-                                                <li class="uncheck" filterid="<%=item.MakeId%>"><span><%=item.MakeName%></span></li>
+                                                <li class="uncheck" filterid="@item.MakeId"><span>@item.MakeName</span></li>
                                             }
                                         }
                                     </ul>
@@ -298,58 +298,67 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div class="search-bike-list">
-                        <div class="grid-12 alpha omega padding-left20 margin-top20 margin-bottom10">
-                            <ul id="divSearchResult" data-bind="template: { name: 'listingTemp', foreach: searchResult }"></ul>
-                        </div>
-                        <div class="clear"></div>
-                        <div style="text-align: center;">
-                            <div id="NoBikeResults" class="hide">
-                                <img src="/images/no_result_d.png" />
-                            </div>
-                            <div id="loading" class="hide">
-                                <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
-                            </div>
-                        </div>
-                    </div>
+                    @if (Model.Bikes != null && Model.Bikes.SearchResult != null)
+                    {
+                        <div class="search-bike-list">
+                            <div class="grid-12 alpha omega padding-left20 margin-top20 margin-bottom10">
+                                <ul id="divSearchResult" @*data-bind="template: { name: 'listingTemp', foreach: @Model.Bikes }"*@>
+                                    @foreach (var bike in Model.Bikes.SearchResult)
+                                    {
+                                        <li>
+                                            <div class="contentWrapper">
+                                                <div class="imageWrapper">
+                                                    <a data-bind="attr: { href: '/' + @bike.BikeModel.MakeBase.MaskingName + '-bikes/' + @bike.BikeModel.MaskingName + '/' }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }">
+                                                        <img class="lazy" data-bind="attr: { title: bikeName, alt: bikeName, src: '' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
+                                                    </a>
+                                                </div>
+                                                <div class="bikeDescWrapper">
+                                                    <h3 class="bikeTitle margin-bottom10"><a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }"></a></h3>
 
-                    <script type="text/html" id="listingTemp">
-                        <li>
-                            <div class="contentWrapper">
-                                <div class="imageWrapper">
-                                    <a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }">
-                                        <img class="lazy" data-bind="attr: { title: bikeName, alt: bikeName, src: '' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
-                                    </a>
-                                </div>
-                                <div class="bikeDescWrapper">
-                                    <h3 class="bikeTitle margin-bottom10"><a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }"></a></h3>
+                                                    <div id="reviewRatingsDiv" class="text-xt-light-grey margin-bottom10 position-rel pos-right5">
+                                                        <span data-bind="css: { 'rate-count-5': bikemodel.reviewRate() >= 4.5, 'rate-count-4': bikemodel.reviewRate() >= 3.5 && bikemodel.reviewRate() < 4.5, 'rate-count-3': bikemodel.reviewRate() >= 2.5 && bikemodel.reviewRate() < 3.5, 'rate-count-2': bikemodel.reviewRate() >= 1.5 && bikemodel.reviewRate() < 2.5, 'rate-count-1': bikemodel.reviewRate() >= 0.5 && bikemodel.reviewRate() < 1.5, 'rate-count-0': bikemodel.reviewRate() < .5 }">
+                                                            <span class="bwsprite star-icon star-size-16"></span><span class="font14 text-bold inline-block" data-bind="text: bikemodel.reviewRate() ? bikemodel.reviewRate() : 'Not rated yet'"></span>
+                                                        </span>
+                                                        <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="template: { if: bikemodel.ratingCount() }">
+                                                            &nbsp;(<span data-bind="text bikemodel.ratingCount()"></span><span data-bind=" text bikemodel.ratingCount()= =1 ? ' rating'
+                                                                                                                                ' ratings'"></span>)
+                                                        </span>
+                                                        <span data-bind="template { if bikemodel.reviewCount() }">
+                                                            <a class='text-xt-light  inline-block' data-bind="attr { href '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/reviews/' , title bikeName() + ' user reviews' }">
+                                                                <span class="review-left-divider" data-bind="text bikemodel.reviewCount()"></span>&nbsp;<span data-bind=" text bikemodel.reviewCount()= =1 ? 'review'
+                                                                                                                                                               'reviews' "></span>
+                                                            </a>
+                                                        </span>
+                                                    </div>
 
-                                    <div id="reviewRatingsDiv" class="text-xt-light-grey margin-bottom10 position-rel pos-right5">
-                                        <span data-bind="css: { 'rate-count-5': bikemodel.reviewRate() >= 4.5, 'rate-count-4': bikemodel.reviewRate() >= 3.5 && bikemodel.reviewRate() < 4.5, 'rate-count-3': bikemodel.reviewRate() >= 2.5 && bikemodel.reviewRate() < 3.5, 'rate-count-2': bikemodel.reviewRate() >= 1.5 && bikemodel.reviewRate() < 2.5, 'rate-count-1': bikemodel.reviewRate() >= 0.5 && bikemodel.reviewRate() < 1.5, 'rate-count-0': bikemodel.reviewRate() < .5 }">
-                                            <span class="bwsprite star-icon star-size-16"></span><span class="font14 text-bold inline-block" data-bind="text: bikemodel.reviewRate() ? bikemodel.reviewRate() : 'Not rated yet'"></span>
-                                        </span>
-                                        <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="template: { if: bikemodel.ratingCount() }">
-                                            &nbsp;(<span data-bind=" text bikemodel.ratingCount()"></span><span data-bind=" text bikemodel.ratingCount()= =1 ? ' rating'
-                                                                                                                ' ratings'"></span>)
-                                        </span>
-                                        <span data-bind=" template { if bikemodel.reviewCount() }">
-                                            <a class='text-xt-light  inline-block' data-bind=" attr { href '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/reviews/' , title bikeName() + ' user reviews' }">
-                                                <span class="review-left-divider" data-bind=" text bikemodel.reviewCount()"></span>&nbsp;<span data-bind=" text bikemodel.reviewCount()= =1 ? 'review'
-                                                                                                                                                'reviews' "></span>
-                                            </a>
-                                        </span>
+                                                    <div class="font14 text-light-grey margin-bottom5">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
+                                                    <div class="text-bold">
+                                                        <span class="bwsprite inr-lg"></span>
+                                                        <span class="font18" data-bind="text: price"></span><span class="font14 padding-left5">onwards</span>
+                                                    </div>
+                                                    <a data-bind="visible: price() != 'N/A', attr: { 'data-modelId': bikemodel.modelId, 'data-pqSourceId': PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                            <!--Loading Icon will be replaced by Load more button-->
+                            @*<div style="text-align: center;">
+                                    <div id="NoBikeResults" class="hide">
+                                        <img src="/images/no_result_d.png" />
                                     </div>
-
-                                    <div class="font14 text-light-grey margin-bottom5">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
-                                    <div class="text-bold">
-                                        <span class="bwsprite inr-lg"></span>
-                                        <span class="font18" data-bind="text: price"></span><span class="font14 padding-left5">onwards</span>
+                                    <div id="loading" class="hide">
+                                        <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                                     </div>
-                                    <a data-bind="visible: price() != 'N/A', attr: { 'data-modelId': bikemodel.modelId, 'data-pqSourceId': PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
-                                </div>
-                            </div>
-                        </li>
-                    </script>
+                                </div>*@
+                        </div>
+                    }
+
+                    @*<script type="text/html" id="listingTemp">
+                        <li></li>
+                    </script>*@
                 </div>
             </div>
             <div class="clear"></div>
@@ -359,9 +368,9 @@
 
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->
-    <script type="text/javascript" src="<%= staticUrl  %>/src/new/search.js?<%= staticFileVersion %>"></script>
+    @*<script type="text/javascript" src="<%= staticUrl  %>/src/new/search.js?<%= staticFileVersion %>"></script>
     <script type="text/javascript">
         var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewBikeSearch%>';
-    </script>
+    </script>*@
 
  }
