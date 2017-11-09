@@ -1,4 +1,5 @@
 ﻿using Bikewale.Filters;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.NewBikeSearch;
@@ -14,8 +15,10 @@ namespace Bikewale.Controllers
     {
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
-        public NewBikeSearchController(ICMSCacheContent articles, IVideos videos)
+        private readonly IBikeMakesCacheRepository _makes;
+        public NewBikeSearchController(ICMSCacheContent articles, IVideos videos, IBikeMakesCacheRepository makes)
         {
+            _makes = makes;
             _articles = articles;
             _videos = videos;
         }
@@ -25,7 +28,7 @@ namespace Bikewale.Controllers
         public ActionResult Index(ushort? pageNumber)
         {
             string q = Request.Url.Query;
-            NewBikeSearchModel model = new NewBikeSearchModel(q, _articles,_videos);
+            NewBikeSearchModel model = new NewBikeSearchModel(q, _articles,_videos, _makes);
             return View(model.GetData());
         }
 
@@ -33,7 +36,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile(ushort? pageNumber)
         {
             string q = Request.Url.Query;
-            NewBikeSearchModel model = new NewBikeSearchModel(q, _articles, _videos);
+            NewBikeSearchModel model = new NewBikeSearchModel(q, _articles, _videos, _makes);
             return View(model.GetData());
         }
     }

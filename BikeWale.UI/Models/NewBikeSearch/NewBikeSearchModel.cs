@@ -1,6 +1,10 @@
-﻿using Bikewale.Interfaces.CMS;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Notifications;
 using System;
+using System.Linq;
 
 namespace Bikewale.Models.NewBikeSearch
 {
@@ -15,9 +19,11 @@ namespace Bikewale.Models.NewBikeSearch
         public uint EditorialTopCount { get; set; }
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
+        private readonly IBikeMakesCacheRepository _makes;
 
-        public NewBikeSearchModel(string queryString, ICMSCacheContent objArticles, IVideos objVideos)
+        public NewBikeSearchModel(string queryString, ICMSCacheContent objArticles, IVideos objVideos, IBikeMakesCacheRepository makes)
         {
+            _makes = makes;
             _articles = objArticles;
             _videos = objVideos;
         }
@@ -27,6 +33,7 @@ namespace Bikewale.Models.NewBikeSearch
             NewBikeSearchVM viewModel = new NewBikeSearchVM();
             BindPageMetas(viewModel.PageMetaTags);
             viewModel.News = new RecentNews(5, 0, _modelIdList, _articles).GetData();
+            BindBrands(viewModel);
             return viewModel;
         }
 
@@ -100,7 +107,30 @@ namespace Bikewale.Models.NewBikeSearch
             }
             catch (Exception ex)
             {
-                new Notifications.ErrorClass(ex, "NewBikeSearchModel.BindEditorialWidget()");
+                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.BindEditorialWidget()");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 9th Oct 2017
+        /// Summary : Fetch list of other makes to bind filters
+        /// </summary>
+        /// <param name="objVM"></param>
+        private void BindBrands(NewBikeSearchVM objVM)
+        {
+            try
+            {
+                var makes = _makes.GetMakesByType(EnumBikeType.New);
+                if (makes != null && makes.Any())
+                {
+                    objVM.PopularBrands = makes.Take(9);
+
+                    objVM.OtherBrands = makes.Skip(9).OrderBy(m => m.MakeName);
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.BindBrands");
             }
         }
 
