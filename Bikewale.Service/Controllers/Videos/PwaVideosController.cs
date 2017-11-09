@@ -189,7 +189,8 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                         modelId = model.ModelId;                        
                     }
                 
-                    relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Video, string.Format("api/pwa/similarvideos/{0}/modelid/{1}", basicID, modelId)));
+                    if(modelId>0)
+                        relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Video, string.Format("api/pwa/similarvideos/{0}/modelid/{1}", basicID, modelId)));
 
                     relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Bike, string.Format("api/pwa/popularbodystyle/modelid/{0}/count/9", modelId)));
 
@@ -325,7 +326,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                     if (objModel != null)
                     {
                         similarVideosModel.ViewAllLinkText = "View all";
-                        similarVideosModel.ViewAllLinkUrl = String.Format("/{0}-bikes/{1}/videos/", objModel.MakeBase.MaskingName, objModel.MaskingName);
+                        similarVideosModel.ViewAllLinkUrl = String.Format("/m/{0}-bikes/{1}/videos/", objModel.MakeBase.MaskingName, objModel.MaskingName);
                         similarVideosModel.ViewAllLinkTitle = String.Format("{0} {1} Videos", objModel.MakeBase.MakeName, objModel.ModelName);
                     }
                 }
@@ -401,7 +402,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             {
                 BikeVideosListEntity objLandingVideosList = _videos.GetVideosBySubCategory(vidCat.ToString(), 1, (ushort)(1 + count));
                 if (objLandingVideosList.Videos != null)
-                    return ConverterUtility.PwaConvert(objLandingVideosList.Videos);
+                    return ConverterUtility.PwaConvert(objLandingVideosList.Videos,addShortDesc);
                 else
                     return null;
             }

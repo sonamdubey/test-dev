@@ -376,13 +376,13 @@ namespace Bikewale.PWA.Utils
         /// </summary>
         /// <param name="inpList"></param>
         /// <returns></returns>
-        public static IEnumerable<PwaBikeVideoEntity> PwaConvert(IEnumerable<BikeVideoEntity> inpList)
+        public static IEnumerable<PwaBikeVideoEntity> PwaConvert(IEnumerable<BikeVideoEntity> inpList, bool addShortDesc=false)
         {
             List<PwaBikeVideoEntity> outList = new List<PwaBikeVideoEntity>();
             
             if (inpList != null && inpList.Count() > 0)
             {
-                PwaCovertAndAppend(outList, inpList);
+                PwaCovertAndAppend(outList, inpList,addShortDesc);
             }
             return outList;
         }
@@ -391,7 +391,7 @@ namespace Bikewale.PWA.Utils
         /// </summary>
         /// <param name="outList"></param>
         /// <param name="inpList"></param>
-        public static void PwaCovertAndAppend(List<PwaBikeVideoEntity> outList, IEnumerable<BikeVideoEntity> inpList)
+        public static void PwaCovertAndAppend(List<PwaBikeVideoEntity> outList, IEnumerable<BikeVideoEntity> inpList, bool addShortDesc=false)
         {
             
             PwaBikeVideoEntity tempData;
@@ -399,7 +399,7 @@ namespace Bikewale.PWA.Utils
             {
                 foreach (var inp in inpList)
                 {
-                    tempData = PwaConvert(inp);
+                    tempData = PwaConvert(inp,addShortDesc);
                     if (tempData != null)
                         outList.Add(tempData);
                 }
