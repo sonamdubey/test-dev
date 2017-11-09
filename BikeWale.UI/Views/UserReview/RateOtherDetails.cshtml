@@ -7,17 +7,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.ExcludeContestSlug = true;
 }
+
+<script type="text/javascript">
+	var slideCountOne = 1;
+</script>
+
 <section class="container padding-top10">
     <div class="grid-12">
         <div class="breadcrumb margin-bottom15">
             <ul>
                 <li>
-                    <a class="breadcrumb-link" href="" title="Home">
+                    <a class="breadcrumb-link" href="/" title="Home">
                         <span class="breadcrumb-link__label">Home</span>
                     </a>
                 </li>
                 <li>
-                    <a class="breadcrumb-link" href="" title="User reviews">
+                    <a class="breadcrumb-link" href="/" title="User reviews">
                         <span class="breadcrumb-link__label">User reviews</span>
                     </a>
                 </li>
@@ -48,45 +53,16 @@
                                 <div class="other-review__title">
                                     <span class="margin-left20 thumb-icon"></span>
                                     <span class="margin-left15 text-bold">Thank you, Sumanth!</span>
-                                    <span class="margin-left10 text-light-grey">Your review has been recorded. We will inform you once it is published.</span>
+                                    <span class="margin-left10 text-light-grey">Your review has been recorded. Tell us more about your bike.</span>
                                 </div>
-                                <p class="text-center fotn14 text-slate-grey padding-top30">So far so good! Tell us more about your bike.</p>
 
+								<div class="jcarousel-wrapper inner-content-carousel carousel-type-questions">
+									<div class="jcarousel">
                                 @if (Model.QuestionsList != null && Model.QuestionsList.Count() > 0)
                                 {
                                     var j = 0;
                                     <ul id="bike-review-questions" data-make-model="@string.Format("{0}_{1}_", Model.Make.MakeName, Model.Model.ModelName)" class="other-review-question review-question-list margin-bottom5">
-                                        @foreach (var ques in Model.QuestionsList)
-                                        {
-
-                                            <li class="list-item question-type-text" data-active=@(@j==0 ? "1" : "0")>
-                                                @*<p class="item-title">@ques.Heading</p>*@
-                                                <p class="item-title">@ques.Description</p>
-                                                <p class="font12 text-light-grey margin-bottom20">(@(j + 1) of 6)</p>
-                                                <ul>
-                                                    @if (ques.Rating != null && ques.Rating.Count() > 0)
-                                                    {
-                                                        var i = 1;
-                                                        foreach (var rating in ques.Rating)
-                                                        {
-
-                                                            <li class="rating-face-list">
-                                                                <input type="radio" questiontId="@ques.Id" id="review-@j-@i" name="review-q-@j" value="@i" data-type="text" />
-                                                                <label for="review-@j-@i" name="review-q-@j" data-value="@i">
-                                                                    @rating.Text
-                                                                </label>
-                                                            </li>
-                                                            i++;
-                                                        }
-                                                    }
-                                                </ul>
-
-                                                <div class="clear"></div>
-                                            </li>
-                                            j++;
-                                        }
-
-                                        <li class="list-item question-type-text" data-active="0">
+										<li class="list-item question-type-text" data-btn-text="Continue">
                                             <p class="item-title">What mileage does your bike offer?</p>
                                             <p class="font12 text-light-grey margin-bottom20">(6 of 6)</p>
 
@@ -104,13 +80,52 @@
                                                 </div>
                                             </div>
                                         </li>
+
+                                        @foreach (var ques in Model.QuestionsList)
+                                        {
+
+                                            <li class="list-item question-type-text" data-btn-text="">
+                                                @*<p class="item-title">@ques.Heading</p>*@
+                                                <p class="item-title">@ques.Description</p>
+                                                <p class="font12 text-light-grey margin-bottom20">(@(j + 1) of 6)</p>
+                                                <div>
+                                                    @if (ques.Rating != null && ques.Rating.Count() > 0)
+                                                    {
+                                                        var i = 1;
+                                                        foreach (var rating in ques.Rating)
+                                                        {
+
+                                                            <div class="rating-face-list">
+                                                                <input type="radio" questiontId="@ques.Id" id="review-@j-@i" name="review-q-@j" value="@i" />
+                                                                <label for="review-@j-@i" name="review-q-@j" data-value="@i">
+                                                                    @rating.Text
+                                                                </label>
+                                                            </div>
+                                                            i++;
+                                                        }
+                                                    }
+                                                </div>
+
+                                                <div class="clear"></div>
+                                            </li>
+                                            j++;
+                                        }
                                     </ul>
                                 }
 
-                                <div class="clear"></div>
+										<span class="jcarousel-control-left">
+											<a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+										</span>
+										<span class="jcarousel-control-right">
+											<a href="#" class="bwsprite jcarousel-control-next" rel="nofollow" ></a>
+										</span>
+
+										<div class="clear"></div>
+									</div>
+								</div>
+
                                 <div class="other-review__button-block">
-                                    <a href="javascript:void(0)" id="skipButton" class="btn btn-white btn-truncate btn-size-2" title="Bajaj Pulsar NS200 On-road price in Pune">Skip</a>
-                                    <a href="javascript:void(0)" id="submitReviewBtn" class="btn btn-orange">Next</a>
+                                    <a href="javascript:void(0)" id="skipButton" class="" title="">Continue</a>
                                 </div>
 
                                 <input type="hidden" id="reviewQuestion" name="reviewQuestion" />

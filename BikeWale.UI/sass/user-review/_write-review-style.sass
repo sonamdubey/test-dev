@@ -259,14 +259,12 @@
 // review-question-list
 .review-question-list
 	.list-item
+		width: 920px !important
+		height: 190px
 		text-align: center
 		padding-top: 15px
 		padding-bottom: 15px
-		//border-bottom: 1px solid #eee
-		display: none
-
-		&[data-active='1']
-			display: block
+		display: block
 
 	.item-title
 		font-weight: 600
@@ -883,3 +881,20 @@
 		~ label
 			.checkbox-icon
 				background-position: -216px -135px
+
+.carousel-type-questions
+	width: 100%
+
+	&.inner-content-carousel,
+		.jcarousel li
+			border: 0
+			-webkit-box-shadow: none
+			box-shadow: none
+
+		.jcarousel
+			left: 0
+			margin-bottom: 20px
+
+
+
+
