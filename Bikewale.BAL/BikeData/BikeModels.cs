@@ -25,7 +25,6 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
-using Bikewale.Models.BikeModels;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Grpc.CMS;
@@ -36,9 +35,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Linq.Expressions;
-using System.Collections.ObjectModel;
-using Bikewale.Entities.GenericBikes;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -911,7 +907,7 @@ namespace Bikewale.BAL.BikeData
                     BikeMileageEntity obj = null;
 
                     obj = _modelCacheRepository.GetMileageDetails();
-                    if (obj != null)
+                    if (obj != null && obj.Bikes != null)
                     {
 
                         BikeWithMileageInfo currentModel = null;
