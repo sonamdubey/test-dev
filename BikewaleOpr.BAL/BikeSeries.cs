@@ -206,7 +206,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.BikeSeriesRepotory.Getsynopsis");
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BALs.BikeSeries.Getsynopsis");
             }
 
             return objSynopsis;
@@ -232,7 +232,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.BikeSeriesRepository.UpdateSynopsis");
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BALs.BikeSeries.UpdateSynopsis");
             }
             return isUpdated;
         }
