@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.AdSlot;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -41,6 +42,7 @@ namespace Bikewale.Models
         private readonly IVideos _videos = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IUpcoming _upcoming = null;
+        private readonly IAdSlot _adSlot = null;
         private readonly IBikeMakesCacheRepository _bikeMakes = null;
         #endregion
 
@@ -54,7 +56,11 @@ namespace Bikewale.Models
 
         #endregion
 
-        public HomePageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added IAdSlot.
+        /// </summary>
+        public HomePageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache, IAdSlot adSlot)
 
         {
             TopCount = topCount;
@@ -72,6 +78,7 @@ namespace Bikewale.Models
             _articles = articles;
             _userReviewsCache = userReviewsCache;
             _upcoming = upcoming;
+            _adSlot = adSlot;
         }
 
 
@@ -86,6 +93,8 @@ namespace Bikewale.Models
         /// Summary     : Added single function for comaprison carousel for both msite and desktop
         /// Modified by: Vivek Singh Tomar on 31 July 2017
         /// Summary    : Replaced logic of fetching upcoming bike list.
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added call to BindAdSlotTags.
         /// </returns>
         public HomePageVM GetData()
         {
@@ -165,10 +174,29 @@ namespace Bikewale.Models
 
             objVM.RecentUserReviewsList = new UserReviewSearchWidget(_userReviewsCache).GetData();
             objVM.Source = "HP";
-
+            BindAdSlotTags(objVM);
             return objVM;
         }
-
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Bind ad slot to adtags.
+        /// </summary>
+        /// <param name="objVM"></param>
+        private void BindAdSlotTags(HomePageVM objVM)
+        {
+            try
+            {
+                if (objVM.AdTags != null)
+                {
+                    objVM.AdTags.Ad_292x360 = _adSlot.CheckAdSlotStatus("Ad_292x360"); //For best bikes widget scooters desktop
+                    objVM.AdTags.Ad_200x211 = _adSlot.CheckAdSlotStatus("Ad_200x211");  //Forbest bikes widget scooters mobile
+                }
+            }
+            catch (Exception ex)
+            {
+                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "ModelPage.BindAdSlotTags");
+            }
+        }
         private UsedBikeModelsWidgetVM BindUsedBikeByModel(uint cityId)
         {
             UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();

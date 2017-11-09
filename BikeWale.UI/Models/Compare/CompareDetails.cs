@@ -36,6 +36,7 @@ namespace Bikewale.Models
         private readonly ISponsoredComparison _objSponsored = null;
         private readonly IArticles _objArticles = null;
         private string modelList, modelIdList;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         public string redirectionUrl { get; set; }
@@ -45,7 +46,7 @@ namespace Bikewale.Models
         private uint _sponsoredBikeVersionId, _cityId;
         private ushort bikeComparisions;
 
-        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository objMakeCache, ISponsoredComparison objSponsored, IArticles objArticles, uint maxComparisons)
+        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository objMakeCache, ISponsoredComparison objSponsored, IArticles objArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, uint maxComparisons)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objCompareCache = objCompareCache;
@@ -55,7 +56,7 @@ namespace Bikewale.Models
             _objSponsored = objSponsored;
             _maxComparisons = maxComparisons;
             _objArticles = objArticles;
-
+            _objVersionCache = objVersionCache;
             ProcessQueryString();
         }
         /// <summary>
@@ -78,8 +79,6 @@ namespace Bikewale.Models
 
                 if (status != StatusCodes.RedirectPermanent)
                 {
-                    BindSimilarBikes(obj);
-
                     BindExpertReviewsWidget(obj);
                 }
             }
@@ -92,23 +91,6 @@ namespace Bikewale.Models
             return obj;
 
 
-        }
-        /// <summary>
-        /// Created By :- Subodh Jain 23 May 2017
-        /// Summary :- Compare Bike BindSimilarBikes
-        /// </summary>
-        private void BindSimilarBikes(CompareDetailsVM obj)
-        {
-            try
-            {
-                ushort topCount = 8;
-                obj.topBikeCompares = _objCompareCache.GetSimilarCompareBikes(_versionsList, topCount, (int)_cityId);
-            }
-            catch (Exception ex)
-            {
-
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.BindSimilarBikes()");
-            }
         }
 
         /// <summary>
@@ -134,6 +116,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 09 May 2017
         /// Summary :- Function for GetComparedBikeDetails
+        /// Modified by Sajal Gupta  on 07-11-2017
+        /// Description : Chenged logic to show similar bikews widget
         /// </summary>
         /// <returns></returns>
         private void GetComparedBikeDetails(CompareDetailsVM obj)
@@ -176,9 +160,13 @@ namespace Bikewale.Models
 
                     obj.PQSourceId = PQSourceEnum.Desktop_CompareBike;
 
-                    if (!string.IsNullOrEmpty(modelIdList))
+                    if (!string.IsNullOrEmpty(modelIdList) && modelIdList.Split(',').Count() > 1)
                     {
                         SimilarBikesComparisionWidget(obj);
+                    }
+                    else
+                    {
+                        BindSimilarBikes(obj);
                     }
                 }
                 else
@@ -192,6 +180,41 @@ namespace Bikewale.Models
                 status = StatusCodes.ContentNotFound;
             }
         }
+
+        /// <summary>
+        /// Created by Sajal Gupta on  07-11-2017
+        /// Description : Added similar bikes widget
+        /// </summary>
+        /// <param name="obj"></param>
+        private void BindSimilarBikes(CompareDetailsVM obj)
+        {
+            try
+            {
+                var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, !string.IsNullOrEmpty(_versionsList) ? Convert.ToUInt32(_versionsList.Split(',')[0]) : 0, PQSourceEnum.Desktop_CompareBike);
+
+                objSimilarBikes.TopCount = 9;
+                objSimilarBikes.CityId = _cityId;
+                obj.SimilarBikes = objSimilarBikes.GetData();
+                obj.SimilarBikes.IsNew = true;
+
+                BikeEntityBase basicDetails = obj.Compare.BasicInfo.FirstOrDefault();
+
+                if (basicDetails != null)
+                {
+                    obj.SimilarBikes.Make = new BikeMakeEntityBase() { MakeName = basicDetails.Make, MaskingName = basicDetails.MakeMaskingName };
+                    obj.SimilarBikes.Model = new BikeModelEntityBase() { ModelId = (int)basicDetails.ModelId, ModelName = basicDetails.Model, MaskingName = basicDetails.ModelMaskingName };
+                }
+
+                obj.SimilarBikes.VersionId = Convert.ToUInt32(_versionsList.Split(',')[0]);
+
+                obj.SimilarBikesCompareWidgetText = string.Format("Bikes Similar to {0}", _modelNameList);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.BindSimilarBikes");
+            }
+        }
+
         /// <summary>
         /// Created By :- Subodh Jain 09 May 2017
         /// Summary :- Function for GetComparisionTextAndMetas
@@ -224,9 +247,9 @@ namespace Bikewale.Models
                     obj.comparisionText = string.Join(" vs ", bikeList);
                     obj.templateSummaryTitle = string.Join(" vs ", bikeModels);
                     obj.targetModels = string.Join(",", bikeModels);
-                    modelIdList = string.Join(",", bikeIdList);
+                    modelIdList = string.Join(",", bikeIdList.Distinct());
 
-                    _modelNameList = string.Join(", ", bikeModels);
+                    _modelNameList = string.Join(", ", bikeModels.Distinct());
                     if (!string.IsNullOrEmpty(_modelNameList))
                     {
                         int place = _modelNameList.LastIndexOf(",");
@@ -331,8 +354,8 @@ namespace Bikewale.Models
                         string price = Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bike.Price));
                         int colorCount = colors.bikes[i].bikeColors.Count;
                         bikeNames += bikeName + (i < count - 1 ? ", " : " and ");
-                        bikePrice += string.Format(" {0} is   &#x20B9; {1} {2}", bikeName, price, (i < count - 1 ? ", " : " and "));
-                        variants += string.Format(" {0} is available in {1} {4} and {2} {5}{3}", bikeName, colorCount, versionCount, (i < count - 1 ? ", " : " and "), colorCount > 1 ? "colours" : "colour", versionCount > 1 ? "variants" : "variant");
+                        bikePrice += string.Format(" {0} is &#x20B9; {1} {2}", bikeName, price, (i < count - 1 ? ", " : " and "));
+                        variants += string.Format(" {0} is available in {1} {4}{2}{3}", bikeName, colorCount, (versionCount > 0? string.Format(" and {0} {1}", versionCount, versionCount > 1 ? "variants" : "variant") : ""), (i < count - 1 ? ", " : " and "), colorCount > 1 ? "colours" : "colour");
                         i++;
                     }
                 }
@@ -380,7 +403,7 @@ namespace Bikewale.Models
         /// <returns></returns>
         private void ProcessQueryString()
         {
-
+            bool isPermanentRedirection = false;
             try
             {
                 var request = HttpContext.Current.Request;
@@ -441,6 +464,7 @@ namespace Bikewale.Models
                         else if (objResponse != null && objResponse.StatusCode == 301)
                         {
                             status = StatusCodes.RedirectPermanent;
+                            isPermanentRedirection = true;
                             if (String.IsNullOrEmpty(redirectionUrl))
                                 redirectionUrl = request.RawUrl.Replace(models[iTmp].ToLower(), objResponse.MaskingName);
                             else
@@ -460,7 +484,11 @@ namespace Bikewale.Models
             }
             finally
             {
-                if (!string.IsNullOrEmpty(_versionsList) && bikeComparisions >= 2)
+                if (isPermanentRedirection)
+                {
+                    status = StatusCodes.RedirectPermanent;
+                }
+                else if (!string.IsNullOrEmpty(_versionsList) && bikeComparisions >= 2)
                 {
                     _versionsList = _versionsList.Substring(1);
                 }

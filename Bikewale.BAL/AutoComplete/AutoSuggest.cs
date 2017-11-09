@@ -29,7 +29,10 @@ namespace Bikewale.BAL.AutoComplete
             try
             {
                 suggestionList = GetSuggestionList<T>(inputText, noOfRecords, source);
-
+                if (suggestionList != null)
+                {
+                    suggestionList = suggestionList.Take(noOfRecords);
+                }
             }
             catch (Exception ex)
             {
@@ -70,13 +73,13 @@ namespace Bikewale.BAL.AutoComplete
                                 c => c.Field(completion_field)
                                     .Prefix(inputText)
                                     .Contexts(contentDict)
-                                    .Size(noOfRecords))
+                                    .Size(50)) // Send size as 50 since suggetion query doesn't return all count. Do not modify this till ES bug is fixed
                                     ));
 
 
                     ISearchResponse<T> _result = client.Search<T>(selectorWithContext);
 
-                    if (_result.Suggest[completion_field][0].Options.Count <= 0 && source!=AutoSuggestEnum.PinCodeCapitalFirst)
+                    if (_result.Suggest[completion_field][0].Options.Count <= 0 && source != AutoSuggestEnum.PinCodeCapitalFirst)
                     {
                         selectorWithContext = new Func<SearchDescriptor<T>, SearchDescriptor<T>>
                             (sd => sd.Index(indexName)

@@ -110,6 +110,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Get entire data for expert reviews detail page
+        /// Modified by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Added call to BindAmpJsTags.
         /// </summary>
         public ExpertReviewsDetailPageVM GetData(int widgetTopCount)
         {
@@ -128,6 +130,10 @@ namespace Bikewale.Models
                     PopulatePhotoGallery(objData);
                     SetBikeTested(objData);
                     InsertBikeInfoWidgetIntoContent(objData);
+                    if (IsAMPPage)
+                    {
+                        BindAmpJsTags(objData);
+                    }
                 }
                 else
                     status = StatusCodes.ContentNotFound;
@@ -139,6 +145,29 @@ namespace Bikewale.Models
             return objData;
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Method to bind required JS for AMP page.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindAmpJsTags(ExpertReviewsDetailPageVM objData)
+        {
+            try
+            {
+                objData.AmpJsTags = new Entities.Models.AmpJsTags();
+                objData.AmpJsTags.IsAccordion = true;
+                objData.AmpJsTags.IsAd = true;
+                objData.AmpJsTags.IsBind = true;
+                objData.AmpJsTags.IsCarousel = true;
+                objData.AmpJsTags.IsSidebar = true;
+                objData.AmpJsTags.IsSocialShare = true;
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objData));
+            }
+        }
         /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Set expert reviews details page metas
@@ -315,6 +344,8 @@ namespace Bikewale.Models
                             objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
                             objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
                             objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
+                            objData.PopularBodyStyle.CityId = CityId;
+                            objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                             bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
                         }
                     }
@@ -349,9 +380,12 @@ namespace Bikewale.Models
                 objPopularBikes.TopCount = topCount;
                 objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
-
+                if(objData.MostPopularBikes != null)
+                {
+                    objData.MostPopularBikes.CityId = CityId;
+                    objData.MostPopularBikes.ReturnUrlForAmpPages = string.Format("{0}/m/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
+                }
                 MostPopularBikeWidgetVM PopularBikesWidget = objData.MostPopularBikes;
-
                 if (MakeId > 0 && objData.Make != null)
                 {
                     if (bikeType == EnumBikeType.Scooters)

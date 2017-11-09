@@ -30,19 +30,19 @@
                         {
                             string bikeName = string.Format("{0} {1}", bike.Make, bike.Model);
                             <li class="@string.Format("list-item {0}", (bike.VersionId != Model.sponsoredVersionId) ? "" : "sponsored-list-item")" data-value="@i @{i++;}" data-bikename="@String.Format("{0}_{1}_{2}", bike.Make, bike.Model, bike.Version)">
-                                <div class=" bike-details-block">
+                                <div class="bike-details-block">
                                     <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
                                     @if (bike.VersionId == Model.sponsoredVersionId)
                                     {
                                         <span class="position-abt text-light-grey font12 top-neg17">Sponsored</span>
                                     }
 
-                                    <a href="@string.Format("/{0}-bikes/{1}/", bike.MakeMaskingName, bike.ModelMaskingName)" title="@bikeName" class="item-target-link underline-none @(Model.isSponsoredBike && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? "bw-ga" : "")" @(Model.isSponsoredBike && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? Model.SponsoredBike.BikeImpressionTracker : "")>
+                                    <a href="@string.Format("{0}/{1}-bikes/{2}/",Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, bike.MakeMaskingName,bike.ModelMaskingName)" title="@bikeName" class="item-target-link underline-none @(Model.isSponsoredBike && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? "bw-ga" : "")" @(Model.isSponsoredBike && !String.IsNullOrEmpty(Model.SponsoredBike.BikeImpressionTracker) ? Model.SponsoredBike.BikeImpressionTracker : "")>
                                         <p class="font12 text-black">@bike.Make</p>
                                         <h2 class="font15 margin-bottom10 text-truncate">@bike.Model</h2>
                                         <img class="bike-image-block" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.ImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._80)" alt="@bikeName">
                                     </a>
-                                    @if (bike.Versions.Count() > 1)
+                                    @if (bike.Versions.Count() > 1 && bike.IsNew)
                                     {
                                         <div class="select-box select-box-no-input select-version done">
                                             <p class="select-label">Version</p>
@@ -63,12 +63,12 @@
                                         </div>
                                     }
                                     <span class="error-text"></span>
-                                    <p class="font-12 text-light-grey margin-bottom2">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                                    <p class="font-12 text-light-grey margin-bottom2">@(bike.IsNew ? string.Format("Ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName) : "Last known ex-showroom price")</p>
                                     <div class="margin-bottom5 font18 ">
                                         @Html.Raw("<span>&#x20B9;</span>")&nbsp;
                                         <span class="font-bold" data-bind="text: price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
                                     </div>
-                                    @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl))
+                                    @if (((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl)) && bike.IsNew)
                                     {
                                         <a href="javascript:void(0)" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" class="btn btn-white btn-160-32 getquotation">Check on-road price</a>
                                     }
@@ -79,6 +79,10 @@
                                             <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@String.Format("{0}_Top Card", bikeName)" class="bw-ga know-more-target text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
                                             @Model.KnowMoreLinkText
                                             <span class="bwsprite know-more-icon"></span>
+                                        }
+                                        else
+                                        {
+                                            <p class="default-showroom-text font12 text-light-grey margin-top5">@string.Format("{0} has been discontinued.", bike.Model)</p>
                                         }
                                     }
 
@@ -130,7 +134,7 @@
                                             <p class="font12 text-black">@bike.Make</p>
                                             <p class="font14 text-bold text-black margin-bottom5 text-truncate">@bike.Model</p>
                                         </a>
-                                        @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl))
+                                        @if (((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.KnowMoreLinkUrl)) && bike.IsNew)
                                         {
                                             <a href="javascript:void(0)" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" class="btn btn-white btn-160-32 getquotation">Check on-road price</a>
                                         }
@@ -141,6 +145,10 @@
                                                 <div onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@string.Format("{0}_Floating Card", bikeName)" class="bw-ga know-more-target text-link">@Model.KnowMoreLinkText<span class="bwsprite know-more-icon"></span></div>
                                                 @Model.KnowMoreLinkText
                                                 <span class="bwsprite know-more-icon"></span>
+                                            }
+                                            else
+                                            {
+                                                <p class="default-showroom-text font12 text-light-grey margin-top5">@string.Format("{0} has been discontinued.", bike.Model)</p>
                                             }
                                         }
 
@@ -431,9 +439,9 @@
                                                                 @if (!compSpec.Value.Equals("--"))
                                                                 {
                                                                     <div class='rating-bar'>
-                                                                        <span class='rate-@Math.Round(Convert.ToDouble(compSpec.Value))'></span>
+                                                                        <span class='rate-@Math.Floor(Convert.ToDouble(compSpec.Value))'></span>
                                                                     </div>
-                                                                    @Math.Round(Convert.ToDouble(compSpec.Value))
+                                                                    @Math.Floor(Convert.ToDouble(compSpec.Value))
                                                                 }
                                                                 else
                                                                 {
@@ -590,10 +598,31 @@
 }
 <!-- Similar bike comparison end-->
 
+@if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null && Model.SimilarBikes.Bikes.Any())
+{
+    <section>
+        <div class="container card-bottom-margin">
+            <div class="grid-12">
+                <div id="modelSimilarContent" class="content-box-shadow padding-bottom20 card-bottom-margin font14">
+                    <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15">@Model.SimilarBikesCompareWidgetText</h2>
+                    <div class="jcarousel-wrapper inner-content-carousel">
+                        <div class="jcarousel">
+                            <ul>
+                                @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
+                            </ul>
+                        </div>
+                        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </section>
+}
 
 
 @if (Model.ArticlesList != null && Model.ArticlesList.ArticlesList != null && Model.ArticlesList.ArticlesList.Count() > 0)
-{
+            {
     <section>
         <div class="container card-bottom-margin">
             <div class="grid-12">

@@ -9,10 +9,16 @@
     <section>
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x400_Middle.cshtml", new { AdId = "1495092203328" });}
     </section>
-            }
+}
+ @if (Model.IsMileageByUsersAvailable)
+ {
+    @Html.Partial("~/Views/Model/_Index_MileageDetails_Mobile.cshtml", Model.Mileage)
+ }
+
+
 @if (Model.IsSimilarBikesAvailable)
 {
-    <div id="similarContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin content-details-wrapper">
+    <div id="similarContent" data-id="similarContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin content-details-wrapper">
         <h2 class="padding-left20 padding-right20">@Model.BodyStyleText Similar to @Model.ModelPageEntity.ModelDetails.ModelName</h2>
         <div class="swiper-container card-container swiper-type-similar">
             <div class="swiper-wrapper">
@@ -28,7 +34,7 @@
 }
 else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomingBike))
 {
-    <div id="popularContent" class="bw-model-tabs-data container bg-white box-shadow padding-bottom20 card-bottom-margin">
+    <div id="popularContent" data-id="popularContent" class="bw-model-tabs-data container bg-white box-shadow padding-bottom20 card-bottom-margin">
         <div class="carousel-heading-content padding-top15">
             <div class="swiper-heading-left-grid inline-block">
                 <h2>Other popular @Model.BodyStyleText.ToLower()</h2>
@@ -43,7 +49,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 <div class="margin-bottom20 text-center">
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
 </div>
-<div id="specsFeaturesAndAboutContent" class="bw-model-tabs-data">
+<div id="specsFeaturesAndAboutContent" data-id="specsFeaturesAndAboutContent" class="bw-model-tabs-data">
     @if (Model.ModelPageEntity.ModelVersionSpecs != null)
     {
         @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures_Mobile.cshtml", Model)
@@ -84,9 +90,23 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
         </div>
     }
 </div>
+@if (Model.IsUpcomingBike && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
+{
+    <div class="container bg-white box-shadow padding-top10 padding-bottom20 card-bottom-margin">
+        <div class="carousel-heading-content padding-top15">
+            <div class="swiper-heading-left-grid-50 inline-block">
+                <h2>Similar upcoming bikes</h2>
+            </div><div class="swiper-heading-right-grid-50 inline-block text-right">
+                <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">All upcoming bikes</a>
+            </div>
+        </div>
+        @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.objUpcomingBikes)
+        <div class="clear"></div>
+    </div>
+}
 @if (Model.IsUserReviewsAvailable && !Model.IsUpcomingBike)
 {
-    <div id="reviewsContent" class="bw-model-tabs-data" data-readmore="0">
+    <div id="reviewsContent" data-id="reviewsContent" class="bw-model-tabs-data" data-readmore="0">
         <div class="padding-top15 padding-bottom20 content-box-shadow card-bottom-margin content-details-wrapper font14">
             <div class="padding-left20 padding-right20">
                 <h2 class="heading-bottom-margin">@Model.BikeName User Reviews</h2>
@@ -126,7 +146,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 }
 @if (Model.IsNewsAvailable)
 {
-    <div id="newsContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+    <div id="newsContent" data-id="newsContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
         <h2>@Model.BikeName News</h2>
         @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
         <div class="view-all-btn-container">
@@ -137,7 +157,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 <div class="margin-bottom20 text-center">
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
 </div>
-<div id="videosAndServiceCenterContent" class="bw-model-tabs-data">
+<div id="videosAndServiceCenterContent" data-id="videosAndServiceCenterContent" class="bw-model-tabs-data">
     @if (Model.IsVideosAvailable)
     {
         <div id="videosContent" class="padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
@@ -179,7 +199,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 </div>
 @if (!Model.IsUpcomingBike && Model.IsUsedBikesAvailable)
 {
-    <div id="makeUsedBikeContent" class="bw-model-tabs-data padding-top15 padding-right10 padding-bottom20 padding-left10 content-box-shadow card-bottom-margin content-details-wrapper font14">
+    <div id="makeUsedBikeContent" data-id="makeUsedBikeContent" class="bw-model-tabs-data padding-top15 padding-right10 padding-bottom20 padding-left10 content-box-shadow card-bottom-margin content-details-wrapper font14">
         <h2 class="padding-left10 padding-right10">Used @Model.BikeName bikes in @(Model.City != null ? Model.City.CityName : "India")</h2>
         @Html.Partial("~/Views/Used/_UsedBikesByModelCity_Mobile.cshtml", Model.UsedModels)
         <div class="clear"></div>
@@ -190,17 +210,4 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 
 }
 <div id="modelSpecsFooter"></div>
-@if (Model.IsUpcomingBike && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
-{
-    <div class="container bg-white box-shadow padding-top10 padding-bottom20 card-bottom-margin">
-        <div class="carousel-heading-content padding-top15">
-            <div class="swiper-heading-left-grid inline-block">
-                <h2>More upcoming bikes</h2>
-            </div><div class="swiper-heading-right-grid inline-block text-right">
-                <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
-            </div>
-        </div>
-        @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.objUpcomingBikes)
-        <div class="clear"></div>
-    </div>
-}
+

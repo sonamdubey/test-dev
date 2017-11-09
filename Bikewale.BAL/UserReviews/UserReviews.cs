@@ -359,34 +359,12 @@ namespace Bikewale.BAL.UserReviews
 
                     objResponse = new WriteReviewPageSubmitResponse();
 
-                    if (!string.IsNullOrEmpty(objReviewData.ReviewDescription) && objReviewData.ReviewDescription.Length < 300 && string.IsNullOrEmpty(objReviewData.ReviewTitle))
-                    {
-                        objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
-                        objResponse.TitleErrorText = "Please provide a title for your review.";
-                        isValid = false;
-                    }
-                    else if (string.IsNullOrEmpty(objReviewData.ReviewDescription) && !string.IsNullOrEmpty(objReviewData.ReviewTitle))
-                    {
-                        objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
-                        isValid = false;
-                    }
-                    else if (!string.IsNullOrEmpty(objReviewData.ReviewDescription) && objReviewData.ReviewDescription.Length > 300 && string.IsNullOrEmpty(objReviewData.ReviewTitle))
-                    {
-                        objResponse.TitleErrorText = "Please provide a title for your review.";
-                        isValid = false;
-                    }
+                    objResponse.IsSuccess = SaveUserReviews(objReviewData.ReviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion, Convert.ToUInt32(objReviewData.Mileage));
 
+                    if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
+                        UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);
 
-                    if (isValid)
-                    {
-                        objResponse.IsSuccess = SaveUserReviews(objReviewData.ReviewId, objReviewData.ReviewTips, objReviewData.ReviewDescription, objReviewData.ReviewTitle, objReviewData.ReviewQuestion, Convert.ToUInt32(objReviewData.Mileage));
-
-                        if (!string.IsNullOrEmpty(objReviewData.ReviewDescription))
-                            UserReviewsEmails.SendReviewSubmissionEmail(objReviewData.UserName, objReviewData.EmailId, objReviewData.MakeName, objReviewData.ModelName);
-                    }
                 }
-                else
-                    objResponse.IsSuccess = false;
             }
             catch (Exception ex)
             {

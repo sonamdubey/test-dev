@@ -5,6 +5,7 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.AdSlot;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
@@ -36,6 +37,7 @@ namespace Bikewale.Models
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IPriceQuote _objPQ = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
+        private readonly IAdSlot _adSlot = null;
         public string RedirectUrl { get; set; }
         public uint OtherTopCount { get; set; }
         public StatusCodes Status { get; set; }
@@ -50,8 +52,10 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Sushil Kumar on 23rd March 2017
         /// Description  : Resolve unity containers
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added IAdSlot.
         /// </summary>
-        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign)
+        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign, IAdSlot adSlot)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
@@ -61,12 +65,15 @@ namespace Bikewale.Models
             _objPQ = objPQ;
             _objDealerCache = objDealerCache;
             _objManufacturerCampaign = objManufacturerCampaign;
+            _adSlot = adSlot;
             ProcessQueryString();
         }
 
         /// <summary>
         /// Created By : Sushil Kumar on 23rd March 2017
         /// Description  : To get dealerpricequote page data 
+        /// Modified by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Added call to BindAdSlotTags.
         /// </summary>
         /// <returns></returns>
         public DealerPriceQuotePageVM GetData()
@@ -107,6 +114,7 @@ namespace Bikewale.Models
                     objData.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
 
                     ShowInnovationBanner(objData, _modelId);
+                    BindAdSlotTags(objData);
                 }
 
 
@@ -117,6 +125,27 @@ namespace Bikewale.Models
             }
 
             return objData;
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Bind ad slot to adtags.
+        /// </summary>
+        /// <param name="_objData"></param>
+        private void BindAdSlotTags(DealerPriceQuotePageVM _objData)
+        {
+            try
+            {
+                if (_objData.AdTags != null)
+                {
+                    _objData.AdTags.Ad_292x359 = _adSlot.CheckAdSlotStatus("Ad_292x359"); //For similar bikes widget desktop
+                    _objData.AdTags.Ad_200x216 = _adSlot.CheckAdSlotStatus("Ad_200x216");  //For similar bikes widget mobile
+                }
+            }
+            catch (Exception ex)
+            {
+                Notifications.ErrorClass objErr = new Notifications.ErrorClass(ex, "ModelPage.BindAdSlotTags");
+            }
         }
 
         /// <summary>

@@ -38,6 +38,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         /// Summary : Changed version of cache key
         /// Modified by : Ashutosh Sharma on 04 Oct 2017
         /// Description : Changed cacke key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1'.
+        /// Modified :Snehal Dange on 6th Nov 2017
+        /// Description: Added logic for refreshing cache key "BW_BikesByMileage";
         /// </summary>
         /// <param name="reviewId">User review id for which updation will happen</param>
         /// <param name="reviewStatus">Pass 2 for Approved or 3 for Discarded</param>
@@ -82,6 +84,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_", inputs.ModelId));
                         MemCachedUtil.Remove("BW_RecentReviews");
                         MemCachedUtil.Remove("BW_UserReviewIdMapping");
+                        MemCachedUtil.Remove("BW_BikesByMileage");
                     }
 
                 }
@@ -142,6 +145,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         /// Summary : Changed version of cache key
         /// Modified by : Ashutosh Sharma on 04 Oct 2017
         /// Description : Changed cacke key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1'.
+        /// Modified by:Snehal Dange on 6th Nov 2017
+        /// Description: Added logic for refreshing cache key "BW_BikesByMileage";
         /// </summary>
         /// <param name="reviewIds"></param>
         /// <returns></returns>
@@ -164,9 +169,11 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_BikeRatingsReviewsInfo_MO_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", obj.ModelId));
-                        MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_", obj.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_{0}", obj.ModelId));
+
                     }
                     MemCachedUtil.Remove("BW_UserReviewIdMapping");
+                    MemCachedUtil.Remove("BW_BikesByMileage");
                 }
             }
             catch(Exception ex)

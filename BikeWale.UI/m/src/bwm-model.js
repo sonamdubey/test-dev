@@ -234,7 +234,7 @@ docReady(function () {
 
                 $(this).addClass('active');
 
-                var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('id') + '"]');
+                var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('data-id') + '"]');
                 overallSpecsTabsContainer.find(currentActiveTab).addClass('active');
             }
         });
@@ -380,6 +380,22 @@ docReady(function () {
     reg = new RegExp('^[0-9]*$');
 
     vmUserReviews = new modelUserReviews();
+
+    var gallerySwiper = new Swiper('#similar-mileage-swiper', {
+        effect: 'slide',
+        speed: 300,
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        preloadImages: false,
+        lazyLoading: true,
+        lazyLoadingInPrevNext: true,
+        watchSlidesProgress: true,
+        watchSlidesVisibility: true,
+        onSlideChangeStart: function (swiper, event) {
+            triggerGA("Model_Page", "Clicked_On_SimilarMileage_Carousel", myBikeName);
+        }
+    });
+
 });
 
 docReady(function () {
@@ -752,13 +768,16 @@ docReady(function () {
 
     if (document.getElementById("modelsBySeriesWidget")) {
         try {
-            var testingObject = $("#modelsBySeriesWidget");
-            triggerNonInteractiveGA(testingObject.attr("data-cat"), testingObject.attr("data-act"), testingObject.attr("data-lab"));
+            var seriesEle = $("#modelsBySeriesWidget");
+            triggerNonInteractiveGA(seriesEle.attr("data-cat"), seriesEle.attr("data-act"), seriesEle.attr("data-lab"));
         } catch (e) {
 
         }
     }
-});
+
+
+}
+);
 
 function upVoteListReview(e) {
     try {
@@ -994,3 +1013,4 @@ function updateView(reviewId) {
         console.log(e);
     }
 }
+

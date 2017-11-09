@@ -103,19 +103,19 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         LeadTypes leadType = default(LeadTypes);
                         if (nvc != null
                             && nvc.HasKeys()
-                            && UInt32.TryParse(nvc["pqId"], out pqId) && pqId > 0
-                            && UInt32.TryParse(nvc["dealerId"], out dealerId) && dealerId > 0
-                            && UInt32.TryParse(nvc["versionId"], out versionId) && versionId > 0
-                            && UInt32.TryParse(nvc["cityId"], out cityId) && cityId > 0
+                            && uint.TryParse(nvc["pqId"], out pqId) && pqId > 0
+                            && uint.TryParse(nvc["dealerId"], out dealerId) && dealerId > 0
+                            && uint.TryParse(nvc["versionId"], out versionId) && versionId > 0
+                            && uint.TryParse(nvc["cityId"], out cityId) && cityId > 0
                             )
                         {
                             Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1} - Message received for processing", pqId, dealerId));
 
                             Enum.TryParse(nvc["leadType"], out leadType);
-                            UInt32.TryParse(nvc["pincodeId"], out pincodeId);
-                            UInt32.TryParse(nvc["LeadSourceId"], out leadSourceId);
-                            UInt32.TryParse(nvc["manufacturerDealerId"], out manufacturerDealerId);
-                            UInt32.TryParse(nvc["manufacturerLeadId"], out manufacturerLeadId);
+                            uint.TryParse(nvc["pincodeId"], out pincodeId);
+                            uint.TryParse(nvc["LeadSourceId"], out leadSourceId);
+                            uint.TryParse(nvc["manufacturerDealerId"], out manufacturerDealerId);
+                            uint.TryParse(nvc["manufacturerLeadId"], out manufacturerLeadId);
                             var priceQuote = _leadProcessor.GetPriceQuoteDetails(pqId);
 
 
@@ -128,7 +128,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                                     continue;
                                 }
 
-                                UInt16 iteration = (UInt16)(nvc["iteration"] == null ? 1 : (UInt16.Parse(nvc["iteration"]) + 1));
+                                ushort iteration = (ushort)(nvc["iteration"] == null ? 1 : (ushort.Parse(nvc["iteration"]) + 1));
 
                                 bool success = false;
                                 switch (leadType)
@@ -341,8 +341,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     internal class LeadProcessor
     {
         private readonly LeadProcessingRepository _repository = null;
-        private readonly string _hondaGaddiAPIUrl, _bajajFinanceAPIUrl, _tataCapitalAPIUrl;
-        private readonly uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId, _TataCapitalId;
+        private readonly string _hondaGaddiAPIUrl, _bajajFinanceAPIUrl, _tataCapitalAPIUrl, _TvsApiUrl;
+        private readonly uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId, _TataCapitalId, _TvsId;
         private readonly bool _isTataCapitalAPIStarted = false;
         private readonly IDictionary<uint, IManufacturerLeadHandler> handlers;
 
@@ -356,11 +356,13 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             _hondaGaddiAPIUrl = ConfigurationManager.AppSettings["HondaGaddiAPIUrl"];
             _bajajFinanceAPIUrl = ConfigurationManager.AppSettings["BajajFinanceAPIUrl"];
             _tataCapitalAPIUrl = ConfigurationManager.AppSettings["TataCapitalAPIUrl"];
+            _TvsApiUrl = ConfigurationManager.AppSettings["TvsApiUrl"];
 
-            UInt32.TryParse(ConfigurationManager.AppSettings["HondaGaddiId"], out _hondaGaddiId);
-            UInt32.TryParse(ConfigurationManager.AppSettings["BajajFinanceId"], out _bajajFinanceId);
-            UInt32.TryParse(ConfigurationManager.AppSettings["RoyalEnfieldId"], out _RoyalEnfieldId);
-            UInt32.TryParse(ConfigurationManager.AppSettings["TataCapitalId"], out _TataCapitalId);
+            uint.TryParse(ConfigurationManager.AppSettings["HondaGaddiId"], out _hondaGaddiId);
+            uint.TryParse(ConfigurationManager.AppSettings["BajajFinanceId"], out _bajajFinanceId);
+            uint.TryParse(ConfigurationManager.AppSettings["RoyalEnfieldId"], out _RoyalEnfieldId);
+            uint.TryParse(ConfigurationManager.AppSettings["TataCapitalId"], out _TataCapitalId);
+            uint.TryParse(ConfigurationManager.AppSettings["TvsId"], out _TvsId);
             Boolean.TryParse(ConfigurationManager.AppSettings["IsTataCapitalAPIStarted"], out _isTataCapitalAPIStarted);
             #region Manufacturer Lead Handlers. Please do not change this 
             handlers = new Dictionary<uint, IManufacturerLeadHandler>();
@@ -372,6 +374,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             handlers.Add(_bajajFinanceId, new BajajFinanceLeadHandler(_bajajFinanceId, _bajajFinanceAPIUrl, true));
             handlers.Add(_RoyalEnfieldId, new RoyalEnfieldLeadHandler(_RoyalEnfieldId, "", true, false));
             handlers.Add(_TataCapitalId, new TataCapitalLeadHandler(_TataCapitalId, _tataCapitalAPIUrl, _isTataCapitalAPIStarted));
+            handlers.Add(_TvsId, new TVSManufacturerLeadHandler(_TvsId, _TvsApiUrl, true));
             #endregion
         }
 
@@ -386,7 +389,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="retryAttempt"></param>
         /// <param name="leadType"></param>
         /// <returns></returns>
-        public bool PushLeadToAutoBiz(uint pqId, uint dealerId, uint campaignId, string inquiryJson, UInt16 retryAttempt, LeadTypes leadType, uint leadId)
+        public bool PushLeadToAutoBiz(uint pqId, uint dealerId, uint campaignId, string inquiryJson, ushort retryAttempt, LeadTypes leadType, uint leadId)
         {
             bool isSuccess = false;
             string abInquiryId = string.Empty;
@@ -401,7 +404,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 }
 
                 Logs.WriteInfoLog(String.Format("Response ab inquiryid : {0}", abInquiryId));
-                if (UInt32.TryParse(abInquiryId, out abInqId) && abInqId > 0)
+                if (uint.TryParse(abInquiryId, out abInqId) && abInqId > 0)
                 {
                     Logs.WriteInfoLog("Update Lead Limit.");
                     if (campaignId > 0)

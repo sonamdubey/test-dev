@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
 namespace BikewaleAutoSuggest
 {
     public class GetBikeListDb
@@ -22,7 +22,7 @@ namespace BikewaleAutoSuggest
                 using (DbCommand cmd = DbFactory.GetDBCommand("getautosuggestmakemodellist_11102017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                  
+
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -54,7 +54,7 @@ namespace BikewaleAutoSuggest
                                     MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
                                     ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]),
                                     Make = Convert.ToString(dr["Make"]),
-                                    Model = Convert.ToString( dr["Model"]),
+                                    Model = Convert.ToString(dr["Model"]),
                                     MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
                                     ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
                                     New = Convert.ToBoolean(dr["New"]),
@@ -111,7 +111,7 @@ namespace BikewaleAutoSuggest
                     ObjTemp.mm_suggest.input = new List<string>();
                     string[] tokens = bikeName.Split(' ');
 
-                    int length = Math.Min(tokens.Length,5);
+                    int length = Math.Min(tokens.Length, 5);
                     // For creating input in mm_suggest
                     //example :- bajaj pulsar rs200 than combination will be bajaj,pulsar,rs200,bajaj pulsar and so on
                     for (int index = 1; index < 1 << length; index++)
@@ -126,13 +126,13 @@ namespace BikewaleAutoSuggest
                             jindex++;
                         }
                         if (!string.IsNullOrEmpty(value))
-                            ObjTemp.mm_suggest.input.Add(value);
+                            ObjTemp.mm_suggest.input.Add(value.Trim());
 
                     }
 
                     //For Royal Enfield Bikes add Bullet in Suggestion
                     if (bikeName.Contains("Royal Enfield"))
-                            ObjTemp.mm_suggest.input.Add("Bullet");
+                        ObjTemp.mm_suggest.input.Add("Bullet");
 
                     ObjTemp.mm_suggest.contexts = new Context();
                     ObjTemp.mm_suggest.contexts.types = new List<string>();

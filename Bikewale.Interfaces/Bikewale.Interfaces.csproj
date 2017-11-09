@@ -115,6 +115,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdSlot\IAdSlot.cs" />
+    <Compile Include="AdSlot\IAdSlotCacheRepository.cs" />
+    <Compile Include="AdSlot\IAdSlotRepository.cs" />
     <Compile Include="AppDeepLinking\IDeepLinking.cs" />
     <Compile Include="App\IAppVersion.cs" />
     <Compile Include="App\IAppVersionCache.cs" />

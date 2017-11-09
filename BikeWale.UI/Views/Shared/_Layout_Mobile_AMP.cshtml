@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.ModelBase
 <!doctype html>
 <html amp lang="en">
-<head>
+<head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#" : "")>
     <meta charset="utf-8">
     @if (Model != null && Model.PageMetaTags != null)
     {
@@ -22,13 +22,14 @@
         if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
         {
             <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
+        }
 
     }
     @if (Model.PageMetaTags.EnableOG)
     {
         <meta property="og:title" content="@Html.Raw(Model.PageMetaTags.Title)" />
             <meta property="og:type" content="website" />
-            <meta property="og:description" content="@Model.PageMetaTags.Description" />
+            <meta property="og:description" content="@Html.Raw(Model.PageMetaTags.Description)" />
             <meta itemprop="image" property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
         if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
         {
@@ -36,9 +37,10 @@
         }
     }
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <meta name="amp-google-client-id-api" content="googleanalytics">
     <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
-
-    <style amp-boilerplate>
+      
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
         body {
             -webkit-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
             -moz-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
@@ -106,7 +108,7 @@
             }
         </style>
     </noscript>
-
+    
     <style amp-custom>
             body {
                 font-family: 'Open Sans',Serif;
@@ -190,6 +192,18 @@
             .footer-top, footer {
                 padding-bottom: 15px;
             }
+
+            .footer-popular-brands {
+                border-top: 1px solid rgba(183,183,183,.2);
+                padding-top: 15px;
+                padding-bottom: 10px;
+            }
+            .footer-popular-brands li{
+                display: inline-block;
+            }
+            .footer-popular-brands li a{
+                padding: 0px 10px 0px 10px;
+            }
             footer, footer a {
                 color: #fff;
             }
@@ -213,7 +227,6 @@
             .footer-middle {
                 border-top: 1px solid rgba(183,183,183,.2);
                 border-bottom: 1px solid rgba(183,183,183,.2);
-                padding-top: 15px;
                 padding-bottom: 20px;
                 margin-bottom: 10px;
             }
@@ -371,17 +384,51 @@
             "articleBody" : "@ViewBag.SanitizedNewsContent",
         </script>
     }
-    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
-    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
-    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
-    <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
-    <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
-    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+
     <script async src="https://cdn.ampproject.org/v0.js"></script>
+    @if (Model.AmpJsTags != null)
+    {
+        if (Model.AmpJsTags.IsAnalytics)
+        {
+            <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsSidebar)
+        {
+            <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsAccordion)
+        {
+    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsIframe)
+        {
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsAd)
+        {
+            <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsSocialShare)
+        {
+            <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsCarousel)
+        {
+    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsBind)
+        {
+            <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsSelector)
+        {
+            <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+        }
+
+    }
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+
+    
 </head>
 <body>
     <amp-sidebar id="nav" layout="nodisplay" side="left">
@@ -525,6 +572,14 @@
                 </li>
             </ul>
         </div>
+        <div class="footer-popular-brands text-center padding-top10">
+            <p class="font13 text-white margin-bottom10">Popular Brands</p>
+            <ul>
+                <li><a href="@string.Format("{0}/m/yamaha-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl)" title="Yamaha Bikes">Yamaha Bikes</a></li>
+                <li><a href="@string.Format("{0}/m/bajaj-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl)" title="Bajaj Bikes">Bajaj Bikes</a></li>
+                <li><a href="@string.Format("{0}/m/royalenfield-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl)" title="Royal Enfield Bikes">Royal Enfield Bikes</a></li>
+            </ul>
+        </div>
         <div class="footer-middle">
             <ul>
                 <li><a href="https://www.bikewale.com/m/contactus.aspx" target="_top" rel="nofollow">Contact Us</a></li>
@@ -544,110 +599,5 @@
             <div class="clear"></div>
         </div>
     </footer>
-
-    <amp-analytics type="googleanalytics">
-        <script type="application/json">
-            {
-            "vars": {
-            "account": "UA-34771801-1"
-            },
-            "extraUrlParams": {
-            "pageSourceType": "AMP"
-            },
-            "triggers": {
-            "trackPageview": {
-            "on": "visible",
-            "request": "pageview",
-            "vars": {
-            "title": "@Model.PageMetaTags.Title"
-            }
-            },
-            "trackEvent": {
-            "selector": ".bw-price-in-city-ga",
-            "on": "click",
-            "request": "event",
-            "vars": {
-            "eventCategory": "Price_in_City_Page",
-            "eventAction": "Floating_Navigation_Clicked"
-            }
-            }
-            }
-            }
-        </script>
-    </amp-analytics>
-
-
-    <amp-analytics type="googleanalytics">
-        <script type="application/json">
-            {
-            "vars": {
-            "account": "UA-34771801-1"
-            },
-            "extraUrlParams": {
-            "pageSourceType": "AMP"
-            },
-            "triggers": {
-            "trackEvent": {
-            "selector": "#exploreMoreCard",
-            "on": "click",
-            "request": "event",
-            "vars": {
-            "eventCategory": "Price_in_City_Page",
-            "eventAction": "Clicked_ExploreMore_Card"
-            }
-            }
-            }
-            }
-        </script>
-    </amp-analytics>
-
-    <amp-analytics type="googleanalytics">
-        <script type="application/json">
-            {
-            "vars": {
-            "account": "UA-34771801-1"
-            },
-            "extraUrlParams": {
-            "pageSourceType": "AMP"
-            },
-            "triggers": {
-            "trackEvent": {
-            "selector": ".coverfox-link-clicked",
-            "on": "click",
-            "request": "event",
-            "vars": {
-            "eventCategory": "Price_in_City_Page",
-            "eventAction": "CoverFox_Link_Clicked"
-            }
-            }
-            }
-            }
-        </script>
-    </amp-analytics>
-
-    <amp-analytics type="googleanalytics">
-        <script type="application/json">
-            {
-            "vars": {
-            "account": "UA-34771801-1"
-            },
-            "extraUrlParams": {
-            "pageSourceType": "AMP"
-            },
-            "triggers": {
-            "trackEvent": {
-            "selector": ".view-dealer-details-clicked",
-            "on": "click",
-            "request": "event",
-            "vars": {
-            "eventCategory": "Price_in_City_Page",
-            "eventAction": "View_dealer_details_Clicked"
-            }
-            }
-            }
-            }
-        </script>
-    </amp-analytics>
-
 </body>
 </html>

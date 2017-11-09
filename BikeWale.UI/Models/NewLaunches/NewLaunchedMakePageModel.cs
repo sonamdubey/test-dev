@@ -97,6 +97,11 @@ namespace Bikewale.Models
                         CreatePager(objVM.NewLaunched, objVM.PageMetaTags);
                     }
                     CreateMeta(objVM);
+                    Status = StatusCodes.ContentFound;
+                }
+                else
+                {
+                    Status = StatusCodes.ContentNotFound;
                 }
             }
             catch (Exception ex)

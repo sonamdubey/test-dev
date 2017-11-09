@@ -181,7 +181,7 @@ namespace Bikewale.Controllers
             {
                 obj.IsAMPPage = true;
                 obj.RefControllerContext = ControllerContext;
-                objData = obj.GetData(3);
+                objData = obj.GetData(9);
                 if (obj.status == StatusCodes.ContentNotFound)
                     return Redirect("/pagenotfound.aspx");
                 else

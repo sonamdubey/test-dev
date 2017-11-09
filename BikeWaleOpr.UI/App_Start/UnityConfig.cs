@@ -13,6 +13,7 @@ using BikewaleOpr.BAL.Used;
 using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.DAL;
 using BikewaleOpr.DALs;
+using BikewaleOpr.DALs.AdSlot;
 using BikewaleOpr.DALs.Banner;
 using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.DALs.BikePricing;
@@ -22,6 +23,7 @@ using BikewaleOpr.DALs.Location;
 using BikewaleOpr.DALs.ServiceCenter;
 using BikewaleOpr.DALs.UserReviews;
 using BikewaleOpr.Interface;
+using BikewaleOpr.Interface.AdSlot;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ConfigurePageMetas;
@@ -89,7 +91,8 @@ namespace BikewaleOpr
                 .RegisterType<IPageMetasRepository, PageMetasRepository>()
                 .RegisterType<IServiceCenterRepository, ServiceCenterRepository>()
                 .RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
-                .RegisterType<IBikeSeries, BikeSeries>();
+                .RegisterType<IBikeSeries, BikeSeries>()
+                .RegisterType<IAdSlotRepository, AdSlot>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
