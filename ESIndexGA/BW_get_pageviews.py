@@ -30,9 +30,9 @@ PROFILE_ID = "110715270"
 INDEX_NAME = "11bwsrckeywordsv1"	#Local
 ELASTIC_SEARCH_IP = '172.16.0.11'	#Local
 ELASTIC_SEARCH_PORT = 9201			#Local
-BW_HOSTURL = "https://www.bikewale.com"	#Live
+#BW_HOSTURL = "https://www.bikewale.com"	#Live
 #BW_HOSTURL = "https://staging.bikewale.com"	#Staging
-#BW_HOSTURL = "http://webserver:9011"	#Local
+BW_HOSTURL = "http://webserver:9011"	#Local
 key_file_location = 'GoogleKey.p12' # + '/GoogleDFPProductionKey.p12'
 DOC_TYPE = 'bikelist'
 
