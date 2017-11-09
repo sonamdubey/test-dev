@@ -3,8 +3,10 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PWA.Articles
 {
-    
-   [Serializable, DataContract]
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
+    [Serializable, DataContract]
     public class PwaBikeMakeEntityBase
     {
         [DataMember]

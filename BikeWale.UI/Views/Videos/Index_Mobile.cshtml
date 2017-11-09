@@ -1,60 +1,85 @@
 ﻿@model Bikewale.Models.Videos.VideosLandingPageVM
+@using Bikewale.Utility;
 
-    <!DOCTYPE html>
-    @{
-        var StaticUrlPWA = Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA;
-        var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/bwm-videos-landing.css' inline />";
+    Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/bike-videos/";
+    Model.IsTransparentHeader = true;
+}
 
-        var ManifestJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/manifest.bundle.js";
-        var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/vendor.bundle.js";
-        var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/app.bundle.js";
-        var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js";
+
+@if (Model != null)
+{
+    <section>
+        <div class="container">
+            @if (Model.LandingFirstVideoData != null)
+            {
+                <div class="video-jumbotron">
+                    <a href="@string.Format("/m{0}", UrlFormatter.VideoDetailPageUrl(Model.LandingFirstVideoData.VideoTitleUrl, Model.LandingFirstVideoData.BasicId.ToString()))">
+                        <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", Model.LandingFirstVideoData.VideoId)" alt="@Model.LandingFirstVideoData.VideoTitle" title="@Model.LandingFirstVideoData.VideoTitle" src="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", Model.LandingFirstVideoData.VideoId)" border="0" />
+                        <span>@Model.LandingFirstVideoData.VideoTitle</span>
+                    </a>
+                </div>
+            }
+            @if (Model.LandingOtherVideosData != null && Model.LandingOtherVideosData.Count() > 0)
+            {
+                <ul class="video-jumbotron-list bottom-shadow margin-bottom20">
+                    @foreach (var video in Model.LandingOtherVideosData)
+                    {
+                        <li>
+                            <a href="@string.Format("/m{0}", UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId)))" class="jumbotron-list-image margin-right20">
+                                <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/default.jpg", video.VideoId)" alt="@video.VideoTitle" title="@video.VideoTitle" src="@String.Format("https://img.youtube.com/vi/{0}/default.jpg", video.VideoId)" border="0" />
+                            </a>
+                            <a href="@string.Format("/m{0}", @UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId)))" class="jumbotron-list-title font14 text-default">@video.VideoTitle</a>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </section>
+   
+    if (Model.ExpertReviewsWidgetData != null && Model.ExpertReviewsWidgetData.VideoList != null && Model.ExpertReviewsWidgetData.VideoList.Videos != null && Model.ExpertReviewsWidgetData.VideoList.Videos.Count() > 0)
+    {
+        <section class="bg-white">
+            <div id="expertReviewsWrapper" class="container bottom-shadow margin-bottom25">
+                <h2 class="text-center padding-top25 padding-bottom15">Expert Reviews</h2>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        @foreach (var video in Model.ExpertReviewsWidgetData.VideoList.Videos)
+                        {
+                            <div class="swiper-slide reviews-carousel-content">
+                                <div class="video-carousel-image rounded-corner2">
+                                    <a href="@string.Format("/m{0}", @UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId)))">
+                                        <img class="swiper-lazy" data-src="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", video.VideoId)" alt="@video.VideoTitle" title="@video.VideoTitle" src="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", video.VideoId)" border="0" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </a>
+                                </div>
+                                <div class="margin-top10">
+                                    <a href="@string.Format("/m{0}", @UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId)))" class="text-default font14 text-bold">@video.VideoTitle</a>
+                                    <p class="font12 text-xlight-grey margin-top10 margin-bottom10">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMMM yyyy")</p>
+                                    <p class="font14 text-light-grey margin-bottom10 line-height17">@FormatDescription.TruncateDescription(video.Description, 75)</p>
+                                    <div class="grid-6 alpha omega border-light-right font14">
+                                        <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Views))</span>
+                                    </div>
+                                    <div class="grid-6 omega padding-left10 font14">
+                                        <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Likes))</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="padding-left10 view-all-btn-container margin-top10 padding-bottom20">
+                    <a href="@string.Format("/m{0}", @UrlFormatter.VideoByCategoryPageUrl(Model.ExpertReviewsWidgetData.SectionTitle, Model.ExpertReviewsWidgetData.CategoryIdList))" title="@Model.ExpertReviewsWidgetData.SectionTitle Bike Videos" class="btn view-all-target-btn">View more videos<span class="bwmsprite teal-right"></span></a>
+                </div>
+            </div>
+        </section>
     }
-        <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-        <head>
-            <meta charset="utf-8" />
-            <title></title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-            <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
-            <meta name="theme-color" content="#2a2a2a" />
-            <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
-            <link rel='stylesheet' type='text/css' href='/m/css/videos/app.css' />
-            @*<link rel='stylesheet' type='text/css' href='/m/css/videos/video-landing.css' />*@
-            <style type='text/css' rel='stylesheet'>
-                @@font-face {
-                    font-family: 'Open Sans';
-                    font-style: normal;
-                    font-weight: 400;
-                    src: url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');
-                    unicode-range: U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F;
-                }
-                @@font-face {
-                    font-family: 'Open Sans';
-                    font-style: normal;
-                    font-weight: 600;
-                    src: url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');
-                    unicode-range: U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F;
-                }
-
-                @@font-face {
-                    font-family: 'Open Sans';
-                    font-style: normal;
-                    font-weight: 700;
-                    src: url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');
-                    unicode-range: U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F;
-                }
-            </style>
-            <script defer type="text/javascript">
-    !function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);
-            </script>
             <link rel='stylesheet' type='text/css' href='/m/css/videos/app.css' atf-css />
             <link rel='stylesheet' type='text/css' href='/m/css/videos/video.css' atf-css />
-            <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
-            <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
-            @*<script type="text/javascript" src=@ManifestJsUrl defer></script>
-            <script type="text/javascript" src="@VendorJsUrl" defer></script>
-            <script type="text/javascript" src="@AppJsUrl" defer></script>
-            <script type="text/javascript" src="@BwcacheJsUrl" defer></script>*@
+            @*<script type="text/javascript" src="/Scripts/manifest.bundle.js" defer></script>
             <script>window.__CSS_CHUNKS__ = { "app": "/pwa/css/app.css", "newsBundle": "/pwa/css/content/news.css", "videosBundle": "/pwa/css/videos/video.css" }</script>
              <script>
                 var jsUrls = ['@ManifestJsUrl','@VendorJsUrl','@AppJsUrl','@BwcacheJsUrl'];
@@ -94,70 +119,63 @@
                 };
                 loadScripts(jsUrls,jsLoadedCallback);
             </script> 
-
-        </head>
-        <body>
           <div id="root">
 
-          </div>  
+           @Html.Raw(Model.ServerRouterWrapper)
            @*@Html.Raw(Model.ServerRouterWrapper)
-            <script type="text/javascript">
-                window.state = @Html.Raw(Model.WindowState);
-            </script>*@
-            <noscript id="asynced-css">
-
-        @*<link href="@CssBTFUrl" rel="stylesheet" type="text/css" />
-            Add async css*@
-            
-            </noscript>
-            <script>
-    var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
             </script>
-            <script defer type="text/javascript">
+
+    if (Model.FirstRideWidgetData != null && Model.FirstRideWidgetData.VideoList != null && Model.FirstRideWidgetData.VideoList.Videos != null && Model.FirstRideWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory_Mobile.cshtml", Model.FirstRideWidgetData)
+    }
+
+    if (Model.LaunchAlertWidgetData != null && Model.LaunchAlertWidgetData.VideoList != null && Model.LaunchAlertWidgetData.VideoList.Videos != null && Model.LaunchAlertWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory_Mobile.cshtml", Model.LaunchAlertWidgetData)
+    }
                
-        function triggerData(cat,act,lbl) {
-            if(typeof triggerDataToBhrigu == 'function') {
-                triggerDataToBhrigu(cat,act,lbl);
-            }
-        }
-        //docReady(function () {
-        //    try {
-        //        AppEntryPoint();
-        //    } catch (e) {
-        //        console.warn(e.message);
-        //    }
-        //});
+    if (Model.FirstLookWidgetData != null && Model.FirstLookWidgetData.VideoList != null && Model.FirstLookWidgetData.VideoList.Videos != null && Model.FirstLookWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory_Mobile.cshtml", Model.FirstLookWidgetData)
+    }
 
-        window.addEventListener('DOMContentLoaded', function() {
-            if('serviceWorker' in navigator) {
-                navigator.serviceWorker.register("@Url.Content(Bikewale.Utility.BWConfiguration.Instance.ServiceWorkerPath)").then(function(registration) {
-                    registration.addEventListener('updatefound', function () {
-                        var newWorker = registration.installing;
-                        newWorker.addEventListener('statechange', function () {
-                            if (newWorker.state == 'redundant') {
-                                triggerData('ServiceWorker', 'Registration', 'status=redundant');
-                            }
-                            else if (newWorker.state == 'activated') {
-                                triggerData('ServiceWorker', 'Registration', 'status=successful');
-                            }
-                        })
-                    });
+    if (Model.Brands != null)
+    {
+        <h2 class="text-center padding-top10 padding-bottom15">Browse videos by brands</h2>
+        <div class="container bg-white box-shadow card-bottom-margin padding-top25 padding-bottom20 collapsible-brand-content margin-bottom25">
+            @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
+        </div>
+    }
 
+    if (Model.PowerDriftBlockbusterWidgetData != null && Model.PowerDriftBlockbusterWidgetData.VideoList != null && Model.PowerDriftBlockbusterWidgetData.VideoList.Videos != null && Model.PowerDriftBlockbusterWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory_Mobile.cshtml", Model.PowerDriftBlockbusterWidgetData)
+    }
 
-                }).catch(function(err) {
-                    triggerData('ServiceWorker','Registration','status=unsuccessful|err='+err);
-                    console.log(err);
-                })
-            }
-            else {
-                triggerData('ServiceWorker','Registration','status=unavailable');
+    if (Model.MotorSportsWidgetData != null && Model.MotorSportsWidgetData.VideoList != null && Model.MotorSportsWidgetData.VideoList.Videos != null && Model.MotorSportsWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory_Mobile.cshtml", Model.MotorSportsWidgetData)
+    }
 
-            }
+    if (Model.PowerDriftSpecialsWidgetData != null && Model.PowerDriftSpecialsWidgetData.VideoList != null && Model.PowerDriftSpecialsWidgetData.VideoList.Videos != null && Model.PowerDriftSpecialsWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory_Mobile.cshtml", Model.PowerDriftSpecialsWidgetData)
+    }
 
-        })
-            </script>
+    if (Model.PowerDriftTopMusicWidgetData != null && Model.PowerDriftTopMusicWidgetData.VideoList != null && Model.PowerDriftTopMusicWidgetData.VideoList.Videos != null && Model.PowerDriftTopMusicWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory_Mobile.cshtml", Model.PowerDriftTopMusicWidgetData)
+    }
 
-        </body>
-    </html>
-                          
+    if (Model.MiscellaneousWidgetData != null && Model.MiscellaneousWidgetData.VideoList != null && Model.MiscellaneousWidgetData.VideoList.Videos != null && Model.MiscellaneousWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory_Mobile.cshtml", Model.MiscellaneousWidgetData)
+    }
+}
 
+<script type="text/javascript">
+    docReady(function () {
+        $("img.lazy").lazyload();
+    });
+</script>

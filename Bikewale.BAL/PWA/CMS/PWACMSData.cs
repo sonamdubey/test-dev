@@ -78,7 +78,14 @@ namespace Bikewale.BAL.PWA.CMS
             }
         }
 
-
+        /// <summary>
+        /// Created By: Prasad Gawde
+        /// </summary>
+        /// <param name="reducer"></param>
+        /// <param name="url"></param>
+        /// <param name="containerId"></param>
+        /// <param name="componentName"></param>
+        /// <returns>Returns the Rendered HTML for the News List Page</returns>
         public IHtmlString GetNewsListDetails(PwaNewsArticleListReducer reducer, string url, string containerId, string componentName)
         {
 
@@ -115,7 +122,14 @@ namespace Bikewale.BAL.PWA.CMS
             return renderedHtml;
         }
 
-
+        /// <summary>
+        /// Created by Prasad Gawde
+        /// </summary>
+        /// <param name="reducer"></param>
+        /// <param name="url"></param>
+        /// <param name="containerId"></param>
+        /// <param name="componentName"></param>
+        /// <returns>Returns the Rendered HTML for the News Details Page for the input BasicId for which Store us constructed in Reducer</returns>
         public IHtmlString GetNewsDetails(PwaNewsDetailReducer reducer, string url, string containerId, string componentName)
         {
 
@@ -153,6 +167,14 @@ namespace Bikewale.BAL.PWA.CMS
             return renderedHtml;
         }
 
+        /// <summary>
+        /// Created by Prasad Gawde
+        /// </summary>
+        /// <param name="reducer"></param>
+        /// <param name="url"></param>
+        /// <param name="containerId"></param>
+        /// <param name="componentName"></param>
+        /// <returns>Returns the Rendered HTML for the Video List Page</returns>
         public IHtmlString GetVideoListDetails(PwaAllVideos reducer, string url, string containerId, string componentName)
         {
 
@@ -186,6 +208,14 @@ namespace Bikewale.BAL.PWA.CMS
             return renderedHtml;
         }
 
+        /// <summary>
+        /// Created By Prasad Gawde
+        /// </summary>
+        /// <param name="reducer"></param>
+        /// <param name="url"></param>
+        /// <param name="containerId"></param>
+        /// <param name="componentName"></param>
+        /// <returns>Returns the Rendered HTML for the Video List when asked for a sub-category list videos i.e. Say Expert-reviews Videos</returns>
         public IHtmlString GetVideoBySubCategoryListDetails(PwaVideosBySubcategory reducer, string url, string containerId, string componentName)
         {
 
@@ -218,6 +248,14 @@ namespace Bikewale.BAL.PWA.CMS
             return renderedHtml;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reducer"></param>
+        /// <param name="url"></param>
+        /// <param name="containerId"></param>
+        /// <param name="componentName"></param>
+        /// <returns>Returns the Rendered HTML for the Video Detail Page</returns>
         public IHtmlString GetVideoDetails(PwaVideoDetailReducer reducer, string url, string containerId, string componentName)
         {
 

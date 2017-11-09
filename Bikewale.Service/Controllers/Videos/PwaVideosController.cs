@@ -1,4 +1,5 @@
-﻿using Bikewale.BAL.GrpcFiles;
+﻿using ApiGatewayLibrary;
+using Bikewale.BAL.GrpcFiles;
 using Bikewale.DTO.Videos;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PWA.Articles;
@@ -11,6 +12,7 @@ using Bikewale.Notifications;
 using Bikewale.PWA.Utils;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
+using EditCMSWindowsService.Messages;
 using Grpc.CMS;
 using log4net;
 using System;
@@ -20,19 +22,16 @@ using System.Web.Http;
 using System.Web.Http.Description;
 namespace Bikewale.Service.Controllers.Pwa.Videos
 {
-    /// <summary>
-    ///  Bikewale Videos Api : List of Videos and Details
-    /// Author : Sushil Kumar
-    /// Created On : 24th August 2015
-    /// Modified by :   Sumit Kate on 18 May 2016
-    /// Description :   Extend from CompressionApiController instead of ApiController 
-    /// </summary>
+   /// <summary>
+   /// 
+   /// </summary>
     public class PwaVideosController : CompressionApiController
     {
         static readonly ILog _logger = LogManager.GetLogger(typeof(PwaVideosController));
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objMaskingCache = null;
         private readonly IVideos _videos = null;
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
+        private readonly string EditCMSModuleName = Bikewale.Utility.BWConfiguration.Instance.EditCMSModuleName;
 
         public PwaVideosController(IVideos videos, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache, IBikeModelsCacheRepository<int> modelCache )
         {
@@ -42,21 +41,18 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
         }
         #region Top Videos List
         /// <summary>
-        ///  Modified By : Ashish G. Kamble
-        ///  Summary : API to get the list of videos for the specified video subcategory.
+        /// 
         /// </summary>
-        /// <param name="categoryId"></param>
-        /// <param name="pageNo">Compulsory. Value should be greater than 0.</param>
-        /// <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>
-        /// <returns>Categorized Videos List</returns>
+        /// <returns></returns>
         [ResponseType(typeof(PwaVideosLandingPageTopVideos)), Route("api/pwa/topvideos/")]
         public IHttpActionResult Get()
         {
             try
-            {                
+            {
+                ushort expertReviewCatId = 55;                      
                 var landingVideos = GetVideosFromCacheForCategory(EnumVideosCategory.FeaturedAndLatest, 5);
 
-                var experReviewVideos = GetVideosFromCacheForSubCategory(55, 2,true);
+                var experReviewVideos = GetVideosFromCacheForSubCategory(expertReviewCatId, 2,true);
 
                 if (landingVideos != null || experReviewVideos!=null)
                 {
@@ -64,9 +60,11 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                     topVideos.LandingFirstVideos = landingVideos;
                                         
                     var expertReviews  = new PwaVideosBySubcategory();
-                    expertReviews.Videos =experReviewVideos;
-                    expertReviews.MoreVideosUrl=@"/expert-reviews-55/";
-                    expertReviews.SectionTitle= "Expert Reviews";
+                    string moreVidUrl, sectionTitle;
+                    VideoTitleDescription.VideoGetTitleAndUrl(expertReviewCatId, out sectionTitle, out moreVidUrl);
+                    expertReviews.Videos =experReviewVideos;                                     
+                    expertReviews.MoreVideosUrl= moreVidUrl;
+                    expertReviews.SectionTitle= sectionTitle;
                     topVideos.ExpertReviews = expertReviews;
                     return Ok(topVideos);
                 }
@@ -77,71 +75,30 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController", "api/pwa/topvideos/");
                 return InternalServerError();
             }
 
         }  //get  Categorized Videos 
 
-        /// <summary>
-        ///  Modified By : Ashish G. Kamble
-        ///  Summary : API to get the list of videos for the specified video subcategory.
-        /// </summary>
-        /// <param name="catId"></param>
-        /// <param name="count"></param>
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="catId"></param>
+    /// <param name="count"></param>
+    /// <returns></returns>
         [ResponseType(typeof(PwaVideosBySubcategory)), Route("api/pwa/catvideos/catId/{catId}/count/{count}/")]
         public IHttpActionResult Get(ushort catId,ushort count)
         {
             try
             { 
-
                 var subCatVideos = GetVideosFromCacheForSubCategory(catId, count);
 
                 if (subCatVideos != null)
                 {
-
                     var moreSubCatvideos = new PwaVideosBySubcategory();
                     moreSubCatvideos.Videos = subCatVideos;
-
-                    switch(catId)
-                    {
-                        case 51:
-                            moreSubCatvideos.SectionTitle = "Motorsports";
-                            break;
-
-                        case 55:
-                            moreSubCatvideos.SectionTitle = "Expert Reviews";
-                            break;
-
-                        case 57:
-                            moreSubCatvideos.SectionTitle = "First Ride Impressions";
-                            break;
-
-                        case 58:
-                            moreSubCatvideos.SectionTitle = "Miscellaneous";
-                            break;
-
-                        case 59:
-                            moreSubCatvideos.SectionTitle = "Launch Alert";
-                            break;
-
-                        case 60:
-                            moreSubCatvideos.SectionTitle = "PowerDrift Top Music";
-                            break;
-
-                        case 61:
-                            moreSubCatvideos.SectionTitle = "First Look";
-                            break;
-
-                        case 62:
-                            moreSubCatvideos.SectionTitle = "PowerDrift Blockbuster";
-                            break;
-
-                        case 63:
-                            moreSubCatvideos.SectionTitle = "PowerDrift Specials";
-                            break;
-
-                    }
+                    moreSubCatvideos.SectionTitle = VideoTitleDescription.VideoCategoryTitle(catId);
                     return Ok(moreSubCatvideos);
                 }
                 else
@@ -151,83 +108,69 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController",string.Format("api/pwa/catvideos/catId/{0}/count/{1}/",catId,count));
                 return InternalServerError();
             }
-
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
         [ResponseType(typeof(PwaVideosLandingPageOtherVideos)), Route("api/pwa/othervideos/count/{count}/")]
         public IHttpActionResult Get(ushort count)
         {
             try
             {
-
-                var sportsWidget = GetVideosFromCacheForSubCategory(51, count);
-                var firstRide = GetVideosFromCacheForSubCategory(57, count);
-                var misc = GetVideosFromCacheForSubCategory(58, count);
-                var launchAlert = GetVideosFromCacheForSubCategory(59, count);
-                var powerdriftTopMusic = GetVideosFromCacheForSubCategory(60, count);
-                var firstLook = GetVideosFromCacheForSubCategory(61, count);
-                var powerDriftBlockBuster = GetVideosFromCacheForSubCategory(62, count);
-                var powerdriftSpecial = GetVideosFromCacheForSubCategory(63, count);
-                
                 var otherVideos = new PwaVideosLandingPageOtherVideos();
+                int[] categoryIds = { 51, 57, 58, 59, 60, 61, 62, 63 };
+                ushort[] categoryTotalRecords = new ushort[] {count,count,count,count,count,count,count,count };
 
-                otherVideos.FirstLook = new PwaVideosBySubcategory();
-                otherVideos.FirstLook.Videos = firstLook;
-                otherVideos.FirstLook.MoreVideosUrl = @"/first-look-61/";
-                otherVideos.FirstLook.SectionTitle = "First Look";
+                CallAggregator ca = GetVideosBySubCategoriesUsingAPIGateway(categoryIds, categoryTotalRecords);
 
-                otherVideos.FirstRide = new PwaVideosBySubcategory();
-                otherVideos.FirstRide.Videos = firstRide;
-                otherVideos.FirstRide.MoreVideosUrl = @"/first-ride-impressions-57/";
-                otherVideos.FirstRide.SectionTitle = "First Ride Impressions";
+                var apiData = ca.GetResultsFromGateway();
 
-                otherVideos.LaunchAlert = new PwaVideosBySubcategory();
-                otherVideos.LaunchAlert.Videos = launchAlert;
-                otherVideos.LaunchAlert.MoreVideosUrl = @"/launch-alert-59/";
-                otherVideos.LaunchAlert.SectionTitle = "Launch Alert";
+                if (apiData != null && apiData.OutputMessages != null)
+                {
+                    var objApiData = apiData.OutputMessages;
 
-                otherVideos.Miscellaneous = new PwaVideosBySubcategory();
-                otherVideos.Miscellaneous.Videos = misc;
-                otherVideos.Miscellaneous.MoreVideosUrl = @"/miscellaneous-58/";
-                otherVideos.Miscellaneous.SectionTitle = "Miscellaneous";
+                    if (objApiData != null && objApiData.Count > 0)
+                    {
+                        IEnumerable<PwaBikeVideoEntity>[] apiGateWayOutput = new IEnumerable<PwaBikeVideoEntity>[objApiData.Count];
+                        for (ushort i = 0; i < objApiData.Count; i++)
+                        {
+                            apiGateWayOutput[i] = ProcessGrpcVideoListEntity(ApiGatewayLibrary.Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[i].Payload));
+                        }
+                        
+                        otherVideos.FirstLook = PwaCmsHelper.SetPwaSubCategoryVideos(apiGateWayOutput[0], categoryIds[0]);
+                        otherVideos.FirstRide = PwaCmsHelper.SetPwaSubCategoryVideos(apiGateWayOutput[1], categoryIds[1]);                        
+                        otherVideos.LaunchAlert = PwaCmsHelper.SetPwaSubCategoryVideos(apiGateWayOutput[2], categoryIds[2]);
+                        otherVideos.Miscellaneous = PwaCmsHelper.SetPwaSubCategoryVideos(apiGateWayOutput[3], categoryIds[3]);
+                        otherVideos.MotorSports = PwaCmsHelper.SetPwaSubCategoryVideos(apiGateWayOutput[4], categoryIds[4]);
+                        otherVideos.PowerDriftBlockbuster = PwaCmsHelper.SetPwaSubCategoryVideos(apiGateWayOutput[5], categoryIds[5]);
+                        otherVideos.PowerDriftSpecials = PwaCmsHelper.SetPwaSubCategoryVideos(apiGateWayOutput[6], categoryIds[6]);
+                        otherVideos.PowerDriftTopMusic = PwaCmsHelper.SetPwaSubCategoryVideos(apiGateWayOutput[7], categoryIds[7]);
 
-                otherVideos.MotorSports = new PwaVideosBySubcategory();
-                otherVideos.MotorSports.Videos = sportsWidget;
-                otherVideos.MotorSports.MoreVideosUrl = @"/motorsports-51/";
-                otherVideos.MotorSports.SectionTitle = "Motorsports";
-
-                otherVideos.PowerDriftBlockbuster = new PwaVideosBySubcategory();
-                otherVideos.PowerDriftBlockbuster.Videos = powerDriftBlockBuster;
-                otherVideos.PowerDriftBlockbuster.MoreVideosUrl = @"/powerdrift-uster-62/";
-                otherVideos.PowerDriftBlockbuster.SectionTitle = "PowerDrift Blockbuster";
-
-                otherVideos.PowerDriftSpecials = new PwaVideosBySubcategory();
-                otherVideos.PowerDriftSpecials.Videos = powerdriftSpecial;
-                otherVideos.PowerDriftSpecials.MoreVideosUrl = @"/powerdrift-specials-63/";
-                otherVideos.PowerDriftSpecials.SectionTitle = "PowerDrift Specials";
-
-                otherVideos.PowerDriftTopMusic = new PwaVideosBySubcategory();
-                otherVideos.PowerDriftTopMusic.Videos = powerdriftTopMusic;
-                otherVideos.PowerDriftTopMusic.MoreVideosUrl = @"/PowerDrift-top-music-60/";
-                otherVideos.PowerDriftTopMusic.SectionTitle = "PowerDrift Top Music";
-
-                otherVideos.Brands = GetBrandsInfo(count);
-
+                        otherVideos.Brands = GetBrandsInfo(count);
+                    }
+                }
                 return Ok(otherVideos);
               
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController",string.Format("api/pwa/othervideos/count/{0}/",count));
                 return InternalServerError();
             }
 
         }  //get  Categorized Videos 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="basicID"></param>
+        /// <returns></returns>
         [ResponseType(typeof(PwaBikeVideoDetails)), Route("api/pwa/videodet/{basicId}/")]
         public IHttpActionResult Get(uint basicID)
         {
@@ -238,27 +181,18 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                 if (vidDet != null)
                 {
                     outObj.VideoInfo = ConverterUtility.PwaConvert(vidDet, true);
-
-                    var relatedInfoList = new List<PwaBikeVideoRelatedInfo>();
-                    
-                    var modelMaskingName = vidDet.MaskingName;
-
+                    var relatedInfoList = new List<PwaBikeVideoRelatedInfo>();          
                     uint modelId = 0;                    
-                    if (!string.IsNullOrEmpty(modelMaskingName))
+                    if (!string.IsNullOrEmpty(vidDet.MaskingName))
                     {
-                        var model = _objMaskingCache.GetModelMaskingResponse(modelMaskingName);
+                        var model = _objMaskingCache.GetModelMaskingResponse(vidDet.MaskingName);
                         modelId = model.ModelId;                        
                     }
+                
+                    relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Video, string.Format("api/pwa/similarvideos/{0}/modelid/{1}", basicID, modelId)));
 
-                    var relatedInfo = new PwaBikeVideoRelatedInfo();
-                    relatedInfo.Type = PwaRelatedInfoType.Video;
-                    relatedInfo.Url = string.Format("api/pwa/similarvideos/{0}/modelid/{1}",basicID, modelId);
-                    relatedInfoList.Add(relatedInfo);
+                    relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Bike, string.Format("api/pwa/popularbodystyle/modelid/{0}/count/9", modelId)));
 
-                    relatedInfo = new PwaBikeVideoRelatedInfo();
-                    relatedInfo.Type = PwaRelatedInfoType.Bike;
-                    relatedInfo.Url =  string.Format("api/pwa/popularbodystyle/modelid/{0}/count/9", modelId);
-                    relatedInfoList.Add(relatedInfo);
                     outObj.RelatedInfoApi = relatedInfoList;
                     return Ok(outObj);
                 }
@@ -267,13 +201,18 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController",string.Format("api/pwa/videodet/{0}/",basicID));
                 return InternalServerError();
             }
 
         }  //get  Categorized Videos 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         [ResponseType(typeof(PwaBikeVideos)), Route("api/pwa/similarvideos/{basicId}/modelid/{modelId}")]
         public IHttpActionResult Get(uint basicId, uint modelId)
         {
@@ -297,12 +236,18 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController",string.Format("api/pwa/similarvideos/{0}/modelid/{1}",basicId,modelId));
                 return InternalServerError();
             }
 
         }  //get  Categorized Videos 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         [ResponseType(typeof(PwaBikeNews)), Route("api/pwa/popularbodystyle/modelid/{modelId}/count/{count}")]
         public IHttpActionResult Get(int modelId,uint count)
         {
@@ -316,20 +261,57 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                 outBikeData.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objPopularBodyStyle, cityArea.City);
                 outBikeData.Heading = "Popular bikes";
                 outBikeData.CompleteListUrl = "/m/best-bikes-in-india/";
-                outBikeData.CompleteListUrlAlternateLabel = "Best {0} in India";
+                outBikeData.CompleteListUrlAlternateLabel = "Best Bikes in India";
                 outBikeData.CompleteListUrlLabel = "View all";
                 return Ok(outBikeData);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController", string.Format("api/pwa/popularbodystyle/modelid/{0}/count/{1}",modelId,count));
                 return InternalServerError();
             }
 
         }
+      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="pageNo"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(VideosList)), Route("api/pwa/pwa/videos/cat/{categoryId}/pn/{pageNo}/ps/{pageSize}/")]
+        public IHttpActionResult Get(EnumVideosCategory categoryId, uint pageNo, uint pageSize)
+        {
+            try
+            {
+                var objVideosList = GetVideosByCategoryIdViaGrpc((int)categoryId, pageNo, pageSize);
 
+                if (objVideosList != null && objVideosList.Videos != null)
+                {
+                    return Ok(objVideosList);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController",string.Format("api/pwa/pwa/videos/cat/{0}/pn/{1}/ps/{2}/",categoryId,pageNo,pageSize));
+                return InternalServerError();
+            }
 
-        private SimilarVideoModelsVM GetSimilarVideos(uint modelId,uint videoId)
+        }  //get  Categorized Videos 
+
+        #region PwaHelperMethods
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="videoId"></param>
+        /// <returns></returns>
+        private SimilarVideoModelsVM GetSimilarVideos(uint modelId, uint videoId)
         {
             SimilarVideoModelsVM similarVideosModel = null;
             if (modelId > 0)
@@ -349,12 +331,17 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("PwaVideosController.GetSimilarVideos(ModelId {0}  Videoid {1})", modelId,videoId));
+                    Bikewale.Notifications.PwaErrorClass objErr = new Bikewale.Notifications.PwaErrorClass(ex, String.Format("PwaVideosController.GetSimilarVideos(ModelId {0}  Videoid {1})", modelId, videoId));
                 }
             }
             return similarVideosModel;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
         private PwaBrandsInfo GetBrandsInfo(int topCount)
         {
             var brands = _objMaskingCache.GetMakeIfVideo();
@@ -381,8 +368,12 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             return outData;
         }
 
-
-     
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vidCat"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         private IEnumerable<PwaBikeVideoEntity> GetVideosFromCacheForCategory(EnumVideosCategory vidCat, ushort count)
         {
             try
@@ -392,17 +383,23 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "VideosLandingPage.BindLandingVideos");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "GetVideosFromCacheForCategory");
             }
             return null;
         }
 
-
-        private IEnumerable<PwaBikeVideoEntity> GetVideosFromCacheForSubCategory(ushort vidCat,ushort count,bool addShortDesc=false)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vidCat"></param>
+        /// <param name="count"></param>
+        /// <param name="addShortDesc"></param>
+        /// <returns></returns>
+        private IEnumerable<PwaBikeVideoEntity> GetVideosFromCacheForSubCategory(ushort vidCat, ushort count, bool addShortDesc = false)
         {
             try
             {
-                BikeVideosListEntity objLandingVideosList = _videos.GetVideosBySubCategory(vidCat.ToString(), 1,(ushort)(1+count));
+                BikeVideosListEntity objLandingVideosList = _videos.GetVideosBySubCategory(vidCat.ToString(), 1, (ushort)(1 + count));
                 if (objLandingVideosList.Videos != null)
                     return ConverterUtility.PwaConvert(objLandingVideosList.Videos);
                 else
@@ -410,47 +407,33 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "VideosLandingPage.BindLandingVideos");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "GetVideosFromCacheForSubCategory");
             }
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inpVideoList"></param>
+        /// <returns></returns>
+        private IEnumerable<PwaBikeVideoEntity> ProcessGrpcVideoListEntity(GrpcVideoListEntity inpVideoList)
+        {
+            if (inpVideoList != null && inpVideoList.TotalRecords > 0)
+            {
+                var processedVideosList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(inpVideoList);
+                if (processedVideosList != null)
+                    return ConverterUtility.PwaConvert(processedVideosList.Videos);
+            }
+            return null;
+        }
 
         /// <summary>
-        ///  Modified By : Ashish G. Kamble
-        ///  Summary : API to get the list of videos for the specified video subcategory.
+        /// 
         /// </summary>
         /// <param name="categoryId"></param>
-        /// <param name="pageNo">Compulsory. Value should be greater than 0.</param>
-        /// <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>
-        /// <returns>Categorized Videos List</returns>
-        [ResponseType(typeof(VideosList)), Route("api/pwa/pwa/videos/cat/{categoryId}/pn/{pageNo}/ps/{pageSize}/")]
-        public IHttpActionResult Get(EnumVideosCategory categoryId, uint pageNo, uint pageSize)
-        {
-            try
-            {
-                var objVideosList = GetVideosByCategoryIdViaGrpc((int)categoryId, pageNo, pageSize);
-
-                if (objVideosList != null && objVideosList.Videos != null)
-                {
-                    return Ok(objVideosList);
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                return InternalServerError();
-            }
-
-        }  //get  Categorized Videos 
-
-        /// <summary>
-        /// Author: Prasad Gawde
-        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <param name="pageSize"></param>
         /// <returns></returns>
         private VideosList GetVideosByCategoryIdViaGrpc(int categoryId, uint pageNo, uint pageSize)
         {
@@ -476,134 +459,44 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             return videoDTOList;
         }
 
-        #endregion
-
-        #region Videos List
         /// <summary>
-        ///  Modified By : Ashish G. Kamble
-        ///  Summary : API to get the list of videos for the specified make.
+        /// 
         /// </summary>
-        /// <param name="pageNo">Compulsory. Value should be greater than 0.</param>
-        /// <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>
-        /// <param name="makeId">Mandatory.</param>        
+        /// <param name="categoryIds"></param>
+        /// <param name="categoryTotalRecords"></param>
         /// <returns></returns>
-        [ResponseType(typeof(VideosList)), Route("api/pwa/videos/pn/{pageNo}/ps/{pageSize}/make/{makeId}/")]
-        public IHttpActionResult GetVideosByMakeId(uint pageNo, uint pageSize, int makeId)
+        private CallAggregator GetVideosBySubCategoriesUsingAPIGateway(int[] categoryIds, ushort[] categoryTotalRecords)
         {
+            CallAggregator ca = null;
             try
             {
-                string _apiUrl = string.Empty;
-
-                if (makeId > 0)
-                {                    
-                    var objVideosList = GetVideosByMakeIdViaGrpc(pageNo, pageSize, makeId);
-
-                    if (objVideosList != null && objVideosList.Videos != null)
+                bool IsRecordsCountAvailable = categoryTotalRecords != null && categoryTotalRecords.Length > 0;
+                if (categoryIds != null && categoryIds.Length > 0)
+                {
+                    ca = new CallAggregator();
+                    for (ushort i = 0; i < categoryIds.Length; i++)
                     {
-                        return Ok(objVideosList);
+                        ca.AddCall(EditCMSModuleName, "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+                        {
+                            ApplicationId = 2,
+                            SubCategoryIds = categoryIds[i].ToString(),
+                            StartIndex = 1,
+                            EndIndex = (uint)(IsRecordsCountAvailable ? categoryTotalRecords[i] : 9),
+                            SortCategory = GrpcVideoSortOrderCategory.MostPopular
+                        });
                     }
                 }
-
-                return NotFound();
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Videos.VideosController");
-                objErr.SendMail();
-                return InternalServerError();
+                PwaErrorClass objErr = new PwaErrorClass(ex, "GetVideosBySubCategoriesUsingAPIGateway");
             }
 
-        }  //get  Model/Makes Videos 
+            return ca;
 
-        /// <summary>
-        /// Author: Prasad Gawde
-        /// </summary>
-        /// <returns></returns>
-        private VideosList GetVideosByMakeIdViaGrpc(uint pageNo, uint pageSize, int makeId)
-        {
-            VideosList videoDTOList = null;
-            try
-            {
-                int startIndex, endIndex;
-                Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
-
-                var _objVideoList = GrpcMethods.GetVideosByMakeId(makeId, (uint)startIndex, (uint)endIndex);
-
-                if (_objVideoList != null)
-                {
-                    videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList);
-                }
-            }
-            catch (Exception err)
-            {
-                _logger.Error(err.Message, err);
-            }
-
-            return videoDTOList;
         }
 
-        #endregion
-
-        #region Videos List
-        /// <summary>
-        ///  Modified By : Ashish G. Kamble
-        ///  Summary : API to get the list of videos for the specified model.
-        /// </summary>
-        /// <param name="pageNo">Compulsory. Value should be greater than 0.</param>
-        /// <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>        
-        /// <param name="modelId">Mandatory.</param>
-        /// <returns></returns>
-        [ResponseType(typeof(VideosList)), Route("api/pwa/videos/pn/{pageNo}/ps/{pageSize}/model/{modelId}/")]
-        public IHttpActionResult GetVideosByModelId(uint pageNo, uint pageSize, int modelId)
-        {
-            try
-            {
-
-                if (modelId > 0)
-                {
-                    var objVideosList = GetVideosByModelIdViaGrpc(pageNo, pageSize, modelId);
-
-                    if (objVideosList != null && objVideosList.Videos != null && objVideosList.Videos.Count() > 0)
-                    {
-                        return Ok(objVideosList);
-                    }
-                }
-
-                return NotFound();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Videos.VideosController");
-                return InternalServerError();
-            }
-        }
-
-        /// <summary>
-        /// Author: Prasad Gawde
-        /// </summary>
-        /// <returns></returns>
-        private VideosList GetVideosByModelIdViaGrpc(uint pageNo, uint pageSize, int modelId)
-        {
-            VideosList videoDTOList = null;
-            try
-            {
-                int startIndex, endIndex;
-                Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
-
-                var _objVideoList = GrpcMethods.GetVideosByModelId(modelId, (uint)startIndex, (uint)endIndex);
-
-                if (_objVideoList != null)
-                {
-                    videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList);
-                }
-            }
-            catch (Exception err)
-            {
-                _logger.Error(err.Message, err);
-            }
-
-            return videoDTOList;
-        }
+        #endregion PwaHelperMethods
 
         #endregion
 

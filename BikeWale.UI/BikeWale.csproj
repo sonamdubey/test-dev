@@ -3846,6 +3846,9 @@
     <Content Include="Views\CompareBikes\SimilarBikeComparison_Mobile.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
+    <Content Include="Views\Videos\CategoryVideos_Mobile_Pwa.cshtml" />
+    <Content Include="Views\Videos\Details_Mobile_Pwa.cshtml" />
+    <Content Include="Views\Videos\Index_Mobile_Pwa.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

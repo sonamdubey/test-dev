@@ -4,6 +4,9 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PWA.Articles
 {
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     [DataContract, Serializable]
     public class PwaBikeVideoDetails
     {
@@ -13,6 +16,9 @@ namespace Bikewale.Entities.PWA.Articles
         public List<PwaBikeVideoRelatedInfo> RelatedInfoApi { get; set; }
 
     }
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     [DataContract, Serializable]
     public class PwaBikeVideoRelatedInfo
     {
@@ -20,8 +26,16 @@ namespace Bikewale.Entities.PWA.Articles
         public PwaRelatedInfoType Type { get; set; }
         [DataMember]
         public string Url { get; set; }
-    }
 
+        public PwaBikeVideoRelatedInfo(PwaRelatedInfoType type,string url)
+        {
+            Type = type;
+            Url = url;
+        }
+    }
+    /// <summary>
+    ///  Created By: Prasad Gawde
+    /// </summary>
     [DataContract, Serializable]
     public enum PwaRelatedInfoType
     {
