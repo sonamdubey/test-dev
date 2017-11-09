@@ -1768,7 +1768,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
-    <Content Include="ads.txt" />
     <Content Include="ads\Ad300x250_mobile.aspx" />
     <Content Include="ads\Ad300x250.aspx" />
     <Content Include="ads\Ad300x250BTF.aspx" />
@@ -2827,8 +2826,8 @@
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
     <Content Include="m\news\offline.html" />
-    <Content Include="m\news\sw.js" />
     <Content Include="m\news\sw_installer.html" />
+    <Content Include="m\news\sw.js" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\sass\scooters\listing.css" />
     <Content Include="m\service\Default.aspx" />
@@ -2940,7 +2939,6 @@
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
-    <Content Include="m\sw.js" />
     <Content Include="m\trackday2016\css\track-day.css" />
     <Content Include="m\trackday2016\default.aspx" />
     <Content Include="m\trackday2016\details.aspx" />
@@ -2966,13 +2964,6 @@
     <Content Include="m\sass\modules\_key-specs.sass" />
     <Content Include="m\sass\modules\_button.sass" />
     <Content Include="m\sass\new-launch\_media-query.sass" />
-    <Content Include="pwa\app-btf.css" />
-    <Content Include="pwa\app.bundle.js" />
-    <Content Include="pwa\app.css" />
-    <Content Include="pwa\appshell.html" />
-    <Content Include="pwa\peripheralComponents.bundle.js" />
-    <Content Include="pwa\sw-toolbox.js" />
-    <Content Include="pwa\vendor.bundle.js" />
     <Content Include="sass\new-launch\new-launch.sass" />
     <Content Include="sass\new-launch\_new-launch-style.sass" />
     <Content Include="sass\modules\_collapsible-content.sass" />
@@ -3065,7 +3056,6 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
-    <Content Include="Scripts\appshell.html" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
     <Content Include="Scripts\vendor.bundle.js" />
@@ -3832,27 +3822,21 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad200x211.cshtml" />
     <Content Include="Views\Make\_Index_Tabs.cshtml" />
     <Content Include="Views\Make\_Index_Tabs_Mobile.cshtml" />
-    <Content Include="Views\BikeModels\_MostPopularBikes_Mobile_Amp.cshtml" />
-    <Content Include="Views\m\Shared\_OtherBrands_Amp.cshtml" />
-    <Content Include="Views\Upcoming\_UpcomingBikes_Editorial_Mobile_Amp.cshtml" />
-    <Content Include="Views\Make\Index_Mobile_AMP.cshtml" />
     <Content Include="Views\CompareBikes\SimilarBikeComparison.cshtml" />
     <Content Include="Views\CompareBikes\SimilarBikeComparison_Mobile.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
     <Content Include="Views\Model\_Index_MileageDetails.cshtml" />
     <Content Include="Views\Model\_Index_MileageDetails_Mobile.cshtml" />
-    <Content Include="Views\Scooters\_Index_Tabs.cshtml" />
-    <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
-      <SubType>Designer</SubType>
     </None>
     <None Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <Content Include="wkhtmltopdf\include\wkhtmltox\dllbegin.inc" />
     <Content Include="wkhtmltopdf\include\wkhtmltox\dllend.inc" />
@@ -4065,7 +4049,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
@@ -4122,6 +4106,8 @@
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x64.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x86.dll" "$(ProjectDir)bin\"
 	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
