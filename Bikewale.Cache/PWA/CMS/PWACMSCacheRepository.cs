@@ -17,6 +17,7 @@ namespace Bikewale.Cache.PWA.CMS
     {
         private readonly ICacheManager _cache;
         private readonly IPWACMSContentRepository _objPWACmsContents;
+
         static readonly int _minsToCacheCms = BWConfiguration.Instance. PwaRenderedHtmlCacheLimitMins;
 
         public PWACMSCacheRepository(ICacheManager cache, IPWACMSContentRepository objPWACmsContents)
@@ -38,7 +39,7 @@ namespace Bikewale.Cache.PWA.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PWACMSCacheRepository.GetNewsListDetails");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "PWACMSCacheRepository.GetNewsListDetails",url);
             }
             return outStr;
         }
@@ -57,7 +58,7 @@ namespace Bikewale.Cache.PWA.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PWACMSCacheRepository.GetNewsDetails");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "PWACMSCacheRepository.GetNewsDetails: ",url);
             }
             return outStr;
         }
@@ -80,7 +81,7 @@ namespace Bikewale.Cache.PWA.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PWACMSCacheRepository.GetNewsListDetails");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "PWACMSCacheRepository.GetVideoListDetails: ",url);
             }
             return outStr;
         }
@@ -103,7 +104,7 @@ namespace Bikewale.Cache.PWA.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PWACMSCacheRepository.GetVideoBySubCategoryListDetails");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "PWACMSCacheRepository.GetVideoBySubCategoryListDetails: ",url);
             }
             return outStr;
         }
@@ -126,7 +127,7 @@ namespace Bikewale.Cache.PWA.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "PWACMSCacheRepository.GetVideoDetails");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "PWACMSCacheRepository.GetVideoDetails",url);
             }
             return outStr;
         }

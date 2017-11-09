@@ -75,7 +75,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController", "api/pwa/topvideos/");
                 return InternalServerError();
             }
 
@@ -108,7 +108,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController",string.Format("api/pwa/catvideos/catId/{0}/count/{1}/",catId,count));
                 return InternalServerError();
             }
         }
@@ -160,7 +160,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController",string.Format("api/pwa/othervideos/count/{0}/",count));
                 return InternalServerError();
             }
 
@@ -201,7 +201,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController",string.Format("api/pwa/videodet/{0}/",basicID));
                 return InternalServerError();
             }
 
@@ -236,7 +236,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController",string.Format("api/pwa/similarvideos/{0}/modelid/{1}",basicId,modelId));
                 return InternalServerError();
             }
 
@@ -267,7 +267,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController", string.Format("api/pwa/popularbodystyle/modelid/{0}/count/{1}",modelId,count));
                 return InternalServerError();
             }
 
@@ -298,7 +298,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController",string.Format("api/pwa/pwa/videos/cat/{0}/pn/{1}/ps/{2}/",categoryId,pageNo,pageSize));
                 return InternalServerError();
             }
 
@@ -331,7 +331,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("PwaVideosController.GetSimilarVideos(ModelId {0}  Videoid {1})", modelId, videoId));
+                    Bikewale.Notifications.PwaErrorClass objErr = new Bikewale.Notifications.PwaErrorClass(ex, String.Format("PwaVideosController.GetSimilarVideos(ModelId {0}  Videoid {1})", modelId, videoId));
                 }
             }
             return similarVideosModel;
@@ -383,7 +383,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "VideosLandingPage.BindLandingVideos");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "GetVideosFromCacheForCategory");
             }
             return null;
         }
@@ -407,7 +407,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "VideosLandingPage.BindLandingVideos");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "GetVideosFromCacheForSubCategory");
             }
             return null;
         }
@@ -489,7 +489,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Videos.AddGrpcCallsToAPIGateway");
+                PwaErrorClass objErr = new PwaErrorClass(ex, "GetVideosBySubCategoriesUsingAPIGateway");
             }
 
             return ca;

@@ -16,6 +16,8 @@ using System.Linq;
 using Bikewale.Controls;
 using Bikewale.Utility;
 using Bikewale.Entities.Videos;
+using log4net;
+using System;
 
 namespace Bikewale.Controllers.Desktop.Videos
 {
@@ -33,6 +35,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         private readonly IBikeInfo _bikeInfo = null;
         private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
+        static ILog _logger = LogManager.GetLogger("Pwa-Logger-VideoController");
 
         public VideosController(ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCache, IVideosCacheRepository videos, IVideos video, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache,
             IPWACMSCacheRepository renderedArticles,
@@ -84,11 +87,12 @@ namespace Bikewale.Controllers.Desktop.Videos
         }
         /// <summary>
         /// Created By : Sajal Gupta on 31-03-2017
+        /// Modified by: Prasad Gawde for PWA
         /// Descripton : This contoller will fetch data for vidoes landing page desktop
         /// </summary>
         /// <returns></returns>
         [Route("m/videos/Index/")]
-        public ActionResult Index_Mobile()
+        public ActionResult Index_Mobile_Pwa()
         {
             try
             {
@@ -108,15 +112,21 @@ namespace Bikewale.Controllers.Desktop.Videos
                 VideosLandingPageVM objVM = modelObj.GetData();
 
                 //construct the store for PWA
-                
-                objVM.Store = ConstructStoreForListPage(objVM);
-                var storeJson = JsonConvert.SerializeObject(objVM.Store);
+                try
+                {
+                    objVM.Store = ConstructStoreForListPage(objVM);
+                    var storeJson = JsonConvert.SerializeObject(objVM.Store);
 
-                objVM.ServerRouterWrapper = _renderedArticles.GetVideoListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objVM.Store.Videos.VideosLanding,
-                                "/m/bike-videos/", "root", "ServerRouterWrapper");
+                    objVM.ServerRouterWrapper = _renderedArticles.GetVideoListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objVM.Store.Videos.VideosLanding,
+                                    "/m/bike-videos/", "root", "ServerRouterWrapper");
 
-                objVM.WindowState = storeJson;
-
+                    objVM.WindowState = storeJson;
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex);
+                    return View("~/Views/Videos/Index_Mobile.cshtml", objVM);
+                }
                 return View(objVM);
             }
             catch (System.Exception ex)
@@ -141,24 +151,33 @@ namespace Bikewale.Controllers.Desktop.Videos
 
         /// <summary>
         /// Created by Sajal Gupta on 01-04-2017 to fetch data fr category wise mobile videos page.
+        /// Modified by: Prasad Gawde for PWA
         /// </summary>
         /// <param name="categoryIdList"></param>
         /// <param name="title"></param>
         /// <returns></returns>
         [Route("m/videos/category/{categoryIdList}/title/{title}")]
-        public ActionResult CategoryVideos_Mobile(string categoryIdList, string title)
+        public ActionResult CategoryVideos_Mobile_Pwa(string categoryIdList, string title)
         {
             VideosByCategoryPage objModel = new VideosByCategoryPage(_videos, categoryIdList, title);
             VideosByCategoryPageVM objVM = objModel.GetData(9);
 
             //construct Store for PWA
-            objVM.Store = ConstructStoreForSubCategoryPage(objVM);
-            var storeJson = JsonConvert.SerializeObject(objVM.Store);
+            try
+            {
+                objVM.Store = ConstructStoreForSubCategoryPage(objVM);
+                var storeJson = JsonConvert.SerializeObject(objVM.Store);
 
-            objVM.ServerRouterWrapper = _renderedArticles.GetVideoBySubCategoryListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objVM.Store.Videos.VideosByCategory,
-                            string.Format("/m/bike-videos/category/{0}-{1}",title,categoryIdList), "root", "ServerRouterWrapper");
+                objVM.ServerRouterWrapper = _renderedArticles.GetVideoBySubCategoryListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objVM.Store.Videos.VideosByCategory,
+                                string.Format("/m/bike-videos/category/{0}-{1}", title, categoryIdList), "root", "ServerRouterWrapper");
 
-            objVM.WindowState = storeJson;
+                objVM.WindowState = storeJson;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                return View("~/Views/Videos/CategoryVideos_Mobile.cshtml", objVM);
+            }
             return View(objVM);
         }
 
@@ -189,12 +208,13 @@ namespace Bikewale.Controllers.Desktop.Videos
         }
         /// <summary>
         /// Created by : Sangram Nandkhile on 01 Mar 2017
+        /// Modified by: Prasad Gawde for PWA
         /// Summary: Action method for Video details Page
         /// Modified by :   Sumit Kate on 29 Mar 2017
         /// Description :   Videos details view action method
         /// </summary>
         [Route("m/videos/details/{videoId}/")]
-        public ActionResult Details_Mobile(uint videoId)
+        public ActionResult Details_Mobile_Pwa(uint videoId)
         {
             Bikewale.Models.VideoDetails objModel = new Bikewale.Models.VideoDetails(videoId, _videos);
             if (objModel.Status == Entities.StatusCodes.ContentFound)
@@ -202,14 +222,21 @@ namespace Bikewale.Controllers.Desktop.Videos
                 VideoDetailsPageVM objVM = objModel.GetData();
 
                 //construct Store for PWA
-                objVM.Store = ConstructStoreForDetailsPage(objVM);
-                var storeJson = JsonConvert.SerializeObject(objVM.Store);
+                try
+                {
+                    objVM.Store = ConstructStoreForDetailsPage(objVM);
+                    var storeJson = JsonConvert.SerializeObject(objVM.Store);
 
-                objVM.ServerRouterWrapper = _renderedArticles.GetVideoDetails(PwaCmsHelper.GetSha256Hash(storeJson), objVM.Store.Videos.VideoDetail,
-                                string.Format("/m/bike-videos/{0}-{1}", objVM.Video.VideoTitleUrl, videoId), "root", "ServerRouterWrapper");
+                    objVM.ServerRouterWrapper = _renderedArticles.GetVideoDetails(PwaCmsHelper.GetSha256Hash(storeJson), objVM.Store.Videos.VideoDetail,
+                                    string.Format("/m/bike-videos/{0}-{1}", objVM.Video.VideoTitleUrl, videoId), "root", "ServerRouterWrapper");
 
-                objVM.WindowState = storeJson;
-
+                    objVM.WindowState = storeJson;
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex);
+                    return View("~/Views/Videos/Details_Mobile.cshtml", objVM);
+                }
                 return View(objVM);
             }
             else if (objModel.Status == Entities.StatusCodes.ContentNotFound)
