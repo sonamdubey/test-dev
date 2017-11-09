@@ -1198,7 +1198,7 @@ h2.text-bold { font-weight: bold; }
 .mileage-box-list {
 	width: 100%;
     font-size: 0;
-    padding-bottom: 25px;
+    padding-bottom: 20px;
     position: relative;
 }
 
@@ -1206,15 +1206,16 @@ h2.text-bold { font-weight: bold; }
 	text-align: left;
 }
 
-.mileage-box-list td {
-    width: 50%;
+.mileage-box-list .mileage-list__item {
+	width: 50%;
+	display: inline-block;
     vertical-align: middle;
     padding: 0 20px 10px;
     min-height: 45px;
 	border-left: 1px solid #eee;
 }
 
-.mileage-box-list td:first-child {
+.mileage-box-list .mileage-list__item:first-child {
     border-left-style: none;
     padding-right: 10px;
 }

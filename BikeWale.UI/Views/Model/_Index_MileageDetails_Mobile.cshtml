@@ -22,7 +22,7 @@
 				<tr>
 					@if (Model.MileageInfo != null && Model.MileageInfo.ARAIMileage > 0)
 					{
-					<td>
+					<td class="mileage-list__item">
 						<div class="mileage-box__arai-block">
 							<p class="font14">
 								<span class="font18 text-bold">@Model.MileageInfo.ARAIMileage</span>
@@ -39,7 +39,7 @@
 						</div>
 					</td>
 					}
-					<td>
+					<td class="mileage-list__item">
 						<div class="mileage-box__users-block">
 							<p class="font14">
 								<span class="font18 text-default text-bold">@Model.MileageInfo.MileageByUserReviews</span>
@@ -51,26 +51,29 @@
 						</div>
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<p class="mileage-box__desc margin-bottom5">@string.Format("Average mileage among {0}", bodyType)</p>
-						<div class="inline-block">
-							<span class="grey-scooter-icon"></span>
-							<p class="inline-block font12 padding-left10">
-								<span class="font14 text-light-grey font-bold">@Math.Round(Model.AvgBodyStyleMileageByUserReviews, 2) </span>
-								kmpl
-							</p>
-						</div>
-					</td>
-					<td>
-						<p class="inline-block font30 text-teal font-bold">@Math.Round(Model.MileageInfo.Percentile)%</p>
-						<p class="mileage-box__desc">
-							@string.Format("{0} is better than {1}% {2}", currentBike, Math.Round(Model.MileageInfo.Percentile), bodyType)
-						</p>
-					</td>
-				</tr>
 			</tbody>
 		</table>
+
+		<h3 class="text-bold padding-bottom5 padding-left20 padding-right20">@string.Format("Where does {0} stand among {1}?", currentBike, bodyType)</h3>
+
+		<ul class="mileage-box-list">
+			<li class="mileage-list__item">
+				<p class="mileage-box__desc margin-bottom5">@string.Format("Average mileage among {0}", bodyType)</p>
+				<div class="inline-block">
+					<span class="grey-scooter-icon"></span>
+					<p class="inline-block font12 padding-left10">
+						<span class="font14 text-light-grey font-bold">@Math.Round(Model.AvgBodyStyleMileageByUserReviews, 2) </span>
+						kmpl
+					</p>
+				</div>
+			</li>
+			<li class="mileage-list__item">
+				<p class="inline-block font30 text-teal font-bold">@Math.Round(Model.MileageInfo.Percentile)%</p>
+				<p class="mileage-box__desc">
+					@string.Format("{0} is better than {1}% {2}", currentBike, Math.Round(Model.MileageInfo.Percentile), bodyType)
+				</p>
+			</li>
+		</ul>
 
         <h3 class="text-bold top-grey-divider">@Model.WidgetHeading</h3>
         <div class="model-mileage-carousel swiper-container card-container padding-bottom20 noSwiper" id="similar-mileage-swiper">
