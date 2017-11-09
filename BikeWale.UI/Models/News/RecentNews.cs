@@ -72,14 +72,12 @@ namespace Bikewale.Models
 
         }
 
-        public RecentNews(uint totalRecords, uint makeId, string modelId, ICMSCacheContent articles)
+        public RecentNews(uint totalRecords, uint makeId, string modelIdList, ICMSCacheContent articles)
         {
             _totalRecords = totalRecords;
             _makeId = makeId;
-            _modelIdList = modelId;
+            _modelIdList = modelIdList;
             _articles = articles;
-
-
 
         }
         #endregion

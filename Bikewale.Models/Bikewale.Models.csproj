@@ -153,6 +153,7 @@
     <Compile Include="Make\OtherMakesVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
+    <Compile Include="NewBikeSearch\NewBikeSearchVM.cs" />
     <Compile Include="NewPage\NewPageVM.cs" />
     <Compile Include="News\NewsDetailPageVM.cs" />
     <Compile Include="NewLaunches\NewLaunchedIndexVM.cs" />
