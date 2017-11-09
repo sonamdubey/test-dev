@@ -16,5 +16,9 @@ namespace Bikewale.Entities.BikeData
         public string HostUrl { get; set; }
         public bool IsDiscontinued { get; set; }
         public bool IsUpcoming { get; set; }
+
+        public uint ExShowRoomPriceMumbai { get; set; }
+
+        public uint OnRoadPriceInCity { get; set; }
     }
 }

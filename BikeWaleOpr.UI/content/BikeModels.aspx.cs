@@ -138,6 +138,8 @@ namespace BikeWaleOpr.Content
         /// Description : Change input parametres as per carwale mysql master base conventions
         /// Modified by : Ashutosh Sharma on 28-Sep-2017
         /// Description : Added call to ClearModelsBySeriesId
+        /// Modified by : Ashutosh Sharma on 23 Oct 2017
+        /// Description : Replaced sp from 'insertbikemodel14092017' to 'insertbikemodel_23102017'.
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="e"></param>
@@ -150,7 +152,7 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertbikemodel14092017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertbikemodel_23102017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txtModel.Text.Trim().Replace("'", "''")));
@@ -192,6 +194,7 @@ namespace BikeWaleOpr.Content
                         BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
                         BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
                         BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
+                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesByMakeWithCityPriceCacheKey(makeId);
                     }
 
                     if (_mc != null)
@@ -797,6 +800,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Created by : Ashutosh Sharma on 14-Sep-2017
         /// Description : Method to call DataBase update model series
+        /// Modified by : Ashutosh Sharma on 23 Oct 2017
+        /// Description : Replaced sp from 'updatemodelseries' to 'updatemodelseries_23102017'.
         /// </summary>
         /// <param name="seriesId"></param>
         /// <param name="modelIdsList"></param>
@@ -806,7 +811,7 @@ namespace BikeWaleOpr.Content
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "updatemodelseries";
+                    cmd.CommandText = "updatemodelseries_23102017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, Convert.ToInt32(seriesId)));

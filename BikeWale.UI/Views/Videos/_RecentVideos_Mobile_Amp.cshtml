@@ -1,0 +1,35 @@
+﻿@model Bikewale.Models.RecentVideosVM
+@using Bikewale.Utility
+@if (Model != null && Model.VideosList != null && Model.VideosList != null)
+{
+    <ul>
+    @foreach (var video in Model.VideosList)
+    {
+        <li class="margin-bottom20">
+            <div class="review-image-wrapper">
+                <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId)))" class="video-image-thumbnail" title="@video.VideoTitle">
+                    <amp-img width="118" height="66" alt="@video.VideoTitle" title="@video.VideoTitle" src="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)"></amp-img>
+                    <span class="play-icon-wrapper">
+                        <span class="bwmsprite video-play-icon"></span>
+                    </span>
+                </a>
+            </div>
+            <div class="review-heading-wrapper">
+                <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId)))" class="font14 target-link" title="@video.VideoTitle">@video.VideoTitle</a>
+                <div class="grid-7 alpha padding-right5">
+                    <span class="bwmsprite calender-grey-sm-icon"></span>
+                    <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMMM yyyy")</span>
+                </div>
+                <div class="grid-5 alpha omega">
+                    <span class="bwmsprite views-grey-sm-icon"></span>
+                    <span class="article-stats-content video-view-count">@Format.FormatPrice(Convert.ToString(video.Views))</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <p class="margin-top10">
+                @FormatDescription.TruncateDescription(video.Description, 200)
+            </p>
+        </li>
+    }
+    </ul>
+}

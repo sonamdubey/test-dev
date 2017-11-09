@@ -134,6 +134,8 @@ namespace Bikewale.Controllers
         /// Action to get the map features details page
         /// Modifid by: Vivek Singh Tomar on 31st Aug 2017
         /// Summary: Removed use of viewbags by VM
+        /// Modified by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Setting property 'IsAMPPage'
         /// </summary>
         /// <param name="basicid"></param>
         /// <returns></returns>
@@ -151,6 +153,7 @@ namespace Bikewale.Controllers
             }
             else
             {
+                objDetail.IsAMPPage = true;
                 DetailFeatureVM objData = objDetail.GetData(9);
                 if (objDetail.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pageNotFound.aspx");

@@ -322,7 +322,7 @@ namespace Bikewale.Models
 
                             foreach (var version in objVM.VersionSpecs)
                             {
-                                var versionPrice = objVM.BikeVersionPrices.FirstOrDefault(m => m.VersionId.Equals(version.VersionId));
+                                var versionPrice = objVM.BikeVersionPrices.FirstOrDefault(m => m.VersionId == version.VersionId);
                                 if (versionPrice != null)
                                 {
                                     version.Price = versionPrice.OnRoadPrice;
@@ -498,6 +498,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Ashutosh Sharma on 06-Sep-2017
         /// Description : Get data for PriceInCity AMP page
+        /// Modified by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Added call to BindAmpJsTags.
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageAMPVM GetDataAMP()
@@ -558,14 +560,14 @@ namespace Bikewale.Models
                                 var firstVersionTemp = objVM.VersionSpecs.FirstOrDefault();
                                 if (firstVersionTemp != null)
                                 {
-                                    objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
+                                    objVM.BodyStyle = firstVersionTemp.BodyStyle;
 
                                 }
                             }
 
                             foreach (var version in objVM.VersionSpecs)
                             {
-                                var versionPrice = objVM.FormatedBikeVersionPrices.FirstOrDefault(m => m.BikeQuotationEntity.VersionId.Equals(version.VersionId));
+                                var versionPrice = objVM.FormatedBikeVersionPrices.FirstOrDefault(m => m.BikeQuotationEntity.VersionId == version.VersionId);
                                 if (versionPrice != null)
                                 {
                                     version.Price = Convert.ToUInt64(versionPrice.BikeQuotationEntity.OnRoadPrice);
@@ -645,6 +647,7 @@ namespace Bikewale.Models
                         }
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
+                    BindAmpJsTags(objVM);
                 }
             }
             catch (Exception ex)
@@ -652,6 +655,29 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetDataAMP({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
+        }
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Method to bind required JS for AMP page.
+        /// </summary>
+        /// <param name="objVM"></param>
+        private void BindAmpJsTags(PriceInCityPageAMPVM objVM)
+        {
+            try
+            {
+                objVM.AmpJsTags = new Entities.Models.AmpJsTags();
+                objVM.AmpJsTags.IsAccordion = true;
+                objVM.AmpJsTags.IsAd = true;
+                objVM.AmpJsTags.IsAnalytics = true;
+                objVM.AmpJsTags.IsBind = true;
+                objVM.AmpJsTags.IsCarousel = true;
+                objVM.AmpJsTags.IsSelector = (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Count(v => v.IsVersionNew) > 1);
+                objVM.AmpJsTags.IsSidebar = true;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objVM));
+            }
         }
 
         /// <summary>
@@ -713,8 +739,8 @@ namespace Bikewale.Models
                 double loanAmount = Math.Round(objVM.FirstVersion.OnRoadPrice * .7);
                 int downPayment = Convert.ToInt32(bikePrice - loanAmount);
 
-                float minDnPay = (10 * bikePrice) / 100;
-                float maxDnPay = (40 * bikePrice) / 100;
+                float minDnPay = (float)(10 * bikePrice) / 100;
+                float maxDnPay = (float)(40 * bikePrice) / 100;
 
                 ushort minTenure = 12;
                 ushort maxTenure = 48;
@@ -844,6 +870,8 @@ namespace Bikewale.Models
         /// Description :   Bind Similar Bikes
         /// Modified by: Vivek Singh Tomar on 23 Aug 2017
         /// Summary: Added page enum to similar bike widget
+        /// Modified by : Vivek Singh Tomar on 27th Oct 2017
+        /// Description: Add city and return url details for redirection from amp to bikewale pages on check on road CTA popup
         /// </summary>
         /// <param name="objVM"></param>
         private void BindSimilarBikes(PriceInCityPageVM objVM)
@@ -861,6 +889,8 @@ namespace Bikewale.Models
                     similarBikesVM.Make = objVM.Make;
                     similarBikesVM.Model = objVM.BikeModel;
                     similarBikesVM.VersionId = firstVersion.VersionId;
+                    similarBikesVM.ReturnUrlForAmpPages = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}", BWConfiguration.Instance.BwHostUrl, objVM.Make.MaskingName, objVM.BikeModel.MaskingName, objVM.CityEntity.CityMaskingName);
+                    similarBikesVM.CityId = objVM.CityEntity.CityId;
                     objVM.AlternateBikes = similarBikesVM;
                     objVM.AlternateBikes.Page = Entities.Pages.GAPages.PriceInCity_Page;
                 }
@@ -894,6 +924,8 @@ namespace Bikewale.Models
                     objData.PopularBodyStyle = modelPopularBikesByBodyStyle.GetData();
                     objData.PopularBodyStyle.PQSourceId = PQSource;
                     objData.PopularBodyStyle.ShowCheckOnRoadCTA = true;
+                    objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}", BWConfiguration.Instance.BwHostUrl, objData.Make.MaskingName, objData.BikeModel.MaskingName, objData.CityEntity.CityMaskingName);
+                    objData.PopularBodyStyle.CityId = objData.CityEntity.CityId;
                     objData.BodyStyle = objData.PopularBodyStyle.BodyStyle;
                     objData.BodyStyleText = objData.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                 }

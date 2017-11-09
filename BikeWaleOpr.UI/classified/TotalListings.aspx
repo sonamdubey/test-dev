@@ -152,7 +152,7 @@
                 </ItemTemplate>
             </asp:repeater>
             <tr class="<%= ((listType == (int)ListingType.TotalListings)) ? "" :"hide"  %>">
-                <td id="tdSoldListing" colspan="19" class="tdStyle"><b>Sold Listings</b></td>
+                <td id="tdSoldListing" colspan="19" class="tdStyle"><strong>Sold Listings</strong></td>
             </tr>
             <asp:repeater id="rptCustomerSoldList" runat="server">
                 <ItemTemplate>

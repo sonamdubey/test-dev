@@ -1,5 +1,4 @@
 ﻿using Bikewale.Entities.BikeData.NewLaunched;
-using Bikewale.Entities.Location;
 using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
@@ -17,7 +16,8 @@ namespace Bikewale.Controllers
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IUpcoming _upcoming = null;
-        private GlobalCityAreaEntity _objLocation = GlobalCityArea.GetGlobalCityArea();
+
+        private const string URL_404 = "/pagenotfound.aspx";
         private ICMSCacheContent _objArticles;
 
         public NewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming, ICMSCacheContent objArticles)
@@ -41,7 +41,7 @@ namespace Bikewale.Controllers
             var objFilters = new InputFilter()
             {
                 PageNo = (int)(pageNumber.HasValue ? pageNumber : 1),
-                CityId = _objLocation.CityId,
+                CityId = GlobalCityArea.GetGlobalCityArea().CityId,
                 PageSize = 15
             };
             NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters, Entities.PriceQuote.PQSourceEnum.Desktop_NewLaunchLanding, pageNumber, _objArticles);
@@ -65,7 +65,7 @@ namespace Bikewale.Controllers
             var objFilters = new InputFilter()
             {
                 PageNo = (int)(pageNumber.HasValue ? pageNumber : 1),
-                CityId = _objLocation.CityId,
+                CityId = GlobalCityArea.GetGlobalCityArea().CityId,
                 PageSize = 10
             };
             NewLaunchedIndexModel model = new NewLaunchedIndexModel(_newLaunches, _objMakeCache, _upcoming, objFilters, Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding, pageNumber, _objArticles);
@@ -93,7 +93,15 @@ namespace Bikewale.Controllers
                 model.BaseUrl = String.Format("/new-{0}-bike-launches/", maskingName);
                 model.PageSize = 15;
                 model.MakeTopCount = 9;
-                return View(model.GetData());
+                var vmPage = model.GetData();
+                if (model.Status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect(URL_404);
+                }
+                else
+                {
+                    return View(vmPage);
+                }
             }
             else if (model.Status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -101,7 +109,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("pageNotFound.aspx");
+                return Redirect(URL_404);
             }
         }
 
@@ -111,7 +119,7 @@ namespace Bikewale.Controllers
         [DeviceDetection]
         public ActionResult Makes(uint? makeId)
         {
-            if (makeId != null && makeId.HasValue)
+            if (makeId != null)
             {
                 ViewBag.BrandCountList = (_newLaunches.GetMakeList(makeId.Value).Take(9));
             }
@@ -141,7 +149,15 @@ namespace Bikewale.Controllers
                 model.PageSize = 10;
                 model.MakeTopCount = 9;
                 model.IsMobile = true;
-                return View(model.GetData());
+                var vmPage = model.GetData();
+                if (model.Status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect(URL_404);
+                }
+                else
+                {
+                    return View(vmPage);
+                }
             }
             else if (model.Status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -149,7 +165,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("pageNotFound.aspx");
+                return Redirect(URL_404);
             }
         }
 
@@ -169,7 +185,7 @@ namespace Bikewale.Controllers
         [Route("m/newlaunches/makes/")]
         public ActionResult Makes_Mobile(uint? makeId)
         {
-            if (makeId != null && makeId.HasValue)
+            if (makeId != null)
             {
                 ViewBag.BrandCountList = _newLaunches.GetMakeList(makeId.Value).Take(9);
             }

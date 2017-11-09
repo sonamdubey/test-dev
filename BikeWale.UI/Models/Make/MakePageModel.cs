@@ -27,6 +27,8 @@ namespace Bikewale.Models
     /// Model for make page
     /// Modified by : Aditi Srivastava on 5 June 2017
     /// Summary     : Added BL instance instead of cache for comaprison carousel
+    /// Modified by : Ashutosh Sharma on 29 Oct 2017
+    /// Description : Added property IsAmpPage.
     /// </summary>
     public class MakePageModel
     {
@@ -47,6 +49,7 @@ namespace Bikewale.Models
         public string RedirectUrl { get; set; }
         public CompareSources CompareSource { get; set; }
         public bool IsMobile { get; set; }
+        public bool IsAmpPage { get; set; }
 
         public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC)
         {
@@ -72,6 +75,8 @@ namespace Bikewale.Models
         /// Summary : Removed unnecessary arguments from BindDealerSserviceData which was required for fetchin service center details
         /// Modified by sajal Gupta on 06-11-2017
         /// Descriptition :  Chaged default sorting of bikes on page for particuaklar makes
+        /// Modified by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Added call to BindAmpJsTags.
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
@@ -158,6 +163,11 @@ namespace Bikewale.Models
                     objData.IsMakeTabsDataAvailable = (objData.BikeDescription != null && objData.BikeDescription.FullDescription.Length > 0 || objData.IsNewsAvailable ||
                         objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
                 }
+
+                if (IsAmpPage)
+                {
+                    BindAmpJsTags(objData); 
+                }
                 #endregion
             }
             catch (Exception ex)
@@ -166,6 +176,29 @@ namespace Bikewale.Models
             }
 
             return objData;
+        }
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 27 Oct 2017
+        /// Description : Method to bind required JS for AMP page.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindAmpJsTags(MakePageVM objData)
+        {
+            try
+            {
+                objData.AmpJsTags = new Entities.Models.AmpJsTags();
+                objData.AmpJsTags.IsAccordion = true;
+                objData.AmpJsTags.IsAd = true;
+                objData.AmpJsTags.IsAnalytics = true;
+                objData.AmpJsTags.IsBind = true;
+                objData.AmpJsTags.IsCarousel = true;
+                objData.AmpJsTags.IsSidebar = true;
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindAmpJsTags_{0}", objData));
+            }
         }
 
         /// <summary>
@@ -309,9 +342,11 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1} - Rs. {2}. Check out {0} on road price, reviews, mileage, versions, news & images at Bikewale.", objData.MakeName, Bikewale.Utility.Format.FormatPrice(minPrice.ToString()), Bikewale.Utility.Format.FormatPrice(MaxPrice.ToString()));
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
+                objData.PageMetaTags.AmpUrl = string.Format("{0}/m/{1}-bikes/amp/", BWConfiguration.Instance.BwHostUrl, _makeMaskingName);
                 objData.PageMetaTags.Keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, {0} Images, new {0} Bikes", objData.MakeName);
                 objData.AdTags.TargetedMakes = objData.MakeName;
                 objData.Page_H1 = string.Format("{0} Bikes", objData.MakeName);
+                objData.ReturlUrl = string.Format("/m/{0}-bikes/", objData.MakeMaskingName);
 
                 SetBreadcrumList(ref objData);
 

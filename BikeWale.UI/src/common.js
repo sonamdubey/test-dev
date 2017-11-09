@@ -1308,7 +1308,7 @@ docReady(function () {
             else if (variable !== undefined) {
                 triggerGA(category, action, window[variable]);
             }
-            else if (obj.attr('f') !== undefined) {
+            else if (funct !== undefined) {
                 triggerGA(category, action, eval(funct + '()'));
             }
         }

@@ -13,10 +13,10 @@
         var StaticUrlPWA = Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA;
         var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
 
-        var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/vendor.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion;
-        var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/app.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion;
+        var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/vendor.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion;
+        var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/app.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion;
         var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
-        var CssBTFUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/m/css/content") + "/app-btf.css?" + Bikewale.Utility.BWConfiguration.Instance.StaticCSSBTFPWAVersion;
+        var CssBTFUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/m/css/content/app-btf.css?" + Bikewale.Utility.BWConfiguration.Instance.StaticCSSBTFPWAVersion;
     }
 
     @if (Model != null && Model.PageMetaTags != null)
@@ -166,6 +166,11 @@
     });
     window.addEventListener('DOMContentLoaded', function() {
         if('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistration('/m/news/').then(function(reg) {
+                if(reg && reg.active && reg.active.scriptURL == window.location.origin + '/m/news/sw.js') {
+                    reg.unregister();
+                }
+            });
             navigator.serviceWorker.register("@Url.Content(Bikewale.Utility.BWConfiguration.Instance.ServiceWorkerPath)").then(function(registration) {
                 registration.addEventListener('updatefound', function () {
                     var newWorker = registration.installing;
@@ -178,12 +183,13 @@
                         }
                     })
                 });
-
-
             }).catch(function(err) {
                 triggerData('ServiceWorker','Registration','status=unsuccessful|err='+err);
                 console.log(err);
-            })
+            });
+                
+           
+               
         }
         else {
             triggerData('ServiceWorker','Registration','status=unavailable');
