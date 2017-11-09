@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using System.Collections.Generic;
@@ -8,8 +9,10 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by  :   Sumit Kate on 24 Mar 2017
     /// Description :   SimilarBikesWidgetVM view model
-    /// Created by: Vivek Singh Tomar on 23 Aug 2017
+    /// Modified by: Vivek Singh Tomar on 23 Aug 2017
     /// Description: Added bodystyle and Page to hold page id and page name
+    /// Modified by : Vivek Singh Tomar on 27th Oct 2017
+    /// Description: Added city and return url for redirection from popups on amp pages
     /// </summary>
     public class SimilarBikesWidgetVM
     {
@@ -25,5 +28,7 @@ namespace Bikewale.Models
         public bool IsNew { get; set; }
         public bool IsUpcoming { get; set; }
         public bool IsDiscontinued { get; set; }
+        public uint CityId { get; set; }
+        public string ReturnUrlForAmpPages { get; set; }
     }
 }

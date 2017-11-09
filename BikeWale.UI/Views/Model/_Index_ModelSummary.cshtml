@@ -4,7 +4,7 @@
 @if (!Model.IsUpcomingBike)
 {
 
-    <div class="content-box-shadow content-inner-block-20 card-bottom-margin">
+    <div data-id="modelSummaryContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20 card-bottom-margin">
         <h2 class="h2-heading padding-bottom10">@Model.BikeName Summary</h2>
         
         <div class="grid-8 alpha">
@@ -63,42 +63,13 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div class="grid-4 omega">
-            <div class="text-left alpha">
-                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
-            </div>
-            <div id="adBlocker" class="adBlocker-grid text-left alpha hide">
-                <a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewContestUrl(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ModelPage_AdPlaceholder)" target="_blank" rel="noopener" title="Write a review" style="width: 300px; height: 250px;display:block">
-                    <img src="https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/review-contest-300x250.jpg" alt="write a review"  class="inline-block margin" />
-                </a>
-            </div>
-            @if (Model.BikeRanking != null && Model.BikeRanking.Rank > 0)
+            @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                  && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null
+                  && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds)
+                  && Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
             {
-                <div class="margin-top10">
-                    <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India" class="model-rank-slug">
-                        <div class="inline-block icon-red-bg">
-                            <span class="bwsprite rank-graph"></span>
-                        </div>
-                        <div class="rank-slug-label inline-block text-bold text-default">
-                            <p class="font14">@Html.Raw(Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText : "") Most Popular @Model.BikeRanking.BikeType</p>
-                            <p class="font11">Check out the complete list.</p>
-                        </div>
-                        <span class="trend-arrow"></span>
-                        <span class="bwsprite right-arrow"></span>
-                    </a>
-                </div>
 
-            }
-        </div>
-
-        @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)
-              && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null
-              && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds)
-              && Bikewale.Utility.BWConfiguration.Instance.SynopsisSummaryMergeMakeIds.Split(',').Contains(Model.ModelPageEntity.ModelDetails.MakeBase.MakeId.ToString()))
-        {
-            
-                <div class="grid-12 font14 margin-top20 border-divider">
+                <div id="modelAboutContent" class="font14 margin-top20 border-divider">
                     <h2 class="h2-heading margin-bottom15 margin-top10 ">About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
                     <div class="text-slate-grey line-height17">
                         @if (!Model.IsUpcomingBike)
@@ -128,8 +99,38 @@
                     </div>
                 </div>
                 <div class="clear"></div>
-            
-        }
+
+            }
+        </div>
+        <div class="grid-4 omega">
+            <div class="text-left alpha">
+                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+            </div>
+            <div id="adBlocker" class="adBlocker-grid text-left alpha hide">
+                <a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewContestUrl(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ModelPage_AdPlaceholder)" target="_blank" rel="noopener" title="Write a review" style="width: 300px; height: 250px;display:block">
+                    <img src="https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/review-contest-300x250.jpg" alt="write a review"  class="inline-block margin" />
+                </a>
+            </div>
+            @if (Model.BikeRanking != null && Model.BikeRanking.Rank > 0)
+            {
+                <div class="margin-top10">
+                    <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India" class="model-rank-slug">
+                        <div class="inline-block icon-red-bg">
+                            <span class="bwsprite rank-graph"></span>
+                        </div>
+                        <div class="rank-slug-label inline-block text-bold text-default">
+                            <p class="font14">@Html.Raw(Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText : "") Most Popular @Model.BikeRanking.BikeType</p>
+                            <p class="font11">Check out the complete list.</p>
+                        </div>
+                        <span class="trend-arrow"></span>
+                        <span class="bwsprite right-arrow"></span>
+                    </a>
+                </div>
+
+            }
+        </div>
+
+        
         <div class="clear"></div>
 
 

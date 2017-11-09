@@ -16,6 +16,8 @@ namespace Bikewale.Models
     /// Description :   Added Other Makes property
     /// Modified by : Ashutosh Sharma on 03 Oct 2017
     /// Description : Added City
+    /// Modified by : Ashutosh Sharma on 26 Oct 2017
+    /// Description : Added ReturnUrl
     /// Modified by sajal Gupta on 06-11-2017
     /// Descriptition :  Added SelectedSortingId, SelectedSortingText
     /// </author>
@@ -53,8 +55,8 @@ namespace Bikewale.Models
         public DealerCardVM Dealers { get; set; }
 
         public IEnumerable<BikeMakeEntityBase> OtherMakes { get; set; }
-
         public GlobalCityAreaEntity City { get; set; }
+        public string ReturlUrl { get; set; }
 
         public ushort SelectedSortingId { get; set; }
 

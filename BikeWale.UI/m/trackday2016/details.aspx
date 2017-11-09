@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="padding-right20 padding-left20">
-                        <% if (objTrackDay.BasicId != 26199) //hardcoded for no main image 
+                        <% if (objTrackDay.BasicId != 26199) 
                            {%>
                         <div class="bg-loader-placeholder">
                             <img class="article-image lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objTrackDay.OriginalImgUrl, objTrackDay.HostUrl, Bikewale.Utility.ImageSize._762x429) %>" alt="<%= objTrackDay.Title %>" src="" border="0" />

@@ -267,7 +267,7 @@ namespace Bikewale.BAL.GrpcFiles
                 curArt.CategoryId = (ushort)data.CategoryId;
                 //curArt.CategoryMaskingName = data.CategoryMaskingName;
                 curArt.Description = data.Description.Replace("&#x20B9;", "₹");
-                curArt.DisplayDate = Convert.ToDateTime(data.DisplayDate);
+                curArt.DisplayDate = ParseDateObject(data.DisplayDate);
                 curArt.FacebookCommentCount = data.FacebookCommentCount;
                 curArt.HostUrl = data.HostUrl;
                 curArt.IsFeatured = false;

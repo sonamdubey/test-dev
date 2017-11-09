@@ -235,13 +235,13 @@ namespace Bikewale.Cache.BikeData
         /// <param name="modelId"></param>
         /// <param name="totalRecords"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords)
+        public IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalcount,uint cityid)
         {
             IEnumerable<SimilarBikeWithVideo> similarBikes = null;
-            string key = string.Format("BW_SimilarBikes_VideoCnt_{0}", modelId);
+            string key = string.Format("BW_SimilarBikes_VideoCnt_V1_{0}", modelId);
             try
             {
-                similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikeWithVideo>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetSimilarBikesVideos(modelId, totalRecords));
+                similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikeWithVideo>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetSimilarBikesVideos(modelId, totalcount, cityid));
             }
             catch (Exception ex)
             {
