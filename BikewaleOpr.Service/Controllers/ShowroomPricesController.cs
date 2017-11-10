@@ -29,8 +29,15 @@ namespace BikewaleOpr.Service.Controllers
         {
             try
             {
-                bool IsSaved = _showroomPricesRepository.SaveBikePrices(versionAndPriceList, citiesList, userId);
-                return Ok(IsSaved);
+                if (!string.IsNullOrEmpty(versionAndPriceList) && !String.IsNullOrEmpty(citiesList) && userId > 0)
+                {
+                    bool IsSaved = _showroomPricesRepository.SaveBikePrices(versionAndPriceList, citiesList, userId);
+                    return Ok(IsSaved);
+                }
+                else
+                {
+                    BadRequest();
+                }
             }
             catch (Exception ex)
             {

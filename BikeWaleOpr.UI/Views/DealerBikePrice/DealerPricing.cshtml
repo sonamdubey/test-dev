@@ -168,37 +168,36 @@
                     </div>
                 </div>
             </li>
+            @if (Model.DealerVersionCategories != null && Model.DealerVersionCategories.Any())
+            {
             <li id="liBikewaleCopyPricing">
                 <div class="collapsible-header"><strong>Copy to Pan India</strong></div>
                 <div class="collapsible-body">
                     <div data-bind="with: bikewaleCopyPricing" class="container">
                         <div class="materialize-select row s12">
-                            <label>Ex-showroom</label>
-                            <select id="ddlExShowroomCategory" class="chosen-select">
-                                <option value="0" disabled selected>Select Category</option>
-                                @foreach (var category in Model.AddCategoryType.PriceCategories)
+                            <select id="ddlExShowroomCategory" class="chosen-select" data-placeholder="Ex-showroom component">
+                                <option value="0" disabled selected>Select Ex-showroom component</option>
+                                @foreach (var category in Model.DealerVersionCategories)
                                 {
-                                    <option value="@category.CategoryId">@category.CategoryName</option>
+                                    <option value="@category.ItemCategoryId">@category.ItemName</option>
                                 }
                             </select>
                         </div>
                         <div class="materialize-select row s12">
-                            <label>Insurance</label>
-                            <select id="ddlInsuranceCategory" class="chosen-select">
-                                <option value="0" disabled selected>Select Category</option>
-                                @foreach (var category in Model.AddCategoryType.PriceCategories)
+                            <select id="ddlInsuranceCategory" class="chosen-select" data-placeholder="Insurance component">
+                                <option value="0" disabled selected>Select Insurance component</option>
+                                @foreach (var category in Model.DealerVersionCategories)
                                 {
-                                    <option value="@category.CategoryId">@category.CategoryName</option>
+                                    <option value="@category.ItemCategoryId">@category.ItemName</option>
                                 }
                             </select>
                         </div>
                         <div class="materialize-select row s12">
-                            <label>RTO</label>
-                            <select id="ddlRtoCategory" class="chosen-select">
-                                <option value="0" disabled selected>Select Category</option>
-                                @foreach (var category in Model.AddCategoryType.PriceCategories)
+                            <select id="ddlRtoCategory" class="chosen-select" data-placeholder="RTO component">
+                                <option value="0" disabled selected>Select RTO component</option>
+                                @foreach (var category in Model.DealerVersionCategories)
                                 {
-                                    <option value="@category.CategoryId">@category.CategoryName</option>
+                                    <option value="@category.ItemCategoryId">@category.ItemName</option>
                                 }
                             </select>
                         </div>
@@ -212,14 +211,14 @@
                             </select>
                         </div>
 
-                        <div class="materialize-select row s12">
+                        <div class="materialize-select row s12" data-bind="visible: !allCities()">
                             <select data-placeholder="Add Cities" class="chosen-select" id="ddlCityBwPrice" multiple data-bind="options: cities,
                                     optionsText: 'cityName',
                                     optionsValue: 'cityId',
                                     selectedOptions: selectedCities">
                             </select>
                         </div>
-                        <input type="checkbox" id="chkAllCity"/>
+                        <input type="checkbox" id="chkAllCity" data-bind="checked: allCities"/>
                         <label for="chkAllCity">All Cities</label>
                         <div class="input-field row s12">
                             <button data-entered-by="@Model.EnteredBy" data-bind="click: copyPricingToBikewalePrice" class="btn waves-effect waves-light" type="submit" name="action">
@@ -229,6 +228,7 @@
                     </div>
                 </div>
             </li>
+            }
         </ul>
     </div>
 </div>
