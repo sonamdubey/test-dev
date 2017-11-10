@@ -1232,6 +1232,15 @@ h2.text-bold { font-weight: bold; }
     width: 36px;
     height: 23px;
 }
+
+.grey-bike-icon {
+	display: inline-block;
+	vertical-align: middle;
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/82888b/bike-36x20.png') no-repeat;
+	width: 36px;
+	height: 20px;
+}
+
 .mileage-box__arai-block,
 .mileage-box__users-block {
     padding-left: 50px;
