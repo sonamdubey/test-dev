@@ -1,6 +1,6 @@
 ﻿var floatingCard, floatingCardHeight, comparisonFooter, overallSpecsTabs, floatingButton, $window, windowScrollTop,
     onRoadPriceButtons, closedBikeCount, compareSource, vmBikeSelection, bikePopup, panel;
-
+var hideCheckbox = $(".hideCheckbox");
 
 var setButton = {
     completeText: function (element, message) {
@@ -785,5 +785,15 @@ docReady(function () {
             triggerGA("Compare_Bikes", "Clicked_on_carousel", $("#comparisonText").val());
         }           
     });
+
+    $(".reviewTab").on('click', function () {
+        hideCheckbox.hide();
+    })
+
+    $(".quickAcessTab").on('click', function () {
+        if (hideCheckbox.is(":hidden")) {
+            hideCheckbox.show();
+        }
+    })
     
 });

@@ -3,7 +3,8 @@
     comparisonFooter = $('#comparison-footer'),
     overallSpecsTabs = $('#overall-tabs'),
     $window = $(window),
-    windowScrollTop;
+    windowScrollTop,
+    hideCheckbox = $(".hideCheckbox");
 var data = {};
 
 docReady(function() {
@@ -150,6 +151,10 @@ docReady(function() {
     var sponsoredColumn = document.getElementById('sponsored-column-active');
 
     $('.toggle-features-btn').on('click', function () {
+        if ($(".hideCheckbox").is(":hidden"))
+        {
+            $(".hideCheckbox").show();
+        }
         var btn = $('.toggle-features-btn');
         
         if (!hideCommonFeatures) {
@@ -560,7 +565,7 @@ docReady(function() {
         $('#' + tabId).addClass('active').show();
         $('html, body').animate({ scrollTop: overallSpecsTabs.offset().top - floatingCardHeight }, 500); // 44px accordion tab height
     });
-
+    
     $(".floating-add-compare-btn").on('click', function () {
         var ele = $(this), isSelectionDone = ele.attr("data-selection-done");
         var bikeNo = ele.closest("li.list-item").attr("data-add-value"), liBike = $(".add-compare-btn").closest("li[data-add-value=" + bikeNo + "]");
@@ -574,4 +579,15 @@ docReady(function() {
        
     });
 
+    
+    $(".reviewTab").on('click', function () {
+        hideCheckbox.hide();
+    })
+
+    $(".quickAcessTab").on('click', function () {
+        if (hideCheckbox.is(":hidden"))
+        {
+            hideCheckbox.show();
+        }
+    })
 });
