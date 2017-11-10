@@ -200,6 +200,7 @@
     var bikewaleCopyPricing = function (ddlCity) {
         
         self.selectedCities = ko.observableArray();
+        self.allCities = ko.observable(false);        
         self.defaultAllcities = [
             { cityId: 0, cityName: "Select Cities" }
         ];
@@ -225,8 +226,7 @@
                     }
                 }
             });
-        };
-
+        };        
         self.copyPricingToBikewalePrice = function () {
 
             var selectedCitiesLength = self.selectedCities().length;
@@ -273,7 +273,7 @@
                             citiesId += self.selectedCities()[i] + '|r0w|';
                         }
                     }
-                    
+
                     citiesId = citiesId.substring(0, citiesId.lastIndexOf("|r0w|"));
                     var url = "/api/price/save/?versionAndPriceList=" + encodeURIComponent(versionAndPriceList) + "&citiesList=" + citiesId + "&userId=" + userId;
                     $.ajax({
@@ -286,6 +286,9 @@
                             else {
                                 Materialize.toast("Something went wrong. Prices were not saved.", 4000);
                             }
+                        },
+                        error: function (xhr, status, error) {
+                            Materialize.toast("Something went wrong. Prices were not saved.", 4000);
                         }
                     });
                 }
@@ -297,7 +300,7 @@
             else {
                 Materialize.toast('Select one or more cities.', 4000);
             }
-        }
+        };
     }
 
     var priceSheetModel = function () {
