@@ -151,10 +151,6 @@ docReady(function() {
     var sponsoredColumn = document.getElementById('sponsored-column-active');
 
     $('.toggle-features-btn').on('click', function () {
-        if ($(".hideCheckbox").is(":hidden"))
-        {
-            $(".hideCheckbox").show();
-        }
         var btn = $('.toggle-features-btn');
         
         if (!hideCommonFeatures) {
