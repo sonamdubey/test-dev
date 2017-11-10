@@ -1413,7 +1413,8 @@ li.offertxt:hover span {display:inline}
 
 /* Mileage section*/
 .mileage-box-list {
-    font-size:0;
+	width: 100%;
+    font-size: 0;
     position: relative;
     padding-bottom: 20px;
 }
@@ -1430,17 +1431,20 @@ li.offertxt:hover span {display:inline}
     width: 95%;
 }
 
-.mileage-box-list li {
+.mileage-box-list th {
+	text-align: left;
+}
+
+.mileage-box-list td {
     width: 25%;
-    display: inline-block;
     vertical-align: top;
-    padding-left:20px;
+    padding-left: 20px;
     padding-right: 20px;
     min-height: 45px;
     border-left: 1px solid #eee;
 }
 
-.mileage-box-list > li:first-child {
+.mileage-box-list td:first-child {
     border-left-style: none;
 }
 
@@ -1477,12 +1481,12 @@ li.offertxt:hover span {display:inline}
     height: 28px;
 }
 
-.grey-bike-icon {
+.grey-scooter-icon {
     display: inline-block;
     vertical-align: middle;
-    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/82888b/bike-36x20.png') no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/82888b/scooter-36x23.png') no-repeat;
     width: 36px;
-    height: 20px;
+    height: 23px;
 }
 
 /* Model mileage carousel */

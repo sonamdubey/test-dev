@@ -1587,7 +1587,8 @@ namespace Bikewale.DAL.UserReviews
                                     {
                                         MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
                                         MaskingName = Convert.ToString(dr["makemasking"]),
-                                        MakeName = Convert.ToString(dr["makeName"])
+                                        MakeName = Convert.ToString(dr["makeName"]),
+                                        IsScooterOnly = Convert.ToBoolean(dr["isScooterOnly"])
                                     },
                                     Model = new BikeModelEntityBase()
                                     {

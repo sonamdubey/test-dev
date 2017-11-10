@@ -19,6 +19,8 @@
     /// <summary>
     /// Created by: Vivek Singh Tomar on 23 Aug 2017
     /// Summary: To specify pages of bikewale for GA
+    /// Modified by Sajal Gupta on 10-11-2017
+    /// Desc : Added Compare_Bikes
     /// </summary>
     public enum GAPages
     {
@@ -32,6 +34,7 @@
         Dealer_Locator_Page = 7,
         Dealer_Locator_Detail_Page = 8,
         Booking_Page = 9,
-        PriceInCity_Page = 10
+        PriceInCity_Page = 10,
+        Compare_Bikes = 11
     }
 }

@@ -782,7 +782,13 @@ docReady(function () {
         watchSlidesProgress: true,
         watchSlidesVisibility: true,
         onSlideChangeStart: function (swiper, event) {
-            triggerGA("Compare_Bikes", "Clicked_on_carousel", $("#comparisonText").val());
+            if ($("#comparisonText").length > 0) {
+                triggerGA("Compare_Bikes", "Clicked_on_carousel", $("#comparisonText").val());
+            }
+            else
+            {
+                triggerGA("Compare_Bikes", "Clicked_on_carousel", $("#similar-bikes-swiper").data('comptext'));
+            }
         }           
     });
 

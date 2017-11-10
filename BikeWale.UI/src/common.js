@@ -1297,7 +1297,7 @@ docReady(function () {
     $(document).on("click", ".bw-ga", function () {
         try {
             var obj = $(this);
-            var category = obj.attr("data-cat") || obj.attr("c");
+            var category = obj.attr("data-cat") || obj.attr("c") || $('body').data('page-name');
             var action = obj.attr("data-act") || obj.attr("a");
             var label = obj.attr("data-lab") || obj.attr("l");
             var variable = obj.attr("data-var") || obj.attr("v");
