@@ -574,4 +574,8 @@ docReady(function() {
        
     });
 
+    $(document).on('click', '#modelSimilarContent .jcarousel-control-right', '#modelSimilarContent .jcarousel-control-left', function () {  
+        triggerGA("Compare_Bikes", "Clicked_on_carousel", $("#modelSimilarContent").data('comptext'));
+    });
+
 });
