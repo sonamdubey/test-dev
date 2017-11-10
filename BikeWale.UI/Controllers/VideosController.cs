@@ -126,6 +126,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         public ActionResult CategoryVideos_Mobile(string categoryIdList, string title)
         {
             VideosByCategoryPage objModel = new VideosByCategoryPage(_videos, categoryIdList, title);
+            objModel.IsMobile = true;
             VideosByCategoryPageVM objVM = objModel.GetData(9);
             return View(objVM);
         }

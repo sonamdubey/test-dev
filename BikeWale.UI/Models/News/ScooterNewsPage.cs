@@ -6,6 +6,7 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -334,6 +335,7 @@ namespace Bikewale.Models.News
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData);
                     GetWidgetData(objData);
+                    SetBreadcrumList(objData);
                 }
                 else
                 {
@@ -345,6 +347,64 @@ namespace Bikewale.Models.News
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.News.NewsScootersPage.GetData");
             }
             return objData;
+        }
+
+        /// <summary>
+        /// Created By : Snehal Dange on 10th Nov 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(NewsScootersPageVM objPageVM)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string bikeUrl;
+                bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    bikeUrl += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+                if(objPageVM.Make != null && objPageVM.Make.MakeId > 0)
+                {
+                    bikeUrl = string.Format("{0}{1}-scooters/", bikeUrl, objPageVM.Make.MaskingName);
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Scooters", objPageVM.Make.MakeName)));
+                }
+                else
+                {
+                    bikeUrl = string.Format("{0}scooters/",bikeUrl);
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Scooters"));
+                }
+
+                if(objPageVM.Model!=null && objPageVM.Model.ModelId >0)
+                {
+                    bikeUrl = string.Format("{0}{1}-scooters/{2}/",bikeUrl, objPageVM.Make.MaskingName, objPageVM.Model.MaskingName);
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} {1} Scooters", objPageVM.Make.MakeName, objPageVM.Model.ModelName) ));
+                }
+               
+               
+                if(objPageVM != null && objPageVM.Make.MakeId > 0)
+                {
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, string.Format("{0} Scooters News", objPageVM.Make.MakeName)));
+                }
+                
+                if (objPageVM != null)
+                {
+                    objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.News.NewsScootersPage.SetBreadcrumList()");
+            }
+
+
+
+
         }
 
     }

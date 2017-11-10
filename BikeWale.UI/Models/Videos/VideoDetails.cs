@@ -167,8 +167,7 @@ namespace Bikewale.Models
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
 
-            bikeUrl += "bike-videos/";
-            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, "Bike Videos"));
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, string.Format("{0}bike-videos/", bikeUrl), "Bike Videos"));
 
             if (!String.IsNullOrEmpty(objData.Video.SubCatName))
             {

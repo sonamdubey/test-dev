@@ -24,7 +24,7 @@ namespace Bikewale.Utility
 
         public static string VideoByCategoryPageUrl(string videoCategory, string videoCatId)
         {
-            return String.Format("/bike-videos/category/{0}-{1}/", Regex.Replace(videoCategory.Trim(), @"[\(\)\s]+", "-").ToLower(), Regex.Replace(videoCatId, @"[,]+", "-"));
+            return String.Format("bike-videos/category/{0}-{1}/", Regex.Replace(videoCategory.Trim(), @"[\(\)\s]+", "-").ToLower(), Regex.Replace(videoCatId, @"[,]+", "-"));
         }
 
         public static string FormatVideoPageUrl(string makeMaskingName, string modelMaskingName)
