@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.Entities;
 using Bikewale.Entities.Schema;
 using Bikewale.Entities.Videos;
@@ -7,6 +8,7 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Bikewale.Models
 {
@@ -171,8 +173,8 @@ namespace Bikewale.Models
 
             if (!String.IsNullOrEmpty(objData.Video.SubCatName))
             {
-                bikeUrl += UrlFormatter.VideoByCategoryPageUrl(objData.Video.SubCatName, objData.Video.SubCatId);
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, objData.Video.SubCatName));
+               bikeUrl += String.Format("bike-videos/category/{0}-{1}/", Regex.Replace(objData.Video.SubCatName.Trim(), @"[\(\)\s]+", "-").ToLower(), Regex.Replace(objData.Video.SubCatId, @"[,]+", "-"));
+               BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, objData.Video.SubCatName));
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Video.VideoTitle));
