@@ -39,7 +39,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
 
         private ICityMaskingCacheRepository objCityCache = null;
-        private IBikeMakesCacheRepository<int> objMakeCache = null;
+        private IBikeMakesCacheRepository objMakeCache = null;
         private IBikeMaskingCacheRepository<BikeModelEntity, int> objModelsCache = null;
         private IBikeModels<BikeModelEntity, int> objModels = null;
         private ICityCacheRepository objCitiesCache = null;
@@ -81,7 +81,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 .RegisterType<ICityCacheRepository, CityCacheRepository>()
                 .RegisterType<ICityMaskingCacheRepository, CityMaskingCache>()
                 .RegisterType<ICity, CityRepository>()
-                .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                .RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                 .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                 .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                 .RegisterType<ISearchFilters, ProcessSearchFilters>()
@@ -91,7 +91,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 .RegisterType<IPager, Pager>();
 
                 objCityCache = container.Resolve<ICityMaskingCacheRepository>();
-                objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                objMakeCache = container.Resolve<IBikeMakesCacheRepository>();
                 objCitiesCache = container.Resolve<ICityCacheRepository>();
                 objModels = container.Resolve<IBikeModels<BikeModelEntity, int>>();
                 objModelsCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();

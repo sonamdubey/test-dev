@@ -110,7 +110,7 @@ namespace Bikewale
             container.RegisterType<IUpcoming, Upcoming>();
             container.RegisterType<IModelsCache, ModelsCache>();
             container.RegisterType<IModelsRepository, ModelsRepository>();
-            container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
+            container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>();
             container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
             container.RegisterType<IVideoRepository, ModelVideoRepository>();
             container.RegisterType<IVideosCacheRepository, VideosCacheRepository>();

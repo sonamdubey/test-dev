@@ -249,7 +249,7 @@
                             <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
                             <div class="grid-5 alpha omega">
                                 <!-- is custom link provided for campaign -->
-                                @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
+                                @if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
                                 {
                                     <a class="btn btn-orange btn-full-32" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}",Model.LeadCampaign.PriceBreakUpLinkMobile,Model.LeadCampaign.CampaignId,Model.LeadCampaign.DealerId,Model.LeadCampaign.PQId,Model.LeadCampaign.LeadSourceId,Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount)" rel="nofollow">
                                         @Model.LeadCampaign.LeadsButtonTextMobile
@@ -506,7 +506,7 @@
                         <div class="finance-emi-container font14">
                             <div class="emi-slider-box">
                                 <div class="emi-slider-box-left-section">
-                                    <p class="grid-8 alpha text-slate-grey font14">Down payment</p>
+                                    <label for="downPaymentSlider" class="grid-8 alpha text-slate-grey font14">Down payment</label>
                                     <div class="emi-slider-box-right-section grid-4 omega">
                                         <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="downPayment" class="font14 text-bold">@Format.FormatPrice(Convert.ToString(Model.EMISliderAMP.DownPayment))</span>
                                         <span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')-5 <=1? EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-7, 2)+','">0,</span>
@@ -514,13 +514,14 @@
                                         <span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')>3? ',' + EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-3,3) : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-3,3)">0</span>
                                     </div>
                                     <div class="clear"></div>
+                                    
                                     <input id="downPaymentSlider" class="margin-bottom20" type="range" min="@Model.EMI.MinDownPayment" max="@Model.EMI.MaxDownPayment" step="1" value="@Model.EMISliderAMP.DownPayment" [value]="EmiSlider.downPayment" on="change:downPayment.hide, AMP.setState({EmiSlider:{downPayment:event.value, formatedDownPayment: (event.value) + '.', loanAmount:EmiSlider.bikePrice-event.value, totalAmount:(EmiSlider.bikePrice)+(((EmiSlider.bikePrice-event.value) * EmiSlider.tenure * EmiSlider.interest) / 1200)}}); input-debounced:AMP.setState({EmiSlider:{emi: round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure )+ '.', formatedLoanAmount:EmiSlider.bikePrice-event.value+'.', formatedTotalAmount:round(EmiSlider.totalAmount) + '.'} }), totalemi.hide, totalAmount.hide, loanAmount.hide" />
                                 </div>
                                 <div class="clear"></div>
                             </div>
                             <div class="emi-slider-box font14">
                                 <div class="emi-slider-box-left-section">
-                                    <p class="grid-8 alpha text-slate-grey font14">Loan amount</p>
+                                    <label for="loanAmountSlider" class="grid-8 alpha text-slate-grey font14">Loan amount</label>
                                     <div class="emi-slider-box-right-section grid-4 omega">
                                         <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="loanAmount" class="text-bold font14">@Format.FormatPrice(Convert.ToString(Model.EMISliderAMP.LoanAmount))</span>
                                         <span class="hide" [class]="((EmiSlider.formatedLoanAmount.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedLoanAmount.lastIndexOf('.')-5 <=1? EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-7, 2)+','">0,</span>
@@ -534,7 +535,7 @@
                             </div>
                             <div class="emi-slider-box">
                                 <div class="emi-slider-box-left-section">
-                                    <p class="grid-8 alpha text-slate-grey font14">Tenure</p>
+                                    <label for="tenureSlider" class="grid-8 alpha text-slate-grey font14">Tenure</label>
                                     <div class="emi-slider-box-right-section grid-4 omega text-bold">
                                         <span id="tenurePeriod" [text]="EmiSlider.tenure ">@Format.FormatPrice(Convert.ToString(Model.EMI.Tenure))</span>&nbsp;Months
                                     </div>
@@ -545,7 +546,7 @@
                             </div>
                             <div class="emi-slider-box">
                                 <div class="emi-slider-box-left-section">
-                                    <p class="grid-8 alpha text-slate-grey font14">Interest</p>
+                                    <label for="rateOfInterestSlider" class="grid-8 alpha text-slate-grey font14">Interest</label>
                                     <div class="emi-slider-box-right-section grid-4 omega text-bold ">
                                         <span id="rateOfInterestPercentage" [text]="EmiSlider.interest">@Model.EMI.RateOfInterest</span>&nbsp;%
                                     </div>
@@ -573,7 +574,7 @@
                             {
                                 <div class="powered-by-campaign-wrapper margin-top15">
                                     <!-- is custom link provided for campaign -->
-                                    @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
+                                    @if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
                                     {
                                         <a class="btn btn-teal btn-160-32 font14 margin-right10" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}", Model.LeadCampaign.PriceBreakUpLinkMobile, Model.LeadCampaign.CampaignId, Model.LeadCampaign.DealerId, Model.LeadCampaign.PQId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount)" rel="nofollow">
                                             @Model.EMICampaign.EMIButtonTextMobile
@@ -614,7 +615,7 @@
                                             @foreach (var version in Model.VersionSpecs)
                                             {
                                                 <tr>
-                                                    <td valign="top">@version.VersionName</td>
+                                                    <td valign="top">@string.Format("{0} {1}", version.ModelName, version.VersionName)</td>
                                                     <td valign="top" class="text-default">&#x20b9;<span class="text-bold">&nbsp;@Format.FormatPrice(Convert.ToString(version.Price))</span></td>
                                                     <td valign="top">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
                                                 </tr>

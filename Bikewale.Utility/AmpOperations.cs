@@ -1,10 +1,9 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using HtmlAgilityPack;
 
 namespace Bikewale.Utility
 {
@@ -14,7 +13,7 @@ namespace Bikewale.Utility
     /// </summary>
     public static class AmpOperations
     {
-        public static Regex YoutubeVideoRegex = new Regex(@"youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]+)", RegexOptions.IgnoreCase);
+        public readonly static Regex YoutubeVideoRegex = new Regex(@"youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]+)", RegexOptions.IgnoreCase);
 
         /// <summary>
         /// Convert normal html content to amp html
@@ -125,14 +124,19 @@ namespace Bikewale.Utility
                 var doc = GetHtmlDocument(response);
                 var tagList = doc.DocumentNode.Descendants(htmlTag);
 
-                if (!tagList.Any()) return response;
+                if (!tagList.Any())
+                {
+                    return response;
+                }
 
                 if (!HtmlNode.ElementsFlags.ContainsKey(ampTags))
+                {
                     HtmlNode.ElementsFlags.Add(ampTags, HtmlElementFlag.Closed);
+                }
 
                 foreach (var tag in tagList)
                 {
-                    var original = tag.OuterHtml;
+                    var original =System.Net.WebUtility.HtmlDecode(tag.OuterHtml);
                     var replacement = tag.Clone();
                     if (tag.Name.Equals("iframe"))
                     {
@@ -170,14 +174,18 @@ namespace Bikewale.Utility
                 var doc = GetHtmlDocument(response);
                 var tagList = doc.DocumentNode.Descendants(htmlTag);
 
-                if (!tagList.Any()) return response;
+                if (!tagList.Any())
+                {
+                    return response;
+                }
 
                 if (!HtmlNode.ElementsFlags.ContainsKey(ampTag))
+                {
                     HtmlNode.ElementsFlags.Add(ampTag, HtmlElementFlag.Closed);
+                }
 
                 foreach (var tag in tagList)
                 {
-                    var original = tag.OuterHtml.ToString();
                     var replacement = tag.Clone();
                     replacement.Name = ampTag;
                 }
@@ -264,10 +272,10 @@ namespace Bikewale.Utility
                 {
                     var htmlDoc = new HtmlDocument();
                     htmlDoc.LoadHtml(html);
-                    var aNodes = htmlDoc.DocumentNode.SelectNodes("//a").Where(c => c.Attributes.Contains("class") && c.Attributes["class"].Value.Contains(className));
-                    foreach (var item in aNodes)
+                    var aNodes = htmlDoc.DocumentNode.SelectNodes("//a").Where(c => c.Attributes.Contains("class") && c.Attributes["class"].Value.Contains(className) && c.Attributes.Contains("href"));
+                    if(aNodes != null)
                     {
-                        if (item.Attributes.Contains("href"))
+                        foreach (var item in aNodes)
                         {
                             item.SetAttributeValue("href", url);
                         }
@@ -337,7 +345,9 @@ namespace Bikewale.Utility
             try
             {
                 if (htmlNode.Attributes.Contains(attributeName))
+                {
                     htmlNode.Attributes.Remove(attributeName);
+                }
             }
             catch (Exception err)
             {
@@ -359,9 +369,10 @@ namespace Bikewale.Utility
             {
                 var youtubeUrl = tag.ChildNodes["param"].Attributes["value"].Value;
 
-                if (!(YoutubeVideoRegex.Match(youtubeUrl).Groups.Count >= 1))
+                if (YoutubeVideoRegex.Match(youtubeUrl).Groups.Count < 1)
+                {
                     return response;
-
+                }
                 var youtubeId = YoutubeVideoRegex.Match(youtubeUrl).Groups[1].ToString();
 
                 replacement.AddAttribute("data-videoid", youtubeId);
@@ -378,6 +389,6 @@ namespace Bikewale.Utility
             return response;
         }
 
-        public static DateTime AmpStartDate = new DateTime(month: 1, day: 1, year: 2016);
+        public readonly static DateTime AmpStartDate = new DateTime(month: 1, day: 1, year: 2016);
     }
 }

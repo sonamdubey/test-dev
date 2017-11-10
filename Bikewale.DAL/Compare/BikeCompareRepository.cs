@@ -246,10 +246,10 @@ namespace Bikewale.DAL.Compare
         /// <param name="versions"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public Entities.Compare.BikeCompareEntity DoCompare(string versions, uint cityId)
+        public BikeCompareEntity DoCompare(string versions, uint cityId)
         {
 
-            Entities.Compare.BikeCompareEntity compare = null;
+            BikeCompareEntity compare = null;
             IList<BikeEntityBase> basicInfos = null;
             IList<BikeSpecification> specs = null;
             IList<BikeFeature> features = null;
@@ -261,7 +261,7 @@ namespace Bikewale.DAL.Compare
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_11092017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_01092017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbType.String, versions));
@@ -296,7 +296,7 @@ namespace Bikewale.DAL.Compare
         /// <param name="cmd"></param>
         private static BikeCompareEntity GetCompareDataFromReader(ref IList<BikeEntityBase> basicInfos, ref IList<BikeSpecification> specs, ref IList<BikeFeature> features, ref IList<BikeColor> color, ref IList<Entities.Compare.BikeModelColor> hexCodes, ref IList<BikeReview> userReviews, ref IList<QuestionRatingsValueEntity> userReviewQuestionList, ref IList<BikeVersionCompareEntity> versionsList, DbCommand cmd)
         {
-            BikeCompareEntity compare = new Entities.Compare.BikeCompareEntity();
+            BikeCompareEntity compare = new BikeCompareEntity();
             using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
             {
                 if (reader != null)
@@ -342,6 +342,9 @@ namespace Bikewale.DAL.Compare
                             ExpectedLaunch = SqlReaderConvertor.ToDateTime(reader["ExpectedLaunch"]),
                             EstimatedPriceMin = SqlReaderConvertor.ToUInt32(reader["EstimatedPriceMin"]),
                             EstimatedPriceMax = SqlReaderConvertor.ToUInt32(reader["EstimatedPriceMax"]),
+                            IsNew = SqlReaderConvertor.ToBoolean(reader["isnewmodel"]),
+                            IsUpcoming = SqlReaderConvertor.ToBoolean(reader["futuristic"]),
+                            IsDiscontinued = SqlReaderConvertor.ToBoolean(reader["isusedmodel"]) && !SqlReaderConvertor.ToBoolean(reader["isnewmodel"]),
                             UsedBikeCount = new Entities.Used.UsedBikesCountInCity()
                             {
                                 BikeCount = SqlReaderConvertor.ToUInt32(reader["bikeCount"]),
@@ -523,9 +526,10 @@ namespace Bikewale.DAL.Compare
                     }
 
                 }
-
-                reader.Close();
-
+                if(reader != null)
+                {
+                    reader.Close();
+                }
                 #endregion
 
                 compare.BasicInfo = basicInfos;
@@ -1029,6 +1033,98 @@ namespace Bikewale.DAL.Compare
             }
 
             return topBikes;
+        }
+
+
+        /// <summary>
+        /// Created by:Snehal Dange on 24th Oct 2017
+        /// Description : Get similar bikes for bike comparison
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityid"></param>
+        /// <returns></returns>
+        public SimilarBikeComparisonWrapper GetSimilarBikes(string modelList, ushort topCount)
+        {
+            SimilarBikeComparisonWrapper similarBikeComparison = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getsimilarbikes"))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelidlist", DbType.String, 20, modelList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (reader != null)
+                        {
+                            similarBikeComparison = new SimilarBikeComparisonWrapper();
+
+                            IList<SimilarBikeComparisonData> similarBikeList = new List<SimilarBikeComparisonData>();
+
+                            while (reader.Read())
+                            {
+                                similarBikeList.Add(new SimilarBikeComparisonData()
+                                {
+                                    BikeMake = new BikeMakeBase()
+                                    {
+                                        MakeMaskingName = Convert.ToString(reader["MakeMaskingName"]),
+                                        MakeName = Convert.ToString(reader["MakeName"])
+                                    },
+                                    BikeModel = new BikeModelEntityBase()
+                                    {
+                                        ModelId = SqlReaderConvertor.ToInt32(reader["similarModelId"]),
+                                        MaskingName = Convert.ToString(reader["modelmaskingname"]),
+                                        ModelName = Convert.ToString(reader["modelname"])
+                                    },                                    
+                                    HostUrl = Convert.ToString(reader["HostUrl"]),
+                                    OriginalImagePath = Convert.ToString(reader["OriginalImagePath"]),
+                                    ModelId1 = SqlReaderConvertor.ToUInt32(reader["bike1"]),
+                                    ModelId2 = SqlReaderConvertor.ToUInt32(reader["bike2"]),
+                                });                                
+                            }
+
+                            similarBikeComparison.SimilarBikes = similarBikeList;
+
+                            IList<BasicBikeEntityBase> BikeList = new List<BasicBikeEntityBase>();
+
+                            if (reader.NextResult())
+                            {
+                                while (reader.Read())
+                                {
+                                    BikeList.Add(new BasicBikeEntityBase()
+                                    {
+                                        Make = new BikeMakeEntityBase()
+                                        {
+                                            MaskingName = Convert.ToString(reader["MakeMaskingName"]),
+                                            MakeName = Convert.ToString(reader["MakeName"])
+                                        },
+                                        Model = new BikeModelEntityBase()
+                                        {
+                                            ModelId = SqlReaderConvertor.ToInt32(reader["modelId"]),
+                                            MaskingName = Convert.ToString(reader["modelmaskingname"]),
+                                            ModelName = Convert.ToString(reader["modelname"])
+                                        },
+                                        HostUrl = Convert.ToString(reader["HostUrl"]),
+                                        OriginalImagePath = Convert.ToString(reader["OriginalImagePath"])                                        
+                                    });
+                                }
+
+                            }
+
+                            similarBikeComparison.BikeList = BikeList;
+
+                            reader.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository_GetSimilarBikesForComparisions_{0}_Cnt_{1}", modelList, topCount));
+            }
+
+            return similarBikeComparison;
         }
 
     }

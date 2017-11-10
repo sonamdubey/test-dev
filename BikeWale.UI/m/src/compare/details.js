@@ -771,4 +771,19 @@ docReady(function () {
         ko.applyBindings(vmBikeSelection, $('#select-bike-cover-popup')[0]);
     }
 
+    var gallerySwiper = new Swiper('#similar-bikes-swiper', {
+        effect: 'slide',
+        speed: 300,
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        preloadImages: false,
+        lazyLoading: true,
+        lazyLoadingInPrevNext: true,
+        watchSlidesProgress: true,
+        watchSlidesVisibility: true,
+        onSlideChangeStart: function (swiper, event) {
+            triggerGA("Compare_Bikes", "Clicked_on_carousel", $("#comparisonText").val());
+        }           
+    });
+    
 });

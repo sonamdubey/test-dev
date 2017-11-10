@@ -21,7 +21,7 @@ namespace Bikewale.Models
     /// </summary>
     public class ScootersIndexPageModel
     {
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IUpcoming _upcoming = null;
@@ -38,7 +38,7 @@ namespace Bikewale.Models
         /// <param name="newLaunches"></param>
         /// <param name="upcoming"></param>
         /// <param name="compareScooters"></param>
-        public ScootersIndexPageModel(IBikeMakes<BikeMakeEntity, int> bikeMakes,
+        public ScootersIndexPageModel(IBikeMakesCacheRepository bikeMakes,
             IBikeModels<BikeModelEntity, int> bikeModels,
             INewBikeLaunchesBL newLaunches,
             IUpcoming upcoming,

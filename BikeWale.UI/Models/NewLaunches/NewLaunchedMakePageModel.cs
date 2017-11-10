@@ -19,7 +19,7 @@ namespace Bikewale.Models
     public class NewLaunchedMakePageModel
     {
         private readonly INewBikeLaunchesBL _newLaunches = null;
-        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IUpcoming _upcoming = null;
         private InputFilter _filter;
         private readonly PQSourceEnum _pqSource;
@@ -44,7 +44,7 @@ namespace Bikewale.Models
         /// <param name="upcoming"></param>
         /// <param name="pqSource"></param>
         /// <param name="pageNumber"></param>
-        public NewLaunchedMakePageModel(string makeMaskingName, INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache, IUpcoming upcoming, PQSourceEnum pqSource, ushort? pageNumber)
+        public NewLaunchedMakePageModel(string makeMaskingName, INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming, PQSourceEnum pqSource, ushort? pageNumber)
         {
             _newLaunches = newLaunches;
             _objMakeCache = objMakeCache;

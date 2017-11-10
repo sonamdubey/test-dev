@@ -17,5 +17,7 @@ namespace BikewaleOpr.Interface.BikeData
         bool EditSeries(BikeSeriesEntity bikeSeries, int updatedBy);
         bool DeleteSeries(uint bikeSeriesId, uint deletedBy);
         int DeleteMappingOfModelSeries(uint modelId);
+        bool UpdateSynopsis(int seriesId, int updatedBy, SynopsisData objSynopsis);
+        SynopsisData Getsynopsis(int seriesId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.CMS.Articles;
+﻿using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
@@ -100,6 +101,34 @@ namespace Bikewale.Cache.CMS
             }
             return _objArticlesList;
         }
+
+        /// <summary>
+        /// Created By :Snehal Dange on 30th Oct 2017
+        /// Description : News articles for multiple modelids
+        /// </summary>
+        /// <param name="contentTypeIds"></param>
+        /// <param name="totalRecords"></param>
+        /// <param name="bodyStyleId"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords, uint makeId, string modelIds)
+        {
+            IEnumerable<ArticleSummary> _objArticlesList = null;
+
+            try
+            {
+                if (_objArticles != null)
+                    _objArticlesList = _objArticles.GetMostRecentArticlesByIdList(categoryIdList, totalRecords, makeId, modelIds);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetMostRecentArticlesByIdList");
+                objErr.SendMail();
+            }
+            return _objArticlesList;
+        }
+
         #endregion
 
         #region Articles By category
@@ -157,6 +186,7 @@ namespace Bikewale.Cache.CMS
             }
             return _objArticlesList;
         }
+
 
         #endregion
 
@@ -255,5 +285,7 @@ namespace Bikewale.Cache.CMS
 
             return objFeaturedArticles;
         }
+
+      
     }
 }

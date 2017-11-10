@@ -322,7 +322,7 @@ namespace Bikewale.Models
 
                             foreach (var version in objVM.VersionSpecs)
                             {
-                                var versionPrice = objVM.BikeVersionPrices.FirstOrDefault(m => m.VersionId.Equals(version.VersionId));
+                                var versionPrice = objVM.BikeVersionPrices.FirstOrDefault(m => m.VersionId == version.VersionId);
                                 if (versionPrice != null)
                                 {
                                     version.Price = versionPrice.OnRoadPrice;
@@ -396,8 +396,11 @@ namespace Bikewale.Models
                         }
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
+
                     if (firstVersion != null)
+                    {
                         CheckGallaryLoad(objVM);
+                    }
                 }
             }
             catch (Exception ex)
@@ -557,14 +560,14 @@ namespace Bikewale.Models
                                 var firstVersionTemp = objVM.VersionSpecs.FirstOrDefault();
                                 if (firstVersionTemp != null)
                                 {
-                                    objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
+                                    objVM.BodyStyle = firstVersionTemp.BodyStyle;
 
                                 }
                             }
 
                             foreach (var version in objVM.VersionSpecs)
                             {
-                                var versionPrice = objVM.FormatedBikeVersionPrices.FirstOrDefault(m => m.BikeQuotationEntity.VersionId.Equals(version.VersionId));
+                                var versionPrice = objVM.FormatedBikeVersionPrices.FirstOrDefault(m => m.BikeQuotationEntity.VersionId == version.VersionId);
                                 if (versionPrice != null)
                                 {
                                     version.Price = Convert.ToUInt64(versionPrice.BikeQuotationEntity.OnRoadPrice);
@@ -736,8 +739,8 @@ namespace Bikewale.Models
                 double loanAmount = Math.Round(objVM.FirstVersion.OnRoadPrice * .7);
                 int downPayment = Convert.ToInt32(bikePrice - loanAmount);
 
-                float minDnPay = (10 * bikePrice) / 100;
-                float maxDnPay = (40 * bikePrice) / 100;
+                float minDnPay = (float)(10 * bikePrice) / 100;
+                float maxDnPay = (float)(40 * bikePrice) / 100;
 
                 ushort minTenure = 12;
                 ushort maxTenure = 48;

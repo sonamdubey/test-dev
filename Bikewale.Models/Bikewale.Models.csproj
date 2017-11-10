@@ -118,6 +118,7 @@
     <Compile Include="Compare\CompareDetailsVM.cs" />
     <Compile Include="Compare\CompareVM.cs" />
     <Compile Include="Compare\ComparisonWidgetVM.cs" />
+    <Compile Include="Compare\SimilarBikesComparisionVM.cs" />
     <Compile Include="ComparisonTests\ComparisonTestIndexPageVM.cs" />
     <Compile Include="DealerShowroom\DealerCardVM.cs" />
     <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Upcoming\UpcomingPageVM.cs" />
     <Compile Include="UserReviews\PopularBikesWithExpertReviewsWidgetVM.cs" />
     <Compile Include="UserReviews\TopRatedBikesWidgetVM.cs" />
+    <Compile Include="UserReviews\UserReviewByMakeVM.cs" />
     <Compile Include="UserReviews\UserReviewLandingVM.cs" />
     <Compile Include="UserReviews\UserReviewSimilarBikesWidgetVM.cs" />
     <Compile Include="UserReviews\UserReviewListingVM.cs" />
@@ -200,7 +202,7 @@
     <Compile Include="UserReviews\UserReviewSummaryVM.cs" />
     <Compile Include="UserReviews\WriteReviewContest.cs" />
     <Compile Include="UserReviews\WriteReviewPageSubmitResponse.cs" />
-    <Compile Include="UserReview\WriteReviewPageVM.cs" />
+    <Compile Include="UserReviews\WriteReviewPageVM.cs" />
     <Compile Include="UserReviews\UserReviewRatingVM.cs" />
     <Compile Include="Videos\MakeVideosPageVM.cs" />
     <Compile Include="Videos\ModelWiseVideoPageVM.cs" />
@@ -224,6 +226,10 @@
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{ea73dda4-317e-4b79-bb03-f48125c2501b}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.PWA.Entities\Bikewale.PWA.Entities.csproj">
       <Project>{891ee3d8-f296-4efc-a136-a278f0f06f61}</Project>

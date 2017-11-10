@@ -41,7 +41,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     //  .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
 
-                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                    container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                             .RegisterType<IPager, Pager>()
                             .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
@@ -50,10 +50,10 @@ namespace Bikewale.BindViewModels.Controls
                             .RegisterType<ICacheManager, MemcacheManager>()
 
                             ;
-                    var _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    var _objMakeCache = container.Resolve<IBikeMakesCacheRepository>();
                     var _objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
-                    description = _objMakeCache.GetMakeDescription(makeId);
+                    description = _objMakeCache.GetMakeDescription((uint)makeId);
                     Make = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
                     objModelList = _objModelCache.GetMostPopularBikesByMake(makeId);
 
@@ -92,7 +92,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     //  .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
 
-                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                    container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
                             .RegisterType<IPager, Pager>()
                             .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
@@ -101,10 +101,10 @@ namespace Bikewale.BindViewModels.Controls
                             .RegisterType<ICacheManager, MemcacheManager>()
 
                             ;
-                    var _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    var _objMakeCache = container.Resolve<IBikeMakesCacheRepository>();
                     var _objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
-                    description = _objMakeCache.GetMakeDescription(makeId);
+                    description = _objMakeCache.GetMakeDescription((uint)makeId);
                     Make = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
                     objModelList = _objModelCache.GetMostPopularBikesByMake(makeId);
 

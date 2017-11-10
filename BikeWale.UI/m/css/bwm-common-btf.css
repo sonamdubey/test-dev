@@ -250,8 +250,16 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
     margin-right: -4px;
 }
 
+.swiper-heading-left-grid-50 {
+    width: 50%;
+    margin-right: -4px;
+}
+
 .swiper-heading-right-grid {
     width: 23%;
+}
+.swiper-heading-right-grid-50 {
+    width: 50%;
 }
 
 .content-details-wrapper .carousel-heading-content h2 {
@@ -366,12 +374,13 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 
 .fa-spinner { width:16px; height:16px; background:#fff url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat; }
 /* nav classes */
-.home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .cancellation-icon, .myBikeWale-icon, .logout-icon, .password-icon, .inquiry-icon, .newsletter-icon { width: 24px; height: 22px; margin-right: 10px; top:5px; position: relative; }
+.home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .news-icon, .cancellation-icon, .myBikeWale-icon, .logout-icon, .password-icon, .inquiry-icon, .newsletter-icon { width: 24px; height: 22px; margin-right: 10px; top:5px; position: relative; }
 .home-icon { background-position: 0 -40px; }
 .newBikes-icon { background-position: 0 -109px; }
 .usedBikes-icon { background-position: 0 -178px; }
 .sellBikes-icon { background-position: 0 -155px; }
-.reviews-icon { background-position: 0 -132px; }
+.reviews-icon { background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/review-24x16.png') no-repeat center; display: inline-block; }
+.news-icon { background-position: 0 -132px; }
 .myBikeWale-icon { background-position: 0 -86px; }
 .cancellation-icon { background-position: -52px -395px; top:10px; }
 

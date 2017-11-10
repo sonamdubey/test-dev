@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.PopularBodyStyleVM
 @using Bikewale.Utility
-<amp-carousel height="270" layout="fixed-height" type="carousel">
+<amp-carousel height="@(Model.ShowCheckOnRoadCTA ? 225 : 180)" layout="fixed-height" type="carousel">
         @foreach (var bike in Model.PopularBikes)
         {
             string bikeName = string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName);

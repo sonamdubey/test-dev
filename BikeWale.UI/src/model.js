@@ -192,10 +192,10 @@ docReady(function () {
             "pinCodeRequired": ele.attr("data-ispincodrequired"),
             "dealersRequired": ele.attr("data-dealersrequired"),
             "emailRequired": ele.attr("data-isemailrequired"),
-            "eventcategory": ele.attr("c"),
+            "eventcategory": ele.attr("data-cat"),
             "gaobject": {
-                cat: ele.attr("c"),
-                act: ele.attr("a"),
+                cat: ele.attr("data-cat"),
+                act: ele.attr("data-act"),
                 lab: bikeVersionLocation
             }
         };
@@ -609,15 +609,15 @@ docReady(function () {
         if (!$(this).hasClass('open')) {
             $('#main-preview-content').hide();
             $('#more-preview-content').show();
-            $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
+            $(this).text('Collapse');
             $(this).addClass("open");
         }
         else if ($(this).hasClass('open')) {
             $('#main-preview-content').show();
             $('#more-preview-content').hide();
-            $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
+            $(this).text('Read more');
             $(this).removeClass('open');
-            $('html, body').animate({ scrollTop: $('#model-overview-content').offset().top - floatingTabsHeight }, 500);
+            $('html, body').animate({ scrollTop: $('#modelAboutContent').offset().top - floatingTabsHeight }, 500);
         }
 
     });
@@ -692,8 +692,8 @@ docReady(function () {
 
     if (document.getElementById("modelsBySeriesWidget")) {
         try {
-            var testingObject = $("#modelsBySeriesWidget");
-            triggerNonInteractiveGA(testingObject.attr("c"), testingObject.attr("a"), testingObject.attr("l"));
+            var seriesEle = $("#modelsBySeriesWidget");
+            triggerNonInteractiveGA(seriesEle.attr("data-cat"), seriesEle.attr("data-act"), seriesEle.attr("data-lab"));
         } catch (e) {
 
         }

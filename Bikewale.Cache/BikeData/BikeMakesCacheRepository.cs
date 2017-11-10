@@ -12,17 +12,17 @@ namespace Bikewale.Cache.BikeData
     /// Created by  :   Sumit Kate on 03 Mar 2016
     /// Description :   Bike Makes Repository Cache
     /// </summary>
-    public class BikeMakesCacheRepository<T, U> : IBikeMakesCacheRepository<U>
+    public class BikeMakesCacheRepository : IBikeMakesCacheRepository
     {
         private readonly ICacheManager _cache;
-        private readonly IBikeMakes<T, U> _objMakes;
+        private readonly IBikeMakes<BikeMakeEntity, int> _objMakes;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="objMakes"></param>
-        public BikeMakesCacheRepository(ICacheManager cache, IBikeMakes<T, U> objMakes)
+        public BikeMakesCacheRepository(ICacheManager cache, IBikeMakes<BikeMakeEntity, int> objMakes)
         {
             _cache = cache;
             _objMakes = objMakes;
@@ -39,7 +39,7 @@ namespace Bikewale.Cache.BikeData
             string key = String.Format("BW_Makes_{0}", makeType.ToString());
             try
             {
-                makes = _cache.GetFromCache<IEnumerable<Entities.BikeData.BikeMakeEntityBase>>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetMakesByType(makeType));
+                makes = _cache.GetFromCache<IEnumerable<Entities.BikeData.BikeMakeEntityBase>>(key, new TimeSpan(1, 0, 0, 0), () => _objMakes.GetMakesByType(makeType));
             }
             catch (Exception ex)
             {
@@ -77,13 +77,13 @@ namespace Bikewale.Cache.BikeData
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public BikeDescriptionEntity GetMakeDescription(U makeId)
+        public BikeDescriptionEntity GetMakeDescription(uint makeId)
         {
             BikeDescriptionEntity objMakeDesc = null;
             string key = String.Format("BW_MakeDescription_{0}", makeId);
             try
             {
-                objMakeDesc = _cache.GetFromCache<BikeDescriptionEntity>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetMakeDescription(makeId));
+                objMakeDesc = _cache.GetFromCache<BikeDescriptionEntity>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetMakeDescription((int)makeId));
             }
             catch (Exception ex)
             {
@@ -216,14 +216,14 @@ namespace Bikewale.Cache.BikeData
         public BikeDescriptionEntity GetScooterMakeDescription(uint makeId)
         {
             BikeDescriptionEntity scooterDesc = null;
-            string key = string.Format("BW_Scooter_Synopsis_MK_{0}",makeId);
+            string key = string.Format("BW_Scooter_Synopsis_MK_{0}", makeId);
             try
             {
                 scooterDesc = _cache.GetFromCache<BikeDescriptionEntity>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetScooterMakeDescription(makeId));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetScooterMakeDescription MakeId : {0}",makeId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetScooterMakeDescription MakeId : {0}", makeId));
             }
             return scooterDesc;
         }

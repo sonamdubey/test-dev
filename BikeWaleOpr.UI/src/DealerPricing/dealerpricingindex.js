@@ -197,6 +197,112 @@
         }
     }
 
+    var bikewaleCopyPricing = function (ddlCity) {
+        
+        self.selectedCities = ko.observableArray();
+        self.allCities = ko.observable(false);        
+        self.defaultAllcities = [
+            { cityId: 0, cityName: "Select Cities" }
+        ];
+
+        self.cities = ko.observableArray();
+        self.onStateChange = function (data, event) {
+
+            progress.showProgress();
+            var makesByCityURL = "/api/cities/state/" + event.target.value + "/";
+
+            $.ajax({
+                type: "GET",
+                url: makesByCityURL,
+                success: function (resultData, textStatus, xhr) {
+                    if (resultData.length > 0) {
+                        self.cities(self.defaultAllcities.concat(resultData));
+                        ddlCity.find('option[value=0]').attr('disabled', 'disabled');
+                        ddlCity.trigger("chosen:updated");
+                        progress.hideProgress();
+                    }
+                    else {
+                        Materialize.toast('No cities fetched. Please try again', 4000);
+                    }
+                }
+            });
+        };        
+        self.copyPricingToBikewalePrice = function () {
+
+            var selectedCitiesLength = self.selectedCities().length;
+
+            if (selectedCitiesLength > 0 || $('#chkAllCity').is(':checked')) {
+
+                var exShowroomCategory = $('#ddlExShowroomCategory').val();
+                var insuranceCategory = $('#ddlInsuranceCategory').val();
+                var rtoCategory = $('#ddlRtoCategory').val();
+                var versionAndPriceList = "";
+                var table = $('#tblPricingSheet');
+
+                table.find('tbody tr').each(function () {
+                    var row = $(this), exshowroom, insurance, rto;
+                    var versionId = row.data('versionid');
+                    if (row.find('#checkbox-' + versionId).is(':checked')) {
+                        exshowroom = row.find('td[data-itemid=' + exShowroomCategory + '] input').val();
+                        insurance = row.find('td[data-itemid=' + insuranceCategory + '] input').val();
+                        rto = row.find('td[data-itemid=' + rtoCategory + '] input').val();
+                        if (exshowroom && insurance && rto) {
+                            versionAndPriceList += versionId + "#c0l#" + exshowroom + "#c0l#" + insurance + "#c0l#" + rto + "|r0w|";
+                        }
+                        else {
+                            Materialize.toast('Exshowroom, Insurance, RTO mapping is wrong.', 4000);
+                            return false;
+                        }
+                    }
+                });
+
+                if (versionAndPriceList.trim()) {
+
+                    versionAndPriceList = versionAndPriceList.substring(0, versionAndPriceList.lastIndexOf("|r0w|"));
+                    var userId = table.data('userid');
+                    var citiesId = "";
+
+                    if ($('#chkAllCity').is(':checked')) {
+                        $(ddlCity).find('option').each(function () {
+                            citiesId += $(this).val() + '|r0w|';
+                        });
+                        citiesId = citiesId.substring(citiesId.indexOf('|r0w|') + 5);
+                    }
+                    else {
+                        for (var i = 0; i < self.selectedCities().length; i++) {
+                            citiesId += self.selectedCities()[i] + '|r0w|';
+                        }
+                    }
+
+                    citiesId = citiesId.substring(0, citiesId.lastIndexOf("|r0w|"));
+                    var url = "/api/price/save/?versionAndPriceList=" + encodeURIComponent(versionAndPriceList) + "&citiesList=" + citiesId + "&userId=" + userId;
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        success: function (response) {
+                            if (response) {
+                                Materialize.toast("Prices saved successfully", 4000);
+                            }
+                            else {
+                                Materialize.toast("Something went wrong. Prices were not saved.", 4000);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            Materialize.toast("Something went wrong. Prices were not saved.", 4000);
+                        }
+                    });
+                }
+                else {
+                    Materialize.toast("Check at least one version.", 4000);
+                }
+
+            }
+            else {
+                Materialize.toast('Select one or more cities.', 4000);
+            }
+        };
+    }
+
     var priceSheetModel = function () {
         self.totalRowsCount = $('tbody').find('tr').length;
         self.selectedRowsCount = 0;
@@ -479,6 +585,7 @@
         var tblPricingSheet = $('#tblPricingSheet');
         var ddlCity = $('#ddlCity');
         var ddlDealersByCity = $('#ddlDealersByCity');
+        var ddlCityBwPrice = $('#ddlCityBwPrice');
 
         self.dealerOperationsModel = ko.observable(new dealerOperationModel(dpParams));
         if ($('#liCityCopyPricing').length > 0)
@@ -490,6 +597,9 @@
         }
         if ($('#liAddCategory').length > 0)
             self.addCategoryModel = ko.observable(new addCategoryModel());
+        if ($('#liBikewaleCopyPricing').length > 0) {
+            self.bikewaleCopyPricing = ko.observable(new bikewaleCopyPricing(ddlCityBwPrice));
+        }
     };
 
     ko.applyBindings(new dealerPricingIndexPageModel());

@@ -1,6 +1,6 @@
 ﻿@model  Bikewale.Models.MostPopularBikeWidgetVM
 @using Bikewale.Utility;
-<amp-carousel class="swiper-small" height="185" layout="fixed-height" typeof="carousel">
+<amp-carousel class="swiper-small" height="@(Model.ShowCheckOnRoadCTA ? 235 : 185)" layout="fixed-height" typeof="carousel">
     @if (Model != null && Model.Bikes != null)
     {
         foreach (var bike in Model.Bikes)

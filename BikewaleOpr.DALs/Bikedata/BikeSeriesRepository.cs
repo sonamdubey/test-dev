@@ -1,12 +1,13 @@
 ﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
+using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Dapper;
-using BikewaleOpr.Entities.BikeData;
+using System.Linq;
 
 namespace BikewaleOpr.DALs.Bikedata
 {
@@ -50,8 +51,6 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <summary>
         /// Created by : Vivek Singh Tomar on 12th Sep 2017
         /// Summary : Add new bike series
-        /// Modified by : Ashutosh Sharma on 23 Oct 2017
-        /// Description : Replaced sp from 'addbikeseries' to 'addbikeseries_23102017'.
         /// </summary>
         /// <param name="bikeSeries"></param>
         /// <param name="UpdatedBy"></param>
@@ -72,7 +71,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_seriesid", dbType: DbType.UInt32, direction: ParameterDirection.Output);
                     param.Add("par_createdon", dbType: DbType.Date, direction: ParameterDirection.Output);
                     connection.Open();
-                    connection.Execute("addbikeseries_23102017", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Execute("addbikeseries", param: param, commandType: CommandType.StoredProcedure);
                     bikeSeries.SeriesId = param.Get<uint>("par_seriesid");
                     if(bikeSeries.SeriesId != 0)
                     {
@@ -239,6 +238,80 @@ namespace BikewaleOpr.DALs.Bikedata
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DAL.BikeSeriesRepository: DeleteMappingOfModelSeries{0}", modelId));
             }
             return seriesId;
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 7th Nov 2017
+        /// Description : Get series synopsis
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <returns></returns>
+        public SynopsisData Getsynopsis(int seriesId)
+        {
+            SynopsisData objSynopsis = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_seriesid", seriesId);
+
+                    objSynopsis = connection.Query<SynopsisData>("getseriessynopsis", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.BikeSeriesRepotory.Getsynopsis");
+            }
+
+            return objSynopsis;
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 7th Nov 2017
+        /// Description : Update Synopsis
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="updatedBy"></param>
+        /// <param name="objSynopsis"></param>
+        public bool UpdateSynopsis(int seriesId, int updatedBy, SynopsisData objSynopsis)
+        {
+            int rowsAffected = 0;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_seriesid", seriesId);
+                    param.Add("par_userid", updatedBy);
+                    param.Add("par_discription", objSynopsis.BikeDescription);
+
+                    rowsAffected = connection.Execute("manageseriessynopsis", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.BikeSeriesRepository.UpdateSynopsis");
+            }
+
+            return rowsAffected > 0;
         }
     }
 }

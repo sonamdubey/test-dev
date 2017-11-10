@@ -15,20 +15,17 @@ namespace Bikewale.Models
 
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IUpcoming _upcoming = null;
-        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
-        private readonly IDealerCacheRepository _objDealerCache = null;
-        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         protected string makeMaskingName = string.Empty, redirectUrl = string.Empty;
-        public uint MakeId;
-        public ushort TopCount;
-        public StatusCodes status;
-        public DealerShowroomIndexPage(IBikeModelsCacheRepository<int> objBestBikes,IBikeMakes<BikeMakeEntity, int> bikeMakes, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> objMakeCache, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, ushort topCount)
+        public uint MakeId { get; set; }
+        public ushort TopCount { get; set; }
+        public StatusCodes status { get; set; }
+
+        public DealerShowroomIndexPage(IBikeModelsCacheRepository<int> objBestBikes, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakes, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, ushort topCount)
         {
             _newLaunches = newLaunches;
-            _objDealerCache = objDealerCache;
             _upcoming = upcoming;
-            _objMakeCache = objMakeCache;
             _bikeMakes = bikeMakes;
             _objBestBikes = objBestBikes;
             TopCount = topCount;
@@ -70,7 +67,7 @@ namespace Bikewale.Models
         private IEnumerable<BikeMakeEntityBase> BindMakeList()
         {
             IEnumerable<BikeMakeEntityBase> _makes;
-            _makes = _objMakeCache.GetMakesByType(EnumBikeType.Dealer);
+            _makes = _bikeMakes.GetMakesByType(EnumBikeType.Dealer);
             return _makes;
         }
 
