@@ -330,23 +330,30 @@
 	position: relative
 
 	.read-more
+		padding: 5px
 		position: absolute
-		bottom: 0
-		right: 17px
+		bottom: -5px
+		right: 0
+		background: #fff
 
 .video-card-container
 	.swiper-card__label
 		text-align: left
 
 .video-card__video-preview
-	display: block
-	width: 328px
-	height: 183px
+	position: relative
+	top: 0
+	padding-bottom: 56.25%
+	height: 0
+	overflow: hidden
+	margin-bottom: 10px
 
-	img
-		width: auto
-		height: 183px
-		max-width: 100%
+	iframe
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
 
 .video-card__desc
 	.grid-6
