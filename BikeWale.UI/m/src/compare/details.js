@@ -781,7 +781,7 @@ docReady(function () {
         lazyLoadingInPrevNext: true,
         watchSlidesProgress: true,
         watchSlidesVisibility: true,
-        onSlideChangeStart: function (swiper, event) {
+        onTouchStart: function (swiper, event) {
             if ($("#comparisonText").length > 0) {
                 triggerGA("Compare_Bikes", "Clicked_on_carousel", $("#comparisonText").val());
             }
