@@ -496,6 +496,11 @@ body[data-equivalent="0"] .equivalent-data {
   position: relative;
   top: 1px; }
 
+.compare-with-target .next-grey-icon {
+  position: absolute;
+  right: 20px;
+  top: 15px; }
+
 .compare-with-target {
   display: block;
   padding: 10px 35px 10px 20px;
