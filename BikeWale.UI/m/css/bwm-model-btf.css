@@ -1196,27 +1196,28 @@ h2.text-bold { font-weight: bold; }
 
 /* Mileage section */
 .mileage-box-list {
-    font-size:0;
-    padding-bottom: 25px;
+	width: 100%;
+    font-size: 0;
+    padding-bottom: 20px;
     position: relative;
 }
 
-.mileage-box-list li {
-    width: 50%;
-    display: inline-block;
-    vertical-align: middle;
-    padding-left:20px;
-    padding-right: 20px;
-    min-height: 45px;
-    border-left: 1px solid #eee;
+.mileage-box-list th {
+	text-align: left;
 }
 
-.mileage-box-list > li:first-child {
+.mileage-box-list .mileage-list__item {
+	width: 50%;
+	display: inline-block;
+    vertical-align: middle;
+    padding: 0 20px 10px;
+    min-height: 45px;
+	border-left: 1px solid #eee;
+}
+
+.mileage-box-list .mileage-list__item:first-child {
     border-left-style: none;
     padding-right: 10px;
-}
-.mileage-box-list > li:last-child {
-    padding-left: 10px;
 }
 
 .mileage-box-list .tooltip-icon-target.info-icon {
@@ -1224,12 +1225,12 @@ h2.text-bold { font-weight: bold; }
     top: -5px;
 }
 
-.grey-bike-icon {
+.grey-scooter-icon {
     display: inline-block;
     vertical-align: middle;
-    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/82888b/bike-36x20.png') no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/82888b/scooter-36x23.png') no-repeat;
     width: 36px;
-    height: 20px;
+    height: 23px;
 }
 .mileage-box__arai-block,
 .mileage-box__users-block {
@@ -1245,8 +1246,7 @@ h2.text-bold { font-weight: bold; }
 }
 
 .mileage-box__subtitle {
-    margin-bottom: 5px;
-    margin-right: 5px;
+    margin-right: 2px;
     font-size: 11px;
     color: #787878;
 }
