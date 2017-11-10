@@ -10,7 +10,7 @@
         var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/vendor.bundle.js";
         var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/app.bundle.js";
         var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
-        
+        var VideoBundleJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/videosBundle.bundle.js";
         //var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/vendor.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion;
         //var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/app.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion;
         //var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
@@ -90,8 +90,12 @@
             <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
             <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
             <script>window.__CSS_CHUNKS__ = { "app": "/pwa/css/app.css", "newsBundle": "/pwa/css/news/news.css", "videosBundle": "/pwa/css/videos/video.css" }</script>
-            <script>
-                var jsUrls = ['@ManifestJsUrl', '@VendorJsUrl', '@AppJsUrl', '@BwcacheJsUrl'];
+            <script defer type="text/javascript">
+                window.state = @Html.Raw(Model.WindowState);
+            </script>
+
+            <script defer type="text/javascript">
+                var jsUrls = ['@ManifestJsUrl', '@VendorJsUrl', '@AppJsUrl', '@BwcacheJsUrl','@VideoBundleJsUrl'];
                 var numberOfJsToLoad = jsUrls.length;
                 function jsLoadedCallback() {
                     try {
@@ -131,9 +135,9 @@
 
         </head>
         <body>
-            <div id="root"></div>
-           @*@Html.Raw(Model.ServerRouterWrapper)
-            <script type="text/javascript">
+            @*<div id="root"></div>*@
+           @Html.Raw(Model.ServerRouterWrapper)
+            @*<script type="text/javascript">
                 window.state = @Html.Raw(Model.WindowState);
             </script>*@
             @*<noscript id="asynced-css">
