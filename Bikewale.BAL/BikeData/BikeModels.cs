@@ -551,14 +551,14 @@ namespace Bikewale.BAL.BikeData
                 {
                     objModelPhotoGalleryData = new ModelPhotoGalleryEntity();
                     objModelPhotoGalleryData.ObjModelEntity = modelPage.ModelDetails;
-
+                    var versionPhotos = Task.Factory.StartNew(() => modelPage.ModelVersions = _modelCacheRepository.GetModelPageDetails(modelId).ModelVersions);
                     var colorPhotosTask = Task.Factory.StartNew(() => modelPage.colorPhotos = _modelCacheRepository.GetModelColorPhotos(modelId));
                     var galleryTask = Task.Factory.StartNew(() => modelPage.Photos = GetBikeModelPhotoGallery(modelId));
                     var videosTask = Task.Factory.StartNew(() => objModelPhotoGalleryData.VideosList = _videos.GetVideosByMakeModel(1, 50, (uint)objModelPhotoGalleryData.ObjModelEntity.MakeBase.MakeId, Convert.ToUInt32(modelId)));
 
-                    Task.WaitAll(colorPhotosTask, galleryTask, videosTask);
+                    Task.WaitAll(colorPhotosTask, galleryTask, videosTask, versionPhotos);
 
-                    objModelPhotoGalleryData.ImageList = CreateAllBikePhotosList(modelPage.ModelDetails, modelPage.Photos, modelPage.colorPhotos);
+                    objModelPhotoGalleryData.ImageList = CreateAllBikePhotosList(modelPage.ModelDetails, modelPage.Photos, modelPage.colorPhotos, modelPage.ModelVersions);
                 }
             }
             catch (Exception ex)
@@ -664,11 +664,7 @@ namespace Bikewale.BAL.BikeData
                     allPhotos = new List<ColorImageBaseEntity>();
                     IEnumerable<ModelImage> galleryImages = null;
                     galleryImages = GetBikeModelPhotoGallery(modelId);
-                    // Create the delegate.
-                    //AsyncMethodCaller caller = new AsyncMethodCaller(GetBikeModelPhotoGallery);
 
-                    //// Initiate the asychronous call.
-                    //IAsyncResult result = caller.BeginInvoke(modelId, null, null);
 
                     var imageDesc = String.Format("{0} Model Image", objModelPage.ModelDetails.ModelName);
                     //Add Model Image
@@ -680,6 +676,19 @@ namespace Bikewale.BAL.BikeData
                         ImageTitle = imageDesc,
                         ImageType = ImageBaseType.ModelImage
                     });
+
+                    var versionPhotos = objModelPage.ModelVersions.Select(x => new ColorImageBaseEntity()
+                    {
+                        HostUrl = x.HostUrl,
+                        OriginalImgPath = x.OriginalImagePath
+
+                    });
+
+                    if (versionPhotos != null && versionPhotos.Any())
+                    {
+                        allPhotos.AddRange(versionPhotos);
+                    }
+
 
                     //Add Color Photos
                     IEnumerable<ModelColorImage> colorPhotos = objModelPage.colorPhotos != null ? objModelPage.colorPhotos.Where(m => !String.IsNullOrEmpty(m.OriginalImagePath)) : null;
@@ -737,13 +746,20 @@ namespace Bikewale.BAL.BikeData
             }
         }
 
+
+
+
+
+
+
+
         /// <summary>
         /// Created by: Sushil Kumar on 4th Oct 2017
         /// Summary: To club all model images which includes modelimage,colorimages and gallery images
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
-        private IEnumerable<ColorImageBaseEntity> CreateAllBikePhotosList(BikeModelEntity modelDetails, IEnumerable<ModelImage> galleryImages, IEnumerable<ModelColorImage> colorPhotos)
+        private IEnumerable<ColorImageBaseEntity> CreateAllBikePhotosList(BikeModelEntity modelDetails, IEnumerable<ModelImage> galleryImages, IEnumerable<ModelColorImage> colorPhotos, List<BikeVersionMinSpecs> versionImages)
         {
             List<ColorImageBaseEntity> allPhotos = null;
             try
@@ -763,6 +779,17 @@ namespace Bikewale.BAL.BikeData
                         ImageTitle = imageDesc,
                         ImageType = ImageBaseType.ModelImage
                     });
+                    if (versionImages != null)
+                    {
+                        var versionimage = versionImages.Select(x => new ColorImageBaseEntity()
+                        {
+                            HostUrl = x.HostUrl,
+                            OriginalImgPath = x.OriginalImagePath,
+
+                        });
+                        allPhotos.AddRange(versionimage);
+                    }
+
                     if (colorPhotos != null)
                     {
                         var colorImages = colorPhotos.Select(x => new ColorImageBaseEntity()
@@ -865,7 +892,7 @@ namespace Bikewale.BAL.BikeData
         /// <param name="cityId">cityid</param> 
         /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId)
-        { 
+        {
             IEnumerable<MostPopularBikesBase> bikes = null;
             try
             {

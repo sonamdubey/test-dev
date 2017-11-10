@@ -300,7 +300,7 @@ namespace Bikewale.DAL.Compare
             using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
             {
                 if (reader != null)
-                {                    
+                {
                     versionsList = new List<BikeVersionCompareEntity>();
                     while (reader.Read())
                     {
@@ -531,7 +531,7 @@ namespace Bikewale.DAL.Compare
                 compare.BasicInfo = basicInfos;
                 compare.Specifications = specs;
                 compare.Features = features;
-                compare.Color = color;               
+                compare.Color = color;
 
             }
 

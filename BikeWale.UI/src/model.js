@@ -156,17 +156,24 @@ docReady(function () {
                     imageUrl = "https://imgd.aeplcdn.com/393x221/bikewaleimg/images/noimage.png?q=85";
                 }
                 $('#colourCarousel span img').attr("src", imageUrl);
-                $('#colourCarousel span').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical));
+                $('#colourCarousel span').attr("href", imagePageUrl + '?q=' + Base64.encode('colorimageid=' + colorId + '&retUrl=' + canonical));
             }
         }
         colorElements.removeClass('active');
         colorElements.eq([$(this).index()]).addClass('active');
     });
+   
+    $("span.carousel-img-container").click(function () {
+      
+        location.href = $(this).attr("href");
 
+
+    });
+  
     getCityArea = GetGlobalCityArea();
 
     $(".leadcapturebtn").click(function (e) {
-        ele = $(this);
+        var ele = $(this);
         var leadOptions = {
             "dealerid": ele.attr('data-item-id'),
             "dealername": ele.attr('data-item-name'),
