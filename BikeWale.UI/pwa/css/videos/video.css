@@ -1234,6 +1234,116 @@ select.form-control {
 .border-light-right {
   border-right: 1px solid #e2e2e2; }
 
+.social-wrapper {
+  overflow: hidden;
+  margin-bottom: 15px; }
+  .social-wrapper li {
+    width: 38px;
+    height: 24px;
+    margin-right: 10px;
+    float: left;
+    text-align: center; }
+  .social-wrapper a {
+    width: 100%;
+    height: 100%;
+    display: block; }
+
+.rounded-corner2 {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px; }
+
+.whatsapp-container {
+  background: -webkit-linear-gradient(to bottom, #49c633, #40ad2c);
+  background: -o-linear-gradient(to bottom, #49c633, #40ad2c);
+  background: -moz-linear-gradient(to bottom, #49c633, #40ad2c);
+  background: linear-gradient(to bottom, #49c633, #40ad2c); }
+
+.fb-container {
+  background: -webkit-linear-gradient(to bottom, #5171ba, #3b599c);
+  background: -o-linear-gradient(to bottom, #5171ba, #3b599c);
+  background: -moz-linear-gradient(to bottom, #5171ba, #3b599c);
+  background: linear-gradient(to bottom, #5171ba, #3b599c); }
+
+.tweet-container {
+  background: -webkit-linear-gradient(to bottom, #28c0ff, #1babe7);
+  background: -o-linear-gradient(to bottom, #28c0ff, #1babe7);
+  background: -moz-linear-gradient(to bottom, #28c0ff, #1babe7);
+  background: linear-gradient(to bottom, #28c0ff, #1babe7); }
+
+.gplus-container {
+  background: -webkit-linear-gradient(to bottom, #ff533f, #dd2a16);
+  background: -o-linear-gradient(to bottom, #ff533f, #dd2a16);
+  background: -moz-linear-gradient(to bottom, #ff533f, #dd2a16);
+  background: linear-gradient(to bottom, #ff533f, #dd2a16); }
+
+.mail-container {
+  background: -webkit-linear-gradient(to bottom, #c6c6c6, #acacac);
+  background: -o-linear-gradient(to bottom, #c6c6c6, #acacac);
+  background: -moz-linear-gradient(to bottom, #c6c6c6, #acacac);
+  background: linear-gradient(to bottom, #c6c6c6, #acacac); }
+
+.social-icons-sprite {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/social-icons-sprite.png") no-repeat;
+  display: inline-block; }
+
+.fb-icon,
+.gplus-icon,
+.tweet-icon {
+  height: 14px;
+  position: relative;
+  top: 4px; }
+
+.whatsapp-icon {
+  height: 14px;
+  position: relative;
+  top: 4px;
+  width: 12px;
+  background-position: 0 0; }
+
+.fb-icon {
+  width: 8px;
+  background-position: -22px 0; }
+
+.tweet-icon {
+  width: 16px;
+  background-position: -39px 0; }
+
+.gplus-icon {
+  width: 14px;
+  background-position: -65px 0; }
+
+.social-icons-sprite {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/social-icons-sprite.png") no-repeat;
+  display: inline-block; }
+
+.fb-icon,
+.gplus-icon,
+.tweet-icon {
+  height: 14px;
+  position: relative;
+  top: 4px; }
+
+.whatsapp-icon {
+  height: 14px;
+  position: relative;
+  top: 4px;
+  width: 12px;
+  background-position: 0 0; }
+
+.fb-icon {
+  width: 8px;
+  background-position: -22px 0; }
+
+.tweet-icon {
+  width: 16px;
+  background-position: -39px 0; }
+
+.gplus-icon {
+  width: 14px;
+  background-position: -65px 0; }
+
 .header-navbar {
   background-color: #333;
   height: 50px; }

@@ -2952,6 +2952,7 @@
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
+    <Content Include="m\sw.js" />
     <Content Include="m\trackday2016\css\track-day.css" />
     <Content Include="m\trackday2016\default.aspx" />
     <Content Include="m\trackday2016\details.aspx" />
@@ -2977,6 +2978,13 @@
     <Content Include="m\sass\modules\_key-specs.sass" />
     <Content Include="m\sass\modules\_button.sass" />
     <Content Include="m\sass\new-launch\_media-query.sass" />
+    <Content Include="pwa\app.bundle.js" />
+    <Content Include="pwa\appshell.html" />
+    <Content Include="pwa\manifest.bundle.js" />
+    <Content Include="pwa\NewsBundle.bundle.js" />
+    <Content Include="pwa\peripheralComponents.bundle.js" />
+    <Content Include="pwa\vendor.bundle.js" />
+    <Content Include="pwa\VideosBundle.bundle.js" />
     <Content Include="sass\new-launch\new-launch.sass" />
     <Content Include="sass\new-launch\_new-launch-style.sass" />
     <Content Include="sass\modules\_collapsible-content.sass" />
@@ -3842,6 +3850,7 @@
     <Content Include="Views\Videos\CategoryVideos_Mobile_Pwa.cshtml" />
     <Content Include="Views\Videos\Details_Mobile_Pwa.cshtml" />
     <Content Include="Views\Videos\Index_Mobile_Pwa.cshtml" />
+    <Content Include="Views\Shared\_ServiceWorkerScript.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4063,7 +4072,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

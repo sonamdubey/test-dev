@@ -41,7 +41,7 @@ toolbox.router.get('/api/pwa/*', toolbox.cacheFirst,
 toolbox.router.get('/m/news/*-(\\d+)/amp/', toolbox.networkOnly, null);
 
 toolbox.router.get('(/m/news/*|/m/bike-videos/*)', function (request, values, options) {
-     if ('GET' === request.method && request.headers.get('accept').includes('text/html')) {
+    if ('GET' === request.method && request.headers.get('accept').includes('text/html')) {
         return fetchFileFromCache(APPSHELL, precacheName).then(function (response) {
             if (response)
                 return response;

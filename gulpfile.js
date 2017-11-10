@@ -121,6 +121,8 @@ gulp.task('replace-mvc-layout-css-reference', function () {
 	return gulp.src([
 		app + 'Views/News/Index_Mobile_Pwa.cshtml',
 		app + 'Views/News/Detail_Mobile.cshtml',
+		app + 'Views/Videos/Index_Mobile.cshtml',
+		app + 'Views/Videos/Detail_Mobile.cshtml',
 		app + 'm/news/offline.html',
 		app + 'Views/Shared/_Layout.cshtml',
 		app + 'Views/Shared/_Layout_Mobile.cshtml'], { base: app })
@@ -151,6 +153,49 @@ gulp.task('replace-css-reference', function () {
 
 	console.log('internal css reference replaced');
 });
+
+// replace PWA JS versions
+gulp.task('replacePWAJsVersions' , function() {
+	var assetsJson = require('./webpack-assets.json');
+	if(!assetsJson) {
+		console.log('Webpack assets json not found');
+		return;
+	}
+	var replaceJson = {};
+	
+	replaceJson["/pwa/vendor.bundle.js"] = assetsJson["vendor"].js;
+	replaceJson["/pwa/app.bundle.js"] = assetsJson["app"].js;
+	replaceJson["/pwa/manifest.bundle.js"] = assetsJson["manifest"].js;
+	var regexCssChunks = /<script>(.|\n)*window\.__CSS_CHUNKS__(.|\n)*=(.|\n)*{(.|\n)*}(.|\n)*(;?)(.|\n)*<\/script>/gm;
+	var cssChunksJson = {};
+	for (const key of Object.keys(assetsJson)) {
+		if(assetsJson[key].css)
+			cssChunksJson[key] = assetsJson[key].css;    
+	}
+	var cssChunksTag = '<script>window.__CSS_CHUNKS__='+JSON.stringify(cssChunksJson)+';</script>'
+	return gulp.src([
+		app + 'Views/News/Index_Mobile_Pwa.cshtml',
+		app + 'Views/News/Detail_Mobile.cshtml',
+		app + 'pwa/appshell.html',
+		app + 'Views/Videos/Index_Mobile.cshtml',
+		app + 'Views/Videos/Details_Mobile.cshtml'], { base: app })
+		.pipe(replace(/\/pwa\/.*.bundle.js/g, function(match, p1, offset, string) {
+			console.log('replacing '+match+ ' with ' + replaceJson[match]);
+			return replaceJson[match];
+	    }))
+	    .pipe(replace(pattern.CSS_ATF, function (s, fileName) {
+			var style = fs.readFileSync(minifiedAssetsFolder + fileName, 'utf-8'),
+				style = style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "").replace(/[@]{1}/g, "@@"),
+				styleTag = "<style type='text/css'>" + style + "</style>";
+
+			return styleTag;
+		}))
+		.pipe(replace(regexCssChunks,function(match, p1, offset, string) {
+			return cssChunksTag;
+	    }))
+	    .pipe(gulp.dest(buildFolder))
+})
+
 // replace desktop frameworks js, ie8 fix
 gulp.task('bw-framework-js', function () {
 	return gulp.src(app + paths.JS + 'frameworks.js', { base: app + paths.JS })
@@ -184,10 +229,12 @@ gulp.task('default',
 		'clean',
 		'sass',
 		'minify-css', 'minify-js', 'minify-sass-css',
+		
 		'bw-framework-js',
 		'replace-css-reference',
 		'replace-css-link-reference',
-		'replace-mvc-layout-css-reference'
+		// 'replace-mvc-layout-css-reference'//,
+		'replacePWAJsVersions'
 	)
 );
 //end
