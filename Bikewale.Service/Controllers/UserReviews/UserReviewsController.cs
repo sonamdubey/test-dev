@@ -9,8 +9,8 @@ using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using Bikewale.Utility.StringExtention;
 using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
@@ -101,7 +101,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// </summary>
         /// <param name="reviewId"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/user-reviews/updateView/{reviewId}/")]
+        [HttpPost, Route("api/user-reviews/updateview/{reviewId}/")]
         public IHttpActionResult UpdateUserReviewViews(uint reviewId)
         {
             try
@@ -331,7 +331,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="reviewId"></param>
         /// <param name="vote"></param>
         /// <returns></returns>
-        [Route("api/user-reviews/voteUserReview/")]
+        [Route("api/user-reviews/voteuserreview/")]
         public IHttpActionResult VoteUserReview(uint reviewId, int vote)
         {
             try
@@ -365,7 +365,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="reviewId"></param>
         /// <param name="comments"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/user-reviews/abuseUserReview/")]
+        [HttpPost, Route("api/user-reviews/abuseuserreview/")]
         public IHttpActionResult SaveUserReviewAbuse(uint reviewId, string comments)
         {
             try
@@ -453,7 +453,7 @@ namespace Bikewale.Service.Controllers.UserReviews
                     {
                         objRating = _userReviews.SaveUserRatings(objSaveRatingEntity);
                     }
-                    IEnumerable<UserReviewQuestion> questions = _userReviews.GetRatingAppScreenData(objSaveInputRating.PriceRangeId); 
+                    IEnumerable<UserReviewQuestion> questions = _userReviews.GetRatingAppScreenData(objSaveInputRating.PriceRangeId);
                     objRatingReviewInput = UserReviewsMapper.Convert(objRating, objSaveInputRating);
                     objRatingReviewInput.Questions = UserReviewsMapper.Convert(questions);
                     return Ok(objRatingReviewInput);
@@ -472,6 +472,41 @@ namespace Bikewale.Service.Controllers.UserReviews
 
         }
         #endregion
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 9th Nov 2017
+        /// Description : To get user input for option review paramters to save based on reviewid and customer id for one or more questions
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("api/user-reviews/parameter-ratings/save/")]
+        public IHttpActionResult SubmitOptionReviewInfo([FromBody] InputParamterRatingSave objOptionalQuestionInput)
+        {
+            try
+            {
+                if (ModelState.IsValid && !String.IsNullOrEmpty(objOptionalQuestionInput.QusetionAnswerMapping))
+                {
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("par_reviewid", objOptionalQuestionInput.ReviewId.ToString());
+                    nvc.Add("par_customerid", objOptionalQuestionInput.CustomerId.ToString());
+                    nvc.Add("par_qamapping", objOptionalQuestionInput.QusetionAnswerMapping);
+                    nvc.Add("par_mileage", objOptionalQuestionInput.CustomerId.ToString());
+                    SyncBWData.PushToQueue("saveuserreviewoptionalinfo", DataBaseName.BW, nvc);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.SubmitOptionReviewInfo");
+                return InternalServerError();
+            }
+
+        }
 
     }
 
