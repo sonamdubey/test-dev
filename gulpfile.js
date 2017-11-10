@@ -121,8 +121,9 @@ gulp.task('replace-mvc-layout-css-reference', function () {
 	return gulp.src([
 		app + 'Views/News/Index_Mobile_Pwa.cshtml',
 		app + 'Views/News/Detail_Mobile.cshtml',
-		app + 'Views/Videos/Index_Mobile.cshtml',
-		app + 'Views/Videos/Detail_Mobile.cshtml',
+		app + 'Views/Videos/Index_Mobile_Pwa.cshtml',
+		app + 'Views/Videos/Detail_Mobile_Pwa.cshtml',
+		app + 'CategoryVideos_Mobile_Pwa.cshtml',
 		app + 'm/news/offline.html',
 		app + 'Views/Shared/_Layout.cshtml',
 		app + 'Views/Shared/_Layout_Mobile.cshtml'], { base: app })
