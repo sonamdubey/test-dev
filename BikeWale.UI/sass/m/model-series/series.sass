@@ -83,6 +83,9 @@
 	.model-series-list
 		max-width: 360px
 
+	.model-series-card__btn-full
+		max-width: 360px
+
 .orange-card
 		border: 1px solid #ff7c6f
 
@@ -434,7 +437,7 @@
 //find right model
 
 .model-specs-tabs
-	height: 44px
+	height: 40px
 	position: relative
 
 .find-specs__tabs-container
@@ -446,11 +449,6 @@
 	-webkit-overflow-scrolling: touch
 	position: absolute
 	top: 0px
-	-moz-box-shadow: 0 4px 5px -2px #d5d5d5
-	-webkit-box-shadow: 0 4px 5px -2px #d5d5d5
-	-o-box-shadow: 0 4px 5px -2px #d5d5d5
-	-ms-box-shadow: 0 4px 5px -2px #d5d5d5
-	box-shadow: 0 4px 5px -2px #d5d5d5
 
 .find-specs-tabs-wrapper
 	width: 100%
@@ -469,6 +467,10 @@
 	width: 135px
 	height: 120px
 	padding: 10px 20px 5px
+
+	.recommended-tag
+		color: #787878
+		font-size: 10px
 
 	.popular-tag
 		color: #ff7c6f
@@ -495,8 +497,55 @@
 		width: 62%
 		float: left
 
+		&:after
+			background: -moz-linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
+			background: -o-linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
+			background: linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
+			content: ''
+			width: 50px
+			height: 100%
+			position: absolute
+			top: 0
+			left: -17px
+			z-index: 1
+
+		&:before
+			background: -moz-linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
+			background: -o-linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
+			background: linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
+			content: ''
+			width: 50px
+			height: 100%
+			position: absolute
+			top: 0
+			left: -17px
+			z-index: 1
+
+		.swiper-ribbon
+			display: block
+			min-width: 116px
+			height: 33px
+			font-size: 14px
+			color: white
+			font-weight: 600
+			padding: 5px 46px 5px 33px
+			background: #ff7c6f
+			border-radius: 15px 0 0 15px
+			position: absolute
+			right: 0
+			bottom: 80px
+			z-index: 2
+			-webkit-animation: moveribbon 5s infinite
+			-webkit-animation-direction: alternate
+			animation: moveribbon 5s infinite
+			animation-direction: alternate
+				
 	.rightbike__swiper-card
 		width: 135px
+
+		&.grid-2
+			.series-card__desc
+				background: #fff
 
 	.series-card__desc
 		position: relative
@@ -520,6 +569,17 @@
 		.right-bike__label
 			font-weight: 600
 
+@keyframes moveribbon
+	0%   
+		right: -15px
+	25%   
+		right: -10px
+	50%   
+		right: -15px
+	75%   
+		right: -10px
+	100%   
+		right: -120px
 
 .specs-btn
 	border-radius: 15px
@@ -534,3 +594,11 @@
 		display: inline-block
 		margin: 0 5px 10px
 		color: #aaa
+		
+		&:hover
+			border-color: #ff7c6f
+			color: #ff7c6f
+
+@media only screen and (min-width: 800px)
+	.right-bike-carousel.swiper-container
+			width: 73%

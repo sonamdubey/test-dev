@@ -9,10 +9,15 @@ docReady(function () {
 
         if (indexOfSlide >= 0)
         {
-            //if (indexOfSlide > 0)
-            //{
-            //    $('#' + swiperSlide.attr('id') + ' .popular-tag').text('Recommended Bike');
-            //}
+            var tag = $('#rightBikeSwiper').find('.swiper-slide .recommended-tag:not(.popular-tag)');
+
+            tag.text('');
+
+            if (! swiperSlide.hasClass('popular-card'))
+            {      
+                var recommendedTag = swiperSlide.find('.recommended-tag');
+                    recommendedTag.text('Recommended Bike');
+            }
             $('#rightBikeSwiper').data('swiper').slideTo(indexOfSlide, 1000, false);
         }
 
