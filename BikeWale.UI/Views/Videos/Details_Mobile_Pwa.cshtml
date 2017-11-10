@@ -138,11 +138,11 @@
 
 </head>
 <body>
-    <div id="root"></div>
-    @*@Html.Raw(Model.ServerRouterWrapper)
+    
+    @Html.Raw(Model.ServerRouterWrapper)
     <script type="text/javascript">
                 window.state = @Html.Raw(Model.WindowState);
-    </script>*@
+    </script>
     @*<noscript id="asynced-css">
 
         <link href="@CssBTFUrl" rel="stylesheet" type="text/css" />
