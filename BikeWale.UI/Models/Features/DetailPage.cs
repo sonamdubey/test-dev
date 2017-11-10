@@ -306,6 +306,7 @@ namespace Bikewale.Models.Features
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
                 url += "features/";
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "Features"));
 

@@ -1,16 +1,19 @@
-﻿using Bikewale.Entities;
+﻿using Bikewale.Common;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models.Scooters;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Web;
 
 namespace Bikewale.Models
@@ -91,6 +94,7 @@ namespace Bikewale.Models
                     BindLinkPager(objData);
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData);
+                    SetBreadcrumList(objData);
                     GetWidgetData(objData, widgetTopCount);
                 }
                 else
@@ -300,6 +304,48 @@ namespace Bikewale.Models
                 }
             }
         }
-        #endregion
+
+        /// <summary>
+        /// Created By : Snehal Dange on 10th Nov 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(ScooterExpertReviewsPageVM objPageVM)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string bikeUrl;
+                bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    bikeUrl += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}scooters/", bikeUrl), "Scooters"));
+
+                if (objPageVM.Make != null && objPageVM.Make.MakeId > 0)
+                {
+                    bikeUrl = string.Format("{0}{1}-scooters/", bikeUrl, objPageVM.Make.MaskingName);
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, string.Format("{0} Scooters", objPageVM.Make.MakeName)));
+                }
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Expert Reviews"));
+
+                if (objPageVM != null)
+                {
+                    objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Videos.ScooterVideos.SetBreadcrumList()");
+            }
+            #endregion
+        }
     }
 }
