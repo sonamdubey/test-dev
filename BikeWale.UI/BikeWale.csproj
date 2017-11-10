@@ -2952,6 +2952,7 @@
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
+    <Content Include="m\sw.js" />
     <Content Include="m\trackday2016\css\track-day.css" />
     <Content Include="m\trackday2016\default.aspx" />
     <Content Include="m\trackday2016\details.aspx" />
@@ -3849,6 +3850,7 @@
     <Content Include="Views\Videos\CategoryVideos_Mobile_Pwa.cshtml" />
     <Content Include="Views\Videos\Details_Mobile_Pwa.cshtml" />
     <Content Include="Views\Videos\Index_Mobile_Pwa.cshtml" />
+    <Content Include="Views\Shared\_ServiceWorkerScript.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
