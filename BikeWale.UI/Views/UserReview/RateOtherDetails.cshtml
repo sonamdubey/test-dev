@@ -60,11 +60,11 @@
 									<div class="jcarousel">
                                 @if (Model.QuestionsList != null && Model.QuestionsList.Count() > 0)
                                 {
-                                    var j = 0;
+                                    var j = 1;
                                     <ul id="bike-review-questions" data-make-model="@string.Format("{0}_{1}_", Model.Make.MakeName, Model.Model.ModelName)" class="other-review-question review-question-list margin-bottom5">
 										<li class="list-item question-type-text" data-btn-text="Continue">
                                             <p class="item-title">What mileage does your bike offer?</p>
-                                            <p class="font12 text-light-grey margin-bottom20">(6 of 6)</p>
+                                            <p class="font12 text-light-grey margin-bottom20">(@j of 6)</p>
 
                                             <div class="mileage-slider-box">
                                                 <p class="slider-text__left">0 kmpl</p>
