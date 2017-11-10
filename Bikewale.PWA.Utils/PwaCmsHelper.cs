@@ -136,12 +136,12 @@ namespace Bikewale.PWA.Utils
         /// <param name="videos"></param>
         /// <param name="catId"></param>
         /// <returns></returns>
-        public static PwaVideosBySubcategory SetPwaSubCategoryVideos(IEnumerable<BikeVideoEntity> videos, int catId)
+        public static PwaVideosBySubcategory SetPwaSubCategoryVideos(IEnumerable<BikeVideoEntity> videos, int catId,bool addShortDesc=false)
         {
             PwaVideosBySubcategory vidInfo = new PwaVideosBySubcategory();
             if (videos != null)
             {
-                vidInfo.Videos = ConverterUtility.PwaConvert(videos);
+                vidInfo.Videos = ConverterUtility.PwaConvert(videos, addShortDesc);
                 string secTitle, moreVidUrl;
                 VideoTitleDescription.VideoGetTitleAndUrl(catId, out secTitle, out moreVidUrl);
                 vidInfo.SectionTitle = secTitle;
