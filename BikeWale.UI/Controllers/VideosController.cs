@@ -465,7 +465,7 @@ namespace Bikewale.Controllers.Desktop.Videos
 
             if (objVM.ExpertReviewsWidgetData != null)
             {
-                topVideos.ExpertReviews = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.ExpertReviewsWidgetData.VideoList.Videos, 55);
+                topVideos.ExpertReviews = PwaCmsHelper.SetPwaSubCategoryVideos(objVM.ExpertReviewsWidgetData.VideoList.Videos, 55,true);
             }
             //set other Videos            
             if (objVM.FirstLookWidgetData != null)
