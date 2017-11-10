@@ -16,6 +16,54 @@ docReady(function () {
     bwcache.setScope('ReviewPage');
     window.history.pushState('ReviewPage', '', '');
 
+    //mileage slider
+    $( function() {
+        $("#mileageSlider").slider({
+            range: "min",
+            value: 50,
+            min: 0,
+            max: 150,
+            slide: function( event, ui ) {
+                $("#mileage-slider__text").text(ui.value + "  kmpl");
+            }
+        });
+        $("#mileage-slider__text").text($("#mileageSlider").slider("value") + "  kmpl");
+	});
+
+    //rating-face
+    $('#skipButton').on('click', function () {
+		$('.carousel-type-questions .jcarousel-control-next').trigger('click');
+	});
+	
+	$('.carousel-type-questions').on('change', '.rating-face-list input[type="radio"]', function() {
+		$('.carousel-type-questions .jcarousel-control-next').trigger('click');
+	})
+
+	$('.carousel-type-questions .jcarousel').on('jcarousel:animate', function () {
+		var targetQuestion = $('.carousel-type-questions .jcarousel').jcarousel('target');
+		setQuestionNextButtonText(targetQuestion);
+	});
+
+	function setQuestionNextButtonText(targetQuestion) {
+		if (targetQuestion.attr('data-btn-text') !== "") {
+			$('#skipButton').text(targetQuestion.attr('data-btn-text'));
+		}
+		else {
+			$('#skipButton').text('Skip this question');
+		}
+	}
+
+    $('.edit-link').on('click', function () {
+        if (page == "writeReview" && $("#previousPageUrl") && $("#previousPageUrl").length) {
+            window.location.href = $('#previousPageUrl').text();
+        }
+        else if (page == "otherDetails" && $("#returnUrl") && $("#returnUrl").length) {
+            window.location.href = $('#returnUrl').text();
+        }
+        else if (page == "reviewSummary" && $("#pageSource") && $("#pageSource").length) {
+            window.location.href = $("#pageSource").val();
+        }
+	});
     $(window).on('popstate', function (event) {                
 
         if (page == "writeReview" && $("#previousPageUrl") && $("#previousPageUrl").length) {            

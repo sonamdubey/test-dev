@@ -8,7 +8,29 @@
     Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/rate-your-bike/{0}/", Model.Model.ModelId);
     Model.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/rate-your-bike/{0}/", Model.Model.ModelId);
 }
-
+<section class="container padding-top10">
+    <div class="grid-12">
+        <div class="breadcrumb margin-bottom15">
+            <ul>
+                <li>
+                    <a class="breadcrumb-link" href="" title="Home">
+                        <span class="breadcrumb-link__label">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="breadcrumb-link" href="" title="User reviews">
+                        <span class="breadcrumb-link__label">User reviews</span>
+                    </a>
+                </li>
+                <li class="current">
+                    <span class="breadcrumb-link__label">Write a review</span>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
 @if (Model != null && Model.Make != null && Model.Model != null && Model.Rating != null)
 {
     <form action="/user-reviews/save/" method="post">
@@ -17,97 +39,114 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="content-box-shadow padding-15-20 content-box-head">
-                            <p class="font22 text-black text-bold inline-block">You rated @Model.Make.MakeName @Model.Model.ModelName</p>
-                            <div class="inline-block user-rating-box">
-                                <span class="bwsprite star-one"></span>
-                                <span class="inline-block">
-                                    <span class="font18 text-bold">@Model.Rating.Value</span>&nbsp;<span class="font12 text-xx-light">/&nbsp;5</span>
-                                </span>
-                            </div>
+                            <h1>Write a review for @Model.Make.MakeName @Model.Model.ModelName</h1>
                         </div>
-                        <div class="contest-slug-sm contest-slug-container margin-bottom20">
-                            <span class="trophy-fff-14"></span>
-                            <p class="contest-slug__title">Rate &amp; write a detailed review and stand a chance to win Amazon vouchers worth &#x20B9; 2,000. Help others in making the right decision.</p>
+                        <div class="contest-slug-sm">
+                            <span class="contest-banner__icon"></span>
+                            <span class="margin-left25 font18 text-bold">Write a review & win!</span>
+                            <span class="margin-left10 font14">Your chance to share your experience and help our users.</span>
+                            <span class="banner__pen-icon"></span>
                         </div>
-                        <div class="padding-15-20">
-                            <div class="padding-15-20 main-container">
-                                <div class="grid-2">
-                                    <ul class="review-progress">
-                                        <li class="completed review-progress__rate-bike"><p class="review-progress__text">Rate this Bike</p></li>
-                                        <li class="active review-progress__write-review"><p class="review-progress__text">Write Review</p></li>
-                                        <li class="review-progress__other-details"><p class="review-progress__text">Other details</p></li>
-                                    </ul>
-                                </div>
-                                <div class="grid-10 alpha">
-                                    <h2 class="font15 margin-bottom10">@Model.Rating.ResponseHeading</h2>
-                                    <p class="text-slate-grey margin-bottom10">Tell us more about it. You may consider writing about:</p>
-                                    <ol class="numeric-list margin-bottom20">
-                                        <li>Buying experience</li>
-                                        <li>Riding experience</li>
-                                        <li>Details about looks, performance etc.</li>
-                                        <li>Servicing and maintenance</li>
-                                        <li>Pros and Cons</li>
-                                    </ol>
+                            <div class="grid-12 alpha omega bg-white">
+                                <ul class="review-progress padding-top15 padding-bottom15">
+                                    <li class="review-progress__container completed">
+                                        <div>
+                                            <span class="review-progress__rate-bike review-progress__icon"></span>
+                                            <h3 class="review-progress__text">Rate this Bike</h3>
+                                            <span class="margin-left15 text-slate-grey">
+                                                You rated:
+                                                <span class="rate-count-@Model.Rating.Value rating-block">
+                                                    <span class="bwsprite star-icon"></span><span class="font16 text-bold rating-text-pos">
+                                                        @Model.Rating.Value
+                                                    </span>
+                                                </span>
 
-                                    <div class="textarea-box margin-bottom15">
-                                        <textarea data-bind="textInput: detailedReview" id="reviewDesc" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.ReviewErrorText)) ? Model.SubmitResponse.ReviewErrorText : "")" rows="4" cols="80" maxlength="7900" placeholder="@Html.Raw("Write a detailed review & stand a chance to win Amazon vouchers worth &#x20B9; 2,000.")"></textarea>
-
-                                        <div data-bind="visible: !detailedReviewFlag() && descLength() < 300" class="review-char-count position-abt font12">
-                                            <span data-bind="visible: descLength() > 0"><span data-bind="text: descLength"></span>/</span><span data-bind="text: reviewCharLimit"></span>&nbsp;min
+                                            </span>
+                                            <div class="edit-link">
+                                                <span class="edit-icon"></span>
+                                                <a href="Javascript:void(0);" class="font12">Edit Rating</a>
+                                            </div>
                                         </div>
 
-                                        <div data-bind="visible: detailedReviewFlag" class="textarea-error position-abt">
-                                            <span class="error-text" data-bind="text: detailedReviewError"></span>
+                                    </li>
+                                    <li class="review-progress__container active">
+                                        <div>
+                                            <span class="review-progress__write-review review-progress__icon"></span>
+                                            <h3 class="review-progress__text">Write a review</h3>
                                         </div>
-                                    </div>
+                                        <div class="review-progress__form">
 
-                                    <h3 class="font15 text-black margin-bottom10">Give a title to your review</h3>
-                                    <p class="text-slate-grey margin-bottom20">A catchy title will grab eyeballs, and more people will read your review.</p>
+                                            <h2 class="font15 margin-bottom10">@Model.Rating.ResponseHeading</h2>
+                                            <p class="text-slate-grey margin-bottom10">Tell us more about it. You may consider writing about:</p>
+                                            <ol class="numeric-list margin-bottom20">
+                                                <li>Buying experience</li>
+                                                <li>Riding experience</li>
+                                                <li>Details about looks, performance etc.</li>
+                                                <li>Servicing and maintenance</li>
+                                                <li>Pros and Cons</li>
+                                            </ol>
 
-                                    <div class="input-box form-control-box" data-bind="css: reviewTitle().length > 0 ? 'not-empty' : ''">
-                                        <input type="text" name="reviewTitle" id="getReviewTitle" maxlength="149" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.TitleErrorText)) ? Model.SubmitResponse.TitleErrorText : "")" data-bind="textInput: reviewTitle" />
-                                        <label for="getReviewTitle">Your title</label>
-                                        <span class="boundary"></span>
-                                        <span class="error-text"></span>
-                                    </div>
+                                            <div class="textarea-box margin-bottom15">
+                                                <textarea data-bind="textInput: detailedReview" id="reviewDesc" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.ReviewErrorText)) ? Model.SubmitResponse.ReviewErrorText : "")" rows="4" cols="80" maxlength="7900" placeholder="@Html.Raw("Write a detailed review & stand a chance to win Amazon vouchers worth &#x20B9; 2,000.")"></textarea>
 
-                                    <div class="checkbox-container">
-                                        <input type="checkbox" id="submitReviewCheckbox" class="margin-bottom10 input-type-checkbox" data-bind="checked : reviewCheckbox">
-                                        <label for="submitReviewCheckbox" class="inline-block">
-											<span class="bwsprite checkbox-icon"></span>
-											<span class="checkbox-label cur-default font12">I certify that this review is based on my personal experience and is my genuine opinion on this bike. I have not copied it from anywhere on the web, and I understand that BikeWale has strict policy for fake reviews. If the review is found to be fake or copied, BikeWale reserve the right to remove it from its platform.
-											</span>
-										</label>
-                                        <span data-bind="visible:(!reviewCheckbox()) " class="block margin-bottom15 error-text">This is a compulsory field!</span>
-                                    </div>
+                                                <div data-bind="visible: !detailedReviewFlag() && descLength() < 300" class="review-char-count position-abt font12">
+                                                    <span data-bind="visible: descLength() > 0"><span data-bind="text: descLength"></span>/</span><span data-bind="text: reviewCharLimit"></span>&nbsp;min
+                                                </div>
 
-                                    
-                                    <div class="clear"></div>
+                                                <div data-bind="visible: detailedReviewFlag" class="textarea-error position-abt">
+                                                    <span class="error-text" data-bind="text: detailedReviewError"></span>
+                                                </div>
+                                            </div>
 
-                                    <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
-                                    <input type="hidden" id="formattedDescripton" name="reviewDescription" />
-                                    <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
-                                    <input type="hidden" name="encodedId" value="@Utils.Utils.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
-                                    <input type="hidden" name="userName" value="@Model.UserName" />
-                                    <input type="hidden" name="emailId" value="@Model.EmailId" />
-                                    <input type="hidden" name="makeName" value="@Model.Make.MakeName" />
-                                    <input type="hidden" name="modelName" value="@Model.Model.ModelName" />
-                                    <input type="hidden" name="encodedString" value="@Model.EncodedWriteUrl" />
-                                    <input type="hidden" name="queryEncoded" value="@Model.EncodedWriteUrl" />
-                                    <input type="hidden" name="isDesktop" value="true" />
-                                    <input type="hidden" id="overAllRatings" value="@Model.Rating.Value" />
-                                    <input type="hidden" id="pageSourceId" value="@Model.PageSourceId" />
-                                    <input type="hidden" id="contestSrc" value="@Model.ContestSrc" />    
-                                    <input type="hidden" name="fromParametersRatingScreen" value="false" />                              
+                                            <h3 class="font15 text-black margin-bottom10">Give a title to your review</h3>
+                                            <p class="text-slate-grey margin-bottom20">A catchy title will grab eyeballs, and more people will read your review.</p>
 
-                                    @Html.AntiForgeryToken()
-                                    <input id="submitReviewBtn" type="submit" class="btn btn-orange btn-220-40 margin-top10" value="Submit review" data-bind="click: submitReview" />
+                                            <div class="input-box form-control-box" data-bind="css: reviewTitle().length > 0 ? 'not-empty' : ''">
+                                                <input type="text" name="reviewTitle" id="getReviewTitle" maxlength="149" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.TitleErrorText)) ? Model.SubmitResponse.TitleErrorText : "")" data-bind="textInput: reviewTitle" />
+                                                <label for="getReviewTitle">Your title</label>
+                                                <span class="boundary"></span>
+                                                <span class="error-text"></span>
+                                            </div>
 
-                                </div>
-                                <div class="clear"></div>
+                                            <div class="checkbox-container margin-bottom10">
+                                                <input type="checkbox" id="submitReviewCheckbox" class="margin-bottom10 input-type-checkbox" data-bind="checked : reviewCheckbox">
+                                                <label for="submitReviewCheckbox" class="inline-block">
+                                                    <span class="bwsprite checkbox-icon"></span>
+                                                    <span class="checkbox-label cur-default font12">
+                                                        I certify that this review is based on my personal experience and is my genuine opinion on this bike. I have not copied it from anywhere on the web, and I understand that BikeWale has strict policy for fake reviews. If the review is found to be fake or copied, BikeWale reserve the right to remove it from its platform.
+                                                    </span>
+                                                </label>
+                                                <span data-bind="visible:(!reviewCheckbox()) " class="block margin-bottom15 error-text">This is a compulsory field!</span>
+                                            </div>
+
+
+                                            <div class="clear"></div>
+
+                                            <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
+                                            <input type="hidden" id="formattedDescripton" name="reviewDescription" />
+                                            <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
+                                            <input type="hidden" name="encodedId" value="@Utils.Utils.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
+                                            <input type="hidden" name="userName" value="@Model.UserName" />
+                                            <input type="hidden" name="emailId" value="@Model.EmailId" />
+                                            <input type="hidden" name="makeName" value="@Model.Make.MakeName" />
+                                            <input type="hidden" name="modelName" value="@Model.Model.ModelName" />
+                                            <input type="hidden" name="encodedString" value="@Model.EncodedWriteUrl" />
+                                            <input type="hidden" name="queryEncoded" value="@Model.EncodedWriteUrl" />
+                                            <input type="hidden" name="isDesktop" value="true" />
+                                            <input type="hidden" id="overAllRatings" value="@Model.Rating.Value" />
+                                            <input type="hidden" id="pageSourceId" value="@Model.PageSourceId" />
+                                            <input type="hidden" id="contestSrc" value="@Model.ContestSrc" />
+                                            <input type="hidden" name="fromParametersRatingScreen" value="false" />
+
+                                            @Html.AntiForgeryToken()
+                                            <input id="submitReviewBtn" type="submit" class="btn btn-orange margin-top10" value="Submit review" data-bind="click: submitReview" />
+
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
+                            <div class="clear"></div>
                         </div>
-                    </div>
                 </div>
                 <div class="clear"></div>
             </div>
