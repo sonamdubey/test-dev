@@ -215,8 +215,7 @@ namespace Bikewale.Models
                         {
                             //setting the store for Redux
                             objData.ReduxStore = new PwaReduxStore();
-                            var tempStoreArticleList = objData.ReduxStore.News.NewsArticleListReducer.ArticleListData.ArticleList;
-
+                            objData.ReduxStore.News.NewsArticleListReducer.ArticleListData.ArticleList = pwaCmsContent;                          
                             PopulateStoreForWidgetData(objData, CityName);
 
                             var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
