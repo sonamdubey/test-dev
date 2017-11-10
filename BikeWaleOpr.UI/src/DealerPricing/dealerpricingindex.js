@@ -236,9 +236,15 @@
                 var exShowroomCategory = $('#ddlExShowroomCategory').val();
                 var insuranceCategory = $('#ddlInsuranceCategory').val();
                 var rtoCategory = $('#ddlRtoCategory').val();
+
+                if (exShowroomCategory == insuranceCategory || exShowroomCategory == rtoCategory || insuranceCategory == rtoCategory) {
+                    Materialize.toast('Ex-showroom, insurance and rto must have unique mapping.', 4000);
+                    return false;
+                }
                 var versionAndPriceList = "";
                 var table = $('#tblPricingSheet');
-
+                
+                var modelIds = "";
                 table.find('tbody tr').each(function () {
                     var row = $(this), exshowroom, insurance, rto;
                     var versionId = row.data('versionid');
@@ -246,6 +252,7 @@
                         exshowroom = row.find('td[data-itemid=' + exShowroomCategory + '] input').val();
                         insurance = row.find('td[data-itemid=' + insuranceCategory + '] input').val();
                         rto = row.find('td[data-itemid=' + rtoCategory + '] input').val();
+                        modelIds += row.data('modelid') + ',';
                         if (exshowroom && insurance && rto) {
                             versionAndPriceList += versionId + "#c0l#" + exshowroom + "#c0l#" + insurance + "#c0l#" + rto + "|r0w|";
                         }
@@ -255,29 +262,38 @@
                         }
                     }
                 });
-
+                modelIds = modelIds.substring(0, modelIds.lastIndexOf(','));
                 if (versionAndPriceList.trim()) {
 
                     versionAndPriceList = versionAndPriceList.substring(0, versionAndPriceList.lastIndexOf("|r0w|"));
                     var userId = table.data('userid');
-                    var citiesId = "";
+                    var makeId = table.data('makeid');
+                    var citiesIds = "";
 
                     if ($('#chkAllCity').is(':checked')) {
                         $(ddlCity).find('option').each(function () {
-                            citiesId += $(this).val() + '|r0w|';
+                            citiesIds += $(this).val() + '|r0w|';
                         });
-                        citiesId = citiesId.substring(citiesId.indexOf('|r0w|') + 5);
+                        citiesIds = citiesIds.substring(citiesIds.indexOf('|r0w|') + 5);
                     }
                     else {
                         for (var i = 0; i < self.selectedCities().length; i++) {
-                            citiesId += self.selectedCities()[i] + '|r0w|';
+                            citiesIds += self.selectedCities()[i] + '|r0w|';
                         }
                     }
 
-                    citiesId = citiesId.substring(0, citiesId.lastIndexOf("|r0w|"));
-                    var url = "/api/price/save/?versionAndPriceList=" + encodeURIComponent(versionAndPriceList) + "&citiesList=" + citiesId + "&userId=" + userId;
+                    citiesIds = citiesIds.substring(0, citiesIds.lastIndexOf("|r0w|"));
+                    var data = {
+                        versionAndPriceList: versionAndPriceList,
+                        citiesList: citiesIds,
+                        makeid: makeId,
+                        modelIds: modelIds,
+                        userId: userId
+                    }
+                    var url = "/api/price/save/";
                     $.ajax({
                         type: "POST",
+                        data: data,
                         url: url,
                         success: function (response) {
                             if (response) {

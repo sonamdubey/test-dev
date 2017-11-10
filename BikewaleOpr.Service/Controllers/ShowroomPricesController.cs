@@ -1,5 +1,6 @@
 ﻿using Bikewale.Notifications;
-using BikewaleOpr.Interface.Dealers;
+using BikewaleOpr.DTO.BwPrice;
+using BikewaleOpr.Interface.BikePricing;
 using System;
 using System.Web.Http;
 
@@ -11,27 +12,27 @@ namespace BikewaleOpr.Service.Controllers
     /// </summary>
     public class ShowroomPricesController : ApiController
     {
-        private readonly IShowroomPricesRepository _showroomPricesRepository;
-        public ShowroomPricesController(IShowroomPricesRepository showroomPricesRepository)
+        private readonly IBwPrice _bwPrice;
+        public ShowroomPricesController(IBwPrice bwPrice)
         {
-            _showroomPricesRepository = showroomPricesRepository;
+            _bwPrice = bwPrice;
         }
         /// <summary>
         /// Created by : Ashutosh Sharma on 09 Nov 2017
         /// Descripiton : API to save bikewale price.
         /// </summary>
-        /// <param name="versionAndPriceList"></param>
-        /// <param name="citiesList"></param>
-        /// <param name="userId"></param>
+        /// <param name="versionAndPriceList">Bike version id list and price list in format "versionId#c0l#ex-showroom#c0l#insurance#c0l#rto|r0w|"</param>
+        /// <param name="citiesList">City id list in format "cityid|r0w|"</param>
+        /// <param name="updatedBy">User updated by</param>
         /// <returns></returns>
         [HttpPost, Route("api/price/save/")]
-        public IHttpActionResult SaveBikePrices(string versionAndPriceList, string citiesList, int userId)
+        public IHttpActionResult SaveBikePrices(BWPriceInputDTO bwPrice)
         {
             try
             {
-                if (!string.IsNullOrEmpty(versionAndPriceList) && !String.IsNullOrEmpty(citiesList) && userId > 0)
+                if (bwPrice != null && !string.IsNullOrEmpty(bwPrice.VersionAndPriceList) && !string.IsNullOrEmpty(bwPrice.CitiesList) && !string.IsNullOrEmpty(bwPrice.ModelIds) && bwPrice.MakeId > 0 && bwPrice.UserId > 0)
                 {
-                    bool IsSaved = _showroomPricesRepository.SaveBikePrices(versionAndPriceList, citiesList, userId);
+                    bool IsSaved = _bwPrice.SaveBikePrices(bwPrice.VersionAndPriceList, bwPrice.CitiesList, bwPrice.MakeId, bwPrice.ModelIds, bwPrice.UserId);
                     return Ok(IsSaved);
                 }
                 else
@@ -41,7 +42,7 @@ namespace BikewaleOpr.Service.Controllers
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ShowroomPricesController.SaveBikePrices:_{0}_{1}_{2}", versionAndPriceList, citiesList, userId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ShowroomPricesController.SaveBikePrices:_{0}_{1}_{2}_{3}_{4}", bwPrice.VersionAndPriceList, bwPrice.CitiesList, bwPrice.MakeId, bwPrice.ModelIds, bwPrice.UserId));
                 return InternalServerError();
             }
         }
