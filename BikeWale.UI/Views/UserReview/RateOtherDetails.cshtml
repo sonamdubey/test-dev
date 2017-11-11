@@ -52,7 +52,7 @@
                             <div class="other-review-block">
                                 <div class="other-review__title">
                                     <span class="margin-left20 thumb-icon"></span>
-                                    <span class="margin-left15 text-bold">Thank you, Sumanth!</span>
+                                    <span class="margin-left15 text-bold">Thank you, @Model.UserName</span>
                                     <span class="margin-left10 text-light-grey">Your review has been recorded. Tell us more about your bike.</span>
                                 </div>
 
@@ -70,17 +70,16 @@
                                                 <p class="slider-text__left">0 kmpl</p>
                                                 <p class="slider-text__right">150 kmpl</p>
                                                 <div class="clear"></div>
-                                                <div id="mileageSlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga">
+                                                    <div id="mileageSlider" class="bw-ga" data-bind="KOSlider: bikeMileage, sliderOptions: { range: 'min', value: 50, min: 0, max: 150, step: 1 }">
                                                     <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                                     <span class="ui-slider-handle ui-state-default ui-corner-all">
                                                         <span class="position-rel">
-                                                            <span id="mileage-slider__text" class="ui-slider__text">50</span>
+                                                            <span id="mileage-slider__text" class="ui-slider__text" data-bind="text:bikeMileage() + ' kmpl'"></span>
                                                         </span>
                                                     </span>
                                                 </div>
                                             </div>
                                         </li>
-
                                         @foreach (var ques in Model.QuestionsList)
                                         {
 
@@ -97,7 +96,7 @@
 
                                                             <div class="rating-face-list">
                                                                 <input type="radio" questiontId="@ques.Id" id="review-@j-@i" name="review-q-@j" value="@i" />
-                                                                <label for="review-@j-@i" name="review-q-@j" data-value="@i">
+                                                                <label data-bind="click : updateOptionRatings" for="review-@j-@i" name="review-q-@j" data-value="@i">
                                                                     @rating.Text
                                                                 </label>
                                                             </div>
@@ -105,7 +104,6 @@
                                                         }
                                                     }
                                                 </div>
-
                                                 <div class="clear"></div>
                                             </li>
                                             j++;
@@ -125,13 +123,13 @@
 								</div>
 
                                 <div class="other-review__button-block">
-                                    <a href="javascript:void(0)" id="skipButton" class="" title="">Continue</a>
+                                    <a href="javascript:void(0)" id="skipButton" class="" title="" rel="nofollow">Continue</a>
                                 </div>
 
                                 <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
                                 <input type="hidden" name="reviewDescription" value="" />
                                 <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
-                                <input type="hidden" name="encodedId" value="@Utils.Utils.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
+                                <input type="hidden" id="encodedId" name="encodedId" value="@Utils.Utils.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
                                 <input type="hidden" name="userName" value="@Model.UserName" />
                                 <input type="hidden" name="emailId" value="@Model.EmailId" />
                                 <input type="hidden" name="makeName" value="@Model.Make.MakeName" />

@@ -14,7 +14,8 @@
                         <input data-bind="event: {change: onAllSelectChange}" class="allRowsCheckbox" type="checkbox" id='allRowsSelect'>
                         <label for='allRowsSelect'></label>
                     </th>
-                    <th>Bike</th>
+                    <th>Model</th>
+                    <th>Version</th>
                     @foreach (var category in Model.DealerVersionCategories)
                     {
                         <th class="editableColumns" data-item-id="@category.ItemCategoryId">@category.ItemName</th>
@@ -36,7 +37,8 @@
                                 <label for='@checkBoxIdString'></label>
                             }
                         </td>
-                        <td>@dealerVersionPricing.BikeName</td>
+                        <td>@dealerVersionPricing.ModelName</td>
+                        <td>@dealerVersionPricing.VersionName</td>
                         @foreach (var category in dealerVersionPricing.Categories)
                         {
                             <td class="editableValue" data-value="@category.ItemValue" data-itemid="@category.ItemCategoryId">@category.ItemValue</td>

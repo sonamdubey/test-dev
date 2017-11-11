@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -393,7 +394,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("api/user-reviews/rate-bike/")]
-        public IHttpActionResult RateBike([FromBody] RateBikeInput objRateBike)
+        public IHttpActionResult RateBike(RateBikeInput objRateBike)
         {
             try
             {
@@ -484,15 +485,27 @@ namespace Bikewale.Service.Controllers.UserReviews
         {
             try
             {
-                if (ModelState.IsValid && !String.IsNullOrEmpty(objOptionalQuestionInput.QusetionAnswerMapping))
+                if (ModelState.IsValid && !String.IsNullOrEmpty(objOptionalQuestionInput.QuestionAnswerMapping) && objOptionalQuestionInput.ReviewId > 0)
                 {
+                    if (!String.IsNullOrEmpty(objOptionalQuestionInput.EncodedCustomerAndReviewId))
+                    {
+                        uint reviewId, customerId;
+                        string decodedString = Utils.Utils.DecryptTripleDES(objOptionalQuestionInput.EncodedCustomerAndReviewId);
+                        NameValueCollection qCol = HttpUtility.ParseQueryString(decodedString);
+
+                        uint.TryParse(qCol["reviewid"], out reviewId);
+                        uint.TryParse(qCol["customerid"], out customerId);
+
+                        objOptionalQuestionInput.ReviewId = reviewId;
+                        objOptionalQuestionInput.CustomerId = customerId;
+                    }
                     NameValueCollection nvc = new NameValueCollection();
                     nvc.Add("par_reviewid", objOptionalQuestionInput.ReviewId.ToString());
                     nvc.Add("par_customerid", objOptionalQuestionInput.CustomerId.ToString());
-                    nvc.Add("par_qamapping", objOptionalQuestionInput.QusetionAnswerMapping);
-                    nvc.Add("par_mileage", objOptionalQuestionInput.CustomerId.ToString());
+                    nvc.Add("par_qamapping", objOptionalQuestionInput.QuestionAnswerMapping);
+                    nvc.Add("par_mileage", objOptionalQuestionInput.Mileage.ToString());
                     SyncBWData.PushToQueue("saveuserreviewoptionalinfo", DataBaseName.BW, nvc);
-                    return Ok();
+                    return Ok(true);
                 }
                 else
                 {
@@ -505,7 +518,6 @@ namespace Bikewale.Service.Controllers.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.SubmitOptionReviewInfo");
                 return InternalServerError();
             }
-
         }
 
     }

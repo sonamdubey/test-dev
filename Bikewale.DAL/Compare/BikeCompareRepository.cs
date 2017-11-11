@@ -300,7 +300,7 @@ namespace Bikewale.DAL.Compare
             using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
             {
                 if (reader != null)
-                {                    
+                {
                     versionsList = new List<BikeVersionCompareEntity>();
                     while (reader.Read())
                     {
@@ -526,7 +526,7 @@ namespace Bikewale.DAL.Compare
                     }
 
                 }
-                if(reader != null)
+                if (reader != null)
                 {
                     reader.Close();
                 }
@@ -535,7 +535,7 @@ namespace Bikewale.DAL.Compare
                 compare.BasicInfo = basicInfos;
                 compare.Specifications = specs;
                 compare.Features = features;
-                compare.Color = color;               
+                compare.Color = color;
 
             }
 
@@ -1076,12 +1076,12 @@ namespace Bikewale.DAL.Compare
                                         ModelId = SqlReaderConvertor.ToInt32(reader["similarModelId"]),
                                         MaskingName = Convert.ToString(reader["modelmaskingname"]),
                                         ModelName = Convert.ToString(reader["modelname"])
-                                    },                                    
+                                    },
                                     HostUrl = Convert.ToString(reader["HostUrl"]),
                                     OriginalImagePath = Convert.ToString(reader["OriginalImagePath"]),
                                     ModelId1 = SqlReaderConvertor.ToUInt32(reader["bike1"]),
                                     ModelId2 = SqlReaderConvertor.ToUInt32(reader["bike2"]),
-                                });                                
+                                });
                             }
 
                             similarBikeComparison.SimilarBikes = similarBikeList;
@@ -1106,7 +1106,7 @@ namespace Bikewale.DAL.Compare
                                             ModelName = Convert.ToString(reader["modelname"])
                                         },
                                         HostUrl = Convert.ToString(reader["HostUrl"]),
-                                        OriginalImagePath = Convert.ToString(reader["OriginalImagePath"])                                        
+                                        OriginalImagePath = Convert.ToString(reader["OriginalImagePath"])
                                     });
                                 }
 

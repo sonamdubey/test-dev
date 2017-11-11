@@ -9,7 +9,7 @@ namespace Bikewale.DTO.UserReviews
     /// </summary>
     public class InputParamterRatingSave
     {
-        [Required, JsonProperty("customerId")]
+        [JsonProperty("customerId")]
         public uint CustomerId { get; set; }
 
         [Required, JsonProperty("reviewId")]
@@ -18,7 +18,10 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("mileage")]
         public ushort Mileage { get; set; }
 
+        [Required, JsonProperty("encodedId")]
+        public string EncodedCustomerAndReviewId { get; set; }
+
         [Required, JsonProperty("qamapping")]
-        public string QusetionAnswerMapping { get; set; }
+        public string QuestionAnswerMapping { get; set; }
     }
 }
