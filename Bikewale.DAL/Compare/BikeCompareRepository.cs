@@ -242,6 +242,9 @@ namespace Bikewale.DAL.Compare
         /// Summary     : used nullable bool for specs and features
         /// Modified By :Snehal Dange on 11 Sep 2017
         /// Summary : Changed sp name and used other version for BikeCompareEntity with 3 additional paramters
+        /// Modified BY:Snehal Dange on 10 Nov 2017
+        /// Summary : Changed Sp name from 'getcomparisondetails_01092017' to 'getcomparisondetails_10112017'
+        /// -----------Added logic for most recent reviews.
         /// </summary>
         /// <param name="versions"></param>
         /// <param name="cityId"></param>
@@ -261,7 +264,7 @@ namespace Bikewale.DAL.Compare
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_01092017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_10112017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbType.String, versions));

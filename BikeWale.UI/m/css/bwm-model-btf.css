@@ -1215,6 +1215,7 @@ h2.text-bold { font-weight: bold; }
 	border-left: 1px solid #eee;
 }
 
+
 .mileage-box-list .mileage-list__item:first-child {
     border-left-style: none;
     padding-right: 10px;

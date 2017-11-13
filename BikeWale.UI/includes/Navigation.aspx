@@ -9,7 +9,7 @@
 
         <li>
             <a href="javascript:void(0)" rel="nofollow">
-                <span class="bwsprite newBikes-icon"></span>
+                <span class="newBikes-icon"></span>
                 <span class="navbarTitle">New Bikes</span>
                 <span class="nav-drop fa-angle-down"></span>
             </a>
@@ -26,7 +26,7 @@
         </li>
          <li>
                 <a href="javascript:void(0)" rel="nofollow">
-                    <span class="bwsprite newBikes-icon"></span>
+                    <span class="scooter-icon"></span>
                     <span class="navbarTitle">New Scooters</span>
                     <span class="nav-drop fa-angle-down"></span>
                 </a>

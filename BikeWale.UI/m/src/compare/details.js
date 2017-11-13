@@ -1,6 +1,6 @@
 ﻿var floatingCard, floatingCardHeight, comparisonFooter, overallSpecsTabs, floatingButton, $window, windowScrollTop,
     onRoadPriceButtons, closedBikeCount, compareSource, vmBikeSelection, bikePopup, panel;
-
+var hideCheckbox = $(".hideCheckbox");
 
 var setButton = {
     completeText: function (element, message) {
@@ -781,9 +781,25 @@ docReady(function () {
         lazyLoadingInPrevNext: true,
         watchSlidesProgress: true,
         watchSlidesVisibility: true,
-        onSlideChangeStart: function (swiper, event) {
-            triggerGA("Compare_Bikes", "Clicked_on_carousel", $("#comparisonText").val());
+        onTouchStart: function (swiper, event) {
+            if ($("#comparisonText").length > 0) {
+                triggerGA("Compare_Bikes", "Clicked_on_carousel", $("#comparisonText").val());
+            }
+            else
+            {
+                triggerGA("Compare_Bikes", "Clicked_on_carousel", $("#similar-bikes-swiper").data('comptext'));
+            }
         }           
     });
+
+    $(".reviewTab").on('click', function () {
+        hideCheckbox.hide();
+    })
+
+    $(".quickAcessTab").on('click', function () {
+        if (hideCheckbox.is(":hidden")) {
+            hideCheckbox.show();
+        }
+    })
     
 });

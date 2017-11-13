@@ -270,7 +270,7 @@
     <Compile Include="Compare\CompareSubMainCategory.cs" />
     <Compile Include="Compare\CompareSubCategory.cs" />
     <Compile Include="Compare\CompareSpecificationEntity.cs" />
-    <Compile Include="Compare\MostHelpfulReviewObject.cs" />
+    <Compile Include="Compare\ReviewObject.cs" />
     <Compile Include="Compare\SimilarBikeComparisonData.cs" />
     <Compile Include="Compare\SimilarBikeComparisonWidget.cs" />
     <Compile Include="Compare\SimilarBikeComparisonWrapper.cs" />

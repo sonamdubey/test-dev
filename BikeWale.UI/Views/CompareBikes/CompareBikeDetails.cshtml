@@ -19,7 +19,7 @@
                 <h1 class="content-box-shadow padding-15-20 margin-bottom2">@Model.comparisionText</h1>
 
                 <div class="grid-2 padding-left20 padding-top20">
-                    <div class="toggle-features-btn cur-pointer">
+                    <div class="toggle-features-btn cur-pointer hideCheckbox">
                         <span class="bwsprite unchecked-box"></span>
                         <span id="toggle-features-btn" class="btn-label font14 inline-grid-9">Hide common features</span>
                     </div>
@@ -111,7 +111,7 @@
 
                 <div id="comparison-floating-card" class="content-box-shadow">
                     <div class="grid-2 padding-left20 padding-top20">
-                        <div class="toggle-features-btn cur-pointer">
+                        <div class="toggle-features-btn cur-pointer hideCheckbox">
                             <span class="bwsprite unchecked-box"></span>
                             <span class="btn-label font14 inline-grid-9">Hide common features</span>
                         </div>
@@ -172,12 +172,12 @@
                     <div class="clear"></div>
                     <div class="bw-tabs-flex overall-specs-tabs-wrapper font14">
                         <ul>
-                            <li class="active" data-tabs="specsTabContent">Specifications</li>
-                            <li data-tabs="featuresTabContent">Features</li>
-                            <li data-tabs="coloursTabContent">Colours</li>
+                            <li class="active quickAcessTab" data-tabs="specsTabContent">Specifications</li>
+                            <li class="quickAcessTab" data-tabs="featuresTabContent">Features</li>
+                            <li class="quickAcessTab" data-tabs="coloursTabContent">Colours</li>
                             @if (Model.Compare.UserReviewData != null)
                             {
-                                <li data-tabs="reviewTabContent" class="bw-ga" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="@Model.targetModels.Replace(",", "_")">Reviews</li>
+                                <li data-tabs="reviewTabContent" class="bw-ga reviewTab" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="@Model.targetModels.Replace(",", "_")">Reviews</li>
                             }
                         </ul>
                     </div>
@@ -185,12 +185,12 @@
 
                 <div id="overall-tabs" class="bw-tabs-flex overall-specs-tabs-wrapper font14">
                     <ul>
-                        <li class="active" data-tabs="specsTabContent">Specifications</li>
-                        <li data-tabs="featuresTabContent">Features</li>
-                        <li data-tabs="coloursTabContent">Colours</li>
+                        <li class="active quickAcessTab" data-tabs="specsTabContent">Specifications</li>
+                        <li class="quickAcessTab" data-tabs="featuresTabContent">Features</li>
+                        <li class="quickAcessTab" data-tabs="coloursTabContent">Colours</li>
                         @if (Model.Compare.UserReviewData != null)
                         {
-                            <li data-tabs="reviewTabContent" class="bw-ga" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="@Model.targetModels.Replace(",", "_")">Reviews</li>
+                            <li data-tabs="reviewTabContent " class="bw-ga reviewTab" data-cat="Compare_Bikes" data-act="Floating_UserReview_Section" data-lab="@Model.targetModels.Replace(",", "_")">Reviews</li>
                         }
                     </ul>
                 </div>
@@ -464,7 +464,7 @@
                                                     }
 
 
-                            @if (Model.Compare.UserReviewData.MostHelpfulReviews != null)
+                            @if (Model.Compare.UserReviewData.MostRecentReviews != null)
                             {
                                 <li>
                                     <div class="model-accordion-tab">
@@ -480,8 +480,8 @@
                                                 <td></td>
                                             </tr>
                                             <tr class="row-type-data">
-                                                <td>Most helpful</td>
-                                                @foreach (var review in Model.Compare.UserReviewData.MostHelpfulReviews)
+                                                <td>Most recent</td>
+                                                @foreach (var review in Model.Compare.UserReviewData.MostRecentReviews)
                                                 {
                                                     <td>
                                                         @if (review.RatingValue > 0)
@@ -603,7 +603,7 @@
     <section>
         <div class="container card-bottom-margin">
             <div class="grid-12">
-                <div id="modelSimilarContent" class="content-box-shadow padding-bottom20 card-bottom-margin font14">
+                <div id="modelSimilarContent" class="content-box-shadow padding-bottom20 card-bottom-margin font14" data-compText="@Model.templateSummaryTitle">
                     <h2 class="h2-heading padding-top20 padding-right20 padding-left20 margin-bottom15">@Model.SimilarBikesCompareWidgetText</h2>
                     <div class="jcarousel-wrapper inner-content-carousel">
                         <div class="jcarousel">

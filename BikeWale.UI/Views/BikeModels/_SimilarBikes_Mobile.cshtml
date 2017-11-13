@@ -12,7 +12,7 @@
         <div class="swiper-slide">
             <div class="swiper-card">
                 <div class="position-rel">
-                    <a href="@bikeUrl" title="@bikeName">
+                    <a href="@bikeUrl" title="@bikeName" class="bw-ga" data-act="Clicked_on_SimilarModel" data-lab="@bikeName">
                         <div class="swiper-image-preview">
                             <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._210x118,Bikewale.Utility.QualityFactor._70)" title="@bikeName" alt="@bikeName" />
                             <span class="swiper-lazy-preloader"></span>
@@ -57,7 +57,7 @@
                 }
                 @if (Model.Make != null && Model.Model != null && Model.IsNew)
                 {
-                    <a class="compare-with-target text-truncate" href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)">
+                    <a class="compare-with-target text-truncate bw-ga" data-act="Clicked_on_CompareCard" data-lab='@string.Format("{0} {1} vs {2}", Model.Make.MakeName, Model.Model.ModelName, bikeName)' href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)">
                         <span class="bwmsprite compare-sm"></span>Compare with @Model.Model.ModelName<span class="bwmsprite right-arrow"></span>
                     </a>
                 }
