@@ -531,9 +531,10 @@ namespace Bikewale.Models
                     {
                         firstVersion = objVM.FormatedBikeVersionPrices.OrderByDescending(m => m.BikeQuotationEntity.IsVersionNew).OrderBy(v => v.BikeQuotationEntity.ExShowroomPrice).First().BikeQuotationEntity;
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
-                        if (objVM.IsNew)
+						var newVersions = objVM.FormatedBikeVersionPrices.Where(x => x.BikeQuotationEntity.IsVersionNew);
+						if (objVM.IsNew && newVersions != null && newVersions.Any())
                         {
-                            objVM.FormatedBikeVersionPrices = objVM.FormatedBikeVersionPrices.Where(x => x.BikeQuotationEntity.IsVersionNew);
+							objVM.FormatedBikeVersionPrices = newVersions;
                             objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
                         }
                         versionCount = (uint)objVM.FormatedBikeVersionPrices.Count();
@@ -593,17 +594,20 @@ namespace Bikewale.Models
                         {
                             BindPriceInNearestCities(objVM);
                             BindPriceInTopCities(objVM);
-                            if ((objVM.CookieCityEntity.HasAreas && areaId > 0) || !objVM.CookieCityEntity.HasAreas)
-                            {
-                                GetDealerPriceQuote(objVM);
-                            }
-                            else
-                            {
-                                if (objVM.CookieCityEntity.HasAreas && areaId == 0)
-                                {
-                                    objVM.IsAreaAvailable = true;
-                                }
-                            }
+							if (objVM.CookieCityEntity != null)
+							{
+								if ((objVM.CookieCityEntity.HasAreas && areaId > 0) || !objVM.CookieCityEntity.HasAreas)
+								{
+									GetDealerPriceQuote(objVM);
+								}
+								else
+								{
+									if (objVM.CookieCityEntity.HasAreas && areaId == 0)
+									{
+										objVM.IsAreaAvailable = true;
+									}
+								} 
+							}
                             GetManufacturerCampaign(objVM);
                             objVM.LeadCapture = new LeadCaptureEntity()
                             {
@@ -671,7 +675,7 @@ namespace Bikewale.Models
                 objVM.AmpJsTags.IsAnalytics = true;
                 objVM.AmpJsTags.IsBind = true;
                 objVM.AmpJsTags.IsCarousel = true;
-                objVM.AmpJsTags.IsSelector = (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Count(v => v.IsVersionNew) > 1);
+                objVM.AmpJsTags.IsSelector = (objVM.FormatedBikeVersionPrices != null && objVM.FormatedBikeVersionPrices.Count() > 1);
                 objVM.AmpJsTags.IsSidebar = true;
             }
             catch (Exception ex)
@@ -735,66 +739,68 @@ namespace Bikewale.Models
         {
             try
             {
-                ulong bikePrice = objVM.FirstVersion.OnRoadPrice;
-                double loanAmount = Math.Round(objVM.FirstVersion.OnRoadPrice * .7);
-                int downPayment = Convert.ToInt32(bikePrice - loanAmount);
+				if (objVM != null && objVM.FirstVersion != null )
+				{
+					ulong bikePrice = objVM.FirstVersion.OnRoadPrice;
+					double loanAmount = Math.Round(objVM.FirstVersion.OnRoadPrice * .7);
+					int downPayment = Convert.ToInt32(bikePrice - loanAmount);
 
-                float minDnPay = (float)(10 * bikePrice) / 100;
-                float maxDnPay = (float)(40 * bikePrice) / 100;
+					float minDnPay = (float)(10 * bikePrice) / 100;
+					float maxDnPay = (float)(40 * bikePrice) / 100;
 
-                ushort minTenure = 12;
-                ushort maxTenure = 48;
+					ushort minTenure = 12;
+					ushort maxTenure = 48;
 
-                int minROI = 10;
-                int maxROI = 15;
+					int minROI = 10;
+					int maxROI = 15;
 
-                float rateOfInterest = Convert.ToSingle((maxROI - minROI) / 2.0 + minROI);
+					float rateOfInterest = Convert.ToSingle((maxROI - minROI) / 2.0 + minROI);
 
-                ushort tenure = (ushort)((maxTenure - minTenure) / 2 + minTenure);
+					ushort tenure = (ushort)((maxTenure - minTenure) / 2 + minTenure);
 
-                double interest = (loanAmount * tenure * rateOfInterest) / 1200;
+					double interest = (loanAmount * tenure * rateOfInterest) / 1200;
 
-                int procFees = 0;
-                int monthlyEMI = 0;
-                if (tenure != 0)
-                {
-                    monthlyEMI = Convert.ToInt32(Math.Round((loanAmount + interest + procFees) / tenure));
-                }
+					int procFees = 0;
+					int monthlyEMI = 0;
+					if (tenure != 0)
+					{
+						monthlyEMI = Convert.ToInt32(Math.Round((loanAmount + interest + procFees) / tenure));
+					}
 
-                int totalAmount = downPayment + monthlyEMI * tenure;
+					int totalAmount = downPayment + monthlyEMI * tenure;
 
-                objVM.EMI = new EMI();
-                objVM.EMI.MinDownPayment = minDnPay;
-                objVM.EMI.MaxDownPayment = maxDnPay;
+					objVM.EMI = new EMI();
+					objVM.EMI.MinDownPayment = minDnPay;
+					objVM.EMI.MaxDownPayment = maxDnPay;
 
-                objVM.EMI.MinTenure = minTenure;
-                objVM.EMI.MaxTenure = maxTenure;
+					objVM.EMI.MinTenure = minTenure;
+					objVM.EMI.MaxTenure = maxTenure;
 
-                objVM.EMI.MinRateOfInterest = minROI;
-                objVM.EMI.MaxRateOfInterest = maxROI;
+					objVM.EMI.MinRateOfInterest = minROI;
+					objVM.EMI.MaxRateOfInterest = maxROI;
 
-                objVM.EMI.RateOfInterest = rateOfInterest;
-                objVM.EMI.Tenure = tenure;
+					objVM.EMI.RateOfInterest = rateOfInterest;
+					objVM.EMI.Tenure = tenure;
 
 
-                objVM.EMISliderAMP = new EMISliderAMP();
-                objVM.EMISliderAMP.TotalAmount = Format.FormatPrice(Convert.ToString(totalAmount));
-                objVM.EMISliderAMP.FormatedTotalAmount = "0";
-                objVM.EMISliderAMP.DownPayment = Convert.ToString(downPayment);
-                objVM.EMISliderAMP.FormatedDownPayment = "0";
-                objVM.EMISliderAMP.LoanAmount = Convert.ToString((int)loanAmount);
-                objVM.EMISliderAMP.FormatedLoanAmount = "0";
-                objVM.EMISliderAMP.Tenure = tenure;
-                objVM.EMISliderAMP.FormatedTenure = "0";
-                objVM.EMISliderAMP.RateOfInterest = rateOfInterest;
-                objVM.EMISliderAMP.Fees = procFees;
-                objVM.EMISliderAMP.BikePrice = bikePrice;
-                objVM.EMISliderAMP.EMI = "0";
+					objVM.EMISliderAMP = new EMISliderAMP();
+					objVM.EMISliderAMP.TotalAmount = Format.FormatPrice(Convert.ToString(totalAmount));
+					objVM.EMISliderAMP.FormatedTotalAmount = "0";
+					objVM.EMISliderAMP.DownPayment = Convert.ToString(downPayment);
+					objVM.EMISliderAMP.FormatedDownPayment = "0";
+					objVM.EMISliderAMP.LoanAmount = Convert.ToString((int)loanAmount);
+					objVM.EMISliderAMP.FormatedLoanAmount = "0";
+					objVM.EMISliderAMP.Tenure = tenure;
+					objVM.EMISliderAMP.FormatedTenure = "0";
+					objVM.EMISliderAMP.RateOfInterest = rateOfInterest;
+					objVM.EMISliderAMP.Fees = procFees;
+					objVM.EMISliderAMP.BikePrice = bikePrice;
+					objVM.EMISliderAMP.EMI = "0";
 
-                objVM.JSONEMISlider = JsonConvert.SerializeObject(objVM.EMISliderAMP);
-                objVM.EMISliderAMP.EMI = Convert.ToString(monthlyEMI);
-
-            }
+					objVM.JSONEMISlider = JsonConvert.SerializeObject(objVM.EMISliderAMP);
+					objVM.EMISliderAMP.EMI = Convert.ToString(monthlyEMI);
+				}
+			}
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("BindEMISlider({0})", objVM));
