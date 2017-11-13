@@ -2,7 +2,7 @@
 
 @{
     Model.IsHeaderFix = false;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/user-review/write-review.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/user-review/write-review.css' inline />";
     Model.Page_JS_Path = "/src/user-review/write-review.js";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.ExcludeContestSlug = true;
@@ -74,7 +74,7 @@
                                                     <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                                     <span class="ui-slider-handle ui-state-default ui-corner-all">
                                                         <span class="position-rel">
-                                                            <span id="mileage-slider__text" class="ui-slider__text" data-bind="text:bikeMileage() + ' kmpl'"></span>
+                                                            <span id="mileage-slider__text" class="ui-slider__text" data-bind="text:bikeMileage() + ' Kmpl'"></span>
                                                         </span>
                                                     </span>
                                                 </div>
