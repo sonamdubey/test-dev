@@ -1,7 +1,7 @@
 ﻿var ratingBox, page, userNameField, userEmailIdField, vmWriteReview;
 var detailedReviewField, reviewTitleField, reviewQuestion, ratingOverAll, pageSourceID, contentSourceId;
 var writeReview, isSubmit = false, reviewOverallRatingId;
-var makeModelName, ratingErrorFields = "", reviewErrorFields = "", writeReviewForm, descReviewField;
+var makeModelName, ratingErrorFields = "", reviewErrorFields = "", writeReviewForm, descReviewField, vmRateBike;
 var bikeRating = {
     ratingCount: 0,
     overallRating: []
@@ -35,6 +35,24 @@ function initKoSlider() {
                 $(element).change();
             }
 
+        }
+    };
+
+    ko.bindingHandlers.slideIn = {
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor());
+            value ? $(element).show() : $(element).fadeOut(200);
+        }
+    };
+
+    ko.bindingHandlers.hoverRating = {
+        update: function (element, valueAccessor) {
+            ko.utils.registerEventHandler(element, "mouseover", function () {
+                bikeRatingBox.setFeedback($(this));
+            });
+            ko.utils.registerEventHandler(element, "mouseout", function () {
+                bikeRatingBox.resetFeedback($(this));
+            });
         }
     };
 };
@@ -345,7 +363,7 @@ writeReview = function () {
             $('#formattedDescripton').val(formattedDescArray);
 
         var isValidMileage = true;
-        if (self.bikeMileage().length > 0)
+        if (self.bikeMileage() && self.bikeMileage().length > 0)
             isValidMileage = $.isNumeric(self.bikeMileage()) && Number(self.bikeMileage()) <= 150 && Number(self.bikeMileage()) >= 0;
 
         if (isValidMileage) {
@@ -532,6 +550,62 @@ function setQuestionNextButtonText(targetQuestion) {
     }
 }
 
+
+var answer = {
+    selection: function (element) {
+        $(element).siblings().removeClass('active');
+        $(element).addClass('active');
+    },
+
+    focusForm: function (element) {
+        $('html, body').animate({ scrollTop: $(element).offset().top }, 500);
+    }
+};
+
+/* form validation */
+var validate = {
+    setError: function (element, message) {
+        var elementLength = element.val.length,
+            errorTag = element.siblings('span.error-text');
+
+        errorTag.show().text(message);
+        if (!elementLength) {
+            element.closest('.input-box').removeClass('not-empty').addClass('invalid');
+        }
+        else {
+            element.closest('.input-box').addClass('not-empty invalid');
+        }
+    },
+
+    hideError: function (element) {
+        var inputBox = element.closest('.input-box');
+
+        inputBox.removeClass('invalid');
+        if (element.val.length > 0) {
+            inputBox.addClass('not-empty');
+        }
+        element.siblings('span.error-text').text('').hide();
+    },
+
+    onFocus: function (inputField) {
+        var inputBox = inputField.closest('.input-box');
+
+        if (inputBox.hasClass('invalid')) {
+            validate.hideError(inputField);
+        }
+    },
+
+    onBlur: function (inputField) {
+        var inputLength = inputField.val().length;
+        if (!inputLength) {
+            inputField.closest('.input-box').removeClass('not-empty');
+        }
+        else {
+            inputField.closest('.input-box').addClass('not-empty');
+        }
+    }
+};
+
 docReady(function () {
 
     bwcache.setScope('ReviewPage');
@@ -613,26 +687,10 @@ docReady(function () {
     if (document.getElementById("bike-review-questions") != null && document.getElementById("bike-review-questions").getAttribute("data-make-model")) {
         makeModelName = document.getElementById("bike-review-questions").getAttribute("data-make-model");
     }
-    ko.bindingHandlers.slideIn = {
-        update: function (element, valueAccessor) {
-            var value = ko.utils.unwrapObservable(valueAccessor());
-            value ? $(element).show() : $(element).fadeOut(200);
-        }
-    };
-
-    ko.bindingHandlers.hoverRating = {
-        update: function (element, valueAccessor) {
-            ko.utils.registerEventHandler(element, "mouseover", function () {
-                bikeRatingBox.setFeedback($(this));
-            });
-            ko.utils.registerEventHandler(element, "mouseout", function () {
-                bikeRatingBox.resetFeedback($(this));
-            });
-        }
-    };
+   
 
 
-    var vmRateBike = new rateBike(),
+    vmRateBike = new rateBike(),
         rateBikeForm = document.getElementById('rate-bike-form');
 
     if (rateBikeForm) {
@@ -814,58 +872,3 @@ docReady(function () {
             return false;
     }
 });
-
-var answer = {
-    selection: function (element) {
-        $(element).siblings().removeClass('active');
-        $(element).addClass('active');
-    },
-
-    focusForm: function (element) {
-        $('html, body').animate({ scrollTop: $(element).offset().top }, 500);
-    }
-};
-
-/* form validation */
-var validate = {
-    setError: function (element, message) {
-        var elementLength = element.val.length,
-            errorTag = element.siblings('span.error-text');
-
-        errorTag.show().text(message);
-        if (!elementLength) {
-            element.closest('.input-box').removeClass('not-empty').addClass('invalid');
-        }
-        else {
-            element.closest('.input-box').addClass('not-empty invalid');
-        }
-    },
-
-    hideError: function (element) {
-        var inputBox = element.closest('.input-box');
-
-        inputBox.removeClass('invalid');
-        if (element.val.length > 0) {
-            inputBox.addClass('not-empty');
-        }
-        element.siblings('span.error-text').text('').hide();
-    },
-
-    onFocus: function (inputField) {
-        var inputBox = inputField.closest('.input-box');
-
-        if (inputBox.hasClass('invalid')) {
-            validate.hideError(inputField);
-        }
-    },
-
-    onBlur: function (inputField) {
-        var inputLength = inputField.val().length;
-        if (!inputLength) {
-            inputField.closest('.input-box').removeClass('not-empty');
-        }
-        else {
-            inputField.closest('.input-box').addClass('not-empty');
-        }
-    }
-};
