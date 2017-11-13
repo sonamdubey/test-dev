@@ -52,11 +52,50 @@ docReady(function () {
                 break;
         }
     });
-    $('.right-bike-swiper.swiper-container').on('inview', function (event, visible) {
-        if (visible == true) {
-            $('.swiper-ribbon').addClass('animate-ribbon');
-        } else {
+	var overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
+	modelSpecsTabsContentWrapper = $('.overall-specs-tabs-wrapper'),
+	modelSpecsFooter = $('#overallSpecsFooter'),
+	topNavBarHeight = $('.overall-specs__top-content').height();
+    $(window).scroll(function () {
+        var windowScrollTop = $(window).scrollTop(),
+            modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
+            modelSpecsFooterOffsetTop = modelSpecsFooter.offset().top;
 
+        if (windowScrollTop > modelSpecsTabsOffsetTop) {
+            overallSpecsTabsContainer.addClass('fixed-tab-nav');
         }
-    });
+
+        else if (windowScrollTop < modelSpecsTabsOffsetTop) {
+            overallSpecsTabsContainer.removeClass('fixed-tab-nav');
+        }
+
+        if (overallSpecsTabsContainer.hasClass('fixed-tab-nav')) {
+            if (windowScrollTop > modelSpecsFooterOffsetTop - topNavBarHeight) {
+                overallSpecsTabsContainer.removeClass('fixed-tab-nav');
+            }
+        }
+		
+        $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').each(function () {
+            var top = $(this).offset().top - topNavBarHeight,
+                bottom = top + $(this).outerHeight();
+            if (windowScrollTop >= top && windowScrollTop <= bottom) {
+                overallSpecsTabsContainer.find('li').removeClass('active');
+                $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').removeClass('active');
+
+                $(this).addClass('active');
+
+                var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('id') + '"]');
+                overallSpecsTabsContainer.find(currentActiveTab).addClass('active');
+            }
+        });
+
+		
+	});
+    // $('.right-bike-swiper.swiper-container').on('inview', function (event, visible) {
+        // if (visible == true) {
+            // $('.swiper-ribbon').addClass('animate-ribbon');
+        // } else {
+
+        // }
+    // });
 });
