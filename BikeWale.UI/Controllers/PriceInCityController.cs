@@ -12,6 +12,7 @@ using Bikewale.Models.PriceInCity;
 using Bikewale.Utility;
 using System.Web.Mvc;
 using System.Linq;
+using Bikewale.Interfaces.AdSlot;
 
 namespace Bikewale.Controllers
 {
@@ -36,23 +37,26 @@ namespace Bikewale.Controllers
         private readonly IAreaCacheRepository _objAreaCache = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         private readonly IBikeModels<Entities.BikeData.BikeModelEntity, int> _objModelEntity = null;
-        /// <summary>
-        /// Created by  :   Sumit Kate on 28 Mar 2017
-        /// Description :   Constructor to intialize the member variables
-        /// Modified by : Ashutosh Sharma on 11 Oct 2017
-        /// Description : Added IBikeModels<Entities.BikeData.BikeModelEntity, int> instance in constructor for image gallery.
-        /// </summary>
-        /// <param name="cityMaskingCache"></param>
-        /// <param name="modelMaskingCache"></param>
-        /// <param name="objPQ"></param>
-        /// <param name="objPQCache"></param>
-        /// <param name="objDealerCache"></param>
-        /// <param name="objServiceCenterCache"></param>
-        /// <param name="versionCache"></param>
-        /// <param name="bikeInfo"></param>
-        /// <param name="cityCache"></param>
-        /// <param name="modelCache"></param>
-        public PriceInCityController(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenterCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo,IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity)
+		private readonly IAdSlot _adSlot = null;
+		/// <summary>
+		/// Created by  :   Sumit Kate on 28 Mar 2017
+		/// Description :   Constructor to intialize the member variables
+		/// Modified by : Ashutosh Sharma on 11 Oct 2017
+		/// Description : Added IBikeModels<Entities.BikeData.BikeModelEntity, int> instance in constructor for image gallery.
+		/// Modifed by : Ashutosh Sharma on 13 Nov 2017
+		/// Description : Added IAdSlot.
+		/// </summary>
+		/// <param name="cityMaskingCache"></param>
+		/// <param name="modelMaskingCache"></param>
+		/// <param name="objPQ"></param>
+		/// <param name="objPQCache"></param>
+		/// <param name="objDealerCache"></param>
+		/// <param name="objServiceCenterCache"></param>
+		/// <param name="versionCache"></param>
+		/// <param name="bikeInfo"></param>
+		/// <param name="cityCache"></param>
+		/// <param name="modelCache"></param>
+		public PriceInCityController(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenterCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo,IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -69,23 +73,27 @@ namespace Bikewale.Controllers
             _objAreaCache = objAreaCache;
             _objManufacturerCampaign = objManufacturerCampaign;
             _objModelEntity = modelEntity;
-        }
+			_adSlot = adSlot;
 
-        /// <summary>
-        /// Created by  :   Sumit Kate on 28 Mar 2017
-        /// Description :   Model Price in city dekstop view action method
-        /// Modified by : Ashutosh Sharma on 11 Oct 2017
-        /// Description : Added _objModelEntity parameter in PriceInCityPage object creation.
-        /// </summary>
-        /// <param name="modelName"></param>
-        /// <param name="cityName"></param>
-        /// <returns></returns>
-        [Filters.DeviceDetection()]
+		}
+
+		/// <summary>
+		/// Created by  :   Sumit Kate on 28 Mar 2017
+		/// Description :   Model Price in city dekstop view action method
+		/// Modified by : Ashutosh Sharma on 11 Oct 2017
+		/// Description : Added _objModelEntity parameter in PriceInCityPage object creation.
+		/// Modifed by : Ashutosh Sharma on 13 Nov 2017
+		/// Description : Added _adSlot parameter in PriceInCityPage object creation.
+		/// </summary>
+		/// <param name="modelName"></param>
+		/// <param name="cityName"></param>
+		/// <returns></returns>
+		[Filters.DeviceDetection()]
         [Route("model/{modelName}/pricein/{cityName}/")]
         public ActionResult Index(string modelName, string cityName)
         {
             PriceInCityPageVM objVM = null;
-            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Desktop_PriceInCity_Alternative, modelName, cityName, _objModelEntity);
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Desktop_PriceInCity_Alternative, modelName, cityName, _objModelEntity, _adSlot);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
                 model.BikeInfoTabCount = 4;
@@ -117,20 +125,22 @@ namespace Bikewale.Controllers
 
         }
 
-        /// <summary>
-        /// Created by  :   Sumit Kate on 28 Mar 2017
-        /// Description :   Model Price in city mobile view action method
-        /// Modified by : Ashutosh Sharma on 11 Oct 2017
-        /// Description : Added _objModelEntity parameter in PriceInCityPage object creation.
-        /// </summary>
-        /// <param name="modelName"></param>
-        /// <param name="cityName"></param>
-        /// <returns></returns>
-        [Route("m/model/{modelName}/pricein/{cityName}/")]
+		/// <summary>
+		/// Created by  :   Sumit Kate on 28 Mar 2017
+		/// Description :   Model Price in city mobile view action method
+		/// Modified by : Ashutosh Sharma on 11 Oct 2017
+		/// Description : Added _objModelEntity parameter in PriceInCityPage object creation.
+		/// Modifed by : Ashutosh Sharma on 13 Nov 2017
+		/// Description : Added _adSlot parameter in PriceInCityPage object creation.
+		/// </summary>
+		/// <param name="modelName"></param>
+		/// <param name="cityName"></param>
+		/// <returns></returns>
+		[Route("m/model/{modelName}/pricein/{cityName}/")]
         public ActionResult Index_Mobile(string modelName, string cityName)
         {
             PriceInCityPageVM objVM = null;
-            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity);
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity, _adSlot);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
                 model.BikeInfoTabCount = 3;
