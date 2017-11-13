@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BikewaleOpr.Entities.BikePricing;
-using BikewaleOpr.Entities.BikeData;
+﻿using BikewaleOpr.Entities.BikePricing;
 using BikewaleOpr.Entity.BikePricing;
+using System.Collections.Generic;
 
 namespace BikewaleOpr.Interface.Dealers
 {

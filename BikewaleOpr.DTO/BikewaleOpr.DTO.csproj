@@ -113,6 +113,7 @@
     <Compile Include="BikeData\MakeBase.cs" />
     <Compile Include="BikeData\SeriesBase.cs" />
     <Compile Include="BikeData\SynopsisDataDto.cs" />
+    <Compile Include="BWPrice\BWPriceInputDTO.cs" />
     <Compile Include="City\CityBaseDTO.cs" />
     <Compile Include="BikeData\VersionBase.cs" />
     <Compile Include="Dealers\DealerBase.cs" />
