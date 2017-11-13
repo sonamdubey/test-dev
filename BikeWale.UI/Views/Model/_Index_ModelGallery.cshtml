@@ -21,7 +21,7 @@
         </div>
         <div class="bw-tabs-data hide" id="colourCarousel">
             <div class="carousel-type-color">
-                <span onclick="location='/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/@Model.ModelPageEntity.ModelDetails.MaskingName/images/?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))'" class="carousel-img-container">
+                <span class="carousel-img-container">
                     <img class="bw-ga" data-lab="@bikeName" data-act="Main_Image_Clicked" data-cat="Model_Page" src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" title="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" border="0">
                 </span>
             </div>
@@ -32,24 +32,24 @@
 
                 if (colorImages != null)
                 {
-                    <div class="text-center">
-                        <span class="margin-top12 text-light-grey vertical-top margin-right10">Colours:</span>
-                        <ul id="model-color-list" class="color-box-list vertical-top">
+                <div class="text-center">
+                    <span class="margin-top12 text-light-grey vertical-top margin-right10">Colours:</span>
+                    <ul id="model-color-list" class="color-box-list vertical-top">
 
-                            @foreach (var modelColor in colorImages)
+                        @foreach (var modelColor in colorImages)
                             {
-                                <li class="bw-ga" data-lab="@bikeName&#95;@modelColor.ColorName" data-act="Bottom_Colour_List_Clicked" data-cat="Model_Page">
-                                    <div data-colorid="@modelColor.ColorImageId" title="@modelColor.ColorName" class="color-box inline-block @(modelColor.HexCodes.Count() == 1 ? " color-count-one" : (modelColor.HexCodes.Count() == 3 ? "color-count-three" : "color-count-two"))">
+                            <li class="bw-ga" data-lab="@bikeName&#95;@modelColor.ColorName" data-act="Bottom_Colour_List_Clicked" data-cat="Model_Page">
+                                <div data-colorid="@modelColor.ColorImageId" title="@modelColor.ColorName" class="color-box inline-block @(modelColor.HexCodes.Count() == 1 ? " color-count-one" : (modelColor.HexCodes.Count() == 3 ? "color-count-three" : "color-count-two"))">
 
-                                        @foreach (var HexCode in modelColor.HexCodes)
+                                    @foreach (var HexCode in modelColor.HexCodes)
                                         {
-                                            <span style="background-color: #@HexCode"></span>
+                                        <span style="background-color: #@HexCode"></span>
                                         }
-                                    </div>
-                                </li>
+                                </div>
+                            </li>
                             }
-                        </ul>
-                    </div>
+                    </ul>
+                </div>
                 }
 
             }
@@ -71,29 +71,29 @@
                         {
                             string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
 
-                            <li>
-                                @if (imageIndex == 0)
+                        <li>
+                            @if (imageIndex == 0)
                                 {
-                                    <a href="@String.Format(@"{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))" class="carousel-img-container">
-                                        <img class="bw-ga" data-lab="@bikeName" data-act="Main_Image_Clicked" data-cat="Model_Page" data-colorid="@image.ColorId" data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@imageProperty" title="@imageProperty" border="0" />
-                                    </a>
+                                <a href="@String.Format(@"{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", image.Index, Model.PageMetaTags.CanonicalUrl)))" class="carousel-img-container">
+                                    <img class="bw-ga" data-lab="@bikeName" data-act="Main_Image_Clicked" data-cat="Model_Page" data-colorid="@image.ColorId" data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@imageProperty" title="@imageProperty" border="0" />
+                                </a>
                                 }
                                 else
                                 {
-                                    <span onclick="location='@String.Format(@"{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))'" class="carousel-img-container">
+                                <span href="@String.Format(@"{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))" class="carousel-img-container">
 
-                                        @if (imageIndex < 4)
+                                    @if (imageIndex < 4)
                                         {
-                                            <img class="bw-ga" data-lab="@bikeName" data-act="Main_Image_Clicked" data-cat="Model_Page" data-colorid="@image.ColorId" data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@imageProperty" title="@imageProperty" border="0" />
+                                        <img class="bw-ga" data-lab="@bikeName" data-act="Main_Image_Clicked" data-cat="Model_Page" data-colorid="@image.ColorId" data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@imageProperty" title="@imageProperty" border="0" />
                                         }
                                         else
                                         {
-                                            <img data-lab="@bikeName" data-act="Main_Image_Clicked" data-cat="Model_Page" data-colorid="@image.ColorId" class="lazy bw-ga" src="" data-original="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
+                                        <img data-lab="@bikeName" data-act="Main_Image_Clicked" data-cat="Model_Page" data-colorid="@image.ColorId" class="lazy bw-ga" src="" data-original="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
 
                                         }
-                                    </span>
+                                </span>
                                 }
-                            </li>
+                        </li>
                             imageIndex++;
                         }
                     }
@@ -132,22 +132,22 @@
                             {
                                 string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
 
-                                <li class="bw-ga" data-lab="@bikeName&#95;@image.ImageCategory" data-act="Image_Carousel_Clicked" data-cat="Model_Page">
+                            <li class="bw-ga" data-lab="@bikeName&#95;@image.ImageCategory" data-act="Image_Carousel_Clicked" data-cat="Model_Page">
 
-                                    <span class="carousel-nav-img-container">
-                                        @if (imageIndex < 7)
+                                <span class="carousel-nav-img-container">
+                                    @if (imageIndex < 7)
                                         {
-                                            <img data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
+                                        <img data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
                                         }
                                         else
                                         {
-                                            <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" data-original="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
+                                        <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" data-original="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
 
                                         }
-                                    </span>
+                                </span>
 
 
-                                </li>
+                            </li>
 
                                 imageIndex++;
                             }

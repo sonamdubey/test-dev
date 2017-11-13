@@ -156,17 +156,24 @@ docReady(function () {
                     imageUrl = "https://imgd.aeplcdn.com/393x221/bikewaleimg/images/noimage.png?q=85";
                 }
                 $('#colourCarousel span img').attr("src", imageUrl);
-                $('#colourCarousel span').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical));
+                $('#colourCarousel span').attr("href", imagePageUrl + '?q=' + Base64.encode('colorimageid=' + colorId + '&retUrl=' + canonical));
             }
         }
         colorElements.removeClass('active');
         colorElements.eq([$(this).index()]).addClass('active');
     });
 
+    $("span.carousel-img-container").click(function () {
+
+        location.href = $(this).attr("href");
+
+
+    });
+
     getCityArea = GetGlobalCityArea();
 
     $(".leadcapturebtn").click(function (e) {
-        ele = $(this);
+        var ele = $(this);
         var leadOptions = {
             "dealerid": ele.attr('data-item-id'),
             "dealername": ele.attr('data-item-name'),
@@ -241,7 +248,7 @@ docReady(function () {
         bikeVersion = getBikeVersion();
     }
 
-    vmUserReviews = new modelUserReviews();    
+    vmUserReviews = new modelUserReviews();
 
 });
 
@@ -826,9 +833,9 @@ ko.bindingHandlers.formattedVotes = {
     }
 };
 
-$(document).on("click", ".read-more-target", function (e) {   
+$(document).on("click", ".read-more-target", function (e) {
     if (!vmUserReviews.IsInitialized()) {
-        vmUserReviews.init(e);        
+        vmUserReviews.init(e);
     }
 });
 
@@ -849,7 +856,7 @@ var modelUserReviews = function () {
                         self.reviewList(response.result);
                         applyLikeDislikes();
                         $('.more-review-li').removeClass('hide');
-                    }                  
+                    }
                 })
                  .always(function () {
                      self.isLoading(false);
@@ -889,9 +896,9 @@ var modelUserReviews = function () {
         var reviewId = ele.data("reviewid");
         var itemNo = ele.data("id");
         if (!self.currentReviewList().length && bikeModelId) {
-			var apiUrl = "/api/user-reviews/search/V2/?InputFilter.review=true&InputFilter.SO=1&InputFilter.PN=1&InputFilter.PS=3&ReviewFilter.RatingQuestion=false&ReviewFilter.ReviewQuestion=true&ReviewFilter.BasicDetails=false&InputFilter.Model=" + bikeModelId;
-			
-			$('#userReviewSpinner').show();
+            var apiUrl = "/api/user-reviews/search/V2/?InputFilter.review=true&InputFilter.SO=1&InputFilter.PN=1&InputFilter.PS=3&ReviewFilter.RatingQuestion=false&ReviewFilter.ReviewQuestion=true&ReviewFilter.BasicDetails=false&InputFilter.Model=" + bikeModelId;
+
+            $('#userReviewSpinner').show();
 
             $.getJSON(apiUrl)
             .done(function (response) {
@@ -900,7 +907,7 @@ var modelUserReviews = function () {
                 }
             })
 			.always(function () {
-				$('#userReviewSpinner').hide();
+			    $('#userReviewSpinner').hide();
 			});
 
         }
