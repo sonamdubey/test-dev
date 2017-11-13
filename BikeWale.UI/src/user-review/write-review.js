@@ -541,7 +541,6 @@ writeReview = function () {
 
 
 function setQuestionNextButtonText(targetQuestion) {
-    console.log(targetQuestion[0]);
     if (targetQuestion.attr('data-btn-text') !== "") {
         $('#skipButton').text(targetQuestion.attr('data-btn-text'));
     }
@@ -629,6 +628,13 @@ docReady(function () {
     $('.carousel-type-questions .jcarousel').on('jcarousel:scroll', function (e) {
         var next = $('.carousel-type-questions .jcarousel-control-next');
         return (!next.attr("data-mileagechanged") || next.attr("data-mileagechanged") <= 0);
+    });
+
+    $('.carousel-type-questions .jcarousel').on('jcarousel:targetin', function (e) {
+        var ele = $(this);
+        jtarget = ele.jcarousel('target');
+        setQuestionNextButtonText(jtarget);
+        
     });
 
     $('.edit-link').on('click', function () {
