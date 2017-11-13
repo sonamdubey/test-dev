@@ -551,14 +551,14 @@ namespace Bikewale.BAL.BikeData
                 {
                     objModelPhotoGalleryData = new ModelPhotoGalleryEntity();
                     objModelPhotoGalleryData.ObjModelEntity = modelPage.ModelDetails;
-                    var versionPhotos = Task.Factory.StartNew(() => modelPage.ModelVersions = _modelCacheRepository.GetModelPageDetails(modelId).ModelVersions);
+
                     var colorPhotosTask = Task.Factory.StartNew(() => modelPage.colorPhotos = _modelCacheRepository.GetModelColorPhotos(modelId));
                     var galleryTask = Task.Factory.StartNew(() => modelPage.Photos = GetBikeModelPhotoGallery(modelId));
                     var videosTask = Task.Factory.StartNew(() => objModelPhotoGalleryData.VideosList = _videos.GetVideosByMakeModel(1, 50, (uint)objModelPhotoGalleryData.ObjModelEntity.MakeBase.MakeId, Convert.ToUInt32(modelId)));
 
-                    Task.WaitAll(colorPhotosTask, galleryTask, videosTask, versionPhotos);
+                    Task.WaitAll(colorPhotosTask, galleryTask, videosTask);
 
-                    objModelPhotoGalleryData.ImageList = CreateAllBikePhotosList(modelPage.ModelDetails, modelPage.Photos, modelPage.colorPhotos, modelPage.ModelVersions);
+                    objModelPhotoGalleryData.ImageList = CreateAllBikePhotosList(modelPage.ModelDetails, modelPage.Photos, modelPage.colorPhotos);
                 }
             }
             catch (Exception ex)
@@ -677,18 +677,6 @@ namespace Bikewale.BAL.BikeData
                         ImageType = ImageBaseType.ModelImage
                     });
 
-                    var versionPhotos = objModelPage.ModelVersions.Select(x => new ColorImageBaseEntity()
-                    {
-                        HostUrl = x.HostUrl,
-                        OriginalImgPath = x.OriginalImagePath
-
-                    }).Where(m => !String.IsNullOrEmpty(m.OriginalImgPath));
-
-                    if (versionPhotos != null && versionPhotos.Any())
-                    {
-                        allPhotos.AddRange(versionPhotos);
-                    }
-
 
                     //Add Color Photos
                     IEnumerable<ModelColorImage> colorPhotos = objModelPage.colorPhotos != null ? objModelPage.colorPhotos.Where(m => !String.IsNullOrEmpty(m.OriginalImagePath)) : null;
@@ -759,7 +747,7 @@ namespace Bikewale.BAL.BikeData
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
-        private IEnumerable<ColorImageBaseEntity> CreateAllBikePhotosList(BikeModelEntity modelDetails, IEnumerable<ModelImage> galleryImages, IEnumerable<ModelColorImage> colorPhotos, List<BikeVersionMinSpecs> versionImages)
+        private IEnumerable<ColorImageBaseEntity> CreateAllBikePhotosList(BikeModelEntity modelDetails, IEnumerable<ModelImage> galleryImages, IEnumerable<ModelColorImage> colorPhotos)
         {
             List<ColorImageBaseEntity> allPhotos = null;
             try
@@ -779,16 +767,7 @@ namespace Bikewale.BAL.BikeData
                         ImageTitle = imageDesc,
                         ImageType = ImageBaseType.ModelImage
                     });
-                    if (versionImages != null)
-                    {
-                        var versionimage = versionImages.Select(x => new ColorImageBaseEntity()
-                        {
-                            HostUrl = x.HostUrl,
-                            OriginalImgPath = x.OriginalImagePath,
 
-                        });
-                        allPhotos.AddRange(versionimage);
-                    }
 
                     if (colorPhotos != null)
                     {

@@ -200,13 +200,6 @@ namespace Bikewale.Models.BikeModels
 
                     if (!String.IsNullOrEmpty(OriginalImagePath))
                     {
-                        _objData.ModelPageEntity.AllPhotos.ElementAt(0).Index = (uint)_objData.ModelPageEntity.AllPhotos.ToList().FindIndex(x => x.OriginalImgPath == OriginalImagePath);
-
-
-
-                        _objData.ModelPageEntity.AllPhotos.ElementAt((int)_objData.ModelPageEntity.AllPhotos.ElementAt(0).Index).HostUrl = _objData.ModelPageEntity.AllPhotos.ElementAt(0).HostUrl;
-                        _objData.ModelPageEntity.AllPhotos.ElementAt((int)_objData.ModelPageEntity.AllPhotos.ElementAt(0).Index).OriginalImgPath = _objData.ModelPageEntity.AllPhotos.ElementAt(0).OriginalImgPath;
-
 
                         _objData.ModelPageEntity.AllPhotos.ElementAt(0).HostUrl = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(m => m.VersionId == _objData.VersionId).HostUrl;
                         _objData.ModelPageEntity.AllPhotos.ElementAt(0).OriginalImgPath = OriginalImagePath;
