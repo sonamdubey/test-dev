@@ -5,6 +5,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
@@ -220,6 +221,8 @@ namespace Bikewale.Models
         /// Summary :- Function for GetComparisionTextAndMetas
         /// Modified By:Snehal Dange on 12th August , 2017
         /// Description : Added reverseComparisonText for page title
+        /// Modified by sajal Gupta on 10-11-2017
+        /// Descriptiotion : Added GAPages;
         /// </summary>
         /// <returns></returns>
         private void GetComparisionTextAndMetas(CompareDetailsVM obj)
@@ -276,11 +279,10 @@ namespace Bikewale.Models
                     obj.PageMetaTags.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, _compareUrl);
                     obj.PageMetaTags.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, _compareUrl);
                     obj.Page_H1 = obj.comparisionText;
+                    obj.Page = GAPages.Compare_Bikes;
 
                     SetBreadcrumList(obj);
                     SetPageJSONLDSchema(obj);
-
-
                 }
 
             }
@@ -355,7 +357,7 @@ namespace Bikewale.Models
                         int colorCount = colors.bikes[i].bikeColors.Count;
                         bikeNames += bikeName + (i < count - 1 ? ", " : " and ");
                         bikePrice += string.Format(" {0} is &#x20B9; {1} {2}", bikeName, price, (i < count - 1 ? ", " : " and "));
-                        variants += string.Format(" {0} is available in {1} {4}{2}{3}", bikeName, colorCount, (versionCount > 0? string.Format(" and {0} {1}", versionCount, versionCount > 1 ? "variants" : "variant") : ""), (i < count - 1 ? ", " : " and "), colorCount > 1 ? "colours" : "colour");
+                        variants += string.Format(" {0} is available in {1} {4}{2}{3}", bikeName, colorCount, (versionCount > 0 ? string.Format(" and {0} {1}", versionCount, versionCount > 1 ? "variants" : "variant") : ""), (i < count - 1 ? ", " : " and "), colorCount > 1 ? "colours" : "colour");
                         i++;
                     }
                 }

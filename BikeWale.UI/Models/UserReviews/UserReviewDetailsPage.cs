@@ -177,6 +177,8 @@ namespace Bikewale.Models.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 12th Sep 2017
         /// Description : Function to create page level schema for breadcrum
+        /// Modified by Sajal Gupt on 10-11-2017       
+        /// desccription : Changed breadcrumbs
         /// </summary>
         private void SetBreadcrumList(UserReviewDetailsVM objPage)
         {
@@ -191,7 +193,7 @@ namespace Bikewale.Models.UserReviews
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
-
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}reviews/", bikeUrl), "Reviews"));
 
             if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null)
             {
@@ -211,24 +213,21 @@ namespace Bikewale.Models.UserReviews
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objPage.UserReviewDetailsObj.Make.MakeName)));
             }
 
-            if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
+            if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null && objPage.UserReviewDetailsObj.Make != null)
             {
                 bikeUrl = string.Format("{0}{1}/", bikeUrl, objPage.UserReviewDetailsObj.Model.MaskingName);
-
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, objPage.UserReviewDetailsObj.Model.ModelName));
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName)));
             }
 
-            if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null && objPage.UserReviewDetailsObj.Model != null)
+            if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Model != null)
             {
-                bikeUrl += "user-reviews/";
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "User Reviews"));
+                bikeUrl += "reviews/";
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, objPage.UserReviewDetailsObj.Model.ModelName + " Reviews"));
             }
 
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPage.Page_H1));
 
-
             objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
-
         }
 
         /// <summary>
