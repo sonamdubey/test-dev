@@ -18,7 +18,7 @@ docReady(function () {
                 var recommendedTag = swiperSlide.find('.recommended-tag');
                     recommendedTag.text('Recommended Bike');
             }
-            $('#rightBikeSwiper').data('swiper').slideTo(indexOfSlide, 1000, false);
+            $('.right-bike-swiper.swiper-container').data('swiper').slideTo(indexOfSlide, 1000, false);
         }
 
     });
@@ -52,5 +52,11 @@ docReady(function () {
                 break;
         }
     });
+    $('.right-bike-swiper.swiper-container').on('inview', function (event, visible) {
+        if (visible == true) {
+            $('.swiper-ribbon').addClass('animate-ribbon');
+        } else {
 
+        }
+    });
 });

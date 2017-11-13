@@ -19,17 +19,6 @@
 		width: 100%
 		height: auto
 
-//.intro-card__description
-//	padding: 5px 15px 15px
-//	font-size: 13px
-//	position: relative
-//
-//.intro-card__read-more
-//	position: absolute
-//	bottom: 10px
-//	right: 17px	
-//
-
 /* foldable content*/
 .main-series-model 
 	.truncatable-content
@@ -48,6 +37,7 @@
 			display: block
 			width: 200px
 			background-color: white
+			padding-left: 3px
 
 		&:after
 			content: ''
@@ -72,12 +62,14 @@
     max-height: 90px
 
 .model-series-card
-	margin: 10px 5px
+	margin: 10px 5px 15px
 	border: 1px solid #d5d5d5
 	display: block
 	
 	& > a
 		display: block
+		text-decoration: none
+		color: #4d5057
 
 	.model-series-card__image,
 	.model-series-list
@@ -86,7 +78,7 @@
 	.model-series-card__btn-full
 		max-width: 360px
 
-.orange-card
+.featured-card
 		border: 1px solid #ff7c6f
 
 		.series-card__desc
@@ -155,6 +147,9 @@
 
 .series-card__label
 	font-size: 16px
+	display: block
+	padding-bottom: 5px
+	
 .summary-specs-list
 	font-size: 0
 	padding-top: 10px
@@ -165,6 +160,7 @@
 		width: 25%
 		font-size: 12px
 		color: #82888b
+		font-weight: 600
 
 .series-card__sub-title
 	font-size: 11px
@@ -180,37 +176,17 @@
 	padding: 0 20px 20px
 	background-color: #f8f8f8
 	
-.model-series-card__btn-full
-	border-radius: 2px
-	outline: none
-	text-decoration: none
-	vertical-align: middle
-	-ms-touch-action: manipulation
-	touch-action: manipulation
-	cursor: pointer
-	-webkit-user-select: none
-	-moz-user-select: none
-	-ms-user-select: none
-	user-select: none
-	background-image: none
-	-webkit-appearance: none
-	line-height: 1.42857143
-	text-align: center
-	white-space: nowrap
-	display: block
-	width: 100%
-	font-size: 14px
+	.btn
+		overflow: hidden
+		text-overflow: ellipsis
+		font-weight: 700
+		display: block
+		max-width: 360px
+		font-size: 14px
+		padding-top: 12px
+		padding-bottom: 13px
 
-.model-series-card__btn-white
-	background: #fff
-	color: #e42029
-	border: 1px solid #e42029
-	padding: 12px
-	overflow: hidden
-	text-overflow: ellipsis
-	font-weight: 700
-
-.model-series-card__btn-teal
+.btn-blue
 	background: #fff
 	color: #0288d1
 	border: 1px solid #0288d1
@@ -218,13 +194,25 @@
 	overflow: hidden
 	text-overflow: ellipsis
 	font-weight: 600
+	
+.bw-model-tabs-data
+	.btn-blue
+		width: 100%
 
+	
 //campare carousel
 .comparison-swiper 
 	.swiper-slide,
 	.swiper-card
 		width: 310px
 		min-height: 210px
+		
+		
+		.btn
+			width: 100%
+			font-weight: 600
+			padding-top: 12px
+			padding-bottom: 13px
 
 	.card-target
 		padding-top: 15px
@@ -233,17 +221,18 @@
 
 	.grid-6:first-of-type
 		position: relative
-
+		border-right: 1px solid #f5f5f5
+		
 		&:after
 			content: ''
 			position: absolute
-			right: 0
+			right: -13px
 			top: 45px
 			width: 26px
 			height: 26px
 			background: url('/images/compare-divider-26x26.svg') no-repeat
 			display: block
-			z-index: 1
+			z-index: 2
 .compare-img
 	width: 132px
 	height: 75px
@@ -251,6 +240,7 @@
 	position: relative
 
 .swiper-card__label
+	display: block
 	font-size: 13px
 	text-align: center
 	color: #4d5057
@@ -295,6 +285,9 @@
 		&.active
 			border-bottom: 3px solid #0288d1
 			color: #0288d1
+			
+		>span:nth-of-type(1)
+			margin-right: 5px
 
 .overallUpdate-news-icon
 	display: inline-block
@@ -388,8 +381,20 @@
 
 	.model-series-card__image
 		padding: 0
+		
+//upcoming swiper
+.upcoming-model-swiper.card-container
+	.swiper-slide
+		width: 320px
+		min-height: 290px
 
-
+		.model-series-card
+			margin-left: 0
+			margin-right: 0
+		
+	.model-series-card__image
+		padding: 0
+		
 //other series
 .other-model-series
 	.model-series-list
@@ -460,12 +465,16 @@
 .find-specs-tabs-wrapper
 	width: 100%
 	display: table
+	padding-left: 20px
+	padding-right: 20px
 
 	li
 		display: table-cell
 		width: 1%
 		text-align: center
 		cursor: pointer
+		white-space: nowrap
+		
 
 .right-bike_carousel-specs
 	min-heigth: 200px
@@ -496,37 +505,42 @@
 	font-size: 12px
 	font-weight: 600
 	padding-top: 5px
-
-.right-bike-carousel
+	
+#rightBikeSwiper
+	position: relative
+	
+.right-bike-swiper
 	padding-top: 0
 	
 	&.swiper-container
-		width: 62%
-		float: left
+		padding-left: 135px
+		
+		.swiper-slide
+			margin-left: 10px
 
 		&:after
-			background: -moz-linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
-			background: -o-linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
-			background: linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
-			content: ''
-			width: 50px
-			height: 100%
-			position: absolute
-			top: 0
-			left: -17px
-			z-index: 1
-
-		&:before
 			background: -moz-linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
 			background: -o-linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
 			background: linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
 			content: ''
-			width: 50px
+			width: 16px
 			height: 100%
 			position: absolute
 			top: 0
-			left: -17px
-			z-index: 1
+			right: -1px
+			z-index: 2
+
+		&:before
+			background: -moz-linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
+			background: -o-linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
+			background: linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
+			content: ''
+			width: 16px
+			height: 100%
+			position: absolute
+			top: 0
+			left: 133px
+			z-index: 2
 
 		.swiper-ribbon
 			display: block
@@ -535,27 +549,42 @@
 			font-size: 14px
 			color: white
 			font-weight: 600
-			padding: 5px 46px 5px 33px
+			padding: 5px 26px 5px 18px
 			background: #ff7c6f
 			border-radius: 15px 0 0 15px
 			position: absolute
-			right: 0
+			right: -119px
 			bottom: 80px
-			z-index: 2
-			-webkit-animation: moveribbon 5s infinite
+			z-index: 3
+
+
+		.animate-ribbon
+			-webkit-animation: moveribbon 5s
 			-webkit-animation-direction: alternate
-			animation: moveribbon 5s infinite
+			animation: moveribbon 5s
 			animation-direction: alternate
-				
+								
 	.rightbike__swiper-card
 		width: 135px
 
-		&.grid-2
+		&.right-bike__swiper-keys
+			position: absolute
+			left: 0
+			top: 0
+			z-index: 2
+			background: #fff
+			height: 100%
+			
 			.series-card__desc
 				background: #fff
-
+				color: #787878
+				
+			.right-bike__label
+				font-weight: 400
+				
 	.series-card__desc
 		position: relative
+		font-size: 11px
 
 		.right-bike__label
 			padding-bottom: 20px
@@ -564,8 +593,13 @@
 			text-overflow: ellipsis
 			white-space: nowrap
 			overflow: hidden
-
-	.orange-card
+			font-weight: 600
+		.right-bike__desc
+			font-size: 10px
+			font-weight: 400
+			display: block
+			
+	.featured-card
 		background-color: #fff9f9
 
 		.popular-icon
@@ -578,16 +612,23 @@
 
 @keyframes moveribbon
 	0%   
-		right: -15px
+		right: 0
 	25%   
-		right: -10px
+		right: -20px
 	50%   
-		right: -15px
+		right: 0
 	75%   
-		right: -10px
+		right: -25px
 	100%   
-		right: -120px
-
+		right: -125px
+		
+.swiper-left-arrow
+	display: inline-block
+	width: 17px
+	height: 9px
+	background: url('/images/swipe_arrow-17x9.svg') no-repeat center
+	margin-right: 10px
+	
 .specs-btn
 	border-radius: 15px
 	text-decoration: none
@@ -601,11 +642,24 @@
 		display: inline-block
 		margin: 0 5px 10px
 		color: #aaa
-		
+		font-size: 11px
+
 		&:hover
 			border-color: #ff7c6f
 			color: #ff7c6f
 
-@media only screen and (min-width: 800px)
-	.right-bike-carousel.swiper-container
-			width: 73%
+@media only screen and (max-width: 320px)
+	.used-model-swiper
+		&.card-container
+			.swiper-slide
+				width: 290px
+				
+	.upcoming-model-swiper
+		.swiper-card	
+			width: 280px
+			
+	.comparison-swiper
+		.swiper-slide,
+		.swiper-card
+			width: 290px
+			
