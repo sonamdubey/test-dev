@@ -6,13 +6,21 @@
     /// </summary>
     public class TataCapitalInputEntity
     {
+        public TataCapitalInputEntity()
+        {
+            fname = string.Empty;
+            lname = string.Empty;
+            resEmailId = string.Empty;
+            resMobNo = string.Empty;
+            resCity = string.Empty;
+        }
         public string source { get { return "Bikewale"; } }
         public string password { get { return "Bikewale@123"; } }
-        public string fname { get; set; } = "";
-        public string lname { get; set; } = "";
-        public string resEmailId { get; set; } = "";
-        public string resMobNo { get; set; } = "";
-        public string resCity { get; set; } = "";
+        public string fname { get; set; }
+        public string lname { get; set; }
+        public string resEmailId { get; set; }
+        public string resMobNo { get; set; }
+        public string resCity { get; set; }
         public string sageProduct { get { return "Two Wheelers"; } }
         public string sagechannel { get { return "Bikewale"; } }
         public string leadType { get { return "Individual"; } }

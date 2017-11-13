@@ -30,16 +30,15 @@ namespace Bikewale.Controllers
         [DeviceDetection]
         public ActionResult Index(ushort? pageNumber)
         {
-            string q = Request.Url.Query;
-            NewBikeSearchModel model = new NewBikeSearchModel(q, _articles,_videos, _searchResult, _processFilter);
+            //string q = Request.Url.Query;
+            NewBikeSearchModel model = new NewBikeSearchModel(Request, _articles, _videos, _searchResult, _processFilter);
             return View(model.GetData());
         }
 
         [Route("m/newbikesearch/")]
         public ActionResult Index_Mobile(ushort? pageNumber)
         {
-            string q = Request.Url.Query;
-            NewBikeSearchModel model = new NewBikeSearchModel(q, _articles, _videos, _searchResult, _processFilter);
+            NewBikeSearchModel model = new NewBikeSearchModel(Request, _articles, _videos, _searchResult, _processFilter);
             return View(model.GetData());
         }
     }
