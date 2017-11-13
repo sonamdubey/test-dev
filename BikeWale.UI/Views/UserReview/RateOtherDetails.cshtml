@@ -79,16 +79,19 @@
                                                     </span>
                                                 </div>
                                             </div>
+                                            <div class="other-review__button-block">
+                                                <a href="javascript:void(0)" class="" title="" rel="nofollow">Continue</a>
+                                            </div>
+
                                         </li>
                                         @foreach (var ques in Model.QuestionsList)
                                         {
 
                                             <li class="list-item question-type-text" data-btn-text="">
-                                                @*<p class="item-title">@ques.Heading</p>*@
                                                 <p class="item-title">@ques.Description</p>
                                                 <p class="font12 text-light-grey margin-bottom20">(@(j + 1) of 6)</p>
                                                 <div>
-                                                    @if (ques.Rating != null && ques.Rating.Count() > 0)
+                                                    @if (ques.Rating != null && ques.Rating.Any())
                                                     {
                                                         var i = 1;
                                                         foreach (var rating in ques.Rating)
@@ -105,6 +108,17 @@
                                                     }
                                                 </div>
                                                 <div class="clear"></div>
+                                                <div class="other-review__button-block">
+                                                    @if(j != 5)
+                                                    {
+                                                         <a href="javascript:void(0)" class="" title="" rel="nofollow">Skip this question</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="/user-reviews/review-summary/@Model.ReviewId/?q=@Model.EncodedWriteUrl" class="" title="" rel="nofollow">Submit</a>
+                                                    }
+                                                   
+                                                </div>
                                             </li>
                                             j++;
                                         }
@@ -122,10 +136,7 @@
 									</div>
 								</div>
 
-                                <div class="other-review__button-block">
-                                    <a href="javascript:void(0)" id="skipButton" class="" title="" rel="nofollow">Continue</a>
-                                </div>
-
+                               
                                 <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
                                 <input type="hidden" name="reviewDescription" value="" />
                                 <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />

@@ -540,15 +540,6 @@ writeReview = function () {
 };
 
 
-function setQuestionNextButtonText(targetQuestion) {
-    if (targetQuestion.attr('data-btn-text') !== "") {
-        $('#skipButton').text(targetQuestion.attr('data-btn-text'));
-    }
-    else {
-        $('#skipButton').text('Skip this question');
-    }
-}
-
 
 var answer = {
     selection: function (element) {
@@ -612,7 +603,7 @@ docReady(function () {
     initKoSlider();
 
     //rating-face
-    $('#skipButton').on('click', function () {
+    $('.other-review__button-block').on('click', function () {
         var next = $('.carousel-type-questions .jcarousel-control-next');
         if (next.attr("data-mileagechanged") > 0) {
             next.removeClass("inactive");
@@ -630,12 +621,6 @@ docReady(function () {
         return (!next.attr("data-mileagechanged") || next.attr("data-mileagechanged") <= 0);
     });
 
-    $('.carousel-type-questions .jcarousel').on('jcarousel:targetin', function (e) {
-        var ele = $(this);
-        jtarget = ele.jcarousel('target');
-        setQuestionNextButtonText(jtarget);
-        
-    });
 
     $('.edit-link').on('click', function () {
         if (page == "writeReview" && $("#previousPageUrl") && $("#previousPageUrl").length) {
