@@ -682,7 +682,7 @@ namespace Bikewale.BAL.BikeData
                         HostUrl = x.HostUrl,
                         OriginalImgPath = x.OriginalImagePath
 
-                    });
+                    }).Where(m => !String.IsNullOrEmpty(m.OriginalImgPath));
 
                     if (versionPhotos != null && versionPhotos.Any())
                     {

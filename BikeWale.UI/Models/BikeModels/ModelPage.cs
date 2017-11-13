@@ -197,9 +197,20 @@ namespace Bikewale.Models.BikeModels
                 if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.AllPhotos != null && _objData.ModelPageEntity.AllPhotos.Any())
                 {
                     string OriginalImagePath = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(m => m.VersionId == _objData.VersionId).OriginalImagePath;
-                    _objData.ModelPageEntity.AllPhotos.ElementAt(0).Index = (uint)_objData.ModelPageEntity.AllPhotos.ToList().FindIndex(x => x.OriginalImgPath == OriginalImagePath);
-                    _objData.ModelPageEntity.AllPhotos.ElementAt(0).HostUrl = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(x => x.VersionId == _objData.VersionId).HostUrl;
-                    _objData.ModelPageEntity.AllPhotos.ElementAt(0).OriginalImgPath = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(x => x.VersionId == _objData.VersionId).OriginalImagePath;
+
+                    if (!String.IsNullOrEmpty(OriginalImagePath))
+                    {
+                        _objData.ModelPageEntity.AllPhotos.ElementAt(0).Index = (uint)_objData.ModelPageEntity.AllPhotos.ToList().FindIndex(x => x.OriginalImgPath == OriginalImagePath);
+
+
+
+                        _objData.ModelPageEntity.AllPhotos.ElementAt((int)_objData.ModelPageEntity.AllPhotos.ElementAt(0).Index).HostUrl = _objData.ModelPageEntity.AllPhotos.ElementAt(0).HostUrl;
+                        _objData.ModelPageEntity.AllPhotos.ElementAt((int)_objData.ModelPageEntity.AllPhotos.ElementAt(0).Index).OriginalImgPath = _objData.ModelPageEntity.AllPhotos.ElementAt(0).OriginalImgPath;
+
+
+                        _objData.ModelPageEntity.AllPhotos.ElementAt(0).HostUrl = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(m => m.VersionId == _objData.VersionId).HostUrl;
+                        _objData.ModelPageEntity.AllPhotos.ElementAt(0).OriginalImgPath = OriginalImagePath;
+                    }
 
                 }
 
@@ -667,7 +678,7 @@ namespace Bikewale.Models.BikeModels
                             }
                         }
                     }
-                    
+
                     // Set body style
                     if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Count > 0)
                     {
@@ -843,17 +854,17 @@ namespace Bikewale.Models.BikeModels
                 byte percentDeviation = 15;
                 ulong deviatedPriceMin = avgExpectedPrice - (avgExpectedPrice * percentDeviation) / 100;
                 ulong deviatedPriceMax = avgExpectedPrice + (avgExpectedPrice * percentDeviation) / 100;
-             
+
 
                 objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
                 objUpcomingBikes = objUpcoming.GetData();
-                
+
                 if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
                 {
                     objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes
                         .OrderByDescending(
                             m => m.BodyStyleId == (uint)_objData.BodyStyle &&
-                            ((deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) 
+                            ((deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax)
                             || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax))
                         )
                         .ThenByDescending(
@@ -862,13 +873,13 @@ namespace Bikewale.Models.BikeModels
                         )
                         .Where(x => x.ModelBase.ModelId != _modelId)
                         .Take(9)
-                        .TakeWhile(m => 
-                            (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)).Take(10).TakeWhile(m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) 
+                        .TakeWhile(m =>
+                            (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax) || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)).Take(10).TakeWhile(m => (deviatedPriceMin <= m.EstimatedPriceMin && m.EstimatedPriceMin <= deviatedPriceMax)
                             || (deviatedPriceMin <= m.EstimatedPriceMax && m.EstimatedPriceMax <= deviatedPriceMax)
-                        );                                        
+                        );
                 }
-                    
-                    
+
+
             }
             catch (Exception ex)
             {
@@ -910,7 +921,6 @@ namespace Bikewale.Models.BikeModels
         }
 
         private void BindBestBikeWidget(EnumBikeBodyStyles BodyStyleType, uint? cityId = null)
-
         {
             try
             {
