@@ -162,7 +162,7 @@ namespace Bikewale.DAL.BikeData
                     else
                     {
                         // Get model min specs
-                        modelPage.ModelVersions = GetVersionMinSpecs(modelId, modelPage.ModelDetails.New, versionId);
+                        modelPage.ModelVersions = GetVersionMinSpecs(modelId, modelPage.ModelDetails.New);
                     }
 
 
@@ -271,7 +271,7 @@ namespace Bikewale.DAL.BikeData
         /// <param name="modelId">model id</param>
         /// <param name="isNew">is new</param>
         /// <returns></returns>
-        public List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew, int versionId)
+        public List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew)
         {
 
             List<BikeVersionMinSpecs> objMinSpecs = new List<BikeVersionMinSpecs>();
@@ -283,7 +283,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, versionId));
+
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -342,7 +342,7 @@ namespace Bikewale.DAL.BikeData
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_modelid", modelId);
 
-                    objMinSpecs = connection.Query<BikeVersionMinSpecs>("getfuturisticversions", param: param, commandType: CommandType.StoredProcedure);
+                    objMinSpecs = connection.Query<BikeVersionMinSpecs>("getfuturisticversions_13112017", param: param, commandType: CommandType.StoredProcedure);
                 }
             }
             catch (Exception ex)
