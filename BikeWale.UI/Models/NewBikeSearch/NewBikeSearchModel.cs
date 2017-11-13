@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.NewBikeSearch;
@@ -26,8 +27,9 @@ namespace Bikewale.Models.NewBikeSearch
         private readonly IBikeMakesCacheRepository _makes;
         private readonly ISearchResult _searchResult = null;
         private readonly IProcessFilter _processFilter = null;
-        private string _queryString;
-        public NewBikeSearchModel(string queryString, ICMSCacheContent objArticles, IVideos objVideos, IBikeMakesCacheRepository makes, ISearchResult searchResult, IProcessFilter processFilter)
+        private readonly string _queryString;
+        private readonly PQSourceEnum _pqSource;
+        public NewBikeSearchModel(string queryString, ICMSCacheContent objArticles, IVideos objVideos, IBikeMakesCacheRepository makes, ISearchResult searchResult, IProcessFilter processFilter, PQSourceEnum pqSource)
         {
             _makes = makes;
             _queryString = queryString;
@@ -35,14 +37,20 @@ namespace Bikewale.Models.NewBikeSearch
             _videos = objVideos;
             _searchResult = searchResult;
             _processFilter = processFilter;
+            _pqSource = pqSource;
         }
 
         public NewBikeSearchVM GetData()
         {
             NewBikeSearchVM viewModel = new NewBikeSearchVM();
-            viewModel.Bikes = BindBikes();
+            viewModel.PqSource = _pqSource;
+            viewModel.BikeSearch = BindBikes();
+            BindEditorialWidget(viewModel);
             BindPageMetas(viewModel.PageMetaTags);
             viewModel.News = new RecentNews(5, 0, _modelIdList, _articles).GetData();
+            viewModel.Videos = new RecentVideos(1, 5, _videos).GetData();
+            viewModel.ExpertReviews = new RecentExpertReviews(5, _articles).GetData();
+            SetFlags(viewModel);
             BindBrands(viewModel);
             return viewModel;
         }
@@ -77,7 +85,7 @@ namespace Bikewale.Models.NewBikeSearch
             }
             catch (Exception ex)
             {
-                new Notifications.ErrorClass(ex, "NewBikeSearchModel.MapQueryString()");
+                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.MapQueryString()");
             }
             return input;
         }
@@ -100,14 +108,14 @@ namespace Bikewale.Models.NewBikeSearch
             }
             catch (Exception ex)
             {
-                new Notifications.ErrorClass(ex, "NewBikeSearchModel.BindMetas()");
+                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.BindMetas()");
             }
         }
         /// <summary>
         /// Binds the editorial widget.
         /// </summary>
         /// <param name="objVM">The object vm.</param>
-        private void BindEditorialWidget(ScootersIndexPageVM objVM)
+        private void BindEditorialWidget(NewBikeSearchVM objVM)
         {
             try
             {
@@ -176,6 +184,36 @@ namespace Bikewale.Models.NewBikeSearch
             catch(Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.BindBrands");
+            }
+        }
+
+        private void SetFlags(NewBikeSearchVM Model)
+        {
+            Model.TabCount = 0;
+            Model.IsNewsActive = false;
+            Model.IsExpertReviewActive = false;
+            Model.IsVideoActive = false;
+
+            if (Model.News.FetchedCount > 0)
+            {
+                Model.TabCount++;
+                Model.IsNewsActive = true;
+            }
+            if (Model.ExpertReviews.FetchedCount > 0)
+            {
+                Model.TabCount++;
+                if (!Model.IsNewsActive)
+                {
+                    Model.IsExpertReviewActive = true;
+                }
+            }
+            if (Model.Videos.FetchedCount > 0)
+            {
+                Model.TabCount++;
+                if (!Model.IsExpertReviewActive && !Model.IsNewsActive)
+                {
+                    Model.IsVideoActive = true;
+                }
             }
         }
 

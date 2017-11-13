@@ -1,4 +1,5 @@
-﻿using Bikewale.Filters;
+﻿using Bikewale.Entities.PriceQuote;
+using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.NewBikeSearch;
@@ -34,7 +35,7 @@ namespace Bikewale.Controllers
         public ActionResult Index(ushort? pageNumber)
         {
             string q = Request.Url.Query;
-            NewBikeSearchModel model = new NewBikeSearchModel(q, _articles,_videos, _makes, _searchResult, _processFilter);
+            NewBikeSearchModel model = new NewBikeSearchModel(q, _articles,_videos, _makes, _searchResult, _processFilter, PQSourceEnum.Desktop_NewBikeSearch);
             return View(model.GetData());
         }
 
@@ -42,7 +43,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile(ushort? pageNumber)
         {
             string q = Request.Url.Query;
-            NewBikeSearchModel model = new NewBikeSearchModel(q, _articles, _videos, _makes, _searchResult, _processFilter);
+            NewBikeSearchModel model = new NewBikeSearchModel(q, _articles, _videos, _makes, _searchResult, _processFilter, PQSourceEnum.Mobile_NewBikeSearch);
             return View(model.GetData());
         }
     }

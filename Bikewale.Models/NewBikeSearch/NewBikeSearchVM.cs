@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
-using System.Collections.Generic;
 using Bikewale.Entities.NewBikeSearch;
+using Bikewale.Entities.PriceQuote;
+using System.Collections.Generic;
 
 
 namespace Bikewale.Models.NewBikeSearch
@@ -13,10 +14,15 @@ namespace Bikewale.Models.NewBikeSearch
     public class NewBikeSearchVM : ModelBase
     {
         public IEnumerable<BikeMakeEntityBase> PopularBrands { get; set; }
-        public SearchOutputEntity Bikes { get; set; }
+        public SearchOutputEntity BikeSearch { get; set; }
         public IEnumerable<BikeMakeEntityBase> OtherBrands { get; set; }
         public RecentNewsVM News { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }
         public RecentVideosVM Videos { get; set; }
+        public uint TabCount { get; set; }
+        public bool IsNewsActive { get; set; }
+        public bool IsExpertReviewActive { get; set; }
+        public bool IsVideoActive { get; set; }
+        public PQSourceEnum PqSource { get; set; }
     }
 }
