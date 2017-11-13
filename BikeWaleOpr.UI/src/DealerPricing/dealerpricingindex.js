@@ -220,7 +220,7 @@
                 currentRow.addClass("teal");
                 currentRow.addClass("lighten-5");
                 currentRow.find('.editableValue').each(function () {
-                    $(this).html($("<input>", { "type": "number", "min": "0", "value": this.dataset.value }));
+                    $(this).html($("<input>", { "type": "text", "min": "0", "value": this.dataset.value }));
                 });
                 if (self.selectedRowsCount == totalRowsCount)
                     $("#allRowsSelect").prop("checked", true);

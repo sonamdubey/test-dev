@@ -89,6 +89,14 @@
 	@include border-radius(50%)
 
 // questions and answers
+
+.edit-icon
+	display: inline-block
+	vertical-align: middle
+	width: 14px
+	height: 14px
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/edit-14x14.png') no-repeat
+
 .question-field
 	margin-bottom: 20px
 
@@ -125,7 +133,74 @@
 				cursor: default
 				pointer-events: none
 
+.other-review__button-block
+	text-align: center
 
+	.btn-size-2
+		width: 120px
+		margin-right: 20px
+
+
+
+//slider
+.mileage-slider-box
+	width: 500px
+	margin: 0 auto 30px
+
+	.ui-slider
+		position: relative
+		text-align: left
+
+		.ui-slider-range
+			border: none
+			display: block
+			position: absolute
+			z-index: 1
+
+		.ui-slider-handle
+			background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat
+			cursor: pointer
+			height: 28px
+			width: 28px
+			display: block
+			margin-left: -9px
+			position: absolute
+			outline: none
+			top: -13px
+			z-index: 2
+			background-position: 3px 3px
+
+	.ui-widget-header
+		background: #ef3030
+		height: 2px
+
+	.ui-widget-content
+		background: #bababa
+		height: 2px
+		margin-top: 15px
+		width: 97%
+		cursor: pointer
+
+.ui-slider__text
+	display: block
+	position: absolute
+	min-width: 70px
+	top: 30px
+	left: -10px
+	font-weight: 700
+
+.slider-text__left
+	float: left
+	color: #a2a2a2
+
+.slider-text__right
+	float: right
+	margin-right: 15px
+	color: #a2a2a2
+
+.review-progress__form
+	.btn
+		min-width: 160px
 // write review
 .text-xx-light
 	color: #a2a2a2
@@ -184,9 +259,12 @@
 // review-question-list
 .review-question-list
 	.list-item
+		width: 920px !important
+		height: 190px
+		text-align: center
 		padding-top: 15px
 		padding-bottom: 15px
-		border-bottom: 1px solid #eee
+		display: block
 
 	.item-title
 		font-weight: 600
@@ -406,142 +484,149 @@
 	opacity: 0.6
 
 // review progress tabs
-.review-progress
-	li
-		width: 100px
-		height: 100px
-		border-radius: 8px
-		margin-bottom: 20px
-		background-color: #f5f5f5
-		cursor: default
 
-		&:before
-			content: ""
-			display: block
-			width: 20px
-			height: 20px
-			border-radius: 50%
-			margin: auto
-			position: relative
-			top: 20px
+.thumb-icon
+	height: 58px
+	width: 58px
+	display: inline-block
+	vertical-align: middle
+	border-radius: 30px
+	border: 1px solid #4d5057
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/thumbsup-22x25.png') no-repeat center
 
-		&.active
-			border: 1px solid #41b4c4
-			box-shadow: 0px 2px 5px #ccc
-			background-color: #fff
-			cursor: pointer
-			pointer-events: none
+.review-progress__container
+	width: 100%
+	height: auto
+	border-radius: 8px
+	cursor: default
+	margin-bottom: 5px
 
-		&.completed
-			border: 1px solid #E2E2E2
-			background-color: #fff			
+	&.active
+		.review-progress__rate-bike		
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star-16x16.png') no-repeat 50% #41b4c4
+			background-size: 15px
 
-			&:before
-				background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/tick-filled-20x20.png)
-				background-color: transparent
+		.review-progress__write-review
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/edit-15x16.png') no-repeat 50% #41b4c4
+			background-size: 15px
+				
+		.review-progress__text
+			color: #2a2a2a
 
-		&.incomplete
-			border: 1px solid #E2E2E2
-			background-color: #fff
-			cursor: pointer
-			pointer-events: none
+	&.incomplete
+		.review-progress__rate-bike	
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/star-10x10.png') no-repeat 50% #e2e2e2
+			background-size: 15px	
 
-	.review-progress__rate-bike
-		&:before
-			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/star-10x10.png) no-repeat 50% #e2e2e2
-
-		&.active
-			&:before
-				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star-10x10.png) no-repeat 50% #41b4c4
-
-		&.incomplete
-			&:before
-				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/star-10x10.png) no-repeat 50% #e2e2e2
-
+		.review-progress__write-review
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/edit-9x10.png') no-repeat 50% #e2e2e2
+			background-size: 15px	
+	
 
 	.review-progress__write-review
-		&:before
-			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/edit-9x10.png) no-repeat 50% #e2e2e2
-
-		&.active
-			&:before
-				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/edit-9x10.png) no-repeat 50% #41b4c4
-
-		&.incomplete
-			&:before
-				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/edit-9x10.png) no-repeat 50% #e2e2e2
-
-	.review-progress__other-details
-		&:before
-			background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/bike-12x8.png) no-repeat 50% #e2e2e2
-
-		&.active
-			&:before
-				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bike-12x8.png) no-repeat 50% #41b4c4
-
-		&.incomplete
-			&:before
-				background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bike-12x8.png) no-repeat 50% #e2e2e2
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/edit-15x16.png') no-repeat 50% #e2e2e2
+			background-size: 15px	
+	
+	&.completed
+		.review-progress__icon
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/checked-16x13.png') no-repeat 54% #fff
+			border: 1px solid #41b4c4
+			background-size: 15px	
 
 
-.review-progress__text
-	width: 50px
-	font-size: 12px
-	margin: auto
-	text-align: center
-	position: relative
-	top: 30px
+	& > div:nth-of-type(1)
+		height: 60px
+		background-color: #fafafa
+		padding: 10px 35px
+		position: relative
+		//background-color: #f5f5f5
+		
+	.review-progress__icon
+		display: inline-block		
+		vertical-align: middle
+		width: 40px
+		height: 40px
+		border-radius: 30px
 
-	.border-light-right
-		border-right: 1px solid #f5f5f5
+	.review-progress__text
+		display: inline-block		
+		vertical-align: middle
+		padding-left: 15px
+		font-size: 15px
+		color: #787878
+		font-weight: 600
+
+.edit-link
+	position: absolute
+	right: 40px
+	top: 20px
+
+.review-progress__form
+	margin-right: 35px 
+	margin-left: 55px
+	background-color: #fff
+	border-left: 2px solid #e2e2e2
+	padding: 20px 50px
+
+
+.user-rating-box
+	.star-one
+		background-color: white
+
+#rate-bike-form,
+#write-review-form
+	.contest-slug-sm
+		background: rgba(206,245,255,0.5) url('https://imgd.aeplcdn.com/0x0/bw/static/icons/skyline-936x49.png') repeat-x center bottom
+		min-height: 80px
+		margin: 10px 20px 5px
+		padding: 10px 35px
+		position: relative
+
+	.banner__pen-icon
+		height: 77px
+		display: block
+		width: 126px
+		position: absolute
+		right: 30px
+		top: 0
+		background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/pen-126x77.png') no-repeat		
+.contest-banner__icon
+	width: 80px
+	height: 60px
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/review-contest/contest-122x90.png) no-repeat
+	display: inline-block
+	vertical-align: middle
+	background-size: cover
+
+.review-progress__container
+	.rating-block
+		position: relative
+		left: -4px
+		top: -1px
+
+.other-review-block
+	margin: 10px 20px 30px
+
+.other-review__title
+	font-size: 14px
+	padding-top: 10px
+	padding-bottom: 10px
+	background-color: #fafafa
 
 /*Rating and star icon css Starts here
+@import ../partials/rating
 
-.rate-count-5
-	color: #198D55
+@for $i from 1 through 5
+	@include rating-badge($i)
+	@include rate-star-icon($i, normal)
+	@include rate-count($i)
 
-.rate-count-4
-	color: #13B65D
+@include rating-face-list()
 
-.rate-count-3
-	color: #EFD700
-
-.rate-count-2
-	color: #FD971C
-
-.rate-count-1
-	color: #EF3F30
-
-.rating-badge
-	&[data-rate-bg="5"]
-		background-color: #198D55
-		
-	&[data-rate-bg="4"]
-		background-color: #13B65D
-		
-	&[data-rate-bg="3"]
-		background-color: #EFD700
-		
-	&[data-rate-bg="2"]
-		background-color: #FD971C
-		
-	&[data-rate-bg="1"]
-		background-color: #EF3F30
-
-.bg-rate-5
-	background-color: #198D55
-
-.bg-rate-4
-	background-color: #13B65D
-
-.bg-rate-3
-	background-color: #EFD700
-
-.bg-rate-2
-	background-color: #FD971C
-
-.bg-rate-1
-	background-color: #EF3F30
+.rating-text-pos
+	position: relative
+	left: -6px
+	top: 2px
 
 .star-icon
 	width: 26px
@@ -772,13 +857,6 @@
 		padding-left: 5px
 		display: inline-block
 		vertical-align: middle
-/*Rating circle Ends here
-
-.text-slate-grey
-	color: #787878
-
-.font15
-	font-size: 15px
 
 // terms and condition
 .input-type-checkbox
@@ -803,3 +881,20 @@
 		~ label
 			.checkbox-icon
 				background-position: -216px -135px
+
+.carousel-type-questions
+	width: 100%
+
+	&.inner-content-carousel,
+		.jcarousel li
+			border: 0
+			-webkit-box-shadow: none
+			box-shadow: none
+
+		.jcarousel
+			left: 0
+			margin-bottom: 20px
+
+
+
+
