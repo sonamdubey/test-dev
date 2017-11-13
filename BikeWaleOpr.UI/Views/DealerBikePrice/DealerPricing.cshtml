@@ -7,7 +7,7 @@
 
 <div class="row">
     <div data-bind="with: priceSheetModel" class="col m9">
-        <table id="tblPricingSheet" class="bordered highlight centered z-depth-3 margin-top10 overflow-table-body" data-userid="@Model.EnteredBy">
+        <table id="tblPricingSheet" class="bordered highlight centered z-depth-3 margin-top10 overflow-table-body" data-makeid="@Model.DealerOperationParams.MakeId" data-userid="@Model.EnteredBy">
             <thead>
                 <tr>
                     <th>
@@ -171,7 +171,7 @@
             @if (Model.DealerVersionCategories != null && Model.DealerVersionCategories.Any())
             {
             <li id="liBikewaleCopyPricing">
-                <div class="collapsible-header"><strong>Copy to Pan India</strong></div>
+                <div class="collapsible-header"><strong>Copy Pricing to Pan India</strong></div>
                 <div class="collapsible-body">
                     <div data-bind="with: bikewaleCopyPricing" class="container">
                         <div class="materialize-select row s12">
