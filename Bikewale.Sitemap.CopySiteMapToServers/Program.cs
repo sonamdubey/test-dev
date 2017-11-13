@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Consumer;
+using System;
 
 namespace Bikewale.Sitemap.CopySiteMapToServers
 {
@@ -10,10 +11,15 @@ namespace Bikewale.Sitemap.CopySiteMapToServers
     {
         static void Main(string[] args)
         {
-            ProcessSitemaps.CopyToServers(ProcessSitemaps.SitemapType.General);
-            //ProcessSitemaps.SubmitSitemapToGoogle();
-
-            Console.ReadKey();
+            log4net.Config.XmlConfigurator.Configure();
+            Logs.WriteInfoLog("Started : CopySiteMapToServers");
+            ProcessSitemaps.SitemapType sitemap;
+            if (args != null && args.Length > 0 && Enum.TryParse(args[0], out sitemap))
+            {
+                ProcessSitemaps.CopyToServers(sitemap);
+                //ProcessSitemaps.SubmitSitemapToGoogle();
+            }
+            Logs.WriteInfoLog("Finished : CopySiteMapToServers");
         }
     }
 }

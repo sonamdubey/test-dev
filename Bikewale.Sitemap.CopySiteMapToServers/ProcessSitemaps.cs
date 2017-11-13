@@ -1,17 +1,12 @@
-﻿using System;
+﻿using Consumer;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
 using System.IO;
-using System.Collections;
+using System.Linq;
 using System.Web;
-using Google.Apis.SearchConsole.v1;
-using Google.Apis.SearchConsole.v1.Data;
-using Google.Apis.Services;
-using Google.Apis.Webmasters.v3;
-using Google.Apis.Webmasters.v3.Data;
 
 namespace Bikewale.Sitemap.CopySiteMapToServers
 {
@@ -42,7 +37,7 @@ namespace Bikewale.Sitemap.CopySiteMapToServers
             DealerLocator = 4,
             ServiceCenter = 5
         }
-        
+
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 31 Oct 2017
@@ -56,11 +51,11 @@ namespace Bikewale.Sitemap.CopySiteMapToServers
 
                 if (config != null && config.Instances != null)
                 {
-                    SitemapLocation = new List<Tuple<SitemapType, string, string,string>>();
+                    SitemapLocation = new List<Tuple<SitemapType, string, string, string>>();
                     foreach (var e in config.Instances)
                     {
                         var ele = (e as SitemapLocationConfigElement);
-                        SitemapLocation.Add(new Tuple<SitemapType, string, string,string>(ele.SitemapType, ele.SourcePath, ele.DestinationPath,ele.WebSitemapFolder));
+                        SitemapLocation.Add(new Tuple<SitemapType, string, string, string>(ele.SitemapType, ele.SourcePath, ele.DestinationPath, ele.WebSitemapFolder));
                     }
                 }
             }
@@ -84,15 +79,19 @@ namespace Bikewale.Sitemap.CopySiteMapToServers
 
             try
             {
+
                 // Get the location of batch file which uploads sitemaps to the servers
                 var batchFileLoc = System.Configuration.ConfigurationManager.AppSettings["sitemap_batch_file_location"];
-
+                Logs.WriteInfoLog(String.Format("Get the location of batch file which uploads sitemaps to the servers : {0}", batchFileLoc));
                 // Get the source and destination of the sitemap to be copied
                 var sitemapLocation = SitemapLocation.FirstOrDefault(m => m.Item1 == type);
 
                 // Set Sitemap source destination
                 SitemapSourceFileSource = sitemapLocation.Item2;
                 SitemapeWebsiteDest = sitemapLocation.Item4;
+
+                Logs.WriteInfoLog("SitemapSourceFileSource : " + SitemapSourceFileSource);
+                Logs.WriteInfoLog("SitemapeWebsiteDest : " + SitemapeWebsiteDest);
 
                 processInfo = new ProcessStartInfo(batchFileLoc, sitemapLocation.Item2 + " " + sitemapLocation.Item3);
 
@@ -112,14 +111,14 @@ namespace Bikewale.Sitemap.CopySiteMapToServers
 
                 exitCode = process.ExitCode;
 
-                Console.WriteLine("output>>" + (String.IsNullOrEmpty(output) ? "(none)" : output));
-                Console.WriteLine("error>>" + (String.IsNullOrEmpty(error) ? "(none)" : error));
-                Console.WriteLine("ExitCode: " + exitCode.ToString(), "ExecuteCommand");
+                Logs.WriteInfoLog("output>>" + (String.IsNullOrEmpty(output) ? "(none)" : output));
+                Logs.WriteInfoLog("error>>" + (String.IsNullOrEmpty(error) ? "(none)" : error));
+                Logs.WriteInfoLog("ExitCode: " + exitCode.ToString());
                 process.Close();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Logs.WriteErrorLog(ex.Message);
             }
         }   // End of CopyToServers method 
         #endregion
@@ -164,10 +163,10 @@ namespace Bikewale.Sitemap.CopySiteMapToServers
 
                     //var service = new SitemapsResource.SubmitRequest(, "", "");                    
 
-                        //var service = new Google.Apis.SearchConsole.v1.SearchConsoleService( new Google.Apis.Services.BaseClientService.Initializer {
-                        //    ApiKey = "AIzaSyBTZhbAbKgE_VA_RXq-__tzZkgrOa2HcDI",
-                        //    ApplicationName = "bw-search-console-api-key"
-                        //} );
+                    //var service = new Google.Apis.SearchConsole.v1.SearchConsoleService( new Google.Apis.Services.BaseClientService.Initializer {
+                    //    ApiKey = "AIzaSyBTZhbAbKgE_VA_RXq-__tzZkgrOa2HcDI",
+                    //    ApplicationName = "bw-search-console-api-key"
+                    //} );
 
                     //var service = new Google.Apis.web
 
@@ -194,8 +193,8 @@ namespace Bikewale.Sitemap.CopySiteMapToServers
                 Console.WriteLine(ex.Message);
             }
         }
-    } 
-    #endregion
+    }
+        #endregion
 
 
     #region Section to read the sitemap locations from config file
