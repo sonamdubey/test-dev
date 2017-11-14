@@ -21,10 +21,10 @@ namespace Bikewale.Sitemap.ServiceCenter
                     // get data from database
                     ServiceCenterUrlsRepository urlObj = new ServiceCenterUrlsRepository();
                     SitemapList = urlObj.GetServiceCenterUrls();
-                    Logs.WriteInfoLog("All Service center List : " + SitemapList.Count());
                     // create directory if not exists
-                    if (ServiceCenterSitemapLoc != null)
+                    if (!String.IsNullOrEmpty(ServiceCenterSitemapLoc) && SitemapList != null && SitemapList.Any())
                     {
+                        Logs.WriteInfoLog("All Service center List : " + SitemapList.Count());
                         System.IO.Directory.CreateDirectory(ServiceCenterSitemapLoc);
 
                         //call function to create urls
