@@ -19,6 +19,8 @@ docReady(function () {
                     recommendedTag.text('Recommended Bike');
             }
             $('.right-bike-swiper.swiper-container').data('swiper').slideTo(indexOfSlide, 1000, false);
+			$('#rightBikeSwiper').find('.swiper-slide .featured-card').removeClass('featured-card');
+			swiperSlide.find('.right-bike__desc').addClass('featured-card');
         }
 
     });

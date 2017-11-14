@@ -61,34 +61,8 @@
 		&[data-readtextflag='1']
     			max-height: 90px
 
-.model-series-card
-	margin: 10px 5px 15px
-	border: 1px solid #d5d5d5
-	display: block
-	
-	& > a
-		display: block
-		text-decoration: none
-		color: #4d5057
 
-		&:hover
-			text-decoration: none
-
-	.model-series-card__image,
-	.model-series-list
-		max-width: 360px
-
-	.model-series-card__btn-full
-		max-width: 360px
-
-.featured-card
-	border: 1px solid #ff7c6f
-
-	.series-card__desc
-		background-color: #fff9f9
-
-	.model-series-card__btn-block
-		 background-color: #fff9f9
+		 
 
 .star-white
     width: 12px
@@ -98,98 +72,11 @@
     top: 1px
     margin-right: 4px
 
-.model-series-card__image
-	height: 170px
-	padding: 5px 15px 0
-	text-align: center
-	position: relative
 
-	img
-		height: 164px
-		width: auto
-		max-width: 100%
 
-	.popular-tag
-		position: absolute
-		top: 10px
-		left: 10px
-		color: #ff7c6f
-		font-size: 11px
 
-.popular-icon
-	display: inline-block
-	vertical-align: middle
-	height: 23px
-	width: 17px
-	background: url('/images/mostpopular-17x23.svg') no-repeat
 
-.series-card__desc
-	padding: 10px 20px 0
-	background-color: #f8f8f8
-	position: relative
-
-	.rating-badge
-		position: absolute
-		top: -10px
-
-.model-series-list
-	> .series-list_card,
-	> li
-		padding-top: 10px
-		padding-bottom: 10px
-		border-top: 1px solid #e2e2e2
-
-		&:first-child
-			border: none
-
-.series-list_card
-	> a:hover
-		display: block
-		color: #4d5057
-		text-decoration: none
-
-.series-card__label
-	font-size: 16px
-	display: block
-	padding-bottom: 5px
-	
-.summary-specs-list
-	font-size: 0
-	padding-top: 10px
-
-	li
-		display: inline-block
-		vertical-align: middle
-		width: 25%
-		font-size: 12px
-		color: #82888b
-		font-weight: 600
-
-.series-card__sub-title
-	font-size: 11px
-	color: #82888b
-	padding-bottom: 5px
-
-.card-desc__data
-	font-size: 20px
-	color: #4d5057
-	font-weight: 600
-
-.model-series-card__btn-block
-	padding: 0 20px 20px
-	background-color: #f8f8f8
-	
-	.btn
-		overflow: hidden
-		text-overflow: ellipsis
-		font-weight: 700
-		display: block
-		max-width: 360px
-		font-size: 14px
-		padding-top: 12px
-		padding-bottom: 13px
-
-.btn-blue
+.btn-inv-blue
 	background: #fff
 	color: #0288d1
 	border: 1px solid #0288d1
@@ -197,177 +84,45 @@
 	overflow: hidden
 	text-overflow: ellipsis
 	font-weight: 600
+	font-size: 14px
 	
 .bw-model-tabs-data
-	.btn-blue
+	.btn-inv-blue
 		width: 100%
 
 	
-//campare carousel
-.comparison-swiper 
-	.swiper-slide,
-	.swiper-card
-		width: 310px
-		min-height: 210px
-		
-		
-		.btn
-			width: 100%
-			font-weight: 600
-			padding-top: 12px
-			padding-bottom: 13px
+@import ../../partials/model-card
+@import ../../partials/comparision-swiper
+@import ../../partials/overall-floating-tabs
+@import ../../partials/_news-section
+@import ../../partials/video-card-container
+@import ../../partials/model-series-list
+@import ../../partials/find-right-model
 
-	.card-target
-		padding-top: 15px
-		padding-bottom: 15px
-		display: block
+//model-card
+@include model-card()
+@include model-card__btn-block()
+@include model-card__image()
+@include summary-specs-list()
+@include featured-card()
 
-	.grid-6:first-of-type
-		position: relative
-		border-right: 1px solid #f5f5f5
-		
-		&:after
-			content: ''
-			position: absolute
-			right: -13px
-			top: 45px
-			width: 26px
-			height: 26px
-			background: url('/images/compare-divider-26x26.svg') no-repeat
-			display: block
-			z-index: 2
-.compare-img
-	width: 132px
-	height: 75px
-	margin-bottom: 10px
-	position: relative
-
-.swiper-card__label
-	display: block
-	font-size: 13px
-	text-align: center
-	color: #4d5057
-	font-weight: 600
-	margin-bottom: 10px
-
+//comparision-swiper
+@include comparison-swiper()
+@include compare-img()
 
 //latest update tabs
 #modelLatestUpdatesTopContent
 	height: 44px
 
-.overall-specs-tabs-container
-    width: 100%
-    display: block
-    background: #fff
-    overflow-x: auto
-    z-index: 2
-    -webkit-overflow-scrolling: touch
-    position: absolute
-    top: 0px
-    -moz-box-shadow: 0 4px 5px -2px #d5d5d5
-    -webkit-box-shadow: 0 4px 5px -2px #d5d5d5
-    -o-box-shadow: 0 4px 5px -2px #d5d5d5
-    -ms-box-shadow: 0 4px 5px -2px #d5d5d5
-    box-shadow: 0 4px 5px -2px #d5d5d5
-
-.overall-specs-tabs-wrapper
-    width: 100%
-    display: table
-
-.overall-specs-tabs-wrapper
-	li
-		display: table-cell
-		width: 1%
-		padding: 10px 15px
-		text-align: center
-		white-space: nowrap
-		font-size: 14px
-		color: #82888b
-		cursor: pointer
-
-		&.active
-			border-bottom: 3px solid #0288d1
-			color: #0288d1
-			
-		>span:nth-of-type(1)
-			margin-right: 5px
-
-.overallUpdate-news-icon
-	display: inline-block
-	vertical-align: middle
-	height: 21px
-	width: 21px
-	background: url('/images/news-21x21.svg') no-repeat center
-
-.video-icon
-	display: inline-block
-	vertical-align: middle
-	height: 21px
-	width: 21px
-	background: url('/images/video-21x21.svg') no-repeat center
-
-
-.news-section__img
-	display: inline-block
-	vertical-align: middle
-	height: 68px
-	width: 121px
-
-	img
-		height: 68px
-		width: auto
-		max-width: 100%
-
-.news-section__title-block
-	display: inline-block
-	vertical-align: middle
-
-.news-section__desc
-	font-size: 13px
-	color: #787878
-	padding-bottom: 5px
-	position: relative
-
-	.read-more
-		padding: 5px
-		position: absolute
-		bottom: -5px
-		right: 0
-		background: #fff
-
-.video-card-container
-	.swiper-card__label
-		text-align: left
-
-.video-card__video-preview
-	position: relative
-	top: 0
-	padding-bottom: 56.25%
-	height: 0
-	overflow: hidden
-	margin-bottom: 10px
-
-	iframe
-		position: absolute
-		top: 0
-		left: 0
-		width: 100%
-		height: 100%
-
-.video-card__desc
-	.grid-6
-		&:nth-of-type(1)
-			text-align: left
-
-		&:nth-of-type(2)
-			text-align: right
+//news-section
+@include news-section__img()
+@include news-section__desc()
 
 .thumbsup-icon
 	display: inline-block
 	vertical-align: top
 	height: 14px
 	width: 14px
-	background: url('/images/like-13x13.svg')
 
 .bw-model-tabs-data
 	padding: 15px
@@ -378,11 +133,20 @@
 	.swiper-slide
 		width: 310px
 		min-height: 290px
+		margin-left: 0
 		
 		&:nth-of-type(1)
-			margin-left: 15px
+			margin-left: 10px
 
-	.model-series-card__image
+		&:last-child
+			.model-card
+				margin-right: 10px			
+
+	.model-card
+		margin-right: 0
+		margin-left: 0
+
+	.model-card__image
 		padding: 0
 		
 //upcoming swiper
@@ -390,246 +154,37 @@
 	.swiper-slide
 		width: 320px
 		min-height: 290px
+		
+		&:first-child
+			margin-left: 15px
+			
+		&:last-child
+			margin-right: 15px
 
-		.model-series-card
+		.model-card
 			margin-left: 0
 			margin-right: 0
 		
-	.model-series-card__image
+	.model-card__image
 		padding: 0
 		
-//other series
-.other-model-series
-	.model-series-list
-		max-width: 800px
-		
-		li
-			display: block
-			margin-left: 10px
-			margin-right: 10px
-			position: relative
+//model series list		
+@include model-series-list__img()
 
-			&:after
-				content: ''
-				display: block
-				position: absolute
-				width: 8px
-				height: 14px
-				right: 5px
-				top: 37px
-				background: url('/images/arrow-8x14.svg') no-repeat center
-
-			a
-				display: block
-				color: #4d5057
-
-.other-series-image
-	display: inline-block
-	vertical-align: middle
-	height: 57px
-	width: 101px
-	text-align: center
-		
-	img
-		height: 57px
-		width: auto
-		max-width: 100%
-
-.other-series__label-block
-	display: inline-block
-	vertical-align: middle
-	padding-top: 5px
-
-.other-series__list-title
-	width: 100%
-	text-align: left
-	text-overflow: ellipsis
-	white-space: nowrap
-	overflow: hidden
-	font-weight: 600
-	margin-bottom: 10px	
 
 //find right model
 
-.model-specs-tabs
-	height: 40px
-	position: relative
 
-.find-specs__tabs-container
-	width: 100%
-	display: block
-	background: #fff
-	overflow-x: auto
-	z-index: 2
-	-webkit-overflow-scrolling: touch
-	position: absolute
-	top: 0px
-
-.find-specs-tabs-wrapper
-	width: 100%
-	display: table
-	padding-left: 20px
-	padding-right: 20px
-
-	li
-		display: table-cell
-		width: 1%
-		text-align: center
-		cursor: pointer
-		white-space: nowrap
 		
-
-.right-bike_carousel-specs
-	min-heigth: 200px
-
-.rightbike-carousel__model-card
-	width: 135px
-	height: 120px
-	padding: 10px 20px 5px
-
-	.recommended-tag
-		color: #787878
-		font-size: 10px
-
-	.popular-tag
-		color: #ff7c6f
-		font-size: 10px
-
-.rightbike-carousel__image
-	width: 105px
-	height: 65px
-
-	img
-		height: 65px
-		width: auto
-		max-width: 100%
-
-.rightbike-caraousel__label
-	font-size: 12px
-	font-weight: 600
-	padding-top: 5px
-	
-#rightBikeSwiper
-	position: relative
-	
-.right-bike-swiper
-	padding-top: 0
-	
-	&.swiper-container
-		padding-left: 135px
-		
-		.swiper-slide
-			margin-left: 10px
-
-		&:after
-			background: -moz-linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
-			background: -o-linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
-			background: linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
-			content: ''
-			width: 16px
-			height: 100%
-			position: absolute
-			top: 0
-			right: -1px
-			z-index: 2
-
-		&:before
-			background: -moz-linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
-			background: -o-linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
-			background: linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
-			content: ''
-			width: 16px
-			height: 100%
-			position: absolute
-			top: 0
-			left: 133px
-			z-index: 2
-
-		.swiper-ribbon
-			display: block
-			min-width: 116px
-			height: 33px
-			font-size: 14px
-			color: white
-			font-weight: 600
-			padding: 5px 26px 5px 18px
-			background: #ff7c6f
-			border-radius: 15px 0 0 15px
-			position: absolute
-			right: -119px
-			bottom: 80px
-			z-index: 3
+@include model-specs-tabs()
 
 
-		.animate-ribbon
-			-webkit-animation: moveribbon 5s
-			-webkit-animation-direction: alternate
-			animation: moveribbon 5s
-			animation-direction: alternate
-								
-	.rightbike__swiper-card
-		width: 135px
-
-		&.right-bike__swiper-keys
-			position: absolute
-			left: 0
-			top: 0
-			z-index: 2
-			background: #fff
-			height: 100%
-			
-			.series-card__desc
-				background: #fff
-				color: #787878
-				
-			.right-bike__label
-				font-weight: 400
-				
-	.series-card__desc
-		position: relative
-		font-size: 11px
-
-		.right-bike__label
-			padding-bottom: 20px
-			display: block
-			width: 100%
-			text-overflow: ellipsis
-			white-space: nowrap
-			overflow: hidden
-			font-weight: 600
-		.right-bike__desc
-			font-size: 10px
-			font-weight: 400
-			display: block
-			
-	.featured-card
-		background-color: #fff9f9
-
-		.popular-icon
-			position: absolute
-			top: -10px
-			right: 10px
-
-		.right-bike__label
-			font-weight: 600
-
-@keyframes moveribbon
-	0%   
-		right: 0
-	25%   
-		right: -20px
-	50%   
-		right: 0
-	75%   
-		right: -25px
-	100%   
-		right: -125px
+@include rightbike-carousel__image()
 		
 .swiper-left-arrow
 	display: inline-block
-//	width: 17px
-//	height: 9px
-//	background: url('/images/swipe_arrow-17x9.svg') no-repeat center
+	width: 17px
+	height: 9px
 	margin-right: 10px
 	
 .specs-btn
@@ -655,19 +210,38 @@
 	position: fixed
 	top: 0
 	right: 0
-
+	
 @media only screen and (max-width: 320px)
+	.upcoming-model-swiper.card-container
+		.swiper-slide
+			width: 280px
+			
 	.used-model-swiper
 		&.card-container
 			.swiper-slide
-				width: 290px
+				width: 280px
+				min-height: 200px
 				
-	.upcoming-model-swiper
-		.swiper-card	
-			width: 280px
+				
+	.model-card	
+		width: 280px
 			
 	.comparison-swiper
 		.swiper-slide,
 		.swiper-card
 			width: 290px
+			
+	.news-section__img
+		height: 66px
+		width: 118px
+		
+	.model-card__image
+		height: 140px
+		
+		img
+			height: 140px
+			
+	.news-section__desc
+		.read-more
+			padding-left: 30px
 			
