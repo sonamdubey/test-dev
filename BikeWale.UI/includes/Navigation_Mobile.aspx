@@ -28,7 +28,7 @@
         </li>
         <li>
             <a href="javascript:void(0)" rel="nofollow">
-                <span class="bwmsprite newBikes-icon"></span>
+                <span class="scooter-icon"></span>
                 <span class="navbarTitle">New Scooters</span>
                 <span class="nav-drop bwmsprite fa-angle-down"></span>
             </a>
