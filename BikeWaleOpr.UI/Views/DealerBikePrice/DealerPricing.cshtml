@@ -183,6 +183,15 @@
                                 }
                             </select>
                         </div>
+						<div class="materialize-select row s12">
+							<select id="ddlRtoCategory" class="chosen-select" data-placeholder="RTO component">
+								<option value="0" disabled selected>Select RTO component</option>
+								@foreach (var category in Model.DealerVersionCategories)
+								{
+									<option value="@category.ItemCategoryId">@category.ItemName</option>
+								}
+							</select>
+						</div>
                         <div class="materialize-select row s12">
                             <select id="ddlInsuranceCategory" class="chosen-select" data-placeholder="Insurance component">
                                 <option value="0" disabled selected>Select Insurance component</option>
@@ -192,15 +201,7 @@
                                 }
                             </select>
                         </div>
-                        <div class="materialize-select row s12">
-                            <select id="ddlRtoCategory" class="chosen-select" data-placeholder="RTO component">
-                                <option value="0" disabled selected>Select RTO component</option>
-                                @foreach (var category in Model.DealerVersionCategories)
-                                {
-                                    <option value="@category.ItemCategoryId">@category.ItemName</option>
-                                }
-                            </select>
-                        </div>
+                        
                         <div class="materialize-select row s12">
                             <select class="chosen-select" data-bind="event: { change: onStateChange }">
                                 <option value="0" disabled selected>Select State</option>
