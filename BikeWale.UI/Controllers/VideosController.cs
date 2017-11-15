@@ -578,7 +578,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             if (objVM.Videos != null)
             {
                 subCatVideos.Videos = ConverterUtility.PwaConvert(objVM.Videos.Videos);
-                subCatVideos.SectionTitle = string.Empty;
+                subCatVideos.SectionTitle = objVM.TitleName;
                 subCatVideos.MoreVideosUrl = string.Empty;
             }
             return store;
