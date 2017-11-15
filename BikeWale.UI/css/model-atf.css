@@ -428,7 +428,8 @@
 .carousel-stage li {
     width: 376px;
     height: 212px;
-    float: left;
+	float: left;
+	cursor: pointer;
 }
 
 .carousel-stage .carousel-img-container,

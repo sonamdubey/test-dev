@@ -64,6 +64,8 @@ namespace Bikewale.BAL.BikeData.UpComingBike
         /// Description :   Process Input Filters
         /// Modified By: Subodh Jain 09 March 2017
         /// Summary :- added body style filter
+        /// Modified by : Ashutosh Sharma on 3 Nov 2017.
+        /// Description : Add filter for price deviation.
         /// </summary>
         /// <param name="filters"></param>
         /// <returns></returns>
@@ -235,15 +237,16 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                 if (objUpcomingList != null && objUpcomingList.Any())
                 {
                     objUpcomingList = objUpcomingList.Sort(ProcessOrderBy(sortBy, out isAsc), isAsc);
-                    objUpcomingList = objUpcomingList.Where(ProcessInputFilter(inputParams));
-
-                    if (objUpcomingList != null && objUpcomingList.Any())
+                    if (inputParams != null)
                     {
-                        objUpcomingList = objUpcomingList.Page(inputParams.PageNo, inputParams.PageSize);
+                        objUpcomingList = objUpcomingList.Where(ProcessInputFilter(inputParams));
+                        if (objUpcomingList != null && objUpcomingList.Any())
+                        {
+                            objUpcomingList = objUpcomingList.Page(inputParams.PageNo, inputParams.PageSize);
+                        }
                     }
-
+                    
                 }
-
             }
             catch (Exception ex)
             {

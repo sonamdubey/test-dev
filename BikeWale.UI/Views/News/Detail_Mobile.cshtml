@@ -186,8 +186,16 @@
 
         });
     }
+            navigator.serviceWorker.getRegistration('/m/news/').then(function(reg) {
+                if(reg && reg.active && reg.active.scriptURL == window.location.origin + '/m/news/sw.js') {
+                    reg.unregister();
+                }
+            });
    
     
+                
+           
+               
     </script>
     @{Html.RenderPartial("/Views/Shared/_ServiceWorkerScript.cshtml");}
     <div class="back-to-top" id="back-to-top"></div>

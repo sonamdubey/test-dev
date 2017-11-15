@@ -1,0 +1,46 @@
+﻿@model  Bikewale.Models.MostPopularBikeWidgetVM
+@using Bikewale.Utility;
+<amp-carousel class="swiper-small" height="@(Model.ShowCheckOnRoadCTA ? 235 : 185)" layout="fixed-height" typeof="carousel">
+    @if (Model != null && Model.Bikes != null)
+    {
+        foreach (var bike in Model.Bikes)
+        {
+            var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+            <div class="swiper-card">
+                <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl,UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName))" title="@bikeName" class="block">
+                    <div class="swiper-image-preview">
+                        <amp-img class="swiper-lazy" width="160" height="90" src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98, QualityFactor._70)" title="@bikeName" alt="@bikeName"/>
+                    </div>
+                    <div class="swiper-details-block">
+                        <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                        @if (bike.VersionPrice > 0)
+                        {
+                            <p class="text-truncate text-light-grey font11">Ex-showroom, @(!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)</p>
+                            <p class="text-default font16">
+                                @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span><span class="font14 text-bold"> onwards</span>
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="text-default">
+                                <span class="font14 text-light-grey">Price not available </span>
+                            </p>
+                        }
+                    </div>
+                </a>
+                @if (Model.ShowCheckOnRoadCTA && bike.VersionPrice > 0)
+                {
+                    <div class="swiper-btn-block">
+                        <a href="@string.Format("{0}/m/popup/?queryString={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}", (int)Model.PQSourceId, Model.CityId, bike.objModel.ModelId, Model.ReturnUrlForAmpPages)))" class="btn btn-card btn-full-width btn-white text-truncate getquotation font12" rel="nofollow">Check on-road price</a>
+                    </div>
+                }
+                @if (Model.ShowPriceInCityCTA && bike.VersionPrice > 0)
+                {
+                    <div class="swiper-btn-block">
+                        <a href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.PriceInCityUrl(bike.objMake.MaskingName, bike.objModel.MaskingName, bike.CityMaskingName))" class="btn btn-card btn-full-width btn-white font14 text-truncate" rel="nofollow" title="@String.Format("{0} {1} On-road price in {2}", bike.objMake.MakeName, bike.objModel.ModelName, bike.CityName)">@String.Format("On-road price in {0}", bike.CityName)</a>
+                    </div>
+                }
+            </div>
+        }
+    }
+</amp-carousel>

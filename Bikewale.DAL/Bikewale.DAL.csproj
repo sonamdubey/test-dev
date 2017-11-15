@@ -130,6 +130,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdSlot\AdSlot.cs" />
     <Compile Include="App\AppVersionRepository.cs" />
     <Compile Include="App\SplashScreenRepository.cs" />
     <Compile Include="AutoBiz\DealerPriceQuote\DealerPriceQuoteRepository.cs" />

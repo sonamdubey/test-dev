@@ -234,7 +234,7 @@ docReady(function () {
 
                 $(this).addClass('active');
 
-                var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('id') + '"]');
+                var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('data-id') + '"]');
                 overallSpecsTabsContainer.find(currentActiveTab).addClass('active');
             }
         });
@@ -752,8 +752,8 @@ docReady(function () {
 
     if (document.getElementById("modelsBySeriesWidget")) {
         try {
-            var testingObject = $("#modelsBySeriesWidget");
-            triggerNonInteractiveGA(testingObject.attr("data-cat"), testingObject.attr("data-act"), testingObject.attr("data-lab"));
+            var seriesEle = $("#modelsBySeriesWidget");
+            triggerNonInteractiveGA(seriesEle.attr("data-cat"), seriesEle.attr("data-act"), seriesEle.attr("data-lab"));
         } catch (e) {
 
         }

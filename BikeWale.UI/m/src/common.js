@@ -1878,13 +1878,13 @@ docReady(function () {
             if (label !== undefined) {
                 triggerGA(category, action, label);
             }
-    else if (variable !== undefined) {
+            else if (variable !== undefined) {
                 triggerGA(category, action, window[variable]);
             }
-            else if (obj.attr('f') !== undefined) {
+            else if (funct !== undefined) {
                 triggerGA(category, action, eval(funct + '()'));
             }
-            }
+           }
         catch (e) { 
         }
      });

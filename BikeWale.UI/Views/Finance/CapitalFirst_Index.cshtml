@@ -18,37 +18,63 @@
                     <p class="main-content">Get upto 80% of vehicle’s value as loan! Fill in your personal and employment details and get an instant loan approval from one of our finance partners.</p>
                 </div>               
                 <div class="page-tabs-data">
+                    <div class="contact-detail-tab">
+                        <div>
+                            <span class="contact-image-unit contact-icon bg-red round-border"></span>
+                            <h3 class="personal__title">Contact details</h3>
+                        </div>
+                        <div id="contact-detail-tab" class="contact-details__form">
+                                <div class="input-box form-control-box ">
+                                    <input id="cfFName" type="text" min="1" maxlength="255" autocomplete="off">
+                                    <label for="cfFName">First Name<sup>*</sup></label>
+                                    <span class="boundary"></span>
+                                    <span class="error-text"></span>
+                                </div>
+                                <div class="input-box form-control-box">
+                                    <input id="cfLName" type="text" min="1" autocomplete="off">
+                                    <label for="cfLName">Last Name<sup>*</sup></label>
+                                    <span class="boundary"></span>
+                                    <span class="error-text"></span>
+                                </div>
+                                <div class="input-box input-number-box form-control-box">
+                                    <input id="cfNum" type="tel" maxlength="10" autocomplete="off">
+                                    <label for="cfNum">Mobile Number<sup>*</sup></label>
+                                    <span class="input-number-prefix">+91</span>
+                                    <span class="boundary"></span>
+                                    <span class="error-text"></span>
+                                    <span class="text-note">OTP will be sent for verification</span>
+                                </div>
+                                <div class="input-box form-control-box">
+                                    <input id="cfEmail" type="text" min="1" autocomplete="off">
+                                    <label for="cfEmail">Email Id<sup>*</sup></label>
+                                    <span class="boundary"></span>
+                                    <span class="error-text"></span>
+                                </div>
+                                <div class="input-box form-control-box block">
+                                    <input id="cfPincode" type="tel" min="1"  maxlength="6" autocomplete="off">
+                                    <label for="cfPincode">Pincode<sup>*</sup></label>
+                                    <span class="boundary"></span>
+                                    <span class="error-text"></span>
+
+
+                                    <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide no-suggestion-item">
+                                        <li class="ui-menu-item" tabindex="-1">
+                                            <span class="text-bold">Oops! No suggestions found</span><br>
+                                            <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input type="button" id="contact-detail-submit" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Save & continue">
+                            </div>
+                       
+                    </div>
                     <div class="personal-details-container">
                         <div>
-                            <span class="personal-image-unit personal-icon bg-red round-border"></span>
-                            <h3 class="personal__title">Personal details</h3>
+                            <span class="personal-image-unit gray-personal-icon bg-gray round-border"></span>
+                            <h3 class="personal__title inactive">Personal details</h3>
                         </div>
-                        <div id="personal-detail-tab" class="personal-details__form">
-                            <div class="input-box form-control-box ">
-                                <input id="cfFName" type="text" min="1" maxlength="255" autocomplete="off">
-                                <label for="cfFName">First Name<sup>*</sup></label>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-                            </div>
-                            <div class="input-box form-control-box">
-                                <input id="cfLName" type="text" min="1" autocomplete="off">
-                                <label for="cfLName">Last Name<sup>*</sup></label>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-                            </div>
-                            <div class="input-box input-number-box form-control-box">
-                                <input id="cfNum" type="tel" maxlength="10" autocomplete="off">
-                                <label for="cfNum">Mobile Number<sup>*</sup></label>
-                                <span class="input-number-prefix">+91</span>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-                            </div>
-                            <div class="input-box form-control-box">
-                                <input id="cfEmail" type="text" min="1" autocomplete="off">
-                                <label for="cfEmail">Email Id<sup>*</sup></label>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-                            </div>
+                        <div id="personal-detail-tab" class="personal-details__form hide">
+                         
                             <div class="input-box form-control-box">
                                 <input id="cfDOB" type="text" autocomplete="off">
                                 <label for="cfDOB">DOB<sup>*</sup></label>
@@ -95,25 +121,13 @@
                                 <span class="boundary"></span>
                                 <span class="error-text"></span>
                             </div>
-                            <div class="input-box form-control-box block">
-                                <input id="cfPincode" type="tel" min="1" maxlength="6" autocomplete="off">
-                                <label for="cfPincode">Pincode<sup>*</sup></label>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-
-
-                                <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide no-suggestion-item">
-                                    <li class="ui-menu-item" tabindex="-1">
-                                        <span class="text-bold">Oops! No suggestions found</span><br>
-                                        <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
-                                    </li>
-                                </ul>
-                            </div>
+                       
                             <div class="input-box form-control-box block">
                                 <input id="cfPan" type="text" min="1" minlength="10" maxlength="10" autocomplete="off">
                                 <label for="cfPan">Pan Number<sup>*</sup></label>
                                 <span class="boundary"></span>
                                 <span class="error-text"></span>
+                                <span class="text-note">Credit score check will be conducted based on PAN</span>
                             </div>
                             <input type="button" id="personal-detail-submit" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Save & continue">
                         </div>
@@ -159,7 +173,7 @@
                                 <span class="error-text"></span>
                             </div>
                             <div class="input-box form-control-box block">
-                                <input id="cfCompPincode" type="tel" min="1" maxlength="6" autocomplete="off">
+                                <input id="cfCompPincode" type="tel" min="1" autocomplete="off">
                                 <label for="cfCompPincode">Pincode<sup>*</sup></label>
                                 <span class="boundary"></span>
                                 <span class="error-text"></span>

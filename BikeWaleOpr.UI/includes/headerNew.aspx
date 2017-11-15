@@ -82,6 +82,7 @@
                                         <li><a href="/manufacturercampaign/search/index/">Manufacturer Campaigns</a></li>
                                         <li><a href="/banner/bannerslist/">Home Page Banner Configuration</a></li>
                                         <li><a href="/content/bikecomparisonlist.aspx">Featured Comparisons</a></li>
+                                        <li><a href="/adslots/">Manage Ad Slots</a></li>
                                     </ul>
                                 </div>
                             </li>

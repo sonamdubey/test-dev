@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Bikewale.Entities.BikeData.BikeMakeEntityBase>
+<amp-carousel height="130" layout="fixed-height" type="carousel" class="brand-type-carousel">
+    @foreach (var BrandCount in Model)
+    {
+        <div class="swiper-card">
+            <a href="@string.Format("{0}/m{1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.BikeMakeUrl(BrandCount.MaskingName))" title="@string.Format("{0} bikes", BrandCount.MakeName)">
+                <div class="brand-logo-image">
+                    <span class="brand-type">
+                        <span class="brandlogosprite @string.Format("brand-{0}", BrandCount.MakeId)"></span>
+                    </span>
+                </div>
+                <div class="swiper-details-block">
+                    <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">@BrandCount.MakeName</p>
+                    <h3 class="text-unbold text-light-grey font11">@string.Format("{0} bikes", BrandCount.TotalCount)</h3>
+                </div>
+            </a>
+        </div>
+    }
+   
+</amp-carousel>

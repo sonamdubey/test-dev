@@ -1246,7 +1246,6 @@ if (typeof Object.assign != 'function') {
 }
 
 function customPushState() {
-    console.log('pushing state');
     var newStateOfCurrentPage = Object.assign({}, window.history.state, {
         scrollToX: window.scrollX,
         scrollToY: window.scrollY
@@ -1258,7 +1257,6 @@ function customPushState() {
 }
 
 function customReplaceState(state) {
-    console.log('replacing state');
     var newState = Object.assign({}, {
         scrollToX: window.history.state && window.history.state.scrollToX >= 0 ? window.history.state.scrollToX >= 0 : -1,
         scrollToY: window.history.state && window.history.state.scrollToY >= 0 ? window.history.state.scrollToY >= 0 : -1
@@ -1277,7 +1275,6 @@ function onPopState() {
     if (state && Number.isFinite(state.scrollToX) && Number.isFinite(state.scrollToY)) {
         scrollPosition.x = state.scrollToX;
         scrollPosition.y = state.scrollToY;
-        console.log('popping state');
     } else {
         resetScrollPosition();
     }
@@ -1773,7 +1770,6 @@ var formMoreVideosUrl = function formMoreVideosUrl(urlSuffix) {
 };
 var pushVideoDetailUrl = function pushVideoDetailUrl(context, video) {
 	var videoUrl = formVideoUrl(video.VideoTitleUrl, video.BasicId);
-	console.log('state-> pushing url');
 	context.props.history.push(videoUrl);
 	var videoInitialData = mapVideoDataToInitialData(video);
 	context.props.fetchVideoDetail(videoInitialData); // TODO call other apis
@@ -2142,7 +2138,8 @@ var Spinner = function Spinner() {
     return _react2.default.createElement(
         "div",
         { className: "loader-content loader-fixed" },
-        _react2.default.createElement("span", { className: "loader" })
+        _react2.default.createElement("span", { className: "loader" }),
+        "in loader"
     );
 };
 
@@ -2163,7 +2160,6 @@ function resetTimer() {
 }
 function startTimer(componentRenderCount, adCount) {
 	// to be called only once by the api called first
-	console.log('in start timer');
 	var startTime = new Date().getTime();
 	timer = {
 		adCount: adCount,
@@ -2178,7 +2174,6 @@ function startTimer(componentRenderCount, adCount) {
 
 function endTimer(event) {
 	if (timer) {
-		console.log('in endtimer');
 		switch (event) {
 			case "component-render":
 				timer.componentRenderCount = timer.componentRenderCount <= 0 ? 0 : timer.componentRenderCount - 1;
@@ -2188,7 +2183,6 @@ function endTimer(event) {
 				break;
 		}
 		if (timer.componentRenderCount == 0 && timer.adCount == 0) {
-			console.log('ending timer');
 			timer.endTime = event === "component-render" ? new Date().getTime() + 50 : new Date().getTime();
 			logTiming(timer);
 			timer = null;
@@ -9199,7 +9193,7 @@ var ArticleDetail = function (_React$Component) {
     }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
-
+            (0, _commonFunc.removeAdSlot)(_commonVar.AD_PATH_REVIEWS_TOP_320_50);
             (0, _commonFunc.removeAdSlot)(_commonVar.AD_PATH_REVIEWS_BOTTOM_320_50);
         }
     }, {
@@ -9290,7 +9284,6 @@ var ArticleDetail = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            console.log('in render of articledetailcontainer');
 
             var componentData = this.props.ArticleDetailData;
             if (!componentData) {
@@ -9300,6 +9293,7 @@ var ArticleDetail = function (_React$Component) {
             var loadingState = _react2.default.createElement(
                 'div',
                 null,
+                _react2.default.createElement(_AdUnit320x2.default, { adSlot: _commonVar.AD_PATH_REVIEWS_TOP_320_50, adContainerId: _commonVar.AD_DIV_REVIEWS_TOP_320_50 }),
                 _react2.default.createElement(_SpinnerRelative2.default, null),
                 _react2.default.createElement(
                     'div',
@@ -9336,6 +9330,7 @@ var ArticleDetail = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 null,
+                _react2.default.createElement(_AdUnit320x2.default, { adSlot: _commonVar.AD_PATH_REVIEWS_TOP_320_50, adContainerId: _commonVar.AD_DIV_REVIEWS_TOP_320_50 }),
                 _react2.default.createElement(
                     'div',
                     { className: 'container bg-white box-shadow section-bottom-margin article-details-container' },
@@ -9941,6 +9936,7 @@ var ArticleListComponent = function (_React$Component) {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
             this.props.resetArticleListData();
+            (0, _commonFunc.removeAdSlot)(_commonVar.AD_PATH_REVIEWS_TOP_320_50);
             (0, _commonFunc.removeAdSlot)(_commonVar.AD_PATH_REVIEWS_MIDDLE_320_50);
         }
     }, {
@@ -9993,12 +9989,12 @@ var ArticleListComponent = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            console.log('in render of articleListcontainer');
             var componentData = this.props.ArticleListData;
 
             var loadingState = _react2.default.createElement(
                 'div',
                 null,
+                _react2.default.createElement(_AdUnit320x2.default, { adSlot: _commonVar.AD_PATH_REVIEWS_TOP_320_50, adContainerId: _commonVar.AD_DIV_REVIEWS_TOP_320_50 }),
                 _react2.default.createElement(_SpinnerRelative2.default, null),
                 _react2.default.createElement(
                     'div',
@@ -10013,6 +10009,7 @@ var ArticleListComponent = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 null,
+                _react2.default.createElement(_AdUnit320x2.default, { adSlot: _commonVar.AD_PATH_REVIEWS_TOP_320_50, adContainerId: _commonVar.AD_DIV_REVIEWS_TOP_320_50 }),
                 _react2.default.createElement(
                     'div',
                     { className: 'container bg-white box-shadow section-bottom-margin' },
@@ -10824,7 +10821,6 @@ var CarouselVideoItem = function (_React$Component) {
         _classCallCheck(this, CarouselVideoItem);
 
         return _possibleConstructorReturn(this, (CarouselVideoItem.__proto__ || Object.getPrototypeOf(CarouselVideoItem)).call(this, props));
-        // this.onClickItem = this.onClickItem.bind(this);
     }
 
     _createClass(CarouselVideoItem, [{
@@ -10947,6 +10943,11 @@ var CategoryHeader = function (_React$Component) {
 	}
 
 	_createClass(CategoryHeader, [{
+		key: "onBackButtonClick",
+		value: function onBackButtonClick() {
+			window.history.back();
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			if (!this.props.PageHeading) return null;
@@ -10956,7 +10957,7 @@ var CategoryHeader = function (_React$Component) {
 				_react2.default.createElement(
 					"div",
 					{ className: "category-back-btn" },
-					_react2.default.createElement("span", { className: "bwmsprite fa-arrow-back" })
+					_react2.default.createElement("span", { className: "bwmsprite fa-arrow-back", onClick: this.onBackButtonClick.bind() })
 				),
 				_react2.default.createElement(
 					"h1",
@@ -11109,6 +11110,7 @@ var NavigationDrawer = function (_React$Component) {
 
         _this.pushAnalytics = _this.pushAnalytics.bind(_this);
         _this.toggleNestedNav = _this.toggleNestedNav.bind(_this);
+        _this.pushAnalytics = _this.pushAnalytics.bind(_this);
 
         return _this;
     }
@@ -11497,7 +11499,7 @@ var ExpertReviewsVideoList = function (_React$Component) {
 						_react2.default.createElement(
 							_reactRouterDom.Link,
 							{ to: (0, _VideosCommonFunc.formMoreVideosUrl)(this.props.VideoListData.MoreVideosUrl), title: this.props.VideoListData.SectionTitle + " Bike Videos", className: 'btn view-all-target-btn', onClick: this.onClickMoreVideoUrl.bind(this) },
-							'View more videos 1',
+							'View more videos',
 							_react2.default.createElement('span', { className: 'bwmsprite teal-right' })
 						)
 					)
@@ -11680,100 +11682,113 @@ var ModelBrandsList = function (_React$Component) {
 
 		var _this = _possibleConstructorReturn(this, (ModelBrandsList.__proto__ || Object.getPrototypeOf(ModelBrandsList)).call(this, props));
 
+		_this.state = {
+			showOtherBrands: false
+		};
 		_this.renderBrandItem = _this.renderBrandItem.bind(_this);
 		_this.renderTopBrands = _this.renderTopBrands.bind(_this);
 		_this.renderOtherBrands = _this.renderOtherBrands.bind(_this);
 		_this.renderShowMoreBrandsButton = _this.renderShowMoreBrandsButton.bind(_this);
+		_this.moreBrandButtonClick = _this.moreBrandButtonClick.bind(_this);
 		return _this;
 	}
 
 	_createClass(ModelBrandsList, [{
-		key: "renderBrandItem",
+		key: 'moreBrandButtonClick',
+		value: function moreBrandButtonClick() {
+			console.log('clicked brand button ');
+			this.setState({
+				showOtherBrands: !this.state.showOtherBrands
+			});
+		}
+	}, {
+		key: 'renderBrandItem',
 		value: function renderBrandItem(brand) {
 			if (!brand) return null;
 			return _react2.default.createElement(
-				"li",
+				'li',
 				null,
 				_react2.default.createElement(
-					"a",
+					'a',
 					{ href: brand.Href, title: brand.Title },
 					_react2.default.createElement(
-						"span",
-						{ className: "brand-type" },
-						_react2.default.createElement("span", { className: "lazy brandlogosprite brand-" + brand.MakeId })
+						'span',
+						{ className: 'brand-type' },
+						_react2.default.createElement('span', { className: "lazy brandlogosprite brand-" + brand.MakeId })
 					),
 					_react2.default.createElement(
-						"span",
-						{ className: "brand-type-title" },
+						'span',
+						{ className: 'brand-type-title' },
 						brand.MakeName
 					)
 				)
 			);
 		}
 	}, {
-		key: "renderTopBrands",
+		key: 'renderTopBrands',
 		value: function renderTopBrands(topBrands) {
 			if (!topBrands) return null;
 			return _react2.default.createElement(
-				"ul",
-				{ className: "text-center" },
+				'ul',
+				{ className: 'text-center' },
 				topBrands.map(function (brand) {
 					return this.renderBrandItem(brand);
 				}.bind(this))
 			);
 		}
 	}, {
-		key: "renderOtherBrands",
+		key: 'renderOtherBrands',
 		value: function renderOtherBrands(otherBrands) {
 			if (!otherBrands || !(otherBrands.length > 0)) return null;
+			var hideClassName = this.state.showOtherBrands ? '' : 'hide';
 			return _react2.default.createElement(
-				"ul",
-				{ className: "brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center hide" },
+				'ul',
+				{ className: "brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center " + hideClassName },
 				otherBrands.map(function (brand) {
 					return this.renderBrandItem(brand);
 				}.bind(this))
 			);
 		}
 	}, {
-		key: "renderShowMoreBrandsButton",
-		value: function renderShowMoreBrandsButton() {
-			if (!this.props.OtherBrands || this.props.OtherBrands.length == 0) {
+		key: 'renderShowMoreBrandsButton',
+		value: function renderShowMoreBrandsButton(otherBrands) {
+			if (!otherBrands || otherBrands.length == 0) {
 				return null;
 			}
+
 			return _react2.default.createElement(
-				"div",
-				{ className: "view-all-btn-container" },
+				'div',
+				{ className: 'view-all-btn-container' },
 				_react2.default.createElement(
-					"a",
-					{ href: "javascript:void(0)", className: "view-brandType btn view-all-target-btn rotate-arrow", rel: "nofollow" },
+					'a',
+					{ href: 'javascript:void(0)', onClick: this.moreBrandButtonClick.bind(), className: 'view-brandType btn view-all-target-btn rotate-arrow', rel: 'nofollow' },
 					_react2.default.createElement(
-						"span",
-						{ className: "btn-label" },
-						"View more brands"
+						'span',
+						{ className: 'btn-label' },
+						this.state.showOtherBrands ? 'View less brands' : 'View more brands'
 					),
-					_react2.default.createElement("span", { className: "bwmsprite teal-right" })
+					_react2.default.createElement('span', { className: 'bwmsprite teal-right' })
 				)
 			);
 		}
 	}, {
-		key: "render",
+		key: 'render',
 		value: function render() {
 			if (!this.props.Brands || !this.props.Brands.TopBrands || !(this.props.Brands.TopBrands.length > 0)) return null;
-			//TODO animate the more brands button
 			return _react2.default.createElement(
-				"div",
+				'div',
 				null,
 				_react2.default.createElement(
-					"h2",
-					{ className: "text-center padding-top10 padding-bottom15" },
-					"Browse videos by brands"
+					'h2',
+					{ className: 'text-center padding-top10 padding-bottom15' },
+					'Browse videos by brands'
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "container bg-white box-shadow card-bottom-margin brand-container collapsible-brand-content" },
+					'div',
+					{ className: 'container bg-white box-shadow card-bottom-margin brand-container collapsible-brand-content' },
 					_react2.default.createElement(
-						"div",
-						{ id: "brand-type-container", className: "brand-type-container" },
+						'div',
+						{ id: 'brand-type-container', className: 'brand-type-container' },
 						this.renderTopBrands(this.props.Brands.TopBrands),
 						this.renderOtherBrands(this.props.Brands.OtherBrands)
 					),
@@ -12031,7 +12046,6 @@ var TopVideosComponent = function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			console.log('in rener of topvideocomponent');
 			if (this.props.Status !== _commonVar.Status.Fetched || !this.props.TopVideos) return _react2.default.createElement(_Spinner2.default, null);
 			var topVideos = this.props.TopVideos;
 
@@ -12265,54 +12279,9 @@ var VideoDetail = function (_React$Component) {
 			_this.props.Status = _commonVar.Status.Fetched;
 		}
 		_this.showShortDesc = _this.showShortDesc.bind(_this);
-		// this.callParentLogAndScrollHandler = this.callParentLogAndScrollHandler.bind(this);
+
 		return _this;
 	}
-	// callParentLogAndScrollHandler() {
-	// 	if(this.props.Status == Status.Fetched) {
-	// 		if(typeof this.props.logAndScrollHandler == 'function') {
-	// 			this.props.logAndScrollHandler('VideoDetail'); 
-	// 		}
-	// 	}
-	// }
-	// componentDidMount() {
-	// 	// this.callParentLogAndScrollHandler();
-	// 	// if(this.props.Status !== Status.Fetched && this.props.Status !== Status.IsFetching) {
-	// 	// 	this.props.fetchVideoDetail(this.props.match.params.basicId);
-	// 	// }
-	// }
-	// componentWillUnmount() {
-	// 	this.props.resetVideoDetail();
-	// }
-	// componentWillReceiveProps(nextProps) {
-	// 	try {
-
-	// 		var prevUrlParam = this.props.match.params;
-	// 		var nextUrlParam = nextProps.match.params;
-
-	// 		if(prevUrlParam.basicId === nextUrlParam.basicId) {
-	// 			return;
-	// 		}
-	// 		if(nextProps.VideoDetail && nextUrlParam.basicId!==nextProps.VideoDetail.BasicId) {
-	// 			var initialDataDict = !this.props.InitialDataDict || this.props.InitialDataDict.length==0 ? null : this.props.InitialDataDict[nextUrlParam.basicId];
-	// 			this.props.fetchVideoDetail(initialDataDict || nextUrlParam.basicId);
-	// 		}
-	// 		else if(nextProps && nextProps.Status != Status.IsFetching)  { 
-	// 			var initialDataDict = !this.props.InitialDataDict || this.props.InitialDataDict.length==0 ? null : this.props.InitialDataDict[nextUrlParam.basicId];
-	// 			this.props.fetchVideoDetail(initialDataDict || nextUrlParam.basicId);
-	// 		}	
-
-	// 	}
-	// 	catch(err) {
-	// 		console.log(err);
-	// 	}
-
-
-	// }
-	// componentDidUpdate(prevProps, prevState) {
-	// 	this.callParentLogAndScrollHandler();
-	// }
-
 
 	_createClass(VideoDetail, [{
 		key: 'showShortDesc',
@@ -12368,35 +12337,12 @@ var VideoDetail = function (_React$Component) {
 		key: 'render',
 		value: function render() {
 			var video = this.props.videoDetail;
-			if (!video) return null;
+			// if(!video) return null;
 			var initialData = this.props.initialData;
 			var videoUrl = !initialData ? "" : initialData.videoUrl;
 			var videoTitle = !initialData ? "" : initialData.videoTitle;
 			var displayDate = !initialData ? "" : initialData.displayDate;
-
-			// var video = this.props.VideoDetail;
-			// if(!isServer() && !video && !this.props.match.params && this.props.match.params.basicId !== video.BasicId) {
-			// 	return <SpinnerRelative/>;
-			// }
-			// var initialData = !this.props.InitialDataDict ? null : this.props.InitialDataDict[this.props.match.params.basicId];
-
-			// if(this.props.Status !== Status.Fetched) {
-			// 	if(!initialData)
-			// 		return <Spinner/>;
-			// }
-			// var videoUrl=null , videoTitle=null,displayDate=null;
-			// if(initialData) {
-			// 	videoUrl =  initialData.VideoUrl;
-			// 	videoTitle = initialData.VideoTitle;
-			// 	displayDate = initialData.DisplayDate;
-
-			// }
-			// else {
-			// 	videoUrl =  video.VideoUrl;
-			// 	videoTitle = video.VideoTitle;
-			// 	displayDate = video.DisplayDate;
-
-			// }
+			if (!videoUrl || !videoTitle) return null;
 
 			return _react2.default.createElement(
 				'div',
@@ -12550,7 +12496,6 @@ var VideoDetailComponent = function (_React$Component) {
 	}, {
 		key: 'fetchModelSlug',
 		value: function fetchModelSlug(props) {
-			console.log('in fetchmmodelslug ->' + props.ModelInfoStatus + ' ' + props.VideoInfoStatus);
 			if (props.ModelInfoStatus !== _commonVar.Status.IsFetching && props.ModelInfoStatus !== _commonVar.Status.Fetched) {
 				props.fetchModelSlug(props.match.params.basicId);
 			}
@@ -12639,44 +12584,61 @@ var VideoDetailComponent = function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			console.log('in render of videodetailcomponent');
 			var video = this.props.VideoDetail;
+			if ((0, _commonFunc.isServer)()) {
+				video = this.props.VideoInfo.VideoInfo;
+			}
+
 			if (!(0, _commonFunc.isServer)() && !video && !this.props.match.params && this.props.match.params.basicId !== video.BasicId) {
 				return _react2.default.createElement(_SpinnerRelative2.default, null);
 			}
 			var initialData = !this.props.InitialDataDict ? null : this.props.InitialDataDict[this.props.match.params.basicId];
 
-			if (this.props.VideoInfoStatus !== _commonVar.Status.Fetched) {
+			if (this.props.VideoInfoStatus !== _commonVar.Status.Fetched && !(0, _commonFunc.isServer)()) {
 				if (!initialData) return _react2.default.createElement(_Spinner2.default, null);
 			}
 			var videoUrl = null,
 			    videoTitle = null,
 			    displayDate = null;
 			if (initialData) {
-				videoUrl = initialData.VideoUrl;
-				videoTitle = initialData.VideoTitle;
-				displayDate = initialData.DisplayDate;
+				try {
+					videoUrl = initialData.VideoUrl;
+					videoTitle = initialData.VideoTitle;
+					displayDate = initialData.DisplayDate;
+				} catch (err) {
+					return _react2.default.createElement(
+						'div',
+						null,
+						'first'
+					);
+				}
 			} else {
-				videoUrl = video.VideoUrl;
-				videoTitle = video.VideoTitle;
-				displayDate = video.DisplayDate;
+				try {
+					videoUrl = video.VideoUrl;
+					videoTitle = video.VideoTitle;
+					displayDate = video.DisplayDate;
+				} catch (err) {
+					return _react2.default.createElement(
+						'div',
+						null,
+						video
+					);
+				}
+			}
+			var modelInfo = this.props.ModelInfo;
+			var relatedInfo = this.props.RelatedInfo;
+			var relatedInfoApi = this.props.RelatedInfoApi;
+			if ((0, _commonFunc.isServer)()) {
+				relatedInfoApi = this.props.VideoInfo.RelatedInfoApi;
 			}
 			return _react2.default.createElement(
 				'div',
 				null,
 				_react2.default.createElement(_VideoDetail2.default, { videoDetail: video, initialData: { videoUrl: videoUrl, videoTitle: videoTitle, displayDate: displayDate } }),
-				this.props.ModelInfoStatus == _commonVar.Status.Fetched && this.props.ModelInfo ? _react2.default.createElement(_VideoModelSlug2.default, { modelInfo: this.props.ModelInfo }) : null,
-				this.props.RelatedInfoStatus == _commonVar.Status.Fetched && this.props.RelatedInfo && this.props.RelatedInfoApi ? _react2.default.createElement(_VideosCarouselComponent2.default, { relatedInfo: this.props.RelatedInfo, relatedInfoApi: this.props.RelatedInfoApi }) : null
+				(0, _commonFunc.isServer)() || this.props.ModelInfoStatus == _commonVar.Status.Fetched && modelInfo ? _react2.default.createElement(_VideoModelSlug2.default, { modelInfo: modelInfo }) : null,
+				(0, _commonFunc.isServer)() || this.props.RelatedInfoStatus == _commonVar.Status.Fetched && relatedInfo && relatedInfoApi ? _react2.default.createElement(_VideosCarouselComponent2.default, { relatedInfo: relatedInfo, relatedInfoApi: relatedInfoApi }) : null,
+				'}'
 			);
-
-			// return (
-			// 	<div>
-			// 		<VideoDetailContainer path={window.location.pathname} logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
-			// 		<VideoModelSlugContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
-			// 		<VideosCarouselContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
-
-			// 	</div>
-			// )
 		}
 	}]);
 
@@ -12684,49 +12646,6 @@ var VideoDetailComponent = function (_React$Component) {
 }(_react2.default.Component);
 
 module.exports = (0, _reactRouterDom.withRouter)(VideoDetailComponent);
-
-// var childComponentCount;
-// var childComponent;
-// class VideoDetailComponent extends React.Component {
-// 	constructor(props) {
-// 		super(props);
-// 		childComponentCount = 3;
-// 		childComponent = { 'VideoDetail' : 1 , 'VideoModelSlug' : 1 , 'VideosCarouselComponent' : 1 };
-// 		this.handleTimingAndScrollingForChildComponents = this.handleTimingAndScrollingForChildComponents.bind(this);	
-// 	}
-// 	handleTimingAndScrollingForChildComponents(completedComponent) {
-// 		if(!childComponent[completedComponent]) return;
-
-// 		if(childComponent[completedComponent] == 1) {
-// 			childComponent[completedComponent] = 0;
-// 			childComponentCount--;
-// 			if(childComponentCount == 0) {
-// 				//trigger scroll
-// 				childComponent = { 'VideoDetail' : 1 , 'VideoModelSlug' : 1 , 'VideosCarouselComponent' : 1 };
-// 				childComponentCount =3;
-// 				if(scrollPosition.x >= 0 && scrollPosition.y >=0) {
-// 					window.scrollTo(scrollPosition.x,scrollPosition.y);
-// 					resetScrollPosition();
-// 				}
-// 				//trigger logging
-// 				endTimer("component-render");
-// 			}
-// 		}
-// 	}
-// 	render() {
-// 		console.log('in render of videodetail')
-// 		return (
-// 			<div>
-// 				<VideoDetailContainer path={window.location.pathname} logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
-// 				<VideoModelSlugContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
-// 				<VideosCarouselContainer logAndScrollHandler={this.handleTimingAndScrollingForChildComponents}/>
-
-// 			</div>
-// 		)
-// 	}
-// }
-
-// module.exports = VideoDetailComponent;
 
 /***/ }),
 /* 74 */
@@ -12769,33 +12688,9 @@ var VideoModelSlug = function (_React$Component) {
 			_this.props.Status = _commonVar.Status.Fetched;
 		}
 		_this.renderUsedBikesLink = _this.renderUsedBikesLink.bind(_this);
-		// this.callParentLogAndScrollHandler = this.callParentLogAndScrollHandler.bind(this);
-		// this.fetchModelSlug = this.fetchModelSlug.bind(this);
+
 		return _this;
 	}
-	// componentDidUpdate(prevProps, prevState) {
-	// 	this.callParentLogAndScrollHandler();
-	// }
-	// fetchModelSlug(props) {
-	// 	if(props.Status !== Status.IsFetching && props.Status !== Status.Fetched) {
-	// 		props.fetchModelSlug(props.match.params.basicId);
-	// 	}
-	// }
-	// componentDidMount() {
-	// 	this.callParentLogAndScrollHandler();
-	// 	this.fetchModelSlug(this.props);
-	// }
-	// componentWillReceiveProps(nextProps) {
-	// 	this.fetchModelSlug(nextProps);
-	// }
-	// callParentLogAndScrollHandler() {
-	// 	if(this.props.Status == Status.Fetched) {
-	// 		if(typeof this.props.logAndScrollHandler == 'function') {
-	// 			this.props.logAndScrollHandler('VideoModelSlug'); 
-	// 		}
-	// 	}
-	// }
-
 
 	_createClass(VideoModelSlug, [{
 		key: 'renderUsedBikesLink',
@@ -12895,9 +12790,6 @@ var VideoModelSlug = function (_React$Component) {
 		key: 'render',
 		value: function render() {
 
-			// if(this.props.Status !== Status.Fetched || !this.props.ModelInfo) {
-			// 	return null;
-			// }
 			var model = this.props.modelInfo;
 			if (!model) return null;
 
@@ -13091,7 +12983,6 @@ var VideosByCategoryComponent = function (_React$Component) {
 		key: 'onClickVideoUrl',
 		value: function onClickVideoUrl(video, event) {
 			event.preventDefault();
-			console.log('in onclickvideourl');
 			(0, _VideosCommonFunc.pushVideoDetailUrl)(this, video);
 		}
 	}, {
@@ -13187,9 +13078,9 @@ var VideosByCategoryComponent = function (_React$Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(_CategoryHeader2.default, { PageHeading: this.props.VideosByCategory.SectionTitle, backButtonUrl: '/m/bike-videos/' }),
+				_react2.default.createElement(_CategoryHeader2.default, { PageHeading: this.props.VideosByCategory.SectionTitle }),
 				this.renderVideoList(this.props.VideosByCategory ? this.props.VideosByCategory.Videos : null),
-				_react2.default.createElement(_Footer2.default, null)
+				!this.props.VideosByCategory || !this.props.VideosByCategory.Videos || this.props.VideosByCategory.Videos.length == 0 ? null : _react2.default.createElement(_Footer2.default, null)
 			);
 		}
 	}]);
@@ -13241,48 +13132,22 @@ var VideosCarouselComponent = function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, (VideosCarouselComponent.__proto__ || Object.getPrototypeOf(VideosCarouselComponent)).call(this, props));
 
 		_this.onClickItem = _this.onClickItem.bind(_this);
-		// this.callParentLogAndScrollHandler = this.callParentLogAndScrollHandler.bind(this);
-		// this.getRelatedInfo = this.getRelatedInfo.bind(this);
+
 		return _this;
 	}
-	// callParentLogAndScrollHandler(props) {
-	// 	if(props.Status == Status.Fetched) {
-	// 		if(typeof props.logAndScrollHandler == 'function') {
-	// 			props.logAndScrollHandler('VideosCarouselComponent'); 
-	// 		}
-	// 	}
-	// }
-	// getRelatedInfo(props) {
-	// 	if(props.Status !== Status.Fetched && props.Status !== Status.IsFetching && props.RelatedInfoApi) {
-	// 		this.props.fetchRelatedInfo(props.RelatedInfoApi);
-	// 	}
-	// }
-
 
 	_createClass(VideosCarouselComponent, [{
 		key: 'onClickItem',
 		value: function onClickItem(video, type) {
 			(0, _VideosCommonFunc.pushVideoDetailUrl)(this, video);
 		}
-		// componentWillReceiveProps(nextProps) {
-		// 	this.getRelatedInfo(nextProps);
-		// }
-		// componentWillUpdate(nextProps, nextState) {
-		// 	this.callParentLogAndScrollHandler(nextProps);
-		// }
-		// componentDidMount() {
-		// 	this.callParentLogAndScrollHandler(this.props);
-		// 	this.getRelatedInfo(this.props);
-		// }
-
 	}, {
 		key: 'render',
 		value: function render() {
 			var relatedInfoApi = this.props.relatedInfoApi;
 			var relatedInfo = this.props.relatedInfo;
 			if (!relatedInfo || !relatedInfoApi) return null;
-			// if(this.props.Status !== Status.Fetched || !this.props.RelatedInfo || !this.props.RelatedInfoApi) 
-			// 	return null;
+
 			var carouselComponents = [];
 			for (var i = 0; i < relatedInfoApi.length; i++) {
 				var listType = relatedInfoApi[i] ? relatedInfoApi[i].Type : -1;

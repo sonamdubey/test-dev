@@ -15,7 +15,7 @@ namespace Bikewale.Models
         public NewLaunchedBikeResult Bikes { get; set; }
         public IEnumerable<BikesCountByMakeEntityBase> Makes { get; set; }
         public PagerEntity Pager { get; set; }
-        public bool HasBikes { get { return (Bikes != null && Bikes.TotalCount > 0); } }
+        public bool HasBikes { get { return (Bikes != null && Bikes.Bikes != null && Bikes.Bikes.Any()); } }
         public bool HasMakes { get { return (Makes != null && Makes.Any()); } }
         public bool HasPages { get { return (Pager != null && Pager.TotalResults > 0); } }
         public string Page_H2 { get; set; }

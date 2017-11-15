@@ -1688,10 +1688,6 @@ select.form-control {
   display: block;
   text-transform: capitalize; }
 
-.brand-style-moreBtn {
-  border-top: 1px solid #e2e2e2;
-  margin-left: 0; }
-
 .brand-container {
   padding-top: 25px;
   padding-bottom: 20px;

@@ -362,7 +362,6 @@
     <Compile Include="BindViewModels\Controls\BindServiceSchedule.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesWithPhotos.cs" />
-    <Compile Include="BindViewModels\Controls\BindSimilarBikeVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarUsedBikes.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
@@ -785,10 +784,6 @@
       <DependentUpon>SimilarBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\SimilarBikeVideos.ascx.cs">
-      <DependentUpon>SimilarBikeVideos.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\SimilarBikeWithPhotos.ascx.cs">
       <DependentUpon>SimilarBikeWithPhotos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1193,10 +1188,6 @@
     </Compile>
     <Compile Include="m\controls\ServiceCentersByBrand.ascx.cs">
       <DependentUpon>ServiceCentersByBrand.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\controls\SimilarBikeVideos.ascx.cs">
-      <DependentUpon>SimilarBikeVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\SimilarBikeWithPhotos.ascx.cs">
@@ -1778,6 +1769,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
+    <Content Include="ads.txt" />
     <Content Include="ads\Ad300x250_mobile.aspx" />
     <Content Include="ads\Ad300x250.aspx" />
     <Content Include="ads\Ad300x250BTF.aspx" />
@@ -2184,7 +2176,6 @@
     <Content Include="controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="controls\serviceschedule.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
-    <Content Include="controls\SimilarBikeVideos.ascx" />
     <Content Include="controls\SimilarBikeWithPhotos.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
     <Content Include="controls\SimilarUsedBikes.ascx" />
@@ -2733,7 +2724,6 @@
     <Content Include="m\controls\PopularBikesMin.ascx" />
     <Content Include="m\controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="m\controls\ServiceCentersByBrand.ascx" />
-    <Content Include="m\controls\SimilarBikeVideos.ascx" />
     <Content Include="m\controls\SimilarBikeWithPhotos.ascx" />
     <Content Include="m\controls\UpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />
@@ -2839,8 +2829,8 @@
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
     <Content Include="m\news\offline.html" />
-    <Content Include="m\news\sw_installer.html" />
     <Content Include="m\news\sw.js" />
+    <Content Include="m\news\sw_installer.html" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\sass\scooters\listing.css" />
     <Content Include="m\service\Default.aspx" />
@@ -2982,10 +2972,13 @@
     <Content Include="pwa\appshell.html" />
     <Content Include="pwa\manifest.bundle.js" />
     <Content Include="pwa\NewsBundle.bundle.js" />
+    <Content Include="pwa\app.bundle.js" />
+    <Content Include="pwa\app.css" />
     <Content Include="pwa\peripheralComponents.bundle.js" />
     <Content Include="pwa\sw-toolbox.js" />
     <Content Include="pwa\vendor.bundle.js" />
     <Content Include="pwa\VideosBundle.bundle.js" />
+    <Content Include="pwa\sw-toolbox.js" />
     <Content Include="sass\new-launch\new-launch.sass" />
     <Content Include="sass\new-launch\_new-launch-style.sass" />
     <Content Include="sass\modules\_collapsible-content.sass" />
@@ -3078,6 +3071,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
+    <Content Include="Scripts\appshell.html" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
     <Content Include="Scripts\vendor.bundle.js" />
@@ -3844,12 +3838,18 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad200x211.cshtml" />
     <Content Include="Views\Make\_Index_Tabs.cshtml" />
     <Content Include="Views\Make\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\BikeModels\_MostPopularBikes_Mobile_Amp.cshtml" />
+    <Content Include="Views\m\Shared\_OtherBrands_Amp.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikes_Editorial_Mobile_Amp.cshtml" />
+    <Content Include="Views\Make\Index_Mobile_AMP.cshtml" />
     <Content Include="Views\CompareBikes\SimilarBikeComparison.cshtml" />
     <Content Include="Views\CompareBikes\SimilarBikeComparison_Mobile.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
     <Content Include="Views\Videos\CategoryVideos_Mobile_Pwa.cshtml" />
     <Content Include="Views\Videos\Details_Mobile_Pwa.cshtml" />
+    <Content Include="Views\Scooters\_Index_Tabs.cshtml" />
+    <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\Videos\Index_Mobile_Pwa.cshtml" />
     <Content Include="Views\Shared\_ServiceWorkerScript.cshtml" />
     <None Include="Web.Debug.config">
@@ -3857,10 +3857,10 @@
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
-      <SubType>Designer</SubType>
     </None>
     <Content Include="wkhtmltopdf\include\wkhtmltox\dllbegin.inc" />
     <Content Include="wkhtmltopdf\include\wkhtmltox\dllend.inc" />
@@ -4073,7 +4073,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>true</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
@@ -4130,8 +4130,6 @@
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x64.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x86.dll" "$(ProjectDir)bin\"
 	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

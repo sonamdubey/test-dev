@@ -57,7 +57,7 @@
         }catch(err){}
         
     </script>
-  
+    <link rel='stylesheet' type='text/css' href="https://stb.aeplcdn.com/bikewale/m/css/content/app-btf.css?6Nov2017v1" /> 
 </head>
 <body>
 
@@ -78,6 +78,7 @@
             <span class="loader"></span>
         </div>
     </div>
+<<<<<<< HEAD
     <link rel='stylesheet' type='text/css' href='/pwa/css/app.css' atf-css />
     <script>window.__CSS_CHUNKS__ = { "app": "/pwa/css/app.css", "newsBundle": "/pwa/css/news/news.css", "videosBundle": "/pwa/css/videos/video.css" }</script>
     <script>
@@ -121,6 +122,11 @@
     </script>
 
 
+=======
+    <script defer src="https://stb.aeplcdn.com/bikewale/pwa/vendor.bundle.js?6Nov2017v1"></script>
+    <script defer src="https://stb.aeplcdn.com/bikewale/pwa/app.bundle.js?6Nov2017v1"></script>
+    <script defer src="https://stb.aeplcdn.com/bikewale/src/bwcache.js?6Nov2017v1"></script>
+>>>>>>> 23ed1d2ac46d500bf1411bcb4058af8e522ff0b2
     <script defer type="text/javascript">
         function triggerData(cat, act, lbl) {
             if (typeof triggerDataToBhrigu == 'function') {
@@ -145,8 +151,12 @@
                         reg.unregister();
                     }
                 });
+<<<<<<< HEAD
 
                 navigator.serviceWorker.register("/m/sw.js").then(function (registration) {
+=======
+                navigator.serviceWorker.register(window.location.origin + "/m/sw.js").then(function (registration) {
+>>>>>>> 23ed1d2ac46d500bf1411bcb4058af8e522ff0b2
                     registration.addEventListener('updatefound', function () {
                         var newWorker = registration.installing;
                         newWorker.addEventListener('statechange', function () {
@@ -162,9 +172,13 @@
                     triggerData('ServiceWorker', 'Registration', 'status=unsuccessful|err=' + err);
                     console.log(err);
                 });
+<<<<<<< HEAD
 
 
 
+=======
+                    
+>>>>>>> 23ed1d2ac46d500bf1411bcb4058af8e522ff0b2
             }
             else {
                 triggerData('ServiceWorker', 'Registration', 'status=unavailable');
