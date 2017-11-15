@@ -1,0 +1,32 @@
+﻿@model Bikewale.Models.UsedBikeModelsWidgetVM
+@using Bikewale.Utility
+@if (Model != null)
+{
+    <amp-carousel height="225" layout="fixed-height" type="carousel" class="used-swiper">
+        @foreach (var bike in Model.UsedBikeModelList)
+        {
+            <div class="swiper-card">
+                <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName, bike.ModelMaskingName, Model.CityDetails != null ? Model.CityDetails.CityMaskingName : "india"))" title="@string.Format("Used {0} {1} bikes in {2}",bike.MakeName,bike.ModelName,Model.CityDetails !=null?Model.CityDetails.CityName:"India")">
+                    <div class="swiper-image-preview">
+                        <div class="image-thumbnail">
+                            <amp-img width="160" height="90" src="@Image.GetPathToShowImages(bike.UsedOriginalImagePath, bike.HostUrl, ImageSize._174x98, QualityFactor._70)" alt="@string.Format("Used {0} {1} bikes in {2}",bike.MakeName,bike.ModelName,Model.CityDetails !=null?Model.CityDetails.CityName:"India")" title="@string.Format("Used {0} {1} bikes in {2}",bike.MakeName,bike.ModelName,Model.CityDetails !=null?Model.CityDetails.CityName:"India")"></amp-img>
+                        </div>
+                    </div>
+                    <div class="swiper-details-block">
+                        <h3 class="target-link font12 margin-bottom5 text-truncate">@string.Format("Used {0} {1}", bike.MakeName, bike.ModelName)</h3>
+                        <p class="font13 text-light-grey">
+                            @Format.FormatPrice(Convert.ToString(bike.AvailableBikes)) Used bikes available
+                        </p>
+                        <div class="margin-bottom5 text-default">
+                            <span class="font16"> &#x20B9;</span>&nbsp;
+                            <span class="font16 text-bold">
+                                @Format.FormatPrice(Convert.ToString(bike.BikePrice))
+                            </span>&nbsp;
+                            <span class="font12">onwards</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </amp-carousel>
+}

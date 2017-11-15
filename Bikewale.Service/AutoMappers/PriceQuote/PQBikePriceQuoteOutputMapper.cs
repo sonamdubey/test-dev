@@ -193,8 +193,11 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
                                 break;
                         }
                     }
-                    dealerPriceQuote.Versions.SingleOrDefault(m => m.VersionId == version.objVersion.VersionId).OtherPriceList = otherList;
-                    dealerPriceQuote.Versions.SingleOrDefault(m => m.VersionId == version.objVersion.VersionId).PriceList = mainList;
+                    if (dealerPriceQuote != null)
+                    {
+                        dealerPriceQuote.Versions.SingleOrDefault(m => m.VersionId == version.objVersion.VersionId).OtherPriceList = otherList;
+                        dealerPriceQuote.Versions.SingleOrDefault(m => m.VersionId == version.objVersion.VersionId).PriceList = mainList;
+                    }
                     //Add Other into main price list
                     if (otherList.Count > 0)
                     {

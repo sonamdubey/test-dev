@@ -137,7 +137,7 @@ namespace DataSync
                                 catch (Exception ex)
                                 {
                                     Logs.WriteInfoLog(string.Format("RabbitMQExecution : The job with Database -> {0} ;  Stored Procedure -> {1} failed to execute", dBName, spName));
-                                    this.DeadLetterPublish(nvc, _queueName);
+                                    this.DeadLetterPublish(nvc, ConfigurationManager.AppSettings["QueueName"].ToUpper());
 
                                     _model.BasicReject(deliverEventArgs.DeliveryTag, false);
 

@@ -69,7 +69,7 @@ namespace Bikewale.Utility.StringExtention
 
                 if (character == afterCharacter)
                 {
-                    formattedString += replacedCharacter != null && replacedCharacter.HasValue ? replacedCharacter.Value : character;
+                    formattedString += replacedCharacter.HasValue ? replacedCharacter.Value : character;
                     capitalize = true;
                 }
             }

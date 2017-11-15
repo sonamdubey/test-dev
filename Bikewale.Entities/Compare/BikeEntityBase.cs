@@ -10,7 +10,8 @@ namespace Bikewale.Entities.Compare
     /// Created by  :   Sumit Kate on 22 Jan 2016
     /// Modified By :   Sushil Kumar on 2nd Feb 2017
     /// Description :   Added EstimatedPriceMin,EstimatedPriceMax,ExpectedLaunch,UsedBikeCount,ModelId and Versiosn for other details related to comparisions
-    /// Description :   
+    /// Modified by :   Vivek Singh Tomar on 1st Nov 2017
+    /// Description :   Added IsNew, IsUpcoming and IsDiscontinued properties to handle discontinued on bikecomparisions
     /// </summary>
     [Serializable, DataContract]
     public class BikeEntityBase
@@ -51,6 +52,12 @@ namespace Bikewale.Entities.Compare
         public IEnumerable<BikeVersionEntityBase> Versions { get; set; }
         [DataMember]
         public UsedBikesCountInCity UsedBikeCount { get; set; }
+        [DataMember]
+        public bool IsNew { get; set; }
+        [DataMember]
+        public bool IsUpcoming { get; set; }
+        [DataMember]
+        public bool IsDiscontinued { get; set; }
 
     }
 }

@@ -124,7 +124,6 @@ gulp.task('replace-mvc-layout-css-reference', function () {
 		app + 'Views/Videos/Index_Mobile_Pwa.cshtml',
 		app + 'Views/Videos/Detail_Mobile_Pwa.cshtml',
 		app + 'CategoryVideos_Mobile_Pwa.cshtml',
-		app + 'm/news/offline.html',
 		app + 'Views/Shared/_Layout.cshtml',
 		app + 'Views/Shared/_Layout_Mobile.cshtml'], { base: app })
 		.pipe(replace(pattern.CSS_ATF, function (s, fileName) {

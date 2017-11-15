@@ -6,27 +6,30 @@
 
         @foreach (var details in Model.DealerServiceCenters.DealerDetails)
         {
-            <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="/m/@Model.MakeMaskingName-dealer-showrooms-in-@details.CityMaskingName/" title="@Model.MakeName showroom in @details.CityName" class="block">
-                        <span class="dealer-city-image-preview">
-                            <span class="city-sprite @details.CityMaskingName-icon"></span>
-                        </span>
-                        <p class="text-default text-bold margin-bottom5">@Model.MakeName @(details.DealerCount > 1 ? "showrooms" : "showroom") in @details.CityName</p>
-                        @if (details.DealerCount > 0)
-                        {
-                            <span>@details.DealerCount @(details.DealerCount > 1 ? "showrooms" : "showroom")</span>
-                        }
-                    </a>
+            if (details.DealerCount > 0)
+            {
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="@string.Format("{0}/m/{1}-dealer-showrooms-in-{2}/", BWConfiguration.Instance.BwHostUrl, Model.MakeMaskingName, details.CityMaskingName)" title="@Model.MakeName showroom in @details.CityName" class="block">
+                            <span class="dealer-city-image-preview">
+                                <span class="city-sprite @details.CityMaskingName-icon"></span>
+                            </span>
+                            <p class="text-default text-bold margin-bottom5">@Model.MakeName @(details.DealerCount > 1 ? "showrooms" : "showroom") in @details.CityName</p>
+                            @if (details.DealerCount > 0)
+                            {
+                                <span>@details.DealerCount @(details.DealerCount > 1 ? "showrooms" : "showroom")</span>
+                            }
+                        </a>
+                    </div>
                 </div>
-            </div>
+            }
 
         }
         @if (Model.DealerServiceCenters.TotalDealerCount > 0 || Model.DealerServiceCenters.TotalServiceCenterCount > 0)
         {
             <div class="swiper-slide">
                 <div class="swiper-card">
-                    <a href="/m/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showroom in India" class="block">
+                    <a href="@string.Format("{0}/m/{1}-dealer-showrooms-in-india/", BWConfiguration.Instance.BwHostUrl, Model.MakeMaskingName)" title="@Model.MakeName showroom in India" class="block">
                         <span class="dealer-city-image-preview">
                             <span class="city-sprite india-icon"></span>
                         </span>

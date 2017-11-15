@@ -9,6 +9,29 @@ namespace BikewaleOpr.Cache
     /// </summary>
     public class BwMemCache
     {
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 07 Nov 2017
+        /// Description : Clear cache for most popular bikes by make with city price
+        /// </summary>
+        /// <param name="makeId"></param>
+        public static void ClearPopularBikesByMakeWithCityPriceCacheKey(uint makeId)
+        {
+            try
+            {
+                string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V1_{0}_", makeId);
+                string temp = string.Empty;
+                for (int i = 0; i < 1500; i++)
+                {
+                    temp = key + i;
+                    MemCachedUtil.Remove(temp);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.Cache.BwMemCache.ClearPopularBikesByMakeWithCityPriceCacheKey_{0}", makeId));
+            }
+        }
         public static bool ClearPopularBikesCacheKey(uint? topCount = null, uint? makeId = null)
         {
             bool cacheKeyClearStatus = false;
@@ -25,6 +48,24 @@ namespace BikewaleOpr.Cache
             }
             return cacheKeyClearStatus;
         }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 31 Oct 2017
+        /// Description : Clear cache for Ad slots.
+        /// </summary>
+        public static void ClearAdSlotsCache()
+        {
+            try
+            {
+                string key = "BW_AdSlots";
+                MemCachedUtil.Remove(key);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Cache.BwMemCache.ClearAdSlotsCache");
+            }
+        }
+
         /// <summary>
         /// Created By : Aditi Srivastava on 12 Jan 2016
         /// Description: Clear cache for upcoming bikes with the necessary keys
