@@ -11,7 +11,7 @@
         title = pageTitle;
         description  = pageDescription;
     canonical = string.Format("https://www.bikewale.com/bike-care/{0}-{1}.html", pageTitle, basicId);
-        AdPath = "/1017752/Bikewale_Mobile_NewBikes";
+        AdPath = "/1017752/Bikewale_Mobile_NewBikes_";
         AdId = "1398766302464";
       %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->

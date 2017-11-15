@@ -8,7 +8,7 @@
          description = pgDescription;
          canonical = pgCanonical;
          keywords = pgKeywords;
-         AdPath = "/1017752/Bikewale_Mobile_Model";
+         AdPath = "/1017752/Bikewale_Mobile_Model_";
          AdId = "1444028976556";
          Ad_320x50 = true;
          Ad_Bot_320x50 = true;
