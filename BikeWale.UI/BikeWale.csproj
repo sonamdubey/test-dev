@@ -2983,6 +2983,7 @@
     <Content Include="pwa\manifest.bundle.js" />
     <Content Include="pwa\NewsBundle.bundle.js" />
     <Content Include="pwa\peripheralComponents.bundle.js" />
+    <Content Include="pwa\sw-toolbox.js" />
     <Content Include="pwa\vendor.bundle.js" />
     <Content Include="pwa\VideosBundle.bundle.js" />
     <Content Include="sass\new-launch\new-launch.sass" />

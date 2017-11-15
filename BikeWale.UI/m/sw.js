@@ -1,5 +1,5 @@
 var version = '6Nov2017v1';
-var baseUrl = 'https://stb.aeplcdn.com/bikewale/pwa/';
+var baseUrl = '/pwa/'; //https://stb.aeplcdn.com/bikewale/pwa/
 var APPSHELL = baseUrl + 'appshell.html?' + version;
 var SW_TOOLBOX_JS = baseUrl + 'sw-toolbox.js?' + version;
 var IMAGE_EXPIRATION_TIME = 864000;
@@ -39,8 +39,8 @@ toolbox.router.get('/api/pwa/*', toolbox.cacheFirst,
                                 });
 
 toolbox.router.get('/m/news/*-(\\d+)/amp/', toolbox.networkOnly, null);
-
-toolbox.router.get('(/m/news/*|/m/bike-videos/*)', function (request, values, options) {
+/*
+toolbox.router.get('/m/(news|bike-videos)/*', function (request, values, options) {
     if ('GET' === request.method && request.headers.get('accept').includes('text/html')) {
         return fetchFileFromCache(APPSHELL, precacheName).then(function (response) {
             if (response)
@@ -61,7 +61,7 @@ toolbox.router.get('(/m/news/*|/m/bike-videos/*)', function (request, values, op
         }
     });
 
-
+    */
 
 toolbox.router.get('/*', toolbox.cacheFirst,
         {
