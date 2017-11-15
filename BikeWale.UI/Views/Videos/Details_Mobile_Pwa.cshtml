@@ -90,10 +90,7 @@
     <link rel='stylesheet' type='text/css' href='/pwa/css/videos/video.css' atf-css />
     <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
     <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
-    @*<script type="text/javascript" src="/Scripts/manifest.bundle.js" defer></script>
-        <script type="text/javascript" src="@VendorJsUrl" defer></script>
-        <script type="text/javascript" src="@AppJsUrl" defer></script>
-        <script type="text/javascript" src="@BwcacheJsUrl" defer></script>*@
+  
     <script>window.__CSS_CHUNKS__ = { "app": "/pwa/css/app.css", "newsBundle": "/pwa/css/news/news.css", "videosBundle": "/pwa/css/videos/video.css" }</script>
     <script>
         var jsUrls = ['@ManifestJsUrl', '@VendorJsUrl', '@AppJsUrl', '@BwcacheJsUrl'];
@@ -139,6 +136,7 @@
 </head>
 <body>
     
+    @*<div id="root"></div>*@
     @Html.Raw(Model.ServerRouterWrapper)
     <script type="text/javascript">
                 window.state = @Html.Raw(Model.WindowState);
