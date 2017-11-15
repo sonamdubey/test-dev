@@ -160,6 +160,7 @@ var ShowReviewCount = function (reviewCount) {
     return reviewText;
 };
 
+
 $.bindSearchResult = function (json) {
     var element;
     if ($.pageNo == 1)

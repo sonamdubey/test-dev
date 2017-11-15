@@ -34,7 +34,7 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
         {
             try
             {
-                SearchOutput searchResult = new SearchOutput();
+                SearchOutput searchResult;
                 FilterInput filterInputs = _processFilter.ProcessFilters(input);
 
                 SearchOutputEntity objSearchList = _searchResult.GetSearchResult(filterInputs, input);

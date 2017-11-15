@@ -199,4 +199,29 @@ span.ui-helper-hidden-accessible { display: none; }
     border-left: 1px solid #e2e2e2;
 }
 
+.review-image-wrapper {
+    width: 120px;
+    height: 68px;
+    border: 1px solid #e2e2e2;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.review-image-wrapper a {
+    width: 100%;
+    display: block;
+}
+
+.review-image-wrapper img {
+    width: 100%;
+    height: 68px;
+}
+
+.review-heading-wrapper {
+    width: 55%;
+    display: inline-block;
+    vertical-align: top;
+}
+
   

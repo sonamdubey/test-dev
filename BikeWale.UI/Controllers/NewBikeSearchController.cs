@@ -1,4 +1,6 @@
-﻿using Bikewale.Filters;
+﻿using Bikewale.Entities.PriceQuote;
+using Bikewale.Filters;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Videos;
@@ -15,11 +17,13 @@ namespace Bikewale.Controllers
     {
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
+        private readonly IBikeMakesCacheRepository _makes;
         private readonly ISearchResult _searchResult = null;
         private readonly IProcessFilter _processFilter = null;
 
-        public NewBikeSearchController(ICMSCacheContent articles, IVideos videos, ISearchResult searchResult, IProcessFilter processFilter)
+        public NewBikeSearchController(ICMSCacheContent articles, IVideos videos, IBikeMakesCacheRepository makes, ISearchResult searchResult, IProcessFilter processFilter)
         {
+            _makes = makes;
             _articles = articles;
             _videos = videos;
             _searchResult = searchResult;
@@ -30,15 +34,16 @@ namespace Bikewale.Controllers
         [DeviceDetection]
         public ActionResult Index(ushort? pageNumber)
         {
-            //string q = Request.Url.Query;
-            NewBikeSearchModel model = new NewBikeSearchModel(Request, _articles, _videos, _searchResult, _processFilter);
+            NewBikeSearchModel model = new NewBikeSearchModel(Request, _articles, _videos, _makes, _searchResult, _processFilter, PQSourceEnum.Desktop_NewBikeSearch);
+            model.PageSize = 30;
             return View(model.GetData());
         }
 
         [Route("m/newbikesearch/")]
         public ActionResult Index_Mobile(ushort? pageNumber)
         {
-            NewBikeSearchModel model = new NewBikeSearchModel(Request, _articles, _videos, _searchResult, _processFilter);
+            NewBikeSearchModel model = new NewBikeSearchModel(Request, _articles, _videos, _makes, _searchResult, _processFilter, PQSourceEnum.Mobile_NewBikeSearch);
+            model.PageSize = 30;
             return View(model.GetData());
         }
     }

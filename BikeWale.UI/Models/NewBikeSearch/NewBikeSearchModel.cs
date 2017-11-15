@@ -1,7 +1,12 @@
-﻿using Bikewale.Entities.NewBikeSearch;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.NewBikeSearch;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Notifications;
+using Bikewale.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -17,29 +22,49 @@ namespace Bikewale.Models.NewBikeSearch
     public class NewBikeSearchModel
     {
         private string _modelIdList = string.Empty;
+        private string _baseUrl = string.Empty;
         public uint EditorialTopCount { get; set; }
+        public int PageSize { get; set; }
+        private int _totalBikeCount;
+        private int _totalPagesCount;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
+        private readonly IBikeMakesCacheRepository _makes;
         private readonly ISearchResult _searchResult = null;
         private readonly IProcessFilter _processFilter = null;
-        private string _queryString;
+        private readonly string _queryString;
         private HttpRequestBase _request;
-        public NewBikeSearchModel(HttpRequestBase Request, ICMSCacheContent objArticles, IVideos objVideos, ISearchResult searchResult, IProcessFilter processFilter)
+        private readonly PQSourceEnum _pqSource;
+        NewSearchPage currentPage;
+        NewBikeSearchVM viewModel;
+
+
+        public NewBikeSearchModel(HttpRequestBase Request, ICMSCacheContent objArticles, IVideos objVideos, IBikeMakesCacheRepository makes, ISearchResult searchResult, IProcessFilter processFilter, PQSourceEnum pqSource)
         {
             _request = Request;
+            _makes = makes;
             _queryString = Request.Url.Query;
             _articles = objArticles;
             _videos = objVideos;
             _searchResult = searchResult;
             _processFilter = processFilter;
+            _pqSource = pqSource;
         }
 
         public NewBikeSearchVM GetData()
         {
-            NewBikeSearchVM viewModel = new NewBikeSearchVM();
-            viewModel.Bikes = BindBikes();
+            viewModel = new NewBikeSearchVM();
+            viewModel.PqSource = _pqSource;
+            viewModel.BikeSearch = BindBikes();
+            SetPageType();
+            BindEditorialWidget(viewModel);
             BindPageMetas(viewModel.PageMetaTags);
+            CreatePager(viewModel);
             viewModel.News = new RecentNews(5, 0, _modelIdList, _articles).GetData();
+            viewModel.Videos = new RecentVideos(1, 5, _videos).GetData();
+            viewModel.ExpertReviews = new RecentExpertReviews(5, _articles).GetData();
+            SetFlags(viewModel);
+            BindBrands(viewModel);
             return viewModel;
         }
 
@@ -49,8 +74,13 @@ namespace Bikewale.Models.NewBikeSearch
             InputBaseEntity input = MapQueryString(_queryString);
             if (null != input)
             {
+                input.PageSize = "30";
                 FilterInput filterInputs = _processFilter.ProcessFilters(input);
                 objResult = _searchResult.GetSearchResult(filterInputs, input);
+                if (objResult != null)
+                {
+                    _totalBikeCount = objResult.TotalCount;
+                }
             }
             return objResult;
         }
@@ -69,11 +99,11 @@ namespace Bikewale.Models.NewBikeSearch
                 string jsonStr = JsonConvert.SerializeObject(
                     dict.AllKeys.ToDictionary(k => k, k => dict[k])
                 );
-                input =  JsonConvert.DeserializeObject<InputBaseEntity>(jsonStr);
+                input = JsonConvert.DeserializeObject<InputBaseEntity>(jsonStr);
             }
             catch (Exception ex)
             {
-                new Notifications.ErrorClass(ex, "NewBikeSearchModel.MapQueryString()");
+                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.MapQueryString()");
             }
             return input;
         }
@@ -87,23 +117,92 @@ namespace Bikewale.Models.NewBikeSearch
         {
             try
             {
-                objPage.Title = "";
-                objPage.Keywords = "";
-                objPage.Description = "";
-                objPage.CanonicalUrl = string.Format("/{0}", _request.Url.AbsoluteUri);
-                objPage.AlternateUrl = "";
+                // construct trailing page query
+                string pageQuery = currentPage.IsPageNoInUrl ? string.Format("page-{0}/", currentPage.PageNo) : string.Empty;
+                switch (currentPage.PageType)
+                {
+                    case SearchPageType.Default:
+                        objPage.Title = "Search New Bikes by Brand, Budget, Mileage and Ride Style - BikeWale";
+                        objPage.Keywords = "search new bikes, search bikes by brand, search bikes by budget, search bikes by price, search bikes by style, street bikes, scooters, commuter bikes, cruiser bikes";
+                        objPage.Description = "Search through all the new bike models by various criteria. Get instant on-road price for the bike of your choice";
+                        _baseUrl = "/new/bike-search/";
+                        objPage.CanonicalUrl = string.Format("https://www.bikewale.com{0}", _baseUrl);
+                        objPage.AlternateUrl = string.Format("https://www.bikewale.com/m{0}", _baseUrl);
+                        break;
+                    case SearchPageType.Under:
+                        objPage.Title = string.Format("Bikes Under Rs. {0} - Explore Latest Bikes Below Rs. {0} on BikeWale", currentPage.MaxPriceStr);
+                        objPage.Keywords = string.Format("best bikes under Rs. {0}, latest bikes under Rs. {0}", currentPage.MaxPriceStr);
+                        objPage.Description = string.Format("Explore best bikes under Rs. {0}. Choose from bike models like {1} and more. Check specifications, prices and reviews to buy the best bike.", currentPage.MaxPriceStr, currentPage.ModelList);
+                        _baseUrl = string.Format("/new/bike-search/bikes-under-{0}/", currentPage.MaxPriceStr);
+                        objPage.CanonicalUrl = string.Format("https://www.bikewale.com{0}{1}", _baseUrl, pageQuery);
+                        objPage.AlternateUrl = string.Format("https://www.bikewale.com/m{0}{1}", _baseUrl, pageQuery);
+                        break;
+                    case SearchPageType.Above:
+                        objPage.Title = string.Format("Bikes Above Rs. {0} - Explore Latest Bikes Above Rs. {0} on BikeWale", currentPage.MinPriceStr);
+                        objPage.Keywords = string.Format("best bikes above Rs. {0}, latest bikes above Rs. {0}", currentPage.MinPriceStr);
+                        objPage.Description = string.Format("Explore best bikes above Rs. {0}. Choose from bike models like {1} and more. Check specifications, prices and reviews to buy the best bike.", currentPage.MaxPriceStr, currentPage.ModelList);
+                        _baseUrl = string.Format("/new/bike-search/bikes-above-{0}/", currentPage.MinPrice);
+                        objPage.CanonicalUrl = string.Format("https://www.bikewale.com{0}{1}", _baseUrl, pageQuery);
+                        objPage.AlternateUrl = string.Format("https://www.bikewale.com/m{0}{1}", _baseUrl, pageQuery);
+                        break;
+                    case SearchPageType.Between:
+                        objPage.Title = string.Format("Bikes Between Rs. {0}  and Rs. {1} - Explore Latest Bikes between Rs. {0} and {1} on BikeWale", currentPage.MinPriceStr, currentPage.MaxPriceStr);
+                        objPage.Keywords = string.Format("best bikes between Rs. {0} and Rs. {1}, latest bikes between Rs. {0} and Rs. {1}", currentPage.MinPriceStr, currentPage.MaxPriceStr);
+                        objPage.Description = string.Format("Explore best bikes between Rs. {0} and Rs. {1}. Choose from bike models like {2} and more. Check specifications, prices and reviews to buy the best bike.", currentPage.MinPriceStr, currentPage.MaxPriceStr, currentPage.ModelList);
+                        _baseUrl = string.Format("/new/bike-search/bikes-between-{0}-and-{1}/", currentPage.MinPrice, currentPage.MaxPrice);
+                        objPage.CanonicalUrl = string.Format("https://www.bikewale.com{0}{1}", _baseUrl, pageQuery);
+                        objPage.AlternateUrl = string.Format("https://www.bikewale.com/m{0}{1}", _baseUrl, pageQuery);
+                        break;
+
+                }
 
             }
             catch (Exception ex)
             {
-                new Notifications.ErrorClass(ex, "NewBikeSearchModel.BindMetas()");
+                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.BindMetas()");
+            }
+        }
+
+        private void SetPageType()
+        {
+            currentPage = new NewSearchPage();
+            string minMaxStr = _request.QueryString["budget"];
+            currentPage.IsPageNoInUrl = !string.IsNullOrEmpty(_request.QueryString["pageno"]);
+            currentPage.PageNo = !currentPage.IsPageNoInUrl ? 1 : Convert.ToInt16(_request.QueryString["pageno"]);
+            if (!string.IsNullOrEmpty(minMaxStr))
+            {
+                string[] budgetArray = minMaxStr.Split('-');
+                if (budgetArray.Length > 1)
+                {
+                    currentPage.MinPrice = Convert.ToInt32(budgetArray[0]);
+                    currentPage.MinPriceStr = Utility.Format.FormatPrice(currentPage.MinPrice.ToString());
+                    currentPage.MaxPrice = budgetArray[1].Length > 0 ? Convert.ToInt32(budgetArray[1]) : 0;
+                    currentPage.MaxPriceStr = Utility.Format.FormatPrice(currentPage.MaxPrice.ToString());
+
+                    if (currentPage.MinPrice == 0 && currentPage.MaxPrice > 0)
+                    {
+                        currentPage.PageType = SearchPageType.Under;
+                    }
+                    else if (currentPage.MinPrice > 0 && currentPage.MaxPrice == 0)
+                    {
+                        currentPage.PageType = SearchPageType.Above;
+                    }
+                    else if (currentPage.MinPrice > 0 && currentPage.MaxPrice > 0)
+                    {
+                        currentPage.PageType = SearchPageType.Between;
+                    }
+                }
+            }
+            if (viewModel.BikeSearch != null && viewModel.BikeSearch.SearchResult != null)
+            {
+                currentPage.ModelList = string.Join(",", viewModel.BikeSearch.SearchResult.Take(5).Select(x => x.BikeModel.ModelName).ToList());
             }
         }
         /// <summary>
         /// Binds the editorial widget.
         /// </summary>
         /// <param name="objVM">The object vm.</param>
-        private void BindEditorialWidget(ScootersIndexPageVM objVM)
+        private void BindEditorialWidget(NewBikeSearchVM objVM)
         {
             try
             {
@@ -148,9 +247,119 @@ namespace Bikewale.Models.NewBikeSearch
             }
             catch (Exception ex)
             {
-                new Notifications.ErrorClass(ex, "NewBikeSearchModel.BindEditorialWidget()");
+                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.BindEditorialWidget()");
             }
         }
 
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 9th Oct 2017
+        /// Summary : Fetch list of other makes to bind filters
+        /// </summary>
+        /// <param name="objVM"></param>
+        private void BindBrands(NewBikeSearchVM objVM)
+        {
+            try
+            {
+                var makes = _makes.GetMakesByType(EnumBikeType.New);
+                if (makes != null && makes.Any())
+                {
+                    objVM.PopularBrands = makes.Take(9);
+                    objVM.OtherBrands = makes.Skip(9).OrderBy(m => m.MakeName);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.BindBrands");
+            }
+        }
+
+        private void SetFlags(NewBikeSearchVM Model)
+        {
+            Model.TabCount = 0;
+            Model.IsNewsActive = false;
+            Model.IsExpertReviewActive = false;
+            Model.IsVideoActive = false;
+
+            if (Model.News.FetchedCount > 0)
+            {
+                Model.TabCount++;
+                Model.IsNewsActive = true;
+            }
+            if (Model.ExpertReviews.FetchedCount > 0)
+            {
+                Model.TabCount++;
+                if (!Model.IsNewsActive)
+                {
+                    Model.IsExpertReviewActive = true;
+                }
+            }
+            if (Model.Videos.FetchedCount > 0)
+            {
+                Model.TabCount++;
+                if (!Model.IsExpertReviewActive && !Model.IsNewsActive)
+                {
+                    Model.IsVideoActive = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates the pager.
+        /// </summary>
+        /// <param name="newBikeSearchVM">The new bike search vm.</param>
+        /// <param name="objMeta">The object meta.</param>
+        private void CreatePager(NewBikeSearchVM newBikeSearchVM)
+        {
+            _totalPagesCount = (int)(_totalBikeCount / PageSize);
+
+            if ((_totalPagesCount % PageSize) > 0)
+                _totalPagesCount += 1;
+            try
+            {
+                newBikeSearchVM.Pager = new Entities.Pager.PagerEntity()
+                {
+                    PageNo = currentPage.PageNo,
+                    PageSize = PageSize,
+                    PagerSlotSize = 5,
+                    BaseUrl = _baseUrl,
+                    PageUrlType = "page-",
+                    TotalResults = _totalBikeCount
+                };
+                string prevUrl = string.Empty, nextUrl = string.Empty;
+                Paging.CreatePrevNextUrl(_totalPagesCount, _baseUrl, (int)newBikeSearchVM.Pager.PageNo, newBikeSearchVM.Pager.PageUrlType, ref nextUrl, ref prevUrl);
+                newBikeSearchVM.PageMetaTags.NextPageUrl = nextUrl;
+                newBikeSearchVM.PageMetaTags.PreviousPageUrl = prevUrl;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewBikeSearchModel.CreatePager()");
+            }
+        }
+
+    }
+    /// <summary>
+    /// Enum for type of Search Page
+    /// </summary>
+    public enum SearchPageType
+    {
+        Default = 0,
+        Under = 1,
+        Above = 2,
+        Between = 3
+    }
+
+    /// <summary>
+    /// Class to hold properties of New Search page
+    /// </summary>
+    public class NewSearchPage
+    {
+        public SearchPageType PageType { get; set; }
+        public int MinPrice { get; set; }
+        public string MinPriceStr { get; set; }
+        public int MaxPrice { get; set; }
+        public string MaxPriceStr { get; set; }
+        public string ModelList { get; set; }
+        public int PageNo { get; set; }
+        public bool IsPageNoInUrl { get; set; }
     }
 }
