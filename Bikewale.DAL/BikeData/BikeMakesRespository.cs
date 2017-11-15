@@ -36,6 +36,8 @@ namespace Bikewale.DAL.BikeData
         /// Description :   GetBikeMakes_New_29032016 support Dealer request type which returns the makes list of BW and AB dealers
         /// Modified by :-Subodh 0n 08 nov 2016
         /// Description : getbikemakes_new_08112016 added ServiceCenter and changed par_request from string to tinyint(2)
+        /// Modified by sajal Gupta on 14-11-2017
+        /// Description : Added MakeCaregoryId
         /// </summary>
         /// <param name="makeType">Type of bike data</param>
         /// <returns>Returns list of type BikeMakeEntityBase</returns>
@@ -67,7 +69,8 @@ namespace Bikewale.DAL.BikeData
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
                                     LogoUrl = Convert.ToString(dr["LogoUrl"]),
                                     PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
-                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"])
+                                    TotalCount = SqlReaderConvertor.ToUInt32(dr["ModelCount"]),
+                                    MakeCaregoryId = SqlReaderConvertor.ToUInt16(dr["MakeCategoryId"])
                                 });
                             }
 
@@ -78,9 +81,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             return objMakesList;
         }
