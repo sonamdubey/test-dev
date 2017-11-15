@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -495,6 +495,7 @@
       <DependentUpon>ReviewDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\BikeSeriesController.cs" />
     <Compile Include="Controllers\ComparisonTestsController.cs" />
     <Compile Include="Controllers\DealerShowroomController.cs" />
     <Compile Include="Controllers\BikeCareController.cs" />
@@ -2900,6 +2901,7 @@
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\dealer\landing.js" />
     <Content Include="m\src\dealer\listing.js" />
+    <Content Include="m\src\model-series\series.js" />
     <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\photos\photos.js" />
     <Content Include="m\src\photos\modelgallery.js" />
@@ -3062,6 +3064,7 @@
     <Content Include="sass\review\landing.sass" />
     <Content Include="sass\review\make.sass" />
     <Content Include="sass\m\review\make.sass" />
+    <Content Include="sass\m\model-series\series.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3841,6 +3844,7 @@
     <Content Include="Views\UserReview\UserReviewsByMake.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs.cshtml" />
+    <Content Include="Views\BikeSeries\Index_List_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
