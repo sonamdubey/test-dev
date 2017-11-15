@@ -21,7 +21,7 @@ namespace Bikewale.DTO.UserReviews
         [Required, JsonProperty("encodedId")]
         public string EncodedCustomerAndReviewId { get; set; }
 
-        [Required, JsonProperty("qamapping")]
+        [JsonProperty("qamapping")]
         public string QuestionAnswerMapping { get; set; }
     }
 }

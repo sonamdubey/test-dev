@@ -481,31 +481,37 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("api/user-reviews/parameter-ratings/save/")]
-        public IHttpActionResult SubmitOptionReviewInfo([FromBody] InputParamterRatingSave objOptionalQuestionInput)
+        public IHttpActionResult SubmitOptionReviewInfo(InputParamterRatingSave objOptionalQuestionInput)
         {
             try
             {
-                if (ModelState.IsValid && !String.IsNullOrEmpty(objOptionalQuestionInput.QuestionAnswerMapping) && objOptionalQuestionInput.ReviewId > 0)
+                if (ModelState.IsValid && objOptionalQuestionInput.ReviewId > 0 && !String.IsNullOrEmpty(objOptionalQuestionInput.EncodedCustomerAndReviewId))
                 {
-                    if (!String.IsNullOrEmpty(objOptionalQuestionInput.EncodedCustomerAndReviewId))
+
+                    uint reviewId, customerId;
+                    string decodedString = Utils.Utils.DecryptTripleDES(objOptionalQuestionInput.EncodedCustomerAndReviewId);
+                    NameValueCollection qCol = HttpUtility.ParseQueryString(decodedString);
+
+                    uint.TryParse(qCol["reviewid"], out reviewId);
+                    uint.TryParse(qCol["customerid"], out customerId);
+
+                    objOptionalQuestionInput.ReviewId = reviewId;
+                    objOptionalQuestionInput.CustomerId = customerId;
+
+                    if (objOptionalQuestionInput.ReviewId > 0 && objOptionalQuestionInput.CustomerId > 0)
                     {
-                        uint reviewId, customerId;
-                        string decodedString = Utils.Utils.DecryptTripleDES(objOptionalQuestionInput.EncodedCustomerAndReviewId);
-                        NameValueCollection qCol = HttpUtility.ParseQueryString(decodedString);
-
-                        uint.TryParse(qCol["reviewid"], out reviewId);
-                        uint.TryParse(qCol["customerid"], out customerId);
-
-                        objOptionalQuestionInput.ReviewId = reviewId;
-                        objOptionalQuestionInput.CustomerId = customerId;
+                        qCol.Add("par_reviewid", objOptionalQuestionInput.ReviewId.ToString());
+                        qCol.Add("par_customerid", objOptionalQuestionInput.CustomerId.ToString());
+                        qCol.Add("par_qamapping", objOptionalQuestionInput.QuestionAnswerMapping);
+                        qCol.Add("par_mileage", objOptionalQuestionInput.Mileage.ToString());
+                        SyncBWData.PushToQueue("saveuserreviewoptionalinfo", DataBaseName.BW, qCol);
+                        return Ok(true);
                     }
-                    NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("par_reviewid", objOptionalQuestionInput.ReviewId.ToString());
-                    nvc.Add("par_customerid", objOptionalQuestionInput.CustomerId.ToString());
-                    nvc.Add("par_qamapping", objOptionalQuestionInput.QuestionAnswerMapping);
-                    nvc.Add("par_mileage", objOptionalQuestionInput.Mileage.ToString());
-                    SyncBWData.PushToQueue("saveuserreviewoptionalinfo", DataBaseName.BW, nvc);
-                    return Ok(true);
+                    else
+                    {
+                        return BadRequest();
+                    }
+
                 }
                 else
                 {

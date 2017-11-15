@@ -355,7 +355,6 @@ namespace Bikewale.BAL.UserReviews
             {
                 if (objReviewData != null && objReviewData.ReviewId > 0 && objReviewData.CustomerId > 0 && _userReviewsRepo.IsUserVerified(objReviewData.ReviewId, objReviewData.CustomerId))
                 {
-                    bool isValid = true;
 
                     objResponse = new WriteReviewPageSubmitResponse();
 
