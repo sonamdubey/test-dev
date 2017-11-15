@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
+using Bikewale.Entities.Pager;
 
 
 namespace Bikewale.Models.NewBikeSearch
@@ -18,6 +19,7 @@ namespace Bikewale.Models.NewBikeSearch
         public RecentNewsVM News { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }
         public RecentVideosVM Videos { get; set; }
+        public PagerEntity Pager { get; set; }
         public uint TabCount { get; set; }
         public bool IsNewsActive { get; set; }
         public bool IsExpertReviewActive { get; set; }

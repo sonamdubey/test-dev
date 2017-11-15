@@ -162,6 +162,22 @@ docReady(function () {
             }
         };
 
+        self.bindNextSearchResult = function (json) {
+            var element;
+            element = document.getElementById('divMoreSearchResult');
+            //if ($.pageNo == 1)
+            //    element = document.getElementById('divMoreSearchResult');
+            //else
+            //    element = document.getElementById('divMoreSearchResult' + $.pageNo);
+
+            ko.cleanNode(element);
+
+            if (json.searchResult.length > 0)
+                ko.applyBindings(new SearchViewModel(json), element);
+            else
+                $('#NoBikeResults').show();
+        };
+
         self.setMinAmount = function (userMinAmount) {
             if (userMinAmount == "") {
                 minInput.val("").attr("data-value", "");
@@ -249,8 +265,9 @@ docReady(function () {
                 self.PreviousQS(qs);
                 var apiUrl = '/api/NewBikeSearch/?' + qs;
                 $.getJSON(apiUrl)
-                    .done(function (response) {
+                .done(function (response) {
                     self.models(response.searchResult);
+                    self.bindNextSearchResult(response);
                     self.TotalBikes(response.totalCount);
                     self.noBikes(false);
                 })
@@ -259,7 +276,6 @@ docReady(function () {
                     self.TotalBikes(0);
                 })
                 .always(function () {
-                    //self.ApplyPagination();
                     window.location.hash = qs;
                     self.IsLoading(false);
                     self.getSelectedQSFilterText();
@@ -287,10 +303,7 @@ docReady(function () {
         };
 
         self.pushState = function (filterName) {
-            //$('#NoBikeResults').hide();
-            //$('#loading').show();
-            //window.location.hash = qs;
-            //self.QueryString(qs);
+            // loader and other checks
             self.getBikeSearchResult(filterName);
         };
 
@@ -315,23 +328,6 @@ docReady(function () {
                 return "";
             }
         };
-
-        //self.removeFilterFromQS = function (name) {
-        //    var url = window.location.hash.replace('#', '');
-        //    if (url.length > 0) {
-        //        var prefix = name + '=';
-        //        var pars = url.split(/[&;]/g);
-        //        for (var i = pars.length; i-- > 0;) {
-        //            if (pars[i].indexOf(prefix) > -1) {
-        //                pars.splice(i, 1);
-        //            }
-        //        }
-        //        url = pars.join('&');
-        //        return url;
-        //    }
-        //    else
-        //        return "";
-        //};
 
         self.updateCheckBoxFilterInQS = function (name, value, toAdd) {
             if (toAdd == true) {
@@ -799,7 +795,7 @@ docReady(function () {
         var str = '';
         var regex = new RegExp(',', 'g');
         if (inputVal.length > 0) {
-            str = new String(priceInput.attr("data-value"));
+            str = String(priceInput.attr("data-value"));
             str = str.replace(regex, '');
             priceInput.val($.valueFormatter(str));
         }
