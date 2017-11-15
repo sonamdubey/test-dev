@@ -357,7 +357,6 @@ var writeReview = function () {
         var rg = /(^\w{1}|\.\s*\w{1})/gi;
         if ($("#getReviewTitle").length > 0) {
 
-
             $("#getReviewTitle").val($("#getReviewTitle").val().toLowerCase().replace(/[\/\\#,_@^+()$~%'":*?<>{}]/g, '').replace(rg, function (toReplace) {
                 return toReplace.toUpperCase();
             }));

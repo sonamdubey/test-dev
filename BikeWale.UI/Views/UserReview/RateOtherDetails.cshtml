@@ -14,7 +14,7 @@
 
 @if (Model != null && Model.Make != null && Model.Model != null)
 {
-    <form action="/user-reviews/save/" method="post">
+    <form action="/user-reviews/save/" method="post" id="writereviewform">
         <section>
             <div id="write-review-form" class="container section-bottom-margin font14 margin-top20">
                 <div class="grid-12">
@@ -52,6 +52,7 @@
                                                         <span class="position-rel">
                                                             <span id="mileage-slider__text" class="ui-slider__text" data-bind="text: (typeof bikeMileage() !== 'undefined') ? bikeMileage() + ' Kmpl' : '50 Kmpl'"></span>
                                                         </span>
+                                                        <input name="mileage" type="hidden" type="number" id="getMileage" data-bind="value: bikeMileage" />
                                                     </span>
                                                 </div>
                                             </div>
@@ -91,7 +92,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <a href="/user-reviews/review-summary/@Model.ReviewId/?q=@Model.EncodedWriteUrl" class="other-review__button-block" rel="nofollow">Submit</a>
+                                                        <a href="javascript:void(0)" data-bind="click : function() { submitReview(); document.getElementById('writereviewform').submit(); }" class="other-review__button-block" rel="nofollow">Submit</a>
                                                     }
                                                    
                                                 </div>
