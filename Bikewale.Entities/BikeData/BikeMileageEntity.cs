@@ -11,6 +11,7 @@ namespace Bikewale.Entities.BikeData
     /// Created By : Snehal Dange on 3rd Nov 2017
     /// Description: Mileage entity wrapper which includes mileage details by Bodystyle and individual bikes mileage info
     /// </summary>
+    [Serializable]
     public class BikeMileageEntity
     {
         public IEnumerable<BikeWithMileageInfo> Bikes { get; set; }
