@@ -346,7 +346,7 @@ docReady(function () {
         self.firstReadMoreClick = ko.observable(false);
         self.clickedReviewId = ko.observable();
 
-        self.Filters = ko.observable({ pn: 1, ps: 10, model: modelid, so: reviewId > 0 ? 2 : 1, skipreviewid: reviewId });
+        self.Filters = ko.observable({ pn: 1, ps: 10, model: modelid, so: reviewId > 0 ? 1 : 2, skipreviewid: reviewId });
         self.QueryString = ko.computed(function () {
             var qs = "";
             $.each(self.Filters(), function (i, val) {
@@ -523,7 +523,7 @@ docReady(function () {
 
                         if (self.firstReadMoreClick()) {
                             var collpasibleContent = $(document).find('.read-more-target[data-reviewId=' + self.clickedReviewId() + ']').closest('.collapsible-content');
-                            $('html, body').scrollTop(collpasibleContent.closest('.list-item').offset().top - $('#overallSpecsTab').height());
+                            $('html, body').scrollTop(collpasibleContent.closest('.list-item').offset() ? (collpasibleContent.closest('.list-item').offset().top - $('#overallSpecsTab').height()) : "0");
                             collpasibleContent.addClass('active');
                             self.firstReadMoreClick(false);
                         }
@@ -594,6 +594,8 @@ docReady(function () {
             updateView(event);
             logBhrighu(event, 'ReadMoreClick');
 
+            triggerGA("User_Reviews", "Clicked_On_Read_More", makeName + "_" + modelName + "_" + (reviewId > 0 ? "Details" : "List"));
+
             return true;
         };
 
@@ -644,6 +646,14 @@ docReady(function () {
 
     $(document).on("click", ".expert-review-list .jcarousel-card a", function (e) {
         triggerGA("User_Reviews", "ExpertReviews_CarouselCard_Clicked", makeName + "_" + modelName);
+    });
+
+    $(document).on("click", "#similar-bike-list .jcarousel-control-next", function (e) {
+        triggerGA("User_Reviews", "Clicked_On_SimilarBikes_Carousel", makeName + "_" + modelName + "_" + (reviewId > 0 ? "Details" : "List"));
+    });
+
+    $(document).on("click", "#similar-bike-list .jcarousel-control-prev", function (e) {
+        triggerGA("User_Reviews", "Clicked_On_SimilarBikes_Carousel", makeName + "_" + modelName + "_" + (reviewId > 0 ? "Details" : "List"));
     });
 
     $(document).on("click", "#pagination-list-content ul li, .pagination-control-prev a, .pagination-control-next a,#overallSpecsTab .overall-specs-tabs-wrapper a", function (e) {

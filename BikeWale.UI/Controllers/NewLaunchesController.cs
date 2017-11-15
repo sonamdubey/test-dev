@@ -148,6 +148,7 @@ namespace Bikewale.Controllers
                 model.BaseUrl = String.Format("/m/new-{0}-bike-launches/", maskingName);
                 model.PageSize = 10;
                 model.MakeTopCount = 9;
+                model.IsMobile = true;
                 var vmPage = model.GetData();
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {

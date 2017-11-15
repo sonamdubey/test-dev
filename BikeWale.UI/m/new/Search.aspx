@@ -9,7 +9,7 @@
         keywords = "search new bikes, search bikes by brand, search bikes by budget, search bikes by price, search bikes by style, street bikes, scooters, commuter bikes, cruiser bikes";
         description = "Search through all the new bike models by various criteria. Get instant on-road price for the bike of your choice";
         canonical = "https://www.bikewale.com/new/bike-search/"; 
-        AdPath = "/1017752/Bikewale_Mobile_Homepage";
+        AdPath = "/1017752/Bikewale_Mobile_Homepage_";
         AdId = "1398766000399";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;

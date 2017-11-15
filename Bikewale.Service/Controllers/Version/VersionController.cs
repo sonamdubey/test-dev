@@ -36,7 +36,7 @@ namespace Bikewale.Service.Controllers.Version
         /// <summary>
         /// To get versions Details for Dropdowns
         /// Modified by :   Sumit Kate on 12 Apr 2016
-        /// Description :   Send BadRequest if versionid <= 0
+        /// Description :   Send BadRequest if versionid less than 0
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns>Version Minimum Details</returns>

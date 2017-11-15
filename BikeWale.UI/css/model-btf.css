@@ -1410,3 +1410,104 @@ li.offertxt:hover span {display:inline}
 .no-city-selection-carousel .jcarousel a:hover {
     text-decoration: none;
 }
+
+/* Mileage section*/
+.mileage-box-list {
+	width: 100%;
+    font-size: 0;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.mileage-box-list:after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    margin-left: 20px;
+    margin-right: 20px;
+    bottom: 0;
+    font-size: 0;
+    border-bottom: 1px solid #e2e2e2;
+    width: 95%;
+}
+
+.mileage-box-list th {
+	text-align: left;
+}
+
+.mileage-box-list td {
+    width: 25%;
+    vertical-align: top;
+    padding-left: 20px;
+    padding-right: 20px;
+    min-height: 45px;
+    border-left: 1px solid #eee;
+}
+
+.mileage-box-list td:first-child {
+    border-left-style: none;
+}
+
+.mileage-box__arai-block,
+.mileage-box__users-block {
+    padding-left: 55px;
+}
+
+.mileage-box__subtitle {
+    margin-bottom: 5px;
+    margin-right: 5px;
+    font-size: 11px;
+    color: #787878;
+}
+
+.mileage-box__arai-block {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41B4C4/arai-40x40.png') no-repeat left;
+}
+
+.mileage-box__users-block {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41B4C4/users-36x24.png') no-repeat left;
+}
+
+.mileage-box__desc {
+    color: #787878;
+    font-size: 12px;
+}
+
+.mileage-box__better-block .mileage-box__desc {
+    width: 57%;
+}
+
+.users-icon {
+    height: 28px;
+}
+
+.grey-scooter-icon {
+    display: inline-block;
+    vertical-align: middle;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/82888b/scooter-36x23.png') no-repeat;
+    width: 36px;
+    height: 23px;
+}
+
+.grey-bike-icon {
+	display: inline-block;
+	vertical-align: middle;
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/82888b/bike-36x20.png') no-repeat;
+	width: 36px;
+	height: 20px;
+}
+
+/* Model mileage carousel */
+.model-mileage-carousel .model-jcarousel-image-preview {
+    padding: 15px 15px 0 15px;
+    text-align: left;
+    height: 110px;
+}
+.model-mileage-carousel .model-jcarousel-image-preview img {
+    height: auto;
+    width: 199px;
+    max-width: 100%;
+}
+.text-teal {
+    color: #3799A7;
+}

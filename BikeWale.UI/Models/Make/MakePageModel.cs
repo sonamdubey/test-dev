@@ -73,6 +73,8 @@ namespace Bikewale.Models
         /// Description : Replaced call to method 'GetMostPopularBikesByMake' with 'GetMostPopularBikesByMakeWithCityPrice' to get city price when city is selected.
         /// Modified by : Vivek Singh Tomar on 11th Oct 2017
         /// Summary : Removed unnecessary arguments from BindDealerSserviceData which was required for fetchin service center details
+        /// Modified by sajal Gupta on 06-11-2017
+        /// Descriptition :  Chaged default sorting of bikes on page for particuaklar makes
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
         /// </summary>
@@ -118,11 +120,22 @@ namespace Bikewale.Models
                 objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
                 BikeMakeEntityBase makeBase = _bikeMakesCache.GetMakeDetails(_makeId);
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription(_makeId);
+                objData.SelectedSortingId = 0;
+                objData.SelectedSortingText = "Price: Low to High";
+
                 if (makeBase != null)
                 {
                     objData.MakeMaskingName = makeBase.MaskingName;
                     objData.MakeName = makeBase.MakeName;
                 }
+
+                if (!string.IsNullOrEmpty(BWConfiguration.Instance.PopularityOrderForMake) && BWConfiguration.Instance.PopularityOrderForMake.Split(',').Contains(_makeId.ToString()))
+                {
+                    objData.Bikes = objData.Bikes.OrderBy(x => x.BikePopularityIndex);
+                    objData.SelectedSortingId = 1;
+                    objData.SelectedSortingText = "Popular";
+                }
+
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindUpcomingBikes(objData);
                 BindCompareBikes(objData, CompareSource, cityId);
@@ -131,6 +144,8 @@ namespace Bikewale.Models
                 objData.UsedModels = BindUsedBikeByModel(_makeId, cityId);
                 BindDiscontinuedBikes(objData);
                 BindOtherMakes(objData);
+
+
                 #region Set Visible flags
 
                 if (objData != null)
@@ -337,7 +352,7 @@ namespace Bikewale.Models
 
                 CheckCustomPageMetas(objData, objMakeBase);
 
-                SetPageJSONLDSchema(objData);
+                SetPageJSONLDSchema(objData, objMakeBase);
             }
             catch (Exception ex)
             {
@@ -347,16 +362,24 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Created By  : Sushil Kumar on 6th Nov Sep 2017
         /// Description : Added breadcrum and webpage schema and added brand schema
         /// </summary>
-        private void SetPageJSONLDSchema(MakePageVM objPageMeta)
+        private void SetPageJSONLDSchema(MakePageVM objPageMeta, BikeMakeEntityBase objMakeBase)
         {
-            //set webpage schema for the model page
             WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
 
             if (webpage != null)
             {
+                if (objMakeBase != null)
+                {
+                    Brand brand = new Brand();
+                    brand.Logo = Image.GetPathToShowImages(objMakeBase.LogoUrl, objMakeBase.HostUrl, "0x0");
+                    brand.Url = string.Format("{0}/{1}-bikes/", BWConfiguration.Instance.BwHostUrl, objMakeBase.MaskingName);
+                    brand.Name = objMakeBase.MakeName;
+                    brand.Description = objPageMeta.BikeDescription != null ? objPageMeta.BikeDescription.SmallDescription : objPageMeta.PageMetaTags.Description;
+                    objPageMeta.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(brand);
+                }
                 objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
             }
         }

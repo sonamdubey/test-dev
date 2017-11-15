@@ -10,7 +10,7 @@ namespace Bikewale.Entities.Compare
         [DataMember]
         public CompareMainCategory CompareReviews { get; set; }
         [DataMember]
-        public IEnumerable<MostHelpfulReviewObject> MostHelpfulReviews { get; set; }
+        public IEnumerable<ReviewObject> MostRecentReviews { get; set; }
         [DataMember]
         public IEnumerable<UserReviewComparisonObject> OverallRating { get; set; }
     }
