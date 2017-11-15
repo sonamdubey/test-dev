@@ -36,6 +36,7 @@ namespace Bikewale.Controllers
         {
             NewBikeSearchModel model = new NewBikeSearchModel(Request, _articles, _videos, _makes, _searchResult, _processFilter, PQSourceEnum.Desktop_NewBikeSearch);
             model.PageSize = 30;
+            model.BaseUrl = "/new/bike-search/";
             return View(model.GetData());
         }
 
@@ -44,6 +45,8 @@ namespace Bikewale.Controllers
         {
             NewBikeSearchModel model = new NewBikeSearchModel(Request, _articles, _videos, _makes, _searchResult, _processFilter, PQSourceEnum.Mobile_NewBikeSearch);
             model.PageSize = 30;
+            model.IsMobile = true;
+            model.BaseUrl = "/m/new/bike-search/";
             return View(model.GetData());
         }
     }
