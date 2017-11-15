@@ -188,6 +188,7 @@ namespace Bikewale.Controllers
             PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo,  _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
+				model.IsMobile = true;
                 model.BikeInfoTabCount = 3;
                 model.NearestCityCount = 8;
                 model.TopCount = 9;
