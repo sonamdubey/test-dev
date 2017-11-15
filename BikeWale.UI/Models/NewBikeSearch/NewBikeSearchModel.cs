@@ -1,4 +1,7 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System;
+using System.Linq;
+using System.Web;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -7,9 +10,6 @@ using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Newtonsoft.Json;
-using System;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models.NewBikeSearch
 {
@@ -20,7 +20,7 @@ namespace Bikewale.Models.NewBikeSearch
     /// </summary>
     public class NewBikeSearchModel
     {
-        private string _modelIdList = string.Empty;
+        private readonly string _modelIdList = string.Empty;
         public uint EditorialTopCount { get; set; }
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
@@ -43,15 +43,18 @@ namespace Bikewale.Models.NewBikeSearch
         public NewBikeSearchVM GetData()
         {
             NewBikeSearchVM viewModel = new NewBikeSearchVM();
-            viewModel.PqSource = _pqSource;
             viewModel.BikeSearch = BindBikes();
-            BindEditorialWidget(viewModel);
-            BindPageMetas(viewModel.PageMetaTags);
-            viewModel.News = new RecentNews(5, 0, _modelIdList, _articles).GetData();
-            viewModel.Videos = new RecentVideos(1, 5, _videos).GetData();
-            viewModel.ExpertReviews = new RecentExpertReviews(5, _articles).GetData();
-            SetFlags(viewModel);
-            BindBrands(viewModel);
+            if(viewModel.BikeSearch != null)
+            {
+                viewModel.BikeSearch.PqSource = _pqSource;
+                BindEditorialWidget(viewModel);
+                BindPageMetas(viewModel.PageMetaTags);
+                viewModel.News = new RecentNews(5, 0, _modelIdList, _articles).GetData();
+                viewModel.Videos = new RecentVideos(1, 5, _videos).GetData();
+                viewModel.ExpertReviews = new RecentExpertReviews(5, _articles).GetData();
+                SetFlags(viewModel);
+                BindBrands(viewModel);
+            }
             return viewModel;
         }
 
@@ -61,6 +64,8 @@ namespace Bikewale.Models.NewBikeSearch
             InputBaseEntity input = MapQueryString(_queryString);
             if (null != input)
             {
+                //To be changed later
+                input.PageSize = "30";
                 FilterInput filterInputs = _processFilter.ProcessFilters(input);
                 objResult = _searchResult.GetSearchResult(filterInputs, input);
             }

@@ -1,7 +1,6 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using System.Collections.Generic;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
-using Bikewale.Entities.PriceQuote;
-using System.Collections.Generic;
 
 
 namespace Bikewale.Models.NewBikeSearch
@@ -23,6 +22,5 @@ namespace Bikewale.Models.NewBikeSearch
         public bool IsNewsActive { get; set; }
         public bool IsExpertReviewActive { get; set; }
         public bool IsVideoActive { get; set; }
-        public PQSourceEnum PqSource { get; set; }
     }
 }

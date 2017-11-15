@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Bikewale.DTO.NewBikeSearch
 {
@@ -15,6 +15,8 @@ namespace Bikewale.DTO.NewBikeSearch
         public int TotalCount { get; set; }
 
         [JsonProperty("curPageNo")]
-        public int CurrentPageNo { get; set; } 
+        public int CurrentPageNo { get; set; }
+        [JsonProperty ("pqSource")]
+        public int PqSource { get; set; }
     }
 }
