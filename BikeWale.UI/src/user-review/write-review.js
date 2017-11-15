@@ -31,7 +31,7 @@ function initKoSlider() {
         update: function (element, valueAccessor) {
             var value = ko.utils.unwrapObservable(valueAccessor());
             if (value) {
-                $(element).slider(value.length ? "values" : "value", value);
+                $(element).slider(value);
                 $(element).change();
             }
 
@@ -59,6 +59,7 @@ function initKoSlider() {
 
 // rate bike
 var rateBike = function () {
+
     var self = this;
 
     self.ratingCount = ko.observable(0);
@@ -76,13 +77,9 @@ var rateBike = function () {
     self.ratingQuestions = ko.observableArray(ratingQuestion);
 
     self.clickEventRatingCount = ko.observable(0);
+    self.userName = ko.observable(userNameField.val());
+    self.emailId = ko.observable(userEmailIdField.val());
 
-    self.userName = ko.observable($('#txtUserName').val());
-    self.emailId = ko.observable($('#txtEmailID').val());
-
-
-    userNameField = $('#txtUserName');
-    userEmailIdField = $('#txtEmailID');
     if (document.getElementById("rate-bike-form") != null && document.getElementById("rate-bike-form").getAttribute("data-value")) {
         validate.setError(userEmailIdField, 'Please enter an authorised email ID to continue.');
     }
@@ -125,7 +122,21 @@ var rateBike = function () {
             ratingBox.find('.answer-star-list input[type=radio][value="' + reviewOverallRatingId + '"]').trigger("click");
         }
 
+        userNameField.on("focus", function () {
+            validate.onFocus($(this));
+        });
 
+        userEmailIdField.on("focus", function () {
+            validate.onFocus($(this));
+        });
+
+        userNameField.on("blur", function () {
+            validate.onBlur($(this));
+        });
+
+        userEmailIdField.on("blur", function () {
+            validate.onBlur($(this));
+        });
 
     };
 
@@ -651,7 +662,172 @@ docReady(function () {
     bwcache.setScope('ReviewPage');
     window.history.pushState('ReviewPage', '', '');
     ratingBox = $('#bike-rating-box');
+    descReviewField = $('#reviewDesc');
+    reviewTitleField = $('#getReviewTitle');
+    userNameField = $('#txtUserName');
+    userEmailIdField = $('#txtEmailID');
+
     initKoSlider();
+
+
+    if ($('#review-question-list') && $('#review-question-list').text())
+        reviewQuestion = JSON.parse($('#review-question-list').text());
+
+
+    if ($("#overallratingQuestion") && $("#overallratingQuestion").length)
+        bikeRating.overallRating = JSON.parse(Base64.decode($('#overallratingQuestion').val()));
+
+    if ($("#rating-question") && $("#rating-question").length)
+        ratingQuestion = JSON.parse(Base64.decode($('#rating-question').val()));
+
+    if ($('#reviewedoverallrating') && $('#reviewedoverallrating').length)
+        reviewOverallRatingId = Number($('#reviewedoverallrating').val());
+
+    if ($('#overAllRatings') && $('#overAllRatings').length)
+        ratingOverAll = Number($('#overAllRatings').val());
+
+    if ($('#pageSourceId') && $('#pageSourceId').length)
+        pageSourceID = Number($('#pageSourceId').val());
+
+    if ($('#contestSrc') && $('#contestSrc').length)
+        contentSourceId = Number($('#contestSrc').val());
+
+
+    if (ratingBox != null && ratingBox.attr("data-make-model")) {
+        makeModelName = ratingBox.attr("data-make-model");
+    }
+
+    if (document.getElementById("bike-review-questions") != null && document.getElementById("bike-review-questions").getAttribute("data-make-model")) {
+        makeModelName = document.getElementById("bike-review-questions").getAttribute("data-make-model");
+    }
+
+    if ($("#reviewDesc") && $("#reviewDesc").data("validate") && $("#reviewDesc").data("validate").length)
+        vmWriteReview.validate.detailedReview();
+
+    if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length) {
+
+        vmWriteReview.validate.reviewTitle();
+    }
+
+   
+
+    rateBikeForm = document.getElementById('rate-bike-form');
+
+    if (rateBikeForm) {
+        vmRateBike = new rateBike();
+        ko.applyBindings(vmRateBike, rateBikeForm);
+        vmRateBike.init();
+    }
+
+    ratingBox.find('.answer-star-list input[type=radio]').change(function () {
+        if (vmRateBike)
+        {
+            var button = $(this),
+           buttonValue = Number(button.val());
+
+            var headingText = vmRateBike.overallRating()[buttonValue - 1].heading,
+                descText = vmRateBike.overallRating()[buttonValue - 1].description; // since value starts from 1 and array from 0
+
+            vmRateBike.feedbackTitle(headingText);
+            vmRateBike.feedbackSubtitle(descText);
+            vmRateBike.ratingCount(buttonValue);
+            vmRateBike.clickEventRatingCount(buttonValue);
+            triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue + '_' + contentSourceId);
+        }       
+
+    });
+    var selRating = ratingBox.attr("data-selectedrating");
+    if (selRating > 0) {
+        ratingBox.find('.answer-star-list input[type=radio][value="' + selRating + '"]').trigger("click");
+    }
+
+    $('#rate-bike-questions').find('.question-type-text input[type=radio]').change(function () {
+        var questionField = $(this).closest('.question-type-text'),
+            subQuestionId = Number(questionField.attr('data-sub-question'));
+
+        questionField.find('.error-text').slideUp();
+
+        if (subQuestionId > 0) {
+            var buttonValue = Number($(this).val()),
+                subQuestionField = $('#question-' + subQuestionId);
+
+            if (buttonValue == 1) {
+                subQuestionField.slideUp();
+                subQuestionField.removeAttr('data-required');
+            }
+            else {
+                subQuestionField.find('.error-text').slideUp();
+                subQuestionField.slideDown();
+                subQuestionField.attr('data-required', true);
+            }
+        }
+    });
+
+    bikeRatingBox = {
+        setFeedback: function (element) {
+            var count = Number($(element).attr('data-value'));
+
+            vmRateBike.ratingCount(count);
+            vmRateBike.feedbackTitle(vmRateBike.overallRating()[count - 1].heading);
+            vmRateBike.validateRatingCountFlag(false);
+
+            if (vmRateBike.clickEventRatingCount() > 0) {
+                vmRateBike.feedbackSubtitle(vmRateBike.overallRating()[count - 1].description);
+            }
+        },
+
+        resetFeedback: function () {
+            if (!vmRateBike.clickEventRatingCount()) {
+                vmRateBike.ratingCount(0);
+                vmRateBike.feedbackTitle('');
+            }
+            else {
+                vmRateBike.ratingCount(vmRateBike.clickEventRatingCount());
+                vmRateBike.feedbackTitle(vmRateBike.overallRating()[vmRateBike.clickEventRatingCount() - 1].heading);
+                vmRateBike.feedbackSubtitle(vmRateBike.overallRating()[vmRateBike.clickEventRatingCount() - 1].description);
+            }
+        }
+    }
+    // write review
+     writeReviewForm = document.getElementById('write-review-form');
+     if (writeReviewForm) {
+         vmWriteReview = new writeReview();
+        ko.applyBindings(vmWriteReview, writeReviewForm);
+        descReviewField.focus();
+        vmWriteReview.GetFromBwCache();
+        vmWriteReview.FillReviewData();
+    }
+
+    $('#bike-review-questions').find('.question-type-star input[type=radio]').change(function () {
+        var button = $(this),
+            questionField = button.closest('.question-type-star');
+
+        var feedbackText = vmWriteReview.reviewQuestions()[questionField.index()].rating[button.val() - 1].ratingText;
+        questionField.find('.feedback-text').text(feedbackText);
+    });
+
+    descReviewField.on('focus', function () {
+        vmWriteReview.detailedReviewFlag(false);
+        triggerGA('Write_Review', 'Write_a_Review', makeModelName + ratingOverAll + '_' + pageSourceID);
+
+    });
+
+    reviewTitleField.on("focus", function () {
+        validate.onFocus($(this));
+        triggerGA('Write_Review', 'Review_Title', makeModelName + ratingOverAll + '_' + pageSourceID);
+
+    });
+
+    reviewTitleField.on("blur", function () {
+        validate.onBlur($(this));
+    });
+
+    $('#bike-review-questions').find('.question-type-star label').on('mouseover', function () {
+        question.setFeedback($(this));
+    }).on('mouseout', function () {
+        question.resetFeedback($(this));
+    });
+
 
     //rating-face
     $('.other-review__button-block').on('click', function () {
@@ -699,182 +875,6 @@ docReady(function () {
 
     });
 
-    if ($('#review-question-list') && $('#review-question-list').text())
-        reviewQuestion = JSON.parse($('#review-question-list').text());
-
-
-    if ($("#overallratingQuestion") && $("#overallratingQuestion").length)
-        bikeRating.overallRating = JSON.parse(Base64.decode($('#overallratingQuestion').val()));
-
-    if ($("#rating-question") && $("#rating-question").length)
-        ratingQuestion = JSON.parse(Base64.decode($('#rating-question').val()));
-
-    if ($('#reviewedoverallrating') && $('#reviewedoverallrating').length)
-        reviewOverallRatingId = Number($('#reviewedoverallrating').val());
-
-    if ($('#overAllRatings') && $('#overAllRatings').length)
-        ratingOverAll = Number($('#overAllRatings').val());
-
-    if ($('#pageSourceId') && $('#pageSourceId').length)
-        pageSourceID = Number($('#pageSourceId').val());
-
-    if ($('#contestSrc') && $('#contestSrc').length)
-        contentSourceId = Number($('#contestSrc').val());
-
-
-    if (ratingBox != null && ratingBox.attr("data-make-model")) {
-        makeModelName = ratingBox.attr("data-make-model");
-    }
-    if (document.getElementById("bike-review-questions") != null && document.getElementById("bike-review-questions").getAttribute("data-make-model")) {
-        makeModelName = document.getElementById("bike-review-questions").getAttribute("data-make-model");
-    }
-   
-
-
-    rateBikeForm = document.getElementById('rate-bike-form');
-
-    if (rateBikeForm) {
-        vmRateBike = new rateBike();
-        ko.applyBindings(vmRateBike, rateBikeForm);
-        vmRateBike.init();
-    }
-
-    ratingBox.find('.answer-star-list input[type=radio]').change(function () {
-        var button = $(this),
-            buttonValue = Number(button.val());
-
-        var headingText = vmRateBike.overallRating()[buttonValue - 1].heading,
-            descText = vmRateBike.overallRating()[buttonValue - 1].description; // since value starts from 1 and array from 0
-
-        vmRateBike.feedbackTitle(headingText);
-        vmRateBike.feedbackSubtitle(descText);
-        vmRateBike.ratingCount(buttonValue);
-        vmRateBike.clickEventRatingCount(buttonValue);
-        triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue + '_' + contentSourceId);
-
-    });
-    var selRating = ratingBox.attr("data-selectedrating");
-    if (selRating > 0) {
-        ratingBox.find('.answer-star-list input[type=radio][value="' + selRating + '"]').trigger("click");
-    }
-
-    $('#rate-bike-questions').find('.question-type-text input[type=radio]').change(function () {
-        var questionField = $(this).closest('.question-type-text'),
-            subQuestionId = Number(questionField.attr('data-sub-question'));
-
-        questionField.find('.error-text').slideUp();
-
-        if (subQuestionId > 0) {
-            var buttonValue = Number($(this).val()),
-                subQuestionField = $('#question-' + subQuestionId);
-
-            if (buttonValue == 1) {
-                subQuestionField.slideUp();
-                subQuestionField.removeAttr('data-required');
-            }
-            else {
-                subQuestionField.find('.error-text').slideUp();
-                subQuestionField.slideDown();
-                subQuestionField.attr('data-required', true);
-            }
-        }
-    });
-
-    userNameField.on("focus", function () {
-        validate.onFocus($(this));
-    });
-
-    userEmailIdField.on("focus", function () {
-        validate.onFocus($(this));
-    });
-
-    userNameField.on("blur", function () {
-        validate.onBlur($(this));
-    });
-
-    userEmailIdField.on("blur", function () {
-        validate.onBlur($(this));
-    });
-
-    bikeRatingBox = {
-        setFeedback: function (element) {
-            var count = Number($(element).attr('data-value'));
-
-            vmRateBike.ratingCount(count);
-            vmRateBike.feedbackTitle(vmRateBike.overallRating()[count - 1].heading);
-            vmRateBike.validateRatingCountFlag(false);
-
-            if (vmRateBike.clickEventRatingCount() > 0) {
-                vmRateBike.feedbackSubtitle(vmRateBike.overallRating()[count - 1].description);
-            }
-        },
-
-        resetFeedback: function () {
-            if (!vmRateBike.clickEventRatingCount()) {
-                vmRateBike.ratingCount(0);
-                vmRateBike.feedbackTitle('');
-            }
-            else {
-                vmRateBike.ratingCount(vmRateBike.clickEventRatingCount());
-                vmRateBike.feedbackTitle(vmRateBike.overallRating()[vmRateBike.clickEventRatingCount() - 1].heading);
-                vmRateBike.feedbackSubtitle(vmRateBike.overallRating()[vmRateBike.clickEventRatingCount() - 1].description);
-            }
-        }
-    }
-
-    descReviewField = $('#reviewDesc');
-    reviewTitleField = $('#getReviewTitle');
-
-    // write review
-     writeReviewForm = document.getElementById('write-review-form');
-     if (writeReviewForm) {
-         vmWriteReview = new writeReview();
-        ko.applyBindings(vmWriteReview, writeReviewForm);
-        descReviewField.focus();
-    }
-
-    $('#bike-review-questions').find('.question-type-star input[type=radio]').change(function () {
-        var button = $(this),
-            questionField = button.closest('.question-type-star');
-
-        var feedbackText = vmWriteReview.reviewQuestions()[questionField.index()].rating[button.val() - 1].ratingText;
-        questionField.find('.feedback-text').text(feedbackText);
-    });
-
-    descReviewField.on('focus', function () {
-        vmWriteReview.detailedReviewFlag(false);
-        triggerGA('Write_Review', 'Write_a_Review', makeModelName + ratingOverAll + '_' + pageSourceID);
-
-    });
-
-    reviewTitleField.on("focus", function () {
-        validate.onFocus($(this));
-        triggerGA('Write_Review', 'Review_Title', makeModelName + ratingOverAll + '_' + pageSourceID);
-
-    });
-
-    reviewTitleField.on("blur", function () {
-        validate.onBlur($(this));
-    });
-
-    $('#bike-review-questions').find('.question-type-star label').on('mouseover', function () {
-        question.setFeedback($(this));
-    }).on('mouseout', function () {
-        question.resetFeedback($(this));
-    });
-
-
-    if ($("#reviewDesc") && $("#reviewDesc").data("validate") && $("#reviewDesc").data("validate").length)
-        vmWriteReview.validate.detailedReview();
-
-    if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length) {
-
-        vmWriteReview.validate.reviewTitle();
-    }
-
-
-    vmWriteReview.GetFromBwCache();
-    vmWriteReview.FillReviewData();
     window.onbeforeunload = function () {
         if ((!isSubmit && $("#bike-rating-box input[type='radio']:checked").attr("value") != null))
             return false;
