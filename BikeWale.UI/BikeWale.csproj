@@ -2968,15 +2968,24 @@
     <Content Include="m\sass\modules\_key-specs.sass" />
     <Content Include="m\sass\modules\_button.sass" />
     <Content Include="m\sass\new-launch\_media-query.sass" />
+    <Content Include="pwa\app.bundle.297b239de7cd2d419342.js" />
     <Content Include="pwa\app.bundle.js" />
     <Content Include="pwa\appshell.html" />
+    <Content Include="pwa\css\app.297b239de7cd2d419342.css" />
+    <Content Include="pwa\css\news\newsBundle.297b239de7cd2d419342.css" />
+    <Content Include="pwa\css\videos\videosBundle.297b239de7cd2d419342.css" />
+    <Content Include="pwa\manifest.bundle.297b239de7cd2d419342.js" />
     <Content Include="pwa\manifest.bundle.js" />
+    <Content Include="pwa\newsBundle.bundle.297b239de7cd2d419342.js" />
     <Content Include="pwa\NewsBundle.bundle.js" />
     <Content Include="pwa\app.bundle.js" />
     <Content Include="pwa\app.css" />
+    <Content Include="pwa\peripheralComponents.bundle.297b239de7cd2d419342.js" />
     <Content Include="pwa\peripheralComponents.bundle.js" />
     <Content Include="pwa\sw-toolbox.js" />
+    <Content Include="pwa\vendor.bundle.297b239de7cd2d419342.js" />
     <Content Include="pwa\vendor.bundle.js" />
+    <Content Include="pwa\videosBundle.bundle.297b239de7cd2d419342.js" />
     <Content Include="pwa\VideosBundle.bundle.js" />
     <Content Include="pwa\sw-toolbox.js" />
     <Content Include="sass\new-launch\new-launch.sass" />
@@ -3068,6 +3077,9 @@
     <Content Include="sass\review\landing.sass" />
     <Content Include="sass\review\make.sass" />
     <Content Include="sass\m\review\make.sass" />
+    <Content Include="pwa\css\news\newsBundle.297b239de7cd2d419342.css.gz" />
+    <Content Include="pwa\css\videos\videosBundle.297b239de7cd2d419342.css.gz" />
+    <Content Include="pwa\app.bundle.297b239de7cd2d419342.js.gz" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -4073,7 +4085,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>true</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

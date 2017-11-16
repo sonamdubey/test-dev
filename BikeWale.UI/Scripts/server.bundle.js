@@ -2138,8 +2138,7 @@ var Spinner = function Spinner() {
     return _react2.default.createElement(
         "div",
         { className: "loader-content loader-fixed" },
-        _react2.default.createElement("span", { className: "loader" }),
-        "in loader"
+        _react2.default.createElement("span", { className: "loader" })
     );
 };
 
@@ -11410,7 +11409,7 @@ var ExpertReviewsVideoList = function (_React$Component) {
 			var videoUrl = (0, _VideosCommonFunc.formVideoUrl)(video.VideoTitleUrl, video.BasicId);
 			return _react2.default.createElement(
 				'div',
-				{ className: 'carousel-slide reviews-carousel-content' },
+				{ className: 'carousel-slide' },
 				_react2.default.createElement(
 					'div',
 					{ className: 'carousel-card' },
@@ -11433,7 +11432,7 @@ var ExpertReviewsVideoList = function (_React$Component) {
 						{ className: 'card-details-block' },
 						_react2.default.createElement(
 							_reactRouterDom.Link,
-							{ to: videoUrl, className: 'text-default font14 text-bold', onClick: this.onClickVideoUrl.bind(this, video) },
+							{ to: videoUrl, className: 'text-default font14 text-bold text-truncate-2', onClick: this.onClickVideoUrl.bind(this, video) },
 							video.VideoTitle
 						),
 						_react2.default.createElement(
@@ -11443,7 +11442,7 @@ var ExpertReviewsVideoList = function (_React$Component) {
 						),
 						_react2.default.createElement(
 							'p',
-							{ className: 'font14 text-light-grey margin-bottom10 line-height17 wrap-text' },
+							{ className: 'font14 text-light-grey margin-bottom10 line-height17 wrap-text text-truncate-2' },
 							!video.ShortDescription ? video.Description : video.ShortDescription
 						),
 						_react2.default.createElement(
@@ -11488,7 +11487,7 @@ var ExpertReviewsVideoList = function (_React$Component) {
 					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'carousel-wrapper carousel-type-expert-review' },
+						{ className: 'carousel-wrapper carousel-type-video' },
 						this.props.VideoListData.Videos.map(function (video) {
 							return this.renderVideoItem(video);
 						}.bind(this))
@@ -12146,7 +12145,7 @@ var VideoCarouselByCategory = function (_React$Component) {
 							{ className: 'card-details-block' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'card-list-title' },
+								{ className: 'card-list-title text-truncate-2' },
 								video.VideoTitle
 							),
 							_react2.default.createElement(
@@ -12202,7 +12201,7 @@ var VideoCarouselByCategory = function (_React$Component) {
 					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'carousel-wrapper' },
+						{ className: 'carousel-wrapper carousel-type-video' },
 						this.props.VideoListData.Videos.map(function (video) {
 							return this.renderVideoItem(video);
 						}.bind(this))
@@ -12360,7 +12359,7 @@ var VideoDetail = function (_React$Component) {
 						),
 						_react2.default.createElement(
 							'div',
-							{ className: 'padding20 border-solid-bottom video-detail' },
+							{ className: 'border-solid-bottom video-detail' },
 							_react2.default.createElement(
 								'h1',
 								{ className: 'font18' },
@@ -12897,12 +12896,12 @@ var VideoModelSlug = function (_React$Component) {
 					),
 					_react2.default.createElement(
 						'a',
-						{ href: model.ModelDetailUrl, title: model.ModelName, className: 'btn btn-white btn-180-34  margin-bottom15' },
+						{ href: model.ModelDetailUrl, title: model.ModelName, className: 'btn btn-white btn-180-34 margin-bottom15' },
 						'View model details ',
 						_react2.default.createElement('span', { className: 'bwmsprite btn-red-arrow' })
 					),
 					this.renderMoreDetailsList(),
-					_react2.default.createElement('div', { classNameName: 'clear' }),
+					_react2.default.createElement('div', { className: 'clear' }),
 					this.renderUsedBikesLink(model, model.UsedBikesLink)
 				)
 			);
