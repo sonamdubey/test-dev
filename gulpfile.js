@@ -7,7 +7,8 @@ var gulp = require('gulp'),
 	gulpSequence = require('gulp-sequence'),
 	fs = require('fs'),
 	replace = require('gulp-replace'),
-	fsCache = require('gulp-fs-cache')
+	fsCache = require('gulp-fs-cache'),
+	rev = require('gulp-rev');
 
 var app = 'BikeWale.UI/',
 	buildFolder = app + 'build/',
@@ -178,23 +179,64 @@ gulp.task('replacePWAJsVersions' , function() {
 		app + 'Views/News/Detail_Mobile.cshtml',
 		app + 'pwa/appshell.html',
 		app + 'Views/Videos/Index_Mobile_Pwa.cshtml',
-		app + 'Views/Videos/Details_Mobile_Pwa.cshtml'], { base: app })
-		.pipe(replace(/\/pwa\/.*.bundle.js/g, function(match, p1, offset, string) {
-			console.log('replacing '+match+ ' with ' + replaceJson[match]);
+		app + 'Views/Videos/Details_Mobile_Pwa.cshtml',
+		app + 'Views/Videos/CategoryVideos_Mobile_Pwa.cshtml'
+		], { base: app })
+		.pipe(replace(/\/pwa\/(vendor|manifest|app).bundle.js/g, function(match, p1, offset, string) { //replace js urls with hashcode
 			return replaceJson[match];
 	    }))
-	    .pipe(replace(pattern.CSS_ATF, function (s, fileName) {
-			var style = fs.readFileSync(minifiedAssetsFolder + fileName, 'utf-8'),
+	    .pipe(replace(pattern.CSS_ATF, function (s, fileName) { // replace inline css
+	    	var regex = /\/pwa\/css\/(.*\/)?(.*).css/;
+			var matches = regex.exec(fileName);
+			if(!matches || !matches[2]) {
+				console.log('Could not find filename from '+fileName);
+				return;
+			}
+			var cssNameWithHash = cssChunksJson[matches[2]];
+			regex = /\/pwa\/css\/.*\.(.*)\.css/;
+			matches = regex.exec(cssNameWithHash);
+			if(!matches || !matches[1]) {
+				console.log('Could not extract chunk hash for '+fileName);
+				return;
+			}
+			var fileName = fileName.replace('.css','.'+matches[1]+'.css');
+			var style = fs.readFileSync(app + fileName, 'utf-8'),
 				style = style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "").replace(/[@]{1}/g, "@@"),
 				styleTag = "<style type='text/css'>" + style + "</style>";
-
 			return styleTag;
 		}))
-		.pipe(replace(regexCssChunks,function(match, p1, offset, string) {
+		.pipe(replace(regexCssChunks,function(match, p1, offset, string) { // replace ccs chunks
 			return cssChunksTag;
 	    }))
-	    .pipe(gulp.dest(buildFolder))
+	    .pipe(gulp.dest('BikeWale.UI/build/'))
 })
+
+gulp.task('appshellHashing', ['replacePWAJsVersions'] , function() {
+	return gulp.src([buildFolder+'pwa/appshell.html'] , { base : buildFolder})
+		.pipe(rev())
+		.pipe(gulp.dest(buildFolder))
+		.pipe(rev.manifest({
+			base: process.cwd(),
+			merge : true
+		}))
+		.pipe(gulp.dest(buildFolder))
+})
+
+gulp.task("replaceAppshellInSW", ['replacePWAJsVersions' , 'appshellHashing'] , function() {
+	var revManifest = require('./'+buildFolder+'rev-manifest.json');
+	var appshellVersion = revManifest['pwa/appshell.html'];
+	if(!appshellVersion) {
+		console.log('No version available for appshell.html');
+		return;
+	}
+    return gulp.src([app + 'm/sw.js',
+    				app + 'm/news/sw.js'] , { base: app })
+        .pipe(replace(/pwa\/appshell.html/g , function(match, p1, offset, string){ //	/pwa\/appshell.html/
+        	return appshellVersion;
+        }))
+        .pipe(gulp.dest(app));
+});
+
 
 // replace desktop frameworks js, ie8 fix
 gulp.task('bw-framework-js', function () {
@@ -233,7 +275,9 @@ gulp.task('default',
 		'replace-css-reference',
 		'replace-css-link-reference',
 		// 'replace-mvc-layout-css-reference'//,
-		'replacePWAJsVersions'
+		'replacePWAJsVersions',
+		'appshellHashing',
+		'replaceAppshellInSW'
 	)
 );
 //end

@@ -1,23 +1,23 @@
 {
   "videosBundle": {
-    "js": "/pwa/videosBundle.bundle.js",
-    "css": "/pwa/css/video/video.css"
+    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/videosBundle.bundle.297b239de7cd2d419342.js",
+    "css": "https://stb.aeplcdn.com/staging/bikewale/pwa/css/videos/videosBundle.297b239de7cd2d419342.css"
   },
   "newsBundle": {
-    "js": "/pwa/newsBundle.bundle.js",
-    "css": "/pwa/css/news/news.css"
+    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/newsBundle.bundle.297b239de7cd2d419342.js",
+    "css": "https://stb.aeplcdn.com/staging/bikewale/pwa/css/news/newsBundle.297b239de7cd2d419342.css"
   },
   "peripheralComponents": {
-    "js": "/pwa/peripheralComponents.bundle.js"
+    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/peripheralComponents.bundle.297b239de7cd2d419342.js"
   },
   "vendor": {
-    "js": "/pwa/vendor.bundle.js"
+    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/vendor.bundle.297b239de7cd2d419342.js"
   },
   "app": {
-    "js": "/pwa/app.bundle.js",
-    "css": "/pwa/css/app.css"
+    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/app.bundle.297b239de7cd2d419342.js",
+    "css": "https://stb.aeplcdn.com/staging/bikewale/pwa/css/app.297b239de7cd2d419342.css"
   },
   "manifest": {
-    "js": "/pwa/manifest.bundle.js"
+    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/manifest.bundle.297b239de7cd2d419342.js"
   }
 }

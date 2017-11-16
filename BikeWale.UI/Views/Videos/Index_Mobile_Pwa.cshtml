@@ -2,18 +2,12 @@
 
     <!DOCTYPE html>
     @{
-        var StaticUrlPWA = Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA;
         var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
-
-
-        var ManifestJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/manifest.bundle.js";
-        var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/vendor.bundle.js";
-        var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/app.bundle.js";
+        var ManifestJsUrl = "/pwa/manifest.bundle.js";
+        var VendorJsUrl = "/pwa/vendor.bundle.js";
+        var AppJsUrl = "/pwa/app.bundle.js";
         var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
-        var VideoBundleJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/videosBundle.bundle.js";
-        //var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/vendor.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion;
-        //var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/app.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion;
-        //var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
+        
     }
         <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
         <head>
@@ -86,16 +80,17 @@
 
             </script>
             <link rel='stylesheet' type='text/css' href='/pwa/css/app.css' atf-css />
-            <link rel='stylesheet' type='text/css' href='/pwa/css/videos/video.css' atf-css />
+            <link rel='stylesheet' type='text/css' href='/pwa/css/videos/videosBundle.css' atf-css />
             <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
             <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
-            <script>window.__CSS_CHUNKS__ = { "app": "/pwa/css/app.css", "newsBundle": "/pwa/css/news/news.css", "videosBundle": "/pwa/css/videos/video.css" }</script>
-            <script defer type="text/javascript">
+            <script>window.__CSS_CHUNKS__ = { "app": "/pwa/css/app.css", "newsBundle": "/pwa/css/news/newsBundle.css", "videosBundle": "/pwa/css/videos/videosBundle.css" }</script>
+            
+            <script type="text/javascript">
                 window.state = @Html.Raw(Model.WindowState);
             </script>
-
+            
             <script defer type="text/javascript">
-                var jsUrls = ['@ManifestJsUrl', '@VendorJsUrl', '@AppJsUrl', '@BwcacheJsUrl','@VideoBundleJsUrl'];
+                var jsUrls = ['@ManifestJsUrl', '@VendorJsUrl', '@AppJsUrl', '@BwcacheJsUrl'];
                 var numberOfJsToLoad = jsUrls.length;
                 function jsLoadedCallback() {
                     try {
@@ -137,20 +132,8 @@
         <body>
            
            @Html.Raw(Model.ServerRouterWrapper)
-            <script type="text/javascript">
-                window.state = @Html.Raw(Model.WindowState);
-            </script>
-            @*<noscript id="asynced-css">
-
-        <link href="@CssBTFUrl" rel="stylesheet" type="text/css" />
             
-            </noscript>*@
-            @*<script>
-    var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
-            </script>*@
-       
-
-       
+            
             @{Html.RenderPartial("/Views/Shared/_ServiceWorkerScript.cshtml");}
 
         </body>

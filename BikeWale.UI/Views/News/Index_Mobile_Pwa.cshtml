@@ -9,18 +9,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     @{
-        var StaticUrlPWA = Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA;
         var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
-
-        var ManifestJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/manifest.bundle.js";
-        var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/vendor.bundle.js";
-        var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "") + "/pwa/app.bundle.js";
+        var ManifestJsUrl = "/pwa/manifest.bundle.js";
+        var VendorJsUrl = "/pwa/vendor.bundle.js";
+        var AppJsUrl = "/pwa/app.bundle.js";
         var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
         
-        //var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/vendor.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion;
-        //var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/app.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion;
-        //var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
-        //var CssBTFUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/m/css/content") + "/app-btf.css?" + Bikewale.Utility.BWConfiguration.Instance.StaticCSSBTFPWAVersion;
     }
 
     @if (Model != null && Model.PageMetaTags != null)
@@ -122,11 +116,14 @@
 
     </script>
     <link rel='stylesheet' type='text/css' href='/pwa/css/app.css' atf-css />
-    <link rel='stylesheet' type='text/css' href='/pwa/css/news/news.css' atf-css />
+    <link rel='stylesheet' type='text/css' href='/pwa/css/news/newsBundle.css' atf-css />
 
     <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
     <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
-    <script>window.__CSS_CHUNKS__ = { "app": "/pwa/css/app.css", "newsBundle": "/pwa/css/news/news.css", "videosBundle": "/pwa/css/videos/video.css" }</script>
+    <script>window.__CSS_CHUNKS__ = { "app": "/pwa/css/app.css", "newsBundle": "/pwa/css/news/newsBundle.css", "videosBundle": "/pwa/css/videos/videosBundle.css" }</script>
+    <script type="text/javascript">
+        window.state = @Html.Raw(Model.WindowState);
+    </script>
     <script>
         var jsUrls = ['@ManifestJsUrl', '@VendorJsUrl', '@AppJsUrl', '@BwcacheJsUrl'];
         var numberOfJsToLoad = jsUrls.length;
@@ -171,11 +168,6 @@
 </head>
 <body>
     @Html.Raw(Model.ServerRouterWrapper)
-    <script type="text/javascript">
-        window.state = @Html.Raw(Model.WindowState);
-    </script>
-
-    
     
     
     <script defer type="text/javascript">
