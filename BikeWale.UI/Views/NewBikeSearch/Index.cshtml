@@ -277,9 +277,7 @@
                 <div class="search-result-container content-box-shadow rounded-corner2">
                     <div class="search-count-container border-solid-bottom padding-top10 padding-bottom10">
                         <div class="leftfloat grid-8 padding-top5">
-                            <!--  ko if: TotalBikes() > 0 -->
-                            <h2><span data-bind="text: TotalBikes() + 'Bikes' " id="bikecount">@Model.BikeSearch.TotalCount Bikes</span></h2>
-                            <!-- /ko -->
+                            <h2><span id="bikecount">@Model.BikeSearch.TotalCount Bikes</span></h2>
                         </div>
                         <div class="rightfloat padding-right10 padding-left30 grid-3">
                             <div class="sort-div rounded-corner2">
@@ -335,7 +333,7 @@
                                                 <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @BWConfiguration.Instance.DefaultName </div>
                                                 <div class="text-bold">
                                                     <span class="bwsprite inr-lg"></span>
-                                                    <span class="font18" data-bind="text: models()[@i].price">@bike.FinalPrice</span><span class="font14 padding-left5">onwards</span>
+                                                    <span class="font18" data-bind="text: models()[@i].price">@bike.FinalPrice</span><span class="font14 padding-left5 @(bike.FinalPrice.Equals("N/A") ? "hide" : "") " data-bind="visible : models()[@i].price != 'N/A'">onwards</span>
                                                 </div>
                                                 <div class="margin-bottom10" @(bike.FinalPrice.Equals("N/A") ? " style=display:none " : "") data-bind="visible : models()[@i].price != 'N/A'">
                                                     <a href="javascript:void(0)" data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : models()[@i].bikemodel.modelId}" data-modelid="@bike.BikeModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
@@ -349,7 +347,7 @@
                             </ul>
                             <!-- /ko -->
 
-                            <ul id="divMoreSearchResult" data-bind="template: { name: 'loadMoreListing', foreach: searchResult()}, attr: {'data-text' : console.log(searchResult())}">
+                            <ul id="divMoreSearchResult" data-bind="template: { name: 'loadMoreListing', foreach: searchResult()}">
                             </ul>
                         </div>
                         <div class="clear"></div>
@@ -392,7 +390,7 @@
                                         <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @BWConfiguration.Instance.DefaultName </div>
                                         <div class="text-bold">
                                             <span class="bwsprite inr-lg"></span>
-                                            <span class="font18" data-bind="text: price"></span><span class="font14 padding-left5">onwards</span>
+                                            <span class="font18" data-bind="text: price"></span><span class="font14 padding-left5" data-bind="visible: {if : price != 'N/A'}">onwards</span>
                                         </div>
                                         <div class="margin-bottom10" data-bind="visible : price != 'N/A'">
                                             <a data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : bikemodel.modelId}" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>

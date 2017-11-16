@@ -131,8 +131,8 @@ docReady(function () {
         var self = this;
         self.IsInitialized = ko.observable(false);
         self.IsLoading = ko.observable(false);
-        self.searchResult = ko.observable();
-        self.Filters = ko.observable({ pageno: 1, pagesize: 30 });
+        self.searchResult = ko.observableArray([]);
+        self.Filters = ko.observable({ pageno: 1, pagesize: 10 });
         self.PreviousQS = ko.observable("");
         self.IsReset = ko.observable(false);
         self.LoadMoreTarget = ko.observable();
@@ -175,20 +175,44 @@ docReady(function () {
             }
         };
 
-        self.bindNextSearchResult = function (json) {
-            var element;
-            element = document.getElementById('divMoreSearchResult');
+        self.setFilters = function (url) {
+            count = 0;
+            var params = url.split('&');
+            for (var index in params) {
+                var pair = params[index].split('=');
+                self.Filters()[pair[0]] = pair[1];
+                var node = $('div[name=' + pair[0] + ']');
+                if (pair[0] !== 'budget') {
+                    var values = pair[1].split('+'),
+                        selText = '';
 
-            //if (self.curPageNo() == 1)
-            //    element = document.getElementById('divSearchResult');
-            //else
-            //    element = document.getElementById('divSearchResult' + self.curPageNo());
+                    for (var j = 0; j < values.length; j++) {
+                        node.find('li[filterid=' + values[j] + ']').addClass('active');
+                        selText += node.find('li[filterid=' + values[j] + ']').text() + ', ';
+                    }
+                    count++;
+                    node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length - 2));
+                } else{
+                    var values = pair[1].split('-');
+                    self.setMaxAmount(values[1]);
+                    self.setMinAmount(values[0]);
+                    count++;
+                }
+            }
+            $('.filter-counter').text(count);
+            self.FirstLoad(false);
+            self.pushState('through-filters');
+            self.init();
+            self.Filters()['pageno'] = 1;
+        };
+
+        self.bindNextSearchResult = function (json) {
 
             if (json.searchResult.length > 0) {
-                self.searchResult(json.searchResult);
+                $.each(json.searchResult, function (index, val) {
+                    self.searchResult.push(val);
+                });
             }
-            else
-                $('#NoBikeResults').show();
         };
 
         self.setMinAmount = function (userMinAmount) {
@@ -262,7 +286,7 @@ docReady(function () {
             try {
                 var qs = "";
                 if (self.IsLoadMore()) {
-                    qs = self.LoadMoreTarget().split('?')[1];
+                    qs = self.LoadMoreTarget().split('?')[1].toLowerCase();
                 } else {
                     for (var param in self.Filters()) {
                         if (self.Filters()[param]) {
@@ -292,8 +316,10 @@ docReady(function () {
                             } else {
                                 self.models(response.searchResult);
                                 self.NewPageNo(0);
+                                self.searchResult([]);
                             }
                             self.TotalBikes(response.totalCount);
+                            $('#bikecount').text(self.TotalBikes() + ' Bikes');
                             self.noBikes(false);
                             self.LoadMoreTarget(response.pageUrl.nextUrl);
                             if (response.pageUrl.nextUrl) {
@@ -463,6 +489,7 @@ docReady(function () {
 
     newBikeSearchVM = new newBikeSearch();
 
+
     $('#loadMoreBikes').click(function (e) {
         if (newBikeSearchVM && !newBikeSearchVM.IsInitialized() ) {
             newBikeSearchVM.init(e);
@@ -477,7 +504,7 @@ docReady(function () {
         var clickedDiv = $(this);
         if (!clickedDiv.hasClass("open")) {
             stateChangeDown(allDiv, clickedDiv);
-            $(".more-filters-container").slideUp();
+            //$(".more-filters-container").slideUp();
             $.sortChangeUp(sortByDiv);
         }
         else {
@@ -852,6 +879,11 @@ docReady(function () {
             newBikeSearchVM.init(e);
         }
     });
+
+    if (window.location.hash) {
+        var url = window.location.hash.replace('#', '');
+        newBikeSearchVM.setFilters(url);
+    }
 });
 
 
