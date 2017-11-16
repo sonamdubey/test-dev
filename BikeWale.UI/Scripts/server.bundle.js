@@ -12600,29 +12600,14 @@ var VideoDetailComponent = function (_React$Component) {
 			    videoTitle = null,
 			    displayDate = null;
 			if (initialData) {
-				try {
-					videoUrl = initialData.VideoUrl;
-					videoTitle = initialData.VideoTitle;
-					displayDate = initialData.DisplayDate;
-				} catch (err) {
-					return _react2.default.createElement(
-						'div',
-						null,
-						'first'
-					);
-				}
+
+				videoUrl = initialData.VideoUrl;
+				videoTitle = initialData.VideoTitle;
+				displayDate = initialData.DisplayDate;
 			} else {
-				try {
-					videoUrl = video.VideoUrl;
-					videoTitle = video.VideoTitle;
-					displayDate = video.DisplayDate;
-				} catch (err) {
-					return _react2.default.createElement(
-						'div',
-						null,
-						video
-					);
-				}
+				videoUrl = video.VideoUrl;
+				videoTitle = video.VideoTitle;
+				displayDate = video.DisplayDate;
 			}
 			var modelInfo = this.props.ModelInfo;
 			var relatedInfo = this.props.RelatedInfo;
@@ -12635,8 +12620,7 @@ var VideoDetailComponent = function (_React$Component) {
 				null,
 				_react2.default.createElement(_VideoDetail2.default, { videoDetail: video, initialData: { videoUrl: videoUrl, videoTitle: videoTitle, displayDate: displayDate } }),
 				(0, _commonFunc.isServer)() || this.props.ModelInfoStatus == _commonVar.Status.Fetched && modelInfo ? _react2.default.createElement(_VideoModelSlug2.default, { modelInfo: modelInfo }) : null,
-				(0, _commonFunc.isServer)() || this.props.RelatedInfoStatus == _commonVar.Status.Fetched && relatedInfo && relatedInfoApi ? _react2.default.createElement(_VideosCarouselComponent2.default, { relatedInfo: relatedInfo, relatedInfoApi: relatedInfoApi }) : null,
-				'}'
+				(0, _commonFunc.isServer)() || this.props.RelatedInfoStatus == _commonVar.Status.Fetched && relatedInfo && relatedInfoApi ? _react2.default.createElement(_VideosCarouselComponent2.default, { relatedInfo: relatedInfo, relatedInfoApi: relatedInfoApi }) : null
 			);
 		}
 	}]);
