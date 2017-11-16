@@ -12,6 +12,7 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Web;
 namespace Bikewale.Models.Features
 {
@@ -35,6 +36,7 @@ namespace Bikewale.Models.Features
         public StatusCodes status;
         public string mappedCWId;
         public string redirectUrl;
+        public bool IsMobile { get; set; }
         public bool IsAMPPage { get; set; }
         #endregion
 
@@ -237,7 +239,9 @@ namespace Bikewale.Models.Features
                 objPage.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objPage.objFeature.Title);
                 objPage.PageMetaTags.Keywords = string.Format("features, stories, travelogues, specials, drives.");
                 objPage.PageMetaTags.ShareImage = Bikewale.Utility.Image.GetPathToShowImages(objPage.objFeature.OriginalImgUrl, objPage.objFeature.HostUrl, ImageSize._640x348);
+                objPage.Page_H1 = objPage.objFeature.Title;
 
+                SetBreadcrumList(objPage);
                 SetPageJSONSchema(objPage);
             }
             catch (Exception ex)
@@ -275,8 +279,50 @@ namespace Bikewale.Models.Features
             };
             objSchema.MainEntityOfPage = new MainEntityOfPage() { PageUrlId = objData.PageMetaTags.CanonicalUrl };
             objSchema.Url = objData.PageMetaTags.CanonicalUrl;
-            objData.PageMetaTags.SchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
+            objData.PageMetaTags.PageSchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
+
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+
         }
+        /// <summary>
+        /// Created By : Snehal Dange on 8th nOV 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(DetailFeatureVM objData)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    url += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+                url += "features/";
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "Features"));
+
+                if (objData.objFeature != null)
+                {
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.objFeature.Title));
+                }
+                objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.SetBreadcrumList");
+            }
+
+        }
+
 
         /// <summary>
         /// Created by : SubodhJain  on 30 March 2017

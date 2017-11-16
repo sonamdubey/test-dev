@@ -70,7 +70,6 @@ namespace Bikewale.Controllers
             else
             {
                 BikeCareIndexPageVM objData = new BikeCareIndexPageVM();
-                obj.IsMobile = true;
                 objData = obj.GetData(9);
                 if (obj.status == Entities.StatusCodes.ContentFound)
                     return View(objData);
@@ -116,6 +115,7 @@ namespace Bikewale.Controllers
             }
             else
             {
+                obj.IsMobile = true;
                 BikeCareDetailPageVM objData = obj.GetData(9);
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pagenotfound.aspx");

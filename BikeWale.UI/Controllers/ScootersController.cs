@@ -140,6 +140,7 @@ namespace Bikewale.Controllers
         {
             ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter, _articles, _videos);
             obj.EditorialTopCount = 2;
+            obj.IsMobile = true;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
 
             ScootersMakePageVM objData;

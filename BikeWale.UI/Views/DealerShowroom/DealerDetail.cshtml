@@ -17,10 +17,10 @@
             <div class="grid-12">
                 <div class="content-box-shadow">
                     <div class="content-box-shadow padding-14-20">
-                        @if (Model.DealerDetails.DealerDetails.Area != null && !string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.Area.AreaName))
+                        @if (Model.DealerDetails.DealerDetails.objArea != null && !string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.objArea.AreaName))
                         {
                             <h1>
-                                @string.Format("{0}, {2}, {1}", Model.DealerDetails.DealerDetails.Name, Model.CityDetails.CityName, Model.DealerDetails.DealerDetails.Area.AreaName)
+                                @string.Format("{0}, {2}, {1}", Model.DealerDetails.DealerDetails.Name, Model.CityDetails.CityName, Model.DealerDetails.DealerDetails.objArea.AreaName)
                             </h1>
                         }
                         else
@@ -79,12 +79,12 @@
                                     <span class="vertical-top text-light-grey dealership-card-details">Working hours: @Model.DealerDetails.DealerDetails.WorkingHours</span>
                                 </div>
                             }
-                            @if (Model.DealerDetails.DealerDetails.Area != null && Model.DealerDetails.DealerDetails.Area.Latitude > 0 && Model.DealerDetails.DealerDetails.Area.Longitude > 0)
+                            @if (Model.DealerDetails.DealerDetails.objArea != null && Model.DealerDetails.DealerDetails.objArea.Latitude > 0 && Model.DealerDetails.DealerDetails.objArea.Longitude > 0)
                             {
                                 <div id="commute-distance-form" class="margin-top20">
                                     <p class="text-bold margin-bottom15">Get commute distance and time:</p>
                                     <div class="leftfloat form-control-box margin-right15">
-                                        <input id="locationSearch" data-clietIp="@Bikewale.Common.CommonOpn.GetClientIP()" data-map="@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey" data-lat="@Model.DealerDetails.DealerDetails.Area.Latitude" data-long="@Model.DealerDetails.DealerDetails.Area.Longitude" data-currentcityname="@Model.CityDetails.CityName" data-currentaddress="@((Model.DealerDetails.DealerDetails.Address != null)?Model.DealerDetails.DealerDetails.Address:Model.CityDetails.CityName)" type="text" class="form-control" placeholder="Enter your location" />
+                                        <input id="locationSearch" data-clietIp="@Bikewale.Common.CommonOpn.GetClientIP()" data-map="@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey" data-lat="@Model.DealerDetails.DealerDetails.objArea.Latitude" data-long="@Model.DealerDetails.DealerDetails.objArea.Longitude" data-currentcityname="@Model.CityDetails.CityName" data-currentaddress="@((Model.DealerDetails.DealerDetails.Address != null)?Model.DealerDetails.DealerDetails.Address:Model.CityDetails.CityName)" type="text" class="form-control" placeholder="Enter your location" />
                                         <span id="getUserLocation" class="crosshair-icon font12 position-abt pos-right10 pos-top10 cur-pointer"></span>
                                     </div>
                                     <div class="location-details padding-top10 padding-bottom10 leftfloat">
@@ -97,11 +97,11 @@
                             }
                         </div>
                         <div class="grid-5 omega position-rel">
-                            @if (Model.DealerDetails.DealerDetails.Area != null && Model.DealerDetails.DealerDetails.Area.Latitude > 0 && Model.DealerDetails.DealerDetails.Area.Longitude > 0)
+                            @if (Model.DealerDetails.DealerDetails.objArea != null && Model.DealerDetails.DealerDetails.objArea.Latitude > 0 && Model.DealerDetails.DealerDetails.objArea.Longitude > 0)
                             {
                                 <div id="dealer-map" style="width: 378px; height: 254px; border: 1px solid #eee;"></div>
                                         <div id="get-direction-button" title="Get directions">
-                                            <a href="https://maps.google.com/?saddr=&amp;daddr=@Model.DealerDetails.DealerDetails.Area.Latitude,@Model.DealerDetails.DealerDetails.Area.Longitude" target="_blank" rel="noopener">
+                                            <a href="https://maps.google.com/?saddr=&amp;daddr=@Model.DealerDetails.DealerDetails.objArea.Latitude,@Model.DealerDetails.DealerDetails.objArea.Longitude" target="_blank" rel="noopener">
                                                 <span class="bwsprite get-direction-icon"></span>
                                             </a>
                                         </div>
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <div class="type-sumit-button">
-                        <input type="button" id="dealer-assist-btn" data-isregisterpq="true" data-item-name="@Model.DealerDetails.DealerDetails.Name" data-item-area="@((Model.DealerDetails.DealerDetails.Area!=null)? Model.DealerDetails.DealerDetails.Area.AreaName : "")" data-leadsourceid="14" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="@Convert.ToInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers)"
+                        <input type="button" id="dealer-assist-btn" data-isregisterpq="true" data-item-name="@Model.DealerDetails.DealerDetails.Name" data-item-area="@((Model.DealerDetails.DealerDetails.objArea!=null)? Model.DealerDetails.DealerDetails.objArea.AreaName : "")" data-leadsourceid="14" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="@Convert.ToInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers)"
                                data-item-id="@Model.DealerDetails.DealerDetails.DealerId" data-cityname="@Model.CityDetails.CityName" data-eventcategory="Dealer_Locator_Detail" data-bind="click: function (d, e) { validateBikeData(); validateUserLeadDetails(); HiddenSubmitLead(d, e) }" value="@Model.DealerDetails.DealerDetails.DisplayTextSmall" />
                     </div>
                     <p>By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank" rel="noopener">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.</p>
@@ -207,10 +207,10 @@
                                         </div>
                                         <div class="clear"></div>
                                     </a>
-                                    @if (Model.DealerDetails.DealerDetails.Area != null && Model.DealerDetails.DealerDetails.Area.AreaId > 0 && Model.DealerDetails.DealerDetails.DealerType != (ushort)Bikewale.Entities.PriceQuote.DealerPackageTypes.Pricing)
+                                    @if (Model.DealerDetails.DealerDetails.objArea != null && Model.DealerDetails.DealerDetails.objArea.AreaId > 0 && Model.DealerDetails.DealerDetails.DealerType != (ushort)Bikewale.Entities.PriceQuote.DealerPackageTypes.Pricing)
                                     {
                                         <div class="margin-left20 margin-bottom20">
-                                            <a href="javascript:void(0)" data-dealerid="@Model.DealerDetails.DealerDetails.DealerId" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels)" data-modelid="@bike.objModel.ModelId" data-versionid="@bike.objVersion.VersionId" data-areaid="@Model.DealerDetails.DealerDetails.Area.AreaId" data-cityid="@Model.CityDetails.CityId" class="btn btn-sm btn-grey font14 dealerDetails" rel="nofollow">Show detailed price</a>
+                                            <a href="javascript:void(0)" data-dealerid="@Model.DealerDetails.DealerDetails.DealerId" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels)" data-modelid="@bike.objModel.ModelId" data-versionid="@bike.objVersion.VersionId" data-areaid="@Model.DealerDetails.DealerDetails.objArea.AreaId" data-cityid="@Model.CityDetails.CityId" class="btn btn-sm btn-grey font14 dealerDetails" rel="nofollow">Show detailed price</a>
                                         </div>
                                     }
                                 </li>
@@ -308,5 +308,5 @@
 
 <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>
 <script type="text/javascript">
-    cityArea = "@Model.CityDetails.CityName" + "@(Model.DealerDetails.DealerDetails.Area!=null ? ("_"+Model.DealerDetails.DealerDetails.Area.AreaName) : "")";
+    cityArea = "@Model.CityDetails.CityName" + "@(Model.DealerDetails.DealerDetails.objArea!=null ? ("_"+Model.DealerDetails.DealerDetails.objArea.AreaName) : "")";
 </script>

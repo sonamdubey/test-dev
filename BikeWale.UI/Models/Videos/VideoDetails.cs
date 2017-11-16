@@ -1,10 +1,15 @@
 ﻿
 using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.Entities;
+using Bikewale.Entities.Schema;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
 namespace Bikewale.Models
 {
     /// <summary>
@@ -18,6 +23,7 @@ namespace Bikewale.Models
         private readonly BikeVideoEntity _videoEntity;
 
         public StatusCodes Status { get; private set; }
+        public bool IsMobile { get; set; }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Mar 2017
@@ -61,6 +67,7 @@ namespace Bikewale.Models
                     model.Description = FormatDescription.SanitizeHtml(model.Video.Description);
                     model.SmallDescription = model.IsSmallDescription ? StringHtmlHelpers.TruncateHtml(_videoEntity.Description, 200, " ..") : "";
                     CreateDescriptionTag(model);
+                    SetBreadcrumList(model);
 
                     if (model.IsBikeTagged)
                         GetTaggedModel(model);
@@ -144,6 +151,36 @@ namespace Bikewale.Models
             {
                 Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, string.Format("VideoDetailsHelper.CreateDescriptionTag() => videoBasicId {0}", _videoId));
             }
+        }
+        /// <summary>
+        /// Created By :Snehal Dange on 8th Nov 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(VideoDetailsPageVM objData)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string bikeUrl;
+            bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                bikeUrl += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, string.Format("{0}bike-videos/", bikeUrl), "Bike Videos"));
+
+            if (!String.IsNullOrEmpty(objData.Video.SubCatName))
+            {
+               bikeUrl += String.Format("bike-videos/category/{0}-{1}/", Regex.Replace(objData.Video.SubCatName.Trim(), @"[\(\)\s]+", "-").ToLower(), Regex.Replace(objData.Video.SubCatId, @"[,]+", "-"));
+               BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, objData.Video.SubCatName));
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Video.VideoTitle));
+
+            objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
         }
     }
 }

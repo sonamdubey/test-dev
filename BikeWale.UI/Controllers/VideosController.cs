@@ -90,7 +90,7 @@ namespace Bikewale.Controllers.Desktop.Videos
                 modelObj.PowerDriftTopMusicWidgetTopCount = 6;
                 modelObj.MiscellaneousWidgetTopCount = 6;
                 modelObj.BrandWidgetTopCount = 6;
-
+                modelObj.IsMobile = true;
                 VideosLandingPageVM objVM = modelObj.GetData();
 
                 return View(objVM);
@@ -126,6 +126,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         public ActionResult CategoryVideos_Mobile(string categoryIdList, string title)
         {
             VideosByCategoryPage objModel = new VideosByCategoryPage(_videos, categoryIdList, title);
+            objModel.IsMobile = true;
             VideosByCategoryPageVM objVM = objModel.GetData(9);
             return View(objVM);
         }
@@ -168,6 +169,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             Bikewale.Models.VideoDetails objModel = new Bikewale.Models.VideoDetails(videoId, _videos);
             if (objModel.Status == Entities.StatusCodes.ContentFound)
             {
+                objModel.IsMobile = true;
                 VideoDetailsPageVM objVM = objModel.GetData();
                 return View(objVM);
             }
@@ -231,6 +233,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             if (objModel.makeStatus == Entities.StatusCodes.ContentFound && objModel.modelStatus == Entities.StatusCodes.ContentFound)
             {
                 objModel.SimilarBikeWidgetTopCount = 9;
+                objModel.IsMobile = true;
                 ModelWiseVideoPageVM objVM = objModel.GetData();
                 return View(objVM);
             }
@@ -288,8 +291,10 @@ namespace Bikewale.Controllers.Desktop.Videos
         public ActionResult Makes_Mobile(string makeMaskingName)
         {
             MakeVideosPage objModel = new MakeVideosPage(makeMaskingName, _videos);
+            
             if (objModel.Status == Entities.StatusCodes.ContentFound)
             {
+                objModel.IsMobile = true;
                 return View(objModel.GetData());
             }
             else if (objModel.Status == Entities.StatusCodes.RedirectPermanent)

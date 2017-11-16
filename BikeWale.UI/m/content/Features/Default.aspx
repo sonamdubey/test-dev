@@ -13,7 +13,7 @@
         canonical = "https://www.bikewale.com/features/";
         relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "https://www.bikewale.com" + prevPageUrl;
         relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "https://www.bikewale.com" + nextPageUrl;
-        AdPath = "/1017752/Bikewale_Mobile_NewBikes";
+        AdPath = "/1017752/Bikewale_Mobile_NewBikes_";
         AdId = "1398766302464";
         Ad_320x50 = true;
         Ad_Mid_320x50 = true;

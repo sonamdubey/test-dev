@@ -11,7 +11,7 @@
             keywords = pageMetas.Keywords;
             description = pageMetas.Description;
             canonical = pageMetas.CanonicalUrl;
-            AdPath = "/1017752/Bikewale_Mobile_NewBikes";
+            AdPath = "/1017752/Bikewale_Mobile_NewBikes_";
             AdId = "1398766302464";
             TargetedModels = targetedModels;
         }
