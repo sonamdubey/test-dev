@@ -1,6 +1,6 @@
 var version = '6Nov2017v1';
 var baseUrl = 'https://stb.aeplcdn.com/staging/bikewale/';
-var APPSHELL = baseUrl + 'pwa/appshell-b00fde535b.html';
+var APPSHELL = baseUrl + 'pwa/appshell.html';
 var SW_TOOLBOX_JS = baseUrl + 'pwa/sw-toolbox.js';
 var IMAGE_EXPIRATION_TIME = 864000;
 var IMAGE_CDN_REGEX_PATTERN = /^https:\/\/imgd(\d)?.aeplcdn.com/;
