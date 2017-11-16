@@ -134,6 +134,9 @@ docReady(function () {
         self.Filters = ko.observable({ pageno: 1, pagesize: 30 });
         self.PreviousQS = ko.observable("");
         self.IsReset = ko.observable(false);
+        self.LoadMoreTarget = ko.observable();
+        self.IsLoadMore = ko.observable(false);
+        self.NewPageNo = ko.observable(0);
         //self.QueryString = ko.computed(function () {
         //    var qs = "";
         //    console.log(self.Filters())
@@ -165,15 +168,16 @@ docReady(function () {
         self.bindNextSearchResult = function (json) {
             var element;
             element = document.getElementById('divMoreSearchResult');
-            //if ($.pageNo == 1)
-            //    element = document.getElementById('divMoreSearchResult');
-            //else
-            //    element = document.getElementById('divMoreSearchResult' + $.pageNo);
-
             ko.cleanNode(element);
 
-            if (json.searchResult.length > 0)
+            //if (self.curPageNo() == 1)
+            //    element = document.getElementById('divSearchResult');
+            //else
+            //    element = document.getElementById('divSearchResult' + self.curPageNo());
+
+            if (json.searchResult.length > 0) {
                 ko.applyBindings(new SearchViewModel(json), element);
+            }
             else
                 $('#NoBikeResults').show();
         };
@@ -248,15 +252,21 @@ docReady(function () {
         self.getBikeSearchResult = function (filterName) {
 
             var qs = "";
-            for (var param in self.Filters()) {
-                if (self.Filters()[param]) {
-                    qs += "&" + param + "=" + self.Filters()[param];
+            if (self.IsLoadMore()) {
+                qs = self.LoadMoreTarget().split('?')[1];
+            } else {
+                for (var param in self.Filters()) {
+                    if (self.Filters()[param]) {
+                        qs += "&" + param + "=" + self.Filters()[param];
+                    }
                 }
+                qs = qs.substr(1);
             }
-            qs = qs.substr(1);
 
             if (self.PreviousQS() != qs) {
-                self.models([]);
+                if (!self.IsLoadMore()) {
+                    self.models([]);
+                }
                 if (self.noBikes()) {
                     self.TotalBikes(1); // to show bikes container
                     self.noBikes(false);
@@ -265,21 +275,30 @@ docReady(function () {
                 self.PreviousQS(qs);
                 var apiUrl = '/api/NewBikeSearch/?' + qs;
                 $.getJSON(apiUrl)
-                .done(function (response) {
-                    self.models(response.searchResult);
-                    self.bindNextSearchResult(response);
-                    self.TotalBikes(response.totalCount);
-                    self.noBikes(false);
-                })
-                .fail(function () {
-                    self.noBikes(true);
-                    self.TotalBikes(0);
-                })
-                .always(function () {
-                    window.location.hash = qs;
-                    self.IsLoading(false);
-                    self.getSelectedQSFilterText();
-                });
+                    .done(function (response) {
+                        if (self.IsLoadMore()) {
+                            self.bindNextSearchResult(response);
+                            self.NewPageNo(self.NewPageNo() + 1);
+                        } else {
+                            self.models(response.searchResult);
+                            self.NewPageNo(0);
+                        }
+                        self.TotalBikes(response.totalCount);
+                        self.noBikes(false);
+                        if (response.pageUrl.nextUrl) {
+                            self.LoadMoreTarget(response.pageUrl.nextUrl);
+                        }
+                    })
+                    .fail(function () {
+                        self.noBikes(true);
+                        self.TotalBikes(0);
+                    })
+                    .always(function () {
+                        window.location.hash = qs;
+                        self.IsLoading(false);
+                        self.getSelectedQSFilterText();
+                        self.IsLoadMore(false);
+                    });
             }
         };
 
@@ -427,6 +446,11 @@ docReady(function () {
 
     newBikeSearchVM = new newBikeSearch();
 
+    $('#loadMoreBikes').click(function () {
+        newBikeSearchVM.IsLoadMore(true);
+        newBikeSearchVM.pushState('load-more');
+    });
+
     $(".filter-div").on("click", function () {
         var allDiv = $(".filter-div");
         var clickedDiv = $(this);
@@ -514,14 +538,6 @@ docReady(function () {
                 counter++;
             }
         }
-    };
-
-    $.pushGTACode = function (noOfRecords, filterName) {
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_' + noOfRecords, 'lab': filterName });
-    };
-
-    $.PricePopUpClickGA = function (makeName) {
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Get_On_Road_Price_Click', 'lab': makeName });
     };
 
     sortByDiv.click(function () {

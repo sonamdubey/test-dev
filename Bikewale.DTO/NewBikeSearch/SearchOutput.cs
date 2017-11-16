@@ -16,7 +16,7 @@ namespace Bikewale.DTO.NewBikeSearch
 
         [JsonProperty("curPageNo")]
         public int CurrentPageNo { get; set; }
-        [JsonProperty ("pqSource")]
+        [JsonProperty("pqSource")]
         public int PqSource { get; set; }
     }
 }

@@ -5,10 +5,6 @@ using Bikewale.DTO.NewBikeSearch;
 using Bikewale.DTO.Series;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.NewBikeSearch
 {
@@ -16,7 +12,8 @@ namespace Bikewale.Service.AutoMappers.NewBikeSearch
     {
         internal static SearchOutput Convert(SearchOutputEntity objSuggestion)
         {
-            Mapper.CreateMap<SearchOutputEntity, SearchOutput>();
+            Mapper.CreateMap<SearchOutputEntity, SearchOutput>()
+                .ForMember(dest => dest.PqSource, opt => opt.MapFrom(src => src.PqSource));
             Mapper.CreateMap<PagingUrl, Pager>();
             Mapper.CreateMap <SearchOutputEntityBase, SearchOutputBase>();
             Mapper.CreateMap<BikeModelEntity, ModelDetail>();
