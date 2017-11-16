@@ -22,6 +22,8 @@ namespace Bikewale.Models.NewBikeSearch
     public class NewBikeSearchModel
     {
         private readonly string _modelIdList = string.Empty;
+        public bool IsMobile { get; set; }
+        public string BaseUrl { get; set; }
         private string _baseUrl = string.Empty;
         public uint EditorialTopCount { get; set; }
         public int PageSize { get; set; }
@@ -129,34 +131,33 @@ namespace Bikewale.Models.NewBikeSearch
                         objPage.Keywords = "search new bikes, search bikes by brand, search bikes by budget, search bikes by price, search bikes by style, street bikes, scooters, commuter bikes, cruiser bikes";
                         objPage.Description = "Search through all the new bike models by various criteria. Get instant on-road price for the bike of your choice";
                         _baseUrl = "/new/bike-search/";
-                        objPage.CanonicalUrl = string.Format("https://www.bikewale.com{0}", _baseUrl);
-                        objPage.AlternateUrl = string.Format("https://www.bikewale.com/m{0}", _baseUrl);
+                        objPage.CanonicalUrl = "https://www.bikewale.com/new/bike-search/";
+                        objPage.AlternateUrl = "https://www.bikewale.com/m/new/bike-search/";
                         break;
                     case SearchPageType.Under:
                         objPage.Title = string.Format("Bikes Under Rs. {0} - Explore Latest Bikes Below Rs. {0} on BikeWale", currentPage.MaxPriceStr);
                         objPage.Keywords = string.Format("best bikes under Rs. {0}, latest bikes under Rs. {0}", currentPage.MaxPriceStr);
                         objPage.Description = string.Format("Explore best bikes under Rs. {0}. Choose from bike models like {1} and more. Check specifications, prices and reviews to buy the best bike.", currentPage.MaxPriceStr, currentPage.ModelList);
-                        _baseUrl = string.Format("/new/bike-search/bikes-under-{0}/", currentPage.MaxPriceStr);
-                        objPage.CanonicalUrl = string.Format("https://www.bikewale.com{0}{1}", _baseUrl, pageQuery);
-                        objPage.AlternateUrl = string.Format("https://www.bikewale.com/m{0}{1}", _baseUrl, pageQuery);
+                        _baseUrl = string.Format("{0}bikes-under-{1}/", BaseUrl, currentPage.MaxPrice);
+                        objPage.CanonicalUrl = string.Format("https://www.bikewale.com/new/bike-search/bikes-under-{0}/{1}", currentPage.MaxPrice, pageQuery);
+                        objPage.AlternateUrl = string.Format("https://www.bikewale.com/m/new/bike-search/bikes-under-{0}/{1}", currentPage.MaxPrice, pageQuery);
                         break;
                     case SearchPageType.Above:
                         objPage.Title = string.Format("Bikes Above Rs. {0} - Explore Latest Bikes Above Rs. {0} on BikeWale", currentPage.MinPriceStr);
                         objPage.Keywords = string.Format("best bikes above Rs. {0}, latest bikes above Rs. {0}", currentPage.MinPriceStr);
                         objPage.Description = string.Format("Explore best bikes above Rs. {0}. Choose from bike models like {1} and more. Check specifications, prices and reviews to buy the best bike.", currentPage.MaxPriceStr, currentPage.ModelList);
-                        _baseUrl = string.Format("/new/bike-search/bikes-above-{0}/", currentPage.MinPrice);
-                        objPage.CanonicalUrl = string.Format("https://www.bikewale.com{0}{1}", _baseUrl, pageQuery);
-                        objPage.AlternateUrl = string.Format("https://www.bikewale.com/m{0}{1}", _baseUrl, pageQuery);
+                        _baseUrl = string.Format("{0}bikes-above-{1}/", BaseUrl, currentPage.MinPrice);
+                        objPage.CanonicalUrl = string.Format("https://www.bikewale.com/new/bike-search/bikes-above-{0}/{1}", currentPage.MinPrice, pageQuery);
+                        objPage.AlternateUrl = string.Format("https://www.bikewale.com/new/bike-search/m/bikes-above-{0}/{1}", currentPage.MinPrice, pageQuery);
                         break;
                     case SearchPageType.Between:
                         objPage.Title = string.Format("Bikes Between Rs. {0}  and Rs. {1} - Explore Latest Bikes between Rs. {0} and {1} on BikeWale", currentPage.MinPriceStr, currentPage.MaxPriceStr);
                         objPage.Keywords = string.Format("best bikes between Rs. {0} and Rs. {1}, latest bikes between Rs. {0} and Rs. {1}", currentPage.MinPriceStr, currentPage.MaxPriceStr);
                         objPage.Description = string.Format("Explore best bikes between Rs. {0} and Rs. {1}. Choose from bike models like {2} and more. Check specifications, prices and reviews to buy the best bike.", currentPage.MinPriceStr, currentPage.MaxPriceStr, currentPage.ModelList);
-                        _baseUrl = string.Format("/new/bike-search/bikes-between-{0}-and-{1}/", currentPage.MinPrice, currentPage.MaxPrice);
-                        objPage.CanonicalUrl = string.Format("https://www.bikewale.com{0}{1}", _baseUrl, pageQuery);
-                        objPage.AlternateUrl = string.Format("https://www.bikewale.com/m{0}{1}", _baseUrl, pageQuery);
+                        _baseUrl = string.Format("{0}bikes-between-{1}-and-{2}/", BaseUrl, currentPage.MinPrice, currentPage.MaxPrice);
+                        objPage.CanonicalUrl = string.Format("https://www.bikewale.com/new/bike-search/bikes-between-{0}-and-{1}/{2}", currentPage.MinPrice, currentPage.MaxPrice, pageQuery);
+                        objPage.AlternateUrl = string.Format("https://www.bikewale.com/m/new/bike-search/bikes-between-{0}-and-{1}/{2}", currentPage.MinPrice, currentPage.MaxPrice, pageQuery);
                         break;
-
                 }
 
             }
