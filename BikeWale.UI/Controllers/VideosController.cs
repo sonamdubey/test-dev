@@ -521,7 +521,9 @@ namespace Bikewale.Controllers.Desktop.Videos
             if (taggedModel != 0) //add related videos only if the model is tagged
             {
                 relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Video, string.Format("api/pwa/similarvideos/{0}/modelid/{1}", videoId, taggedModel)));
-            }
+            }else
+                relatedInfoList.Add(null);
+            //    relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Video, string.Empty));
 
             relatedInfoList.Add(new PwaBikeVideoRelatedInfo(PwaRelatedInfoType.Bike, string.Format("api/pwa/popularbodystyle/modelid/{0}/count/9", taggedModel)));
 
@@ -530,22 +532,28 @@ namespace Bikewale.Controllers.Desktop.Videos
 
             //similarvideos
             var pwarelatedInfo = videoDetail.RelatedInfo;
-            SimilarVideosModel model = new SimilarVideosModel(taggedModel, videoId, _video);
-            var similaVideosData = model.GetData();
 
-            var pwaVidList = new PwaBikeVideos();
-            pwarelatedInfo.VideoList = pwaVidList;
-
-            if (similaVideosData != null && similaVideosData.Videos != null)
+            if (taggedModel > 0) //no simialr videos if model is not tagged
             {
-                var videosList = ConverterUtility.PwaConvert(similaVideosData.Videos);
-                if (videosList != null)
-                    pwaVidList.VideosList = videosList.ToList();
-                pwaVidList.CompleteListUrl = similaVideosData.ViewAllLinkUrl;
-                pwaVidList.CompleteListUrlAlternateLabel = similaVideosData.ViewAllLinkTitle;
-                pwaVidList.Heading = "More related videos";
-                pwaVidList.CompleteListUrlLabel = similaVideosData.ViewAllLinkText;
+                SimilarVideosModel model = new SimilarVideosModel(taggedModel, videoId, _video);
+                var similaVideosData = model.GetData();
+
+                var pwaVidList = new PwaBikeVideos();
+
+                if (similaVideosData != null && similaVideosData.Videos != null)
+                {
+                    pwarelatedInfo.VideoList = pwaVidList;
+                    var videosList = ConverterUtility.PwaConvert(similaVideosData.Videos);
+                    if (videosList != null)
+                        pwaVidList.VideosList = videosList.ToList();
+                    pwaVidList.CompleteListUrl = similaVideosData.ViewAllLinkUrl;
+                    pwaVidList.CompleteListUrlAlternateLabel = similaVideosData.ViewAllLinkTitle;
+                    pwaVidList.Heading = "More related videos";
+                    pwaVidList.CompleteListUrlLabel = similaVideosData.ViewAllLinkText;
+                }
             }
+            else
+                pwarelatedInfo.VideoList = null;
 
             //bikelist            
             var cityArea = GlobalCityArea.GetGlobalCityArea();
