@@ -54,7 +54,7 @@ var $window = $(window),
     $menu = $('#filter-container'),
     menuTop = $menu.offset().top;
 
-var SearchViewModel = function (model) {
+var VMsearchViewModel = function (model) {
     ko.mapping.fromJS(model, {}, this);
 };
 
@@ -131,12 +131,15 @@ docReady(function () {
         var self = this;
         self.IsInitialized = ko.observable(false);
         self.IsLoading = ko.observable(false);
+        self.searchResult = ko.observable();
         self.Filters = ko.observable({ pageno: 1, pagesize: 30 });
         self.PreviousQS = ko.observable("");
         self.IsReset = ko.observable(false);
         self.LoadMoreTarget = ko.observable();
         self.IsLoadMore = ko.observable(false);
         self.NewPageNo = ko.observable(0);
+        self.IsMoreBikesAvailable = ko.observable(false);
+        self.FirstLoad = ko.observable(true);
         //self.QueryString = ko.computed(function () {
         //    var qs = "";
         //    console.log(self.Filters())
@@ -157,10 +160,17 @@ docReady(function () {
             if (!self.IsInitialized()) {
                 self.IsLoading(true);
                 self.TotalBikes(1); //handle container for loader
-                var eleSection = $("#divSearchResult");
-
+                if (self.FirstLoad()) {
+                    var bikeSearchResult = JSON.parse(Base64.decode($('#pageLoadData').val()));
+                    self.models(bikeSearchResult.searchResult);
+                    self.LoadMoreTarget(bikeSearchResult.pageUrl.nextUrl);
+                    if (self.LoadMoreTarget()) {
+                        self.IsMoreBikesAvailable(true);
+                    }
+                }
+                self.FirstLoad(false);
+                var eleSection = $(".search-bike-list");
                 ko.applyBindings(self, eleSection[0]);
-
                 self.IsInitialized(true);
             }
         };
@@ -168,7 +178,6 @@ docReady(function () {
         self.bindNextSearchResult = function (json) {
             var element;
             element = document.getElementById('divMoreSearchResult');
-            ko.cleanNode(element);
 
             //if (self.curPageNo() == 1)
             //    element = document.getElementById('divSearchResult');
@@ -176,7 +185,7 @@ docReady(function () {
             //    element = document.getElementById('divSearchResult' + self.curPageNo());
 
             if (json.searchResult.length > 0) {
-                ko.applyBindings(new SearchViewModel(json), element);
+                self.searchResult(json.searchResult);
             }
             else
                 $('#NoBikeResults').show();
@@ -250,55 +259,63 @@ docReady(function () {
         };
 
         self.getBikeSearchResult = function (filterName) {
-
-            var qs = "";
-            if (self.IsLoadMore()) {
-                qs = self.LoadMoreTarget().split('?')[1];
-            } else {
-                for (var param in self.Filters()) {
-                    if (self.Filters()[param]) {
-                        qs += "&" + param + "=" + self.Filters()[param];
+            try {
+                var qs = "";
+                if (self.IsLoadMore()) {
+                    qs = self.LoadMoreTarget().split('?')[1];
+                } else {
+                    for (var param in self.Filters()) {
+                        if (self.Filters()[param]) {
+                            qs += "&" + param + "=" + self.Filters()[param];
+                        }
                     }
+                    qs = qs.substr(1);
                 }
-                qs = qs.substr(1);
-            }
 
-            if (self.PreviousQS() != qs) {
-                if (!self.IsLoadMore()) {
-                    self.models([]);
-                }
-                if (self.noBikes()) {
-                    self.TotalBikes(1); // to show bikes container
-                    self.noBikes(false);
-                }
-                self.IsLoading(true);
-                self.PreviousQS(qs);
-                var apiUrl = '/api/NewBikeSearch/?' + qs;
-                $.getJSON(apiUrl)
-                    .done(function (response) {
-                        if (self.IsLoadMore()) {
-                            self.bindNextSearchResult(response);
-                            self.NewPageNo(self.NewPageNo() + 1);
-                        } else {
-                            self.models(response.searchResult);
-                            self.NewPageNo(0);
-                        }
-                        self.TotalBikes(response.totalCount);
+                if (self.PreviousQS() != qs) {
+                    if (!self.IsLoadMore()) {
+                        self.models([]);
+                    }
+
+                    if (self.noBikes()) {
+                        self.TotalBikes(1); // to show bikes container
                         self.noBikes(false);
-                        if (response.pageUrl.nextUrl) {
+                    }
+                    self.IsLoading(true);
+                    self.PreviousQS(qs);
+                    var apiUrl = '/api/NewBikeSearch/?' + qs;
+                    $.getJSON(apiUrl)
+                        .done(function (response) {
+                            if (self.IsLoadMore()) {
+                                self.bindNextSearchResult(response);
+                                self.NewPageNo(self.NewPageNo() + 1);
+                            } else {
+                                self.models(response.searchResult);
+                                self.NewPageNo(0);
+                            }
+                            self.TotalBikes(response.totalCount);
+                            self.noBikes(false);
                             self.LoadMoreTarget(response.pageUrl.nextUrl);
-                        }
-                    })
-                    .fail(function () {
-                        self.noBikes(true);
-                        self.TotalBikes(0);
-                    })
-                    .always(function () {
-                        window.location.hash = qs;
-                        self.IsLoading(false);
-                        self.getSelectedQSFilterText();
-                        self.IsLoadMore(false);
-                    });
+                            if (response.pageUrl.nextUrl) {
+                                self.IsMoreBikesAvailable(true);
+                            } else {
+                                self.IsMoreBikesAvailable(false);
+                            }
+                        })
+                        .fail(function () {
+                            self.IsMoreBikesAvailable(false);
+                            self.noBikes(true);
+                            self.TotalBikes(0);
+                        })
+                        .always(function () {
+                            window.location.hash = qs;
+                            self.IsLoading(false);
+                            self.getSelectedQSFilterText();
+                            self.IsLoadMore(false);
+                        });
+                }
+            } catch (e) {
+                console.warn(e.message);
             }
         };
 
@@ -446,7 +463,11 @@ docReady(function () {
 
     newBikeSearchVM = new newBikeSearch();
 
-    $('#loadMoreBikes').click(function () {
+    $('#loadMoreBikes').click(function (e) {
+        if (newBikeSearchVM && !newBikeSearchVM.IsInitialized() ) {
+            newBikeSearchVM.init(e);
+        }
+        newBikeSearchVM.LoadMoreTarget($("#loadMoreBikes").attr("data-url"));
         newBikeSearchVM.IsLoadMore(true);
         newBikeSearchVM.pushState('load-more');
     });
@@ -828,7 +849,6 @@ docReady(function () {
     /* Initiate knockout binding*/
     $(".filter-selection-div li, .more-filter-item-data li, .sort-selection-div li").click(function (e) {
         if (newBikeSearchVM && !newBikeSearchVM.IsInitialized()) {
-
             newBikeSearchVM.init(e);
         }
     });
