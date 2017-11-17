@@ -52,7 +52,8 @@ $.totalCount;
 $.lazyLoadingStatus = true;
 var $window = $(window),
     $menu = $('#filter-container'),
-    menuTop = $menu.offset().top;
+	menuTop = $menu.offset().top,
+	$searchList = $('#searchList');
 
 var VMsearchViewModel = function (model) {
     ko.mapping.fromJS(model, {}, this);
@@ -546,7 +547,20 @@ docReady(function () {
 
     $("#btnReset").click(function () {
         newBikeSearchVM.resetAll();
-    });
+	});
+
+	$window.scroll(function () {
+		if ($window.scrollTop() > menuTop) {
+			$menu.addClass('stick');
+
+			if ($window.scrollTop() > $searchList.height()) {
+				$menu.removeClass('stick');
+			}
+		}
+		else {
+			$menu.removeClass('stick');
+		}
+	});
 
     $.fn.onCheckBoxClick = function () {
         return this.click(function () {
