@@ -3,7 +3,7 @@
 var appendText = $(".filter-select-title"),
     currentList = $(".filter-selection-div"),
     liList = $(".filter-selection-div ul li"),
-    liToggelFilter = $(".bw-tabs li"),
+    liToggelFilter = $(".bw-tabs-new li"),
     defaultText = $(".default-text"),
     sortCriteria = $('#sort'),
     sortByDiv = $(".sort-div"),
@@ -52,11 +52,8 @@ $.totalCount;
 $.lazyLoadingStatus = true;
 var $window = $(window),
     $menu = $('#filter-container'),
-    menuTop = $menu.offset().top;
-
-var VMsearchViewModel = function (model) {
-    ko.mapping.fromJS(model, {}, this);
-};
+	menuTop = $menu.offset().top,
+	$searchList = $('#searchList');
 
 var stateChangeDown = function (allDiv, clickedDiv) {
     allDiv.removeClass("open");
@@ -74,16 +71,8 @@ var stateChangeUp = function (allDiv, clickedDiv) {
     clickedDiv.next(".filter-selection-div").removeClass("open");
 };
 
-var defaultTextBack = function (a, textDiv) {
-    if (!textDiv.children("span").hasClass("selected")) {
-        a.find(defaultText).show();
-        currentList.slideUp();
-        $(".filter-div").removeClass("open");
-    }
-};
-
 var resetBWTabs = function () {
-    $(".bw-tabs li").removeClass("active");
+    $(".bw-tabs-new li").removeClass("active");
 };
 
 var moreLessTextChange = function (p) {
@@ -92,38 +81,6 @@ var moreLessTextChange = function (p) {
     q.text(q.text() === "More" ? "Less" : "More");
 };
 
-var AppendCertificationStar = function (abStars) {
-    var i, intVal, val, count = 0, certificationStar = "";
-    val = abStars;
-    intVal = Math.floor(val);
-    for (i = 0; i < intVal ; i++) {
-        certificationStar += '<img src="/images/ratings/1.png" alt="Rate">';
-    }
-    if (val > intVal) {
-        certificationStar += '<img src="/images/ratings/half.png" alt="Rate">';
-        count = (5 - intVal) - 1;
-        for (i = 0; i < count; i++) {
-            certificationStar += '<img src="/images/ratings/0.png" alt="Rate">';
-        }
-    }
-    else {
-        count = 5 - intVal;
-        for (i = 0; i < count; i++) {
-            certificationStar += '<img src="/images/ratings/0.png" alt="Rate">';
-        }
-    }
-    return certificationStar;
-}
-
-var ShowReviewCount = function (reviewCount) {
-    var reviewText = '';
-    if (parseInt(reviewCount) > 0)
-        reviewText = reviewCount + ' Reviews';
-    else
-        reviewText = 'Not yet rated';
-
-    return reviewText;
-};
 
 docReady(function () {
     //Other  functions
@@ -144,6 +101,7 @@ docReady(function () {
         self.TotalBikes = ko.observable();
         self.noBikes = ko.observable(self.TotalBikes() == 0);
         self.curPageNo = ko.observable();
+        self.Filters()['budget'] = $('#min-max-budget').val();
         self.init = function (e) {
             if (!self.IsInitialized()) {
                 self.IsLoading(true);
@@ -244,7 +202,7 @@ docReady(function () {
 
         self.getSelectedQSFilterText = function () {
             count = 0;
-            $('.bw-tabs').find('li').each(function () {
+            $('.bw-tabs-new').find('li').each(function () {
                 $(this).removeClass('active');
             });
             $('.filter-select-title .default-text').each(function () {
@@ -262,6 +220,7 @@ docReady(function () {
                             selText += node.find('li[filterid=' + values[j] + ']').text() + ', ';
                         }
                         count++;
+                        if (selText.length > 2)
                         node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length - 2));
                     } else if (param == 'budget') {
                         var values = self.Filters()[param].split('-');
@@ -327,10 +286,13 @@ docReady(function () {
                             self.IsMoreBikesAvailable(false);
                             self.noBikes(true);
                             self.TotalBikes(0);
-                            $('#bikecount').text(self.TotalBikes() + ' Bikes Available');
                             if (filterName) {
                                 self.pushGTACode(self.TotalBikes(), filterName);
                             }
+                            self.searchResult([]);
+                            self.models([]);
+                            $('#bikecount').text('No bikes found');
+                            $('#nobikeresults').show();
                         })
                         .always(function () {
                             window.location.hash = qs;
@@ -539,7 +501,20 @@ docReady(function () {
 
     $("#btnReset").click(function () {
         newBikeSearchVM.resetAll();
-    });
+	});
+
+	$window.scroll(function () {
+		if ($window.scrollTop() > menuTop) {
+			$menu.addClass('stick');
+
+			if ($window.scrollTop() > $searchList.height()) {
+				$menu.removeClass('stick');
+			}
+		}
+		else {
+			$menu.removeClass('stick');
+		}
+	});
 
     $.fn.onCheckBoxClick = function () {
         return this.click(function () {
@@ -622,7 +597,6 @@ docReady(function () {
     sortListLI.applySortFilter();
 
     $(document).mouseup(function (e) {
-
         var filterDivContainer = $(".filter-div");
         var filterDivTitle = $(".filter-select-title");
         var filterSelectedText = $(".filter-select-title span.selected");
@@ -639,7 +613,6 @@ docReady(function () {
                 filterSelectionDiv.removeClass("open");
             }
         }
-
         var container = $("#budgetListContainer");
         if (container.hasClass('show') && $("#budgetListContainer").is(":visible")) {
             if (!container.is(e.target) && container.has(e.target).length === 0) {

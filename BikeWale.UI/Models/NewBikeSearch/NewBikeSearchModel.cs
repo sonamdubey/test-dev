@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Web;
-using Bikewale.DTO.NewBikeSearch;
+﻿using Bikewale.DTO.NewBikeSearch;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.PriceQuote;
@@ -12,6 +9,9 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models.NewBikeSearch
 {
@@ -59,15 +59,15 @@ namespace Bikewale.Models.NewBikeSearch
             viewModel = new NewBikeSearchVM();
             viewModel.BikeSearch = BindBikes();
             SetPageType();
-            if(viewModel.BikeSearch != null)
+            if (viewModel.BikeSearch != null)
             {
                 viewModel.BikeSearch.PqSource = Convert.ToInt32(_pqSource);
                 BindEditorialWidget(viewModel);
                 BindPageMetas(viewModel.PageMetaTags);
                 CreatePager(viewModel);
-                viewModel.News = new RecentNews(5, 0, _modelIdList, _articles).GetData();
-                viewModel.Videos = new RecentVideos(1, 5, _videos).GetData();
-                viewModel.ExpertReviews = new RecentExpertReviews(5, _articles).GetData();
+                //viewModel.News = new RecentNews(5, 0, _modelIdList, _articles).GetData();
+                //viewModel.Videos = new RecentVideos(1, 5, _videos).GetData();
+                //viewModel.ExpertReviews = new RecentExpertReviews(5, _articles).GetData();
                 SetFlags(viewModel);
                 BindBrands(viewModel);
             }
@@ -138,29 +138,31 @@ namespace Bikewale.Models.NewBikeSearch
                     case SearchPageType.Under:
                         objPage.Title = string.Format("Bikes Under Rs. {0} - Explore Latest Bikes Below Rs. {0} on BikeWale", currentPage.MaxPriceStr);
                         objPage.Keywords = string.Format("best bikes under Rs. {0}, latest bikes under Rs. {0}", currentPage.MaxPriceStr);
-                        objPage.Description = string.Format("Explore best bikes under Rs. {0}. Choose from bike models like {1} and more. Check specifications, prices and reviews to buy the best bike.", currentPage.MaxPriceStr, currentPage.ModelList);
+                        objPage.Description = string.Format("Explore best bikes under Rs. {0}. Choose from bike models like {1} and more. Check specifications, prices and reviews to buy the best bike.", currentPage.MaxPriceStr, currentPage.ModelNameList);
                         _baseUrl = string.Format("{0}bikes-under-{1}/", BaseUrl, currentPage.MaxPrice);
                         objPage.CanonicalUrl = string.Format("https://www.bikewale.com/new/bike-search/bikes-under-{0}/{1}", currentPage.MaxPrice, pageQuery);
                         objPage.AlternateUrl = string.Format("https://www.bikewale.com/m/new/bike-search/bikes-under-{0}/{1}", currentPage.MaxPrice, pageQuery);
+                        viewModel.MinMaxBudget = string.Format("0-{0}", currentPage.MaxPrice);
                         break;
                     case SearchPageType.Above:
                         objPage.Title = string.Format("Bikes Above Rs. {0} - Explore Latest Bikes Above Rs. {0} on BikeWale", currentPage.MinPriceStr);
                         objPage.Keywords = string.Format("best bikes above Rs. {0}, latest bikes above Rs. {0}", currentPage.MinPriceStr);
-                        objPage.Description = string.Format("Explore best bikes above Rs. {0}. Choose from bike models like {1} and more. Check specifications, prices and reviews to buy the best bike.", currentPage.MaxPriceStr, currentPage.ModelList);
+                        objPage.Description = string.Format("Explore best bikes above Rs. {0}. Choose from bike models like {1} and more. Check specifications, prices and reviews to buy the best bike.", currentPage.MinPriceStr, currentPage.ModelNameList);
                         _baseUrl = string.Format("{0}bikes-above-{1}/", BaseUrl, currentPage.MinPrice);
                         objPage.CanonicalUrl = string.Format("https://www.bikewale.com/new/bike-search/bikes-above-{0}/{1}", currentPage.MinPrice, pageQuery);
                         objPage.AlternateUrl = string.Format("https://www.bikewale.com/new/bike-search/m/bikes-above-{0}/{1}", currentPage.MinPrice, pageQuery);
+                        viewModel.MinMaxBudget = string.Format("{0}-", currentPage.MaxPrice);
                         break;
                     case SearchPageType.Between:
                         objPage.Title = string.Format("Bikes Between Rs. {0}  and Rs. {1} - Explore Latest Bikes between Rs. {0} and {1} on BikeWale", currentPage.MinPriceStr, currentPage.MaxPriceStr);
                         objPage.Keywords = string.Format("best bikes between Rs. {0} and Rs. {1}, latest bikes between Rs. {0} and Rs. {1}", currentPage.MinPriceStr, currentPage.MaxPriceStr);
-                        objPage.Description = string.Format("Explore best bikes between Rs. {0} and Rs. {1}. Choose from bike models like {2} and more. Check specifications, prices and reviews to buy the best bike.", currentPage.MinPriceStr, currentPage.MaxPriceStr, currentPage.ModelList);
+                        objPage.Description = string.Format("Explore best bikes between Rs. {0} and Rs. {1}. Choose from bike models like {2} and more. Check specifications, prices and reviews to buy the best bike.", currentPage.MinPriceStr, currentPage.MaxPriceStr, currentPage.ModelNameList);
                         _baseUrl = string.Format("{0}bikes-between-{1}-and-{2}/", BaseUrl, currentPage.MinPrice, currentPage.MaxPrice);
                         objPage.CanonicalUrl = string.Format("https://www.bikewale.com/new/bike-search/bikes-between-{0}-and-{1}/{2}", currentPage.MinPrice, currentPage.MaxPrice, pageQuery);
                         objPage.AlternateUrl = string.Format("https://www.bikewale.com/m/new/bike-search/bikes-between-{0}-and-{1}/{2}", currentPage.MinPrice, currentPage.MaxPrice, pageQuery);
+                        viewModel.MinMaxBudget = string.Format("{0}-{1}", currentPage.MinPrice, currentPage.MaxPrice);
                         break;
                 }
-
             }
             catch (Exception ex)
             {
@@ -200,7 +202,8 @@ namespace Bikewale.Models.NewBikeSearch
             }
             if (viewModel.BikeSearch != null && viewModel.BikeSearch.SearchResult != null)
             {
-                currentPage.ModelList = string.Join(",", viewModel.BikeSearch.SearchResult.Take(5).Select(x => x.BikeModel.ModelName).ToList());
+                currentPage.ModelNameList = string.Join(",", viewModel.BikeSearch.SearchResult.Take(5).Select(x => x.BikeModel.ModelName).ToList());
+                currentPage.ModelIdList = string.Join(",", viewModel.BikeSearch.SearchResult.Take(10).Select(x => x.BikeModel.ModelId).ToList());
             }
         }
         /// <summary>
@@ -211,16 +214,13 @@ namespace Bikewale.Models.NewBikeSearch
         {
             try
             {
-                RecentNews objNews = new RecentNews(EditorialTopCount, _articles);
-                objNews.IsScooter = true;
+                RecentNews objNews = new RecentNews((ushort)EditorialTopCount, 0, currentPage.ModelIdList, _articles);
                 objVM.News = objNews.GetData();
 
-                RecentExpertReviews objReviews = new RecentExpertReviews(EditorialTopCount, _articles);
-                objReviews.IsScooter = true;
+                RecentExpertReviews objReviews = new RecentExpertReviews((ushort)EditorialTopCount, currentPage.ModelIdList, _articles);
                 objVM.ExpertReviews = objReviews.GetData();
 
                 RecentVideos objVideos = new RecentVideos(1, (ushort)EditorialTopCount, _videos);
-                objVideos.IsScooter = true;
                 objVM.Videos = objVideos.GetData();
 
                 objVM.TabCount = 0;
@@ -363,7 +363,8 @@ namespace Bikewale.Models.NewBikeSearch
         public string MinPriceStr { get; set; }
         public int MaxPrice { get; set; }
         public string MaxPriceStr { get; set; }
-        public string ModelList { get; set; }
+        public string ModelIdList { get; set; }
+        public string ModelNameList { get; set; }
         public int PageNo { get; set; }
         public bool IsPageNoInUrl { get; set; }
     }

@@ -86,14 +86,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="bike-search">
+                <div class="bike-search content-box-shadow">
                     <input type="hidden" id="pageLoadData" value="@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeSearch))"/>
 					<!-- ko if : models() && models().length > 0 -->
 					<div id="divSearchResult" data-bind="visible : !noBikes() && TotalBikes() != 0" class="search-bike-container">
+						<ul>
 						@foreach (var bike in Model.BikeSearch.SearchResult)
 						{
 							<!-- ko if: models()[@i]-->
-							<div class="search-bike-item">
+							<li class="search-bike-item">
 								<div class="front">
 									<div class="contentWrapper">
 										<div class="imageWrapper">
@@ -108,7 +109,7 @@
 
 											<div id="reviewRatingsDiv" class=" font13 margin-bottom10 position-rel pos-right5">
 												<span class="rate-star-color" data-rate-cl="@bike.BikeModel.ReviewRateStar" data-bind="attr: {'data-rate-cl': models()[@i].bikemodel.reviewRateStar}">
-													<span class="bwmsprite star-icon star-size-16"></span><span class="font14 text-bold inline-block" data-bind="text: models()[@i].bikemodel.reviewRate ? models()[@i].bikemodel.reviewRate : 'Not rated yet'">@(bike.BikeModel.ReviewRate > 0 ? bike.BikeModel.ReviewRate.ToString() : "Not rated yet")</span>
+													<span class="bwmsprite star-icon star-size-16"></span><span class="font14 inline-block" data-bind="text: models()[@i].bikemodel.reviewRate ? models()[@i].bikemodel.reviewRate : 'Not rated yet'">@(bike.BikeModel.ReviewRate > 0 ? bike.BikeModel.ReviewRate.ToString() : "Not rated yet")</span>
 												</span>
 												<span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: models()[@i].bikemodel.ratingCount }">
 													&nbsp;(<span data-bind="text: models()[@i].bikemodel.ratingCount">@bike.BikeModel.RatingCount</span><span data-bind="text: models()[@i].bikemodel.ratingCount == 1 ? ' rating' : ' ratings'">@(bike.BikeModel.RatingCount == 1 ? " rating" : " ratings")</span>)
@@ -131,10 +132,18 @@
 										</div>
 									</div>
 								</div>
-								<div class="border-top1 margin-left20 margin-right20 padding-top20 clear"></div>
-							</div>
+							</li>
                             <!-- /ko -->
 						}
+						</ul>
+					</div>
+					<div class="load-more-btn-container">
+						<a title="Load More Bikes" href="javascript:void(0)" rel="nofollow" class="btn btn-teal">
+							<span>
+								Load More
+								<span class="bwmsprite teal-right"></span>
+							</span>
+						</a>
 					</div>
                     <!-- /ko -->
                     <div id="divMoreSearchResult" data-bind="template: { name: 'loadMoreListing', foreach: searchResult }" class="search-bike-container">
