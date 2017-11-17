@@ -1,13 +1,13 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using System;
 using Bikewale.Notifications;
+using System;
 using System.Linq;
 
 namespace Bikewale.BAL.BikeData
 {
     public class BikeSeries : IBikeSeries
-    { 
+    {
         private readonly IBikeSeriesCacheRepository _bikeSeriesCacheRepository = null;
 
         public BikeSeries(IBikeSeriesCacheRepository bikeSeriesCacheRepository)
@@ -27,17 +27,17 @@ namespace Bikewale.BAL.BikeData
             BikeSeriesModels objModels = null;
             try
             {
-                if(modelId > 0 && seriesId > 0)
+                if (modelId > 0 && seriesId > 0)
                 {
                     objModels = _bikeSeriesCacheRepository.GetModelsListBySeriesId(seriesId);
-                    if(objModels != null)
+                    if (objModels != null)
                     {
-                        if(objModels.NewBikes != null)
+                        if (objModels.NewBikes != null)
                         {
                             objModels.NewBikes = objModels.NewBikes.Where(bike => bike.BikeModel.ModelId != modelId);
                         }
 
-                        if(objModels.UpcomingBikes != null)
+                        if (objModels.UpcomingBikes != null)
                         {
                             objModels.UpcomingBikes = objModels.UpcomingBikes.Where(bike => bike.BikeModel.ModelId != modelId);
                         }
@@ -50,5 +50,7 @@ namespace Bikewale.BAL.BikeData
             }
             return objModels;
         }
+
+
     }   // class
 }   // namespace

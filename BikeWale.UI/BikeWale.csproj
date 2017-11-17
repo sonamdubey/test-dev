@@ -3848,6 +3848,7 @@
     <Content Include="Views\Scooters\_Index_Tabs.cshtml" />
     <Content Include="Views\BikeSeries\Index_List_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
