@@ -1,14 +1,15 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using System;
 using Bikewale.Notifications;
+using System;
 using System.Linq;
 using System.Collections.Generic;
+using Bikewale.Entities.BikeSeries;
 
 namespace Bikewale.BAL.BikeData
 {
     public class BikeSeries : IBikeSeries
-    { 
+    {
         private readonly IBikeSeriesCacheRepository _bikeSeriesCacheRepository = null;
 
         public BikeSeries(IBikeSeriesCacheRepository bikeSeriesCacheRepository)
@@ -56,17 +57,17 @@ namespace Bikewale.BAL.BikeData
             BikeSeriesModels objModels = null;
             try
             {
-                if(modelId > 0 && seriesId > 0)
+                if (modelId > 0 && seriesId > 0)
                 {
                     objModels = _bikeSeriesCacheRepository.GetModelsListBySeriesId(seriesId);
-                    if(objModels != null)
+                    if (objModels != null)
                     {
-                        if(objModels.NewBikes != null)
+                        if (objModels.NewBikes != null)
                         {
                             objModels.NewBikes = objModels.NewBikes.Where(bike => bike.BikeModel.ModelId != modelId);
                         }
 
-                        if(objModels.UpcomingBikes != null)
+                        if (objModels.UpcomingBikes != null)
                         {
                             objModels.UpcomingBikes = objModels.UpcomingBikes.Where(bike => bike.BikeModel.ModelId != modelId);
                         }
@@ -106,6 +107,20 @@ namespace Bikewale.BAL.BikeData
 				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetOtherSeriesFromMake_makeId = {0}", makeId));
 			}
 			return bikeSeriesEntityList;
+		}
+
+		public IEnumerable<BikeSeriesCompareBikes> GetBikesToCompare(uint seriesId)
+		{
+			IEnumerable<BikeSeriesCompareBikes> bikeSeriesCompareBikes = null;
+			try
+			{
+				bikeSeriesCompareBikes = _bikeSeriesCacheRepository.GetBikesToCompare(seriesId);
+			}
+			catch (Exception ex)
+			{
+				ErrorClass objErr = new ErrorClass(ex, string.Format("BAL.BikeData.BikeSeries.GetBikesToCompare_seriesId = {0}", seriesId));
+			}
+			return bikeSeriesCompareBikes;
 		}
 	}   // class
 }   // namespace

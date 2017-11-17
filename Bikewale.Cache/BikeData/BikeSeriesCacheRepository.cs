@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeSeries;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
@@ -68,6 +69,21 @@ namespace Bikewale.Cache.BikeData
             }
             return objModels;
 
+        }
+        public IEnumerable<BikeSeriesCompareBikes> GetBikesToCompare(uint seriesId)
+        {
+            IEnumerable<BikeSeriesCompareBikes> Obj = null;
+            string key = string.Format("BW_BikeSeriesComparision_{0}", seriesId);
+            try
+            {
+                Obj = _cache.GetFromCache<IEnumerable<BikeSeriesCompareBikes>>(key, new TimeSpan(1, 0, 0), () => _bikeSeriesRepository.GetBikesToCompare(seriesId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Cache.BikeData.BikeSeries.GetBikesToCompare"));
+            }
+
+            return Obj;
         }
 
 		public BikeDescriptionEntity GetSynopsis(uint seriesId)

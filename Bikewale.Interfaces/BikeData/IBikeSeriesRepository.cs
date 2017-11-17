@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeSeries;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
@@ -11,6 +12,7 @@ namespace Bikewale.Interfaces.BikeData
     {
         //BikeSeriesModels GetModelsListBySeriesId(uint seriesId);
 		IEnumerable<NewBikeEntityBase> GetNewModels(uint seriesId, uint cityId);
+        IEnumerable<BikeSeriesCompareBikes> GetBikesToCompare(uint seriesId);
 		IEnumerable<UpcomingBikeEntityBase> GetUpcomingModels(uint seriesId);
 		BikeDescriptionEntity GetSynopsis(uint seriesId);
 		IEnumerable<BikeSeriesEntity> GetOtherSeriesFromMake(int makeId);

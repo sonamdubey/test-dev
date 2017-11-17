@@ -1,15 +1,20 @@
-﻿using System;
+﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeSeries;
+using Bikewale.Entities.Images;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
-using System.Data;
-using Bikewale.DAL.CoreDAL;
+using Bikewale.Utility;
 using Dapper;
-using Bikewale.Entities.Images;
+using MySql.CoreDAL;
 using System.Collections.Generic;
 using System.Data.Common;
 using MySql.CoreDAL;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -144,6 +149,57 @@ namespace Bikewale.DAL.BikeData
 			return objUpcomingBikeList;
 		}
 
+
+        public IEnumerable<BikeSeriesCompareBikes> GetBikesToCompare(uint seriesId)
+        {
+            IList<BikeSeriesCompareBikes> objModelsList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikebyseriesidforcompare"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, seriesId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objModelsList = new List<BikeSeriesCompareBikes>();
+
+                            while (dr.Read())
+                            {
+                                objModelsList.Add(new BikeSeriesCompareBikes()
+                                {
+                                    ModelName = Convert.ToString(dr["ModelName"]),
+                                    HostUrl = Convert.ToString(dr["HostURL"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    Displacement = SqlReaderConvertor.ParseToDouble(dr["Displacement"]),
+                                    FuelCapacity = SqlReaderConvertor.ParseToDouble(dr["FuelEfficiencyOverall"]),
+                                    MaxPower = SqlReaderConvertor.ParseToDouble(dr["MaxPower"]),
+                                    Weight = SqlReaderConvertor.ParseToDouble(dr["KerbWeight"]),
+                                    Mileage = SqlReaderConvertor.ParseToDouble(dr["mileage"]),
+                                    SeatHeight = SqlReaderConvertor.ParseToDouble(dr["seatheight"]),
+                                    Gears = SqlReaderConvertor.ToUInt16(dr["NoOfGears"]),
+                                    BrakeType = Convert.ToString(dr["BrakeType"]),
+                                    MaxPowerRpm = SqlReaderConvertor.ParseToDouble(dr["MaxPowerRpm"])
+
+
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetBikesToCompare SeriesId = {0}", seriesId));
+            }
+            return objModelsList;
+        }
+
+
 		//public BikeSeriesModels GetModelsListBySeriesId(uint seriesId)
 		//      {
 		//          BikeSeriesModels objBikeSeriesModels = null;
@@ -247,7 +303,9 @@ namespace Bikewale.DAL.BikeData
 									SeriesId = SqlReaderConvertor.ToUInt32(dr["SeriesId"]),
 									SeriesName = Convert.ToString(dr["SeriesName"]),
 									MaskingName = Convert.ToString(dr["SeriesMaskingName"]),
-									ModelsCount = SqlReaderConvertor.ToUInt32(dr["ModelsCount"])
+									ModelsCount = SqlReaderConvertor.ToUInt32(dr["ModelsCount"]),
+									HostUrl = Convert.ToString(dr["HostUrl"]),
+									OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
 								});
 
 							}
