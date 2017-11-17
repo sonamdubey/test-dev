@@ -431,7 +431,7 @@
         {
             <div class="container">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest updates from the bike industry</h2>
+                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest bike and scooter updates</h2>
                     <div class="bw-tabs-panel margin-bottom30 padding-bottom20 content-box-shadow article-control">
                         <div class="@string.Format("text-center {0}", Model.TabCount > 2 ? string.Empty : Model.TabCount > 1 ? "margin-top30 margin-bottom30" : "margin-top10")">
                             <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", Model.TabCount > 2 ? "bw-tabs-flex" : Model.TabCount > 1 ? "home-tabs" : "hide")">
@@ -461,28 +461,20 @@
                             @if (Model.News.FetchedCount > 0)
                             {
                                 @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
-                                <div class="more-article-target view-all-btn-container">
-                                    <a href="@Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Bikes News"))"
-                                       class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
-                                </div>
+                                
                             }
                         </div>
                         <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlExpertReviews">
                             @if (Model.ExpertReviews.FetchedCount > 0)
                             {
                                 @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
-                                <div class="padding-left10 more-article-target view-all-btn-container">
-                                    <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span></a>
-                                </div>
+                                
                             }
                         </div>
                         <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlVideos">
                             @if (Model.Videos.FetchedCount > 0)
                             {
                                 @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
-                                <div class="padding-left10 more-article-target view-all-btn-container">
-                                    <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">View all videos<span class="bwsprite teal-right"></span></a>
-                                </div>
                             }
                         </div>
                     </div>

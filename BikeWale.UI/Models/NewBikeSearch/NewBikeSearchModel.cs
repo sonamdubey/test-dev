@@ -151,7 +151,7 @@ namespace Bikewale.Models.NewBikeSearch
                         _baseUrl = string.Format("{0}bikes-above-{1}/", BaseUrl, currentPage.MinPrice);
                         objPage.CanonicalUrl = string.Format("https://www.bikewale.com/new/bike-search/bikes-above-{0}/{1}", currentPage.MinPrice, pageQuery);
                         objPage.AlternateUrl = string.Format("https://www.bikewale.com/new/bike-search/m/bikes-above-{0}/{1}", currentPage.MinPrice, pageQuery);
-                        viewModel.MinMaxBudget = string.Format("{0}-", currentPage.MaxPrice);
+                        viewModel.MinMaxBudget = string.Format("{0}-", currentPage.MinPrice);
                         break;
                     case SearchPageType.Between:
                         objPage.Title = string.Format("Bikes Between Rs. {0}  and Rs. {1} - Explore Latest Bikes between Rs. {0} and {1} on BikeWale", currentPage.MinPriceStr, currentPage.MaxPriceStr);
