@@ -1,23 +1,23 @@
 {
   "videosBundle": {
-    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/videosBundle.bundle.9997fd9ab06c056418d1.js",
-    "css": "https://stb.aeplcdn.com/staging/bikewale/pwa/css/videos/videosBundle.9997fd9ab06c056418d1.css"
+    "js": "https://stb.aeplcdn.com/bikewale/pwa/videosBundle.bundle.9fe979f2f6c5dbc09a76.js",
+    "css": "https://stb.aeplcdn.com/bikewale/pwa/css/videos/videosBundle.9fe979f2f6c5dbc09a76.css"
   },
   "newsBundle": {
-    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/newsBundle.bundle.9997fd9ab06c056418d1.js",
-    "css": "https://stb.aeplcdn.com/staging/bikewale/pwa/css/news/newsBundle.9997fd9ab06c056418d1.css"
+    "js": "https://stb.aeplcdn.com/bikewale/pwa/newsBundle.bundle.9fe979f2f6c5dbc09a76.js",
+    "css": "https://stb.aeplcdn.com/bikewale/pwa/css/news/newsBundle.9fe979f2f6c5dbc09a76.css"
   },
   "peripheralComponents": {
-    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/peripheralComponents.bundle.9997fd9ab06c056418d1.js"
+    "js": "https://stb.aeplcdn.com/bikewale/pwa/peripheralComponents.bundle.9fe979f2f6c5dbc09a76.js"
   },
   "vendor": {
-    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/vendor.bundle.9997fd9ab06c056418d1.js"
+    "js": "https://stb.aeplcdn.com/bikewale/pwa/vendor.bundle.9fe979f2f6c5dbc09a76.js"
   },
   "app": {
-    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/app.bundle.9997fd9ab06c056418d1.js",
-    "css": "https://stb.aeplcdn.com/staging/bikewale/pwa/css/app.9997fd9ab06c056418d1.css"
+    "js": "https://stb.aeplcdn.com/bikewale/pwa/app.bundle.9fe979f2f6c5dbc09a76.js",
+    "css": "https://stb.aeplcdn.com/bikewale/pwa/css/app.9fe979f2f6c5dbc09a76.css"
   },
   "manifest": {
-    "js": "https://stb.aeplcdn.com/staging/bikewale/pwa/manifest.bundle.9997fd9ab06c056418d1.js"
+    "js": "https://stb.aeplcdn.com/bikewale/pwa/manifest.bundle.9fe979f2f6c5dbc09a76.js"
   }
 }

@@ -25,6 +25,23 @@ var pattern = {
 	INLINE_CSS: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)inline(?:[^>]*)\/{0,1}>/ig
 };
 
+var webpackAssetsJson = require('./webpack-assets.json');
+if(!webpackAssetsJson) {
+	console.log('Webpack assets json not found');
+	return;
+}
+var cssChunksJson = {};
+for (const key of Object.keys(webpackAssetsJson)) {
+	if(webpackAssetsJson[key].css)
+		cssChunksJson[key] = webpackAssetsJson[key].css;    
+}
+var jsChunksJson = {};
+for(const key of Object.keys(webpackAssetsJson)) {
+	if(webpackAssetsJson[key].js) {
+		jsChunksJson['/pwa/'+key+'.bundle.js'] = webpackAssetsJson[key].js;
+	}
+}
+
 gulp.task('clean', function () {
 	return del([buildFolder]);
 });
@@ -155,87 +172,7 @@ gulp.task('replace-css-reference', function () {
 	console.log('internal css reference replaced');
 });
 
-// replace PWA JS versions
-gulp.task('replacePWAJsVersions' , function() {
-	var assetsJson = require('./webpack-assets.json');
-	if(!assetsJson) {
-		console.log('Webpack assets json not found');
-		return;
-	}
-	var replaceJson = {};
-	
-	replaceJson["/pwa/vendor.bundle.js"] = assetsJson["vendor"].js;
-	replaceJson["/pwa/app.bundle.js"] = assetsJson["app"].js;
-	replaceJson["/pwa/manifest.bundle.js"] = assetsJson["manifest"].js;
-	var regexCssChunks = /<script>(.|\n)*window\.__CSS_CHUNKS__(.|\n)*=(.|\n)*{(.|\n)*}(.|\n)*(;?)(.|\n)*<\/script>/gm;
-	var cssChunksJson = {};
-	for (const key of Object.keys(assetsJson)) {
-		if(assetsJson[key].css)
-			cssChunksJson[key] = assetsJson[key].css;    
-	}
-	var cssChunksTag = '<script>window.__CSS_CHUNKS__='+JSON.stringify(cssChunksJson)+';</script>'
-	return gulp.src([
-		app + 'Views/News/Index_Mobile_Pwa.cshtml',
-		app + 'Views/News/Detail_Mobile.cshtml',
-		app + 'pwa/appshell.html',
-		app + 'Views/Videos/Index_Mobile_Pwa.cshtml',
-		app + 'Views/Videos/Details_Mobile_Pwa.cshtml',
-		app + 'Views/Videos/CategoryVideos_Mobile_Pwa.cshtml'
-		], { base: app })
-		.pipe(replace(/\/pwa\/(vendor|manifest|app).bundle.js/g, function(match, p1, offset, string) { //replace js urls with hashcode
-			return replaceJson[match];
-	    }))
-	    .pipe(replace(pattern.CSS_ATF, function (s, fileName) { // replace inline css
-	    	var regex = /\/pwa\/css\/(.*\/)?(.*).css/;
-			var matches = regex.exec(fileName);
-			if(!matches || !matches[2]) {
-				console.log('Could not find filename from '+fileName);
-				return;
-			}
-			var cssNameWithHash = cssChunksJson[matches[2]];
-			regex = /\/pwa\/css\/.*\.(.*)\.css/;
-			matches = regex.exec(cssNameWithHash);
-			if(!matches || !matches[1]) {
-				console.log('Could not extract chunk hash for '+fileName);
-				return;
-			}
-			var fileName = fileName.replace('.css','.'+matches[1]+'.css');
-			var style = fs.readFileSync(app + fileName, 'utf-8'),
-				style = style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "").replace(/[@]{1}/g, "@@"),
-				styleTag = "<style type='text/css'>" + style + "</style>";
-			return styleTag;
-		}))
-		.pipe(replace(regexCssChunks,function(match, p1, offset, string) { // replace ccs chunks
-			return cssChunksTag;
-	    }))
-	    .pipe(gulp.dest('BikeWale.UI/build/'))
-})
 
-gulp.task('appshellHashing', ['replacePWAJsVersions'] , function() {
-	return gulp.src([buildFolder+'pwa/appshell.html'] , { base : buildFolder})
-		.pipe(rev())
-		.pipe(gulp.dest(buildFolder))
-		.pipe(rev.manifest({
-			base: process.cwd(),
-			merge : true
-		}))
-		.pipe(gulp.dest(buildFolder))
-})
-
-gulp.task("replaceAppshellInSW", ['replacePWAJsVersions' , 'appshellHashing'] , function() {
-	var revManifest = require('./'+buildFolder+'rev-manifest.json');
-	var appshellVersion = revManifest['pwa/appshell.html'];
-	if(!appshellVersion) {
-		console.log('No version available for appshell.html');
-		return;
-	}
-    return gulp.src([app + 'm/sw.js',
-    				app + 'm/news/sw.js'] , { base: app })
-        .pipe(replace(/pwa\/appshell.html/g , function(match, p1, offset, string){ //	/pwa\/appshell.html/
-        	return appshellVersion;
-        }))
-        .pipe(gulp.dest(app));
-});
 
 
 // replace desktop frameworks js, ie8 fix
@@ -254,6 +191,94 @@ gulp.task('replace-css-link-reference', function () {
 		}))
 		.pipe(gulp.dest(buildFolder));
 });
+
+// PWA specific gulp tasks
+var patternJSBundle = /\/pwa\/([a-z]|[A-Z]|[0-9])+.bundle.js/g;
+var replaceJsVersion = function(match, p1, offset, string) { //replace js urls with hashcode
+			if(jsChunksJson[match])
+				return jsChunksJson[match];
+			else 
+				console.log('No match found for js link '+match);
+	    }
+var replaceInlineCssReferenceLink = function (s, fileName) { // replace inline css
+	    	var regex = /\/pwa\/css\/(.*\/)?(.*).css/;
+			var matches = regex.exec(fileName);
+			if(!matches || !matches[2]) {
+				console.log('Could not find filename from '+fileName);
+				return;
+			}
+			var cssNameWithHash = cssChunksJson[matches[2]];
+			regex = /\/pwa\/css\/.*\.(.*)\.css/;
+			matches = regex.exec(cssNameWithHash);
+			if(!matches || !matches[1]) {
+				console.log('Could not extract chunk hash for '+fileName);
+				return;
+			}
+			var fileName = fileName.replace('.css','.'+matches[1]+'.css');
+			var style = fs.readFileSync(app + fileName, 'utf-8'),
+				style = style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "").replace(/[@]{1}/g, "@@"),
+				styleTag = "<style type='text/css'>" + style + "</style>";
+			return styleTag;
+		}
+gulp.task('replace-js-css-reference' , function() {
+	return gulp.src([
+		app + 'Views/News/Index_Mobile_Pwa.cshtml',
+		app + 'Views/News/Detail_Mobile.cshtml',
+		app + 'Views/Videos/Index_Mobile_Pwa.cshtml',
+		app + 'Views/Videos/Details_Mobile_Pwa.cshtml',
+		app + 'Views/Videos/CategoryVideos_Mobile_Pwa.cshtml'
+		], { base: app })
+		.pipe(replace(patternJSBundle,replaceJsVersion))
+	    .pipe(replace(pattern.CSS_ATF, replaceInlineCssReferenceLink ))
+		.pipe(gulp.dest(buildFolder));
+})
+
+// replace css chunk links
+var cssChunksJsonPattern = /<script>(.|\n)*window\.__CSS_CHUNKS__(.|\n)*=(.|\n)*?<\/script>/g;
+var cssChunksTag = '<script>window.__CSS_CHUNKS__='+JSON.stringify(cssChunksJson)+';</script>';
+gulp.task('replace-css-chunk-json',function() {
+	return gulp.src(app + 'Views/Shared/_CssChunksScript.cshtml' , { base: app })
+		.pipe(replace(cssChunksJsonPattern, function(match, p1, offset, string){
+			return cssChunksTag;
+		}))
+		.pipe(gulp.dest(buildFolder));
+})
+
+gulp.task('swResourceProcesing', function() {
+	return gulp.src([
+		app + 'pwa/appshell.html',
+		app + 'pwa/sw-toolbox.js'
+		] , { base : app})
+		.pipe(replace(patternJSBundle,replaceJsVersion))
+	    .pipe(replace(pattern.CSS_ATF,replaceInlineCssReferenceLink))
+	    .pipe(replace(cssChunksJsonPattern,function(match, p1, offset, string){
+			return cssChunksTag;
+		}))
+		.pipe(replace(/@@/g,function(match, p1, offset, string){
+			return '@';
+		}))
+		.pipe(rev())
+		.pipe(gulp.dest(buildFolder))
+		.pipe(rev.manifest({
+			base: process.cwd(),
+			merge : true
+		}))
+		.pipe(gulp.dest(buildFolder))
+})
+
+gulp.task("replaceSWResouceHashInSW" , function() {
+	var revManifest = require('./'+buildFolder+'rev-manifest.json');
+	return gulp.src([app + 'm/sw.js',
+    				app + 'm/news/sw.js'] , { base: app })
+        .pipe(replace(/pwa\/(sw-toolbox|appshell)(-([a-z]|[A-Z]|[0-9])*)?\.(js|html)/g , function(match, p1, offset, string){ 
+        	if(match.indexOf("appshell")!==-1)
+        		return revManifest["pwa/appshell.html"]
+        	else if(match.indexOf("sw-toolbox")!==-1)
+        		return revManifest['pwa/sw-toolbox.js'];
+        }))
+        .pipe(gulp.dest(app));
+});
+
 
 gulp.task('sass', function () {
 	return gulp.src([app + 'sass/**/*.sass', app + 'm/sass/**/*.sass'], { base: app })
@@ -275,9 +300,10 @@ gulp.task('default',
 		'replace-css-reference',
 		'replace-css-link-reference',
 		// 'replace-mvc-layout-css-reference'//,
-		'replacePWAJsVersions',
-		'appshellHashing',
-		'replaceAppshellInSW'
+		'replace-css-chunk-json',
+		'replace-js-css-reference',
+		'swResourceProcesing',
+		'replaceSWResouceHashInSW'
 	)
 );
 //end
