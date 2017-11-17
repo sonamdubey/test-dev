@@ -13,9 +13,21 @@
 .search-img-holder .featured-icon { position: absolute; top: 10px; left: 0px; }
 .search-bike-info span { margin-right: 5px; }
 .search-call-icon { position: absolute; top: 12px; left: 10px; color: #fff; font-size: 18px; }
-.search-bike-item { background: #fff; }
 .search-bike-item .front { height: auto; border-radius: 0; box-shadow: none; -moz-box-shadow: none; -ms-box-shadow: none; border: 0 none; }
 .search-bike-container .search-bike-item:last-child { box-shadow: none; margin: 0px; }
+.search-bike-item:before {
+	content: "";
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto 20px;
+    width: 90%;
+	height: 7px;
+    border-top: 1px solid #e2e2e2;
+    display: block;
+    z-index: 1;
+}
 /*.bwm-usedbike { background:url(../images/bwm-usedbike.png) no-repeat 0px 0px; display: inline-block; }*/
 .sort-list.ui-radio { display: table; width: 100%; border-bottom: 1px solid #ccc; color: #333; cursor: pointer; }
 .sort-list.ui-radio input[type="radio"] { display: table-cell; padding: 15px 10px 15px 0px; position: relative; left: 0px; top: 4px; width: 42px; height: 20px; margin: 0; outline: 0; }
@@ -224,4 +236,11 @@ span.ui-helper-hidden-accessible { display: none; }
     vertical-align: top;
 }
 
-  
+.load-more-btn-container {
+	text-align: center;
+	padding-bottom: 30px;
+}
+
+.btn-teal .teal-right {
+	background-position: -204px -49px;
+}
