@@ -124,6 +124,7 @@
     <Compile Include="AdSlot\AdSlot.cs" />
     <Compile Include="BikeMakes.cs" />
     <Compile Include="BikeModels.cs" />
+    <Compile Include="BikePricing\BwPrice.cs" />
     <Compile Include="BikeSeries.cs" />
     <Compile Include="ContractCampaign\ContractCampaignMapping.cs" />
     <Compile Include="BikePricing\DealerPrice.cs" />
