@@ -166,7 +166,7 @@ namespace Bikewale.Models
 
                 if (IsAmpPage)
                 {
-                    BindAmpJsTags(objData); 
+                    BindAmpJsTags(objData);
                 }
                 #endregion
             }
@@ -204,16 +204,83 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 24 Aug 2017
         /// Description :   Bind Other Make list
+        /// Modifiwed by Sajal Gupta on 15-11-2017
+        /// Dewsc : Added makecategory sorting logic
         /// </summary>
         /// <param name="objData"></param>
         private void BindOtherMakes(MakePageVM objData)
         {
             try
             {
-                var makes = _bikeMakesCache.GetMakesByType(EnumBikeType.New);
-                if (makes != null && makes.Any())
+                IEnumerable<BikeMakeEntityBase> makes = _bikeMakesCache.GetMakesByType(EnumBikeType.New);
+                ushort categoryId = 0;
+
+                if (makes != null)
                 {
-                    objData.OtherMakes = makes.Where(m => m.MakeId != _makeId).Take(9);
+                    var curMake = makes.Where(x => x.MakeId == _makeId).FirstOrDefault();
+
+                    if (curMake != null)
+                        categoryId = curMake.MakeCategoryId;
+                }
+
+                List<BikeMakeEntityBase> popularBrandsList = new List<BikeMakeEntityBase>();
+                IEnumerable<BikeMakeEntityBase> tempBrandsList = null;
+
+                if (categoryId > 0)
+                {
+                    ushort[] arr;
+
+                    switch (categoryId)
+                    {
+                        case 1:
+                            arr = new ushort[] { 1, 2, 3, 4, 5 };
+                            break;
+                        case 2:
+                            arr = new ushort[] { 2, 3, 4, 5, 1 };
+                            break;
+                        case 3:
+                            arr = new ushort[] { 3, 2, 4, 5, 1 };
+                            break;
+                        case 4:
+                            arr = new ushort[] { 4, 5, 3, 2, 1 };
+                            break;
+                        case 5:
+                            arr = new ushort[] { 5, 4, 3, 2, 1 };
+                            break;
+                        default:
+                            arr = new ushort[] { 1, 2, 3, 4, 5 };
+                            break;
+                    }
+
+                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[0] && x.MakeId != _makeId);
+
+                    if (tempBrandsList != null)
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
+
+                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[1]);
+
+                    if (tempBrandsList != null)
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
+
+                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[2]);
+
+                    if (tempBrandsList != null)
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
+
+                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[3]);
+
+                    if (tempBrandsList != null)
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
+
+                    tempBrandsList = makes.Where(x => x.MakeCategoryId == arr[4]);
+
+                    if (tempBrandsList != null)
+                        popularBrandsList.AddRange(tempBrandsList.OrderBy(x => x.PopularityIndex));
+
+                }
+                if (popularBrandsList != null && popularBrandsList.Any())
+                {
+                    objData.OtherMakes = popularBrandsList.Take(9);
                 }
             }
             catch (Exception ex)

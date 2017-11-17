@@ -11,6 +11,8 @@ namespace Bikewale.Entities.BikeData
     /// Summary : HostUrl and LogoUrl Added
     /// Modified by :   Sumit Kate on 03 Mar 2016
     /// Description :   Added PopularityIndex
+    /// Modified by sajal Gupta on 14-11-2017
+    /// Description : Added MakeCategoryId
     /// </summary>
     [Serializable, DataContract]
     public class BikeMakeEntityBase
@@ -50,5 +52,8 @@ namespace Bikewale.Entities.BikeData
 
         [JsonProperty("metas"), DataMember]
         public IEnumerable<CustomPageMetas> Metas { get; set; }
+
+        [JsonProperty(PropertyName = "makeCategoryId"), DataMember]
+        public ushort MakeCategoryId { get; set; }
     }
 }
