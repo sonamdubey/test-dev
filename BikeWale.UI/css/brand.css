@@ -341,3 +341,124 @@
 .no-city-selection-carousel .jcarousel a:hover {
     text-decoration: none;
 }
+
+/* popular review starts here */
+
+.padding-20 {
+	padding: 20px;
+}
+
+.popular-review-list .list-item {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-top: 1px solid #e2e2e2;
+}
+
+.popular-review-list .list-item:first-child {
+	padding-top: 0;
+	border-top: none;
+}
+
+.popular-review-list h3 {
+	color: #2a2a2a;
+}
+
+.review-list__image-target {
+	width: 150px;
+	height: 84px;
+	float: left;
+}
+
+.review-list__image-target img {
+	height: 84px;
+}
+
+.review-type-list {
+	width: 82%;
+	float: left;
+	font-size: 0;
+}
+
+.review-type-list__item {
+	width: 50%;
+	font-size: 14px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.review-item__label {
+	font-size: 12px;
+	color: #787878;
+	margin-bottom: 10px;
+}
+
+.review-item__preview {
+	font-size: 14px;
+	margin-bottom: 5px;
+}
+
+.review-type-list .review-type-list__item:first-child {
+	padding-right: 60px;
+}
+
+/* rating */
+
+.rate-count-5 {
+	color: #198d55;
+}
+
+.rate-count-4 {
+	color: #13b65d;
+}
+
+.rate-count-3 {
+	color: #efd700;
+}
+
+.rate-count-2 {
+	color: #fd971c;
+}
+
+.rate-count-1 {
+	color: #ef3f30;
+}
+
+.rate-star--small .star-icon {
+	width: 23px;
+	height: 22px;
+	display: inline-block;
+	vertical-align: middle;
+	-webkit-transform: scale(0.5);
+	-moz-transform: scale(0.5);
+	transform: scale(0.5);
+}
+
+.rate-count-5 .star-icon {
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-5-26x25.png') no-repeat center;
+}
+
+.rate-count-4 .star-icon {
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-4-26x25.png') no-repeat center;
+}
+
+.rate-count-3 .star-icon {
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-3-26x25.png') no-repeat center;
+}
+
+.rate-count-2 .star-icon {
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-2-26x25.png') no-repeat center;
+}
+
+.rate-count-1 .star-icon {
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-1-26x25.png') no-repeat center;
+}
+
+.rate-star-count {
+	font-size: 14px;
+	font-weight: 700;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* popular review ends here */
+
