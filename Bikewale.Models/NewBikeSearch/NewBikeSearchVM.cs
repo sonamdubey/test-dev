@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Bikewale.DTO.NewBikeSearch;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.Pager;
 
 
@@ -14,7 +14,7 @@ namespace Bikewale.Models.NewBikeSearch
     public class NewBikeSearchVM : ModelBase
     {
         public IEnumerable<BikeMakeEntityBase> PopularBrands { get; set; }
-        public SearchOutputEntity BikeSearch { get; set; }
+        public SearchOutput BikeSearch { get; set; }
         public IEnumerable<BikeMakeEntityBase> OtherBrands { get; set; }
         public RecentNewsVM News { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }

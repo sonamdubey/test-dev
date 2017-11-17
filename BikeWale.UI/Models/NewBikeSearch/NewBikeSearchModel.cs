@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
+using Bikewale.DTO.NewBikeSearch;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.PriceQuote;
@@ -32,7 +33,7 @@ namespace Bikewale.Models.NewBikeSearch
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly IBikeMakesCacheRepository _makes;
-        private readonly ISearchResult _searchResult = null;
+        private readonly IBikeSearchResult _searchResult = null;
         private readonly IProcessFilter _processFilter = null;
         private readonly string _queryString;
         private HttpRequestBase _request;
@@ -41,7 +42,7 @@ namespace Bikewale.Models.NewBikeSearch
         NewBikeSearchVM viewModel;
 
 
-        public NewBikeSearchModel(HttpRequestBase Request, ICMSCacheContent objArticles, IVideos objVideos, IBikeMakesCacheRepository makes, ISearchResult searchResult, IProcessFilter processFilter, PQSourceEnum pqSource)
+        public NewBikeSearchModel(HttpRequestBase Request, ICMSCacheContent objArticles, IVideos objVideos, IBikeMakesCacheRepository makes, IBikeSearchResult searchResult, IProcessFilter processFilter, PQSourceEnum pqSource)
         {
             _request = Request;
             _makes = makes;
@@ -60,7 +61,7 @@ namespace Bikewale.Models.NewBikeSearch
             SetPageType();
             if(viewModel.BikeSearch != null)
             {
-                viewModel.BikeSearch.PqSource = _pqSource;
+                viewModel.BikeSearch.PqSource = Convert.ToInt32(_pqSource);
                 BindEditorialWidget(viewModel);
                 BindPageMetas(viewModel.PageMetaTags);
                 CreatePager(viewModel);
@@ -73,9 +74,9 @@ namespace Bikewale.Models.NewBikeSearch
             return viewModel;
         }
 
-        private SearchOutputEntity BindBikes()
+        private SearchOutput BindBikes()
         {
-            SearchOutputEntity objResult = null;
+            SearchOutput objResult = null;
             InputBaseEntity input = MapQueryString(_queryString);
             if (null != input)
             {

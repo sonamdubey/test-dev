@@ -1,11 +1,11 @@
-﻿using Bikewale.Entities.PriceQuote;
+﻿using System.Web.Mvc;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.NewBikeSearch;
-using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
@@ -18,10 +18,10 @@ namespace Bikewale.Controllers
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly IBikeMakesCacheRepository _makes;
-        private readonly ISearchResult _searchResult = null;
+        private readonly IBikeSearchResult _searchResult = null;
         private readonly IProcessFilter _processFilter = null;
 
-        public NewBikeSearchController(ICMSCacheContent articles, IVideos videos, IBikeMakesCacheRepository makes, ISearchResult searchResult, IProcessFilter processFilter)
+        public NewBikeSearchController(ICMSCacheContent articles, IVideos videos, IBikeMakesCacheRepository makes, IBikeSearchResult searchResult, IProcessFilter processFilter)
         {
             _makes = makes;
             _articles = articles;
