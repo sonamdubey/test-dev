@@ -332,6 +332,7 @@ docReady(function () {
                             self.IsMoreBikesAvailable(false);
                             self.noBikes(true);
                             self.TotalBikes(0);
+                            $('#bikecount').text(self.TotalBikes() + ' Bikes Available');
                         })
                         .always(function () {
                             window.location.hash = qs;
