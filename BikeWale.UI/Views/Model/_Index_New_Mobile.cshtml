@@ -123,10 +123,21 @@
                     @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
                     {
                         <div id="modelsBySeriesWidget" data-id="overviewContent" class="bw-model-tabs-data margin-bottom15 bw-ga" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
-                            <h2 class="horizontal-swiper__title">Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
+							<div class="inline-block">
+								<h2 class="horizontal-swiper__title">Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
+							</div>
+							@if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
+							{
+								<div class="rightfloat padding-top15">
+									<a href="@string.Format("/{0}-bikes/{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelsBySeries.SeriesBase.MaskingName)" class="btn btn-inv-teal contest-fullwidth__target">View All<span class="bwsprite teal-right"></span></a>
+								</div>
+							}
                             @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
+							
                         </div>
-                    }
+						
+
+					}
                     @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
                     {
                         @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)

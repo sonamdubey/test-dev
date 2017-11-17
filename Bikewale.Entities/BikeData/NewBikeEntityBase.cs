@@ -10,7 +10,8 @@ namespace Bikewale.Entities.BikeData
     [Serializable, DataContract]
     public class NewBikeEntityBase
     {
-        [DataMember]
+		public float Rating { get; set; }
+		[DataMember]
         public BikeMakeBase BikeMake { get; set; }
         [DataMember]
         public BikeModelEntityBase BikeModel { get; set; }
@@ -22,5 +23,6 @@ namespace Bikewale.Entities.BikeData
         public MinSpecsEntity MinSpecs { get; set; }
         [DataMember]
         public uint Count { get; set; }
-    }
+		public ushort BodyStyle { get; set; }
+	}
 }

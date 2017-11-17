@@ -1,14 +1,20 @@
 ﻿using Bikewale.Entities.BikeData;
-using System;
+using Bikewale.Entities.Location;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Models.BikeSeries
 {
 	public class SeriesPageVM : ModelBase
 	{
+		public BikeDescriptionEntity SeriesDescription { get; set; }
+		public BikeMakeBase BikeMake { get; set; }
+		public BikeSeriesEntityBase SeriesBase { get; set; }
 		public BikeSeriesModels SeriesModels { get; set; }
+		public CityEntityBase City { get; set; }
+		public IEnumerable<BikeSeriesEntity> OtherSeriesList { get; set; }
+		public RecentNewsVM News { get; set; }
+		public RecentExpertReviewsVM ExpertReviews { get; set; }
+		public RecentVideosVM Videos { get; set; }
+
 	}
 }

@@ -85,8 +85,8 @@ namespace Bikewale.Cache.Videos
         /// Created By : Sushil Kumar K
         /// Created On : 18th February 2016
         /// Description : Cache Layer for GetSimilar Videos
-        /// Modified by :   Sumit Kate on 17 Oct 2016
-        /// Description :   Removed the caching
+        /// Modified by :  Sumit Kate on 17 Oct 2016
+        /// Description :  Removed the caching
         /// </summary>
         /// <param name="videoBasicId"></param>
         /// <param name="totalCount"></param>
@@ -101,23 +101,36 @@ namespace Bikewale.Cache.Videos
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetSimilarVideos");
-                objErr.SendMail();
             }
             return videosList;
         }
-        #endregion
 
-        #region Get Video Details
-        /// <summary>
-        /// Created By : Sushil Kumar K
-        /// Created On : 18th February 2016
-        /// Description : Cache Layer for Videos Details page
-        /// Modified by :   Sumit Kate on 17 Oct 2016
-        /// Description :   Removed the caching
-        /// </summary>
-        /// <param name="videoBasicId"></param>
-        /// <returns></returns>
-        public BikeVideoEntity GetVideoDetails(uint videoBasicId)
+		public IEnumerable<BikeVideoEntity> GetSimilarVideos(ushort totalCount, string modelIdList, uint videoBasicId = 0)
+		{
+			IEnumerable<BikeVideoEntity> videosList = null;
+			try
+			{
+				videosList = _VideosRepository.GetSimilarVideos(totalCount, modelIdList, videoBasicId);
+			}
+			catch (Exception ex)
+			{
+				ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetSimilarVideos");
+			}
+			return videosList;
+		}
+		#endregion
+
+		#region Get Video Details
+		/// <summary>
+		/// Created By : Sushil Kumar K
+		/// Created On : 18th February 2016
+		/// Description : Cache Layer for Videos Details page
+		/// Modified by :   Sumit Kate on 17 Oct 2016
+		/// Description :   Removed the caching
+		/// </summary>
+		/// <param name="videoBasicId"></param>
+		/// <returns></returns>
+		public BikeVideoEntity GetVideoDetails(uint videoBasicId)
         {
             BikeVideoEntity video = null;
             try

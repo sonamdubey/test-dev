@@ -3846,8 +3846,13 @@
     <Content Include="Views\UserReview\UserReviewsByMake.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs.cshtml" />
-    <Content Include="Views\BikeSeries\Index_List_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\Index_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\_PopularNewBikes_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\_UpcomingBikes_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1_Mobile.cshtml" />
+    <Content Include="Views\News\_RecentNews_v1_Mobile.cshtml" />
+    <Content Include="Views\Videos\_RecentVideos_v1_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3985,11 +3990,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.6.0.3969\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.6.0.3969\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.6.0.3969\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

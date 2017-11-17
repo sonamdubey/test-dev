@@ -175,8 +175,7 @@
                 }
             };
 
-            self.InitializePQ = function () {
-
+			self.InitializePQ = function () {
                 if (self.SelectedModelId() != null && self.SelectedModelId() > 0) {
 
                     var objData = {
@@ -191,8 +190,7 @@
                         'isPersistance': self.IsPersistance(),
                         'refPQId': typeof pqId != 'undefined' ? pqId : '',
                         'isReload': self.IsReload()
-                    };
-
+					};
                     $.ajax({
                         type: "POST",
                         url: "/api/generatepq/",
