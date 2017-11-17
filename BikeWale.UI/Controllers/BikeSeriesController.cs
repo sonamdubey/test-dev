@@ -50,5 +50,14 @@ namespace Bikewale.Controllers
 			obj = seriesPage.GetData(seriesId);
             return View(obj);
         }
+
+        // GET: BikeSeries
+        [Route("model/series/"), Filters.DeviceDetection]
+        public ActionResult Index_List()
+        {
+            ModelPageVM obj = new ModelPageVM();
+            return View(obj);
+        }
     }
+
 }

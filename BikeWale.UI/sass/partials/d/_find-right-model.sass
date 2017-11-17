@@ -22,6 +22,16 @@
 	position: absolute
 	top: 0px
 
+.specs-btn
+	border-radius: 20px
+	-webkit-border-radius: 20px
+	-moz-border-radius: 20px
+	text-decoration: none
+	text-align: center
+	padding: 7px 10px
+	border: 1px solid #aaa
+	background-color: white
+
 .find-specs-tabs-wrapper
 	width: 100%
 	display: table
@@ -29,11 +39,20 @@
 	padding-right: 20px
 
 	li
-		display: table-cell
-		width: 1%
+		display: inline-block
 		text-align: center
 		cursor: pointer
 		white-space: nowrap
+
+	.specs-btn
+		display: inline-block
+		margin: 0 5px 10px
+		color: #aaa
+		font-size: 14px
+
+		&:hover
+			border-color: #ff7c6f
+			color: #ff7c6f
 		
 .right-bike__desc
 	padding: 10px 20px 0
@@ -46,7 +65,7 @@
 	.rightbike-carousel__model-card
 		width: $width
 		height: $height
-		padding: 10px 20px 5px
+		padding: 15px 10px
 
 @mixin rightbike-carousel__tags($font-size: 10, $color1: #787878, $color2: #ff7c6f)
 	.rightbike-carousel__model-card
@@ -78,59 +97,29 @@
 	
 .right-bike-swiper
 	padding-top: 0
-	
-	&.swiper-container
-		padding-left: 135px
 
-		&:after
-			background: -moz-linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
-			background: -o-linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
-			background: linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
-			content: ''
-			width: 16px
-			height: 100%
-			position: absolute
-			top: 0
-			right: -1px
+	&.jcarousel-wrapper
+		padding-left: 270px
+		&[data-overlay='both'],
+		&[data-overlay='left']
+			&:before
+				left: 242px
+
+		.jcarousel
+			.rightbike__swiper-card
+				width: 167px
+				-webkit-box-shadow: none
+				-moz-box-shadow: none
+				box-shadow: none
+				border-color: transparent
+		.jcarousel-control-left
 			z-index: 2
-
-		&:before
-			background: -moz-linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
-			background: -o-linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
-			background: linear-gradient(to left,rgba(255,255,255,0) 0,#fff 100%)
-			content: ''
-			width: 16px
-			height: 100%
-			position: absolute
-			top: 0
-			left: 128px
-			z-index: 2
-
-		.swiper-ribbon
-			display: block
-			min-width: 116px
-			height: 33px
-			font-size: 14px
-			color: white
-			font-weight: 600
-			padding: 5px 26px 5px 18px
-			background: #ff7c6f
-			border-radius: 15px 0 0 15px
-			position: absolute
-			right: -119px
-			bottom: 80px
-			z-index: 3
-
-
-		.animate-ribbon
-			-webkit-animation: moveribbon 5s
-			-webkit-animation-direction: alternate
-			animation: moveribbon 5s
-			animation-direction: alternate
+			left: 270px
+			top: 50%
+		.jcarousel-control-right
+			top: 50%			
 								
 	.rightbike__swiper-card
-		width: 135px
-
 		&.right-bike__swiper-keys
 			position: absolute
 			left: 0
@@ -138,6 +127,10 @@
 			z-index: 2
 			background: #fff
 			height: 100%
+			width: 270px
+
+			.rightbike__swiper-card
+				width: 270px
 			
 			.rightbike-carousel__model-card
 				padding-right: 10px
@@ -148,6 +141,14 @@
 				
 			.right-bike__label
 				font-weight: 400
+				font-size: 15px
+
+		.jcarousel
+			width: auto
+			left: 0
+
+		
+
 				
 	.right-bike__desc
 		position: relative
@@ -161,24 +162,30 @@
 			white-space: nowrap
 			overflow: hidden
 			font-weight: 600
+			font-size: 14px
 		.right-bike__desc
-			font-size: 10px
+			font-size: 14px
 			font-weight: 400
 			display: block
 			
 	.featured-card
 		background-color: #fff9f9
 
-		.featured-icon
+		&:after
+			content: ''
 			position: absolute
+			height: 24px
+			width: 19px
 			top: -10px
 			right: 10px
+			display: block
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/svg/featured-tag.svg') no-repeat
 
 		.right-bike__label
 			font-weight: 600
 
 .right-bike__sub-label
-	font-size: 10px
+	font-size: 14px
 	display: block
 	font-weight: 400
 	

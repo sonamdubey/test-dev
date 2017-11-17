@@ -9,10 +9,10 @@
 
 .font-bold
 	font-weight: 600
-
+	
 .container
 	margin-bottom: 20px
-
+		
 /* foldable content*/
 .foldable-content
 	position: relative
@@ -73,9 +73,6 @@
     margin-right: 4px
 
 
-
-
-
 .btn-inv-blue
 	background: #fff
 	color: #0288d1
@@ -105,7 +102,7 @@
 @include model-card__image()
 @include summary-specs-list()
 @include featured-card()
-
+@include model-card__sub-title()
 //comparision-swiper
 @include comparison-swiper()
 @include compare-img()
@@ -177,9 +174,10 @@
 
 		
 @include model-specs-tabs()
-
-
+@include rightbike-caraousel__label()
+@include rightbike-carousel__tags()
 @include rightbike-carousel__image()
+@include rightbike-carousel__model-card()
 		
 .swiper-left-arrow
 	display: inline-block
