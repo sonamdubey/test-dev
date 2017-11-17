@@ -132,7 +132,7 @@ docReady(function () {
         self.IsInitialized = ko.observable(false);
         self.IsLoading = ko.observable(false);
         self.searchResult = ko.observableArray([]);
-        self.Filters = ko.observable({ pageno: 1, pagesize: 10 });
+        self.Filters = ko.observable({ pageno: 1, pagesize: 30 });
         self.PreviousQS = ko.observable("");
         self.IsReset = ko.observable(false);
         self.LoadMoreTarget = ko.observable();
@@ -140,18 +140,6 @@ docReady(function () {
         self.NewPageNo = ko.observable(0);
         self.IsMoreBikesAvailable = ko.observable(false);
         self.FirstLoad = ko.observable(true);
-        //self.QueryString = ko.computed(function () {
-        //    var qs = "";
-        //    console.log(self.Filters())
-        //    $.each(self.Filters(), function (i, val) {
-        //        if (i && val) {
-        //            qs += "&" + i + "=" + val;
-        //            console.log(i + val);
-        //        }
-        //    });
-        //    qs = qs.substr(1);
-        //    return qs;
-        //});
         self.models = ko.observable([]);
         self.TotalBikes = ko.observable();
         self.noBikes = ko.observable(self.TotalBikes() == 0);
@@ -213,6 +201,10 @@ docReady(function () {
                     self.searchResult.push(val);
                 });
             }
+        };
+
+        self.pushGTACode = function (noOfRecords, filterName) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_' + noOfRecords, 'lab': filterName });
         };
 
         self.setMinAmount = function (userMinAmount) {
@@ -327,12 +319,18 @@ docReady(function () {
                             } else {
                                 self.IsMoreBikesAvailable(false);
                             }
+                            if (filterName) {
+                                self.pushGTACode(response.TotalBikes, filterName);
+                            }
                         })
                         .fail(function () {
                             self.IsMoreBikesAvailable(false);
                             self.noBikes(true);
                             self.TotalBikes(0);
                             $('#bikecount').text(self.TotalBikes() + ' Bikes Available');
+                            if (filterName) {
+                                self.pushGTACode(self.TotalBikes(), filterName);
+                            }
                         })
                         .always(function () {
                             window.location.hash = qs;

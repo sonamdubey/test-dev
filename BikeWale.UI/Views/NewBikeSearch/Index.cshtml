@@ -335,7 +335,7 @@
                                                     <span class="bwsprite inr-lg"></span>
                                                     <span class="font18" data-bind="text: models()[@i].price">@bike.FinalPrice</span><span class="font14 padding-left5 @(bike.FinalPrice.Equals("N/A") ? "hide" : "") " data-bind="visible : models()[@i].price != 'N/A'">onwards</span>
                                                 </div>
-                                                <div class="margin-bottom10" @(bike.FinalPrice.Equals("N/A") ? " style=display:none " : "") data-bind="visible : models()[@i].price != 'N/A'">
+                                                <div class="margin-bottom10 @(bike.FinalPrice.Equals("N/A") ? "hide" : "")" data-bind="visible : models()[@i].price != 'N/A'">
                                                     <a href="javascript:void(0)" data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : models()[@i].bikemodel.modelId}" data-modelid="@bike.BikeModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
                                                 </div>
                                             </div>
@@ -366,12 +366,12 @@
                             <li>
                                 <div class="contentWrapper">
                                     <div class="imageWrapper">
-                                        <a data-bind="attr: {'data-lab': bikeName, title : bikeName, href: '/' +  bikemodel.makeBase.maskingName + '-bikes/' + bikemodel.maskingName + '/' }">
+                                        <a data-cat="Search_Page" data-act="Model_Click" class="bw-ga" data-bind="attr: {'data-lab': bikeName, title : bikeName, href: '/' +  bikemodel.makeBase.maskingName + '-bikes/' + bikemodel.maskingName + '/' }">
                                             <img data-bind="attr : {'alt' : bikeName, 'title' : bikeName, 'src' : (bikemodel.hostUrl != '' ? bikemodel.hostUrl : 'https://imgd.aeplcdn.com/') +  '/310x174/' + (bikemodel.imagePath != '' ? bikemodel.imagePath : '/bikewaleimg/images/noimage.png') }" />
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
-                                        <h3 class="bikeTitle margin-bottom10"><a data-bind="attr: {'data-lab': bikeName, href: '/' + bikemodel.makeBase.maskingName + '-bikes/' + bikemodel.maskingName + '/', title: bikeName }, text: bikeName"></a></h3>
+                                        <h3 class="bikeTitle margin-bottom10"><a data-cat="Search_Page" class="bw-ga" data-act="Model_Click" data-bind="attr: {'data-lab': bikeName, href: '/' + bikemodel.makeBase.maskingName + '-bikes/' + bikemodel.maskingName + '/', title: bikeName }, text: bikeName"></a></h3>
 
                                         <div id="reviewRatingsDiv" class="text-xt-light-grey margin-bottom10 position-rel pos-right5">
                                             <span class="rate-star-color" data-bind="attr: {'data-rate-cl': bikemodel.reviewRateStar}">

@@ -184,6 +184,56 @@ span.ui-helper-hidden-accessible { display: none; }
 .rate-count-1 {
   color: #EF3F30; }
 
+.rate-star-color[data-rate-cl="0"] .star-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: top;
+    padding-right: 23px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAASFBMVEUAAADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMwqgb9tAAAAF3RSTlMAER/258y9oHxxQSIX7ezCY1dHCDQzKCqVHdMAAAB6SURBVBjTfcxXEsIwDEVRucQ9HXj73ykCD8gZJ7lf8hlZdF9+nWCMJ+hcb8oY1eEKrB16wMtLZ/VpBMbvkDVjsjhkE3HFteYK1YJYkLvJylcpyJ40VBxa0wzTBEA3GHkpa16PDc7wO9HuMYsVs9RhMeWP2+M3PTe66g1paAjabbO70gAAAABJRU5ErkJggg==) no-repeat !important;
+    transform: scale(0.9);
+}
+
+.rate-star-color[data-rate-cl="1"] .star-icon {
+    background-position: 0 -667px;
+}
+
+.rate-star-color[data-rate-cl="2"] .star-icon {
+    background-position: -38px -667px;
+}
+
+.rate-star-color[data-rate-cl="3"] .star-icon {
+     background-position: 0 -278px;
+}
+
+.rate-star-color[data-rate-cl="4"] .star-icon {
+    background-position: -74px -667px;
+}
+
+.rate-star-color[data-rate-cl="5"] .star-icon {
+    background-position: -110px -667px;
+}
+
+
+.rate-star-color[data-rate-cl="5"] {
+    color: #198D55;
+}
+
+.rate-star-color[data-rate-cl="4"] {
+    color: #13B65D;
+}
+
+.rate-star-color[data-rate-cl="3"] {
+    color: #EFD700;
+}
+
+.rate-star-color[data-rate-cl="2"] {
+    color: #FD971C;
+}
+
+.rate-star-color[data-rate-cl="1"] {
+    color: #EF3F30;
+}
+
  .review-left-divider {
     position: relative;
     margin-left: 15px;
