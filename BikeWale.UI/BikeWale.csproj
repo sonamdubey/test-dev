@@ -16,15 +16,17 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <UseIIS>True</UseIIS>
+    <IISUrl>http://localhost:9011</IISUrl>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -3068,6 +3070,9 @@
     <Content Include="sass\review\make.sass" />
     <Content Include="sass\m\review\make.sass" />
     <Content Include="sass\m\model-series\series.sass" />
+    <Content Include="sass\model-series\series.sass" />
+    <Content Include="sass\partials\d\_upcoming-model-card.sass" />
+    <Content Include="sass\partials\d\_comparison-card.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3107,6 +3112,7 @@
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
     <Content Include="src\dealer\landing.js" />
+    <Content Include="src\model-series\series.js" />
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos\photos.js" />
@@ -3843,6 +3849,7 @@
     <Content Include="Views\UserReview\UserReviewsByMake.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\Index_List_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\Index_List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4068,7 +4075,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9011</IISUrl>
+          <IISUrl>http://localhost/BikeWale</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

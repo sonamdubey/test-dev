@@ -1,0 +1,56 @@
+﻿.jcarousel-wrapper[data-overlay='both']
+	&:before
+		background: -moz-linear-gradient(to left, rgba(255, 255, 255, 0) 0, #fff 100%)
+		background: -o-linear-gradient(to left, rgba(255, 255, 255, 0) 0, #fff 100%)
+		background: linear-gradient(to left, rgba(255, 255, 255, 0) 0, #fff 100%)
+		content: ''
+		width: 50px
+		height: 100%
+		position: absolute
+		top: 0
+		left: 0
+		z-index: 1
+
+	&:after
+		background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0) 0, #fff 100%)
+		background: -o-linear-gradient(to right, rgba(255, 255, 255, 0) 0, #fff 100%)
+		background: linear-gradient(to right, rgba(255, 255, 255, 0) 0, #fff 100%)
+		content: ''
+		width: 50px
+		height: 100%
+		position: absolute
+		top: 0
+		right: 0
+
+.jcarousel-wrapper[data-overlay='left']
+	&:before
+		background: -moz-linear-gradient(to left, rgba(255, 255, 255, 0) 0, #fff 100%)
+		background: -o-linear-gradient(to left, rgba(255, 255, 255, 0) 0, #fff 100%)
+		background: linear-gradient(to left, rgba(255, 255, 255, 0) 0, #fff 100%)
+		content: ''
+		width: 50px
+		height: 100%
+		position: absolute
+		top: 0
+		left: 0
+		z-index: 1
+
+
+.jcarousel-wrapper[data-overlay='right']
+	&:after
+		background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0) 0, #fff 100%)
+		background: -o-linear-gradient(to right, rgba(255, 255, 255, 0) 0, #fff 100%)
+		background: linear-gradient(to right, rgba(255, 255, 255, 0) 0, #fff 100%)
+		content: ''
+		width: 50px
+		height: 100%
+		position: absolute
+		top: 0
+		right: 0
+
+.jcarousel-wrapper[data-overlay='none']
+	&:before
+		display: none
+
+	&:after
+		display: none
