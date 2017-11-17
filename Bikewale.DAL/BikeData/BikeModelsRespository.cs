@@ -2125,6 +2125,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary     : Added new,ued and futuristic flags and Estimated min and max price(for upcoming)
         /// Modified By :- subodh jain 9 feb 2017 
         /// summary :- added city id as parameter
+        /// Modified By:Snehal Dange on 15th Nov 2017
+        /// Summary : Changed sp from getbikeinfobycity_05072017 to getbikeinfobycity_15112017. Changed logic for onRoadPrice
         /// </summary>
         /// <returns></returns>
         public Entities.GenericBikes.GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
@@ -2136,7 +2138,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getbikeinfobycity_05072017";
+                    cmd.CommandText = "getbikeinfobycity_15112017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);

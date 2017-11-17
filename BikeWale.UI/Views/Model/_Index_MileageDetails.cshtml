@@ -49,7 +49,14 @@
 					<td>
 						<p class="mileage-box__desc margin-bottom5">@string.Format("Average mileage among {0}", bodyType) </p>
 						<div class="inline-block">
-							<span class="grey-scooter-icon"></span>
+							@if (Model.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter))
+							{
+								<span class="grey-scooter-icon"></span>
+							}
+							else
+							{
+								<span class="grey-bike-icon"></span>
+							}
 							<p class="inline-block font12 padding-left10 text-light-grey">
 								<span class="font14 font-bold">@Math.Round(Model.AvgBodyStyleMileageByUserReviews, 2)</span>
 								kmpl

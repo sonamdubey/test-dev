@@ -357,48 +357,43 @@ namespace Bikewale.Models.News
         {
             try
             {
-                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-                string bikeUrl;
-                bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
-                ushort position = 1;
-                if (IsMobile)
+                if(objPageVM!=null)
                 {
-                    bikeUrl += "m/";
-                }
+                    IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                    string bikeUrl;
+                    bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                    ushort position = 1;
+                    if (IsMobile)
+                    {
+                        bikeUrl += "m/";
+                    }
 
-                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
-                if(objPageVM.Make != null && objPageVM.Make.MakeId > 0)
-                {
-                    bikeUrl = string.Format("{0}{1}-scooters/", bikeUrl, objPageVM.Make.MaskingName);
-                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Scooters", objPageVM.Make.MakeName)));
-                }
-                else
-                {
-                    bikeUrl = string.Format("{0}scooters/",bikeUrl);
-                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Scooters"));
-                }
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+                    if (objPageVM.Make != null && objPageVM.Make.MakeId > 0)
+                    {
+                        bikeUrl = string.Format("{0}{1}-scooters/", bikeUrl, objPageVM.Make.MaskingName);
+                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Scooters", objPageVM.Make.MakeName)));
+                    }
+                    else
+                    {
+                        bikeUrl = string.Format("{0}scooters/", bikeUrl);
+                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Scooters"));
+                    }
 
-                if(objPageVM.Model!=null && objPageVM.Model.ModelId >0)
-                {
-                    bikeUrl = string.Format("{0}{1}-scooters/{2}/",bikeUrl, objPageVM.Make.MaskingName, objPageVM.Model.MaskingName);
-                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} {1} Scooters", objPageVM.Make.MakeName, objPageVM.Model.ModelName) ));
+                    if (objPageVM.Make != null && objPageVM.Make.MakeId > 0)
+                    {
+                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, string.Format("{0} Scooters News", objPageVM.Make.MakeName)));
+                    }
+                    else
+                    {
+                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Scooters News"));
+                    }
+                        objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                    
                 }
-               
-               
-                if(objPageVM != null && objPageVM.Make.MakeId > 0)
-                {
-                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, string.Format("{0} Scooters News", objPageVM.Make.MakeName)));
-                }
-                
-                if (objPageVM != null)
-                {
-                    objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
-                }
-
             }
             catch (Exception ex)
             {
-
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.News.NewsScootersPage.SetBreadcrumList()");
             }
 

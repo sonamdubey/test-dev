@@ -1489,6 +1489,14 @@ li.offertxt:hover span {display:inline}
     height: 23px;
 }
 
+.grey-bike-icon {
+	display: inline-block;
+	vertical-align: middle;
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/82888b/bike-36x20.png') no-repeat;
+	width: 36px;
+	height: 20px;
+}
+
 /* Model mileage carousel */
 .model-mileage-carousel .model-jcarousel-image-preview {
     padding: 15px 15px 0 15px;
