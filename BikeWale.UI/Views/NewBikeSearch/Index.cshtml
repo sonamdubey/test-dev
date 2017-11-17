@@ -199,7 +199,7 @@
                                 </div>
                                 <div name="ABS" class="more-filter-item-data margin-top10">
                                     <div class="bw-tabs-panel">
-                                        <div class="bw-tabs home-tabs">
+                                        <div class="bw-tabs-new home-tabs">
                                             <ul>
                                                 <li filterid="1" class="first" data-tabs="yes">Yes</li>
                                                 <li filterid="2" data-tabs="no" class="second">No</li>
@@ -216,7 +216,7 @@
                                 </div>
                                 <div name="braketype" class="more-filter-item-data margin-top10">
                                     <div class="bw-tabs-panel">
-                                        <div class="bw-tabs home-tabs">
+                                        <div class="bw-tabs-new home-tabs">
                                             <ul>
                                                 <li filterid="2" class="first" data-tabs="disc">Disc</li>
                                                 <li filterid="1" data-tabs="drum" class="second">Drum</li>
@@ -233,7 +233,7 @@
                                 </div>
                                 <div name="alloywheel" class="more-filter-item-data margin-top10">
                                     <div class="bw-tabs-panel">
-                                        <div class="bw-tabs home-tabs">
+                                        <div class="bw-tabs-new home-tabs">
                                             <ul>
                                                 <li filterid="2" class="first" data-tabs="alloy">Alloy</li>
                                                 <li filterid="1" data-tabs="spoke" class="second">Spoke</li>
@@ -250,7 +250,7 @@
                                 </div>
                                 <div name="starttype" class="more-filter-item-data margin-top10">
                                     <div class="bw-tabs-panel">
-                                        <div class="bw-tabs home-tabs">
+                                        <div class="bw-tabs-new home-tabs">
                                             <ul>
                                                 <li filterid="1" class="first" data-tabs="electric">Electric</li>
                                                 <li filterid="2" data-tabs="kick" class="second">Kick</li>
@@ -355,12 +355,12 @@
                             <a id="loadMoreBikes" title="Load More Bikes" href="javascript:void(0)" data-url="@Model.BikeSearch.PageUrl.NextPageUrl" rel="nofollow" class="btn view-all-target-btn" data-bind="attr: {'data-url' : LoadMoreTarget()}">Load More<span class="bwsprite teal-right"></span></a>
                         </div>
                         <div style="text-align: center" data-bind="visible: TotalBikes() == 0">
-                            <div id="nobikeresults">
+                            <div id="nobikeresults" class="hide">
                                 <img src="/images/no_result_d.png" />
                             </div>
                         </div>
                         <div style="text-align: center; display: none;" data-bind="visible : IsLoading()">
-                            
+
                             <div id="loading" class="hide">
                                 <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                             </div>
@@ -481,8 +481,7 @@
             </div>
         }
     </section>
-
-
+    @Html.Hidden("min-max-budget", Model.MinMaxBudget);
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->
     @*<script type="text/javascript" src="<%= staticUrl  %>/src/new/search.js?<%= staticFileVersion %>"></script>*@

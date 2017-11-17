@@ -3,7 +3,7 @@
 var appendText = $(".filter-select-title"),
     currentList = $(".filter-selection-div"),
     liList = $(".filter-selection-div ul li"),
-    liToggelFilter = $(".bw-tabs li"),
+    liToggelFilter = $(".bw-tabs-new li"),
     defaultText = $(".default-text"),
     sortCriteria = $('#sort'),
     sortByDiv = $(".sort-div"),
@@ -83,7 +83,7 @@ var defaultTextBack = function (a, textDiv) {
 };
 
 var resetBWTabs = function () {
-    $(".bw-tabs li").removeClass("active");
+    $(".bw-tabs-new li").removeClass("active");
 };
 
 var moreLessTextChange = function (p) {
@@ -156,6 +156,7 @@ docReady(function () {
         self.TotalBikes = ko.observable();
         self.noBikes = ko.observable(self.TotalBikes() == 0);
         self.curPageNo = ko.observable();
+        self.Filters()['budget'] = $('#min-max-budget').val();
         self.init = function (e) {
             if (!self.IsInitialized()) {
                 self.IsLoading(true);
@@ -252,7 +253,7 @@ docReady(function () {
 
         self.getSelectedQSFilterText = function () {
             count = 0;
-            $('.bw-tabs').find('li').each(function () {
+            $('.bw-tabs-new').find('li').each(function () {
                 $(this).removeClass('active');
             });
             $('.filter-select-title .default-text').each(function () {
@@ -270,6 +271,7 @@ docReady(function () {
                             selText += node.find('li[filterid=' + values[j] + ']').text() + ', ';
                         }
                         count++;
+                        if (selText.length > 2)
                         node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length - 2));
                     } else if (param == 'budget') {
                         var values = self.Filters()[param].split('-');
@@ -332,7 +334,10 @@ docReady(function () {
                             self.IsMoreBikesAvailable(false);
                             self.noBikes(true);
                             self.TotalBikes(0);
+                            self.searchResult([]);
+                            self.models([]);
                             $('#bikecount').text('No bikes found');
+                            $('#nobikeresults').show();
                         })
                         .always(function () {
                             window.location.hash = qs;
@@ -624,7 +629,6 @@ docReady(function () {
     sortListLI.applySortFilter();
 
     $(document).mouseup(function (e) {
-
         var filterDivContainer = $(".filter-div");
         var filterDivTitle = $(".filter-select-title");
         var filterSelectedText = $(".filter-select-title span.selected");
@@ -641,7 +645,6 @@ docReady(function () {
                 filterSelectionDiv.removeClass("open");
             }
         }
-
         var container = $("#budgetListContainer");
         if (container.hasClass('show') && $("#budgetListContainer").is(":visible")) {
             if (!container.is(e.target) && container.has(e.target).length === 0) {

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Bikewale.DTO.NewBikeSearch;
+﻿using Bikewale.DTO.NewBikeSearch;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Pager;
+using System.Collections.Generic;
 
 
 namespace Bikewale.Models.NewBikeSearch
@@ -24,5 +24,6 @@ namespace Bikewale.Models.NewBikeSearch
         public bool IsNewsActive { get; set; }
         public bool IsExpertReviewActive { get; set; }
         public bool IsVideoActive { get; set; }
+        public string MinMaxBudget { get; set; }
     }
 }
