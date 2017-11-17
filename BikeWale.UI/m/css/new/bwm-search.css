@@ -240,3 +240,7 @@ span.ui-helper-hidden-accessible { display: none; }
 	text-align: center;
 	padding-bottom: 30px;
 }
+
+.btn-teal .teal-right {
+	background-position: -204px -49px;
+}

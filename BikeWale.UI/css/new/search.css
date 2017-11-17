@@ -212,3 +212,13 @@
 	text-align: center;
 	padding-bottom: 30px;
 }
+
+#loadMoreBikes.btn {
+	width: 183px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.btn-teal .teal-right {
+	background-position: -222px -14px;
+}
