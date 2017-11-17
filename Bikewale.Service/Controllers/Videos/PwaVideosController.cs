@@ -400,7 +400,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
         {
             try
             {
-                BikeVideosListEntity objLandingVideosList = _videos.GetVideosBySubCategory(vidCat.ToString(), 1, (ushort)(1 + count));
+                BikeVideosListEntity objLandingVideosList = _videos.GetVideosBySubCategory(vidCat.ToString(), 1, (ushort)(1 + count),VideosSortOrder.JustLatest);
                 if (objLandingVideosList.Videos != null)
                     return ConverterUtility.PwaConvert(objLandingVideosList.Videos,addShortDesc);
                 else
