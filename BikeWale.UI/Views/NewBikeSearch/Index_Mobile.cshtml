@@ -86,13 +86,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="bike-search">
+                <div class="bike-search content-box-shadow">
 					<!-- ko if : models() && models().length > 0 -->
                     <div id="divSearchResult" data-bind="visible : !noBikes() && TotalBikes() != 0" class="search-bike-container">
+						<ul>
 						@foreach (var bike in Model.BikeSearch.SearchResult)
 						{
 							<!-- ko if: models()[@i]-->
-							<div class="search-bike-item">
+							<li class="search-bike-item">
 								<div class="front">
 									<div class="contentWrapper">
 										<div class="imageWrapper">
@@ -114,7 +115,7 @@
 
 											<div id="reviewRatingsDiv" class=" font13 margin-bottom10 position-rel pos-right5">
 												<span class="@string.Format("rate-count-{0}", bike.BikeModel.ReviewRateStar)" data-bind="css: { 'rate-count-' + models()[@i].bikemodel.reviewRateStar }">
-													<span class="bwmsprite star-icon star-size-16"></span><span class="font14 text-bold inline-block" data-bind="text: models()[@i].bikemodel.reviewRate ? models()[@i].bikemodel.reviewRate : 'Not rated yet'">@(bike.BikeModel.ReviewRate > 0 ? bike.BikeModel.ReviewRate.ToString() : "Not rated yet")</span>
+													<span class="bwmsprite star-icon star-size-16"></span><span class="font14 inline-block" data-bind="text: models()[@i].bikemodel.reviewRate ? models()[@i].bikemodel.reviewRate : 'Not rated yet'">@(bike.BikeModel.ReviewRate > 0 ? bike.BikeModel.ReviewRate.ToString() : "Not rated yet")</span>
 												</span>
 												<span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: models()[@i].bikemodel.ratingCount }">
 													&nbsp;(<span data-bind="text: models()[@i].bikemodel.ratingCount">@bike.BikeModel.RatingCount</span><span data-bind="text: models()[@i].bikemodel.ratingCount == 1 ? ' rating' : ' ratings'">@(bike.BikeModel.RatingCount == 1 ? " rating" : " ratings")</span>)
@@ -131,15 +132,23 @@
 												<span class="bwmsprite inr-sm-icon"></span>
 												<span class="text-bold font18" data-bind="text: models()[@i].price">@bike.FinalPrice</span><span class="font14 padding-left5">onwards</span>
 											</div>
-											<div class="margin-bottom10 margin-left20 " @(bike.FinalPrice.Equals("N/A") ? " style=display:none " : "") data-bind="visible : models()[@i].price != 'N/A'">
+											<div class="margin-bottom10 margin-top15 " @(bike.FinalPrice.Equals("N/A") ? " style=display:none " : "") data-bind="visible : models()[@i].price != 'N/A'">
 												<a href="javascript:void(0)" data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : models()[@i].bikemodel.modelId, 'data-pqsourceid' : PQSource}" data-modelid="@bike.BikeModel.ModelId" class="btn btn-white btn-180-32 getquotation">Check on-road price</a>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="border-top1 margin-left20 margin-right20 padding-top20 clear"></div>
-							</div>
+							</li>
 						}
+						</ul>
+					</div>
+					<div class="load-more-btn-container">
+						<a title="Load More Bikes" href="javascript:void(0)" rel="nofollow" class="btn view-all-target-btn">
+							<span>
+								Load More
+								<span class="bwmsprite teal-right"></span>
+							</span>
+						</a>
 					</div>
                     @*<div style="text-align: center;">
                         <div id="nobike" class="hide">

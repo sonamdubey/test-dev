@@ -320,7 +320,7 @@
 
                                                 <div id="reviewRatingsDiv" class="text-xt-light-grey margin-bottom10 position-rel pos-right5">
                                                     <span class="rate-star-color" data-rate-cl="@bike.BikeModel.ReviewRateStar" data-bind="attr: {'data-rate-cl': models()[@i].bikemodel.reviewRateStar}">
-                                                        <span class="bwsprite star-icon star-size-16"></span><span class="font14 text-bold inline-block" data-bind="text: models()[@i].bikemodel.reviewRate ? models()[@i].bikemodel.reviewRate : 'Not rated yet'">@(bike.BikeModel.ReviewRate > 0 ? bike.BikeModel.ReviewRate.ToString() : "Not rated yet")</span>
+                                                        <span class="bwsprite star-icon star-size-16"></span><span class="font14 inline-block" data-bind="text: models()[@i].bikemodel.reviewRate ? models()[@i].bikemodel.reviewRate : 'Not rated yet'">@(bike.BikeModel.ReviewRate > 0 ? bike.BikeModel.ReviewRate.ToString() : "Not rated yet")</span>
                                                     </span>
                                                     <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: models()[@i].bikemodel.ratingCount }">
                                                             &nbsp;(<span data-bind="text: models()[@i].bikemodel.ratingCount">@bike.BikeModel.RatingCount</span><span data-bind="text: models()[@i].bikemodel.ratingCount == 1 ? ' rating' : ' ratings'">@(bike.BikeModel.RatingCount == 1 ? " rating" : " ratings")</span>)
@@ -354,7 +354,15 @@
                         </div>
                         <div class="clear"></div>
                         <div class="load-more-btn-container">
-                            <a id="loadMoreBikes" title="Load More Bikes" href="javascript:void(0)" data-url="@Model.BikeSearch.PageUrl.NextPageUrl" rel="nofollow" class="btn view-all-target-btn" data-bind="attr: {'data-url' : LoadMoreTarget()}">Load More<span class="bwsprite teal-right"></span></a>
+                            <a id="loadMoreBikes" title="Load More Bikes" href="javascript:void(0)" data-url="@Model.BikeSearch.PageUrl.NextPageUrl" rel="nofollow" class="btn view-all-target-btn" data-bind="attr: {'data-url' : LoadMoreTarget()}">
+								<span data-bind="visible: !IsLoadMore()">
+									Load More
+									<span class="bwsprite teal-right"></span>
+								</span>
+								<span data-bind="visible: IsLoadMore()" style="display: none">
+									Loading...
+								</span>
+							</a>
                         </div>
                         @*<div style="text-align: center; display: none;" data-bind="visible : IsLoading()">
                             <div id="NoBikeResults" class="hide">
@@ -377,7 +385,7 @@
 
                                         <div id="reviewRatingsDiv" class="text-xt-light-grey margin-bottom10 position-rel pos-right5">
                                             <span class="rate-star-color" data-bind="attr: {'data-rate-cl': bikemodel.reviewRateStar}">
-                                                <span class="bwsprite star-icon star-size-16"></span><span class="font14 text-bold inline-block" data-bind="text: bikemodel.reviewRate ? bikemodel.reviewRate : 'Not rated yet'"></span>
+                                                <span class="bwsprite star-icon star-size-16"></span><span class="font14 inline-block" data-bind="text: bikemodel.reviewRate ? bikemodel.reviewRate : 'Not rated yet'"></span>
                                             </span>
                                             <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: bikemodel.ratingCount }">
                                                 &nbsp;(<span data-bind="text: bikemodel.ratingCount"></span><span data-bind="text: bikemodel.ratingCount == 1 ? ' rating' : ' ratings'"></span>)
