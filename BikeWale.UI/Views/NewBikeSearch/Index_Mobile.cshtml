@@ -179,15 +179,15 @@
 
                 <div name="bike" class="multiSelect">
                     <ul>
-                        <%foreach (var item in rptPopularBrand)
-                        {%>
-                        <li class="unchecked" filterid="<%=item.MakeId%>"><span><%=item.MakeName%></span></li>
-                        <% } %>
+                        @foreach (var item in Model.PopularBrands)
+                        {
+                        <li class="unchecked" filterid="@item.MakeId"><span>@item.MakeName</span></li>
+                        }
                         <hr class="border-solid" />
-                        <%foreach (var item in rptOtherBrands)
-                        {%>
-                        <li class="unchecked" filterid="<%=item.MakeId%>"><span><%=item.MakeName%></span></li>
-                        <% } %>
+                        @foreach (var item in Model.OtherBrands)
+                        {
+                        <li class="unchecked" filterid="@item.MakeId"><span>@item.MakeName</span></li>
+                        }
                     </ul>
                 </div>
             </div>

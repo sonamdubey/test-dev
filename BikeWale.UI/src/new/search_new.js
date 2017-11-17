@@ -132,7 +132,7 @@ docReady(function () {
         self.IsInitialized = ko.observable(false);
         self.IsLoading = ko.observable(false);
         self.searchResult = ko.observableArray([]);
-        self.Filters = ko.observable({ pageno: 1, pagesize: 10 });
+        self.Filters = ko.observable({ pageno: 1, pagesize: 30 });
         self.PreviousQS = ko.observable("");
         self.IsReset = ko.observable(false);
         self.LoadMoreTarget = ko.observable();
@@ -332,6 +332,7 @@ docReady(function () {
                             self.IsMoreBikesAvailable(false);
                             self.noBikes(true);
                             self.TotalBikes(0);
+                            $('#bikecount').text('No bikes found');
                         })
                         .always(function () {
                             window.location.hash = qs;

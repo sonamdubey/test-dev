@@ -298,7 +298,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div class="search-bike-list" data-bind="visible: TotalBikes() > 0">
+                    <div class="search-bike-list">
                         <input type="hidden" id="pageLoadData" value="@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeSearch))" />
                         <div class="grid-12 alpha omega padding-left20 margin-top20 margin-bottom10">
                             <!-- ko if: models() && models().length > 0 -->
@@ -354,14 +354,17 @@
                         <div class="view-all-btn-container padding-top15 @(string.IsNullOrEmpty(Model.BikeSearch.PageUrl.NextPageUrl) ? "hide" : "")" data-bind="visible : IsMoreBikesAvailable()" >
                             <a id="loadMoreBikes" title="Load More Bikes" href="javascript:void(0)" data-url="@Model.BikeSearch.PageUrl.NextPageUrl" rel="nofollow" class="btn view-all-target-btn" data-bind="attr: {'data-url' : LoadMoreTarget()}">Load More<span class="bwsprite teal-right"></span></a>
                         </div>
-                        @*<div style="text-align: center; display: none;" data-bind="visible : IsLoading()">
-                            <div id="NoBikeResults" class="hide">
+                        <div style="text-align: center" data-bind="visible: TotalBikes() == 0">
+                            <div id="nobikeresults">
                                 <img src="/images/no_result_d.png" />
                             </div>
+                        </div>
+                        <div style="text-align: center; display: none;" data-bind="visible : IsLoading()">
+                            
                             <div id="loading" class="hide">
                                 <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                             </div>
-                        </div>*@
+                        </div>
                         <script type="text/html" id="loadMoreListing">
                             <li>
                                 <div class="contentWrapper">
