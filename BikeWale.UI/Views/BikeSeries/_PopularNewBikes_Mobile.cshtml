@@ -17,7 +17,7 @@
 					<li class="model-card featured-card">
 						<a href="@string.Format("/m/{0}-bikes/{1}/", firstModel.BikeMake.MakeMaskingName, firstModel.BikeModel.MaskingName)" title="@string.Format("{0} {1}", firstModel.BikeMake.MakeName, firstModel.BikeModel.ModelName)">
 							<div class="model-card__image">
-								<img class="lazy" data-original="@Image.GetPathToShowImages(firstModel.BikeImage.OriginalImagePath, firstModel.BikeImage.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="" src="" border="0">
+								<img class="lazy" data-original="@Image.GetPathToShowImages(firstModel.BikeImage.OriginalImagePath, firstModel.BikeImage.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="@string.Format("{0} {1}", firstModel.BikeMake.MakeName, firstModel.BikeModel.ModelName)" src="" border="0">
 								<div class="popular-tag">
 									<span class="featured-icon">
 										<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="19px" height="24px" viewBox="0 0 19 24" version="1.1">
@@ -44,7 +44,7 @@
 							<div class="model-card__desc">
 								<span class="rating-badge" data-rate-bg="@Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero)">
 									<span class="bwmsprite star-white"></span>
-									<span>5</span>
+									<span>@Math.Round(firstModel.Rating, MidpointRounding.AwayFromZero)</span>
 								</span>
 								<div class="model-card__list">
 									<div class="model-card__list-block">
@@ -80,12 +80,12 @@
 						<li class="model-card">
 							<a href="@string.Format("/m/{0}-bikes/{1}/", bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)">
 								<div class="model-card__image">
-									<img class="lazy" data-original="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="" src="" border="0">
+									<img class="lazy" data-original="@Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="" border="0">
 								</div>
 								<div class="model-card__desc">
 									<span class="rating-badge" data-rate-bg="@Math.Round(bike.Rating, MidpointRounding.AwayFromZero)">
 										<span class="bwmsprite star-white"></span>
-										<span>5</span>
+										<span>@Math.Round(bike.Rating, MidpointRounding.AwayFromZero)</span>
 									</span>
 									<div class="model-card__list">
 										<div class="model-card__list-block">

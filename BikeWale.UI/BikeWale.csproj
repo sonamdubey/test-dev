@@ -3852,7 +3852,6 @@
     <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs.cshtml" />
     <Content Include="Views\BikeSeries\Index_Mobile.cshtml" />
-    <Content Include="Views\BikeSeries\Index_List.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_PopularNewBikes_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs.cshtml" />
@@ -3860,6 +3859,13 @@
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1_Mobile.cshtml" />
     <Content Include="Views\News\_RecentNews_v1_Mobile.cshtml" />
     <Content Include="Views\Videos\_RecentVideos_v1_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\Index.cshtml" />
+    <Content Include="Views\BikeSeries\_UpcomingBikes.cshtml" />
+    <Content Include="Views\News\_RecentNews_v1.cshtml" />
+    <Content Include="Views\Videos\_RecentVideos_v1.cshtml" />
+    <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1.cshtml" />
+    <Content Include="Views\BikeSeries\_PopularNewBikes.cshtml" />
+    <Content Include="Views\BikeSeries\_Index_Tabs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
