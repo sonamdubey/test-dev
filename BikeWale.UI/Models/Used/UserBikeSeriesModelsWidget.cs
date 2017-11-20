@@ -1,6 +1,5 @@
 ﻿
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Location;
 using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
@@ -55,10 +54,7 @@ namespace Bikewale.Models.Used
 
                         objUsed.LinkHeading = String.Format("{0} {1}", objUsed.Make.MakeName, objUsed.Model.ModelName);
 
-                        objUsed.City = new CityEntityBase();
-                        objUsed.City.CityId = _cityId;
-                        objUsed.City.CityName = objMostRecentUsedBikes.CityName;
-                        objUsed.City.CityMaskingName = objMostRecentUsedBikes.CityMaskingName;
+
                     }
                 }
 

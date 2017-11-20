@@ -10,7 +10,11 @@ namespace Bikewale.Interfaces.BikeData
     /// </summary>
     public interface IBikeSeriesRepository
     {
-        BikeSeriesModels GetModelsListBySeriesId(uint seriesId);
+        //BikeSeriesModels GetModelsListBySeriesId(uint seriesId);
+		IEnumerable<NewBikeEntityBase> GetNewModels(uint seriesId, uint cityId);
         IEnumerable<BikeSeriesCompareBikes> GetBikesToCompare(uint seriesId);
-    }
+		IEnumerable<UpcomingBikeEntityBase> GetUpcomingModels(uint seriesId);
+		BikeDescriptionEntity GetSynopsis(uint seriesId);
+		IEnumerable<BikeSeriesEntity> GetOtherSeriesFromMake(int makeId);
+	}
 }

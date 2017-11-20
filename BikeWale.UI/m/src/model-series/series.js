@@ -1,5 +1,6 @@
 ﻿
 docReady(function () {
+    //find bike carousel
 
     $('.find-specs-tabs-wrapper .specs-btn').on('click', function () {
 

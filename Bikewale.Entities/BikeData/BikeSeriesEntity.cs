@@ -8,9 +8,8 @@ namespace Bikewale.Entities.BikeData
 {
     public class BikeSeriesEntity : BikeSeriesEntityBase
     {
-        private BikeMakeEntityBase objmakeBase = new BikeMakeEntityBase();
-        public BikeMakeEntityBase MakeBase { get { return objmakeBase; } set { objmakeBase = value; } }
-
-        public int ModelCount { get; set; }
+		public string HostUrl { get; set; }
+		public string OriginalImagePath { get; set; }
+		public uint ModelsCount { get; set; }
     }
 }

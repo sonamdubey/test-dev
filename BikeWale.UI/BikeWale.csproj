@@ -17,15 +17,16 @@
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISUrl>http://localhost:9011</IISUrl>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -3068,6 +3069,9 @@
     <Content Include="sass\review\make.sass" />
     <Content Include="sass\m\review\make.sass" />
     <Content Include="sass\m\model-series\series.sass" />
+    <Content Include="sass\model-series\series.sass" />
+    <Content Include="sass\partials\d\_upcoming-model-card.sass" />
+    <Content Include="sass\partials\d\_comparison-card.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3107,6 +3111,7 @@
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
     <Content Include="src\dealer\landing.js" />
+    <Content Include="src\model-series\series.js" />
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos\photos.js" />
@@ -3847,10 +3852,22 @@
     <Content Include="Views\UserReview\UserReviewsByMake.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs.cshtml" />
-    <Content Include="Views\BikeSeries\Index_List_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\Index_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\_PopularNewBikes_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs.cshtml" />
     <Content Include="Views\Used\_UsedBikeByModelCity_Mobile_v1.cshtml" />
+    <Content Include="Views\BikeSeries\_UpcomingBikes_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1_Mobile.cshtml" />
+    <Content Include="Views\News\_RecentNews_v1_Mobile.cshtml" />
+    <Content Include="Views\Videos\_RecentVideos_v1_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\Index.cshtml" />
+    <Content Include="Views\BikeSeries\_UpcomingBikes.cshtml" />
+    <Content Include="Views\News\_RecentNews_v1.cshtml" />
+    <Content Include="Views\Videos\_RecentVideos_v1.cshtml" />
+    <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1.cshtml" />
+    <Content Include="Views\BikeSeries\_PopularNewBikes.cshtml" />
+    <Content Include="Views\BikeSeries\_Index_Tabs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3989,11 +4006,6 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.6.0.3969\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.6.0.3969\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.6.0.3969\analyzers\SonarAnalyzer.dll" />
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -4081,7 +4093,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9011</IISUrl>
+          <IISUrl>http://localhost/BikeWale</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

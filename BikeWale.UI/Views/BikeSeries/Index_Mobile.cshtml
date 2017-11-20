@@ -1,0 +1,425 @@
+﻿
+@model Bikewale.Models.BikeSeries.SeriesPageVM
+@using Bikewale.Utility
+@if (Model != null)
+{
+	{
+		Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/model-series/series.css' inline>";
+		Model.Page_JS_Path = "/m/src/model-series/series.js";
+		Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+	}
+
+<section>
+	@if (Model.SeriesDescription != null && !string.IsNullOrEmpty(Model.SeriesDescription.FullDescription))
+	{
+		<div class="container margin-bottom20 bg-white">
+			<h1 class="padding-15">@string.Format("{0} {1} Series", Model.BikeMake.MakeName, Model.SeriesDescription.Name)</h1>
+			<div class="intro-card">
+				<div class="main-series-model foldable-content" data-toggle="yes">
+					<p class="truncatable-content">
+						@Model.SeriesDescription.FullDescription
+					</p>
+					<a href="javascript:void(0)" class="read-more-button" rel="nofollow">...Read more</a>
+				</div>
+			</div>
+		</div>
+	}
+
+	@Html.Partial("~/Views/BikeSeries/_PopularNewBikes_Mobile.cshtml", Model)
+    
+	@if (Model.SeriesModels != null && Model.SeriesModels.UpcomingBikes != null && Model.SeriesModels.UpcomingBikes.Any())
+	{
+		<div class="container bg-white">
+			<div class="padding-top20">
+				@if (Model.BikeMake != null && Model.SeriesBase != null)
+				{
+					<h2 class="padding-left20 padding-right20 padding-bottom10">@string.Format("{0} {1} Upcoming bikes", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
+				}
+				@Html.Partial("~/Views/BikeSeries/_UpcomingBikes_Mobile.cshtml", Model.SeriesModels.UpcomingBikes)
+			</div>
+		</div>
+	}
+    
+
+    <div class="container bg-white">
+        <div class="padding-top20 padding-bottom15">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>Pulsar Bikes Comparisons</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="" title="" class="font16">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="swiper-container comparison-swiper card-container">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="card-target">
+                                <h4 class="swiper-card__label"> Pulsar NS160 vs Pulsar 180 </h4>
+                                <div class="grid-6 padding-left5">
+                                    <div class="compare-img">
+                                        <img class="swiper-lazy" alt="" title="" data-src="https://imgd.aeplcdn.com//144x81//bw/models/bajaj-dominar400.jpg?20161512143417&amp;q=70" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="padding-left10 padding-right5">
+                                        <p class="font11 text-light-grey text-truncate">Ex-showroom, Pune</p>
+                                        <span class="text-default font16">&#x20B9;</span>&nbsp;<span class="font16 text-default font-bold">1,58,149</span>
+                                    </div>
+                                																<span class="compare-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px" height="26px" viewBox="0 0 26 26" version="1.1">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="review-copy-6" transform="translate(-157.000000, -2337.000000)">
+            <g id="Group-4" transform="translate(157.000000, 2309.000000)">
+                <g id="Group-22" transform="translate(0.000000, 28.000000)">
+                    <g id="Rectangle-7-Copy">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"/>
+                        <rect stroke="#D5D5D5" stroke-width="1" x="0.5" y="0.5" width="25" height="25" rx="12.5"/>
+                    </g>
+                    <text id="VS" font-family="Lato-Regular, Lato" font-size="11" font-weight="normal" fill="#D5D5D5">
+                        <tspan x="6" y="17">VS</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
+								</span>
+								</div>
+
+                                <div class="grid-6 padding-left10">
+                                    <div class="compare-img">
+                                        <img class="swiper-lazy" alt="Royal Enfield Bullet 350" title="Royal Enfield Bullet 350" data-src="https://imgd.aeplcdn.com//144x81//bw/models/royalenfield-bullet.jpg?20160410150931&amp;q=70" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="padding-left10 padding-right5">
+                                        <p class="font11 text-light-grey text-truncate">Ex-showroom, Pune</p>
+                                        <span class="text-default font16">&#x20B9;</span>&nbsp;<span class="font16 text-default text-bold">1,26,167</span>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="margin-top20 margin-left20 margin-right20">
+                                    <span class="btn btn-white">Compare now</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="card-target">
+                                <h4 class="swiper-card__label"> Pulsar NS160 vs Pulsar 180 </h4>
+                                <div class="grid-6 padding-left5">
+                                    <div class="compare-img">
+                                        <img class="swiper-lazy" alt="" title="" data-src="https://imgd.aeplcdn.com//144x81//bw/models/bajaj-dominar400.jpg?20161512143417&amp;q=70" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="padding-left10 padding-right5">
+                                        <p class="font11 text-light-grey text-truncate">Ex-showroom, Pune</p>
+                                        <span class="text-default font16">&#x20B9;</span>&nbsp;<span class="font16 text-default font-bold">1,58,149</span>
+                                    </div>
+																									<span class="compare-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px" height="26px" viewBox="0 0 26 26" version="1.1">
+        <rect id="path-1" x="0" y="0" width="26" height="26" rx="13"/>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="review-copy-6" transform="translate(-157.000000, -2337.000000)">
+            <g id="Group-4" transform="translate(157.000000, 2309.000000)">
+                <g id="Group-22" transform="translate(0.000000, 28.000000)">
+                    <g id="Rectangle-7-Copy">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"/>
+                        <rect stroke="#D5D5D5" stroke-width="1" x="0.5" y="0.5" width="25" height="25" rx="12.5"/>
+                    </g>
+                    <text id="VS" font-family="Lato-Regular, Lato" font-size="11" font-weight="normal" fill="#D5D5D5">
+                        <tspan x="6" y="17">VS</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
+								</span>
+                                </div>
+                                <div class="grid-6 padding-left10">
+                                    <div class="compare-img">
+                                        <img class="swiper-lazy" alt="Royal Enfield Bullet 350" title="Royal Enfield Bullet 350" data-src="https://imgd.aeplcdn.com//144x81//bw/models/royalenfield-bullet.jpg?20160410150931&amp;q=70" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="padding-left10 padding-right5">
+                                        <p class="font11 text-light-grey text-truncate">Ex-showroom, Pune</p>
+                                        <span class="text-default font16">&#x20B9;</span>&nbsp;<span class="font16 text-default text-bold">1,26,167</span>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="margin-top20 margin-left20 margin-right20">
+                                    <span class="btn btn-white">Compare now</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="" title="" class="card-target">
+                                <h4 class="swiper-card__label"> Pulsar NS160 vs Pulsar 180 </h4>
+                                <div class="grid-6 padding-left5">
+                                    <div class="compare-img">
+                                        <img class="swiper-lazy" alt="" title="" data-src="https://imgd.aeplcdn.com//144x81//bw/models/bajaj-dominar400.jpg?20161512143417&amp;q=70" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="padding-left10 padding-right5">
+                                        <p class="font11 text-light-grey text-truncate">Ex-showroom, Pune</p>
+                                        <span class="text-default font16">&#x20B9;</span>&nbsp;<span class="font16 text-default font-bold">1,58,149</span>
+                                    </div>
+																									<span class="compare-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px" height="26px" viewBox="0 0 26 26" version="1.1">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="review-copy-6" transform="translate(-157.000000, -2337.000000)">
+            <g id="Group-4" transform="translate(157.000000, 2309.000000)">
+                <g id="Group-22" transform="translate(0.000000, 28.000000)">
+                    <g id="Rectangle-7-Copy">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"/>
+                        <rect stroke="#D5D5D5" stroke-width="1" x="0.5" y="0.5" width="25" height="25" rx="12.5"/>
+                    </g>
+                    <text id="VS" font-family="Lato-Regular, Lato" font-size="11" font-weight="normal" fill="#D5D5D5">
+                        <tspan x="6" y="17">VS</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
+								</span>
+                                </div>
+                                <div class="grid-6 padding-left10">
+                                    <div class="compare-img">
+                                        <img class="swiper-lazy" alt="Royal Enfield Bullet 350" title="Royal Enfield Bullet 350" data-src="https://imgd.aeplcdn.com//144x81//bw/models/royalenfield-bullet.jpg?20160410150931&amp;q=70" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="padding-left10 padding-right5">
+                                        <p class="font11 text-light-grey text-truncate">Ex-showroom, Pune</p>
+                                        <span class="text-default font16">&#x20B9;</span>&nbsp;<span class="font16 text-default text-bold">1,26,167</span>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="margin-top20 margin-left20 margin-right20">
+                                    <span class="btn btn-white">Compare now</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container bg-white">
+        <div class="padding-top20">
+			<h2 class="padding-right20 padding-bottom10 padding-left20">Find The Right Pulsar</h2>
+			<p class="padding-left20 font12 font-bold padding-right20">What’s are you looking for?</p>
+			<div class="find-right-bike margin-top15">
+				@Html.Partial("~/Views/BikeSeries/_BikeSeriesCompareBikesWithSpecs.cshtml", Model.ObjModel)
+			</div>
+        </div>
+    </div>
+
+    <div class="container bg-white">
+		@if (Model.SeriesBase != null && !string.IsNullOrEmpty(Model.SeriesBase.SeriesName))
+		{
+			<h2 class="padding-left15 padding-right15 padding-top15">@Model.SeriesBase.SeriesName Latest Updates</h2>
+		}
+		
+		<div id="modelLatestUpdatesWrapper" class="block">
+                <div id="modelLatestUpdatesTopContent" class="overall-specs__top-content margin-bottom5 bg-white position-rel">
+				<div id="overallUpdatesTab" class="overall-specs-tabs-container">
+					<ul class="overall-specs-tabs-wrapper">
+						@if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+						{
+							<li data-tabs="#newsContent" class="bw-ga active news-tabs">
+								News
+							</li>
+						}
+						@if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+						{
+							<li data-tabs="#videoContent" class="bw-ga video-tabs">
+								Videos
+							</li>
+						}
+						@if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+						{
+							<li data-tabs="#reviewContent" class="bw-ga reviews-tabs">
+								Reviews
+							</li>
+						}
+					</ul>
+
+				</div>
+			</div>
+			@if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+			{
+				<div id="newsContent" class="bw-model-tabs-data content-details-wrapper active">
+					<h2>News</h2>
+					@Html.Partial("~/Views/News/_RecentNews_v1_Mobile.cshtml", Model.News)
+				</div>
+			}
+			
+			@if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+			{
+				<div id="videoContent" class="bw-model-tabs-data content-details-wrapper">
+					<h2>Videos</h2>
+					@Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
+				</div>
+			}
+			
+			@if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+			{
+
+					<div id="reviewContent" class="bw-model-tabs-data margin-bottom20 content-details-wrapper">
+						<h2>Expert Reviews</h2>
+						@Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_v1_Mobile.cshtml", Model.ExpertReviews)
+					</div>
+			}
+			
+			<div id="overallSpecsFooter"></div>
+		</div>
+    </div>
+
+    <div class="container bg-white padding-top20">
+		<div class="padding-right15 padding-left15">
+			<div class="swiper-heading-left-grid inline-block">
+				<h2>Bajaj Pulsar Used bikes</h2>
+			</div>
+			<div class="swiper-heading-right-grid inline-block text-right">
+				<a href="" title="" class="font16">View all</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="swiper-container used-model-swiper card-container">
+			<div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+						<div class="model-card">
+					<a href="" title="">
+						<div class="model-card__image">
+                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//210x118//bw/models/ktm-rc-200.jpg?20171702125821&amp;q=70" alt="" src="" border="0">
+						</div>
+						<div class="model-card__desc">
+							<ul class="overalltab__section-list">
+								<li>
+									<h3 class="model-card__label">Bajaj Pulsar NS 200</h3>
+									<p class="model-card__sub-title">Expected launch date</p>
+								</li>
+								<li>
+                                        <p class="text-default font18">
+										&#x20b9; 
+										<span class="font-bold">
+											8,000 
+											<span class="font12">onwards</span>
+										</span>
+									</p>
+								</li>
+							</ul>
+						</div>
+					</a>
+						</div>
+                    </div>
+
+                    <div class="swiper-slide">
+						<div class="model-card">
+					<a href="" title="">
+						<div class="model-card__image">
+                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//210x118//bw/models/ktm-rc-200.jpg?20171702125821&amp;q=70" alt="" src="" border="0">
+						</div>
+						<div class="model-card__desc">
+							<ul class="model-card__list">
+								<li>
+									<h3 class="model-card__label">Bajaj Pulsar NS 200</h3>
+									<p class="model-card__sub-title">Expected launch date</p>
+								</li>
+								<li>
+                                        <p class="text-default font18">
+                                            &#x20b9; 
+										<span class="font-bold">
+                                                8,000 
+											<span class="font12">onwards</span>
+										</span>
+									</p>
+								</li>
+							</ul>
+						</div>
+					</a>
+						</div>
+                    </div>
+
+                    <div class="swiper-slide">
+						<div class="model-card">
+					<a href="" title="">
+						<div class="model-card__image">
+                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//210x118//bw/models/ktm-rc-200.jpg?20171702125821&amp;q=70" alt="" src="" border="0">
+						</div>
+						<div class="model-card__desc">
+							<ul class="model-card__list">
+								<li>
+									<h3 class="model-card__label">Bajaj Pulsar NS 200</h3>
+									<p class="model-card__sub-title">Expected launch date</p>
+								</li>
+								<li>
+                                        <p class="text-default font18">
+                                            &#x20b9; 
+										<span class="font-bold">
+                                                8,000 
+											<span class="font12">onwards</span>
+										</span>
+									</p>
+								</li>
+							</ul>
+						</div>
+					</a>
+						</div>
+                    </div>
+					
+			</div>
+		</div>
+    </div>
+
+	@if (Model.OtherSeriesList != null && Model.OtherSeriesList.Any())
+	{
+		<div class="container bg-white padding-bottom10">
+			<div class="padding-left10 padding-right10 padding-top20">
+				@if (Model.BikeMake != null)
+				{
+					<h2 class="padding-left5">@string.Format("{0} other series", Model.BikeMake.MakeName)</h2>
+				}
+				
+				<ul class="model-series-list">
+					@foreach (var series in Model.OtherSeriesList)
+					{
+						<li>
+							<a href="@string.Format("/m/{0}-bikes/{1}/", Model.BikeMake.MakeMaskingName, series.MaskingName)" title="@string.Format("{0} Series", series.SeriesName)">
+								<div class="model-series-list__img">
+									<img class="lazy" data-original="@Image.GetPathToShowImages(series.OriginalImagePath, series.HostUrl, ImageSize._310x174, QualityFactor._70)" alt="@string.Format("{0} Series", series.SeriesName)" src="" border="0">
+								</div>
+								<div class="model-list__label-block">
+									<p class="model-list__title">@string.Format("{0} Series", series.SeriesName)</p>
+									<p class="font13">@string.Format("{0} Bikes", series.ModelsCount)</p>
+								</div>
+								<span class="right-arrow">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="14px" viewBox="0 0 8 14" version="1.1">
+										<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+											<g id="review-copy-6" transform="translate(-320.000000, -5738.000000)" stroke="#AAAAAA" stroke-width="1.0125">
+												<polyline id="Page-1" transform="translate(324.000000, 5745.000000) scale(1, -1) translate(-324.000000, -5745.000000) " points="321 5739 327 5745 321 5751" />
+											</g>
+										</g>
+									</svg>
+								</span>
+							</a>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+	}
+    
+</section>
+
+}

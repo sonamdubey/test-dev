@@ -1,5 +1,7 @@
 ﻿using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.UsedBikes;
+using Bikewale.Interfaces.Videos;
 using Bikewale.Models.BikeSeries;
 using System.Web.Mvc;
 
@@ -11,24 +13,30 @@ namespace Bikewale.Controllers
     /// </summary>
     public class BikeSeriesController : Controller
     {
-        private readonly IBikeSeriesCacheRepository _seriesCache;
+        private readonly IBikeSeries _bikeSeries = null;
         private readonly IUsedBikesCache _usedBikesCache;
-        public BikeSeriesController(IBikeSeriesCacheRepository seriesCache, IUsedBikesCache usedBikesCache)
+        private readonly ICMSCacheContent _articles = null;
+        private readonly IVideos _videos = null;
+        private readonly IBikeSeriesCacheRepository _seriesCache = null;
+        public BikeSeriesController(IBikeSeriesCacheRepository seriesCache, IUsedBikesCache usedBikesCache, IBikeSeries bikeSeries, ICMSCacheContent articles, IVideos videos)
         {
-            _seriesCache = seriesCache;
+            _bikeSeries = bikeSeries;
             _usedBikesCache = usedBikesCache;
+            _articles = articles;
+            _videos = videos;
+            _seriesCache = seriesCache;
         }
         /// <summary>
         /// Created by : Ashutosh Sharma on 15 Nov 2017
         /// Description : Action method for desktop.
         /// </summary>
         /// <returns></returns>
-        [Route("model/series/"), Filters.DeviceDetection]
-        public ActionResult Index()
+        [Route("model/series/{seriesId}/"), Filters.DeviceDetection]
+        public ActionResult Index(uint seriesId)
         {
             SeriesPageVM obj;
-            SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache);
-            obj = seriesPage.GetData();
+            SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos);
+            obj = seriesPage.GetData(seriesId);
             return View(obj);
         }
 
@@ -37,13 +45,16 @@ namespace Bikewale.Controllers
         /// Description : Action method for mobile.
         /// </summary>
         /// <returns></returns>
-        [Route("m/model/series/")]
-        public ActionResult Index_List_Mobile()
+        [Route("m/model/series/{seriesId}/")]
+        public ActionResult Index_Mobile(uint seriesId)
         {
             SeriesPageVM obj;
-            SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache);
-            obj = seriesPage.GetData();
+
+            SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos);
+            seriesPage.IsMobile = true;
+            obj = seriesPage.GetData(seriesId);
             return View(obj);
         }
     }
+
 }
