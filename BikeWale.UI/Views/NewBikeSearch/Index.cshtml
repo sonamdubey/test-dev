@@ -457,21 +457,21 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="bw-tabs-data padding-left10 padding-right10" id="ctrlNews">
+                        <div class="@string.Format("bw-tabs-data padding-left10 padding-right10 {0}", Model.IsNewsActive ? "" : "hide")" id="ctrlNews">
                             @if (Model.News.FetchedCount > 0)
                             {
                                 @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
-                                
+
                             }
                         </div>
-                        <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlExpertReviews">
+                        <div class="@string.Format("bw-tabs-data padding-left10 padding-right10 {0}", Model.IsExpertReviewActive ? "" : "hide")" id="ctrlExpertReviews">
                             @if (Model.ExpertReviews.FetchedCount > 0)
                             {
                                 @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
-                                
+
                             }
                         </div>
-                        <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlVideos">
+                        <div class="@string.Format("bw-tabs-data padding-left10 padding-right10 {0}", Model.IsVideoActive ? "" : "hide")" id="ctrlVideos">
                             @if (Model.Videos.FetchedCount > 0)
                             {
                                 @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
@@ -484,12 +484,6 @@
         }
     </section>
     @Html.Hidden("min-max-budget", Model.MinMaxBudget);
-    <!-- #include file="/includes/footerBW.aspx" -->
-    <!-- #include file="/includes/footerscript.aspx" -->
-    @*<script type="text/javascript" src="<%= staticUrl  %>/src/new/search.js?<%= staticFileVersion %>"></script>*@
-    @*<script type="text/javascript">
-        var PQSourceId = @{Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewBikeSearch};
-    </script>*@
 }
 
 
