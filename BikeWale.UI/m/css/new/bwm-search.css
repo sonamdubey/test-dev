@@ -1,4 +1,5 @@
-﻿@charset "utf-8";
+﻿
+@charset "utf-8";
 .filter-btn, .sort-btn { color: #fff; padding: 0 10px; position: relative; cursor: pointer; font-size: 20px; }
 .brand-total { position: relative; top: -2px; }
 #sort-by-div.fixed { position: fixed; left: 0; right: 0; top: 50px; z-index: 10; }
@@ -293,4 +294,10 @@ span.ui-helper-hidden-accessible { display: none; }
 
 .btn-teal .teal-right {
 	background-position: -204px -49px;
+}
+
+#loadMoreBikes.btn {
+    width: 183px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
