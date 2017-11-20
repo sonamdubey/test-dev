@@ -8,5 +8,7 @@ namespace Bikewale.Models.BikeSeries
 
         public BikeSeriesCompareVM ObjModel { get; set; }
 
+        public UsedBikeByModelCityVM objUsedBikes { get; set; }
+
     }
 }

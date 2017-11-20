@@ -1001,6 +1001,7 @@
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
+    <Compile Include="Models\Used\UserBikeSeriesModelsWidget.cs" />
     <Compile Include="Models\UserReviews\PopularBikesWithExpertReviewsWidget.cs" />
     <Compile Include="Models\UserReviews\TopRatedBikesWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewByMakePage.cs" />
@@ -3849,6 +3850,7 @@
     <Content Include="Views\BikeSeries\Index_List_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs.cshtml" />
+    <Content Include="Views\Used\_UsedBikeByModelCity_Mobile_v1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

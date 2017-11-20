@@ -1,0 +1,38 @@
+﻿
+@model Bikewale.Models.UsedBikeByModelCityVM
+@using Bikewale.Utility;
+@if (Model != null  && Model.RecentUsedBikesList != null)
+{
+
+
+    foreach (var bikeDetails in Model.RecentUsedBikesList)
+    {
+        <div class="swiper-slide">
+            <div class="model-card">
+                <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName, bikeDetails.ModelMaskingName, Model.City != null ? Model.City.CityMaskingName : "india")) " title="@string.Format("Used {0} {1} bikes in {2}", bikeDetails.MakeName, bikeDetails.ModelName, Model.City != null ? Model.City.CityName : "India")">
+                    <div class="model-card__image">
+                        <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.UsedOriginalImagePath, bikeDetails.HostUrl, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70)" alt="" src="" border="0"/>
+                    </div>
+                    <div class="model-card__desc">
+                        <ul class="overalltab__section-list">
+                            <li>
+                                <h3 class="model-card__label">@string.Format("Used {0} {1}", bikeDetails.MakeName, bikeDetails.ModelName)</h3>
+                                <p class="model-card__sub-title">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.AvailableBikes)) Used bikes available</p>
+                            </li>
+                            <li>
+                                <p class="text-default font18">
+                                    @Html.Raw("<span class='font16'> &#x20B9;</span>")&nbsp;
+                                    <span class="font-bold">
+                                        @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.BikePrice))
+                                        <span class="font12">onwards</span>
+                                    </span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    }
+}

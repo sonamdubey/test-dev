@@ -1,4 +1,5 @@
 ﻿using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Models.BikeSeries;
 using System.Web.Mvc;
 
@@ -11,9 +12,11 @@ namespace Bikewale.Controllers
     public class BikeSeriesController : Controller
     {
         private readonly IBikeSeriesCacheRepository _seriesCache;
-        public BikeSeriesController(IBikeSeriesCacheRepository seriesCache)
+        private readonly IUsedBikesCache _usedBikesCache;
+        public BikeSeriesController(IBikeSeriesCacheRepository seriesCache, IUsedBikesCache usedBikesCache)
         {
             _seriesCache = seriesCache;
+            _usedBikesCache = usedBikesCache;
         }
         /// <summary>
         /// Created by : Ashutosh Sharma on 15 Nov 2017
@@ -24,7 +27,7 @@ namespace Bikewale.Controllers
         public ActionResult Index()
         {
             SeriesPageVM obj;
-            SeriesPage seriesPage = new SeriesPage(_seriesCache);
+            SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache);
             obj = seriesPage.GetData();
             return View(obj);
         }
@@ -38,7 +41,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_List_Mobile()
         {
             SeriesPageVM obj;
-            SeriesPage seriesPage = new SeriesPage(_seriesCache);
+            SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache);
             obj = seriesPage.GetData();
             return View(obj);
         }
