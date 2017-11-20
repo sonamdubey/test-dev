@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace BikewaleOpr.Entities.BikeData
 {
     /// <summary>
@@ -19,5 +14,6 @@ namespace BikewaleOpr.Entities.BikeData
         public string UpdatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public string OldMakeMasking { get; set; }
+        public bool MakeFooterAdded { get; set; }
     }
 }

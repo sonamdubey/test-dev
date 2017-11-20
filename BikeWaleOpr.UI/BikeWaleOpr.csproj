@@ -95,7 +95,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\ElasticSearch\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1960,6 +1960,7 @@
     <Content Include="src\DealerPricing\dealeroperationcollapsable.js" />
     <Content Include="src\DealerPricing\dealerpricingindex.js" />
     <Content Include="src\DealerFacility\DealerFacility.js" />
+    <Content Include="src\footerdata.js" />
     <Content Include="src\framework.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
@@ -2045,6 +2046,7 @@
     <Content Include="Views\BikeSeries\Index.cshtml" />
     <Content Include="packages.config" />
     <Content Include="Views\AdSlot\Index.cshtml" />
+    <Content Include="Views\Makes\AddFooterData.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
