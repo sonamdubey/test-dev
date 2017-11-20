@@ -55,10 +55,6 @@ var $window = $(window),
 	menuTop = $menu.offset().top,
 	$searchList = $('#searchList');
 
-var VMsearchViewModel = function (model) {
-    ko.mapping.fromJS(model, {}, this);
-};
-
 var stateChangeDown = function (allDiv, clickedDiv) {
     allDiv.removeClass("open");
     allDiv.next(".filter-selection-div").slideUp();
@@ -75,14 +71,6 @@ var stateChangeUp = function (allDiv, clickedDiv) {
     clickedDiv.next(".filter-selection-div").removeClass("open");
 };
 
-var defaultTextBack = function (a, textDiv) {
-    if (!textDiv.children("span").hasClass("selected")) {
-        a.find(defaultText).show();
-        currentList.slideUp();
-        $(".filter-div").removeClass("open");
-    }
-};
-
 var resetBWTabs = function () {
     $(".bw-tabs-new li").removeClass("active");
 };
@@ -93,38 +81,6 @@ var moreLessTextChange = function (p) {
     q.text(q.text() === "More" ? "Less" : "More");
 };
 
-var AppendCertificationStar = function (abStars) {
-    var i, intVal, val, count = 0, certificationStar = "";
-    val = abStars;
-    intVal = Math.floor(val);
-    for (i = 0; i < intVal ; i++) {
-        certificationStar += '<img src="/images/ratings/1.png" alt="Rate">';
-    }
-    if (val > intVal) {
-        certificationStar += '<img src="/images/ratings/half.png" alt="Rate">';
-        count = (5 - intVal) - 1;
-        for (i = 0; i < count; i++) {
-            certificationStar += '<img src="/images/ratings/0.png" alt="Rate">';
-        }
-    }
-    else {
-        count = 5 - intVal;
-        for (i = 0; i < count; i++) {
-            certificationStar += '<img src="/images/ratings/0.png" alt="Rate">';
-        }
-    }
-    return certificationStar;
-}
-
-var ShowReviewCount = function (reviewCount) {
-    var reviewText = '';
-    if (parseInt(reviewCount) > 0)
-        reviewText = reviewCount + ' Reviews';
-    else
-        reviewText = 'Not yet rated';
-
-    return reviewText;
-};
 
 docReady(function () {
     //Other  functions
@@ -141,18 +97,6 @@ docReady(function () {
         self.NewPageNo = ko.observable(0);
         self.IsMoreBikesAvailable = ko.observable(false);
         self.FirstLoad = ko.observable(true);
-        //self.QueryString = ko.computed(function () {
-        //    var qs = "";
-        //    console.log(self.Filters())
-        //    $.each(self.Filters(), function (i, val) {
-        //        if (i && val) {
-        //            qs += "&" + i + "=" + val;
-        //            console.log(i + val);
-        //        }
-        //    });
-        //    qs = qs.substr(1);
-        //    return qs;
-        //});
         self.models = ko.observable([]);
         self.TotalBikes = ko.observable();
         self.noBikes = ko.observable(self.TotalBikes() == 0);
@@ -174,97 +118,20 @@ docReady(function () {
                 var eleSection = $(".search-bike-list");
                 ko.applyBindings(self, eleSection[0]);
                 self.IsInitialized(true);
+                self.IsLoading(false);
             }
         };
 
         self.setFilters = function (url) {
-            count = 0;
-            var params = url.split('&');
-            for (var index in params) {
-                var pair = params[index].split('=');
-                self.Filters()[pair[0]] = pair[1];
-                var node = $('div[name=' + pair[0] + ']');
-                if (pair[0] !== 'budget') {
-                    var values = pair[1].split('+'),
-                        selText = '';
-
-                    for (var j = 0; j < values.length; j++) {
-                        node.find('li[filterid=' + values[j] + ']').addClass('active');
-                        selText += node.find('li[filterid=' + values[j] + ']').text() + ', ';
-                    }
-                    count++;
-                    node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length - 2));
-                } else{
-                    var values = pair[1].split('-');
-                    self.setMaxAmount(values[1]);
-                    self.setMinAmount(values[0]);
-                    count++;
-                }
-            }
-            $('.filter-counter').text(count);
-            self.FirstLoad(false);
-            self.pushState('through-filters');
-            self.init();
-            self.Filters()['pageno'] = 1;
-        };
-
-        self.bindNextSearchResult = function (json) {
-
-            if (json.searchResult.length > 0) {
-                $.each(json.searchResult, function (index, val) {
-                    self.searchResult.push(val);
-                });
-            }
-        };
-
-        self.setMinAmount = function (userMinAmount) {
-            if (userMinAmount == "") {
-                minInput.val("").attr("data-value", "");
-                minAmount.html("0");
-            }
-            else {
-                $("#budgetBtn").hide();
-                var formattedValue = $.newUserInputPrice(userMinAmount);
-                minAmount.text(formattedValue);
-                minInput.val(formattedValue).attr('data-value', userMinAmount);
-            }
-            if ($("#budgetBtn").is(':visible'))
-                minAmount.html("");
-        };
-
-        self.setMaxAmount = function (userMaxAmount) {
-            if (e.keyCode == 8 && userMaxAmount.length == 0)
-                maxAmount.html(" - MAX");
-
-            if (userMaxAmount.length == 0 && $('#budgetBtn').not(':visible')) {
-                maxInput.val("").attr("data-value", "");
-                maxAmount.html("- MAX");
-            }
-            else {
-                $("#budgetBtn").hide();
-                var userMinAmount = minInput.val();
-                if (userMinAmount == "")
-                    minAmount.html("0");
-
-                var formattedValue = $.newUserInputPrice(userMaxAmount);
-                maxAmount.html("- " + formattedValue);
-                maxInput.val(formattedValue).attr('data-value', userMaxAmount);
-            }
-        };
-
-        self.getSelectedQSFilterText = function () {
-            count = 0;
-            $('.bw-tabs-new').find('li').each(function () {
-                $(this).removeClass('active');
-            });
-            $('.filter-select-title .default-text').each(function () {
-                $(this).text($(this).prev().text());
-            });
-            for (var param in self.Filters()) {
-                if (param) {
-                    var node = $('div[name=' + param + ']');
-                    if (param != 'pageno' && param!= 'pagesize' && param != 'so' && param != 'sc' && param != 'budget') {
-                        var values = self.Filters()[param].split('+'),
+            try {
+                count = 0;
+                var params = url.split('&');
+                for (var index in params) {
+                    var pair = params[index].split('=');
+                    self.Filters()[pair[0]] = pair[1];
+                    var node = $('div[name=' + pair[0] + ']');
+                    if (pair[0] !== 'budget') {
+                        var values = pair[1].split('+'),
                             selText = '';
 
                         for (var j = 0; j < values.length; j++) {
@@ -272,17 +139,118 @@ docReady(function () {
                             selText += node.find('li[filterid=' + values[j] + ']').text() + ', ';
                         }
                         count++;
-                        if (selText.length > 2)
                         node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length - 2));
-                    } else if (param == 'budget') {
-                        var values = self.Filters()[param].split('-');
+                    } else {
+                        var values = pair[1].split('-');
                         self.setMaxAmount(values[1]);
                         self.setMinAmount(values[0]);
                         count++;
                     }
                 }
+                $('.filter-counter').text(count);
+                self.FirstLoad(false);
+                self.getBikeSearchResult('through-filters');
+                self.init();
+                self.Filters()['pageno'] = 1;
+            } catch (e) {
+                console.warn(e.message);
             }
-            $('.filter-counter').text(count);
+        };
+
+        self.bindNextSearchResult = function (json) {
+            try {
+                if (json.searchResult.length > 0) {
+                    $.each(json.searchResult, function (index, val) {
+                        self.searchResult.push(val);
+                    });
+                }
+            } catch (e) {
+                console.warn(e.message);
+            }
+        };
+
+        self.pushGTACode = function (noOfRecords, filterName) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_' + noOfRecords, 'lab': filterName });
+        };
+
+        self.setMinAmount = function (userMinAmount) {
+            try {
+                if (userMinAmount == "") {
+                    minInput.val("").attr("data-value", "");
+                    minAmount.html("0");
+                }
+                else {
+                    $("#budgetBtn").hide();
+                    var formattedValue = $.newUserInputPrice(userMinAmount);
+                    minAmount.text(formattedValue);
+                    minInput.val(formattedValue).attr('data-value', userMinAmount);
+                }
+                if ($("#budgetBtn").is(':visible'))
+                    minAmount.html("");
+            } catch (e) {
+                console.warn(e.message);
+            }
+        };
+
+        self.setMaxAmount = function (userMaxAmount) {
+            try {
+                if (e.keyCode == 8 && userMaxAmount.length == 0)
+                    maxAmount.html(" - MAX");
+
+                if (userMaxAmount.length == 0 && $('#budgetBtn').not(':visible')) {
+                    maxInput.val("").attr("data-value", "");
+                    maxAmount.html("- MAX");
+                }
+                else {
+                    $("#budgetBtn").hide();
+                    var userMinAmount = minInput.val();
+                    if (userMinAmount == "")
+                        minAmount.html("0");
+
+                    var formattedValue = $.newUserInputPrice(userMaxAmount);
+                    maxAmount.html("- " + formattedValue);
+                    maxInput.val(formattedValue).attr('data-value', userMaxAmount);
+                }
+            } catch (e) {
+                console.warn(e.message);
+            }
+        };
+
+        self.getSelectedQSFilterText = function () {
+            try {
+                count = 0;
+                $('.bw-tabs-new').find('li').each(function () {
+                    $(this).removeClass('active');
+                });
+                $('.filter-select-title .default-text').each(function () {
+                    $(this).text($(this).prev().text());
+                });
+                for (var param in self.Filters()) {
+                    if (param) {
+                        var node = $('div[name=' + param + ']');
+                        if (param != 'pageno' && param != 'pagesize' && param != 'so' && param != 'sc' && param != 'budget') {
+                            var values = self.Filters()[param].split('+'),
+                                selText = '';
+
+                            for (var j = 0; j < values.length; j++) {
+                                node.find('li[filterid=' + values[j] + ']').addClass('active');
+                                selText += node.find('li[filterid=' + values[j] + ']').text() + ', ';
+                            }
+                            count++;
+                            if (selText.length > 2)
+                                node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length - 2));
+                        } else if (param == 'budget') {
+                            var values = self.Filters()[param].split('-');
+                            self.setMaxAmount(values[1]);
+                            self.setMinAmount(values[0]);
+                            count++;
+                        }
+                    }
+                }
+                $('.filter-counter').text(count);
+            } catch (e) {
+                console.warn(e.message);
+            }
         };
 
         self.getBikeSearchResult = function (filterName) {
@@ -330,11 +298,17 @@ docReady(function () {
                             } else {
                                 self.IsMoreBikesAvailable(false);
                             }
+                            if (filterName) {
+                                self.pushGTACode(response.TotalBikes, filterName);
+                            }
                         })
                         .fail(function () {
                             self.IsMoreBikesAvailable(false);
                             self.noBikes(true);
                             self.TotalBikes(0);
+                            if (filterName) {
+                                self.pushGTACode(self.TotalBikes(), filterName);
+                            }
                             self.searchResult([]);
                             self.models([]);
                             $('#bikecount').text('No bikes found');
@@ -353,144 +327,179 @@ docReady(function () {
         };
 
         self.validateInputValue = function () {
-            minDataValue = parseInt(minInput.attr("data-value")) || 0;
-            maxDataValue = parseInt(maxInput.attr("data-value")) || 0;
-            var isValid = false;
-            if (minDataValue <= maxDataValue) {
-                maxInput.removeClass("border-red");
-                $(".bw-blackbg-tooltip-max").hide();
-                isValid = true;
+            try {
+                minDataValue = parseInt(minInput.attr("data-value")) || 0;
+                maxDataValue = parseInt(maxInput.attr("data-value")) || 0;
+                var isValid = false;
+                if (minDataValue <= maxDataValue) {
+                    maxInput.removeClass("border-red");
+                    $(".bw-blackbg-tooltip-max").hide();
+                    isValid = true;
+                }
+                else if (maxDataValue > 0 && minDataValue > maxDataValue) {
+                    maxInput.addClass("border-red");
+                    $(".bw-blackbg-tooltip-max").show();
+                    isValid = false;
+                }
+                else if (maxDataValue == 0)
+                    isValid = true;
+                return isValid;
+            } catch (e) {
+                console.warn(e.message);
             }
-            else if (maxDataValue > 0 && minDataValue > maxDataValue) {
-                maxInput.addClass("border-red");
-                $(".bw-blackbg-tooltip-max").show();
-                isValid = false;
-            }
-            else if (maxDataValue == 0)
-                isValid = true;
-            return isValid;
-        };
-
-        self.pushState = function (filterName) {
-            // loader and other checks
-            self.getBikeSearchResult(filterName);
         };
 
         self.removeValueFromCheckBoxInQS = function (name, value) {
-            var values = self.Filters()[name].split('+');
-            var temp = '';
-            for (var i = 0; i < values.length; i++) {
-                if (values[i] != value) {
-                    if (temp.length > 0)
-                        temp = temp + "+" + values[i];
-                    else
-                        temp = values[i];
+            try {
+                var values = self.Filters()[name].split('+');
+                var temp = '';
+                for (var i = 0; i < values.length; i++) {
+                    if (values[i] != value) {
+                        if (temp.length > 0)
+                            temp = temp + "+" + values[i];
+                        else
+                            temp = values[i];
+                    }
                 }
+                self.Filters()[name] = temp;
+            } catch (e) {
+                console.warn(e.message);
             }
-            self.Filters()[name] = temp;
         };
 
         self.getFilterFromQS = function (name) {
-            if (self.Filters()[name]) {
-                return self.Filters()[name]
-            } else {
-                return "";
+            try {
+                if (self.Filters()[name]) {
+                    return self.Filters()[name]
+                } else {
+                    return "";
+                }
+            } catch (e) {
+                console.warn(e.message);
             }
         };
 
         self.updateCheckBoxFilterInQS = function (name, value, toAdd) {
-            if (toAdd == true) {
-                self.Filters()[name] = self.Filters()[name] + '+' + value;
-            }
-            else {
-                self.removeValueFromCheckBoxInQS(name, value);
+            try {
+                if (toAdd == true) {
+                    self.Filters()[name] = self.Filters()[name] + '+' + value;
+                }
+                else {
+                    self.removeValueFromCheckBoxInQS(name, value);
+                }
+            } catch (e) {
+                console.warn(e.message);
             }
         };
 
         self.applyCheckBoxFilter = function (name, value, node) {
-            var checked = 'active';
-            if (node.hasClass(checked)) {
-                node.removeClass(checked);
-                self.updateCheckBoxFilterInQS(name, value, false);
-            }
-            else {
-                node.addClass(checked);
-                if (self.Filters()[name]) {
-                    self.updateCheckBoxFilterInQS(name, value, true);
+            try {
+                var checked = 'active';
+                if (node.hasClass(checked)) {
+                    node.removeClass(checked);
+                    self.updateCheckBoxFilterInQS(name, value, false);
                 }
                 else {
-                    self.Filters()[name] = value;
+                    node.addClass(checked);
+                    if (self.Filters()[name]) {
+                        self.updateCheckBoxFilterInQS(name, value, true);
+                    }
+                    else {
+                        self.Filters()[name] = value;
+                    }
                 }
+                self.getBikeSearchResult(name);
+            } catch (e) {
+                console.warn(e.message);
             }
-            self.pushState(name);
         };
 
         self.applyToggelFilter = function (name, value, node) {
-            var checked = 'active';
+            try {
+                var checked = 'active';
 
-            if (!node.find('li[filterid=' + value + ']').hasClass(checked)) {
-                node.removeClass(checked);
-                self.Filters()[name] = value;
-            }
-            else {
-                delete self.Filters()[name];
-            }
+                if (!node.find('li[filterid=' + value + ']').hasClass(checked)) {
+                    node.removeClass(checked);
+                    self.Filters()[name] = value;
+                }
+                else {
+                    delete self.Filters()[name];
+                }
 
-            self.pushState(name);
+                self.getBikeSearchResult(name);
+            } catch (e) {
+                console.warn(e.message);
+            }
         };
 
         self.applyMinMaxFilter = function (name, value, node) {
-            if (name && value) {
-                self.Filters()[name] = value;
-            }
-            else {
-                delete self.Filters()[name];
-            }
+            try {
+                if (name && value) {
+                    self.Filters()[name] = value;
+                }
+                else {
+                    delete self.Filters()[name];
+                }
 
-            self.pushState(name);
+                self.getBikeSearchResult(name);
+            } catch (e) {
+                console.warn(e.message);
+            }
         };
         self.applySortFilter = function (so, sc, sortByText) {
-            self.Filters()['so'] = so;
-            self.Filters()['sc'] = sc;
-            self.pushState(sortByText);
+            try {
+                self.Filters()['so'] = so;
+                self.Filters()['sc'] = sc;
+                self.getBikeSearchResult(sortByText);
+            } catch (e) {
+                console.warn(e.message);
+            }
         };
 
         self.updateFilters = function (node, name, value, type) {
-            if (type == 1)
-                self.applyCheckBoxFilter(name, value, node);
-            else if (type == 2)
-                self.applyToggelFilter(name, value, node);
-            else if (type == 5)
-                self.applyMinMaxFilter(name, value, node);
+            try {
+                if (type == 1)
+                    self.applyCheckBoxFilter(name, value, node);
+                else if (type == 2)
+                    self.applyToggelFilter(name, value, node);
+                else if (type == 5)
+                    self.applyMinMaxFilter(name, value, node);
+            } catch (e) {
+                console.warn(e.message);
+            }
         };
 
         self.resetAll = function () {
-            $("span.selected").remove();
-            $(".filter-selection-div li").each(function () {
-                $(this).removeClass("active").addClass("uncheck");
-            });
-            $('.filter-select-title .default-text').each(function () {
-                $(this).text($(this).prev().text());
-            });
-            $('#minInput').val('').attr("data-value", '');
-            $('#maxInput').val('').attr("data-value", '');
-            minAmount.text('');
-            maxAmount.text('');
-            defaultText.show();
-            count = 0;
-            resetBWTabs();
-            var a = $(".more-filters-btn");
-            if (a.hasClass("open"))
-                moreLessTextChange(a);
-            $(".more-filters-btn").removeClass("open");
-            $(".more-filters-container").slideUp();
-            $('.filter-counter').text(count);
-            for (var param in self.Filters()) {
-                if (param && param != 'pageno' && param != 'pagesize' && param != 'so' && param != 'sc') {
-                    delete self.Filters()[param];
+            try {
+                $("span.selected").remove();
+                $(".filter-selection-div li").each(function () {
+                    $(this).removeClass("active").addClass("uncheck");
+                });
+                $('.filter-select-title .default-text').each(function () {
+                    $(this).text($(this).prev().text());
+                });
+                $('#minInput').val('').attr("data-value", '');
+                $('#maxInput').val('').attr("data-value", '');
+                minAmount.text('');
+                maxAmount.text('');
+                defaultText.show();
+                count = 0;
+                resetBWTabs();
+                var a = $(".more-filters-btn");
+                if (a.hasClass("open"))
+                    moreLessTextChange(a);
+                $(".more-filters-btn").removeClass("open");
+                $(".more-filters-container").slideUp();
+                $('.filter-counter').text(count);
+                for (var param in self.Filters()) {
+                    if (param && param != 'pageno' && param != 'pagesize' && param != 'so' && param != 'sc') {
+                        delete self.Filters()[param];
+                    }
                 }
+                self.getBikeSearchResult("resetButton");
+            } catch (e) {
+                console.warn(e.message);
             }
-            self.pushState("resetButton");
         }
     };
 
@@ -503,7 +512,7 @@ docReady(function () {
         }
         newBikeSearchVM.LoadMoreTarget($("#loadMoreBikes").attr("data-url"));
         newBikeSearchVM.IsLoadMore(true);
-        newBikeSearchVM.pushState('load-more');
+        newBikeSearchVM.getBikeSearchResult('load-more');
     });
 
     $(".filter-div").on("click", function () {

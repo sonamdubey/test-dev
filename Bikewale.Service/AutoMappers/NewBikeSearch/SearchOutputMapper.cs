@@ -12,8 +12,7 @@ namespace Bikewale.Service.AutoMappers.NewBikeSearch
     {
         internal static SearchOutput Convert(SearchOutputEntity objSuggestion)
         {
-            Mapper.CreateMap<SearchOutputEntity, SearchOutput>()
-                .ForMember(dest => dest.PqSource, opt => opt.MapFrom(src => src.PqSource));
+            Mapper.CreateMap<SearchOutputEntity, SearchOutput>();
             Mapper.CreateMap<PagingUrl, Pager>();
             Mapper.CreateMap <SearchOutputEntityBase, SearchOutputBase>();
             Mapper.CreateMap<BikeModelEntity, ModelDetail>();
