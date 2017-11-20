@@ -14,7 +14,7 @@ namespace Bikewale.Interfaces.BikeData
 		IEnumerable<NewBikeEntityBase> GetNewModels(uint seriesId, uint cityId);
 		IEnumerable<UpcomingBikeEntityBase> GetUpcomingModels(uint seriesId);
 		BikeDescriptionEntity GetSynopsis(uint seriesId);
-		IEnumerable<BikeSeriesEntity> GetOtherSeriesFromMake(int makeId);
+		IEnumerable<BikeSeriesEntity> GetOtherSeriesFromMake(int makeId, uint seriesId);
 		IEnumerable<BikeSeriesCompareBikes> GetBikesToCompare(uint seriesId);
 	}
 }
