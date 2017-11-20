@@ -297,6 +297,7 @@ namespace Bikewale.Models.BikeSeries
 
             try
             {
+				objSeriesPage.ObjModel = new BikeSeriesCompareVM();
                 objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs = _seriesCache.GetBikesToCompare(objSeriesPage.SeriesBase.SeriesId);
 
                 IList<string> objList = new List<string>();
