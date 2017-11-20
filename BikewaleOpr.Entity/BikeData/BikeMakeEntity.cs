@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace BikewaleOpr.Entities.BikeData
 {
     /// <summary>
     /// Modified by : Aditi  Srivastava on 24 May 2017
     /// Summary     : Added oldmaskingname property for mails on masking name change
+    /// Modified by sajal Gupta on 20-11-2017
+    /// Desc : Added MakeFooterAdded
     /// </summary>
     public class BikeMakeEntity : BikeMakeEntityBase
     {
@@ -19,5 +16,6 @@ namespace BikewaleOpr.Entities.BikeData
         public string UpdatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public string OldMakeMasking { get; set; }
+        public bool MakeFooterAdded { get; set; }
     }
 }

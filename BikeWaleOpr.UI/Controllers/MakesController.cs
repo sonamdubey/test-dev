@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Bikewale.Notifications;
+using Bikewale.Utility;
+using BikewaleOpr.Entities.BikeData;
+using BikewaleOpr.Entity;
+using BikewaleOpr.Interface.BikeData;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Bikewale.Notifications;
-using BikewaleOpr.Entities.BikeData;
-using BikewaleOpr.Interface.BikeData;
-using Bikewale.Utility;
 
 namespace BikeWaleOpr.MVC.UI.Controllers.Content
 {
@@ -17,7 +18,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         private readonly IBikeMakesRepository makesRepo;
         private readonly IBikeModelsRepository modelsRepo;
 
-        public MakesController(IBikeMakesRepository _makesRepo,IBikeModelsRepository _modelsRepo)
+        public MakesController(IBikeMakesRepository _makesRepo, IBikeModelsRepository _modelsRepo)
         {
             makesRepo = _makesRepo;
             modelsRepo = _modelsRepo;
@@ -59,7 +60,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         /// </summary>
         /// <returns></returns>
         public ActionResult Add(BikeMakeEntity make)
-        {            
+        {
             try
             {
                 short isMakeExist = 0;
@@ -103,12 +104,13 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                         IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
                         foreach (var mail in emails)
                         {
-                            SendEmailOnModelChange.SendMakeMaskingNameChangeMail(mail,make.MakeName,models);
+                            SendEmailOnModelChange.SendMakeMaskingNameChangeMail(mail, make.MakeName, models);
                         }
                     }
                     TempData["msg"] = make.MakeName + " Make Updated Successfully";
                 }
-                else {
+                else
+                {
                     TempData["msg"] = "Please provide valid inputs";
                 }
             }
@@ -135,7 +137,8 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
 
                     TempData["msg"] = "Make Deleted Successfully";
                 }
-                else {
+                else
+                {
                     TempData["msg"] = "Please provide valid make";
                 }
             }
@@ -146,6 +149,49 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
 
             return RedirectToAction("Index");
         }
-    
+
+        /// <summary>
+        /// Created by Sajal Gupta on 20-11-2017
+        /// Desc : Action method for page addfooterdata
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public ActionResult AddFooterData(uint makeId, string makeName)
+        {
+            try
+            {
+                MakeFooterPageModel objMakeFooter = new MakeFooterPageModel();
+                objMakeFooter.MakeFooterData = makesRepo.GetMakeFooterCategoryData(makeId);
+                objMakeFooter.MakeName = makeName;
+                objMakeFooter.MakeId = makeId;
+                return View(objMakeFooter);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "MakesController/AddFooterData");
+            }
+            return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 20-11-2017
+        /// Desc : Action method for saving addfooterdata
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        [Route("make/save/footerdata/")]
+        public ActionResult SaveFooterData(uint makeId, string footerData, string userId)
+        {
+            try
+            {
+                makesRepo.SaveMakeFooterData(makeId, footerData, userId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "MakesController/SaveFooterData");
+            }
+            return RedirectToAction("Index");
+        }
+
     }   // class
 }   // namespace

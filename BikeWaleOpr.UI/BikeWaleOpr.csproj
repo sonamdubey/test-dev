@@ -1960,6 +1960,7 @@
     <Content Include="src\DealerPricing\dealeroperationcollapsable.js" />
     <Content Include="src\DealerPricing\dealerpricingindex.js" />
     <Content Include="src\DealerFacility\DealerFacility.js" />
+    <Content Include="src\footerdata.js" />
     <Content Include="src\framework.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
@@ -2045,6 +2046,7 @@
     <Content Include="Views\BikeSeries\Index.cshtml" />
     <Content Include="packages.config" />
     <Content Include="Views\AdSlot\Index.cshtml" />
+    <Content Include="Views\Makes\AddFooterData.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
