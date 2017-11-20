@@ -383,7 +383,7 @@ docReady(function () {
         self.reviewsAvailable = ko.observable(true);
         self.categoryName = ko.observable('');
         self.IsLoading = ko.observable(false);
-        self.Filters = ko.observable({ pn: 1, ps: 8, model: modelid, so: reviewId > 0 ? 2 : 1, skipreviewid: reviewId });
+        self.Filters = ko.observable({ pn: 1, ps: 8, model: modelid, so: reviewId > 0 ? 1 : 2, skipreviewid: reviewId });
         self.firstReadMoreClick = ko.observable(false);
         self.clickedReviewId = ko.observable();
 
@@ -592,7 +592,7 @@ docReady(function () {
 
                         if (self.firstReadMoreClick()) {
                             var collpasibleContent = $(document).find('.read-more-target[data-reviewId=' + self.clickedReviewId() + ']').closest('.collapsible-content');
-                            $('html, body').scrollTop(collpasibleContent.closest('.list-item').offset().top - $('#overallSpecsTab').height());
+                            $('html, body').scrollTop(collpasibleContent.closest('.list-item').offset() ?(collpasibleContent.closest('.list-item').offset().top - $('#overallSpecsTab').height()) : "0");
                             collpasibleContent.addClass('active');
                             self.firstReadMoreClick(false);
                         }
@@ -696,6 +696,8 @@ docReady(function () {
 
             updateView(event);
             logBhrighu(event, 'ReadMoreClick');
+
+            triggerGA("User_Reviews", "Clicked_On_Read_More", makeName + "_" + modelName + "_" + (reviewId > 0 ? "Details" : "List"));
 
             return true;
         };
@@ -958,5 +960,20 @@ docReady(function () {
 
     $(document).on("click", ".article-list", function (e) {
         triggerGA("User_Reviews", "Clicked_ExpertReviews_List", makeName + "_" + modelName);
+    });
+
+    var similarBikesSwiper = new Swiper('#similar-bikes-swiper', {
+        effect: 'slide',
+        speed: 300,
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        preloadImages: false,
+        lazyLoading: true,
+        lazyLoadingInPrevNext: true,
+        watchSlidesProgress: true,
+        watchSlidesVisibility: true,
+        onSlideChangeStart: function (swiper, event) {
+            triggerGA("User_Reviews", "Clicked_On_SimilarBikes_Carousel", makeName + "_" + modelName + "_" + (reviewId > 0 ? "Details" : "List"));
+        }
     });
 });

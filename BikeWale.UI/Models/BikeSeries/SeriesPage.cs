@@ -59,6 +59,7 @@ namespace Bikewale.Models.BikeSeries
                 objSeriesPage.SeriesBase.SeriesId = seriesId;
 
                 BindSeriesSynopsis(objSeriesPage);
+
                 objSeriesPage.objUsedBikes = GetUsedBikesForSeries(objSeriesPage, seriesId, objSeriesPage.City.CityId);
                 objSeriesPage.SeriesModels = new BikeSeriesModels();
                 objSeriesPage.SeriesModels.NewBikes = _bikeSeries.GetNewModels(seriesId, objSeriesPage.City.CityId);
@@ -74,6 +75,7 @@ namespace Bikewale.Models.BikeSeries
                 }
 
                 objSeriesPage.SeriesModels.UpcomingBikes = _bikeSeries.GetUpcomingModels(seriesId);
+
                 GetBikesToCompare(objSeriesPage);
                 BindCMSContent(objSeriesPage);
                 BindOtherSeriesFromMake(objSeriesPage);
@@ -124,20 +126,23 @@ namespace Bikewale.Models.BikeSeries
                     modelIdList.Append(bike.BikeModel.ModelId);
                     modelIdList.Append(",");
                 }
-                RecentNews recentNews = new RecentNews(3, (uint)objSeriesPage.BikeMake.MakeId, modelIdList.ToString(), _articles)
+
+				ushort topCount = 3;
+				RecentNews recentNews = new RecentNews(topCount, (uint)objSeriesPage.BikeMake.MakeId, modelIdList.ToString(), _articles)
                 {
                     IsScooter = IsScooter
                 };
                 objSeriesPage.News = recentNews.GetData();
                 objSeriesPage.News.Title = string.Format("{0} {1} News", objSeriesPage.BikeMake.MakeName, objSeriesPage.SeriesBase.SeriesName);
 
-                RecentExpertReviews recentExpertReviews = new RecentExpertReviews(3, (uint)objSeriesPage.BikeMake.MakeId, modelIdList.ToString(), _articles)
+				RecentExpertReviews recentExpertReviews = new RecentExpertReviews(topCount, (uint)objSeriesPage.BikeMake.MakeId, modelIdList.ToString(), _articles)
                 {
                     IsScooter = IsScooter
                 };
                 objSeriesPage.ExpertReviews = recentExpertReviews.GetData();
 
-                RecentVideos recentVideos = new RecentVideos(1, 2, modelIdList.ToString(), _videos)
+				ushort pageNo = 1, pageSize = 2;
+				RecentVideos recentVideos = new RecentVideos(pageNo, pageSize, modelIdList.ToString(), _videos)
                 {
                     IsScooter = IsScooter
                 };
@@ -153,15 +158,14 @@ namespace Bikewale.Models.BikeSeries
         {
             try
             {
-                if (objSeriesPage.BikeMake != null)
+				if (objSeriesPage.BikeMake != null && objSeriesPage.SeriesBase != null)
                 {
-                    objSeriesPage.OtherSeriesList = _bikeSeries.GetOtherSeriesFromMake(objSeriesPage.BikeMake.MakeId);
+					 objSeriesPage.OtherSeriesList = _bikeSeries.GetOtherSeriesFromMake(objSeriesPage.BikeMake.MakeId, objSeriesPage.SeriesBase.SeriesId);
                 }
             }
             catch (Exception ex)
             {
-
-                throw;
+				ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.BindOtherSeriesFromMake");
             }
         }
 
@@ -200,19 +204,26 @@ namespace Bikewale.Models.BikeSeries
             try
             {
                 IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-                string bikeUrl;
+				string bikeUrl, scooterUrl;
                 bikeUrl = "/";
+				scooterUrl = "/";
                 ushort position = 1;
                 if (IsMobile)
                 {
-                    bikeUrl += "m/";
+					bikeUrl += "m";
+					scooterUrl += "m";
                 }
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
                 if (objSeriesPage.BikeMake != null)
                 {
-                    bikeUrl = string.Format("{0}/{1}-{2}/", bikeUrl, objSeriesPage.BikeMake.MakeMaskingName, IsScooter ? "scooters" : "bikes");
-                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} {1}", objSeriesPage.BikeMake.MakeName, IsScooter ? "Scooters" : "Bikes")));
+					bikeUrl = string.Format("{0}/{1}-bikes/", bikeUrl, objSeriesPage.BikeMake.MakeMaskingName);
+					BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} Bikes", objSeriesPage.BikeMake.MakeName)));
+					if (IsScooter)
+					{
+						scooterUrl = string.Format("{0}/{1}-scooters/", scooterUrl, objSeriesPage.BikeMake.MakeMaskingName);
+						BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters", objSeriesPage.BikeMake.MakeName)));
+					}
                 }
                 if (objSeriesPage.SeriesBase != null && objSeriesPage.BikeMake != null)
                 {
@@ -244,8 +255,8 @@ namespace Bikewale.Models.BikeSeries
                         "It is available in {4} models in India. {0} {5} is the most popular {1}. " +
                         "Check out {1} on road price, reviews, mileage, versions, news & images at Bikewale",
                             objSeriesPage.BikeMake.MakeName, objSeriesPage.SeriesBase.SeriesName,
-                            objSeriesPage.SeriesModels.NewBikes.Min(x => x.Price.AvgPrice),
-                            objSeriesPage.SeriesModels.NewBikes.Max(x => x.Price.AvgPrice),
+							Format.FormatPrice(Convert.ToString(objSeriesPage.SeriesModels.NewBikes.Min(x => x.Price.AvgPrice))),
+							Format.FormatPrice(Convert.ToString(objSeriesPage.SeriesModels.NewBikes.Max(x => x.Price.AvgPrice))),
                             objSeriesPage.SeriesModels.NewBikes.Count(), objSeriesPage.SeriesModels.NewBikes.FirstOrDefault().BikeModel.ModelName);
                     }
 
@@ -265,7 +276,7 @@ namespace Bikewale.Models.BikeSeries
                         objSeriesPage.PageMetaTags.Keywords = Convert.ToString(str);
                     }
 
-                    objSeriesPage.PageMetaTags.CanonicalUrl = string.Format("/{0}-bikes/{1}/", objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName);
+					objSeriesPage.PageMetaTags.CanonicalUrl = UrlFormatter.BikeSeriesUrl(objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName);
                     objSeriesPage.PageMetaTags.AlternateUrl = string.Format("/m/{0}", objSeriesPage.PageMetaTags.CanonicalUrl);
                     //objSeriesPage.PageMetaTags.OGImage
                 }
@@ -283,9 +294,10 @@ namespace Bikewale.Models.BikeSeries
         /// <param name="objSeriesPage"></param>
         private void GetBikesToCompare(SeriesPageVM objSeriesPage)
         {
-            objSeriesPage.ObjModel = new BikeSeriesCompareVM();
+
             try
             {
+				objSeriesPage.ObjModel = new BikeSeriesCompareVM();
                 objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs = _seriesCache.GetBikesToCompare(objSeriesPage.SeriesBase.SeriesId);
 
                 IList<string> objList = new List<string>();
@@ -307,16 +319,14 @@ namespace Bikewale.Models.BikeSeries
                 objSeriesPage.ObjModel.ObjBikeSpecs.Weight = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Weight != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Min(m => m.Weight)).Count() + 1);
                 objSeriesPage.ObjModel.ObjBikeSpecs.FuelCapacity = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.FuelCapacity != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.FuelCapacity)).Count() + 1);
                 objSeriesPage.ObjModel.ObjBikeSpecs.Displacement = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Displacement != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.Displacement)).Count() + 1);
-
+				
                 objSeriesPage.ObjModel.BikeCompareSegments = objList;
             }
             catch (Exception ex)
             {
-
+				
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeSeries.SeriesPage.GetBikesToCompare");
             }
-
-
         }
         /// <summary>
         /// Modified by : Aditi Srivastava on 25 Apr 2017
@@ -337,7 +347,7 @@ namespace Bikewale.Models.BikeSeries
             {
                 Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, "ScootersIndexPageModel.BindCompareScootes()");
             }
-        }
+		}
 
     }
 }

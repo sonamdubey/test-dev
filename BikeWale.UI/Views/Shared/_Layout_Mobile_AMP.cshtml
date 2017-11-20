@@ -13,7 +13,7 @@
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
         {
-            <meta itemprop="description" name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
+            <meta itemprop="description" name="description" content="@Model.PageMetaTags.Description" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
         {
@@ -41,7 +41,7 @@
     <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
       
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-    
+        
     <style amp-custom>
             body {
                 font-family: 'Open Sans',Serif;
@@ -240,7 +240,7 @@
 			transform: rotateZ(180deg);
 		}
 
-		.home-icon, .newBikes-icon, .reviews-icon, .news-icon, .sellBikes-icon, .usedBikes-icon {
+		.home-icon, .newBikes-icon, .scooter-icon, .reviews-icon, .news-icon, .sellBikes-icon, .usedBikes-icon {
 			width: 24px;
 			height: 22px;
 			margin-right: 10px;
@@ -252,7 +252,13 @@
 		}
 
 		.newBikes-icon {
-			background-position: 0 -109px;
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/bike-22x13.png') no-repeat center;
+			display: inline-block;
+		}
+
+		.scooter-icon {
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/scooter-22x15.png') no-repeat center;
+			display: inline-block;
 		}
 
 		.usedBikes-icon {
@@ -297,7 +303,7 @@
 			margin-top: 10px;
 			margin-bottom: 10px;
 		}
-		
+
 		.new-flag {
 			width: 34px;
 			height: 16px;
@@ -320,45 +326,45 @@
 
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     @if (Model.AmpJsTags != null)
-    {
-        if (Model.AmpJsTags.IsAnalytics)
-        {
-            <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-        }
-        if (Model.AmpJsTags.IsSidebar)
-        {
-            <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
-        }
-        if (Model.AmpJsTags.IsAccordion)
-        {
-            <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
-        }
-        if (Model.AmpJsTags.IsIframe)
-        {
-            <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
-        }
-        if (Model.AmpJsTags.IsAd)
-        {
-            <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
-        }
-        if (Model.AmpJsTags.IsSocialShare)
-        {
-            <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
-        }
-        if (Model.AmpJsTags.IsCarousel)
-        {
-            <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-        }
-        if (Model.AmpJsTags.IsBind)
-        {
-            <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-        }
-        if (Model.AmpJsTags.IsSelector)
-        {
-            <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
-        }
+	{
+		if (Model.AmpJsTags.IsAnalytics)
+		{
+			<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+		}
+		if (Model.AmpJsTags.IsSidebar)
+		{
+			<script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+		}
+		if (Model.AmpJsTags.IsAccordion)
+		{
+			<script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+		}
+		if (Model.AmpJsTags.IsIframe)
+		{
+			<script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+		}
+		if (Model.AmpJsTags.IsAd)
+		{
+			<script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+		}
+		if (Model.AmpJsTags.IsSocialShare)
+		{
+			<script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+		}
+		if (Model.AmpJsTags.IsCarousel)
+		{
+			<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+		}
+		if (Model.AmpJsTags.IsBind)
+		{
+			<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+		}
+		if (Model.AmpJsTags.IsSelector)
+		{
+			<script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+		}
 
-    }
+	}
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
 
     
@@ -378,7 +384,7 @@
                 <amp-accordion>
                     <section>
                         <h2 class="nav-accordion-header">
-                            <span class="bwmsprite newBikes-icon"></span>
+                            <span class="newBikes-icon"></span>
                             <span class="vertical-middle">New Bikes</span>
                             <span class="bwmsprite fa-angle-down"></span>
                         </h2>
@@ -399,6 +405,24 @@
                 <amp-accordion>
                     <section>
                         <h2 class="nav-accordion-header">
+                            <span class="scooter-icon"></span>
+                            <span class="vertical-middle">New Scooters</span>
+                            <span class="bwmsprite fa-angle-down"></span>
+                        </h2>
+                        <ul class="nestedUL">
+                            <li><a href="https://www.bikewale.com/m/honda-scooters/" target="_top">Honda Scooters</a></li>
+                            <li><a href="https://www.bikewale.com/m/hero-scooters/" target="_top">Hero Scooters</a></li>
+                            <li><a href="https://www.bikewale.com/m/tvs-scooters/" target="_top">TVS Scooters</a></li>
+                            <li><a href="https://www.bikewale.com/m/yamaha-scooters/" target="_top">Yamaha Scooters</a></li>
+                            <li><a href="https://www.bikewale.com/m/scooters/" target="_top">All Scooters</a></li>
+                        </ul>
+                    </section>
+                </amp-accordion>
+            </li>
+            <li>
+                <amp-accordion>
+                    <section>
+                        <h2 class="nav-accordion-header">
                             <span class="bwmsprite usedBikes-icon"></span>
                             <span class="vertical-middle">Used Bikes</span>
                             <span class="bwmsprite fa-angle-down"></span>
@@ -406,17 +430,17 @@
                         <ul class="nestedUL">
                             <li><a href="https://www.bikewale.com/m/used/" target="_top">Find Used Bikes</a></li>
                             <li><a href="https://www.bikewale.com/m/used/bikes-in-india/" target="_top">All Used Bikes</a></li>
-                                <li><a href="https://www.bikewale.com/m/used/sell/" target="_top">Sell Your Bike</a></li>
+                            <li><a href="https://www.bikewale.com/m/used/sell/" target="_top">Sell Your Bike</a></li>
                         </ul>
                     </section>
                 </amp-accordion>
             </li>
             <li>
                 <h2>
-                        <a href="https://www.bikewale.com/m/reviews/" target="_top">
-                            <span class="reviews-icon"></span>
-                            <span class="vertical-middle">Reviews</span>
-                            <span class="new-flag"></span>
+                    <a href="https://www.bikewale.com/m/reviews/" target="_top">
+                        <span class="reviews-icon"></span>
+                        <span class="vertical-middle">Reviews</span>
+                        <span class="new-flag"></span>
                     </a>
                 </h2>
             </li>
@@ -424,8 +448,8 @@
                 <amp-accordion>
                     <section>
                         <h2 class="nav-accordion-header">
-                                <span class="bwmsprite news-icon"></span>
-                                <span class="vertical-middle">News, Videos &amp; Tips</span>
+                            <span class="bwmsprite news-icon"></span>
+                            <span class="vertical-middle">News, Videos &amp; Tips</span>
                             <span class="bwmsprite fa-angle-down"></span>
                         </h2>
                         <ul class="nestedUL">

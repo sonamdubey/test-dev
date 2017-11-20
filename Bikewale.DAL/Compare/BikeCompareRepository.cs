@@ -242,6 +242,9 @@ namespace Bikewale.DAL.Compare
         /// Summary     : used nullable bool for specs and features
         /// Modified By :Snehal Dange on 11 Sep 2017
         /// Summary : Changed sp name and used other version for BikeCompareEntity with 3 additional paramters
+        /// Modified BY:Snehal Dange on 10 Nov 2017
+        /// Summary : Changed Sp name from 'getcomparisondetails_01092017' to 'getcomparisondetails_10112017'
+        /// -----------Added logic for most recent reviews.
         /// </summary>
         /// <param name="versions"></param>
         /// <param name="cityId"></param>
@@ -261,7 +264,7 @@ namespace Bikewale.DAL.Compare
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_01092017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_10112017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbType.String, versions));
@@ -526,7 +529,7 @@ namespace Bikewale.DAL.Compare
                     }
 
                 }
-                if(reader != null)
+                if (reader != null)
                 {
                     reader.Close();
                 }
@@ -1076,12 +1079,12 @@ namespace Bikewale.DAL.Compare
                                         ModelId = SqlReaderConvertor.ToInt32(reader["similarModelId"]),
                                         MaskingName = Convert.ToString(reader["modelmaskingname"]),
                                         ModelName = Convert.ToString(reader["modelname"])
-                                    },                                    
+                                    },
                                     HostUrl = Convert.ToString(reader["HostUrl"]),
                                     OriginalImagePath = Convert.ToString(reader["OriginalImagePath"]),
                                     ModelId1 = SqlReaderConvertor.ToUInt32(reader["bike1"]),
                                     ModelId2 = SqlReaderConvertor.ToUInt32(reader["bike2"]),
-                                });                                
+                                });
                             }
 
                             similarBikeComparison.SimilarBikes = similarBikeList;
@@ -1106,7 +1109,7 @@ namespace Bikewale.DAL.Compare
                                             ModelName = Convert.ToString(reader["modelname"])
                                         },
                                         HostUrl = Convert.ToString(reader["HostUrl"]),
-                                        OriginalImagePath = Convert.ToString(reader["OriginalImagePath"])                                        
+                                        OriginalImagePath = Convert.ToString(reader["OriginalImagePath"])
                                     });
                                 }
 

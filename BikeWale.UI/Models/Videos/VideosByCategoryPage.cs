@@ -1,9 +1,11 @@
-﻿using Bikewale.Entities.Videos;
+﻿using Bikewale.Entities.Schema;
+using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Bikewale.Utility.StringExtention;
 using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Models.Videos
 {
@@ -17,6 +19,7 @@ namespace Bikewale.Models.Videos
         private string _categoryIdList;
         private string _title;
 
+        public bool IsMobile { get; set; }
 
         #region Constructor
         public VideosByCategoryPage(IVideosCacheRepository objVideoCache, string categoryIdList, string title)
@@ -50,6 +53,7 @@ namespace Bikewale.Models.Videos
                 objVM.CategoryId = _categoryIdList;
                 objVM.Videos = _objVideoCache.GetVideosBySubCategory(_categoryIdList, 1, totalCount, VideosSortOrder.JustLatest);
                 BindPageMetas(objVM);
+                SetBreadcrumList(objVM);
             }
             catch (Exception ex)
             {
@@ -79,8 +83,49 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindPageMetas()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.Videos.VideosByCategoryPage.BindPageMetas()");
             }
+        }
+
+        /// <summary>
+        /// Created By : Snehal Dange on 10th Nov 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(VideosByCategoryPageVM objPageVM)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string bikeUrl, scooterUrl;
+                bikeUrl = scooterUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    bikeUrl += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+
+                bikeUrl = string.Format("{0}bike-videos/", bikeUrl);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Videos"));
+
+                if (objPageVM != null)
+                {
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPageVM.PageHeading));
+                    objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.Videos.VideosByCategoryPage.SetBreadcrumList()");
+            }
+
+
+           
+
         }
         #endregion
     }

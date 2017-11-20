@@ -42,8 +42,8 @@
     </script>
     <script type='text/javascript'>
         var ga_pg_id = '0';
-        googletag.defineSlot('<%= AdPath%>_Top_320x50', [320, 50], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
-        googletag.defineSlot('<%= AdPath%>_Bottom_320x50', [320, 50], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());
+        googletag.defineSlot('<%= AdPath%>Top_320x50', [320, 50], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
+        googletag.defineSlot('<%= AdPath%>Bottom_320x50', [320, 50], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());
         googletag.pubads().collapseEmptyDivs();
         googletag.pubads().enableSyncRendering();
         googletag.pubads().enableSingleRequest();

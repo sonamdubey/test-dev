@@ -33,7 +33,7 @@
 			<div class="padding-top20">
 				@if (Model.BikeMake != null && Model.SeriesBase != null)
 				{
-					<h2 class="padding-left20 padding-right20 padding-bottom10">@string.Format("{0} {1} Upcoming bikes", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
+					<h2 class="padding-left20 padding-right20 padding-bottom10">@string.Format("{0} {1} upcoming bikes", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
 				}
 				@Html.Partial("~/Views/BikeSeries/_UpcomingBikes_Mobile.cshtml", Model.SeriesModels.UpcomingBikes)
 			</div>
@@ -63,8 +63,8 @@
     }
 @if (Model.ObjModel!=null)
     {
-            <div class="container bg-white">
-                <div class="padding-top20">
+		<div class="container bg-white">
+			<div class="padding-top20">
                     <h2 class="padding-right20 padding-bottom10 padding-left20">Find The Right @Model.SeriesBase.SeriesName</h2>
                     <p class="padding-left20 font12 font-bold padding-right20">What’s are you looking for?</p>
                     <div class="find-right-bike margin-top15">
@@ -73,57 +73,60 @@
                 </div>
             </div>
 }
+    
+	@if ((Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+						|| (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+						|| (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any()))
+	{
+		<div class="container bg-white">
+			@if (Model.SeriesBase != null && !string.IsNullOrEmpty(Model.SeriesBase.SeriesName))
+			{
+				<h2 class="padding-left15 padding-right15 padding-top15">@Model.SeriesBase.SeriesName Latest Updates</h2>
+			}
 
-            <div class="container bg-white">
-                @if (Model.SeriesBase != null && !string.IsNullOrEmpty(Model.SeriesBase.SeriesName))
-                {
-                    <h2 class="padding-left15 padding-right15 padding-top15">@Model.SeriesBase.SeriesName Latest Updates</h2>
-                }
+			<div id="modelLatestUpdatesWrapper" class="block">
+				<div id="modelLatestUpdatesTopContent" class="overall-specs__top-content margin-bottom5 bg-white position-rel">
+					<div id="overallUpdatesTab" class="overall-specs-tabs-container">
+						<ul class="overall-specs-tabs-wrapper">
+							@if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+							{
+								<li data-tabs="#newsContent" class="bw-ga active news-tabs">
+									News
+								</li>
+							}
+							@if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+							{
+								<li data-tabs="#videoContent" class="bw-ga video-tabs">
+									Videos
+								</li>
+							}
+							@if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+							{
+								<li data-tabs="#reviewContent" class="bw-ga reviews-tabs">
+									Reviews
+								</li>
+							}
+						</ul>
+					</div>
+				</div>
+				@if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+				{
+					<div id="newsContent" class="bw-model-tabs-data content-details-wrapper active">
+						<h2>News</h2>
+						@Html.Partial("~/Views/News/_RecentNews_v1_Mobile.cshtml", Model.News)
+					</div>
+				}
 
-                <div id="modelLatestUpdatesWrapper" class="block">
-                    <div id="modelLatestUpdatesTopContent" class="overall-specs__top-content margin-bottom5 bg-white position-rel">
-                        <div id="overallUpdatesTab" class="overall-specs-tabs-container">
-                            <ul class="overall-specs-tabs-wrapper">
-                                @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
-                                {
-                                    <li data-tabs="#newsContent" class="bw-ga active news-tabs">
-                                        News
-                                    </li>
-                                }
-                                @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
-                                {
-                                    <li data-tabs="#videoContent" class="bw-ga video-tabs">
-                                        Videos
-                                    </li>
-                                }
-                                @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
-                                {
-                                    <li data-tabs="#reviewContent" class="bw-ga reviews-tabs">
-                                        Reviews
-                                    </li>
-                                }
-                            </ul>
+				@if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+				{
+					<div id="videoContent" class="bw-model-tabs-data content-details-wrapper">
+						<h2>Videos</h2>
+						@Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
+					</div>
+				}
 
-                        </div>
-                    </div>
-                    @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
-                    {
-                        <div id="newsContent" class="bw-model-tabs-data content-details-wrapper active">
-                            <h2>News</h2>
-                            @Html.Partial("~/Views/News/_RecentNews_v1_Mobile.cshtml", Model.News)
-                        </div>
-                    }
-
-                    @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
-                    {
-                        <div id="videoContent" class="bw-model-tabs-data content-details-wrapper">
-                            <h2>Videos</h2>
-                            @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
-                        </div>
-                    }
-
-                    @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
-                    {
+				@if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+				{
 
                         <div id="reviewContent" class="bw-model-tabs-data margin-bottom20 content-details-wrapper">
                             <h2>Expert Reviews</h2>
@@ -135,6 +138,7 @@
                 </div>
             </div>
     @if (Model.objUsedBikes!=null) { 
+    
             <div class="container bg-white padding-top20">
                 <div class="padding-right15 padding-left15">
                     <div class="swiper-heading-left-grid inline-block">

@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#"%>
 <%
-    AdPath = "/1017752/Bikewale_Mobile_Homepage";
+    AdPath = "/1017752/Bikewale_Mobile_Homepage_";
     AdId = "1398766000399";    
 %>
 <!-- #include file="/includes/headermobile.aspx" -->

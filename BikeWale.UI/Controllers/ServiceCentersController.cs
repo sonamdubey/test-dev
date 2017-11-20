@@ -182,6 +182,7 @@ namespace Bikewale.Controllers
                 {
                     if (modelObj.status == Entities.StatusCodes.ContentFound)
                     {
+                        modelObj.isMobile = true;
                         ServiceCenterIndiaPageVM objVM = modelObj.GetData();
                         return View(objVM);
                     }
@@ -276,6 +277,7 @@ namespace Bikewale.Controllers
                         modelObj.NearByCitiesWidgetTopCount = 9;
                         modelObj.UsedBikeWidgetTopCount = 9;
                         modelObj.BikeShowroomWidgetTopCount = 9;
+                        modelObj.IsMobile = true;
                         ServiceCenterCityPageVM objPage = modelObj.GetData();
                         return View(objPage);
                     }

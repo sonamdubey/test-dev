@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -46,7 +47,9 @@ namespace Bikewale.Models.Videos
                 objVideos.CityId = currentCityArea.CityId;
 
                 BindPageMetas(objVideos);
-                
+                SetBreadcrumList(objVideos);
+
+
 
             }
             catch (Exception ex)
@@ -83,6 +86,46 @@ namespace Bikewale.Models.Videos
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.Videos.ScooterVideos.BindPageMetas_scooterVideo_{0}", scooterVideo));
             }
+        }
+        /// <summary>
+        /// Created By : Snehal Dange on 10th Nov 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(ScooterVideosVM objPageVM)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string bikeUrl;
+                bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    bikeUrl += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+
+                bikeUrl = string.Format("{0}scooters/", bikeUrl);
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Scooters"));
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Scooter Videos"));
+                if (objPageVM != null)
+                {
+                    objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Videos.ScooterVideos.SetBreadcrumList()");
+            }
+
+
+
+
         }
     }
 }

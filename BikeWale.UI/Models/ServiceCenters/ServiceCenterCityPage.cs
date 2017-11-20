@@ -3,13 +3,16 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Memcache;
 using Bikewale.Models.Make;
+using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bikewale.Models.ServiceCenters
@@ -38,6 +41,7 @@ namespace Bikewale.Models.ServiceCenters
         public uint NearByCitiesWidgetTopCount { get; set; }
         public uint UsedBikeWidgetTopCount { get; set; }
         public uint BikeShowroomWidgetTopCount { get; set; }
+        public bool IsMobile { get; internal set; }
 
         public ServiceCenterCityPage(IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenterCacheRepository objSCCache, IServiceCenter objSC, IBikeMakesCacheRepository bikeMakesCache, string cityMaskingName, string makeMaskingName)
         {
@@ -110,6 +114,8 @@ namespace Bikewale.Models.ServiceCenters
                     objPageVM.PageMetaTags.Title = string.Format("{0} service centers in {1} | {0} bike servicing in {1} - BikeWale", objPageVM.Make.MakeName, objPageVM.City.CityName);
                     objPageVM.PageMetaTags.Keywords = string.Format("{0} servicing {1}, {0} service center in {1}, {0} Service centers, {0} service schedules, {0} bike repair, repairing, servicing", objPageVM.Make.MakeName, objPageVM.City.CityName);
                     objPageVM.PageMetaTags.Description = string.Format("There are {0} {1} service centers in {2}. Get in touch with your nearest {1} service center for service repairing, schedule details, pricing, pick and drop facility. Check the Service schedule for {1} bikes now.", objPageVM.ServiceCentersListObject.Count, objPageVM.Make.MakeName, objPageVM.City.CityName);
+                    objPageVM.Page_H1 = string.Format("{0} Service Center{1} in {2}", objPageVM.Make.MakeName, (objPageVM.ServiceCentersListObject.Count > 1 ? "s" : ""), objPageVM.City.CityName);
+                    SetBreadcrumList(objPageVM);
                 }
             }
             catch (Exception ex)
@@ -210,6 +216,44 @@ namespace Bikewale.Models.ServiceCenters
             {
 
                 ErrorClass er = new ErrorClass(ex, "ServiceCenterDetailsPage.BindServiceCenterPopularCityWidget");
+            }
+
+        }
+
+        /// <summary>
+        /// Created By :Snehal Dange on 2nd Nov 2017
+        /// Description: Breadcrum for service center city page
+        /// </summary>
+        /// <param name="objPage"></param>
+        private void SetBreadcrumList(ServiceCenterCityPageVM objPageVM)
+        {
+            try
+            {
+                if(objPageVM!=null)
+                {
+                    IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                    string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                    ushort position = 1;
+                    if (IsMobile)
+                    {
+                        url += "m/";
+                    }
+
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+
+                    if (objPageVM.Make != null)
+                    {
+                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-bikes/", url, objPageVM.Make.MaskingName), string.Format("{0} Bikes", objPageVM.Make.MakeName)));
+                        BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}{1}-service-center-in-india/", url, objPageVM.Make.MaskingName), objPageVM.Make.MakeName + " Service Centers in India"));
+                    }
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPageVM.Page_H1));
+                    objPageVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                ErrorClass er = new ErrorClass(ex, "ServiceCenterCityPage.SetBreadcrumList");
             }
 
         }
