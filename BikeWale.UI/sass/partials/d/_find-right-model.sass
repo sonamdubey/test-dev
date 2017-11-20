@@ -1,0 +1,202 @@
+@mixin model-specs-tabs($height: 40px)
+	.model-specs-tabs
+		height: $height
+		position: relative
+		
+.right-bike__desc
+	border: 1px solid transparent
+	.featured-icon
+		display: none
+		
+	&.featured-card
+		.featured-icon
+			display: block
+	
+.find-specs__tabs-container
+	width: 100%
+	display: block
+	background: #fff
+	overflow-x: auto
+	z-index: 2
+	-webkit-overflow-scrolling: touch
+	position: absolute
+	top: 0px
+
+.specs-btn
+	border-radius: 20px
+	-webkit-border-radius: 20px
+	-moz-border-radius: 20px
+	text-decoration: none
+	text-align: center
+	padding: 7px 10px
+	border: 1px solid #aaa
+	background-color: white
+
+.find-specs-tabs-wrapper
+	width: 100%
+	display: table
+	padding-left: 20px
+	padding-right: 20px
+
+	li
+		display: inline-block
+		text-align: center
+		cursor: pointer
+		white-space: nowrap
+
+	.specs-btn
+		display: inline-block
+		margin: 0 5px 10px
+		color: #aaa
+		font-size: 14px
+
+		&:hover
+			border-color: #ff7c6f
+			color: #ff7c6f
+		
+.right-bike__desc
+	padding: 10px 20px 0
+	background-color: #f8f8f8
+	position: relative
+	
+.right-bike_carousel-specs
+	min-heigth: 200px
+@mixin rightbike-carousel__model-card($width: 135px, $height: 120px)
+	.rightbike-carousel__model-card
+		width: $width
+		height: $height
+		padding: 15px 10px
+
+@mixin rightbike-carousel__tags($font-size: 10, $color1: #787878, $color2: #ff7c6f)
+	.rightbike-carousel__model-card
+		.recommended-tag
+			color: $color1
+			font-size: $font-size * 1px
+
+		.popular-tag
+			color: $color2
+			font-size: $font-size * 1px
+		
+@mixin rightbike-carousel__image($width: 105px, $height: 65px)
+	.rightbike-carousel__image
+		width: $width
+		height: $height
+
+		img
+			height: $height
+			width: auto
+			max-width: 100%
+@mixin rightbike-caraousel__label($font-size: 12)
+	.rightbike-caraousel__label
+		font-size: $font-size * 1px
+		font-weight: 600
+		padding-top: 5px
+	
+#rightBikeSwiper
+	position: relative
+	
+.right-bike-swiper
+	padding-top: 0
+
+	&.jcarousel-wrapper
+		padding-left: 270px
+		&[data-overlay='both'],
+		&[data-overlay='left']
+			&:before
+				left: 242px
+
+		.jcarousel
+			.rightbike__swiper-card
+				width: 167px
+				-webkit-box-shadow: none
+				-moz-box-shadow: none
+				box-shadow: none
+				border-color: transparent
+		.jcarousel-control-left
+			z-index: 2
+			left: 270px
+			top: 50%
+		.jcarousel-control-right
+			top: 50%			
+								
+	.rightbike__swiper-card
+		&.right-bike__swiper-keys
+			position: absolute
+			left: 0
+			top: 0
+			z-index: 2
+			background: #fff
+			height: 100%
+			width: 270px
+
+			.rightbike__swiper-card
+				width: 270px
+			
+			.rightbike-carousel__model-card
+				padding-right: 10px
+			.right-bike__desc
+				background: #fff
+				color: #787878
+				padding-right: 10px
+				
+			.right-bike__label
+				font-weight: 400
+				font-size: 15px
+
+		.jcarousel
+			width: auto
+			left: 0
+
+		
+
+				
+	.right-bike__desc
+		position: relative
+		font-size: 11px
+
+		.right-bike__label
+			padding-bottom: 20px
+			display: block
+			width: 100%
+			text-overflow: ellipsis
+			white-space: nowrap
+			overflow: hidden
+			font-weight: 600
+			font-size: 14px
+		.right-bike__desc
+			font-size: 14px
+			font-weight: 400
+			display: block
+			
+	.featured-card
+		background-color: #fff9f9
+
+		&:after
+			content: ''
+			position: absolute
+			height: 24px
+			width: 19px
+			top: -10px
+			right: 10px
+			display: block
+			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/svg/featured-tag.svg') no-repeat
+
+		.right-bike__label
+			font-weight: 600
+
+.right-bike__sub-label
+	font-size: 14px
+	display: block
+	font-weight: 400
+	
+@keyframes moveribbon
+	0%   
+		right: 0
+	25%   
+		right: -20px
+	50%   
+		right: 0
+	75%   
+		right: -25px
+	100%   
+		right: -125px

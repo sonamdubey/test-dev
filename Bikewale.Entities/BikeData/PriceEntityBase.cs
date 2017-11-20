@@ -16,5 +16,7 @@ namespace Bikewale.Entities.BikeData
         public UInt32 MaxPrice { get; set; }
         [DataMember]
         public UInt32 AvgPrice { get; set; }
-    }
+		public uint ExShowroomPrice { get; set; }
+		public uint OnRoadPrice { get; set; }
+	}
 }

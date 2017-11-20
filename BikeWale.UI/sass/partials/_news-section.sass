@@ -1,0 +1,45 @@
+.overalltab__section-list
+	> li
+		padding-top: 10px
+		padding-bottom: 10px
+		border-top: 1px solid #e2e2e2
+
+		&:first-child
+			border: none
+
+@mixin news-section__img($height: 68px, $width: 121px)
+	.news-section__img
+		display: inline-block
+		vertical-align: middle
+		height: $height
+		width: $width
+
+		img
+			height: $height
+			width: auto
+			max-width: 100%
+			
+.news-section__title-block
+	display: inline-block
+	vertical-align: middle
+
+.news-section__sub-title
+	font-size: 11px
+	color: #82888b
+	padding-bottom: 5px
+
+@mixin news-section__desc($font-size: 13px, $color: #787878)
+	.news-section__desc
+		font-size: $font-size
+		color: $color
+		padding-bottom: 5px
+		position: relative
+
+		.read-more
+			padding: 5px
+			position: absolute
+			bottom: -5px
+			right: 0
+			background: #fff
+			
+			

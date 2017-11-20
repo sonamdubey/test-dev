@@ -1,0 +1,147 @@
+﻿// Core variables and mixins
+@import ../base/variables
+@import ../mixins/mixins
+@import ../components/mixins
+@import ../../m/sass/base/variables
+@import ../partials/rating
+
+
+// Page specific
+@import ./../modules/overall-floating-tabs
+@import ../partials/d/model-card
+@import ../partials/d/comparison-card
+@import ../partials/d/_upcoming-model-card
+@import ../partials/d/find-right-model
+@import ../partials/d/video-section-list
+@import ../partials/d/_article-list
+@import ../partials/d/overlay
+@import ../partials/d/model-series-list
+
+.inner-content-carousel.jcarousel-wrapper
+	.jcarousel
+		width: auto
+		left: 0
+		padding-left: 0
+		padding-right: 0
+		
+		li
+			margin-left: 20px
+			margin-right: 0
+			&:last-child
+				margin-right: 40px
+
+.inner-content-carousel
+	.jcarousel-control-left
+		.jcarousel-control-prev
+			&.inactive
+				display: none
+	.jcarousel-control-right
+		.jcarousel-control-next
+			&.inactive
+				display: none
+
+.btn-white
+	background: #fff
+	color: #e42029
+	border: 1px solid #e42029
+	width: 100%
+	font-weight: 700
+	padding-top: 12px
+	padding-bottom: 13px
+	font-size: 14px
+
+.font-bold
+	font-weight: 600
+
+.content-inner-block-1015
+	padding: 10px 15px
+
+.content-inner-block-1420
+	padding: 14px 20px
+	
+.overall-tabs
+	position: relative
+
+.content-inner-block-2010
+    padding: 20px 10px
+
+.preview-main-content,
+.preview-more-content
+	color: #82888b
+	font-size: 14px
+
+//model card
+
+@include model-card()
+@include model-card__btn-block()
+@include model-card__image()
+@include summary-specs-list(25%, 14, 400)
+@include featured-card()
+@include model-card__sub-title(14)
+
+
+.star-white
+    width: 12px
+    height: 12px
+    background-position: -218px -103px
+    position: relative
+    top: 1px
+
+@for $i from 1 through 5
+	@include rating-badge($i)
+
+
+//upcoming bike
+
+@include upcoming-bike-card()
+@include upcoming-bike-card__image()
+@include upcoming-bike-card__list()
+
+
+
+//comparision-carousel
+
+
+@include comparison-carousel()
+@include compare-img()
+
+
+
+//find right bike
+@include model-specs-tabs()
+
+
+@include rightbike-caraousel__label(14)
+@include rightbike-carousel__tags(12)
+
+
+
+
+@include rightbike-carousel__image(142px, 80px)
+@include rightbike-carousel__model-card(167px, 150px)
+
+
+
+//used bike
+.used-model-swiper
+	.model-card__image
+		padding: 0
+
+	&.inner-content-carousel 
+		.jcarousel 
+			li
+				width: 310px
+
+
+//article wrapper
+.article-content
+	@include article-image-wrapper()
+
+//video wrapper
+.video-section
+	@include article-image-wrapper(522, 294)
+
+
+//model series list
+
+@include model-series-list__img(140, 79)

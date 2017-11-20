@@ -17,14 +17,16 @@
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISUrl>http://localhost:9011</IISUrl>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -495,6 +497,7 @@
       <DependentUpon>ReviewDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\BikeSeriesController.cs" />
     <Compile Include="Controllers\ComparisonTestsController.cs" />
     <Compile Include="Controllers\DealerShowroomController.cs" />
     <Compile Include="Controllers\BikeCareController.cs" />
@@ -936,6 +939,7 @@
     <Compile Include="Models\BikeModels\ModelPage.cs" />
     <Compile Include="Models\BikeModels\OtherBestBikesModel.cs" />
     <Compile Include="Models\BikeSeries\BikeModelsBySeriesPage.cs" />
+    <Compile Include="Models\BikeSeries\SeriesPage.cs" />
     <Compile Include="Models\CompareBikes\ComparePopularBikes.cs" />
     <Compile Include="Models\Compare\CompareDetails.cs" />
     <Compile Include="Models\Compare\CompareIndex.cs" />
@@ -998,6 +1002,7 @@
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
+    <Compile Include="Models\Used\UserBikeSeriesModelsWidget.cs" />
     <Compile Include="Models\UserReviews\PopularBikesWithExpertReviewsWidget.cs" />
     <Compile Include="Models\UserReviews\TopRatedBikesWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewByMakePage.cs" />
@@ -2899,6 +2904,7 @@
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\dealer\landing.js" />
     <Content Include="m\src\dealer\listing.js" />
+    <Content Include="m\src\model-series\series.js" />
     <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\photos\photos.js" />
     <Content Include="m\src\photos\modelgallery.js" />
@@ -3053,6 +3059,10 @@
     <Content Include="sass\review\landing.sass" />
     <Content Include="sass\review\make.sass" />
     <Content Include="sass\m\review\make.sass" />
+    <Content Include="sass\m\model-series\series.sass" />
+    <Content Include="sass\model-series\series.sass" />
+    <Content Include="sass\partials\d\_upcoming-model-card.sass" />
+    <Content Include="sass\partials\d\_comparison-card.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3091,6 +3101,7 @@
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
     <Content Include="src\dealer\landing.js" />
+    <Content Include="src\model-series\series.js" />
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos\photos.js" />
@@ -3826,6 +3837,26 @@
     <Content Include="Views\CompareBikes\SimilarBikeComparison_Mobile.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake.cshtml" />
     <Content Include="Views\UserReview\UserReviewsByMake_Mobile.cshtml" />
+
+    <Content Include="Views\Scooters\_Index_Tabs.cshtml" />
+    <Content Include="Views\BikeSeries\Index_Mobile.cshtml" />
+    <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\_PopularNewBikes_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs.cshtml" />
+    <Content Include="Views\Used\_UsedBikeByModelCity_Mobile_v1.cshtml" />
+    <Content Include="Views\BikeSeries\_UpcomingBikes_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1_Mobile.cshtml" />
+    <Content Include="Views\News\_RecentNews_v1_Mobile.cshtml" />
+    <Content Include="Views\Videos\_RecentVideos_v1_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\Index.cshtml" />
+    <Content Include="Views\BikeSeries\_UpcomingBikes.cshtml" />
+    <Content Include="Views\News\_RecentNews_v1.cshtml" />
+    <Content Include="Views\Videos\_RecentVideos_v1.cshtml" />
+    <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1.cshtml" />
+    <Content Include="Views\BikeSeries\_PopularNewBikes.cshtml" />
+    <Content Include="Views\BikeSeries\_Index_Tabs.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_V1.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

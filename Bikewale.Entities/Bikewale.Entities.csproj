@@ -175,6 +175,7 @@
     <Compile Include="BikeData\BikeModelPageEntity.cs" />
     <Compile Include="BikeData\BikeModelsListEntity.cs" />
     <Compile Include="BikeData\BikeModelVersionsDetails.cs" />
+    <Compile Include="BikeData\BikeSeriesCompareBikes.cs" />
     <Compile Include="BikeData\BikeSeriesEntity.cs">
       <SubType>Code</SubType>
     </Compile>

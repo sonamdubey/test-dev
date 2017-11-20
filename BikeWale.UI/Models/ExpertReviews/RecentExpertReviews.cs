@@ -22,7 +22,7 @@ namespace Bikewale.Models
         private readonly string _makeMasking;
         private readonly uint _modelId;
         private readonly string _modelName;
-        private readonly string _modelMasking;
+        private readonly string _modelMasking, _modelIdList;
         public bool IsScooter { get; set; }
         public bool IsViewAllLink { get; set; }
 
@@ -63,6 +63,14 @@ namespace Bikewale.Models
             _articles = articles;
             Title = title;
         }
+
+		public RecentExpertReviews(uint totalRecords, uint makeId, string modelIdList, ICMSCacheContent articles)
+		{
+			_totalRecords = totalRecords;
+			_makeId = makeId;
+			_modelIdList = modelIdList;
+			_articles = articles;
+		}
         #endregion
         
         #region Functions to get data
@@ -81,14 +89,20 @@ namespace Bikewale.Models
                 categorList.Add(EnumCMSContentType.RoadTest);
                 categorList.Add(EnumCMSContentType.ComparisonTests);
                 string _contentType = CommonApiOpn.GetContentTypesString(categorList);
-                if (IsScooter)
-                {
-                    string bodyStyleId = "5";
-                    recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, bodyStyleId, _makeId, _modelId);
-                }
-                else
-                recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelId);
-                if (recentReviews.ArticlesList != null)
+				if (!string.IsNullOrEmpty(_modelIdList))
+				{
+					recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelIdList);
+				}
+				else if (IsScooter)
+				{
+					string bodyStyleId = "5";
+					recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, bodyStyleId, _makeId, _modelId);
+				}
+				else
+					recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelId);
+
+
+				if (recentReviews.ArticlesList != null)
                 {
                     recentReviews.FetchedCount = recentReviews.ArticlesList.Count();
                 }

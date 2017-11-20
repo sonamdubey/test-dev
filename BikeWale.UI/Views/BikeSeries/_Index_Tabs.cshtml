@@ -1,0 +1,53 @@
+﻿@model Bikewale.Models.BikeSeries.SeriesPageVM
+@using Bikewale.Utility
+@if (Model != null)
+{
+    <div id="seriesOverallTabsWrapper" class="overall-tabs">
+        <div id="seriesOverallTabs" class="overall-specs-tabs-container">
+            <div class="overall-specs-tabs-wrapper">
+                @if (Model.SeriesDescription != null && !string.IsNullOrEmpty(Model.SeriesDescription.FullDescription))
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelAboutContent" data-lab="Honda_About">About</a>
+                }
+                @if (Model.SeriesModels != null && Model.SeriesModels.NewBikes != null && Model.SeriesModels.NewBikes.Any())
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#bikeModeleList" data-lab="Honda_Models">Models</a>
+                }
+                @if (Model.SeriesModels != null && Model.SeriesModels.UpcomingBikes != null && Model.SeriesModels.UpcomingBikes.Any())
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelUpcomingBikesContent" data-lab="Honda_UpcomingBikes">Upcoming bikes</a>
+                }
+                @if (false)
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#popularComparison" data-lab="Honda_TopComparisons">Similar bikes</a>
+                }
+                @if (false)
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#findRightBikesContent" data-lab="Honda_Videos">Right bikes</a>
+                }
+                @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Any())
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelNewsContent" data-lab="Honda_News">News</a>
+                }
+                @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelVideosContent" data-lab="Honda_Videos">Videos</a>
+                }
+                @if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelReviewsContent" data-lab="Honda_Reviews">Reviews</a>
+                }
+                
+                @if (false)
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#modelUsedBikeContent" data-lab="Honda_UsedBikes">Used Bikes</a>
+                }
+                
+                @if (Model.OtherSeriesList != null && Model.OtherSeriesList.Any())
+                {
+                    <a href="javasript:void(0)" title="" rel="nofollow" class="navtab" data-href="#otherBikesContent" data-lab="Honda_Showrooms">Other series</a>
+                }
+            </div>
+        </div>
+    </div>
+}
