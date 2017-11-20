@@ -11,7 +11,7 @@ namespace Bikewale.Entities.BikeData
     /// /// Modified by : Ashutosh Sharma on 29 Sep 2017 
     /// Description : Added AverageExShowroom property
     /// </summary>
-    [Serializable,DataContract]
+    [Serializable, DataContract]
     public class BikeVersionsListEntity
     {
         [DataMember]
@@ -26,8 +26,10 @@ namespace Bikewale.Entities.BikeData
         public UInt32 AverageExShowroom { get; set; }
         [DataMember]
         public bool IsDealerPriceQuote { get; set; }
-        
-       
+
+        public string HostUrl { get; set; }
+
+        public string OriginalImagePath { get; set; }
         //  public string MaskingName { get; set; }
 
     }

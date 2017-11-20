@@ -47,9 +47,9 @@ namespace Bikewale.Sitemap.MainSitemap
         /// Created by  :   Sumit Kate on 31 Oct 2017
         /// Description :   Generate Sitemap
         /// </summary>
-        public void Generate()
+        public bool Generate()
         {
-
+            bool isSuccess = false;
             try
             {
                 SiteMapRepository repo = new SiteMapRepository();
@@ -83,6 +83,7 @@ namespace Bikewale.Sitemap.MainSitemap
                             urls = urlList.Skip(MaxUrlCount * iteration).Take(MaxUrlCount);
                             outputFileName = String.Format("{0}{1}-{2}{3}", sitemapLoc, FileName, iteration++, _extension);
                         } while (urls != null && urls.Any());
+                        isSuccess = true;
                     }
                 }
             }
@@ -90,6 +91,7 @@ namespace Bikewale.Sitemap.MainSitemap
             {
                 Logs.WriteErrorLog("Sitemap.Generate(): ", ex);
             }
+            return isSuccess;
         }
 
         /// <summary>

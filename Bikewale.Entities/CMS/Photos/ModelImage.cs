@@ -64,6 +64,8 @@ namespace Bikewale.Entities.CMS.Photos
         public uint ColorId { get; set; }
         [DataMember]
         public IEnumerable<string> Colors { get; set; }
+
+        public uint Index { get; set; }
     }
     [Serializable, DataContract]
     public enum ImageBaseType

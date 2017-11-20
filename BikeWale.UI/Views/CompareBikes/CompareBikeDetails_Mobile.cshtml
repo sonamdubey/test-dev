@@ -51,7 +51,7 @@
                                 {
                                     <p class="dropdown-selected-item option-count-one dropdown-width">@bike.Version </p>
                                 }
-                                <p class="label-text">@(bike.IsNew ? "Ex-showroom, " : "Last known ex-showroom price, ") @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                                <p class="font-12 text-light-grey margin-bottom2">@(bike.IsNew ? string.Format("Ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName) : "Last known ex-showroom price")</p>
                                 <p class="margin-bottom10">
                                     @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="font16 text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) </span>
                                 </p>
@@ -68,6 +68,10 @@
                                         <div class="padding-top5 padding-bottom5">
                                             <span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@String.Format("{0}_Top Card", bikeName)" class="font14 bw-ga text-link know-more-btn-shown">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
                                         </div>
+                                    }
+                                    else
+                                    {
+                                        <p class="label-text">@string.Format("{0} has been discontinued.", bike.Model)</p>
                                     }
                                 }
 
@@ -99,6 +103,10 @@
                                     <div class="padding-top5 padding-bottom5">
                                         <span onclick="@String.Format("window.open('{0}', '_blank')", Model.KnowMoreLinkUrl)" title="View @bike.Model   details on <%=bike.Make 's site" data-cat="Comparison_Page" data-act="Sponsored_Comparison_Know_more_clicked" data-lab="@string.Format("{0}_Floating Card", bikeName)" class="font14 bw-ga  text-link">@Model.KnowMoreLinkText<span class="bwmsprite know-more-icon margin-left5"></span></span>
                                     </div>
+                                }
+                                else
+                                {
+                                    <p class="label-text">@string.Format("{0} has been discontinued.", bike.Model)</p>
                                 }
                             </div>
                         }

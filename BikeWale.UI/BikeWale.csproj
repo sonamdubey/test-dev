@@ -1770,6 +1770,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
+    <Content Include="ads.txt" />
     <Content Include="ads\Ad300x250_mobile.aspx" />
     <Content Include="ads\Ad300x250.aspx" />
     <Content Include="ads\Ad300x250BTF.aspx" />
@@ -2828,8 +2829,8 @@
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
     <Content Include="m\news\offline.html" />
-    <Content Include="m\news\sw_installer.html" />
     <Content Include="m\news\sw.js" />
+    <Content Include="m\news\sw_installer.html" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\sass\scooters\listing.css" />
     <Content Include="m\service\Default.aspx" />
@@ -2942,6 +2943,7 @@
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
+    <Content Include="m\sw.js" />
     <Content Include="m\trackday2016\css\track-day.css" />
     <Content Include="m\trackday2016\default.aspx" />
     <Content Include="m\trackday2016\details.aspx" />
@@ -3066,6 +3068,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
+    <Content Include="Scripts\appshell.html" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
     <Content Include="Scripts\vendor.bundle.js" />
@@ -3850,6 +3853,7 @@
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
