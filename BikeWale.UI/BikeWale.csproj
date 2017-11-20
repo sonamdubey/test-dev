@@ -3842,7 +3842,7 @@
     <Content Include="Views\BikeSeries\Index_Mobile.cshtml" />
     <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_PopularNewBikes_Mobile.cshtml" />
-    <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs.cshtml" />
+    <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs_Mobile.cshtml" />
     <Content Include="Views\Used\_UsedBikeByModelCity_Mobile_v1.cshtml" />
     <Content Include="Views\BikeSeries\_UpcomingBikes_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1_Mobile.cshtml" />
@@ -3855,6 +3855,9 @@
     <Content Include="Views\BikeSeries\_PopularNewBikes.cshtml" />
     <Content Include="Views\BikeSeries\_Index_Tabs.cshtml" />
     <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_V1.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons_V1.cshtml" />
+    <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs.cshtml" />
+    <Content Include="Views\Used\_UsedBikeByModelCity_v1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
