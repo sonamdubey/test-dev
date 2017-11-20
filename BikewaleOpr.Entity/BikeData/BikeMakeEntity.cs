@@ -4,6 +4,8 @@ namespace BikewaleOpr.Entities.BikeData
     /// <summary>
     /// Modified by : Aditi  Srivastava on 24 May 2017
     /// Summary     : Added oldmaskingname property for mails on masking name change
+    /// Modified by sajal Gupta on 20-11-2017
+    /// Desc : Added MakeFooterAdded
     /// </summary>
     public class BikeMakeEntity : BikeMakeEntityBase
     {
