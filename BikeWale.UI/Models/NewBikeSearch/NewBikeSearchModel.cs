@@ -1,4 +1,7 @@
-﻿using Bikewale.DTO.NewBikeSearch;
+﻿using System;
+using System.Linq;
+using System.Web;
+using Bikewale.DTO.NewBikeSearch;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.PriceQuote;
@@ -9,16 +12,12 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Newtonsoft.Json;
-using System;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models.NewBikeSearch
 {
     /// <summary>
     /// Created by: Sangram Nandkhile on 08-Nov-2017
     /// Summary: Model for New BIke Search
-    /// 
     /// </summary>
     public class NewBikeSearchModel
     {
@@ -54,6 +53,11 @@ namespace Bikewale.Models.NewBikeSearch
             _pqSource = pqSource;
         }
 
+        /// <summary>
+        /// Created by : Sangram Nandakhile on 08 Nov 2017
+        /// Summary : Get model for bike search
+        /// </summary>
+        /// <returns></returns>
         public NewBikeSearchVM GetData()
         {
             viewModel = new NewBikeSearchVM();
@@ -65,15 +69,16 @@ namespace Bikewale.Models.NewBikeSearch
                 BindEditorialWidget(viewModel);
                 BindPageMetas(viewModel.PageMetaTags);
                 CreatePager(viewModel);
-                //viewModel.News = new RecentNews(5, 0, _modelIdList, _articles).GetData();
-                //viewModel.Videos = new RecentVideos(1, 5, _videos).GetData();
-                //viewModel.ExpertReviews = new RecentExpertReviews(5, _articles).GetData();
-                SetFlags(viewModel);
                 BindBrands(viewModel);
             }
             return viewModel;
         }
 
+        /// <summary>
+        /// Created by: Sangram Nandakhile on 08 Nov 2017
+        /// Summary : Bind list of bikes
+        /// </summary>
+        /// <returns></returns>
         private SearchOutput BindBikes()
         {
             SearchOutput objResult = null;
@@ -206,6 +211,7 @@ namespace Bikewale.Models.NewBikeSearch
                 currentPage.ModelIdList = string.Join(",", viewModel.BikeSearch.SearchResult.Take(10).Select(x => x.BikeModel.ModelId).ToList());
             }
         }
+
         /// <summary>
         /// Binds the editorial widget.
         /// </summary>
@@ -275,36 +281,6 @@ namespace Bikewale.Models.NewBikeSearch
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "NewBikeSearchModel.BindBrands");
-            }
-        }
-
-        private void SetFlags(NewBikeSearchVM Model)
-        {
-            Model.TabCount = 0;
-            Model.IsNewsActive = false;
-            Model.IsExpertReviewActive = false;
-            Model.IsVideoActive = false;
-
-            if (Model.News.FetchedCount > 0)
-            {
-                Model.TabCount++;
-                Model.IsNewsActive = true;
-            }
-            if (Model.ExpertReviews.FetchedCount > 0)
-            {
-                Model.TabCount++;
-                if (!Model.IsNewsActive)
-                {
-                    Model.IsExpertReviewActive = true;
-                }
-            }
-            if (Model.Videos.FetchedCount > 0)
-            {
-                Model.TabCount++;
-                if (!Model.IsExpertReviewActive && !Model.IsNewsActive)
-                {
-                    Model.IsVideoActive = true;
-                }
             }
         }
 

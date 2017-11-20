@@ -6,6 +6,10 @@ using Bikewale.Notifications;
 
 namespace Bikewale.BAL.BikeSearch
 {
+    /// <summary>
+    /// Created by : Vivek Singh Tomar on 16th Nov 2017
+    /// Summary : BAL for Bike Search Result
+    /// </summary>
     public class BikeSearchResult : IBikeSearchResult
     {
         private readonly ISearchResult _searchResult;
@@ -13,6 +17,14 @@ namespace Bikewale.BAL.BikeSearch
         {
             _searchResult = searchResult;
         }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 16th Nov 2017
+        /// Summary : Fetch bikes for given input query
+        /// </summary>
+        /// <param name="filterInputs"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public SearchOutput GetSearchResult(FilterInput filterInputs, InputBaseEntity input)
         {
             SearchOutput searchResult = null;
