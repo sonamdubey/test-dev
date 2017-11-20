@@ -3868,6 +3868,7 @@
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1.cshtml" />
     <Content Include="Views\BikeSeries\_PopularNewBikes.cshtml" />
     <Content Include="Views\BikeSeries\_Index_Tabs.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_V1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4093,7 +4094,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/BikeWale</IISUrl>
+          <IISUrl>http://localhost:9011</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

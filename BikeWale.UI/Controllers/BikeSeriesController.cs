@@ -1,5 +1,6 @@
 ﻿using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.BikeSeries;
@@ -18,13 +19,15 @@ namespace Bikewale.Controllers
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly IBikeSeriesCacheRepository _seriesCache = null;
-        public BikeSeriesController(IBikeSeriesCacheRepository seriesCache, IUsedBikesCache usedBikesCache, IBikeSeries bikeSeries, ICMSCacheContent articles, IVideos videos)
+        private readonly IBikeCompare _compareScooters = null;
+        public BikeSeriesController(IBikeSeriesCacheRepository seriesCache, IUsedBikesCache usedBikesCache, IBikeSeries bikeSeries, ICMSCacheContent articles, IVideos videos, IBikeCompare compareScooters)
         {
             _bikeSeries = bikeSeries;
             _usedBikesCache = usedBikesCache;
             _articles = articles;
             _videos = videos;
             _seriesCache = seriesCache;
+            _compareScooters = compareScooters;
         }
         /// <summary>
         /// Created by : Ashutosh Sharma on 15 Nov 2017
@@ -35,7 +38,7 @@ namespace Bikewale.Controllers
         public ActionResult Index(uint seriesId)
         {
             SeriesPageVM obj;
-            SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos);
+            SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos, _compareScooters);
             obj = seriesPage.GetData(seriesId);
             return View(obj);
         }
@@ -50,7 +53,7 @@ namespace Bikewale.Controllers
         {
             SeriesPageVM obj;
 
-            SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos);
+            SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos, _compareScooters);
             seriesPage.IsMobile = true;
             obj = seriesPage.GetData(seriesId);
             return View(obj);
