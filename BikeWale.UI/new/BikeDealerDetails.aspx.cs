@@ -185,8 +185,8 @@ namespace Bikewale.New
                         cityName = dealerObj.City;
                         if (dealerObj.Area != null)
                         {
-                            areaName = dealerObj.Area.AreaName;
-                            areaId = dealerObj.Area.AreaId;
+                            areaName = dealerObj.objArea.AreaName;
+                            areaId = dealerObj.objArea.AreaId;
                         }
                         address = dealerObj.Address;
                         maskingNumber = dealerObj.MaskingNumber;

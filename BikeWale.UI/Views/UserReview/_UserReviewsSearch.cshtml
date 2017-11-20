@@ -11,9 +11,9 @@
                     <div id="overallTabsWrapper" class="overall-tabs user-review-tabs position-rel">
                         <div id="overallSpecsTab" class="overall-specs-tabs-container">
                             <div class="overall-specs-tabs-wrapper">
-
-                                <a href="javascript:void(0)" class="@(Model.ActiveReviewCategory.Equals(FilterBy.MostRecent)?"active":"")" data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d, e) { toggleReviewList(e); }" rel="nofollow">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</a>
+                                
                                 <a class="@(Model.ActiveReviewCategory.Equals(FilterBy.MostRecent)?"":"active")" href="javascript:void(0)" data-category="2" data-page-num="1" data-count="@Model.ReviewsInfo.MostHelpfulReviews" data-bind="click: function(d, e) { toggleReviewList(e); }" rel="nofollow">Most Helpful (@Model.ReviewsInfo.MostHelpfulReviews)</a>
+                                <a href="javascript:void(0)" class="@(Model.ActiveReviewCategory.Equals(FilterBy.MostRecent)?"active":"")" data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d, e) { toggleReviewList(e); }" rel="nofollow">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</a>
                                 <a href="javascript:void(0)" data-cattypes="1,2,3" data-category="6" data-page-num="1" data-count="@Model.ReviewsInfo.NegativeReviews" data-bind="click: function(d, e) { toggleReviewList(e); }" rel="nofollow">Critical (@Model.ReviewsInfo.NegativeReviews)</a>
                                 <a href="javascript:void(0)" data-cattypes="4,5" data-category="5" data-page-num="1" data-count="@Model.ReviewsInfo.PostiveReviews" data-bind="click: function(d, e) { toggleReviewList(e); }" rel="nofollow">Positive (@Model.ReviewsInfo.PostiveReviews)</a>
 

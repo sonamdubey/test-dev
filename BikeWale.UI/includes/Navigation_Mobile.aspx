@@ -12,12 +12,11 @@
         <li>
             <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwmsprite newBikes-icon"></span>
-                <span class="navbarTitle">New Bikes & Scooters</span>
+                <span class="navbarTitle">New Bikes</span>
                 <span class="nav-drop bwmsprite fa-angle-down"></span>
             </a>
             <ul class="nestedUL">
                 <li><a href="/m/new-bikes-in-india/">Find New Bikes</a></li>
-                <li><a href="/m/scooters/">Find New Scooters</a></li>
                 <li><a href="/m/comparebikes/">Compare Bikes</a></li>
                 <li><a href="/m/pricequote/">Check On-Road Price</a></li>
                 <li><a href="/m/dealer-showroom-locator/">Locate Dealer</a></li>
@@ -25,6 +24,20 @@
                 <li><a href="/m/upcoming-bikes/">Upcoming Bikes</a></li>
                 <li><a href="/m/new-bike-launches/">New Launches</a></li>
                 <li><a href="/m/bikebooking/">Book Your Bike</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0)" rel="nofollow">
+                <span class="scooter-icon"></span>
+                <span class="navbarTitle">New Scooters</span>
+                <span class="nav-drop bwmsprite fa-angle-down"></span>
+            </a>
+            <ul class="nestedUL">
+                <li><a href="/m/honda-scooters/">Honda Scooters</a></li>
+                <li><a href="/m/hero-scooters/">Hero Scooters</a></li>
+                <li><a href="/m/tvs-scooters/">TVS Scooters</a></li>
+                <li><a href="/m/yamaha-scooters/">Yamaha Scooters</a></li>
+                <li><a href="/m/scooters/">All Scooters</a></li>
             </ul>
         </li>
         <li>

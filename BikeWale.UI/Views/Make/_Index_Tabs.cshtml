@@ -14,9 +14,9 @@
             {
                 <span class="navtab" data-href="#makeUpcomingBikesContent" data-lab="@string.Format("{0}_UpcomingBikes", Model.MakeName)">Upcoming</span>
             }
-            @if (Model.IsCompareBikesAvailable)
+            @if (Model.IsCompareBikesAvailable || Model.OtherMakes!=null)
             {
-                <span class="navtab" data-href="#popularComparison" data-lab="@string.Format("{0}_TopComparisons", Model.MakeName)">Top Comparisons</span>
+                <span class="navtab" data-href="#popularComparisonAndOtherBrands" data-lab="@string.Format("{0}_TopComparisons", Model.MakeName)">Top Comparisons</span>
             }
             @if (Model.IsNewsAvailable)
             {

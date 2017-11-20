@@ -124,7 +124,8 @@ namespace Bikewale.Controllers
             if (obj.Status == StatusCodes.ContentFound)
             {
                 obj.IsAmpPage = true;
-                objData = obj.GetData();
+				obj.IsMobile = true;
+				objData = obj.GetData();
                 return View(objData);
             }
             else if (obj.Status == StatusCodes.RedirectPermanent)

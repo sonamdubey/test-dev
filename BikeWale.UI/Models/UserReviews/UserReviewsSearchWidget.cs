@@ -12,7 +12,6 @@ namespace Bikewale.Models.UserReviews
     /// </summary>
     public class UserReviewsSearchWidget
     {
-        private InputFilters _filters = null;
         private ReviewDataCombinedFilter _filtersCombined = null;
         private uint _modelId;
         private readonly IUserReviewsCache _userReviewsCacheRepo = null;

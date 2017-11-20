@@ -107,7 +107,7 @@ namespace Bikewale.Models.UserReviews
             {
                 objData.SimilarBikesWidget = new UserReviewSimilarBikesWidgetVM();
 
-                FilterBy activeReviewCateory = FilterBy.MostRecent;
+                FilterBy activeReviewCateory = FilterBy.MostHelpful;
                 _pageSize = (uint)(IsMobile ? 8 : 10);
                 ReviewDataCombinedFilter objFilter = new ReviewDataCombinedFilter()
                 {

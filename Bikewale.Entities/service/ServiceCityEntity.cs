@@ -23,12 +23,6 @@ namespace Bikewale.Entities.service
         [JsonProperty("link"), DataMember]
         public string Link { get; set; }
 
-        [JsonProperty("cityName"), DataMember]
-        public string CityName { get; set; }
-
-        [JsonProperty("citymasking"), DataMember]
-        public string CityMaskingName { get; set; }
-
         [JsonProperty("stateId"), DataMember]
         public uint stateId { get; set; }
     }

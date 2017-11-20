@@ -359,7 +359,7 @@
                                                 {
                                                     <p class="price-label-size-12 text-truncate">@String.Format("Ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName)</p>
                                                     <div>
-                                                        @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price" [text]="versions[currentVersion.versionId].OnRoadPrice">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.FirstVersion.OnRoadPrice)) </span>
+                                                        @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price" [text]="versions[currentVersion.versionId].FormatedOnRoadPrice">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.FirstVersion.OnRoadPrice)) </span>
                                                     </div>
                                                 }
                                             }

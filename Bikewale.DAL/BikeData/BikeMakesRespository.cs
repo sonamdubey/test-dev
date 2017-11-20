@@ -266,6 +266,8 @@ namespace Bikewale.DAL.BikeData
                                 makeDetails.MakeId = SqlReaderConvertor.ToInt32(reader["id"]);
                                 makeDetails.MakeName = Convert.ToString(reader["name"]);
                                 makeDetails.MaskingName = Convert.ToString(reader["maskingname"]);
+                                makeDetails.HostUrl = Convert.ToString(reader["hosturl"]);
+                                makeDetails.LogoUrl = Convert.ToString(reader["logourl"]);
                                 makeDetails.IsScooterOnly = SqlReaderConvertor.ToBoolean(reader["isscooteronly"]);
                             }
 

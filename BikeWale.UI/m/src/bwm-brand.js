@@ -212,6 +212,9 @@ docReady(function () {
 
     function sortResults(mydata, prop, asc) {
         return mydata.sort(function (a, b) {
+            if ($(a).attr(prop) == "0") { return 1; }
+            if ($(b).attr(prop) == "0") { return -1; }
+
             if (asc) return (parseInt($(a).attr(prop)) > parseInt($(b).attr(prop))) ? 1 : ((parseInt($(a).attr(prop)) < parseInt($(b).attr(prop))) ? -1 : 0);
             else return (parseInt($(b).attr(prop)) > parseInt($(a).attr(prop))) ? 1 : ((parseInt($(b).attr(prop)) < parseInt($(a).attr(prop))) ? -1 : 0);
         });
