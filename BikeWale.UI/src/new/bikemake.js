@@ -240,4 +240,61 @@ docReady(function () {
             console.log(e);
         }
     });
+
+    //collapsible content
+
+    $('.read-more-button').on('click', function () {
+        var readMoreButton = $(this);
+        $('#subfooter').find('.left-border').removeClass('left-border');
+        $('#subfooter').find('.right-border').removeClass('right-border');
+        var collapsibleContent = readMoreButton.closest('.foldable-content');
+        var isDataToggle = collapsibleContent.attr('data-toggle');
+        var dataTruncate = collapsibleContent.find('.truncatable-content');
+        var dataLessText;
+        var readLessText;
+        switch (isDataToggle) {
+            case 'no':
+                dataTruncate.attr('data-readtextflag', '0');
+                readMoreButton.hide();
+                break;
+            case 'yes':
+                dataLessText = readMoreButton.attr('data-text');
+                readLessText = !dataLessText || dataLessText.length === 0 ? 'Collapse' : dataLessText;
+                dataTruncate.attr('data-readtextflag', '0');
+                readMoreButton.attr('data-text', readMoreButton.text()).text(readLessText);
+                collapsibleContent.attr('data-toggle', 'hide');
+                break;
+            case 'hide':
+                dataTruncate.attr('data-readtextflag', '1');
+                dataLessText = readMoreButton.attr('data-text');
+                readMoreButton.attr('data-text', readMoreButton.text()).text(dataLessText);
+                collapsibleContent.attr('data-toggle', 'yes');
+                break;
+        }
+    });
+
+
+    $('.read-more-button').on('click', function () {
+        var subfooter = $(this).closest('.make-subfooter');
+        //var containerHeight = subfooter.height(); //sub-footer heigth
+        //subfooter.find('.border-right').css('height', containerHeight);
+        var rightContainerHeight = subfooter.height();
+        var right=subfooter.find('.grid-6:first-child').height();
+        var left = subfooter.find('.grid-6:last-child').height();
+        if (right > left) {
+            subfooter.find('.grid-6:first-child').addClass('left-border');
+        }
+        else {
+            subfooter.find('.grid-6:last-child').addClass('right-border');
+        }
+        //var leftContainerHeight = subfooter.siblings('.grid-6').height();
+        //var rightBorder = $('#subfooter').find('.border-right');
+        //if (rightContainerHeight > leftContainerHeight) {
+        //    $('.border-right:after').css('height', rightContainerHeight+'px');
+        //}
+        //else {
+        //    $('.border-right:after').css('height', leftContainerHeight+'px');
+        //}
+        //console.log(rightContainerHeight +" And "+ leftContainerHeight+'px');
+    });
 });

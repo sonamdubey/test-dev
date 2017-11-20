@@ -277,25 +277,108 @@
 
     }
 </section>
-
-@if (Model.IsDiscontinuedBikeAvailable)
-{
-    <section>
+<section>
         <div class="container">
-            <div class="content-inner-block-10 margin-bottom30">
-                <div id="discontinuedModels" style="display: block;">
-                    <div id="discontinuedLess">
-                        Discontinued @Model.MakeName models: - <span id="spnContent"></span>
+            <div id="subfooter" class="make-subfooter font14">
+                <div class="about-make">
+                    <h3 class="padding-bottom10">About Honda</h3>
+                    <div class="about-model foldable-content" data-toggle="yes">
+                        <p class="truncatable-content">
+                            The 2017 model year of the KTM RC200 doesn’t have mechanical updates, other than the fact that the engine is now BS4 compliant. A couple of changes have been made to its appearance – there are orange wheels, a white/orange paint scheme which has been introduced for 2017. Nothing else changes though, not even the price. That makes it a little more value for money, and as far as entry-level crotch rockets go, you can’t get much better than the RC200. There’s still no ABS, even as an option, and just like its elder sibling, it retains the scalpel-sharp handling that made us like it so much. If you’re looking for an all-new RC200, though, you’ll have to wait until the end of 2017 or beyond. There isn’t any real competition for the RC200 - the only other product that is as committed is the Yamaha YZF-R15, and that sits a segment below the RC200. The 2017 model year of the KTM RC200 doesn’t have mechanical updates, other than the fact that the engine is now BS4 compliant. A couple of changes have been made to its appearance – there are orange wheels, a white/orange paint scheme which has been introduced for 2017. Nothing else changes though, not even the price. That makes it a little more value for money, and as far as entry-level crotch rockets go, you can’t get much better than the RC200. There’s still no ABS, even as an option, and just like its elder sibling, it retains the scalpel-sharp handling that made us like it so much. If you’re looking for an all-new RC200, though, you’ll have to wait until the end of 2017 or beyond. There isn’t any real competition for the RC200 - the only other product that is as committed is the Yamaha YZF-R15, and that sits a segment below the RC200.
+                        </p>
+                        <a href="javascript:void(0)" class="read-more-button block margin-top10" rel="nofollow">Read more</a>
                     </div>
-                    <div id="discontinuedMore">
-                        Discontinued @Model.MakeName models: -
-                        @foreach (var bike in Model.DiscontinuedBikes)
-                        {
-                            <a title="@bike.BikeName" href="@string.Format("/m{0}",bike.Href)">@bike.BikeName</a>
-                        }
+
+                </div>
+
+                <div class="make-price-block">
+                    <div class="foldable-content" data-toggle="yes">
+                        <div class="truncatable-content">
+                            <table class="make-price-table">
+                                <thead>
+                                    <tr>
+                                        <th class="make-price-table__title" colspan="2">Honda bikes pricing</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th class="make-price__thead make-price__model">
+                                            Model
+                                        </th>
+                                        <th class="make-price__thead make-price-table__price">
+                                            Price
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td class="make-price__model">CT100</td>
+                                        <td>
+                                            &#x20b9;<span class="font-bold">&nbsp; 1,41,604</span>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="make-price__model">Avenger Street 150</td>
+                                        <td>
+                                            &#x20b9;<span class="font-bold">&nbsp; 1,55,291</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="make-price__model">Avenger Cruise 220</td>
+                                        <td>
+                                            &#x20b9;<span class="font-bold">&nbsp; 1,55,291</span>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="make-price__model">CT100</td>
+                                        <td>
+                                            &#x20b9;<span class="font-bold">&nbsp; 1,41,604</span>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="make-price__model">Avenger Street 150</td>
+                                        <td>
+                                            &#x20b9;<span class="font-bold">&nbsp; 1,55,291</span>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="make-price__model">Avenger Cruise 220</td>
+                                        <td>
+                                            &#x20b9;<span class="font-bold">&nbsp; 1,55,291</span>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="javascript:void(0)" class="padding-top10 block read-more-button" rel="nofollow">More bikes</a>
+
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-}
+</section>
+
+    @if (Model.IsDiscontinuedBikeAvailable)
+    {
+        <section>
+            <div class="container">
+                <div class="content-inner-block-10 margin-bottom30">
+                    <div id="discontinuedModels" style="display: block;">
+                        <div id="discontinuedLess">
+                            Discontinued @Model.MakeName models: - <span id="spnContent"></span>
+                        </div>
+                        <div id="discontinuedMore">
+                            Discontinued @Model.MakeName models: -
+                            @foreach (var bike in Model.DiscontinuedBikes)
+                            {
+                                <a title="@bike.BikeName" href="@string.Format("/m{0}",bike.Href)">@bike.BikeName</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }

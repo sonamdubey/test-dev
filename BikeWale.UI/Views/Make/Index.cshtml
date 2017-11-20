@@ -46,35 +46,35 @@
             @if (Model.Bikes != null && Model.Bikes.Count() > 0)
             {
                 <section id="bikeMakeList" class="bw-model-tabs-data">
-                    <div  class="content-box-shadow content-inner-block-1420">
+                    <div class="content-box-shadow content-inner-block-1420">
                         <div class="grid-8 alpha">
                             <h2 class="leftfloat text-x-black">@string.Format("{0} Bikes Prices in  India", Model.MakeName)</h2>
                         </div>
-                            <div class="grid-4 rightfloat omega font14" id="sortByContainer">
-                                <div class="leftfloat sort-by-text text-light-grey margin-left50">
-                                    <p>Sort by:</p>
+                        <div class="grid-4 rightfloat omega font14" id="sortByContainer">
+                            <div class="leftfloat sort-by-text text-light-grey margin-left50">
+                                <p>Sort by:</p>
+                            </div>
+                            <div class="rightfloat">
+                                <div class="sort-div rounded-corner2">
+                                    <div class="sort-by-title" id="sort-by-container">
+                                        <span class="leftfloat sort-select-btn text-truncate">@Model.SelectedSortingText</span>
+                                        <span class="clear"></span>
+                                    </div>
+                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                 </div>
-                                <div class="rightfloat">
-                                    <div class="sort-div rounded-corner2">
-                                        <div class="sort-by-title" id="sort-by-container">
-                                            <span class="leftfloat sort-select-btn text-truncate">@Model.SelectedSortingText</span>
-                                            <span class="clear"></span>
-                                        </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
-                                    </div>
-                                    <div class="sort-selection-div sort-list-items hide">
-                                        <ul id="sortbike">
-                                            <li id="0" class="@(Model.SelectedSortingId == 0 ? "selected" : "")">Price: Low to High</li>
-                                            <li id="1" class="@(Model.SelectedSortingId == 1 ? "selected" : "")">Popular</li>
-                                            <li id="2">Price: High to Low</li>
-                                            <li id="3">Mileage: High to Low</li>
-                                        </ul>
-                                    </div>
+                                <div class="sort-selection-div sort-list-items hide">
+                                    <ul id="sortbike">
+                                        <li id="0" class="@(Model.SelectedSortingId == 0 ? "selected" : "")">Price: Low to High</li>
+                                        <li id="1" class="@(Model.SelectedSortingId == 1 ? "selected" : "")">Popular</li>
+                                        <li id="2">Price: High to Low</li>
+                                        <li id="3">Mileage: High to Low</li>
+                                    </ul>
                                 </div>
                             </div>
+                        </div>
                         <div class="clear"></div>
                     </div>
-                    <div  class="content-box-shadow padding-top25 padding-left20 rounded-corner2 inner-content-card">
+                    <div class="content-box-shadow padding-top25 padding-left20 rounded-corner2 inner-content-card">
 
                         @if (Model.Bikes != null && Model.Bikes.Count() > 0)
                         {
@@ -103,7 +103,8 @@
                                                 else
                                                 {
                                                     <div class="font14 text-light-grey margin-bottom5">
-                                                        <span class="margin-right5">Avg. Ex-showroom price</span><span class="bwsprite info-icon tooltip-icon-target tooltip-top">
+                                                        <span class="margin-right5">Avg. Ex-showroom price</span>
+                                                        <span class="bwsprite info-icon tooltip-icon-target tooltip-top">
                                                             <span class="bw-tooltip info-tooltip">
                                                                 <span class="bw-tooltip-text">Price is not available in @Model.City.City</span>
                                                             </span>
@@ -132,8 +133,8 @@
                 </section>
             }
 
-                </div>
-            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
     </section>
     @if (Model.IsUpComingBikesAvailable)
     {
@@ -157,9 +158,9 @@
             </div>
         </section>
     }
-    @if (Model.IsCompareBikesAvailable || Model.OtherMakes!=null)
+    @if (Model.IsCompareBikesAvailable || Model.OtherMakes != null)
     {
-        <div id="popularComparisonAndOtherBrands"  class="bw-model-tabs-data">
+        <div id="popularComparisonAndOtherBrands" class="bw-model-tabs-data">
             @if (Model.IsCompareBikesAvailable)
             {
                 <section id="popularComparison">
@@ -169,7 +170,8 @@
                                 <div class="carousel-heading-content">
                                     <div class="swiper-heading-left-grid inline-block">
                                         <h2>Popular Comparison of @Model.MakeName Bikes</h2>
-                                    </div><div class="swiper-heading-right-grid inline-block text-right">
+                                    </div>
+                                    <div class="swiper-heading-right-grid inline-block text-right">
                                         <a href="/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
                                     </div>
                                     <div class="clear"></div>
@@ -181,30 +183,31 @@
                     </div>
                 </section>
             }
-      
 
-        @if (Model.OtherMakes != null && Model.OtherMakes.Count() > 0)
-        {
-            <section>
-                <div class="container section-bottom-margin">
-                    <div class="grid-12">
-                        <div class="content-box-shadow padding-top20 padding-bottom20">
-                            <div class="carousel-heading-content">
-                                <div class="swiper-heading-left-grid inline-block">
-                                    <span class="font16 text-semibold text-black">Other popular brands</span>
-                                </div><div class="swiper-heading-right-grid inline-block text-right">
-                                    <a href="/new-bikes-in-india/" title="New Bikes in India" class="btn view-all-target-btn">View all</a>
+
+            @if (Model.OtherMakes != null && Model.OtherMakes.Count() > 0)
+            {
+                <section>
+                    <div class="container section-bottom-margin">
+                        <div class="grid-12">
+                            <div class="content-box-shadow padding-top20 padding-bottom20">
+                                <div class="carousel-heading-content">
+                                    <div class="swiper-heading-left-grid inline-block">
+                                        <span class="font16 text-semibold text-black">Other popular brands</span>
+                                    </div>
+                                    <div class="swiper-heading-right-grid inline-block text-right">
+                                        <a href="/new-bikes-in-india/" title="New Bikes in India" class="btn view-all-target-btn">View all</a>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
-                                <div class="clear"></div>
+                                @Html.Partial("~/Views/Make/_BrandsModelCount.cshtml", Model.OtherMakes)
                             </div>
-                            @Html.Partial("~/Views/Make/_BrandsModelCount.cshtml", Model.OtherMakes)
                         </div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="clear"></div>
-                </div>
-            </section>
-        }
-            </div>
+                </section>
+            }
+        </div>
     }
     @if (Model.IsMakeTabsDataAvailable)
     {
@@ -273,7 +276,7 @@
                                 </div>
                             }
                         </div>
-                                    <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                        <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                     }
                     @if (Model.IsUsedModelsBikeAvailable)
                     {
@@ -281,7 +284,8 @@
                             <div class="carousel-heading-content padding-top20">
                                 <div class="swiper-heading-left-grid inline-block">
                                     <h2>Second-hand @Model.MakeName bikes in @Model.Location</h2>
-                                </div><div class="swiper-heading-right-grid inline-block text-right">
+                                </div>
+                                <div class="swiper-heading-right-grid inline-block text-right">
                                     <a href="/used/@Model.MakeMaskingName-bikes-in-@Model.LocationMasking/" title="Second-hand Bikes in @Model.Location" class="btn view-all-target-btn">View all</a>
                                 </div>
                                 <div class="clear"></div>
@@ -299,28 +303,120 @@
     }
 </section>
 
-  
-            @if (Model.IsDiscontinuedBikeAvailable)
-            {
-                <section>
-                    <div class="container">
-                        <div class="grid-12">
-                            <div id="discontinuedModels">
-                                <div class="content-inner-block-10 margin-bottom20 font14">
-                                    <div id="discontinuedLess">
-                                        Discontinued @Model.MakeName models: - <span id="spnContent"></span>
-                                    </div>
-                                    <div id="discontinuedMore" class="hide">
-                                        Discontinued @Model.MakeName models: -
-                                        @foreach (var bike in Model.DiscontinuedBikes)
-                                        {
-                                            <a title="@bike.BikeName" href="@bike.Href">@bike.BikeName</a>
-                                        }                                                                                                                                       }
-                                    </div>
+
+<section>
+    <div class="container">
+        <div class="grid-12 alpha omega">
+            <div id="subfooter">
+                <div class="content-inner-block-20 margin-bottom20 font14 make-subfooter">
+                    <div class="grid-6 alpha">
+                        <h3 class="padding-bottom10">About Honda</h3>
+                        <div class="about-model foldable-content" data-toggle="yes">
+                            <p class="truncatable-content">
+                                The 2017 model year of the KTM RC200 doesn’t have mechanical updates, other than the fact that the engine is now BS4 compliant. A couple of changes have been made to its appearance – there are orange wheels, a white/orange paint scheme which has been introduced for 2017. Nothing else changes though, not even the price. That makes it a little more value for money, and as far as entry-level crotch rockets go, you can’t get much better than the RC200. There’s still no ABS, even as an option, and just like its elder sibling, it retains the scalpel-sharp handling that made us like it so much. If you’re looking for an all-new RC200, though, you’ll have to wait until the end of 2017 or beyond. There isn’t any real competition for the RC200 - the only other product that is as committed is the Yamaha YZF-R15, and that sits a segment below the RC200. The 2017 model year of the KTM RC200 doesn’t have mechanical updates, other than the fact that the engine is now BS4 compliant. A couple of changes have been made to its appearance – there are orange wheels, a white/orange paint scheme which has been introduced for 2017. Nothing else changes though, not even the price. That makes it a little more value for money, and as far as entry-level crotch rockets go, you can’t get much better than the RC200. There’s still no ABS, even as an option, and just like its elder sibling, it retains the scalpel-sharp handling that made us like it so much. If you’re looking for an all-new RC200, though, you’ll have to wait until the end of 2017 or beyond. There isn’t any real competition for the RC200 - the only other product that is as committed is the Yamaha YZF-R15, and that sits a segment below the RC200.
+
+                            </p>
+                            <a href="javascript:void(0)" class="padding-top10 block read-more-button" rel="nofollow">Read more</a>
+
+                        </div>
+                    </div>
+                        <div class="grid-6 omega">
+                            <div class="make-price foldable-content" data-toggle="yes">
+                                <div class="truncatable-content">
+                                    <table class="make-price-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="make-price-table__title" colspan="2">Honda bikes pricing</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>
+                                                    Model
+                                                </th>
+                                                <th>
+                                                    Price
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>CT100</td>
+                                                <td>
+                                                    &#x20b9;<span class="text-bold">&nbsp; 1,41,604</span>
+                                                    &nbsp;<span class="font12 text-light-grey">(Ex-showroom, Mumbai)</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Avenger Street 150</td>
+                                                <td>
+                                                    &#x20b9;<span class="text-bold">&nbsp; 1,55,291</span>
+                                                    &nbsp;<span class="font12 text-light-grey">(Ex-showroom, Mumbai)</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Avenger Cruise 220</td>
+                                                <td>
+                                                    &#x20b9;<span class="text-bold">&nbsp; 1,55,291</span>
+                                                    &nbsp;<span class="font12 text-light-grey">(Ex-showroom, Mumbai)</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>CT100</td>
+                                                <td>
+                                                    &#x20b9;<span class="text-bold">&nbsp; 1,41,604</span>
+                                                    &nbsp;<span class="font12 text-light-grey">(Ex-showroom, Mumbai)</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Avenger Street 150</td>
+                                                <td>
+                                                    &#x20b9;<span class="text-bold">&nbsp; 1,55,291</span>
+                                                    &nbsp;<span class="font12 text-light-grey">(Ex-showroom, Mumbai)</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Avenger Cruise 220</td>
+                                                <td>
+                                                    &#x20b9;<span class="text-bold">&nbsp; 1,55,291</span>
+                                                    &nbsp;<span class="font12 text-light-grey">(Ex-showroom, Mumbai)</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
+                                <a href="javascript:void(0)" class="padding-top10 block read-more-button" rel="nofollow">More bikes</a>
+
                             </div>
                         </div>
-                        <div class="clear"></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+
+@if (Model.IsDiscontinuedBikeAvailable)
+{
+    <section>
+        <div class="container">
+            <div class="grid-12">
+                <div id="discontinuedModels">
+                    <div class="content-inner-block-10 margin-bottom20 font14">
+                        <div id="discontinuedLess">
+                            Discontinued @Model.MakeName models: - <span id="spnContent"></span>
+                        </div>
+                        <div id="discontinuedMore" class="hide">
+                            Discontinued @Model.MakeName models: -
+                            @foreach (var bike in Model.DiscontinuedBikes)
+                            {
+                                <a title="@bike.BikeName" href="@bike.Href">@bike.BikeName</a>
+                            }                                                                                                                                       }
+                        </div>
                     </div>
-                </section>
-            }
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
