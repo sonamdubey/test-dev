@@ -536,7 +536,7 @@ namespace Bikewale.DAL.PriceQuote
 
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getversionpricesbymodelid_30082017";
+                    cmd.CommandText = "getversionpricesbymodelid_02112017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -567,7 +567,7 @@ namespace Bikewale.DAL.PriceQuote
                                 MakeId = SqlReaderConvertor.ToUInt32(Convert.ToString(dr["MakeId"])),
                                 IsModelNew = SqlReaderConvertor.ToBoolean(dr["IsModelNew"]),
                                 IsVersionNew = SqlReaderConvertor.ToBoolean(dr["IsVersionNew"]),
-
+                                IsScooterOnly = SqlReaderConvertor.ToBoolean(dr["isScooterOnly"])
                             });
 
                         }

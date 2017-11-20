@@ -39,6 +39,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Linq.Expressions;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -47,6 +48,8 @@ namespace Bikewale.Models.BikeModels
     /// Description : Removed unncessary functions
     /// Modified by : Ashutosh Sharma on 30 Aug 2017
     /// Description : Removed GST related code (revert GST related changes)
+    /// Modified by :Snehal Dange on 3rd Nov 2017
+    /// Description: Added Mileage widget
     /// </summary>
     public class ModelPage
     {
@@ -162,6 +165,11 @@ namespace Bikewale.Models.BikeModels
                     BindControls();
 
                     BindColorString();
+                    if (_modelId > 0)
+                    {
+                        BindMileageWidget(_objData);
+                    }
+
 
                     CreateMetas();
 
@@ -1778,6 +1786,59 @@ namespace Bikewale.Models.BikeModels
             }
         }
 
+        /// <summary>
+        /// Created By:Snehal Dange on 3rd Nov 20127
+        /// Description :  Get Mileagedetails for a particular model
+        /// </summary>
+        /// <param name="_objData"></param>
+        private void BindMileageWidget(ModelPageVM _objData)
+        {
+            try
+            {
+                BikeMileageEntity obj = null;
+                ModelMileageWidgetVM mileageWidgetObj = null;
+                if (_modelId > 0 && _objData != null && _objModel != null)
+                {
+
+                    obj = _objModel.GetMileageDetails(_modelId);
+
+                    if (obj != null)
+                    {
+                        mileageWidgetObj = new ModelMileageWidgetVM();
+                        if(obj.Bikes!=null && obj.BodyStyleMileage!=null )
+                        {
+                            mileageWidgetObj.MileageInfo = obj.Bikes.FirstOrDefault(m => m.Model.ModelId == _modelId);
+                            mileageWidgetObj.AvgBodyStyleMileageByUserReviews = obj.BodyStyleMileage.FirstOrDefault().AvgBodyStyleMileageByUserReviews;
+                            mileageWidgetObj.SimilarBikeList = obj.Bikes.Where(u => u.Model.ModelId != _modelId);
+                        }
+                       
+
+                        if (mileageWidgetObj.MileageInfo!=null)
+                        {
+                            if (mileageWidgetObj.MileageInfo.Rank <= 3)
+                            {
+                                mileageWidgetObj.WidgetHeading = string.Format("{0} with similar mileage", (mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes"));
+                            }
+                            else
+                            {
+                                mileageWidgetObj.WidgetHeading = string.Format("{0} with better mileage", (mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes"));
+                            }
+                            _objData.Mileage = mileageWidgetObj;
+
+
+                            _objData.IsMileageByUsersAvailable = (mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) || mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.SemiFaired) || mileageWidgetObj.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Street)) && (mileageWidgetObj.MileageInfo.MileageByUserReviews > 0);
+                        }
+                        
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.BikeModels.BindMileageWidget ModelId: {0}", _modelId));
+            }
+
+        }
         #endregion Methods
     }
 }

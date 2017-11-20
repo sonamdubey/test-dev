@@ -22,7 +22,7 @@ namespace Bikewale.Entities.DealerLocator
     public class DealerDetailEntity : NewBikeDealerBase
     {
         [DataMember]
-        public AreaEntityBase Area { get; set; }
+        public AreaEntityBase objArea { get; set; }
         [DataMember]
         public UInt16 DealerType { get; set; }
         [DataMember]

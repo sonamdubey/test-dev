@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Bikewale.Entities.Compare
 {
     [Serializable, DataContract]
-    public class MostHelpfulReviewObject
+    public class ReviewObject
     {
         [DataMember]
         public uint RatingValue { get; set; }

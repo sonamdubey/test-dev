@@ -348,6 +348,7 @@
     <Compile Include="Used\SellBikeImageUploadResultDTO.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
+    <Compile Include="UserReviews\InputParamterRatingSave.cs" />
     <Compile Include="UserReviews\InputRatingSave.cs" />
     <Compile Include="UserReviews\RateBikeDetails.cs" />
     <Compile Include="UserReviews\RateBikeInput.cs" />

@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewSimilarBikesWidgetVM
-<div class="jcarousel-wrapper inner-content-carousel user-reviews-type-carousel">
+<div id="similar-bike-list" class="jcarousel-wrapper inner-content-carousel user-reviews-type-carousel">
     <div class="jcarousel">
-        <ul>
+        <ul >
             @foreach (var bike in Model.SimilarBikes)
             {
                 var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);

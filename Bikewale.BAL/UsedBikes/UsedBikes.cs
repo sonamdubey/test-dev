@@ -49,11 +49,29 @@ namespace Bikewale.BAL.UsedBikes
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("Exception in Bikewale.BAL.UsedBikes.UsedBikes.GetPopularUsedBikes parametres makeId : {0}, modelId : {1}, cityId : {2}, totalCount : {3}", makeId, modelId, cityId, totalCount));
-                objErr.SendMail();
+
                 return null;
             }
         }
+        /// <summary>
+        /// Created By : Sajal Gupta on 14/09/2016
+        /// Description : Logic to get used bikes for model/make page.
+        /// </summary>
+        public IEnumerable<MostRecentBikes> GetUsedBikesSeries(uint seriesId, uint cityId)
+        {
+            IEnumerable<MostRecentBikes> usedBikeMakes = null;
+            try
+            {
+                usedBikeMakes = _usedBikesRepository.GetUsedBikesSeries(seriesId, cityId);
 
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception in Bikewale.Cache.UsedBikes.GetUsedBikesSeries parametres  seriesId : {0}, cityId : {1}", seriesId, cityId));
+
+            }
+            return usedBikeMakes;
+        }
         /// <summary>
         /// Created by: Sangram Nandkhile on 06th oct 2016
         /// Summary: Fetch used bikes make from DAL

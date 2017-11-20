@@ -11,6 +11,7 @@ using Bikewale.Models.BestBikes;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bikewale.Models
@@ -37,6 +38,8 @@ namespace Bikewale.Models
         private EnumBikeType bikeType = EnumBikeType.All;
         private bool showCheckOnRoadCTA = false;
         private PQSourceEnum pqSource = 0;
+
+        public bool IsMobile { get; set; }
         #endregion
 
         #region Constructor
@@ -113,8 +116,8 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Title = string.Format("{0} | Maintenance Tips from Bike Experts - BikeWale", objData.ArticleDetails.Title);
                 objData.PageMetaTags.Keywords = "Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care";
                 objData.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objData.ArticleDetails.Title);
-                objData.Page_H1 = string.Format("{0} | Maintenance Tips from Bike Experts - BikeWale", objData.ArticleDetails.Title);
-
+                objData.Page_H1 = objData.ArticleDetails.Title;
+                SetBreadcrumList(objData);
                 //SetPageJSONSchema(objData);
             }
             catch (Exception ex)
@@ -334,6 +337,41 @@ namespace Bikewale.Models
             }
         }
 
+        /// <summary>
+        /// Created By :Snehal Dange on 8th Nov 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(BikeCareDetailPageVM objVM)
+        {
+            try
+            {
+                IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+                string bikeUrl;
+                bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+                ushort position = 1;
+                if (IsMobile)
+                {
+                    bikeUrl += "m/";
+                }
+
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, "Home"));
+
+                bikeUrl += "bike-care/";
+                BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, bikeUrl, "Bike Care"));
+                if(objVM.Model!=null)
+                {
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objVM.Page_H1));
+                }
+
+                objVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareIndexPage.SetBreadcrumList");
+            }
+
+        }
         #endregion
     }
 }

@@ -16,6 +16,8 @@ namespace Bikewale.Entities.PriceQuote
     /// Summary:- added manufacturer campaign leadpopup changes
     /// Modified by : Ashutosh Sharma on 30 Aug 2017 
     /// Description : Removed IsGstPrice property
+    /// Modifeid by Sajal on 02-11-2017
+    /// Desc :  Added IsScooterOnly
     /// </summary>
     public class BikeQuotationEntity
     {
@@ -53,7 +55,7 @@ namespace Bikewale.Entities.PriceQuote
         public uint MakeId { get; set; }
         public bool IsModelNew { get; set; }
         public bool IsVersionNew { get; set; }
-
+        public bool IsScooterOnly { get; set; }
         public string State { get; set; }
 
         public string ManufacturerAd { get; set; }

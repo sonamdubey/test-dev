@@ -10,6 +10,16 @@
             @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Middle.cshtml", new { AdId = "1495092203328" });}
         </section>
                 }
+
+    @if(Model.IsNewBike && Model.IsMileageByUsersAvailable)
+    {
+        <section>
+            @Html.Partial("~/Views/Model/_Index_MileageDetails.cshtml", Model.Mileage)
+        </section>
+    }
+    
+
+
     @if (Model.IsSimilarBikesAvailable)
     {
         <div id="modelSimilarContent" data-id="modelSimilarContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin font14">
@@ -111,27 +121,6 @@
         </div>
         <div class="clear"></div>
     }
-    @if (Model.IsReviewsAvailable)
-    {
-        <div id="modelExpertReviewsContent" data-id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin bw-model-tabs-data active">
-            @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
-            {
-					<!-- expert review starts-->
-
-
-
-
-
-                <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Expert Reviews</h2>
-                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
-
-                <div class="padding-left10 more-article-target view-all-btn-container">
-                    <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="Read_all_expert_reviews_link_cliked" data-var="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
-                </div>
-					<!-- expert review ends-->
-            }
-        </div>
-    }
     @if (Model.IsUserReviewsAvailable)
     {
 
@@ -188,6 +177,27 @@
         </div>
 
                             }
+    @if (Model.IsReviewsAvailable)
+    {
+        <div id="modelExpertReviewsContent" data-id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin bw-model-tabs-data active">
+            @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+            {
+					<!-- expert review starts-->
+
+
+
+
+
+                <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Expert Reviews</h2>
+                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+
+                <div class="padding-left10 more-article-target view-all-btn-container">
+                    <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="Read_all_expert_reviews_link_cliked" data-var="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
+                </div>
+					<!-- expert review ends-->
+            }
+        </div>
+    }    
     @if (Model.IsNewsAvailable)
     {
 	<!-- News widget starts -->
