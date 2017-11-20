@@ -34,9 +34,9 @@
             {
                 <span class="right-bike__label">
                     @bike
-                </span>}
+                </span>
+            }
         </div>
-
     </div>
     <div class="right-bike-swiper swiper-container card-container">
         <div class="swiper-ribbon">
@@ -74,7 +74,7 @@
                         }
 
                     </div>
-                    <div class="right-bike__desc featured-card">
+                    <div class="right-bike__desc @string.Format("{0}",index==1?"featured-card":"")">
                         <span class="featured-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="19px" height="24px" viewBox="0 0 19 24" version="1.1">
                                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -94,67 +94,40 @@
                                 </g>
                             </svg>
                         </span>
-                       
                             <span class="right-bike__label">
                                 @string.Format("{0}", bike.MaxPower > 0 ? Convert.ToString(bike.MaxPower) : "--")
                             </span>
-                      
                             <span class="right-bike__label">
                                @string.Format("{0}", bike.Displacement > 0 ? Convert.ToString(bike.Displacement) : "--")
                             </span>
-                     
                             <span class="right-bike__label">
                                 @string.Format("{0}", bike.Weight > 0 ? Convert.ToString(bike.Weight) : "--")
                               
                             </span>
-                      
                             <span class="right-bike__label">
                                 @string.Format("{0}", bike.FuelCapacity > 0 ? Convert.ToString(bike.FuelCapacity) : "--")
-                                
                             </span>
-                     
                             <span class="right-bike__label">
                                 @string.Format("{0}", bike.Mileage > 0 ? Convert.ToString(bike.Mileage) : "--")
-                              
                             </span>
-                       
                             <span class="right-bike__label">
                                 @string.Format("{0}", bike.SeatHeight > 0 ? Convert.ToString(bike.SeatHeight) : "--")
-                                
                             </span>
-                       
                             <span class="right-bike__label">
                                 @string.Format("{0}", !string.IsNullOrEmpty(bike.BrakeType) ? bike.BrakeType : "--")
-                              
-                            </span>
-                        
-                      
-                       
+                            </span>                                             
                             <span class="right-bike__label">
                                 @string.Format("{0}", bike.Gears > 0 ? Convert.ToString(bike.Gears) : "--")
-                                
                             </span>
-                        
-                       
-
                         <span class="right-bike__label">
-                           
                             @string.Format("{0}", bike.MaxPower > 0 ? Convert.ToString(bike.MaxPower) : "--")
                             <span class="right-bike__sub-label"> @string.Format(" @@{0}", bike.MaxPowerRpm > 0 ? Convert.ToString(bike.MaxPowerRpm) : "--")</span>
-
-
                         </span>
                     </div>
                 </div>
                         index++;
             }
-
-
-
         </div>
-
-
         <div class="clearfix"></div>
     </div>
-
 </div>

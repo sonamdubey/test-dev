@@ -1002,6 +1002,7 @@
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
+    <Compile Include="Models\Used\UserBikeSeriesModelsWidget.cs" />
     <Compile Include="Models\UserReviews\PopularBikesWithExpertReviewsWidget.cs" />
     <Compile Include="Models\UserReviews\TopRatedBikesWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewByMakePage.cs" />
@@ -3855,6 +3856,7 @@
     <Content Include="Views\Scooters\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_PopularNewBikes_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_BikeSeriesCompareBikesWithSpecs.cshtml" />
+    <Content Include="Views\Used\_UsedBikeByModelCity_Mobile_v1.cshtml" />
     <Content Include="Views\BikeSeries\_UpcomingBikes_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1_Mobile.cshtml" />
     <Content Include="Views\News\_RecentNews_v1_Mobile.cshtml" />
@@ -3866,6 +3868,7 @@
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_v1.cshtml" />
     <Content Include="Views\BikeSeries\_PopularNewBikes.cshtml" />
     <Content Include="Views\BikeSeries\_Index_Tabs.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile_V1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4091,7 +4094,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/BikeWale</IISUrl>
+          <IISUrl>http://localhost:9011</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
