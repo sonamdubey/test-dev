@@ -21,21 +21,19 @@ namespace Bikewale.Models.NewBikeSearch
     /// </summary>
     public class NewBikeSearchModel
     {
-        private readonly string _modelIdList = string.Empty;
         public bool IsMobile { get; set; }
         public string BaseUrl { get; set; }
         private string _baseUrl = string.Empty;
         public uint EditorialTopCount { get; set; }
         public int PageSize { get; set; }
         private int _totalBikeCount;
-        private int _totalPagesCount;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly IBikeMakesCacheRepository _makes;
         private readonly IBikeSearchResult _searchResult = null;
         private readonly IProcessFilter _processFilter = null;
         private readonly string _queryString;
-        private HttpRequestBase _request;
+        private readonly HttpRequestBase _request;
         private readonly PQSourceEnum _pqSource;
         NewSearchPage currentPage;
         NewBikeSearchVM viewModel;
@@ -291,7 +289,7 @@ namespace Bikewale.Models.NewBikeSearch
         /// <param name="objMeta">The object meta.</param>
         private void CreatePager(NewBikeSearchVM newBikeSearchVM)
         {
-            _totalPagesCount = (int)(_totalBikeCount / PageSize);
+            int _totalPagesCount = (int)(_totalBikeCount / PageSize);
 
             if ((_totalPagesCount % PageSize) > 0)
                 _totalPagesCount += 1;

@@ -555,7 +555,11 @@ docReady(function () {
     });
 
     $("#btnReset").click(function () {
+
         newBikeSearchVM.resetAll();
+        if (newBikeSearchVM && !newBikeSearchVM.IsInitialized()) {
+            newBikeSearchVM.init(e);
+        }
 	});
 
 	$window.scroll(function () {
