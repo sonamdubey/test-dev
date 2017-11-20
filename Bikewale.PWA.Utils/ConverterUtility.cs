@@ -425,12 +425,20 @@ namespace Bikewale.PWA.Utils
                     outEntity.ShortDescription = outEntity.Description.Length > 200 ? StringHtmlHelpers.TruncateHtml(outEntity.Description, 200, " ..") : "";
                 }
                 outEntity.DisplayDate = FormatDate.GetFormatDate(inpEntity.DisplayDate, "dd MMMM yyyy");
-                outEntity.Likes = inpEntity.Likes;
+                outEntity.Likes = Bikewale.Utility.Format.FormatPrice(Convert.ToString(inpEntity.Likes));
                 outEntity.VideoId = inpEntity.VideoId;
                 outEntity.VideoTitle = inpEntity.VideoTitle;
                 outEntity.VideoTitleUrl = inpEntity.VideoTitleUrl;
                 outEntity.VideoUrl = inpEntity.VideoUrl;
-                outEntity.Views = inpEntity.Views;
+                outEntity.Views = Bikewale.Utility.Format.FormatPrice(Convert.ToString(inpEntity.Views));
+                 string secTitle, moreVidUrl;
+                int catId;
+                if (Int32.TryParse(inpEntity.SubCatId, out catId))
+                {
+                    VideoTitleDescription.VideoGetTitleAndUrl(catId, out secTitle, out moreVidUrl);
+                    outEntity.SectionTitle = secTitle;
+                    outEntity.SectionUrl = moreVidUrl;
+                }
             }
             return outEntity;
 

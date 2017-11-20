@@ -16,9 +16,9 @@ namespace Bikewale.Entities.PWA.Articles
         [DataMember]
         public string VideoId { get; set; }
         [DataMember]
-        public uint Views { get; set; }
+        public string Views { get; set; }
         [DataMember]
-        public uint Likes { get; set; }
+        public string Likes { get; set; }
         [DataMember]
         public string Description { get; set; }
         [DataMember]
@@ -29,5 +29,9 @@ namespace Bikewale.Entities.PWA.Articles
         public string VideoTitleUrl { get; set; }
         [DataMember]
         public string DisplayDate { get; set; }
+        [DataMember]
+        public string SectionTitle { get; set; }
+        [DataMember]
+        public string SectionUrl { get; set; }
     }
 }
