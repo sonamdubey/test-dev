@@ -294,9 +294,6 @@ namespace Bikewale.Models.BikeSeries
         /// <param name="objSeriesPage"></param>
         private void GetBikesToCompare(SeriesPageVM objSeriesPage)
         {
-			if (objSeriesPage.SeriesBase != null && objSeriesPage.SeriesBase.SeriesId > 0)
-			{
-				objSeriesPage.ObjModel = new BikeSeriesCompareVM();
             try
             {
                 objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs = _seriesCache.GetBikesToCompare(objSeriesPage.SeriesBase.SeriesId);
