@@ -124,7 +124,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
             try
             {
                 var otherVideos = new PwaVideosLandingPageOtherVideos();
-                int[] categoryIds = { 51, 57, 58, 59, 60, 61, 62, 63 };
+                int[] categoryIds = {61,57,59,58,51,62,63,60};
                 ushort[] categoryTotalRecords = new ushort[] {count,count,count,count,count,count,count,count };
 
                 CallAggregator ca = GetVideosBySubCategoriesUsingAPIGateway(categoryIds, categoryTotalRecords);
