@@ -9,7 +9,7 @@
         <div class="swiper-slide">
             <div class="swiper-card">
                 <a href="@string.Format("/m/{0}",Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails.MakeMasking1, bikedetails.ModelMasking1, bikedetails.MakeMasking2, bikedetails.ModelMasking2, Convert.ToString(bikedetails.VersionId1), Convert.ToString(bikedetails.VersionId2),bikedetails.ModelId1,bikedetails.ModelId2, Model.CompareSource))" title="@string.Format("{0} {1} vs {2} {3}",bikedetails.Make1,bikedetails.Model1,bikedetails.Make2,bikedetails.Model2)" class="card-target">
-    <h4 class="swiper-card__label"> @string.Format("{0} vs {1}", bikedetails.Model1, bikedetails.Model2) </h4>
+    <h4 class="swiper-card__label">@string.Format("{0} vs {1}", bikedetails.Model1, bikedetails.Model2) </h4>
     <div class="grid-6 padding-left5">
         <div class="compare-img">
             <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath1, bikedetails.HostUrl1, Bikewale.Utility.ImageSize._144x81,Bikewale.Utility.QualityFactor._60)" alt="@bike1" title="@bike1" src="" />
