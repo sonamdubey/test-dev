@@ -11711,7 +11711,7 @@ var ModelBrandsList = function (_React$Component) {
 				null,
 				_react2.default.createElement(
 					'a',
-					{ href: brand.Href, title: brand.Title },
+					{ href: '/m' + brand.Href, title: brand.Title },
 					_react2.default.createElement(
 						'span',
 						{ className: 'brand-type' },

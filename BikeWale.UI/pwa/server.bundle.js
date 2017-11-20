@@ -123,7 +123,7 @@ var CAMEL_PROPS = /^(?:accent|alignment|arabic|baseline|cap|clip|color|fill|floo
 var BYPASS_HOOK = {};
 
 /*global process*/
-var DEV = typeof process==='undefined' || !__webpack_require__.i({"NODE_ENV":"development"}) || "development"!=='production';
+var DEV = typeof process==='undefined' || !__webpack_require__.i({"NODE_ENV":"development","SERVER":true}) || "development"!=='production';
 
 // a component that renders nothing. Used to replace components for unmountComponentAtNode.
 function EmptyComponent() { return null; }
@@ -9843,7 +9843,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// import style from '../../../stylesheet/news.sass'
+if (false) {
+    require('../../../stylesheet/news.sass');
+}
 
 var ArticleListComponent = function (_React$Component) {
     _inherits(ArticleListComponent, _React$Component);
@@ -11709,7 +11711,7 @@ var ModelBrandsList = function (_React$Component) {
 				null,
 				_react2.default.createElement(
 					'a',
-					{ href: brand.Href, title: brand.Title },
+					{ href: '/m' + brand.Href, title: brand.Title },
 					_react2.default.createElement(
 						'span',
 						{ className: 'brand-type' },
@@ -12010,39 +12012,6 @@ var TopVideosComponent = function (_React$Component) {
 			}
 		}
 	}, {
-		key: 'renderYoutubeBanner',
-		value: function renderYoutubeBanner() {
-			return _react2.default.createElement(
-				'section',
-				null,
-				_react2.default.createElement(
-					'div',
-					{ className: 'powerdrift-banner container font14 margin-bottom20' },
-					_react2.default.createElement(
-						'p',
-						{ className: 'powerdrift-banner__title' },
-						'Reviews, Specials, Underground, Launch Alerts & a whole lot more...'
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'bg-white powerdrift-subscribe' },
-						_react2.default.createElement(
-							'p',
-							{ className: 'powerdrift-subscribe__head' },
-							'PowerDrift'
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'rightfloat' },
-							_react2.default.createElement('script', { src: 'https://apis.google.com/js/platform.js' }),
-							_react2.default.createElement('div', { className: 'g-ytsubscribe', 'data-channel': 'powerdriftofficial', 'data-layout': 'default', 'data-count': 'default' })
-						),
-						_react2.default.createElement('div', { className: 'clear' })
-					)
-				)
-			);
-		}
-	}, {
 		key: 'render',
 		value: function render() {
 			if (this.props.Status !== _commonVar.Status.Fetched || !this.props.TopVideos) return _react2.default.createElement(_Spinner2.default, null);
@@ -12052,7 +12021,6 @@ var TopVideosComponent = function (_React$Component) {
 				'div',
 				null,
 				_react2.default.createElement(_JumbotronVideos2.default, { LandingFirstVideo: topVideos.LandingFirstVideos, onClickVideoUrl: this.onClickVideoUrl }),
-				this.renderYoutubeBanner(),
 				_react2.default.createElement(_ExpertReviewsVideoList2.default, { VideoListData: topVideos.ExpertReviews, onClickVideoUrl: this.onClickVideoUrl, onClickMoreVideoUrl: this.onClickMoreVideoUrl })
 			);
 		}
@@ -12812,7 +12780,7 @@ var VideoModelSlug = function (_React$Component) {
 					),
 					model.Rating.ReviewCount > 0 ? _react2.default.createElement(
 						'a',
-						{ className: 'text-xt-light review-left-divider inline-block font13', href: model.ReviewUrl, title: model.ModelName + " user reviews" },
+						{ className: 'text-xt-light review-left-divider inline-block font13', href: model.Rating.ReviewUrl, title: model.ModelName + " user reviews" },
 						model.Rating.ReviewCount + " " + (model.Rating.ReviewCount > 1 ? "reviews" : "review")
 					) : null
 				);
@@ -13061,7 +13029,7 @@ var VideosByCategoryComponent = function (_React$Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(_CategoryHeader2.default, { PageHeading: this.props.VideosByCategory.SectionTitle }),
+				_react2.default.createElement(_CategoryHeader2.default, { PageHeading: this.props.VideosByCategory.SectionTitle + ' Video' }),
 				this.renderVideoList(this.props.VideosByCategory ? this.props.VideosByCategory.Videos : null),
 				!this.props.VideosByCategory || !this.props.VideosByCategory.Videos || this.props.VideosByCategory.Videos.length == 0 ? null : _react2.default.createElement(_Footer2.default, null)
 			);
