@@ -381,7 +381,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_23102017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_20112017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -412,6 +412,7 @@ namespace Bikewale.DAL.BikeData
                                 t.ModelSeries.SeriesId = SqlReaderConvertor.ToUInt32(dr["bikeseriesid"]);
                                 t.ModelSeries.SeriesName = Convert.ToString(dr["bikeseriesname"]);
                                 t.ModelSeries.MaskingName = Convert.ToString(dr["bikeseriesmaskingname"]);
+								t.ModelSeries.IsSeriesPageUrl = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]);
                                 t.ReviewCount = Convert.ToInt32(dr["ReviewCount"]);
                                 t.RatingCount = SqlReaderConvertor.ToInt32(dr["RatingsCount"]);
                                 t.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);

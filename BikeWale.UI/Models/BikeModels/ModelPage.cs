@@ -377,9 +377,13 @@ namespace Bikewale.Models.BikeModels
 
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, scooterUrl, string.Format("{0} Scooters ", _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName)));
             }
+			if (_objData.ModelsBySeries != null && _objData.ModelsBySeries.SeriesBase != null && _objData.ModelsBySeries.SeriesBase.IsSeriesPageUrl && !string.IsNullOrEmpty(_objData.ModelsBySeries.SeriesBase.MaskingName))
+			{
+				bikeUrl = string.Format("{0}{1}/", bikeUrl, _objData.ModelsBySeries.SeriesBase.MaskingName);
+				BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, _objData.ModelsBySeries.SeriesBase.SeriesName));
+			}
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, _objData.Page_H1));
-
-
+			
             _objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
 
         }

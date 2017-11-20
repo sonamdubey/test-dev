@@ -95,12 +95,16 @@ namespace Bikewale.BAL.BikeData
 			return synopsis;
 		}
 
-		public IEnumerable<BikeSeriesEntity> GetOtherSeriesFromMake(int makeId)
+		public IEnumerable<BikeSeriesEntity> GetOtherSeriesFromMake(int makeId, uint seriesId)
 		{
 			IEnumerable<BikeSeriesEntity> bikeSeriesEntityList = null;
 			try
 			{
 				bikeSeriesEntityList = _bikeSeriesCacheRepository.GetOtherSeriesFromMake(makeId);
+				if (bikeSeriesEntityList != null && bikeSeriesEntityList.Any())
+				{
+					bikeSeriesEntityList = bikeSeriesEntityList.Where(m => m.SeriesId != seriesId);
+				}
 			}
 			catch (Exception ex)
 			{

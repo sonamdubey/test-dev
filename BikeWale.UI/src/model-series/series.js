@@ -127,8 +127,6 @@
 
     $(window).scroll(function () {
         var windowScrollTop = $(window).scrollTop();
-        console.log(overallTabsOffsetTop + "," + windowScrollTop + "," + seriesTabsContentWrapper.outerHeight());
-
 
         if (windowScrollTop > overallTabsOffsetTop) {
             overallSpecsTabsContainer.addClass('fixed-tab-nav');
