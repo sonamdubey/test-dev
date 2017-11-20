@@ -248,7 +248,7 @@ docReady(function () {
         bikeVersion = getBikeVersion();
     }
 
-    vmUserReviews = new modelUserReviews();    
+    vmUserReviews = new modelUserReviews();
 
 });
 
@@ -833,9 +833,9 @@ ko.bindingHandlers.formattedVotes = {
     }
 };
 
-$(document).on("click", ".read-more-target", function (e) {   
+$(document).on("click", ".read-more-target", function (e) {
     if (!vmUserReviews.IsInitialized()) {
-        vmUserReviews.init(e);        
+        vmUserReviews.init(e);
     }
 });
 
@@ -856,7 +856,7 @@ var modelUserReviews = function () {
                         self.reviewList(response.result);
                         applyLikeDislikes();
                         $('.more-review-li').removeClass('hide');
-                    }                  
+                    }
                 })
                  .always(function () {
                      self.isLoading(false);
@@ -896,9 +896,9 @@ var modelUserReviews = function () {
         var reviewId = ele.data("reviewid");
         var itemNo = ele.data("id");
         if (!self.currentReviewList().length && bikeModelId) {
-			var apiUrl = "/api/user-reviews/search/V2/?InputFilter.review=true&InputFilter.SO=1&InputFilter.PN=1&InputFilter.PS=3&ReviewFilter.RatingQuestion=false&ReviewFilter.ReviewQuestion=true&ReviewFilter.BasicDetails=false&InputFilter.Model=" + bikeModelId;
-			
-			$('#userReviewSpinner').show();
+            var apiUrl = "/api/user-reviews/search/V2/?InputFilter.review=true&InputFilter.SO=1&InputFilter.PN=1&InputFilter.PS=3&ReviewFilter.RatingQuestion=false&ReviewFilter.ReviewQuestion=true&ReviewFilter.BasicDetails=false&InputFilter.Model=" + bikeModelId;
+
+            $('#userReviewSpinner').show();
 
             $.getJSON(apiUrl)
             .done(function (response) {
@@ -907,7 +907,7 @@ var modelUserReviews = function () {
                 }
             })
 			.always(function () {
-				$('#userReviewSpinner').hide();
+			    $('#userReviewSpinner').hide();
 			});
 
         }

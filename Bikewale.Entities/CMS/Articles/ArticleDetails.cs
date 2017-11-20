@@ -24,7 +24,5 @@ namespace Bikewale.Entities.CMS.Articles
         public string MainImgCaption { get; set; }
         [DataMember]
         public bool IsMainImageSet { get; set; }
-        [DataMember]
-        public string AuthorMaskingName { get; set; }
     }
 }

@@ -113,12 +113,12 @@ namespace Bikewale.Models
             {
 
                 CityId = cityId,
-                AreaId = objDealerDetails.DealerDetails.DealerDetails.Area.AreaId,
-                Area = objDealerDetails.DealerDetails.DealerDetails.Area.AreaName,
+                AreaId = objDealerDetails.DealerDetails.DealerDetails.objArea.AreaId,
+                Area = objDealerDetails.DealerDetails.DealerDetails.objArea.AreaName,
                 City = CityDetails.CityName
 
             };
-            objDealerDetails.GALabel = string.Format("{0}_{1}_{2}", objDealerDetails.Make.MakeName, CityDetails.CityName, objDealerDetails.DealerDetails.DealerDetails.Area.AreaName);
+            objDealerDetails.GALabel = string.Format("{0}_{1}_{2}", objDealerDetails.Make.MakeName, CityDetails.CityName, objDealerDetails.DealerDetails.DealerDetails.objArea.AreaName);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Bikewale.Models
                 objDealerDetails.PQCityId = cityId;
                 objDealerDetails.PQAreaID = customerAreaId;
                 if (objDealerDetails.DealerDetails != null && objDealerDetails.DealerDetails.DealerDetails != null && objDealerDetails.DealerDetails.DealerDetails.Area != null)
-                    objDealerDetails.PQAreaName = objDealerDetails.DealerDetails.DealerDetails.Area.AreaName;
+                    objDealerDetails.PQAreaName = objDealerDetails.DealerDetails.DealerDetails.objArea.AreaName;
             }
         }
 
@@ -165,9 +165,9 @@ namespace Bikewale.Models
 
                 string dealerName = objDealerDetails.DealerDetails.DealerDetails.Name;
 
-                if (objDealerDetails.DealerDetails.DealerDetails.Area != null && !string.IsNullOrEmpty(objDealerDetails.DealerDetails.DealerDetails.Area.AreaName))
+                if (objDealerDetails.DealerDetails.DealerDetails.Area != null && !string.IsNullOrEmpty(objDealerDetails.DealerDetails.DealerDetails.objArea.AreaName))
                 {
-                    dealerName = string.Format("{0},{1}", dealerName, objDealerDetails.DealerDetails.DealerDetails.Area.AreaName);
+                    dealerName = string.Format("{0},{1}", dealerName, objDealerDetails.DealerDetails.DealerDetails.objArea.AreaName);
                 }
 
 
@@ -254,13 +254,13 @@ namespace Bikewale.Models
 
                 if (dealerDetails.Area != null)
                 {
-                    objSchema.Address.State = dealerDetails.Area.AreaName;
-                    objSchema.Address.PinCode = dealerDetails.Area.PinCode;
+                    objSchema.Address.State = dealerDetails.objArea.AreaName;
+                    objSchema.Address.PinCode = dealerDetails.objArea.PinCode;
                     objSchema.Location = new GeoCoordinates();
-                    objSchema.Location.Latitude = dealerDetails.Area.Latitude;
-                    objSchema.Location.Longitude = dealerDetails.Area.Longitude;
-                    objSchema.AreaServed = dealerDetails.Area.AreaName;
-                    objSchema.GoogleMapUrl = string.Format("https://www.google.com/maps/place/{0},{1}", dealerDetails.Area.Latitude, dealerDetails.Area.Longitude);
+                    objSchema.Location.Latitude = dealerDetails.objArea.Latitude;
+                    objSchema.Location.Longitude = dealerDetails.objArea.Longitude;
+                    objSchema.AreaServed = dealerDetails.objArea.AreaName;
+                    objSchema.GoogleMapUrl = string.Format("https://www.google.com/maps/place/{0},{1}", dealerDetails.objArea.Latitude, dealerDetails.objArea.Longitude);
                 }
 
                 if (objDealerDetails.DealerDetails.Models != null && objDealerDetails.DealerDetails.Models.Any())

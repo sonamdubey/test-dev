@@ -115,6 +115,7 @@ namespace Bikewale.Controllers
                     objData.SortBy = sort.Value;
 
                 objData.topbrandCount = 9;
+                objData.IsMobile = true;
                 UpcomingPageVM objVM = objData.GetData();
 
                 if (objVM.TotalBikes > 0)

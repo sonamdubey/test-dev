@@ -91,11 +91,11 @@ namespace Bikewale.Models.UserReviews
                     string returnUrl = string.Empty;
                     if (IsMobile)
                     {
-                        returnUrl = string.Format("returnUrl=/m/user-reviews/&sourceid={0}", UserReviewPageSourceEnum.Mobile_UserReview_Landing);
+                        returnUrl = string.Format("returnUrl=/m/user-reviews/&sourceid={0}", (int)UserReviewPageSourceEnum.Mobile_UserReview_Landing);
                     }
                     else
                     {
-                        returnUrl = string.Format("returnUrl=/user-reviews/&sourceid={0}", UserReviewPageSourceEnum.Desktop_UserReview_Landing);
+                        returnUrl = string.Format("returnUrl=/user-reviews/&sourceid={0}", (int)UserReviewPageSourceEnum.Desktop_UserReview_Landing);
                     }
                     objData.UserReviewsQueryString = Utils.Utils.EncryptTripleDES(returnUrl);
                 }

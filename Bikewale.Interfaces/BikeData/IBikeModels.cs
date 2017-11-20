@@ -2,6 +2,7 @@
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Models.BikeModels;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
@@ -26,6 +27,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description :   IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId)
     /// Modified by : Vivek Singh Tomar on 5th Oct 2017
     /// Summary : Added GetModelColorPhotos(U modelId)
+    /// Modified By :Snehal Dange on 3rd Nov 2017
+    /// Description: Added GetMileageDetails() to get mileage info for model
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
     public interface IBikeModels<T, U> : IRepository<T, U>
@@ -53,5 +56,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId);
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
+        BikeMileageEntity GetMileageDetails(uint modelId);
     }
 }

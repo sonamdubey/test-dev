@@ -12,6 +12,69 @@
 @import ../mixins/mixins
 
 
+//rating face
+@mixin rating-face-list()
+	.rating-face-list
+		display: inline-block
+		vertical-align: top
+		margin-right: 5px
+
+		&:last-child
+			margin-right: 0
+		
+		> label
+			display: block
+			border: 1px solid #e2e2e2
+			cursor: pointer
+			font-size: 13px
+			@include border-radius(1px)
+			height: 80px
+			width: 125px
+			position: relative
+			color: #82888b
+			padding: 50px 5px 5px
+			&[data-value='1']
+				background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/smile/1-inactive-34x34.png') no-repeat center 10px
+								
+			&[data-value='2']
+				background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/smile/2-inactive-34x34.png') no-repeat center 10px
+										
+			&[data-value='3']
+				background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/smile/3-inactive-34x34.png') no-repeat center 10px
+												
+			&[data-value='4']
+				background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/smile/4-inactive-34x34.png') no-repeat center 10px
+										
+			&[data-value='5']
+				background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/smile/5-inactive-34x34.png') no-repeat center 10px
+
+		& > input
+			display: none
+						
+			&:checked,
+			&:hover
+				~ label
+					color: #4d5057
+
+					&[data-value='1'],
+						border-color: #EF3F30
+						background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/smile/1-34x34.png') no-repeat center 10px
+								
+					&[data-value='2']
+						border-color: #FD971C
+						background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/smile/2-34x34.png') no-repeat center 10px
+										
+					&[data-value='3']
+						border-color: #EFD700
+						background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/smile/3-34x34.png') no-repeat center 10px
+												
+					&[data-value='4']
+						border-color: #13B65D
+						background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/smile/4-34x34.png') no-repeat center 10px
+										
+					&[data-value='5']
+						border-color: #198D55
+						background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/smile/5-34x34.png') no-repeat center 10px	
 // rating badge
 @mixin rating-badge($count)
 	@if map-has-key($rating-colors, $count)

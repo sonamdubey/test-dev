@@ -156,16 +156,16 @@ namespace Bikewale.Mobile
                         cityMaskingName = dealerDetails.CityMaskingName;
 
                         dealerName = dealerDetails.Name;
-                        dealerArea = dealerDetails.Area.AreaName;
+                        dealerArea = dealerDetails.objArea.AreaName;
                         dealerCity = dealerDetails.City;
 
                         ctaSmallText = dealerDetails.DisplayTextSmall;
 
                         if (dealerDetails.Area != null)
                         {
-                            areaId = dealerDetails.Area.AreaId;
-                            dealerLat = dealerDetails.Area.Latitude;
-                            dealerLong = dealerDetails.Area.Longitude;
+                            areaId = dealerDetails.objArea.AreaId;
+                            dealerLat = dealerDetails.objArea.Latitude;
+                            dealerLong = dealerDetails.objArea.Longitude;
                         }
                         ctrlDealerCard.MakeId = (uint)dealerDetails.MakeId;
                         ctrlDealerCard.makeMaskingName = dealerDetails.MakeMaskingName;

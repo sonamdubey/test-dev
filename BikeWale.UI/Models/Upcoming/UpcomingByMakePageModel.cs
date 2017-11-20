@@ -3,10 +3,12 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
@@ -16,10 +18,9 @@ namespace Bikewale.Models.Upcoming
     {
         #region Private variables
 
-        private IUpcoming _upcoming = null;
+        private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        public uint topbrandCount { get; set; }
-        private UpcomingBikesListInputEntity _filters;
+        private readonly UpcomingBikesListInputEntity _filters;
         private readonly ushort _pageNumber;
         private uint _totalPagesCount;
         private readonly string _makeMaskingName;
@@ -32,10 +33,12 @@ namespace Bikewale.Models.Upcoming
         public EnumUpcomingBikesFilter SortBy { get; set; }
         public int PageSize { get; set; }
         public string BaseUrl { get; set; }
+        public bool IsMobile { get; set; }
 
         public StatusCodes Status { get; private set; }
         public String RedirectUrl { get; private set; }
         public uint MakeId { get; private set; }
+        public uint topbrandCount { get; set; }
 
         #endregion
 
@@ -79,9 +82,7 @@ namespace Bikewale.Models.Upcoming
             UpcomingPageVM objUpcoming = new UpcomingPageVM();
             try
             {
-                GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
                 objUpcoming.Make = _bikeMakesCache.GetMakeDetails(MakeId);
-                var upcomingBikes = _upcoming.GetModels(_filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(topbrandCount);
                 objUpcoming.PopularBikes = BindMostPopularBikes();
                 UpcomingBikeResult bikeResult = _upcoming.GetBikes(_filters, SortBy);
@@ -101,7 +102,11 @@ namespace Bikewale.Models.Upcoming
                 objUpcoming.OtherMakes = new OtherMakesVM();
                 objUpcoming.OtherMakes.Makes = _upcoming.OtherMakes(MakeId, 9);
 
-                BindPageMetaTags(objUpcoming.PageMetaTags, _makeMaskingName, objUpcoming.Make.MakeName);
+                if (objUpcoming.Make != null)
+                {
+                    BindPageMetaTags(objUpcoming);
+                }
+
             }
             catch (Exception ex)
             {
@@ -141,27 +146,71 @@ namespace Bikewale.Models.Upcoming
         /// Description : Binds the page meta tags.
         /// </summary>
         /// <param name="pageMetaTags">The page meta tags.</param>
-        private void BindPageMetaTags(PageMetaTags pageMetaTags, string makeMaskingName, string makeName)
+        private void BindPageMetaTags(UpcomingPageVM objUpcoming)
         {
             try
             {
                 int currentYear = DateTime.Now.Year;
-                pageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/upcoming/", makeMaskingName);
-                pageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/upcoming/", makeMaskingName);
-                pageMetaTags.Keywords = string.Format("{0} upcoming, Expected {0} Launch, upcoming {0}, Latest {0} bikes", makeName);
-                pageMetaTags.Description = string.Format("Find {0} upcoming bikes in India. Get details on expected launch date, prices for {0} bikes expected to launch in {1}.", makeName, currentYear);
-                pageMetaTags.Title = string.Format("Upcoming {0} Bikes| Expected {0} Launches in {1} - BikeWale", makeName, currentYear);
+                objUpcoming.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/upcoming/", objUpcoming.Make.MaskingName);
+                objUpcoming.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/upcoming/", objUpcoming.Make.MaskingName);
+                objUpcoming.PageMetaTags.Keywords = string.Format("{0} upcoming, Expected {0} Launch, upcoming {0}, Latest {0} bikes", objUpcoming.Make.MakeName);
+                objUpcoming.PageMetaTags.Description = string.Format("Find {0} upcoming bikes in India. Get details on expected launch date, prices for {0} bikes expected to launch in {1}.", objUpcoming.Make.MakeName, currentYear);
+                objUpcoming.PageMetaTags.Title = string.Format("Upcoming {0} Bikes| Expected {0} Launches in {1} - BikeWale", objUpcoming.Make.MakeName, currentYear);
 
                 if (_pageNumber > 1)
                 {
-                    pageMetaTags.Description = string.Format("Page {0} of {1} - {2}", _pageNumber, _totalPagesCount, pageMetaTags.Description);
-                    pageMetaTags.Title = string.Format("Page {0} of {1} - {2}", _pageNumber, _totalPagesCount, pageMetaTags.Title);
+                    objUpcoming.PageMetaTags.Description = string.Format("Page {0} of {1} - {2}", _pageNumber, _totalPagesCount, objUpcoming.PageMetaTags.Description);
+                    objUpcoming.PageMetaTags.Title = string.Format("Page {0} of {1} - {2}", _pageNumber, _totalPagesCount, objUpcoming.PageMetaTags.Title);
                 }
+
+                objUpcoming.Page_H1 = string.Format("Upcoming {0} bikes", objUpcoming.Make.MakeName);
+
+                SetBreadcrumList(objUpcoming);
+                SetPageJSONLDSchema(objUpcoming);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.BindPageMetaTags");
             }
+        }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 14th Sep 2017
+        /// Description : Added breadcrum and webpage schema
+        /// </summary>
+        private void SetPageJSONLDSchema(UpcomingPageVM objData)
+        {
+            //set webpage schema for the model page
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+
+            if (webpage != null)
+            {
+                objData.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12th Sep 2017
+        /// Description : Function to create page level schema for breadcrum
+        /// </summary>
+        private void SetBreadcrumList(UpcomingPageVM objData)
+        {
+            IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+            string url = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+            ushort position = 1;
+            if (IsMobile)
+            {
+                url += "m/";
+            }
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "Home"));
+            url += "upcoming-bikes/";
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, url, "Upcoming bikes"));
+
+            BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
+
+            objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+
         }
 
         /// Created by  :   Sumit Kate on 30 Mar 2017
