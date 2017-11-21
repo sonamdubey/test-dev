@@ -8,6 +8,7 @@ using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
 using System.Web.Mvc;
@@ -22,6 +23,8 @@ namespace Bikewale.Controllers
     /// Summary: Controller which holds actions for Make
     /// Modified by : Aditi Srivastava on 5 June 2017
     /// Summary     : Added BL instance for comparison list
+    /// Modified By : Snehal Dange on 21st Nov 2017
+    /// Description : Added IUserReviewsCache
     /// </author>
     public class MakeController : Controller
     {
@@ -35,8 +38,9 @@ namespace Bikewale.Controllers
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompare _compareBikes;
         private readonly IServiceCenter _objService;
+        private readonly IUserReviewsCache _cacheUserReviews;
 
-        public MakeController(IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objService)
+        public MakeController(IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objService, IUserReviewsCache cacheUserReviews)
         {
             _bikeModelsCache = bikeModelsCache;
             _bikeMakesCache = bikeMakesCache;
@@ -48,13 +52,15 @@ namespace Bikewale.Controllers
             _objService = objService;
             _upcoming = upcoming;
             _compareBikes = compareBikes;
+            _cacheUserReviews = cacheUserReviews;
         }
         // GET: Makes
+
         [Route("makepage/{makeMaskingName}/")]
         [Bikewale.Filters.DeviceDetection]
         public ActionResult Index(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService);
+            MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews);
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
             MakePageVM objData = null;
 
@@ -82,7 +88,7 @@ namespace Bikewale.Controllers
         [Route("m/makepage/{makeMaskingName}/")]
         public ActionResult Index_Mobile(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService);
+            MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews);
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             MakePageVM objData = null;
 
@@ -117,7 +123,7 @@ namespace Bikewale.Controllers
         [Route("m/makepage/{makeMaskingName}/amp/")]
         public ActionResult Index_Mobile_AMP(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService);
+            MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews);
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             MakePageVM objData = null;
             

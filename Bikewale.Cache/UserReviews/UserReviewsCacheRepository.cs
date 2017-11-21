@@ -393,5 +393,30 @@ namespace Bikewale.Cache.UserReviews
             }
             return objBikes;
         }
+
+        /// <summary>
+        /// Created BY: Snehal Dange on 20th Sep 2017
+        /// Descrption: To cache most recent and helpful reviews by make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikesWithReviewByMake> GetBikesWithReviewsByMake(uint makeId)
+        {
+            IEnumerable<BikesWithReviewByMake> objBikes = null;
+            try
+            {
+                if (makeId > 0 && _objUserReviews!=null)
+                {
+                    string key = string.Format("BW_PopularBikesWithRecentAndHelpfulReviews_Make_{0}", makeId);
+                    objBikes = _cache.GetFromCache<IEnumerable<BikesWithReviewByMake>>(key, new TimeSpan(24, 0, 0), () => (IEnumerable<BikesWithReviewByMake>)_objUserReviews.GetBikesWithReviewsByMake(makeId));
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsCacheRepository.GetBikesWithReviewsByMake: Make: {0}", makeId));
+            }
+            return objBikes;
+        }
     }
 }

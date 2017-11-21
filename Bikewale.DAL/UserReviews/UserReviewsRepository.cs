@@ -1,5 +1,6 @@
 ﻿using Bikewale.DAL.CoreDAL;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.UserReviews;
@@ -1969,6 +1970,127 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.UserReviews.UserReviewsRepository.GetPopularBikesWithUserReviewsBy_Make_{0}", makeId));
+            }
+            return objBikesWithUserReviews;
+        }
+
+
+        /// <summary>
+        /// Created By:Snehal Dange on 17th Nov 2017
+        /// Description: Get most helpful and recent reviews of popular models by make
+        /// </summary>
+        /// <param name="makeId"></param>
+        public IEnumerable<BikesWithReviewByMake> GetBikesWithReviewsByMake(uint makeId)
+        {
+            IList<BikesWithReviewByMake> objBikesWithUserReviews = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    objBikesWithUserReviews = new List<BikesWithReviewByMake>();
+                    IList<PopularBikesWithUserReviews> objPopularModels = null;
+
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getreviewsofpopularbikesbymake"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.UInt32, makeId));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            if (objBikesWithUserReviews != null)
+                            {
+                                if (dr != null)
+                                {
+                                    objPopularModels = new List<PopularBikesWithUserReviews>();
+                                    while (dr.Read())
+                                    {
+                                        objPopularModels.Add(new PopularBikesWithUserReviews()
+                                        {
+                                            Make = new BikeMakeEntityBase
+                                            {
+                                                MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                                MakeName = Convert.ToString(dr["make"]),
+                                                MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                            },
+                                            Model = new BikeModelEntityBase
+                                            {
+                                                ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                                ModelName = Convert.ToString(dr["model"]),
+                                                MaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                            },
+                                            ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
+                                            RatingsCount = SqlReaderConvertor.ToUInt32(dr["ratingscount"]),
+                                            OverallRating = SqlReaderConvertor.ToFloat(dr["reviewrate"]),
+                                            OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
+                                            HostUrl = Convert.ToString(dr["hosturl"])
+                                        });
+                                    }
+
+                                    BikesWithReviewByMake objModelReview = null;
+                                    if (objPopularModels.Any())
+                                    {
+                                        foreach (var obj in objPopularModels)
+                                        {
+                                            objModelReview = new BikesWithReviewByMake();
+                                            if (objModelReview != null)
+                                            {
+                                                objModelReview.BikeModel = obj;
+                                                objBikesWithUserReviews.Add(objModelReview);
+                                            }
+
+                                        }
+                                    }
+                                    uint modelid = 0;
+                                    Entities.UserReviews.V2.UserReviewSummary objRecentReviews = null;
+                                    if (dr.NextResult())
+                                    {
+                                        while (dr.Read())
+                                        {
+                                            modelid = SqlReaderConvertor.ToUInt32(dr["ModelId"]);
+                                            objRecentReviews = new Entities.UserReviews.V2.UserReviewSummary()
+                                            {
+                                                ReviewId = SqlReaderConvertor.ToUInt32(dr["Id"]),
+                                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["OverallRatingId"]),
+                                                Description = Convert.ToString(dr["StrippedReview"]),
+                                                Title = Convert.ToString(dr["Title"])
+                                            };
+
+                                            objBikesWithUserReviews.Where(m => m.BikeModel.Model.ModelId == modelid).FirstOrDefault().MostRecent = objRecentReviews;
+
+
+                                        }
+                                    }
+
+                                    Entities.UserReviews.V2.UserReviewSummary objHelpfulReviews = null;
+                                    if (dr.NextResult())
+                                    {
+                                        while (dr.Read())
+                                        {
+                                            modelid = SqlReaderConvertor.ToUInt32(dr["ModelId"]);
+                                            objHelpfulReviews = new Entities.UserReviews.V2.UserReviewSummary()
+                                            {
+                                                ReviewId = SqlReaderConvertor.ToUInt32(dr["Id"]),
+                                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["OverallRatingId"]),
+                                                Description = Convert.ToString(dr["StrippedReview"]),
+                                                Title = Convert.ToString(dr["Title"])
+                                            };
+
+                                            objBikesWithUserReviews.Where(m => m.BikeModel.Model.ModelId == modelid).FirstOrDefault().MostHelpful = objHelpfulReviews;
+
+                                        }
+                                    }
+                                    dr.Close();
+                                }
+                            }
+
+
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.UserReviews.UserReviewsRepository.GetBikesWithReviewsByMake_Make_{0}", makeId));
             }
             return objBikesWithUserReviews;
         }

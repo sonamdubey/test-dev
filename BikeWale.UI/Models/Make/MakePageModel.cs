@@ -12,8 +12,10 @@ using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
+using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -29,6 +31,8 @@ namespace Bikewale.Models
     /// Summary     : Added BL instance instead of cache for comaprison carousel
     /// Modified by : Ashutosh Sharma on 29 Oct 2017
     /// Description : Added property IsAmpPage.
+    /// Modified By :Snehal Dange on 21st Nov 2017
+    /// Description: Added IUserReviewsCache _cacheUserReviews
     /// </summary>
     public class MakePageModel
     {
@@ -44,6 +48,7 @@ namespace Bikewale.Models
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompare _compareBikes = null;
         private readonly IServiceCenter _objSC;
+        private readonly IUserReviewsCache _cacheUserReviews;
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse objResponse { get; set; }
         public string RedirectUrl { get; set; }
@@ -51,7 +56,7 @@ namespace Bikewale.Models
         public bool IsMobile { get; set; }
         public bool IsAmpPage { get; set; }
 
-        public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC)
+        public MakePageModel(string makeMaskingName, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews)
         {
             this._makeMaskingName = makeMaskingName;
             this._bikeModelsCache = bikeModelsCache;
@@ -64,6 +69,7 @@ namespace Bikewale.Models
             this._upcoming = upcoming;
             this._compareBikes = compareBikes;
             this._objSC = objSC;
+            this._cacheUserReviews = cacheUserReviews;
             ProcessQuery(this._makeMaskingName);
         }
 
@@ -77,6 +83,8 @@ namespace Bikewale.Models
         /// Descriptition :  Chaged default sorting of bikes on page for particuaklar makes
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
+        /// Modified by : Snehal Dange on 21st Nov 2017
+        /// Description : Added BindUserReviews() method.
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
@@ -144,7 +152,7 @@ namespace Bikewale.Models
                 objData.UsedModels = BindUsedBikeByModel(_makeId, cityId);
                 BindDiscontinuedBikes(objData);
                 BindOtherMakes(objData);
-
+                BindUserReviews(objData);
 
                 #region Set Visible flags
 
@@ -558,6 +566,31 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.ProcessQuery() makeMaskingName:{0}", makeMaskingName));
+            }
+        }
+
+        /// <summary>
+        /// Created By:Snehal Dange on 20th Nov 2017
+        /// Description: Get most recent and helpful reviews by make
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindUserReviews(MakePageVM objData)
+        {
+            try
+            {
+                if (_makeId > 0 && objData != null && _cacheUserReviews!=null)
+                {
+                    objData.PopularBikesUserReviews = new BikesWithReviewsByMakeVM();
+                    if (objData.PopularBikesUserReviews!=null)
+                    {
+                        objData.PopularBikesUserReviews.BikesReviewsList = _cacheUserReviews.GetBikesWithReviewsByMake(_makeId);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("MakePageModel.BindUserReviews() makeId:{0}", _makeId));
             }
         }
     }
