@@ -21,7 +21,7 @@
                             </a>
                         </div>
                         <div sc="" class='border-solid-left'>
-                            <a data-title="sort" class='position-rel @(Model.SelectedSortingId == 1 ? "text-bold" : "")''>
+                            <a data-title="sort" class='position-rel @(Model.SelectedSortingId == 1 ? "text-bold" : "")' '>
                                 Popularity
                             </a>
                         </div>
@@ -207,98 +207,28 @@
                         </div>
                     </div>
                 }
-                @if (Model.IsExpertReviewsAvailable)
+                @if (Model.IsExpertReviewsAvailable || Model.PopularBikesUserReviews != null)
                 {
                     <div id="makeReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
-                        <h2 class="text-bold">@Model.MakeName Expert Reviews</h2>
-                        @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
-                        <div class="view-all-btn-container">
-                            <a title="@Model.ExpertReviews.LinkTitle" href="@string.Format("/m{0}",Model.ExpertReviews.MoreExpertReviewUrl)" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
-                        </div>
 
-                        <div class="padding-top20 border-solid-bottom margin-bottom20"></div>
+                        @if (Model.ExpertReviews != null)
+                        {
+                            <h2 class="text-bold">@Model.MakeName Expert Reviews</h2>
+                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                            <div class="view-all-btn-container">
+                                <a title="@Model.ExpertReviews.LinkTitle" href="@string.Format("/m{0}",Model.ExpertReviews.MoreExpertReviewUrl)" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
+                            </div>
+                        }
 
-                        <h2 class="text-bold">User Reviews of @Model.MakeName Bikes</h2>
-                        <ul class="popular-review-list">
-                            <li class="list-item">
-                                <div class="margin-bottom10">
-                                    <h3 class="inline-block">
-                                        <a href="" title="" class="text-black">Apache RTR 160</a>
-                                    </h3>
-                                    <span class="rate-count-5 rate-count-container rate-star--small">
-                                        <span class="star-icon"></span>
-                                        <span class="rate-star-count">5</span>
-                                    </span>
-                                    <a href="" title="" class="inline-block margin-left5">(23 reviews)</a>
-                                </div>
-                                <ul class="review-type-list">
-                                    <li class="review-type-list__item">
-                                        <p class="review-item__label">Most Popular Review</p>
-                                        <p class="review-item__preview">Lambretta has showcased three new products at the EICMA Show in Italy, based on the brand's…</p>
-                                        <a href="" title="" class="font14">Read more</a>
-                                    </li>
-                                    <li class="review-type-list__item">
-                                        <p class="review-item__label">Most Recent Review</p>
-                                        <p class="review-item__preview">Lambretta has showcased three new products at the EICMA Show in Italy, based on the brand's…</p>
-                                        <a href="" title="" class="font14">Read more</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item">
-                                <div class="margin-bottom10">
-                                    <h3 class="inline-block">
-                                        <a href="" title="" class="text-black">Apache RTR 160</a>
-                                    </h3>
-                                    <span class="rate-count-4 rate-count-container rate-star--small">
-                                        <span class="star-icon"></span>
-                                        <span class="rate-star-count">4</span>
-                                    </span>
-                                    <a href="" title="" class="inline-block margin-left5">(23 reviews)</a>
-                                </div>
-                                <ul class="review-type-list">
-                                    <li class="review-type-list__item">
-                                        <p class="review-item__label">Most Popular Review</p>
-                                        <p class="review-item__preview">Lambretta has showcased three new products at the EICMA Show in Italy, based on the brand's…</p>
-                                        <a href="" title="" class="font14">Read more</a>
-                                    </li>
-                                    <li class="review-type-list__item">
-                                        <p class="review-item__label">Most Recent Review</p>
-                                        <p class="review-item__preview">Lambretta has showcased three new products at the EICMA Show in Italy, based on the brand's…</p>
-                                        <a href="" title="" class="font14">Read more</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-item">
-                                <div class="margin-bottom10">
-                                    <h3 class="inline-block">
-                                        <a href="" title="" class="text-black">Apache RTR 160</a>
-                                    </h3>
-                                    <span class="rate-count-5 rate-count-container rate-star--small">
-                                        <span class="star-icon"></span>
-                                        <span class="rate-star-count">5</span>
-                                    </span>
-                                    <a href="" title="" class="inline-block margin-left5">(23 reviews)</a>
-                                </div>
-                                <ul class="review-type-list">
-                                    <li class="review-type-list__item">
-                                        <p class="review-item__label">Most Popular Review</p>
-                                        <p class="review-item__preview">Lambretta has showcased three new products at the EICMA Show in Italy, based on the brand's…</p>
-                                        <a href="" title="" class="font14">Read more</a>
-                                    </li>
-                                    <li class="review-type-list__item">
-                                        <p class="review-item__label">Most Recent Review</p>
-                                        <p class="review-item__preview">Lambretta has showcased three new products at the EICMA Show in Italy, based on the brand's…</p>
-                                        <a href="" title="" class="font14">Read more</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="view-all-btn-container">
-                            <a title="" href="" class="btn view-all-target-btn">
-                                Read all reviews
-                                <span class="bwmsprite teal-right"></span>
-                            </a>
-                        </div>
+                        @if (Model.PopularBikesUserReviews != null)
+                        {
+                            <div class="padding-top20 border-solid-bottom margin-bottom20"></div>
+                            <div>
+                                <h2 class="text-bold">User Reviews of @Model.MakeName Bikes</h2>
+                                @Html.Partial("~/Views/UserReview/BikesWithReviewsByMake_Mobile.cshtml", Model.PopularBikesUserReviews)
+                            </div>
+                        }
+
                     </div>
                 }
                 @if (Model.IsVideosAvailable)
@@ -315,7 +245,7 @@
                 {
                     <div id="makeDealersContent" class="bw-model-tabs-data">
                         @if (Model.IsDealerAvailable)
-                    {
+                        {
                             <div class="padding-bottom20 padding-top15 font14">
                                 <div class="carousel-heading-content">
                                     <div class="swiper-heading-left-grid inline-block">

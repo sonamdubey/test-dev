@@ -1982,7 +1982,7 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="makeId"></param>
         public IEnumerable<BikesWithReviewByMake> GetBikesWithReviewsByMake(uint makeId)
         {
-            IList<BikesWithReviewByMake> objBikesWithUserReviews=null;
+            IList<BikesWithReviewByMake> objBikesWithUserReviews = null;
             try
             {
                 if (makeId > 0)
@@ -1997,92 +1997,92 @@ namespace Bikewale.DAL.UserReviews
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            if (dr != null)
+                            if (objBikesWithUserReviews != null)
                             {
-                                objPopularModels = new List<PopularBikesWithUserReviews>();
-                                while (dr.Read())
+                                if (dr != null)
                                 {
-                                    objPopularModels.Add(new PopularBikesWithUserReviews()
-                                    {
-                                        Make = new BikeMakeEntityBase
-                                        {
-                                            MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
-                                            MakeName = Convert.ToString(dr["make"]),
-                                            MaskingName = Convert.ToString(dr["makemaskingname"]),
-                                        },
-                                        Model = new BikeModelEntityBase
-                                        {
-                                            ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
-                                            ModelName = Convert.ToString(dr["model"]),
-                                            MaskingName = Convert.ToString(dr["modelmaskingname"]),
-                                        },
-                                        ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
-                                        RatingsCount = SqlReaderConvertor.ToUInt32(dr["ratingscount"]),
-                                        OverallRating = SqlReaderConvertor.ToFloat(dr["reviewrate"]),
-                                        OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
-                                        HostUrl = Convert.ToString(dr["hosturl"])
-                                    });
-                                }
-
-                                BikesWithReviewByMake objModelReview = null;
-                                if (objPopularModels.Any())
-                                {
-                                    foreach (var obj in objPopularModels)
-                                    {
-                                        objModelReview = new BikesWithReviewByMake();
-                                        if (objModelReview != null && objBikesWithUserReviews != null)
-                                        {
-                                            objModelReview.BikeModel = obj;
-                                            objBikesWithUserReviews.Add(objModelReview);
-                                        }
-
-                                    }
-                                }
-                               
-
-                                uint modelid = 0;
-                                Entities.UserReviews.V2.UserReviewSummary objRecentReviews = null;
-                                if (dr.NextResult())
-                                {
+                                    objPopularModels = new List<PopularBikesWithUserReviews>();
                                     while (dr.Read())
                                     {
-                                        modelid = SqlReaderConvertor.ToUInt32(dr["ModelId"]);
-                                        objRecentReviews = new Entities.UserReviews.V2.UserReviewSummary()
+                                        objPopularModels.Add(new PopularBikesWithUserReviews()
                                         {
-                                            ReviewId = SqlReaderConvertor.ToUInt32(dr["Id"]),
-                                            OverallRatingId = SqlReaderConvertor.ToUInt16(dr["OverallRatingId"]),
-                                            Description = Convert.ToString(dr["StrippedReview"]),
-                                            Title = Convert.ToString(dr["Title"])
-                                        };
-                                        if (objBikesWithUserReviews != null)
+                                            Make = new BikeMakeEntityBase
+                                            {
+                                                MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                                MakeName = Convert.ToString(dr["make"]),
+                                                MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                            },
+                                            Model = new BikeModelEntityBase
+                                            {
+                                                ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                                ModelName = Convert.ToString(dr["model"]),
+                                                MaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                            },
+                                            ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
+                                            RatingsCount = SqlReaderConvertor.ToUInt32(dr["ratingscount"]),
+                                            OverallRating = SqlReaderConvertor.ToFloat(dr["reviewrate"]),
+                                            OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
+                                            HostUrl = Convert.ToString(dr["hosturl"])
+                                        });
+                                    }
+
+                                    BikesWithReviewByMake objModelReview = null;
+                                    if (objPopularModels.Any())
+                                    {
+                                        foreach (var obj in objPopularModels)
                                         {
+                                            objModelReview = new BikesWithReviewByMake();
+                                            if (objModelReview != null)
+                                            {
+                                                objModelReview.BikeModel = obj;
+                                                objBikesWithUserReviews.Add(objModelReview);
+                                            }
+
+                                        }
+                                    }
+                                    uint modelid = 0;
+                                    Entities.UserReviews.V2.UserReviewSummary objRecentReviews = null;
+                                    if (dr.NextResult())
+                                    {
+                                        while (dr.Read())
+                                        {
+                                            modelid = SqlReaderConvertor.ToUInt32(dr["ModelId"]);
+                                            objRecentReviews = new Entities.UserReviews.V2.UserReviewSummary()
+                                            {
+                                                ReviewId = SqlReaderConvertor.ToUInt32(dr["Id"]),
+                                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["OverallRatingId"]),
+                                                Description = Convert.ToString(dr["StrippedReview"]),
+                                                Title = Convert.ToString(dr["Title"])
+                                            };
+
                                             objBikesWithUserReviews.Where(m => m.BikeModel.Model.ModelId == modelid).FirstOrDefault().MostRecent = objRecentReviews;
+
+
                                         }
-
                                     }
-                                }
 
-                                Entities.UserReviews.V2.UserReviewSummary objHelpfulReviews = null;
-                                if (dr.NextResult())
-                                {
-                                    while (dr.Read())
+                                    Entities.UserReviews.V2.UserReviewSummary objHelpfulReviews = null;
+                                    if (dr.NextResult())
                                     {
-                                        modelid = SqlReaderConvertor.ToUInt32(dr["ModelId"]);
-                                        objHelpfulReviews = new Entities.UserReviews.V2.UserReviewSummary()
+                                        while (dr.Read())
                                         {
-                                            ReviewId = SqlReaderConvertor.ToUInt32(dr["Id"]),
-                                            OverallRatingId = SqlReaderConvertor.ToUInt16(dr["OverallRatingId"]),
-                                            Description = Convert.ToString(dr["StrippedReview"]),
-                                            Title = Convert.ToString(dr["Title"])
-                                        };
-                                        if (objBikesWithUserReviews != null )
-                                        {
+                                            modelid = SqlReaderConvertor.ToUInt32(dr["ModelId"]);
+                                            objHelpfulReviews = new Entities.UserReviews.V2.UserReviewSummary()
+                                            {
+                                                ReviewId = SqlReaderConvertor.ToUInt32(dr["Id"]),
+                                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["OverallRatingId"]),
+                                                Description = Convert.ToString(dr["StrippedReview"]),
+                                                Title = Convert.ToString(dr["Title"])
+                                            };
+
                                             objBikesWithUserReviews.Where(m => m.BikeModel.Model.ModelId == modelid).FirstOrDefault().MostHelpful = objHelpfulReviews;
+
                                         }
                                     }
+                                    dr.Close();
                                 }
-                                dr.Close();
                             }
+
 
                         }
                     }

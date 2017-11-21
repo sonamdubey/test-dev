@@ -23,6 +23,8 @@ namespace Bikewale.Controllers
     /// Summary: Controller which holds actions for Make
     /// Modified by : Aditi Srivastava on 5 June 2017
     /// Summary     : Added BL instance for comparison list
+    /// Modified By : Snehal Dange on 21st Nov 2017
+    /// Description : Added IUserReviewsCache
     /// </author>
     public class MakeController : Controller
     {
@@ -53,6 +55,7 @@ namespace Bikewale.Controllers
             _cacheUserReviews = cacheUserReviews;
         }
         // GET: Makes
+
         [Route("makepage/{makeMaskingName}/")]
         [Bikewale.Filters.DeviceDetection]
         public ActionResult Index(string makeMaskingName)

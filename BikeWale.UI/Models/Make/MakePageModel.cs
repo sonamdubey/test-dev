@@ -31,6 +31,8 @@ namespace Bikewale.Models
     /// Summary     : Added BL instance instead of cache for comaprison carousel
     /// Modified by : Ashutosh Sharma on 29 Oct 2017
     /// Description : Added property IsAmpPage.
+    /// Modified By :Snehal Dange on 21st Nov 2017
+    /// Description: Added IUserReviewsCache _cacheUserReviews
     /// </summary>
     public class MakePageModel
     {
@@ -81,6 +83,8 @@ namespace Bikewale.Models
         /// Descriptition :  Chaged default sorting of bikes on page for particuaklar makes
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
+        /// Modified by : Snehal Dange on 21st Nov 2017
+        /// Description : Added BindUserReviews() method.
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
