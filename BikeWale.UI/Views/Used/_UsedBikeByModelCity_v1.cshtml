@@ -8,7 +8,7 @@
         {
 
             <li class="model-card">
-                <a href="@string.Format("/{0}",Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName, bikeDetails.ModelMaskingName, Model.City != null ? Model.City.CityMaskingName : "india")) " title="@string.Format("Used {0} {1} bikes in {2}", bikeDetails.MakeName, bikeDetails.ModelName, Model.City != null ? Model.City.CityName : "India")">
+                <a href="@string.Format("{0}",Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName, bikeDetails.ModelMaskingName, Model.City != null ? Model.City.CityMaskingName : "india")) " title="@string.Format("Used {0} {1} bikes in {2}", bikeDetails.MakeName, bikeDetails.ModelName, Model.City != null ? Model.City.CityName : "India")">
                     <div class="model-card__image">
                         <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.UsedOriginalImagePath, bikeDetails.HostUrl, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70)" alt="" src="" border="0">
                     </div>

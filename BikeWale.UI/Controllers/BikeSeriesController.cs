@@ -40,6 +40,7 @@ namespace Bikewale.Controllers
         {
             SeriesPageVM obj;
             SeriesPage seriesPage = new SeriesPage(_seriesCache, _usedBikesCache, _bikeSeries, _articles, _videos, _compareScooters);
+            seriesPage.CompareSource = CompareSources.Desktop_SeriesPage;
             obj = seriesPage.GetData(seriesId);
             return View(obj);
         }
