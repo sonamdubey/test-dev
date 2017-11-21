@@ -186,7 +186,7 @@ h6 {
   width: 100%; }
 
 .bwmsprite {
-  background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v3.png?v20Feb2017") no-repeat;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v4.png?v29June2017") no-repeat;
   display: inline-block; }
 
 .carousel-heading-content {
@@ -463,9 +463,11 @@ body.nav-drawer-active {
 .home-icon,
 .news-icon,
 .newBikes-icon,
+.scooter-icon,
 .usedBikes-icon,
 .sellBikes-icon,
 .reviews-icon,
+.news-icon,
 .cancellation-icon,
 .myBikeWale-icon,
 .logout-icon,
@@ -483,7 +485,12 @@ body.nav-drawer-active {
   background-position: 0 -40px; }
 
 .newBikes-icon {
-  background-position: 0 -109px; }
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/bike-22x13.png") no-repeat center;
+  display: inline-block; }
+
+.scooter-icon {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/scooter-22x15.png") no-repeat center;
+  display: inline-block; }
 
 .usedBikes-icon {
   background-position: 0 -178px; }
@@ -497,6 +504,9 @@ body.nav-drawer-active {
 .reviews-icon {
   background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/review-24x16.png") no-repeat center;
   display: inline-block; }
+
+.news-icon {
+  background-position: 0 -132px; }
 
 .track-day {
   background-position: -188px -498px;
@@ -1519,6 +1529,11 @@ select.form-control {
   background-position: -40px -164px;
   position: relative;
   top: 1px; }
+
+.hide-bw-header {
+  padding-top: 50px; }
+  .hide-bw-header .header-navbar {
+    display: none; }
 
 .show {
   display: block; }

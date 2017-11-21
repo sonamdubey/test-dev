@@ -11906,7 +11906,6 @@ var ModelBrandsList = function (_React$Component) {
 	_createClass(ModelBrandsList, [{
 		key: 'moreBrandButtonClick',
 		value: function moreBrandButtonClick() {
-			console.log('clicked brand button ');
 			this.setState({
 				showOtherBrands: !this.state.showOtherBrands
 			});
@@ -13170,6 +13169,12 @@ var VideosByCategoryComponent = function (_React$Component) {
 				//call actioncreator
 				this.props.fetchVideosByCategory(this.props.match.params.categoryId, null);
 			}
+			document.getElementsByTagName("body")[0].classList.add("hide-bw-header");
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			document.getElementsByTagName("body")[0].classList.remove("hide-bw-header");
 		}
 	}, {
 		key: 'onClickVideoUrl',
