@@ -210,14 +210,7 @@ namespace BikeWaleOpr.Content
 
         private static void ClearMaskingMappingCache()
         {
-            if (_mc.Get("BW_ModelMapping") != null)
-                _mc.Remove("BW_ModelMapping");
-
-            if (_mc.Get("BW_NewModelMaskingNames") != null)
-                _mc.Remove("BW_NewModelMaskingNames");
-
-            if (_mc.Get("BW_OldModelMaskingNames") != null)
-                _mc.Remove("BW_OldModelMaskingNames");
+            BikewaleOpr.Cache.BwMemCache.ClearMaskingMappingCache();
         }
 
         private void ClearPopularBikesCache()
